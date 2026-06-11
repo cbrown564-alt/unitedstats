@@ -44,7 +44,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11355,
       "score": {
         "ft": [
           3,
@@ -52,8 +52,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-08-19-southampton-h",
@@ -80,9 +99,14 @@
           "type": "goal",
           "player": "zlatan-ibrahimovic",
           "minute": 36
+        },
+        {
+          "type": "pen-goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 52
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2016-08-27-hull-city-a",
@@ -526,9 +550,14 @@
           "type": "goal",
           "player": "zlatan-ibrahimovic",
           "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 33
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2016-11-19-arsenal-h",
@@ -650,7 +679,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -659,8 +688,18 @@
         },
         {
           "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 93
+        },
+        {
+          "type": "goal",
           "player": "anthony-martial",
           "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 62
         }
       ],
       "sources": [
@@ -819,9 +858,14 @@
           "type": "goal",
           "player": "zlatan-ibrahimovic",
           "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 56
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2016-12-26-sunderland-h",
@@ -968,9 +1012,14 @@
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 79
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2017-01-10-hull-city-h",
@@ -1251,12 +1300,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "zlatan-ibrahimovic",
           "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 75
+        },
+        {
+          "type": "pen-goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 88
         }
       ],
       "sources": [
@@ -1345,12 +1404,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "zlatan-ibrahimovic",
           "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 87
         },
         {
           "type": "goal",
@@ -1371,7 +1435,7 @@
       "opponentId": "bournemouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75245,
       "score": {
         "ft": [
           1,
@@ -1379,8 +1443,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcos-rojo",
+          "minute": 23
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-03-09-rostov-a",

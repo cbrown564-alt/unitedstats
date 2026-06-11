@@ -29,6 +29,16 @@
         },
         {
           "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 60
+        },
+        {
+          "type": "goal",
           "player": "mason-greenwood",
           "minute": 52
         },
@@ -38,7 +48,7 @@
           "minute": 68
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2021-08-22-southampton-a",
@@ -126,6 +136,11 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 62
+        },
+        {
+          "type": "goal",
           "player": "bruno-fernandes",
           "minute": 80
         },
@@ -135,7 +150,7 @@
           "minute": 92
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2021-09-14-bsc-young-boys-a",
@@ -460,12 +475,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 91
         }
       ],
       "sources": [
@@ -615,9 +635,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 52
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2021-12-05-crystal-palace-h",
@@ -855,9 +880,14 @@
           "type": "goal",
           "player": "bruno-fernandes",
           "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 67
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2022-01-19-brentford-a",
@@ -1206,9 +1236,19 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2022-03-15-atletico-madrid-h",
@@ -1306,9 +1346,19 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 76
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2022-04-19-liverpool-a",

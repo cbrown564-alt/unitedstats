@@ -26,9 +26,14 @@
           "type": "goal",
           "player": "norman-whiteside",
           "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 31
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1987-08-19-arsenal-h",
@@ -416,11 +421,16 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 78
+        },
+        {
+          "type": "goal",
           "player": "clayton-blackmore",
           "minute": 60
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1987-10-17-norwich-city-h",
@@ -493,12 +503,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "pen-goal",
           "player": "brian-mcclair",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 28
         }
       ],
       "sources": [
@@ -693,11 +708,16 @@
         },
         {
           "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 31
+        },
+        {
+          "type": "goal",
           "player": "jesper-olsen",
           "minute": 50
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1987-12-19-portsmouth-a",
@@ -779,9 +799,14 @@
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 50
+        },
+        {
+          "type": "pen-goal",
+          "player": "brian-mcclair",
+          "minute": 73
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1988-01-01-charlton-athletic-h",
@@ -1193,11 +1218,16 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 53
+        },
+        {
+          "type": "goal",
           "player": "peter-davenport",
           "minute": 79
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1988-03-19-nottingham-forest-a",
@@ -1287,11 +1317,21 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 64
+        },
+        {
+          "type": "goal",
           "player": "colin-gibson",
           "minute": 51
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1988-04-04-liverpool-a",
@@ -1321,11 +1361,16 @@
         },
         {
           "type": "goal",
+          "player": "bryan-robson",
+          "minute": 66
+        },
+        {
+          "type": "goal",
           "player": "gordon-strachan",
           "minute": 77
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1988-04-12-luton-town-h",
@@ -1463,6 +1508,11 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 58
+        },
+        {
+          "type": "goal",
           "player": "peter-davenport",
           "minute": 25
         },
@@ -1472,7 +1522,7 @@
           "minute": 35
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1988-05-09-wimbledon-h",
@@ -1499,9 +1549,14 @@
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 50
+        },
+        {
+          "type": "pen-goal",
+          "player": "brian-mcclair",
+          "minute": 75
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     }
   ]
 }

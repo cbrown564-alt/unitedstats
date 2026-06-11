@@ -26,6 +26,7 @@ import {
 } from "../lib";
 
 const CACHE = path.join(RAW, "wikipedia");
+const REPARSE = process.argv.includes("--reparse");
 const { aliases } = readJson<AliasFile>(path.join(CANONICAL, "opponent-aliases.json"));
 
 // ---------------------------------------------------------------- fetching
@@ -173,6 +174,7 @@ function parseScorers(
   const events: MatchEvent[] = [];
   const cleaned = rawCell.replace(/<ref[^>]*\/>/g, "").replace(/<ref[^>]*>[\s\S]*?<\/ref>/g, "");
   if (!stripWiki(cleaned) || /^[-—–\s]*$/.test(stripWiki(cleaned))) return events;
+  let lastPid: string | null = null; // carries across "Rooney 12', 34'" comma splits
   for (const chunk of splitCells(cleaned, ",")) {
     const text = stripWiki(chunk);
     if (!text) continue;
@@ -183,12 +185,22 @@ function parseScorers(
     const target = linkTarget(cleanedChunk);
     const displayName =
       target ?? stripWiki(cleanedChunk).replace(/\s*\(.*$/, "").replace(/\s*\d+.*$/, "").trim();
-    if (!displayName) continue;
 
     // minutes: "23'", "45+2'", possibly several
     const minutes = [...chunk.matchAll(/(\d+)(?:\+(\d+))?'/g)].map(
       (m) => parseInt(m[1], 10) + (m[2] ? parseInt(m[2], 10) : 0),
     );
+
+    if (!displayName) {
+      // bare minutes after a comma belong to the previous scorer
+      if (lastPid && minutes.length > 0) {
+        for (const min of minutes) {
+          events.push({ type: pen ? "pen-goal" : "goal", player: lastPid, minute: min });
+        }
+      }
+      continue;
+    }
+
     // multiplier: "(2)" not containing pen/og
     const mult = text.match(/\((\d+)\)/);
     const count = minutes.length > 0 ? minutes.length : mult ? parseInt(mult[1], 10) : 1;
@@ -197,9 +209,11 @@ function parseScorers(
       for (let i = 0; i < count; i++) {
         events.push({ type: "own-goal-for", player: null, minute: minutes[i] ?? null, detail: `${displayName} (og)` });
       }
+      lastPid = null;
       continue;
     }
     const pid = slugify(displayName);
+    lastPid = pid;
     if (!knownPlayers.has(pid) && !newPlayers.has(pid)) {
       newPlayers.set(pid, { id: pid, name: displayName });
     }
@@ -350,7 +364,10 @@ async function processSeason(
       let touched = false;
       if (existing.attendance == null && r.attendance != null) { existing.attendance = r.attendance; touched = true; }
       if (!existing.round && r.round) { existing.round = r.round; touched = true; }
-      if ((!existing.events || existing.events.length === 0) && events.length > 0) {
+      const mayWrite = REPARSE
+        ? events.length > 0 // reparse: replace wikipedia-derived events wholesale
+        : (!existing.events || existing.events.length === 0) && events.length > 0;
+      if (mayWrite && JSON.stringify(existing.events) !== JSON.stringify(events)) {
         existing.events = events;
         existing.eventsComplete = goalEvents === existing.score.ft[0];
         touched = true;
@@ -392,9 +409,16 @@ async function processSeason(
 }
 
 async function main() {
-  const args = process.argv.slice(2).filter((a) => /^\d{4}-\d{2}$/.test(a));
+  let args = process.argv.slice(2).filter((a) => /^\d{4}-\d{2}$/.test(a));
+  if (process.argv.includes("current")) {
+    const now = new Date();
+    const y = now.getUTCMonth() + 1 >= 7 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
+    args = [seasonKey(y)];
+    // the article changes weekly during a season: don't serve a stale cache
+    fs.rmSync(path.join(CACHE, `${args[0]}.wikitext`), { force: true });
+  }
   if (args.length === 0) {
-    console.error("usage: tsx scripts/ingest/wikipedia.ts <season> [<endSeason>]");
+    console.error("usage: tsx scripts/ingest/wikipedia.ts <season> [<endSeason>] | current [--reparse]");
     process.exit(1);
   }
   const startYear = parseInt(args[0].slice(0, 4), 10);

@@ -19,8 +19,8 @@ pipeline/update.ts
    2. parse fixtures, filter to Manchester United, keep only FT results
    3. diff against data/canonical/matches/<season>.json
    4. append new matches (result-level: date, comp, opponent, venue, score)
-   5. [optional] if FOOTBALL_DATA_TOKEN secret exists, enrich the new
-      matches with scorers + lineups from football-data.org (free tier)
+   5. enrich the current season from its Wikipedia article (scorers,
+      attendance, cup rounds) and recompute the league position
    6. npm run validate  &&  npm run build:db
    7. commit "data: results through <date>" and push
    │

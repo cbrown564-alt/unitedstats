@@ -366,11 +366,16 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 76
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-10-20-aston-villa-a",
@@ -400,6 +405,11 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 44
+        },
+        {
+          "type": "goal",
           "player": "rio-ferdinand",
           "minute": 45
         },
@@ -409,7 +419,7 @@
           "minute": 75
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-10-23-dynamo-kyiv-a",
@@ -428,7 +438,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -444,6 +454,11 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 41
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 68
         }
       ],
       "sources": [
@@ -485,9 +500,14 @@
           "type": "goal",
           "player": "carlos-tevez",
           "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-11-03-arsenal-a",
@@ -593,9 +613,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 35
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-11-24-bolton-wanderers-a",
@@ -677,9 +702,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 58
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-12-08-derby-county-h",
@@ -713,12 +743,17 @@
           "minute": 45
         },
         {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 61
+        },
+        {
           "type": "pen-goal",
           "player": "cristiano-ronaldo",
           "minute": 92
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-12-12-roma-a",
@@ -803,9 +838,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 22
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 88
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-12-26-sunderland-a",
@@ -839,12 +879,17 @@
           "minute": 30
         },
         {
+          "type": "pen-goal",
+          "player": "louis-saha",
+          "minute": 85
+        },
+        {
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 45
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-12-29-west-ham-united-a",
@@ -968,8 +1013,23 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 88
+        },
+        {
+          "type": "goal",
           "player": "carlos-tevez",
           "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 90
         },
         {
           "type": "goal",
@@ -977,7 +1037,7 @@
           "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-01-19-reading-a",
@@ -1045,9 +1105,14 @@
           "type": "pen-goal",
           "player": "cristiano-ronaldo",
           "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 88
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-01-30-portsmouth-h",
@@ -1074,9 +1139,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 12
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-02-02-tottenham-hotspur-a",
@@ -1171,11 +1241,16 @@
         },
         {
           "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 74
+        },
+        {
+          "type": "goal",
           "player": "nani",
           "minute": 38
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-02-20-olympique-lyonnais-a",
@@ -1234,8 +1309,18 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 80
+        },
+        {
+          "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 56
         },
         {
           "type": "goal",
@@ -1243,7 +1328,7 @@
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-03-01-fulham-a",
@@ -1391,9 +1476,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 20
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-03-23-liverpool-h",
@@ -1469,9 +1559,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-04-01-roma-a",
@@ -1740,6 +1835,11 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 24
+        },
+        {
+          "type": "goal",
           "player": "carlos-tevez",
           "minute": 26
         },
@@ -1749,7 +1849,7 @@
           "minute": 59
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-05-11-wigan-athletic-a",

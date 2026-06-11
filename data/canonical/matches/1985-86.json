@@ -55,11 +55,16 @@
         },
         {
           "type": "goal",
+          "player": "mark-hughes",
+          "minute": 75
+        },
+        {
+          "type": "goal",
           "player": "jesper-olsen",
           "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1985-08-20-ipswich-town-a",
@@ -225,11 +230,16 @@
         },
         {
           "type": "goal",
+          "player": "frank-stapleton",
+          "minute": 11
+        },
+        {
+          "type": "goal",
           "player": "mark-hughes",
           "minute": 62
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1985-09-07-oxford-united-h",
@@ -371,6 +381,11 @@
         },
         {
           "type": "goal",
+          "player": "alan-brazil",
+          "minute": 80
+        },
+        {
+          "type": "goal",
           "player": "gordon-strachan",
           "minute": 22
         },
@@ -385,7 +400,7 @@
           "minute": 73
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1985-09-24-crystal-palace-a",
@@ -654,9 +669,14 @@
           "type": "goal",
           "player": "jesper-olsen",
           "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": 41
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1985-11-06-norwich-city-h",
@@ -1105,9 +1125,14 @@
           "type": "pen-goal",
           "player": "jesper-olsen",
           "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": 67
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1986-01-25-sunderland-a",
@@ -1164,9 +1189,14 @@
           "type": "goal",
           "player": "jesper-olsen",
           "minute": 38
+        },
+        {
+          "type": "pen-goal",
+          "player": "jesper-olsen",
+          "minute": 54
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1986-02-02-west-ham-united-a",
@@ -1273,9 +1303,19 @@
           "type": "pen-goal",
           "player": "jesper-olsen",
           "minute": 26
+        },
+        {
+          "type": "pen-goal",
+          "player": "jesper-olsen",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1986-03-01-southampton-a",
@@ -1582,11 +1622,16 @@
         },
         {
           "type": "goal",
+          "player": "mark-hughes",
+          "minute": 44
+        },
+        {
+          "type": "goal",
           "player": "norman-whiteside",
           "minute": 50
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1986-04-19-tottenham-hotspur-a",

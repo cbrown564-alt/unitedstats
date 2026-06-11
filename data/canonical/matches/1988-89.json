@@ -220,12 +220,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 69
         },
         {
           "type": "goal",
@@ -855,11 +865,16 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 79
+        },
+        {
+          "type": "goal",
           "player": "bryan-robson",
           "minute": 72
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1989-01-28-oxford-united-h",
@@ -962,9 +977,14 @@
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 61
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1989-02-18-bournemouth-a",
@@ -975,7 +995,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12708,
       "score": {
         "ft": [
           1,
@@ -984,9 +1004,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1989-02-22-bournemouth-h",
@@ -997,7 +1026,7 @@
       "opponentId": "bournemouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52422,
       "score": {
         "ft": [
           1,
@@ -1006,9 +1035,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 19
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1989-02-25-norwich-city-a",

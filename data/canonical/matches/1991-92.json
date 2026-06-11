@@ -304,11 +304,16 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 80
+        },
+        {
+          "type": "goal",
           "player": "mark-hughes",
           "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1991-09-25-cambridge-united-h",
@@ -543,9 +548,14 @@
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 22
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1991-10-30-portsmouth-h",
@@ -564,12 +574,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "mark-robins",
           "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 89
         },
         {
           "type": "goal",
@@ -913,6 +928,11 @@
         },
         {
           "type": "goal",
+          "player": "denis-irwin",
+          "minute": 54
+        },
+        {
+          "type": "goal",
           "player": "andrei-kanchelskis",
           "minute": 43
         },
@@ -923,11 +943,16 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 59
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 78
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1991-12-29-leeds-united-a",
@@ -1290,9 +1315,14 @@
           "type": "goal",
           "player": "mark-hughes",
           "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 51
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1992-02-26-chelsea-h",
@@ -1525,11 +1555,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-ince",
+          "minute": 58
+        },
+        {
+          "type": "goal",
           "player": "brian-mcclair",
           "minute": 66
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1992-04-07-manchester-city-h",
@@ -1748,9 +1783,14 @@
           "type": "goal",
           "player": "mark-hughes",
           "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 59
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     }
   ]
 }

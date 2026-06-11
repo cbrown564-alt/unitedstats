@@ -29,6 +29,16 @@ for (const r of db.prepare(
   console.log(`  ${r.name}: ${r.goals}`);
 }
 
+console.log("scorer coverage by decade (matches where United scored):");
+for (const r of db.prepare(
+  `SELECT (substr(m.date,1,4)/10)*10 dec, c.type='league' lg, COUNT(*) n,
+          SUM(CASE WHEN EXISTS(SELECT 1 FROM match_events e WHERE e.match_id=m.id) THEN 1 ELSE 0 END) we
+   FROM matches m JOIN competitions c ON c.id=m.competition_id
+   WHERE m.gf > 0 GROUP BY dec, lg ORDER BY dec`,
+).all() as { dec: number; lg: number; n: number; we: number }[]) {
+  console.log(`  ${r.dec}s ${r.lg ? "league" : "cups"}: ${r.we}/${r.n}`);
+}
+
 console.log("possible duplicate european opponents:");
 for (const r of db.prepare(
   `SELECT id, name FROM opponents WHERE id LIKE 'fc-%' OR id LIKE '%-fc' OR name LIKE '%.%'`,

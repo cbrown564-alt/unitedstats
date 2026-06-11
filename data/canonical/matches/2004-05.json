@@ -137,12 +137,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "alan-smith",
           "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 50
         },
         {
           "type": "goal",
@@ -255,12 +260,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 61
         }
       ],
       "sources": [
@@ -292,9 +302,14 @@
           "type": "goal",
           "player": "mikael-silvestre",
           "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "mikael-silvestre",
+          "minute": 66
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-09-25-tottenham-hotspur-a",
@@ -342,7 +357,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -353,6 +368,16 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 54
         },
         {
           "type": "goal",
@@ -552,12 +577,27 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 14
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 60
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 90
         }
       ],
       "sources": [
@@ -646,12 +686,17 @@
           "minute": 7
         },
         {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 90
+        },
+        {
           "type": "pen-goal",
           "player": "ruud-van-nistelrooy",
           "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-11-20-charlton-athletic-h",
@@ -749,11 +794,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 82
+        },
+        {
+          "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 72
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-12-01-arsenal-h",
@@ -901,6 +951,11 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 49
+        },
+        {
+          "type": "goal",
           "player": "alan-smith",
           "minute": 35
         },
@@ -916,7 +971,7 @@
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-12-26-bolton-wanderers-h",
@@ -1245,9 +1300,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-02-01-arsenal-a",
@@ -1282,11 +1342,16 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 58
+        },
+        {
+          "type": "goal",
           "player": "john-o-shea",
           "minute": 89
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-02-05-birmingham-city-h",
@@ -1439,9 +1504,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-03-05-crystal-palace-a",
@@ -1522,9 +1592,14 @@
           "type": "goal",
           "player": "paul-scholes",
           "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-03-19-fulham-h",
@@ -1627,6 +1702,11 @@
         },
         {
           "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 58
+        },
+        {
+          "type": "goal",
           "player": "paul-scholes",
           "minute": 45
         },
@@ -1636,7 +1716,7 @@
           "minute": 76
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-04-20-everton-a",

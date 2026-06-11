@@ -18,12 +18,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "robin-van-persie",
           "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 59
         }
       ],
       "sources": [
@@ -58,11 +63,21 @@
         },
         {
           "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 72
+        },
+        {
+          "type": "goal",
           "player": "danny-welbeck",
           "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 92
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-08-26-chelsea-h",
@@ -157,12 +172,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 70
         },
         {
           "type": "goal",
@@ -320,9 +340,14 @@
           "type": "goal",
           "player": "adnan-januzaj",
           "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "adnan-januzaj",
+          "minute": 61
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-10-19-southampton-h",
@@ -439,12 +464,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "pen-goal",
           "player": "javier-hernandez",
           "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 54
         },
         {
           "type": "goal",
@@ -659,9 +689,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 32
+        },
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 57
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-12-04-everton-h",
@@ -762,11 +797,16 @@
         },
         {
           "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 18
+        },
+        {
+          "type": "goal",
           "player": "tom-cleverley",
           "minute": 52
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-12-18-stoke-city-a",
@@ -1349,12 +1389,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "pen-goal",
           "player": "robin-van-persie",
           "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 51
         }
       ],
       "sources": [
@@ -1386,9 +1436,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 33
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2014-03-25-manchester-city-h",
@@ -1438,6 +1493,11 @@
           "minute": 20
         },
         {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 45
+        },
+        {
           "type": "goal",
           "player": "juan-mata",
           "minute": 57
@@ -1448,7 +1508,7 @@
           "minute": 91
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2014-04-01-bayern-munich-h",
@@ -1507,6 +1567,11 @@
         },
         {
           "type": "goal",
+          "player": "juan-mata",
+          "minute": 50
+        },
+        {
+          "type": "goal",
           "player": "javier-hernandez",
           "minute": 64
         },
@@ -1516,7 +1581,7 @@
           "minute": 93
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2014-04-09-bayern-munich-a",
@@ -1596,11 +1661,21 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 48
+        },
+        {
+          "type": "goal",
           "player": "juan-mata",
           "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 73
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2014-05-03-sunderland-h",
@@ -1651,11 +1726,16 @@
         },
         {
           "type": "goal",
+          "player": "james-wilson",
+          "minute": 61
+        },
+        {
+          "type": "goal",
           "player": "robin-van-persie",
           "minute": 86
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2014-05-11-southampton-a",

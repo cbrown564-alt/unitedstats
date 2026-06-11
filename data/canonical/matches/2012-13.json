@@ -86,9 +86,19 @@
           "type": "goal",
           "player": "robin-van-persie",
           "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 87
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 92
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-09-15-wigan-athletic-h",
@@ -282,12 +292,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "robin-van-persie",
           "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 49
         }
       ],
       "sources": [
@@ -361,6 +376,11 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 65
+        },
+        {
+          "type": "goal",
           "player": "robin-van-persie",
           "minute": 44
         },
@@ -370,7 +390,7 @@
           "minute": 46
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-10-23-braga-h",
@@ -389,12 +409,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "javier-hernandez",
           "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 75
         },
         {
           "type": "goal",
@@ -463,12 +488,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 22
+        },
+        {
+          "type": "pen-goal",
+          "player": "ryan-giggs",
+          "minute": 120
         },
         {
           "type": "goal",
@@ -585,13 +615,18 @@
           "minute": 58
         },
         {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 87
+        },
+        {
           "type": "own-goal-for",
           "player": null,
           "minute": 63,
           "detail": "Ron Vlaar (og)"
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-11-17-norwich-city-a",
@@ -736,11 +771,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 30
+        },
+        {
+          "type": "goal",
           "player": "robin-van-persie",
           "minute": 34
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-12-05-cfr-cluj-h",
@@ -791,11 +831,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 29
+        },
+        {
+          "type": "goal",
           "player": "robin-van-persie",
           "minute": 92
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-12-15-sunderland-h",
@@ -972,11 +1017,21 @@
         },
         {
           "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 63
+        },
+        {
+          "type": "goal",
           "player": "robin-van-persie",
           "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 88
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-01-05-west-ham-united-a",
@@ -1145,9 +1200,14 @@
           "type": "goal",
           "player": "javier-hernandez",
           "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 66
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-01-30-southampton-h",
@@ -1174,9 +1234,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 27
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-02-02-fulham-a",
@@ -1368,11 +1433,21 @@
         },
         {
           "type": "goal",
+          "player": "shinji-kagawa",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "shinji-kagawa",
+          "minute": 87
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-03-05-real-madrid-h",
@@ -1645,9 +1720,19 @@
           "type": "goal",
           "player": "robin-van-persie",
           "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 33
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2013-04-28-arsenal-a",

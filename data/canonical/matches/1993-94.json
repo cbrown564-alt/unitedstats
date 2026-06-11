@@ -95,11 +95,16 @@
         },
         {
           "type": "goal",
+          "player": "roy-keane",
+          "minute": 43
+        },
+        {
+          "type": "goal",
           "player": "mark-hughes",
           "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1993-08-21-newcastle-united-h",
@@ -155,9 +160,14 @@
           "type": "goal",
           "player": "lee-sharpe",
           "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1993-08-28-southampton-a",
@@ -275,12 +285,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "roy-keane",
           "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 42
         },
         {
           "type": "goal",
@@ -385,9 +400,14 @@
           "type": "goal",
           "player": "mark-hughes",
           "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1993-10-02-sheffield-wednesday-a",
@@ -417,11 +437,16 @@
         },
         {
           "type": "goal",
+          "player": "mark-hughes",
+          "minute": 67
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1993-10-06-stoke-city-h",
@@ -577,12 +602,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "steve-bruce",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 86
         },
         {
           "type": "goal",
@@ -666,11 +696,16 @@
         },
         {
           "type": "goal",
+          "player": "eric-cantona",
+          "minute": 78
+        },
+        {
+          "type": "goal",
           "player": "roy-keane",
           "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1993-11-20-wimbledon-h",
@@ -925,11 +960,16 @@
         },
         {
           "type": "goal",
+          "player": "eric-cantona",
+          "minute": 89
+        },
+        {
+          "type": "goal",
           "player": "paul-ince",
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1993-12-26-blackburn-rovers-h",
@@ -1000,9 +1040,14 @@
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 59
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1994-01-01-leeds-united-h",
@@ -1448,9 +1493,14 @@
           "type": "goal",
           "player": "andrei-kanchelskis",
           "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 75
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1994-03-16-sheffield-wednesday-h",
@@ -1492,9 +1542,14 @@
           "type": "goal",
           "player": "eric-cantona",
           "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 55
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1994-03-19-swindon-town-a",
@@ -1806,9 +1861,14 @@
           "type": "goal",
           "player": "eric-cantona",
           "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 45
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1994-04-27-leeds-united-a",
@@ -1962,6 +2022,11 @@
           "minute": 60
         },
         {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 66
+        },
+        {
           "type": "goal",
           "player": "mark-hughes",
           "minute": 68
@@ -1972,7 +2037,7 @@
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     }
   ]
 }

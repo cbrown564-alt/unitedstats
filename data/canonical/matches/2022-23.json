@@ -204,9 +204,14 @@
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 66
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 75
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2022-09-08-real-sociedad-h",
@@ -298,9 +303,14 @@
           "type": "goal",
           "player": "anthony-martial",
           "minute": 84
+        },
+        {
+          "type": "pen-goal",
+          "player": "anthony-martial",
+          "minute": 91
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2022-10-06-ac-omonia-a",
@@ -319,12 +329,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 84
         },
         {
           "type": "goal",
@@ -967,9 +982,14 @@
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 90
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 94
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2023-01-14-manchester-city-h",
@@ -1160,11 +1180,16 @@
         },
         {
           "type": "goal",
+          "player": "casemiro",
+          "minute": 58
+        },
+        {
+          "type": "goal",
           "player": "fred",
           "minute": 66
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2023-02-01-nottingham-forest-h",
@@ -1390,11 +1415,16 @@
         },
         {
           "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 56
+        },
+        {
+          "type": "goal",
           "player": "jadon-sancho",
           "minute": 61
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2023-02-23-barcelona-h",
@@ -1669,11 +1699,16 @@
         },
         {
           "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 96
+        },
+        {
+          "type": "goal",
           "player": "marcel-sabitzer",
           "minute": 77
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2023-04-02-newcastle-united-a",
@@ -1791,12 +1826,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "marcel-sabitzer",
           "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "marcel-sabitzer",
+          "minute": 21
         }
       ],
       "sources": [

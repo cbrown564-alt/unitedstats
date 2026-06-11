@@ -183,6 +183,11 @@
           "minute": 16
         },
         {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 58
+        },
+        {
           "type": "pen-goal",
           "player": "antony",
           "minute": 35
@@ -194,11 +199,21 @@
         },
         {
           "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 49
+        },
+        {
+          "type": "goal",
           "player": "christian-eriksen",
           "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "christian-eriksen",
+          "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-09-21-crystal-palace-a",
@@ -456,6 +471,11 @@
         },
         {
           "type": "goal",
+          "player": "casemiro",
+          "minute": 39
+        },
+        {
+          "type": "goal",
           "player": "alejandro-garnacho",
           "minute": 28
         },
@@ -463,9 +483,14 @@
           "type": "goal",
           "player": "bruno-fernandes",
           "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 59
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-11-03-chelsea-h",
@@ -513,12 +538,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "amad-diallo",
           "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 77
         }
       ],
       "sources": [
@@ -611,7 +641,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -622,6 +652,11 @@
           "type": "goal",
           "player": "rasmus-h-jlund",
           "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 50
         }
       ],
       "sources": [
@@ -656,11 +691,21 @@
         },
         {
           "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 46
+        },
+        {
+          "type": "goal",
           "player": "joshua-zirkzee",
           "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 64
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-12-04-arsenal-a",
@@ -734,12 +779,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "rasmus-h-jlund",
           "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 88
         }
       ],
       "sources": [
@@ -984,9 +1034,19 @@
           "type": "goal",
           "player": "amad-diallo",
           "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 90
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 94
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2025-01-19-brighton-and-hove-albion-h",
@@ -1384,12 +1444,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "pen-goal",
           "player": "bruno-fernandes",
           "minute": 16
+        },
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 87
         },
         {
           "type": "own-goal-for",
@@ -1663,7 +1733,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1674,6 +1744,11 @@
           "type": "pen-goal",
           "player": "bruno-fernandes",
           "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 45
         }
       ],
       "sources": [
@@ -1736,12 +1811,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "mason-mount",
           "minute": 72
+        },
+        {
+          "type": "goal",
+          "player": "mason-mount",
+          "minute": 91
         },
         {
           "type": "goal",

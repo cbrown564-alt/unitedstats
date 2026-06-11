@@ -18,7 +18,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -29,6 +29,11 @@
           "type": "goal",
           "player": "nani",
           "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 94
         }
       ],
       "sources": [
@@ -142,8 +147,23 @@
         },
         {
           "type": "goal",
+          "player": "ashley-young",
+          "minute": 91
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 64
+        },
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 82
         },
         {
           "type": "goal",
@@ -156,7 +176,7 @@
           "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-09-10-bolton-wanderers-a",
@@ -186,11 +206,26 @@
         },
         {
           "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 58
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 68
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-09-14-benfica-a",
@@ -277,12 +312,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "michael-owen",
           "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 32
         },
         {
           "type": "goal",
@@ -340,12 +380,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "danny-welbeck",
           "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 17
         },
         {
           "type": "goal",
@@ -437,12 +482,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "pen-goal",
           "player": "wayne-rooney",
           "minute": 64
+        },
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 92
         }
       ],
       "sources": [
@@ -819,11 +869,21 @@
         },
         {
           "type": "goal",
+          "player": "nani",
+          "minute": 56
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 62
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-12-18-queens-park-rangers-a",
@@ -941,11 +1001,21 @@
         },
         {
           "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 58
+        },
+        {
+          "type": "pen-goal",
+          "player": "dimitar-berbatov",
+          "minute": 78
+        },
+        {
+          "type": "goal",
           "player": "antonio-valencia",
           "minute": 75
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-12-31-blackburn-rovers-h",
@@ -972,9 +1042,14 @@
           "type": "goal",
           "player": "dimitar-berbatov",
           "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 62
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-01-04-newcastle-united-a",
@@ -1027,11 +1102,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 40
+        },
+        {
+          "type": "goal",
           "player": "danny-welbeck",
           "minute": 30
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-01-14-bolton-wanderers-h",
@@ -1198,12 +1278,17 @@
           "minute": 58
         },
         {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 69
+        },
+        {
           "type": "goal",
           "player": "javier-hernandez",
           "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-02-11-liverpool-h",
@@ -1230,9 +1315,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 50
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-02-16-afc-ajax-a",
@@ -1361,9 +1451,14 @@
           "type": "goal",
           "player": "ashley-young",
           "minute": 60
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 69
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-03-08-athletic-bilbao-h",
@@ -1382,12 +1477,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 22
+        },
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 92
         }
       ],
       "sources": [
@@ -1419,9 +1519,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 35
+        },
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 71
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-03-15-athletic-bilbao-a",
@@ -1492,9 +1597,14 @@
           "type": "goal",
           "player": "javier-hernandez",
           "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 61
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-03-26-fulham-h",
@@ -1642,6 +1752,11 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 73
+        },
+        {
+          "type": "goal",
           "player": "danny-welbeck",
           "minute": 43
         },
@@ -1651,7 +1766,7 @@
           "minute": 93
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-04-22-everton-h",
@@ -1681,6 +1796,11 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 69
+        },
+        {
+          "type": "goal",
           "player": "danny-welbeck",
           "minute": 57
         },
@@ -1690,7 +1810,7 @@
           "minute": 60
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2012-04-30-manchester-city-a",

@@ -178,6 +178,16 @@
         },
         {
           "type": "goal",
+          "player": "mark-hughes",
+          "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 85
+        },
+        {
+          "type": "goal",
           "player": "bryan-robson",
           "minute": 43
         },
@@ -187,7 +197,7 @@
           "minute": 60
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1989-09-20-portsmouth-a",
@@ -206,12 +216,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "paul-ince",
           "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 41
         },
         {
           "type": "goal",
@@ -327,11 +342,16 @@
         },
         {
           "type": "goal",
+          "player": "mark-hughes",
+          "minute": 69
+        },
+        {
+          "type": "goal",
           "player": "mike-phelan",
           "minute": 65
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1989-10-25-tottenham-hotspur-h",
@@ -379,9 +399,14 @@
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 61
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1989-11-04-charlton-athletic-a",
@@ -1107,11 +1132,16 @@
         },
         {
           "type": "goal",
+          "player": "mark-hughes",
+          "minute": 36
+        },
+        {
+          "type": "goal",
           "player": "mark-robins",
           "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1990-04-08-oldham-athletic-n",
@@ -1251,9 +1281,14 @@
           "type": "goal",
           "player": "mark-robins",
           "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 45
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1990-04-21-tottenham-hotspur-a",
@@ -1388,9 +1423,14 @@
           "type": "goal",
           "player": "mark-hughes",
           "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 113
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1990-05-17-crystal-palace-n",

@@ -120,12 +120,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "gabriel-heinze",
           "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "gabriel-heinze",
+          "minute": 61
         },
         {
           "type": "goal",
@@ -333,11 +338,16 @@
         },
         {
           "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 44
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 17
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-10-15-sunderland-a",
@@ -581,9 +591,14 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-11-22-villarreal-cf-h",
@@ -808,12 +823,17 @@
           "minute": 35
         },
         {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 55
+        },
+        {
           "type": "pen-goal",
           "player": "ruud-van-nistelrooy",
           "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2005-12-17-aston-villa-a",
@@ -866,12 +886,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "louis-saha",
           "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 63
         },
         {
           "type": "goal",
@@ -992,9 +1017,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 68
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-01-03-arsenal-a",
@@ -1133,6 +1163,11 @@
         },
         {
           "type": "goal",
+          "player": "giuseppe-rossi",
+          "minute": 90
+        },
+        {
+          "type": "goal",
           "player": "kieran-richardson",
           "minute": 52
         },
@@ -1142,7 +1177,7 @@
           "minute": 68
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-01-22-liverpool-h",
@@ -1237,11 +1272,16 @@
         },
         {
           "type": "goal",
+          "player": "kieran-richardson",
+          "minute": 52
+        },
+        {
+          "type": "goal",
           "player": "louis-saha",
           "minute": 45
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-02-01-blackburn-rovers-a",
@@ -1273,9 +1313,14 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 65
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-02-04-fulham-h",
@@ -1311,11 +1356,16 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 86
+        },
+        {
+          "type": "goal",
           "player": "louis-saha",
           "minute": 23
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-02-11-portsmouth-a",
@@ -1347,9 +1397,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 45
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-02-18-liverpool-a",
@@ -1391,12 +1446,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 61
         },
         {
           "type": "goal",
@@ -1473,9 +1533,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 12
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-03-18-west-bromwich-albion-a",
@@ -1502,9 +1567,14 @@
           "type": "goal",
           "player": "louis-saha",
           "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 64
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-03-26-birmingham-city-h",
@@ -1534,11 +1604,16 @@
         },
         {
           "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 15
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 83
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-03-29-west-ham-united-h",
@@ -1683,9 +1758,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 36
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-04-29-chelsea-a",

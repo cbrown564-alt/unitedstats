@@ -117,9 +117,14 @@
           "type": "goal",
           "player": "romelu-lukaku",
           "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 44
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2018-09-15-watford-a",
@@ -370,9 +375,14 @@
           "type": "goal",
           "player": "anthony-martial",
           "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 73
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2018-10-23-juventus-h",
@@ -439,7 +449,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10792,
       "score": {
         "ft": [
           2,
@@ -447,8 +457,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-11-07-juventus-a",
@@ -774,9 +798,14 @@
           "type": "pen-goal",
           "player": "jesse-lingard",
           "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2018-12-26-huddersfield-town-h",
@@ -822,7 +851,7 @@
       "opponentId": "bournemouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74556,
       "score": {
         "ft": [
           4,
@@ -830,8 +859,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 5,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2019-01-02-newcastle-united-a",
@@ -1214,11 +1263,16 @@
         },
         {
           "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 52
+        },
+        {
+          "type": "goal",
           "player": "ashley-young",
           "minute": 83
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2019-03-02-southampton-h",
@@ -1250,9 +1304,14 @@
           "type": "goal",
           "player": "romelu-lukaku",
           "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 88
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2019-03-06-paris-saint-germain-a",
@@ -1271,12 +1330,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "romelu-lukaku",
           "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 30
         },
         {
           "type": "pen-goal",

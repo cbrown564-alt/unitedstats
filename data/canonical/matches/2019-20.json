@@ -29,6 +29,11 @@
         },
         {
           "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 67
+        },
+        {
+          "type": "goal",
           "player": "anthony-martial",
           "minute": 65
         },
@@ -38,7 +43,7 @@
           "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2019-08-19-wolverhampton-wanderers-a",
@@ -436,9 +441,14 @@
           "type": "pen-goal",
           "player": "marcus-rashford",
           "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 73
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2019-11-02-bournemouth-a",
@@ -667,9 +677,14 @@
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 7
+        },
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 49
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2019-12-07-manchester-city-a",
@@ -722,7 +737,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -733,6 +748,11 @@
           "type": "goal",
           "player": "mason-greenwood",
           "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 64
         },
         {
           "type": "pen-goal",
@@ -867,6 +887,11 @@
         },
         {
           "type": "goal",
+          "player": "anthony-martial",
+          "minute": 51
+        },
+        {
+          "type": "goal",
           "player": "mason-greenwood",
           "minute": 36
         },
@@ -876,7 +901,7 @@
           "minute": 41
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2019-12-28-burnley-a",
@@ -1017,6 +1042,11 @@
           "minute": 27
         },
         {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 52
+        },
+        {
           "type": "goal",
           "player": "anthony-martial",
           "minute": 54
@@ -1027,7 +1057,7 @@
           "minute": 76
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2020-01-15-wolverhampton-wanderers-h",
@@ -1339,7 +1369,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "pen-goal",
@@ -1360,6 +1390,11 @@
           "type": "goal",
           "player": "fred",
           "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 93
         }
       ],
       "sources": [
@@ -1430,9 +1465,14 @@
           "type": "goal",
           "player": "odion-ighalo",
           "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "odion-ighalo",
+          "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2020-03-08-manchester-city-h",
@@ -1571,9 +1611,19 @@
           "type": "goal",
           "player": "anthony-martial",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2020-06-27-norwich-city-a",
@@ -1645,9 +1695,14 @@
           "type": "goal",
           "player": "bruno-fernandes",
           "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 50
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2020-07-04-bournemouth-h",
@@ -1676,6 +1731,11 @@
           "minute": 29
         },
         {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 54
+        },
+        {
           "type": "pen-goal",
           "player": "marcus-rashford",
           "minute": 35
@@ -1691,7 +1751,7 @@
           "minute": 59
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2020-07-09-aston-villa-a",
