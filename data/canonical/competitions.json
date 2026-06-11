@@ -1,0 +1,23 @@
+{
+  "competitions": [
+    { "id": "football-league", "name": "Football League", "type": "league", "tier": 1, "note": "First Division era name pre-1888 naming; used 1892-93 only if needed" },
+    { "id": "first-division", "name": "First Division", "type": "league", "tier": 1 },
+    { "id": "second-division", "name": "Second Division", "type": "league", "tier": 2 },
+    { "id": "premier-league", "name": "Premier League", "type": "league", "tier": 1 },
+    { "id": "fa-cup", "name": "FA Cup", "type": "domestic-cup", "tier": null },
+    { "id": "league-cup", "name": "League Cup", "type": "league-cup", "tier": null, "note": "Covers all sponsor names: Milk Cup, Littlewoods, Rumbelows, Coca-Cola, Worthington, Carling, Capital One, Carabao, EFL Cup" },
+    { "id": "european-cup", "name": "European Cup", "type": "european", "tier": null },
+    { "id": "champions-league", "name": "UEFA Champions League", "type": "european", "tier": null },
+    { "id": "cup-winners-cup", "name": "European Cup Winners' Cup", "type": "european", "tier": null },
+    { "id": "uefa-cup", "name": "UEFA Cup", "type": "european", "tier": null },
+    { "id": "europa-league", "name": "UEFA Europa League", "type": "european", "tier": null },
+    { "id": "inter-cities-fairs-cup", "name": "Inter-Cities Fairs Cup", "type": "european", "tier": null },
+    { "id": "uefa-super-cup", "name": "UEFA Super Cup", "type": "super-cup", "tier": null },
+    { "id": "intercontinental-cup", "name": "Intercontinental Cup", "type": "world", "tier": null },
+    { "id": "fifa-club-world-cup", "name": "FIFA Club World Cup", "type": "world", "tier": null },
+    { "id": "charity-shield", "name": "FA Charity/Community Shield", "type": "super-cup", "tier": null },
+    { "id": "test-match", "name": "Test Match (promotion/relegation)", "type": "playoff", "tier": null },
+    { "id": "wartime", "name": "Wartime competition", "type": "unofficial", "tier": null },
+    { "id": "friendly", "name": "Friendly / Tour", "type": "unofficial", "tier": null }
+  ]
+}

@@ -1,0 +1,765 @@
+{
+  "season": "2019-20",
+  "matches": [
+    {
+      "id": "2019-08-11-chelsea-h",
+      "date": "2019-08-11",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          4,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-08-19-wolverhampton-wanderers-a",
+      "date": "2019-08-19",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Wolverhampton Wanderers",
+      "opponentId": "wolverhampton-wanderers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-08-24-crystal-palace-h",
+      "date": "2019-08-24",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Crystal Palace",
+      "opponentId": "crystal-palace",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-08-31-southampton-a",
+      "date": "2019-08-31",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-09-14-leicester-city-h",
+      "date": "2019-09-14",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-09-22-west-ham-united-a",
+      "date": "2019-09-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-09-30-arsenal-h",
+      "date": "2019-09-30",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-10-06-newcastle-united-a",
+      "date": "2019-10-06",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-10-20-liverpool-h",
+      "date": "2019-10-20",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-10-27-norwich-city-a",
+      "date": "2019-10-27",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Norwich City",
+      "opponentId": "norwich-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-11-02-bournemouth-a",
+      "date": "2019-11-02",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "AFC Bournemouth",
+      "opponentId": "bournemouth",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-11-10-brighton-and-hove-albion-h",
+      "date": "2019-11-10",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Brighton & Hove Albion",
+      "opponentId": "brighton-and-hove-albion",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-11-24-sheffield-united-a",
+      "date": "2019-11-24",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Sheffield United",
+      "opponentId": "sheffield-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          3
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-12-01-aston-villa-h",
+      "date": "2019-12-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-12-04-tottenham-hotspur-h",
+      "date": "2019-12-04",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-12-07-manchester-city-a",
+      "date": "2019-12-07",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-12-15-everton-h",
+      "date": "2019-12-15",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-12-22-watford-a",
+      "date": "2019-12-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Watford",
+      "opponentId": "watford",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-12-26-newcastle-united-h",
+      "date": "2019-12-26",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          4,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2019-12-28-burnley-a",
+      "date": "2019-12-28",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-01-01-arsenal-a",
+      "date": "2020-01-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-01-11-norwich-city-h",
+      "date": "2020-01-11",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Norwich City",
+      "opponentId": "norwich-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          4,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-01-19-liverpool-a",
+      "date": "2020-01-19",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-01-22-burnley-h",
+      "date": "2020-01-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-02-01-wolverhampton-wanderers-h",
+      "date": "2020-02-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Wolverhampton Wanderers",
+      "opponentId": "wolverhampton-wanderers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-02-17-chelsea-a",
+      "date": "2020-02-17",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-02-23-watford-h",
+      "date": "2020-02-23",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Watford",
+      "opponentId": "watford",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-03-01-everton-a",
+      "date": "2020-03-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-03-08-manchester-city-h",
+      "date": "2020-03-08",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-06-19-tottenham-hotspur-a",
+      "date": "2020-06-19",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-06-24-sheffield-united-h",
+      "date": "2020-06-24",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Sheffield United",
+      "opponentId": "sheffield-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-06-30-brighton-and-hove-albion-a",
+      "date": "2020-06-30",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Brighton & Hove Albion",
+      "opponentId": "brighton-and-hove-albion",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-07-04-bournemouth-h",
+      "date": "2020-07-04",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "AFC Bournemouth",
+      "opponentId": "bournemouth",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          5,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-07-09-aston-villa-a",
+      "date": "2020-07-09",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-07-13-southampton-h",
+      "date": "2020-07-13",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-07-16-crystal-palace-a",
+      "date": "2020-07-16",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Crystal Palace",
+      "opponentId": "crystal-palace",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-07-22-west-ham-united-h",
+      "date": "2020-07-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "2020-07-26-leicester-city-a",
+      "date": "2020-07-26",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    }
+  ]
+}

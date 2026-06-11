@@ -1,0 +1,105 @@
+/**
+ * Integrity checks on canonical data. Exits non-zero on any error.
+ * Runs in CI and as the gate before the update pipeline commits.
+ */
+import path from "node:path";
+import {
+  CANONICAL, MATCHES_DIR, SeasonFile,
+  listSeasonFiles, readJson, seasonOfDate,
+} from "./lib";
+
+interface Ref { id: string }
+const competitions = new Set(
+  readJson<{ competitions: Ref[] }>(path.join(CANONICAL, "competitions.json")).competitions.map((c) => c.id),
+);
+const stadiums = new Set(
+  readJson<{ stadiums: Ref[] }>(path.join(CANONICAL, "stadiums.json")).stadiums.map((s) => s.id),
+);
+const players = new Set(
+  readJson<{ players: Ref[] }>(path.join(CANONICAL, "players.json")).players.map((p) => p.id),
+);
+const managerData = readJson<{
+  managers: { id: string; tenures: { from: string; to: string | null }[] }[];
+}>(path.join(CANONICAL, "managers.json")).managers;
+
+const errors: string[] = [];
+const warnings: string[] = [];
+const seenIds = new Set<string>();
+let matchCount = 0;
+
+for (const file of listSeasonFiles()) {
+  const sf = readJson<SeasonFile>(path.join(MATCHES_DIR, file));
+  const expectSeason = file.replace(".json", "");
+  if (sf.season !== expectSeason) {
+    errors.push(`${file}: season field "${sf.season}" != filename`);
+  }
+  let prevDate = "";
+  for (const m of sf.matches) {
+    matchCount++;
+    const ctx = `${file} ${m.id}`;
+    if (!m.id || !m.date || !m.opponent || !m.opponentId) {
+      errors.push(`${ctx}: missing required field`);
+      continue;
+    }
+    if (seenIds.has(m.id)) errors.push(`${ctx}: duplicate match id`);
+    seenIds.add(m.id);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(m.date)) errors.push(`${ctx}: bad date`);
+    if (seasonOfDate(m.date) !== sf.season) {
+      // June boundary edge cases (e.g. late-season tours) are warnings only
+      warnings.push(`${ctx}: date ${m.date} outside nominal season window`);
+    }
+    if (m.date < prevDate) errors.push(`${ctx}: not date-ordered`);
+    prevDate = m.date;
+    if (!competitions.has(m.competition)) errors.push(`${ctx}: unknown competition "${m.competition}"`);
+    if (!["H", "A", "N"].includes(m.venue)) errors.push(`${ctx}: bad venue`);
+    if (m.stadium && !stadiums.has(m.stadium)) errors.push(`${ctx}: unknown stadium "${m.stadium}"`);
+    const ft = m.score?.ft;
+    if (!ft || ft.length !== 2 || ft.some((g) => !Number.isInteger(g) || g < 0 || g > 30)) {
+      errors.push(`${ctx}: bad score`);
+    }
+    if (m.attendance != null && (m.attendance < 0 || m.attendance > 200000)) {
+      errors.push(`${ctx}: implausible attendance ${m.attendance}`);
+    }
+    let goalsInEvents = 0;
+    for (const e of m.events ?? []) {
+      if (e.minute != null && (e.minute < 0 || e.minute > 125)) {
+        errors.push(`${ctx}: bad minute ${e.minute}`);
+      }
+      if (e.player && !players.has(e.player)) errors.push(`${ctx}: unknown player "${e.player}"`);
+      if (e.assist && !players.has(e.assist)) errors.push(`${ctx}: unknown assist player "${e.assist}"`);
+      if (["goal", "pen-goal", "own-goal-for"].includes(e.type)) goalsInEvents++;
+    }
+    if (m.eventsComplete && ft && goalsInEvents !== ft[0]) {
+      errors.push(`${ctx}: eventsComplete but ${goalsInEvents} scoring events != ${ft[0]} goals`);
+    }
+    for (const l of m.lineup ?? []) {
+      if (!players.has(l.player)) errors.push(`${ctx}: unknown lineup player "${l.player}"`);
+    }
+    const starters = (m.lineup ?? []).filter((l) => l.start).length;
+    if (m.lineup && m.lineup.length > 0 && starters !== 11) {
+      errors.push(`${ctx}: ${starters} starters (expected 11)`);
+    }
+  }
+}
+
+// manager tenures must not overlap
+const spans = managerData
+  .flatMap((m) => m.tenures.map((t) => ({ id: m.id, ...t })))
+  .sort((a, b) => a.from.localeCompare(b.from));
+for (let i = 1; i < spans.length; i++) {
+  const prev = spans[i - 1];
+  if (prev.to !== null && spans[i].from <= prev.to) {
+    errors.push(`manager tenure overlap: ${prev.id} and ${spans[i].id} around ${spans[i].from}`);
+  }
+}
+
+if (warnings.length) {
+  console.warn(`${warnings.length} warning(s):`);
+  for (const w of warnings.slice(0, 20)) console.warn("  ~ " + w);
+}
+if (errors.length) {
+  console.error(`VALIDATION FAILED — ${errors.length} error(s):`);
+  for (const e of errors.slice(0, 50)) console.error("  ✗ " + e);
+  process.exit(1);
+}
+console.log(`validate: OK — ${matchCount} matches across ${listSeasonFiles().length} seasons, 0 errors, ${warnings.length} warnings`);
