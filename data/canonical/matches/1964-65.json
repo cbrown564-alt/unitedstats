@@ -10,7 +10,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52007,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-08-24-west-ham-united-a",
@@ -30,7 +44,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37070,
       "score": {
         "ft": [
           1,
@@ -38,8 +52,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-08-29-leicester-city-a",
@@ -50,7 +73,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32373,
       "score": {
         "ft": [
           2,
@@ -58,8 +81,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-09-02-west-ham-united-h",
@@ -70,7 +107,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45123,
       "score": {
         "ft": [
           3,
@@ -78,8 +115,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-09-05-fulham-a",
@@ -90,7 +146,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36291,
       "score": {
         "ft": [
           1,
@@ -98,8 +154,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-09-08-everton-a",
@@ -110,7 +175,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63024,
       "score": {
         "ft": [
           3,
@@ -118,8 +183,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-09-12-nottingham-forest-h",
@@ -130,7 +214,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45012,
       "score": {
         "ft": [
           3,
@@ -138,8 +222,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-09-16-everton-h",
@@ -150,7 +253,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49968,
       "score": {
         "ft": [
           2,
@@ -158,8 +261,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-09-19-stoke-city-a",
@@ -170,7 +287,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40031,
       "score": {
         "ft": [
           2,
@@ -178,7 +295,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1964-09-23-djurgardens-if-fotboll-a",
+      "date": "1964-09-23",
+      "competition": "inter-cities-fairs-cup",
+      "round": "First round First leg",
+      "opponent": "Djurgårdens IF Fotboll",
+      "opponentId": "djurgardens-if-fotboll",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 6537,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +350,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53058,
       "score": {
         "ft": [
           4,
@@ -198,8 +358,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paddy-crerand",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "paddy-crerand",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-09-30-chelsea-a",
@@ -210,7 +394,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60769,
       "score": {
         "ft": [
           2,
@@ -218,8 +402,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-10-06-burnley-a",
@@ -250,7 +448,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48577,
       "score": {
         "ft": [
           1,
@@ -258,8 +456,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-10-17-wolverhampton-wanderers-a",
@@ -270,7 +477,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26763,
       "score": {
         "ft": [
           4,
@@ -278,8 +485,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-10-24-aston-villa-h",
@@ -290,7 +522,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35807,
       "score": {
         "ft": [
           7,
@@ -298,7 +530,100 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1964-10-27-djurgardens-if-fotboll-h",
+      "date": "1964-10-27",
+      "competition": "inter-cities-fairs-cup",
+      "round": "First round Second leg",
+      "opponent": "Djurgårdens IF Fotboll",
+      "opponentId": "djurgardens-if-fotboll",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 38437,
+      "score": {
+        "ft": [
+          6,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +635,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52402,
       "score": {
         "ft": [
           2,
@@ -318,8 +643,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paddy-crerand",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-11-07-sheffield-wednesday-h",
@@ -330,7 +669,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50178,
       "score": {
         "ft": [
           1,
@@ -338,7 +677,70 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1964-11-11-borussia-dortmund-a",
+      "date": "1964-11-11",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Second round First leg",
+      "opponent": "Borussia Dortmund",
+      "opponentId": "borussia-dortmund",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25000,
+      "score": {
+        "ft": [
+          6,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +752,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31129,
       "score": {
         "ft": [
           2,
@@ -358,8 +760,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-11-21-blackburn-rovers-h",
@@ -370,7 +786,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49633,
       "score": {
         "ft": [
           3,
@@ -378,8 +794,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-11-28-arsenal-a",
@@ -390,7 +825,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59627,
       "score": {
         "ft": [
           3,
@@ -398,7 +833,70 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1964-12-02-borussia-dortmund-h",
+      "date": "1964-12-02",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Second round Second leg",
+      "opponent": "Borussia Dortmund",
+      "opponentId": "borussia-dortmund",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 31896,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +908,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53374,
       "score": {
         "ft": [
           0,
@@ -418,7 +916,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +929,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28126,
       "score": {
         "ft": [
           1,
@@ -438,8 +937,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-12-16-birmingham-city-h",
@@ -450,7 +958,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25721,
       "score": {
         "ft": [
           1,
@@ -458,8 +966,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-12-26-sheffield-united-a",
@@ -470,7 +987,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37295,
       "score": {
         "ft": [
           1,
@@ -478,8 +995,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1964-12-28-sheffield-united-h",
@@ -490,7 +1016,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42219,
       "score": {
         "ft": [
           1,
@@ -498,8 +1024,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-01-09-chester-city-h",
@@ -510,7 +1045,7 @@
       "opponentId": "chester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           2,
@@ -519,9 +1054,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-kinsey",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-01-16-nottingham-forest-a",
@@ -532,7 +1081,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43009,
       "score": {
         "ft": [
           2,
@@ -540,7 +1089,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1965-01-20-everton-h",
+      "date": "1965-01-20",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Third round First leg",
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 50000,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +1144,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50392,
       "score": {
         "ft": [
           1,
@@ -560,8 +1152,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-01-30-stoke-city-a",
@@ -572,7 +1173,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53009,
       "score": {
         "ft": [
           0,
@@ -581,7 +1182,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -594,7 +1196,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50814,
       "score": {
         "ft": [
           1,
@@ -603,9 +1205,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-02-06-tottenham-hotspur-a",
@@ -616,7 +1227,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58639,
       "score": {
         "ft": [
           0,
@@ -624,7 +1235,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1965-02-09-everton-a",
+      "date": "1965-02-09",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Third round Second leg",
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 54397,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -636,7 +1282,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38865,
       "score": {
         "ft": [
           3,
@@ -644,8 +1290,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-02-20-burnley-h",
@@ -656,7 +1321,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54000,
       "score": {
         "ft": [
           2,
@@ -665,9 +1330,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paddy-crerand",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-02-24-sunderland-a",
@@ -678,7 +1357,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51336,
       "score": {
         "ft": [
           0,
@@ -686,7 +1365,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -698,7 +1378,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37018,
       "score": {
         "ft": [
           3,
@@ -706,8 +1386,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-03-10-wolverhampton-wanderers-a",
@@ -718,7 +1417,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53581,
       "score": {
         "ft": [
           5,
@@ -727,9 +1426,38 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "paddy-crerand",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-03-13-chelsea-h",
@@ -740,7 +1468,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56261,
       "score": {
         "ft": [
           4,
@@ -748,8 +1476,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-03-15-fulham-h",
@@ -760,7 +1512,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45402,
       "score": {
         "ft": [
           4,
@@ -768,8 +1520,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-03-20-sheffield-wednesday-a",
@@ -780,7 +1556,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33549,
       "score": {
         "ft": [
           0,
@@ -788,7 +1564,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -800,7 +1577,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42318,
       "score": {
         "ft": [
           2,
@@ -808,8 +1585,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-03-27-leeds-united-n",
@@ -864,7 +1655,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29363,
       "score": {
         "ft": [
           5,
@@ -872,8 +1663,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-04-12-leicester-city-h",
@@ -884,7 +1704,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34114,
       "score": {
         "ft": [
           1,
@@ -892,8 +1712,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-04-17-leeds-united-a",
@@ -904,7 +1733,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52368,
       "score": {
         "ft": [
           1,
@@ -912,8 +1741,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-04-19-birmingham-city-a",
@@ -924,7 +1762,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28907,
       "score": {
         "ft": [
           4,
@@ -932,8 +1770,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "noel-cantwell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-04-24-liverpool-h",
@@ -944,7 +1806,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55772,
       "score": {
         "ft": [
           3,
@@ -952,8 +1814,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-04-26-arsenal-h",
@@ -964,7 +1845,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51625,
       "score": {
         "ft": [
           3,
@@ -972,8 +1853,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1965-04-28-aston-villa-a",
@@ -984,7 +1884,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36081,
       "score": {
         "ft": [
           1,
@@ -992,7 +1892,175 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1965-05-12-rc-strasbourg-a",
+      "date": "1965-05-12",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Quarter-final First leg",
+      "opponent": "RC Strasbourg",
+      "opponentId": "rc-strasbourg",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 30000,
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1965-05-19-rc-strasbourg-h",
+      "date": "1965-05-19",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Quarter-final Second leg",
+      "opponent": "RC Strasbourg",
+      "opponentId": "rc-strasbourg",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 34188,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1965-05-31-ferencvarosi-tc-h",
+      "date": "1965-05-31",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Ferencvárosi TC",
+      "opponentId": "ferencvarosi-tc",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 39902,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1965-06-06-ferencvarosi-tc-a",
+      "date": "1965-06-06",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Ferencvárosi TC",
+      "opponentId": "ferencvarosi-tc",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 50000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1965-06-16-ferencvarosi-tc-a",
+      "date": "1965-06-16",
+      "competition": "inter-cities-fairs-cup",
+      "round": "Semi-final Play-off",
+      "opponent": "Ferencvárosi TC",
+      "opponentId": "ferencvarosi-tc",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 60000,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-connelly",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     }
   ]

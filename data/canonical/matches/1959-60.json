@@ -10,7 +10,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40076,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-08-26-chelsea-h",
@@ -30,7 +44,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57674,
       "score": {
         "ft": [
           0,
@@ -38,7 +52,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +65,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53257,
       "score": {
         "ft": [
           3,
@@ -58,8 +73,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-09-02-chelsea-a",
@@ -70,7 +104,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 66579,
       "score": {
         "ft": [
           6,
@@ -78,8 +112,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-09-05-birmingham-city-a",
@@ -90,7 +158,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38220,
       "score": {
         "ft": [
           1,
@@ -98,8 +166,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-09-09-leeds-united-h",
@@ -110,7 +187,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48407,
       "score": {
         "ft": [
           6,
@@ -118,8 +195,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-09-12-tottenham-hotspur-h",
@@ -130,7 +241,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55402,
       "score": {
         "ft": [
           1,
@@ -138,8 +249,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-09-16-leeds-united-a",
@@ -150,7 +270,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34048,
       "score": {
         "ft": [
           2,
@@ -158,8 +278,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-09-19-manchester-city-a",
@@ -170,7 +305,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58300,
       "score": {
         "ft": [
           0,
@@ -178,7 +313,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +326,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35016,
       "score": {
         "ft": [
           0,
@@ -198,7 +334,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +347,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41637,
       "score": {
         "ft": [
           4,
@@ -218,8 +355,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-10-10-arsenal-h",
@@ -230,7 +391,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51626,
       "score": {
         "ft": [
           4,
@@ -238,8 +399,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-10-17-wolverhampton-wanderers-a",
@@ -250,7 +436,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45451,
       "score": {
         "ft": [
           2,
@@ -258,8 +444,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-10-24-sheffield-wednesday-h",
@@ -270,7 +471,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39259,
       "score": {
         "ft": [
           3,
@@ -278,8 +479,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-10-31-blackburn-rovers-a",
@@ -290,7 +510,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39621,
       "score": {
         "ft": [
           1,
@@ -298,8 +518,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-11-07-fulham-h",
@@ -310,7 +539,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44063,
       "score": {
         "ft": [
           3,
@@ -318,8 +547,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-11-14-bolton-wanderers-a",
@@ -330,7 +578,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37892,
       "score": {
         "ft": [
           1,
@@ -338,8 +586,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-11-21-luton-town-h",
@@ -350,7 +607,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40572,
       "score": {
         "ft": [
           4,
@@ -358,8 +615,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "freddie-goodwin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-11-28-everton-a",
@@ -370,7 +651,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46095,
       "score": {
         "ft": [
           1,
@@ -378,8 +659,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-12-05-blackpool-h",
@@ -390,7 +680,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45558,
       "score": {
         "ft": [
           3,
@@ -398,8 +688,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-12-12-nottingham-forest-a",
@@ -410,7 +719,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31666,
       "score": {
         "ft": [
           5,
@@ -418,8 +727,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-12-19-west-bromwich-albion-h",
@@ -430,7 +768,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33677,
       "score": {
         "ft": [
           2,
@@ -438,8 +776,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-12-26-burnley-h",
@@ -450,7 +802,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62376,
       "score": {
         "ft": [
           1,
@@ -458,8 +810,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1959-12-28-burnley-a",
@@ -470,7 +831,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47253,
       "score": {
         "ft": [
           4,
@@ -478,8 +839,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-01-02-newcastle-united-a",
@@ -490,7 +875,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57200,
       "score": {
         "ft": [
           3,
@@ -498,8 +883,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-01-09-derby-county-a",
@@ -510,7 +914,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33297,
       "score": {
         "ft": [
           4,
@@ -519,9 +923,34 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "freddie-goodwin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-01-16-birmingham-city-h",
@@ -532,7 +961,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47361,
       "score": {
         "ft": [
           2,
@@ -540,8 +969,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-01-23-tottenham-hotspur-a",
@@ -552,7 +995,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62602,
       "score": {
         "ft": [
           1,
@@ -560,8 +1003,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-01-30-liverpool-a",
@@ -572,7 +1024,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56736,
       "score": {
         "ft": [
           3,
@@ -581,9 +1033,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-02-06-manchester-city-h",
@@ -594,7 +1065,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59450,
       "score": {
         "ft": [
           0,
@@ -602,7 +1073,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -614,7 +1086,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44014,
       "score": {
         "ft": [
           1,
@@ -622,8 +1094,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-02-20-sheffield-wednesday-h",
@@ -634,7 +1115,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 66350,
       "score": {
         "ft": [
           0,
@@ -643,7 +1124,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -656,7 +1138,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33191,
       "score": {
         "ft": [
           1,
@@ -664,8 +1146,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-02-27-blackpool-a",
@@ -676,7 +1167,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23996,
       "score": {
         "ft": [
           6,
@@ -684,8 +1175,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-03-05-wolverhampton-wanderers-h",
@@ -696,7 +1221,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60560,
       "score": {
         "ft": [
           0,
@@ -704,7 +1229,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -716,7 +1242,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35269,
       "score": {
         "ft": [
           3,
@@ -724,8 +1250,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-03-26-fulham-a",
@@ -736,7 +1281,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38250,
       "score": {
         "ft": [
           5,
@@ -744,8 +1289,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-giles",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-03-30-sheffield-wednesday-a",
@@ -756,7 +1330,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26821,
       "score": {
         "ft": [
           2,
@@ -764,8 +1338,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-04-02-bolton-wanderers-h",
@@ -776,7 +1364,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45298,
       "score": {
         "ft": [
           2,
@@ -784,8 +1372,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-04-09-luton-town-a",
@@ -796,7 +1398,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21242,
       "score": {
         "ft": [
           3,
@@ -804,8 +1406,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-04-15-west-ham-united-a",
@@ -816,7 +1437,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34969,
       "score": {
         "ft": [
           1,
@@ -824,8 +1445,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-04-16-blackburn-rovers-h",
@@ -836,7 +1466,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45945,
       "score": {
         "ft": [
           1,
@@ -844,8 +1474,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-04-18-west-ham-united-h",
@@ -856,7 +1495,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34676,
       "score": {
         "ft": [
           5,
@@ -864,8 +1503,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-04-23-arsenal-a",
@@ -876,7 +1544,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41057,
       "score": {
         "ft": [
           2,
@@ -884,8 +1552,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-giles",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1960-04-30-everton-h",
@@ -896,7 +1578,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43823,
       "score": {
         "ft": [
           5,
@@ -904,8 +1586,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "warren-bradley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

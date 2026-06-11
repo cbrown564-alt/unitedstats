@@ -10,7 +10,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51459,
       "score": {
         "ft": [
           1,
@@ -18,8 +18,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-08-15-liverpool-a",
@@ -30,7 +39,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54779,
       "score": {
         "ft": [
           0,
@@ -38,7 +47,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +60,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52348,
       "score": {
         "ft": [
           0,
@@ -58,7 +68,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +81,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40067,
       "score": {
         "ft": [
           1,
@@ -78,8 +89,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-08-26-arsenal-h",
@@ -90,7 +110,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48108,
       "score": {
         "ft": [
           0,
@@ -98,7 +118,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +131,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44482,
       "score": {
         "ft": [
           0,
@@ -118,7 +139,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +152,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32372,
       "score": {
         "ft": [
           2,
@@ -138,7 +160,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ian-storey-moore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1972-09-06-oxford-united-a",
+      "date": "1972-09-06",
+      "competition": "league-cup",
+      "round": "Round 2",
+      "opponent": "Oxford United",
+      "opponentId": "oxford-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 16560,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +220,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37073,
       "score": {
         "ft": [
           0,
@@ -158,7 +228,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1972-09-12-oxford-united-h",
+      "date": "1972-09-12",
+      "competition": "league-cup",
+      "round": "Round 2 Replay",
+      "opponent": "Oxford United",
+      "opponentId": "oxford-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 21486,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ian-storey-moore",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +280,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34049,
       "score": {
         "ft": [
           0,
@@ -178,7 +288,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +301,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48255,
       "score": {
         "ft": [
           3,
@@ -198,8 +309,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wyn-davies",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ian-storey-moore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-09-30-sheffield-united-a",
@@ -210,7 +340,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37347,
       "score": {
         "ft": [
           0,
@@ -218,7 +348,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1972-10-03-bristol-rovers-a",
+      "date": "1972-10-03",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Bristol Rovers",
+      "opponentId": "bristol-rovers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 33597,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +390,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39209,
       "score": {
         "ft": [
           2,
@@ -238,7 +398,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ian-storey-moore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1972-10-11-bristol-rovers-h",
+      "date": "1972-10-11",
+      "competition": "league-cup",
+      "round": "Round 3 Replay",
+      "opponent": "Bristol Rovers",
+      "opponentId": "bristol-rovers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 29348,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +453,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52104,
       "score": {
         "ft": [
           1,
@@ -258,8 +461,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ted-macdougall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-10-21-newcastle-united-a",
@@ -270,7 +482,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38170,
       "score": {
         "ft": [
           1,
@@ -278,8 +490,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-10-28-tottenham-hotspur-h",
@@ -290,7 +511,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52497,
       "score": {
         "ft": [
           1,
@@ -298,8 +519,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-11-04-leicester-city-a",
@@ -310,7 +540,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32575,
       "score": {
         "ft": [
           2,
@@ -318,8 +548,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "wyn-davies",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-11-11-liverpool-h",
@@ -330,7 +574,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53944,
       "score": {
         "ft": [
           2,
@@ -338,8 +582,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wyn-davies",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ted-macdougall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-11-18-manchester-city-a",
@@ -350,7 +608,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52086,
       "score": {
         "ft": [
           0,
@@ -358,7 +616,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +629,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36073,
       "score": {
         "ft": [
           2,
@@ -378,8 +637,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wyn-davies",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ted-macdougall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-12-02-norwich-city-a",
@@ -390,7 +663,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35913,
       "score": {
         "ft": [
           2,
@@ -398,8 +671,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ted-macdougall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ian-storey-moore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-12-09-stoke-city-h",
@@ -410,7 +697,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41347,
       "score": {
         "ft": [
           0,
@@ -418,7 +705,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +718,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39484,
       "score": {
         "ft": [
           0,
@@ -438,7 +726,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +739,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46382,
       "score": {
         "ft": [
           1,
@@ -458,8 +747,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ted-macdougall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1972-12-26-derby-county-a",
@@ -470,7 +768,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35098,
       "score": {
         "ft": [
           1,
@@ -478,8 +776,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ian-storey-moore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-01-06-arsenal-a",
@@ -490,7 +797,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51194,
       "score": {
         "ft": [
           1,
@@ -498,8 +805,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-01-13-wolverhampton-wanderers-a",
@@ -510,7 +826,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40005,
       "score": {
         "ft": [
           0,
@@ -519,7 +835,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -532,7 +849,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50878,
       "score": {
         "ft": [
           2,
@@ -540,8 +857,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-01-24-everton-h",
@@ -552,7 +883,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58970,
       "score": {
         "ft": [
           0,
@@ -560,7 +891,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -572,7 +904,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42767,
       "score": {
         "ft": [
           1,
@@ -580,8 +912,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jim-holton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-02-10-wolverhampton-wanderers-h",
@@ -592,7 +933,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52089,
       "score": {
         "ft": [
           2,
@@ -600,8 +941,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-02-17-ipswich-town-a",
@@ -612,7 +967,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31918,
       "score": {
         "ft": [
           1,
@@ -620,8 +975,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-03-03-west-bromwich-albion-h",
@@ -632,7 +996,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46735,
       "score": {
         "ft": [
           2,
@@ -640,8 +1004,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-03-10-birmingham-city-a",
@@ -652,7 +1030,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51278,
       "score": {
         "ft": [
           1,
@@ -660,8 +1038,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-03-17-newcastle-united-h",
@@ -672,7 +1059,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48426,
       "score": {
         "ft": [
           2,
@@ -680,8 +1067,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jim-holton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mick-martin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-03-24-tottenham-hotspur-a",
@@ -692,7 +1093,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49751,
       "score": {
         "ft": [
           1,
@@ -700,8 +1101,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-graham",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-03-31-southampton-a",
@@ -712,7 +1122,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23161,
       "score": {
         "ft": [
           2,
@@ -720,8 +1130,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jim-holton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-04-07-norwich-city-h",
@@ -732,7 +1156,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48593,
       "score": {
         "ft": [
           1,
@@ -740,8 +1164,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mick-martin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-04-11-crystal-palace-h",
@@ -752,7 +1185,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46891,
       "score": {
         "ft": [
           2,
@@ -760,8 +1193,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-04-14-stoke-city-a",
@@ -772,7 +1219,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37051,
       "score": {
         "ft": [
           2,
@@ -780,8 +1227,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-04-18-leeds-united-a",
@@ -792,7 +1253,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45450,
       "score": {
         "ft": [
           1,
@@ -800,8 +1261,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "trevor-anderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-04-21-manchester-city-h",
@@ -812,7 +1282,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 61676,
       "score": {
         "ft": [
           0,
@@ -820,7 +1290,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -832,7 +1303,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57280,
       "score": {
         "ft": [
           1,
@@ -840,8 +1311,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1973-04-28-chelsea-a",
@@ -852,7 +1332,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44184,
       "score": {
         "ft": [
           0,
@@ -860,7 +1340,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

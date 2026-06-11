@@ -10,7 +10,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43629,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-08-27-arsenal-a",
@@ -30,7 +44,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58831,
       "score": {
         "ft": [
           1,
@@ -38,8 +52,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-08-30-manchester-city-a",
@@ -50,7 +73,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56140,
       "score": {
         "ft": [
           1,
@@ -58,8 +81,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-09-03-arsenal-h",
@@ -70,7 +102,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39193,
       "score": {
         "ft": [
           0,
@@ -78,7 +110,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +123,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37278,
       "score": {
         "ft": [
           0,
@@ -98,7 +131,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +144,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20226,
       "score": {
         "ft": [
           3,
@@ -118,8 +152,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-09-13-bolton-wanderers-h",
@@ -130,7 +183,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40531,
       "score": {
         "ft": [
           1,
@@ -138,8 +191,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-09-20-aston-villa-a",
@@ -150,7 +212,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43490,
       "score": {
         "ft": [
           3,
@@ -158,7 +220,71 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1952-09-24-newcastle-united-h",
+      "date": "1952-09-24",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 11381,
+      "score": {
+        "ft": [
+          4,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Roger Byrne (og)"
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +296,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28967,
       "score": {
         "ft": [
           0,
@@ -178,7 +304,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +317,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40132,
       "score": {
         "ft": [
           2,
@@ -198,8 +325,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-10-11-stoke-city-h",
@@ -210,7 +351,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28968,
       "score": {
         "ft": [
           0,
@@ -218,7 +359,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +372,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33502,
       "score": {
         "ft": [
           5,
@@ -238,8 +380,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-10-25-burnley-h",
@@ -250,7 +421,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36913,
       "score": {
         "ft": [
           1,
@@ -258,8 +429,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-11-01-tottenham-hotspur-a",
@@ -270,7 +450,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44300,
       "score": {
         "ft": [
           2,
@@ -278,8 +458,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-11-08-sheffield-wednesday-h",
@@ -290,7 +484,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48571,
       "score": {
         "ft": [
           1,
@@ -298,8 +492,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-11-15-cardiff-city-a",
@@ -310,7 +513,7 @@
       "opponentId": "cardiff-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40096,
       "score": {
         "ft": [
           2,
@@ -318,8 +521,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-11-22-newcastle-united-h",
@@ -330,7 +547,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33528,
       "score": {
         "ft": [
           2,
@@ -338,8 +555,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-11-29-west-bromwich-albion-a",
@@ -350,7 +581,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23499,
       "score": {
         "ft": [
           1,
@@ -358,8 +589,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-12-06-middlesbrough-h",
@@ -370,7 +610,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27617,
       "score": {
         "ft": [
           3,
@@ -378,8 +618,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-12-13-liverpool-a",
@@ -390,7 +649,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34450,
       "score": {
         "ft": [
           2,
@@ -398,8 +657,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-12-20-chelsea-a",
@@ -410,7 +683,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23261,
       "score": {
         "ft": [
           3,
@@ -418,8 +691,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-doherty",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-doherty",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1952-12-25-blackpool-a",
@@ -430,7 +722,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27778,
       "score": {
         "ft": [
           0,
@@ -438,7 +730,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +743,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48077,
       "score": {
         "ft": [
           2,
@@ -458,8 +751,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-carey",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-01-01-derby-county-h",
@@ -470,7 +777,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34813,
       "score": {
         "ft": [
           1,
@@ -478,8 +785,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-01-03-manchester-city-h",
@@ -490,7 +806,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47883,
       "score": {
         "ft": [
           1,
@@ -498,8 +814,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-01-10-millwall-a",
@@ -510,7 +835,7 @@
       "opponentId": "millwall",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35652,
       "score": {
         "ft": [
           1,
@@ -519,9 +844,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-01-17-portsmouth-h",
@@ -532,7 +866,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32341,
       "score": {
         "ft": [
           1,
@@ -540,8 +874,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-01-24-bolton-wanderers-a",
@@ -552,7 +895,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43638,
       "score": {
         "ft": [
           1,
@@ -560,8 +903,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-01-31-walthamstow-avenue-h",
@@ -572,7 +924,7 @@
       "opponentId": "walthamstow-avenue",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34748,
       "score": {
         "ft": [
           1,
@@ -581,9 +933,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-02-05-walthamstow-avenue-a",
@@ -594,7 +955,7 @@
       "opponentId": "walthamstow-avenue",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49119,
       "score": {
         "ft": [
           5,
@@ -603,9 +964,39 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Roger Byrne (og)"
+        },
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-02-07-aston-villa-h",
@@ -616,7 +1007,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34339,
       "score": {
         "ft": [
           3,
@@ -624,8 +1015,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-02-14-everton-a",
@@ -636,7 +1046,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 77920,
       "score": {
         "ft": [
           1,
@@ -645,9 +1055,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-02-18-sunderland-a",
@@ -658,7 +1077,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24263,
       "score": {
         "ft": [
           2,
@@ -666,8 +1085,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eddie-lewis",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-02-21-wolverhampton-wanderers-h",
@@ -678,7 +1111,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38269,
       "score": {
         "ft": [
           0,
@@ -686,7 +1119,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -698,7 +1132,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30219,
       "score": {
         "ft": [
           1,
@@ -706,8 +1140,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-03-07-preston-north-end-h",
@@ -718,7 +1161,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52590,
       "score": {
         "ft": [
           5,
@@ -726,8 +1169,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-03-14-burnley-a",
@@ -738,7 +1210,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45682,
       "score": {
         "ft": [
           1,
@@ -746,8 +1218,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Roger Byrne (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-03-25-tottenham-hotspur-h",
@@ -758,7 +1240,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18384,
       "score": {
         "ft": [
           3,
@@ -766,8 +1248,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-03-28-sheffield-wednesday-a",
@@ -778,7 +1279,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36509,
       "score": {
         "ft": [
           0,
@@ -786,7 +1287,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -798,7 +1300,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41814,
       "score": {
         "ft": [
           2,
@@ -806,8 +1308,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-04-04-cardiff-city-h",
@@ -818,7 +1334,7 @@
       "opponentId": "cardiff-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37163,
       "score": {
         "ft": [
           1,
@@ -826,8 +1342,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Roger Byrne (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-04-06-charlton-athletic-h",
@@ -838,7 +1364,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30105,
       "score": {
         "ft": [
           3,
@@ -846,8 +1372,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-04-11-newcastle-united-a",
@@ -858,7 +1403,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38970,
       "score": {
         "ft": [
           2,
@@ -866,8 +1411,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-04-18-west-bromwich-albion-h",
@@ -878,7 +1437,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31380,
       "score": {
         "ft": [
           2,
@@ -886,8 +1445,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-04-20-liverpool-h",
@@ -898,7 +1471,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20869,
       "score": {
         "ft": [
           3,
@@ -906,8 +1479,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1953-04-25-middlesbrough-a",
@@ -918,7 +1510,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34344,
       "score": {
         "ft": [
           0,
@@ -926,7 +1518,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

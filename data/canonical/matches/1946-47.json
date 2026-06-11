@@ -10,7 +10,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41025,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-09-04-chelsea-a",
@@ -30,7 +44,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27750,
       "score": {
         "ft": [
           3,
@@ -38,8 +52,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-09-07-charlton-athletic-a",
@@ -50,7 +83,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44088,
       "score": {
         "ft": [
           3,
@@ -58,8 +91,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-09-11-liverpool-h",
@@ -70,7 +123,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41657,
       "score": {
         "ft": [
           5,
@@ -78,8 +131,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-09-14-middlesbrough-h",
@@ -90,7 +172,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 65112,
       "score": {
         "ft": [
           1,
@@ -98,8 +180,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-09-18-chelsea-h",
@@ -110,7 +201,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30275,
       "score": {
         "ft": [
           1,
@@ -118,8 +209,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "allenby-chilton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-09-21-stoke-city-a",
@@ -130,7 +230,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41699,
       "score": {
         "ft": [
           2,
@@ -138,8 +238,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-09-28-arsenal-h",
@@ -150,7 +264,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62718,
       "score": {
         "ft": [
           5,
@@ -158,8 +272,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-wrigglesworth",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-10-05-preston-north-end-h",
@@ -170,7 +313,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55395,
       "score": {
         "ft": [
           1,
@@ -178,8 +321,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-wrigglesworth",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-10-12-sheffield-united-a",
@@ -190,7 +342,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35543,
       "score": {
         "ft": [
           2,
@@ -198,8 +350,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-10-19-blackpool-a",
@@ -210,7 +376,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26307,
       "score": {
         "ft": [
           1,
@@ -218,8 +384,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-10-26-sunderland-h",
@@ -230,7 +405,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48385,
       "score": {
         "ft": [
           0,
@@ -238,7 +413,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +426,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53668,
       "score": {
         "ft": [
           0,
@@ -258,7 +434,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +447,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57340,
       "score": {
         "ft": [
           4,
@@ -278,8 +455,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-11-16-everton-a",
@@ -290,7 +491,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45832,
       "score": {
         "ft": [
           2,
@@ -298,8 +499,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-11-23-huddersfield-town-h",
@@ -310,7 +525,7 @@
       "opponentId": "huddersfield-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39216,
       "score": {
         "ft": [
           5,
@@ -318,8 +533,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-11-30-wolverhampton-wanderers-a",
@@ -330,7 +574,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46704,
       "score": {
         "ft": [
           2,
@@ -338,8 +582,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-12-07-brentford-h",
@@ -350,7 +608,7 @@
       "opponentId": "brentford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31962,
       "score": {
         "ft": [
           4,
@@ -358,8 +616,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-12-14-blackburn-rovers-a",
@@ -370,7 +652,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21455,
       "score": {
         "ft": [
           1,
@@ -378,8 +660,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-12-25-bolton-wanderers-a",
@@ -390,7 +681,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28505,
       "score": {
         "ft": [
           2,
@@ -398,8 +689,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-12-26-bolton-wanderers-h",
@@ -410,7 +715,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57186,
       "score": {
         "ft": [
           1,
@@ -418,8 +723,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-12-28-grimsby-town-a",
@@ -430,7 +744,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17183,
       "score": {
         "ft": [
           0,
@@ -438,7 +752,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +765,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43406,
       "score": {
         "ft": [
           4,
@@ -458,8 +773,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ted-buckle",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-01-11-bradford-park-avenue-a",
@@ -470,7 +809,7 @@
       "opponentId": "bradford-park-avenue",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26990,
       "score": {
         "ft": [
           3,
@@ -479,9 +818,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ted-buckle",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-01-18-middlesbrough-a",
@@ -492,7 +850,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37435,
       "score": {
         "ft": [
           4,
@@ -500,8 +858,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ted-buckle",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-01-25-nottingham-forest-h",
@@ -512,7 +894,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34059,
       "score": {
         "ft": [
           0,
@@ -521,7 +903,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -534,7 +917,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29415,
       "score": {
         "ft": [
           2,
@@ -542,8 +925,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-02-05-stoke-city-h",
@@ -554,7 +951,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8456,
       "score": {
         "ft": [
           1,
@@ -562,8 +959,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ted-buckle",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-02-22-blackpool-h",
@@ -574,7 +980,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29993,
       "score": {
         "ft": [
           3,
@@ -582,8 +988,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-03-01-sunderland-a",
@@ -594,7 +1019,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25038,
       "score": {
         "ft": [
           1,
@@ -602,8 +1027,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-03-08-aston-villa-h",
@@ -614,7 +1048,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36965,
       "score": {
         "ft": [
           2,
@@ -622,8 +1056,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-03-15-derby-county-a",
@@ -634,7 +1082,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19579,
       "score": {
         "ft": [
           3,
@@ -642,8 +1090,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-03-22-everton-h",
@@ -654,7 +1121,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43441,
       "score": {
         "ft": [
           3,
@@ -662,8 +1129,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-warner",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-03-29-huddersfield-town-a",
@@ -674,7 +1160,7 @@
       "opponentId": "huddersfield-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18509,
       "score": {
         "ft": [
           2,
@@ -682,8 +1168,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-04-05-wolverhampton-wanderers-h",
@@ -694,7 +1194,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 66967,
       "score": {
         "ft": [
           3,
@@ -702,8 +1202,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-04-07-leeds-united-h",
@@ -714,7 +1233,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41772,
       "score": {
         "ft": [
           3,
@@ -722,8 +1241,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-04-08-leeds-united-a",
@@ -734,7 +1272,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15528,
       "score": {
         "ft": [
           2,
@@ -742,8 +1280,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronnie-burke",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-mcglen",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-04-12-brentford-a",
@@ -754,7 +1306,7 @@
       "opponentId": "brentford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21714,
       "score": {
         "ft": [
           0,
@@ -762,7 +1314,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -774,7 +1327,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46196,
       "score": {
         "ft": [
           4,
@@ -782,8 +1335,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-04-26-portsmouth-a",
@@ -794,7 +1372,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30623,
       "score": {
         "ft": [
           1,
@@ -802,8 +1380,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-05-03-liverpool-a",
@@ -814,7 +1401,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48800,
       "score": {
         "ft": [
           0,
@@ -822,7 +1409,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -834,7 +1422,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23278,
       "score": {
         "ft": [
           1,
@@ -842,8 +1430,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-05-17-portsmouth-h",
@@ -854,7 +1451,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37614,
       "score": {
         "ft": [
           3,
@@ -862,8 +1459,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-mitten",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1947-05-26-sheffield-united-h",
@@ -874,7 +1490,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34059,
       "score": {
         "ft": [
           6,
@@ -882,8 +1498,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-morris",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

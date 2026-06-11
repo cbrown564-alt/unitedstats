@@ -10,7 +10,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44042,
       "score": {
         "ft": [
           1,
@@ -18,8 +18,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-08-23-liverpool-a",
@@ -30,7 +39,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30211,
       "score": {
         "ft": [
           1,
@@ -38,8 +47,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-08-26-bolton-wanderers-a",
@@ -50,7 +68,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40431,
       "score": {
         "ft": [
           0,
@@ -58,7 +76,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +89,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34835,
       "score": {
         "ft": [
           1,
@@ -78,8 +97,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-09-02-blackpool-h",
@@ -90,7 +118,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53260,
       "score": {
         "ft": [
           1,
@@ -98,8 +126,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Tommy Bogan (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-09-04-aston-villa-a",
@@ -110,7 +148,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42724,
       "score": {
         "ft": [
           3,
@@ -118,8 +156,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-09-09-tottenham-hotspur-a",
@@ -130,7 +187,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60621,
       "score": {
         "ft": [
           0,
@@ -138,7 +195,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +208,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33021,
       "score": {
         "ft": [
           0,
@@ -158,7 +216,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +229,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36619,
       "score": {
         "ft": [
           3,
@@ -178,8 +237,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-delaney",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-09-23-middlesbrough-a",
@@ -190,7 +268,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48051,
       "score": {
         "ft": [
           2,
@@ -198,8 +276,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-09-30-wolverhampton-wanderers-a",
@@ -210,7 +302,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45898,
       "score": {
         "ft": [
           0,
@@ -218,7 +310,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +323,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40651,
       "score": {
         "ft": [
           3,
@@ -238,8 +331,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-mcshane",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-10-14-arsenal-a",
@@ -250,7 +362,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 66150,
       "score": {
         "ft": [
           0,
@@ -258,7 +370,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +383,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41842,
       "score": {
         "ft": [
           0,
@@ -278,7 +391,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +404,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51142,
       "score": {
         "ft": [
           4,
@@ -298,8 +412,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-11-04-burnley-h",
@@ -310,7 +448,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39454,
       "score": {
         "ft": [
           1,
@@ -318,8 +456,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-mcshane",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-11-11-chelsea-a",
@@ -330,7 +477,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51882,
       "score": {
         "ft": [
           0,
@@ -338,7 +485,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +498,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30031,
       "score": {
         "ft": [
           0,
@@ -358,7 +506,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +519,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28146,
       "score": {
         "ft": [
           1,
@@ -378,8 +527,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-birch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-12-02-newcastle-united-h",
@@ -390,7 +548,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34502,
       "score": {
         "ft": [
           1,
@@ -398,8 +556,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-birch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-12-09-huddersfield-town-a",
@@ -410,7 +577,7 @@
       "opponentId": "huddersfield-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26713,
       "score": {
         "ft": [
           3,
@@ -418,8 +585,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "cliff-birkett",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-12-16-fulham-a",
@@ -430,7 +616,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19649,
       "score": {
         "ft": [
           2,
@@ -438,8 +624,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-12-23-bolton-wanderers-h",
@@ -450,7 +650,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35382,
       "score": {
         "ft": [
           2,
@@ -458,8 +658,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-12-25-sunderland-a",
@@ -470,7 +684,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41215,
       "score": {
         "ft": [
           1,
@@ -478,8 +692,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1950-12-26-sunderland-h",
@@ -490,7 +713,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35176,
       "score": {
         "ft": [
           3,
@@ -498,8 +721,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Tommy Bogan (og)"
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Tommy Bogan (og)"
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-01-06-oldham-athletic-h",
@@ -510,7 +754,7 @@
       "opponentId": "oldham-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37161,
       "score": {
         "ft": [
           4,
@@ -519,9 +763,34 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-birch",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-01-13-tottenham-hotspur-h",
@@ -532,7 +801,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43283,
       "score": {
         "ft": [
           2,
@@ -540,8 +809,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-birch",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-01-20-charlton-athletic-a",
@@ -552,7 +835,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31978,
       "score": {
         "ft": [
           2,
@@ -560,8 +843,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "cliff-birkett",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-01-27-leeds-united-h",
@@ -572,7 +869,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55434,
       "score": {
         "ft": [
           4,
@@ -581,9 +878,33 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-02-03-middlesbrough-h",
@@ -594,7 +915,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44633,
       "score": {
         "ft": [
           1,
@@ -602,8 +923,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-02-10-arsenal-h",
@@ -614,7 +944,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55058,
       "score": {
         "ft": [
           1,
@@ -623,9 +953,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-02-17-wolverhampton-wanderers-h",
@@ -636,7 +975,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42022,
       "score": {
         "ft": [
           2,
@@ -644,8 +983,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-birch",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-02-24-birmingham-city-a",
@@ -678,7 +1031,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25693,
       "score": {
         "ft": [
           4,
@@ -686,8 +1039,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-mcshane",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-03-03-arsenal-h",
@@ -698,7 +1075,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46202,
       "score": {
         "ft": [
           3,
@@ -706,8 +1083,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-03-10-portsmouth-a",
@@ -718,7 +1114,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33148,
       "score": {
         "ft": [
           0,
@@ -726,7 +1122,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -738,7 +1135,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29317,
       "score": {
         "ft": [
           3,
@@ -746,8 +1143,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-03-23-derby-county-h",
@@ -758,7 +1174,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42009,
       "score": {
         "ft": [
           2,
@@ -766,8 +1182,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-03-24-burnley-a",
@@ -778,7 +1208,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36656,
       "score": {
         "ft": [
           2,
@@ -786,8 +1216,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-mcshane",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-03-26-derby-county-a",
@@ -798,7 +1242,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25860,
       "score": {
         "ft": [
           4,
@@ -806,8 +1250,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-03-31-chelsea-h",
@@ -818,7 +1286,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25779,
       "score": {
         "ft": [
           4,
@@ -826,8 +1294,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-mcshane",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-04-07-stoke-city-a",
@@ -838,7 +1330,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25690,
       "score": {
         "ft": [
           0,
@@ -846,7 +1338,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -858,7 +1351,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24764,
       "score": {
         "ft": [
           3,
@@ -866,8 +1359,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-04-21-newcastle-united-a",
@@ -878,7 +1390,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45209,
       "score": {
         "ft": [
           2,
@@ -886,8 +1398,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-04-28-huddersfield-town-h",
@@ -898,7 +1424,7 @@
       "opponentId": "huddersfield-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25560,
       "score": {
         "ft": [
           6,
@@ -906,8 +1432,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-sr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-mcshane",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-mcshane",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1951-05-05-blackpool-a",
@@ -918,7 +1478,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22864,
       "score": {
         "ft": [
           1,
@@ -926,8 +1486,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

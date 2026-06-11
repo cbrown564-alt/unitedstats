@@ -10,7 +10,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75115,
       "score": {
         "ft": [
           5,
@@ -18,8 +18,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 8
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 14,
+          "detail": "Ian Pearce (og)"
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 19
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2006-08-23-charlton-athletic-a",
@@ -30,7 +55,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25422,
       "score": {
         "ft": [
           3,
@@ -38,8 +63,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2006-08-26-watford-a",
@@ -50,7 +94,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19453,
       "score": {
         "ft": [
           2,
@@ -58,8 +102,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mikael-silvestre",
+          "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2006-09-09-tottenham-hotspur-h",
@@ -70,7 +128,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75453,
       "score": {
         "ft": [
           1,
@@ -78,7 +136,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 9
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2006-09-13-celtic-h",
+      "date": "2006-09-13",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Celtic",
+      "opponentId": "celtic",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74031,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "louis-saha",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 47
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +191,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75595,
       "score": {
         "ft": [
           0,
@@ -98,7 +199,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +212,7 @@
       "opponentId": "reading",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24098,
       "score": {
         "ft": [
           1,
@@ -118,7 +220,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 73
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2006-09-26-benfica-a",
+      "date": "2006-09-26",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "S.L. Benfica",
+      "opponentId": "benfica",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 61000,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 60
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +270,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75664,
       "score": {
         "ft": [
           2,
@@ -138,8 +278,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 41
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2006-10-14-wigan-athletic-a",
@@ -150,7 +299,7 @@
       "opponentId": "wigan-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20631,
       "score": {
         "ft": [
           3,
@@ -158,7 +307,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 66
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2006-10-17-fc-copenhagen-h",
+      "date": "2006-10-17",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "F.C. Copenhagen",
+      "opponentId": "fc-copenhagen",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72020,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "kieran-richardson",
+          "minute": 83
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +377,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75828,
       "score": {
         "ft": [
           2,
@@ -178,7 +385,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "rio-ferdinand",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2006-10-25-crewe-alexandra-a",
+      "date": "2006-10-25",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Crewe Alexandra",
+      "opponentId": "crewe-alexandra",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 10046,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "kieran-lee",
+          "minute": 119
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +445,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27229,
       "score": {
         "ft": [
           4,
@@ -198,7 +453,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2006-11-01-fc-copenhagen-a",
+      "date": "2006-11-01",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "F.C. Copenhagen",
+      "opponentId": "fc-copenhagen",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +500,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76004,
       "score": {
         "ft": [
           3,
@@ -218,7 +508,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "louis-saha",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2006-11-07-southend-united-a",
+      "date": "2006-11-07",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Southend United",
+      "opponentId": "southend-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 11532,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +560,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26162,
       "score": {
         "ft": [
           1,
@@ -238,8 +568,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2006-11-18-sheffield-united-a",
@@ -250,7 +589,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32584,
       "score": {
         "ft": [
           2,
@@ -258,7 +597,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 30
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2006-11-21-celtic-a",
+      "date": "2006-11-21",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Celtic",
+      "opponentId": "celtic",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 60632,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +639,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75948,
       "score": {
         "ft": [
           1,
@@ -278,8 +647,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 29
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2006-11-29-everton-h",
@@ -290,7 +668,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75723,
       "score": {
         "ft": [
           3,
@@ -298,8 +676,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "patrice-evra",
+          "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2006-12-02-middlesbrough-a",
@@ -310,7 +707,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31238,
       "score": {
         "ft": [
           2,
@@ -318,7 +715,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "louis-saha",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2006-12-06-benfica-h",
+      "date": "2006-12-06",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "S.L. Benfica",
+      "opponentId": "benfica",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74955,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 75
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +780,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75858,
       "score": {
         "ft": [
           3,
@@ -338,8 +788,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2006-12-17-west-ham-united-a",
@@ -350,7 +819,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34966,
       "score": {
         "ft": [
           0,
@@ -358,7 +827,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +840,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42551,
       "score": {
         "ft": [
           3,
@@ -378,8 +848,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2006-12-26-wigan-athletic-h",
@@ -390,7 +874,7 @@
       "opponentId": "wigan-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76018,
       "score": {
         "ft": [
           3,
@@ -398,8 +882,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2006-12-30-reading-h",
@@ -410,7 +908,7 @@
       "opponentId": "reading",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75910,
       "score": {
         "ft": [
           3,
@@ -418,8 +916,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-01-01-newcastle-united-a",
@@ -430,7 +942,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52302,
       "score": {
         "ft": [
           2,
@@ -438,8 +950,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 40
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-01-07-aston-villa-h",
@@ -450,7 +971,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74924,
       "score": {
         "ft": [
           2,
@@ -459,9 +980,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrik-larsson",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-01-13-aston-villa-h",
@@ -472,7 +1007,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76078,
       "score": {
         "ft": [
           3,
@@ -480,8 +1015,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 35
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-01-21-arsenal-a",
@@ -492,7 +1046,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60128,
       "score": {
         "ft": [
           1,
@@ -500,8 +1054,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-01-27-portsmouth-h",
@@ -512,7 +1075,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 71137,
       "score": {
         "ft": [
           2,
@@ -521,9 +1084,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-01-31-watford-h",
@@ -534,7 +1106,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76032,
       "score": {
         "ft": [
           4,
@@ -542,8 +1114,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 20
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 60,
+          "detail": "Lloyd Doyley (og)"
+        },
+        {
+          "type": "goal",
+          "player": "henrik-larsson",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-02-04-tottenham-hotspur-a",
@@ -554,7 +1151,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36146,
       "score": {
         "ft": [
           4,
@@ -562,8 +1159,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-02-10-charlton-athletic-h",
@@ -574,7 +1195,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75883,
       "score": {
         "ft": [
           2,
@@ -582,8 +1203,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-02-17-reading-h",
@@ -594,7 +1229,7 @@
       "opponentId": "reading",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 70608,
       "score": {
         "ft": [
           1,
@@ -603,9 +1238,47 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-02-20-lille-osc-a",
+      "date": "2007-02-20",
+      "competition": "champions-league",
+      "round": "First knockout round First leg",
+      "opponent": "Lille OSC",
+      "opponentId": "lille-osc",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41000,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 83
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2007-02-24-fulham-a",
@@ -616,7 +1289,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24459,
       "score": {
         "ft": [
           2,
@@ -624,8 +1297,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-02-27-reading-a",
@@ -636,7 +1323,7 @@
       "opponentId": "reading",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23821,
       "score": {
         "ft": [
           3,
@@ -645,9 +1332,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "gabriel-heinze",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 4
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 6
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-03-03-liverpool-a",
@@ -658,7 +1364,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44403,
       "score": {
         "ft": [
           1,
@@ -666,7 +1372,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-03-07-lille-osc-h",
+      "date": "2007-03-07",
+      "competition": "champions-league",
+      "round": "First knockout round Second leg",
+      "opponent": "Lille OSC",
+      "opponentId": "lille-osc",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75182,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrik-larsson",
+          "minute": 72
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -678,7 +1422,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33308,
       "score": {
         "ft": [
           2,
@@ -687,9 +1431,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 23
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-03-17-bolton-wanderers-h",
@@ -700,7 +1458,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76058,
       "score": {
         "ft": [
           4,
@@ -708,8 +1466,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 17
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-03-19-middlesbrough-h",
@@ -720,7 +1492,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 61325,
       "score": {
         "ft": [
           1,
@@ -729,9 +1501,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-03-31-blackburn-rovers-h",
@@ -742,7 +1523,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76098,
       "score": {
         "ft": [
           4,
@@ -750,7 +1531,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 72
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 83
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-04-04-roma-a",
+      "date": "2007-04-04",
+      "competition": "champions-league",
+      "round": "Quarter-final First leg",
+      "opponent": "A.S. Roma",
+      "opponentId": "roma",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 77000,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 60
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -762,7 +1596,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20223,
       "score": {
         "ft": [
           1,
@@ -770,7 +1604,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-04-10-roma-h",
+      "date": "2007-04-10",
+      "competition": "champions-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "A.S. Roma",
+      "opponentId": "roma",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74476,
+      "score": {
+        "ft": [
+          7,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "patrice-evra",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -791,9 +1683,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Villa Park, Aston"
+      "notes": "Venue: Villa Park, Aston",
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "kieran-richardson",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-04-17-sheffield-united-h",
@@ -804,7 +1715,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75540,
       "score": {
         "ft": [
           2,
@@ -812,8 +1723,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 4
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-04-21-middlesbrough-h",
@@ -824,7 +1749,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75967,
       "score": {
         "ft": [
           1,
@@ -832,7 +1757,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "kieran-richardson",
+          "minute": 3
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-04-24-ac-milan-h",
+      "date": "2007-04-24",
+      "competition": "champions-league",
+      "round": "Semi-final First leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73820,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 59
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -844,7 +1812,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38610,
       "score": {
         "ft": [
           4,
@@ -852,7 +1820,53 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 61
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 68,
+          "detail": "Phil Neville (og)"
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 79
+        },
+        {
+          "type": "goal",
+          "player": "chris-eagles",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-05-02-ac-milan-a",
+      "date": "2007-05-02",
+      "competition": "champions-league",
+      "round": "Semi-final Second leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 78500,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -864,7 +1878,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47244,
       "score": {
         "ft": [
           1,
@@ -872,8 +1886,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 34
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-05-09-chelsea-a",
@@ -884,7 +1907,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41794,
       "score": {
         "ft": [
           0,
@@ -892,7 +1915,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -904,7 +1928,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75927,
       "score": {
         "ft": [
           0,
@@ -912,7 +1936,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {

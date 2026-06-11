@@ -2,6 +2,35 @@
   "season": "2013-14",
   "matches": [
     {
+      "id": "2013-08-11-wigan-athletic-n",
+      "date": "2013-08-11",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Wigan Athletic",
+      "opponentId": "wigan-athletic",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 80235,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 6
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2013-08-17-swansea-city-a",
       "date": "2013-08-17",
       "competition": "premier-league",
@@ -10,7 +39,7 @@
       "opponentId": "swansea-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20733,
       "score": {
         "ft": [
           4,
@@ -18,8 +47,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 36
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2013-08-26-chelsea-h",
@@ -30,7 +73,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75032,
       "score": {
         "ft": [
           0,
@@ -38,7 +81,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +94,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44411,
       "score": {
         "ft": [
           0,
@@ -58,7 +102,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +115,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75170,
       "score": {
         "ft": [
           2,
@@ -78,7 +123,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "robin-van-persie",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2013-09-17-bayer-04-leverkusen-h",
+      "date": "2013-09-17",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Bayer 04 Leverkusen",
+      "opponentId": "bayer-04-leverkusen",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74000,
+      "score": {
+        "ft": [
+          4,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 79
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +188,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47156,
       "score": {
         "ft": [
           1,
@@ -98,7 +196,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2013-09-25-liverpool-h",
+      "date": "2013-09-25",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 65701,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 46
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +246,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75042,
       "score": {
         "ft": [
           1,
@@ -118,7 +254,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2013-10-02-shakhtar-donetsk-a",
+      "date": "2013-10-02",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Shakhtar Donetsk",
+      "opponentId": "shakhtar-donetsk",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 51555,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 18
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +304,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45426,
       "score": {
         "ft": [
           2,
@@ -138,8 +312,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "adnan-januzaj",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2013-10-19-southampton-h",
@@ -150,7 +333,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75220,
       "score": {
         "ft": [
           1,
@@ -158,7 +341,46 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 26
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2013-10-23-real-sociedad-h",
+      "date": "2013-10-23",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Real Sociedad",
+      "opponentId": "real-sociedad",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74654,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 2,
+          "detail": "Iñigo Martínez (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +392,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75274,
       "score": {
         "ft": [
           3,
@@ -178,7 +400,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 78
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2013-10-29-norwich-city-h",
+      "date": "2013-10-29",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Norwich City",
+      "opponentId": "norwich-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 58663,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "javier-hernandez",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "phil-jones",
+          "minute": 88
+        },
+        {
+          "type": "goal",
+          "player": "fabio-pereira-da-silva",
+          "minute": 95
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +470,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25700,
       "score": {
         "ft": [
           3,
@@ -198,7 +478,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 22
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2013-11-05-real-sociedad-a",
+      "date": "2013-11-05",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Real Sociedad",
+      "opponentId": "real-sociedad",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 30998,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +530,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75138,
       "score": {
         "ft": [
           1,
@@ -218,8 +538,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2013-11-24-cardiff-city-a",
@@ -230,7 +559,7 @@
       "opponentId": "cardiff-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28016,
       "score": {
         "ft": [
           2,
@@ -238,7 +567,71 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "patrice-evra",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2013-11-27-bayer-04-leverkusen-a",
+      "date": "2013-11-27",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Bayer 04 Leverkusen",
+      "opponentId": "bayer-04-leverkusen",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29412,
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 22
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 30,
+          "detail": "Emir Spahić (og)"
+        },
+        {
+          "type": "goal",
+          "player": "jonny-evans",
+          "minute": 66
+        },
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 77
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +643,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35884,
       "score": {
         "ft": [
           2,
@@ -258,8 +651,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 32
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2013-12-04-everton-h",
@@ -270,7 +672,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75210,
       "score": {
         "ft": [
           0,
@@ -278,7 +680,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +693,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75233,
       "score": {
         "ft": [
           0,
@@ -298,7 +701,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2013-12-10-shakhtar-donetsk-h",
+      "date": "2013-12-10",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Shakhtar Donetsk",
+      "opponentId": "shakhtar-donetsk",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74506,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "phil-jones",
+          "minute": 67
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +743,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42682,
       "score": {
         "ft": [
           3,
@@ -318,7 +751,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "tom-cleverley",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2013-12-18-stoke-city-a",
+      "date": "2013-12-18",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Stoke City",
+      "opponentId": "stoke-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25928,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "patrice-evra",
+          "minute": 78
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +811,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75350,
       "score": {
         "ft": [
           3,
@@ -338,8 +819,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "adnan-januzaj",
+          "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2013-12-26-hull-city-a",
@@ -350,7 +850,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24826,
       "score": {
         "ft": [
           3,
@@ -358,8 +858,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 26
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 66,
+          "detail": "James Chester (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2013-12-28-norwich-city-a",
@@ -370,7 +890,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26851,
       "score": {
         "ft": [
           1,
@@ -378,8 +898,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2014-01-01-tottenham-hotspur-h",
@@ -390,7 +919,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75265,
       "score": {
         "ft": [
           1,
@@ -398,8 +927,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2014-01-05-swansea-city-h",
@@ -410,7 +948,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73910,
       "score": {
         "ft": [
           1,
@@ -419,9 +957,47 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 16
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2014-01-07-sunderland-a",
+      "date": "2014-01-07",
+      "competition": "league-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Sunderland",
+      "opponentId": "sunderland",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31547,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 51
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2014-01-11-swansea-city-h",
@@ -432,7 +1008,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75035,
       "score": {
         "ft": [
           2,
@@ -440,8 +1016,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2014-01-19-chelsea-a",
@@ -452,7 +1042,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41465,
       "score": {
         "ft": [
           1,
@@ -460,7 +1050,53 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2014-01-22-sunderland-h",
+      "date": "2014-01-22",
+      "competition": "league-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Sunderland",
+      "opponentId": "sunderland",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 71019,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": [
+          1,
+          2
+        ]
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jonny-evans",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 121
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -472,7 +1108,7 @@
       "opponentId": "cardiff-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75301,
       "score": {
         "ft": [
           2,
@@ -480,8 +1116,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2014-02-01-stoke-city-a",
@@ -492,7 +1142,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26547,
       "score": {
         "ft": [
           1,
@@ -500,8 +1150,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2014-02-09-fulham-h",
@@ -512,7 +1171,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74966,
       "score": {
         "ft": [
           2,
@@ -520,8 +1179,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 78
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2014-02-12-arsenal-a",
@@ -532,7 +1205,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60021,
       "score": {
         "ft": [
           0,
@@ -540,7 +1213,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +1226,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24571,
       "score": {
         "ft": [
           2,
@@ -560,7 +1234,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "robin-van-persie",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2014-02-25-olympiacos-a",
+      "date": "2014-02-25",
+      "competition": "champions-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Olympiacos",
+      "opponentId": "olympiacos",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29815,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -572,7 +1281,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26184,
       "score": {
         "ft": [
           3,
@@ -580,8 +1289,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "phil-jones",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2014-03-16-liverpool-h",
@@ -592,7 +1320,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75225,
       "score": {
         "ft": [
           0,
@@ -600,7 +1328,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2014-03-19-olympiacos-h",
+      "date": "2014-03-19",
+      "competition": "champions-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Olympiacos",
+      "opponentId": "olympiacos",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74662,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "robin-van-persie",
+          "minute": 25
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -612,7 +1370,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34237,
       "score": {
         "ft": [
           2,
@@ -620,8 +1378,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 8
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2014-03-25-manchester-city-h",
@@ -632,7 +1399,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75203,
       "score": {
         "ft": [
           0,
@@ -640,7 +1407,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -652,7 +1420,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75368,
       "score": {
         "ft": [
           4,
@@ -660,7 +1428,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2014-04-01-bayern-munich-h",
+      "date": "2014-04-01",
+      "competition": "champions-league",
+      "round": "Quarter-final First leg",
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75199,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 58
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -672,7 +1488,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52081,
       "score": {
         "ft": [
           4,
@@ -680,7 +1496,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 64
+        },
+        {
+          "type": "goal",
+          "player": "adnan-januzaj",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2014-04-09-bayern-munich-a",
+      "date": "2014-04-09",
+      "competition": "champions-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 67300,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "patrice-evra",
+          "minute": 57
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -692,7 +1556,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39436,
       "score": {
         "ft": [
           0,
@@ -700,7 +1564,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -712,7 +1577,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75208,
       "score": {
         "ft": [
           4,
@@ -720,8 +1585,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 63
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2014-05-03-sunderland-h",
@@ -732,7 +1611,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75347,
       "score": {
         "ft": [
           0,
@@ -740,7 +1619,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -752,7 +1632,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75341,
       "score": {
         "ft": [
           3,
@@ -760,8 +1640,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "james-wilson",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2014-05-11-southampton-a",
@@ -772,7 +1666,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31372,
       "score": {
         "ft": [
           1,
@@ -780,8 +1674,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 54
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

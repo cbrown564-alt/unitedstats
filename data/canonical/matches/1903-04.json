@@ -10,7 +10,7 @@
       "opponentId": "bristol-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1903-09-07-burnley-a",
@@ -30,7 +44,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           0,
@@ -38,7 +52,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +65,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -58,7 +73,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +86,7 @@
       "opponentId": "glossop",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           5,
@@ -78,8 +94,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1903-09-26-bradford-city-h",
@@ -90,7 +135,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           3,
@@ -98,8 +143,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dick-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-pegg",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1903-10-03-arsenal-a",
@@ -110,7 +174,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           0,
@@ -118,7 +182,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +195,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           4,
@@ -138,8 +203,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dick-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1903-10-17-lincoln-city-a",
@@ -150,7 +239,7 @@
       "opponentId": "lincoln-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           0,
@@ -158,7 +247,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +260,7 @@
       "opponentId": "stockport-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           3,
@@ -178,8 +268,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1903-11-07-bolton-wanderers-h",
@@ -190,7 +299,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           0,
@@ -198,7 +307,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +320,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -218,7 +328,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +341,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           4,
@@ -238,8 +349,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-duckworth",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1903-12-25-chesterfield-h",
@@ -250,7 +385,7 @@
       "opponentId": "chesterfield",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           3,
@@ -258,8 +393,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1903-12-26-burton-united-a",
@@ -270,7 +424,7 @@
       "opponentId": "burton-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           2,
@@ -278,8 +432,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-01-02-bristol-city-a",
@@ -290,7 +458,7 @@
       "opponentId": "bristol-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           1,
@@ -298,8 +466,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-01-09-port-vale-h",
@@ -310,7 +487,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           2,
@@ -318,8 +495,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-01-16-glossop-h",
@@ -330,7 +521,7 @@
       "opponentId": "glossop",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           3,
@@ -338,8 +529,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-01-23-bradford-city-a",
@@ -350,7 +560,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           3,
@@ -358,8 +568,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-downie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-01-30-arsenal-h",
@@ -370,7 +599,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           1,
@@ -378,8 +607,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-02-06-notts-county-a",
@@ -390,7 +628,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           3,
@@ -399,9 +637,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-02-10-notts-county-h",
@@ -412,7 +669,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           2,
@@ -421,9 +678,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-morrison",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-pegg",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-02-13-lincoln-city-h",
@@ -434,7 +705,7 @@
       "opponentId": "lincoln-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           2,
@@ -442,8 +713,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-02-20-sheffield-wednesday-a",
@@ -454,7 +739,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22051,
       "score": {
         "ft": [
           0,
@@ -463,7 +748,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -476,7 +762,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -484,8 +770,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-03-12-burnley-h",
@@ -496,7 +791,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14000,
       "score": {
         "ft": [
           3,
@@ -504,8 +799,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-03-19-preston-north-end-a",
@@ -516,7 +830,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           1,
@@ -524,8 +838,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-arkesden",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-03-26-grimsby-town-h",
@@ -536,7 +859,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           2,
@@ -544,8 +867,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-03-28-stockport-county-a",
@@ -556,7 +893,7 @@
       "opponentId": "stockport-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2500,
       "score": {
         "ft": [
           3,
@@ -564,8 +901,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "proctor-hall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-01-chesterfield-a",
@@ -576,7 +932,7 @@
       "opponentId": "chesterfield",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           2,
@@ -584,8 +940,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-bell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "proctor-hall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-02-leicester-city-a",
@@ -596,7 +966,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -604,8 +974,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-mccartney",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-05-barnsley-a",
@@ -616,7 +995,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           2,
@@ -624,8 +1003,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-09-blackpool-h",
@@ -636,7 +1029,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           3,
@@ -644,8 +1037,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-12-grimsby-town-a",
@@ -656,7 +1068,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           1,
@@ -664,8 +1076,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-16-gainsborough-trinity-a",
@@ -676,7 +1097,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -684,8 +1105,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-23-burton-united-h",
@@ -696,7 +1126,7 @@
       "opponentId": "burton-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           2,
@@ -704,8 +1134,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-grassam",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1904-04-25-bolton-wanderers-a",
@@ -716,7 +1160,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           0,
@@ -724,7 +1168,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -736,7 +1181,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           5,
@@ -744,8 +1189,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-bonthron",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-robertson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

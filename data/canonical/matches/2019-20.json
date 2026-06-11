@@ -10,7 +10,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73620,
       "score": {
         "ft": [
           4,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "daniel-james",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2019-08-19-wolverhampton-wanderers-a",
@@ -30,7 +49,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31314,
       "score": {
         "ft": [
           1,
@@ -38,8 +57,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-08-24-crystal-palace-h",
@@ -50,7 +78,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73454,
       "score": {
         "ft": [
           1,
@@ -58,8 +86,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "daniel-james",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-08-31-southampton-a",
@@ -70,7 +107,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30499,
       "score": {
         "ft": [
           1,
@@ -78,8 +115,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "daniel-james",
+          "minute": 10
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-09-14-leicester-city-h",
@@ -90,7 +136,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73689,
       "score": {
         "ft": [
           1,
@@ -98,7 +144,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 8
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-09-19-astana-h",
+      "date": "2019-09-19",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Astana",
+      "opponentId": "astana",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 50783,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 73
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +194,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59936,
       "score": {
         "ft": [
           0,
@@ -118,7 +202,40 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2019-09-25-rochdale-h",
+      "date": "2019-09-25",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Rochdale",
+      "opponentId": "rochdale",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 58314,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": [
+          5,
+          3
+        ]
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 68
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +247,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73201,
       "score": {
         "ft": [
           1,
@@ -138,7 +255,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-10-03-az-alkmaar-a",
+      "date": "2019-10-03",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "AZ Alkmaar",
+      "opponentId": "az-alkmaar",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13863,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +297,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51198,
       "score": {
         "ft": [
           0,
@@ -158,7 +305,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +318,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73737,
       "score": {
         "ft": [
           1,
@@ -178,7 +326,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 36
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-10-24-fk-partizan-a",
+      "date": "2019-10-24",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FK Partizan",
+      "opponentId": "fk-partizan",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25627,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "anthony-martial",
+          "minute": 43
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +376,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27108,
       "score": {
         "ft": [
           3,
@@ -198,8 +384,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 73
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-10-30-chelsea-a",
+      "date": "2019-10-30",
+      "competition": "league-cup",
+      "round": "Round of 16",
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 38645,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2019-11-02-bournemouth-a",
@@ -210,7 +449,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10669,
       "score": {
         "ft": [
           0,
@@ -218,7 +457,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2019-11-07-fk-partizan-h",
+      "date": "2019-11-07",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FK Partizan",
+      "opponentId": "fk-partizan",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 62955,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 49
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +509,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73556,
       "score": {
         "ft": [
           3,
@@ -238,8 +517,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andreas-pereira",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-11-24-sheffield-united-a",
@@ -250,7 +548,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32024,
       "score": {
         "ft": [
           3,
@@ -258,7 +556,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brandon-williams",
+          "minute": 72
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 77
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-11-28-astana-a",
+      "date": "2019-11-28",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Astana",
+      "opponentId": "astana",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 28949,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 10
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +616,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73381,
       "score": {
         "ft": [
           2,
@@ -278,8 +624,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 42,
+          "detail": "Tom Heaton (og)"
+        },
+        {
+          "type": "goal",
+          "player": "victor-lindelof",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-12-04-tottenham-hotspur-h",
@@ -290,7 +651,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73252,
       "score": {
         "ft": [
           2,
@@ -298,8 +659,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 7
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2019-12-07-manchester-city-a",
@@ -310,7 +680,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54403,
       "score": {
         "ft": [
           2,
@@ -318,7 +688,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 29
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-12-12-az-alkmaar-h",
+      "date": "2019-12-12",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "AZ Alkmaar",
+      "opponentId": "az-alkmaar",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 65773,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 58
+        },
+        {
+          "type": "pen-goal",
+          "player": "juan-mata",
+          "minute": 62
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +753,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73328,
       "score": {
         "ft": [
           1,
@@ -338,8 +761,62 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-12-18-colchester-united-h",
+      "date": "2019-12-18",
+      "competition": "league-cup",
+      "round": "Quarter-final",
+      "opponent": "Colchester United",
+      "opponentId": "colchester-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 57559,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 51
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 56,
+          "detail": "Ryan Jackson (og)"
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-12-22-watford-a",
@@ -350,7 +827,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21488,
       "score": {
         "ft": [
           0,
@@ -358,7 +835,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +848,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73206,
       "score": {
         "ft": [
           4,
@@ -378,8 +856,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 41
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2019-12-28-burnley-a",
@@ -390,7 +887,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21924,
       "score": {
         "ft": [
           2,
@@ -398,8 +895,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 95
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-01-01-arsenal-a",
@@ -410,7 +921,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60328,
       "score": {
         "ft": [
           0,
@@ -418,8 +929,66 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
+    },
+    {
+      "id": "2020-01-04-wolverhampton-wanderers-a",
+      "date": "2020-01-04",
+      "competition": "fa-cup",
+      "round": "Round 3",
+      "opponent": "Wolverhampton Wanderers",
+      "opponentId": "wolverhampton-wanderers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31381,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "ht": null,
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2020-01-07-manchester-city-h",
+      "date": "2020-01-07",
+      "competition": "league-cup",
+      "round": "Semi-final",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 69023,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "ht": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-01-11-norwich-city-h",
@@ -430,7 +999,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73271,
       "score": {
         "ft": [
           4,
@@ -438,8 +1007,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2020-01-15-wolverhampton-wanderers-h",
+      "date": "2020-01-15",
+      "competition": "fa-cup",
+      "round": "Round 3",
+      "opponent": "Wolverhampton Wanderers",
+      "opponentId": "wolverhampton-wanderers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67025,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-01-19-liverpool-a",
@@ -450,7 +1072,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52916,
       "score": {
         "ft": [
           0,
@@ -458,7 +1080,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -470,7 +1093,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73198,
       "score": {
         "ft": [
           0,
@@ -478,8 +1101,103 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
+    },
+    {
+      "id": "2020-01-26-tranmere-rovers-a",
+      "date": "2020-01-26",
+      "competition": "fa-cup",
+      "round": "Round 4",
+      "opponent": "Tranmere Rovers",
+      "opponentId": "tranmere-rovers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13779,
+      "score": {
+        "ft": [
+          6,
+          0
+        ],
+        "ht": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 10
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 13,
+          "detail": "Diogo Dalot (og)"
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "phil-jones",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 45
+        },
+        {
+          "type": "pen-goal",
+          "player": "mason-greenwood",
+          "minute": 56
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2020-01-29-manchester-city-a",
+      "date": "2020-01-29",
+      "competition": "league-cup",
+      "round": "Semi-final",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 51000,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nemanja-matic",
+          "minute": 35
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-02-01-wolverhampton-wanderers-h",
@@ -490,7 +1208,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73363,
       "score": {
         "ft": [
           0,
@@ -498,7 +1216,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -510,7 +1229,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40504,
       "score": {
         "ft": [
           2,
@@ -518,7 +1237,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2020-02-20-club-brugge-kv-a",
+      "date": "2020-02-20",
+      "competition": "europa-league",
+      "round": "Round of 32 First leg",
+      "opponent": "Club Brugge KV",
+      "opponentId": "club-brugge-kv",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 27006,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 36
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -530,7 +1292,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73347,
       "score": {
         "ft": [
           3,
@@ -538,7 +1300,70 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2020-02-27-club-brugge-kv-h",
+      "date": "2020-02-27",
+      "competition": "europa-league",
+      "round": "Round of 32 Second leg",
+      "opponent": "Club Brugge KV",
+      "opponentId": "club-brugge-kv",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 70397,
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "odion-ighalo",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 82
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -550,7 +1375,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39374,
       "score": {
         "ft": [
           1,
@@ -558,8 +1383,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 31
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2020-03-05-derby-county-a",
+      "date": "2020-03-05",
+      "competition": "fa-cup",
+      "round": "Round of 16",
+      "opponent": "Derby County",
+      "opponentId": "derby-county",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31379,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "ht": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "luke-shaw",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "odion-ighalo",
+          "minute": 41
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2020-03-08-manchester-city-h",
@@ -570,7 +1443,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73288,
       "score": {
         "ft": [
           2,
@@ -578,7 +1451,70 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 96
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2020-03-12-lask-a",
+      "date": "2020-03-12",
+      "competition": "europa-league",
+      "round": "Round of 16 First leg",
+      "opponent": "LASK",
+      "opponentId": "lask",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "odion-ighalo",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "daniel-james",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 92
+        },
+        {
+          "type": "goal",
+          "player": "andreas-pereira",
+          "minute": 93
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -598,8 +1534,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-06-24-sheffield-united-h",
@@ -618,8 +1563,57 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 7
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2020-06-27-norwich-city-a",
+      "date": "2020-06-27",
+      "competition": "fa-cup",
+      "round": "Quarter-final",
+      "opponent": "Norwich City",
+      "opponentId": "norwich-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "aet": true,
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "odion-ighalo",
+          "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 118
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-06-30-brighton-and-hove-albion-a",
@@ -638,8 +1632,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 29
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2020-07-04-bournemouth-h",
@@ -658,8 +1666,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 29
+        },
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2020-07-09-aston-villa-a",
@@ -678,8 +1710,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 45
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 58,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-07-13-southampton-h",
@@ -698,8 +1750,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 23
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-07-16-crystal-palace-a",
@@ -718,8 +1784,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2020-07-19-chelsea-n",
+      "date": "2020-07-19",
+      "competition": "fa-cup",
+      "round": "Semi-final",
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "N",
+      "stadium": "wembley",
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "ht": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-07-22-west-ham-united-h",
@@ -738,8 +1852,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 51
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2020-07-26-leicester-city-a",
@@ -758,7 +1881,113 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2020-08-05-lask-h",
+      "date": "2020-08-05",
+      "competition": "europa-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "LASK",
+      "opponentId": "lask",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2020-08-10-fc-copenhagen-n",
+      "date": "2020-08-10",
+      "competition": "europa-league",
+      "round": "Quarter-finals",
+      "opponent": "F.C. Copenhagen",
+      "opponentId": "fc-copenhagen",
+      "venue": "N",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 95
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2020-08-16-sevilla-n",
+      "date": "2020-08-16",
+      "competition": "europa-league",
+      "round": "Semi-finals",
+      "opponent": "Sevilla",
+      "opponentId": "sevilla",
+      "venue": "N",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 9
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     }
   ]

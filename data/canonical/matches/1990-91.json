@@ -2,6 +2,35 @@
   "season": "1990-91",
   "matches": [
     {
+      "id": "1990-08-18-liverpool-n",
+      "date": "1990-08-18",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 66558,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 44
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1990-08-25-coventry-city-h",
       "date": "1990-08-25",
       "competition": "first-division",
@@ -10,7 +39,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46715,
       "score": {
         "ft": [
           2,
@@ -18,8 +47,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1990-08-28-leeds-united-a",
@@ -30,7 +73,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29174,
       "score": {
         "ft": [
           0,
@@ -38,7 +81,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +94,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26105,
       "score": {
         "ft": [
           1,
@@ -58,8 +102,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1990-09-04-luton-town-a",
@@ -70,7 +123,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12576,
       "score": {
         "ft": [
           1,
@@ -78,8 +131,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 24
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1990-09-08-queens-park-rangers-h",
@@ -90,7 +152,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43427,
       "score": {
         "ft": [
           3,
@@ -98,8 +160,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1990-09-16-liverpool-a",
@@ -110,7 +186,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35726,
       "score": {
         "ft": [
           0,
@@ -118,7 +194,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1990-09-19-pecsi-mecsek-h",
+      "date": "1990-09-19",
+      "competition": "cup-winners-cup",
+      "round": "Round 1 First leg",
+      "opponent": "Pécsi Mecsek",
+      "opponentId": "pecsi-mecsek",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 28411,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 16
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +241,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41288,
       "score": {
         "ft": [
           3,
@@ -138,7 +249,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1990-09-26-halifax-town-a",
+      "date": "1990-09-26",
+      "competition": "league-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Halifax Town",
+      "opponentId": "halifax-town",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 6841,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 87
+        },
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +319,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46766,
       "score": {
         "ft": [
           0,
@@ -158,7 +327,71 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1990-10-03-pecsi-mecsek-a",
+      "date": "1990-10-03",
+      "competition": "cup-winners-cup",
+      "round": "Round 1 Second leg",
+      "opponent": "Pécsi Mecsek",
+      "opponentId": "pecsi-mecsek",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 17000,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 77
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1990-10-10-halifax-town-h",
+      "date": "1990-10-10",
+      "competition": "league-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Halifax Town",
+      "opponentId": "halifax-town",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 22295,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "viv-anderson",
+          "minute": 58
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +403,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47322,
       "score": {
         "ft": [
           0,
@@ -178,7 +411,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1990-10-23-wrexham-h",
+      "date": "1990-10-23",
+      "competition": "cup-winners-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Wrexham",
+      "opponentId": "wrexham",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 29405,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 40
+        },
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 59
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +463,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36427,
       "score": {
         "ft": [
           3,
@@ -198,7 +471,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1990-10-31-liverpool-h",
+      "date": "1990-10-31",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 42033,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +536,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45724,
       "score": {
         "ft": [
           2,
@@ -218,7 +544,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "danny-wallace",
+          "minute": 19
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1990-11-07-wrexham-a",
+      "date": "1990-11-07",
+      "competition": "cup-winners-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Wrexham",
+      "opponentId": "wrexham",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13327,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 35
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +604,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21115,
       "score": {
         "ft": [
           0,
@@ -238,7 +612,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +625,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45903,
       "score": {
         "ft": [
           2,
@@ -258,8 +633,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1990-11-25-chelsea-h",
@@ -270,7 +659,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37836,
       "score": {
         "ft": [
           2,
@@ -278,7 +667,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-wallace",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1990-11-28-arsenal-a",
+      "date": "1990-11-28",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40844,
+      "score": {
+        "ft": [
+          6,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "danny-wallace",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +737,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32400,
       "score": {
         "ft": [
           1,
@@ -298,8 +745,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1990-12-08-leeds-united-h",
@@ -310,7 +766,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40947,
       "score": {
         "ft": [
           1,
@@ -318,8 +774,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1990-12-15-coventry-city-a",
@@ -330,7 +795,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17106,
       "score": {
         "ft": [
           2,
@@ -338,8 +803,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "danny-wallace",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1990-12-22-wimbledon-a",
@@ -350,7 +829,7 @@
       "opponentId": "wimbledon",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9644,
       "score": {
         "ft": [
           3,
@@ -358,8 +837,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1990-12-26-norwich-city-h",
@@ -370,7 +863,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39801,
       "score": {
         "ft": [
           3,
@@ -378,8 +871,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1990-12-29-aston-villa-h",
@@ -390,7 +897,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47485,
       "score": {
         "ft": [
           1,
@@ -398,8 +905,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 17
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-01-01-tottenham-hotspur-a",
@@ -410,7 +926,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29399,
       "score": {
         "ft": [
           2,
@@ -418,8 +934,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-01-07-queens-park-rangers-h",
@@ -430,7 +960,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35065,
       "score": {
         "ft": [
           2,
@@ -439,9 +969,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 74
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-01-12-sunderland-h",
@@ -452,7 +996,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45394,
       "score": {
         "ft": [
           3,
@@ -460,7 +1004,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 15
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1991-01-16-southampton-a",
+      "date": "1991-01-16",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 21101,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 78
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -472,7 +1059,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18544,
       "score": {
         "ft": [
           1,
@@ -480,7 +1067,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mike-phelan",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-01-23-southampton-h",
+      "date": "1991-01-23",
+      "competition": "league-cup",
+      "round": "Round 5 Replay",
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 41903,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 51
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -492,7 +1117,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43293,
       "score": {
         "ft": [
           1,
@@ -501,9 +1126,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-02-03-liverpool-h",
@@ -514,7 +1148,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43690,
       "score": {
         "ft": [
           1,
@@ -522,7 +1156,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 26
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-02-10-leeds-united-h",
+      "date": "1991-02-10",
+      "competition": "league-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 34050,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 80
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -534,7 +1211,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23058,
       "score": {
         "ft": [
           1,
@@ -543,9 +1220,47 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 37
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-02-24-leeds-united-a",
+      "date": "1991-02-24",
+      "competition": "league-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 32014,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 90
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "1991-02-26-sheffield-united-a",
@@ -556,7 +1271,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27570,
       "score": {
         "ft": [
           1,
@@ -564,8 +1279,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "clayton-blackmore",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-03-02-everton-h",
@@ -576,7 +1300,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45656,
       "score": {
         "ft": [
           0,
@@ -584,7 +1308,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1991-03-06-montpellier-hsc-h",
+      "date": "1991-03-06",
+      "competition": "cup-winners-cup",
+      "round": "Quarter-finals First leg",
+      "opponent": "Montpellier HSC",
+      "opponentId": "montpellier-hsc",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 41942,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 1
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -596,7 +1350,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22818,
       "score": {
         "ft": [
           2,
@@ -604,8 +1358,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-03-13-southampton-a",
@@ -616,7 +1384,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15701,
       "score": {
         "ft": [
           1,
@@ -624,8 +1392,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-03-16-nottingham-forest-a",
@@ -636,7 +1413,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23859,
       "score": {
         "ft": [
           1,
@@ -644,7 +1421,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-03-19-montpellier-hsc-a",
+      "date": "1991-03-19",
+      "competition": "cup-winners-cup",
+      "round": "Quarter-finals Second leg",
+      "opponent": "Montpellier HSC",
+      "opponentId": "montpellier-hsc",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 18000,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 49
+        },
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 49
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -656,7 +1476,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41752,
       "score": {
         "ft": [
           4,
@@ -664,8 +1484,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1991-03-30-norwich-city-a",
@@ -676,7 +1515,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18282,
       "score": {
         "ft": [
           3,
@@ -684,8 +1523,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 30
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1991-04-02-wimbledon-h",
@@ -696,7 +1549,7 @@
       "opponentId": "wimbledon",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36660,
       "score": {
         "ft": [
           2,
@@ -704,8 +1557,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-04-06-aston-villa-a",
@@ -716,7 +1583,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33307,
       "score": {
         "ft": [
           1,
@@ -724,7 +1591,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 63
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-04-10-legia-warsaw-a",
+      "date": "1991-04-10",
+      "competition": "cup-winners-cup",
+      "round": "Semi-finals First leg",
+      "opponent": "Legia Warsaw",
+      "opponentId": "legia-warsaw",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20000,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 67
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -736,7 +1651,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32776,
       "score": {
         "ft": [
           3,
@@ -744,7 +1659,76 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 66
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-04-21-sheffield-wednesday-n",
+      "date": "1991-04-21",
+      "competition": "league-cup",
+      "round": "Final",
+      "opponent": "Sheffield Wednesday",
+      "opponentId": "sheffield-wednesday",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 77612,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1991-04-24-legia-warsaw-h",
+      "date": "1991-04-24",
+      "competition": "cup-winners-cup",
+      "round": "Semi-finals Second leg",
+      "opponent": "Legia Warsaw",
+      "opponentId": "legia-warsaw",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 44269,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 28
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -756,7 +1740,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45286,
       "score": {
         "ft": [
           1,
@@ -764,8 +1748,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 22
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-05-06-arsenal-a",
@@ -776,7 +1769,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40229,
       "score": {
         "ft": [
           1,
@@ -784,8 +1777,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-05-11-crystal-palace-a",
@@ -796,7 +1798,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25301,
       "score": {
         "ft": [
           0,
@@ -804,7 +1806,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1991-05-15-barcelona-n",
+      "date": "1991-05-15",
+      "competition": "cup-winners-cup",
+      "round": "Final",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 45000,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 67
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -816,7 +1848,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46791,
       "score": {
         "ft": [
           1,
@@ -824,8 +1856,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 7
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

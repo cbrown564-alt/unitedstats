@@ -2,6 +2,45 @@
   "season": "1967-68",
   "matches": [
     {
+      "id": "1967-08-12-tottenham-hotspur-h",
+      "date": "1967-08-12",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 54106,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1967-08-19-everton-a",
       "date": "1967-08-19",
       "competition": "first-division",
@@ -10,7 +49,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 61452,
       "score": {
         "ft": [
           1,
@@ -18,8 +57,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-08-23-leeds-united-h",
@@ -30,7 +78,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53016,
       "score": {
         "ft": [
           1,
@@ -38,8 +86,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-08-26-leicester-city-h",
@@ -50,7 +107,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51256,
       "score": {
         "ft": [
           1,
@@ -58,8 +115,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-foulkes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-09-02-west-ham-united-a",
@@ -70,7 +136,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36562,
       "score": {
         "ft": [
           3,
@@ -78,8 +144,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-ryan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-09-06-sunderland-a",
@@ -90,7 +175,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51527,
       "score": {
         "ft": [
           1,
@@ -98,8 +183,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-09-09-burnley-h",
@@ -110,7 +204,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55809,
       "score": {
         "ft": [
           2,
@@ -118,8 +212,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "francis-burns",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "paddy-crerand",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-09-16-sheffield-wednesday-a",
@@ -130,7 +238,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47274,
       "score": {
         "ft": [
           1,
@@ -138,7 +246,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1967-09-20-hibernians-h",
+      "date": "1967-09-20",
+      "competition": "european-cup",
+      "round": "First round First leg",
+      "opponent": "Hibernians",
+      "opponentId": "hibernians",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 43912,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +311,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58779,
       "score": {
         "ft": [
           3,
@@ -158,7 +319,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1967-09-27-hibernians-a",
+      "date": "1967-09-27",
+      "competition": "european-cup",
+      "round": "First round Second leg",
+      "opponent": "Hibernians",
+      "opponentId": "hibernians",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25000,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +371,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62942,
       "score": {
         "ft": [
           2,
@@ -178,8 +379,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-10-07-arsenal-h",
@@ -190,7 +405,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60197,
       "score": {
         "ft": [
           1,
@@ -198,8 +413,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-10-14-sheffield-united-a",
@@ -210,7 +434,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29170,
       "score": {
         "ft": [
           3,
@@ -218,8 +442,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-10-25-coventry-city-h",
@@ -230,7 +473,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54253,
       "score": {
         "ft": [
           4,
@@ -238,8 +481,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-10-28-nottingham-forest-a",
@@ -250,7 +517,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49946,
       "score": {
         "ft": [
           1,
@@ -258,8 +525,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-11-04-stoke-city-h",
@@ -270,7 +546,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51041,
       "score": {
         "ft": [
           1,
@@ -278,8 +554,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-11-08-leeds-united-a",
@@ -290,7 +575,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43999,
       "score": {
         "ft": [
           0,
@@ -298,7 +583,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +596,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54515,
       "score": {
         "ft": [
           2,
@@ -318,7 +604,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1967-11-15-fk-sarajevo-a",
+      "date": "1967-11-15",
+      "competition": "european-cup",
+      "round": "Second round First leg",
+      "opponent": "FK Sarajevo",
+      "opponentId": "fk-sarajevo",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 45000,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +651,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48732,
       "score": {
         "ft": [
           3,
@@ -338,8 +659,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-11-25-chelsea-a",
@@ -350,7 +690,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54712,
       "score": {
         "ft": [
           1,
@@ -358,7 +698,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1967-11-29-fk-sarajevo-h",
+      "date": "1967-11-29",
+      "competition": "european-cup",
+      "round": "Second round Second leg",
+      "opponent": "FK Sarajevo",
+      "opponentId": "fk-sarajevo",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 62801,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +753,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52568,
       "score": {
         "ft": [
           2,
@@ -378,8 +761,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-12-09-newcastle-united-a",
@@ -390,7 +787,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48639,
       "score": {
         "ft": [
           2,
@@ -398,8 +795,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tony-dunne",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-12-16-everton-h",
@@ -410,7 +821,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60736,
       "score": {
         "ft": [
           3,
@@ -418,8 +829,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-12-23-leicester-city-a",
@@ -430,7 +860,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40104,
       "score": {
         "ft": [
           2,
@@ -438,8 +868,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-12-26-wolverhampton-wanderers-h",
@@ -450,7 +894,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63450,
       "score": {
         "ft": [
           4,
@@ -458,8 +902,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1967-12-30-wolverhampton-wanderers-a",
@@ -470,7 +938,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53940,
       "score": {
         "ft": [
           3,
@@ -478,8 +946,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-01-06-west-ham-united-h",
@@ -490,7 +977,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54468,
       "score": {
         "ft": [
           3,
@@ -498,8 +985,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-01-20-sheffield-wednesday-h",
@@ -510,7 +1016,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55254,
       "score": {
         "ft": [
           4,
@@ -518,8 +1024,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-01-27-tottenham-hotspur-h",
@@ -539,9 +1069,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-01-31-tottenham-hotspur-a",
@@ -574,7 +1118,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57790,
       "score": {
         "ft": [
           2,
@@ -582,8 +1126,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-02-17-burnley-a",
@@ -594,7 +1152,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31965,
       "score": {
         "ft": [
           1,
@@ -602,8 +1160,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-02-24-arsenal-a",
@@ -614,7 +1181,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46417,
       "score": {
         "ft": [
           2,
@@ -622,7 +1189,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1968-02-27-gornik-zabrze-h",
+      "date": "1968-02-27",
+      "competition": "european-cup",
+      "round": "Quarter-final First leg",
+      "opponent": "Górnik Zabrze",
+      "opponentId": "gornik-zabrze",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 63456,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Stefan Florenski (og)"
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -634,7 +1245,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62978,
       "score": {
         "ft": [
           1,
@@ -642,7 +1253,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1968-03-13-gornik-zabrze-a",
+      "date": "1968-03-13",
+      "competition": "european-cup",
+      "round": "Quarter-final Second leg",
+      "opponent": "Górnik Zabrze",
+      "opponentId": "gornik-zabrze",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 105000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -654,7 +1295,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47110,
       "score": {
         "ft": [
           0,
@@ -662,7 +1303,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -674,7 +1316,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 61978,
       "score": {
         "ft": [
           3,
@@ -682,8 +1324,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "shay-brennan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "francis-burns",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-03-27-manchester-city-h",
@@ -694,7 +1355,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63004,
       "score": {
         "ft": [
           1,
@@ -702,8 +1363,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-03-30-stoke-city-a",
@@ -714,7 +1384,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30141,
       "score": {
         "ft": [
           4,
@@ -722,8 +1392,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alan-gowling",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-ryan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-04-06-liverpool-h",
@@ -734,7 +1428,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63059,
       "score": {
         "ft": [
           1,
@@ -742,8 +1436,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-04-12-fulham-a",
@@ -754,7 +1457,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40152,
       "score": {
         "ft": [
           4,
@@ -762,8 +1465,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-04-13-southampton-a",
@@ -774,7 +1501,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30079,
       "score": {
         "ft": [
           2,
@@ -782,8 +1509,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-04-15-fulham-h",
@@ -794,7 +1535,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60465,
       "score": {
         "ft": [
           3,
@@ -802,8 +1543,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-04-20-sheffield-united-h",
@@ -814,7 +1574,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55033,
       "score": {
         "ft": [
           1,
@@ -822,7 +1582,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1968-04-24-real-madrid-h",
+      "date": "1968-04-24",
+      "competition": "european-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Real Madrid C.F.",
+      "opponentId": "real-madrid",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 63500,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -834,7 +1632,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43412,
       "score": {
         "ft": [
           3,
@@ -842,8 +1640,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-05-04-newcastle-united-h",
@@ -854,7 +1671,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59976,
       "score": {
         "ft": [
           6,
@@ -862,8 +1679,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1968-05-11-sunderland-h",
@@ -874,7 +1725,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62963,
       "score": {
         "ft": [
           1,
@@ -882,7 +1733,101 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1968-05-15-real-madrid-a",
+      "date": "1968-05-15",
+      "competition": "european-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Real Madrid C.F.",
+      "opponentId": "real-madrid",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 125000,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-foulkes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Ignacio Zoco (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1968-05-29-benfica-n",
+      "date": "1968-05-29",
+      "competition": "european-cup",
+      "round": "Final",
+      "opponent": "S.L. Benfica",
+      "opponentId": "benfica",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 100000,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "aet": true,
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     }
   ]

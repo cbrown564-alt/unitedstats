@@ -163,6 +163,8 @@ CREATE TABLE season_summaries (
   p INTEGER NOT NULL, w INTEGER NOT NULL, d INTEGER NOT NULL, l INTEGER NOT NULL,
   gf INTEGER NOT NULL, ga INTEGER NOT NULL,
   furthest_round TEXT,
+  position INTEGER,
+  league_size INTEGER,
   PRIMARY KEY (season, competition_id)
 );
 
@@ -297,9 +299,21 @@ db.exec(`
 INSERT INTO season_summaries
 SELECT season, competition_id,
   COUNT(*), SUM(result='W'), SUM(result='D'), SUM(result='L'),
-  SUM(gf), SUM(ga), NULL
+  SUM(gf), SUM(ga), NULL, NULL, NULL
 FROM matches GROUP BY season, competition_id;
 `);
+
+// final league positions (precomputed from full-league results)
+const positionsFile = path.join(CANONICAL, "league-positions.json");
+if (fs.existsSync(positionsFile)) {
+  const { positions } = readJson<{
+    positions: { season: string; competition: string; position: number; teams: number }[];
+  }>(positionsFile);
+  const updPos = db.prepare(
+    "UPDATE season_summaries SET position=?, league_size=? WHERE season=? AND competition_id=?",
+  );
+  for (const p of positions) updPos.run(p.position, p.teams, p.season, p.competition);
+}
 
 // furthest cup round reached per season (ordinal mapping)
 const roundOrder: Record<string, number> = {

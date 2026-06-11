@@ -10,7 +10,7 @@
       "opponentId": "leyton-orient",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17772,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stewart-houston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-08-24-millwall-h",
@@ -30,7 +44,7 @@
       "opponentId": "millwall",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44756,
       "score": {
         "ft": [
           4,
@@ -38,8 +52,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1974-08-28-portsmouth-h",
@@ -50,7 +78,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42547,
       "score": {
         "ft": [
           2,
@@ -58,8 +86,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-08-31-cardiff-city-a",
@@ -70,7 +112,7 @@
       "opponentId": "cardiff-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22344,
       "score": {
         "ft": [
           1,
@@ -78,8 +120,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-09-07-nottingham-forest-h",
@@ -90,7 +141,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40671,
       "score": {
         "ft": [
           2,
@@ -98,7 +149,71 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-greenhoff",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1974-09-11-charlton-athletic-h",
+      "date": "1974-09-11",
+      "competition": "league-cup",
+      "round": "Round 2",
+      "opponent": "Charlton Athletic",
+      "opponentId": "charlton-athletic",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 21616,
+      "score": {
+        "ft": [
+          5,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stewart-houston",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Richie Bowman (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +225,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28666,
       "score": {
         "ft": [
           1,
@@ -118,8 +233,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-09-16-millwall-a",
@@ -130,7 +254,7 @@
       "opponentId": "millwall",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16988,
       "score": {
         "ft": [
           1,
@@ -138,8 +262,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-09-21-bristol-rovers-h",
@@ -150,7 +283,7 @@
       "opponentId": "bristol-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42948,
       "score": {
         "ft": [
           2,
@@ -158,8 +291,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-greenhoff",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Frankie Prince (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-09-25-bolton-wanderers-h",
@@ -170,7 +318,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47084,
       "score": {
         "ft": [
           3,
@@ -178,8 +326,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stewart-houston",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Don McAllister (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-09-28-norwich-city-a",
@@ -190,7 +358,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24586,
       "score": {
         "ft": [
           0,
@@ -198,7 +366,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +379,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25513,
       "score": {
         "ft": [
           2,
@@ -218,7 +387,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1974-10-09-manchester-city-h",
+      "date": "1974-10-09",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 55159,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +442,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46565,
       "score": {
         "ft": [
           1,
@@ -238,8 +450,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-10-15-portsmouth-a",
@@ -250,7 +471,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25608,
       "score": {
         "ft": [
           0,
@@ -258,7 +479,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +492,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25370,
       "score": {
         "ft": [
           3,
@@ -278,8 +500,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-forsyth",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Jim McCalliog (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-10-26-southampton-h",
@@ -290,7 +532,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48724,
       "score": {
         "ft": [
           1,
@@ -298,8 +540,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-11-02-oxford-united-h",
@@ -310,7 +561,7 @@
       "opponentId": "oxford-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41909,
       "score": {
         "ft": [
           4,
@@ -318,8 +569,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-11-09-bristol-city-a",
@@ -330,7 +605,7 @@
       "opponentId": "bristol-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28104,
       "score": {
         "ft": [
           0,
@@ -338,7 +613,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1974-11-13-burnley-h",
+      "date": "1974-11-13",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 46275,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +665,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55615,
       "score": {
         "ft": [
           2,
@@ -358,8 +673,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1974-11-23-hull-city-a",
@@ -370,7 +694,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23287,
       "score": {
         "ft": [
           0,
@@ -378,7 +702,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +715,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60585,
       "score": {
         "ft": [
           3,
@@ -398,7 +723,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1974-12-04-middlesbrough-a",
+      "date": "1974-12-04",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 36005,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +775,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35230,
       "score": {
         "ft": [
           4,
@@ -418,8 +783,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stewart-houston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-12-14-leyton-orient-h",
@@ -430,7 +819,7 @@
       "opponentId": "leyton-orient",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41200,
       "score": {
         "ft": [
           0,
@@ -438,7 +827,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1974-12-18-middlesbrough-h",
+      "date": "1974-12-18",
+      "competition": "league-cup",
+      "round": "Round 5 Replay",
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 49501,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +879,7 @@
       "opponentId": "york-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15314,
       "score": {
         "ft": [
           1,
@@ -458,8 +887,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-12-26-west-bromwich-albion-h",
@@ -470,7 +908,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51104,
       "score": {
         "ft": [
           2,
@@ -478,8 +916,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1974-12-28-oldham-athletic-a",
@@ -490,7 +942,7 @@
       "opponentId": "oldham-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26356,
       "score": {
         "ft": [
           0,
@@ -498,7 +950,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -541,9 +994,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-01-11-sheffield-wednesday-h",
@@ -554,7 +1021,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45662,
       "score": {
         "ft": [
           2,
@@ -562,7 +1029,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Jim McCalliog (og)"
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1975-01-15-norwich-city-h",
+      "date": "1975-01-15",
+      "competition": "league-cup",
+      "round": "Semi-Final First leg",
+      "opponent": "Norwich City",
+      "opponentId": "norwich-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 58010,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -574,7 +1085,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45976,
       "score": {
         "ft": [
           0,
@@ -582,7 +1093,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1975-01-22-norwich-city-a",
+      "date": "1975-01-22",
+      "competition": "league-cup",
+      "round": "Semi-Final Second leg",
+      "opponent": "Norwich City",
+      "opponentId": "norwich-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31621,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -594,7 +1127,7 @@
       "opponentId": "bristol-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47118,
       "score": {
         "ft": [
           0,
@@ -602,7 +1135,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -614,7 +1148,7 @@
       "opponentId": "oxford-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15959,
       "score": {
         "ft": [
           0,
@@ -622,7 +1156,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -634,7 +1169,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44712,
       "score": {
         "ft": [
           2,
@@ -642,8 +1177,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stewart-houston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-02-22-aston-villa-a",
@@ -654,7 +1203,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40353,
       "score": {
         "ft": [
           0,
@@ -662,7 +1211,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -674,7 +1224,7 @@
       "opponentId": "cardiff-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43601,
       "score": {
         "ft": [
           4,
@@ -682,8 +1232,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stewart-houston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-03-08-bolton-wanderers-a",
@@ -694,7 +1268,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38152,
       "score": {
         "ft": [
           1,
@@ -702,8 +1276,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-03-15-norwich-city-h",
@@ -714,7 +1297,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56202,
       "score": {
         "ft": [
           1,
@@ -722,8 +1305,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-03-22-nottingham-forest-a",
@@ -734,7 +1326,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21893,
       "score": {
         "ft": [
           1,
@@ -742,8 +1334,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gerry-daly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-03-28-bristol-rovers-a",
@@ -754,7 +1355,7 @@
       "opponentId": "bristol-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19337,
       "score": {
         "ft": [
           1,
@@ -762,8 +1363,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-03-29-york-city-h",
@@ -774,7 +1384,7 @@
       "opponentId": "york-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46802,
       "score": {
         "ft": [
           2,
@@ -782,8 +1392,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-03-31-oldham-athletic-h",
@@ -794,7 +1418,7 @@
       "opponentId": "oldham-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56618,
       "score": {
         "ft": [
           3,
@@ -802,8 +1426,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-04-05-southampton-a",
@@ -814,7 +1457,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21866,
       "score": {
         "ft": [
           1,
@@ -822,8 +1465,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-04-12-fulham-h",
@@ -834,7 +1486,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52971,
       "score": {
         "ft": [
           1,
@@ -842,8 +1494,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gerry-daly",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-04-19-notts-county-a",
@@ -854,7 +1515,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17832,
       "score": {
         "ft": [
           2,
@@ -862,8 +1523,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stewart-houston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-greenhoff",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1975-04-26-blackpool-h",
@@ -874,7 +1549,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58769,
       "score": {
         "ft": [
           4,
@@ -882,8 +1557,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stuart-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-greenhoff",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

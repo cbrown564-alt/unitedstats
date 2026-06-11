@@ -2,6 +2,70 @@
   "season": "2004-05",
   "matches": [
     {
+      "id": "2004-08-08-arsenal-n",
+      "date": "2004-08-08",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 63317,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 55
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2004-08-11-dinamo-bucuresti-a",
+      "date": "2004-08-11",
+      "competition": "champions-league",
+      "round": "Third qualifying round First leg",
+      "opponent": "FC Dinamo București",
+      "opponentId": "dinamo-bucuresti",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 58000,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 38
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 72,
+          "detail": "Angelo Alistar (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2004-08-15-chelsea-a",
       "date": "2004-08-15",
       "competition": "premier-league",
@@ -10,7 +74,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41813,
       "score": {
         "ft": [
           0,
@@ -18,7 +82,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -30,7 +95,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67812,
       "score": {
         "ft": [
           2,
@@ -38,7 +103,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-bellion",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2004-08-25-dinamo-bucuresti-h",
+      "date": "2004-08-25",
+      "competition": "champions-league",
+      "round": "Third qualifying round Second leg",
+      "opponent": "FC Dinamo București",
+      "opponentId": "dinamo-bucuresti",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 61041,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "david-bellion",
+          "minute": 70
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +163,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26155,
       "score": {
         "ft": [
           1,
@@ -58,8 +171,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2004-08-30-everton-h",
@@ -70,7 +192,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67803,
       "score": {
         "ft": [
           0,
@@ -78,7 +200,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +213,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27766,
       "score": {
         "ft": [
           2,
@@ -98,7 +221,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gabriel-heinze",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "david-bellion",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2004-09-15-olympique-lyonnais-a",
+      "date": "2004-09-15",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Olympique Lyonnais",
+      "opponentId": "olympique-lyonnais",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 56
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +276,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67857,
       "score": {
         "ft": [
           2,
@@ -118,8 +284,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mikael-silvestre",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2004-09-25-tottenham-hotspur-a",
@@ -130,7 +305,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36103,
       "score": {
         "ft": [
           1,
@@ -138,7 +313,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 42
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2004-09-28-fenerbahce-h",
+      "date": "2004-09-28",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Fenerbahçe S.K.",
+      "opponentId": "fenerbahce",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67128,
+      "score": {
+        "ft": [
+          6,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 78
+        },
+        {
+          "type": "goal",
+          "player": "david-bellion",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +378,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67988,
       "score": {
         "ft": [
           1,
@@ -158,8 +386,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2004-10-16-birmingham-city-a",
@@ -170,7 +407,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29221,
       "score": {
         "ft": [
           0,
@@ -178,7 +415,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2004-10-19-ac-sparta-prague-a",
+      "date": "2004-10-19",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "AC Sparta Prague",
+      "opponentId": "ac-sparta-prague",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20654,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +449,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67862,
       "score": {
         "ft": [
           2,
@@ -198,7 +457,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 73
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2004-10-26-crewe-alexandra-a",
+      "date": "2004-10-26",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Crewe Alexandra",
+      "opponentId": "crewe-alexandra",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 10103,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "liam-miller",
+          "minute": 57
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 59,
+          "detail": "Stephen Foster (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +523,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20190,
       "score": {
         "ft": [
           0,
@@ -218,7 +531,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2004-11-03-ac-sparta-prague-h",
+      "date": "2004-11-03",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "AC Sparta Prague",
+      "opponentId": "ac-sparta-prague",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66706,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 14
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +573,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67863,
       "score": {
         "ft": [
           0,
@@ -238,7 +581,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2004-11-10-crystal-palace-h",
+      "date": "2004-11-10",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Crystal Palace",
+      "opponentId": "crystal-palace",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 48891,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "kieran-richardson",
+          "minute": 39
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +628,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52320,
       "score": {
         "ft": [
           3,
@@ -258,8 +636,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 7
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 74
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2004-11-20-charlton-athletic-h",
@@ -270,7 +662,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67704,
       "score": {
         "ft": [
           2,
@@ -278,7 +670,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2004-11-23-olympique-lyonnais-h",
+      "date": "2004-11-23",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Olympique Lyonnais",
+      "opponentId": "olympique-lyonnais",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66398,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "gary-neville",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 53
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +730,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27709,
       "score": {
         "ft": [
           3,
@@ -298,7 +738,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2004-12-01-arsenal-h",
+      "date": "2004-12-01",
+      "competition": "league-cup",
+      "round": "Quarter-final",
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67103,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-bellion",
+          "minute": 1
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +793,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67921,
       "score": {
         "ft": [
           3,
@@ -318,7 +801,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2004-12-08-fenerbahce-a",
+      "date": "2004-12-08",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Fenerbahçe S.K.",
+      "opponentId": "fenerbahce",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 35000,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +853,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21940,
       "score": {
         "ft": [
           1,
@@ -338,8 +861,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 33
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2004-12-18-crystal-palace-h",
@@ -350,7 +882,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67814,
       "score": {
         "ft": [
           5,
@@ -358,8 +890,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 35
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 48,
+          "detail": "Emmerson Boyce (og)"
+        },
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2004-12-26-bolton-wanderers-h",
@@ -370,7 +927,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67867,
       "score": {
         "ft": [
           2,
@@ -378,8 +935,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2004-12-28-aston-villa-a",
@@ -390,7 +961,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42593,
       "score": {
         "ft": [
           1,
@@ -398,8 +969,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 41
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-01-01-middlesbrough-a",
@@ -410,7 +990,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34199,
       "score": {
         "ft": [
           2,
@@ -418,8 +998,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-01-04-tottenham-hotspur-h",
@@ -430,7 +1024,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67962,
       "score": {
         "ft": [
           0,
@@ -438,7 +1032,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +1045,7 @@
       "opponentId": "exeter-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67551,
       "score": {
         "ft": [
           0,
@@ -459,9 +1054,31 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
+    },
+    {
+      "id": "2005-01-12-chelsea-a",
+      "date": "2005-01-12",
+      "competition": "league-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41492,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2005-01-15-liverpool-a",
@@ -472,7 +1089,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44183,
       "score": {
         "ft": [
           1,
@@ -480,8 +1097,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 21
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-01-19-exeter-city-a",
@@ -492,7 +1118,7 @@
       "opponentId": "exeter-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9033,
       "score": {
         "ft": [
           2,
@@ -501,9 +1127,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-01-22-aston-villa-h",
@@ -514,7 +1154,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67589,
       "score": {
         "ft": [
           3,
@@ -522,7 +1162,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2005-01-26-chelsea-h",
+      "date": "2005-01-26",
+      "competition": "league-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67000,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 67
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -534,7 +1222,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67251,
       "score": {
         "ft": [
           3,
@@ -543,9 +1231,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2005-02-01-arsenal-a",
@@ -556,7 +1258,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38164,
       "score": {
         "ft": [
           4,
@@ -564,8 +1266,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2005-02-05-birmingham-city-h",
@@ -576,7 +1297,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67838,
       "score": {
         "ft": [
           2,
@@ -584,8 +1305,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-02-13-manchester-city-a",
@@ -596,7 +1331,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47111,
       "score": {
         "ft": [
           2,
@@ -604,8 +1339,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 68
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 75,
+          "detail": "Richard Dunne (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-02-19-everton-a",
@@ -616,7 +1366,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38664,
       "score": {
         "ft": [
           2,
@@ -625,9 +1375,44 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "quinton-fortune",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 58
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2005-02-23-ac-milan-h",
+      "date": "2005-02-23",
+      "competition": "champions-league",
+      "round": "First knockout round First leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67162,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2005-02-26-portsmouth-h",
@@ -638,7 +1423,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67989,
       "score": {
         "ft": [
           2,
@@ -646,8 +1431,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 8
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2005-03-05-crystal-palace-a",
@@ -658,7 +1452,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26021,
       "score": {
         "ft": [
           0,
@@ -666,7 +1460,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2005-03-08-ac-milan-a",
+      "date": "2005-03-08",
+      "competition": "champions-league",
+      "round": "First knockout round Second leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 78957,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -678,7 +1494,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30971,
       "score": {
         "ft": [
           4,
@@ -687,9 +1503,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2005-03-19-fulham-h",
@@ -700,7 +1535,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67959,
       "score": {
         "ft": [
           1,
@@ -708,8 +1543,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 21
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-04-02-blackburn-rovers-h",
@@ -720,7 +1564,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67939,
       "score": {
         "ft": [
           0,
@@ -728,7 +1572,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -740,7 +1585,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25522,
       "score": {
         "ft": [
           0,
@@ -748,7 +1593,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -769,9 +1615,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2005-04-20-everton-a",
@@ -782,7 +1647,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37160,
       "score": {
         "ft": [
           0,
@@ -790,7 +1655,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -802,7 +1668,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67845,
       "score": {
         "ft": [
           2,
@@ -810,8 +1676,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "wes-brown",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-05-01-charlton-athletic-a",
@@ -822,7 +1702,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26789,
       "score": {
         "ft": [
           4,
@@ -830,8 +1710,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "alan-smith",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-05-07-west-bromwich-albion-h",
@@ -842,7 +1746,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67827,
       "score": {
         "ft": [
           1,
@@ -850,8 +1754,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 21
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-05-10-chelsea-h",
@@ -862,7 +1775,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67832,
       "score": {
         "ft": [
           1,
@@ -870,8 +1783,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 7
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-05-15-southampton-a",
@@ -882,7 +1804,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32066,
       "score": {
         "ft": [
           2,
@@ -890,8 +1812,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 63
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2005-05-21-arsenal-n",

@@ -10,7 +10,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-09-07-bury-h",
@@ -30,7 +49,7 @@
       "opponentId": "bury",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16000,
       "score": {
         "ft": [
           2,
@@ -38,8 +57,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-09-12-middlesbrough-h",
@@ -50,7 +83,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           6,
@@ -58,8 +91,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-09-19-manchester-city-a",
@@ -70,7 +137,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           2,
@@ -78,8 +145,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-09-26-liverpool-h",
@@ -90,7 +171,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           3,
@@ -98,8 +179,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-10-03-bury-a",
@@ -110,7 +210,7 @@
       "opponentId": "bury",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           2,
@@ -118,8 +218,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-10-10-sheffield-united-h",
@@ -130,7 +244,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14000,
       "score": {
         "ft": [
           2,
@@ -138,8 +252,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-bell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-bell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-10-17-aston-villa-a",
@@ -150,7 +278,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           1,
@@ -158,8 +286,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-10-24-nottingham-forest-h",
@@ -170,7 +307,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           2,
@@ -178,8 +315,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-10-31-sunderland-a",
@@ -190,7 +341,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           1,
@@ -198,8 +349,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-11-07-chelsea-h",
@@ -210,7 +370,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -218,7 +378,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +391,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           3,
@@ -238,8 +399,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-11-21-bradford-city-h",
@@ -250,7 +430,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           2,
@@ -258,8 +438,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-11-28-sheffield-wednesday-h",
@@ -270,7 +464,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           3,
@@ -278,8 +472,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-12-05-everton-a",
@@ -290,7 +503,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           2,
@@ -298,8 +511,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-bannister",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-12-12-leicester-city-h",
@@ -310,7 +537,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           4,
@@ -318,8 +545,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-12-19-arsenal-a",
@@ -330,7 +581,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           1,
@@ -338,8 +589,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-12-25-newcastle-united-a",
@@ -350,7 +610,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           1,
@@ -358,8 +618,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1908-12-26-newcastle-united-h",
@@ -370,7 +639,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           1,
@@ -378,8 +647,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-01-01-notts-county-h",
@@ -390,7 +668,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           4,
@@ -398,8 +676,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-roberts",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-01-02-preston-north-end-h",
@@ -410,7 +712,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           0,
@@ -418,7 +720,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +733,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -438,7 +741,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +754,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8300,
       "score": {
         "ft": [
           1,
@@ -459,9 +763,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-01-23-manchester-city-h",
@@ -472,7 +785,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           3,
@@ -480,8 +793,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-livingstone",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-livingstone",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-01-30-liverpool-a",
@@ -492,7 +824,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           1,
@@ -500,8 +832,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-02-06-everton-h",
@@ -512,7 +853,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35217,
       "score": {
         "ft": [
           1,
@@ -521,9 +862,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-02-13-sheffield-united-a",
@@ -534,7 +884,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           0,
@@ -542,7 +892,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -554,7 +905,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38500,
       "score": {
         "ft": [
           6,
@@ -563,9 +914,43 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-02-27-nottingham-forest-a",
@@ -576,7 +961,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           0,
@@ -584,7 +969,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -596,7 +982,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16850,
       "score": {
         "ft": [
           3,
@@ -605,9 +991,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-03-13-chelsea-a",
@@ -618,7 +1023,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           1,
@@ -626,8 +1031,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-03-15-sunderland-h",
@@ -638,7 +1052,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           2,
@@ -646,8 +1060,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernest-payne",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-03-20-blackburn-rovers-h",
@@ -658,7 +1086,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11000,
       "score": {
         "ft": [
           0,
@@ -666,7 +1094,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -687,9 +1116,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Bramall Lane, Sheffield"
+      "notes": "Venue: Bramall Lane, Sheffield",
+      "events": [
+        {
+          "type": "goal",
+          "player": "harold-halse",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-03-31-aston-villa-h",
@@ -700,7 +1138,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           0,
@@ -708,7 +1146,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -720,7 +1159,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -728,7 +1167,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -740,7 +1180,7 @@
       "opponentId": "bristol-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           0,
@@ -748,7 +1188,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -760,7 +1201,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           2,
@@ -768,8 +1209,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-04-12-bristol-city-a",
@@ -780,7 +1235,7 @@
       "opponentId": "bristol-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           0,
@@ -788,7 +1243,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -800,7 +1256,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           1,
@@ -808,8 +1264,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-livingstone",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-04-17-leicester-city-a",
@@ -820,7 +1285,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           2,
@@ -828,8 +1293,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-04-24-bristol-city-n",
@@ -849,9 +1328,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Crystal Palace, London"
+      "notes": "Venue: Crystal Palace, London",
+      "events": [
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-04-27-arsenal-h",
@@ -862,7 +1350,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           1,
@@ -870,8 +1358,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-turnbull",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1909-04-29-bradford-city-a",
@@ -882,7 +1379,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           0,
@@ -890,7 +1387,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

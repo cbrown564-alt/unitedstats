@@ -10,7 +10,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53668,
       "score": {
         "ft": [
           1,
@@ -18,8 +18,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-08-28-southampton-a",
@@ -30,7 +39,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22183,
       "score": {
         "ft": [
           0,
@@ -38,7 +47,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +60,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20876,
       "score": {
         "ft": [
           1,
@@ -58,8 +68,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-09-05-chelsea-h",
@@ -70,7 +89,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48398,
       "score": {
         "ft": [
           1,
@@ -78,8 +97,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-09-08-newcastle-united-h",
@@ -90,7 +118,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54915,
       "score": {
         "ft": [
           5,
@@ -98,8 +126,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "remi-moses",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1984-09-15-coventry-city-a",
@@ -110,7 +162,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18312,
       "score": {
         "ft": [
           3,
@@ -118,7 +170,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1984-09-19-gyori-eto-h",
+      "date": "1984-09-19",
+      "competition": "uefa-cup",
+      "round": "Round 1 First leg",
+      "opponent": "Győri ETO",
+      "opponentId": "gyori-eto",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 33119,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +235,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56638,
       "score": {
         "ft": [
           1,
@@ -138,7 +243,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-09-26-burnley-h",
+      "date": "1984-09-26",
+      "competition": "league-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 28383,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +298,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26292,
       "score": {
         "ft": [
           2,
@@ -158,7 +306,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-10-03-gyori-eto-a",
+      "date": "1984-10-03",
+      "competition": "uefa-cup",
+      "round": "Round 1 Second leg",
+      "opponent": "Győri ETO",
+      "opponentId": "gyori-eto",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 26000,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-brazil",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "arnold-muhren",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +366,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37131,
       "score": {
         "ft": [
           0,
@@ -178,7 +374,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1984-10-09-burnley-a",
+      "date": "1984-10-09",
+      "competition": "league-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 12690,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-brazil",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +421,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47559,
       "score": {
         "ft": [
           5,
@@ -198,8 +429,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-mcqueen",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alan-brazil",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "remi-moses",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-10-20-tottenham-hotspur-h",
@@ -210,7 +470,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54516,
       "score": {
         "ft": [
           1,
@@ -218,7 +478,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-10-24-psv-eindhoven-a",
+      "date": "1984-10-24",
+      "competition": "uefa-cup",
+      "round": "Round 2 First leg",
+      "opponent": "PSV Eindhoven",
+      "opponentId": "psv-eindhoven",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 27500,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +520,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40742,
       "score": {
         "ft": [
           0,
@@ -238,7 +528,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1984-10-30-everton-h",
+      "date": "1984-10-30",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 50918,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-brazil",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +570,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32279,
       "score": {
         "ft": [
           4,
@@ -258,7 +578,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1984-11-07-psv-eindhoven-h",
+      "date": "1984-11-07",
+      "competition": "uefa-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "PSV Eindhoven",
+      "opponentId": "psv-eindhoven",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 39281,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +638,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23840,
       "score": {
         "ft": [
           3,
@@ -278,8 +646,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-brazil",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-11-17-luton-town-h",
@@ -290,7 +677,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41630,
       "score": {
         "ft": [
           2,
@@ -298,8 +685,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1984-11-24-sunderland-a",
@@ -310,7 +706,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25405,
       "score": {
         "ft": [
           2,
@@ -318,7 +714,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-11-28-dundee-united-h",
+      "date": "1984-11-28",
+      "competition": "uefa-cup",
+      "round": "Round 3 First leg",
+      "opponent": "Dundee United",
+      "opponentId": "dundee-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 48278,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +774,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36635,
       "score": {
         "ft": [
           2,
@@ -338,8 +782,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-12-08-nottingham-forest-a",
@@ -350,7 +808,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25902,
       "score": {
         "ft": [
           2,
@@ -358,7 +816,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1984-12-12-dundee-united-a",
+      "date": "1984-12-12",
+      "competition": "uefa-cup",
+      "round": "Round 3 Second leg",
+      "opponent": "Dundee United",
+      "opponentId": "dundee-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 21821,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Gary McGinnis (og)"
+        },
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +877,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36134,
       "score": {
         "ft": [
           3,
@@ -378,8 +885,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-brazil",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mike-duxbury",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-gidman",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-12-22-ipswich-town-h",
@@ -390,7 +916,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35168,
       "score": {
         "ft": [
           3,
@@ -398,8 +924,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-gidman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-12-26-stoke-city-a",
@@ -410,7 +955,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20985,
       "score": {
         "ft": [
           1,
@@ -418,8 +963,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-12-29-chelsea-a",
@@ -430,7 +984,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42197,
       "score": {
         "ft": [
           3,
@@ -438,8 +992,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "remi-moses",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-01-01-sheffield-wednesday-h",
@@ -450,7 +1023,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47625,
       "score": {
         "ft": [
           1,
@@ -458,8 +1031,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-01-05-bournemouth-h",
@@ -492,7 +1074,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35992,
       "score": {
         "ft": [
           0,
@@ -500,7 +1082,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -512,7 +1095,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38039,
       "score": {
         "ft": [
           2,
@@ -521,9 +1104,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "paul-mcgrath",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-02-02-west-bromwich-albion-h",
@@ -534,7 +1131,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36681,
       "score": {
         "ft": [
           2,
@@ -542,8 +1139,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1985-02-09-newcastle-united-a",
@@ -554,7 +1160,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32555,
       "score": {
         "ft": [
           1,
@@ -562,8 +1168,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-02-15-blackburn-rovers-a",
@@ -574,7 +1189,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22692,
       "score": {
         "ft": [
           2,
@@ -583,9 +1198,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "paul-mcgrath",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-02-23-arsenal-a",
@@ -596,7 +1225,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48612,
       "score": {
         "ft": [
           1,
@@ -604,8 +1233,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-03-02-everton-h",
@@ -616,7 +1254,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51150,
       "score": {
         "ft": [
           1,
@@ -624,7 +1262,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1985-03-06-fehervar-h",
+      "date": "1985-03-06",
+      "competition": "uefa-cup",
+      "round": "Quarter-final First leg",
+      "opponent": "FC Fehérvár",
+      "opponentId": "fehervar",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 35432,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -636,7 +1312,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46769,
       "score": {
         "ft": [
           4,
@@ -645,9 +1321,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1985-03-12-tottenham-hotspur-a",
@@ -658,7 +1348,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42908,
       "score": {
         "ft": [
           2,
@@ -666,8 +1356,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-03-15-west-ham-united-a",
@@ -678,7 +1382,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16674,
       "score": {
         "ft": [
           2,
@@ -686,7 +1390,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1985-03-20-fehervar-a",
+      "date": "1985-03-20",
+      "competition": "uefa-cup",
+      "round": "Quarter-final Second leg",
+      "opponent": "FC Fehérvár",
+      "opponentId": "fehervar",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": [
+          4,
+          5
+        ]
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -698,7 +1440,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40941,
       "score": {
         "ft": [
           4,
@@ -706,8 +1448,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1985-03-31-liverpool-a",
@@ -718,7 +1474,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34886,
       "score": {
         "ft": [
           1,
@@ -726,8 +1482,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-04-03-leicester-city-h",
@@ -738,7 +1503,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35950,
       "score": {
         "ft": [
           2,
@@ -746,8 +1511,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-04-06-stoke-city-h",
@@ -758,7 +1537,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42940,
       "score": {
         "ft": [
           5,
@@ -766,8 +1545,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1985-04-09-sheffield-wednesday-a",
@@ -778,7 +1576,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39380,
       "score": {
         "ft": [
           0,
@@ -786,7 +1584,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -808,9 +1607,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Goodison Park, Liverpool"
+      "notes": "Venue: Goodison Park, Liverpool",
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-04-17-liverpool-n",
@@ -830,9 +1643,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-04-21-luton-town-a",
@@ -843,7 +1670,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10320,
       "score": {
         "ft": [
           1,
@@ -851,8 +1678,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-04-24-southampton-h",
@@ -863,7 +1699,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31291,
       "score": {
         "ft": [
           0,
@@ -871,7 +1707,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -883,7 +1720,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38979,
       "score": {
         "ft": [
           2,
@@ -891,8 +1728,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-05-04-norwich-city-a",
@@ -903,7 +1754,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15502,
       "score": {
         "ft": [
           1,
@@ -911,8 +1762,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-05-06-nottingham-forest-h",
@@ -923,7 +1783,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41775,
       "score": {
         "ft": [
           2,
@@ -931,8 +1791,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-gidman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-05-11-queens-park-rangers-a",
@@ -943,7 +1817,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20483,
       "score": {
         "ft": [
           3,
@@ -951,8 +1825,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-brazil",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1985-05-13-watford-a",
@@ -963,7 +1851,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20500,
       "score": {
         "ft": [
           1,
@@ -971,8 +1859,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-05-18-everton-n",
@@ -993,9 +1890,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

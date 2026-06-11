@@ -10,7 +10,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7900,
       "score": {
         "ft": [
           1,
@@ -19,9 +19,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "craig",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

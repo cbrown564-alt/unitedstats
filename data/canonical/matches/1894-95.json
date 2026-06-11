@@ -10,7 +10,7 @@
       "opponentId": "burton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -18,7 +18,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -30,7 +31,7 @@
       "opponentId": "crewe-alexandra",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           6,
@@ -38,8 +39,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-dow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-dow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-mccartney",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-09-22-leicester-city-a",
@@ -50,7 +85,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           3,
@@ -58,8 +93,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-dow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-dow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-10-06-darwen-a",
@@ -70,7 +124,7 @@
       "opponentId": "darwen",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           1,
@@ -78,8 +132,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-10-13-arsenal-h",
@@ -90,7 +153,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           3,
@@ -98,8 +161,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-10-20-burton-swifts-a",
@@ -110,7 +192,7 @@
       "opponentId": "burton-swifts",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           2,
@@ -118,8 +200,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-10-27-leicester-city-h",
@@ -130,7 +226,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           2,
@@ -138,8 +234,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "james-mcnaught",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-11-03-manchester-city-a",
@@ -150,7 +260,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14000,
       "score": {
         "ft": [
           5,
@@ -158,8 +268,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-11-10-rotherham-town-h",
@@ -170,7 +309,7 @@
       "opponentId": "rotherham-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           3,
@@ -178,8 +317,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "will-davidson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-11-17-grimsby-town-a",
@@ -190,7 +348,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -198,8 +356,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-11-24-darwen-h",
@@ -210,7 +377,7 @@
       "opponentId": "darwen",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           1,
@@ -218,8 +385,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-12-01-crewe-alexandra-a",
@@ -230,7 +406,7 @@
       "opponentId": "crewe-alexandra",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 600,
       "score": {
         "ft": [
           2,
@@ -238,8 +414,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-12-08-burton-swifts-h",
@@ -250,7 +440,7 @@
       "opponentId": "burton-swifts",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           5,
@@ -258,8 +448,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-dow",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-12-15-notts-county-a",
@@ -270,7 +489,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -278,8 +497,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-12-22-lincoln-city-h",
@@ -290,7 +518,7 @@
       "opponentId": "lincoln-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           3,
@@ -298,8 +526,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-millar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-12-24-port-vale-a",
@@ -310,7 +557,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1000,
       "score": {
         "ft": [
           5,
@@ -318,8 +565,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "james-mcnaught",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-millar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-12-26-walsall-a",
@@ -330,7 +606,7 @@
       "opponentId": "walsall",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1000,
       "score": {
         "ft": [
           2,
@@ -338,8 +614,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-millar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-stewart",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1894-12-29-lincoln-city-a",
@@ -350,7 +640,7 @@
       "opponentId": "lincoln-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -358,7 +648,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +661,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           3,
@@ -378,8 +669,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-millar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-millar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charles-rothwell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-01-05-manchester-city-h",
@@ -390,7 +700,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           4,
@@ -398,8 +708,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-01-12-rotherham-town-a",
@@ -410,7 +744,7 @@
       "opponentId": "rotherham-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           1,
@@ -418,8 +752,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred-erentz",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-02-02-stoke-city-h",
@@ -430,7 +773,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           2,
@@ -439,9 +782,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-03-02-burton-wanderers-h",
@@ -452,7 +809,7 @@
       "opponentId": "burton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           1,
@@ -460,8 +817,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-03-23-grimsby-town-h",
@@ -472,7 +838,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9000,
       "score": {
         "ft": [
           2,
@@ -480,8 +846,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-03-30-arsenal-a",
@@ -492,7 +872,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           2,
@@ -500,8 +880,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-04-03-walsall-h",
@@ -512,7 +906,7 @@
       "opponentId": "walsall",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           9,
@@ -520,8 +914,57 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-04-06-newcastle-united-h",
@@ -532,7 +975,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           5,
@@ -540,8 +983,38 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "McDermidd (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-04-12-bury-h",
@@ -552,7 +1025,7 @@
       "opponentId": "bury",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           2,
@@ -560,8 +1033,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-04-13-newcastle-united-a",
@@ -572,7 +1059,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           0,
@@ -580,7 +1067,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -592,7 +1080,7 @@
       "opponentId": "bury",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           1,
@@ -600,8 +1088,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peters",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1895-04-20-notts-county-h",
@@ -612,7 +1109,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           3,
@@ -620,7 +1117,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-clarkin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1895-04-27-stoke-city-n",
+      "date": "1895-04-27",
+      "competition": "test-match",
+      "round": null,
+      "opponent": "Stoke City",
+      "opponentId": "stoke-city",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 10000,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     }
   ]

@@ -10,7 +10,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-lappin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-09-14-middlesbrough-a",
@@ -30,7 +49,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           0,
@@ -38,7 +57,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +70,7 @@
       "opponentId": "bristol-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           1,
@@ -58,8 +78,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-09-28-blackpool-a",
@@ -70,7 +99,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           4,
@@ -78,8 +107,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1901-10-05-stockport-county-h",
@@ -90,7 +138,7 @@
       "opponentId": "stockport-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           3,
@@ -98,8 +146,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stockport-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-10-12-burton-united-a",
@@ -110,7 +177,7 @@
       "opponentId": "burton-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -118,7 +185,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +198,7 @@
       "opponentId": "glossop",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           0,
@@ -138,7 +206,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +219,7 @@
       "opponentId": "doncaster-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           6,
@@ -158,8 +227,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1901-11-09-west-bromwich-albion-h",
@@ -170,7 +268,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13000,
       "score": {
         "ft": [
           1,
@@ -178,8 +276,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "james-fisher",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-11-16-arsenal-a",
@@ -190,7 +297,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -198,7 +305,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +318,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -218,8 +326,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-11-30-leicester-city-a",
@@ -230,7 +347,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           2,
@@ -238,8 +355,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "walter-cartwright",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "walter-cartwright",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-12-07-preston-north-end-a",
@@ -250,7 +381,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -258,8 +389,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-12-21-port-vale-h",
@@ -270,7 +410,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -278,8 +418,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-richards",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1901-12-26-lincoln-city-a",
@@ -290,7 +439,7 @@
       "opponentId": "lincoln-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           0,
@@ -298,7 +447,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +460,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           0,
@@ -318,7 +468,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +481,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           1,
@@ -338,8 +489,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-lappin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-01-18-bristol-city-a",
@@ -350,7 +510,7 @@
       "opponentId": "bristol-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           0,
@@ -358,7 +518,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +531,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -378,7 +539,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +552,7 @@
       "opponentId": "stockport-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -398,7 +560,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +573,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1000,
       "score": {
         "ft": [
           2,
@@ -418,8 +581,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-lappin",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-02-15-glossop-h",
@@ -430,7 +607,7 @@
       "opponentId": "glossop",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -438,8 +615,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred-erentz",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-02-22-doncaster-rovers-a",
@@ -450,7 +636,7 @@
       "opponentId": "doncaster-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -458,7 +644,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -470,7 +657,7 @@
       "opponentId": "lincoln-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           0,
@@ -478,7 +665,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -490,7 +678,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           0,
@@ -498,7 +686,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -510,7 +699,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -518,7 +707,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -530,7 +720,7 @@
       "opponentId": "chesterfield",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           0,
@@ -538,7 +728,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -550,7 +741,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2500,
       "score": {
         "ft": [
           2,
@@ -558,8 +749,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "walter-cartwright",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "james-higson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-03-28-burnley-a",
@@ -570,7 +775,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -578,7 +783,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -590,7 +796,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           2,
@@ -598,8 +804,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "vince-hayes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-04-07-middlesbrough-h",
@@ -610,7 +830,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           1,
@@ -618,8 +838,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "fred-erentz",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-04-19-port-vale-a",
@@ -630,7 +859,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           1,
@@ -638,8 +867,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-04-21-burton-united-h",
@@ -650,7 +888,7 @@
       "opponentId": "burton-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 500,
       "score": {
         "ft": [
           3,
@@ -658,8 +896,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "walter-cartwright",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-griffiths",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1902-04-23-chesterfield-h",
@@ -670,7 +927,7 @@
       "opponentId": "chesterfield",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           2,
@@ -678,8 +935,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stephen-preston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

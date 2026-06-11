@@ -10,7 +10,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-09-10-burnley-h",
@@ -30,7 +49,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           1,
@@ -38,8 +57,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-09-17-burnley-a",
@@ -50,7 +78,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           1,
@@ -58,8 +86,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-09-24-everton-a",
@@ -70,7 +107,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           0,
@@ -78,7 +115,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +128,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           0,
@@ -98,7 +136,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +149,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9000,
       "score": {
         "ft": [
           2,
@@ -118,8 +157,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-hood",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-10-15-wolverhampton-wanderers-h",
@@ -130,7 +183,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           10,
@@ -138,8 +191,62 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-stewart",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-stewart",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-stewart",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "adam-carson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "james-hendry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-hood",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-10-19-everton-h",
@@ -150,7 +257,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           3,
@@ -158,8 +265,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-hood",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-10-22-sheffield-wednesday-a",
@@ -170,7 +296,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           0,
@@ -178,7 +304,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +317,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           1,
@@ -198,8 +325,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-11-05-blackburn-rovers-h",
@@ -210,7 +346,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           4,
@@ -218,8 +354,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "adam-carson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-hood",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-11-12-notts-county-h",
@@ -230,7 +390,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           1,
@@ -238,8 +398,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "adam-carson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-11-19-aston-villa-h",
@@ -250,7 +419,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           2,
@@ -258,8 +427,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-fitzsimmons",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-11-26-accrington-f-c-a",
@@ -290,7 +473,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -298,8 +481,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-12-10-bolton-wanderers-h",
@@ -310,7 +502,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -318,8 +510,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-12-17-wolverhampton-wanderers-a",
@@ -330,7 +531,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           0,
@@ -338,7 +539,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +552,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -358,8 +560,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-hood",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-12-26-preston-north-end-a",
@@ -370,7 +581,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -378,8 +589,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1892-12-31-derby-county-h",
@@ -390,7 +610,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           7,
@@ -398,8 +618,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-fitzsimmons",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1893-01-07-stoke-city-a",
@@ -410,7 +669,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1000,
       "score": {
         "ft": [
           1,
@@ -418,8 +677,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1893-01-14-nottingham-forest-h",
@@ -430,7 +698,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           1,
@@ -438,8 +706,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1893-01-21-blackburn-rovers-a",
@@ -450,7 +727,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           0,
@@ -459,7 +736,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -472,7 +750,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1000,
       "score": {
         "ft": [
           0,
@@ -480,7 +758,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -492,7 +771,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           1,
@@ -500,8 +779,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-fitzsimmons",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1893-03-04-sunderland-h",
@@ -512,7 +800,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -520,7 +808,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -532,7 +821,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           0,
@@ -540,7 +829,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +842,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           1,
@@ -560,8 +850,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1893-04-01-preston-north-end-h",
@@ -572,7 +871,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9000,
       "score": {
         "ft": [
           2,
@@ -580,8 +879,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-donaldson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1893-04-04-sunderland-a",
@@ -592,7 +905,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3500,
       "score": {
         "ft": [
           0,
@@ -600,7 +913,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -621,6 +935,84 @@
       },
       "sources": [
         "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1893-04-22-birmingham-city-n",
+      "date": "1893-04-22",
+      "competition": "test-match",
+      "round": null,
+      "opponent": "Birmingham City",
+      "opponentId": "birmingham-city",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 4000,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1893-04-27-birmingham-city-n",
+      "date": "1893-04-27",
+      "competition": "test-match",
+      "round": null,
+      "opponent": "Birmingham City",
+      "opponentId": "birmingham-city",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 6000,
+      "score": {
+        "ft": [
+          5,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-farman",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-coupar",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     }
   ]

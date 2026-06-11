@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "ingest": "tsx scripts/ingest/engsoccerdata.ts",
+    "ingest:wikipedia": "tsx scripts/ingest/wikipedia.ts",
+    "ingest:positions": "tsx scripts/ingest/league-positions.ts",
     "build:db": "tsx scripts/build-db.ts",
     "validate": "tsx scripts/validate.ts",
     "update": "tsx pipeline/update.ts"

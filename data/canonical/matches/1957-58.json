@@ -10,7 +10,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40214,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-08-28-everton-h",
@@ -30,7 +49,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59103,
       "score": {
         "ft": [
           3,
@@ -38,8 +57,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1957-08-31-manchester-city-h",
@@ -50,7 +83,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63347,
       "score": {
         "ft": [
           4,
@@ -58,8 +91,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "duncan-edwards",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-09-04-everton-a",
@@ -70,7 +127,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 72077,
       "score": {
         "ft": [
           3,
@@ -78,8 +135,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-09-07-leeds-united-h",
@@ -90,7 +166,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50842,
       "score": {
         "ft": [
           5,
@@ -98,8 +174,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-09-09-blackpool-a",
@@ -110,7 +215,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34181,
       "score": {
         "ft": [
           4,
@@ -118,8 +223,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-09-14-bolton-wanderers-a",
@@ -130,7 +259,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48003,
       "score": {
         "ft": [
           0,
@@ -138,7 +267,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +280,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40763,
       "score": {
         "ft": [
           1,
@@ -158,8 +288,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "duncan-edwards",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-09-21-arsenal-h",
@@ -170,7 +309,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47142,
       "score": {
         "ft": [
           4,
@@ -178,7 +317,85 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1957-09-25-shamrock-rovers-a",
+      "date": "1957-09-25",
+      "competition": "european-cup",
+      "round": "Preliminary round First leg",
+      "opponent": "Shamrock Rovers",
+      "opponentId": "shamrock-rovers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 45000,
+      "score": {
+        "ft": [
+          6,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +407,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48825,
       "score": {
         "ft": [
           1,
@@ -198,7 +415,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-doherty",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1957-10-02-shamrock-rovers-h",
+      "date": "1957-10-02",
+      "competition": "european-cup",
+      "round": "Preliminary round Second leg",
+      "opponent": "Shamrock Rovers",
+      "opponentId": "shamrock-rovers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 33754,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +475,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43102,
       "score": {
         "ft": [
           4,
@@ -218,8 +483,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1957-10-12-nottingham-forest-a",
@@ -230,7 +514,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47654,
       "score": {
         "ft": [
           2,
@@ -238,8 +522,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-10-19-portsmouth-h",
@@ -250,7 +548,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38253,
       "score": {
         "ft": [
           0,
@@ -258,7 +556,52 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1957-10-22-aston-villa-h",
+      "date": "1957-10-22",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 27293,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-berry",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +613,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52160,
       "score": {
         "ft": [
           3,
@@ -278,8 +621,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-11-02-burnley-h",
@@ -290,7 +652,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49449,
       "score": {
         "ft": [
           1,
@@ -298,8 +660,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-11-09-preston-north-end-a",
@@ -310,7 +681,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39063,
       "score": {
         "ft": [
           1,
@@ -318,8 +689,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-11-16-sheffield-wednesday-h",
@@ -330,7 +710,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40366,
       "score": {
         "ft": [
           2,
@@ -338,7 +718,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1957-11-20-dukla-prague-h",
+      "date": "1957-11-20",
+      "competition": "european-cup",
+      "round": "First round First leg",
+      "opponent": "Dukla Prague",
+      "opponentId": "dukla-prague",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 60000,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +783,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53890,
       "score": {
         "ft": [
           2,
@@ -358,8 +791,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "duncan-edwards",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-11-30-tottenham-hotspur-h",
@@ -370,7 +817,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43077,
       "score": {
         "ft": [
           3,
@@ -378,7 +825,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-pegg",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-whelan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1957-12-04-dukla-prague-a",
+      "date": "1957-12-04",
+      "competition": "european-cup",
+      "round": "First round Second leg",
+      "opponent": "Dukla Prague",
+      "opponentId": "dukla-prague",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 35000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +877,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35791,
       "score": {
         "ft": [
           3,
@@ -398,8 +885,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-12-14-chelsea-h",
@@ -410,7 +916,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36853,
       "score": {
         "ft": [
           0,
@@ -418,7 +924,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +937,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41631,
       "score": {
         "ft": [
           4,
@@ -438,8 +945,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-12-25-luton-town-h",
@@ -450,7 +981,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39444,
       "score": {
         "ft": [
           3,
@@ -458,8 +989,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "duncan-edwards",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-12-26-luton-town-a",
@@ -470,7 +1020,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26458,
       "score": {
         "ft": [
           2,
@@ -478,8 +1028,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1957-12-28-manchester-city-a",
@@ -490,7 +1054,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 70483,
       "score": {
         "ft": [
           2,
@@ -498,8 +1062,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-01-04-workington-a",
@@ -510,7 +1088,7 @@
       "opponentId": "workington",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21000,
       "score": {
         "ft": [
           3,
@@ -519,9 +1097,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-01-11-leeds-united-a",
@@ -532,7 +1129,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39401,
       "score": {
         "ft": [
           1,
@@ -540,7 +1137,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1958-01-14-red-star-belgrade-h",
+      "date": "1958-01-14",
+      "competition": "european-cup",
+      "round": "Quarter-final First leg",
+      "opponent": "Red Star Belgrade",
+      "opponentId": "red-star-belgrade",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 60000,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "eddie-colman",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +1192,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41141,
       "score": {
         "ft": [
           7,
@@ -560,8 +1200,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "duncan-edwards",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-scanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-01-25-ipswich-town-h",
@@ -572,7 +1251,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53550,
       "score": {
         "ft": [
           2,
@@ -581,9 +1260,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-02-01-arsenal-a",
@@ -594,7 +1287,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63578,
       "score": {
         "ft": [
           5,
@@ -602,7 +1295,75 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "duncan-edwards",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1958-02-05-red-star-belgrade-a",
+      "date": "1958-02-05",
+      "competition": "european-cup",
+      "round": "Quarter-final Second leg",
+      "opponent": "Red Star Belgrade",
+      "opponentId": "red-star-belgrade",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 55000,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -614,7 +1375,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59848,
       "score": {
         "ft": [
           3,
@@ -623,9 +1384,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "shay-brennan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "shay-brennan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-02-22-nottingham-forest-h",
@@ -636,7 +1416,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 66124,
       "score": {
         "ft": [
           1,
@@ -644,8 +1424,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-03-01-west-bromwich-albion-a",
@@ -656,7 +1445,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58250,
       "score": {
         "ft": [
           2,
@@ -665,9 +1454,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-03-05-west-bromwich-albion-h",
@@ -678,7 +1481,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60000,
       "score": {
         "ft": [
           1,
@@ -687,9 +1490,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-03-08-west-bromwich-albion-h",
@@ -700,7 +1512,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63278,
       "score": {
         "ft": [
           0,
@@ -708,7 +1520,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -720,7 +1533,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37247,
       "score": {
         "ft": [
           0,
@@ -728,7 +1541,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -749,9 +1563,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Villa Park, Aston"
+      "notes": "Venue: Villa Park, Aston",
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-03-26-fulham-n",
@@ -771,9 +1599,38 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay. Venue: Highbury, London"
+      "notes": "FA Cup replay. Venue: Highbury, London",
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "shay-brennan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-03-29-sheffield-wednesday-a",
@@ -784,7 +1641,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35608,
       "score": {
         "ft": [
           0,
@@ -792,7 +1649,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -804,7 +1662,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16631,
       "score": {
         "ft": [
           2,
@@ -812,8 +1670,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-04-04-sunderland-h",
@@ -824,7 +1696,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47421,
       "score": {
         "ft": [
           2,
@@ -832,8 +1704,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-04-05-preston-north-end-h",
@@ -844,7 +1730,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47816,
       "score": {
         "ft": [
           0,
@@ -852,7 +1738,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -864,7 +1751,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51302,
       "score": {
         "ft": [
           2,
@@ -872,8 +1759,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-04-12-tottenham-hotspur-a",
@@ -884,7 +1785,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59836,
       "score": {
         "ft": [
           0,
@@ -892,7 +1793,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -904,7 +1806,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39975,
       "score": {
         "ft": [
           3,
@@ -912,8 +1814,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "colin-webster",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-04-19-birmingham-city-h",
@@ -924,7 +1845,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38991,
       "score": {
         "ft": [
           0,
@@ -932,7 +1853,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -944,7 +1866,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33267,
       "score": {
         "ft": [
           0,
@@ -952,7 +1874,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -964,7 +1887,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28393,
       "score": {
         "ft": [
           1,
@@ -972,8 +1895,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-04-26-chelsea-a",
@@ -984,7 +1916,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45011,
       "score": {
         "ft": [
           1,
@@ -992,8 +1924,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-taylor",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1958-05-03-bolton-wanderers-n",
@@ -1016,6 +1957,61 @@
         "engsoccerdata"
       ],
       "notes": null
+    },
+    {
+      "id": "1958-05-08-ac-milan-h",
+      "date": "1958-05-08",
+      "competition": "european-cup",
+      "round": "Semi-final First leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 44880,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-taylor",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1958-05-14-ac-milan-a",
+      "date": "1958-05-14",
+      "competition": "european-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 80000,
+      "score": {
+        "ft": [
+          0,
+          4
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
     }
   ]
 }

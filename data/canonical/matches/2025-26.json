@@ -10,7 +10,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73475,
       "score": {
         "ft": [
           0,
@@ -22,7 +22,8 @@
         ]
       },
       "sources": [
-        "openfootball"
+        "openfootball",
+        "wikipedia"
       ]
     },
     {
@@ -34,7 +35,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27512,
       "score": {
         "ft": [
           1,
@@ -46,7 +47,51 @@
         ]
       },
       "sources": [
-        "openfootball"
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 58,
+          "detail": "Rodrigo Muniz (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-08-27-grimsby-town-a",
+      "date": "2025-08-27",
+      "competition": "league-cup",
+      "round": "Second round",
+      "opponent": "Grimsby Town",
+      "opponentId": "grimsby-town",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 8647,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 89
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -58,7 +103,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74257,
       "score": {
         "ft": [
           3,
@@ -70,8 +115,28 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 27,
+          "detail": "Josh Cullen (og)"
+        },
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 57
+        },
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 97
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-09-14-manchester-city-a",
@@ -82,7 +147,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52534,
       "score": {
         "ft": [
           0,
@@ -94,7 +159,8 @@
         ]
       },
       "sources": [
-        "openfootball"
+        "openfootball",
+        "wikipedia"
       ]
     },
     {
@@ -106,7 +172,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74124,
       "score": {
         "ft": [
           2,
@@ -118,8 +184,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 37
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-09-27-brentford-a",
@@ -130,7 +210,7 @@
       "opponentId": "brentford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17193,
       "score": {
         "ft": [
           1,
@@ -142,8 +222,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 26
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-10-04-sunderland-h",
@@ -154,7 +243,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74004,
       "score": {
         "ft": [
           2,
@@ -166,8 +255,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-mount",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 31
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-10-19-liverpool-a",
@@ -178,7 +281,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60337,
       "score": {
         "ft": [
           2,
@@ -190,8 +293,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-10-25-brighton-and-hove-albion-h",
@@ -202,7 +319,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73987,
       "score": {
         "ft": [
           4,
@@ -214,8 +331,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2025-11-01-nottingham-forest-a",
@@ -226,7 +362,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30778,
       "score": {
         "ft": [
           2,
@@ -238,8 +374,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-11-08-tottenham-hotspur-a",
@@ -250,7 +400,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 61210,
       "score": {
         "ft": [
           2,
@@ -262,8 +412,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "matthijs-de-ligt",
+          "minute": 96
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-11-24-everton-h",
@@ -274,7 +438,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74158,
       "score": {
         "ft": [
           0,
@@ -286,7 +450,8 @@
         ]
       },
       "sources": [
-        "openfootball"
+        "openfootball",
+        "wikipedia"
       ]
     },
     {
@@ -298,7 +463,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25189,
       "score": {
         "ft": [
           2,
@@ -310,8 +475,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "mason-mount",
+          "minute": 63
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-12-04-west-ham-united-h",
@@ -322,7 +501,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73938,
       "score": {
         "ft": [
           1,
@@ -334,8 +513,18 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 58,
+          "detail": "Diogo Dalot (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-12-08-wolverhampton-wanderers-a",
@@ -346,7 +535,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30338,
       "score": {
         "ft": [
           4,
@@ -358,8 +547,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "mason-mount",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2025-12-15-bournemouth-h",
@@ -370,7 +578,7 @@
       "opponentId": "bournemouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73951,
       "score": {
         "ft": [
           4,
@@ -382,8 +590,32 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 77
+        },
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-12-21-aston-villa-a",
@@ -394,7 +626,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43157,
       "score": {
         "ft": [
           1,
@@ -406,8 +638,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-12-26-newcastle-united-h",
@@ -418,7 +659,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73996,
       "score": {
         "ft": [
           1,
@@ -430,8 +671,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "patrick-dorgu",
+          "minute": 24
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-12-30-wolverhampton-wanderers-h",
@@ -442,7 +692,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73941,
       "score": {
         "ft": [
           1,
@@ -454,8 +704,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-01-04-leeds-united-a",
@@ -466,7 +725,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36909,
       "score": {
         "ft": [
           1,
@@ -478,8 +737,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 65
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-01-07-burnley-a",
@@ -490,7 +758,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21047,
       "score": {
         "ft": [
           2,
@@ -502,7 +770,45 @@
         ]
       },
       "sources": [
-        "openfootball"
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2026-01-11-brighton-and-hove-albion-h",
+      "date": "2026-01-11",
+      "competition": "fa-cup",
+      "round": "Third round",
+      "opponent": "Brighton & Hove Albion",
+      "opponentId": "brighton-and-hove-albion",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73888,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 85
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -514,7 +820,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74004,
       "score": {
         "ft": [
           2,
@@ -526,8 +832,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "patrick-dorgu",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-01-25-arsenal-a",
@@ -538,7 +858,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60296,
       "score": {
         "ft": [
           3,
@@ -550,8 +870,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "patrick-dorgu",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-02-01-fulham-h",
@@ -562,7 +901,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73932,
       "score": {
         "ft": [
           3,
@@ -574,8 +913,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 94
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-02-07-tottenham-hotspur-h",
@@ -586,7 +944,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73985,
       "score": {
         "ft": [
           2,
@@ -598,8 +956,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-02-10-west-ham-united-a",
@@ -610,7 +982,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62473,
       "score": {
         "ft": [
           1,
@@ -622,8 +994,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 96
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-02-23-everton-a",
@@ -634,7 +1015,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52326,
       "score": {
         "ft": [
           1,
@@ -646,8 +1027,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-03-01-crystal-palace-h",
@@ -658,7 +1048,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73934,
       "score": {
         "ft": [
           2,
@@ -670,8 +1060,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 65
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-03-04-newcastle-united-a",
@@ -682,7 +1086,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52184,
       "score": {
         "ft": [
           1,
@@ -694,8 +1098,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 54
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-03-15-aston-villa-h",
@@ -706,7 +1119,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73997,
       "score": {
         "ft": [
           3,
@@ -718,8 +1131,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-03-20-bournemouth-a",
@@ -730,7 +1162,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11250,
       "score": {
         "ft": [
           2,
@@ -742,8 +1174,23 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 61
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 71,
+          "detail": "James Hill (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-04-13-leeds-united-h",
@@ -754,7 +1201,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74018,
       "score": {
         "ft": [
           1,
@@ -766,8 +1213,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-04-18-chelsea-a",
@@ -778,7 +1234,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39733,
       "score": {
         "ft": [
           1,
@@ -790,8 +1246,17 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 43
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-04-27-brentford-h",
@@ -802,7 +1267,7 @@
       "opponentId": "brentford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73773,
       "score": {
         "ft": [
           2,
@@ -814,8 +1279,22 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 43
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-05-03-liverpool-h",
@@ -826,7 +1305,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74027,
       "score": {
         "ft": [
           3,
@@ -838,8 +1317,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "benjamin-sesko",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "kobbie-mainoo",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-05-09-sunderland-a",
@@ -850,7 +1348,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47233,
       "score": {
         "ft": [
           0,
@@ -859,7 +1357,8 @@
         "ht": null
       },
       "sources": [
-        "openfootball"
+        "openfootball",
+        "wikipedia"
       ]
     },
     {
@@ -871,7 +1370,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74015,
       "score": {
         "ft": [
           3,
@@ -883,8 +1382,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "luke-shaw",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "matheus-cunha",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2026-05-24-brighton-and-hove-albion-a",
@@ -895,7 +1413,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31729,
       "score": {
         "ft": [
           3,
@@ -907,8 +1425,27 @@
         ]
       },
       "sources": [
-        "openfootball"
-      ]
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "patrick-dorgu",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

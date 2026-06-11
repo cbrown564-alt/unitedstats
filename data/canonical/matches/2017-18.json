@@ -2,6 +2,35 @@
   "season": "2017-18",
   "matches": [
     {
+      "id": "2017-08-08-real-madrid-n",
+      "date": "2017-08-08",
+      "competition": "uefa-super-cup",
+      "round": null,
+      "opponent": "Real Madrid C.F.",
+      "opponentId": "real-madrid",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 30421,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 62
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2017-08-13-west-ham-united-h",
       "date": "2017-08-13",
       "competition": "premier-league",
@@ -10,7 +39,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74928,
       "score": {
         "ft": [
           4,
@@ -18,8 +47,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 87
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 90,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2017-08-19-swansea-city-a",
@@ -30,7 +79,7 @@
       "opponentId": "swansea-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20862,
       "score": {
         "ft": [
           4,
@@ -38,8 +87,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-bailly",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 80
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 82,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-08-26-leicester-city-h",
@@ -50,7 +124,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75021,
       "score": {
         "ft": [
           2,
@@ -58,8 +132,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-09-09-stoke-city-a",
@@ -70,7 +158,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29320,
       "score": {
         "ft": [
           2,
@@ -78,7 +166,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-09-12-basel-h",
+      "date": "2017-09-12",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Basel",
+      "opponentId": "basel",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73854,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 84
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +231,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75042,
       "score": {
         "ft": [
           4,
@@ -98,7 +239,70 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 4
+        },
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 83
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 89
+        },
+        {
+          "type": "pen-goal",
+          "player": "anthony-martial",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-09-20-burton-albion-h",
+      "date": "2017-09-20",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Burton Albion",
+      "opponentId": "burton-albion",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 54256,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 60
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +314,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31930,
       "score": {
         "ft": [
           1,
@@ -118,7 +322,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-09-27-pfc-cska-moscow-a",
+      "date": "2017-09-27",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PFC CSKA Moscow",
+      "opponentId": "pfc-cska-moscow",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29073,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 4
+        },
+        {
+          "type": "pen-goal",
+          "player": "anthony-martial",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 57
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +382,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75118,
       "score": {
         "ft": [
           4,
@@ -138,8 +390,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2017-10-14-liverpool-a",
@@ -150,7 +421,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52912,
       "score": {
         "ft": [
           0,
@@ -158,7 +429,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2017-10-18-benfica-a",
+      "date": "2017-10-18",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "S.L. Benfica",
+      "opponentId": "benfica",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 57684,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 64
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +471,7 @@
       "opponentId": "huddersfield-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24426,
       "score": {
         "ft": [
           1,
@@ -178,7 +479,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-10-24-swansea-city-a",
+      "date": "2017-10-24",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Swansea City",
+      "opponentId": "swansea-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20083,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 21
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +529,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75034,
       "score": {
         "ft": [
           1,
@@ -198,7 +537,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-10-31-benfica-h",
+      "date": "2017-10-31",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "S.L. Benfica",
+      "opponentId": "benfica",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74437,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 45,
+          "detail": "Mile Svilar (og)"
+        },
+        {
+          "type": "pen-goal",
+          "player": "daley-blind",
+          "minute": 78
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +593,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41615,
       "score": {
         "ft": [
           0,
@@ -218,7 +601,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +614,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75035,
       "score": {
         "ft": [
           4,
@@ -238,7 +622,53 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 46
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 54,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-11-22-basel-a",
+      "date": "2017-11-22",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Basel",
+      "opponentId": "basel",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 36000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +680,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75018,
       "score": {
         "ft": [
           1,
@@ -258,8 +688,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 66,
+          "detail": "Lewis Dunk (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-11-28-watford-a",
@@ -270,7 +710,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20552,
       "score": {
         "ft": [
           4,
@@ -278,8 +718,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2017-12-02-arsenal-a",
@@ -290,7 +749,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59547,
       "score": {
         "ft": [
           3,
@@ -298,7 +757,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 4
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 11
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2017-12-05-pfc-cska-moscow-h",
+      "date": "2017-12-05",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PFC CSKA Moscow",
+      "opponentId": "pfc-cska-moscow",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74669,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 64
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 66
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +817,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74847,
       "score": {
         "ft": [
           1,
@@ -318,8 +825,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-12-13-bournemouth-h",
@@ -350,7 +866,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24782,
       "score": {
         "ft": [
           2,
@@ -358,7 +874,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 35
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-12-20-bristol-city-a",
+      "date": "2017-12-20",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Bristol City",
+      "opponentId": "bristol-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 26088,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 58
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +929,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32202,
       "score": {
         "ft": [
           2,
@@ -378,8 +937,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 40
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2017-12-26-burnley-h",
@@ -390,7 +958,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75046,
       "score": {
         "ft": [
           2,
@@ -398,8 +966,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2017-12-30-southampton-h",
@@ -410,7 +987,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75051,
       "score": {
         "ft": [
           0,
@@ -418,7 +995,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +1008,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39188,
       "score": {
         "ft": [
           2,
@@ -438,8 +1016,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-01-05-derby-county-h",
@@ -459,9 +1051,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 84
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-01-15-stoke-city-h",
@@ -472,7 +1078,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74726,
       "score": {
         "ft": [
           3,
@@ -480,8 +1086,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-01-20-burnley-a",
@@ -492,7 +1117,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21841,
       "score": {
         "ft": [
           1,
@@ -500,8 +1125,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 54
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-01-26-yeovil-a",
@@ -534,7 +1168,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 81978,
       "score": {
         "ft": [
           0,
@@ -542,7 +1176,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -554,7 +1189,7 @@
       "opponentId": "huddersfield-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74742,
       "score": {
         "ft": [
           2,
@@ -562,8 +1197,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "alexis-sanchez",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-02-11-newcastle-united-a",
@@ -574,7 +1223,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52309,
       "score": {
         "ft": [
           0,
@@ -582,7 +1231,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -603,9 +1253,39 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: John Smith's Stadium"
+      "notes": "Venue: John Smith's Stadium",
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 3
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2018-02-21-sevilla-a",
+      "date": "2018-02-21",
+      "competition": "champions-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Sevilla",
+      "opponentId": "sevilla",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 39725,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2018-02-25-chelsea-h",
@@ -616,7 +1296,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75060,
       "score": {
         "ft": [
           2,
@@ -624,8 +1304,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-03-05-crystal-palace-a",
@@ -636,7 +1330,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25840,
       "score": {
         "ft": [
           3,
@@ -644,8 +1338,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "nemanja-matic",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-03-10-liverpool-h",
@@ -656,7 +1369,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74855,
       "score": {
         "ft": [
           2,
@@ -664,7 +1377,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 14
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2018-03-13-sevilla-h",
+      "date": "2018-03-13",
+      "competition": "champions-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Sevilla",
+      "opponentId": "sevilla",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74909,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 84
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -685,9 +1436,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nemanja-matic",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-03-31-swansea-city-h",
@@ -698,7 +1463,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75038,
       "score": {
         "ft": [
           2,
@@ -706,8 +1471,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "alexis-sanchez",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-04-07-manchester-city-a",
@@ -718,7 +1497,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54259,
       "score": {
         "ft": [
           3,
@@ -726,8 +1505,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 53,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2018-04-15-west-bromwich-albion-h",
@@ -738,7 +1532,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75095,
       "score": {
         "ft": [
           0,
@@ -746,7 +1540,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -787,9 +1582,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alexis-sanchez",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-04-29-arsenal-h",
@@ -800,7 +1609,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75035,
       "score": {
         "ft": [
           2,
@@ -808,8 +1617,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 16,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-05-04-brighton-and-hove-albion-a",
@@ -820,7 +1644,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30611,
       "score": {
         "ft": [
           0,
@@ -828,7 +1652,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -840,7 +1665,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56902,
       "score": {
         "ft": [
           0,
@@ -848,7 +1673,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -860,7 +1686,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75049,
       "score": {
         "ft": [
           1,
@@ -868,8 +1694,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 34
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-05-19-chelsea-n",

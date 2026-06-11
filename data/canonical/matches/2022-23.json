@@ -1,0 +1,2218 @@
+{
+  "season": "2022-23",
+  "matches": [
+    {
+      "id": "2022-08-07-brighton-and-hove-albion-h",
+      "date": "2022-08-07",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Brighton & Hove Albion",
+      "opponentId": "brighton-and-hove-albion",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73711,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "ht": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 68,
+          "detail": "Alexis Mac Allister (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-08-13-brentford-a",
+      "date": "2022-08-13",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Brentford",
+      "opponentId": "brentford",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 17250,
+      "score": {
+        "ft": [
+          0,
+          4
+        ],
+        "ht": [
+          0,
+          4
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-08-22-liverpool-h",
+      "date": "2022-08-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73594,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-08-27-southampton-a",
+      "date": "2022-08-27",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31196,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-09-01-leicester-city-a",
+      "date": "2022-09-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 32226,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 23
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-09-04-arsenal-h",
+      "date": "2022-09-04",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73431,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2022-09-08-real-sociedad-h",
+      "date": "2022-09-08",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Real Sociedad",
+      "opponentId": "real-sociedad",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 71720,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-09-15-sheriff-tiraspol-a",
+      "date": "2022-09-15",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Sheriff Tiraspol",
+      "opponentId": "sheriff-tiraspol",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 8734,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 17
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 39
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-10-02-manchester-city-a",
+      "date": "2022-10-02",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 53475,
+      "score": {
+        "ft": [
+          3,
+          6
+        ],
+        "ht": [
+          0,
+          4
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2022-10-06-ac-omonia-a",
+      "date": "2022-10-06",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "AC Omonia",
+      "opponentId": "ac-omonia",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20011,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 63
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-10-09-everton-a",
+      "date": "2022-10-09",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 39258,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-10-13-ac-omonia-h",
+      "date": "2022-10-13",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "AC Omonia",
+      "opponentId": "ac-omonia",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73132,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 93
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-10-16-newcastle-united-h",
+      "date": "2022-10-16",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73726,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "ht": null,
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-10-19-tottenham-hotspur-h",
+      "date": "2022-10-19",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73677,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-10-22-chelsea-a",
+      "date": "2022-10-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 39503,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 94
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-10-27-sheriff-tiraspol-h",
+      "date": "2022-10-27",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Sheriff Tiraspol",
+      "opponentId": "sheriff-tiraspol",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73764,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 44,
+          "detail": "Diogo Dalot (og)"
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-10-30-west-ham-united-h",
+      "date": "2022-10-30",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73682,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-11-03-real-sociedad-a",
+      "date": "2022-11-03",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Real Sociedad",
+      "opponentId": "real-sociedad",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 36744,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 17
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2022-11-06-aston-villa-a",
+      "date": "2022-11-06",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 42058,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "ht": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 45,
+          "detail": "Jacob Ramsey (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-11-10-aston-villa-h",
+      "date": "2022-11-10",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72512,
+      "score": {
+        "ft": [
+          4,
+          2
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 78
+        },
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-11-13-fulham-a",
+      "date": "2022-11-13",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Fulham",
+      "opponentId": "fulham",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 24246,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "christian-eriksen",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-12-21-burnley-h",
+      "date": "2022-12-21",
+      "competition": "league-cup",
+      "round": "Round of 16",
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 62062,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "christian-eriksen",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-12-27-nottingham-forest-h",
+      "date": "2022-12-27",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73608,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "ht": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-12-31-wolverhampton-wanderers-a",
+      "date": "2022-12-31",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Wolverhampton Wanderers",
+      "opponentId": "wolverhampton-wanderers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31658,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-01-03-bournemouth-h",
+      "date": "2023-01-03",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "AFC Bournemouth",
+      "opponentId": "bournemouth",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73322,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "luke-shaw",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-01-06-everton-h",
+      "date": "2023-01-06",
+      "competition": "fa-cup",
+      "round": "Round 3",
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72306,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 4
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 52,
+          "detail": "Conor Coady (og)"
+        },
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 97
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-01-10-charlton-athletic-h",
+      "date": "2023-01-10",
+      "competition": "league-cup",
+      "round": "Quarter-final",
+      "opponent": "Charlton Athletic",
+      "opponentId": "charlton-athletic",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74345,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2023-01-14-manchester-city-h",
+      "date": "2023-01-14",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73546,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 78
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-01-18-crystal-palace-a",
+      "date": "2023-01-18",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Crystal Palace",
+      "opponentId": "crystal-palace",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 35853,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 43
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-01-22-arsenal-a",
+      "date": "2023-01-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 60325,
+      "score": {
+        "ft": [
+          2,
+          3
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "lisandro-martinez",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-01-25-nottingham-forest-a",
+      "date": "2023-01-25",
+      "competition": "league-cup",
+      "round": "Semi-final",
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29325,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "ht": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "wout-weghorst",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-01-28-reading-h",
+      "date": "2023-01-28",
+      "competition": "fa-cup",
+      "round": "Round 4",
+      "opponent": "Reading",
+      "opponentId": "reading",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73460,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2023-02-01-nottingham-forest-h",
+      "date": "2023-02-01",
+      "competition": "league-cup",
+      "round": "Semi-final",
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72315,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 73
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-02-04-crystal-palace-h",
+      "date": "2023-02-04",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Crystal Palace",
+      "opponentId": "crystal-palace",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73420,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-02-08-leeds-united-h",
+      "date": "2023-02-08",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73456,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "ht": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-02-12-leeds-united-a",
+      "date": "2023-02-12",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 36919,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-02-16-barcelona-a",
+      "date": "2023-02-16",
+      "competition": "europa-league",
+      "round": "Knockout round play-off First leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 90225,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 52
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 59,
+          "detail": "Jules Koundé (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-02-19-leicester-city-h",
+      "date": "2023-02-19",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73578,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2023-02-23-barcelona-h",
+      "date": "2023-02-23",
+      "competition": "europa-league",
+      "round": "Knockout round play-off Second leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73021,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 73
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-02-26-newcastle-united-n",
+      "date": "2023-02-26",
+      "competition": "league-cup",
+      "round": "Final",
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "N",
+      "stadium": "wembley",
+      "attendance": 87306,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-03-01-west-ham-united-h",
+      "date": "2023-03-01",
+      "competition": "fa-cup",
+      "round": "Round of 16",
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72571,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 77,
+          "detail": "Nayef Aguerd (og)"
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 90
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 95
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-03-05-liverpool-a",
+      "date": "2023-03-05",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 53001,
+      "score": {
+        "ft": [
+          0,
+          7
+        ],
+        "ht": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-03-09-real-betis-h",
+      "date": "2023-03-09",
+      "competition": "europa-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Real Betis",
+      "opponentId": "real-betis",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72998,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "wout-weghorst",
+          "minute": 82
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-03-12-southampton-h",
+      "date": "2023-03-12",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73439,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "ht": null,
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-03-16-real-betis-a",
+      "date": "2023-03-16",
+      "competition": "europa-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Real Betis",
+      "opponentId": "real-betis",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 54643,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 56
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-03-19-fulham-h",
+      "date": "2023-03-19",
+      "competition": "fa-cup",
+      "round": "Quarter-final",
+      "opponent": "Fulham",
+      "opponentId": "fulham",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73511,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "marcel-sabitzer",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2023-04-02-newcastle-united-a",
+      "date": "2023-04-02",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 52268,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-04-05-brentford-h",
+      "date": "2023-04-05",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Brentford",
+      "opponentId": "brentford",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73309,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-04-08-everton-h",
+      "date": "2023-04-08",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73509,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-04-13-sevilla-h",
+      "date": "2023-04-13",
+      "competition": "europa-league",
+      "round": "Quarter-finals First leg",
+      "opponent": "Sevilla",
+      "opponentId": "sevilla",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72825,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcel-sabitzer",
+          "minute": 14
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-04-16-nottingham-forest-a",
+      "date": "2023-04-16",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29435,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antony",
+          "minute": 32
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 76,
+          "detail": "Diogo Dalot (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-04-20-sevilla-a",
+      "date": "2023-04-20",
+      "competition": "europa-league",
+      "round": "Quarter-finals Second leg",
+      "opponent": "Sevilla",
+      "opponentId": "sevilla",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41974,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-04-23-brighton-and-hove-albion-n",
+      "date": "2023-04-23",
+      "competition": "fa-cup",
+      "round": "Semi-final",
+      "opponent": "Brighton & Hove Albion",
+      "opponentId": "brighton-and-hove-albion",
+      "venue": "N",
+      "stadium": "wembley",
+      "attendance": 81445,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "aet": true,
+        "pens": [
+          7,
+          6
+        ]
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-04-27-tottenham-hotspur-a",
+      "date": "2023-04-27",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 61586,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "ht": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-04-30-aston-villa-h",
+      "date": "2023-04-30",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73592,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-05-04-brighton-and-hove-albion-a",
+      "date": "2023-05-04",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Brighton & Hove Albion",
+      "opponentId": "brighton-and-hove-albion",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31577,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "ht": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-05-07-west-ham-united-a",
+      "date": "2023-05-07",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 62477,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "ht": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2023-05-13-wolverhampton-wanderers-h",
+      "date": "2023-05-13",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Wolverhampton Wanderers",
+      "opponentId": "wolverhampton-wanderers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73570,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 94
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-05-20-bournemouth-a",
+      "date": "2023-05-20",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "AFC Bournemouth",
+      "opponentId": "bournemouth",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 10240,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 9
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-05-25-chelsea-h",
+      "date": "2023-05-25",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73561,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "ht": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 51
+        },
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 73
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-05-28-fulham-h",
+      "date": "2023-05-28",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Fulham",
+      "opponentId": "fulham",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73465,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2023-06-03-manchester-city-n",
+      "date": "2023-06-03",
+      "competition": "fa-cup",
+      "round": "Final",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "N",
+      "stadium": "wembley",
+      "attendance": 83179,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 33
+        }
+      ],
+      "eventsComplete": true
+    }
+  ]
+}

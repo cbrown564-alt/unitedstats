@@ -10,7 +10,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48610,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-08-13-everton-h",
@@ -30,7 +44,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57752,
       "score": {
         "ft": [
           0,
@@ -38,7 +52,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +65,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46328,
       "score": {
         "ft": [
           1,
@@ -58,8 +73,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-08-19-everton-a",
@@ -70,7 +94,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53185,
       "score": {
         "ft": [
           0,
@@ -78,7 +102,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +115,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50783,
       "score": {
         "ft": [
           0,
@@ -98,7 +123,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +136,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52774,
       "score": {
         "ft": [
           0,
@@ -118,7 +144,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +157,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50570,
       "score": {
         "ft": [
           3,
@@ -138,7 +165,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "don-givens",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1969-09-03-middlesbrough-h",
+      "date": "1969-09-03",
+      "competition": "league-cup",
+      "round": "Round 2",
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 38939,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +225,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44271,
       "score": {
         "ft": [
           2,
@@ -158,8 +233,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-09-13-liverpool-h",
@@ -170,7 +259,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56509,
       "score": {
         "ft": [
           1,
@@ -178,8 +267,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-09-17-sheffield-wednesday-a",
@@ -190,7 +288,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39298,
       "score": {
         "ft": [
           3,
@@ -198,8 +296,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-09-20-arsenal-a",
@@ -210,7 +327,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59498,
       "score": {
         "ft": [
           2,
@@ -218,7 +335,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1969-09-23-wrexham-h",
+      "date": "1969-09-23",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Wrexham",
+      "opponentId": "wrexham",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 48347,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +395,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 58579,
       "score": {
         "ft": [
           5,
@@ -238,8 +403,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "francis-burns",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-10-04-derby-county-a",
@@ -250,7 +444,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40724,
       "score": {
         "ft": [
           0,
@@ -258,7 +452,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +465,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31044,
       "score": {
         "ft": [
           3,
@@ -278,8 +473,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "francis-burns",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-10-11-ipswich-town-h",
@@ -290,7 +504,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52281,
       "score": {
         "ft": [
           2,
@@ -298,7 +512,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1969-10-14-burnley-a",
+      "date": "1969-10-14",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 27959,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +559,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53702,
       "score": {
         "ft": [
           1,
@@ -318,7 +567,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1969-10-20-burnley-h",
+      "date": "1969-10-20",
+      "competition": "league-cup",
+      "round": "Round 4 Replay",
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 50275,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +617,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45120,
       "score": {
         "ft": [
           1,
@@ -338,8 +625,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-11-01-stoke-city-h",
@@ -350,7 +646,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53406,
       "score": {
         "ft": [
           1,
@@ -358,8 +654,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-11-08-coventry-city-a",
@@ -370,7 +675,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43446,
       "score": {
         "ft": [
           2,
@@ -378,7 +683,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-aston-jr",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1969-11-12-derby-county-a",
+      "date": "1969-11-12",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Derby County",
+      "opponentId": "derby-county",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 38895,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +730,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63013,
       "score": {
         "ft": [
           0,
@@ -398,7 +738,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1969-11-19-derby-county-h",
+      "date": "1969-11-19",
+      "competition": "league-cup",
+      "round": "Round 5 Replay",
+      "opponent": "Derby County",
+      "opponentId": "derby-county",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 57393,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +780,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50003,
       "score": {
         "ft": [
           3,
@@ -418,8 +788,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "francis-burns",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-11-29-burnley-a",
@@ -430,7 +819,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23770,
       "score": {
         "ft": [
           1,
@@ -438,7 +827,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1969-12-03-manchester-city-a",
+      "date": "1969-12-03",
+      "competition": "league-cup",
+      "round": "Semi Final First Leg",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 55799,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +877,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49344,
       "score": {
         "ft": [
           0,
@@ -458,7 +885,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -470,7 +898,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47682,
       "score": {
         "ft": [
           4,
@@ -478,7 +906,66 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ian-ure",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1969-12-17-manchester-city-h",
+      "date": "1969-12-17",
+      "competition": "league-cup",
+      "round": "Semi Final Second Leg",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 63418,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-edwards",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -490,7 +977,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50806,
       "score": {
         "ft": [
           0,
@@ -498,7 +985,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -510,7 +998,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36504,
       "score": {
         "ft": [
           1,
@@ -518,8 +1006,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-01-03-ipswich-town-a",
@@ -530,7 +1027,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29552,
       "score": {
         "ft": [
           1,
@@ -539,9 +1036,19 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-01-10-arsenal-h",
@@ -552,7 +1059,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41055,
       "score": {
         "ft": [
           2,
@@ -560,8 +1067,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "carlo-sartori",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-01-17-west-ham-united-a",
@@ -572,7 +1093,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41643,
       "score": {
         "ft": [
           0,
@@ -580,7 +1101,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -592,7 +1114,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63417,
       "score": {
         "ft": [
           3,
@@ -601,9 +1123,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-01-26-leeds-united-h",
@@ -614,7 +1155,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59879,
       "score": {
         "ft": [
           2,
@@ -622,8 +1163,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-sadler",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-01-31-derby-county-h",
@@ -634,7 +1189,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59315,
       "score": {
         "ft": [
           1,
@@ -642,8 +1197,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-02-07-northampton-town-a",
@@ -654,7 +1218,7 @@
       "opponentId": "northampton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21771,
       "score": {
         "ft": [
           8,
@@ -663,9 +1227,53 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-02-10-ipswich-town-a",
@@ -676,7 +1284,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29755,
       "score": {
         "ft": [
           1,
@@ -684,8 +1292,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-02-14-crystal-palace-h",
@@ -696,7 +1313,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54711,
       "score": {
         "ft": [
           1,
@@ -704,8 +1321,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-02-21-middlesbrough-a",
@@ -716,7 +1342,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           1,
@@ -725,9 +1351,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlo-sartori",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-02-25-middlesbrough-h",
@@ -738,7 +1373,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63418,
       "score": {
         "ft": [
           2,
@@ -747,9 +1382,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-02-28-stoke-city-a",
@@ -760,7 +1409,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38917,
       "score": {
         "ft": [
           2,
@@ -768,8 +1417,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "carlo-sartori",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-03-14-leeds-united-n",
@@ -802,7 +1465,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38377,
       "score": {
         "ft": [
           3,
@@ -810,8 +1473,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "paddy-crerand",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-03-21-chelsea-a",
@@ -822,7 +1504,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 61479,
       "score": {
         "ft": [
           1,
@@ -830,8 +1512,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "willie-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-03-23-leeds-united-n",
@@ -887,7 +1578,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59777,
       "score": {
         "ft": [
           1,
@@ -895,8 +1586,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-03-30-coventry-city-h",
@@ -907,7 +1607,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38647,
       "score": {
         "ft": [
           1,
@@ -915,8 +1615,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-kidd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-03-31-nottingham-forest-a",
@@ -927,7 +1636,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39228,
       "score": {
         "ft": [
           2,
@@ -935,8 +1644,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alan-gowling",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-04-04-newcastle-united-a",
@@ -947,7 +1670,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43094,
       "score": {
         "ft": [
           1,
@@ -955,8 +1678,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-04-08-west-bromwich-albion-h",
@@ -967,7 +1699,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26582,
       "score": {
         "ft": [
           7,
@@ -975,8 +1707,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-fitzpatrick",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-fitzpatrick",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alan-gowling",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alan-gowling",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-04-13-tottenham-hotspur-a",
@@ -987,7 +1758,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41808,
       "score": {
         "ft": [
           1,
@@ -995,8 +1766,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-fitzpatrick",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1970-04-15-sheffield-wednesday-h",
@@ -1007,7 +1787,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36649,
       "score": {
         "ft": [
           2,
@@ -1015,8 +1795,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

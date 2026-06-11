@@ -2,6 +2,40 @@
   "season": "1994-95",
   "matches": [
     {
+      "id": "1994-08-14-blackburn-rovers-n",
+      "date": "1994-08-14",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Blackburn Rovers",
+      "opponentId": "blackburn-rovers",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 60402,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1994-08-20-queens-park-rangers-h",
       "date": "1994-08-20",
       "competition": "premier-league",
@@ -10,7 +44,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43214,
       "score": {
         "ft": [
           2,
@@ -18,8 +52,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-08-22-nottingham-forest-a",
@@ -30,7 +78,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22072,
       "score": {
         "ft": [
           1,
@@ -38,8 +86,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 23
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-08-27-tottenham-hotspur-a",
@@ -50,7 +107,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24502,
       "score": {
         "ft": [
           1,
@@ -58,8 +115,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-08-31-wimbledon-h",
@@ -70,7 +136,7 @@
       "opponentId": "wimbledon",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43440,
       "score": {
         "ft": [
           3,
@@ -78,8 +144,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-09-11-leeds-united-a",
@@ -90,7 +175,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39396,
       "score": {
         "ft": [
           1,
@@ -98,7 +183,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-09-14-ifk-goteborg-h",
+      "date": "1994-09-14",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "IFK Göteborg",
+      "opponentId": "ifk-goteborg",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 33625,
+      "score": {
+        "ft": [
+          4,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 71
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +243,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43740,
       "score": {
         "ft": [
           2,
@@ -118,7 +251,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 73
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 74
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-09-21-port-vale-a",
+      "date": "1994-09-21",
+      "competition": "league-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Port Vale",
+      "opponentId": "port-vale",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 18605,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 36
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +306,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22559,
       "score": {
         "ft": [
           2,
@@ -138,7 +314,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 74
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-09-28-galatasaray-a",
+      "date": "1994-09-28",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Galatasaray S.K.",
+      "opponentId": "galatasaray",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 28605,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +361,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43803,
       "score": {
         "ft": [
           2,
@@ -158,7 +369,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-10-05-port-vale-h",
+      "date": "1994-10-05",
+      "competition": "league-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Port Vale",
+      "opponentId": "port-vale",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 31615,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 61
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +429,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33441,
       "score": {
         "ft": [
           0,
@@ -178,7 +437,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +450,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43795,
       "score": {
         "ft": [
           1,
@@ -198,7 +458,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-10-19-barcelona-h",
+      "date": "1994-10-19",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 40064,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 80
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +513,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30260,
       "score": {
         "ft": [
           4,
@@ -218,7 +521,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1994-10-26-newcastle-united-a",
+      "date": "1994-10-26",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 34178,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +573,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43795,
       "score": {
         "ft": [
           2,
@@ -238,7 +581,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "keith-gillespie",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-11-02-barcelona-a",
+      "date": "1994-11-02",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 114273,
+      "score": {
+        "ft": [
+          0,
+          4
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +628,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32136,
       "score": {
         "ft": [
           2,
@@ -258,8 +636,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 51
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-11-10-manchester-city-h",
@@ -270,7 +662,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43738,
       "score": {
         "ft": [
           5,
@@ -278,8 +670,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1994-11-19-crystal-palace-h",
@@ -290,7 +701,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43788,
       "score": {
         "ft": [
           3,
@@ -298,7 +709,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 51
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-11-23-ifk-goteborg-a",
+      "date": "1994-11-23",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "IFK Göteborg",
+      "opponentId": "ifk-goteborg",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 36350,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 64
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +769,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38301,
       "score": {
         "ft": [
           0,
@@ -318,7 +777,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +790,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43789,
       "score": {
         "ft": [
           1,
@@ -338,7 +798,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 36
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1994-12-07-galatasaray-h",
+      "date": "1994-12-07",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Galatasaray S.K.",
+      "opponentId": "galatasaray",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 39220,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "simon-davies",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 49
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 88,
+          "detail": "Bülent Korkmaz (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +864,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18948,
       "score": {
         "ft": [
           3,
@@ -358,8 +872,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1994-12-17-nottingham-forest-h",
@@ -370,7 +898,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43744,
       "score": {
         "ft": [
           1,
@@ -378,8 +906,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-12-26-chelsea-a",
@@ -390,7 +927,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31161,
       "score": {
         "ft": [
           3,
@@ -398,8 +935,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 22
+        },
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-12-28-leicester-city-h",
@@ -410,7 +966,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43789,
       "score": {
         "ft": [
           1,
@@ -418,8 +974,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1994-12-31-southampton-a",
@@ -430,7 +995,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16708,
       "score": {
         "ft": [
           2,
@@ -438,8 +1003,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-01-03-coventry-city-h",
@@ -450,7 +1029,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43130,
       "score": {
         "ft": [
           2,
@@ -458,8 +1037,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 30
+        },
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-01-09-sheffield-united-a",
@@ -470,7 +1063,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22322,
       "score": {
         "ft": [
           2,
@@ -479,9 +1072,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-01-15-newcastle-united-a",
@@ -492,7 +1099,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34471,
       "score": {
         "ft": [
           1,
@@ -500,8 +1107,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 13
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-01-22-blackburn-rovers-h",
@@ -512,7 +1128,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43742,
       "score": {
         "ft": [
           1,
@@ -520,8 +1136,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-01-25-crystal-palace-a",
@@ -532,7 +1157,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18224,
       "score": {
         "ft": [
           1,
@@ -540,8 +1165,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-01-28-wrexham-h",
@@ -552,7 +1186,7 @@
       "opponentId": "wrexham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43222,
       "score": {
         "ft": [
           5,
@@ -561,9 +1195,34 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 67
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 81,
+          "detail": "Tony Humes (og)"
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1995-02-04-aston-villa-h",
@@ -574,7 +1233,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43795,
       "score": {
         "ft": [
           1,
@@ -582,8 +1241,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 18
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-02-11-manchester-city-a",
@@ -594,7 +1262,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26368,
       "score": {
         "ft": [
           3,
@@ -602,8 +1270,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 74
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-02-19-leeds-united-h",
@@ -614,7 +1301,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42744,
       "score": {
         "ft": [
           3,
@@ -623,9 +1310,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-02-22-norwich-city-a",
@@ -636,7 +1342,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21824,
       "score": {
         "ft": [
           2,
@@ -644,8 +1350,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 17
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-02-25-everton-a",
@@ -656,7 +1376,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40011,
       "score": {
         "ft": [
           0,
@@ -664,7 +1384,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -676,7 +1397,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43804,
       "score": {
         "ft": [
           9,
@@ -684,8 +1405,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 73
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1995-03-07-wimbledon-a",
@@ -696,7 +1441,7 @@
       "opponentId": "wimbledon",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18224,
       "score": {
         "ft": [
           1,
@@ -704,8 +1449,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-03-12-queens-park-rangers-h",
@@ -716,7 +1470,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42830,
       "score": {
         "ft": [
           2,
@@ -725,9 +1479,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-03-15-tottenham-hotspur-h",
@@ -738,7 +1506,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43802,
       "score": {
         "ft": [
           0,
@@ -746,7 +1514,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -758,7 +1527,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38906,
       "score": {
         "ft": [
           0,
@@ -766,7 +1535,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -778,7 +1548,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43623,
       "score": {
         "ft": [
           3,
@@ -786,8 +1556,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-04-02-leeds-united-h",
@@ -798,7 +1587,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43712,
       "score": {
         "ft": [
           0,
@@ -806,7 +1595,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -828,9 +1618,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Villa Park, Aston"
+      "notes": "Venue: Villa Park, Aston",
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 97
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-04-12-crystal-palace-n",
@@ -850,9 +1654,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay. Venue: Villa Park, Aston"
+      "notes": "FA Cup replay. Venue: Villa Park, Aston",
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 41
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-04-15-leicester-city-a",
@@ -863,7 +1681,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21281,
       "score": {
         "ft": [
           4,
@@ -871,8 +1689,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1995-04-17-chelsea-h",
@@ -883,7 +1720,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43728,
       "score": {
         "ft": [
           0,
@@ -891,7 +1728,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -903,7 +1741,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21885,
       "score": {
         "ft": [
           3,
@@ -911,8 +1749,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 56
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1995-05-07-sheffield-wednesday-h",
@@ -923,7 +1775,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43868,
       "score": {
         "ft": [
           1,
@@ -931,8 +1783,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 6
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-05-10-southampton-h",
@@ -943,7 +1804,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43479,
       "score": {
         "ft": [
           2,
@@ -951,8 +1812,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 22
+        },
+        {
+          "type": "pen-goal",
+          "player": "denis-irwin",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-05-14-west-ham-united-a",
@@ -963,7 +1838,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24783,
       "score": {
         "ft": [
           1,
@@ -971,8 +1846,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1995-05-20-everton-n",

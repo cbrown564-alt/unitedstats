@@ -1,0 +1,39 @@
+{
+  "season": "1886-87",
+  "matches": [
+    {
+      "id": "1886-10-30-fleetwood-rangers-a",
+      "date": "1886-10-30",
+      "competition": "fa-cup",
+      "round": "Round 1",
+      "opponent": "Fleetwood Rangers",
+      "opponentId": "fleetwood-rangers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 2000,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-doughty",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-doughty",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    }
+  ]
+}

@@ -2,6 +2,61 @@
   "season": "1998-99",
   "matches": [
     {
+      "id": "1998-08-09-arsenal-n",
+      "date": "1998-08-09",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 67342,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1998-08-12-ks-odz-h",
+      "date": "1998-08-12",
+      "competition": "champions-league",
+      "round": "Second qualifying round First leg",
+      "opponent": "ŁKS Łódź",
+      "opponentId": "ks-odz",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 50906,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1998-08-15-leicester-city-h",
       "date": "1998-08-15",
       "competition": "premier-league",
@@ -10,7 +65,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55052,
       "score": {
         "ft": [
           2,
@@ -18,8 +73,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 79
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1998-08-22-west-ham-united-a",
@@ -30,7 +99,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26039,
       "score": {
         "ft": [
           0,
@@ -38,7 +107,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1998-08-26-ks-odz-a",
+      "date": "1998-08-26",
+      "competition": "champions-league",
+      "round": "Second qualifying round Second leg",
+      "opponent": "ŁKS Łódź",
+      "opponentId": "ks-odz",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 8000,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +141,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55147,
       "score": {
         "ft": [
           4,
@@ -58,8 +149,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1998-09-12-coventry-city-h",
@@ -70,7 +175,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55193,
       "score": {
         "ft": [
           2,
@@ -78,7 +183,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "ronny-johnsen",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1998-09-16-barcelona-h",
+      "date": "1998-09-16",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 53601,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 64
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +248,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38142,
       "score": {
         "ft": [
           0,
@@ -98,7 +256,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +269,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55181,
       "score": {
         "ft": [
           2,
@@ -118,7 +277,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "denis-irwin",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1998-09-30-bayern-munich-a",
+      "date": "1998-09-30",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 53000,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 49
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +337,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15251,
       "score": {
         "ft": [
           3,
@@ -138,8 +345,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 60
+        },
+        {
+          "type": "goal",
+          "player": "jordi-cruijff",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1998-10-17-wimbledon-h",
@@ -150,7 +376,7 @@
       "opponentId": "wimbledon",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55265,
       "score": {
         "ft": [
           5,
@@ -158,7 +384,80 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1998-10-21-br-ndby-if-a",
+      "date": "1998-10-21",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Brøndby IF",
+      "opponentId": "br-ndby-if",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40315,
+      "score": {
+        "ft": [
+          6,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 60
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 62
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +469,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30867,
       "score": {
         "ft": [
           1,
@@ -178,7 +477,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jordi-cruijff",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1998-10-28-bury-h",
+      "date": "1998-10-28",
+      "competition": "league-cup",
+      "round": "Third Round",
+      "opponent": "Bury",
+      "opponentId": "bury",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 52495,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 106
+        },
+        {
+          "type": "goal",
+          "player": "erik-nevland",
+          "minute": 115
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +532,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40079,
       "score": {
         "ft": [
           4,
@@ -198,7 +540,81 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 14
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 23,
+          "detail": "Craig Short (og)"
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "jesper-blomqvist",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1998-11-04-br-ndby-if-h",
+      "date": "1998-11-04",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Brøndby IF",
+      "opponentId": "br-ndby-if",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 53250,
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "phil-neville",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 62
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +626,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55174,
       "score": {
         "ft": [
           0,
@@ -218,7 +634,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1998-11-11-nottingham-forest-h",
+      "date": "1998-11-11",
+      "competition": "league-cup",
+      "round": "Fourth Round",
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 37337,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 57
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +676,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55198,
       "score": {
         "ft": [
           3,
@@ -238,8 +684,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 43
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1998-11-21-sheffield-wednesday-a",
@@ -250,7 +710,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39475,
       "score": {
         "ft": [
           1,
@@ -258,7 +718,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 29
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1998-11-25-barcelona-a",
+      "date": "1998-11-25",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 67648,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 53
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +773,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55172,
       "score": {
         "ft": [
           3,
@@ -278,7 +781,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1998-12-02-tottenham-hotspur-a",
+      "date": "1998-12-02",
+      "competition": "league-cup",
+      "round": "Fifth Round",
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 35702,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 70
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +841,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39241,
       "score": {
         "ft": [
           1,
@@ -298,7 +849,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1998-12-09-bayern-munich-h",
+      "date": "1998-12-09",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 54434,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 43
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +899,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36079,
       "score": {
         "ft": [
           2,
@@ -318,8 +907,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 11
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1998-12-16-chelsea-h",
@@ -330,7 +928,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55159,
       "score": {
         "ft": [
           1,
@@ -338,8 +936,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1998-12-19-middlesbrough-h",
@@ -350,7 +957,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55152,
       "score": {
         "ft": [
           2,
@@ -358,8 +965,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1998-12-26-nottingham-forest-h",
@@ -370,7 +991,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55216,
       "score": {
         "ft": [
           3,
@@ -378,8 +999,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronny-johnsen",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1998-12-29-chelsea-a",
@@ -390,7 +1025,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34741,
       "score": {
         "ft": [
           0,
@@ -398,7 +1033,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +1046,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52232,
       "score": {
         "ft": [
           3,
@@ -419,9 +1055,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 68
+        },
+        {
+          "type": "pen-goal",
+          "player": "denis-irwin",
+          "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-01-10-west-ham-united-h",
@@ -432,7 +1087,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55180,
       "score": {
         "ft": [
           4,
@@ -440,8 +1095,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1999-01-16-leicester-city-a",
@@ -452,7 +1126,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22091,
       "score": {
         "ft": [
           6,
@@ -460,8 +1134,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "jaap-stam",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1999-01-24-liverpool-h",
@@ -472,7 +1165,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54591,
       "score": {
         "ft": [
           2,
@@ -481,9 +1174,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 88
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-01-31-charlton-athletic-a",
@@ -494,7 +1201,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20043,
       "score": {
         "ft": [
           1,
@@ -502,8 +1209,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-02-02-derby-county-h",
@@ -534,7 +1250,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30025,
       "score": {
         "ft": [
           8,
@@ -542,8 +1258,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1999-02-14-fulham-h",
@@ -554,7 +1289,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54798,
       "score": {
         "ft": [
           1,
@@ -563,9 +1298,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 26
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-02-17-arsenal-h",
@@ -576,7 +1320,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55171,
       "score": {
         "ft": [
           1,
@@ -584,8 +1328,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-02-20-coventry-city-a",
@@ -596,7 +1349,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22596,
       "score": {
         "ft": [
           1,
@@ -604,8 +1357,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-02-27-southampton-h",
@@ -616,7 +1378,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55316,
       "score": {
         "ft": [
           2,
@@ -624,7 +1386,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1999-03-03-inter-milan-h",
+      "date": "1999-03-03",
+      "competition": "champions-league",
+      "round": "Quarter-final First leg",
+      "opponent": "Inter Milan",
+      "opponentId": "inter-milan",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 54430,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 6
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -636,7 +1441,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54587,
       "score": {
         "ft": [
           0,
@@ -645,7 +1450,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -658,7 +1464,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33075,
       "score": {
         "ft": [
           2,
@@ -667,9 +1473,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 4
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1999-03-13-newcastle-united-a",
@@ -680,7 +1495,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36776,
       "score": {
         "ft": [
           2,
@@ -688,7 +1503,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1999-03-17-inter-milan-a",
+      "date": "1999-03-17",
+      "competition": "champions-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "Inter Milan",
+      "opponentId": "inter-milan",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 79528,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -700,7 +1553,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55182,
       "score": {
         "ft": [
           3,
@@ -708,8 +1561,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "gary-neville",
+          "minute": 64
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-04-03-wimbledon-a",
@@ -720,7 +1592,7 @@
       "opponentId": "wimbledon",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26121,
       "score": {
         "ft": [
           1,
@@ -728,7 +1600,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1999-04-07-juventus-h",
+      "date": "1999-04-07",
+      "competition": "champions-league",
+      "round": "Semi-final First leg",
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 54487,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -773,9 +1683,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay. Venue: Villa Park, Aston"
+      "notes": "FA Cup replay. Venue: Villa Park, Aston",
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 109
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-04-17-sheffield-wednesday-h",
@@ -786,7 +1710,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55270,
       "score": {
         "ft": [
           3,
@@ -794,7 +1718,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1999-04-21-juventus-a",
+      "date": "1999-04-21",
+      "competition": "champions-league",
+      "round": "Semi-final Second leg",
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 60806,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 84
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -806,7 +1788,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40255,
       "score": {
         "ft": [
           1,
@@ -814,8 +1796,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-05-01-aston-villa-h",
@@ -826,7 +1817,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55189,
       "score": {
         "ft": [
           2,
@@ -834,8 +1825,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 20,
+          "detail": "Steve Watson (og)"
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-05-05-liverpool-a",
@@ -846,7 +1852,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44702,
       "score": {
         "ft": [
           2,
@@ -854,8 +1860,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 22
+        },
+        {
+          "type": "pen-goal",
+          "player": "denis-irwin",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-05-09-middlesbrough-a",
@@ -866,7 +1886,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34665,
       "score": {
         "ft": [
           1,
@@ -874,8 +1894,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-05-12-blackburn-rovers-a",
@@ -886,7 +1915,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30436,
       "score": {
         "ft": [
           0,
@@ -894,7 +1923,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -906,7 +1936,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55189,
       "score": {
         "ft": [
           2,
@@ -914,8 +1944,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-05-22-newcastle-united-n",
@@ -935,9 +1979,57 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1999-05-26-bayern-munich-n",
+      "date": "1999-05-26",
+      "competition": "champions-league",
+      "round": "Final",
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 91000,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 91
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 93
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     }
   ]
 }

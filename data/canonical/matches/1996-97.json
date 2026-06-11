@@ -2,6 +2,50 @@
   "season": "1996-97",
   "matches": [
     {
+      "id": "1996-08-11-newcastle-united-n",
+      "date": "1996-08-11",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 73214,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 86
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1996-08-17-wimbledon-a",
       "date": "1996-08-17",
       "competition": "premier-league",
@@ -10,7 +54,7 @@
       "opponentId": "wimbledon",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25786,
       "score": {
         "ft": [
           3,
@@ -18,8 +62,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-08-21-everton-h",
@@ -30,7 +93,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54943,
       "score": {
         "ft": [
           2,
@@ -38,8 +101,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jordi-cruyff",
+          "minute": 70
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 82,
+          "detail": "David Unsworth (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-08-25-blackburn-rovers-h",
@@ -50,7 +128,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54178,
       "score": {
         "ft": [
           2,
@@ -58,8 +136,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jordi-cruyff",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-09-04-derby-county-a",
@@ -70,7 +162,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18026,
       "score": {
         "ft": [
           1,
@@ -78,8 +170,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-09-07-leeds-united-a",
@@ -90,7 +191,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39694,
       "score": {
         "ft": [
           4,
@@ -98,7 +199,53 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 3,
+          "detail": "Nigel Martyn (og)"
+        },
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "karel-poborsky",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1996-09-11-juventus-a",
+      "date": "1996-09-11",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 54000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +257,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54984,
       "score": {
         "ft": [
           4,
@@ -118,8 +265,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1996-09-21-aston-villa-a",
@@ -130,7 +296,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39339,
       "score": {
         "ft": [
           0,
@@ -138,7 +304,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1996-09-25-sk-rapid-wien-h",
+      "date": "1996-09-25",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "SK Rapid Wien",
+      "opponentId": "sk-rapid-wien",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 51831,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 27
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +351,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54943,
       "score": {
         "ft": [
           2,
@@ -158,8 +359,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1996-10-12-liverpool-h",
@@ -170,7 +380,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55128,
       "score": {
         "ft": [
           1,
@@ -178,7 +388,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 23
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1996-10-16-fenerbahce-a",
+      "date": "1996-10-16",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Fenerbahçe S.K.",
+      "opponentId": "fenerbahce",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 26200,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 60
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +443,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35579,
       "score": {
         "ft": [
           0,
@@ -198,7 +451,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1996-10-23-swindon-town-h",
+      "date": "1996-10-23",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Swindon Town",
+      "opponentId": "swindon-town",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 49305,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "karel-poborsky",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 72
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +498,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15253,
       "score": {
         "ft": [
           3,
@@ -218,7 +506,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1996-10-30-fenerbahce-h",
+      "date": "1996-10-30",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Fenerbahçe S.K.",
+      "opponentId": "fenerbahce",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 53297,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +558,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55198,
       "score": {
         "ft": [
           1,
@@ -238,8 +566,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-11-16-arsenal-h",
@@ -250,7 +587,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55210,
       "score": {
         "ft": [
           1,
@@ -258,7 +595,38 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 63,
+          "detail": "Nigel Winterburn (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1996-11-20-juventus-h",
+      "date": "1996-11-20",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 53529,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +638,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30063,
       "score": {
         "ft": [
           2,
@@ -278,7 +646,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 73
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1996-11-27-leicester-city-a",
+      "date": "1996-11-27",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20428,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +693,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55196,
       "score": {
         "ft": [
           3,
@@ -298,7 +701,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1996-12-04-sk-rapid-wien-a",
+      "date": "1996-12-04",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "SK Rapid Wien",
+      "opponentId": "sk-rapid-wien",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 45000,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 72
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +761,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25045,
       "score": {
         "ft": [
           2,
@@ -318,8 +769,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-12-18-sheffield-wednesday-a",
@@ -330,7 +795,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37671,
       "score": {
         "ft": [
           1,
@@ -338,8 +803,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-12-21-sunderland-h",
@@ -350,7 +824,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55081,
       "score": {
         "ft": [
           5,
@@ -358,8 +832,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 36
+        },
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 58
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1996-12-26-nottingham-forest-a",
@@ -370,7 +863,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29032,
       "score": {
         "ft": [
           4,
@@ -378,8 +871,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-12-28-leeds-united-h",
@@ -390,7 +907,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55256,
       "score": {
         "ft": [
           1,
@@ -398,8 +915,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 9
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-01-01-aston-villa-h",
@@ -410,7 +936,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55133,
       "score": {
         "ft": [
           0,
@@ -418,7 +944,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +957,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52445,
       "score": {
         "ft": [
           2,
@@ -439,9 +966,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-01-12-tottenham-hotspur-a",
@@ -452,7 +993,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33026,
       "score": {
         "ft": [
           2,
@@ -460,8 +1001,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-01-18-coventry-city-a",
@@ -472,7 +1027,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23085,
       "score": {
         "ft": [
           2,
@@ -480,8 +1035,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-01-25-wimbledon-h",
@@ -492,7 +1061,7 @@
       "opponentId": "wimbledon",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53342,
       "score": {
         "ft": [
           1,
@@ -501,9 +1070,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-01-29-wimbledon-h",
@@ -514,7 +1092,7 @@
       "opponentId": "wimbledon",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55314,
       "score": {
         "ft": [
           2,
@@ -522,8 +1100,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-02-01-southampton-h",
@@ -534,7 +1126,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55269,
       "score": {
         "ft": [
           2,
@@ -542,8 +1134,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-02-04-wimbledon-a",
@@ -554,7 +1160,7 @@
       "opponentId": "wimbledon",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25601,
       "score": {
         "ft": [
           0,
@@ -563,7 +1169,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": "FA Cup replay"
     },
@@ -576,7 +1183,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38172,
       "score": {
         "ft": [
           2,
@@ -584,8 +1191,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 32
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-02-22-chelsea-a",
@@ -596,7 +1217,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28336,
       "score": {
         "ft": [
           1,
@@ -604,8 +1225,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-03-01-coventry-city-h",
@@ -616,7 +1246,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55230,
       "score": {
         "ft": [
           3,
@@ -624,7 +1254,72 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 4,
+          "detail": "Gary Breen (og)"
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 5,
+          "detail": "Eoin Jess (og)"
+        },
+        {
+          "type": "goal",
+          "player": "karel-poborsky",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1997-03-05-porto-h",
+      "date": "1997-03-05",
+      "competition": "champions-league",
+      "round": "Quarter-final First leg",
+      "opponent": "FC Porto",
+      "opponentId": "porto",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 53425,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 60
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 80
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -636,7 +1331,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22225,
       "score": {
         "ft": [
           1,
@@ -644,8 +1339,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 77,
+          "detail": "Andy Melville (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-03-15-sheffield-wednesday-h",
@@ -656,7 +1361,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55267,
       "score": {
         "ft": [
           2,
@@ -664,7 +1369,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "karel-poborsky",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1997-03-19-porto-a",
+      "date": "1997-03-19",
+      "competition": "champions-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "FC Porto",
+      "opponentId": "porto",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -676,7 +1416,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40079,
       "score": {
         "ft": [
           2,
@@ -684,8 +1424,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-04-05-derby-county-h",
@@ -696,7 +1450,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55243,
       "score": {
         "ft": [
           2,
@@ -704,7 +1458,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1997-04-09-borussia-dortmund-a",
+      "date": "1997-04-09",
+      "competition": "champions-league",
+      "round": "Semi-final First leg",
+      "opponent": "Borussia Dortmund",
+      "opponentId": "borussia-dortmund",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 48500,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -716,7 +1505,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30476,
       "score": {
         "ft": [
           3,
@@ -724,8 +1513,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-04-19-liverpool-a",
@@ -736,7 +1544,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40892,
       "score": {
         "ft": [
           3,
@@ -744,7 +1552,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 63
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1997-04-23-borussia-dortmund-h",
+      "date": "1997-04-23",
+      "competition": "champions-league",
+      "round": "Semi-final Second leg",
+      "opponent": "Borussia Dortmund",
+      "opponentId": "borussia-dortmund",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 53606,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -756,7 +1599,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21068,
       "score": {
         "ft": [
           2,
@@ -764,8 +1607,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1997-05-05-middlesbrough-h",
@@ -776,7 +1628,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54489,
       "score": {
         "ft": [
           3,
@@ -784,8 +1636,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "gary-neville",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1997-05-08-newcastle-united-h",
@@ -796,7 +1667,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55236,
       "score": {
         "ft": [
           0,
@@ -804,7 +1675,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -816,7 +1688,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55249,
       "score": {
         "ft": [
           2,
@@ -824,8 +1696,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "jordi-cruyff",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

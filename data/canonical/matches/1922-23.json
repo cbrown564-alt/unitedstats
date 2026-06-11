@@ -10,7 +10,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-wood",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-08-28-sheffield-wednesday-a",
@@ -30,7 +44,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12500,
       "score": {
         "ft": [
           0,
@@ -38,7 +52,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +65,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8500,
       "score": {
         "ft": [
           3,
@@ -58,8 +73,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-williams",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-09-04-sheffield-wednesday-h",
@@ -70,7 +104,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22000,
       "score": {
         "ft": [
           1,
@@ -78,8 +112,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-09-09-wolverhampton-wanderers-a",
@@ -90,7 +133,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           1,
@@ -98,8 +141,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-williams",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-09-16-wolverhampton-wanderers-h",
@@ -110,7 +162,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28000,
       "score": {
         "ft": [
           1,
@@ -118,8 +170,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-09-23-coventry-city-a",
@@ -130,7 +191,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19000,
       "score": {
         "ft": [
           0,
@@ -138,7 +199,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +212,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           2,
@@ -158,8 +220,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-10-07-port-vale-h",
@@ -170,7 +246,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           1,
@@ -178,8 +254,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-10-14-port-vale-a",
@@ -190,7 +275,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16000,
       "score": {
         "ft": [
           0,
@@ -198,7 +283,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +296,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           1,
@@ -218,8 +304,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-myerscough",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-10-28-fulham-a",
@@ -230,7 +325,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           0,
@@ -238,7 +333,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +346,7 @@
       "opponentId": "leyton-orient",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16500,
       "score": {
         "ft": [
           0,
@@ -258,7 +354,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +367,7 @@
       "opponentId": "leyton-orient",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11000,
       "score": {
         "ft": [
           1,
@@ -278,8 +375,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-11-18-bury-a",
@@ -290,7 +396,7 @@
       "opponentId": "bury",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21000,
       "score": {
         "ft": [
           2,
@@ -298,8 +404,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-11-25-bury-h",
@@ -310,7 +430,7 @@
       "opponentId": "bury",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28000,
       "score": {
         "ft": [
           0,
@@ -318,7 +438,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +451,7 @@
       "opponentId": "rotherham-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13500,
       "score": {
         "ft": [
           3,
@@ -338,8 +459,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "neil-mcbain",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-12-09-rotherham-county-a",
@@ -350,7 +490,7 @@
       "opponentId": "rotherham-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7500,
       "score": {
         "ft": [
           1,
@@ -358,8 +498,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-12-16-stockport-county-h",
@@ -370,7 +519,7 @@
       "opponentId": "stockport-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24000,
       "score": {
         "ft": [
           1,
@@ -378,8 +527,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-mcbain",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-12-23-stockport-county-a",
@@ -390,7 +548,7 @@
       "opponentId": "stockport-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15500,
       "score": {
         "ft": [
           0,
@@ -398,7 +556,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +569,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17500,
       "score": {
         "ft": [
           1,
@@ -418,8 +577,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-12-26-west-ham-united-a",
@@ -430,7 +598,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           2,
@@ -438,8 +606,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1922-12-30-hull-city-a",
@@ -450,7 +632,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6750,
       "score": {
         "ft": [
           1,
@@ -458,8 +640,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-01-01-barnsley-h",
@@ -470,7 +661,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29000,
       "score": {
         "ft": [
           1,
@@ -478,8 +669,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-01-06-hull-city-h",
@@ -490,7 +690,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           3,
@@ -498,8 +698,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-01-13-bradford-city-a",
@@ -510,7 +730,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27000,
       "score": {
         "ft": [
           1,
@@ -519,9 +739,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-partridge",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-01-17-bradford-city-h",
@@ -532,7 +761,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27791,
       "score": {
         "ft": [
           2,
@@ -541,9 +770,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-barber",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-01-20-leeds-united-h",
@@ -554,7 +797,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           0,
@@ -562,7 +805,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -574,7 +818,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24500,
       "score": {
         "ft": [
           1,
@@ -582,8 +826,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-02-03-tottenham-hotspur-a",
@@ -594,7 +847,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38333,
       "score": {
         "ft": [
           0,
@@ -603,7 +856,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -616,7 +870,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           6,
@@ -624,8 +878,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-myerscough",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-myerscough",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-02-17-derby-county-h",
@@ -636,7 +924,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27500,
       "score": {
         "ft": [
           0,
@@ -644,7 +932,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -656,7 +945,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12100,
       "score": {
         "ft": [
           1,
@@ -664,8 +953,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-03-03-southampton-h",
@@ -676,7 +974,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           1,
@@ -684,8 +982,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-03-14-derby-county-a",
@@ -696,7 +1003,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           1,
@@ -704,8 +1011,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ken-macdonald",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-03-17-bradford-city-a",
@@ -716,7 +1032,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           1,
@@ -724,8 +1040,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-03-21-bradford-city-h",
@@ -736,7 +1061,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           1,
@@ -744,8 +1069,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-03-30-south-shields-h",
@@ -756,7 +1090,7 @@
       "opponentId": "south-shields",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26000,
       "score": {
         "ft": [
           3,
@@ -764,8 +1098,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-03-31-blackpool-a",
@@ -776,7 +1129,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21000,
       "score": {
         "ft": [
           0,
@@ -784,7 +1137,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -796,7 +1150,7 @@
       "opponentId": "south-shields",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6500,
       "score": {
         "ft": [
           3,
@@ -804,8 +1158,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lal-hilditch",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-04-07-blackpool-h",
@@ -816,7 +1189,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           2,
@@ -824,8 +1197,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-radford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-04-11-southampton-a",
@@ -836,7 +1223,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5500,
       "score": {
         "ft": [
           0,
@@ -844,7 +1231,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -856,7 +1244,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           1,
@@ -864,8 +1252,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-bain",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1923-04-21-leicester-city-h",
@@ -876,7 +1273,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           0,
@@ -884,7 +1281,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -896,7 +1294,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           2,
@@ -904,8 +1302,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

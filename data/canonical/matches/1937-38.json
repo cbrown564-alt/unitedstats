@@ -10,7 +10,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29446,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-08-30-coventry-city-a",
@@ -30,7 +49,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30575,
       "score": {
         "ft": [
           0,
@@ -38,7 +57,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +70,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20610,
       "score": {
         "ft": [
           0,
@@ -58,7 +78,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +91,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17455,
       "score": {
         "ft": [
           2,
@@ -78,8 +99,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-09-11-barnsley-h",
@@ -90,7 +125,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22394,
       "score": {
         "ft": [
           4,
@@ -98,8 +133,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-09-13-bury-a",
@@ -110,7 +169,7 @@
       "opponentId": "bury",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9954,
       "score": {
         "ft": [
           2,
@@ -118,8 +177,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ron-ferrier",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ron-ferrier",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-09-18-stockport-county-a",
@@ -130,7 +203,7 @@
       "opponentId": "stockport-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24386,
       "score": {
         "ft": [
           0,
@@ -138,7 +211,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +224,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22729,
       "score": {
         "ft": [
           1,
@@ -158,8 +232,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-10-02-sheffield-united-h",
@@ -170,7 +253,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20105,
       "score": {
         "ft": [
           0,
@@ -178,7 +261,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +274,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31189,
       "score": {
         "ft": [
           1,
@@ -198,8 +282,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-10-16-blackburn-rovers-a",
@@ -210,7 +303,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19580,
       "score": {
         "ft": [
           1,
@@ -218,8 +311,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-10-23-sheffield-wednesday-h",
@@ -230,7 +332,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16379,
       "score": {
         "ft": [
           1,
@@ -238,8 +340,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ron-ferrier",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-10-30-fulham-a",
@@ -250,7 +361,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17350,
       "score": {
         "ft": [
           0,
@@ -258,7 +369,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +382,7 @@
       "opponentId": "plymouth-argyle",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18359,
       "score": {
         "ft": [
           0,
@@ -278,7 +390,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +403,7 @@
       "opponentId": "chesterfield",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17407,
       "score": {
         "ft": [
           7,
@@ -298,8 +411,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-11-20-aston-villa-h",
@@ -310,7 +462,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33193,
       "score": {
         "ft": [
           3,
@@ -318,8 +470,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-11-27-norwich-city-a",
@@ -330,7 +501,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17397,
       "score": {
         "ft": [
           3,
@@ -338,8 +509,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stan-pearson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-12-04-swansea-city-h",
@@ -350,7 +540,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17782,
       "score": {
         "ft": [
           5,
@@ -358,8 +548,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-12-11-bradford-park-avenue-a",
@@ -370,7 +589,7 @@
       "opponentId": "bradford-park-avenue",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12004,
       "score": {
         "ft": [
           0,
@@ -378,7 +597,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +610,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30778,
       "score": {
         "ft": [
           4,
@@ -398,8 +618,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-wrigglesworth",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-12-28-nottingham-forest-a",
@@ -410,7 +654,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19283,
       "score": {
         "ft": [
           3,
@@ -418,8 +662,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-carey",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-01-01-newcastle-united-a",
@@ -430,7 +693,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40088,
       "score": {
         "ft": [
           2,
@@ -438,8 +701,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-01-08-yeovil-h",
@@ -472,7 +749,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16845,
       "score": {
         "ft": [
           4,
@@ -480,8 +757,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-carey",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-01-22-barnsley-a",
@@ -492,7 +793,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35549,
       "score": {
         "ft": [
           2,
@@ -501,9 +802,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-carey",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-01-26-barnsley-h",
@@ -514,7 +829,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33601,
       "score": {
         "ft": [
           1,
@@ -523,9 +838,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-01-29-stockport-county-h",
@@ -536,7 +860,7 @@
       "opponentId": "stockport-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31852,
       "score": {
         "ft": [
           3,
@@ -544,8 +868,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-02-02-barnsley-a",
@@ -556,7 +899,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7859,
       "score": {
         "ft": [
           2,
@@ -564,8 +907,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-02-05-southampton-a",
@@ -576,7 +933,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20354,
       "score": {
         "ft": [
           3,
@@ -584,8 +941,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "hubert-redwood",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "hubert-redwood",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-02-12-brentford-a",
@@ -596,7 +972,7 @@
       "opponentId": "brentford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24147,
       "score": {
         "ft": [
           0,
@@ -605,7 +981,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -618,7 +995,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17754,
       "score": {
         "ft": [
           2,
@@ -626,8 +1003,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-02-19-tottenham-hotspur-h",
@@ -638,7 +1029,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34631,
       "score": {
         "ft": [
           0,
@@ -646,7 +1037,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -658,7 +1050,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14572,
       "score": {
         "ft": [
           4,
@@ -666,8 +1058,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jackie-wassall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-02-26-blackburn-rovers-h",
@@ -678,7 +1094,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30892,
       "score": {
         "ft": [
           2,
@@ -686,8 +1102,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-03-05-sheffield-wednesday-a",
@@ -698,7 +1128,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37156,
       "score": {
         "ft": [
           3,
@@ -706,8 +1136,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "james-brown",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-03-12-fulham-h",
@@ -718,7 +1167,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30363,
       "score": {
         "ft": [
           1,
@@ -726,8 +1175,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-03-19-plymouth-argyle-a",
@@ -738,7 +1196,7 @@
       "opponentId": "plymouth-argyle",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20311,
       "score": {
         "ft": [
           1,
@@ -746,8 +1204,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-03-26-chesterfield-h",
@@ -758,7 +1225,7 @@
       "opponentId": "chesterfield",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27311,
       "score": {
         "ft": [
           4,
@@ -766,8 +1233,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-carey",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-04-02-aston-villa-a",
@@ -778,7 +1269,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54654,
       "score": {
         "ft": [
           0,
@@ -786,7 +1277,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -798,7 +1290,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25879,
       "score": {
         "ft": [
           0,
@@ -806,7 +1298,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -818,7 +1311,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28459,
       "score": {
         "ft": [
           0,
@@ -826,7 +1319,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -838,7 +1332,7 @@
       "opponentId": "swansea-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13811,
       "score": {
         "ft": [
           2,
@@ -846,8 +1340,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-04-18-burnley-h",
@@ -858,7 +1366,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35808,
       "score": {
         "ft": [
           4,
@@ -866,8 +1374,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-04-23-bradford-park-avenue-h",
@@ -878,7 +1410,7 @@
       "opponentId": "bradford-park-avenue",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28919,
       "score": {
         "ft": [
           3,
@@ -886,8 +1418,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1938-04-30-west-ham-united-a",
@@ -898,7 +1449,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14816,
       "score": {
         "ft": [
           0,
@@ -906,7 +1457,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -918,7 +1470,7 @@
       "opponentId": "bury",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53604,
       "score": {
         "ft": [
           2,
@@ -926,8 +1478,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

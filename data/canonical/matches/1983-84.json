@@ -2,6 +2,40 @@
   "season": "1983-84",
   "matches": [
     {
+      "id": "1983-08-20-liverpool-n",
+      "date": "1983-08-20",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 92000,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1983-08-27-queens-park-rangers-h",
       "date": "1983-08-27",
       "competition": "first-division",
@@ -10,7 +44,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48742,
       "score": {
         "ft": [
           3,
@@ -18,8 +52,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-08-29-nottingham-forest-h",
@@ -30,7 +83,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43005,
       "score": {
         "ft": [
           1,
@@ -38,8 +91,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-09-03-stoke-city-a",
@@ -50,7 +112,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23704,
       "score": {
         "ft": [
           1,
@@ -58,8 +120,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-09-06-arsenal-a",
@@ -70,7 +141,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42703,
       "score": {
         "ft": [
           3,
@@ -78,8 +149,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-09-10-luton-town-h",
@@ -90,7 +180,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41013,
       "score": {
         "ft": [
           2,
@@ -98,7 +188,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-albiston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-09-14-dukla-prague-h",
+      "date": "1983-09-14",
+      "competition": "cup-winners-cup",
+      "round": "Round 1 First leg",
+      "opponent": "Dukla Prague",
+      "opponentId": "dukla-prague",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 39745,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ray-wilkins",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +243,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20674,
       "score": {
         "ft": [
           0,
@@ -118,7 +251,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +264,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56121,
       "score": {
         "ft": [
           1,
@@ -138,7 +272,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-09-27-dukla-prague-a",
+      "date": "1983-09-27",
+      "competition": "cup-winners-cup",
+      "round": "Round 1 Second leg",
+      "opponent": "Dukla Prague",
+      "opponentId": "dukla-prague",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 28850,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +327,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19290,
       "score": {
         "ft": [
           3,
@@ -158,7 +335,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-10-03-port-vale-a",
+      "date": "1983-10-03",
+      "competition": "league-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Port Vale",
+      "opponentId": "port-vale",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 19885,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +395,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42221,
       "score": {
         "ft": [
           3,
@@ -178,7 +403,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-albiston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-graham",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-10-19-pfc-spartak-1918-a",
+      "date": "1983-10-19",
+      "competition": "cup-winners-cup",
+      "round": "Round 2 First leg",
+      "opponent": "PFC Spartak 1918",
+      "opponentId": "pfc-spartak-1918",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-graham",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +468,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26826,
       "score": {
         "ft": [
           1,
@@ -198,7 +476,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ray-wilkins",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-10-26-port-vale-h",
+      "date": "1983-10-26",
+      "competition": "league-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Port Vale",
+      "opponentId": "port-vale",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 23589,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ray-wilkins",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +531,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41880,
       "score": {
         "ft": [
           3,
@@ -218,7 +539,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-11-02-pfc-spartak-1918-h",
+      "date": "1983-11-02",
+      "competition": "cup-winners-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "PFC Spartak 1918",
+      "opponentId": "pfc-spartak-1918",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 39079,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +604,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45077,
       "score": {
         "ft": [
           1,
@@ -238,7 +612,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-11-08-colchester-united-a",
+      "date": "1983-11-08",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Colchester United",
+      "opponentId": "colchester-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13031,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-mcqueen",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "remi-moses",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +667,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24409,
       "score": {
         "ft": [
           1,
@@ -258,8 +675,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-11-19-watford-h",
@@ -270,7 +696,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43111,
       "score": {
         "ft": [
           4,
@@ -278,8 +704,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-11-27-west-ham-united-a",
@@ -290,7 +740,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23355,
       "score": {
         "ft": [
           1,
@@ -298,7 +748,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ray-wilkins",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-11-30-oxford-united-a",
+      "date": "1983-11-30",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Oxford United",
+      "opponentId": "oxford-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13739,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +798,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43664,
       "score": {
         "ft": [
           0,
@@ -318,7 +806,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1983-12-07-oxford-united-h",
+      "date": "1983-12-07",
+      "competition": "league-cup",
+      "round": "Round 4 Replay",
+      "opponent": "Oxford United",
+      "opponentId": "oxford-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 27459,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +848,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19779,
       "score": {
         "ft": [
           2,
@@ -338,8 +856,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "garth-crooks",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-graham",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-12-16-tottenham-hotspur-h",
@@ -350,7 +882,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33616,
       "score": {
         "ft": [
           4,
@@ -358,7 +890,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-graham",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-graham",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1983-12-19-oxford-united-a",
+      "date": "1983-12-19",
+      "competition": "league-cup",
+      "round": "Round 4 2nd Replay",
+      "opponent": "Oxford United",
+      "opponentId": "oxford-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13912,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-graham",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +955,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21553,
       "score": {
         "ft": [
           1,
@@ -378,8 +963,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-12-27-notts-county-h",
@@ -390,7 +984,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41544,
       "score": {
         "ft": [
           3,
@@ -398,8 +992,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "garth-crooks",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "gordon-mcqueen",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1983-12-31-stoke-city-h",
@@ -410,7 +1023,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40164,
       "score": {
         "ft": [
           1,
@@ -418,8 +1031,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-graham",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-01-02-liverpool-a",
@@ -430,7 +1052,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44622,
       "score": {
         "ft": [
           1,
@@ -438,8 +1060,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-01-07-bournemouth-a",
@@ -472,7 +1103,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16308,
       "score": {
         "ft": [
           1,
@@ -480,8 +1111,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-01-21-southampton-h",
@@ -492,7 +1132,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40371,
       "score": {
         "ft": [
           3,
@@ -500,8 +1140,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-02-04-norwich-city-h",
@@ -512,7 +1171,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36851,
       "score": {
         "ft": [
           0,
@@ -520,7 +1179,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -532,7 +1192,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19957,
       "score": {
         "ft": [
           2,
@@ -540,8 +1200,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Graeme Hogg (og)"
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-02-12-luton-town-a",
@@ -552,7 +1227,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11265,
       "score": {
         "ft": [
           5,
@@ -560,8 +1235,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-02-18-wolverhampton-wanderers-a",
@@ -572,7 +1276,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20676,
       "score": {
         "ft": [
           1,
@@ -580,8 +1284,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-02-25-sunderland-h",
@@ -592,7 +1305,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40615,
       "score": {
         "ft": [
           2,
@@ -600,8 +1313,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "kevin-moran",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-03-03-aston-villa-a",
@@ -612,7 +1339,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32874,
       "score": {
         "ft": [
           3,
@@ -620,7 +1347,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "remi-moses",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-03-07-barcelona-a",
+      "date": "1984-03-07",
+      "competition": "cup-winners-cup",
+      "round": "Round 3 First leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 70000,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -632,7 +1399,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39473,
       "score": {
         "ft": [
           2,
@@ -640,8 +1407,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "remi-moses",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-03-17-arsenal-h",
@@ -652,7 +1433,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48942,
       "score": {
         "ft": [
           4,
@@ -660,7 +1441,70 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arnold-muhren",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-03-21-barcelona-h",
+      "date": "1984-03-21",
+      "competition": "cup-winners-cup",
+      "round": "Round 3 Second leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 58547,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -672,7 +1516,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28104,
       "score": {
         "ft": [
           0,
@@ -680,7 +1524,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -692,7 +1537,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39896,
       "score": {
         "ft": [
           1,
@@ -700,7 +1545,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-04-11-juventus-h",
+      "date": "1984-04-11",
+      "competition": "cup-winners-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 58171,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alan-davies",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -712,7 +1595,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13911,
       "score": {
         "ft": [
           0,
@@ -720,7 +1603,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -732,7 +1616,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20764,
       "score": {
         "ft": [
           0,
@@ -740,7 +1624,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -752,7 +1637,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38524,
       "score": {
         "ft": [
           4,
@@ -760,7 +1645,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "paul-mcgrath",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ray-wilkins",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1984-04-25-juventus-a",
+      "date": "1984-04-25",
+      "competition": "cup-winners-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 64655,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -772,7 +1710,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44124,
       "score": {
         "ft": [
           0,
@@ -780,7 +1718,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -792,7 +1731,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28802,
       "score": {
         "ft": [
           1,
@@ -800,8 +1739,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-05-07-ipswich-town-h",
@@ -812,7 +1760,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44257,
       "score": {
         "ft": [
           1,
@@ -820,8 +1768,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-05-12-tottenham-hotspur-a",
@@ -832,7 +1789,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39790,
       "score": {
         "ft": [
           1,
@@ -840,8 +1797,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1984-05-16-nottingham-forest-a",
@@ -852,7 +1818,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23651,
       "score": {
         "ft": [
           0,
@@ -860,7 +1826,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

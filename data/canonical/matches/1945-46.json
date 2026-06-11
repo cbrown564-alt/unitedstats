@@ -10,7 +10,7 @@
       "opponentId": "accrington-stanley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9968,
       "score": {
         "ft": [
           2,
@@ -19,9 +19,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup leg1"
+      "notes": "FA Cup leg1",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-smith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-wrigglesworth",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-01-09-accrington-stanley-h",
@@ -32,7 +46,7 @@
       "opponentId": "accrington-stanley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15339,
       "score": {
         "ft": [
           5,
@@ -41,9 +55,39 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup leg2"
+      "notes": "FA Cup leg2",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-bainbridge",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-wrigglesworth",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-01-26-preston-north-end-h",
@@ -54,7 +98,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36237,
       "score": {
         "ft": [
           1,
@@ -63,9 +107,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup leg1"
+      "notes": "FA Cup leg1",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1946-01-30-preston-north-end-a",
@@ -76,7 +129,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21000,
       "score": {
         "ft": [
           1,
@@ -85,9 +138,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup leg2"
+      "notes": "FA Cup leg2",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanlon",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }
