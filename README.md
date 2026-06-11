@@ -36,8 +36,23 @@ npm run dev        # http://localhost:3000
 
 ## Data coverage
 
-Result-level data is complete for the league (1892–present) and FA Cup
-(1886–present); League Cup and European campaigns are being layered in, then
-scorers and lineups era by era (newest first). Every page shows the coverage
-window behind any aggregate it displays. Corrections welcome — the data is
-plain JSON, fixable with a PR.
+**6,027 matches across 126 seasons (1886–present), every competition:**
+
+| Layer | Coverage |
+|---|---|
+| Results | complete: League 1892–, FA Cup 1886–, League Cup 1960–, Europe 1956–, Shields 1908–, world & test matches |
+| Attendance | 98% of all matches |
+| Goal scorers (with minutes where recorded) | ~99% of matches United scored in — the all-time list reproduces the official club record |
+| League positions | every season, computed from full-league results with era-correct rules |
+| Managers | every match attributed via tenure dates, 1892– |
+| Lineups | schema + UI ready; landing per docs/ROADMAP.md Phase 2 |
+
+Every aggregate in the UI shows the coverage behind it (see the data-depth
+ledger on /analytics). Corrections welcome — the data is plain JSON,
+fixable with a PR.
+
+## Sources
+
+engsoccerdata (league + FA Cup results), openfootball (current seasons),
+Wikipedia season articles (cups, Europe, attendance, scorers — parsed
+deterministically from wikitext tables, cached in `data/raw/wikipedia/`).

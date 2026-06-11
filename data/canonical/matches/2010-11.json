@@ -238,9 +238,19 @@
           "type": "goal",
           "player": "dimitar-berbatov",
           "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-09-22-scunthorpe-united-h",
@@ -259,7 +269,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -275,6 +285,11 @@
           "type": "goal",
           "player": "michael-owen",
           "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 71
         },
         {
           "type": "goal",
@@ -458,9 +473,14 @@
           "type": "goal",
           "player": "javier-hernandez",
           "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 86
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-10-26-wolverhampton-wanderers-h",
@@ -599,9 +619,14 @@
           "type": "goal",
           "player": "park-ji-sung",
           "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 93
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-11-10-manchester-city-a",
@@ -749,6 +774,26 @@
         },
         {
           "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 70
+        },
+        {
+          "type": "goal",
           "player": "park-ji-sung",
           "minute": 23
         },
@@ -758,7 +803,7 @@
           "minute": 48
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-11-30-west-ham-united-h",
@@ -1051,6 +1096,16 @@
         },
         {
           "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 53
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 47
         },
@@ -1060,7 +1115,7 @@
           "minute": 76
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-01-25-blackpool-a",
@@ -1090,11 +1145,16 @@
         },
         {
           "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 88
+        },
+        {
+          "type": "goal",
           "player": "javier-hernandez",
           "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-01-29-southampton-a",
@@ -1160,11 +1220,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 46
+        },
+        {
+          "type": "goal",
           "player": "nemanja-vidic",
           "minute": 63
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-02-05-wolverhampton-wanderers-a",
@@ -1309,6 +1374,11 @@
         },
         {
           "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 74
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 84
         },
@@ -1318,7 +1388,7 @@
           "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-03-01-chelsea-a",
@@ -1431,12 +1501,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "javier-hernandez",
           "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 75
         }
       ],
       "sources": [
@@ -1500,11 +1575,21 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 73
+        },
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 79
+        },
+        {
+          "type": "goal",
           "player": "javier-hernandez",
           "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2011-04-06-chelsea-h",
@@ -1747,7 +1832,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1763,6 +1848,11 @@
           "type": "goal",
           "player": "anderson",
           "minute": 72
+        },
+        {
+          "type": "goal",
+          "player": "anderson",
+          "minute": 76
         }
       ],
       "sources": [

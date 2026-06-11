@@ -40,11 +40,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 64
+        },
+        {
+          "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 19
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-08-23-charlton-athletic-a",
@@ -165,12 +170,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "pen-goal",
           "player": "louis-saha",
           "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 40
         },
         {
           "type": "goal",
@@ -286,9 +296,14 @@
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 49
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-10-14-wigan-athletic-a",
@@ -464,11 +479,21 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 89
+        },
+        {
+          "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-11-01-fc-copenhagen-a",
@@ -605,9 +630,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 75
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-11-21-celtic-a",
@@ -859,11 +889,16 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 85
+        },
+        {
+          "type": "goal",
           "player": "paul-scholes",
           "minute": 64
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-12-26-wigan-athletic-h",
@@ -893,11 +928,16 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 51
+        },
+        {
+          "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 59
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2006-12-30-reading-h",
@@ -929,9 +969,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 77
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-01-01-newcastle-united-a",
@@ -958,9 +1003,14 @@
           "type": "goal",
           "player": "paul-scholes",
           "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 46
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-01-07-aston-villa-h",
@@ -1093,9 +1143,14 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 77
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 83
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-01-31-watford-h",
@@ -1477,11 +1532,21 @@
         },
         {
           "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 25
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-03-19-middlesbrough-h",
@@ -1633,12 +1698,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "michael-carrick",
           "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 60
         },
         {
           "type": "goal",
@@ -1654,6 +1724,11 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 49
         },
         {
           "type": "goal",
@@ -1695,6 +1770,11 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 66
+        },
+        {
+          "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 28
         },
@@ -1704,7 +1784,7 @@
           "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2007-04-17-sheffield-united-h",
@@ -1786,7 +1866,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1797,6 +1877,11 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 91
         }
       ],
       "sources": [

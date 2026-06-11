@@ -281,7 +281,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -292,6 +292,11 @@
           "type": "goal",
           "player": "dimitar-berbatov",
           "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 79
         }
       ],
       "sources": [
@@ -393,12 +398,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "dimitar-berbatov",
           "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 51
         },
         {
           "type": "goal",
@@ -464,9 +474,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 30
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-11-01-hull-city-h",
@@ -496,6 +511,11 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 44
+        },
+        {
+          "type": "goal",
           "player": "michael-carrick",
           "minute": 29
         },
@@ -505,7 +525,7 @@
           "minute": 57
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-11-05-celtic-a",
@@ -622,6 +642,11 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 89
+        },
+        {
+          "type": "goal",
           "player": "michael-carrick",
           "minute": 46
         },
@@ -636,7 +661,7 @@
           "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2008-11-22-aston-villa-a",
@@ -726,12 +751,27 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "carlos-tevez",
           "minute": 35
+        },
+        {
+          "type": "pen-goal",
+          "player": "carlos-tevez",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 94
         },
         {
           "type": "goal",
@@ -844,7 +884,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -860,6 +900,11 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 79
         },
         {
           "type": "goal",
@@ -1237,9 +1282,14 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 73
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2009-01-31-everton-h",
@@ -1528,6 +1578,11 @@
         },
         {
           "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 35
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 50
         },
@@ -1537,7 +1592,7 @@
           "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2009-03-11-inter-milan-h",
@@ -1651,11 +1706,16 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 81
+        },
+        {
+          "type": "goal",
           "player": "federico-macheda",
           "minute": 93
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2009-04-07-porto-h",
@@ -1842,8 +1902,18 @@
         },
         {
           "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 68
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 71
         },
         {
           "type": "goal",
@@ -1851,7 +1921,7 @@
           "minute": 79
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2009-04-29-arsenal-h",
@@ -1933,7 +2003,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1944,6 +2014,11 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 61
         }
       ],
       "sources": [

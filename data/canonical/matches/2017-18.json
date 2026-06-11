@@ -58,6 +58,11 @@
         },
         {
           "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 52
+        },
+        {
+          "type": "goal",
           "player": "anthony-martial",
           "minute": 87
         },
@@ -68,7 +73,7 @@
           "detail": "Paul Pogba (og)"
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2017-08-19-swansea-city-a",
@@ -283,12 +288,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 17
         },
         {
           "type": "goal",
@@ -351,12 +361,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "romelu-lukaku",
           "minute": 4
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 27
         },
         {
           "type": "pen-goal",
@@ -406,11 +421,16 @@
         },
         {
           "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 49
+        },
+        {
+          "type": "goal",
           "player": "romelu-lukaku",
           "minute": 86
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2017-10-14-liverpool-a",
@@ -508,12 +528,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "jesse-lingard",
           "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 59
         }
       ],
       "sources": [
@@ -729,6 +754,11 @@
         },
         {
           "type": "goal",
+          "player": "ashley-young",
+          "minute": 25
+        },
+        {
+          "type": "goal",
           "player": "anthony-martial",
           "minute": 32
         },
@@ -738,7 +768,7 @@
           "minute": 86
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2017-12-02-arsenal-a",
@@ -770,9 +800,14 @@
           "type": "goal",
           "player": "jesse-lingard",
           "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 63
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2017-12-05-pfc-cska-moscow-h",
@@ -846,7 +881,7 @@
       "opponentId": "bournemouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74798,
       "score": {
         "ft": [
           1,
@@ -854,8 +889,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-12-17-west-bromwich-albion-a",
@@ -945,9 +989,14 @@
           "type": "goal",
           "player": "juan-mata",
           "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 60
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2017-12-26-burnley-h",
@@ -974,9 +1023,14 @@
           "type": "goal",
           "player": "jesse-lingard",
           "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 91
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2017-12-30-southampton-h",
@@ -1262,9 +1316,14 @@
           "type": "goal",
           "player": "romelu-lukaku",
           "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 55
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2018-02-21-sevilla-a",
@@ -1385,9 +1444,14 @@
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 24
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2018-03-13-sevilla-h",
@@ -1553,7 +1617,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10952,
       "score": {
         "ft": [
           2,
@@ -1561,8 +1625,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-04-21-tottenham-hotspur-n",

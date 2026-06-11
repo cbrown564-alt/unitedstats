@@ -61,6 +61,11 @@
         },
         {
           "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 74
+        },
+        {
+          "type": "goal",
           "player": "paul-scholes",
           "minute": 77
         },
@@ -70,7 +75,7 @@
           "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-08-23-newcastle-united-a",
@@ -181,9 +186,14 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-09-16-panathinaikos-h",
@@ -285,9 +295,19 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 52
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-10-01-vfb-stuttgart-a",
@@ -539,7 +559,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -550,6 +570,11 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 60
         }
       ],
       "sources": [
@@ -581,9 +606,14 @@
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-11-22-blackburn-rovers-h",
@@ -718,11 +748,21 @@
         },
         {
           "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 90
+        },
+        {
+          "type": "goal",
           "player": "diego-forlan",
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-12-09-vfb-stuttgart-h",
@@ -786,11 +826,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 73
+        },
+        {
+          "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 34
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-12-21-tottenham-hotspur-a",
@@ -921,9 +966,14 @@
           "type": "goal",
           "player": "paul-scholes",
           "minute": 64
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 68
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-01-07-bolton-wanderers-a",
@@ -1110,11 +1160,21 @@
         },
         {
           "type": "goal",
+          "player": "louis-saha",
+          "minute": 29
+        },
+        {
+          "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 89
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-02-11-middlesbrough-h",
@@ -1185,11 +1245,16 @@
         },
         {
           "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 80
+        },
+        {
+          "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-02-21-leeds-united-h",
@@ -1305,9 +1370,14 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 62
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2004-03-09-porto-h",
@@ -1721,9 +1791,14 @@
           "type": "pen-goal",
           "player": "ruud-van-nistelrooy",
           "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     }
   ]
 }

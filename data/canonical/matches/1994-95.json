@@ -212,12 +212,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 66
         },
         {
           "type": "goal",
@@ -285,12 +290,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "paul-scholes",
           "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 53
         }
       ],
       "sources": [
@@ -537,11 +547,16 @@
         },
         {
           "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 82
+        },
+        {
+          "type": "goal",
           "player": "mark-hughes",
           "minute": 67
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1994-10-26-newcastle-united-a",
@@ -686,11 +701,21 @@
         },
         {
           "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 89
+        },
+        {
+          "type": "goal",
           "player": "mark-hughes",
           "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1994-11-19-crystal-palace-h",
@@ -883,11 +908,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 48
+        },
+        {
+          "type": "goal",
           "player": "roy-keane",
           "minute": 45
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1994-12-17-nottingham-forest-h",
@@ -1206,6 +1236,11 @@
           "minute": 17
         },
         {
+          "type": "pen-goal",
+          "player": "denis-irwin",
+          "minute": 74
+        },
+        {
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 27
@@ -1222,7 +1257,7 @@
           "detail": "Tony Humes (og)"
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-02-04-aston-villa-h",
@@ -1421,8 +1456,33 @@
         },
         {
           "type": "goal",
+          "player": "andy-cole",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 89
+        },
+        {
+          "type": "goal",
           "player": "mark-hughes",
           "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 59
         },
         {
           "type": "goal",
@@ -1430,7 +1490,7 @@
           "minute": 73
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-03-07-wimbledon-a",
@@ -1705,11 +1765,16 @@
         },
         {
           "type": "goal",
+          "player": "andy-cole",
+          "minute": 53
+        },
+        {
+          "type": "goal",
           "player": "paul-ince",
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-04-17-chelsea-h",
@@ -1762,9 +1827,14 @@
           "type": "goal",
           "player": "andy-cole",
           "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 79
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-05-07-sheffield-wednesday-h",

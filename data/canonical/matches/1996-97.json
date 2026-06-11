@@ -283,9 +283,14 @@
           "type": "goal",
           "player": "eric-cantona",
           "minute": 82
+        },
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1996-09-21-aston-villa-a",
@@ -367,9 +372,14 @@
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 57
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1996-10-12-liverpool-h",
@@ -712,11 +722,16 @@
         },
         {
           "type": "goal",
+          "player": "nicky-butt",
+          "minute": 87
+        },
+        {
+          "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1996-12-04-sk-rapid-wien-a",
@@ -842,9 +857,19 @@
           "minute": 36
         },
         {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 48
+        },
+        {
           "type": "pen-goal",
           "player": "eric-cantona",
           "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 79
         },
         {
           "type": "goal",
@@ -852,7 +877,7 @@
           "minute": 58
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1996-12-26-nottingham-forest-a",
@@ -1563,11 +1588,16 @@
         },
         {
           "type": "goal",
+          "player": "gary-pallister",
+          "minute": 42
+        },
+        {
+          "type": "goal",
           "player": "andy-cole",
           "minute": 63
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-04-23-borussia-dortmund-h",
@@ -1615,9 +1645,14 @@
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 52
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-05-05-middlesbrough-h",

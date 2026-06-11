@@ -92,11 +92,16 @@
         },
         {
           "type": "goal",
+          "player": "roy-keane",
+          "minute": 80
+        },
+        {
+          "type": "goal",
           "player": "andy-cole",
           "minute": 60
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-08-28-blackburn-rovers-a",
@@ -160,11 +165,16 @@
         },
         {
           "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 49
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-09-12-rotor-volgograd-a",
@@ -215,11 +225,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 86
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 34
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-09-20-york-city-h",
@@ -348,12 +363,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "paul-scholes",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 80
         },
         {
           "type": "goal",
@@ -422,6 +442,11 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 10
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 78
         },
@@ -431,7 +456,7 @@
           "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-10-28-middlesbrough-h",
@@ -516,6 +541,11 @@
         },
         {
           "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 4
+        },
+        {
+          "type": "goal",
           "player": "paul-scholes",
           "minute": 9
         },
@@ -525,7 +555,7 @@
           "minute": 69
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-11-22-coventry-city-a",
@@ -560,11 +590,16 @@
         },
         {
           "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 76
+        },
+        {
+          "type": "goal",
           "player": "david-beckham",
           "minute": 58
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-11-27-nottingham-forest-a",
@@ -649,9 +684,14 @@
           "type": "goal",
           "player": "eric-cantona",
           "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1995-12-17-liverpool-a",
@@ -990,9 +1030,14 @@
           "type": "goal",
           "player": "eric-cantona",
           "minute": 71
+        },
+        {
+          "type": "pen-goal",
+          "player": "eric-cantona",
+          "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1996-02-10-blackburn-rovers-h",
@@ -1136,11 +1181,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 79
+        },
+        {
+          "type": "goal",
           "player": "nicky-butt",
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1996-03-04-newcastle-united-a",
@@ -1489,6 +1539,11 @@
         },
         {
           "type": "goal",
+          "player": "david-beckham",
+          "minute": 55
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 70
         },
@@ -1498,7 +1553,7 @@
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1996-05-04-middlesbrough-a",

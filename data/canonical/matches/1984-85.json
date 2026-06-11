@@ -1052,7 +1052,7 @@
       "opponentId": "bournemouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32080,
       "score": {
         "ft": [
           3,
@@ -1061,9 +1061,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-mcqueen",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-stapleton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1985-01-12-coventry-city-h",

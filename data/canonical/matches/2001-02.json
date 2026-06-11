@@ -60,9 +60,14 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 53
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2001-08-22-blackburn-rovers-a",
@@ -273,11 +278,16 @@
         },
         {
           "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        },
+        {
+          "type": "goal",
           "player": "andy-cole",
           "minute": 89
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2001-09-25-deportivo-de-la-coruna-a",
@@ -448,12 +458,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 40
         }
       ],
       "sources": [
@@ -766,12 +781,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 62
         },
         {
           "type": "goal",
@@ -832,6 +852,11 @@
         },
         {
           "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 58
+        },
+        {
+          "type": "goal",
           "player": "roy-keane",
           "minute": 10
         },
@@ -846,7 +871,7 @@
           "minute": 89
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2001-12-15-middlesbrough-a",
@@ -905,6 +930,16 @@
         },
         {
           "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 54
+        },
+        {
+          "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 41
         },
@@ -919,7 +954,7 @@
           "minute": 78
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2001-12-26-everton-a",
@@ -983,11 +1018,16 @@
         },
         {
           "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 47
+        },
+        {
+          "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 45
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-01-02-newcastle-united-h",
@@ -1019,9 +1059,14 @@
           "type": "goal",
           "player": "paul-scholes",
           "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 62
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-01-06-aston-villa-a",
@@ -1055,9 +1100,14 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-01-13-southampton-a",
@@ -1204,11 +1254,21 @@
         },
         {
           "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 64
+        },
+        {
+          "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 83
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-02-02-sunderland-h",
@@ -1245,9 +1305,14 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 28
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 44
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-02-10-charlton-athletic-a",
@@ -1274,9 +1339,14 @@
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-02-20-nantes-a",
@@ -1353,7 +1423,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1364,6 +1434,11 @@
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 78
         },
         {
           "type": "goal",
@@ -1441,12 +1516,22 @@
           "minute": 15
         },
         {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 64
+        },
+        {
           "type": "pen-goal",
           "player": "ruud-van-nistelrooy",
           "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 76
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-03-13-bayern-munich-h",
@@ -1496,6 +1581,11 @@
           "minute": 17
         },
         {
+          "type": "pen-goal",
+          "player": "david-beckham",
+          "minute": 89
+        },
+        {
           "type": "goal",
           "player": "nicky-butt",
           "minute": 22
@@ -1511,7 +1601,7 @@
           "minute": 64
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-03-19-boavista-a",
@@ -1606,11 +1696,16 @@
         },
         {
           "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 39
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 54
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-04-02-deportivo-de-la-coruna-a",
@@ -1692,12 +1787,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 56
         },
         {
           "type": "goal",

@@ -498,9 +498,14 @@
           "type": "goal",
           "player": "robin-van-persie",
           "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "robin-van-persie",
+          "minute": 71
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2014-12-14-liverpool-h",
@@ -598,11 +603,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 36
+        },
+        {
+          "type": "goal",
           "player": "robin-van-persie",
           "minute": 53
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2014-12-28-tottenham-hotspur-a",
@@ -891,12 +901,17 @@
           "minute": 6
         },
         {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 48
+        },
+        {
           "type": "pen-goal",
           "player": "robin-van-persie",
           "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2015-02-16-preston-north-end-a",
@@ -993,9 +1008,14 @@
           "type": "pen-goal",
           "player": "wayne-rooney",
           "minute": 66
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2015-03-04-newcastle-united-a",
@@ -1121,9 +1141,14 @@
           "type": "goal",
           "player": "juan-mata",
           "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 59
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2015-04-04-aston-villa-h",
@@ -1153,11 +1178,16 @@
         },
         {
           "type": "goal",
+          "player": "ander-herrera",
+          "minute": 92
+        },
+        {
+          "type": "goal",
           "player": "wayne-rooney",
           "minute": 79
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2015-04-12-manchester-city-h",

@@ -173,9 +173,14 @@
           "type": "goal",
           "player": "mark-robins",
           "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1990-09-16-liverpool-a",
@@ -484,9 +489,14 @@
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 83
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1990-10-31-liverpool-h",
@@ -701,7 +711,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -717,6 +727,16 @@
           "type": "goal",
           "player": "lee-sharpe",
           "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 78
         },
         {
           "type": "goal",
@@ -847,12 +867,17 @@
           "minute": 69
         },
         {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 88
+        },
+        {
           "type": "goal",
           "player": "mark-hughes",
           "minute": 80
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1990-12-26-norwich-city-h",
@@ -884,9 +909,14 @@
           "type": "goal",
           "player": "brian-mcclair",
           "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1990-12-29-aston-villa-h",
@@ -1015,11 +1045,16 @@
         },
         {
           "type": "goal",
+          "player": "mark-hughes",
+          "minute": 41
+        },
+        {
+          "type": "goal",
           "player": "brian-mcclair",
           "minute": 15
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1991-01-16-southampton-a",
@@ -1096,12 +1131,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
           "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 79
         }
       ],
       "sources": [
@@ -1495,6 +1540,11 @@
         },
         {
           "type": "goal",
+          "player": "steve-bruce",
+          "minute": 47
+        },
+        {
+          "type": "goal",
           "player": "mark-robins",
           "minute": 70
         },
@@ -1504,7 +1554,7 @@
           "minute": 83
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1991-03-30-norwich-city-a",
@@ -1533,12 +1583,17 @@
           "minute": 18
         },
         {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 74
+        },
+        {
           "type": "goal",
           "player": "paul-ince",
           "minute": 30
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1991-04-02-wimbledon-h",
@@ -1827,12 +1882,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
           "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 74
         }
       ],
       "sources": [

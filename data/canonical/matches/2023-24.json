@@ -165,7 +165,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -176,6 +176,11 @@
           "type": "goal",
           "player": "casemiro",
           "minute": 88
+        },
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 95
         }
       ],
       "sources": [
@@ -293,12 +298,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "rasmus-h-jlund",
           "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 67
         }
       ],
       "sources": [
@@ -330,9 +340,14 @@
           "type": "goal",
           "player": "scott-mctominay",
           "minute": 93
+        },
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 97
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2023-10-21-sheffield-united-a",
@@ -491,12 +506,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "rasmus-h-jlund",
           "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 28
         },
         {
           "type": "pen-goal",
@@ -661,9 +681,14 @@
           "type": "goal",
           "player": "scott-mctominay",
           "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 69
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2023-12-09-bournemouth-h",
@@ -777,11 +802,16 @@
         },
         {
           "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 71
+        },
+        {
+          "type": "goal",
           "player": "rasmus-h-jlund",
           "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2023-12-30-nottingham-forest-a",
@@ -1009,9 +1039,14 @@
           "type": "goal",
           "player": "alejandro-garnacho",
           "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 84
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-02-11-aston-villa-a",
@@ -1072,9 +1107,14 @@
           "type": "goal",
           "player": "rasmus-h-jlund",
           "minute": 1
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 7
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-02-24-fulham-h",
@@ -1309,11 +1349,16 @@
         },
         {
           "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 67
+        },
+        {
+          "type": "goal",
           "player": "bruno-fernandes",
           "minute": 39
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-04-07-liverpool-h",
@@ -1374,9 +1419,14 @@
           "type": "goal",
           "player": "bruno-fernandes",
           "minute": 31
+        },
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 65
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-04-21-coventry-city-n",
@@ -1459,11 +1509,16 @@
         },
         {
           "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 81
+        },
+        {
+          "type": "goal",
           "player": "rasmus-h-jlund",
           "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2024-04-27-burnley-h",

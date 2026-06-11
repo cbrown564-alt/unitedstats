@@ -102,12 +102,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 6
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 76
         },
         {
           "type": "goal",
@@ -324,12 +329,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 44
         }
       ],
       "sources": [
@@ -447,12 +457,17 @@
           "minute": 86
         },
         {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 90
+        },
+        {
           "type": "pen-goal",
           "player": "ruud-van-nistelrooy",
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-10-19-fulham-a",
@@ -765,11 +780,21 @@
         },
         {
           "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 53
+        },
+        {
+          "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 55
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-11-26-basel-a",
@@ -788,12 +813,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 63
         },
         {
           "type": "goal",
@@ -830,9 +860,14 @@
           "type": "goal",
           "player": "diego-forlan",
           "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 66
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2002-12-03-burnley-a",
@@ -919,12 +954,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 55
         }
       ],
       "sources": [
@@ -1147,6 +1187,11 @@
           "minute": 5
         },
         {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 82
+        },
+        {
           "type": "goal",
           "player": "david-beckham",
           "minute": 16
@@ -1157,7 +1202,7 @@
           "minute": 89
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-01-07-blackburn-rovers-h",
@@ -1278,12 +1323,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "paul-scholes",
           "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 42
         },
         {
           "type": "pen-goal",
@@ -1325,8 +1375,18 @@
         },
         {
           "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 29
+        },
+        {
+          "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 58
         },
         {
           "type": "goal",
@@ -1339,7 +1399,7 @@
           "minute": 69
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-02-01-southampton-a",
@@ -1536,12 +1596,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 41
         },
         {
           "type": "goal",
@@ -1713,9 +1778,19 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 68
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-04-05-liverpool-h",
@@ -1744,6 +1819,11 @@
           "minute": 5
         },
         {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 65
+        },
+        {
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 78
@@ -1754,7 +1834,7 @@
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-04-08-real-madrid-a",
@@ -1818,6 +1898,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 52
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 44
         },
@@ -1827,7 +1917,7 @@
           "minute": 58
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-04-16-arsenal-a",
@@ -1893,9 +1983,14 @@
           "type": "goal",
           "player": "paul-scholes",
           "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 61
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-04-23-real-madrid-h",
@@ -1914,7 +2009,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1931,6 +2026,11 @@
           "type": "goal",
           "player": "david-beckham",
           "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 85
         }
       ],
       "sources": [
@@ -2001,9 +2101,19 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 52
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2003-05-11-everton-a",

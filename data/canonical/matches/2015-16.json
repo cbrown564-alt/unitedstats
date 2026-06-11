@@ -77,12 +77,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "memphis-depay",
           "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "memphis-depay",
+          "minute": 43
         },
         {
           "type": "goal",
@@ -132,12 +137,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 57
         },
         {
           "type": "goal",
@@ -274,11 +289,16 @@
         },
         {
           "type": "goal",
+          "player": "anthony-martial",
+          "minute": 50
+        },
+        {
+          "type": "goal",
           "player": "juan-mata",
           "minute": 68
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2015-09-23-ipswich-town-h",
@@ -760,7 +780,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11334,
       "score": {
         "ft": [
           1,
@@ -768,8 +788,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 24
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2015-12-19-norwich-city-h",
@@ -935,11 +964,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 79
+        },
+        {
+          "type": "goal",
           "player": "jesse-lingard",
           "minute": 38
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2016-01-17-liverpool-a",
@@ -1216,7 +1250,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "own-goal-for",
@@ -1228,6 +1262,11 @@
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 75
         },
         {
           "type": "pen-goal",
@@ -1272,11 +1311,16 @@
         },
         {
           "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 32
+        },
+        {
+          "type": "goal",
           "player": "ander-herrera",
           "minute": 65
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2016-03-02-watford-h",
@@ -1707,9 +1751,14 @@
           "type": "goal",
           "player": "anthony-martial",
           "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 72
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2016-05-16-bournemouth-h",

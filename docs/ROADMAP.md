@@ -1,28 +1,32 @@
 # Roadmap
 
-## Phase 1 — Foundation (this build)
+## Phase 1 — Foundation ✅ (complete)
 
 - [x] Repo, docs, architecture
-- [ ] Schema + ETL: every league match 1892–present (engsoccerdata), FA Cup
-      1886–2019, reference data (managers, stadiums, competitions, opponents)
-- [ ] Gap fill: 2025-26 season (openfootball), FA Cup 2019–25, League Cup
-      finals/history, European campaign matches (curated)
-- [ ] Auto-update pipeline (GitHub Actions + openfootball parser)
-- [ ] Core UI: home, seasons, season detail, match list, match deep-dive,
+- [x] Schema + ETL: every league match 1892–present (engsoccerdata), FA Cup
+      1886–present, reference data (managers, stadiums, competitions, opponents)
+- [x] Gap fill via the Wikipedia wikitext ingester: all European matches
+      (1956–), all League Cup (1960–), Shields/Super Cups (1908–),
+      Intercontinental/Club World Cup, 1890s Test Matches; 2022-23 and
+      2025-26 from openfootball
+- [x] Auto-update pipeline (GitHub Actions + openfootball parser +
+      Wikipedia enrichment + league-position recompute)
+- [x] Core UI: home, seasons, season detail, match browser, match deep-dive,
       players, managers, opponents/head-to-head
-- [ ] Analytics v1: all-time records, Elo timeline 1892–present with
-      win-probability model, season trends, attendance history, manager
-      comparison, spatial map of opponents/venues
+- [x] Analytics v1: all-time records, Elo timeline 1886–present with
+      win-expectancy on every match page, season trends, attendance history,
+      goal-minute patterns, grounds, data-depth ledger
 
 ## Phase 2 — Player-level depth
 
-- [ ] Goal events (scorer, minute, assist) — start with curated landmark
-      matches + modern seasons via football-data.org enrichment
-- [ ] Full lineups for the modern era (1992–) and progressively backward
-- [ ] Player pages with per-season splits, goal timelines, partnership
-      networks (who assists whom)
-- [ ] Appearance/goal record tables that update live as data deepens
-      (the UI already renders whatever depth exists per match)
+- [x] Goal events (scorer, minute) — 10,000+ events; the all-time scorer
+      table reproduces the official club record (Rooney 254, Charlton 249,
+      Law 236...). Assists where sources record them.
+- [ ] Full lineups — schema, DB, and match-page UI are ready; next source:
+      Wikipedia final-match articles (structured lineups for ~40 finals),
+      then football-data.org (free key) for 2020s league lineups
+- [ ] Partnership networks (who assists whom) once assist coverage grows
+- [x] Player pages with per-season splits and goal-minute histograms
 
 ## Phase 3 — Exhaustive history
 

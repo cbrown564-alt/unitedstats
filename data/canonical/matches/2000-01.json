@@ -152,8 +152,18 @@
         },
         {
           "type": "goal",
+          "player": "quinton-fortune",
+          "minute": 60
+        },
+        {
+          "type": "goal",
           "player": "teddy-sheringham",
           "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 81
         },
         {
           "type": "goal",
@@ -161,7 +171,7 @@
           "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2000-09-09-sunderland-h",
@@ -191,11 +201,16 @@
         },
         {
           "type": "goal",
+          "player": "paul-scholes",
+          "minute": 82
+        },
+        {
+          "type": "goal",
           "player": "teddy-sheringham",
           "minute": 76
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2000-09-13-anderlecht-h",
@@ -214,12 +229,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "andy-cole",
           "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 72
         },
         {
           "type": "pen-goal",
@@ -413,11 +438,16 @@
         },
         {
           "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 54
+        },
+        {
+          "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2000-10-18-psv-eindhoven-h",
@@ -555,11 +585,26 @@
         },
         {
           "type": "goal",
+          "player": "andy-cole",
+          "minute": 73
+        },
+        {
+          "type": "goal",
           "player": "teddy-sheringham",
           "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 55
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2000-10-31-watford-a",
@@ -578,12 +623,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 81
         },
         {
           "type": "goal",
@@ -738,7 +788,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -749,6 +799,11 @@
           "type": "goal",
           "player": "paul-scholes",
           "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 90
         }
       ],
       "sources": [
@@ -976,9 +1031,14 @@
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 32
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2000-12-26-aston-villa-a",
@@ -1376,6 +1436,16 @@
         },
         {
           "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 22
+        },
+        {
+          "type": "goal",
           "player": "roy-keane",
           "minute": 26
         },
@@ -1390,7 +1460,7 @@
           "minute": 90
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2001-03-03-leeds-united-a",
@@ -1627,6 +1697,11 @@
         },
         {
           "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 28
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 81
         },
@@ -1636,7 +1711,7 @@
           "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2001-04-18-bayern-munich-a",

@@ -531,8 +531,23 @@
         },
         {
           "type": "goal",
+          "player": "andy-cole",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 45
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 57
         },
         {
           "type": "goal",
@@ -545,7 +560,7 @@
           "minute": 80
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-11-01-sheffield-wednesday-h",
@@ -574,6 +589,11 @@
           "minute": 13
         },
         {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 63
+        },
+        {
           "type": "own-goal-for",
           "player": null,
           "minute": 20,
@@ -588,9 +608,14 @@
           "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 75
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-11-05-feyenoord-a",
@@ -609,12 +634,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "andy-cole",
           "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 75
         }
       ],
       "sources": [
@@ -646,9 +681,14 @@
           "type": "goal",
           "player": "teddy-sheringham",
           "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 40
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-11-22-wimbledon-a",
@@ -683,6 +723,11 @@
         },
         {
           "type": "goal",
+          "player": "david-beckham",
+          "minute": 75
+        },
+        {
+          "type": "goal",
           "player": "paul-scholes",
           "minute": 81
         },
@@ -692,7 +737,7 @@
           "minute": 85
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-11-27-mfk-kosice-h",
@@ -761,6 +806,11 @@
           "minute": 17
         },
         {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 52
+        },
+        {
           "type": "own-goal-for",
           "player": null,
           "minute": 59,
@@ -773,7 +823,7 @@
           "detail": "Jeff Kenna (og)"
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-12-06-liverpool-a",
@@ -803,11 +853,16 @@
         },
         {
           "type": "goal",
+          "player": "andy-cole",
+          "minute": 74
+        },
+        {
+          "type": "goal",
           "player": "david-beckham",
           "minute": 70
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1997-12-10-juventus-a",
@@ -986,8 +1041,18 @@
         },
         {
           "type": "goal",
+          "player": "david-beckham",
+          "minute": 28
+        },
+        {
+          "type": "goal",
           "player": "andy-cole",
           "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 66
         },
         {
           "type": "goal",
@@ -995,7 +1060,7 @@
           "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1998-01-10-tottenham-hotspur-h",
@@ -1022,9 +1087,14 @@
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 68
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1998-01-19-southampton-a",
@@ -1077,8 +1147,18 @@
         },
         {
           "type": "goal",
+          "player": "andy-cole",
+          "minute": 66
+        },
+        {
+          "type": "goal",
           "player": "ole-gunnar-solskj-r",
           "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 68
         },
         {
           "type": "goal",
@@ -1086,7 +1166,7 @@
           "minute": 74
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "1998-01-31-leicester-city-h",

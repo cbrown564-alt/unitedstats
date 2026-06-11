@@ -33,6 +33,13 @@ jobs:
           n=$(grep -oP 'NEW_MATCHES=\K\d+' update.log || echo 0)
           echo "new=$n" >> "$GITHUB_OUTPUT"
 
+      - name: Enrich current season (scorers, attendance, cups) and positions
+        if: steps.fetch.outputs.new != '0'
+        run: |
+          npm run ingest:wikipedia -- current --reparse || echo "enrichment unavailable, results still committed"
+          curl -sL -o data/raw/england.csv https://raw.githubusercontent.com/jalapic/engsoccerdata/master/data-raw/england.csv
+          npm run ingest:positions || echo "positions skipped"
+
       - name: Validate and rebuild database
         if: steps.fetch.outputs.new != '0'
         run: |

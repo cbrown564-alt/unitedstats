@@ -116,6 +116,11 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 65
+        },
+        {
+          "type": "goal",
           "player": "dimitar-berbatov",
           "minute": 58
         },
@@ -130,7 +135,7 @@
           "minute": 92
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2009-08-29-arsenal-h",
@@ -268,11 +273,16 @@
         },
         {
           "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 80
+        },
+        {
+          "type": "goal",
           "player": "michael-owen",
           "minute": 96
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2009-09-23-wolverhampton-wanderers-h",
@@ -707,11 +717,21 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 48
+        },
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 54
+        },
+        {
+          "type": "goal",
           "player": "ryan-giggs",
           "minute": 87
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2009-12-01-tottenham-hotspur-h",
@@ -730,12 +750,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "darron-gibson",
           "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "darron-gibson",
+          "minute": 38
         }
       ],
       "sources": [
@@ -803,12 +828,22 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "michael-owen",
           "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 83
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 91
         }
       ],
       "sources": [
@@ -1131,9 +1166,24 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 86
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 93
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-01-27-manchester-city-h",
@@ -1312,7 +1362,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1323,6 +1373,11 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 66
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 74
         }
       ],
       "sources": [
@@ -1386,11 +1441,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 55
+        },
+        {
+          "type": "goal",
           "player": "michael-owen",
           "minute": 80
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-02-28-aston-villa-n",
@@ -1472,12 +1532,17 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 46
         },
         {
           "type": "goal",
@@ -1522,11 +1587,16 @@
         },
         {
           "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 84
+        },
+        {
+          "type": "goal",
           "player": "dimitar-berbatov",
           "minute": 89
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-03-21-liverpool-h",
@@ -1596,11 +1666,16 @@
         },
         {
           "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 78
+        },
+        {
+          "type": "goal",
           "player": "darron-gibson",
           "minute": 82
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-03-30-bayern-munich-a",
@@ -1677,7 +1752,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -1688,6 +1763,11 @@
           "type": "goal",
           "player": "nani",
           "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 41
         }
       ],
       "sources": [
@@ -1771,12 +1851,17 @@
           "minute": 58
         },
         {
+          "type": "pen-goal",
+          "player": "ryan-giggs",
+          "minute": 86
+        },
+        {
           "type": "goal",
           "player": "nani",
           "minute": 81
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": true
     },
     {
       "id": "2010-05-02-sunderland-a",
