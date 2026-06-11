@@ -1,0 +1,831 @@
+{
+  "season": "1996-97",
+  "matches": [
+    {
+      "id": "1996-08-17-wimbledon-a",
+      "date": "1996-08-17",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Wimbledon",
+      "opponentId": "wimbledon",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-08-21-everton-h",
+      "date": "1996-08-21",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-08-25-blackburn-rovers-h",
+      "date": "1996-08-25",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Blackburn Rovers",
+      "opponentId": "blackburn-rovers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-09-04-derby-county-a",
+      "date": "1996-09-04",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Derby County",
+      "opponentId": "derby-county",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-09-07-leeds-united-a",
+      "date": "1996-09-07",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          4,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-09-14-nottingham-forest-h",
+      "date": "1996-09-14",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          4,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-09-21-aston-villa-a",
+      "date": "1996-09-21",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-09-29-tottenham-hotspur-h",
+      "date": "1996-09-29",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-10-12-liverpool-h",
+      "date": "1996-10-12",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-10-20-newcastle-united-a",
+      "date": "1996-10-20",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          5
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-10-26-southampton-a",
+      "date": "1996-10-26",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          6
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-11-02-chelsea-h",
+      "date": "1996-11-02",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-11-16-arsenal-h",
+      "date": "1996-11-16",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-11-23-middlesbrough-a",
+      "date": "1996-11-23",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-11-30-leicester-city-h",
+      "date": "1996-11-30",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-12-08-west-ham-united-a",
+      "date": "1996-12-08",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-12-18-sheffield-wednesday-a",
+      "date": "1996-12-18",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Sheffield Wednesday",
+      "opponentId": "sheffield-wednesday",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-12-21-sunderland-h",
+      "date": "1996-12-21",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Sunderland",
+      "opponentId": "sunderland",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          5,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-12-26-nottingham-forest-a",
+      "date": "1996-12-26",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          4,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1996-12-28-leeds-united-h",
+      "date": "1996-12-28",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-01-01-aston-villa-h",
+      "date": "1997-01-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-01-05-tottenham-hotspur-h",
+      "date": "1997-01-05",
+      "competition": "fa-cup",
+      "round": "Round 3",
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "engsoccerdata"
+      ],
+      "notes": null
+    },
+    {
+      "id": "1997-01-12-tottenham-hotspur-a",
+      "date": "1997-01-12",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-01-18-coventry-city-a",
+      "date": "1997-01-18",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Coventry City",
+      "opponentId": "coventry-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-01-25-wimbledon-h",
+      "date": "1997-01-25",
+      "competition": "fa-cup",
+      "round": "Round 4",
+      "opponent": "Wimbledon",
+      "opponentId": "wimbledon",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "engsoccerdata"
+      ],
+      "notes": null
+    },
+    {
+      "id": "1997-01-29-wimbledon-h",
+      "date": "1997-01-29",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Wimbledon",
+      "opponentId": "wimbledon",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-02-01-southampton-h",
+      "date": "1997-02-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-02-04-wimbledon-a",
+      "date": "1997-02-04",
+      "competition": "fa-cup",
+      "round": "Round 4",
+      "opponent": "Wimbledon",
+      "opponentId": "wimbledon",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "engsoccerdata"
+      ],
+      "notes": "FA Cup replay"
+    },
+    {
+      "id": "1997-02-19-arsenal-a",
+      "date": "1997-02-19",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-02-22-chelsea-a",
+      "date": "1997-02-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-03-01-coventry-city-h",
+      "date": "1997-03-01",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Coventry City",
+      "opponentId": "coventry-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-03-08-sunderland-a",
+      "date": "1997-03-08",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Sunderland",
+      "opponentId": "sunderland",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          1,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-03-15-sheffield-wednesday-h",
+      "date": "1997-03-15",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Sheffield Wednesday",
+      "opponentId": "sheffield-wednesday",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-03-22-everton-a",
+      "date": "1997-03-22",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Everton",
+      "opponentId": "everton",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-04-05-derby-county-h",
+      "date": "1997-04-05",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Derby County",
+      "opponentId": "derby-county",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          3
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-04-12-blackburn-rovers-a",
+      "date": "1997-04-12",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Blackburn Rovers",
+      "opponentId": "blackburn-rovers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-04-19-liverpool-a",
+      "date": "1997-04-19",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          1
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-05-03-leicester-city-a",
+      "date": "1997-05-03",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          2
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-05-05-middlesbrough-h",
+      "date": "1997-05-05",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          3,
+          3
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-05-08-newcastle-united-h",
+      "date": "1997-05-08",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Newcastle United",
+      "opponentId": "newcastle-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          0,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    },
+    {
+      "id": "1997-05-11-west-ham-united-h",
+      "date": "1997-05-11",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": null,
+      "score": {
+        "ft": [
+          2,
+          0
+        ]
+      },
+      "sources": [
+        "engsoccerdata"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+name: Update results
+
+on:
+  schedule:
+    # After the usual match windows: Sun/Mon (weekend games), Thu (midweek).
+    - cron: "0 6 * * 0,1,4"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-results
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch latest results
+        id: fetch
+        run: |
+          npm run update | tee update.log
+          n=$(grep -oP 'NEW_MATCHES=\K\d+' update.log || echo 0)
+          echo "new=$n" >> "$GITHUB_OUTPUT"
+
+      - name: Validate and rebuild database
+        if: steps.fetch.outputs.new != '0'
+        run: |
+          npm run validate
+          npm run build:db
+
+      - name: Commit and push
+        if: steps.fetch.outputs.new != '0'
+        run: |
+          git config user.name "unitedstats-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/canonical data/united.db
+          git commit -m "data: ${{ steps.fetch.outputs.new }} new result(s) through $(date -u +%F)"
+          git push

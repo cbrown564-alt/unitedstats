@@ -1,0 +1,32 @@
+{
+  "stadiums": [
+    { "id": "north-road", "name": "North Road", "city": "Manchester", "country": "England",
+      "lat": 53.4986, "lng": -2.2186,
+      "home": [{ "from": "1878-01-01", "to": "1893-06-30" }],
+      "note": "Newton Heath LYR's first ground, Monsall" },
+    { "id": "bank-street", "name": "Bank Street", "city": "Manchester (Clayton)", "country": "England",
+      "lat": 53.4825, "lng": -2.1742,
+      "home": [{ "from": "1893-07-01", "to": "1910-02-18" }],
+      "note": "Home 1893-1910; notorious for chemical-works smoke" },
+    { "id": "old-trafford", "name": "Old Trafford", "city": "Manchester", "country": "England",
+      "lat": 53.4631, "lng": -2.2913,
+      "home": [{ "from": "1910-02-19", "to": "1941-03-10" }, { "from": "1949-08-24", "to": null }],
+      "note": "The Theatre of Dreams; opened 19 Feb 1910 v Liverpool; bombed March 1941, reopened August 1949" },
+    { "id": "maine-road", "name": "Maine Road", "city": "Manchester", "country": "England",
+      "lat": 53.451, "lng": -2.2384,
+      "home": [{ "from": "1941-03-11", "to": "1949-08-23" }],
+      "note": "Borrowed from Manchester City while Old Trafford was rebuilt after WWII bomb damage" },
+    { "id": "wembley", "name": "Wembley Stadium", "city": "London", "country": "England",
+      "lat": 51.556, "lng": -0.2796, "home": [], "note": "Principal neutral venue for finals" },
+    { "id": "millennium-stadium", "name": "Millennium Stadium", "city": "Cardiff", "country": "Wales",
+      "lat": 51.4782, "lng": -3.1826, "home": [], "note": "FA Cup/League Cup finals 2001-2006" },
+    { "id": "camp-nou", "name": "Camp Nou", "city": "Barcelona", "country": "Spain",
+      "lat": 41.3809, "lng": 2.1228, "home": [], "note": "1999 Champions League final" },
+    { "id": "luzhniki", "name": "Luzhniki Stadium", "city": "Moscow", "country": "Russia",
+      "lat": 55.7158, "lng": 37.5537, "home": [], "note": "2008 Champions League final" },
+    { "id": "rotterdam-kuip", "name": "De Kuip", "city": "Rotterdam", "country": "Netherlands",
+      "lat": 51.8939, "lng": 4.5231, "home": [], "note": "1991 Cup Winners' Cup final" },
+    { "id": "friends-arena", "name": "Friends Arena", "city": "Stockholm", "country": "Sweden",
+      "lat": 59.3727, "lng": 18.0001, "home": [], "note": "2017 Europa League final" }
+  ]
+}
