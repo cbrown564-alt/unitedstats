@@ -10,7 +10,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-09-10-manchester-city-h",
@@ -30,7 +44,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           3,
@@ -38,8 +52,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "henry-boyd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1898-09-17-glossop-a",
@@ -50,7 +78,7 @@
       "opponentId": "glossop",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           2,
@@ -58,8 +86,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-09-24-walsall-h",
@@ -70,7 +112,7 @@
       "opponentId": "walsall",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           1,
@@ -78,8 +120,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "matthew-gillespie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-10-01-burton-swifts-a",
@@ -90,7 +141,7 @@
       "opponentId": "burton-swifts",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           1,
@@ -98,8 +149,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "henry-boyd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-10-08-port-vale-h",
@@ -110,7 +170,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           2,
@@ -118,8 +178,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-10-15-birmingham-city-a",
@@ -130,7 +204,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           1,
@@ -138,8 +212,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-10-22-loughborough-h",
@@ -150,7 +233,7 @@
       "opponentId": "loughborough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           6,
@@ -158,8 +241,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-brooks",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "william-brooks",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-11-05-grimsby-town-h",
@@ -170,7 +287,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           3,
@@ -178,8 +295,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-brooks",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "matthew-gillespie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-11-12-barnsley-h",
@@ -190,7 +326,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           0,
@@ -198,7 +334,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +347,7 @@
       "opponentId": "new-brighton-tower",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           3,
@@ -218,8 +355,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-cunningham",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-11-26-lincoln-city-h",
@@ -230,7 +386,7 @@
       "opponentId": "lincoln-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           1,
@@ -238,8 +394,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-12-03-arsenal-a",
@@ -250,7 +415,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           1,
@@ -258,8 +423,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-12-10-blackpool-h",
@@ -270,7 +444,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           3,
@@ -278,8 +452,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "john-cunningham",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-12-17-leicester-city-a",
@@ -290,7 +483,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           0,
@@ -298,7 +491,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +504,7 @@
       "opponentId": "darwen",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           9,
@@ -318,8 +512,58 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "matthew-gillespie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "matthew-gillespie",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Radcliffe (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1898-12-26-manchester-city-a",
@@ -330,7 +574,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           0,
@@ -338,7 +582,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +595,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 2000,
       "score": {
         "ft": [
           6,
@@ -358,8 +603,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-collinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "henry-boyd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "walter-cartwright",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-draycott",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-01-02-burton-swifts-h",
@@ -370,7 +649,7 @@
       "opponentId": "burton-swifts",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           2,
@@ -378,8 +657,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "henry-boyd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-01-14-glossop-h",
@@ -390,7 +683,7 @@
       "opponentId": "glossop",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           3,
@@ -398,8 +691,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-cunningham",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "fred-erentz",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "matthew-gillespie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-01-21-walsall-a",
@@ -410,7 +722,7 @@
       "opponentId": "walsall",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -418,7 +730,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +743,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13721,
       "score": {
         "ft": [
           1,
@@ -439,9 +752,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-02-01-tottenham-hotspur-h",
@@ -452,7 +774,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           3,
@@ -461,9 +783,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-02-04-port-vale-a",
@@ -474,7 +815,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           0,
@@ -482,7 +823,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -494,7 +836,7 @@
       "opponentId": "loughborough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1500,
       "score": {
         "ft": [
           1,
@@ -502,8 +844,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-02-25-birmingham-city-h",
@@ -514,7 +865,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           2,
@@ -522,8 +873,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "henry-boyd",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Bogie Roberts (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-03-04-grimsby-town-a",
@@ -534,7 +900,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           0,
@@ -542,7 +908,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -554,7 +921,7 @@
       "opponentId": "new-brighton-tower",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           1,
@@ -562,8 +929,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-03-25-lincoln-city-a",
@@ -574,7 +950,7 @@
       "opponentId": "lincoln-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -582,7 +958,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -594,7 +971,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           2,
@@ -602,8 +979,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-04-03-blackpool-a",
@@ -614,7 +1005,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -622,8 +1013,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-04-04-barnsley-a",
@@ -634,7 +1034,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           2,
@@ -642,8 +1042,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "edwin-lee",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "edwin-lee",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-04-08-luton-town-a",
@@ -654,7 +1068,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1500,
       "score": {
         "ft": [
           1,
@@ -662,8 +1076,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "edwin-lee",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-04-12-luton-town-h",
@@ -674,7 +1097,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           5,
@@ -682,8 +1105,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "walter-cartwright",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "matthew-gillespie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "edwin-lee",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-04-15-leicester-city-h",
@@ -694,7 +1146,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           2,
@@ -702,8 +1154,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-cassidy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "matthew-gillespie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1899-04-22-darwen-a",
@@ -714,7 +1180,7 @@
       "opponentId": "darwen",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1000,
       "score": {
         "ft": [
           1,
@@ -722,8 +1188,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-morgan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

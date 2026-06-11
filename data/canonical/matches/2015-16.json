@@ -10,7 +10,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75261,
       "score": {
         "ft": [
           1,
@@ -18,8 +18,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 22,
+          "detail": "Kyle Walker (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2015-08-14-aston-villa-a",
@@ -30,7 +40,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42200,
       "score": {
         "ft": [
           1,
@@ -38,7 +48,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "adnan-januzaj",
+          "minute": 29
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2015-08-18-club-brugge-kv-h",
+      "date": "2015-08-18",
+      "competition": "champions-league",
+      "round": "Play-off round First leg",
+      "opponent": "Club Brugge KV",
+      "opponentId": "club-brugge-kv",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75312,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "memphis-depay",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 94
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +103,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75354,
       "score": {
         "ft": [
           0,
@@ -58,7 +111,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2015-08-26-club-brugge-kv-a",
+      "date": "2015-08-26",
+      "competition": "champions-league",
+      "round": "Play-off round Second leg",
+      "opponent": "Club Brugge KV",
+      "opponentId": "club-brugge-kv",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 28733,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 63
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +158,7 @@
       "opponentId": "swansea-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20828,
       "score": {
         "ft": [
           1,
@@ -78,8 +166,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2015-09-12-liverpool-h",
@@ -90,7 +187,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75347,
       "score": {
         "ft": [
           3,
@@ -98,7 +195,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "daley-blind",
+          "minute": 49
+        },
+        {
+          "type": "pen-goal",
+          "player": "ander-herrera",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2015-09-15-psv-eindhoven-a",
+      "date": "2015-09-15",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PSV Eindhoven",
+      "opponentId": "psv-eindhoven",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 35292,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "memphis-depay",
+          "minute": 41
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +255,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31588,
       "score": {
         "ft": [
           3,
@@ -118,7 +263,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2015-09-23-ipswich-town-h",
+      "date": "2015-09-23",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Ipswich Town",
+      "opponentId": "ipswich-town",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 56607,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "andreas-pereira",
+          "minute": 60
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +328,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75328,
       "score": {
         "ft": [
           3,
@@ -138,7 +336,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "memphis-depay",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2015-09-30-vfl-wolfsburg-h",
+      "date": "2015-09-30",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "VfL Wolfsburg",
+      "opponentId": "vfl-wolfsburg",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74811,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "juan-mata",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 52
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +401,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60084,
       "score": {
         "ft": [
           0,
@@ -158,7 +409,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +422,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39553,
       "score": {
         "ft": [
           3,
@@ -178,7 +430,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "morgan-schneiderlin",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2015-10-21-pfc-cska-moscow-a",
+      "date": "2015-10-21",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PFC CSKA Moscow",
+      "opponentId": "pfc-cska-moscow",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 18156,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 65
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +490,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75329,
       "score": {
         "ft": [
           0,
@@ -198,7 +498,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2015-10-28-middlesbrough-h",
+      "date": "2015-10-28",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67258,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": [
+          1,
+          3
+        ]
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +535,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24854,
       "score": {
         "ft": [
           0,
@@ -218,7 +543,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2015-11-03-pfc-cska-moscow-h",
+      "date": "2015-11-03",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PFC CSKA Moscow",
+      "opponentId": "pfc-cska-moscow",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75165,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 79
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +585,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75410,
       "score": {
         "ft": [
           2,
@@ -238,8 +593,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 52
+        },
+        {
+          "type": "pen-goal",
+          "player": "juan-mata",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2015-11-21-watford-a",
@@ -250,7 +619,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20702,
       "score": {
         "ft": [
           2,
@@ -258,7 +627,43 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "memphis-depay",
+          "minute": 11
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 90,
+          "detail": "Troy Deeney (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2015-11-25-psv-eindhoven-h",
+      "date": "2015-11-25",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PSV Eindhoven",
+      "opponentId": "psv-eindhoven",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75321,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +675,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32115,
       "score": {
         "ft": [
           1,
@@ -278,8 +683,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bastian-schweinsteiger",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2015-12-05-west-ham-united-h",
@@ -290,7 +704,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75350,
       "score": {
         "ft": [
           0,
@@ -298,7 +712,43 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2015-12-08-vfl-wolfsburg-a",
+      "date": "2015-12-08",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "VfL Wolfsburg",
+      "opponentId": "vfl-wolfsburg",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 26400,
+      "score": {
+        "ft": [
+          2,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 10
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 82,
+          "detail": "Josuha Guilavogui (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +780,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75320,
       "score": {
         "ft": [
           1,
@@ -338,8 +788,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2015-12-26-stoke-city-a",
@@ -350,7 +809,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27426,
       "score": {
         "ft": [
           0,
@@ -358,7 +817,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +830,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75275,
       "score": {
         "ft": [
           0,
@@ -378,7 +838,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +851,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75415,
       "score": {
         "ft": [
           2,
@@ -398,8 +859,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-01-09-sheffield-united-h",
@@ -410,7 +885,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74284,
       "score": {
         "ft": [
           1,
@@ -419,9 +894,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-01-12-newcastle-united-a",
@@ -432,7 +916,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49673,
       "score": {
         "ft": [
           3,
@@ -440,8 +924,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2016-01-17-liverpool-a",
@@ -452,7 +950,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43865,
       "score": {
         "ft": [
           1,
@@ -460,8 +958,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-01-23-southampton-h",
@@ -472,7 +979,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75408,
       "score": {
         "ft": [
           0,
@@ -480,7 +987,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -492,7 +1000,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31134,
       "score": {
         "ft": [
           3,
@@ -501,9 +1009,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "daley-blind",
+          "minute": 65
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-02-02-stoke-city-h",
@@ -514,7 +1041,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75234,
       "score": {
         "ft": [
           3,
@@ -522,8 +1049,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-02-07-chelsea-a",
@@ -534,7 +1080,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41434,
       "score": {
         "ft": [
           1,
@@ -542,8 +1088,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-02-13-sunderland-a",
@@ -554,7 +1109,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41687,
       "score": {
         "ft": [
           1,
@@ -562,7 +1117,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-02-18-midtjylland-a",
+      "date": "2016-02-18",
+      "competition": "europa-league",
+      "round": "Round of 32 First leg",
+      "opponent": "FC Midtjylland",
+      "opponentId": "midtjylland",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 9182,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "memphis-depay",
+          "minute": 37
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -574,7 +1167,7 @@
       "opponentId": "shrewsbury-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9370,
       "score": {
         "ft": [
           3,
@@ -583,9 +1176,73 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-02-25-midtjylland-h",
+      "date": "2016-02-25",
+      "competition": "europa-league",
+      "round": "Round of 32 Second leg",
+      "opponent": "FC Midtjylland",
+      "opponentId": "midtjylland",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 58609,
+      "score": {
+        "ft": [
+          5,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 32,
+          "detail": "Nikolay Bodurov (og)"
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 63
+        },
+        {
+          "type": "pen-goal",
+          "player": "ander-herrera",
+          "minute": 88
+        },
+        {
+          "type": "goal",
+          "player": "memphis-depay",
+          "minute": 90
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2016-02-28-arsenal-h",
@@ -596,7 +1253,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75329,
       "score": {
         "ft": [
           3,
@@ -604,8 +1261,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 65
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2016-03-02-watford-h",
@@ -616,7 +1287,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75282,
       "score": {
         "ft": [
           1,
@@ -624,8 +1295,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-03-06-west-bromwich-albion-a",
@@ -636,7 +1316,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24878,
       "score": {
         "ft": [
           0,
@@ -644,7 +1324,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2016-03-10-liverpool-a",
+      "date": "2016-03-10",
+      "competition": "europa-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 43228,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -656,7 +1358,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74298,
       "score": {
         "ft": [
           1,
@@ -665,9 +1367,47 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-03-17-liverpool-h",
+      "date": "2016-03-17",
+      "competition": "europa-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75180,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "anthony-martial",
+          "minute": 32
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2016-03-20-manchester-city-a",
@@ -678,7 +1418,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54557,
       "score": {
         "ft": [
           1,
@@ -686,8 +1426,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 16
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-04-03-everton-h",
@@ -698,7 +1447,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75341,
       "score": {
         "ft": [
           1,
@@ -706,8 +1455,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 54
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-04-10-tottenham-hotspur-a",
@@ -718,7 +1476,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35761,
       "score": {
         "ft": [
           0,
@@ -726,7 +1484,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -738,7 +1497,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33505,
       "score": {
         "ft": [
           2,
@@ -747,9 +1506,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-04-16-aston-villa-h",
@@ -760,7 +1533,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75411,
       "score": {
         "ft": [
           1,
@@ -768,8 +1541,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 32
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-04-20-crystal-palace-h",
@@ -780,7 +1562,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75277,
       "score": {
         "ft": [
           2,
@@ -788,8 +1570,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 4,
+          "detail": "Damien Delaney (og)"
+        },
+        {
+          "type": "goal",
+          "player": "matteo-darmian",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-04-23-everton-n",
@@ -809,9 +1606,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-05-01-leicester-city-h",
@@ -822,7 +1633,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75275,
       "score": {
         "ft": [
           1,
@@ -830,8 +1641,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 8
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-05-07-norwich-city-a",
@@ -842,7 +1662,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27132,
       "score": {
         "ft": [
           1,
@@ -850,8 +1670,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-05-10-west-ham-united-a",
@@ -862,7 +1691,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34602,
       "score": {
         "ft": [
           2,
@@ -870,8 +1699,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 51
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2016-05-16-bournemouth-h",
@@ -912,9 +1750,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 110
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

@@ -10,7 +10,7 @@
       "opponentId": "plymouth-argyle",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25700,
       "score": {
         "ft": [
           0,
@@ -18,7 +18,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -30,7 +31,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16934,
       "score": {
         "ft": [
           0,
@@ -38,7 +39,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +52,7 @@
       "opponentId": "lincoln-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16987,
       "score": {
         "ft": [
           1,
@@ -58,8 +60,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eddie-green",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-09-07-nottingham-forest-a",
@@ -70,7 +81,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10650,
       "score": {
         "ft": [
           1,
@@ -78,8 +89,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-stewart",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-09-09-bolton-wanderers-h",
@@ -90,7 +110,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21779,
       "score": {
         "ft": [
           1,
@@ -98,8 +118,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-stewart",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-09-16-brentford-a",
@@ -110,7 +139,7 @@
       "opponentId": "brentford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17180,
       "score": {
         "ft": [
           4,
@@ -118,8 +147,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jim-brown",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jim-brown",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-frame",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-hine",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-09-23-burnley-h",
@@ -130,7 +183,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18411,
       "score": {
         "ft": [
           5,
@@ -138,8 +191,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jim-brown",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-09-30-oldham-athletic-a",
@@ -150,7 +232,7 @@
       "opponentId": "oldham-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22736,
       "score": {
         "ft": [
           0,
@@ -158,7 +240,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +253,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22303,
       "score": {
         "ft": [
           1,
@@ -178,8 +261,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-hine",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-10-14-bradford-park-avenue-a",
@@ -190,7 +282,7 @@
       "opponentId": "bradford-park-avenue",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11033,
       "score": {
         "ft": [
           1,
@@ -198,8 +290,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-hine",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-10-21-bury-a",
@@ -210,7 +311,7 @@
       "opponentId": "bury",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15008,
       "score": {
         "ft": [
           1,
@@ -218,8 +319,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-byrne",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-10-28-hull-city-h",
@@ -230,7 +340,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16269,
       "score": {
         "ft": [
           4,
@@ -238,8 +348,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "herbert-heywood",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "herbert-heywood",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "eddie-green",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-hine",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-11-04-fulham-a",
@@ -250,7 +384,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17049,
       "score": {
         "ft": [
           2,
@@ -258,8 +392,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "william-stewart",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-11-11-southampton-h",
@@ -270,7 +419,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18149,
       "score": {
         "ft": [
           1,
@@ -278,8 +427,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-11-18-blackpool-a",
@@ -290,7 +448,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14384,
       "score": {
         "ft": [
           1,
@@ -298,8 +456,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jim-brown",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-11-25-bradford-city-h",
@@ -310,7 +477,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20902,
       "score": {
         "ft": [
           2,
@@ -318,8 +485,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-12-02-port-vale-a",
@@ -330,7 +512,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10316,
       "score": {
         "ft": [
           3,
@@ -338,8 +520,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dick-black",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jim-brown",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-12-09-notts-county-h",
@@ -350,7 +551,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15564,
       "score": {
         "ft": [
           1,
@@ -358,8 +559,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-12-16-swansea-city-a",
@@ -370,7 +580,7 @@
       "opponentId": "swansea-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6591,
       "score": {
         "ft": [
           1,
@@ -378,8 +588,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-hine",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-12-23-millwall-h",
@@ -390,7 +609,7 @@
       "opponentId": "millwall",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12043,
       "score": {
         "ft": [
           1,
@@ -398,8 +617,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-dewar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-12-25-grimsby-town-h",
@@ -410,7 +638,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29443,
       "score": {
         "ft": [
           1,
@@ -418,8 +646,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-vose",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-12-26-grimsby-town-a",
@@ -430,7 +667,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15801,
       "score": {
         "ft": [
           3,
@@ -438,8 +675,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-byrne",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-byrne",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-frame",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1933-12-30-plymouth-argyle-h",
@@ -450,7 +706,7 @@
       "opponentId": "plymouth-argyle",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12206,
       "score": {
         "ft": [
           0,
@@ -458,7 +714,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -470,7 +727,7 @@
       "opponentId": "lincoln-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6075,
       "score": {
         "ft": [
           1,
@@ -478,8 +735,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jim-brown",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-01-13-portsmouth-h",
@@ -490,7 +756,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23282,
       "score": {
         "ft": [
           1,
@@ -499,9 +765,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "hugh-mclenahan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-01-17-portsmouth-a",
@@ -512,7 +787,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18748,
       "score": {
         "ft": [
           1,
@@ -521,9 +796,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-ball",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-01-20-bolton-wanderers-a",
@@ -534,7 +818,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11887,
       "score": {
         "ft": [
           1,
@@ -542,8 +826,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-ball",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-01-27-brentford-h",
@@ -554,7 +847,7 @@
       "opponentId": "brentford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16891,
       "score": {
         "ft": [
           1,
@@ -562,8 +855,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-ball",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-02-03-burnley-a",
@@ -574,7 +876,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9906,
       "score": {
         "ft": [
           4,
@@ -582,8 +884,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "eddie-green",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "william-stewart",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-02-10-oldham-athletic-h",
@@ -594,7 +920,7 @@
       "opponentId": "oldham-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24480,
       "score": {
         "ft": [
           2,
@@ -602,8 +928,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "eddie-green",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-02-21-preston-north-end-a",
@@ -614,7 +954,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9173,
       "score": {
         "ft": [
           2,
@@ -622,8 +962,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-02-24-bradford-park-avenue-h",
@@ -634,7 +988,7 @@
       "opponentId": "bradford-park-avenue",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13389,
       "score": {
         "ft": [
           0,
@@ -642,7 +996,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -654,7 +1009,7 @@
       "opponentId": "bury",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11176,
       "score": {
         "ft": [
           2,
@@ -662,8 +1017,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-ball",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-03-10-hull-city-a",
@@ -674,7 +1043,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5771,
       "score": {
         "ft": [
           1,
@@ -682,8 +1051,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-ball",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-03-17-fulham-h",
@@ -694,7 +1072,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17565,
       "score": {
         "ft": [
           1,
@@ -702,8 +1080,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-ball",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-03-24-southampton-a",
@@ -714,7 +1101,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4840,
       "score": {
         "ft": [
           0,
@@ -722,7 +1109,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -734,7 +1122,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29114,
       "score": {
         "ft": [
           0,
@@ -742,7 +1130,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -754,7 +1143,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20038,
       "score": {
         "ft": [
           2,
@@ -762,8 +1151,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-hine",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-04-02-west-ham-united-a",
@@ -774,7 +1177,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20085,
       "score": {
         "ft": [
           1,
@@ -782,8 +1185,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-04-07-bradford-city-a",
@@ -794,7 +1206,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9258,
       "score": {
         "ft": [
           1,
@@ -802,8 +1214,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-04-14-port-vale-h",
@@ -814,7 +1235,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14777,
       "score": {
         "ft": [
           2,
@@ -822,8 +1243,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jim-brown",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "walter-mcmillen",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-04-21-notts-county-a",
@@ -834,7 +1269,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9645,
       "score": {
         "ft": [
           0,
@@ -842,7 +1277,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -854,7 +1290,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16678,
       "score": {
         "ft": [
           1,
@@ -862,8 +1298,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "henry-topping",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1934-05-05-millwall-a",
@@ -874,7 +1319,7 @@
       "opponentId": "millwall",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24003,
       "score": {
         "ft": [
           2,
@@ -882,8 +1327,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

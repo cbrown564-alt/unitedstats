@@ -2,6 +2,27 @@
   "season": "2000-01",
   "matches": [
     {
+      "id": "2000-08-13-chelsea-n",
+      "date": "2000-08-13",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 65148,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2000-08-20-newcastle-united-h",
       "date": "2000-08-20",
       "competition": "premier-league",
@@ -10,7 +31,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67477,
       "score": {
         "ft": [
           2,
@@ -18,8 +39,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ronny-johnsen",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2000-08-22-ipswich-town-a",
@@ -30,7 +65,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22007,
       "score": {
         "ft": [
           1,
@@ -38,8 +73,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2000-08-26-west-ham-united-a",
@@ -50,7 +94,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25998,
       "score": {
         "ft": [
           2,
@@ -58,8 +102,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2000-09-05-bradford-city-h",
@@ -70,7 +128,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67447,
       "score": {
         "ft": [
           6,
@@ -78,8 +136,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "quinton-fortune",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2000-09-09-sunderland-h",
@@ -90,7 +172,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67503,
       "score": {
         "ft": [
           3,
@@ -98,7 +180,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2000-09-13-anderlecht-h",
+      "date": "2000-09-13",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "R.S.C. Anderlecht",
+      "opponentId": "anderlecht",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 62749,
+      "score": {
+        "ft": [
+          5,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 15
+        },
+        {
+          "type": "pen-goal",
+          "player": "denis-irwin",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 42
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +245,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38541,
       "score": {
         "ft": [
           3,
@@ -118,7 +253,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2000-09-19-dynamo-kyiv-a",
+      "date": "2000-09-19",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Dynamo Kyiv",
+      "opponentId": "dynamo-kyiv",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 65000,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +305,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67568,
       "score": {
         "ft": [
           3,
@@ -138,7 +313,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2000-09-26-psv-eindhoven-a",
+      "date": "2000-09-26",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PSV Eindhoven",
+      "opponentId": "psv-eindhoven",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 30500,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "paul-scholes",
+          "minute": 2
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +373,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38146,
       "score": {
         "ft": [
           0,
@@ -158,7 +381,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +394,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22132,
       "score": {
         "ft": [
           3,
@@ -178,7 +402,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2000-10-18-psv-eindhoven-h",
+      "date": "2000-10-18",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PSV Eindhoven",
+      "opponentId": "psv-eindhoven",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66313,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 87
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +467,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67523,
       "score": {
         "ft": [
           3,
@@ -198,7 +475,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 50
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 82,
+          "detail": "Matt Jones (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2000-10-24-anderlecht-a",
+      "date": "2000-10-24",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "R.S.C. Anderlecht",
+      "opponentId": "anderlecht",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 22506,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "denis-irwin",
+          "minute": 36
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +536,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67581,
       "score": {
         "ft": [
           5,
@@ -218,7 +544,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 9
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2000-10-31-watford-a",
+      "date": "2000-10-31",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Watford",
+      "opponentId": "watford",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 18871,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 54
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +604,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21079,
       "score": {
         "ft": [
           2,
@@ -238,7 +612,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 37
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2000-11-08-dynamo-kyiv-h",
+      "date": "2000-11-08",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Dynamo Kyiv",
+      "opponentId": "dynamo-kyiv",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66776,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 18
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +667,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67576,
       "score": {
         "ft": [
           2,
@@ -258,8 +675,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 65
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2000-11-18-manchester-city-a",
@@ -270,7 +701,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34429,
       "score": {
         "ft": [
           1,
@@ -278,7 +709,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 2
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2000-11-21-panathinaikos-h",
+      "date": "2000-11-21",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Panathinaikos",
+      "opponentId": "panathinaikos",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 65024,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +764,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32910,
       "score": {
         "ft": [
           3,
@@ -298,7 +772,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2000-11-28-sunderland-a",
+      "date": "2000-11-28",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Sunderland",
+      "opponentId": "sunderland",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 47543,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 31
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +832,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67583,
       "score": {
         "ft": [
           2,
@@ -318,7 +840,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2000-12-06-sk-sturm-graz-a",
+      "date": "2000-12-06",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "SK Sturm Graz",
+      "opponentId": "sk-sturm-graz",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 16500,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 89
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +900,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20043,
       "score": {
         "ft": [
           3,
@@ -338,8 +908,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2000-12-17-liverpool-h",
@@ -350,7 +939,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67533,
       "score": {
         "ft": [
           0,
@@ -358,7 +947,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +960,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67597,
       "score": {
         "ft": [
           2,
@@ -378,8 +968,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2000-12-26-aston-villa-a",
@@ -390,7 +989,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40889,
       "score": {
         "ft": [
           1,
@@ -398,8 +997,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2000-12-30-newcastle-united-a",
@@ -410,7 +1018,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52134,
       "score": {
         "ft": [
           1,
@@ -418,8 +1026,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "david-beckham",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-01-01-west-ham-united-h",
@@ -430,7 +1047,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67603,
       "score": {
         "ft": [
           3,
@@ -438,8 +1055,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 3
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 33,
+          "detail": "Stuart Pearce (og)"
+        },
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-01-07-fulham-a",
@@ -450,7 +1087,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19178,
       "score": {
         "ft": [
           2,
@@ -459,9 +1096,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-01-13-bradford-city-a",
@@ -472,7 +1123,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20551,
       "score": {
         "ft": [
           3,
@@ -480,8 +1131,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 72
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "luke-chadwick",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-01-20-aston-villa-h",
@@ -492,7 +1162,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67533,
       "score": {
         "ft": [
           2,
@@ -500,8 +1170,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gary-neville",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-01-28-west-ham-united-h",
@@ -512,7 +1196,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67029,
       "score": {
         "ft": [
           0,
@@ -521,7 +1205,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -534,7 +1219,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48260,
       "score": {
         "ft": [
           1,
@@ -542,8 +1227,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 46
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-02-03-everton-h",
@@ -554,7 +1248,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67528,
       "score": {
         "ft": [
           1,
@@ -562,8 +1256,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 52,
+          "detail": "Steve Watson (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-02-10-chelsea-a",
@@ -574,7 +1278,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34960,
       "score": {
         "ft": [
           1,
@@ -582,7 +1286,66 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2001-02-14-valencia-cf-a",
+      "date": "2001-02-14",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Valencia CF",
+      "opponentId": "valencia-cf",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 49541,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2001-02-20-valencia-cf-h",
+      "date": "2001-02-20",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Valencia CF",
+      "opponentId": "valencia-cf",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66715,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 12
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -594,7 +1357,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67535,
       "score": {
         "ft": [
           6,
@@ -602,8 +1365,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2001-03-03-leeds-united-a",
@@ -614,7 +1401,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40055,
       "score": {
         "ft": [
           1,
@@ -622,7 +1409,84 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "luke-chadwick",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2001-03-07-panathinaikos-a",
+      "date": "2001-03-07",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Panathinaikos",
+      "opponentId": "panathinaikos",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 27231,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 90
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2001-03-13-sk-sturm-graz-h",
+      "date": "2001-03-13",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "SK Sturm Graz",
+      "opponentId": "sk-sturm-graz",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66404,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "nicky-butt",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "teddy-sheringham",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "roy-keane",
+          "minute": 86
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -634,7 +1498,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67516,
       "score": {
         "ft": [
           2,
@@ -642,8 +1506,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 88
+        },
+        {
+          "type": "goal",
+          "player": "mikael-silvestre",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-03-31-liverpool-a",
@@ -654,7 +1532,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44806,
       "score": {
         "ft": [
           0,
@@ -662,7 +1540,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2001-04-03-bayern-munich-h",
+      "date": "2001-04-03",
+      "competition": "champions-league",
+      "round": "Quarter-final First leg",
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66584,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -674,7 +1574,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67505,
       "score": {
         "ft": [
           2,
@@ -682,8 +1582,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-04-14-coventry-city-h",
@@ -694,7 +1608,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67637,
       "score": {
         "ft": [
           4,
@@ -702,7 +1616,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2001-04-18-bayern-munich-a",
+      "date": "2001-04-18",
+      "competition": "champions-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 60000,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 49
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -714,7 +1676,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67535,
       "score": {
         "ft": [
           1,
@@ -722,8 +1684,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "teddy-sheringham",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-04-28-middlesbrough-a",
@@ -734,7 +1705,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34417,
       "score": {
         "ft": [
           2,
@@ -742,8 +1713,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "phil-neville",
+          "minute": 4
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-05-05-derby-county-h",
@@ -754,7 +1739,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67526,
       "score": {
         "ft": [
           0,
@@ -762,7 +1747,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -774,7 +1760,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15526,
       "score": {
         "ft": [
           1,
@@ -782,8 +1768,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2001-05-19-tottenham-hotspur-a",
@@ -794,7 +1789,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36072,
       "score": {
         "ft": [
           1,
@@ -802,8 +1797,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 22
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

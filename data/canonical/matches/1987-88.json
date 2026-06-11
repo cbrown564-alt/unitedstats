@@ -10,7 +10,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21214,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1987-08-19-arsenal-h",
@@ -30,7 +39,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43893,
       "score": {
         "ft": [
           0,
@@ -38,7 +47,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +60,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38769,
       "score": {
         "ft": [
           2,
@@ -58,8 +68,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-mcgrath",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-08-29-charlton-athletic-a",
@@ -70,7 +94,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14046,
       "score": {
         "ft": [
           3,
@@ -78,8 +102,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "paul-mcgrath",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-08-31-chelsea-h",
@@ -90,7 +133,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46616,
       "score": {
         "ft": [
           3,
@@ -98,8 +141,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-09-05-coventry-city-a",
@@ -110,7 +172,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27125,
       "score": {
         "ft": [
           0,
@@ -118,7 +180,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +193,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45619,
       "score": {
         "ft": [
           2,
@@ -138,8 +201,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": 8
+        },
+        {
+          "type": "pen-goal",
+          "player": "brian-mcclair",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-09-19-everton-a",
@@ -150,7 +227,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38439,
       "score": {
         "ft": [
           1,
@@ -158,7 +235,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1987-09-23-hull-city-h",
+      "date": "1987-09-23",
+      "competition": "league-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Hull City",
+      "opponentId": "hull-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 25041,
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-mcgrath",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "peter-davenport",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 74
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 85
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +305,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48087,
       "score": {
         "ft": [
           1,
@@ -178,8 +313,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "brian-mcclair",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-10-03-luton-town-a",
@@ -190,7 +334,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9137,
       "score": {
         "ft": [
           1,
@@ -198,7 +342,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 54
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1987-10-07-hull-city-a",
+      "date": "1987-10-07",
+      "competition": "league-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Hull City",
+      "opponentId": "hull-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13586,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 62
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +392,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32779,
       "score": {
         "ft": [
           4,
@@ -218,8 +400,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1987-10-17-norwich-city-h",
@@ -230,7 +431,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39821,
       "score": {
         "ft": [
           2,
@@ -238,8 +439,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "peter-davenport",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-10-25-west-ham-united-a",
@@ -262,6 +477,35 @@
       ]
     },
     {
+      "id": "1987-10-28-crystal-palace-h",
+      "date": "1987-10-28",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Crystal Palace",
+      "opponentId": "crystal-palace",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 27283,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "brian-mcclair",
+          "minute": 7
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1987-10-31-nottingham-forest-h",
       "date": "1987-10-31",
       "competition": "first-division",
@@ -270,7 +514,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44669,
       "score": {
         "ft": [
           2,
@@ -278,8 +522,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-11-15-liverpool-h",
@@ -290,7 +548,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47106,
       "score": {
         "ft": [
           1,
@@ -298,7 +556,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1987-11-18-bury-h",
+      "date": "1987-11-18",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Bury",
+      "opponentId": "bury",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 33519,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 68
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +611,7 @@
       "opponentId": "wimbledon",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11532,
       "score": {
         "ft": [
           1,
@@ -318,8 +619,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 65
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-12-05-queens-park-rangers-a",
@@ -330,7 +640,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20632,
       "score": {
         "ft": [
           2,
@@ -338,8 +648,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "peter-davenport",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 74
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-12-12-oxford-united-h",
@@ -350,7 +674,7 @@
       "opponentId": "oxford-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34709,
       "score": {
         "ft": [
           3,
@@ -358,8 +682,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "jesper-olsen",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1987-12-19-portsmouth-a",
@@ -370,7 +708,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22207,
       "score": {
         "ft": [
           2,
@@ -378,8 +716,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-12-26-newcastle-united-a",
@@ -390,7 +742,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26461,
       "score": {
         "ft": [
           0,
@@ -398,7 +750,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +763,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47024,
       "score": {
         "ft": [
           2,
@@ -418,8 +771,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1988-01-01-charlton-athletic-h",
@@ -430,7 +792,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37257,
       "score": {
         "ft": [
           0,
@@ -438,7 +800,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +813,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18038,
       "score": {
         "ft": [
           1,
@@ -458,8 +821,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-01-10-ipswich-town-a",
@@ -470,7 +842,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23012,
       "score": {
         "ft": [
           2,
@@ -479,9 +851,24 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 28,
+          "detail": "Jean-Michel d'Avray (og)"
+        },
+        {
+          "type": "goal",
+          "player": "viv-anderson",
+          "minute": 64
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-01-16-southampton-h",
@@ -492,7 +879,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35716,
       "score": {
         "ft": [
           0,
@@ -500,7 +887,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1988-01-20-oxford-united-a",
+      "date": "1988-01-20",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Oxford United",
+      "opponentId": "oxford-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 12658,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -512,7 +921,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29392,
       "score": {
         "ft": [
           2,
@@ -520,8 +929,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 67
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-01-30-chelsea-h",
@@ -532,7 +955,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50716,
       "score": {
         "ft": [
           2,
@@ -541,9 +964,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-02-06-coventry-city-h",
@@ -554,7 +991,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37144,
       "score": {
         "ft": [
           1,
@@ -562,8 +999,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "liam-o-brien",
+          "minute": 5
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-02-10-derby-county-a",
@@ -574,7 +1020,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20016,
       "score": {
         "ft": [
           2,
@@ -582,8 +1028,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "norman-whiteside",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-02-13-chelsea-a",
@@ -594,7 +1054,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25014,
       "score": {
         "ft": [
           2,
@@ -602,8 +1062,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "liam-o-brien",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-02-20-arsenal-a",
@@ -614,7 +1088,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54161,
       "score": {
         "ft": [
           1,
@@ -623,9 +1097,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-02-23-tottenham-hotspur-a",
@@ -636,7 +1119,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25731,
       "score": {
         "ft": [
           1,
@@ -644,8 +1127,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-03-05-norwich-city-a",
@@ -656,7 +1148,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19129,
       "score": {
         "ft": [
           0,
@@ -664,7 +1156,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -676,7 +1169,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33318,
       "score": {
         "ft": [
           4,
@@ -684,8 +1177,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 1
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "peter-davenport",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1988-03-19-nottingham-forest-a",
@@ -696,7 +1208,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27598,
       "score": {
         "ft": [
           0,
@@ -704,7 +1216,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -716,7 +1229,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37269,
       "score": {
         "ft": [
           3,
@@ -724,8 +1237,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "viv-anderson",
+          "minute": 83
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-04-02-derby-county-h",
@@ -736,7 +1268,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40146,
       "score": {
         "ft": [
           4,
@@ -744,8 +1276,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "colin-gibson",
+          "minute": 51
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1988-04-04-liverpool-a",
@@ -756,7 +1302,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43497,
       "score": {
         "ft": [
           3,
@@ -764,8 +1310,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1988-04-12-luton-town-h",
@@ -776,7 +1336,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28830,
       "score": {
         "ft": [
           3,
@@ -784,8 +1344,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 66
+        },
+        {
+          "type": "goal",
+          "player": "peter-davenport",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-04-30-queens-park-rangers-h",
@@ -796,7 +1375,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35733,
       "score": {
         "ft": [
           2,
@@ -804,8 +1383,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 10
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 83,
+          "detail": "Paul Parker (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-05-02-oxford-united-a",
@@ -816,7 +1410,7 @@
       "opponentId": "oxford-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8966,
       "score": {
         "ft": [
           2,
@@ -824,8 +1418,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "viv-anderson",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "gordon-strachan",
+          "minute": 37
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1988-05-07-portsmouth-h",
@@ -836,7 +1444,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35105,
       "score": {
         "ft": [
           4,
@@ -844,8 +1452,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "peter-davenport",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 35
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1988-05-09-wimbledon-h",
@@ -856,7 +1483,7 @@
       "opponentId": "wimbledon",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28040,
       "score": {
         "ft": [
           2,
@@ -864,8 +1491,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": false
     }
   ]
 }

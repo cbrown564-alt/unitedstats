@@ -10,7 +10,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74439,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 3,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "luke-shaw",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-08-19-brighton-and-hove-albion-a",
@@ -30,7 +45,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30592,
       "score": {
         "ft": [
           2,
@@ -38,8 +53,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 34
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 95,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-08-27-tottenham-hotspur-h",
@@ -50,7 +80,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74400,
       "score": {
         "ft": [
           0,
@@ -58,7 +88,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +101,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21525,
       "score": {
         "ft": [
           2,
@@ -78,8 +109,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2018-09-15-watford-a",
@@ -90,7 +130,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20537,
       "score": {
         "ft": [
           2,
@@ -98,7 +138,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2018-09-19-bsc-young-boys-a",
+      "date": "2018-09-19",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "BSC Young Boys",
+      "opponentId": "bsc-young-boys",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31120,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 35,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 66
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +199,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74489,
       "score": {
         "ft": [
           1,
@@ -118,7 +207,53 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 18
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2018-09-25-derby-county-h",
+      "date": "2018-09-25",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Derby County",
+      "opponentId": "derby-county",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 55227,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": [
+          7,
+          8
+        ]
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 95
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +265,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56938,
       "score": {
         "ft": [
           1,
@@ -138,7 +273,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2018-10-02-valencia-cf-h",
+      "date": "2018-10-02",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Valencia CF",
+      "opponentId": "valencia-cf",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73569,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +315,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74519,
       "score": {
         "ft": [
           3,
@@ -158,8 +323,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "alexis-sanchez",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-10-20-chelsea-a",
@@ -170,7 +354,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40721,
       "score": {
         "ft": [
           2,
@@ -178,7 +362,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2018-10-23-juventus-h",
+      "date": "2018-10-23",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73946,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +404,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74525,
       "score": {
         "ft": [
           2,
@@ -198,8 +412,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 27,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-11-03-bournemouth-a",
@@ -222,6 +451,41 @@
       ]
     },
     {
+      "id": "2018-11-07-juventus-a",
+      "date": "2018-11-07",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41470,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 86
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 90,
+          "detail": "Leonardo Bonucci (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2018-11-11-manchester-city-a",
       "date": "2018-11-11",
       "competition": "premier-league",
@@ -230,7 +494,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54316,
       "score": {
         "ft": [
           1,
@@ -238,8 +502,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "anthony-martial",
+          "minute": 58
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-11-24-crystal-palace-h",
@@ -250,7 +523,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74516,
       "score": {
         "ft": [
           0,
@@ -258,7 +531,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2018-11-27-bsc-young-boys-h",
+      "date": "2018-11-27",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "BSC Young Boys",
+      "opponentId": "bsc-young-boys",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72876,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 91
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +573,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30187,
       "score": {
         "ft": [
           2,
@@ -278,8 +581,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-12-05-arsenal-h",
@@ -290,7 +607,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74507,
       "score": {
         "ft": [
           2,
@@ -298,8 +615,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-12-08-fulham-h",
@@ -310,7 +641,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74523,
       "score": {
         "ft": [
           4,
@@ -318,7 +649,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2018-12-12-valencia-cf-a",
+      "date": "2018-12-12",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Valencia CF",
+      "opponentId": "valencia-cf",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 36544,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 87
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +714,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52908,
       "score": {
         "ft": [
           1,
@@ -338,8 +722,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 33
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2018-12-22-cardiff-city-a",
@@ -350,7 +743,7 @@
       "opponentId": "cardiff-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33028,
       "score": {
         "ft": [
           5,
@@ -358,8 +751,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 41
+        },
+        {
+          "type": "pen-goal",
+          "player": "jesse-lingard",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2018-12-26-huddersfield-town-h",
@@ -370,7 +787,7 @@
       "opponentId": "huddersfield-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74523,
       "score": {
         "ft": [
           3,
@@ -378,8 +795,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nemanja-matic",
+          "minute": 28
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 64,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2018-12-30-bournemouth-h",
@@ -410,7 +842,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52217,
       "score": {
         "ft": [
           2,
@@ -418,8 +850,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 64
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-01-05-reading-h",
@@ -439,9 +885,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "juan-mata",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-01-13-tottenham-hotspur-a",
@@ -452,7 +912,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 80062,
       "score": {
         "ft": [
           1,
@@ -460,8 +920,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-01-19-brighton-and-hove-albion-h",
@@ -472,7 +941,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74532,
       "score": {
         "ft": [
           2,
@@ -480,8 +949,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 27,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 42
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-01-25-arsenal-a",
@@ -501,9 +985,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Emirates Stadium"
+      "notes": "Venue: Emirates Stadium",
+      "events": [
+        {
+          "type": "goal",
+          "player": "alexis-sanchez",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-01-29-burnley-h",
@@ -514,7 +1017,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74529,
       "score": {
         "ft": [
           2,
@@ -522,8 +1025,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 87,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "victor-lindelof",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-02-03-leicester-city-a",
@@ -534,7 +1052,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32148,
       "score": {
         "ft": [
           1,
@@ -542,8 +1060,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 9
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-02-09-fulham-a",
@@ -554,7 +1081,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25001,
       "score": {
         "ft": [
           3,
@@ -562,7 +1089,43 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 14,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 23
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2019-02-12-paris-saint-germain-h",
+      "date": "2019-02-12",
+      "competition": "champions-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Paris Saint-Germain",
+      "opponentId": "paris-saint-germain",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74054,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -583,9 +1146,24 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Stamford Bridge"
+      "notes": "Venue: Stamford Bridge",
+      "events": [
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 31
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 45,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-02-24-liverpool-h",
@@ -596,7 +1174,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74519,
       "score": {
         "ft": [
           0,
@@ -604,7 +1182,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -616,7 +1195,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25754,
       "score": {
         "ft": [
           3,
@@ -624,8 +1203,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2019-03-02-southampton-h",
@@ -636,7 +1229,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74459,
       "score": {
         "ft": [
           3,
@@ -644,7 +1237,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andreas-pereira",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2019-03-06-paris-saint-germain-a",
+      "date": "2019-03-06",
+      "competition": "champions-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Paris Saint-Germain",
+      "opponentId": "paris-saint-germain",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 47441,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "romelu-lukaku",
+          "minute": 2
+        },
+        {
+          "type": "pen-goal",
+          "player": "marcus-rashford",
+          "minute": 94
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -656,7 +1297,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60000,
       "score": {
         "ft": [
           0,
@@ -664,7 +1305,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -685,9 +1327,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Molineux"
+      "notes": "Venue: Molineux",
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 95
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2019-03-30-watford-h",
@@ -698,7 +1349,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74543,
       "score": {
         "ft": [
           2,
@@ -706,8 +1357,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-04-02-wolverhampton-wanderers-a",
@@ -718,7 +1383,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31302,
       "score": {
         "ft": [
           1,
@@ -726,7 +1391,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 13
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2019-04-10-barcelona-h",
+      "date": "2019-04-10",
+      "competition": "champions-league",
+      "round": "Quarter-finals First leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74093,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -738,7 +1433,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74478,
       "score": {
         "ft": [
           2,
@@ -746,7 +1441,38 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 19,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2019-04-16-barcelona-a",
+      "date": "2019-04-16",
+      "competition": "champions-league",
+      "round": "Quarter-finals Second leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 96708,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -758,7 +1484,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39395,
       "score": {
         "ft": [
           0,
@@ -766,7 +1492,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -778,7 +1505,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74431,
       "score": {
         "ft": [
           0,
@@ -786,7 +1513,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -798,7 +1526,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74526,
       "score": {
         "ft": [
           1,
@@ -806,8 +1534,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 11
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-05-05-huddersfield-town-a",
@@ -818,7 +1555,7 @@
       "opponentId": "huddersfield-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24263,
       "score": {
         "ft": [
           1,
@@ -826,8 +1563,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 8
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2019-05-12-cardiff-city-h",
@@ -838,7 +1584,7 @@
       "opponentId": "cardiff-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74457,
       "score": {
         "ft": [
           0,
@@ -846,7 +1592,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

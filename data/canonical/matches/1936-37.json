@@ -10,7 +10,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42731,
       "score": {
         "ft": [
           1,
@@ -18,8 +18,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-09-02-huddersfield-town-a",
@@ -30,7 +39,7 @@
       "opponentId": "huddersfield-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12616,
       "score": {
         "ft": [
           1,
@@ -38,8 +47,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-09-05-derby-county-a",
@@ -50,7 +68,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21194,
       "score": {
         "ft": [
           4,
@@ -58,8 +76,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jackie-wassall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-09-09-huddersfield-town-h",
@@ -70,7 +112,7 @@
       "opponentId": "huddersfield-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26839,
       "score": {
         "ft": [
           3,
@@ -78,8 +120,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-mutch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-09-12-manchester-city-h",
@@ -90,7 +151,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 68796,
       "score": {
         "ft": [
           3,
@@ -98,8 +159,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-09-19-sheffield-wednesday-h",
@@ -110,7 +190,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40933,
       "score": {
         "ft": [
           1,
@@ -118,8 +198,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-09-26-preston-north-end-a",
@@ -130,7 +219,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24149,
       "score": {
         "ft": [
           1,
@@ -138,8 +227,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-10-03-arsenal-h",
@@ -150,7 +248,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55884,
       "score": {
         "ft": [
           2,
@@ -158,8 +256,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-10-10-brentford-a",
@@ -170,7 +282,7 @@
       "opponentId": "brentford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28019,
       "score": {
         "ft": [
           0,
@@ -178,7 +290,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +303,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19845,
       "score": {
         "ft": [
           1,
@@ -198,8 +311,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-10-24-chelsea-h",
@@ -210,7 +332,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29859,
       "score": {
         "ft": [
           0,
@@ -218,7 +340,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +353,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22464,
       "score": {
         "ft": [
           0,
@@ -238,7 +361,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +374,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26084,
       "score": {
         "ft": [
           0,
@@ -258,7 +382,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +395,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9844,
       "score": {
         "ft": [
           2,
@@ -278,8 +403,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-mutch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-11-21-liverpool-h",
@@ -290,7 +429,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26419,
       "score": {
         "ft": [
           2,
@@ -298,8 +437,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ernie-thompson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-11-28-leeds-united-a",
@@ -310,7 +463,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17610,
       "score": {
         "ft": [
           1,
@@ -318,8 +471,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-12-05-birmingham-city-h",
@@ -330,7 +492,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16544,
       "score": {
         "ft": [
           1,
@@ -338,8 +500,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-mutch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-12-12-middlesbrough-a",
@@ -350,7 +521,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11790,
       "score": {
         "ft": [
           2,
@@ -358,8 +529,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "reg-halton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-manley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-12-19-west-bromwich-albion-h",
@@ -370,7 +555,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21051,
       "score": {
         "ft": [
           2,
@@ -378,8 +563,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-mutch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-12-25-bolton-wanderers-h",
@@ -390,7 +589,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47658,
       "score": {
         "ft": [
           1,
@@ -398,8 +597,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-12-26-wolverhampton-wanderers-a",
@@ -410,7 +618,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41525,
       "score": {
         "ft": [
           1,
@@ -418,8 +626,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1936-12-28-bolton-wanderers-a",
@@ -430,7 +647,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11801,
       "score": {
         "ft": [
           4,
@@ -438,8 +655,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-mckay",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-01-01-sunderland-h",
@@ -450,7 +691,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46257,
       "score": {
         "ft": [
           2,
@@ -458,8 +699,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-mutch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-01-02-derby-county-h",
@@ -470,7 +725,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31883,
       "score": {
         "ft": [
           2,
@@ -478,8 +733,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-01-09-manchester-city-a",
@@ -490,7 +759,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 64862,
       "score": {
         "ft": [
           0,
@@ -498,7 +767,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -510,7 +780,7 @@
       "opponentId": "reading",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36668,
       "score": {
         "ft": [
           1,
@@ -519,9 +789,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-01-23-sheffield-wednesday-a",
@@ -532,7 +811,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8658,
       "score": {
         "ft": [
           0,
@@ -540,7 +819,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +832,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45637,
       "score": {
         "ft": [
           0,
@@ -561,7 +841,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -574,7 +855,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13225,
       "score": {
         "ft": [
           1,
@@ -582,8 +863,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-wrigglesworth",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-02-06-arsenal-a",
@@ -594,7 +884,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37236,
       "score": {
         "ft": [
           1,
@@ -602,8 +892,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-02-13-brentford-h",
@@ -614,7 +913,7 @@
       "opponentId": "brentford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31942,
       "score": {
         "ft": [
           1,
@@ -622,8 +921,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-02-20-portsmouth-h",
@@ -634,7 +942,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19416,
       "score": {
         "ft": [
           0,
@@ -642,7 +950,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -654,7 +963,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16382,
       "score": {
         "ft": [
           2,
@@ -662,8 +971,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-gladwin",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-03-06-stoke-city-h",
@@ -674,7 +997,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24660,
       "score": {
         "ft": [
           2,
@@ -682,8 +1005,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-mcclelland",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-03-13-charlton-athletic-a",
@@ -694,7 +1031,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25943,
       "score": {
         "ft": [
           0,
@@ -702,7 +1039,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -714,7 +1052,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26636,
       "score": {
         "ft": [
           1,
@@ -722,8 +1060,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-cape",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-03-26-everton-h",
@@ -734,7 +1081,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30071,
       "score": {
         "ft": [
           2,
@@ -742,8 +1089,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-baird",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-mutch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-03-27-liverpool-a",
@@ -754,7 +1115,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25319,
       "score": {
         "ft": [
           0,
@@ -762,7 +1123,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -774,7 +1136,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28395,
       "score": {
         "ft": [
           3,
@@ -782,8 +1144,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ron-ferrier",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-mutch",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-04-03-leeds-united-h",
@@ -794,7 +1175,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34429,
       "score": {
         "ft": [
           0,
@@ -802,7 +1183,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -814,7 +1196,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19130,
       "score": {
         "ft": [
           2,
@@ -822,8 +1204,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-04-17-middlesbrough-h",
@@ -834,7 +1230,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17656,
       "score": {
         "ft": [
           2,
@@ -842,8 +1238,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-bryant",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-04-21-sunderland-a",
@@ -854,7 +1264,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12876,
       "score": {
         "ft": [
           1,
@@ -862,8 +1272,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-bamford",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1937-04-24-west-bromwich-albion-a",
@@ -874,7 +1293,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16234,
       "score": {
         "ft": [
           0,
@@ -882,7 +1301,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

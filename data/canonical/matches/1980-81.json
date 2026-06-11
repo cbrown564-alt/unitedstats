@@ -10,7 +10,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54394,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ashley-grimes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mickey-thomas",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-08-19-wolverhampton-wanderers-a",
@@ -30,7 +49,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31955,
       "score": {
         "ft": [
           0,
@@ -38,7 +57,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +70,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28661,
       "score": {
         "ft": [
           0,
@@ -58,7 +78,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1980-08-27-coventry-city-h",
+      "date": "1980-08-27",
+      "competition": "league-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Coventry City",
+      "opponentId": "coventry-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 31656,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +112,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 51498,
       "score": {
         "ft": [
           1,
@@ -78,7 +120,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nikola-jovanovic",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1980-09-02-coventry-city-a",
+      "date": "1980-09-02",
+      "competition": "league-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Coventry City",
+      "opponentId": "coventry-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 18946,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +162,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40995,
       "score": {
         "ft": [
           0,
@@ -98,7 +170,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +183,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43229,
       "score": {
         "ft": [
           5,
@@ -118,7 +191,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ashley-grimes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nikola-jovanovic",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nikola-jovanovic",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1980-09-17-widzew-odz-h",
+      "date": "1980-09-17",
+      "competition": "uefa-cup",
+      "round": "Round 1 First leg",
+      "opponent": "Widzew Łódź",
+      "opponentId": "widzew-odz",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 38037,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +261,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32539,
       "score": {
         "ft": [
           0,
@@ -138,7 +269,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +282,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55918,
       "score": {
         "ft": [
           2,
@@ -158,7 +290,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-albiston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1980-10-01-widzew-odz-a",
+      "date": "1980-10-01",
+      "competition": "uefa-cup",
+      "round": "Round 1 Second leg",
+      "opponent": "Widzew Łódź",
+      "opponentId": "widzew-odz",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +337,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29801,
       "score": {
         "ft": [
           2,
@@ -178,8 +345,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-10-08-aston-villa-h",
@@ -190,7 +371,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38831,
       "score": {
         "ft": [
           3,
@@ -198,8 +379,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1980-10-11-arsenal-h",
@@ -210,7 +405,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49036,
       "score": {
         "ft": [
           0,
@@ -218,7 +413,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +426,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28572,
       "score": {
         "ft": [
           1,
@@ -238,8 +434,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-10-22-stoke-city-a",
@@ -250,7 +455,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24534,
       "score": {
         "ft": [
           2,
@@ -258,8 +463,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-10-25-everton-h",
@@ -270,7 +489,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54260,
       "score": {
         "ft": [
           2,
@@ -278,8 +497,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-11-01-crystal-palace-a",
@@ -290,7 +523,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31449,
       "score": {
         "ft": [
           0,
@@ -298,7 +531,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +544,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42794,
       "score": {
         "ft": [
           0,
@@ -318,7 +552,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +565,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37959,
       "score": {
         "ft": [
           0,
@@ -338,7 +573,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +586,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20606,
       "score": {
         "ft": [
           1,
@@ -358,8 +594,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-11-22-brighton-and-hove-albion-a",
@@ -370,7 +615,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23923,
       "score": {
         "ft": [
           4,
@@ -378,8 +623,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mike-duxbury",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-11-29-southampton-h",
@@ -390,7 +659,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47783,
       "score": {
         "ft": [
           1,
@@ -398,8 +667,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-12-06-norwich-city-a",
@@ -410,7 +688,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18780,
       "score": {
         "ft": [
           2,
@@ -418,8 +696,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Kevin Bond (og)"
+        },
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-12-13-stoke-city-h",
@@ -430,7 +723,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39568,
       "score": {
         "ft": [
           2,
@@ -438,8 +731,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-12-20-arsenal-a",
@@ -450,7 +757,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33730,
       "score": {
         "ft": [
           1,
@@ -458,8 +765,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1980-12-26-liverpool-h",
@@ -470,7 +786,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57049,
       "score": {
         "ft": [
           0,
@@ -478,7 +794,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -490,7 +807,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38615,
       "score": {
         "ft": [
           1,
@@ -498,8 +815,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nikola-jovanovic",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-01-03-brighton-and-hove-albion-h",
@@ -510,7 +836,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42199,
       "score": {
         "ft": [
           2,
@@ -519,9 +845,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mike-duxbury",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mickey-thomas",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-01-07-brighton-and-hove-albion-a",
@@ -532,7 +872,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26915,
       "score": {
         "ft": [
           2,
@@ -541,9 +881,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-nicholl",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "garry-birtles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-01-10-brighton-and-hove-albion-h",
@@ -554,7 +908,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42208,
       "score": {
         "ft": [
           2,
@@ -562,8 +916,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-mcqueen",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-01-24-nottingham-forest-a",
@@ -574,7 +942,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34110,
       "score": {
         "ft": [
           0,
@@ -583,7 +951,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -596,7 +965,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31910,
       "score": {
         "ft": [
           0,
@@ -604,7 +973,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -616,7 +986,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39081,
       "score": {
         "ft": [
           2,
@@ -624,8 +994,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-02-07-leicester-city-a",
@@ -636,7 +1020,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26085,
       "score": {
         "ft": [
           0,
@@ -644,7 +1028,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -656,7 +1041,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40642,
       "score": {
         "ft": [
           0,
@@ -664,7 +1049,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -676,7 +1062,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50114,
       "score": {
         "ft": [
           0,
@@ -684,7 +1070,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -696,7 +1083,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45733,
       "score": {
         "ft": [
           0,
@@ -704,7 +1091,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -716,7 +1104,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22698,
       "score": {
         "ft": [
           0,
@@ -724,7 +1112,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -736,7 +1125,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42182,
       "score": {
         "ft": [
           3,
@@ -744,8 +1133,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-03-18-nottingham-forest-h",
@@ -756,7 +1164,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38205,
       "score": {
         "ft": [
           1,
@@ -764,8 +1172,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Kenny Burns (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-03-21-ipswich-town-h",
@@ -776,7 +1194,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46685,
       "score": {
         "ft": [
           2,
@@ -784,8 +1202,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mickey-thomas",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-nicholl",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-03-28-everton-a",
@@ -796,7 +1228,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25856,
       "score": {
         "ft": [
           1,
@@ -804,8 +1236,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-04-04-crystal-palace-h",
@@ -816,7 +1257,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37954,
       "score": {
         "ft": [
           1,
@@ -824,8 +1265,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mike-duxbury",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-04-11-coventry-city-a",
@@ -836,7 +1286,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20201,
       "score": {
         "ft": [
           2,
@@ -844,8 +1294,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-04-14-liverpool-a",
@@ -856,7 +1320,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31276,
       "score": {
         "ft": [
           1,
@@ -864,8 +1328,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "gordon-mcqueen",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-04-18-west-bromwich-albion-h",
@@ -876,7 +1349,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44442,
       "score": {
         "ft": [
           2,
@@ -884,8 +1357,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1981-04-25-norwich-city-h",
@@ -896,7 +1383,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40165,
       "score": {
         "ft": [
           1,
@@ -904,8 +1391,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-jordan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

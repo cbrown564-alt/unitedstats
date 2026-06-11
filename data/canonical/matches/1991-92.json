@@ -10,7 +10,7 @@
       "opponentId": "notts-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46278,
       "score": {
         "ft": [
           2,
@@ -18,8 +18,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 40
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-08-21-aston-villa-a",
@@ -30,7 +44,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39995,
       "score": {
         "ft": [
           1,
@@ -38,8 +52,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-08-24-everton-a",
@@ -50,7 +73,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36085,
       "score": {
         "ft": [
           0,
@@ -58,7 +81,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +94,7 @@
       "opponentId": "oldham-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42078,
       "score": {
         "ft": [
           1,
@@ -78,8 +102,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-08-31-leeds-united-h",
@@ -90,7 +123,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43778,
       "score": {
         "ft": [
           1,
@@ -98,8 +131,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-09-03-wimbledon-a",
@@ -110,7 +152,7 @@
       "opponentId": "wimbledon",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13824,
       "score": {
         "ft": [
           2,
@@ -118,8 +160,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "gary-pallister",
+          "minute": 43
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-09-07-norwich-city-h",
@@ -130,7 +186,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44946,
       "score": {
         "ft": [
           3,
@@ -138,8 +194,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 23
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 28
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-09-14-southampton-a",
@@ -150,7 +225,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19264,
       "score": {
         "ft": [
           1,
@@ -158,7 +233,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-09-18-athinaikos-a",
+      "date": "1991-09-18",
+      "competition": "cup-winners-cup",
+      "round": "First round First leg",
+      "opponent": "Athinaikos",
+      "opponentId": "athinaikos",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 5400,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +275,7 @@
       "opponentId": "luton-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46491,
       "score": {
         "ft": [
           5,
@@ -178,7 +283,70 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 23
+        },
+        {
+          "type": "pen-goal",
+          "player": "steve-bruce",
+          "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1991-09-25-cambridge-united-h",
+      "date": "1991-09-25",
+      "competition": "league-cup",
+      "round": "Round 2 First leg",
+      "opponent": "Cambridge United",
+      "opponentId": "cambridge-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 30934,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 66
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +358,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35087,
       "score": {
         "ft": [
           2,
@@ -198,7 +366,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-10-02-athinaikos-h",
+      "date": "1991-10-02",
+      "competition": "cup-winners-cup",
+      "round": "First round Second leg",
+      "opponent": "Athinaikos",
+      "opponentId": "athinaikos",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 35023,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "aet": true,
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 109
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 111
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +427,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44997,
       "score": {
         "ft": [
           0,
@@ -218,7 +435,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1991-10-09-cambridge-united-a",
+      "date": "1991-10-09",
+      "competition": "league-cup",
+      "round": "Round 2 Second leg",
+      "opponent": "Cambridge United",
+      "opponentId": "cambridge-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 9248,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 2
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +477,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46594,
       "score": {
         "ft": [
           1,
@@ -238,7 +485,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-10-23-atletico-madrid-a",
+      "date": "1991-10-23",
+      "competition": "cup-winners-cup",
+      "round": "Second round First leg",
+      "opponent": "Atlético Madrid",
+      "opponentId": "atletico-madrid",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +527,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38260,
       "score": {
         "ft": [
           2,
@@ -258,7 +535,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 17
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "1991-10-30-portsmouth-h",
+      "date": "1991-10-30",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Portsmouth",
+      "opponentId": "portsmouth",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 29543,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-robins",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 74
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +590,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42942,
       "score": {
         "ft": [
           2,
@@ -278,7 +598,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 35,
+          "detail": "Jamie Hoyland (og)"
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-11-06-atletico-madrid-h",
+      "date": "1991-11-06",
+      "competition": "cup-winners-cup",
+      "round": "Second round Second leg",
+      "opponent": "Atlético Madrid",
+      "opponentId": "atletico-madrid",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 39654,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 4
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +654,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38180,
       "score": {
         "ft": [
           0,
@@ -298,7 +662,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1991-11-19-red-star-belgrade-h",
+      "date": "1991-11-19",
+      "competition": "uefa-super-cup",
+      "round": null,
+      "opponent": "Red Star Belgrade",
+      "opponentId": "red-star-belgrade",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 22110,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 67
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +704,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47185,
       "score": {
         "ft": [
           2,
@@ -318,8 +712,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "bryan-robson",
+          "minute": 42
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-11-30-crystal-palace-a",
@@ -330,7 +738,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29017,
       "score": {
         "ft": [
           3,
@@ -338,7 +746,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 58
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1991-12-04-oldham-athletic-h",
+      "date": "1991-12-04",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Oldham Athletic",
+      "opponentId": "oldham-athletic",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 38550,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 1
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 25
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +811,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42549,
       "score": {
         "ft": [
           4,
@@ -358,8 +819,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-12-15-chelsea-a",
@@ -370,7 +855,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23120,
       "score": {
         "ft": [
           3,
@@ -378,8 +863,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "steve-bruce",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1991-12-26-oldham-athletic-a",
@@ -390,7 +894,7 @@
       "opponentId": "oldham-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18947,
       "score": {
         "ft": [
           6,
@@ -398,8 +902,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "denis-irwin",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1991-12-29-leeds-united-a",
@@ -410,7 +938,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32638,
       "score": {
         "ft": [
           1,
@@ -418,8 +946,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "neil-webb",
+          "minute": 46
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-01-01-queens-park-rangers-h",
@@ -430,7 +967,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38554,
       "score": {
         "ft": [
           1,
@@ -438,7 +975,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1992-01-08-leeds-united-a",
+      "date": "1992-01-08",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 28886,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 56
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +1035,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46619,
       "score": {
         "ft": [
           1,
@@ -458,8 +1043,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 56
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-01-15-leeds-united-a",
@@ -470,7 +1064,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31819,
       "score": {
         "ft": [
           1,
@@ -479,9 +1073,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-01-18-notts-county-a",
@@ -492,7 +1095,7 @@
       "opponentId": "notts-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21055,
       "score": {
         "ft": [
           1,
@@ -500,8 +1103,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "clayton-blackmore",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-01-22-aston-villa-h",
@@ -512,7 +1124,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45022,
       "score": {
         "ft": [
           1,
@@ -520,8 +1132,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-01-27-southampton-a",
@@ -532,7 +1153,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19506,
       "score": {
         "ft": [
           0,
@@ -541,7 +1162,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -554,7 +1176,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41703,
       "score": {
         "ft": [
           1,
@@ -562,8 +1184,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-02-05-southampton-h",
@@ -574,7 +1205,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33414,
       "score": {
         "ft": [
           2,
@@ -587,9 +1218,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-02-08-sheffield-wednesday-h",
@@ -600,7 +1245,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47074,
       "score": {
         "ft": [
           1,
@@ -608,8 +1253,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 12
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-02-22-crystal-palace-h",
@@ -620,7 +1274,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46347,
       "score": {
         "ft": [
           2,
@@ -628,8 +1282,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 11
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1992-02-26-chelsea-h",
@@ -640,7 +1303,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44872,
       "score": {
         "ft": [
           1,
@@ -648,8 +1311,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-02-29-coventry-city-a",
@@ -660,7 +1332,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23967,
       "score": {
         "ft": [
           0,
@@ -668,7 +1340,64 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1992-03-04-middlesbrough-a",
+      "date": "1992-03-04",
+      "competition": "league-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25572,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "1992-03-11-middlesbrough-h",
+      "date": "1992-03-11",
+      "competition": "league-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 45875,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "aet": true,
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 106
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -680,7 +1409,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30183,
       "score": {
         "ft": [
           2,
@@ -688,8 +1417,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "clayton-blackmore",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-03-18-nottingham-forest-a",
@@ -700,7 +1443,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28062,
       "score": {
         "ft": [
           0,
@@ -708,7 +1451,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -720,7 +1464,7 @@
       "opponentId": "wimbledon",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45428,
       "score": {
         "ft": [
           0,
@@ -728,7 +1472,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -740,7 +1485,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22603,
       "score": {
         "ft": [
           0,
@@ -748,7 +1493,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -760,7 +1506,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17489,
       "score": {
         "ft": [
           3,
@@ -768,8 +1514,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-ince",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1992-04-07-manchester-city-h",
@@ -780,7 +1540,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46781,
       "score": {
         "ft": [
           1,
@@ -788,7 +1548,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "1992-04-12-nottingham-forest-n",
+      "date": "1992-04-12",
+      "competition": "league-cup",
+      "round": "Final",
+      "opponent": "Nottingham Forest",
+      "opponentId": "nottingham-forest",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 76810,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 14
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -800,7 +1598,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43972,
       "score": {
         "ft": [
           1,
@@ -808,8 +1606,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "andrei-kanchelskis",
+          "minute": 65
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-04-18-luton-town-a",
@@ -820,7 +1627,7 @@
       "opponentId": "luton-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13410,
       "score": {
         "ft": [
           1,
@@ -828,8 +1635,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lee-sharpe",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-04-20-nottingham-forest-h",
@@ -840,7 +1656,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47576,
       "score": {
         "ft": [
           1,
@@ -848,8 +1664,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 36
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1992-04-22-west-ham-united-a",
@@ -860,7 +1685,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24197,
       "score": {
         "ft": [
           0,
@@ -868,7 +1693,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -880,7 +1706,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38669,
       "score": {
         "ft": [
           0,
@@ -888,7 +1714,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -900,7 +1727,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44595,
       "score": {
         "ft": [
           3,
@@ -908,8 +1735,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "brian-mcclair",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "mark-hughes",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": false
     }
   ]
 }

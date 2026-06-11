@@ -2,6 +2,38 @@
   "season": "2007-08",
   "matches": [
     {
+      "id": "2007-08-05-chelsea-n",
+      "date": "2007-08-05",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 80731,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": [
+          3,
+          0
+        ]
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 35
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2007-08-12-reading-h",
       "date": "2007-08-12",
       "competition": "premier-league",
@@ -10,7 +42,7 @@
       "opponentId": "reading",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75655,
       "score": {
         "ft": [
           0,
@@ -18,7 +50,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -30,7 +63,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20510,
       "score": {
         "ft": [
           1,
@@ -38,8 +71,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 15
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-08-19-manchester-city-a",
@@ -50,7 +92,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44955,
       "score": {
         "ft": [
           0,
@@ -58,7 +100,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +113,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75696,
       "score": {
         "ft": [
           1,
@@ -78,8 +121,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-09-01-sunderland-h",
@@ -90,7 +142,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75648,
       "score": {
         "ft": [
           1,
@@ -98,8 +150,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-09-15-everton-a",
@@ -110,7 +171,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39364,
       "score": {
         "ft": [
           1,
@@ -118,7 +179,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-09-19-sporting-cp-a",
+      "date": "2007-09-19",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Sporting Clube de Portugal",
+      "opponentId": "sporting-cp",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41510,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 62
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +229,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75633,
       "score": {
         "ft": [
           2,
@@ -138,7 +237,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 45
+        },
+        {
+          "type": "pen-goal",
+          "player": "louis-saha",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-09-26-coventry-city-h",
+      "date": "2007-09-26",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Coventry City",
+      "opponentId": "coventry-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74055,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +284,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26526,
       "score": {
         "ft": [
           1,
@@ -158,7 +292,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-10-02-roma-h",
+      "date": "2007-10-02",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "A.S. Roma",
+      "opponentId": "roma",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73652,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 70
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +342,7 @@
       "opponentId": "wigan-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75300,
       "score": {
         "ft": [
           4,
@@ -178,8 +350,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-10-20-aston-villa-a",
@@ -190,7 +381,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42640,
       "score": {
         "ft": [
           4,
@@ -198,7 +389,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "rio-ferdinand",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2007-10-23-dynamo-kyiv-a",
+      "date": "2007-10-23",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Dynamo Kyiv",
+      "opponentId": "dynamo-kyiv",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 42000,
+      "score": {
+        "ft": [
+          4,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "rio-ferdinand",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 41
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +459,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75720,
       "score": {
         "ft": [
           4,
@@ -218,8 +467,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-11-03-arsenal-a",
@@ -230,7 +498,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60161,
       "score": {
         "ft": [
           2,
@@ -238,7 +506,66 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 45,
+          "detail": "William Gallas (og)"
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2007-11-07-dynamo-kyiv-h",
+      "date": "2007-11-07",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Dynamo Kyiv",
+      "opponentId": "dynamo-kyiv",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75017,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "gerard-pique",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +577,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75710,
       "score": {
         "ft": [
           2,
@@ -258,8 +585,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 34
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-11-24-bolton-wanderers-a",
@@ -270,7 +606,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25028,
       "score": {
         "ft": [
           0,
@@ -278,7 +614,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2007-11-27-sporting-cp-h",
+      "date": "2007-11-27",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Sporting Clube de Portugal",
+      "opponentId": "sporting-cp",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75162,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +661,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75055,
       "score": {
         "ft": [
           2,
@@ -298,8 +669,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 10
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-12-08-derby-county-h",
@@ -310,7 +690,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75725,
       "score": {
         "ft": [
           4,
@@ -318,7 +698,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 45
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2007-12-12-roma-a",
+      "date": "2007-12-12",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "A.S. Roma",
+      "opponentId": "roma",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29490,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "gerard-pique",
+          "minute": 34
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +758,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44459,
       "score": {
         "ft": [
           1,
@@ -338,8 +766,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 43
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2007-12-23-everton-h",
@@ -350,7 +787,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75749,
       "score": {
         "ft": [
           2,
@@ -358,8 +795,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 22
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-12-26-sunderland-a",
@@ -370,7 +816,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47360,
       "score": {
         "ft": [
           4,
@@ -378,8 +824,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2007-12-29-west-ham-united-a",
@@ -390,7 +855,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34966,
       "score": {
         "ft": [
           1,
@@ -398,8 +863,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 14
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-01-01-birmingham-city-h",
@@ -410,7 +884,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75459,
       "score": {
         "ft": [
           1,
@@ -418,8 +892,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-01-05-aston-villa-a",
@@ -430,7 +913,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33630,
       "score": {
         "ft": [
           2,
@@ -439,9 +922,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-01-12-newcastle-united-h",
@@ -452,7 +949,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75965,
       "score": {
         "ft": [
           6,
@@ -460,8 +957,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "rio-ferdinand",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2008-01-19-reading-a",
@@ -472,7 +988,7 @@
       "opponentId": "reading",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24135,
       "score": {
         "ft": [
           2,
@@ -480,8 +996,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 77
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-01-27-tottenham-hotspur-h",
@@ -492,7 +1022,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75369,
       "score": {
         "ft": [
           3,
@@ -501,9 +1031,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 38
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2008-01-30-portsmouth-h",
@@ -514,7 +1058,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75415,
       "score": {
         "ft": [
           2,
@@ -522,8 +1066,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 10
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2008-02-02-tottenham-hotspur-a",
@@ -534,7 +1087,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36075,
       "score": {
         "ft": [
           1,
@@ -542,8 +1095,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-02-10-manchester-city-h",
@@ -554,7 +1116,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75970,
       "score": {
         "ft": [
           1,
@@ -562,8 +1124,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-02-16-arsenal-h",
@@ -574,7 +1145,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75550,
       "score": {
         "ft": [
           4,
@@ -583,9 +1154,57 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2008-02-20-olympique-lyonnais-a",
+      "date": "2008-02-20",
+      "competition": "champions-league",
+      "round": "First knockout round First leg",
+      "opponent": "Olympique Lyonnais",
+      "opponentId": "olympique-lyonnais",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 39219,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 87
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2008-02-23-newcastle-united-a",
@@ -596,7 +1215,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52291,
       "score": {
         "ft": [
           5,
@@ -604,8 +1223,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "louis-saha",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2008-03-01-fulham-a",
@@ -616,7 +1254,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25314,
       "score": {
         "ft": [
           3,
@@ -624,7 +1262,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "owen-hargreaves",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 45
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 72,
+          "detail": "Simon Davies (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2008-03-04-olympique-lyonnais-h",
+      "date": "2008-03-04",
+      "competition": "champions-league",
+      "round": "First knockout round Second leg",
+      "opponent": "Olympique Lyonnais",
+      "opponentId": "olympique-lyonnais",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75520,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 41
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -636,7 +1323,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75463,
       "score": {
         "ft": [
           0,
@@ -645,7 +1332,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -658,7 +1346,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33072,
       "score": {
         "ft": [
           1,
@@ -666,8 +1354,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-03-19-bolton-wanderers-h",
@@ -678,7 +1375,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75476,
       "score": {
         "ft": [
           2,
@@ -686,8 +1383,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 9
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2008-03-23-liverpool-h",
@@ -698,7 +1404,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76000,
       "score": {
         "ft": [
           3,
@@ -706,8 +1412,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wes-brown",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 79
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-03-29-aston-villa-h",
@@ -718,7 +1443,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75932,
       "score": {
         "ft": [
           4,
@@ -726,7 +1451,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2008-04-01-roma-a",
+      "date": "2008-04-01",
+      "competition": "champions-league",
+      "round": "Quarter-finals First leg",
+      "opponent": "A.S. Roma",
+      "opponentId": "roma",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 60931,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 66
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -738,7 +1516,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33952,
       "score": {
         "ft": [
           2,
@@ -746,7 +1524,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 74
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2008-04-09-roma-h",
+      "date": "2008-04-09",
+      "competition": "champions-league",
+      "round": "Quarter-finals Second leg",
+      "opponent": "A.S. Roma",
+      "opponentId": "roma",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74423,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 70
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -758,7 +1579,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75985,
       "score": {
         "ft": [
           2,
@@ -766,8 +1587,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "owen-hargreaves",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2008-04-19-blackburn-rovers-a",
@@ -778,7 +1613,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30316,
       "score": {
         "ft": [
           1,
@@ -786,7 +1621,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2008-04-23-barcelona-a",
+      "date": "2008-04-23",
+      "competition": "champions-league",
+      "round": "Semi-finals First leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 95949,
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -798,7 +1663,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41828,
       "score": {
         "ft": [
           1,
@@ -806,7 +1671,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 57
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2008-04-29-barcelona-h",
+      "date": "2008-04-29",
+      "competition": "champions-league",
+      "round": "Semi-finals Second leg",
+      "opponent": "FC Barcelona",
+      "opponentId": "barcelona",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75061,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 14
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -818,7 +1721,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 76013,
       "score": {
         "ft": [
           4,
@@ -826,8 +1729,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "carlos-tevez",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 59
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2008-05-11-wigan-athletic-a",
@@ -838,7 +1760,7 @@
       "opponentId": "wigan-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25133,
       "score": {
         "ft": [
           2,
@@ -846,7 +1768,53 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 33
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2008-05-21-chelsea-n",
+      "date": "2008-05-21",
+      "competition": "champions-league",
+      "round": "Final",
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 67310,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": [
+          6,
+          5
+        ]
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 25
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     }
   ]

@@ -10,7 +10,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32628,
       "score": {
         "ft": [
           1,
@@ -18,8 +18,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nobby-stiles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-08-23-chelsea-h",
@@ -30,7 +39,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45847,
       "score": {
         "ft": [
           3,
@@ -38,8 +47,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "mark-pearson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-08-26-blackburn-rovers-h",
@@ -50,7 +78,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45302,
       "score": {
         "ft": [
           6,
@@ -58,8 +86,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "maurice-setters",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-08-30-chelsea-a",
@@ -70,7 +132,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42248,
       "score": {
         "ft": [
           0,
@@ -78,7 +140,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +153,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28156,
       "score": {
         "ft": [
           3,
@@ -98,8 +161,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-09-09-tottenham-hotspur-h",
@@ -110,7 +192,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 57135,
       "score": {
         "ft": [
           1,
@@ -118,8 +200,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-09-16-cardiff-city-a",
@@ -130,7 +221,7 @@
       "opponentId": "cardiff-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29251,
       "score": {
         "ft": [
           2,
@@ -138,8 +229,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-09-18-aston-villa-a",
@@ -150,7 +255,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38837,
       "score": {
         "ft": [
           1,
@@ -158,8 +263,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nobby-stiles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-09-23-manchester-city-h",
@@ -170,7 +284,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56345,
       "score": {
         "ft": [
           3,
@@ -178,8 +292,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nobby-stiles",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-09-30-wolverhampton-wanderers-h",
@@ -190,7 +324,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39457,
       "score": {
         "ft": [
           0,
@@ -198,7 +332,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +345,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25645,
       "score": {
         "ft": [
           1,
@@ -218,8 +353,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-dawson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-10-14-birmingham-city-h",
@@ -230,7 +374,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30674,
       "score": {
         "ft": [
           0,
@@ -238,7 +382,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +395,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54245,
       "score": {
         "ft": [
           1,
@@ -258,8 +403,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-10-28-bolton-wanderers-h",
@@ -270,7 +424,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31442,
       "score": {
         "ft": [
           0,
@@ -278,7 +432,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +445,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35998,
       "score": {
         "ft": [
           1,
@@ -298,8 +453,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-11-11-leicester-city-h",
@@ -310,7 +474,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21567,
       "score": {
         "ft": [
           2,
@@ -318,8 +482,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-giles",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dennis-viollet",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-11-18-ipswich-town-a",
@@ -330,7 +508,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25755,
       "score": {
         "ft": [
           1,
@@ -338,8 +516,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcmillan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-11-25-burnley-h",
@@ -350,7 +537,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41029,
       "score": {
         "ft": [
           1,
@@ -358,8 +545,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-12-02-everton-a",
@@ -370,7 +566,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48099,
       "score": {
         "ft": [
           1,
@@ -378,8 +574,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-12-09-fulham-h",
@@ -390,7 +595,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22193,
       "score": {
         "ft": [
           3,
@@ -398,8 +603,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-lawton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-12-16-west-ham-united-h",
@@ -410,7 +634,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29472,
       "score": {
         "ft": [
           1,
@@ -418,8 +642,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1961-12-26-nottingham-forest-h",
@@ -430,7 +663,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30822,
       "score": {
         "ft": [
           6,
@@ -438,8 +671,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nobby-lawton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-lawton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-lawton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "shay-brennan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-01-06-bolton-wanderers-h",
@@ -450,7 +717,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42202,
       "score": {
         "ft": [
           2,
@@ -459,9 +726,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-nicholson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-01-13-blackpool-h",
@@ -472,7 +753,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26999,
       "score": {
         "ft": [
           0,
@@ -480,7 +761,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -492,7 +774,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20807,
       "score": {
         "ft": [
           2,
@@ -500,8 +782,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-01-20-tottenham-hotspur-a",
@@ -512,7 +808,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55225,
       "score": {
         "ft": [
           2,
@@ -520,8 +816,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-stiles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-01-31-arsenal-h",
@@ -532,7 +842,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54082,
       "score": {
         "ft": [
           1,
@@ -541,9 +851,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "maurice-setters",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-02-03-cardiff-city-h",
@@ -554,7 +873,7 @@
       "opponentId": "cardiff-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29200,
       "score": {
         "ft": [
           3,
@@ -562,8 +881,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "johnny-giles",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-lawton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-stiles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-02-10-manchester-city-a",
@@ -574,7 +912,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 49959,
       "score": {
         "ft": [
           2,
@@ -582,8 +920,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "phil-chisnall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-02-17-sheffield-wednesday-h",
@@ -594,7 +946,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59553,
       "score": {
         "ft": [
           0,
@@ -603,7 +955,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -616,7 +969,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62969,
       "score": {
         "ft": [
           2,
@@ -625,9 +978,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "johnny-giles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-02-24-west-bromwich-albion-h",
@@ -638,7 +1005,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32456,
       "score": {
         "ft": [
           4,
@@ -646,8 +1013,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "maurice-setters",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-02-28-wolverhampton-wanderers-a",
@@ -658,7 +1049,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27565,
       "score": {
         "ft": [
           2,
@@ -666,8 +1057,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-lawton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-03-03-birmingham-city-a",
@@ -678,7 +1083,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25817,
       "score": {
         "ft": [
           1,
@@ -686,8 +1091,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-03-10-preston-north-end-a",
@@ -698,7 +1112,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 37521,
       "score": {
         "ft": [
           0,
@@ -707,7 +1121,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -720,7 +1135,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 63468,
       "score": {
         "ft": [
           2,
@@ -729,9 +1144,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-03-17-bolton-wanderers-a",
@@ -742,7 +1171,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34366,
       "score": {
         "ft": [
           0,
@@ -750,7 +1179,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -762,7 +1192,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27833,
       "score": {
         "ft": [
           0,
@@ -770,7 +1200,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -782,7 +1213,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31322,
       "score": {
         "ft": [
           1,
@@ -790,8 +1221,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bobby-charlton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-03-31-tottenham-hotspur-n",
@@ -811,9 +1251,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Hillsborough, Sheffield"
+      "notes": "Venue: Hillsborough, Sheffield",
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-04-04-leicester-city-a",
@@ -824,7 +1273,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15318,
       "score": {
         "ft": [
           3,
@@ -832,8 +1281,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcmillan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcmillan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-04-07-ipswich-town-h",
@@ -844,7 +1312,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24976,
       "score": {
         "ft": [
           5,
@@ -852,8 +1320,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-quixall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "maurice-setters",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-stiles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-04-10-blackburn-rovers-a",
@@ -864,7 +1361,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14623,
       "score": {
         "ft": [
           0,
@@ -872,7 +1369,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -884,7 +1382,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36240,
       "score": {
         "ft": [
           3,
@@ -892,8 +1390,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "shay-brennan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "noel-cantwell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-04-16-arsenal-h",
@@ -904,7 +1421,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24258,
       "score": {
         "ft": [
           2,
@@ -912,8 +1429,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "noel-cantwell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcmillan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-04-21-everton-h",
@@ -924,7 +1455,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31926,
       "score": {
         "ft": [
           1,
@@ -932,8 +1463,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-herd",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-04-23-sheffield-united-h",
@@ -944,7 +1484,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30073,
       "score": {
         "ft": [
           0,
@@ -952,7 +1492,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -964,7 +1505,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25324,
       "score": {
         "ft": [
           3,
@@ -972,8 +1513,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sammy-mcmillan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sammy-mcmillan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "nobby-stiles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1962-04-28-fulham-a",
@@ -984,7 +1544,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40113,
       "score": {
         "ft": [
           0,
@@ -992,7 +1552,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

@@ -10,7 +10,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32000,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "enoch-west",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-09-08-sunderland-h",
@@ -30,7 +50,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           3,
@@ -38,8 +58,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-whalley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-09-13-bolton-wanderers-h",
@@ -50,7 +89,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45000,
       "score": {
         "ft": [
           0,
@@ -58,7 +97,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +110,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           2,
@@ -78,8 +118,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-09-27-oldham-athletic-h",
@@ -90,7 +144,7 @@
       "opponentId": "oldham-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55000,
       "score": {
         "ft": [
           4,
@@ -98,8 +152,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "enoch-west",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "enoch-west",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-10-04-tottenham-hotspur-h",
@@ -110,7 +188,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           3,
@@ -118,8 +196,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-stacey",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-whalley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-10-11-burnley-a",
@@ -130,7 +227,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           2,
@@ -138,8 +235,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-10-18-preston-north-end-h",
@@ -150,7 +261,7 @@
       "opponentId": "preston-north-end",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           3,
@@ -158,8 +269,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-10-25-newcastle-united-a",
@@ -170,7 +300,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           1,
@@ -178,8 +308,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "enoch-west",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-11-01-liverpool-h",
@@ -190,7 +329,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           3,
@@ -198,8 +337,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "enoch-west",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-11-08-aston-villa-a",
@@ -210,7 +368,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           1,
@@ -218,8 +376,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wilf-woodcock",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-11-15-middlesbrough-h",
@@ -230,7 +397,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -238,7 +405,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +418,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           0,
@@ -258,7 +426,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +439,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           3,
@@ -278,8 +447,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "sandy-turnbull",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-meredith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-12-06-manchester-city-a",
@@ -290,7 +478,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           2,
@@ -298,8 +486,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-12-13-bradford-city-h",
@@ -310,7 +512,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           1,
@@ -318,8 +520,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-knowles",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-12-20-blackburn-rovers-a",
@@ -330,7 +541,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           1,
@@ -338,8 +549,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1913-12-25-everton-h",
@@ -350,7 +571,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           0,
@@ -358,7 +579,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +592,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40000,
       "score": {
         "ft": [
           0,
@@ -378,7 +600,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +613,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           2,
@@ -398,8 +621,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-meredith",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-01-01-west-bromwich-albion-h",
@@ -410,7 +647,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           1,
@@ -418,8 +655,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-01-03-bolton-wanderers-a",
@@ -430,7 +676,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           1,
@@ -438,8 +684,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "enoch-west",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-01-10-swindon-town-a",
@@ -450,7 +705,7 @@
       "opponentId": "swindon-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18187,
       "score": {
         "ft": [
           0,
@@ -459,7 +714,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -472,7 +728,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           0,
@@ -480,7 +736,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -492,7 +749,7 @@
       "opponentId": "oldham-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           2,
@@ -500,8 +757,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "wilf-woodcock",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-02-07-tottenham-hotspur-a",
@@ -512,7 +783,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22000,
       "score": {
         "ft": [
           1,
@@ -520,8 +791,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-02-14-burnley-h",
@@ -532,7 +812,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           0,
@@ -540,7 +820,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +833,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           1,
@@ -560,8 +841,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-02-28-newcastle-united-h",
@@ -572,7 +862,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           2,
@@ -580,8 +870,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-potts",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-03-05-preston-north-end-a",
@@ -592,7 +896,7 @@
       "opponentId": "preston-north-end",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           2,
@@ -600,8 +904,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-travers",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-03-14-aston-villa-h",
@@ -612,7 +930,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           0,
@@ -620,7 +938,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -632,7 +951,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           2,
@@ -640,8 +959,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-travers",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-04-10-sunderland-a",
@@ -652,7 +985,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           0,
@@ -660,7 +993,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -672,7 +1006,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36000,
       "score": {
         "ft": [
           0,
@@ -680,7 +1014,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -692,7 +1027,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           1,
@@ -700,8 +1035,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-travers",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-04-15-liverpool-a",
@@ -712,7 +1056,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28000,
       "score": {
         "ft": [
           2,
@@ -720,8 +1064,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-travers",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-04-18-bradford-city-a",
@@ -732,7 +1090,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           1,
@@ -740,8 +1098,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "james-thomson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-04-22-sheffield-united-h",
@@ -752,7 +1119,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4500,
       "score": {
         "ft": [
           2,
@@ -760,8 +1127,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-anderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1914-04-25-blackburn-rovers-h",
@@ -772,7 +1153,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           0,
@@ -780,7 +1161,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

@@ -2,6 +2,27 @@
   "season": "2002-03",
   "matches": [
     {
+      "id": "2002-08-14-zalaegerszegi-te-a",
+      "date": "2002-08-14",
+      "competition": "champions-league",
+      "round": "Third qualifying round First leg",
+      "opponent": "Zalaegerszegi TE",
+      "opponentId": "zalaegerszegi-te",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2002-08-17-west-bromwich-albion-h",
       "date": "2002-08-17",
       "competition": "premier-league",
@@ -10,7 +31,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67645,
       "score": {
         "ft": [
           1,
@@ -18,8 +39,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2002-08-23-chelsea-a",
@@ -30,7 +60,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41541,
       "score": {
         "ft": [
           2,
@@ -38,7 +68,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-08-27-zalaegerszegi-te-h",
+      "date": "2002-08-27",
+      "competition": "champions-league",
+      "round": "Third qualifying round Second leg",
+      "opponent": "Zalaegerszegi TE",
+      "opponentId": "zalaegerszegi-te",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66814,
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 84
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +138,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47586,
       "score": {
         "ft": [
           1,
@@ -58,8 +146,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 7
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2002-09-03-middlesbrough-h",
@@ -70,7 +167,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67464,
       "score": {
         "ft": [
           1,
@@ -78,8 +175,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 28
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2002-09-11-bolton-wanderers-h",
@@ -90,7 +196,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67623,
       "score": {
         "ft": [
           0,
@@ -98,7 +204,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +217,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39622,
       "score": {
         "ft": [
           0,
@@ -118,7 +225,57 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2002-09-18-maccabi-haifa-h",
+      "date": "2002-09-18",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Maccabi Haifa",
+      "opponentId": "maccabi-haifa",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 63439,
+      "score": {
+        "ft": [
+          5,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "juan-sebastian-veron",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 54
+        },
+        {
+          "type": "pen-goal",
+          "player": "diego-forlan",
+          "minute": 89
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +287,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67611,
       "score": {
         "ft": [
           1,
@@ -138,7 +295,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-09-24-bayer-04-leverkusen-a",
+      "date": "2002-09-24",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Bayer 04 Leverkusen",
+      "opponentId": "bayer-04-leverkusen",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 22500,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 31
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +345,7 @@
       "opponentId": "charlton-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26630,
       "score": {
         "ft": [
           3,
@@ -158,7 +353,71 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-10-01-olympiacos-h",
+      "date": "2002-10-01",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Olympiacos",
+      "opponentId": "olympiacos",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66902,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "juan-sebastian-veron",
+          "minute": 26
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 66,
+          "detail": "Georgios Anatolakis (og)"
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 77
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +429,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67629,
       "score": {
         "ft": [
           3,
@@ -178,8 +437,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 86
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2002-10-19-fulham-a",
@@ -190,7 +463,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18103,
       "score": {
         "ft": [
           1,
@@ -198,7 +471,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-10-23-olympiacos-a",
+      "date": "2002-10-23",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Olympiacos",
+      "opponentId": "olympiacos",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 13220,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "laurent-blanc",
+          "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "juan-sebastian-veron",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 84
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +531,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67619,
       "score": {
         "ft": [
           1,
@@ -218,7 +539,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-10-29-maccabi-haifa-a",
+      "date": "2002-10-29",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Maccabi Haifa",
+      "opponentId": "maccabi-haifa",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 22000,
+      "score": {
+        "ft": [
+          0,
+          3
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +581,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67691,
       "score": {
         "ft": [
           2,
@@ -238,7 +589,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "phil-neville",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 85
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-11-05-leicester-city-h",
+      "date": "2002-11-05",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 47848,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "david-beckham",
+          "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "kieran-richardson",
+          "minute": 90
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +649,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34649,
       "score": {
         "ft": [
           1,
@@ -258,7 +657,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 7
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-11-13-bayer-04-leverkusen-h",
+      "date": "2002-11-13",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Bayer 04 Leverkusen",
+      "opponentId": "bayer-04-leverkusen",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66185,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-sebastian-veron",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 69
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +712,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35049,
       "score": {
         "ft": [
           1,
@@ -278,8 +720,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 38
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2002-11-23-newcastle-united-h",
@@ -290,7 +741,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67625,
       "score": {
         "ft": [
           5,
@@ -298,7 +749,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2002-11-26-basel-a",
+      "date": "2002-11-26",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Basel",
+      "opponentId": "basel",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29501,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 68
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +814,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44250,
       "score": {
         "ft": [
           2,
@@ -318,7 +822,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 63
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2002-12-03-burnley-a",
+      "date": "2002-12-03",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Burnley",
+      "opponentId": "burnley",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 22034,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 65
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +877,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67650,
       "score": {
         "ft": [
           2,
@@ -338,7 +885,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-sebastian-veron",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-12-11-deportivo-de-la-coruna-h",
+      "date": "2002-12-11",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Deportivo de La Coruña",
+      "opponentId": "deportivo-de-la-coruna",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67014,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 7
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +940,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67555,
       "score": {
         "ft": [
           3,
@@ -358,7 +948,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "juan-sebastian-veron",
+          "minute": 17
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 61,
+          "detail": "Sebastian Schemmel (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2002-12-17-chelsea-h",
+      "date": "2002-12-17",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 57985,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 80
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +1009,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30475,
       "score": {
         "ft": [
           0,
@@ -378,7 +1017,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +1030,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34673,
       "score": {
         "ft": [
           1,
@@ -398,8 +1038,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2002-12-28-birmingham-city-h",
@@ -410,7 +1059,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67640,
       "score": {
         "ft": [
           2,
@@ -418,8 +1067,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 73
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-01-01-sunderland-h",
@@ -430,7 +1093,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67609,
       "score": {
         "ft": [
           2,
@@ -438,8 +1101,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-01-04-portsmouth-h",
@@ -450,7 +1127,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67222,
       "score": {
         "ft": [
           4,
@@ -459,9 +1136,57 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2003-01-07-blackburn-rovers-h",
+      "date": "2003-01-07",
+      "competition": "league-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Blackburn Rovers",
+      "opponentId": "blackburn-rovers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 62740,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 58
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2003-01-11-west-bromwich-albion-a",
@@ -472,7 +1197,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27129,
       "score": {
         "ft": [
           3,
@@ -480,8 +1205,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-01-18-chelsea-h",
@@ -492,7 +1236,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67606,
       "score": {
         "ft": [
           2,
@@ -500,7 +1244,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "diego-forlan",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2003-01-22-blackburn-rovers-a",
+      "date": "2003-01-22",
+      "competition": "league-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Blackburn Rovers",
+      "opponentId": "blackburn-rovers",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 29048,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 30
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 77
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -512,7 +1304,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67181,
       "score": {
         "ft": [
           6,
@@ -521,9 +1313,33 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "phil-neville",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2003-02-01-southampton-a",
@@ -534,7 +1350,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32085,
       "score": {
         "ft": [
           2,
@@ -542,8 +1358,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 22
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-02-04-birmingham-city-a",
@@ -554,7 +1384,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29475,
       "score": {
         "ft": [
           1,
@@ -562,8 +1392,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 56
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-02-09-manchester-city-h",
@@ -574,7 +1413,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67646,
       "score": {
         "ft": [
           1,
@@ -582,8 +1421,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 18
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-02-15-arsenal-h",
@@ -594,7 +1442,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67209,
       "score": {
         "ft": [
           0,
@@ -603,9 +1451,44 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
+    },
+    {
+      "id": "2003-02-19-juventus-h",
+      "date": "2003-02-19",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66703,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wes-brown",
+          "minute": 4
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 85
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2003-02-22-bolton-wanderers-a",
@@ -616,7 +1499,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27409,
       "score": {
         "ft": [
           1,
@@ -624,7 +1507,71 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2003-02-25-juventus-a",
+      "date": "2003-02-25",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Juventus",
+      "opponentId": "juventus",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 59111,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 63
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2003-03-02-liverpool-n",
+      "date": "2003-03-02",
+      "competition": "league-cup",
+      "round": "Final",
+      "opponent": "Liverpool",
+      "opponentId": "liverpool",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 74500,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -636,7 +1583,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67135,
       "score": {
         "ft": [
           2,
@@ -644,7 +1591,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 20,
+          "detail": "Lucas Radebe (og)"
+        },
+        {
+          "type": "goal",
+          "player": "mikael-silvestre",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2003-03-12-basel-h",
+      "date": "2003-03-12",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Basel",
+      "opponentId": "basel",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66870,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "gary-neville",
+          "minute": 53
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -656,7 +1647,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42602,
       "score": {
         "ft": [
           1,
@@ -664,7 +1655,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 12
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2003-03-18-deportivo-de-la-coruna-a",
+      "date": "2003-03-18",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Deportivo de La Coruña",
+      "opponentId": "deportivo-de-la-coruna",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25000,
+      "score": {
+        "ft": [
+          0,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -676,7 +1697,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67706,
       "score": {
         "ft": [
           3,
@@ -684,8 +1705,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 44
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2003-04-05-liverpool-h",
@@ -696,7 +1726,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67639,
       "score": {
         "ft": [
           4,
@@ -704,7 +1734,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 78
+        },
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2003-04-08-real-madrid-a",
+      "date": "2003-04-08",
+      "competition": "champions-league",
+      "round": "Quarter-final First leg",
+      "opponent": "Real Madrid C.F.",
+      "opponentId": "real-madrid",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 75000,
+      "score": {
+        "ft": [
+          1,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 52
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -716,7 +1794,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52164,
       "score": {
         "ft": [
           6,
@@ -724,8 +1802,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ole-gunnar-solskj-r",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 44
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 58
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2003-04-16-arsenal-a",
@@ -736,7 +1838,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 38164,
       "score": {
         "ft": [
           2,
@@ -744,8 +1846,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 24
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 63
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-04-19-blackburn-rovers-h",
@@ -756,7 +1872,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67626,
       "score": {
         "ft": [
           3,
@@ -764,7 +1880,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 42
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2003-04-23-real-madrid-h",
+      "date": "2003-04-23",
+      "competition": "champions-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "Real Madrid C.F.",
+      "opponentId": "real-madrid",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 66708,
+      "score": {
+        "ft": [
+          4,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 43
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 52,
+          "detail": "Iván Helguera (og)"
+        },
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 71
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -776,7 +1946,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36073,
       "score": {
         "ft": [
           2,
@@ -784,8 +1954,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2003-05-03-charlton-athletic-h",
@@ -796,7 +1980,7 @@
       "opponentId": "charlton-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 67721,
       "score": {
         "ft": [
           4,
@@ -804,8 +1988,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 11
+        },
+        {
+          "type": "goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 32
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2003-05-11-everton-a",
@@ -816,7 +2014,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40168,
       "score": {
         "ft": [
           2,
@@ -824,8 +2022,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-beckham",
+          "minute": 45
+        },
+        {
+          "type": "pen-goal",
+          "player": "ruud-van-nistelrooy",
+          "minute": 79
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

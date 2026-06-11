@@ -2,6 +2,43 @@
   "season": "2009-10",
   "matches": [
     {
+      "id": "2009-08-09-chelsea-n",
+      "date": "2009-08-09",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Chelsea",
+      "opponentId": "chelsea",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 85896,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": [
+          1,
+          4
+        ]
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2009-08-16-birmingham-city-h",
       "date": "2009-08-16",
       "competition": "premier-league",
@@ -10,7 +47,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75062,
       "score": {
         "ft": [
           1,
@@ -18,8 +55,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 34
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2009-08-19-burnley-a",
@@ -30,7 +76,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20872,
       "score": {
         "ft": [
           0,
@@ -38,7 +84,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -50,7 +97,7 @@
       "opponentId": "wigan-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18164,
       "score": {
         "ft": [
           5,
@@ -58,8 +105,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 85
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2009-08-29-arsenal-h",
@@ -70,7 +141,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75095,
       "score": {
         "ft": [
           2,
@@ -78,8 +149,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 59
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 64,
+          "detail": "Abou Diaby (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2009-09-12-tottenham-hotspur-a",
@@ -90,7 +176,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35785,
       "score": {
         "ft": [
           3,
@@ -98,7 +184,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "anderson",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2009-09-15-besiktas-a",
+      "date": "2009-09-15",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Beşiktaş J.K.",
+      "opponentId": "besiktas",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 26448,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 77
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +244,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75066,
       "score": {
         "ft": [
           4,
@@ -118,7 +252,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 49
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 96
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2009-09-23-wolverhampton-wanderers-h",
+      "date": "2009-09-23",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Wolverhampton Wanderers",
+      "opponentId": "wolverhampton-wanderers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 51160,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 66
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +312,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27500,
       "score": {
         "ft": [
           2,
@@ -138,7 +320,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "john-o-shea",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2009-09-30-vfl-wolfsburg-h",
+      "date": "2009-09-30",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "VfL Wolfsburg",
+      "opponentId": "vfl-wolfsburg",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74037,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 78
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +380,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75114,
       "score": {
         "ft": [
           2,
@@ -158,8 +388,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 51
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 94,
+          "detail": "Anton Ferdinand (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2009-10-17-bolton-wanderers-h",
@@ -170,7 +415,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75103,
       "score": {
         "ft": [
           2,
@@ -178,7 +423,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 5,
+          "detail": "Zat Knight (og)"
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 33
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2009-10-21-pfc-cska-moscow-a",
+      "date": "2009-10-21",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PFC CSKA Moscow",
+      "opponentId": "pfc-cska-moscow",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 51250,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 86
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +479,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44188,
       "score": {
         "ft": [
           0,
@@ -198,7 +487,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2009-10-27-barnsley-a",
+      "date": "2009-10-27",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Barnsley",
+      "opponentId": "barnsley",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20019,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 6
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 59
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +534,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74658,
       "score": {
         "ft": [
           2,
@@ -218,7 +542,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2009-11-03-pfc-cska-moscow-h",
+      "date": "2009-11-03",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "PFC CSKA Moscow",
+      "opponentId": "pfc-cska-moscow",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73718,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 29
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 84
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +607,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41836,
       "score": {
         "ft": [
           0,
@@ -238,7 +615,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +628,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75169,
       "score": {
         "ft": [
           3,
@@ -258,7 +636,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 76
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2009-11-25-besiktas-h",
+      "date": "2009-11-25",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Beşiktaş J.K.",
+      "opponentId": "besiktas",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74242,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +688,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20482,
       "score": {
         "ft": [
           4,
@@ -278,7 +696,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 25
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2009-12-01-tottenham-hotspur-h",
+      "date": "2009-12-01",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 57212,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "darron-gibson",
+          "minute": 16
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +751,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 34980,
       "score": {
         "ft": [
           4,
@@ -298,7 +759,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "darron-gibson",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2009-12-08-vfl-wolfsburg-a",
+      "date": "2009-12-08",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "VfL Wolfsburg",
+      "opponentId": "vfl-wolfsburg",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 26490,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 44
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +824,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75130,
       "score": {
         "ft": [
           0,
@@ -318,7 +832,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -330,7 +845,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73709,
       "score": {
         "ft": [
           3,
@@ -338,8 +853,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "nemanja-vidic",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2009-12-19-fulham-a",
@@ -350,7 +884,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25700,
       "score": {
         "ft": [
           0,
@@ -358,7 +892,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +905,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24627,
       "score": {
         "ft": [
           3,
@@ -378,8 +913,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 47
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 73,
+          "detail": "Andy Dawson (og)"
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2009-12-30-wigan-athletic-h",
@@ -390,7 +945,7 @@
       "opponentId": "wigan-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74560,
       "score": {
         "ft": [
           5,
@@ -398,8 +953,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "rafael",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-01-03-leeds-united-h",
@@ -410,7 +994,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74526,
       "score": {
         "ft": [
           0,
@@ -419,7 +1003,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -432,7 +1017,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28907,
       "score": {
         "ft": [
           1,
@@ -440,8 +1025,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 63,
+          "detail": "Scott Dann (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-01-16-burnley-h",
@@ -452,7 +1047,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75120,
       "score": {
         "ft": [
           3,
@@ -460,7 +1055,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 64
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "mame-biram-diouf",
+          "minute": 91
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2010-01-19-manchester-city-a",
+      "date": "2010-01-19",
+      "competition": "league-cup",
+      "round": "Semi-final First leg",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 46067,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 17
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -472,7 +1115,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73933,
       "score": {
         "ft": [
           4,
@@ -480,7 +1123,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 8
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2010-01-27-manchester-city-h",
+      "date": "2010-01-27",
+      "competition": "league-cup",
+      "round": "Semi-final Second leg",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74576,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 71
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -492,7 +1183,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60091,
       "score": {
         "ft": [
           3,
@@ -500,8 +1191,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 33,
+          "detail": "Manuel Almunia (og)"
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-02-06-portsmouth-h",
@@ -512,7 +1223,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74684,
       "score": {
         "ft": [
           5,
@@ -520,8 +1231,39 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 40
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 45,
+          "detail": "Anthony Vanden Borre (og)"
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 62
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 69,
+          "detail": "Marc Wilson (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-02-10-aston-villa-a",
@@ -532,7 +1274,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42788,
       "score": {
         "ft": [
           1,
@@ -540,7 +1282,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 23,
+          "detail": "James Collins (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2010-02-16-ac-milan-a",
+      "date": "2010-02-16",
+      "competition": "champions-league",
+      "round": "First knockout round First leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 78587,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 36
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 66
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +1338,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39448,
       "score": {
         "ft": [
           1,
@@ -560,8 +1346,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 16
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-02-23-west-ham-united-h",
@@ -572,7 +1367,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73797,
       "score": {
         "ft": [
           3,
@@ -580,7 +1375,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 38
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2010-02-28-aston-villa-n",
+      "date": "2010-02-28",
+      "competition": "league-cup",
+      "round": "Final",
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 88596,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 74
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -592,7 +1435,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28883,
       "score": {
         "ft": [
           1,
@@ -600,7 +1443,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 73
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2010-03-10-ac-milan-h",
+      "date": "2010-03-10",
+      "competition": "champions-league",
+      "round": "First knockout round Second leg",
+      "opponent": "A.C. Milan",
+      "opponentId": "ac-milan",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74595,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 13
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -612,7 +1503,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75207,
       "score": {
         "ft": [
           3,
@@ -620,8 +1511,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2010-03-21-liverpool-h",
@@ -632,7 +1537,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75216,
       "score": {
         "ft": [
           2,
@@ -640,8 +1545,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 12
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-03-27-bolton-wanderers-a",
@@ -652,7 +1571,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25370,
       "score": {
         "ft": [
           4,
@@ -660,7 +1579,56 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 38,
+          "detail": "Jlloyd Samuel (og)"
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 69
+        },
+        {
+          "type": "goal",
+          "player": "darron-gibson",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2010-03-30-bayern-munich-a",
+      "date": "2010-03-30",
+      "competition": "champions-league",
+      "round": "Quarter-final First leg",
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 66000,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 2
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -672,7 +1640,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75217,
       "score": {
         "ft": [
           1,
@@ -680,7 +1648,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "federico-macheda",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2010-04-07-bayern-munich-h",
+      "date": "2010-04-07",
+      "competition": "champions-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "FC Bayern Munich",
+      "opponentId": "bayern-munich",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74482,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "darron-gibson",
+          "minute": 3
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 7
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -692,7 +1703,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29912,
       "score": {
         "ft": [
           0,
@@ -700,7 +1711,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -712,7 +1724,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47019,
       "score": {
         "ft": [
           1,
@@ -720,8 +1732,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-04-24-tottenham-hotspur-h",
@@ -732,7 +1753,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75268,
       "score": {
         "ft": [
           3,
@@ -740,8 +1761,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "ryan-giggs",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2010-05-02-sunderland-a",
@@ -752,7 +1787,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47641,
       "score": {
         "ft": [
           1,
@@ -760,8 +1795,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 28
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2010-05-09-stoke-city-h",
@@ -772,7 +1816,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75316,
       "score": {
         "ft": [
           4,
@@ -780,8 +1824,33 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 31
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 38
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 54,
+          "detail": "Danny Higginbotham (og)"
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

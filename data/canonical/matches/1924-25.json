@@ -10,7 +10,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21250,
       "score": {
         "ft": [
           1,
@@ -18,8 +18,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ernie-goldthorpe",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-09-01-stockport-county-a",
@@ -30,7 +39,7 @@
       "opponentId": "stockport-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12500,
       "score": {
         "ft": [
           1,
@@ -38,8 +47,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-09-06-stoke-city-a",
@@ -50,7 +68,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15250,
       "score": {
         "ft": [
           0,
@@ -58,7 +76,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +89,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9500,
       "score": {
         "ft": [
           1,
@@ -78,8 +97,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-09-13-coventry-city-h",
@@ -90,7 +118,7 @@
       "opponentId": "coventry-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           5,
@@ -98,8 +126,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-09-20-oldham-athletic-a",
@@ -110,7 +167,7 @@
       "opponentId": "oldham-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14500,
       "score": {
         "ft": [
           3,
@@ -118,8 +175,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-09-27-sheffield-wednesday-h",
@@ -130,7 +206,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29500,
       "score": {
         "ft": [
           2,
@@ -138,8 +214,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-10-04-leyton-orient-a",
@@ -150,7 +240,7 @@
       "opponentId": "leyton-orient",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           1,
@@ -158,8 +248,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-10-11-crystal-palace-h",
@@ -170,7 +269,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27750,
       "score": {
         "ft": [
           1,
@@ -178,8 +277,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-10-18-southampton-a",
@@ -190,7 +298,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           2,
@@ -198,8 +306,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-10-25-wolverhampton-wanderers-a",
@@ -210,7 +332,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17500,
       "score": {
         "ft": [
           0,
@@ -218,7 +340,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +353,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24000,
       "score": {
         "ft": [
           2,
@@ -238,8 +361,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-11-08-portsmouth-a",
@@ -250,7 +387,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19500,
       "score": {
         "ft": [
           1,
@@ -258,8 +395,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-11-15-hull-city-h",
@@ -270,7 +416,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29750,
       "score": {
         "ft": [
           2,
@@ -278,8 +424,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-11-22-blackpool-a",
@@ -290,7 +450,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9500,
       "score": {
         "ft": [
           1,
@@ -298,8 +458,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-11-29-derby-county-h",
@@ -310,7 +479,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59500,
       "score": {
         "ft": [
           1,
@@ -318,8 +487,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-12-06-south-shields-a",
@@ -330,7 +508,7 @@
       "opponentId": "south-shields",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6500,
       "score": {
         "ft": [
           2,
@@ -338,8 +516,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-12-13-bradford-city-h",
@@ -350,7 +542,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18250,
       "score": {
         "ft": [
           3,
@@ -358,8 +550,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-12-20-port-vale-a",
@@ -370,7 +581,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11000,
       "score": {
         "ft": [
           1,
@@ -378,8 +589,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-12-25-middlesbrough-a",
@@ -390,7 +610,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18500,
       "score": {
         "ft": [
           1,
@@ -398,8 +618,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-12-26-middlesbrough-h",
@@ -410,7 +639,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44500,
       "score": {
         "ft": [
           2,
@@ -418,8 +647,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1924-12-27-leicester-city-a",
@@ -430,7 +673,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18250,
       "score": {
         "ft": [
           0,
@@ -438,7 +681,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +694,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30500,
       "score": {
         "ft": [
           1,
@@ -458,8 +702,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "john-grimwood",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-01-03-stoke-city-h",
@@ -470,7 +723,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24500,
       "score": {
         "ft": [
           2,
@@ -478,8 +731,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-henderson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-01-10-sheffield-wednesday-a",
@@ -490,7 +757,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35079,
       "score": {
         "ft": [
           0,
@@ -499,7 +766,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -512,7 +780,7 @@
       "opponentId": "coventry-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9000,
       "score": {
         "ft": [
           0,
@@ -520,7 +788,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -532,7 +801,7 @@
       "opponentId": "oldham-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           0,
@@ -540,7 +809,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -552,7 +822,7 @@
       "opponentId": "leyton-orient",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18250,
       "score": {
         "ft": [
           4,
@@ -560,8 +830,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred-kennedy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "fred-kennedy",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-pape",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-02-14-crystal-palace-a",
@@ -572,7 +866,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11250,
       "score": {
         "ft": [
           1,
@@ -580,8 +874,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-02-23-sheffield-wednesday-a",
@@ -592,7 +895,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           1,
@@ -600,8 +903,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-pape",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-02-28-wolverhampton-wanderers-h",
@@ -612,7 +924,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21250,
       "score": {
         "ft": [
           3,
@@ -620,8 +932,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "fred-kennedy",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-03-07-fulham-a",
@@ -632,7 +963,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16000,
       "score": {
         "ft": [
           0,
@@ -640,7 +971,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -652,7 +984,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22000,
       "score": {
         "ft": [
           2,
@@ -660,8 +992,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-03-21-hull-city-a",
@@ -672,7 +1018,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6250,
       "score": {
         "ft": [
           1,
@@ -680,8 +1026,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-03-28-blackpool-h",
@@ -692,7 +1047,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26250,
       "score": {
         "ft": [
           0,
@@ -700,7 +1055,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -712,7 +1068,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24000,
       "score": {
         "ft": [
           0,
@@ -720,7 +1076,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -732,7 +1089,7 @@
       "opponentId": "stockport-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43500,
       "score": {
         "ft": [
           2,
@@ -740,8 +1097,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-pape",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "albert-pape",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-04-11-south-shields-h",
@@ -752,7 +1123,7 @@
       "opponentId": "south-shields",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24000,
       "score": {
         "ft": [
           1,
@@ -760,8 +1131,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-04-13-chelsea-a",
@@ -772,7 +1152,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16500,
       "score": {
         "ft": [
           0,
@@ -780,7 +1160,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -792,7 +1173,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13250,
       "score": {
         "ft": [
           1,
@@ -800,8 +1181,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tom-smith",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-04-22-southampton-h",
@@ -812,7 +1202,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26500,
       "score": {
         "ft": [
           1,
@@ -820,8 +1210,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "albert-pape",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-04-25-port-vale-h",
@@ -832,7 +1231,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 33500,
       "score": {
         "ft": [
           4,
@@ -840,8 +1239,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-lochhead",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tom-smith",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1925-05-02-barnsley-a",
@@ -852,7 +1275,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11250,
       "score": {
         "ft": [
           0,
@@ -860,7 +1283,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

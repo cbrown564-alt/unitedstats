@@ -15,14 +15,13 @@ import path from "node:path";
 
 const MU_NAMES = ["Manchester United FC", "Manchester United"];
 
-function currentSeason(now = new Date()): { key: string; openfootballDir: string } {
+/** Season to update: --season 2022-23 to backfill, else derived from today. */
+function targetSeason(now = new Date()): string {
+  const argIdx = process.argv.indexOf("--season");
+  if (argIdx !== -1 && process.argv[argIdx + 1]) return process.argv[argIdx + 1];
   const y = now.getUTCFullYear();
   const startYear = now.getUTCMonth() + 1 >= 7 ? y : y - 1;
-  const endShort = String((startYear + 1) % 100).padStart(2, "0");
-  return {
-    key: `${startYear}-${endShort}`,
-    openfootballDir: `${startYear}-${endShort.length === 2 ? endShort : endShort}`,
-  };
+  return `${startYear}-${String((startYear + 1) % 100).padStart(2, "0")}`;
 }
 
 interface SourceSpec {
@@ -43,56 +42,109 @@ const MONTHS: Record<string, number> = {
   Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12,
 };
 
-interface ParsedFixture {
+interface ParsedScore {
+  ft: [number, number];
+  ht: [number, number] | null;
+  aet: boolean;
+  pens: [number, number] | null;
+}
+
+interface ParsedFixture extends ParsedScore {
   date: string;
   home: string;
   away: string;
-  ftHome: number;
-  ftAway: number;
-  htHome: number | null;
-  htAway: number | null;
+  round: string | null;
 }
 
 /**
- * Parse openfootball fixture text. Format (indentation-based):
- *   ▪ Matchday 1            (or » Round / ▪ Round-of-16 etc.)
- *   Sat Aug 16 2025         (year optional on subsequent dates)
- *     15:00  Home FC  v  Away FC   2-1 (1-0)
- *            Home FC  v  Away FC   2-1
+ * Score grammar (home-team-first):
+ *   "2-1 (1-0)"                          ft + ht
+ *   "2-1"                                ft
+ *   "1-1 a.e.t. (1-1, 0-0)"              aet; ft is the 120' score
+ *   "6-7 pen. 0-0 a.e.t. (0-0)"          shootout; ft is the 120' score
+ */
+function parseScore(s: string): ParsedScore | null {
+  const pens = s.match(/^(\d+)-(\d+)\s+pen\.\s+(\d+)-(\d+)\s+a\.e\.t\.(?:\s+\((\d+)-(\d+)[^)]*\))?$/);
+  if (pens) {
+    return {
+      ft: [+pens[3], +pens[4]],
+      ht: pens[5] ? [+pens[5], +pens[6]] : null,
+      aet: true,
+      pens: [+pens[1], +pens[2]],
+    };
+  }
+  const aet = s.match(/^(\d+)-(\d+)\s+a\.e\.t\.(?:\s+\((\d+)-(\d+)[^)]*\))?$/);
+  if (aet) {
+    return { ft: [+aet[1], +aet[2]], ht: aet[3] ? [+aet[3], +aet[4]] : null, aet: true, pens: null };
+  }
+  const ft = s.match(/^(\d+)-(\d+)(?:\s+\((\d+)-(\d+)\))?$/);
+  if (ft) {
+    return { ft: [+ft[1], +ft[2]], ht: ft[3] ? [+ft[3], +ft[4]] : null, aet: false, pens: null };
+  }
+  return null;
+}
+
+function normalizeRound(header: string): string | null {
+  const h = header.trim();
+  if (/^Matchday/i.test(h)) return null;
+  if (/^Quarter-?finals?$/i.test(h)) return "Quarter-final";
+  if (/^Semi-?finals?$/i.test(h)) return "Semi-final";
+  if (/^Final$/i.test(h)) return "Final";
+  if (/^Round of 16$/i.test(h)) return "Round of 16";
+  const r = h.match(/^Round (\d+)$/i);
+  if (r) return `Round ${r[1]}`;
+  return h;
+}
+
+/**
+ * Parse openfootball fixture text. Two result-line layouts exist across
+ * seasons, both indentation-based under round/date headers:
+ *   15:00  Home FC  v  Away FC   <score>
+ *   15:00  Home FC   <score>   Away FC
  */
 export function parseOpenfootball(text: string, seasonStartYear: number): ParsedFixture[] {
   const fixtures: ParsedFixture[] = [];
   let curDate: string | null = null;
-  let lastYear = seasonStartYear;
+  let curRound: string | null = null;
+  const SCORE = String.raw`\d+-\d+(?:\s+pen\.\s+\d+-\d+\s+a\.e\.t\.|\s+a\.e\.t\.)?(?:\s+\(\d+-\d+[^)]*\))?`;
+  const vLine = new RegExp(String.raw`^\s+(?:\d{1,2}[:.]\d{2}\s+)?(.+?)\s+v\s+(.+?)\s{2,}(${SCORE})\s*$`);
+  const midLine = new RegExp(String.raw`^\s+(?:\d{1,2}[:.]\d{2}\s+)?(\S.*?)\s{2,}(${SCORE})\s{2,}(\S.*?)\s*$`);
+
   for (const rawLine of text.split("\n")) {
     const line = rawLine.replace(/\r$/, "");
+    const header = line.match(/^[▪»]\s*(.+)$/);
+    if (header) {
+      curRound = normalizeRound(header[1]);
+      continue;
+    }
     const dateMatch = line.match(
       /^\s*(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+([A-Z][a-z]{2})\s+(\d{1,2})(?:\s+(\d{4}))?\s*$/,
     );
     if (dateMatch) {
       const mon = MONTHS[dateMatch[1]];
       const day = parseInt(dateMatch[2], 10);
-      let year = dateMatch[3] ? parseInt(dateMatch[3], 10) : mon >= 7 ? seasonStartYear : seasonStartYear + 1;
-      if (dateMatch[3]) lastYear = year;
-      else if (mon >= 7) year = lastYear; // tours/qualifiers edge: keep simple
+      // No explicit year: Aug-Dec = season start year, Jan-Jul = the year
+      // after (July covers COVID-extended 2019-20 style run-ins).
+      const year = dateMatch[3]
+        ? parseInt(dateMatch[3], 10)
+        : mon >= 8 ? seasonStartYear : seasonStartYear + 1;
       curDate = `${year}-${String(mon).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
       continue;
     }
-    // result line: optional kickoff time, "Team v Team", score "x-y" with optional "(a-b)"
-    const m = line.match(
-      /^\s+(?:\d{1,2}[:.]\d{2}\s+)?(.+?)\s+v\s+(.+?)\s{2,}(\d+)-(\d+)(?:\s+\((\d+)-(\d+)\))?\s*$/,
-    );
-    if (m && curDate) {
-      fixtures.push({
-        date: curDate,
-        home: m[1].trim(),
-        away: m[2].trim(),
-        ftHome: parseInt(m[3], 10),
-        ftAway: parseInt(m[4], 10),
-        htHome: m[5] ? parseInt(m[5], 10) : null,
-        htAway: m[6] ? parseInt(m[6], 10) : null,
-      });
+    if (!curDate) continue;
+    let home: string | null = null;
+    let away: string | null = null;
+    let scoreText: string | null = null;
+    const v = line.match(vLine);
+    if (v) { home = v[1]; away = v[2]; scoreText = v[3]; }
+    else {
+      const mid = line.match(midLine);
+      if (mid) { home = mid[1]; away = mid[3]; scoreText = mid[2]; }
     }
+    if (!home || !away || !scoreText) continue;
+    const score = parseScore(scoreText.trim());
+    if (!score) continue;
+    fixtures.push({ date: curDate, home: home.trim(), away: away.trim(), round: curRound, ...score });
   }
   return fixtures;
 }
@@ -105,11 +157,18 @@ async function fetchText(url: string): Promise<string | null> {
 }
 
 async function run() {
-  const { key: season } = currentSeason();
+  const season = targetSeason();
   const startYear = parseInt(season.slice(0, 4), 10);
   const { aliases } = readJson<AliasFile>(path.join(CANONICAL, "opponent-aliases.json"));
   const sf = loadSeasonFile(season);
   const known = new Set(sf.matches.map((m) => m.id));
+  // League sides meet once per venue per season, so opponent+venue dedupes
+  // even when sources disagree on the exact date of the same fixture.
+  const knownLeague = new Set(
+    sf.matches
+      .filter((m) => m.competition === "premier-league")
+      .map((m) => `${m.opponentId}|${m.venue}`),
+  );
   let added = 0;
 
   for (const src of SOURCES) {
@@ -123,39 +182,48 @@ async function run() {
     }
     if (text === null) continue; // file doesn't exist (yet) for this season
 
+    const isCup = src.competition !== "premier-league";
     for (const f of parseOpenfootball(text, startYear)) {
       const isHome = MU_NAMES.includes(f.home);
       const isAway = MU_NAMES.includes(f.away);
       if (!isHome && !isAway) continue;
       if (f.date > new Date().toISOString().slice(0, 10)) continue; // fixture, not result
-      const oppName = isHome ? f.away : f.home;
-      const oppId = opponentIdFor(oppName, aliases);
-      const venue: Venue = isHome ? "H" : "A";
+      const rawOpp = isHome ? f.away : f.home;
+      // strip trailing FC/AFC before alias lookup so "Reading FC" -> reading
+      const oppName = rawOpp.replace(/\s+(FC|AFC)$/, "");
+      const oppId = opponentIdFor(aliases[rawOpp] ? rawOpp : oppName, aliases);
+      // finals (and modern FA Cup semi-finals) are at neutral venues
+      const neutral =
+        isCup && (f.round === "Final" || (src.competition === "fa-cup" && f.round === "Semi-final"));
+      const venue: Venue = neutral ? "N" : isHome ? "H" : "A";
       const id = matchId(f.date, oppId, venue);
       if (known.has(id)) continue;
-      const gf = isHome ? f.ftHome : f.ftAway;
-      const ga = isHome ? f.ftAway : f.ftHome;
-      const ht: [number, number] | null =
-        f.htHome != null && f.htAway != null
-          ? (isHome ? [f.htHome, f.htAway!] : [f.htAway!, f.htHome])
-          : null;
+      if (!isCup && knownLeague.has(`${oppId}|${venue}`)) continue;
+      const flip = <T,>(pair: [T, T]): [T, T] => (isHome ? pair : [pair[1], pair[0]]);
       const match: Match = {
         id,
         date: f.date,
         competition: src.competition,
-        round: null,
-        opponent: oppName.replace(/\s+(FC|AFC)$/, "").replace(/^AFC\s+/, "AFC "),
+        round: isCup ? f.round : null,
+        opponent: oppName,
         opponentId: oppId,
         venue,
-        stadium: null,
+        stadium: neutral ? "wembley" : null,
         attendance: null,
-        score: { ft: [gf, ga], ht },
+        score: {
+          ft: flip(f.ft),
+          ht: f.ht ? flip(f.ht) : null,
+          aet: f.aet || undefined,
+          pens: f.pens ? flip(f.pens) : null,
+        },
         sources: ["openfootball"],
       };
       sf.matches.push(match);
       known.add(id);
+      if (!isCup) knownLeague.add(`${oppId}|${venue}`);
       added++;
-      console.log(`+ ${f.date} ${isHome ? "v" : "@"} ${oppName} ${gf}-${ga} (${src.competition})`);
+      const [gf, ga] = match.score.ft;
+      console.log(`+ ${f.date} ${isHome ? "v" : "@"} ${oppName} ${gf}-${ga}${f.pens ? ` (${match.score.pens!.join("-")} pens)` : ""} (${src.competition}${f.round ? ", " + f.round : ""})`);
     }
   }
 
@@ -164,7 +232,10 @@ async function run() {
   console.log(`NEW_MATCHES=${added}`);
 }
 
-run().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// only run when executed directly (the parser is imported elsewhere)
+if (process.argv[1] && /update\.(ts|js)$/.test(process.argv[1].replace(/\\/g, "/"))) {
+  run().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

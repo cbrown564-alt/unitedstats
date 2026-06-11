@@ -2,6 +2,38 @@
   "season": "2024-25",
   "matches": [
     {
+      "id": "2024-08-10-manchester-city-n",
+      "date": "2024-08-10",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 78168,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": [
+          6,
+          7
+        ]
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 82
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2024-08-16-fulham-h",
       "date": "2024-08-16",
       "competition": "premier-league",
@@ -10,7 +42,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73297,
       "score": {
         "ft": [
           1,
@@ -18,8 +50,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2024-08-24-brighton-and-hove-albion-a",
@@ -30,7 +71,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31537,
       "score": {
         "ft": [
           1,
@@ -38,8 +79,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2024-09-01-liverpool-h",
@@ -50,7 +100,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73738,
       "score": {
         "ft": [
           0,
@@ -58,7 +108,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +121,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31144,
       "score": {
         "ft": [
           3,
@@ -78,8 +129,76 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "matthijs-de-ligt",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 96
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2024-09-17-barnsley-h",
+      "date": "2024-09-17",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Barnsley",
+      "opponentId": "barnsley",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72063,
+      "score": {
+        "ft": [
+          7,
+          0
+        ],
+        "ht": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 16
+        },
+        {
+          "type": "pen-goal",
+          "player": "antony",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "christian-eriksen",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2024-09-21-crystal-palace-a",
@@ -90,7 +209,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25172,
       "score": {
         "ft": [
           0,
@@ -98,7 +217,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2024-09-25-twente-h",
+      "date": "2024-09-25",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Twente",
+      "opponentId": "twente",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73069,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "christian-eriksen",
+          "minute": 35
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +259,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73587,
       "score": {
         "ft": [
           0,
@@ -118,7 +267,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2024-10-03-porto-a",
+      "date": "2024-10-03",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Porto",
+      "opponentId": "porto",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 49211,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 20
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 91
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +319,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42682,
       "score": {
         "ft": [
           0,
@@ -138,7 +327,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +340,7 @@
       "opponentId": "brentford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73738,
       "score": {
         "ft": [
           2,
@@ -158,7 +348,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2024-10-24-fenerbahce-a",
+      "date": "2024-10-24",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Fenerbahçe S.K.",
+      "opponentId": "fenerbahce",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41443,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "christian-eriksen",
+          "minute": 15
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +403,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 62474,
       "score": {
         "ft": [
           1,
@@ -178,8 +411,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2024-10-30-leicester-city-h",
+      "date": "2024-10-30",
+      "competition": "league-cup",
+      "round": "Round of 16",
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73470,
+      "score": {
+        "ft": [
+          5,
+          2
+        ],
+        "ht": [
+          4,
+          2
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 36
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2024-11-03-chelsea-h",
@@ -190,7 +476,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73813,
       "score": {
         "ft": [
           1,
@@ -198,7 +484,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2024-11-07-paok-h",
+      "date": "2024-11-07",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "PAOK",
+      "opponentId": "paok",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73174,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 50
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +534,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73829,
       "score": {
         "ft": [
           3,
@@ -218,8 +542,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 17
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 38,
+          "detail": "Victor Kristiansen (og)"
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2024-11-24-ipswich-town-a",
@@ -230,7 +574,7 @@
       "opponentId": "ipswich-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30017,
       "score": {
         "ft": [
           1,
@@ -238,7 +582,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 2
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2024-11-28-fk-bod-glimt-h",
+      "date": "2024-11-28",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FK Bodø/Glimt",
+      "opponentId": "fk-bod-glimt",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72985,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 1
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 45
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +637,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73817,
       "score": {
         "ft": [
           4,
@@ -258,8 +645,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 41
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2024-12-04-arsenal-a",
@@ -270,7 +671,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60256,
       "score": {
         "ft": [
           0,
@@ -278,7 +679,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +692,7 @@
       "opponentId": "nottingham-forest",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73778,
       "score": {
         "ft": [
           2,
@@ -298,7 +700,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 18
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 61
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2024-12-12-viktoria-plzen-a",
+      "date": "2024-12-12",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Viktoria Plzeň",
+      "opponentId": "viktoria-plzen",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 11320,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 62
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +755,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52788,
       "score": {
         "ft": [
           2,
@@ -318,8 +763,66 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 88
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2024-12-19-tottenham-hotspur-a",
+      "date": "2024-12-19",
+      "competition": "league-cup",
+      "round": "Quarter-final",
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 57409,
+      "score": {
+        "ft": [
+          3,
+          4
+        ],
+        "ht": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "jonny-evans",
+          "minute": 94
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2024-12-22-bournemouth-h",
@@ -330,7 +833,7 @@
       "opponentId": "bournemouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73720,
       "score": {
         "ft": [
           0,
@@ -338,7 +841,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +854,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31407,
       "score": {
         "ft": [
           0,
@@ -358,7 +862,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +875,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73809,
       "score": {
         "ft": [
           0,
@@ -378,7 +883,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +896,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60275,
       "score": {
         "ft": [
           2,
@@ -398,8 +904,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lisandro-martinez",
+          "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-01-12-arsenal-a",
+      "date": "2025-01-12",
+      "competition": "fa-cup",
+      "round": "Round 3",
+      "opponent": "Arsenal",
+      "opponentId": "arsenal",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 60109,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "aet": true,
+        "pens": [
+          5,
+          3
+        ]
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-01-16-southampton-h",
@@ -410,7 +968,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73722,
       "score": {
         "ft": [
           3,
@@ -418,8 +976,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2025-01-19-brighton-and-hove-albion-h",
@@ -430,7 +997,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73758,
       "score": {
         "ft": [
           1,
@@ -438,7 +1005,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 23
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-01-23-rangers-h",
+      "date": "2025-01-23",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Rangers",
+      "opponentId": "rangers",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73288,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 52,
+          "detail": "Jack Butland (og)"
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -450,7 +1061,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27288,
       "score": {
         "ft": [
           1,
@@ -458,7 +1069,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "lisandro-martinez",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-01-30-fcsb-a",
+      "date": "2025-01-30",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FCSB",
+      "opponentId": "fcsb",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 50128,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 60,
+          "detail": "Diogo Dalot (og)"
+        },
+        {
+          "type": "goal",
+          "player": "kobbie-mainoo",
+          "minute": 68
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -470,7 +1125,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73751,
       "score": {
         "ft": [
           0,
@@ -478,8 +1133,48 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
+    },
+    {
+      "id": "2025-02-07-leicester-city-h",
+      "date": "2025-02-07",
+      "competition": "fa-cup",
+      "round": "Round 4",
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73693,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "ht": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 68
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-02-16-tottenham-hotspur-a",
@@ -490,7 +1185,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 61383,
       "score": {
         "ft": [
           0,
@@ -498,7 +1193,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -510,7 +1206,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39290,
       "score": {
         "ft": [
           2,
@@ -518,8 +1214,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 72
+        },
+        {
+          "type": "goal",
+          "player": "manuel-ugarte",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-02-26-ipswich-town-h",
@@ -530,7 +1240,7 @@
       "opponentId": "ipswich-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73827,
       "score": {
         "ft": [
           3,
@@ -538,7 +1248,94 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 22,
+          "detail": "Sam Morsy (og)"
+        },
+        {
+          "type": "goal",
+          "player": "matthijs-de-ligt",
+          "minute": 26
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-03-02-fulham-h",
+      "date": "2025-03-02",
+      "competition": "fa-cup",
+      "round": "Round of 16",
+      "opponent": "Fulham",
+      "opponentId": "fulham",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67614,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "aet": true,
+        "pens": [
+          3,
+          4
+        ]
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-03-06-real-sociedad-a",
+      "date": "2025-03-06",
+      "competition": "europa-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Real Sociedad",
+      "opponentId": "real-sociedad",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 34391,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 57
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -550,7 +1347,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73812,
       "score": {
         "ft": [
           1,
@@ -558,7 +1355,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-03-13-real-sociedad-h",
+      "date": "2025-03-13",
+      "competition": "europa-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Real Sociedad",
+      "opponentId": "real-sociedad",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73189,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 16
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 91,
+          "detail": "Diogo Dalot (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -570,7 +1411,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31773,
       "score": {
         "ft": [
           3,
@@ -578,8 +1419,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2025-04-01-nottingham-forest-a",
@@ -590,7 +1450,7 @@
       "opponentId": "nottingham-forest",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30249,
       "score": {
         "ft": [
           0,
@@ -598,7 +1458,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -610,7 +1471,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73738,
       "score": {
         "ft": [
           0,
@@ -618,7 +1479,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2025-04-10-olympique-lyonnais-a",
+      "date": "2025-04-10",
+      "competition": "europa-league",
+      "round": "Quarter-final First leg",
+      "opponent": "Olympique Lyonnais",
+      "opponentId": "olympique-lyonnais",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 58018,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "leny-yoro",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -630,7 +1526,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52252,
       "score": {
         "ft": [
           1,
@@ -638,7 +1534,66 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 37
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-04-17-lyon-h",
+      "date": "2025-04-17",
+      "competition": "europa-league",
+      "round": "Quarter-final Second leg",
+      "opponent": "Lyon",
+      "opponentId": "lyon",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73228,
+      "score": {
+        "ft": [
+          5,
+          4
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "manuel-ugarte",
+          "minute": 10
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 46,
+          "detail": "Diogo Dalot (og)"
+        },
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 114
+        },
+        {
+          "type": "goal",
+          "player": "kobbie-mainoo",
+          "minute": 120
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 121
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -650,7 +1605,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73819,
       "score": {
         "ft": [
           0,
@@ -658,7 +1613,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -670,7 +1626,7 @@
       "opponentId": "bournemouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11241,
       "score": {
         "ft": [
           1,
@@ -678,7 +1634,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 96
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-05-01-athletic-bilbao-a",
+      "date": "2025-05-01",
+      "competition": "europa-league",
+      "round": "Semi-final First leg",
+      "opponent": "Athletic Bilbao",
+      "opponentId": "athletic-bilbao",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 51980,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 30
+        },
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 37
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -690,7 +1689,7 @@
       "opponentId": "brentford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17190,
       "score": {
         "ft": [
           3,
@@ -698,7 +1697,65 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-mount",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "alejandro-garnacho",
+          "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 95
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2025-05-08-athletic-bilbao-h",
+      "date": "2025-05-08",
+      "competition": "europa-league",
+      "round": "Semi-final Second leg",
+      "opponent": "Athletic Bilbao",
+      "opponentId": "athletic-bilbao",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73298,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-mount",
+          "minute": 72
+        },
+        {
+          "type": "goal",
+          "player": "casemiro",
+          "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "rasmus-h-jlund",
+          "minute": 85
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -710,7 +1767,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73804,
       "score": {
         "ft": [
           0,
@@ -718,7 +1775,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -730,7 +1788,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39849,
       "score": {
         "ft": [
           0,
@@ -738,7 +1796,29 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2025-05-21-tottenham-hotspur-n",
+      "date": "2025-05-21",
+      "competition": "europa-league",
+      "round": "Final",
+      "opponent": "Tottenham Hotspur",
+      "opponentId": "tottenham-hotspur",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 49924,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -750,7 +1830,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73839,
       "score": {
         "ft": [
           2,
@@ -758,8 +1838,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "amad-diallo",
+          "minute": 76
+        },
+        {
+          "type": "pen-goal",
+          "player": "christian-eriksen",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

@@ -10,7 +10,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 72732,
       "score": {
         "ft": [
           5,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2021-08-22-southampton-a",
@@ -30,7 +49,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29485,
       "score": {
         "ft": [
           1,
@@ -38,8 +57,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 55
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2021-08-29-wolverhampton-wanderers-a",
@@ -50,7 +78,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30621,
       "score": {
         "ft": [
           1,
@@ -58,8 +86,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 80
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2021-09-11-newcastle-united-h",
@@ -70,7 +107,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 72732,
       "score": {
         "ft": [
           4,
@@ -78,7 +115,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 47
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 80
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2021-09-14-bsc-young-boys-a",
+      "date": "2021-09-14",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "BSC Young Boys",
+      "opponentId": "bsc-young-boys",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31120,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 13
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +175,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 59958,
       "score": {
         "ft": [
           2,
@@ -98,7 +183,47 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2021-09-22-west-ham-united-h",
+      "date": "2021-09-22",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72468,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "ht": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +235,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 72922,
       "score": {
         "ft": [
           0,
@@ -118,7 +243,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2021-09-29-villarreal-cf-h",
+      "date": "2021-09-29",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Villarreal CF",
+      "opponentId": "villarreal-cf",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73130,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-telles",
+          "minute": 60
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 95
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +290,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73128,
       "score": {
         "ft": [
           1,
@@ -138,8 +298,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 43
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2021-10-16-leicester-city-a",
@@ -150,7 +319,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32219,
       "score": {
         "ft": [
           2,
@@ -158,7 +327,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 82
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2021-10-20-atalanta-h",
+      "date": "2021-10-20",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Atalanta B.C.",
+      "opponentId": "atalanta",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72279,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 53
+        },
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 75
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 81
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +392,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73088,
       "score": {
         "ft": [
           0,
@@ -178,7 +400,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +413,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60356,
       "score": {
         "ft": [
           3,
@@ -198,7 +421,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "edinson-cavani",
+          "minute": 64
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2021-11-02-atalanta-a",
+      "date": "2021-11-02",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Atalanta B.C.",
+      "opponentId": "atalanta",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 14443,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 46
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +481,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73086,
       "score": {
         "ft": [
           0,
@@ -218,7 +489,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -230,7 +502,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21087,
       "score": {
         "ft": [
           1,
@@ -238,7 +510,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "donny-van-de-beek",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2021-11-23-villarreal-cf-a",
+      "date": "2021-11-23",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Villarreal CF",
+      "opponentId": "villarreal-cf",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20875,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 78
+        },
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 90
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +565,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40041,
       "score": {
         "ft": [
           1,
@@ -258,8 +573,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 50
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2021-12-02-arsenal-h",
@@ -270,7 +594,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73123,
       "score": {
         "ft": [
           3,
@@ -278,8 +602,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2021-12-05-crystal-palace-h",
@@ -290,7 +628,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73172,
       "score": {
         "ft": [
           1,
@@ -298,7 +636,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2021-12-08-bsc-young-boys-h",
+      "date": "2021-12-08",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "BSC Young Boys",
+      "opponentId": "bsc-young-boys",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73156,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 9
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +686,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27606,
       "score": {
         "ft": [
           1,
@@ -318,8 +694,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2021-12-27-newcastle-united-a",
@@ -330,7 +715,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52178,
       "score": {
         "ft": [
           1,
@@ -338,8 +723,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "edinson-cavani",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2021-12-30-burnley-h",
@@ -350,7 +744,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73121,
       "score": {
         "ft": [
           3,
@@ -358,8 +752,28 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 8
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 27,
+          "detail": "Ben Mee (og)"
+        },
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 35
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-01-03-wolverhampton-wanderers-h",
@@ -370,7 +784,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73045,
       "score": {
         "ft": [
           0,
@@ -378,8 +792,43 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
+    },
+    {
+      "id": "2022-01-10-aston-villa-h",
+      "date": "2022-01-10",
+      "competition": "fa-cup",
+      "round": "Round 3",
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 72911,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "scott-mctominay",
+          "minute": 8
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-01-15-aston-villa-a",
@@ -390,7 +839,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41968,
       "score": {
         "ft": [
           2,
@@ -398,8 +847,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 6
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2022-01-19-brentford-a",
@@ -410,7 +868,7 @@
       "opponentId": "brentford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17094,
       "score": {
         "ft": [
           3,
@@ -418,8 +876,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-elanga",
+          "minute": 55
+        },
+        {
+          "type": "goal",
+          "player": "mason-greenwood",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 77
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-01-22-west-ham-united-h",
@@ -430,7 +907,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73130,
       "score": {
         "ft": [
           1,
@@ -438,8 +915,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-02-04-middlesbrough-h",
+      "date": "2022-02-04",
+      "competition": "fa-cup",
+      "round": "Round 4",
+      "opponent": "Middlesbrough",
+      "opponentId": "middlesbrough",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 71871,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "aet": true,
+        "pens": [
+          7,
+          8
+        ]
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 25
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-02-08-burnley-a",
@@ -450,7 +974,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21233,
       "score": {
         "ft": [
           1,
@@ -458,8 +982,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 18,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-02-12-southampton-h",
@@ -470,7 +1004,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73084,
       "score": {
         "ft": [
           1,
@@ -478,8 +1012,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 21
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-02-15-brighton-and-hove-albion-h",
@@ -490,7 +1033,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73012,
       "score": {
         "ft": [
           2,
@@ -498,8 +1041,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 51
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 97
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-02-20-leeds-united-a",
@@ -510,7 +1067,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36715,
       "score": {
         "ft": [
           4,
@@ -518,7 +1075,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-maguire",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 50
+        },
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 70
+        },
+        {
+          "type": "goal",
+          "player": "anthony-elanga",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2022-02-23-atletico-madrid-a",
+      "date": "2022-02-23",
+      "competition": "champions-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Atlético Madrid",
+      "opponentId": "atletico-madrid",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 63273,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-elanga",
+          "minute": 80
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -530,7 +1140,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73152,
       "score": {
         "ft": [
           0,
@@ -538,7 +1148,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -550,7 +1161,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 53165,
       "score": {
         "ft": [
           1,
@@ -558,8 +1169,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jadon-sancho",
+          "minute": 22
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-03-12-tottenham-hotspur-h",
@@ -570,7 +1190,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73458,
       "score": {
         "ft": [
           3,
@@ -578,7 +1198,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 12
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2022-03-15-atletico-madrid-h",
+      "date": "2022-03-15",
+      "competition": "champions-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Atlético Madrid",
+      "opponentId": "atletico-madrid",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73008,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -590,7 +1240,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73444,
       "score": {
         "ft": [
           1,
@@ -598,8 +1248,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "fred",
+          "minute": 66
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-04-09-everton-a",
@@ -610,7 +1269,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39080,
       "score": {
         "ft": [
           0,
@@ -618,7 +1277,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -630,7 +1290,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73381,
       "score": {
         "ft": [
           3,
@@ -638,8 +1298,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 7
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2022-04-19-liverpool-a",
@@ -650,7 +1319,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52686,
       "score": {
         "ft": [
           0,
@@ -658,7 +1327,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -670,7 +1340,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60223,
       "score": {
         "ft": [
           1,
@@ -678,8 +1348,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 34
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-04-28-chelsea-h",
@@ -690,7 +1369,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73564,
       "score": {
         "ft": [
           1,
@@ -698,8 +1377,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "cristiano-ronaldo",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-05-02-brentford-h",
@@ -710,7 +1398,7 @@
       "opponentId": "brentford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 73482,
       "score": {
         "ft": [
           3,
@@ -718,8 +1406,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 9
+        },
+        {
+          "type": "pen-goal",
+          "player": "cristiano-ronaldo",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "raphael-varane",
+          "minute": 72
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2022-05-07-brighton-and-hove-albion-a",
@@ -730,7 +1437,7 @@
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31637,
       "score": {
         "ft": [
           0,
@@ -738,7 +1445,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -750,7 +1458,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25434,
       "score": {
         "ft": [
           0,
@@ -758,7 +1466,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     }
   ]

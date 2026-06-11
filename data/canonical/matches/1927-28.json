@@ -10,7 +10,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 44957,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-08-29-sheffield-wednesday-a",
@@ -30,7 +49,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17944,
       "score": {
         "ft": [
           2,
@@ -38,8 +57,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "teddy-partridge",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-09-03-birmingham-city-a",
@@ -50,7 +83,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25863,
       "score": {
         "ft": [
           0,
@@ -58,7 +91,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -70,7 +104,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18759,
       "score": {
         "ft": [
           1,
@@ -78,8 +112,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-09-10-newcastle-united-h",
@@ -90,7 +133,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 50217,
       "score": {
         "ft": [
           1,
@@ -98,8 +141,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-09-17-huddersfield-town-a",
@@ -110,7 +162,7 @@
       "opponentId": "huddersfield-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17307,
       "score": {
         "ft": [
           2,
@@ -118,8 +170,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-09-19-blackburn-rovers-a",
@@ -130,7 +196,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18243,
       "score": {
         "ft": [
           0,
@@ -138,7 +204,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +217,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13952,
       "score": {
         "ft": [
           3,
@@ -158,8 +225,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-10-01-leicester-city-a",
@@ -170,7 +256,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22385,
       "score": {
         "ft": [
           0,
@@ -178,7 +264,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +277,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40080,
       "score": {
         "ft": [
           2,
@@ -198,8 +285,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "ray-bennion",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-10-15-cardiff-city-h",
@@ -210,7 +311,7 @@
       "opponentId": "cardiff-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31090,
       "score": {
         "ft": [
           2,
@@ -218,8 +319,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "eric-sweeney",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-10-22-derby-county-h",
@@ -230,7 +345,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18304,
       "score": {
         "ft": [
           5,
@@ -238,8 +353,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-10-29-west-ham-united-a",
@@ -250,7 +394,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21972,
       "score": {
         "ft": [
           2,
@@ -258,8 +402,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-11-05-portsmouth-h",
@@ -270,7 +429,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13119,
       "score": {
         "ft": [
           2,
@@ -278,8 +437,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "own goal (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-11-12-sunderland-a",
@@ -290,7 +464,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13319,
       "score": {
         "ft": [
           1,
@@ -298,8 +472,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-11-19-aston-villa-h",
@@ -310,7 +493,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25991,
       "score": {
         "ft": [
           5,
@@ -318,8 +501,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-partridge",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "teddy-partridge",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-11-26-burnley-a",
@@ -330,7 +542,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18509,
       "score": {
         "ft": [
           0,
@@ -338,7 +550,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -350,7 +563,7 @@
       "opponentId": "bury",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23581,
       "score": {
         "ft": [
           0,
@@ -358,7 +571,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -370,7 +584,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11984,
       "score": {
         "ft": [
           1,
@@ -378,8 +592,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-12-17-arsenal-h",
@@ -390,7 +613,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18120,
       "score": {
         "ft": [
           4,
@@ -398,8 +621,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "teddy-partridge",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-12-24-liverpool-a",
@@ -410,7 +657,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14971,
       "score": {
         "ft": [
           0,
@@ -418,7 +665,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -430,7 +678,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31131,
       "score": {
         "ft": [
           1,
@@ -438,8 +686,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1927-12-31-middlesbrough-a",
@@ -450,7 +707,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19652,
       "score": {
         "ft": [
           2,
@@ -458,8 +715,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-01-07-birmingham-city-h",
@@ -470,7 +741,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16853,
       "score": {
         "ft": [
           1,
@@ -478,8 +749,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-01-14-brentford-h",
@@ -490,7 +770,7 @@
       "opponentId": "brentford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18538,
       "score": {
         "ft": [
           7,
@@ -499,9 +779,48 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "frank-mcpherson",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-01-21-newcastle-united-a",
@@ -512,7 +831,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25912,
       "score": {
         "ft": [
           1,
@@ -520,8 +839,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "teddy-partridge",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-01-28-bury-a",
@@ -532,7 +860,7 @@
       "opponentId": "bury",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           1,
@@ -541,9 +869,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-02-01-bury-h",
@@ -554,7 +891,7 @@
       "opponentId": "bury",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 48001,
       "score": {
         "ft": [
           1,
@@ -563,9 +900,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay"
+      "notes": "FA Cup replay",
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-02-04-tottenham-hotspur-a",
@@ -576,7 +922,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23545,
       "score": {
         "ft": [
           1,
@@ -584,8 +930,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-02-11-leicester-city-h",
@@ -596,7 +951,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16640,
       "score": {
         "ft": [
           5,
@@ -604,8 +959,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-nicol",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-nicol",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-02-18-birmingham-city-h",
@@ -616,7 +1000,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52568,
       "score": {
         "ft": [
           1,
@@ -625,9 +1009,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-02-25-cardiff-city-a",
@@ -638,7 +1031,7 @@
       "opponentId": "cardiff-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15579,
       "score": {
         "ft": [
           0,
@@ -646,7 +1039,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -658,7 +1052,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 42312,
       "score": {
         "ft": [
           0,
@@ -667,7 +1061,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -680,7 +1075,7 @@
       "opponentId": "huddersfield-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35413,
       "score": {
         "ft": [
           0,
@@ -688,7 +1083,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -700,7 +1096,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21577,
       "score": {
         "ft": [
           1,
@@ -708,8 +1104,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-03-14-everton-h",
@@ -720,7 +1125,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25667,
       "score": {
         "ft": [
           1,
@@ -728,8 +1133,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-03-17-portsmouth-a",
@@ -740,7 +1154,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25400,
       "score": {
         "ft": [
           0,
@@ -748,7 +1162,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -760,7 +1175,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8323,
       "score": {
         "ft": [
           0,
@@ -768,7 +1183,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -780,7 +1196,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24691,
       "score": {
         "ft": [
           1,
@@ -788,8 +1204,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-04-06-bolton-wanderers-a",
@@ -800,7 +1225,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23795,
       "score": {
         "ft": [
           2,
@@ -808,8 +1233,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-thomas",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-04-07-burnley-h",
@@ -820,7 +1259,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28311,
       "score": {
         "ft": [
           4,
@@ -828,8 +1267,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "rees-williams",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-04-09-bolton-wanderers-h",
@@ -840,7 +1303,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 28590,
       "score": {
         "ft": [
           2,
@@ -848,8 +1311,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-04-14-bury-a",
@@ -860,7 +1337,7 @@
       "opponentId": "bury",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17440,
       "score": {
         "ft": [
           3,
@@ -868,8 +1345,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "hugh-mclenahan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "rees-williams",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-04-21-sheffield-united-h",
@@ -880,7 +1376,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27137,
       "score": {
         "ft": [
           2,
@@ -888,8 +1384,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-thomas",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-04-25-sunderland-h",
@@ -900,7 +1410,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9545,
       "score": {
         "ft": [
           2,
@@ -908,8 +1418,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "billy-johnston",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-04-28-arsenal-a",
@@ -920,7 +1444,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22452,
       "score": {
         "ft": [
           1,
@@ -928,8 +1452,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1928-05-05-liverpool-h",
@@ -940,7 +1473,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30625,
       "score": {
         "ft": [
           6,
@@ -948,8 +1481,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bill-rawlings",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-hanson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

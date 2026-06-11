@@ -10,7 +10,7 @@
       "opponentId": "bristol-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25000,
       "score": {
         "ft": [
           5,
@@ -18,8 +18,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-09-04-blackpool-h",
@@ -30,7 +59,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           2,
@@ -38,8 +67,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-09-09-grimsby-town-a",
@@ -50,7 +93,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           1,
@@ -58,8 +101,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-09-16-glossop-a",
@@ -70,7 +122,7 @@
       "opponentId": "glossop",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           2,
@@ -78,8 +130,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-bell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-09-23-stockport-county-h",
@@ -90,7 +156,7 @@
       "opponentId": "stockport-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           3,
@@ -98,8 +164,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-09-30-blackpool-a",
@@ -110,7 +195,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           1,
@@ -118,8 +203,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-roberts",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-10-07-bradford-city-h",
@@ -130,7 +224,7 @@
       "opponentId": "bradford-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17000,
       "score": {
         "ft": [
           0,
@@ -138,7 +232,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +245,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -158,7 +253,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +266,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           3,
@@ -178,8 +274,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-10-25-gainsborough-trinity-a",
@@ -190,7 +305,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4000,
       "score": {
         "ft": [
           2,
@@ -198,8 +313,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bob-bonthron",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "bob-bonthron",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-10-28-hull-city-a",
@@ -210,7 +339,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14000,
       "score": {
         "ft": [
           1,
@@ -218,8 +347,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-11-04-lincoln-city-h",
@@ -230,7 +368,7 @@
       "opponentId": "lincoln-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           2,
@@ -238,8 +376,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-roberts",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-11-11-chesterfield-a",
@@ -250,7 +402,7 @@
       "opponentId": "chesterfield",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -258,7 +410,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +423,7 @@
       "opponentId": "port-vale",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           3,
@@ -278,8 +431,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1905-11-25-barnsley-a",
@@ -290,7 +457,7 @@
       "opponentId": "barnsley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           3,
@@ -298,8 +465,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "1905-12-02-leyton-orient-h",
@@ -310,7 +491,7 @@
       "opponentId": "leyton-orient",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           4,
@@ -318,8 +499,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-12-09-burnley-a",
@@ -330,7 +535,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           3,
@@ -338,8 +543,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-12-23-burton-united-a",
@@ -350,7 +574,7 @@
       "opponentId": "burton-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           2,
@@ -358,8 +582,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1905-12-25-chelsea-h",
@@ -370,7 +608,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35000,
       "score": {
         "ft": [
           0,
@@ -378,7 +616,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -390,7 +629,7 @@
       "opponentId": "bristol-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18000,
       "score": {
         "ft": [
           1,
@@ -398,8 +637,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-roberts",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-01-06-grimsby-town-h",
@@ -410,7 +658,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           5,
@@ -418,8 +666,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-01-13-staple-hill-h",
@@ -430,7 +707,7 @@
       "opponentId": "staple-hill",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7560,
       "score": {
         "ft": [
           7,
@@ -439,9 +716,48 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-allan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-williams",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-01-15-leeds-city-h",
@@ -452,7 +768,7 @@
       "opponentId": "leeds-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6000,
       "score": {
         "ft": [
           0,
@@ -460,7 +776,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -472,7 +789,7 @@
       "opponentId": "glossop",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 7000,
       "score": {
         "ft": [
           5,
@@ -480,8 +797,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-williams",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-01-27-stockport-county-a",
@@ -492,7 +838,7 @@
       "opponentId": "stockport-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           1,
@@ -500,8 +846,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-02-03-norwich-city-h",
@@ -512,7 +867,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10000,
       "score": {
         "ft": [
           3,
@@ -521,9 +876,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "alex-downie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-02-10-bradford-city-a",
@@ -534,7 +908,7 @@
       "opponentId": "bradford-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           5,
@@ -542,8 +916,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "clem-beddow",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-roberts",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-wombwell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-02-17-west-bromwich-albion-h",
@@ -554,7 +957,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           0,
@@ -562,7 +965,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -574,7 +978,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35500,
       "score": {
         "ft": [
           5,
@@ -583,9 +987,38 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-03-03-hull-city-h",
@@ -596,7 +1029,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30000,
       "score": {
         "ft": [
           5,
@@ -604,8 +1037,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-03-10-arsenal-h",
@@ -616,7 +1078,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26500,
       "score": {
         "ft": [
           2,
@@ -625,9 +1087,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-03-17-chesterfield-h",
@@ -638,7 +1114,7 @@
       "opponentId": "chesterfield",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16000,
       "score": {
         "ft": [
           4,
@@ -646,8 +1122,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-03-24-port-vale-a",
@@ -658,7 +1158,7 @@
       "opponentId": "port-vale",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3000,
       "score": {
         "ft": [
           0,
@@ -666,7 +1166,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -678,7 +1179,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5000,
       "score": {
         "ft": [
           5,
@@ -686,8 +1187,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-03-31-barnsley-h",
@@ -698,7 +1228,7 @@
       "opponentId": "barnsley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           5,
@@ -706,8 +1236,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alex-bell",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-04-07-leyton-orient-a",
@@ -718,7 +1277,7 @@
       "opponentId": "leyton-orient",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8000,
       "score": {
         "ft": [
           1,
@@ -726,8 +1285,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-04-13-chelsea-a",
@@ -738,7 +1306,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60000,
       "score": {
         "ft": [
           1,
@@ -746,8 +1314,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-04-14-burnley-h",
@@ -758,7 +1335,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12000,
       "score": {
         "ft": [
           1,
@@ -766,8 +1343,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-04-16-gainsborough-trinity-h",
@@ -778,7 +1364,7 @@
       "opponentId": "gainsborough-trinity",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20000,
       "score": {
         "ft": [
           2,
@@ -786,8 +1372,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-allan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-allan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-04-21-leeds-city-a",
@@ -798,7 +1398,7 @@
       "opponentId": "leeds-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           3,
@@ -806,8 +1406,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-allan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "dick-wombwell",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-04-25-lincoln-city-a",
@@ -818,7 +1437,7 @@
       "opponentId": "lincoln-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 1500,
       "score": {
         "ft": [
           3,
@@ -826,8 +1445,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-allan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-allan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1906-04-28-burton-united-h",
@@ -838,7 +1476,7 @@
       "opponentId": "burton-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 16000,
       "score": {
         "ft": [
           6,
@@ -846,8 +1484,42 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "charlie-sagar",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-picken",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jack-peddie",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-wall",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

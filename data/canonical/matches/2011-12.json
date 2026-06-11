@@ -2,6 +2,40 @@
   "season": "2011-12",
   "matches": [
     {
+      "id": "2011-08-07-manchester-city-n",
+      "date": "2011-08-07",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 77169,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 52
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 58
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2011-08-14-west-bromwich-albion-a",
       "date": "2011-08-14",
       "competition": "premier-league",
@@ -10,7 +44,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25360,
       "score": {
         "ft": [
           2,
@@ -18,8 +52,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 13
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 81,
+          "detail": "Steven Reid (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2011-08-22-tottenham-hotspur-h",
@@ -30,7 +79,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75498,
       "score": {
         "ft": [
           3,
@@ -38,8 +87,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "anderson",
+          "minute": 76
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2011-08-28-arsenal-h",
@@ -50,7 +118,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75448,
       "score": {
         "ft": [
           8,
@@ -58,8 +126,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 67
+        },
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 70
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2011-09-10-bolton-wanderers-a",
@@ -70,7 +167,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25944,
       "score": {
         "ft": [
           5,
@@ -78,7 +175,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2011-09-14-benfica-a",
+      "date": "2011-09-14",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "S.L. Benfica",
+      "opponentId": "benfica",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 63822,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 42
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +230,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75455,
       "score": {
         "ft": [
           3,
@@ -98,7 +238,60 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 45
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-09-20-leeds-united-a",
+      "date": "2011-09-20",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Leeds United",
+      "opponentId": "leeds-united",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31031,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 46
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +303,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27582,
       "score": {
         "ft": [
           1,
@@ -118,7 +311,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-09-27-basel-h",
+      "date": "2011-09-27",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Basel",
+      "opponentId": "basel",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73115,
+      "score": {
+        "ft": [
+          3,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 16
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 90
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +366,7 @@
       "opponentId": "norwich-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75514,
       "score": {
         "ft": [
           2,
@@ -138,8 +374,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anderson",
+          "minute": 68
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 87
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2011-10-15-liverpool-a",
@@ -150,7 +400,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 45065,
       "score": {
         "ft": [
           1,
@@ -158,7 +408,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-10-18-otelul-galati-a",
+      "date": "2011-10-18",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Oțelul Galați",
+      "opponentId": "otelul-galati",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 28047,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 64
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +458,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75487,
       "score": {
         "ft": [
           1,
@@ -178,7 +466,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-10-25-aldershot-town-a",
+      "date": "2011-10-25",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Aldershot Town",
+      "opponentId": "aldershot-town",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 7044,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "michael-owen",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 48
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +526,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 35494,
       "score": {
         "ft": [
           1,
@@ -198,7 +534,51 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 19
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-11-02-otelul-galati-h",
+      "date": "2011-11-02",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Oțelul Galați",
+      "opponentId": "otelul-galati",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74847,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 8
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 87,
+          "detail": "Cristian Sârghi (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +590,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75570,
       "score": {
         "ft": [
           1,
@@ -218,8 +598,18 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 46,
+          "detail": "Wes Brown (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2011-11-19-swansea-city-a",
@@ -230,7 +620,7 @@
       "opponentId": "swansea-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20295,
       "score": {
         "ft": [
           1,
@@ -238,7 +628,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 11
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-11-22-benfica-h",
+      "date": "2011-11-22",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "S.L. Benfica",
+      "opponentId": "benfica",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74873,
+      "score": {
+        "ft": [
+          2,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "darren-fletcher",
+          "minute": 59
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +683,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75594,
       "score": {
         "ft": [
           1,
@@ -258,7 +691,46 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-11-30-crystal-palace-h",
+      "date": "2011-11-30",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "Crystal Palace",
+      "opponentId": "crystal-palace",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 52624,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "aet": true,
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "federico-macheda",
+          "minute": 69
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +742,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40053,
       "score": {
         "ft": [
           1,
@@ -278,7 +750,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "phil-jones",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2011-12-07-basel-a",
+      "date": "2011-12-07",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "FC Basel",
+      "opponentId": "basel",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 36894,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "phil-jones",
+          "minute": 89
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +800,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75627,
       "score": {
         "ft": [
           4,
@@ -298,8 +808,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 27
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2011-12-18-queens-park-rangers-a",
@@ -310,7 +834,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18033,
       "score": {
         "ft": [
           2,
@@ -318,8 +842,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 1
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 56
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2011-12-21-fulham-a",
@@ -330,7 +868,7 @@
       "opponentId": "fulham",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25700,
       "score": {
         "ft": [
           5,
@@ -338,8 +876,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 5
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 28
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 88
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 90
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2011-12-26-wigan-athletic-h",
@@ -350,7 +917,7 @@
       "opponentId": "wigan-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75183,
       "score": {
         "ft": [
           5,
@@ -358,8 +925,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 8
+        },
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2011-12-31-blackburn-rovers-h",
@@ -370,7 +956,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75146,
       "score": {
         "ft": [
           2,
@@ -378,8 +964,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dimitar-berbatov",
+          "minute": 52
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2012-01-04-newcastle-united-a",
@@ -390,7 +985,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52299,
       "score": {
         "ft": [
           0,
@@ -398,7 +993,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +1006,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46808,
       "score": {
         "ft": [
           3,
@@ -419,9 +1015,23 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 30
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2012-01-14-bolton-wanderers-h",
@@ -432,7 +1042,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75444,
       "score": {
         "ft": [
           3,
@@ -440,8 +1050,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 74
+        },
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 83
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-01-22-arsenal-a",
@@ -452,7 +1081,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60093,
       "score": {
         "ft": [
           2,
@@ -460,8 +1089,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-01-28-liverpool-a",
@@ -472,7 +1115,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43952,
       "score": {
         "ft": [
           1,
@@ -481,9 +1124,18 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "park-ji-sung",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-01-31-stoke-city-h",
@@ -494,7 +1146,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74719,
       "score": {
         "ft": [
           2,
@@ -502,8 +1154,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "javier-hernandez",
+          "minute": 38
+        },
+        {
+          "type": "pen-goal",
+          "player": "dimitar-berbatov",
+          "minute": 53
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-02-05-chelsea-a",
@@ -514,7 +1180,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41668,
       "score": {
         "ft": [
           3,
@@ -522,8 +1188,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 58
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2012-02-11-liverpool-h",
@@ -534,7 +1214,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74844,
       "score": {
         "ft": [
           2,
@@ -542,7 +1222,79 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 47
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2012-02-16-afc-ajax-a",
+      "date": "2012-02-16",
+      "competition": "europa-league",
+      "round": "Round of 32 First leg",
+      "opponent": "AFC Ajax",
+      "opponentId": "afc-ajax",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 48866,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 59
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 85
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2012-02-23-afc-ajax-h",
+      "date": "2012-02-23",
+      "competition": "europa-league",
+      "round": "Round of 32 Second leg",
+      "opponent": "AFC Ajax",
+      "opponentId": "afc-ajax",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67328,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 6
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -554,7 +1306,7 @@
       "opponentId": "norwich-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26811,
       "score": {
         "ft": [
           2,
@@ -562,8 +1314,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-03-04-tottenham-hotspur-a",
@@ -574,7 +1340,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 36034,
       "score": {
         "ft": [
           3,
@@ -582,7 +1348,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 45
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2012-03-08-athletic-bilbao-h",
+      "date": "2012-03-08",
+      "competition": "europa-league",
+      "round": "Round of 16 First leg",
+      "opponent": "Athletic Bilbao",
+      "opponentId": "athletic-bilbao",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 59265,
+      "score": {
+        "ft": [
+          2,
+          3
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 22
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -594,7 +1403,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75598,
       "score": {
         "ft": [
           2,
@@ -602,7 +1411,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 35
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2012-03-15-athletic-bilbao-a",
+      "date": "2012-03-15",
+      "competition": "europa-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "Athletic Bilbao",
+      "opponentId": "athletic-bilbao",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 40000,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 80
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -614,7 +1461,7 @@
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27494,
       "score": {
         "ft": [
           5,
@@ -622,8 +1469,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jonny-evans",
+          "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "javier-hernandez",
+          "minute": 56
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2012-03-26-fulham-h",
@@ -634,7 +1505,7 @@
       "opponentId": "fulham",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75570,
       "score": {
         "ft": [
           1,
@@ -642,8 +1513,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 42
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-04-02-blackburn-rovers-a",
@@ -654,7 +1534,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26532,
       "score": {
         "ft": [
           2,
@@ -662,8 +1542,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 81
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-04-08-queens-park-rangers-h",
@@ -674,7 +1568,7 @@
       "opponentId": "queens-park-rangers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75505,
       "score": {
         "ft": [
           2,
@@ -682,8 +1576,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-04-11-wigan-athletic-a",
@@ -694,7 +1602,7 @@
       "opponentId": "wigan-athletic",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18115,
       "score": {
         "ft": [
           0,
@@ -702,7 +1610,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -714,7 +1623,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75138,
       "score": {
         "ft": [
           4,
@@ -722,8 +1631,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 43
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2012-04-22-everton-h",
@@ -734,7 +1662,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75522,
       "score": {
         "ft": [
           4,
@@ -742,8 +1670,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 41
+        },
+        {
+          "type": "goal",
+          "player": "danny-welbeck",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "nani",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2012-04-30-manchester-city-a",
@@ -754,7 +1701,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 47259,
       "score": {
         "ft": [
           0,
@@ -762,7 +1709,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -774,7 +1722,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75496,
       "score": {
         "ft": [
           2,
@@ -782,8 +1730,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "paul-scholes",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ashley-young",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2012-05-13-sunderland-a",
@@ -794,7 +1756,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 46452,
       "score": {
         "ft": [
           1,
@@ -802,8 +1764,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 20
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

@@ -10,7 +10,7 @@
       "opponentId": "aston-villa",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18004,
       "score": {
         "ft": [
           3,
@@ -18,8 +18,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-warburton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-09-03-middlesbrough-a",
@@ -30,7 +49,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15712,
       "score": {
         "ft": [
           1,
@@ -38,8 +57,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-09-06-chelsea-a",
@@ -50,7 +78,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 68648,
       "score": {
         "ft": [
           2,
@@ -58,8 +86,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-09-10-huddersfield-town-h",
@@ -70,7 +112,7 @@
       "opponentId": "huddersfield-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11836,
       "score": {
         "ft": [
           0,
@@ -78,7 +120,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +133,7 @@
       "opponentId": "newcastle-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10907,
       "score": {
         "ft": [
           4,
@@ -98,8 +141,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-09-15-huddersfield-town-a",
@@ -110,7 +177,7 @@
       "opponentId": "huddersfield-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14028,
       "score": {
         "ft": [
           0,
@@ -118,7 +185,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +198,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 18705,
       "score": {
         "ft": [
           0,
@@ -138,7 +206,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -150,7 +219,7 @@
       "opponentId": "grimsby-town",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14695,
       "score": {
         "ft": [
           0,
@@ -158,7 +227,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +240,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41757,
       "score": {
         "ft": [
           1,
@@ -178,8 +248,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-10-11-west-ham-united-a",
@@ -190,7 +269,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20003,
       "score": {
         "ft": [
           1,
@@ -198,8 +277,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-10-18-arsenal-h",
@@ -210,7 +298,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23406,
       "score": {
         "ft": [
           1,
@@ -218,8 +306,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "george-mclachlan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-10-25-portsmouth-a",
@@ -230,7 +327,7 @@
       "opponentId": "portsmouth",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19262,
       "score": {
         "ft": [
           1,
@@ -238,8 +335,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-11-01-birmingham-city-h",
@@ -250,7 +356,7 @@
       "opponentId": "birmingham-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11479,
       "score": {
         "ft": [
           2,
@@ -258,8 +364,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-11-08-leicester-city-a",
@@ -270,7 +390,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17466,
       "score": {
         "ft": [
           4,
@@ -278,8 +398,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jimmy-bullock",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-bullock",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "jimmy-bullock",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "george-mclachlan",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-11-15-blackpool-h",
@@ -290,7 +434,7 @@
       "opponentId": "blackpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 14765,
       "score": {
         "ft": [
           0,
@@ -298,7 +442,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -310,7 +455,7 @@
       "opponentId": "sheffield-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12698,
       "score": {
         "ft": [
           1,
@@ -318,8 +463,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-11-29-sunderland-h",
@@ -330,7 +484,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10971,
       "score": {
         "ft": [
           1,
@@ -338,8 +492,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-12-06-blackburn-rovers-a",
@@ -350,7 +513,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 10802,
       "score": {
         "ft": [
           1,
@@ -358,8 +521,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-12-13-derby-county-h",
@@ -370,7 +542,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9701,
       "score": {
         "ft": [
           2,
@@ -378,8 +550,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-12-20-leeds-united-a",
@@ -390,7 +576,7 @@
       "opponentId": "leeds-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11282,
       "score": {
         "ft": [
           0,
@@ -398,7 +584,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -410,7 +597,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22662,
       "score": {
         "ft": [
           1,
@@ -418,8 +605,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-12-26-bolton-wanderers-h",
@@ -430,7 +626,7 @@
       "opponentId": "bolton-wanderers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 12741,
       "score": {
         "ft": [
           1,
@@ -438,8 +634,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1930-12-27-aston-villa-a",
@@ -450,7 +655,7 @@
       "opponentId": "aston-villa",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32505,
       "score": {
         "ft": [
           0,
@@ -458,7 +663,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -470,7 +676,7 @@
       "opponentId": "leeds-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9875,
       "score": {
         "ft": [
           0,
@@ -478,7 +684,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -490,7 +697,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8966,
       "score": {
         "ft": [
           1,
@@ -498,8 +705,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-warburton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-01-10-stoke-city-a",
@@ -510,7 +726,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23415,
       "score": {
         "ft": [
           3,
@@ -519,9 +735,28 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-01-14-stoke-city-h",
@@ -532,7 +767,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 22013,
       "score": {
         "ft": [
           0,
@@ -541,7 +776,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": "FA Cup replay"
     },
@@ -554,7 +790,7 @@
       "opponentId": "newcastle-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24835,
       "score": {
         "ft": [
           3,
@@ -562,8 +798,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-warburton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-warburton",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-01-19-stoke-city-a",
@@ -574,7 +829,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 11788,
       "score": {
         "ft": [
           4,
@@ -583,9 +838,33 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay2"
+      "notes": "FA Cup replay2",
+      "events": [
+        {
+          "type": "goal",
+          "player": "samuel-hopkinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "samuel-hopkinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-01-24-grimsby-town-a",
@@ -596,7 +875,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 15000,
       "score": {
         "ft": [
           0,
@@ -605,7 +884,8 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
     },
@@ -618,7 +898,7 @@
       "opponentId": "sheffield-wednesday",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6077,
       "score": {
         "ft": [
           4,
@@ -626,8 +906,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "samuel-hopkinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "arthur-warburton",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-01-31-grimsby-town-a",
@@ -638,7 +942,7 @@
       "opponentId": "grimsby-town",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9305,
       "score": {
         "ft": [
           1,
@@ -646,8 +950,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-02-07-manchester-city-h",
@@ -658,7 +971,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39876,
       "score": {
         "ft": [
           1,
@@ -666,8 +979,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-02-14-west-ham-united-h",
@@ -678,7 +1000,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 9745,
       "score": {
         "ft": [
           1,
@@ -686,8 +1008,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-02-21-arsenal-a",
@@ -698,7 +1029,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41510,
       "score": {
         "ft": [
           1,
@@ -706,8 +1037,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "arthur-thomson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-03-07-birmingham-city-a",
@@ -718,7 +1058,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 17678,
       "score": {
         "ft": [
           0,
@@ -726,7 +1066,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -738,7 +1079,7 @@
       "opponentId": "portsmouth",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 4808,
       "score": {
         "ft": [
           0,
@@ -746,7 +1087,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -758,7 +1100,7 @@
       "opponentId": "blackpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13162,
       "score": {
         "ft": [
           1,
@@ -766,8 +1108,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "samuel-hopkinson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-03-25-leicester-city-h",
@@ -778,7 +1129,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3679,
       "score": {
         "ft": [
           0,
@@ -786,7 +1137,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -798,7 +1150,7 @@
       "opponentId": "sheffield-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 5420,
       "score": {
         "ft": [
           1,
@@ -806,8 +1158,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "samuel-hopkinson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-04-03-liverpool-a",
@@ -818,7 +1179,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27782,
       "score": {
         "ft": [
           1,
@@ -826,8 +1187,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "jack-wilson",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-04-04-sunderland-a",
@@ -838,7 +1208,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 13590,
       "score": {
         "ft": [
           2,
@@ -846,8 +1216,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "samuel-hopkinson",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-04-06-liverpool-h",
@@ -858,7 +1242,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 8058,
       "score": {
         "ft": [
           4,
@@ -866,8 +1250,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "hugh-mclenahan",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "harry-rowley",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-04-11-blackburn-rovers-h",
@@ -878,7 +1286,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6414,
       "score": {
         "ft": [
           0,
@@ -886,7 +1294,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -898,7 +1307,7 @@
       "opponentId": "derby-county",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 6610,
       "score": {
         "ft": [
           1,
@@ -906,8 +1315,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "joe-spence",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1931-05-02-middlesbrough-h",
@@ -918,7 +1336,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 3969,
       "score": {
         "ft": [
           4,
@@ -926,8 +1344,32 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "tommy-reid",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "ray-bennion",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "stanley-gallimore",
+          "minute": null
+        }
+      ],
+      "eventsComplete": true
     }
   ]
 }

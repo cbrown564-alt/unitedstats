@@ -2,6 +2,40 @@
   "season": "2016-17",
   "matches": [
     {
+      "id": "2016-08-07-leicester-city-n",
+      "date": "2016-08-07",
+      "competition": "charity-shield",
+      "round": null,
+      "opponent": "Leicester City",
+      "opponentId": "leicester-city",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 85437,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 83
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2016-08-14-bournemouth-a",
       "date": "2016-08-14",
       "competition": "premier-league",
@@ -30,7 +64,7 @@
       "opponentId": "southampton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75326,
       "score": {
         "ft": [
           2,
@@ -38,8 +72,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 36
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2016-08-27-hull-city-a",
@@ -50,7 +93,7 @@
       "opponentId": "hull-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24560,
       "score": {
         "ft": [
           1,
@@ -58,8 +101,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 92
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-09-10-manchester-city-h",
@@ -70,7 +122,7 @@
       "opponentId": "manchester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75272,
       "score": {
         "ft": [
           1,
@@ -78,7 +130,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 42
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-09-15-feyenoord-a",
+      "date": "2016-09-15",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Feyenoord",
+      "opponentId": "feyenoord",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 31000,
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -90,7 +172,7 @@
       "opponentId": "watford",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21118,
       "score": {
         "ft": [
           1,
@@ -98,7 +180,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 62
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-09-21-northampton-town-a",
+      "date": "2016-09-21",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Northampton Town",
+      "opponentId": "northampton-town",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 7798,
+      "score": {
+        "ft": [
+          3,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "michael-carrick",
+          "minute": 17
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 68
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 75
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -110,7 +240,7 @@
       "opponentId": "leicester-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75256,
       "score": {
         "ft": [
           4,
@@ -118,7 +248,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 22
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 37
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 40
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 42,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-09-29-zorya-luhansk-h",
+      "date": "2016-09-29",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Zorya Luhansk",
+      "opponentId": "zorya-luhansk",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 58179,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 69
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -130,7 +314,7 @@
       "opponentId": "stoke-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75251,
       "score": {
         "ft": [
           1,
@@ -138,8 +322,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 69
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-10-17-liverpool-a",
@@ -150,7 +343,7 @@
       "opponentId": "liverpool",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52769,
       "score": {
         "ft": [
           0,
@@ -158,7 +351,48 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2016-10-20-fenerbahce-h",
+      "date": "2016-10-20",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Fenerbahçe S.K.",
+      "opponentId": "fenerbahce",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 73063,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 31,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "pen-goal",
+          "player": "anthony-martial",
+          "minute": 34
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 48
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -170,7 +404,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 41424,
       "score": {
         "ft": [
           0,
@@ -178,7 +412,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2016-10-26-manchester-city-h",
+      "date": "2016-10-26",
+      "competition": "league-cup",
+      "round": "Round 4",
+      "opponent": "Manchester City",
+      "opponentId": "manchester-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 74196,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 54
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -190,7 +454,7 @@
       "opponentId": "burnley",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75325,
       "score": {
         "ft": [
           0,
@@ -198,7 +462,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2016-11-03-fenerbahce-a",
+      "date": "2016-11-03",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Fenerbahçe S.K.",
+      "opponentId": "fenerbahce",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 35378,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 89
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -210,7 +504,7 @@
       "opponentId": "swansea-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 20938,
       "score": {
         "ft": [
           3,
@@ -218,8 +512,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 15,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 21
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2016-11-19-arsenal-h",
@@ -230,7 +539,7 @@
       "opponentId": "arsenal",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75264,
       "score": {
         "ft": [
           1,
@@ -238,7 +547,61 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 68
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-11-24-feyenoord-h",
+      "date": "2016-11-24",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "Feyenoord",
+      "opponentId": "feyenoord",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 64628,
+      "score": {
+        "ft": [
+          4,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 35
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 69
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 75,
+          "detail": "Brad Jones (og)"
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 92
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -250,7 +613,7 @@
       "opponentId": "west-ham-united",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75314,
       "score": {
         "ft": [
           1,
@@ -258,7 +621,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 21
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-11-30-west-ham-united-h",
+      "date": "2016-11-30",
+      "competition": "league-cup",
+      "round": "Round 5",
+      "opponent": "West Ham United",
+      "opponentId": "west-ham-united",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 65269,
+      "score": {
+        "ft": [
+          4,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 2
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 48
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -270,7 +676,7 @@
       "opponentId": "everton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 39550,
       "score": {
         "ft": [
           1,
@@ -278,7 +684,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 42
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2016-12-08-zorya-luhansk-a",
+      "date": "2016-12-08",
+      "competition": "europa-league",
+      "round": null,
+      "opponent": "FC Zorya Luhansk",
+      "opponentId": "zorya-luhansk",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 25900,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 48
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 88
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -290,7 +739,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75271,
       "score": {
         "ft": [
           1,
@@ -298,8 +747,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 29
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-12-14-crystal-palace-a",
@@ -310,7 +768,7 @@
       "opponentId": "crystal-palace",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 25547,
       "score": {
         "ft": [
           2,
@@ -318,8 +776,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 47,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 88
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-12-17-west-bromwich-albion-a",
@@ -330,7 +803,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 26308,
       "score": {
         "ft": [
           2,
@@ -338,8 +811,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 5
+        }
+      ],
+      "eventsComplete": false
     },
     {
       "id": "2016-12-26-sunderland-h",
@@ -350,7 +832,7 @@
       "opponentId": "sunderland",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75325,
       "score": {
         "ft": [
           3,
@@ -358,8 +840,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "daley-blind",
+          "minute": 39
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 82
+        },
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 86
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2016-12-31-middlesbrough-h",
@@ -370,7 +871,7 @@
       "opponentId": "middlesbrough",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75314,
       "score": {
         "ft": [
           2,
@@ -378,8 +879,23 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 85
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 86,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-01-02-west-ham-united-a",
@@ -390,7 +906,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 56996,
       "score": {
         "ft": [
           2,
@@ -398,8 +914,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 63
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 78
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-01-07-reading-h",
@@ -410,7 +940,7 @@
       "opponentId": "reading",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 74396,
       "score": {
         "ft": [
           4,
@@ -419,9 +949,62 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 15
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": false
+    },
+    {
+      "id": "2017-01-10-hull-city-h",
+      "date": "2017-01-10",
+      "competition": "league-cup",
+      "round": "Semi-finals First leg",
+      "opponent": "Hull City",
+      "opponentId": "hull-city",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 65798,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 56
+        },
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 87
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2017-01-15-liverpool-h",
@@ -432,7 +1015,7 @@
       "opponentId": "liverpool",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75276,
       "score": {
         "ft": [
           1,
@@ -440,8 +1023,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 84
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-01-21-stoke-city-a",
@@ -452,7 +1044,7 @@
       "opponentId": "stoke-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 27423,
       "score": {
         "ft": [
           1,
@@ -460,7 +1052,46 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 94
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-01-26-hull-city-a",
+      "date": "2017-01-26",
+      "competition": "league-cup",
+      "round": "Semi-finals Second leg",
+      "opponent": "Hull City",
+      "opponentId": "hull-city",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 16831,
+      "score": {
+        "ft": [
+          1,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 66,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -472,7 +1103,7 @@
       "opponentId": "wigan-athletic",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75229,
       "score": {
         "ft": [
           4,
@@ -481,9 +1112,33 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "chris-smalling",
+          "minute": 57
+        },
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 74
+        },
+        {
+          "type": "goal",
+          "player": "bastian-schweinsteiger",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-02-01-hull-city-h",
@@ -494,7 +1149,7 @@
       "opponentId": "hull-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75297,
       "score": {
         "ft": [
           0,
@@ -502,7 +1157,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -514,7 +1170,7 @@
       "opponentId": "leicester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32072,
       "score": {
         "ft": [
           3,
@@ -522,8 +1178,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 42
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 44
+        },
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-02-11-watford-h",
@@ -534,7 +1209,7 @@
       "opponentId": "watford",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75301,
       "score": {
         "ft": [
           2,
@@ -542,7 +1217,50 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 32
+        },
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 60
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-02-16-as-saint-etienne-h",
+      "date": "2017-02-16",
+      "competition": "europa-league",
+      "round": "Round of 32 First leg",
+      "opponent": "AS Saint-Étienne",
+      "opponentId": "as-saint-etienne",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 67192,
+      "score": {
+        "ft": [
+          3,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 15
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -554,7 +1272,7 @@
       "opponentId": "blackburn-rovers",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 23130,
       "score": {
         "ft": [
           2,
@@ -563,9 +1281,86 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 27
+        },
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 75
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-02-22-as-saint-etienne-a",
+      "date": "2017-02-22",
+      "competition": "europa-league",
+      "round": "Round of 32 Second leg",
+      "opponent": "AS Saint-Étienne",
+      "opponentId": "as-saint-etienne",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41492,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 16
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2017-02-26-southampton-n",
+      "date": "2017-02-26",
+      "competition": "league-cup",
+      "round": "Final",
+      "opponent": "Southampton",
+      "opponentId": "southampton",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 85264,
+      "score": {
+        "ft": [
+          3,
+          2
+        ],
+        "pens": null
+      },
+      "eventsComplete": false,
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 19
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 38
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2017-03-04-bournemouth-h",
@@ -588,6 +1383,35 @@
       ]
     },
     {
+      "id": "2017-03-09-rostov-a",
+      "date": "2017-03-09",
+      "competition": "europa-league",
+      "round": "Round of 16 First leg",
+      "opponent": "FC Rostov",
+      "opponentId": "rostov",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 14223,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 35
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "2017-03-13-chelsea-a",
       "date": "2017-03-13",
       "competition": "fa-cup",
@@ -596,7 +1420,7 @@
       "opponentId": "chelsea",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 40801,
       "score": {
         "ft": [
           0,
@@ -605,9 +1429,39 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
       "notes": null
+    },
+    {
+      "id": "2017-03-16-rostov-h",
+      "date": "2017-03-16",
+      "competition": "europa-league",
+      "round": "Round of 16 Second leg",
+      "opponent": "FC Rostov",
+      "opponentId": "rostov",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 64361,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "juan-mata",
+          "minute": 70
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
     },
     {
       "id": "2017-03-19-middlesbrough-a",
@@ -618,7 +1472,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 32689,
       "score": {
         "ft": [
           3,
@@ -626,8 +1480,27 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "jesse-lingard",
+          "minute": 62
+        },
+        {
+          "type": "goal",
+          "player": "antonio-valencia",
+          "minute": 93
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-04-01-west-bromwich-albion-h",
@@ -638,7 +1511,7 @@
       "opponentId": "west-bromwich-albion",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75397,
       "score": {
         "ft": [
           0,
@@ -646,7 +1519,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -658,7 +1532,7 @@
       "opponentId": "everton",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75272,
       "score": {
         "ft": [
           1,
@@ -666,8 +1540,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 94
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-04-09-sunderland-a",
@@ -678,7 +1561,7 @@
       "opponentId": "sunderland",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 43779,
       "score": {
         "ft": [
           3,
@@ -686,7 +1569,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "zlatan-ibrahimovic",
+          "minute": 30
+        },
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 46
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 89
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-04-13-anderlecht-a",
+      "date": "2017-04-13",
+      "competition": "europa-league",
+      "round": "Quarter-finals First leg",
+      "opponent": "R.S.C. Anderlecht",
+      "opponentId": "anderlecht",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 20000,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 36
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -698,7 +1629,7 @@
       "opponentId": "chelsea",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75272,
       "score": {
         "ft": [
           2,
@@ -706,7 +1637,55 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 7
+        },
+        {
+          "type": "goal",
+          "player": "ander-herrera",
+          "minute": 49
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-04-20-anderlecht-h",
+      "date": "2017-04-20",
+      "competition": "europa-league",
+      "round": "Quarter-finals Second leg",
+      "opponent": "R.S.C. Anderlecht",
+      "opponentId": "anderlecht",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 71496,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 10
+        },
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 107
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -718,7 +1697,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 21870,
       "score": {
         "ft": [
           2,
@@ -726,8 +1705,22 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "anthony-martial",
+          "minute": 21
+        },
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 39
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-04-27-manchester-city-a",
@@ -738,7 +1731,7 @@
       "opponentId": "manchester-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 54176,
       "score": {
         "ft": [
           0,
@@ -746,7 +1739,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -758,7 +1752,7 @@
       "opponentId": "swansea-city",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75271,
       "score": {
         "ft": [
           1,
@@ -766,7 +1760,45 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "pen-goal",
+          "player": "wayne-rooney",
+          "minute": 48
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-05-04-celta-de-vigo-a",
+      "date": "2017-05-04",
+      "competition": "europa-league",
+      "round": "Semi-finals First leg",
+      "opponent": "Celta de Vigo",
+      "opponentId": "celta-de-vigo",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 26202,
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marcus-rashford",
+          "minute": 67
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -778,7 +1810,7 @@
       "opponentId": "arsenal",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 60055,
       "score": {
         "ft": [
           0,
@@ -786,7 +1818,37 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ]
+    },
+    {
+      "id": "2017-05-11-celta-de-vigo-h",
+      "date": "2017-05-11",
+      "competition": "europa-league",
+      "round": "Semi-finals Second leg",
+      "opponent": "Celta de Vigo",
+      "opponentId": "celta-de-vigo",
+      "venue": "H",
+      "stadium": null,
+      "attendance": 75138,
+      "score": {
+        "ft": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "marouane-fellaini",
+          "minute": 17
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     },
     {
@@ -798,7 +1860,7 @@
       "opponentId": "tottenham-hotspur",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31848,
       "score": {
         "ft": [
           1,
@@ -806,8 +1868,17 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
-      ]
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "wayne-rooney",
+          "minute": 71
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "2017-05-17-southampton-a",
@@ -818,7 +1889,7 @@
       "opponentId": "southampton",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 31425,
       "score": {
         "ft": [
           0,
@@ -826,7 +1897,8 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ]
     },
     {
@@ -838,7 +1910,7 @@
       "opponentId": "crystal-palace",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 75254,
       "score": {
         "ft": [
           2,
@@ -846,7 +1918,57 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "josh-harrop",
+          "minute": 15
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 19,
+          "detail": "Paul Pogba (og)"
+        }
+      ],
+      "eventsComplete": true
+    },
+    {
+      "id": "2017-05-24-afc-ajax-n",
+      "date": "2017-05-24",
+      "competition": "europa-league",
+      "round": "Final",
+      "opponent": "AFC Ajax",
+      "opponentId": "afc-ajax",
+      "venue": "N",
+      "stadium": null,
+      "attendance": 46961,
+      "score": {
+        "ft": [
+          2,
+          0
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 18,
+          "detail": "Paul Pogba (og)"
+        },
+        {
+          "type": "goal",
+          "player": "henrikh-mkhitaryan",
+          "minute": 48
+        }
+      ],
+      "sources": [
+        "wikipedia"
       ]
     }
   ]
