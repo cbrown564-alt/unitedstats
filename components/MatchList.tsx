@@ -5,26 +5,29 @@ import { ResultBadge } from "./ResultBadge";
 
 export function MatchList({ matches, showSeason = false }: { matches: MatchRow[]; showSeason?: boolean }) {
   return (
-    <ul className="divide-y divide-line border border-line rounded-lg overflow-hidden">
+    <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
       {matches.map((m) => (
         <li key={m.id}>
           <Link
             href={`/match/${m.id}`}
-            className="grid grid-cols-[auto_1fr_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto] items-center gap-3 px-3 sm:px-4 py-2.5 hover:bg-panel transition-colors"
+            className="grid min-h-14 grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:grid-cols-[7rem_auto_1fr_auto_auto] sm:px-4"
           >
-            <span className="stat-num text-xs text-ink-faint hidden sm:block">{fmtDate(m.date)}</span>
+            <span className="stat-num hidden text-xs text-ink-dim sm:block">{fmtDate(m.date)}</span>
             <ResultBadge result={m.result} outcome={m.outcome} />
             <span className="min-w-0">
               <span className="text-sm font-medium truncate block">
-                <span className="text-ink-faint mr-1.5">{m.venue === "H" ? "v" : m.venue === "A" ? "@" : "n"}</span>
+                <span className="mr-1.5 text-ink-faint">{m.venue === "H" ? "v" : m.venue === "A" ? "@" : "n"}</span>
                 {m.opponent_name}
               </span>
-              <span className="text-xs text-ink-faint sm:hidden">{fmtDate(m.date)}</span>
+              <span className="text-xs text-ink-dim sm:hidden">
+                {fmtDate(m.date)}
+                {showSeason ? ` · ${m.season}` : ""}
+              </span>
             </span>
-            <span className="stat-num text-sm font-semibold whitespace-nowrap">
+            <span className="stat-num rounded bg-panel-2 px-2 py-1 text-sm font-semibold whitespace-nowrap">
               {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet)}
             </span>
-            <span className="text-xs text-ink-faint text-right hidden sm:block w-36 truncate">
+            <span className="hidden w-36 truncate text-right text-xs text-ink-dim sm:block">
               {showSeason ? `${m.season} · ` : ""}
               {m.competition_name}
               {m.round ? ` · ${m.round}` : ""}

@@ -11,9 +11,11 @@ export function ChartPanel({
   evidenceHref,
   evidenceLabel,
   note,
+  kicker,
   children,
 }: {
   title?: string;
+  kicker?: string;
   slice?: string;
   coverage?: string;
   evidenceHref?: string;
@@ -24,8 +26,13 @@ export function ChartPanel({
 }) {
   return (
     <div>
-      {title && <h2 className="display text-xl mb-3">{title}</h2>}
-      <div className="border border-line rounded-lg bg-panel p-4">
+      {title && (
+        <div className="mb-3">
+          {kicker && <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">{kicker}</p>}
+          <h2 className="display text-xl">{title}</h2>
+        </div>
+      )}
+      <div className="border border-line rounded-lg bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
         {children}
         {(slice || coverage || note || evidenceHref) && (
           <CoverageNote

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { seasonsIndex } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
+import { PageHeader, StatTile } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { clubName, fmtNum } from "@/lib/format";
 
@@ -44,47 +45,53 @@ export default function SeasonsPage() {
     byDecade.set(decade, list);
   }
   const briefs = decadeBriefs();
+  const totalMatches = summaries.reduce((sum, s) => sum + s.p, 0);
+  const leagueTitles = summaries.filter((s) => s.type === "league" && s.position === 1).length;
+  const latestSeason = [...bySeason.keys()].sort().at(-1);
 
   return (
     <div className="space-y-10">
-      <header>
-        <h1 className="display text-3xl">Seasons</h1>
-        <p className="text-sm text-ink-dim mt-1">
-          {bySeason.size} campaigns, {clubName("1890-01-01")} to Manchester United, grouped by
-          decade with an era brief computed from the record.
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="Campaign ledger"
+        title="Seasons"
+        aside={
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
+            <StatTile label="Campaigns" value={bySeason.size} tone="red" />
+            <StatTile label="Matches" value={fmtNum(totalMatches)} />
+            <StatTile label="League titles" value={leagueTitles} tone="gold" />
+            <StatTile label="Latest" value={latestSeason ?? "?"} />
+          </div>
+        }
+      >
+        {clubName("1890-01-01")} to Manchester United, grouped by decade. Era briefs are computed from
+        the record, then each campaign opens into its match evidence and competition trail.
+      </PageHeader>
       {[...byDecade.entries()].map(([decade, seasons]) => {
         const brief = briefs.get(decade);
         return (
           <section key={decade}>
-            <div className="flex flex-wrap items-baseline gap-x-3 mb-3">
-              <h2 className="display text-xl">{decade}</h2>
-              {brief && <p className="text-xs text-ink-faint">{decadeLine(brief)}</p>}
+            <div className="mb-3 grid gap-2 border-b border-line pb-3 sm:grid-cols-[9rem_1fr] sm:items-end">
+              <h2 className="display text-2xl">{decade}</h2>
+              {brief && <p className="text-sm leading-5 text-ink-dim">{decadeLine(brief)}</p>}
             </div>
-            <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <ul className="overflow-hidden rounded-lg border border-line bg-pitch/35">
               {seasons.map(([season, comps]) => {
           const league = comps.find((c) => c.type === "league");
           const cups = comps.filter((c) => c.type !== "league");
           const totalP = comps.reduce((a, c) => a + c.p, 0);
           return (
-            <li key={season}>
+            <li key={season} className="border-b border-line last:border-b-0">
               <Link
                 href={`/seasons/${season}`}
-                className="block border border-line rounded-lg bg-panel hover:bg-panel-2 transition-colors p-4 h-full"
+                className="grid gap-3 px-4 py-3 transition-colors hover:bg-panel sm:grid-cols-[8rem_1fr_14rem] sm:items-center"
               >
-                <div className="flex items-baseline justify-between">
+                <div>
                   <span className="display text-lg">{season}</span>
-                  <span className="stat-num text-xs text-ink-faint">
-                    {league?.position
-                      ? `${ordinal(league.position)}${league.position === 1 ? " 🏆" : ""} · `
-                      : ""}
-                    {totalP} matches
-                  </span>
+                  <span className="stat-num mt-0.5 block text-xs text-ink-dim">{totalP} matches</span>
                 </div>
                 {league && (
-                  <div className="mt-2">
-                    <div className="flex justify-between text-xs text-ink-dim mb-1">
+                  <div className="min-w-0">
+                    <div className="mb-1 flex justify-between gap-3 text-xs text-ink-dim">
                       <span>{league.competition_name}</span>
                       <span className="stat-num">
                         {league.w}-{league.d}-{league.l}
@@ -93,19 +100,25 @@ export default function SeasonsPage() {
                     <WdlBar w={league.w} d={league.d} l={league.l} />
                   </div>
                 )}
-                {cups.length > 0 && (
-                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                <div className="sm:text-right">
+                  <span className="stat-num text-xs text-ink-dim">
+                    {league?.position ? `${ordinal(league.position)} league` : "No league finish"}
+                    {league?.position === 1 ? " · title" : ""}
+                  </span>
+                  {cups.length > 0 && (
+                    <div className="mt-1 flex flex-wrap gap-1.5 sm:justify-end">
                     {cups.map((c) => (
                       <span
                         key={c.competition_id}
-                        className="text-[11px] px-1.5 py-0.5 rounded bg-panel-2 border border-line text-ink-dim"
+                        className="rounded border border-line bg-panel-2 px-1.5 py-0.5 text-[11px] text-ink-dim"
                       >
                         {c.competition_name.replace("UEFA ", "").replace("FA Charity/Community Shield", "Shield")}
                         {c.furthest_round ? ` · ${c.furthest_round}` : ""}
                       </span>
                     ))}
-                  </div>
-                )}
+                    </div>
+                  )}
+                </div>
               </Link>
             </li>
           );
