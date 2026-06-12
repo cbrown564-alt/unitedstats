@@ -1,0 +1,54 @@
+import { InspectableTimeSeriesChart } from "./InspectableTimeSeriesChart";
+import type { ChartDatum } from "@/components/charts";
+
+type EloRatingChartProps = {
+  points: { date: string; elo: number }[];
+  height?: number;
+};
+
+function formatDateLabel(date: string) {
+  return new Intl.DateTimeFormat("en-GB", {
+    month: "short",
+    year: "numeric",
+  }).format(new Date(`${date.slice(0, 10)}T00:00:00Z`));
+}
+
+function movementLabel(current: number, previous?: number) {
+  if (previous === undefined) return undefined;
+  const movement = Math.round(current - previous);
+  if (movement === 0) return "No movement";
+  return `${movement > 0 ? "+" : ""}${movement} since previous point`;
+}
+
+export function EloRatingChart({ points, height = 260 }: EloRatingChartProps) {
+  const data: ChartDatum[] = points.map((point, index) => ({
+    x: Date.parse(point.date),
+    y: point.elo,
+    label: formatDateLabel(point.date),
+    valueLabel: `${Math.round(point.elo).toLocaleString("en-GB")} Elo`,
+    movementLabel: movementLabel(point.elo, points[index - 1]?.elo),
+  }));
+
+  const ticks = [1900, 1920, 1940, 1960, 1980, 2000, 2020].map((year) => ({
+    x: Date.parse(`${year}-01-01`),
+    label: String(year),
+  }));
+
+  const values = data.map((datum) => datum.y);
+  const min = Math.min(...values, 1500);
+  const max = Math.max(...values, 1500);
+  const padding = Math.max(30, Math.round((max - min) * 0.08));
+
+  return (
+    <InspectableTimeSeriesChart
+      data={data}
+      baseline={1500}
+      baselineLabel="1500 baseline"
+      height={height}
+      valueLabel="Elo rating"
+      chartLabel="Manchester United Elo rating over time"
+      xTicks={ticks}
+      yDomain={[Math.floor(min - padding), Math.ceil(max + padding)]}
+    />
+  );
+}

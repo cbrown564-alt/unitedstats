@@ -135,6 +135,17 @@ Cards:
 
 Charts should make patterns readable before they look impressive.
 
+The Chart System includes three layers:
+
+- Chart primitives: the reusable chart types and static SVG fallbacks.
+- Interactive chart layer: Recharts-based client-side inspection for direct reading support.
+- Chart frame: title, legend, value callouts, slice, coverage, and evidence trail.
+
+Inspectable chart data should carry reader-facing context, not only coordinates: `x` and `y`
+for plotting, `label` for the human-readable x value, `valueLabel` for the formatted value,
+optional `meta` for one short contextual line, and optional `href` when the datum maps cleanly
+to evidence.
+
 Use:
 
 - Line and area charts for time series, especially Elo and seasonal trends.
@@ -142,6 +153,7 @@ Use:
 - Ordered tables when exact values matter.
 - Small multiples only when labels and scale remain clear.
 - Coverage notes near any chart whose interpretation depends on partial data.
+- Inspection interactions for dense or meaningful charts where exact values matter.
 
 Avoid:
 
@@ -298,8 +310,25 @@ Current code already establishes useful conventions:
 - `app/globals.css` defines the dark match-night palette and typography.
 - `components/MatchList.tsx` provides the canonical compact match row.
 - `components/WdlBar.tsx` and `components/ResultBadge.tsx` provide reusable record/state vocabulary.
-- `components/charts.tsx` uses server-rendered SVG charts without client chart-library weight.
+- `components/charts.tsx` contains the existing server-rendered SVG charts and should evolve into shared chart types plus static fallbacks.
 - `/analytics` includes a data-depth ledger, which should become a core trust pattern.
 - Player and match pages already include coverage caveats in the flow.
 
 Future UI work should formalize these conventions into reusable components before inventing new one-off surfaces.
+
+Chart System implementation should keep `components/charts.tsx` as the shared primitive/type layer and static fallback home, add Recharts-based client-side inspection components beside it, and evolve `components/ChartPanel.tsx` as the reusable server-compatible frame for legends, value callouts, coverage, and evidence links. The first inspection target should be the Elo rating chart on `/analytics`, followed by homepage Elo and season trend charts after the API settles. See `docs/adr/0001-use-recharts-for-interactive-chart-inspection.md` for the dependency decision.
+
+Page code should import UnitedStats chart components, not Recharts primitives directly. Recharts is the rendering engine behind the Interactive Chart Layer; UnitedStats components own the visual language, tooltip behavior, evidence affordances, color semantics, and data contracts.
+
+The first interactive components should be `InspectableTimeSeriesChart` and `EloRatingChart`. `InspectableTimeSeriesChart` is the reusable Recharts-backed line/area primitive with Quiet Analyst Tooltip, baseline, axes, highlights, and responsive behavior. `EloRatingChart` is the domain wrapper that formats Elo labels, applies the 1500 baseline, and carries peak, trough, and current rating context.
+
+For Elo inspection, the Quiet Analyst Tooltip should show a reader-facing date or season label,
+the formatted rating, and the movement from the previous point when available. If a chart datum
+also maps to a fixture, the tooltip may add opponent/result context and an evidence affordance,
+but the first pass can stay with date, rating, and movement while the query contract is extended.
+
+Migration should be incremental. Keep `AreaChart`, `Bars`, and `Sparkline` intact as static
+fallbacks and migration scaffolding while Recharts-backed components are introduced. Migrate
+the `/analytics` Elo chart first, then homepage Elo and season trend charts. Revisit whether
+static primitives should be retired after the interactive coverage is broad enough; `Sparkline`
+may remain useful as a tiny no-JS primitive for dense tables.

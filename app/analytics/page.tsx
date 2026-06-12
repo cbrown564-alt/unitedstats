@@ -5,6 +5,7 @@ import {
   lineupCoverage, topAssistPartnerships, coverageOverview,
 } from "@/lib/queries";
 import { AreaChart, Bars } from "@/components/charts";
+import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { MatchList } from "@/components/MatchList";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
@@ -80,15 +81,7 @@ export default function AnalyticsPage() {
           <Link href="/matches" className="text-sm text-devil-bright hover:underline">Open match browser</Link>
         </div>
         <div className="border border-line rounded-lg bg-panel p-4">
-          <AreaChart
-            points={elo.map((e) => ({ x: Date.parse(e.date), y: e.elo }))}
-            baseline={1500}
-            height={260}
-            labels={[1900, 1920, 1940, 1960, 1980, 2000, 2020].map((y) => ({
-              x: Date.parse(`${y}-01-01`),
-              text: String(y),
-            }))}
-          />
+          <EloRatingChart points={elo} height={260} />
           <div className="grid grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden mt-4 text-sm max-w-xl">
             <div className="bg-panel-2 px-3 py-2">
               <div className="stat-num text-lg font-semibold">{currentElo}</div>
