@@ -10,6 +10,7 @@ should enter the canonical record.
 |---|---|---|---|
 | 0 | Wikipedia Manchester United player lists | Verified all-time player starts, substitute appearances, total appearances, and goals | CC BY-SA attribution required; page scope excludes wartime and abandoned 1939-40 matches |
 | 1 | Wikidata and Wikimedia Commons | Licensed image candidates and attribution metadata for top players | Verify likeness and license metadata before widening display |
+| 2 | MUFCInfo match lineups | Historical match-page shirt-number rows for top-player shirt summaries | Best available reference lane for shirt numbers; early Newton Heath pages do not expose numbered rows |
 | 2 | football-data.org | Modern goals, assists, bookings, lineups, benches, substitutions, attendance | Token required; free tier is rate-limited and historical depth varies |
 | 3 | Wikipedia season and match articles | Scorers, attendance, rounds, final/late-round lineups | Wikitext tables vary; deterministic parser plus validation required |
 | 4 | RSSSF | Historical competition results and scorer cross-checks | Citation granularity varies by page |

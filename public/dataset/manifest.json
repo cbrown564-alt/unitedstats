@@ -1,13 +1,13 @@
 {
   "name": "UnitedStats dataset",
   "description": "Every Manchester United match since 1886 with goal events, lineups, Elo history, and season summaries. Coverage varies by facet; see the events_complete and has_lineup flags and the site's /data page.",
-  "built_at": "2026-06-12T20:26:30.754Z",
+  "built_at": "2026-06-12T21:01:30.220Z",
   "first_match": "1886-10-30",
   "last_match": "2026-05-24",
   "files": {
     "matches.csv": 6028,
-    "events.csv": 13910,
-    "lineups.csv": 28251,
+    "events.csv": 13992,
+    "lineups.csv": 26638,
     "elo_history.csv": 6028,
     "season_summaries.csv": 398,
     "players.csv": 984,

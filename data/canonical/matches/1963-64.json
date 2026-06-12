@@ -20,6 +20,36 @@
       },
       "sources": [
         "wikipedia"
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Gabriel",
+          "playerSide": "opponent",
+          "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dennis Stevens",
+          "playerSide": "opponent",
+          "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Roy Vernon",
+          "playerSide": "opponent",
+          "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Derek Temple",
+          "playerSide": "opponent",
+          "minute": null
+        }
       ]
     },
     {
@@ -1457,97 +1487,7 @@
           "minute": null
         }
       ],
-      "eventsComplete": false,
-      "lineup": [
-        {
-          "player": "jim-standen",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-bond",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jack-burkett",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eddie-bovington",
-          "shirt": 4,
-          "role": "RH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ken-brown",
-          "shirt": 5,
-          "role": "CH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bobby-moore",
-          "shirt": 6,
-          "role": "LH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "peter-brabrook",
-          "shirt": 7,
-          "role": "OR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ronnie-boyce",
-          "shirt": 8,
-          "role": "IR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "johnny-byrne",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "geoff-hurst",
-          "shirt": 10,
-          "role": "IL",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-sissons",
-          "shirt": 11,
-          "role": "OL",
-          "start": true,
-          "on": null,
-          "off": null
-        }
-      ]
+      "eventsComplete": false
     },
     {
       "id": "1964-03-04-sunderland-a",
@@ -1583,97 +1523,7 @@
           "minute": null
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "jim-standen",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-bond",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jack-burkett",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eddie-bovington",
-          "shirt": 4,
-          "role": "RH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ken-brown",
-          "shirt": 5,
-          "role": "CH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bobby-moore",
-          "shirt": 6,
-          "role": "LH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "peter-brabrook",
-          "shirt": 7,
-          "role": "OR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ronnie-boyce",
-          "shirt": 8,
-          "role": "IR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "johnny-byrne",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "geoff-hurst",
-          "shirt": 10,
-          "role": "IL",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-sissons",
-          "shirt": 11,
-          "role": "OL",
-          "start": true,
-          "on": null,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "1964-03-07-west-ham-united-a",
@@ -1758,97 +1608,7 @@
           "minute": null
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "jim-standen",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-bond",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jack-burkett",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eddie-bovington",
-          "shirt": 4,
-          "role": "RH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ken-brown",
-          "shirt": 5,
-          "role": "CH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bobby-moore",
-          "shirt": 6,
-          "role": "LH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "peter-brabrook",
-          "shirt": 7,
-          "role": "OR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ronnie-boyce",
-          "shirt": 8,
-          "role": "IR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "johnny-byrne",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "geoff-hurst",
-          "shirt": 10,
-          "role": "IL",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-sissons",
-          "shirt": 11,
-          "role": "OL",
-          "start": true,
-          "on": null,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "1964-03-14-west-ham-united-n",
@@ -1879,97 +1639,7 @@
           "minute": null
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "jim-standen",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-bond",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jack-burkett",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eddie-bovington",
-          "shirt": 4,
-          "role": "RH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ken-brown",
-          "shirt": 5,
-          "role": "CH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bobby-moore",
-          "shirt": 6,
-          "role": "LH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "peter-brabrook",
-          "shirt": 7,
-          "role": "OR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ronnie-boyce",
-          "shirt": 8,
-          "role": "IR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "johnny-byrne",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "geoff-hurst",
-          "shirt": 10,
-          "role": "IL",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-sissons",
-          "shirt": 11,
-          "role": "OL",
-          "start": true,
-          "on": null,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "1964-03-18-sporting-cp-a",

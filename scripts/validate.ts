@@ -3,6 +3,7 @@
  * Runs in CI and as the gate before the update pipeline commits.
  */
 import path from "node:path";
+import fs from "node:fs";
 import {
   CANONICAL, MATCHES_DIR, SeasonFile,
   listSeasonFiles, readJson, seasonOfDate,
@@ -18,12 +19,19 @@ const stadiums = new Set(
 const players = new Set(
   readJson<{ players: Ref[] }>(path.join(CANONICAL, "players.json")).players.map((p) => p.id),
 );
+const playerRecordsFile = path.join(CANONICAL, "player-records.json");
+if (fs.existsSync(playerRecordsFile)) {
+  for (const record of readJson<{ records: { playerId: string }[] }>(playerRecordsFile).records) {
+    players.add(record.playerId);
+  }
+}
 const sources = new Set(
   readJson<{ sources: Ref[] }>(path.join(CANONICAL, "sources.json")).sources.map((s) => s.id),
 );
 const managerData = readJson<{
   managers: { id: string; tenures: { from: string; to: string | null }[] }[];
 }>(path.join(CANONICAL, "managers.json")).managers;
+const playerShirtsFile = path.join(CANONICAL, "player-shirts.json");
 
 const errors: string[] = [];
 const warnings: string[] = [];
@@ -126,6 +134,38 @@ for (let i = 1; i < spans.length; i++) {
   const prev = spans[i - 1];
   if (prev.to !== null && spans[i].from <= prev.to) {
     errors.push(`manager tenure overlap: ${prev.id} and ${spans[i].id} around ${spans[i].from}`);
+  }
+}
+
+if (fs.existsSync(playerShirtsFile)) {
+  const playerShirts = readJson<{
+    records: {
+      playerId: string;
+      shirt: number;
+      decade: string;
+      apps: number;
+      firstDate: string;
+      lastDate: string;
+      sourceId: string;
+    }[];
+  }>(playerShirtsFile).records;
+  const seenShirtRows = new Set<string>();
+  for (const row of playerShirts) {
+    const ctx = `player-shirts ${row.playerId} #${row.shirt} ${row.decade}`;
+    if (!players.has(row.playerId)) errors.push(`${ctx}: unknown player`);
+    if (!sources.has(row.sourceId)) errors.push(`${ctx}: unknown source "${row.sourceId}"`);
+    if (!Number.isInteger(row.shirt) || row.shirt < 1 || row.shirt > 99) {
+      errors.push(`${ctx}: bad shirt number`);
+    }
+    if (!Number.isInteger(row.apps) || row.apps < 1) errors.push(`${ctx}: bad apps count`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(row.firstDate) || !/^\d{4}-\d{2}-\d{2}$/.test(row.lastDate)) {
+      errors.push(`${ctx}: bad date range`);
+    }
+    if (row.firstDate > row.lastDate) errors.push(`${ctx}: first date after last date`);
+    if (!/^\d{3}0s$/.test(row.decade)) errors.push(`${ctx}: bad decade`);
+    const key = `${row.playerId}|${row.shirt}|${row.decade}|${row.sourceId}`;
+    if (seenShirtRows.has(key)) errors.push(`${ctx}: duplicate row`);
+    seenShirtRows.add(key);
   }
 }
 

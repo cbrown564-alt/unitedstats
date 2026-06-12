@@ -34,6 +34,27 @@
           "type": "goal",
           "player": "denis-law",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Robertson",
+          "playerSide": "opponent",
+          "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Pat Jennings",
+          "playerSide": "opponent",
+          "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Frank Saul",
+          "playerSide": "opponent",
+          "minute": null
         }
       ],
       "sources": [
@@ -1914,10 +1935,107 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jaime Graça",
+          "playerSide": "opponent",
+          "minute": 79
         }
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "shay-brennan",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paddy-crerand",
+          "shirt": 4,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nobby-stiles",
+          "shirt": 6,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "shirt": 7,
+          "role": "RF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "shirt": 8,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "shirt": 9,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "shirt": 10,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-jr",
+          "shirt": 11,
+          "role": "LF",
+          "start": true,
+          "on": null,
+          "off": null
+        }
       ]
     }
   ]

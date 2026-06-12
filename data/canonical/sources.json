@@ -73,6 +73,14 @@
       "notes": "Used as the preferred modern enrichment source; raw CSV snapshots are cached under data/raw/transfermarkt-datasets."
     },
     {
+      "id": "mufcinfo-match-lineups",
+      "label": "MUFCInfo match lineups",
+      "kind": "reference",
+      "url": "https://www.mufcinfo.com/manupag/match_data/match_sql.php",
+      "coverage": "Match-page Manchester United shirt-number rows used to summarize top-player shirt history by decade.",
+      "notes": "Imported into data/canonical/player-shirts.json as player, shirt, decade, and appearance-count summaries; raw pages are cached under data/raw/mufcinfo."
+    },
+    {
       "id": "book-archive",
       "label": "Books, programmes, and archive records",
       "kind": "archive",

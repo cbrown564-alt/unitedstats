@@ -1621,9 +1621,117 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stewart-houston",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gerry-daly",
+          "shirt": 4,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-greenhoff",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-coppell",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stuart-pearson",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "shirt": 10,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gordon-hill",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 66
+        },
+        {
+          "player": "david-mccreery",
+          "shirt": 12,
+          "role": "MF",
+          "start": false,
+          "on": 66,
+          "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bobby Stokes",
+          "playerSide": "opponent",
+          "minute": 83
+        }
+      ]
     },
     {
       "id": "1976-05-04-manchester-city-h",

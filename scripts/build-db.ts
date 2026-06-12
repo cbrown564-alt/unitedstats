@@ -71,6 +71,18 @@ interface PlayerMedia {
     retrievedAt?: string | null;
   }[];
 }
+interface PlayerShirts {
+  records: {
+    playerId: string;
+    name?: string;
+    shirt: number;
+    decade: string;
+    apps: number;
+    firstDate: string;
+    lastDate: string;
+    sourceId: string;
+  }[];
+}
 interface Opponents {
   opponents?: { id: string; name: string; country?: string | null; lat?: number | null; lng?: number | null }[];
 }
@@ -91,6 +103,10 @@ const playerRecords = fs.existsSync(playerRecordsFile)
 const playerMediaFile = path.join(CANONICAL, "player-media.json");
 const playerMedia = fs.existsSync(playerMediaFile)
   ? readJson<PlayerMedia>(playerMediaFile).records
+  : [];
+const playerShirtsFile = path.join(CANONICAL, "player-shirts.json");
+const playerShirts = fs.existsSync(playerShirtsFile)
+  ? readJson<PlayerShirts>(playerShirtsFile).records
   : [];
 const playerBase = readJson<Players>(path.join(CANONICAL, "players.json")).players;
 const playerById = new Map(playerBase.map((p) => [p.id, p]));
@@ -134,8 +150,37 @@ for (const sf of seasons) for (const m of sf.matches) allMatches.push({ season: 
 allMatches.sort((a, b) => a.m.date.localeCompare(b.m.date) || a.m.id.localeCompare(b.m.id));
 
 // ---------- create db ----------
-fs.rmSync(DB_PATH, { force: true });
-const db = new Database(DB_PATH);
+function sqlIdent(name: string): string {
+  return `"${name.replaceAll("\"", "\"\"")}"`;
+}
+
+function createFreshDb(): Database.Database {
+  try {
+    fs.rmSync(DB_PATH, { force: true });
+    return new Database(DB_PATH);
+  } catch (error) {
+    if (!(error instanceof Error) || !("code" in error) || error.code !== "EPERM") throw error;
+    const existing = new Database(DB_PATH);
+    existing.pragma("foreign_keys = OFF");
+    const objects = existing
+      .prepare(
+        "SELECT type, name FROM sqlite_master WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%'",
+      )
+      .all() as { type: "table" | "view"; name: string }[];
+    existing.exec("BEGIN");
+    for (const object of objects.filter((o) => o.type === "view")) {
+      existing.exec(`DROP VIEW IF EXISTS ${sqlIdent(object.name)}`);
+    }
+    for (const object of objects.filter((o) => o.type === "table")) {
+      existing.exec(`DROP TABLE IF EXISTS ${sqlIdent(object.name)}`);
+    }
+    existing.exec("COMMIT");
+    existing.exec("VACUUM");
+    return existing;
+  }
+}
+
+const db = createFreshDb();
 db.pragma("journal_mode = OFF");
 db.pragma("synchronous = OFF");
 
@@ -285,6 +330,19 @@ CREATE TABLE player_media (
 );
 CREATE INDEX idx_player_media_source ON player_media(source_id);
 
+CREATE TABLE player_shirts (
+  player_id TEXT NOT NULL REFERENCES players(id),
+  shirt INTEGER NOT NULL,
+  decade TEXT NOT NULL,
+  apps INTEGER NOT NULL,
+  first_date TEXT NOT NULL,
+  last_date TEXT NOT NULL,
+  source_id TEXT NOT NULL REFERENCES sources(id),
+  PRIMARY KEY (player_id, shirt, decade, source_id)
+);
+CREATE INDEX idx_player_shirts_player ON player_shirts(player_id);
+CREATE INDEX idx_player_shirts_source ON player_shirts(source_id);
+
 CREATE TABLE season_summaries (
   season TEXT NOT NULL,
   competition_id TEXT NOT NULL,
@@ -325,6 +383,7 @@ const sourceIdsFromCanonical = new Set([
   ...allMatches.flatMap(({ m }) => m.sources),
   ...playerRecords.map((r) => r.sourceId),
   ...playerMedia.map((r) => r.sourceId),
+  ...playerShirts.map((r) => r.sourceId),
 ]);
 for (const id of sourceIdsFromCanonical) {
   if (!knownSourceIds.has(id)) {
@@ -368,6 +427,19 @@ for (const m of playerMedia) {
     m.credit ?? null,
     m.sourceId,
     m.retrievedAt ?? null,
+  );
+}
+
+const insPlayerShirt = db.prepare("INSERT OR REPLACE INTO player_shirts VALUES (?,?,?,?,?,?,?)");
+for (const s of playerShirts) {
+  insPlayerShirt.run(
+    s.playerId,
+    s.shirt,
+    s.decade,
+    s.apps,
+    s.firstDate,
+    s.lastDate,
+    s.sourceId,
   );
 }
 
@@ -669,6 +741,7 @@ const oppositionGoalsN = (
 const benchN = (
   db.prepare("SELECT COUNT(*) n FROM match_lineups WHERE bench = 1").get() as { n: number }
 ).n;
+const playerShirtsN = (db.prepare("SELECT COUNT(*) n FROM player_shirts").get() as { n: number }).n;
 const insMeta = db.prepare("INSERT INTO meta VALUES (?,?)");
 insMeta.run("built_at", new Date().toISOString());
 insMeta.run("matches", String(counts.n));
@@ -682,6 +755,7 @@ insMeta.run("lineup_entries", String(lineupEntriesN));
 insMeta.run("assists", String(assistsN));
 insMeta.run("opposition_goals", String(oppositionGoalsN));
 insMeta.run("bench_entries", String(benchN));
+insMeta.run("player_shirt_rows", String(playerShirtsN));
 insMeta.run("sources", String(knownSourceIds.size));
 
 db.close();

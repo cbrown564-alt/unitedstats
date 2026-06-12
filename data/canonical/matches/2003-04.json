@@ -27,6 +27,13 @@
           "type": "goal",
           "player": "mikael-silvestre",
           "minute": 15
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Thierry Henry",
+          "playerSide": "opponent",
+          "minute": 20
         }
       ],
       "sources": [
@@ -1491,121 +1498,7 @@
           "minute": 62
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "tim-howard",
-          "shirt": 14,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": 84
-        },
-        {
-          "player": "gary-neville",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wes-brown",
-          "shirt": 6,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "mikael-silvestre",
-          "shirt": 27,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-o-shea",
-          "shirt": 22,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "cristiano-ronaldo",
-          "shirt": 7,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": 84
-        },
-        {
-          "player": "darren-fletcher",
-          "shirt": 24,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 84
-        },
-        {
-          "player": "roy-keane",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ruud-van-nistelrooy",
-          "shirt": 10,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roy-carroll",
-          "shirt": 13,
-          "role": "GK",
-          "start": false,
-          "on": 84,
-          "off": null
-        },
-        {
-          "player": "nicky-butt",
-          "shirt": 8,
-          "role": "MF",
-          "start": false,
-          "on": 84,
-          "off": null
-        },
-        {
-          "player": "ole-gunnar-solskj-r",
-          "shirt": 20,
-          "role": "FW",
-          "start": false,
-          "on": 84,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "2004-03-09-porto-h",
@@ -1762,121 +1655,7 @@
           "minute": 32
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "tim-howard",
-          "shirt": 14,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": 84
-        },
-        {
-          "player": "gary-neville",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wes-brown",
-          "shirt": 6,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "mikael-silvestre",
-          "shirt": 27,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "john-o-shea",
-          "shirt": 22,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "cristiano-ronaldo",
-          "shirt": 7,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": 84
-        },
-        {
-          "player": "darren-fletcher",
-          "shirt": 24,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 84
-        },
-        {
-          "player": "roy-keane",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ruud-van-nistelrooy",
-          "shirt": 10,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roy-carroll",
-          "shirt": 13,
-          "role": "GK",
-          "start": false,
-          "on": 84,
-          "off": null
-        },
-        {
-          "player": "nicky-butt",
-          "shirt": 8,
-          "role": "MF",
-          "start": false,
-          "on": 84,
-          "off": null
-        },
-        {
-          "player": "ole-gunnar-solskj-r",
-          "shirt": 20,
-          "role": "FW",
-          "start": false,
-          "on": 84,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "2004-04-10-birmingham-city-a",

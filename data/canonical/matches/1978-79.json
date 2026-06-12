@@ -1621,9 +1621,120 @@
           "type": "goal",
           "player": "sammy-mcilroy",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Brian Talbot",
+          "playerSide": "opponent",
+          "minute": 12
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Frank Stapleton",
+          "playerSide": "opponent",
+          "minute": 43
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Sunderland",
+          "playerSide": "opponent",
+          "minute": 89
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "gary-bailey",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jimmy-nicholl",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-albiston",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "shirt": 4,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gordon-mcqueen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-coppell",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jimmy-greenhoff",
+          "shirt": 8,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-jordan",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "shirt": 10,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mickey-thomas",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1979-05-16-chelsea-h",
