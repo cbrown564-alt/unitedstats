@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 const NAV = [
+  ["Questions", "/questions"],
   ["Matches", "/matches"],
   ["Seasons", "/seasons"],
   ["Players", "/players"],

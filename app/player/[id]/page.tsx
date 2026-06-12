@@ -4,9 +4,21 @@ import {
   playerAssistPartnerships, playerById, playerGoalMatches, playerGoalMinutes,
   playerLineupMatches, playerSplitsBySeason,
 } from "@/lib/queries";
+import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
 import { Bars } from "@/components/charts";
 import { MatchList } from "@/components/MatchList";
 import { fmtDate } from "@/lib/format";
+
+const TYPE_LABELS: Record<string, string> = {
+  league: "League",
+  "domestic-cup": "FA Cup",
+  "league-cup": "League Cup",
+  european: "Europe",
+  "super-cup": "Shields & Super Cups",
+  world: "World",
+  playoff: "Test Matches",
+  unofficial: "Wartime & friendlies",
+};
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +31,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
   const appearances = playerLineupMatches(id);
   const minutes = playerGoalMinutes(id);
   const partnerships = playerAssistPartnerships(id);
+  const compSplits = playerGoalsByCompetitionType(id);
+  const bestRun = p.goals >= 5 ? playerBestScoringRun(id) : null;
 
   const buckets = [0, 0, 0, 0, 0, 0];
   for (const m of minutes) buckets[Math.min(Math.floor((m - 1) / 15), 5)]++;
@@ -78,6 +92,42 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
               From the {appearances.length} covered lineups where {p.name} appears.
             </p>
           </div>
+        </section>
+      )}
+
+      {(compSplits.length > 1 || bestRun) && (
+        <section className="grid sm:grid-cols-2 gap-8 max-w-3xl">
+          {compSplits.length > 1 && (
+            <div>
+              <h2 className="display text-xl mb-3">Goals by competition</h2>
+              <div className="space-y-1.5 text-sm">
+                {compSplits.map((c) => (
+                  <div key={c.type} className="flex justify-between border border-line rounded-lg bg-panel px-4 py-2">
+                    <span className="text-ink-dim">{TYPE_LABELS[c.type] ?? c.type}</span>
+                    <span className="stat-num text-devil-bright">{c.goals}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-ink-faint mt-2">
+                Recorded goals only — cup splits depend on scorer coverage for those competitions.
+              </p>
+            </div>
+          )}
+          {bestRun && (
+            <div>
+              <h2 className="display text-xl mb-3">Best scoring run</h2>
+              <div className="border border-line rounded-lg bg-panel px-4 py-3">
+                <div className="stat-num text-3xl font-semibold text-devil-bright">{bestRun.length}</div>
+                <div className="text-sm text-ink-dim mt-1">
+                  consecutive United matches scored in, {fmtDate(bestRun.from)} – {fmtDate(bestRun.to)}
+                </div>
+                <p className="text-xs text-ink-faint mt-2">
+                  Counted across matches with complete scorer records; gaps in coverage break a run
+                  rather than extend it.
+                </p>
+              </div>
+            </div>
+          )}
         </section>
       )}
 

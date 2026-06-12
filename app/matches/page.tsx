@@ -15,11 +15,18 @@ export default async function MatchesPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
+  // `from`/`to` accept a bare year (evidence links from decade/era modules) or a full ISO date
+  const year = (v: string | undefined, edge: "from" | "to") =>
+    v ? (/^\d{4}$/.test(v) ? `${v}-${edge === "from" ? "01-01" : "12-31"}` : v) : undefined;
   const filter = {
     competition: sp.competition || undefined,
+    opponent: sp.opponent || undefined,
     season: sp.season || undefined,
     venue: sp.venue || undefined,
     result: sp.result || undefined,
+    type: sp.type || undefined,
+    from: year(sp.from, "from"),
+    to: year(sp.to, "to"),
     q: sp.q || undefined,
     limit: PAGE_SIZE,
     offset: (page - 1) * PAGE_SIZE,
@@ -44,7 +51,9 @@ export default async function MatchesPage({
         <h1 className="display text-3xl">Matches</h1>
         <p className="text-sm text-ink-dim mt-1">
           <span className="stat-num">{fmtNum(total)}</span> matches
-          {sp.q || sp.competition || sp.season || sp.venue || sp.result ? " matching filters" : " on record"}
+          {sp.q || sp.competition || sp.opponent || sp.season || sp.venue || sp.result || sp.type || sp.from || sp.to
+            ? " matching filters"
+            : " on record"}
         </p>
       </header>
 
@@ -80,6 +89,29 @@ export default async function MatchesPage({
           <option value="D">Drawn</option>
           <option value="L">Lost</option>
         </select>
+        <select name="type" defaultValue={sp.type ?? ""} className="bg-panel border border-line rounded px-2 py-1.5">
+          <option value="">Any type</option>
+          <option value="league">League</option>
+          <option value="cup">All cups</option>
+          <option value="domestic-cup">FA Cup</option>
+          <option value="league-cup">League Cup</option>
+          <option value="european">Europe</option>
+          <option value="unofficial">Wartime & friendlies</option>
+        </select>
+        <input
+          type="text"
+          name="from"
+          defaultValue={sp.from ?? ""}
+          placeholder="From year"
+          className="bg-panel border border-line rounded px-3 py-1.5 w-24 placeholder:text-ink-faint focus:outline-none focus:border-devil"
+        />
+        <input
+          type="text"
+          name="to"
+          defaultValue={sp.to ?? ""}
+          placeholder="To year"
+          className="bg-panel border border-line rounded px-3 py-1.5 w-24 placeholder:text-ink-faint focus:outline-none focus:border-devil"
+        />
         <button className="bg-devil hover:bg-devil-bright text-white rounded px-4 py-1.5 font-medium transition-colors">
           Filter
         </button>

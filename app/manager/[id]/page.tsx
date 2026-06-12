@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { managerById, managerTenures } from "@/lib/queries";
+import { managerFirstMatches, managerSplits } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
@@ -40,6 +41,15 @@ export default async function ManagerPage({
     .all(id) as { name: string; p: number; w: number; d: number; l: number }[];
 
   const pages = Math.ceil(total / PAGE);
+  const first10 = m.p >= 10 ? managerFirstMatches(id, 10) : [];
+  const splits = managerSplits(id);
+  const first10W = first10.filter((r) => r.result === "W").length;
+  const bendRows: [label: string, rec: typeof splits.home][] = [
+    ["Home", splits.home],
+    ["Away", splits.away],
+    ["League", splits.league],
+    ["Cups", splits.cup],
+  ];
 
   return (
     <div className="space-y-8">
@@ -70,6 +80,42 @@ export default async function ManagerPage({
           ))}
         </ul>
       </header>
+
+      <section className="grid lg:grid-cols-2 gap-8">
+        <div>
+          <h2 className="display text-xl mb-3">Where the record bends</h2>
+          <div className="space-y-3 max-w-xl">
+            {bendRows
+              .filter(([, r]) => r.p > 0)
+              .map(([label, r]) => (
+                <div key={label}>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-ink-dim">{label}</span>
+                    <span className="stat-num text-xs text-ink-faint">
+                      {fmtNum(r.p)} P · {pct(r.w, r.p)} W
+                    </span>
+                  </div>
+                  <WdlBar w={r.w} d={r.d} l={r.l} />
+                </div>
+              ))}
+          </div>
+          <p className="text-xs text-ink-faint mt-3">
+            All matches managed, split by venue and by league v cup competition.
+          </p>
+        </div>
+        {first10.length === 10 && (
+          <div>
+            <h2 className="display text-xl mb-3">The first ten matches</h2>
+            <MatchList matches={first10} showSeason />
+            <p className="text-xs text-ink-faint mt-2">
+              {first10W} of the first 10 won.{" "}
+              <Link href="/questions#manager-bounce" className="text-devil-bright hover:underline">
+                Is the new-manager bounce real? →
+              </Link>
+            </p>
+          </div>
+        )}
+      </section>
 
       <section>
         <h2 className="display text-xl mb-3">By competition</h2>
