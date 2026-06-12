@@ -12,14 +12,20 @@ import { CANONICAL, readJson, writeJson } from "../lib";
 const USER_AGENT = "unitedstats/1.0 player-media ingest";
 const SOURCE_ID = "wikidata-commons";
 const TOP_N = 100;
+const PREMIER_LEAGUE_ERA_START_YEAR = 1992;
 const COMMONS_THUMB_WIDTH = 320;
 const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
+
+type SourceMethod = "wikidata-p18" | "wikipedia-pageimage";
 
 interface PlayerRecordsFile {
   records: {
     playerId: string;
     name: string;
     wikiTitle: string;
+    career: string;
+    firstYear: number | null;
+    lastYear: number | null;
     apps: number;
     goals: number;
   }[];
@@ -30,11 +36,30 @@ interface WikiPage {
   pageprops?: {
     wikibase_item?: string;
   };
+  pageimage?: string;
 }
 
 interface WikiQueryResponse {
   query?: {
     pages?: WikiPage[];
+    normalized?: { from: string; to: string }[];
+    redirects?: { from: string; to: string }[];
+  };
+  error?: { info?: string };
+}
+
+interface WikiPageImage extends WikiPage {
+  thumbnail?: {
+    source?: string;
+  };
+  original?: {
+    source?: string;
+  };
+}
+
+interface WikiPageImagesResponse {
+  query?: {
+    pages?: WikiPageImage[];
     normalized?: { from: string; to: string }[];
     redirects?: { from: string; to: string }[];
   };
@@ -79,10 +104,12 @@ interface CommonsResponse {
 
 interface MediaRecord {
   rank: number;
+  overallRank: number | null;
+  premierLeagueEraRank: number | null;
   playerId: string;
   name: string;
   wikiTitle: string;
-  wikidataId: string;
+  wikidataId: string | null;
   commonsFile: string;
   imageUrl: string;
   thumbUrl: string | null;
@@ -91,7 +118,15 @@ interface MediaRecord {
   artist: string | null;
   credit: string | null;
   sourceId: string;
+  sourceMethod: SourceMethod;
   retrievedAt: string;
+}
+
+type PlayerRecord = PlayerRecordsFile["records"][number];
+
+interface SelectedPlayer extends PlayerRecord {
+  overallRank: number | null;
+  premierLeagueEraRank: number | null;
 }
 
 function chunks<T>(items: T[], size: number): T[][] {
@@ -104,10 +139,51 @@ function normalizeTitle(title: string): string {
   return title.replace(/_/g, " ").trim();
 }
 
+function commonsFileKey(file: string): string {
+  return normalizeTitle(file).replace(/^File:/i, "");
+}
+
 function fileExtension(file: string): string {
   const clean = file.split("?")[0].split("#")[0];
   const ext = clean.match(/\.([a-z0-9]+)$/i)?.[1];
   return ext ? ext.toLowerCase() : "";
+}
+
+function byRecordRank(a: PlayerRecord, b: PlayerRecord): number {
+  return b.apps - a.apps || b.goals - a.goals || a.name.localeCompare(b.name);
+}
+
+function selectTopPlayers(playerRecords: PlayerRecord[]): SelectedPlayer[] {
+  const selected = new Map<string, SelectedPlayer>();
+
+  const overall = playerRecords.slice().sort(byRecordRank).slice(0, TOP_N);
+  for (const [index, player] of overall.entries()) {
+    selected.set(player.playerId, {
+      ...player,
+      overallRank: index + 1,
+      premierLeagueEraRank: null,
+    });
+  }
+
+  const premierLeagueEra = playerRecords
+    .filter((player) => (player.lastYear ?? Number.MAX_SAFE_INTEGER) >= PREMIER_LEAGUE_ERA_START_YEAR)
+    .sort(byRecordRank)
+    .slice(0, TOP_N);
+
+  for (const [index, player] of premierLeagueEra.entries()) {
+    const existing = selected.get(player.playerId);
+    if (existing) {
+      existing.premierLeagueEraRank = index + 1;
+    } else {
+      selected.set(player.playerId, {
+        ...player,
+        overallRank: null,
+        premierLeagueEraRank: index + 1,
+      });
+    }
+  }
+
+  return [...selected.values()];
 }
 
 function stripHtml(value: string | undefined): string | null {
@@ -127,12 +203,24 @@ function stripHtml(value: string | undefined): string | null {
   return stripped || null;
 }
 
-async function apiJson<T>(base: string, params: Record<string, string>): Promise<T> {
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function apiJson<T>(base: string, params: Record<string, string>, attempt = 1): Promise<T> {
   const url = new URL(base);
   for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
 
   const res = await fetch(url, { headers: { "user-agent": USER_AGENT } });
-  if (!res.ok) throw new Error(`${base} ${res.status} ${res.statusText}`);
+  if (!res.ok) {
+    if ((res.status === 429 || res.status >= 500) && attempt < 5) {
+      const retryAfter = Number(res.headers.get("retry-after"));
+      const delay = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : attempt * 2000;
+      await sleep(delay);
+      return apiJson<T>(base, params, attempt + 1);
+    }
+    throw new Error(`${base} ${res.status} ${res.statusText}`);
+  }
   const json = await res.json() as T & { error?: { info?: string } };
   if (json.error) throw new Error(json.error.info ?? "API error");
   return json;
@@ -196,6 +284,46 @@ async function fetchCommonsFiles(qids: string[]): Promise<Map<string, string>> {
   return out;
 }
 
+async function fetchWikipediaPageImages(players: SelectedPlayer[]): Promise<Map<string, { commonsFile: string; wikidataId: string | null }>> {
+  const out = new Map<string, { commonsFile: string; wikidataId: string | null }>();
+
+  for (const batch of chunks(players, 50)) {
+    const json = await apiJson<WikiPageImagesResponse>("https://en.wikipedia.org/w/api.php", {
+      action: "query",
+      prop: "pageimages|pageprops",
+      ppprop: "wikibase_item",
+      piprop: "name|thumbnail|original",
+      pithumbsize: String(COMMONS_THUMB_WIDTH),
+      redirects: "1",
+      titles: batch.map((player) => player.wikiTitle).join("|"),
+      format: "json",
+      formatversion: "2",
+      origin: "*",
+    });
+
+    const pagesByTitle = new Map((json.query?.pages ?? []).map((page) => [normalizeTitle(page.title), page]));
+    const normalized = new Map((json.query?.normalized ?? []).map((r) => [normalizeTitle(r.from), normalizeTitle(r.to)]));
+    const redirects = new Map((json.query?.redirects ?? []).map((r) => [normalizeTitle(r.from), normalizeTitle(r.to)]));
+
+    for (const player of batch) {
+      const normalizedTitle = normalizeTitle(player.wikiTitle);
+      const lookup = redirects.get(normalized.get(normalizedTitle) ?? normalizedTitle)
+        ?? normalized.get(normalizedTitle)
+        ?? normalizedTitle;
+      const page = pagesByTitle.get(lookup) ?? pagesByTitle.get(normalizedTitle);
+      const image = page?.pageimage;
+      if (image && IMAGE_EXTENSIONS.has(fileExtension(image))) {
+        out.set(player.playerId, {
+          commonsFile: image,
+          wikidataId: page?.pageprops?.wikibase_item ?? null,
+        });
+      }
+    }
+  }
+
+  return out;
+}
+
 async function fetchCommonsMetadata(files: string[]): Promise<Map<string, CommonsImageInfo>> {
   const out = new Map<string, CommonsImageInfo>();
 
@@ -215,7 +343,7 @@ async function fetchCommonsMetadata(files: string[]): Promise<Map<string, Common
     for (const page of json.query?.pages ?? []) {
       const file = page.title.replace(/^File:/, "");
       const info = page.imageinfo?.[0];
-      if (info?.url) out.set(file, info);
+      if (info?.url) out.set(commonsFileKey(file), info);
     }
   }
 
@@ -224,41 +352,67 @@ async function fetchCommonsMetadata(files: string[]): Promise<Map<string, Common
 
 async function main() {
   const playerRecords = readJson<PlayerRecordsFile>(path.join(CANONICAL, "player-records.json")).records;
-  const topPlayers = playerRecords
-    .slice()
-    .sort((a, b) => b.apps - a.apps || b.goals - a.goals || a.name.localeCompare(b.name))
-    .slice(0, TOP_N);
+  const topPlayers = selectTopPlayers(playerRecords);
 
   const qidsByTitle = await fetchWikidataIds(topPlayers.map((p) => p.wikiTitle));
   const filesByQid = await fetchCommonsFiles([...qidsByTitle.values()]);
-  const metadataByFile = await fetchCommonsMetadata([...filesByQid.values()]);
+  const pageImagesByPlayer = await fetchWikipediaPageImages(topPlayers);
+  const selectedFiles = new Map<string, string>();
+  for (const player of topPlayers) {
+    const wikidataId = qidsByTitle.get(player.wikiTitle);
+    const wikidataFile = wikidataId ? filesByQid.get(wikidataId) : null;
+    const pageImageFile = pageImagesByPlayer.get(player.playerId)?.commonsFile;
+    const commonsFile = wikidataFile ?? pageImageFile;
+    if (commonsFile) selectedFiles.set(commonsFileKey(commonsFile), commonsFile);
+  }
+  const metadataByFile = await fetchCommonsMetadata([...selectedFiles.values()]);
   const retrievedAt = new Date().toISOString();
 
   const records: MediaRecord[] = [];
-  const missing: { playerId: string; name: string; wikiTitle: string; reason: string }[] = [];
+  const missing: {
+    playerId: string;
+    name: string;
+    wikiTitle: string;
+    overallRank: number | null;
+    premierLeagueEraRank: number | null;
+    reason: string;
+  }[] = [];
 
   for (const [index, player] of topPlayers.entries()) {
-    const wikidataId = qidsByTitle.get(player.wikiTitle);
-    if (!wikidataId) {
-      missing.push({ playerId: player.playerId, name: player.name, wikiTitle: player.wikiTitle, reason: "No Wikidata entity found from enwiki page" });
-      continue;
-    }
-
-    const commonsFile = filesByQid.get(wikidataId);
+    const pageImage = pageImagesByPlayer.get(player.playerId);
+    const wikidataId = qidsByTitle.get(player.wikiTitle) ?? pageImage?.wikidataId ?? null;
+    const wikidataFile = wikidataId ? filesByQid.get(wikidataId) : null;
+    const commonsFile = wikidataFile ?? pageImage?.commonsFile;
     if (!commonsFile) {
-      missing.push({ playerId: player.playerId, name: player.name, wikiTitle: player.wikiTitle, reason: "No raster P18 image on Wikidata" });
+      missing.push({
+        playerId: player.playerId,
+        name: player.name,
+        wikiTitle: player.wikiTitle,
+        overallRank: player.overallRank,
+        premierLeagueEraRank: player.premierLeagueEraRank,
+        reason: "No raster Wikidata P18 image or Wikipedia pageimage found",
+      });
       continue;
     }
 
-    const info = metadataByFile.get(commonsFile);
+    const info = metadataByFile.get(commonsFileKey(commonsFile));
     if (!info?.url) {
-      missing.push({ playerId: player.playerId, name: player.name, wikiTitle: player.wikiTitle, reason: "No Commons imageinfo URL returned" });
+      missing.push({
+        playerId: player.playerId,
+        name: player.name,
+        wikiTitle: player.wikiTitle,
+        overallRank: player.overallRank,
+        premierLeagueEraRank: player.premierLeagueEraRank,
+        reason: "No Commons imageinfo URL returned",
+      });
       continue;
     }
 
     const ext = info.extmetadata ?? {};
     records.push({
       rank: index + 1,
+      overallRank: player.overallRank,
+      premierLeagueEraRank: player.premierLeagueEraRank,
       playerId: player.playerId,
       name: player.name,
       wikiTitle: player.wikiTitle,
@@ -271,6 +425,7 @@ async function main() {
       artist: stripHtml(ext.Artist?.value),
       credit: stripHtml(ext.Credit?.value),
       sourceId: SOURCE_ID,
+      sourceMethod: wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
       retrievedAt,
     });
   }
@@ -278,22 +433,29 @@ async function main() {
   writeJson(path.join(CANONICAL, "player-media.json"), {
     generatedAt: retrievedAt,
     sourceId: SOURCE_ID,
-    sourceName: "Wikidata P18 and Wikimedia Commons imageinfo",
+    sourceName: "Wikidata P18, Wikipedia pageimages, and Wikimedia Commons imageinfo",
     requestedTopPlayers: TOP_N,
-    ranking: "Top players by verified competitive appearances in data/canonical/player-records.json.",
+    requestedTopPlayersPerCohort: TOP_N,
+    selectedPlayers: topPlayers.length,
+    ranking: [
+      "Top players by verified competitive appearances in data/canonical/player-records.json.",
+      `Premier League-era cohort means records whose United career reaches ${PREMIER_LEAGUE_ERA_START_YEAR} or later; source records do not split appearances by era.`,
+    ],
     sourceUrls: [
       "https://www.wikidata.org/wiki/Property:P18",
+      "https://www.mediawiki.org/wiki/API:Pageimages",
       "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia",
     ],
     notes: [
       "Only raster Commons images are imported; SVG files are skipped because Next image optimization does not serve arbitrary SVGs by default.",
+      "Wikidata P18 is preferred; Wikipedia pageimages are used only as a fallback and still require Commons imageinfo metadata.",
       "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run this script to refresh license or thumbnail changes.",
     ],
     records,
     missing,
   });
 
-  console.log(`wrote ${records.length}/${TOP_N} player media records (${missing.length} missing)`);
+  console.log(`wrote ${records.length}/${topPlayers.length} player media records (${missing.length} missing)`);
 }
 
 main().catch((err) => {
