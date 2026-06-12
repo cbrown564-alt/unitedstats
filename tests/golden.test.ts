@@ -1,0 +1,165 @@
+/**
+ * Golden-numbers regression tests.
+ *
+ * The product promise is researcher-grade trust: a silent regression in
+ * lib/queries.ts or lib/search.ts corrupts every page at once. These tests
+ * pin query results to closed historical slices (finished seasons, finished
+ * tenures, retired players) so they stay stable as new matches arrive.
+ *
+ * Scorer and appearance figures are the official club record as published by
+ * Wikipedia's List of Manchester United F.C. players, which the dataset's
+ * player_records table reproduces.
+ *
+ * Run: npm test (requires data/united.db — npm run build:db)
+ */
+import assert from "node:assert/strict";
+import test from "node:test";
+
+import {
+  allTimeRecord,
+  eloSeries,
+  getMeta,
+  recordByCompetitionType,
+  topScorers,
+} from "../lib/queries";
+import { runSearch } from "../lib/search";
+import { getDb } from "../lib/db";
+
+const rec = (cond: string, ...params: unknown[]) =>
+  getDb()
+    .prepare(
+      `SELECT COUNT(*) p, SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
+              SUM(gf) gf, SUM(ga) ga
+       FROM matches WHERE ${cond}`,
+    )
+    .get(...(params as never[])) as { p: number; w: number; d: number; l: number; gf: number; ga: number };
+
+// ---------------------------------------------------------------- closed eras
+
+test("1998-99 treble season record", () => {
+  assert.deepEqual(rec("season = ?", "1998-99"), {
+    p: 63, w: 36, d: 22, l: 5, gf: 128, ga: 63,
+  });
+});
+
+test("Alex Ferguson tenure record (closed)", () => {
+  assert.deepEqual(rec("manager_id = ?", "alex-ferguson"), {
+    p: 1497, w: 893, d: 337, l: 267, gf: 2763, ga: 1363,
+  });
+});
+
+test("Matt Busby tenure record (closed)", () => {
+  assert.deepEqual(rec("manager_id = ?", "matt-busby"), {
+    p: 1141, w: 577, d: 265, l: 299, gf: 2323, ga: 1561,
+  });
+});
+
+// --------------------------------------------------- official scorer record
+
+test("all-time top scorers reproduce the official club record", () => {
+  const top = topScorers(8).map((p) => [p.player_id, p.goals]);
+  assert.deepEqual(top, [
+    ["wayne-rooney", 253],
+    ["bobby-charlton", 249],
+    ["denis-law", 237],
+    ["jack-rowley", 211],
+    ["george-best", 179],
+    ["dennis-viollet", 179],
+    ["ryan-giggs", 168],
+    ["joe-spence", 168],
+  ]);
+});
+
+test("Wayne Rooney official appearance record", () => {
+  const row = getDb()
+    .prepare("SELECT apps, starts, subs, goals FROM player_records WHERE player_id = ?")
+    .get("wayne-rooney");
+  assert.deepEqual(row, { apps: 559, starts: 497, subs: 62, goals: 253 });
+});
+
+// -------------------------------------------------------------- famous facts
+
+test("1999 Champions League final: score and corrected attendance", () => {
+  const m = getDb()
+    .prepare("SELECT gf, ga, attendance, competition_id, round FROM matches WHERE id = ?")
+    .get("1999-05-26-bayern-munich-n") as {
+      gf: number; ga: number; attendance: number; competition_id: string; round: string;
+    };
+  assert.equal(m.gf, 2);
+  assert.equal(m.ga, 1);
+  assert.equal(m.attendance, 90245);
+  assert.equal(m.competition_id, "champions-league");
+  assert.equal(m.round, "Final");
+});
+
+test("1985-86 Screen Sport Super Cup is not filed as the UEFA Super Cup", () => {
+  const n = (getDb()
+    .prepare("SELECT COUNT(*) n FROM matches WHERE competition_id = 'screen-sport-super-cup'")
+    .get() as { n: number }).n;
+  assert.equal(n, 4);
+  const wrong = (getDb()
+    .prepare("SELECT COUNT(*) n FROM matches WHERE competition_id = 'uefa-super-cup' AND round = 'Group stage'")
+    .get() as { n: number }).n;
+  assert.equal(wrong, 0);
+});
+
+// ----------------------------------------------------------- self-consistency
+
+test("all-time record is internally consistent and covers every match", () => {
+  const r = allTimeRecord();
+  assert.equal(r.w + r.d + r.l, r.p);
+  const total = (getDb().prepare("SELECT COUNT(*) n FROM matches").get() as { n: number }).n;
+  const meta = getMeta();
+  assert.equal(Number(meta.matches), total);
+});
+
+test("competition-type records sum to the all-time record", () => {
+  const r = allTimeRecord();
+  const byType = recordByCompetitionType();
+  const sum = byType.reduce(
+    (acc, t) => ({ p: acc.p + t.p, w: acc.w + t.w, d: acc.d + t.d, l: acc.l + t.l }),
+    { p: 0, w: 0, d: 0, l: 0 },
+  );
+  assert.deepEqual(sum, { p: r.p, w: r.w, d: r.d, l: r.l });
+});
+
+test("every match has exactly one Elo history row, ratings in sane range", () => {
+  const total = (getDb().prepare("SELECT COUNT(*) n FROM matches").get() as { n: number }).n;
+  const elo = (getDb()
+    .prepare("SELECT COUNT(*) n, MIN(elo_post) lo, MAX(elo_post) hi FROM elo_history")
+    .get()) as { n: number; lo: number; hi: number };
+  assert.equal(elo.n, total);
+  assert.ok(elo.lo > 1100 && elo.hi < 2400, `elo range [${elo.lo}, ${elo.hi}] out of bounds`);
+  assert.ok(eloSeries().length > 0);
+});
+
+// -------------------------------------------------------------------- search
+
+test("shaped search: record away at Arsenal", () => {
+  const { shaped } = runSearch("record away at arsenal");
+  const hit = shaped.find((s) => s.title === "Record away at Arsenal");
+  assert.ok(hit, "expected a shaped answer for 'record away at arsenal'");
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won · GF \d+ GA \d+$/);
+  assert.equal(hit.href, "/matches?opponent=arsenal&venue=A");
+});
+
+test("shaped search: record under a manager and a season token", () => {
+  const under = runSearch("record under busby").shaped;
+  assert.ok(under.some((s) => s.title === "Record under Sir Matt Busby"));
+
+  const season = runSearch("1998-99").shaped;
+  const hit = season.find((s) => s.title === "1998-99 season");
+  assert.ok(hit, "expected a shaped season answer");
+  assert.match(hit.summary, /^P63 W36 D22 L5/);
+});
+
+test("entity search: giggs resolves as player and manager", () => {
+  const { entities } = runSearch("giggs");
+  assert.ok(entities.some((e) => e.kind === "player" && e.label === "Ryan Giggs"));
+  assert.ok(entities.some((e) => e.kind === "manager" && e.label === "Ryan Giggs"));
+});
+
+test("search ignores short or empty queries", () => {
+  assert.deepEqual(runSearch(""), { shaped: [], entities: [] });
+  assert.deepEqual(runSearch("a"), { shaped: [], entities: [] });
+});

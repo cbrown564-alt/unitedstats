@@ -5,6 +5,7 @@ import {
   playerLineupMatches, playerShirtNumbersByDecade, playerSplitsBySeason,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
+import { CoverageNote } from "@/components/CoverageNote";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { MatchList } from "@/components/MatchList";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -24,13 +25,29 @@ const TYPE_LABELS: Record<string, string> = {
 
 export const dynamic = "force-dynamic";
 
-export default async function PlayerPage({ params }: { params: Promise<{ id: string }> }) {
+const GOALS_PAGE_SIZE = 50;
+
+export default async function PlayerPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { id } = await params;
+  const sp = await searchParams;
   const p = playerById(id);
   if (!p) notFound();
   const bySeason = playerSplitsBySeason(id);
   const matches = playerGoalMatches(id);
   const appearances = playerLineupMatches(id);
+  const coveredSeasons = bySeason.filter((s) => s.apps > 0);
+  const goalsPage = Math.min(
+    Math.max(1, parseInt(sp.page ?? "1", 10) || 1),
+    Math.max(1, Math.ceil(matches.length / GOALS_PAGE_SIZE)),
+  );
+  const goalsPages = Math.ceil(matches.length / GOALS_PAGE_SIZE);
+  const pagedMatches = matches.slice((goalsPage - 1) * GOALS_PAGE_SIZE, goalsPage * GOALS_PAGE_SIZE);
   const shirts = playerShirtNumbersByDecade(id);
   const minutes = playerGoalMinutes(id);
   const partnerships = playerAssistPartnerships(id);
@@ -112,27 +129,43 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
         </section>
       )}
 
-      {bySeason.some((s) => s.apps > 0) && (
+      {coveredSeasons.length > 0 && (
         <section>
           <h2 className="display text-xl mb-3">Appearances by season</h2>
-          <div className="border border-line rounded-lg bg-panel p-4">
-            <InspectableBarChart
-              data={bySeason.map((s) => ({
-                label: s.season.slice(0, 4),
-                value: s.apps,
-                valueLabel: `${fmtNum(s.apps)} appearances`,
-                meta: s.season,
-                href: `/seasons/${s.season}`,
-              }))}
-              labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
-              height={160}
-              color="var(--color-ink-dim)"
-              chartLabel={`${p.name} appearances by season`}
-            />
-            <p className="text-xs text-ink-faint mt-1">
-              From the {appearances.length} covered lineup rows where {p.name} appears.
-            </p>
-          </div>
+          {coveredSeasons.length >= 4 || coveredSeasons.length === bySeason.length ? (
+            <div className="border border-line rounded-lg bg-panel p-4">
+              <InspectableBarChart
+                data={bySeason.map((s) => ({
+                  label: s.season.slice(0, 4),
+                  value: s.apps,
+                  valueLabel: s.apps > 0 ? `${fmtNum(s.apps)} covered appearances` : "no covered lineups",
+                  meta: s.apps > 0 ? s.season : `${s.season} · coverage gap, not zero appearances`,
+                  href: `/seasons/${s.season}`,
+                }))}
+                labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
+                height={160}
+                color="var(--color-ink-dim)"
+                chartLabel={`${p.name} covered appearances by season`}
+              />
+              <CoverageNote
+                coverage={`${fmtNum(appearances.length)} covered lineup rows across ${coveredSeasons.length} of ${bySeason.length} recorded seasons.`}
+              >
+                {coveredSeasons.length < bySeason.length &&
+                  "Empty columns are seasons without lineup coverage, not zero appearances."}
+              </CoverageNote>
+            </div>
+          ) : (
+            <div className="border border-line rounded-lg bg-panel px-4 py-3 max-w-xl">
+              <p className="text-sm text-ink-dim">
+                Lineup coverage is too sparse to chart: {fmtNum(appearances.length)} covered
+                {appearances.length === 1 ? " match" : " matches"} across {coveredSeasons.length} of{" "}
+                {bySeason.length} recorded seasons.
+              </p>
+              <p className="text-xs text-ink-faint mt-1">
+                Covered appearances are listed below. Headline apps use verified competitive player records.
+              </p>
+            </div>
+          )}
         </section>
       )}
 
@@ -194,14 +227,53 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
         </section>
       )}
 
-      <section>
-        <h2 className="display text-xl mb-3">Matches scored in</h2>
-        <MatchList matches={matches} showSeason />
+      <section id="scored">
+        <div className="flex items-baseline justify-between mb-3">
+          <h2 className="display text-xl">Matches scored in</h2>
+          {matches.length > GOALS_PAGE_SIZE && (
+            <span className="stat-num text-xs text-ink-faint">{fmtNum(matches.length)} matches</span>
+          )}
+        </div>
+        <MatchList matches={pagedMatches} showSeason />
+        {goalsPages > 1 && (
+          <nav className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-3 py-2 text-sm">
+            {goalsPage > 1 ? (
+              <Link
+                href={`/player/${id}?page=${goalsPage - 1}#scored`}
+                className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright"
+              >
+                Newer
+              </Link>
+            ) : (
+              <span />
+            )}
+            <span className="stat-num text-ink-faint">
+              page {goalsPage} / {fmtNum(goalsPages)}
+            </span>
+            {goalsPage < goalsPages ? (
+              <Link
+                href={`/player/${id}?page=${goalsPage + 1}#scored`}
+                className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright"
+              >
+                Older
+              </Link>
+            ) : (
+              <span />
+            )}
+          </nav>
+        )}
       </section>
 
       {appearances.length > 0 && (
         <section>
-          <h2 className="display text-xl mb-3">Lineup appearances</h2>
+          <div className="flex items-baseline justify-between mb-3 max-w-3xl">
+            <h2 className="display text-xl">Lineup appearances</h2>
+            {appearances.length > 16 && (
+              <span className="stat-num text-xs text-ink-faint">
+                16 most recent of {fmtNum(appearances.length)}
+              </span>
+            )}
+          </div>
           <div className="grid sm:grid-cols-2 gap-2 text-sm max-w-3xl">
             {appearances.slice(0, 16).map((m) => (
               <Link
