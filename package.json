@@ -12,6 +12,7 @@
     "ingest:wikipedia": "tsx scripts/ingest/wikipedia.ts",
     "ingest:lineups": "tsx scripts/ingest/final-lineups.ts",
     "ingest:football-data": "tsx scripts/ingest/football-data-org.ts",
+    "ingest:transfermarkt": "tsx scripts/ingest/transfermarkt-datasets.ts",
     "ingest:positions": "tsx scripts/ingest/league-positions.ts",
     "build:db": "tsx scripts/build-db.ts",
     "validate": "tsx scripts/validate.ts",
