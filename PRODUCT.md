@@ -1,0 +1,176 @@
+# UnitedStats Product Context
+
+## Product Definition
+
+UnitedStats is a pattern-discovery product for Manchester United history.
+
+It gives stats-heavy United fans a deep, trustworthy way to explore every recorded match from Newton Heath to today: results, competitions, managers, opponents, scorers, attendance, Elo movement, and coverage depth. The product should feel like a floodlit match-night ledger: atmospheric enough to make history feel alive, disciplined enough that every number can be traced back to the fixture record.
+
+The product is not official Manchester United media. It is an independent historical and analytical archive built from open and curated data.
+
+## Register
+
+Product. Design serves exploration, comparison, reading, filtering, and verification.
+
+## Primary Audience
+
+Stats-heavy Manchester United fans with researcher-grade trust expectations.
+
+These users enjoy records, debates, eras, managers, opponents, and weird historical cuts. They are willing to read dense information, but they should not have to fight the interface to find a pattern or verify a claim.
+
+Secondary audiences:
+
+- Researchers and historians who care about provenance, corrections, and completeness.
+- Casual United fans arriving from search, anniversaries, arguments, or shared links.
+- Contributors who may correct canonical JSON or add richer historical coverage.
+
+## Core Promise
+
+Help fans explore United history and notice meaningful patterns, without losing confidence in the data underneath.
+
+UnitedStats should answer direct questions, but its main success mode is deeper exploration: a user follows a trail from one stat to a match, from that match to an era, from that era to a myth, and leaves with a sharper view than they expected.
+
+## Product Model
+
+The fixture record is the spine. Question-led analysis is the discovery layer. People are the emotional entry points.
+
+- Matches and seasons are the canonical structure. Every aggregate should be traceable back to actual fixtures.
+- Analytics should increasingly become guided question modules rather than a loose chart gallery.
+- Player, manager, and opponent pages should lead back into patterns, not stop at profile summaries.
+- Every major aggregate needs a path toward "show the matches behind this."
+
+## Main User Win
+
+Explore and discover patterns.
+
+Examples:
+
+- Were United really late-goal specialists, and in which eras?
+- Which opponents are true bogey sides once venue and era are considered?
+- Did European nights change nearby league form?
+- Which managers changed the shape of wins, losses, goals, and late scoring?
+- When did Old Trafford look most like a fortress, and what does "fortress" mean in the data?
+
+## Discovery Stance
+
+Guided prompts, not punditry.
+
+UnitedStats should suggest interesting cuts and myth-testing trails, then let the data, coverage, and match trail carry the claim. The product voice can be curious and interpretive, but should avoid verdict-heavy editorial takes when the evidence is mixed.
+
+Preferred prompt type: myth-testing.
+
+Good prompts:
+
+- "Were the late goals concentrated in specific eras?"
+- "Which sides were genuinely difficult away?"
+- "Did a manager bounce show up in results, goals, or Elo?"
+- "Were cup runs built on home draws, away wins, or neutral stages?"
+
+Avoid:
+
+- Hot-take copy.
+- Unsupported superlatives.
+- Claims that cannot link to a match set or coverage note.
+
+## Trust Model
+
+Trust appears at decision points.
+
+Coverage, provenance, and caveats should be visible where they change interpretation: charts, rankings, records, player totals, lineup-derived analysis, scorer-derived analysis, and any myth-testing result. Full source detail can live deeper, but the user should never have to wonder whether a chart is based on complete results, partial scorer data, or sparse lineup data.
+
+Tone for mixed evidence: exploratory.
+
+Use framing like:
+
+- "There is a signal here, but it changes by era."
+- "The result-level record is complete; scorer-minute coverage is partial."
+- "This is true for recorded goal events, not yet for full lineup history."
+
+Avoid framing like:
+
+- "Proves that..."
+- "Definitely..."
+- "The data says..." when coverage is incomplete or the slice is sensitive.
+
+## Homepage Role
+
+Start exploration immediately.
+
+The homepage should be a curiosity launchpad, not a brochure and not only a status dashboard. It should still communicate scope and trust, but the first screen should pull users into explorable trails: myth prompts, recent changes, notable patterns, search, and clear routes into matches, seasons, players, opponents, managers, and analytics.
+
+## Search Direction
+
+Hybrid command search.
+
+Search should support normal lookup and suggested question templates:
+
+- Lookup: "Rooney", "Arsenal", "1998-99", "Ferguson", "FA Cup".
+- Guided query: "record away at Arsenal", "late goals under Ferguson", "European home nights", "biggest cup upsets".
+
+The future search experience should feel like an invitation to explore, not a database form as the first move.
+
+## Detail Page Behavior
+
+Detail pages should encourage pattern trails.
+
+When a user lands on a match, player, manager, season, or opponent, the next step should usually be a related pattern, not only previous/next navigation.
+
+Examples:
+
+- Match page: "How this moved Elo", "other late goals that season", "previous meetings with this opponent".
+- Player page: "goals by minute", "best scoring runs", "matches scored in by competition", "assist partnerships where coverage exists".
+- Manager page: "first 10 matches", "record after European fixtures", "home/away split", "late goals under this manager".
+- Opponent page: "away record", "cup meetings", "longest winless run", "biggest swings".
+
+## Success Principles
+
+Success is depth of exploration.
+
+High-value behavior:
+
+- Users follow trails across matches, seasons, people, opponents, and analytics.
+- Users cite or share a pattern with its underlying match set.
+- Users return after matches, anniversaries, arguments, or curiosity loops.
+- Users trust the dataset enough to correct it or build from it.
+
+Lower-value behavior:
+
+- A user reads one total and leaves with no path forward.
+- A chart attracts attention but cannot be verified.
+- A page is complete but does not suggest the next interesting question.
+
+## Product Anti-References
+
+Avoid a dry database table site.
+
+The data must remain dense and queryable, but UnitedStats should never feel like a warehouse with a football skin. The product should carry emotional charge: United history, eras, floodlights, rivalry, strange records, and the pleasure of following a thread.
+
+Also avoid:
+
+- Generic sports dashboard energy: neon betting app, live-score clutter, glossy cards.
+- Official club mimicry: crests, replica brand systems, campaign gloss.
+- Fan-site nostalgia overload: memorabilia cues competing with data.
+- Black-box analytics: impressive charts without provenance or match trails.
+
+## Research Anchors
+
+Nielsen Norman Group defines dashboards as focused views that communicate critical information quickly and notes that analytical dashboards should still support fast at-a-glance understanding. This supports making UnitedStats pattern-led while keeping charts and entry points clear: https://www.nngroup.com/articles/dashboards-preattentive/
+
+NN/g also recommends using length and 2D position for quantitative reading, with color as a secondary grouping cue. This supports simple bars, lines, ordered tables, and restrained semantic color over decorative chart forms.
+
+Sports Reference positions Stathead as a power-search layer for quickly answering sports database questions. UnitedStats should borrow the power-search spirit, but aim it at club-specific pattern discovery rather than only retrieval: https://www.sports-reference.com/stathead/
+
+Craft's Baseball Reference redesign case study identifies discoverability, customization, and nostalgia as opportunities for historical sports data products. UnitedStats should use nostalgia as resonance, not decoration, and keep discoverability as a core product function: https://madebycraft.co/work/baseball-reference
+
+## Current Implementation Notes
+
+The current app already contains the bones of this product:
+
+- `/matches` provides the canonical filterable fixture record.
+- `/seasons` and `/seasons/[season]` preserve chronological structure.
+- `/analytics` contains the first pattern layer: Elo, win rate, attendance, goal timing, records, grounds, and data-depth ledger.
+- Match pages already connect result, context, Elo, previous head-to-head, and form.
+- Player pages already show coverage caveats for goals and lineups, with matches scored in as the evidence trail.
+- Manager and opponent pages already expose profile-level records and match lists.
+
+Future work should make guided pattern trails more explicit on top of this structure.
