@@ -49,6 +49,14 @@
       "notes": "Optional enrichment source controlled by FOOTBALL_DATA_TOKEN; not required for the result pipeline."
     },
     {
+      "id": "transfermarkt-datasets",
+      "label": "transfermarkt-datasets",
+      "kind": "dataset",
+      "url": "https://github.com/dcaribou/transfermarkt-datasets",
+      "coverage": "Modern match events, substitutions, cards, attendance, starting lineups, and bench lineups from 2012 onward where available.",
+      "notes": "Used as the preferred modern enrichment source; raw CSV snapshots are cached under data/raw/transfermarkt-datasets."
+    },
+    {
       "id": "book-archive",
       "label": "Books, programmes, and archive records",
       "kind": "archive",

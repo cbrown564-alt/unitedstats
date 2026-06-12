@@ -31,7 +31,8 @@ modern UI, a zero-cost auto-update pipeline, and a deep analytics layer.
                │ GitHub Actions cron (post-match windows)            Vercel deploy on push
                ▼
    openfootball/england (free, maintained, no key)
-   football-data.org   (optional richer source, free key)
+   transfermarkt-datasets (modern enrichment)
+   API-Football / football-data.org (optional keyed backups)
 ```
 
 ### Key decisions
@@ -55,9 +56,10 @@ modern UI, a zero-cost auto-update pipeline, and a deep analytics layer.
   results from openfootball (plain-text fixtures, community-maintained,
   no API key), extracts new United matches, appends them to the season JSON,
   validates, rebuilds the DB, and commits. The push triggers a Vercel deploy.
-- `FOOTBALL_DATA_TOKEN` (free tier of football-data.org) can be added as a
-  repo secret to enrich the same matches with scorers and lineups; the
-  pipeline works without it.
+- `transfermarkt-datasets` is the preferred modern enrichment source for
+  events, cards, substitutions, and lineups. Keyed APIs such as API-Football
+  or football-data.org can be added as backups; the result pipeline works
+  without them.
 
 **Rendering strategy.**
 - Almost everything is static: matches from 1892 don't change. Pages are
@@ -93,7 +95,7 @@ docs/                   this folder
 | Current + recent seasons | openfootball/england | maintained per-matchday results |
 | FA Cup 2019–, League Cup, Europe | curated canonical JSON + pipeline | results & metadata |
 | Scorers | Wikipedia season articles / curated | 10,000+ goal events |
-| Lineups | Wikipedia final/late-round match articles / football-data.org optional key | 192 matches live; broader modern source next |
+| Lineups | transfermarkt-datasets / Wikipedia final and late-round match articles | 836 matches live; modern coverage from 2013 onward |
 | Managers, stadiums, competitions | curated reference JSON | complete club history |
 
 The enrichment strategy is **progressive**: the schema supports full per-match
