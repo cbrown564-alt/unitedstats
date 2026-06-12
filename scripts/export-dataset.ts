@@ -79,11 +79,62 @@ const counts: Record<string, number> = {
   ),
   "players.csv": exportCsv(
     "players.csv",
-    `SELECT p.id player_id, p.name,
+    `WITH local_shirt_decade_counts AS (
+       SELECT l.player_id, l.shirt, substr(m.date,1,3) || '0s' AS decade,
+              COUNT(*) apps, SUM(l.started = 1) starts,
+              MIN(m.date) first_date, MAX(m.date) last_date
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       WHERE l.player_side = 'united'
+         AND l.bench = 0
+         AND l.shirt IS NOT NULL
+       GROUP BY l.player_id, l.shirt, decade
+     ),
+     shirt_decade_counts AS (
+       SELECT player_id, shirt, decade, apps, 0 starts, first_date, last_date
+       FROM player_shirts
+       UNION ALL
+       SELECT local.player_id, local.shirt, local.decade, local.apps, local.starts, local.first_date, local.last_date
+       FROM local_shirt_decade_counts local
+       WHERE NOT EXISTS (
+         SELECT 1 FROM player_shirts ps WHERE ps.player_id = local.player_id
+       )
+     ),
+     shirt_totals AS (
+       SELECT player_id, shirt, SUM(apps) apps, MAX(last_date) last_date
+       FROM shirt_decade_counts
+       GROUP BY player_id, shirt
+     ),
+     shirt_decade_ranked AS (
+       SELECT shirt_decade_counts.*,
+              ROW_NUMBER() OVER (
+                PARTITION BY player_id, shirt
+                ORDER BY apps DESC, last_date DESC, decade DESC
+              ) decade_rank
+       FROM shirt_decade_counts
+     ),
+     primary_shirts AS (
+       SELECT player_id, shirt, decade, apps
+       FROM (
+         SELECT sdr.player_id, sdr.shirt, sdr.decade, st.apps,
+                ROW_NUMBER() OVER (
+                  PARTITION BY sdr.player_id
+                  ORDER BY st.apps DESC, st.last_date DESC, sdr.shirt
+                ) rn
+         FROM shirt_decade_ranked sdr
+         JOIN shirt_totals st ON st.player_id = sdr.player_id AND st.shirt = sdr.shirt
+         WHERE sdr.decade_rank = 1
+       )
+       WHERE rn = 1
+     )
+     SELECT p.id player_id, p.name,
             COALESCE(pr.apps, pt.apps, 0) apps,
             COALESCE(pr.starts, pt.starts, 0) starts,
             COALESCE(pr.subs, 0) subs,
             COALESCE(pr.goals, pt.goals, 0) goals,
+            ps.shirt primary_shirt,
+            ps.decade primary_shirt_decade,
+            ps.apps primary_shirt_apps,
             COALESCE(pt.assists, 0) recorded_assists,
             COALESCE(pt.apps, 0) lineup_apps,
             COALESCE(pt.starts, 0) lineup_starts,
@@ -100,6 +151,7 @@ const counts: Record<string, number> = {
      LEFT JOIN player_totals pt ON pt.player_id = p.id AND pt.scope = 'all'
      LEFT JOIN player_records pr ON pr.player_id = p.id
      LEFT JOIN player_media pm ON pm.player_id = p.id
+     LEFT JOIN primary_shirts ps ON ps.player_id = p.id
      WHERE pr.player_id IS NOT NULL
      ORDER BY goals DESC, apps DESC`,
   ),

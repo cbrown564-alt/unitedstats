@@ -1534,97 +1534,7 @@
           "minute": null
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "ray-wood",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bill-foulkes",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roger-byrne",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eddie-colman",
-          "shirt": 4,
-          "role": "RH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jackie-blanchflower",
-          "shirt": 5,
-          "role": "CH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "duncan-edwards",
-          "shirt": 6,
-          "role": "LH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "johnny-berry",
-          "shirt": 7,
-          "role": "OR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "billy-whelan",
-          "shirt": 8,
-          "role": "IR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "tommy-taylor",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bobby-charlton",
-          "shirt": 10,
-          "role": "IL",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "david-pegg",
-          "shirt": 11,
-          "role": "OL",
-          "start": true,
-          "on": null,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "1957-03-06-everton-a",
@@ -1752,97 +1662,7 @@
           "minute": null
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "ray-wood",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bill-foulkes",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roger-byrne",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eddie-colman",
-          "shirt": 4,
-          "role": "RH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jackie-blanchflower",
-          "shirt": 5,
-          "role": "CH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "duncan-edwards",
-          "shirt": 6,
-          "role": "LH",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "johnny-berry",
-          "shirt": 7,
-          "role": "OR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "billy-whelan",
-          "shirt": 8,
-          "role": "IR",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "tommy-taylor",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "bobby-charlton",
-          "shirt": 10,
-          "role": "IL",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "david-pegg",
-          "shirt": 11,
-          "role": "OL",
-          "start": true,
-          "on": null,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "1957-03-25-bolton-wanderers-h",
@@ -2229,6 +2049,20 @@
           "type": "goal",
           "player": "tommy-taylor",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter McParland",
+          "playerSide": "opponent",
+          "minute": 68
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter McParland",
+          "playerSide": "opponent",
+          "minute": 73
         }
       ],
       "eventsComplete": true,

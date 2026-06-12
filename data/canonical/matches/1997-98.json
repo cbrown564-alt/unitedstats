@@ -27,6 +27,13 @@
           "type": "goal",
           "player": "ronny-johnsen",
           "minute": 57
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Mark Hughes",
+          "playerSide": "opponent",
+          "minute": 52
         }
       ],
       "sources": [
@@ -1507,120 +1514,6 @@
       },
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "bodo-illgner",
-          "shirt": 25,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "christian-panucci",
-          "shirt": 17,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "manolo-sanchis",
-          "shirt": 5,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fernando-hierro",
-          "shirt": 4,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roberto-carlos",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "christian-karembeu",
-          "shirt": 27,
-          "role": "DM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fernando-redondo",
-          "shirt": 6,
-          "role": "DM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "clarence-seedorf",
-          "shirt": 10,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fernando-morientes",
-          "shirt": 15,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 81
-        },
-        {
-          "player": "predrag-mijatovic",
-          "shirt": 8,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 89
-        },
-        {
-          "player": "raul",
-          "shirt": 7,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": 90
-        },
-        {
-          "player": "jose-amavisca",
-          "shirt": 11,
-          "role": "MF",
-          "start": false,
-          "on": 90,
-          "off": null
-        },
-        {
-          "player": "jaime-sanchez",
-          "shirt": 16,
-          "role": "MF",
-          "start": false,
-          "on": 81,
-          "off": null
-        },
-        {
-          "player": "davor-suker",
-          "shirt": 9,
-          "role": "FW",
-          "start": false,
-          "on": 89,
-          "off": null
-        }
       ]
     },
     {
@@ -1721,120 +1614,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "bodo-illgner",
-          "shirt": 25,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "christian-panucci",
-          "shirt": 17,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "manolo-sanchis",
-          "shirt": 5,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fernando-hierro",
-          "shirt": 4,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roberto-carlos",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "christian-karembeu",
-          "shirt": 27,
-          "role": "DM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fernando-redondo",
-          "shirt": 6,
-          "role": "DM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "clarence-seedorf",
-          "shirt": 10,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fernando-morientes",
-          "shirt": 15,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 81
-        },
-        {
-          "player": "predrag-mijatovic",
-          "shirt": 8,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 89
-        },
-        {
-          "player": "raul",
-          "shirt": 7,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": 90
-        },
-        {
-          "player": "jose-amavisca",
-          "shirt": 11,
-          "role": "MF",
-          "start": false,
-          "on": 90,
-          "off": null
-        },
-        {
-          "player": "jaime-sanchez",
-          "shirt": 16,
-          "role": "MF",
-          "start": false,
-          "on": 81,
-          "off": null
-        },
-        {
-          "player": "davor-suker",
-          "shirt": 9,
-          "role": "FW",
-          "start": false,
-          "on": 89,
-          "off": null
-        }
       ]
     },
     {

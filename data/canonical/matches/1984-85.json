@@ -1920,7 +1920,105 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "gary-bailey",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-gidman",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-albiston",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": 91
+        },
+        {
+          "player": "norman-whiteside",
+          "shirt": 4,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-mcgrath",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kevin-moran",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bryan-robson",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gordon-strachan",
+          "shirt": 8,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-hughes",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-stapleton",
+          "shirt": 10,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesper-olsen",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mike-duxbury",
+          "shirt": 12,
+          "role": "DF",
+          "start": false,
+          "on": 91,
+          "off": null
+        }
+      ]
     }
   ]
 }

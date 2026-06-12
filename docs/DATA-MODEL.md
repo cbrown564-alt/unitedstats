@@ -65,6 +65,9 @@ by competition rules, not calendar).
 - **`player-media.json`** — top-player image manifest imported from Wikidata
   `P18` and Wikimedia Commons `imageinfo`, including thumbnail URL, Commons
   description URL, license short name, artist, credit, and retrieval timestamp.
+- **`player-shirts.json`** — top-player shirt-number summary derived from
+  MUFCInfo match pages. Rows are grouped by player, shirt number, and decade
+  for the appearance-ranked top 500 where numbered lineup rows are available.
 - **`opponents.json`** — id, canonical display name, aliases (e.g. "Small Heath" → Birmingham City lineage kept distinct), country, lat/lng of home city (spatial layer).
 - **`sources.json`** — source catalog with id, label, kind, URL, coverage note, and usage notes. Match
   records still reference sources by id; the database expands those ids into source facets.
@@ -104,6 +107,7 @@ player_records(player_id FK, career, first_year, last_year, starts, subs, apps,
                goals, source_id, source_url, stats_as_of)
 player_media(player_id FK, wikidata_id, commons_file, image_url, thumb_url,
              page_url, license, artist, credit, source_id, retrieved_at)
+player_shirts(player_id FK, shirt, decade, apps, first_date, last_date, source_id)
 season_summaries(season, competition_id, p, w, d, l, gf, ga, position, note)
 streaks(...), records(...)
 ```
@@ -162,11 +166,13 @@ Commons-backed, and license-labelled. Missing portraits fall back to generated
 shirt/initial visuals rather than unlicensed club, agency, or search-result
 images.
 
-Shirt numbers are a lineup-derived coverage field. A player's primary shirt is
-the non-bench United shirt number with the most covered lineup appearances; the
-badge shade uses the dominant decade for that selected shirt. Players with no
-covered lineup shirt rows keep shirt number blank even when verified career
-totals exist.
+Shirt numbers are a coverage field. For top appearance players, the preferred
+lane is `player_shirts`, a MUFCInfo match-page summary by player/shirt/decade.
+For everyone else, the app falls back to the non-bench United shirt number with
+the most locally covered lineup appearances. The badge shade uses the dominant
+decade for that selected shirt. Players with no numbered source rows keep shirt
+number blank even when verified career totals exist; this mainly affects
+Newton Heath-era players before numbered-shirt rows are available.
 
 The UI uses these facets at interpretation points: player totals, match pages,
 coverage ledgers, and the correction guide.
@@ -185,3 +191,5 @@ coverage ledgers, and the correction guide.
 - Reference integrity: competition/stadium/manager/opponent ids resolve.
 - Source integrity: every source id used by a match resolves in
   `sources.json`.
+- Player shirt summaries reference known player ids, valid source ids, sane
+  shirt numbers, positive counts, and ordered date ranges.

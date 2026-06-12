@@ -1231,104 +1231,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "fabien-barthez",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "gary-neville",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wes-brown",
-          "shirt": 24,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": 74
-        },
-        {
-          "player": "rio-ferdinand",
-          "shirt": 6,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "mikael-silvestre",
-          "shirt": 27,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "david-beckham",
-          "shirt": 7,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roy-keane",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "juan-sebastian-veron",
-          "shirt": 4,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ruud-van-nistelrooy",
-          "shirt": 10,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ole-gunnar-solskj-r",
-          "shirt": 20,
-          "role": "FW",
-          "start": false,
-          "on": 74,
-          "off": null
-        }
       ]
     },
     {
@@ -1441,104 +1343,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "fabien-barthez",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "gary-neville",
-          "shirt": 2,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wes-brown",
-          "shirt": 24,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": 74
-        },
-        {
-          "player": "rio-ferdinand",
-          "shirt": 6,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "mikael-silvestre",
-          "shirt": 27,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "david-beckham",
-          "shirt": 7,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roy-keane",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "juan-sebastian-veron",
-          "shirt": 4,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ruud-van-nistelrooy",
-          "shirt": 10,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ole-gunnar-solskj-r",
-          "shirt": 20,
-          "role": "FW",
-          "start": false,
-          "on": 74,
-          "off": null
-        }
       ]
     },
     {
@@ -1931,6 +1735,22 @@
           "on": 74,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Steven Gerrard",
+          "playerSide": "opponent",
+          "minute": 39
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Michael Owen",
+          "playerSide": "opponent",
+          "minute": 86
+        }
       ]
     },
     {
@@ -2157,120 +1977,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "dida",
-          "shirt": 12,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "alessandro-costacurta",
-          "shirt": 19,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": 66
-        },
-        {
-          "player": "alessandro-nesta",
-          "shirt": 13,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paolo-maldini",
-          "shirt": 3,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "kakha-kaladze",
-          "shirt": 4,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "gennaro-gattuso",
-          "shirt": 8,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "andrea-pirlo",
-          "shirt": 21,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 71
-        },
-        {
-          "player": "clarence-seedorf",
-          "shirt": 20,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "rui-costa",
-          "shirt": 10,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 87
-        },
-        {
-          "player": "andriy-shevchenko",
-          "shirt": 7,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "filippo-inzaghi",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roque-junior",
-          "shirt": 25,
-          "role": "DF",
-          "start": false,
-          "on": 66,
-          "off": null
-        },
-        {
-          "player": "massimo-ambrosini",
-          "shirt": 23,
-          "role": "MF",
-          "start": false,
-          "on": 87,
-          "off": null
-        },
-        {
-          "player": "serginho",
-          "shirt": 27,
-          "role": "MF",
-          "start": false,
-          "on": 71,
-          "off": null
-        }
       ]
     },
     {
@@ -2443,120 +2149,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "dida",
-          "shirt": 12,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "alessandro-costacurta",
-          "shirt": 19,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": 66
-        },
-        {
-          "player": "alessandro-nesta",
-          "shirt": 13,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paolo-maldini",
-          "shirt": 3,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "kakha-kaladze",
-          "shirt": 4,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "gennaro-gattuso",
-          "shirt": 8,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "andrea-pirlo",
-          "shirt": 21,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 71
-        },
-        {
-          "player": "clarence-seedorf",
-          "shirt": 20,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "rui-costa",
-          "shirt": 10,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 87
-        },
-        {
-          "player": "andriy-shevchenko",
-          "shirt": 7,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "filippo-inzaghi",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "roque-junior",
-          "shirt": 25,
-          "role": "DF",
-          "start": false,
-          "on": 66,
-          "off": null
-        },
-        {
-          "player": "massimo-ambrosini",
-          "shirt": 23,
-          "role": "MF",
-          "start": false,
-          "on": 87,
-          "off": null
-        },
-        {
-          "player": "serginho",
-          "shirt": 27,
-          "role": "MF",
-          "start": false,
-          "on": 71,
-          "off": null
-        }
       ]
     },
     {

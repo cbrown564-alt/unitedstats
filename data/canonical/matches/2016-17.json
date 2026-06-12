@@ -15192,120 +15192,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "david-de-gea",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "antonio-valencia",
-          "shirt": 25,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eric-bailly",
-          "shirt": 3,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "chris-smalling",
-          "shirt": 12,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "marcos-rojo",
-          "shirt": 5,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ander-herrera",
-          "shirt": 21,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paul-pogba",
-          "shirt": 6,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "juan-mata",
-          "shirt": 8,
-          "role": "RW",
-          "start": true,
-          "on": null,
-          "off": 46
-        },
-        {
-          "player": "jesse-lingard",
-          "shirt": 14,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 77
-        },
-        {
-          "player": "anthony-martial",
-          "shirt": 11,
-          "role": "LW",
-          "start": true,
-          "on": null,
-          "off": 90
-        },
-        {
-          "player": "zlatan-ibrahimovic",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "michael-carrick",
-          "shirt": 16,
-          "role": "MF",
-          "start": false,
-          "on": 46,
-          "off": null
-        },
-        {
-          "player": "marouane-fellaini",
-          "shirt": 27,
-          "role": "MF",
-          "start": false,
-          "on": 90,
-          "off": null
-        },
-        {
-          "player": "marcus-rashford",
-          "shirt": 19,
-          "role": "FW",
-          "start": false,
-          "on": 77,
-          "off": null
-        }
       ]
     },
     {
@@ -16402,120 +16288,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "david-de-gea",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "antonio-valencia",
-          "shirt": 25,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "eric-bailly",
-          "shirt": 3,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "chris-smalling",
-          "shirt": 12,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "marcos-rojo",
-          "shirt": 5,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ander-herrera",
-          "shirt": 21,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "paul-pogba",
-          "shirt": 6,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "juan-mata",
-          "shirt": 8,
-          "role": "RW",
-          "start": true,
-          "on": null,
-          "off": 46
-        },
-        {
-          "player": "jesse-lingard",
-          "shirt": 14,
-          "role": "AM",
-          "start": true,
-          "on": null,
-          "off": 77
-        },
-        {
-          "player": "anthony-martial",
-          "shirt": 11,
-          "role": "LW",
-          "start": true,
-          "on": null,
-          "off": 90
-        },
-        {
-          "player": "zlatan-ibrahimovic",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "michael-carrick",
-          "shirt": 16,
-          "role": "MF",
-          "start": false,
-          "on": 46,
-          "off": null
-        },
-        {
-          "player": "marouane-fellaini",
-          "shirt": 27,
-          "role": "MF",
-          "start": false,
-          "on": 90,
-          "off": null
-        },
-        {
-          "player": "marcus-rashford",
-          "shirt": 19,
-          "role": "FW",
-          "start": false,
-          "on": 77,
-          "off": null
-        }
       ]
     },
     {
@@ -20272,6 +20044,20 @@
           "type": "goal",
           "player": "jesse-lingard",
           "minute": 38
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Manolo Gabbiadini",
+          "playerSide": "opponent",
+          "minute": 46
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Manolo Gabbiadini",
+          "playerSide": "opponent",
+          "minute": 48
         }
       ],
       "sources": [

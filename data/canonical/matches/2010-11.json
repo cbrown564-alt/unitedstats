@@ -34,6 +34,13 @@
           "type": "goal",
           "player": "dimitar-berbatov",
           "minute": 92
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Salomon Kalou",
+          "playerSide": "opponent",
+          "minute": 83
         }
       ],
       "sources": [
@@ -1620,121 +1627,7 @@
           "minute": 49
         }
       ],
-      "eventsComplete": true,
-      "lineup": [
-        {
-          "player": "thomas-s-rensen",
-          "shirt": 29,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "andy-wilkinson",
-          "shirt": 28,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ryan-shawcross",
-          "shirt": 17,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "robert-huth",
-          "shirt": 4,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "marc-wilson",
-          "shirt": 12,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jermaine-pennant",
-          "shirt": 16,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "glenn-whelan",
-          "shirt": 6,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 85
-        },
-        {
-          "player": "rory-delap",
-          "shirt": 24,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 81
-        },
-        {
-          "player": "matthew-etherington",
-          "shirt": 26,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": 62
-        },
-        {
-          "player": "kenwyne-jones",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jonathan-walters",
-          "shirt": 19,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "danny-pugh",
-          "shirt": 14,
-          "role": "MF",
-          "start": false,
-          "on": 85,
-          "off": null
-        },
-        {
-          "player": "dean-whitehead",
-          "shirt": 18,
-          "role": "MF",
-          "start": false,
-          "on": 62,
-          "off": null
-        },
-        {
-          "player": "john-carew",
-          "shirt": 22,
-          "role": "FW",
-          "start": false,
-          "on": 81,
-          "off": null
-        }
-      ]
+      "eventsComplete": true
     },
     {
       "id": "2011-03-15-olympique-de-marseille-h",
@@ -1870,112 +1763,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "edwin-van-der-sar",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fabio",
-          "shirt": 20,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": 69
-        },
-        {
-          "player": "rio-ferdinand",
-          "shirt": 5,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nemanja-vidic",
-          "shirt": 15,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "patrice-evra",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "antonio-valencia",
-          "shirt": 25,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "michael-carrick",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 77
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "park-ji-sung",
-          "shirt": 13,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wayne-rooney",
-          "shirt": 10,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "javier-hernandez",
-          "shirt": 14,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nani",
-          "shirt": 17,
-          "role": "MF",
-          "start": false,
-          "on": 69,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "MF",
-          "start": false,
-          "on": 77,
-          "off": null
-        }
       ]
     },
     {
@@ -2044,112 +1831,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "edwin-van-der-sar",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fabio",
-          "shirt": 20,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": 69
-        },
-        {
-          "player": "rio-ferdinand",
-          "shirt": 5,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nemanja-vidic",
-          "shirt": 15,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "patrice-evra",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "antonio-valencia",
-          "shirt": 25,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "michael-carrick",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 77
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "park-ji-sung",
-          "shirt": 13,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wayne-rooney",
-          "shirt": 10,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "javier-hernandez",
-          "shirt": 14,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nani",
-          "shirt": 17,
-          "role": "MF",
-          "start": false,
-          "on": 69,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "MF",
-          "start": false,
-          "on": 77,
-          "off": null
-        }
       ]
     },
     {
@@ -2173,121 +1854,7 @@
         "engsoccerdata",
         "wikipedia"
       ],
-      "notes": null,
-      "lineup": [
-        {
-          "player": "thomas-s-rensen",
-          "shirt": 29,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "andy-wilkinson",
-          "shirt": 28,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "ryan-shawcross",
-          "shirt": 17,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "robert-huth",
-          "shirt": 4,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "marc-wilson",
-          "shirt": 12,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jermaine-pennant",
-          "shirt": 16,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "glenn-whelan",
-          "shirt": 6,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 85
-        },
-        {
-          "player": "rory-delap",
-          "shirt": 24,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 81
-        },
-        {
-          "player": "matthew-etherington",
-          "shirt": 26,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": 62
-        },
-        {
-          "player": "kenwyne-jones",
-          "shirt": 9,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "jonathan-walters",
-          "shirt": 19,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "danny-pugh",
-          "shirt": 14,
-          "role": "MF",
-          "start": false,
-          "on": 85,
-          "off": null
-        },
-        {
-          "player": "dean-whitehead",
-          "shirt": 18,
-          "role": "MF",
-          "start": false,
-          "on": 62,
-          "off": null
-        },
-        {
-          "player": "john-carew",
-          "shirt": 22,
-          "role": "FW",
-          "start": false,
-          "on": 81,
-          "off": null
-        }
-      ]
+      "notes": null
     },
     {
       "id": "2011-04-19-newcastle-united-a",
@@ -2371,112 +1938,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "edwin-van-der-sar",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fabio",
-          "shirt": 20,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": 69
-        },
-        {
-          "player": "rio-ferdinand",
-          "shirt": 5,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nemanja-vidic",
-          "shirt": 15,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "patrice-evra",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "antonio-valencia",
-          "shirt": 25,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "michael-carrick",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 77
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "park-ji-sung",
-          "shirt": 13,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wayne-rooney",
-          "shirt": 10,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "javier-hernandez",
-          "shirt": 14,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nani",
-          "shirt": 17,
-          "role": "MF",
-          "start": false,
-          "on": 69,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "MF",
-          "start": false,
-          "on": 77,
-          "off": null
-        }
       ]
     },
     {
@@ -2542,112 +2003,6 @@
       ],
       "sources": [
         "wikipedia"
-      ],
-      "lineup": [
-        {
-          "player": "edwin-van-der-sar",
-          "shirt": 1,
-          "role": "GK",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "fabio",
-          "shirt": 20,
-          "role": "RB",
-          "start": true,
-          "on": null,
-          "off": 69
-        },
-        {
-          "player": "rio-ferdinand",
-          "shirt": 5,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nemanja-vidic",
-          "shirt": 15,
-          "role": "CB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "patrice-evra",
-          "shirt": 3,
-          "role": "LB",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "antonio-valencia",
-          "shirt": 25,
-          "role": "RM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "michael-carrick",
-          "shirt": 16,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": 77
-        },
-        {
-          "player": "ryan-giggs",
-          "shirt": 11,
-          "role": "CM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "park-ji-sung",
-          "shirt": 13,
-          "role": "LM",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "wayne-rooney",
-          "shirt": 10,
-          "role": "SS",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "javier-hernandez",
-          "shirt": 14,
-          "role": "CF",
-          "start": true,
-          "on": null,
-          "off": null
-        },
-        {
-          "player": "nani",
-          "shirt": 17,
-          "role": "MF",
-          "start": false,
-          "on": 69,
-          "off": null
-        },
-        {
-          "player": "paul-scholes",
-          "shirt": 18,
-          "role": "MF",
-          "start": false,
-          "on": 77,
-          "off": null
-        }
       ]
     },
     {
@@ -2781,6 +2136,27 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 34
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Pedro",
+          "playerSide": "opponent",
+          "minute": 27
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Lionel Messi",
+          "playerSide": "opponent",
+          "minute": 54
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "David Villa",
+          "playerSide": "opponent",
+          "minute": 69
         }
       ],
       "sources": [

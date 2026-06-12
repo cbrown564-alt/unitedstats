@@ -355,7 +355,7 @@ export interface PlayerTotals {
 }
 
 const PLAYER_TOTALS_WITH = `
-  WITH shirt_decade_counts AS (
+  WITH local_shirt_decade_counts AS (
     SELECT l.player_id, l.shirt, substr(m.date,1,3) || '0s' AS decade,
            COUNT(*) apps, SUM(l.started = 1) starts,
            MIN(m.date) first_date, MAX(m.date) last_date
@@ -365,6 +365,16 @@ const PLAYER_TOTALS_WITH = `
       AND l.bench = 0
       AND l.shirt IS NOT NULL
     GROUP BY l.player_id, l.shirt, decade
+  ),
+  shirt_decade_counts AS (
+    SELECT player_id, shirt, decade, apps, 0 starts, first_date, last_date
+    FROM player_shirts
+    UNION ALL
+    SELECT local.player_id, local.shirt, local.decade, local.apps, local.starts, local.first_date, local.last_date
+    FROM local_shirt_decade_counts local
+    WHERE NOT EXISTS (
+      SELECT 1 FROM player_shirts ps WHERE ps.player_id = local.player_id
+    )
   ),
   shirt_totals AS (
     SELECT player_id, shirt, SUM(apps) apps, MAX(last_date) last_date
@@ -472,19 +482,30 @@ export interface PlayerShirtNumber {
 export function playerShirtNumbersByDecade(id: string): PlayerShirtNumber[] {
   return getDb()
     .prepare(
-      `SELECT substr(m.date,1,3) || '0s' decade, l.shirt,
-              COUNT(*) apps, SUM(l.started = 1) starts,
-              MIN(m.date) first_date, MAX(m.date) last_date
-       FROM match_lineups l
-       JOIN matches m ON m.id = l.match_id
-       WHERE l.player_id = ?
-         AND l.player_side = 'united'
-         AND l.bench = 0
-         AND l.shirt IS NOT NULL
-       GROUP BY decade, l.shirt
-       ORDER BY decade, apps DESC, l.shirt`,
+      `WITH source_rows AS (
+         SELECT decade, shirt, apps, 0 starts, first_date, last_date
+         FROM player_shirts
+         WHERE player_id = ?
+       ),
+       local_rows AS (
+         SELECT substr(m.date,1,3) || '0s' decade, l.shirt,
+                COUNT(*) apps, SUM(l.started = 1) starts,
+                MIN(m.date) first_date, MAX(m.date) last_date
+         FROM match_lineups l
+         JOIN matches m ON m.id = l.match_id
+         WHERE l.player_id = ?
+           AND l.player_side = 'united'
+           AND l.bench = 0
+           AND l.shirt IS NOT NULL
+         GROUP BY decade, l.shirt
+       )
+       SELECT * FROM source_rows
+       UNION ALL
+       SELECT * FROM local_rows
+       WHERE NOT EXISTS (SELECT 1 FROM source_rows)
+       ORDER BY decade, apps DESC, shirt`,
     )
-    .all(id) as PlayerShirtNumber[];
+    .all(id, id) as PlayerShirtNumber[];
 }
 
 export function playerSplitsBySeason(id: string): {
