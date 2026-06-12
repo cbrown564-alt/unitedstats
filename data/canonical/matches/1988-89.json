@@ -1119,7 +1119,113 @@
         "engsoccerdata",
         "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "neville-southall",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "neil-mcdonald",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "pat-van-den-hauwe",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kevin-ratcliffe",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dave-watson",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-bracewell",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 59
+        },
+        {
+          "player": "pat-nevin",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-steven",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "graeme-sharp",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-cottee",
+          "shirt": 10,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kevin-sheedy",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "ian-wilson",
+          "shirt": 12,
+          "role": "MF",
+          "start": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "stuart-mccall",
+          "shirt": 14,
+          "role": "MF",
+          "start": false,
+          "on": 59,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1989-03-25-luton-town-h",

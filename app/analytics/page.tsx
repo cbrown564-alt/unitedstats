@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   eloSeries, seasonAggregates, biggestWins, heaviestDefeats, highestAttendances,
   venueRecord, goalMinuteHistogram, stadiumsWithRecords, eventCoverage, getMeta,
+  lineupCoverage, topAssistPartnerships,
 } from "@/lib/queries";
 import { AreaChart, Bars } from "@/components/charts";
 import { MatchList } from "@/components/MatchList";
@@ -20,6 +21,8 @@ export default function AnalyticsPage() {
   const minuteHist = goalMinuteHistogram();
   const grounds = stadiumsWithRecords();
   const coverage = eventCoverage();
+  const lineups = lineupCoverage();
+  const partnerships = topAssistPartnerships(12);
   const meta = getMeta();
   const currentElo = elo.length ? Math.round(elo[elo.length - 1].elo) : 1500;
   const peak = elo.reduce((a, b) => (b.elo > a.elo ? b : a), elo[0]);
@@ -242,6 +245,67 @@ export default function AnalyticsPage() {
             scorer and lineup depth grows continuously — this ledger is the honest picture of how far the
             excavation has gotten.
           </p>
+        </div>
+      </section>
+
+      <section className="grid lg:grid-cols-2 gap-8">
+        <div>
+          <h2 className="display text-xl mb-3">Lineup coverage</h2>
+          <div className="border border-line rounded-lg bg-panel p-4">
+            <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
+              {lineups.map((c) => {
+                const f = c.matches ? c.withLineups / c.matches : 0;
+                return (
+                  <div key={c.decade} className="text-center">
+                    <div
+                      className="h-16 rounded relative overflow-hidden bg-panel-2"
+                      title={`${c.decade}: lineups for ${c.withLineups}/${c.matches} matches`}
+                    >
+                      <div
+                        className="absolute bottom-0 left-0 right-0 bg-gold"
+                        style={{ height: `${Math.round(100 * f)}%` }}
+                      />
+                    </div>
+                    <div className="text-[10px] text-ink-faint mt-1 stat-num">{c.decade.slice(2)}</div>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-xs text-ink-faint mt-3">
+              {fmtNum(Number(meta.matches_with_lineups ?? 0))} matches have full United lineups,
+              covering {fmtNum(Number(meta.lineup_entries ?? 0))} player appearances.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="display text-xl mb-3">Assist partnerships</h2>
+          <div className="border border-line rounded-lg bg-panel p-4">
+            {partnerships.length > 0 ? (
+              <div className="space-y-2 text-sm">
+                {partnerships.map((row) => (
+                  <div key={`${row.assister_id}-${row.scorer_id}`} className="flex items-center gap-2">
+                    <Link href={`/player/${row.assister_id}`} className="font-medium hover:text-devil-bright">
+                      {row.assister_name}
+                    </Link>
+                    <span className="text-ink-faint">→</span>
+                    <Link href={`/player/${row.scorer_id}`} className="font-medium hover:text-devil-bright flex-1">
+                      {row.scorer_name}
+                    </Link>
+                    <span className="stat-num text-devil-bright">{row.goals}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-ink-dim">
+                Assist fields are wired through the canonical data, database, and player pages; no current
+                source in the checked-in dataset records enough assists to rank partnerships yet.
+              </p>
+            )}
+            <p className="text-xs text-ink-faint mt-3">
+              Built from goal events that include an assist player.
+            </p>
+          </div>
         </div>
       </section>
 

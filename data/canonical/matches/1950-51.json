@@ -1018,9 +1018,100 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "george-farm",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eddie-shimwell",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-garrett",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-johnston",
+          "shirt": 4,
+          "role": "RH",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-hayward",
+          "shirt": 5,
+          "role": "CH",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "hughie-kelly",
+          "shirt": 6,
+          "role": "LH",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stanley-matthews",
+          "shirt": 7,
+          "role": "OR",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jackie-mudie",
+          "shirt": 8,
+          "role": "IR",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-mortensen",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-slater",
+          "shirt": 10,
+          "role": "IL",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-perry",
+          "shirt": 11,
+          "role": "OL",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-02-26-sheffield-wednesday-a",

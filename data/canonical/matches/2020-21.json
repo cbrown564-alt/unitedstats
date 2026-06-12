@@ -789,7 +789,121 @@
           "minute": 96
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "claudio-bravo",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kyle-walker",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-stones",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fernandinho",
+          "shirt": 25,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "oleksandr-zinchenko",
+          "shirt": 11,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ilkay-gundogan",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 58
+        },
+        {
+          "player": "rodri",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-foden",
+          "shirt": 47,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-silva",
+          "shirt": 21,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": 77
+        },
+        {
+          "player": "raheem-sterling",
+          "shirt": 7,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sergio-aguero",
+          "shirt": 10,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 84
+        },
+        {
+          "player": "kevin-de-bruyne",
+          "shirt": 17,
+          "role": "MF",
+          "start": false,
+          "on": 58,
+          "off": null
+        },
+        {
+          "player": "bernardo-silva",
+          "shirt": 20,
+          "role": "MF",
+          "start": false,
+          "on": 77,
+          "off": null
+        },
+        {
+          "player": "gabriel-jesus",
+          "shirt": 9,
+          "role": "FW",
+          "start": false,
+          "on": 84,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2020-12-26-leicester-city-a",
@@ -910,7 +1024,130 @@
         "pens": null
       },
       "sources": [
-        "openfootball"
+        "openfootball",
+        "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "hugo-lloris",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "serge-aurier",
+          "shirt": 24,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 90
+        },
+        {
+          "player": "toby-alderweireld",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-dier",
+          "shirt": 15,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sergio-reguilon",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-winks",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "pierre-emile-h-jbjerg",
+          "shirt": 5,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 84
+        },
+        {
+          "player": "lucas-moura",
+          "shirt": 27,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "giovani-lo-celso",
+          "shirt": 18,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "son-heung-min",
+          "shirt": 7,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-kane",
+          "shirt": 10,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "moussa-sissoko",
+          "shirt": 17,
+          "role": "MF",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "dele-alli",
+          "shirt": 20,
+          "role": "MF",
+          "start": false,
+          "on": 84,
+          "off": null
+        },
+        {
+          "player": "gareth-bale",
+          "shirt": 9,
+          "role": "FW",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "steven-bergwijn",
+          "shirt": 23,
+          "role": "FW",
+          "start": false,
+          "on": 90,
+          "off": null
+        }
       ]
     },
     {
@@ -1597,7 +1834,129 @@
           "minute": 38
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "kasper-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wesley-fofana",
+          "shirt": 3,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jonny-evans",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 34
+        },
+        {
+          "player": "caglar-soyuncu",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "timothy-castagne",
+          "shirt": 27,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "youri-tielemans",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilfred-ndidi",
+          "shirt": 25,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "luke-thomas",
+          "shirt": 33,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 82
+        },
+        {
+          "player": "ayoze-perez",
+          "shirt": 17,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": 82
+        },
+        {
+          "player": "kelechi-iheanacho",
+          "shirt": 14,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "jamie-vardy",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wes-morgan",
+          "shirt": 5,
+          "role": "DF",
+          "start": false,
+          "on": 82,
+          "off": null
+        },
+        {
+          "player": "james-maddison",
+          "shirt": 10,
+          "role": "MF",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "marc-albrighton",
+          "shirt": 11,
+          "role": "MF",
+          "start": false,
+          "on": 34,
+          "off": null
+        },
+        {
+          "player": "hamza-choudhury",
+          "shirt": 20,
+          "role": "MF",
+          "start": false,
+          "on": 82,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2021-04-04-brighton-and-hove-albion-h",
@@ -1665,6 +2024,136 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "shirt": 29,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "victor-lindelof",
+          "shirt": 2,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "shirt": 3,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "luke-shaw",
+          "shirt": 23,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "scott-mctominay",
+          "shirt": 39,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "mason-greenwood",
+          "shirt": 11,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": 100
+        },
+        {
+          "player": "bruno-fernandes",
+          "shirt": 18,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 10,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "edinson-cavani",
+          "shirt": 7,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-telles",
+          "shirt": 27,
+          "role": "DF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "axel-tuanzebe",
+          "shirt": 38,
+          "role": "DF",
+          "start": false,
+          "on": 116,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "shirt": 17,
+          "role": "MF",
+          "start": false,
+          "on": 100,
+          "off": null
+        },
+        {
+          "player": "daniel-james",
+          "shirt": 21,
+          "role": "MF",
+          "start": false,
+          "on": 116,
+          "off": null
+        }
       ]
     },
     {
@@ -1739,6 +2228,136 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "shirt": 29,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "victor-lindelof",
+          "shirt": 2,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "shirt": 3,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "luke-shaw",
+          "shirt": 23,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "scott-mctominay",
+          "shirt": 39,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "mason-greenwood",
+          "shirt": 11,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": 100
+        },
+        {
+          "player": "bruno-fernandes",
+          "shirt": 18,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 10,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "edinson-cavani",
+          "shirt": 7,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-telles",
+          "shirt": 27,
+          "role": "DF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "axel-tuanzebe",
+          "shirt": 38,
+          "role": "DF",
+          "start": false,
+          "on": 116,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "shirt": 17,
+          "role": "MF",
+          "start": false,
+          "on": 100,
+          "off": null
+        },
+        {
+          "player": "daniel-james",
+          "shirt": 21,
+          "role": "MF",
+          "start": false,
+          "on": 116,
+          "off": null
+        }
       ]
     },
     {
@@ -1853,6 +2472,136 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "shirt": 29,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "victor-lindelof",
+          "shirt": 2,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "shirt": 3,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "luke-shaw",
+          "shirt": 23,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "scott-mctominay",
+          "shirt": 39,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "mason-greenwood",
+          "shirt": 11,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": 100
+        },
+        {
+          "player": "bruno-fernandes",
+          "shirt": 18,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 10,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "edinson-cavani",
+          "shirt": 7,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-telles",
+          "shirt": 27,
+          "role": "DF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "axel-tuanzebe",
+          "shirt": 38,
+          "role": "DF",
+          "start": false,
+          "on": 116,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "shirt": 17,
+          "role": "MF",
+          "start": false,
+          "on": 100,
+          "off": null
+        },
+        {
+          "player": "daniel-james",
+          "shirt": 21,
+          "role": "MF",
+          "start": false,
+          "on": 116,
+          "off": null
+        }
       ]
     },
     {
@@ -1887,6 +2636,136 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "shirt": 29,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "victor-lindelof",
+          "shirt": 2,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "shirt": 3,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "luke-shaw",
+          "shirt": 23,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "scott-mctominay",
+          "shirt": 39,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "mason-greenwood",
+          "shirt": 11,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": 100
+        },
+        {
+          "player": "bruno-fernandes",
+          "shirt": 18,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 10,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "edinson-cavani",
+          "shirt": 7,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-telles",
+          "shirt": 27,
+          "role": "DF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "axel-tuanzebe",
+          "shirt": 38,
+          "role": "DF",
+          "start": false,
+          "on": 116,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "shirt": 17,
+          "role": "MF",
+          "start": false,
+          "on": 100,
+          "off": null
+        },
+        {
+          "player": "daniel-james",
+          "shirt": 21,
+          "role": "MF",
+          "start": false,
+          "on": 116,
+          "off": null
+        }
       ]
     },
     {
@@ -2084,6 +2963,136 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "shirt": 29,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "victor-lindelof",
+          "shirt": 2,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "shirt": 3,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "luke-shaw",
+          "shirt": 23,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 116
+        },
+        {
+          "player": "scott-mctominay",
+          "shirt": 39,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 120
+        },
+        {
+          "player": "mason-greenwood",
+          "shirt": 11,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": 100
+        },
+        {
+          "player": "bruno-fernandes",
+          "shirt": 18,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 10,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "edinson-cavani",
+          "shirt": 7,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-telles",
+          "shirt": 27,
+          "role": "DF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "axel-tuanzebe",
+          "shirt": 38,
+          "role": "DF",
+          "start": false,
+          "on": 116,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 120,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "shirt": 17,
+          "role": "MF",
+          "start": false,
+          "on": 100,
+          "off": null
+        },
+        {
+          "player": "daniel-james",
+          "shirt": 21,
+          "role": "MF",
+          "start": false,
+          "on": 116,
+          "off": null
+        }
       ]
     }
   ]

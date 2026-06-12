@@ -109,5 +109,7 @@ Indexes on `matches(date)`, `matches(season)`, `matches(opponent_id)`,
 - Every match has id/date/competition/opponent/venue/score; ids unique.
 - Event minutes sane (0–125); event players exist in players.json; goals in
   events, when present and flagged complete, sum to the match score.
+- Lineups, when present, reference known players, contain no duplicate players,
+  and have exactly 11 starters.
 - Season files internally date-ordered; no duplicate ids across seasons.
 - Reference integrity: competition/stadium/manager/opponent ids resolve.

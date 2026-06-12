@@ -14,9 +14,9 @@ export default function PlayersPage() {
       <header>
         <h1 className="display text-3xl">Players</h1>
         <p className="text-sm text-ink-dim mt-1 max-w-2xl">
-          {fmtNum(players.length)} players with recorded goal contributions.
+          {fmtNum(players.length)} players with recorded appearances or goal contributions.
           Goal data currently covers <span className="stat-num">{fmtNum(Number(meta.events))}</span> events;
-          coverage deepens era by era — appearance counts await lineup data.
+          lineup data covers <span className="stat-num">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
         </p>
       </header>
       <table className="w-full text-sm border border-line rounded-lg overflow-hidden">
@@ -24,9 +24,11 @@ export default function PlayersPage() {
           <tr className="bg-panel-2 text-left text-xs uppercase tracking-wider text-ink-faint">
             <th className="px-3 py-2 w-10">#</th>
             <th className="px-3 py-2">Player</th>
+            <th className="px-3 py-2 text-right">Apps</th>
+            <th className="px-3 py-2 text-right hidden sm:table-cell">Starts</th>
             <th className="px-3 py-2 text-right">Goals</th>
             <th className="px-3 py-2 text-right hidden sm:table-cell">Assists</th>
-            <th className="px-3 py-2 text-right hidden sm:table-cell">Scoring span</th>
+            <th className="px-3 py-2 text-right hidden lg:table-cell">Span</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-line">
@@ -38,9 +40,11 @@ export default function PlayersPage() {
                   {p.name}
                 </Link>
               </td>
+              <td className="px-3 py-2 text-right stat-num">{p.apps || "—"}</td>
+              <td className="px-3 py-2 text-right stat-num hidden sm:table-cell">{p.starts || "—"}</td>
               <td className="px-3 py-2 text-right stat-num font-semibold text-devil-bright">{p.goals}</td>
               <td className="px-3 py-2 text-right stat-num hidden sm:table-cell">{p.assists || "—"}</td>
-              <td className="px-3 py-2 text-right stat-num text-ink-faint hidden sm:table-cell">
+              <td className="px-3 py-2 text-right stat-num text-ink-faint hidden lg:table-cell">
                 {p.first_date ? `${p.first_date.slice(0, 4)}–${p.last_date?.slice(0, 4)}` : "—"}
               </td>
             </tr>

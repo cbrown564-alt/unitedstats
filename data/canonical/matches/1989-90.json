@@ -1430,7 +1430,113 @@
           "minute": 113
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jim-leighton",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-ince",
+          "shirt": 2,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lee-martin",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": 88
+        },
+        {
+          "player": "steve-bruce",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mike-phelan",
+          "shirt": 5,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-pallister",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 93
+        },
+        {
+          "player": "bryan-robson",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "neil-webb",
+          "shirt": 8,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-mcclair",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-hughes",
+          "shirt": 10,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "danny-wallace",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-robins",
+          "shirt": 12,
+          "role": "FW",
+          "start": false,
+          "on": 93,
+          "off": null
+        },
+        {
+          "player": "clayton-blackmore",
+          "shirt": 14,
+          "role": "DF",
+          "start": false,
+          "on": 88,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1990-05-17-crystal-palace-n",
@@ -1461,7 +1567,97 @@
           "minute": 59
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "les-sealey",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-ince",
+          "shirt": 2,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lee-martin",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-bruce",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mike-phelan",
+          "shirt": 5,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-pallister",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bryan-robson",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "neil-webb",
+          "shirt": 8,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-mcclair",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-hughes",
+          "shirt": 10,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "danny-wallace",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     }
   ]
 }

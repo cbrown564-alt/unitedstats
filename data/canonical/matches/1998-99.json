@@ -1525,6 +1525,112 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-irwin",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nicky-butt",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesper-blomqvist",
+          "shirt": 15,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 81
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 81,
+          "off": null
+        }
       ]
     },
     {
@@ -1548,7 +1654,121 @@
         "engsoccerdata",
         "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-may",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-neville",
+          "shirt": 12,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roy-keane",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 9
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 60
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "DF",
+          "start": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 9,
+          "off": null
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "FW",
+          "start": false,
+          "on": 60,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1999-03-10-chelsea-a",
@@ -1584,7 +1804,121 @@
           "minute": 59
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-may",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-neville",
+          "shirt": 12,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roy-keane",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 9
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 60
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "DF",
+          "start": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 9,
+          "off": null
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "FW",
+          "start": false,
+          "on": 60,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1999-03-13-newcastle-united-a",
@@ -1647,6 +1981,112 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-irwin",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nicky-butt",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesper-blomqvist",
+          "shirt": 15,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 81
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 81,
+          "off": null
+        }
       ]
     },
     {
@@ -1744,6 +2184,112 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-irwin",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nicky-butt",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesper-blomqvist",
+          "shirt": 15,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 81
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 81,
+          "off": null
+        }
       ]
     },
     {
@@ -1765,9 +2311,124 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Villa Park, Aston"
+      "notes": "Venue: Villa Park, Aston",
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-may",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-neville",
+          "shirt": 12,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roy-keane",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 9
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 60
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "DF",
+          "start": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 9,
+          "off": null
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "FW",
+          "start": false,
+          "on": 60,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1999-04-14-arsenal-n",
@@ -1804,7 +2465,121 @@
           "minute": 109
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-may",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-neville",
+          "shirt": 12,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roy-keane",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 9
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 60
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "DF",
+          "start": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 9,
+          "off": null
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "FW",
+          "start": false,
+          "on": 60,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1999-04-17-sheffield-wednesday-h",
@@ -1882,6 +2657,112 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-irwin",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nicky-butt",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesper-blomqvist",
+          "shirt": 15,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 81
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 81,
+          "off": null
+        }
       ]
     },
     {
@@ -2100,7 +2981,121 @@
           "minute": 52
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-may",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-neville",
+          "shirt": 12,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roy-keane",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 9
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 60
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "DF",
+          "start": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 9,
+          "off": null
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "FW",
+          "start": false,
+          "on": 60,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1999-05-26-bayern-munich-n",
@@ -2134,6 +3129,112 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "peter-schmeichel",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gary-neville",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronny-johnsen",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jaap-stam",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-irwin",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-beckham",
+          "shirt": 7,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nicky-butt",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesper-blomqvist",
+          "shirt": 15,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "dwight-yorke",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-cole",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 81
+        },
+        {
+          "player": "teddy-sheringham",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 81,
+          "off": null
+        }
       ]
     }
   ]

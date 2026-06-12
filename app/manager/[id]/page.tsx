@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { managerById, managerTenures, findMatches } from "@/lib/queries";
+import { managerById, managerTenures } from "@/lib/queries";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtDate, fmtNum, pct } from "@/lib/format";

@@ -1122,7 +1122,97 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jim-goodchild",
+          "shirt": null,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sam-cookson",
+          "shirt": null,
+          "role": "DF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "philip-mccloy",
+          "shirt": null,
+          "role": "DF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-pringle",
+          "shirt": null,
+          "role": "MF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sam-cowan",
+          "shirt": null,
+          "role": "MF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jimmy-mcmullan",
+          "shirt": null,
+          "role": "MF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-austin",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-browell",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-roberts",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-johnson",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-hicks",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1926-03-10-liverpool-h",
@@ -1252,9 +1342,100 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Bramall Lane, Sheffield"
+      "notes": "Venue: Bramall Lane, Sheffield",
+      "lineup": [
+        {
+          "player": "jim-goodchild",
+          "shirt": null,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sam-cookson",
+          "shirt": null,
+          "role": "DF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "philip-mccloy",
+          "shirt": null,
+          "role": "DF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-pringle",
+          "shirt": null,
+          "role": "MF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sam-cowan",
+          "shirt": null,
+          "role": "MF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jimmy-mcmullan",
+          "shirt": null,
+          "role": "MF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-austin",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-browell",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-roberts",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-johnson",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-hicks",
+          "shirt": null,
+          "role": "FW",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1926-04-02-notts-county-a",

@@ -1,7 +1,7 @@
 # Architecture
 
-UnitedStats is the exhaustive history of Manchester United — every match, every
-lineup, every goal contribution, for every competition since Newton Heath's
+UnitedStats is the exhaustive history of Manchester United — every match, with
+progressively deeper lineups and goal contributions for every competition since Newton Heath's
 first league season in 1892. A spiritual successor to stretfordend.co.uk with a
 modern UI, a zero-cost auto-update pipeline, and a deep analytics layer.
 
@@ -92,7 +92,8 @@ docs/                   this folder
 | FA Cup 1886–2019 | engsoccerdata facup | results, venues, attendance |
 | Current + recent seasons | openfootball/england | maintained per-matchday results |
 | FA Cup 2019–, League Cup, Europe | curated canonical JSON + pipeline | results & metadata |
-| Scorers / lineups (modern era) | football-data.org (optional key) / curated | per-event detail |
+| Scorers | Wikipedia season articles / curated | 10,000+ goal events |
+| Lineups | Wikipedia final/late-round match articles / football-data.org optional key | 192 matches live; broader modern source next |
 | Managers, stadiums, competitions | curated reference JSON | complete club history |
 
 The enrichment strategy is **progressive**: the schema supports full per-match
