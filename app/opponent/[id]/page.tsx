@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { opponentById, findMatches } from "@/lib/queries";
+import {
+  longestStreak, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
+} from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
-import { fmtNum, pct } from "@/lib/format";
+import { EvidenceLink } from "@/components/EvidenceLink";
+import { fmtDate, fmtNum, pct, venueLabel } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +25,11 @@ export default async function OpponentPage({
   const PAGE = 50;
   const { rows, total } = findMatches({ opponent: id, limit: PAGE, offset: (page - 1) * PAGE });
   const pages = Math.ceil(total / PAGE);
+  const venues = opponentVenueSplits(id);
+  const cup = opponentCupRecord(id);
+  const sequence = opponentResultSequence(id);
+  const unbeaten = longestStreak(sequence, "unbeaten");
+  const winless = longestStreak(sequence, "winless");
 
   return (
     <div className="space-y-8">
@@ -45,6 +54,78 @@ export default async function OpponentPage({
         </div>
         <WdlBar w={o.w} d={o.d} l={o.l} className="max-w-2xl mt-3" />
       </header>
+
+      <section className="grid lg:grid-cols-3 gap-8">
+        <div>
+          <h2 className="display text-xl mb-3">Home and away</h2>
+          <div className="space-y-3">
+            {venues.map((v) => (
+              <div key={v.venue}>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-ink-dim">{venueLabel(v.venue)}</span>
+                  <span className="stat-num text-xs text-ink-faint">
+                    {v.p} P · {pct(v.w, v.p)} W
+                  </span>
+                </div>
+                <WdlBar w={v.w} d={v.d} l={v.l} />
+              </div>
+            ))}
+          </div>
+          <div className="mt-3">
+            <EvidenceLink href={`/matches?opponent=${id}&venue=A`} label="Away meetings only →" />
+          </div>
+        </div>
+        <div>
+          <h2 className="display text-xl mb-3">Cup meetings</h2>
+          {cup.p > 0 ? (
+            <>
+              <div className="border border-line rounded-lg bg-panel px-4 py-3">
+                <div className="stat-num text-2xl font-semibold">
+                  {cup.w}–{cup.d}–{cup.l}
+                </div>
+                <div className="text-xs text-ink-faint mt-1">
+                  {cup.p} cup ties · {pct(cup.w, cup.p)} won
+                  {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
+                </div>
+              </div>
+              <div className="mt-3">
+                <EvidenceLink href={`/matches?opponent=${id}&type=cup`} label="Show the cup ties →" />
+              </div>
+            </>
+          ) : (
+            <p className="text-sm text-ink-faint">League meetings only — no cup tie on record.</p>
+          )}
+        </div>
+        <div>
+          <h2 className="display text-xl mb-3">Longest runs</h2>
+          <div className="space-y-2 text-sm">
+            {unbeaten && unbeaten.length >= 3 && (
+              <div className="border border-line rounded-lg bg-panel px-4 py-3">
+                <span className="stat-num text-win text-lg font-semibold">{unbeaten.length}</span>
+                <span className="text-ink-dim"> unbeaten</span>
+                <div className="text-xs text-ink-faint mt-0.5 stat-num">
+                  {fmtDate(unbeaten.from)} – {fmtDate(unbeaten.to)}
+                </div>
+              </div>
+            )}
+            {winless && winless.length >= 3 && (
+              <div className="border border-line rounded-lg bg-panel px-4 py-3">
+                <span className="stat-num text-loss text-lg font-semibold">{winless.length}</span>
+                <span className="text-ink-dim"> without a win</span>
+                <div className="text-xs text-ink-faint mt-0.5 stat-num">
+                  {fmtDate(winless.from)} – {fmtDate(winless.to)}
+                </div>
+              </div>
+            )}
+            {(!unbeaten || unbeaten.length < 3) && (!winless || winless.length < 3) && (
+              <p className="text-sm text-ink-faint">No run of 3+ meetings either way.</p>
+            )}
+          </div>
+          <p className="text-xs text-ink-faint mt-2">
+            Consecutive meetings in this fixture, all competitions.
+          </p>
+        </div>
+      </section>
 
       <section>
         <h2 className="display text-xl mb-3">All meetings</h2>

@@ -128,27 +128,39 @@ token-gated, cached, dry-run-first path for modern match-sheet enrichment.
 Historical backfill continues as normal dataset work through football-data.org
 runs, source-specific prototypes, and curated PRs.
 
-## Phase 5 — Guided exploration
+## Phase 5 — Guided exploration ✅ (complete)
 
-- [ ] Rework the homepage from status dashboard to curiosity launchpad:
+- [x] Rework the homepage from status dashboard to curiosity launchpad:
       hybrid search, myth-testing prompts, latest/recently enriched evidence,
       and routes into the canonical record
-- [ ] Build a guided "Questions" or "Trails" surface for myth-testing modules:
+- [x] Build a guided "Questions" or "Trails" surface for myth-testing modules:
       late goals by era, bogey sides, European-week effects, manager bounce,
       fortress Old Trafford, cup specialists
-- [ ] Add pattern-trail modules to detail pages:
+- [x] Add pattern-trail modules to detail pages:
       match → Elo movement / similar matches / late goals that season;
       player → scoring runs / goal timing / competition splits;
       manager → first 10 matches / home-away-cup bends;
       opponent → away record / cup meetings / longest runs
-- [ ] Add "show the matches behind this" evidence links to major analytics,
+- [x] Add "show the matches behind this" evidence links to major analytics,
       records, rankings, and chart modules
-- [ ] Upgrade analytics copy from chart labels to exploratory framing:
+- [x] Upgrade analytics copy from chart labels to exploratory framing:
       concise interpretation, slice definition, coverage note, and evidence
       trail
-- [ ] Develop hybrid command search: normal lookup for players/opponents/
+- [x] Develop hybrid command search: normal lookup for players/opponents/
       seasons/managers/matches plus shaped templates such as "record away at
       Arsenal" and "late goals under Ferguson"
+
+Phase 5 is complete as a product capability: `/questions` hosts six
+myth-testing modules, each with a stated finding, slice definition, coverage
+note, and evidence route; the homepage opens with hybrid command search
+(entity lookup plus shaped answers such as "record away at Arsenal", served
+by `/api/search`), myth prompts, and routes into the record; match, player,
+manager, and opponent pages carry pattern-trail modules; the match browser
+gained competition-type and year-range filters so era and decade aggregates
+can link to their matches; and analytics modules carry exploratory copy with
+slice/coverage notes and evidence links. New question modules and shaped
+search templates continue as normal product work on `lib/trails.ts` and
+`lib/search.ts`.
 
 ## Phase 6 — Advanced analytics and distribution
 

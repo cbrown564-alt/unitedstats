@@ -203,6 +203,11 @@ export interface MatchFilter {
   season?: string;
   venue?: string;
   result?: string;
+  /** Competition type; "cup" matches every official cup competition. */
+  type?: string;
+  /** Inclusive ISO date bounds, so era/decade aggregates can link to their matches. */
+  from?: string;
+  to?: string;
   q?: string;
   limit?: number;
   offset?: number;
@@ -216,10 +221,20 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
   if (f.season) { where.push("m.season = @season"); params.season = f.season; }
   if (f.venue) { where.push("m.venue = @venue"); params.venue = f.venue; }
   if (f.result) { where.push("m.result = @result"); params.result = f.result; }
+  if (f.type === "cup") {
+    where.push("c.type NOT IN ('league','unofficial')");
+  } else if (f.type) {
+    where.push("c.type = @type");
+    params.type = f.type;
+  }
+  if (f.from) { where.push("m.date >= @from"); params.from = f.from; }
+  if (f.to) { where.push("m.date <= @to"); params.to = f.to; }
   if (f.q) { where.push("m.opponent_name LIKE @q"); params.q = `%${f.q}%`; }
   const cond = where.length ? `WHERE ${where.join(" AND ")}` : "";
   const total = (
-    getDb().prepare(`SELECT COUNT(*) n FROM matches m ${cond}`).get(params) as { n: number }
+    getDb()
+      .prepare(`SELECT COUNT(*) n FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`)
+      .get(params) as { n: number }
   ).n;
   const rows = getDb()
     .prepare(`${MATCH_SELECT} ${cond} ORDER BY m.date DESC LIMIT @limit OFFSET @offset`)

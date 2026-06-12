@@ -45,7 +45,9 @@ export default function AnalyticsPage() {
         <h1 className="display text-3xl">Analytics</h1>
         <p className="text-sm text-ink-dim mt-1 max-w-2xl">
           The numbers behind {fmtNum(Number(meta.matches))} matches — strength ratings, eras, records,
-          crowds, and goal patterns.
+          crowds, and goal patterns. Every chart states the slice it is computed from and links to the
+          matches behind it; for question-led cuts, start at{" "}
+          <Link href="/questions" className="text-devil-bright hover:underline">Questions</Link>.
         </p>
       </header>
 
@@ -77,9 +79,12 @@ export default function AnalyticsPage() {
             </div>
           </div>
           <p className="text-xs text-ink-faint mt-3 max-w-2xl">
-            Closed-universe Elo: opponents are rated only on their matches against United, K varies by
-            competition and goal margin, home advantage worth 60 points. Pre-match win expectancy from this
-            rating drives the “favourites” line on every match page.
+            <span className="text-ink-dim">Slice:</span> every competitive match, closed-universe Elo —
+            opponents are rated only on their matches against United, K varies by competition and goal
+            margin, home advantage worth 60 points. Pre-match win expectancy from this rating drives the
+            “favourites” line on every match page; open any match from the{" "}
+            <Link href="/matches" className="text-devil-bright hover:underline">browser</Link> to see the
+            rating move.
           </p>
         </div>
       </section>
@@ -97,6 +102,11 @@ export default function AnalyticsPage() {
               fill="rgb(62 207 106 / 0.10)"
               labels={[1900, 1930, 1960, 1990, 2020].map((y) => ({ x: y, text: String(y) }))}
             />
+            <p className="text-xs text-ink-faint mt-2">
+              <span className="text-ink-dim">Slice:</span> all competitions per season; the dashed line is
+              50%. Troughs mark the relegation seasons and the early 1930s; the plateau is the Ferguson era.{" "}
+              <Link href="/seasons" className="text-devil-bright hover:underline">Season by season →</Link>
+            </p>
           </div>
         </div>
         <div>
@@ -110,7 +120,9 @@ export default function AnalyticsPage() {
               labels={[1900, 1930, 1960, 1990, 2020].map((y) => ({ x: y, text: String(y) }))}
             />
             <p className="text-xs text-ink-faint mt-2">
-              From recorded attendances; sparse before the 1920s.
+              <span className="text-ink-dim">Slice:</span> mean of recorded home attendances per season.
+              <span className="text-ink-dim"> Coverage:</span> sparse before the 1920s — early points lean
+              on few matches. The post-war boom and the 1990s expansion of Old Trafford are the two big climbs.
             </p>
           </div>
         </div>
@@ -126,6 +138,11 @@ export default function AnalyticsPage() {
               labelEvery={20}
               height={200}
             />
+            <p className="text-xs text-ink-faint mt-2">
+              <span className="text-ink-dim">Slice:</span> goals scored, all competitions — taller wartime-adjacent
+              seasons partly reflect longer cup runs.{" "}
+              <Link href="/seasons" className="text-devil-bright hover:underline">Season detail →</Link>
+            </p>
           </div>
         </div>
         <div>
@@ -139,7 +156,12 @@ export default function AnalyticsPage() {
               height={200}
               color="var(--color-win)"
             />
-            <p className="text-xs text-ink-faint mt-1">Percent of matches won, all competitions.</p>
+            <p className="text-xs text-ink-faint mt-1">
+              <span className="text-ink-dim">Slice:</span> percent of matches won, all competitions, grouped by
+              decade. Pull any decade&apos;s matches with the year filters in the{" "}
+              <Link href="/matches" className="text-devil-bright hover:underline">match browser</Link> — e.g.{" "}
+              <Link href="/matches?from=1990&to=1999" className="text-devil-bright hover:underline">the 1990s</Link>.
+            </p>
           </div>
         </div>
       </section>
@@ -155,7 +177,13 @@ export default function AnalyticsPage() {
                 height={180}
                 color="var(--color-gold)"
               />
-              <p className="text-xs text-ink-faint mt-1">Goals with recorded minutes, by 15-minute window.</p>
+              <p className="text-xs text-ink-faint mt-1">
+                <span className="text-ink-dim">Slice:</span> United goals with a recorded minute ≤ 90, by
+                15-minute window. The final-window lean is tested decade by decade in{" "}
+                <Link href="/questions#late-goals" className="text-devil-bright hover:underline">
+                  Do United really score late? →
+                </Link>
+              </p>
             </div>
           </div>
         )}
@@ -163,7 +191,11 @@ export default function AnalyticsPage() {
           <h2 className="display text-xl mb-3">Home, away, neutral</h2>
           <div className="space-y-3">
             {venues.map((v) => (
-              <div key={v.venue} className="border border-line rounded-lg bg-panel px-4 py-3">
+              <Link
+                key={v.venue}
+                href={`/matches?venue=${v.venue}`}
+                className="block border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
+              >
                 <div className="flex justify-between text-sm mb-1.5">
                   <span className="font-medium">{venueLabel(v.venue)}</span>
                   <span className="stat-num text-xs text-ink-faint">
@@ -175,9 +207,10 @@ export default function AnalyticsPage() {
                   <div className="bg-draw/60" style={{ width: `${(100 * v.d) / v.p}%` }} />
                   <div className="bg-loss" style={{ width: `${(100 * v.l) / v.p}%` }} />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
+          <p className="text-xs text-ink-faint mt-2">Each row opens its matches.</p>
         </div>
       </section>
 
@@ -202,10 +235,17 @@ export default function AnalyticsPage() {
         <div>
           <h2 className="display text-xl mb-3">Biggest wins</h2>
           <MatchList matches={wins} showSeason />
+          <p className="text-xs text-ink-faint mt-2">
+            <span className="text-ink-dim">Slice:</span> ranked by margin, then goals scored, all competitions —
+            each row is the evidence.
+          </p>
         </div>
         <div>
           <h2 className="display text-xl mb-3">Heaviest defeats</h2>
           <MatchList matches={defeats} showSeason />
+          <p className="text-xs text-ink-faint mt-2">
+            <span className="text-ink-dim">Slice:</span> ranked by margin conceded, all competitions.
+          </p>
         </div>
       </section>
 
@@ -213,8 +253,9 @@ export default function AnalyticsPage() {
         <h2 className="display text-xl mb-3">Biggest crowds</h2>
         <MatchList matches={crowds} showSeason />
         <p className="text-xs text-ink-faint mt-2">
-          The 1948 FA Cup semi-final v Derby County, played at Hillsborough, and wartime-era cup ties drew some
-          of the largest crowds in English club history.
+          <span className="text-ink-dim">Slice:</span> matches with a recorded attendance, ranked. The 1948
+          FA Cup semi-final v Derby County, played at Hillsborough, and wartime-era cup ties drew some of the
+          largest crowds in English club history.
         </p>
       </section>
 

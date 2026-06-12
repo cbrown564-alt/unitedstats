@@ -4,8 +4,10 @@ import {
   matchById, eventsForMatch, lineupForMatch, eloForMatch, h2hBefore, formBefore,
   sourcesForMatch,
 } from "@/lib/queries";
+import { lateGoalMatchesInSeason, similarMatches } from "@/lib/trails";
 import { fmtDateLong, fmtNum, venueLabel, clubName, pct } from "@/lib/format";
 import { ResultBadge } from "@/components/ResultBadge";
+import { MatchList } from "@/components/MatchList";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +22,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const form = formBefore(m.date, 6);
   const sources = sourcesForMatch(id);
   const club = clubName(m.date);
+  const similar = similarMatches(m, 6);
+  const seasonLateGoals = lateGoalMatchesInSeason(m.season, m.id);
 
   const goals = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type));
   const opponentGoals = events.filter((e) => ["opp-goal", "own-goal-against"].includes(e.type));
@@ -311,6 +315,37 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </div>
         </div>
       </section>
+
+      {(similar.length > 0 || seasonLateGoals.length > 0) && (
+        <section className="grid lg:grid-cols-2 gap-8">
+          {similar.length > 0 && (
+            <div>
+              <h2 className="display text-xl mb-3">This exact result, before</h2>
+              <MatchList matches={similar} showSeason />
+              <p className="text-xs text-ink-faint mt-2">
+                Other {m.venue === "A" ? "away" : m.venue === "H" ? "home" : "neutral"} meetings with{" "}
+                {m.opponent_name} that finished {m.gf}–{m.ga}.{" "}
+                <Link href={`/opponent/${m.opponent_id}`} className="text-devil-bright hover:underline">
+                  Full head-to-head →
+                </Link>
+              </p>
+            </div>
+          )}
+          {seasonLateGoals.length > 0 && (
+            <div>
+              <h2 className="display text-xl mb-3">Late goals that season</h2>
+              <MatchList matches={seasonLateGoals.slice(0, 6)} />
+              <p className="text-xs text-ink-faint mt-2">
+                {m.season} matches with a {club} goal in the 85th minute or later, from matches with
+                timed scorer records.{" "}
+                <Link href="/questions#late-goals" className="text-devil-bright hover:underline">
+                  Do United really score late? →
+                </Link>
+              </p>
+            </div>
+          )}
+        </section>
+      )}
     </div>
   );
 }
