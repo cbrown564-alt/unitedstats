@@ -30,10 +30,12 @@ export function PageHeader({
 export function StatTile({
   label,
   value,
+  detail,
   tone = "default",
 }: {
   label: string;
   value: React.ReactNode;
+  detail?: React.ReactNode;
   tone?: "default" | "red" | "gold" | "green";
 }) {
   const toneClass =
@@ -47,6 +49,12 @@ export function StatTile({
       <div className={`stat-num text-lg font-semibold ${toneClass}`}>{value}</div>
       <div className="mt-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-ink-faint">
         {label}
+        {detail && (
+          <span className="normal-case tracking-normal text-ink-dim">
+            {" - "}
+            {detail}
+          </span>
+        )}
       </div>
     </div>
   );

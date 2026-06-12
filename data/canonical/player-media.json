@@ -1,20 +1,29 @@
 {
-  "generatedAt": "2026-06-12T19:36:55.760Z",
+  "generatedAt": "2026-06-12T21:30:03.053Z",
   "sourceId": "wikidata-commons",
-  "sourceName": "Wikidata P18 and Wikimedia Commons imageinfo",
+  "sourceName": "Wikidata P18, Wikipedia pageimages, and Wikimedia Commons imageinfo",
   "requestedTopPlayers": 100,
-  "ranking": "Top players by verified competitive appearances in data/canonical/player-records.json.",
+  "requestedTopPlayersPerCohort": 100,
+  "selectedPlayers": 153,
+  "ranking": [
+    "Top players by verified competitive appearances in data/canonical/player-records.json.",
+    "Premier League-era cohort means records whose United career reaches 1992 or later; source records do not split appearances by era."
+  ],
   "sourceUrls": [
     "https://www.wikidata.org/wiki/Property:P18",
+    "https://www.mediawiki.org/wiki/API:Pageimages",
     "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia"
   ],
   "notes": [
     "Only raster Commons images are imported; SVG files are skipped because Next image optimization does not serve arbitrary SVGs by default.",
+    "Wikidata P18 is preferred; Wikipedia pageimages are used only as a fallback and still require Commons imageinfo metadata.",
     "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run this script to refresh license or thumbnail changes."
   ],
   "records": [
     {
       "rank": 1,
+      "overallRank": 1,
+      "premierLeagueEraRank": 1,
       "playerId": "ryan-giggs",
       "name": "Ryan Giggs",
       "wikiTitle": "Ryan Giggs",
@@ -27,10 +36,13 @@
       "artist": "James Adams",
       "credit": "https://www.flickr.com/photos/jmage/2974655582/in/set-72157608386211837/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 2,
+      "overallRank": 2,
+      "premierLeagueEraRank": null,
       "playerId": "bobby-charlton",
       "name": "Bobby Charlton",
       "wikiTitle": "Bobby Charlton",
@@ -43,10 +55,13 @@
       "artist": "Panini",
       "credit": "FIGURINA CAMPIONI DELLO SPORT PANINI - SPORT INVERNALI RUSSELL",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 3,
+      "overallRank": 3,
+      "premierLeagueEraRank": 2,
       "playerId": "paul-scholes",
       "name": "Paul Scholes",
       "wikiTitle": "Paul Scholes",
@@ -59,10 +74,13 @@
       "artist": "James Adams",
       "credit": "https://www.flickr.com/photos/jmage/2973851051/in/set-72157608386211837/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 4,
+      "overallRank": 4,
+      "premierLeagueEraRank": null,
       "playerId": "bill-foulkes",
       "name": "Bill Foulkes",
       "wikiTitle": "Bill Foulkes",
@@ -75,10 +93,13 @@
       "artist": "North American Soccer League",
       "credit": "North American Soccer League 1975 media guide via SportsArchive",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 5,
+      "overallRank": 5,
+      "premierLeagueEraRank": 3,
       "playerId": "gary-neville",
       "name": "Gary Neville",
       "wikiTitle": "Gary Neville",
@@ -91,10 +112,13 @@
       "artist": "University of Salford Press Office",
       "credit": "https://www.flickr.com/photos/salforduniversity/15733516282/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 6,
+      "overallRank": 6,
+      "premierLeagueEraRank": 4,
       "playerId": "wayne-rooney",
       "name": "Wayne Rooney",
       "wikiTitle": "Wayne Rooney",
@@ -107,10 +131,13 @@
       "artist": "Дмитрий Голубович",
       "credit": "http://www.soccer.ru/galery/667228/photo/480232",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 7,
+      "overallRank": 7,
+      "premierLeagueEraRank": 5,
       "playerId": "david-de-gea",
       "name": "David de Gea",
       "wikiTitle": "David de Gea",
@@ -123,10 +150,13 @@
       "artist": "Кирилл Венедиктов",
       "credit": "https://www.soccer.ru/galery/1022771/photo/691822",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 8,
+      "overallRank": 8,
+      "premierLeagueEraRank": null,
       "playerId": "alex-stepney",
       "name": "Alex Stepney",
       "wikiTitle": "Alex Stepney",
@@ -139,10 +169,13 @@
       "artist": "Christophe95",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 9,
+      "overallRank": 9,
+      "premierLeagueEraRank": null,
       "playerId": "tony-dunne",
       "name": "Tony Dunne",
       "wikiTitle": "Tony Dunne",
@@ -155,10 +188,13 @@
       "artist": "Ardfern",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 10,
+      "overallRank": 10,
+      "premierLeagueEraRank": 6,
       "playerId": "denis-irwin",
       "name": "Denis Irwin",
       "wikiTitle": "Denis Irwin",
@@ -171,10 +207,13 @@
       "artist": "Kjetil Ree",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 12,
+      "overallRank": 12,
+      "premierLeagueEraRank": null,
       "playerId": "arthur-albiston",
       "name": "Arthur Albiston",
       "wikiTitle": "Arthur Albiston",
@@ -187,10 +226,13 @@
       "artist": "Stew jones",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 13,
+      "overallRank": 13,
+      "premierLeagueEraRank": 7,
       "playerId": "roy-keane",
       "name": "Roy Keane",
       "wikiTitle": "Roy Keane",
@@ -203,10 +245,13 @@
       "artist": "Irish Defence Forces from Ireland",
       "credit": "Finished Goc Air Corps",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 14,
+      "overallRank": 14,
+      "premierLeagueEraRank": 8,
       "playerId": "brian-mcclair",
       "name": "Brian McClair",
       "wikiTitle": "Brian McClair",
@@ -219,10 +264,13 @@
       "artist": "Kjetil Ree",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 15,
+      "overallRank": 15,
+      "premierLeagueEraRank": null,
       "playerId": "george-best",
       "name": "George Best",
       "wikiTitle": "George Best",
@@ -235,10 +283,13 @@
       "artist": "Hans Peters for Anefo",
       "credit": "Nationaal Archief Fotocollectie Anefo 928-8290",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 16,
+      "overallRank": 16,
+      "premierLeagueEraRank": 9,
       "playerId": "mark-hughes",
       "name": "Mark Hughes",
       "wikiTitle": "Mark Hughes",
@@ -251,10 +302,13 @@
       "artist": "Chensiyuan",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 17,
+      "overallRank": 17,
+      "premierLeagueEraRank": 10,
       "playerId": "michael-carrick",
       "name": "Michael Carrick",
       "wikiTitle": "Michael Carrick",
@@ -267,10 +321,13 @@
       "artist": "Timmy96",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 18,
+      "overallRank": 18,
+      "premierLeagueEraRank": 11,
       "playerId": "bryan-robson",
       "name": "Bryan Robson",
       "wikiTitle": "Bryan Robson",
@@ -283,10 +340,13 @@
       "artist": "Government of Thailand",
       "credit": "https://www.flickr.com/photos/40561337@N07/4073518529/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 20,
+      "overallRank": 20,
+      "premierLeagueEraRank": 12,
       "playerId": "rio-ferdinand",
       "name": "Rio Ferdinand",
       "wikiTitle": "Rio Ferdinand",
@@ -299,10 +359,13 @@
       "artist": "Web Summit",
       "credit": "https://www.flickr.com/photos/websummit/22183056474/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 23,
+      "overallRank": 23,
+      "premierLeagueEraRank": 14,
       "playerId": "marcus-rashford",
       "name": "Marcus Rashford",
       "wikiTitle": "Marcus Rashford",
@@ -315,10 +378,13 @@
       "artist": "UK Prime Minister",
       "credit": "https://www.flickr.com/photos/49707497@N06/53248339199/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 24,
+      "overallRank": 24,
+      "premierLeagueEraRank": null,
       "playerId": "jack-rowley",
       "name": "Jack Rowley",
       "wikiTitle": "Jack Rowley",
@@ -331,10 +397,13 @@
       "artist": "Joop van Bilsen for Anefo",
       "credit": "Nationaal Archief Fotocollectie Anefo",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 25,
+      "overallRank": 25,
+      "premierLeagueEraRank": null,
       "playerId": "sammy-mcilroy",
       "name": "Sammy McIlroy",
       "wikiTitle": "Sammy McIlroy",
@@ -347,10 +416,13 @@
       "artist": "Stew jones",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 26,
+      "overallRank": 26,
+      "premierLeagueEraRank": 15,
       "playerId": "steve-bruce",
       "name": "Steve Bruce",
       "wikiTitle": "Steve Bruce",
@@ -363,10 +435,13 @@
       "artist": "Ronnie Macdonald",
       "credit": "https://www.flickr.com/photos/ronmacphotos/6270169911/in/photostream",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 27,
+      "overallRank": 27,
+      "premierLeagueEraRank": null,
       "playerId": "denis-law",
       "name": "Denis Law",
       "wikiTitle": "Denis Law",
@@ -379,10 +454,13 @@
       "artist": "Danny Molyneux",
       "credit": "Stranger 4 of 100 - Denis Uploaded by Kafuffle",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 29,
+      "overallRank": 29,
+      "premierLeagueEraRank": 16,
       "playerId": "peter-schmeichel",
       "name": "Peter Schmeichel",
       "wikiTitle": "Peter Schmeichel",
@@ -395,10 +473,13 @@
       "artist": "Carlsberg",
       "credit": "mynewsdesk",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 30,
+      "overallRank": 30,
+      "premierLeagueEraRank": null,
       "playerId": "paddy-crerand",
       "name": "Paddy Crerand",
       "wikiTitle": "Paddy Crerand",
@@ -411,10 +492,13 @@
       "artist": "Sleepyhead2",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 31,
+      "overallRank": 31,
+      "premierLeagueEraRank": null,
       "playerId": "steve-coppell",
       "name": "Steve Coppell",
       "wikiTitle": "Steve Coppell",
@@ -427,10 +511,13 @@
       "artist": "Steve_coppell_2006_promotion_celebration.JPG : User Blackcat derivative work: Off2riorob ( talk )",
       "credit": "Steve_coppell_2006_promotion_celebration.JPG",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 32,
+      "overallRank": 32,
+      "premierLeagueEraRank": null,
       "playerId": "nobby-stiles",
       "name": "Nobby Stiles",
       "wikiTitle": "Nobby Stiles",
@@ -443,10 +530,13 @@
       "artist": "Panini",
       "credit": "'Euro Calciatori 1966 - 1967', Panini figurina",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 33,
+      "overallRank": 33,
+      "premierLeagueEraRank": 17,
       "playerId": "david-beckham",
       "name": "David Beckham",
       "wikiTitle": "David Beckham",
@@ -459,10 +549,13 @@
       "artist": "The Democratic Alliance",
       "credit": "David Beckham",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 34,
+      "overallRank": 34,
+      "premierLeagueEraRank": 18,
       "playerId": "john-o-shea",
       "name": "John O'Shea",
       "wikiTitle": "John O'Shea",
@@ -475,10 +568,13 @@
       "artist": "Andrea Sartorati",
       "credit": "Manchester - Old Trafford - Manchester United vs Crawley Town",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 36,
+      "overallRank": 36,
+      "premierLeagueEraRank": 19,
       "playerId": "nicky-butt",
       "name": "Nicky Butt",
       "wikiTitle": "Nicky Butt",
@@ -491,10 +587,13 @@
       "artist": "nyaa_birdies_perch",
       "credit": "https://www.flickr.com/photos/birdies-perch/4209630432/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 37,
+      "overallRank": 37,
+      "premierLeagueEraRank": 20,
       "playerId": "phil-neville",
       "name": "Phil Neville",
       "wikiTitle": "Phil Neville",
@@ -507,10 +606,13 @@
       "artist": "The Bohs",
       "credit": "Flickr : Bohemians V Everton (43 of 51)",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 38,
+      "overallRank": 38,
+      "premierLeagueEraRank": 21,
       "playerId": "patrice-evra",
       "name": "Patrice Evra",
       "wikiTitle": "Patrice Evra",
@@ -523,10 +625,13 @@
       "artist": "Web Summit",
       "credit": "RC2_9396",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 41,
+      "overallRank": 41,
+      "premierLeagueEraRank": 22,
       "playerId": "ole-gunnar-solskj-r",
       "name": "Ole Gunnar Solskjær",
       "wikiTitle": "Ole Gunnar Solskjær",
@@ -539,10 +644,13 @@
       "artist": "Tor Atle Kleven",
       "credit": "Flickr : Ole Gunnar Solskjær",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 42,
+      "overallRank": 42,
+      "premierLeagueEraRank": 23,
       "playerId": "wes-brown",
       "name": "Wes Brown",
       "wikiTitle": "Wes Brown",
@@ -555,10 +663,13 @@
       "artist": "Andrea Sartorati",
       "credit": "Manchester - Old Trafford - Manchester United vs Crawley Town",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 43,
+      "overallRank": 43,
+      "premierLeagueEraRank": 24,
       "playerId": "mikael-silvestre",
       "name": "Mikaël Silvestre",
       "wikiTitle": "Mikaël Silvestre",
@@ -571,10 +682,32 @@
       "artist": "S. Plaine",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 44,
+      "overallRank": 44,
+      "premierLeagueEraRank": null,
+      "playerId": "shay-brennan",
+      "name": "Shay Brennan",
+      "wikiTitle": "Shay Brennan",
+      "wikidataId": "Q1336611",
+      "commonsFile": "Manchester_United_FC_1960.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Manchester_United_FC_1960.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Manchester_United_FC_1960.jpg/330px-Manchester_United_FC_1960.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Manchester_United_FC_1960.jpg",
+      "license": "Public domain",
+      "artist": "Eskil Malmberg",
+      "credit": "Rekord-Magasinet nr 18 1960",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikipedia-pageimage",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 45,
+      "overallRank": 45,
+      "premierLeagueEraRank": 25,
       "playerId": "cristiano-ronaldo",
       "name": "Cristiano Ronaldo",
       "wikiTitle": "Cristiano Ronaldo",
@@ -587,10 +720,13 @@
       "artist": "The White House",
       "credit": "https://www.flickr.com/photos/202101414@N05/54933344262/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 48,
+      "overallRank": 48,
+      "premierLeagueEraRank": 26,
       "playerId": "darren-fletcher",
       "name": "Darren Fletcher",
       "wikiTitle": "Darren Fletcher",
@@ -603,10 +739,13 @@
       "artist": "@cfcunofficial (Chelsea Debs) London",
       "credit": "West Brom 0 Chelsea 1",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 49,
+      "overallRank": 49,
+      "premierLeagueEraRank": 27,
       "playerId": "antonio-valencia",
       "name": "Antonio Valencia",
       "wikiTitle": "Antonio Valencia",
@@ -619,10 +758,13 @@
       "artist": "Julia Novikova for Soccer.ru",
       "credit": "cropped from Soccer.ru photo",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 50,
+      "overallRank": 50,
+      "premierLeagueEraRank": null,
       "playerId": "billy-meredith",
       "name": "Billy Meredith",
       "wikiTitle": "Billy Meredith",
@@ -635,10 +777,13 @@
       "artist": "Stevo1000",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 53,
+      "overallRank": 53,
+      "premierLeagueEraRank": 28,
       "playerId": "bruno-fernandes",
       "name": "Bruno Fernandes",
       "wikiTitle": "Bruno Fernandes",
@@ -651,10 +796,13 @@
       "artist": "Bryan Berlin",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 55,
+      "overallRank": 55,
+      "premierLeagueEraRank": 29,
       "playerId": "luke-shaw",
       "name": "Luke Shaw",
       "wikiTitle": "Luke Shaw",
@@ -667,10 +815,13 @@
       "artist": "Ardfern",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 56,
+      "overallRank": 56,
+      "premierLeagueEraRank": 30,
       "playerId": "chris-smalling",
       "name": "Chris Smalling",
       "wikiTitle": "Chris Smalling",
@@ -683,10 +834,13 @@
       "artist": "Дмитрий Голубович",
       "credit": "soccer.ru",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 58,
+      "overallRank": 58,
+      "premierLeagueEraRank": null,
       "playerId": "george-wall",
       "name": "George Wall",
       "wikiTitle": "George Wall",
@@ -699,10 +853,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "http://www.spartacus.schoolnet.co.uk/MANUwall.htm",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 59,
+      "overallRank": 59,
+      "premierLeagueEraRank": 31,
       "playerId": "anthony-martial",
       "name": "Anthony Martial",
       "wikiTitle": "Anthony Martial",
@@ -715,10 +872,13 @@
       "artist": "Дмитрий Голубович",
       "credit": "https://www.soccer0010.com/galery/1013619/photo/673742",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 60,
+      "overallRank": 60,
+      "premierLeagueEraRank": null,
       "playerId": "fred-erentz",
       "name": "Fred Erentz",
       "wikiTitle": "Fred Erentz",
@@ -731,10 +891,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "https://www.mufcinfo.com/manupag/a-z_player_archive/a-z_player_archive_pages/erentz_fred.html",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 61,
+      "overallRank": 61,
+      "premierLeagueEraRank": null,
       "playerId": "alex-bell",
       "name": "Alex Bell",
       "wikiTitle": "Alex Bell",
@@ -747,10 +910,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "Here",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 62,
+      "overallRank": 62,
+      "premierLeagueEraRank": null,
       "playerId": "charlie-roberts",
       "name": "Charlie Roberts",
       "wikiTitle": "Charlie Roberts",
@@ -763,10 +929,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "Here",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 64,
+      "overallRank": 64,
+      "premierLeagueEraRank": 32,
       "playerId": "nemanja-vidic",
       "name": "Nemanja Vidić",
       "wikiTitle": "Nemanja Vidić",
@@ -779,10 +948,13 @@
       "artist": "Austin Osuide",
       "credit": "Cropped version of the file uploaded to Flickr with the name IronMan2",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 66,
+      "overallRank": 66,
+      "premierLeagueEraRank": null,
       "playerId": "dennis-viollet",
       "name": "Dennis Viollet",
       "wikiTitle": "Dennis Viollet",
@@ -795,10 +967,13 @@
       "artist": "Eskil Malmberg",
       "credit": "Rekord-Magasinet nr 36, 1957",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 68,
+      "overallRank": 68,
+      "premierLeagueEraRank": null,
       "playerId": "frank-stapleton",
       "name": "Frank Stapleton",
       "wikiTitle": "Frank Stapleton",
@@ -811,10 +986,13 @@
       "artist": "Bart Molendijk / Anefo",
       "credit": "http://proxy.handle.net/10648/ad625fd8-d0b4-102d-bcf8-003048976d84",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 69,
+      "overallRank": 69,
+      "premierLeagueEraRank": 33,
       "playerId": "juan-mata",
       "name": "Juan Mata",
       "wikiTitle": "Juan Mata",
@@ -827,10 +1005,13 @@
       "artist": "Станислав Ведмидь",
       "credit": "Football.ua",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 71,
+      "overallRank": 71,
+      "premierLeagueEraRank": 34,
       "playerId": "victor-lindelof",
       "name": "Victor Lindelöf",
       "wikiTitle": "Victor Lindelöf",
@@ -843,10 +1024,13 @@
       "artist": "Rolandhino1",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 72,
+      "overallRank": 72,
+      "premierLeagueEraRank": 35,
       "playerId": "paul-ince",
       "name": "Paul Ince",
       "wikiTitle": "Paul Ince",
@@ -859,10 +1043,13 @@
       "artist": "Justin Hartman",
       "credit": "Paul Ince and I",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 73,
+      "overallRank": 73,
+      "premierLeagueEraRank": null,
       "playerId": "roger-byrne",
       "name": "Roger Byrne",
       "wikiTitle": "Roger Byrne",
@@ -875,10 +1062,13 @@
       "artist": "Hesekiel",
       "credit": "Rekord-Magasinet nr 36, 1957",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 75,
+      "overallRank": 75,
+      "premierLeagueEraRank": 36,
       "playerId": "andy-cole",
       "name": "Andy Cole",
       "wikiTitle": "Andy Cole",
@@ -891,10 +1081,13 @@
       "artist": "Norio NAKAYAMA from saitama, japan",
       "credit": "AEROFLOT ManchesterUnited TrophyTour",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 77,
+      "overallRank": 77,
+      "premierLeagueEraRank": null,
       "playerId": "norman-whiteside",
       "name": "Norman Whiteside",
       "wikiTitle": "Norman Whiteside",
@@ -907,10 +1100,13 @@
       "artist": "apasciuto",
       "credit": "https://www.flickr.com/photos/apasciuto/8655409893/in/photostream/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 78,
+      "overallRank": 78,
+      "premierLeagueEraRank": null,
       "playerId": "brian-greenhoff",
       "name": "Brian Greenhoff",
       "wikiTitle": "Brian Greenhoff",
@@ -923,10 +1119,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "Ansa",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 79,
+      "overallRank": 79,
+      "premierLeagueEraRank": 37,
       "playerId": "harry-maguire",
       "name": "Harry Maguire",
       "wikiTitle": "Harry Maguire",
@@ -939,10 +1138,13 @@
       "artist": "UK Prime Minister",
       "credit": "https://www.flickr.com/photos/49707497@N06/53248339219/",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 80,
+      "overallRank": 80,
+      "premierLeagueEraRank": null,
       "playerId": "george-stacey",
       "name": "George Stacey",
       "wikiTitle": "George Stacey (footballer)",
@@ -955,10 +1157,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "Here",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 81,
+      "overallRank": 81,
+      "premierLeagueEraRank": null,
       "playerId": "brian-kidd",
       "name": "Brian Kidd",
       "wikiTitle": "Brian Kidd",
@@ -971,10 +1176,13 @@
       "artist": "Christophe95",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 82,
+      "overallRank": 82,
+      "premierLeagueEraRank": 38,
       "playerId": "edwin-van-der-sar",
       "name": "Edwin van der Sar",
       "wikiTitle": "Edwin van der Sar",
@@ -987,10 +1195,13 @@
       "artist": "Paul Blank",
       "credit": "http://www.postproduktie.nl/voetbal.htm",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 83,
+      "overallRank": 83,
+      "premierLeagueEraRank": null,
       "playerId": "harry-moger",
       "name": "Harry Moger",
       "wikiTitle": "Harry Moger",
@@ -1003,10 +1214,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "Here",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 84,
+      "overallRank": 84,
+      "premierLeagueEraRank": null,
       "playerId": "david-herd",
       "name": "David Herd",
       "wikiTitle": "David Herd (footballer)",
@@ -1019,10 +1233,13 @@
       "artist": "Hugo van Gelderen (ANEFO)",
       "credit": "GaHetNa (Nationaal Archief NL) 915-5644",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 86,
+      "overallRank": 86,
+      "premierLeagueEraRank": 40,
       "playerId": "ashley-young",
       "name": "Ashley Young",
       "wikiTitle": "Ashley Young",
@@ -1035,10 +1252,13 @@
       "artist": "Кирилл Венедиктов",
       "credit": "https://www.soccer.ru/galery/1053441/photo/729781",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 87,
+      "overallRank": 87,
+      "premierLeagueEraRank": null,
       "playerId": "walter-cartwright",
       "name": "Walter Cartwright",
       "wikiTitle": "Walter Cartwright",
@@ -1051,10 +1271,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "http://www.mufcinfo.com/manupag/a-z_player_archive/a-z_player_archive_pages/cartwright_walter.html",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 88,
+      "overallRank": 88,
+      "premierLeagueEraRank": 41,
       "playerId": "scott-mctominay",
       "name": "Scott McTominay",
       "wikiTitle": "Scott McTominay",
@@ -1067,10 +1290,13 @@
       "artist": "Bryan Berlin",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 89,
+      "overallRank": 89,
+      "premierLeagueEraRank": null,
       "playerId": "dick-duckworth",
       "name": "Dick Duckworth",
       "wikiTitle": "Dick Duckworth (footballer, born 1882)",
@@ -1083,10 +1309,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "Here",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 90,
+      "overallRank": 90,
+      "premierLeagueEraRank": null,
       "playerId": "stewart-houston",
       "name": "Stewart Houston",
       "wikiTitle": "Stewart Houston",
@@ -1099,10 +1328,13 @@
       "artist": "The original uploader was Thebot at Ukrainian Wikipedia .",
       "credit": "Transferred from uk.wikipedia to Commons.",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 91,
+      "overallRank": 91,
+      "premierLeagueEraRank": null,
       "playerId": "jimmy-nicholl",
       "name": "Jimmy Nicholl",
       "wikiTitle": "Jimmy Nicholl",
@@ -1115,10 +1347,13 @@
       "artist": "Dudesleeper",
       "credit": "self-made Transferred from en.wikipedia",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 92,
+      "overallRank": 92,
+      "premierLeagueEraRank": null,
       "playerId": "sandy-turnbull",
       "name": "Sandy Turnbull",
       "wikiTitle": "Sandy Turnbull",
@@ -1131,10 +1366,13 @@
       "artist": "Unknown author Unknown author",
       "credit": "http://www.spartacus.schoolnet.co.uk/MANUturnbull.jpg",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 93,
+      "overallRank": 93,
+      "premierLeagueEraRank": null,
       "playerId": "harry-gregg",
       "name": "Harry Gregg",
       "wikiTitle": "Harry Gregg",
@@ -1147,10 +1385,13 @@
       "artist": "Hugo van Gelderen (ANEFO)",
       "credit": "GaHetNa (Nationaal Archief NL) 915-5646",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 94,
+      "overallRank": 94,
+      "premierLeagueEraRank": 42,
       "playerId": "diogo-dalot",
       "name": "Diogo Dalot",
       "wikiTitle": "Diogo Dalot",
@@ -1163,10 +1404,13 @@
       "artist": "Bryan Berlin",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 95,
+      "overallRank": 95,
+      "premierLeagueEraRank": 43,
       "playerId": "clayton-blackmore",
       "name": "Clayton Blackmore",
       "wikiTitle": "Clayton Blackmore",
@@ -1179,10 +1423,13 @@
       "artist": "my own picture",
       "credit": "Øyvind Vik",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 96,
+      "overallRank": 96,
+      "premierLeagueEraRank": 44,
       "playerId": "jonny-evans",
       "name": "Jonny Evans",
       "wikiTitle": "Jonny Evans",
@@ -1195,10 +1442,13 @@
       "artist": "Tadeáš Bednarz",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 97,
+      "overallRank": 97,
+      "premierLeagueEraRank": 45,
       "playerId": "paul-pogba",
       "name": "Paul Pogba",
       "wikiTitle": "Paul Pogba",
@@ -1211,10 +1461,13 @@
       "artist": "Gabriel Hutchinson",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 98,
+      "overallRank": 98,
+      "premierLeagueEraRank": 46,
       "playerId": "jesse-lingard",
       "name": "Jesse Lingard",
       "wikiTitle": "Jesse Lingard",
@@ -1227,10 +1480,13 @@
       "artist": "Explicit",
       "credit": "Own work",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 99,
+      "overallRank": 99,
+      "premierLeagueEraRank": 47,
       "playerId": "nani",
       "name": "Nani",
       "wikiTitle": "Nani (footballer)",
@@ -1243,10 +1499,13 @@
       "artist": "Кирилл Венедиктов",
       "credit": "soccer.ru",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     },
     {
       "rank": 100,
+      "overallRank": 100,
+      "premierLeagueEraRank": null,
       "playerId": "gordon-mcqueen",
       "name": "Gordon McQueen",
       "wikiTitle": "Gordon McQueen",
@@ -1259,7 +1518,939 @@
       "artist": "Fotograaf Antonisse, Marcel / Anefo. Auteursrechthebbende Nationaal Archief, CC0",
       "credit": "GaHetNa (Nationaal Archief NL) 932-6648",
       "sourceId": "wikidata-commons",
-      "retrievedAt": "2026-06-12T19:36:55.760Z"
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 101,
+      "overallRank": null,
+      "premierLeagueEraRank": 48,
+      "playerId": "phil-jones",
+      "name": "Phil Jones",
+      "wikiTitle": "Phil Jones (footballer, born 1992)",
+      "wikidataId": "Q206641",
+      "commonsFile": "Phil Jones - July 2015 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/Phil_Jones_-_July_2015_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Phil_Jones_-_July_2015_%28cropped%29.jpg/330px-Phil_Jones_-_July_2015_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Phil_Jones_-_July_2015_(cropped).jpg",
+      "license": "CC BY-SA 2.0",
+      "artist": "Matt Janzer from Missoula, USA",
+      "credit": "MUFC v CA - Seattle, WA - July 17, 2015",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 102,
+      "overallRank": null,
+      "premierLeagueEraRank": 49,
+      "playerId": "ruud-van-nistelrooy",
+      "name": "Ruud van Nistelrooy",
+      "wikiTitle": "Ruud van Nistelrooy",
+      "wikidataId": "Q45626",
+      "commonsFile": "Ruud van Nistelrooy 2017.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Ruud_van_Nistelrooy_2017.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Ruud_van_Nistelrooy_2017.jpg/330px-Ruud_van_Nistelrooy_2017.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Ruud_van_Nistelrooy_2017.jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Ardfern",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 103,
+      "overallRank": null,
+      "premierLeagueEraRank": 50,
+      "playerId": "fred",
+      "name": "Fred",
+      "wikiTitle": "Fred (footballer, born 1993)",
+      "wikidataId": "Q965448",
+      "commonsFile": "Fred Brazil (cropped 2).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Fred_Brazil_%28cropped_2%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Fred_Brazil_%28cropped_2%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Fred_Brazil_(cropped_2).jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Кирилл Венедиктов",
+      "credit": "https://www.soccer.ru/galery/1054670/photo/731880",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 104,
+      "overallRank": null,
+      "premierLeagueEraRank": 51,
+      "playerId": "park-ji-sung",
+      "name": "Park Ji-sung",
+      "wikiTitle": "Park Ji-sung",
+      "wikidataId": "Q50603",
+      "commonsFile": "Park Ji-sung G20 Seoul Summit Ambassador (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Park_Ji-sung_G20_Seoul_Summit_Ambassador_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Park_Ji-sung_G20_Seoul_Summit_Ambassador_%28cropped%29.jpg/330px-Park_Ji-sung_G20_Seoul_Summit_Ambassador_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Park_Ji-sung_G20_Seoul_Summit_Ambassador_(cropped).jpg",
+      "license": "CC BY-SA 2.0",
+      "artist": "Korea.net / Korean Culture and Information Service",
+      "credit": "https://www.flickr.com/photos/42438955@N05/4840348690/",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 105,
+      "overallRank": null,
+      "premierLeagueEraRank": 52,
+      "playerId": "aaron-wan-bissaka",
+      "name": "Aaron Wan-Bissaka",
+      "wikiTitle": "Aaron Wan-Bissaka",
+      "wikidataId": "Q50137347",
+      "commonsFile": "Aaron Wan-Bissaka of West Ham United.jpeg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Aaron_Wan-Bissaka_of_West_Ham_United.jpeg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Aaron_Wan-Bissaka_of_West_Ham_United.jpeg/330px-Aaron_Wan-Bissaka_of_West_Ham_United.jpeg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Aaron_Wan-Bissaka_of_West_Ham_United.jpeg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Egghead06",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 106,
+      "overallRank": null,
+      "premierLeagueEraRank": 53,
+      "playerId": "ander-herrera",
+      "name": "Ander Herrera",
+      "wikiTitle": "Ander Herrera",
+      "wikidataId": "Q1639968",
+      "commonsFile": "2019-07-17 SG Dynamo Dresden vs. Paris Saint-Germain by Sandro Halank–282 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93282_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93282_%28cropped%29.jpg/330px-2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93282_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93282_(cropped).jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Sandro Halank , Wikimedia Commons",
+      "credit": "Self-photographed",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 107,
+      "overallRank": null,
+      "premierLeagueEraRank": 54,
+      "playerId": "nemanja-matic",
+      "name": "Nemanja Matić",
+      "wikiTitle": "Nemanja Matić",
+      "wikidataId": "Q297603",
+      "commonsFile": "Nemanja Matić 2018 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Nemanja_Mati%C4%87_2018_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Nemanja_Mati%C4%87_2018_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Nemanja_Mati%C4%87_2018_(cropped).jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Екатерина Лаут",
+      "credit": "https://www.soccer.ru/galery/1055634/photo/733882",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 108,
+      "overallRank": null,
+      "premierLeagueEraRank": 55,
+      "playerId": "eric-cantona",
+      "name": "Eric Cantona",
+      "wikiTitle": "Eric Cantona",
+      "wikidataId": "Q170328",
+      "commonsFile": "Eric Cantona Cannes 2009.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Eric_Cantona_Cannes_2009.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Eric_Cantona_Cannes_2009.jpg/330px-Eric_Cantona_Cannes_2009.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Eric_Cantona_Cannes_2009.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Georges Biard",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 109,
+      "overallRank": null,
+      "premierLeagueEraRank": 56,
+      "playerId": "anderson",
+      "name": "Anderson",
+      "wikiTitle": "Anderson (footballer, born 1988)",
+      "wikidataId": "Q484772",
+      "commonsFile": "Anderson 2013.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Anderson_2013.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Anderson_2013.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Anderson_2013.jpg",
+      "license": "CC BY 2.0",
+      "artist": "Doha Stadium Plus Qatar",
+      "credit": "https://www.flickr.com/photos/dohastadiumplusqatar/8402079732/",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 110,
+      "overallRank": null,
+      "premierLeagueEraRank": 57,
+      "playerId": "marouane-fellaini",
+      "name": "Marouane Fellaini",
+      "wikiTitle": "Marouane Fellaini",
+      "wikidataId": "Q275169",
+      "commonsFile": "Fellaini 2017-03-09.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Fellaini_2017-03-09.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Fellaini_2017-03-09.jpg/330px-Fellaini_2017-03-09.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Fellaini_2017-03-09.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Светлана Бекетова",
+      "credit": "https://www.soccer.ru/galery/966142/photo/619951",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 111,
+      "overallRank": null,
+      "premierLeagueEraRank": 58,
+      "playerId": "rafael",
+      "name": "Rafael",
+      "wikiTitle": "Rafael (footballer, born 1990)",
+      "wikidataId": "Q189184",
+      "commonsFile": "Rafael Man Utd 2011.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Rafael_Man_Utd_2011.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Rafael_Man_Utd_2011.jpg/330px-Rafael_Man_Utd_2011.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Rafael_Man_Utd_2011.jpg",
+      "license": "CC BY 2.0",
+      "artist": "Andrea Sartorati",
+      "credit": "https://www.flickr.com/photos/tomjoad/5481081207/",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 112,
+      "overallRank": null,
+      "premierLeagueEraRank": 59,
+      "playerId": "andrei-kanchelskis",
+      "name": "Andrei Kanchelskis",
+      "wikiTitle": "Andrei Kanchelskis",
+      "wikidataId": "Q312148",
+      "commonsFile": "Kanchelskis Andrei.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Kanchelskis_Andrei.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Kanchelskis_Andrei.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Kanchelskis_Andrei.jpg",
+      "license": "Public domain",
+      "artist": null,
+      "credit": "Self-photographed",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 113,
+      "overallRank": null,
+      "premierLeagueEraRank": 60,
+      "playerId": "chicharito",
+      "name": "Javier Hernández",
+      "wikiTitle": "Javier Hernández",
+      "wikidataId": "Q165125",
+      "commonsFile": "Hertha BSC vs. West Ham United 20190731 (139).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Hertha_BSC_vs._West_Ham_United_20190731_%28139%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Hertha_BSC_vs._West_Ham_United_20190731_%28139%29.jpg/330px-Hertha_BSC_vs._West_Ham_United_20190731_%28139%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Hertha_BSC_vs._West_Ham_United_20190731_(139).jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "-- Steindy ( talk ) 16:03, 29 August 2019 (UTC)",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 114,
+      "overallRank": null,
+      "premierLeagueEraRank": 61,
+      "playerId": "teddy-sheringham",
+      "name": "Teddy Sheringham",
+      "wikiTitle": "Teddy Sheringham",
+      "wikidataId": "Q234576",
+      "commonsFile": "Teddy Sheringham 2012.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Teddy_Sheringham_2012.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Teddy_Sheringham_2012.jpg/330px-Teddy_Sheringham_2012.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Teddy_Sheringham_2012.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Christophe95",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 115,
+      "overallRank": null,
+      "premierLeagueEraRank": 62,
+      "playerId": "dwight-yorke",
+      "name": "Dwight Yorke",
+      "wikiTitle": "Dwight Yorke",
+      "wikidataId": "Q192175",
+      "commonsFile": "Dwight Yorke in Chennai.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Dwight_Yorke_in_Chennai.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Dwight_Yorke_in_Chennai.jpg/330px-Dwight_Yorke_in_Chennai.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Dwight_Yorke_in_Chennai.jpg",
+      "license": "CC BY-SA 2.0",
+      "artist": "Deepti Soni",
+      "credit": "Flickr : Dwight Yorke in Chennai",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 116,
+      "overallRank": null,
+      "premierLeagueEraRank": 63,
+      "playerId": "ronny-johnsen",
+      "name": "Ronny Johnsen",
+      "wikiTitle": "Ronny Johnsen",
+      "wikidataId": "Q381460",
+      "commonsFile": "Ronny Johnsen (2017-07-29 img02).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Ronny_Johnsen_%282017-07-29_img02%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Ronny_Johnsen_%282017-07-29_img02%29.jpg/330px-Ronny_Johnsen_%282017-07-29_img02%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Ronny_Johnsen_(2017-07-29_img02).jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Kjetil Ree",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 117,
+      "overallRank": null,
+      "premierLeagueEraRank": 64,
+      "playerId": "dimitar-berbatov",
+      "name": "Dimitar Berbatov",
+      "wikiTitle": "Dimitar Berbatov",
+      "wikidataId": "Q170235",
+      "commonsFile": "Mitko Berbatov.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/33/Mitko_Berbatov.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mitko_Berbatov.jpg/330px-Mitko_Berbatov.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Mitko_Berbatov.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Biso",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 118,
+      "overallRank": null,
+      "premierLeagueEraRank": 65,
+      "playerId": "mike-phelan",
+      "name": "Mike Phelan",
+      "wikiTitle": "Mike Phelan",
+      "wikidataId": "Q325580",
+      "commonsFile": "Mike Phelan, Manchester United 2012 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Mike_Phelan%2C_Manchester_United_2012_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Mike_Phelan%2C_Manchester_United_2012_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Mike_Phelan,_Manchester_United_2012_(cropped).jpg",
+      "license": "CC BY 2.0",
+      "artist": "Saadick Dhansay",
+      "credit": "Alex Ferguson and Mike Phelan",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 120,
+      "overallRank": null,
+      "premierLeagueEraRank": 67,
+      "playerId": "alejandro-garnacho",
+      "name": "Alejandro Garnacho",
+      "wikiTitle": "Alejandro Garnacho",
+      "wikidataId": "Q111366053",
+      "commonsFile": "Alejandro Garnacho 7 August 2022 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Alejandro_Garnacho_7_August_2022_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Alejandro_Garnacho_7_August_2022_%28cropped%29.jpg/330px-Alejandro_Garnacho_7_August_2022_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Alejandro_Garnacho_7_August_2022_(cropped).jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Ardfern",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 121,
+      "overallRank": null,
+      "premierLeagueEraRank": 68,
+      "playerId": "danny-welbeck",
+      "name": "Danny Welbeck",
+      "wikiTitle": "Danny Welbeck",
+      "wikidataId": "Q188457",
+      "commonsFile": "Danny Welbeck 2018-06-13 1.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/46/Danny_Welbeck_2018-06-13_1.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Danny_Welbeck_2018-06-13_1.jpg/330px-Danny_Welbeck_2018-06-13_1.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Danny_Welbeck_2018-06-13_1.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Кирилл Венедиктов",
+      "credit": "https://www.soccer.ru/galery/1053441/photo/729793",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 122,
+      "overallRank": null,
+      "premierLeagueEraRank": 69,
+      "playerId": "daley-blind",
+      "name": "Daley Blind",
+      "wikiTitle": "Daley Blind",
+      "wikidataId": "Q128912",
+      "commonsFile": "Zarya-MU (6) — копия.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Zarya-MU_%286%29_%E2%80%94_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Zarya-MU_%286%29_%E2%80%94_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Zarya-MU_(6)_%E2%80%94_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Станислав Ведмидь",
+      "credit": "Football.ua",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 123,
+      "overallRank": null,
+      "premierLeagueEraRank": 70,
+      "playerId": "fabien-barthez",
+      "name": "Fabien Barthez",
+      "wikiTitle": "Fabien Barthez",
+      "wikidataId": "Q191139",
+      "commonsFile": "Fabien Barthez at OM.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Fabien_Barthez_at_OM.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Fabien_Barthez_at_OM.jpg/330px-Fabien_Barthez_at_OM.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Fabien_Barthez_at_OM.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Unknown author Unknown author",
+      "credit": "fc-zenit.ru",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 124,
+      "overallRank": null,
+      "premierLeagueEraRank": 71,
+      "playerId": "mason-greenwood",
+      "name": "Mason Greenwood",
+      "wikiTitle": "Mason Greenwood",
+      "wikidataId": "Q61986758",
+      "commonsFile": "Greenwood asse om 2425.png",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Greenwood_asse_om_2425.png",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Greenwood_asse_om_2425.png/330px-Greenwood_asse_om_2425.png",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Greenwood_asse_om_2425.png",
+      "license": "CC0",
+      "artist": "Paté kroute",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 125,
+      "overallRank": null,
+      "premierLeagueEraRank": 72,
+      "playerId": "jaap-stam",
+      "name": "Jaap Stam",
+      "wikiTitle": "Jaap Stam",
+      "wikidataId": "Q216917",
+      "commonsFile": "Jaap Stam met fan cropped.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Jaap_Stam_met_fan_cropped.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Jaap_Stam_met_fan_cropped.jpg/330px-Jaap_Stam_met_fan_cropped.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Jaap_Stam_met_fan_cropped.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Original: Flovries Derivative work: PeeJay2K3",
+      "credit": "Original photo",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 126,
+      "overallRank": null,
+      "premierLeagueEraRank": 73,
+      "playerId": "quinton-fortune",
+      "name": "Quinton Fortune",
+      "wikiTitle": "Quinton Fortune",
+      "wikidataId": "Q334564",
+      "commonsFile": "Fortune, Quinton.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/01/Fortune%2C_Quinton.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/0/01/Fortune%2C_Quinton.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Fortune,_Quinton.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Stew jones",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 127,
+      "overallRank": null,
+      "premierLeagueEraRank": 74,
+      "playerId": "louis-saha",
+      "name": "Louis Saha",
+      "wikiTitle": "Louis Saha",
+      "wikidataId": "Q484968",
+      "commonsFile": "Louis Saha (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Louis_Saha_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Louis_Saha_%28cropped%29.jpg/330px-Louis_Saha_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Louis_Saha_(cropped).jpg",
+      "license": "CC BY 2.0",
+      "artist": "Web Summit",
+      "credit": "Sportsfile (Web Summit)",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 128,
+      "overallRank": null,
+      "premierLeagueEraRank": 75,
+      "playerId": "marcos-rojo",
+      "name": "Marcos Rojo",
+      "wikiTitle": "Marcos Rojo",
+      "wikidataId": "Q507890",
+      "commonsFile": "Marcos Rojo 2018.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Marcos_Rojo_2018.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Marcos_Rojo_2018.jpg/330px-Marcos_Rojo_2018.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Marcos_Rojo_2018.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Кирилл Венедиктов",
+      "credit": "https://www.soccer.ru/galery/1055457/photo/733466",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 130,
+      "overallRank": null,
+      "premierLeagueEraRank": 77,
+      "playerId": "david-may",
+      "name": "David May",
+      "wikiTitle": "David May (footballer)",
+      "wikidataId": "Q574121",
+      "commonsFile": "May, David.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1d/May%2C_David.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/May%2C_David.jpg/330px-May%2C_David.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:May,_David.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Stew jones",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 131,
+      "overallRank": null,
+      "premierLeagueEraRank": 78,
+      "playerId": "eric-bailly",
+      "name": "Eric Bailly",
+      "wikiTitle": "Eric Bailly",
+      "wikidataId": "Q18637352",
+      "commonsFile": "Eric Bailly in 2023 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Eric_Bailly_in_2023_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Eric_Bailly_in_2023_%28cropped%29.jpg/330px-Eric_Bailly_in_2023_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Eric_Bailly_in_2023_(cropped).jpg",
+      "license": "CC BY 2.0",
+      "artist": "Beşiktaş JK",
+      "credit": "https://www.flickr.com/photos/199283147@N05/53251011694/",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 133,
+      "overallRank": null,
+      "premierLeagueEraRank": 80,
+      "playerId": "lisandro-martinez",
+      "name": "Lisandro Martínez",
+      "wikiTitle": "Lisandro Martínez",
+      "wikidataId": "Q30881092",
+      "commonsFile": "Lisandro Martinez 2022.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Lisandro_Martinez_2022.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Lisandro_Martinez_2022.jpg/330px-Lisandro_Martinez_2022.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Lisandro_Martinez_2022.jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Ardfern",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 134,
+      "overallRank": null,
+      "premierLeagueEraRank": 81,
+      "playerId": "lee-martin",
+      "name": "Lee Martin",
+      "wikiTitle": "Lee Martin (footballer, born February 1968)",
+      "wikidataId": "Q1802999",
+      "commonsFile": "Martin, Lee Andrew.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/15/Martin%2C_Lee_Andrew.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/1/15/Martin%2C_Lee_Andrew.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Martin,_Lee_Andrew.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Stew jones",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 135,
+      "overallRank": null,
+      "premierLeagueEraRank": 82,
+      "playerId": "christian-eriksen",
+      "name": "Christian Eriksen",
+      "wikiTitle": "Christian Eriksen",
+      "wikidataId": "Q294951",
+      "commonsFile": "20140904 - Christian Eriksen (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1a/20140904_-_Christian_Eriksen_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/20140904_-_Christian_Eriksen_%28cropped%29.jpg/330px-20140904_-_Christian_Eriksen_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:20140904_-_Christian_Eriksen_(cropped).jpg",
+      "license": "CC BY-SA 2.0",
+      "artist": "Chris 0023 from Lyngby, Denmark",
+      "credit": "Christian Eriksen - Tottenham Hotspurs former Ajax Amsterdam player",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 136,
+      "overallRank": null,
+      "premierLeagueEraRank": 83,
+      "playerId": "robin-van-persie",
+      "name": "Robin van Persie",
+      "wikiTitle": "Robin van Persie",
+      "wikidataId": "Q2339",
+      "commonsFile": "Loco-Fener (10).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/65/Loco-Fener_%2810%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Loco-Fener_%2810%29.jpg/330px-Loco-Fener_%2810%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Loco-Fener_(10).jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Елена Рыбакова",
+      "credit": "soccer.ru",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 137,
+      "overallRank": null,
+      "premierLeagueEraRank": 84,
+      "playerId": "henning-berg",
+      "name": "Henning Berg",
+      "wikiTitle": "Henning Berg",
+      "wikidataId": "Q343093",
+      "commonsFile": "Legia tren (2).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Legia_tren_%282%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Legia_tren_%282%29.jpg/330px-Legia_tren_%282%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Legia_tren_(2).jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Роман Шевчук",
+      "credit": "Football.ua",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 139,
+      "overallRank": null,
+      "premierLeagueEraRank": 86,
+      "playerId": "andre-onana",
+      "name": "André Onana",
+      "wikiTitle": "André Onana",
+      "wikidataId": "Q19116103",
+      "commonsFile": "André Onana.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/67/Andr%C3%A9_Onana.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Andr%C3%A9_Onana.jpg/330px-Andr%C3%A9_Onana.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Andr%C3%A9_Onana.jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Franco237",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 140,
+      "overallRank": null,
+      "premierLeagueEraRank": 87,
+      "playerId": "carlos-tevez",
+      "name": "Carlos Tevez",
+      "wikiTitle": "Carlos Tevez",
+      "wikidataId": "Q50600",
+      "commonsFile": "Carlos Tevez with Argentina November 2014 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Carlos_Tevez_with_Argentina_November_2014_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Carlos_Tevez_with_Argentina_November_2014_%28cropped%29.jpg/330px-Carlos_Tevez_with_Argentina_November_2014_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Carlos_Tevez_with_Argentina_November_2014_(cropped).jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Egghead06",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 141,
+      "overallRank": null,
+      "premierLeagueEraRank": 88,
+      "playerId": "diego-forlan",
+      "name": "Diego Forlán",
+      "wikiTitle": "Diego Forlán",
+      "wikidataId": "Q261534",
+      "commonsFile": "U10 Diego Forlán 7524.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/U10_Diego_Forl%C3%A1n_7524.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/U10_Diego_Forl%C3%A1n_7524.jpg/330px-U10_Diego_Forl%C3%A1n_7524.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:U10_Diego_Forl%C3%A1n_7524.jpg",
+      "license": "CC BY-SA 3.0 at",
+      "artist": "Ailura",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 142,
+      "overallRank": null,
+      "premierLeagueEraRank": 89,
+      "playerId": "amad-diallo",
+      "name": "Amad Diallo",
+      "wikiTitle": "Amad Diallo",
+      "wikidataId": "Q72603655",
+      "commonsFile": "Manchester United v BSC Young Boys, 8 December 2021 (17) (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Manchester_United_v_BSC_Young_Boys%2C_8_December_2021_%2817%29_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Manchester_United_v_BSC_Young_Boys%2C_8_December_2021_%2817%29_%28cropped%29.jpg/330px-Manchester_United_v_BSC_Young_Boys%2C_8_December_2021_%2817%29_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Manchester_United_v_BSC_Young_Boys,_8_December_2021_(17)_(cropped).jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Ardfern",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 143,
+      "overallRank": null,
+      "premierLeagueEraRank": 90,
+      "playerId": "romelu-lukaku",
+      "name": "Romelu Lukaku",
+      "wikiTitle": "Romelu Lukaku",
+      "wikidataId": "Q313316",
+      "commonsFile": "Romelu Lukaku 2021.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Romelu_Lukaku_2021.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Romelu_Lukaku_2021.jpg/330px-Romelu_Lukaku_2021.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Romelu_Lukaku_2021.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Vyacheslav Evdokimov",
+      "credit": "https://fc-zenit.ru/photo/50817/",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 144,
+      "overallRank": null,
+      "premierLeagueEraRank": 91,
+      "playerId": "antony",
+      "name": "Antony",
+      "wikiTitle": "Antony (footballer, born 2000)",
+      "wikidataId": "Q59205608",
+      "commonsFile": "Antony 2022.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Antony_2022.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Antony_2022.jpg/330px-Antony_2022.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Antony_2022.jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Ardfern",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 145,
+      "overallRank": null,
+      "premierLeagueEraRank": 92,
+      "playerId": "rasmus-h-jlund",
+      "name": "Rasmus Højlund",
+      "wikiTitle": "Rasmus Højlund",
+      "wikidataId": "Q66467324",
+      "commonsFile": "Rasmus Højlund with a fan.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Rasmus_H%C3%B8jlund_with_a_fan.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Rasmus_H%C3%B8jlund_with_a_fan.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Rasmus_H%C3%B8jlund_with_a_fan.jpg",
+      "license": "CC0",
+      "artist": "VietnamJ25",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 146,
+      "overallRank": null,
+      "premierLeagueEraRank": 93,
+      "playerId": "raphael-varane",
+      "name": "Raphaël Varane",
+      "wikiTitle": "Raphaël Varane",
+      "wikidataId": "Q489039",
+      "commonsFile": "Raphaël Varane 2018 (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Rapha%C3%ABl_Varane_2018_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Rapha%C3%ABl_Varane_2018_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Rapha%C3%ABl_Varane_2018_(cropped).jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Антон Зайцев",
+      "credit": "https://www.soccer.ru/galery/1056072/photo/734535",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 147,
+      "overallRank": null,
+      "premierLeagueEraRank": 94,
+      "playerId": "alan-smith",
+      "name": "Alan Smith",
+      "wikiTitle": "Alan Smith (footballer, born 1980)",
+      "wikidataId": "Q216614",
+      "commonsFile": "Rsz Alansmith 20040727.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Rsz_Alansmith_20040727.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Rsz_Alansmith_20040727.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Rsz_Alansmith_20040727.jpg",
+      "license": "CC BY-SA 2.0",
+      "artist": "Toni Marsh",
+      "credit": "Cropped from https://www.flickr.com/photos/tiggy818/20285850/ Date uploaded to Flickr: June 19, 2005",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 148,
+      "overallRank": null,
+      "premierLeagueEraRank": 95,
+      "playerId": "matteo-darmian",
+      "name": "Matteo Darmian",
+      "wikiTitle": "Matteo Darmian",
+      "wikidataId": "Q44788",
+      "commonsFile": "20150616 - Portugal - Italie - Genève - Matteo Darmian 1.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Matteo_Darmian_1.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Matteo_Darmian_1.jpg/330px-20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Matteo_Darmian_1.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Matteo_Darmian_1.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Clément Bucco-Lechat",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 149,
+      "overallRank": null,
+      "premierLeagueEraRank": 96,
+      "playerId": "jadon-sancho",
+      "name": "Jadon Sancho",
+      "wikiTitle": "Jadon Sancho",
+      "wikidataId": "Q30148558",
+      "commonsFile": "Manchester United v Liverpool, 22 August 2022 (33) (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/43/Manchester_United_v_Liverpool%2C_22_August_2022_%2833%29_%28cropped%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Manchester_United_v_Liverpool%2C_22_August_2022_%2833%29_%28cropped%29.jpg/330px-Manchester_United_v_Liverpool%2C_22_August_2022_%2833%29_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Manchester_United_v_Liverpool,_22_August_2022_(33)_(cropped).jpg",
+      "license": "CC BY-SA 4.0",
+      "artist": "Ardfern",
+      "credit": "Own work",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 150,
+      "overallRank": null,
+      "premierLeagueEraRank": 97,
+      "playerId": "gabriel-heinze",
+      "name": "Gabriel Heinze",
+      "wikiTitle": "Gabriel Heinze",
+      "wikidataId": "Q63659",
+      "commonsFile": "Gabriel Heinze en Newell's Old Boys (2022).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Gabriel_Heinze_en_Newell%27s_Old_Boys_%282022%29.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Gabriel_Heinze_en_Newell%27s_Old_Boys_%282022%29.jpg/330px-Gabriel_Heinze_en_Newell%27s_Old_Boys_%282022%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Gabriel_Heinze_en_Newell%27s_Old_Boys_(2022).jpg",
+      "license": "CC BY 3.0",
+      "artist": "Newell's Old Boys",
+      "credit": "Conferencia de prensa de Gabriel Heinze",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 151,
+      "overallRank": null,
+      "premierLeagueEraRank": 98,
+      "playerId": "juan-sebastian-veron",
+      "name": "Juan Sebastián Verón",
+      "wikiTitle": "Juan Sebastián Verón",
+      "wikidataId": "Q46502",
+      "commonsFile": "Sebastián Verón.png",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Sebasti%C3%A1n_Ver%C3%B3n.png",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sebasti%C3%A1n_Ver%C3%B3n.png/330px-Sebasti%C3%A1n_Ver%C3%B3n.png",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Sebasti%C3%A1n_Ver%C3%B3n.png",
+      "license": "CC BY-SA 2.0",
+      "artist": "Agencia de Noticias ANDES",
+      "credit": "This image has been extracted from another file",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 152,
+      "overallRank": null,
+      "premierLeagueEraRank": 99,
+      "playerId": "kieran-richardson",
+      "name": "Kieran Richardson",
+      "wikiTitle": "Kieran Richardson",
+      "wikidataId": "Q309728",
+      "commonsFile": "Richardson, Kieran.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/Richardson%2C_Kieran.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/Richardson%2C_Kieran.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Richardson,_Kieran.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Jonesy702 at English Wikipedia",
+      "credit": "Transferred from en.wikipedia to Commons by Kafuffle using CommonsHelper .",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
+    },
+    {
+      "rank": 153,
+      "overallRank": null,
+      "premierLeagueEraRank": 100,
+      "playerId": "tom-cleverley",
+      "name": "Tom Cleverley",
+      "wikiTitle": "Tom Cleverley",
+      "wikidataId": "Q10577",
+      "commonsFile": "Tom Cleverley 2015.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Tom_Cleverley_2015.jpg",
+      "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Tom_Cleverley_2015.jpg/330px-Tom_Cleverley_2015.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Tom_Cleverley_2015.jpg",
+      "license": "CC BY 2.0",
+      "artist": "Tommy Low from Singapore, Singapore",
+      "credit": "BAT2015_Arsenal_vs_Everton-140",
+      "sourceId": "wikidata-commons",
+      "sourceMethod": "wikidata-p18",
+      "retrievedAt": "2026-06-12T21:30:03.053Z"
     }
   ],
   "missing": [
@@ -1267,133 +2458,201 @@
       "playerId": "joe-spence",
       "name": "Joe Spence",
       "wikiTitle": "Joe Spence (footballer, born 1898)",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 11,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "martin-buchan",
       "name": "Martin Buchan",
       "wikiTitle": "Martin Buchan",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 19,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "jack-silcock",
       "name": "Jack Silcock",
       "wikiTitle": "Jack Silcock",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 21,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "gary-pallister",
       "name": "Gary Pallister",
       "wikiTitle": "Gary Pallister",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 22,
+      "premierLeagueEraRank": 13,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "lou-macari",
       "name": "Lou Macari",
       "wikiTitle": "Lou Macari",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 28,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "allenby-chilton",
       "name": "Allenby Chilton",
       "wikiTitle": "Allenby Chilton",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 35,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "mike-duxbury",
       "name": "Mike Duxbury",
       "wikiTitle": "Mike Duxbury",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 39,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "gary-bailey",
       "name": "Gary Bailey",
       "wikiTitle": "Gary Bailey",
-      "reason": "No raster P18 image on Wikidata"
-    },
-    {
-      "playerId": "shay-brennan",
-      "name": "Shay Brennan",
-      "wikiTitle": "Shay Brennan",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 40,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "johnny-carey",
       "name": "Johnny Carey",
       "wikiTitle": "Johnny Carey",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 46,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "stan-pearson",
       "name": "Stan Pearson",
       "wikiTitle": "Stan Pearson",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 47,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "david-sadler",
       "name": "David Sadler",
       "wikiTitle": "David Sadler (footballer)",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 51,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "charlie-moore",
       "name": "Charlie Moore",
       "wikiTitle": "Charlie Moore (footballer, born 1898)",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 52,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "alf-steward",
       "name": "Alf Steward",
       "wikiTitle": "Alf Steward",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 54,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "lal-hilditch",
       "name": "Lal Hilditch",
       "wikiTitle": "Lal Hilditch",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 57,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "ray-bennion",
       "name": "Ray Bennion",
       "wikiTitle": "Ray Bennion",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 63,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "willie-morgan",
       "name": "Willie Morgan",
       "wikiTitle": "Willie Morgan",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 65,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "kevin-moran",
       "name": "Kevin Moran",
       "wikiTitle": "Kevin Moran (footballer)",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 67,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "john-aston-sr",
       "name": "John Aston Sr.",
       "wikiTitle": "John Aston Sr.",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 70,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "johnny-berry",
       "name": "Johnny Berry",
       "wikiTitle": "Johnny Berry",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 74,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "henry-cockburn",
       "name": "Henry Cockburn",
       "wikiTitle": "Henry Cockburn (footballer)",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 76,
+      "premierLeagueEraRank": null,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
       "playerId": "lee-sharpe",
       "name": "Lee Sharpe",
       "wikiTitle": "Lee Sharpe",
-      "reason": "No raster P18 image on Wikidata"
+      "overallRank": 85,
+      "premierLeagueEraRank": 39,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
+    },
+    {
+      "playerId": "paul-parker",
+      "name": "Paul Parker",
+      "wikiTitle": "Paul Parker (footballer)",
+      "overallRank": null,
+      "premierLeagueEraRank": 66,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
+    },
+    {
+      "playerId": "mal-donaghy",
+      "name": "Mal Donaghy",
+      "wikiTitle": "Mal Donaghy",
+      "overallRank": null,
+      "premierLeagueEraRank": 76,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
+    },
+    {
+      "playerId": "neil-webb",
+      "name": "Neil Webb",
+      "wikiTitle": "Neil Webb",
+      "overallRank": null,
+      "premierLeagueEraRank": 79,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
+    },
+    {
+      "playerId": "kobbie-mainoo",
+      "name": "Kobbie Mainoo",
+      "wikiTitle": "Kobbie Mainoo",
+      "overallRank": null,
+      "premierLeagueEraRank": 85,
+      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     }
   ]
 }

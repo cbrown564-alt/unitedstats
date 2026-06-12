@@ -37,8 +37,8 @@
       "label": "Wikidata and Wikimedia Commons",
       "kind": "open-media",
       "url": "https://www.wikidata.org/wiki/Property:P18",
-      "coverage": "Licensed player image candidates via Wikidata P18 and Wikimedia Commons file metadata.",
-      "notes": "Preferred image source because Commons exposes license and attribution metadata. Do not replace with club or agency images unless explicit reuse permission is captured."
+      "coverage": "Licensed player image candidates via Wikidata P18, Wikipedia pageimages, and Wikimedia Commons file metadata.",
+      "notes": "Preferred image source because Commons exposes license and attribution metadata. Wikipedia pageimages may be used as a fallback only when Commons imageinfo is available. Do not replace with club or agency images unless explicit reuse permission is captured."
     },
     {
       "id": "curated",

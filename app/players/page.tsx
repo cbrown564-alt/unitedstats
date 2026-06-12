@@ -40,8 +40,17 @@ export default async function PlayersPage({
         aside={
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
             <StatTile label={activeFilters ? "Shown" : "Players"} value={fmtNum(players.length)} tone="red" />
-            <StatTile label="Top scorer" value={topScorer ? fmtNum(topScorer.goals) : "0"} tone="gold" />
-            <StatTile label="Most apps" value={mostApps ? fmtNum(mostApps.apps || 0) : "0"} />
+            <StatTile
+              label="Top scorer"
+              value={topScorer ? fmtNum(topScorer.goals) : "0"}
+              detail={topScorer?.name}
+              tone="gold"
+            />
+            <StatTile
+              label="Most apps"
+              value={mostApps ? fmtNum(mostApps.apps || 0) : "0"}
+              detail={mostApps?.name}
+            />
             <StatTile label="Lineup rows" value={fmtNum(Number(meta.lineup_entries ?? 0))} />
           </div>
         }
