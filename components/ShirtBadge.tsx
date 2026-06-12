@@ -9,57 +9,22 @@ function paletteForDecade(decade?: string | null): { background: string; color: 
   const year = decade ? Number(decade.slice(0, 4)) : Number.NaN;
   if (Number.isNaN(year)) {
     return {
-      background: "linear-gradient(135deg, #1f1a18 0 50%, #2c2522 50% 100%)",
+      background: "linear-gradient(180deg, oklch(35% 0.01 40), oklch(22% 0.01 40))",
       color: "var(--color-ink-dim)",
       border: "rgb(168 156 148 / 0.35)",
     };
   }
-  if (year < 1900) {
-    return {
-      background: "linear-gradient(90deg, #1d5f4a 0 50%, #f5c518 50% 100%)",
-      color: "#11100f",
-      border: "rgb(245 197 24 / 0.7)",
-    };
-  }
-  if (year < 1940) {
-    return {
-      background: "linear-gradient(135deg, #bb1d12 0 62%, #f3ede8 62% 72%, #bb1d12 72% 100%)",
-      color: "#fff7f2",
-      border: "rgb(255 59 31 / 0.65)",
-    };
-  }
-  if (year < 1970) {
-    return {
-      background: "linear-gradient(180deg, #d8210d 0 58%, #f3ede8 58% 64%, #d8210d 64% 100%)",
-      color: "#fff7f2",
-      border: "rgb(243 237 232 / 0.55)",
-    };
-  }
-  if (year < 1990) {
-    return {
-      background: "linear-gradient(90deg, #b8160b 0 40%, #11100f 40% 46%, #d8210d 46% 100%)",
-      color: "#fff7f2",
-      border: "rgb(216 33 13 / 0.6)",
-    };
-  }
-  if (year < 2010) {
-    return {
-      background: "linear-gradient(135deg, #d8210d 0 44%, #11100f 44% 52%, #f3ede8 52% 58%, #d8210d 58% 100%)",
-      color: "#fff7f2",
-      border: "rgb(243 237 232 / 0.6)",
-    };
-  }
-  if (year < 2020) {
-    return {
-      background: "linear-gradient(180deg, #e32613 0 70%, #11100f 70% 76%, #e32613 76% 100%)",
-      color: "#fff7f2",
-      border: "rgb(255 59 31 / 0.72)",
-    };
-  }
+
+  const clamped = Math.max(1880, Math.min(2030, year));
+  const t = (clamped - 1880) / 150;
+  const lightness = Math.round(76 - t * 42);
+  const shadowLightness = Math.max(22, lightness - 13);
+  const borderLightness = Math.min(82, lightness + 8);
+
   return {
-    background: "linear-gradient(135deg, #c9160a 0 50%, #f5c518 50% 55%, #9e1309 55% 100%)",
-    color: "#fff7f2",
-    border: "rgb(245 197 24 / 0.55)",
+    background: `linear-gradient(180deg, oklch(${lightness}% 0.16 31), oklch(${shadowLightness}% 0.13 31))`,
+    color: lightness > 58 ? "oklch(18% 0.015 40)" : "var(--color-ink)",
+    border: `oklch(${borderLightness}% 0.12 31 / 0.72)`,
   };
 }
 

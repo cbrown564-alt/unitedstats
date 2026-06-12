@@ -162,6 +162,12 @@ Commons-backed, and license-labelled. Missing portraits fall back to generated
 shirt/initial visuals rather than unlicensed club, agency, or search-result
 images.
 
+Shirt numbers are a lineup-derived coverage field. A player's primary shirt is
+the non-bench United shirt number with the most covered lineup appearances; the
+badge shade uses the dominant decade for that selected shirt. Players with no
+covered lineup shirt rows keep shirt number blank even when verified career
+totals exist.
+
 The UI uses these facets at interpretation points: player totals, match pages,
 coverage ledgers, and the correction guide.
 
