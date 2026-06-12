@@ -8,12 +8,32 @@ should enter the canonical record.
 
 | Priority | Source | Best use | Access caveat |
 |---|---|---|---|
-| 1 | football-data.org | Modern goals, assists, bookings, lineups, benches, substitutions, attendance | Token required; free tier is rate-limited and historical depth varies |
-| 2 | Wikipedia season and match articles | Scorers, attendance, rounds, final/late-round lineups | Wikitext tables vary; deterministic parser plus validation required |
-| 3 | RSSSF | Historical competition results and scorer cross-checks | Citation granularity varies by page |
-| 4 | Official competition sites | Modern match centres, disciplinary records, lineups | Terms, URL stability, and historical range vary by competition |
-| 5 | Club yearbooks, programmes, books, newspapers | Older opposition scorers, lineups, wartime, friendly, and tour detail | Manual curation; capture publication, issue/date, page, or archive reference |
-| 6 | FBref/Stathead-style sources | Modern event/stat cross-checks where licensing permits | Do not scrape or redistribute restricted data without explicit permission |
+| 0 | Wikipedia Manchester United player lists | Verified all-time player starts, substitute appearances, total appearances, and goals | CC BY-SA attribution required; page scope excludes wartime and abandoned 1939-40 matches |
+| 1 | Wikidata and Wikimedia Commons | Licensed image candidates and attribution metadata for top players | Verify likeness and license metadata before widening display |
+| 2 | football-data.org | Modern goals, assists, bookings, lineups, benches, substitutions, attendance | Token required; free tier is rate-limited and historical depth varies |
+| 3 | Wikipedia season and match articles | Scorers, attendance, rounds, final/late-round lineups | Wikitext tables vary; deterministic parser plus validation required |
+| 4 | RSSSF | Historical competition results and scorer cross-checks | Citation granularity varies by page |
+| 5 | Official competition sites | Modern match centres, disciplinary records, lineups | Terms, URL stability, and historical range vary by competition |
+| 6 | Club yearbooks, programmes, books, newspapers | Older opposition scorers, lineups, wartime, friendly, and tour detail | Manual curation; capture publication, issue/date, page, or archive reference |
+| 7 | FBref/Stathead-style sources | Modern event/stat cross-checks where licensing permits | Do not scrape or redistribute restricted data without explicit permission |
+
+## Player Records
+
+- **Provides:** competitive first-team starts, substitute appearances, total
+  appearances, goals, career span, and source page attribution for the 984
+  players listed across Wikipedia's three Manchester United player-list pages.
+- **Range:** full club history for competitive first-team player membership, as
+  defined by the source pages. The imported snapshot is correct as of the match
+  played on 2026-05-24.
+- **Importer:** `npm run ingest:player-records` writes
+  `data/canonical/player-records.json`; `npm run build:db` loads it into
+  `player_records`.
+- **Failure modes:** same-name collisions, local nickname ids such as
+  `chicharito`, page omissions for current players, and source-table edits. The
+  importer keeps explicit id overrides for known local aliases.
+- **Canonical rule:** headline player apps/goals use `player_records` when
+  available. Match lists, goal minutes, assists, and shirt-number summaries
+  remain local event/lineup coverage and must be labelled as recorded coverage.
 
 ## football-data.org
 
@@ -43,6 +63,23 @@ should enter the canonical record.
   quirks.
 - **Canonical rule:** parsed facts are accepted only after validation. Dedicated
   match articles are preferred for full lineups.
+
+## Wikidata and Wikimedia Commons
+
+- **Provides:** licensed player image candidates via Wikidata `P18` and Commons
+  file metadata, including license and attribution fields.
+- **Range:** strongest for modern and famous players; early players often have
+  no reusable portrait. Use this before considering club-site or agency images.
+- **Importer:** `npm run ingest:player-media` imports the top 100
+  `player_records` rows by appearances into `data/canonical/player-media.json`;
+  `npm run build:db` loads reusable image and attribution fields into
+  `player_media`.
+- **Failure modes:** no image, poor likeness, non-player images, deleted Commons
+  files, or license metadata requiring visible attribution.
+- **Canonical rule:** do not hotlink or store official club images unless
+  explicit reuse permission is recorded. If Commons coverage cannot reach the
+  top 100, use the shirt-number visual as the fallback rather than unlicensed
+  portraits.
 
 ## RSSSF
 

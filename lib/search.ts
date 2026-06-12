@@ -159,10 +159,15 @@ function entityResults(q: string, limit = 5): SearchEntity[] {
 
   const players = db
     .prepare(
-      `SELECT pt.player_id id, p.name, pt.goals, pt.apps
-       FROM player_totals pt JOIN players p ON p.id = pt.player_id
-       WHERE pt.scope = 'all' AND p.name LIKE ? AND (pt.goals > 0 OR pt.apps > 0)
-       ORDER BY pt.goals DESC LIMIT ?`,
+      `SELECT p.id, p.name,
+              COALESCE(pr.goals, pt.goals, 0) goals,
+              COALESCE(pr.apps, pt.apps, 0) apps
+       FROM players p
+       LEFT JOIN player_records pr ON pr.player_id = p.id
+       LEFT JOIN player_totals pt ON pt.player_id = p.id AND pt.scope = 'all'
+       WHERE p.name LIKE ?
+         AND pr.player_id IS NOT NULL
+       ORDER BY goals DESC, apps DESC LIMIT ?`,
     )
     .all(like, limit) as { id: string; name: string; goals: number; apps: number }[];
   for (const p of players) {

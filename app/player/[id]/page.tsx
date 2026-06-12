@@ -2,11 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerGoalMatches, playerGoalMinutes,
-  playerLineupMatches, playerSplitsBySeason,
+  playerLineupMatches, playerShirtNumbersByDecade, playerSplitsBySeason,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { MatchList } from "@/components/MatchList";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { ShirtBadge } from "@/components/ShirtBadge";
 import { fmtDate, fmtNum } from "@/lib/format";
 
 const TYPE_LABELS: Record<string, string> = {
@@ -29,6 +31,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
   const bySeason = playerSplitsBySeason(id);
   const matches = playerGoalMatches(id);
   const appearances = playerLineupMatches(id);
+  const shirts = playerShirtNumbersByDecade(id);
   const minutes = playerGoalMinutes(id);
   const partnerships = playerAssistPartnerships(id);
   const compSplits = playerGoalsByCompetitionType(id);
@@ -38,32 +41,56 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
   for (const m of minutes) buckets[Math.min(Math.floor((m - 1) / 15), 5)]++;
   const bucketLabels = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90+"];
 
-  const braces = matches.filter((m) => m.goals === 2).length;
-  const hatTricks = matches.filter((m) => m.goals >= 3).length;
-
   return (
     <div className="space-y-10">
-      <header>
-        <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-2">Player</p>
-        <h1 className="display text-4xl">{p.name}</h1>
-        <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-2xl">
-          {[
-            ["Apps", p.apps ? String(p.apps) : "—"],
-            ["Starts", p.starts ? String(p.starts) : "—"],
-            ["Goals", String(p.goals)],
-            ["In matches", String(matches.length)],
-            ["Braces", String(braces)],
-            ["Hat-tricks+", String(hatTricks)],
-          ].map(([k, v]) => (
-            <div key={k} className="bg-panel px-4 py-3">
-              <div className="stat-num text-2xl font-semibold">{v}</div>
-              <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{k}</div>
+      <header className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_12rem] lg:items-start">
+        <div>
+          <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-2">Player</p>
+          <h1 className="display text-4xl">{p.name}</h1>
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-xl">
+            {[
+              ["Apps", p.apps ? String(p.apps) : "—"],
+              ["Starts", p.starts ? String(p.starts) : "—"],
+              ["Sub apps", p.subs ? String(p.subs) : "—"],
+              ["Goals", String(p.goals)],
+              ["Lineup rows", String(p.lineup_apps)],
+              ["Recorded goals", String(p.recorded_goals)],
+            ].map(([k, v]) => (
+              <div key={k} className="bg-panel px-4 py-3">
+                <div className="stat-num text-2xl font-semibold">{v}</div>
+                <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{k}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-ink-faint mt-3 max-w-xl">
+            Headline apps and goals use verified competitive player records where available.
+            Match lists and assist counts reflect local scorer and lineup coverage.
+          </p>
+          {shirts.length > 0 && (
+            <div className="mt-4 flex max-w-3xl flex-wrap gap-2">
+              {shirts.map((shirt) => (
+                <div key={`${shirt.decade}-${shirt.shirt}`} className="flex items-center gap-3 rounded-lg border border-line bg-panel px-3 py-2">
+                  <ShirtBadge number={shirt.shirt} decade={shirt.decade} apps={shirt.apps} />
+                  <span className="text-xs leading-4 text-ink-faint">
+                    <span className="stat-num text-ink">{fmtNum(shirt.apps)}</span> covered apps
+                    {shirt.starts ? `, ${fmtNum(shirt.starts)} starts` : ""}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-        <p className="text-xs text-ink-faint mt-3 max-w-xl">
-          Goals reflect recorded scoring events. Appearance totals reflect matches with lineup coverage.
-        </p>
+        <div className="lg:justify-self-end">
+          <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} size="lg" />
+          {p.player_image_page_url && (
+            <a
+              href={p.player_image_page_url}
+              className="mt-2 block max-w-40 text-xs text-ink-faint hover:text-devil-bright"
+            >
+              Wikimedia Commons{p.player_image_license ? ` · ${p.player_image_license}` : ""}
+            </a>
+          )}
+        </div>
       </header>
 
       {bySeason.length > 1 && (
@@ -103,7 +130,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
               chartLabel={`${p.name} appearances by season`}
             />
             <p className="text-xs text-ink-faint mt-1">
-              From the {appearances.length} covered lineups where {p.name} appears.
+              From the {appearances.length} covered lineup rows where {p.name} appears.
             </p>
           </div>
         </section>

@@ -37,6 +37,40 @@ interface Players {
     nationality?: string | null; born?: string | null;
   }[];
 }
+interface PlayerRecords {
+  records: {
+    playerId: string;
+    name: string;
+    wikiTitle?: string | null;
+    career: string;
+    firstYear?: number | null;
+    lastYear?: number | null;
+    starts: number;
+    subs: number;
+    apps: number;
+    goals: number;
+    sourceId: string;
+    sourceUrl: string;
+    sourcePage?: string | null;
+    sourceBucket?: string | null;
+    statsAsOf?: string | null;
+  }[];
+}
+interface PlayerMedia {
+  records: {
+    playerId: string;
+    wikidataId?: string | null;
+    commonsFile: string;
+    imageUrl: string;
+    thumbUrl?: string | null;
+    pageUrl?: string | null;
+    license?: string | null;
+    artist?: string | null;
+    credit?: string | null;
+    sourceId: string;
+    retrievedAt?: string | null;
+  }[];
+}
 interface Opponents {
   opponents?: { id: string; name: string; country?: string | null; lat?: number | null; lng?: number | null }[];
 }
@@ -50,7 +84,22 @@ interface Sources {
 const managers = readJson<Managers>(path.join(CANONICAL, "managers.json")).managers;
 const stadiums = readJson<Stadiums>(path.join(CANONICAL, "stadiums.json")).stadiums;
 const competitions = readJson<Competitions>(path.join(CANONICAL, "competitions.json")).competitions;
-const players = readJson<Players>(path.join(CANONICAL, "players.json")).players;
+const playerRecordsFile = path.join(CANONICAL, "player-records.json");
+const playerRecords = fs.existsSync(playerRecordsFile)
+  ? readJson<PlayerRecords>(playerRecordsFile).records
+  : [];
+const playerMediaFile = path.join(CANONICAL, "player-media.json");
+const playerMedia = fs.existsSync(playerMediaFile)
+  ? readJson<PlayerMedia>(playerMediaFile).records
+  : [];
+const playerBase = readJson<Players>(path.join(CANONICAL, "players.json")).players;
+const playerById = new Map(playerBase.map((p) => [p.id, p]));
+for (const r of playerRecords) {
+  if (!playerById.has(r.playerId)) {
+    playerById.set(r.playerId, { id: r.playerId, name: r.name });
+  }
+}
+const players = [...playerById.values()].sort((a, b) => a.id.localeCompare(b.id));
 const sourcesFile = path.join(CANONICAL, "sources.json");
 const sources = fs.existsSync(sourcesFile) ? readJson<Sources>(sourcesFile).sources : [];
 const opponentsFile = path.join(CANONICAL, "opponents.json");
@@ -201,6 +250,41 @@ CREATE TABLE player_totals (
   PRIMARY KEY (player_id, scope)
 );
 
+CREATE TABLE player_records (
+  player_id TEXT PRIMARY KEY REFERENCES players(id),
+  name TEXT NOT NULL,
+  wiki_title TEXT,
+  career TEXT NOT NULL,
+  first_year INTEGER,
+  last_year INTEGER,
+  starts INTEGER NOT NULL,
+  subs INTEGER NOT NULL,
+  apps INTEGER NOT NULL,
+  goals INTEGER NOT NULL,
+  source_id TEXT NOT NULL REFERENCES sources(id),
+  source_url TEXT NOT NULL,
+  source_page TEXT,
+  source_bucket TEXT,
+  stats_as_of TEXT
+);
+CREATE INDEX idx_player_records_apps ON player_records(apps);
+CREATE INDEX idx_player_records_goals ON player_records(goals);
+
+CREATE TABLE player_media (
+  player_id TEXT PRIMARY KEY REFERENCES players(id),
+  wikidata_id TEXT,
+  commons_file TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  thumb_url TEXT,
+  page_url TEXT,
+  license TEXT,
+  artist TEXT,
+  credit TEXT,
+  source_id TEXT NOT NULL REFERENCES sources(id),
+  retrieved_at TEXT
+);
+CREATE INDEX idx_player_media_source ON player_media(source_id);
+
 CREATE TABLE season_summaries (
   season TEXT NOT NULL,
   competition_id TEXT NOT NULL,
@@ -237,12 +321,54 @@ for (const p of players) {
 const knownSourceIds = new Set(sources.map((s) => s.id));
 const insSource = db.prepare("INSERT INTO sources VALUES (?,?,?,?,?,?)");
 for (const s of sources) insSource.run(s.id, s.label, s.kind, s.url ?? null, s.coverage ?? null, s.notes ?? null);
-const sourceIdsFromMatches = new Set(allMatches.flatMap(({ m }) => m.sources));
-for (const id of sourceIdsFromMatches) {
+const sourceIdsFromCanonical = new Set([
+  ...allMatches.flatMap(({ m }) => m.sources),
+  ...playerRecords.map((r) => r.sourceId),
+  ...playerMedia.map((r) => r.sourceId),
+]);
+for (const id of sourceIdsFromCanonical) {
   if (!knownSourceIds.has(id)) {
-    insSource.run(id, id, "unknown", null, "Referenced by canonical match JSON.", "Add this source to data/canonical/sources.json with provenance details.");
+    insSource.run(id, id, "unknown", null, "Referenced by canonical JSON.", "Add this source to data/canonical/sources.json with provenance details.");
     knownSourceIds.add(id);
   }
+}
+
+const insPlayerRecord = db.prepare("INSERT INTO player_records VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+for (const r of playerRecords) {
+  insPlayerRecord.run(
+    r.playerId,
+    r.name,
+    r.wikiTitle ?? null,
+    r.career,
+    r.firstYear ?? null,
+    r.lastYear ?? null,
+    r.starts,
+    r.subs,
+    r.apps,
+    r.goals,
+    r.sourceId,
+    r.sourceUrl,
+    r.sourcePage ?? null,
+    r.sourceBucket ?? null,
+    r.statsAsOf ?? null,
+  );
+}
+
+const insPlayerMedia = db.prepare("INSERT OR REPLACE INTO player_media VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+for (const m of playerMedia) {
+  insPlayerMedia.run(
+    m.playerId,
+    m.wikidataId ?? null,
+    m.commonsFile,
+    m.imageUrl,
+    m.thumbUrl ?? null,
+    m.pageUrl ?? null,
+    m.license ?? null,
+    m.artist ?? null,
+    m.credit ?? null,
+    m.sourceId,
+    m.retrievedAt ?? null,
+  );
 }
 
 // opponents: curated entries first, then derive the rest from matches
@@ -485,12 +611,12 @@ for (const [key, v] of furthest) {
 db.exec(`
 INSERT INTO player_totals
 SELECT p.id, 'all',
-  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.bench = 0), 0),
-  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.started = 1 AND l.bench = 0), 0),
-  COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.player_id = p.id AND e.type IN ('goal','pen-goal')), 0),
-  COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.assist_player_id = p.id AND e.type IN ('goal','pen-goal')), 0),
-  (SELECT MIN(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.bench = 0),
-  (SELECT MAX(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.bench = 0)
+  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.player_side = 'united' AND l.bench = 0), 0),
+  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.player_side = 'united' AND l.started = 1 AND l.bench = 0), 0),
+  COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.player_id = p.id AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')), 0),
+  COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.assist_player_id = p.id AND e.assist_side = 'united' AND e.type IN ('goal','pen-goal')), 0),
+  (SELECT MIN(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.player_side = 'united' AND l.bench = 0),
+  (SELECT MAX(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.player_side = 'united' AND l.bench = 0)
 FROM players p;
 
 INSERT INTO player_totals
@@ -501,13 +627,13 @@ SELECT p.id, c.type,
     SELECT COUNT(*) FROM match_events e
     JOIN matches gm ON gm.id = e.match_id
     JOIN competitions gc ON gc.id = gm.competition_id
-    WHERE e.player_id = p.id AND e.type IN ('goal','pen-goal') AND gc.type = c.type
+    WHERE e.player_id = p.id AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND gc.type = c.type
   ), 0),
   COALESCE((
     SELECT COUNT(*) FROM match_events e
     JOIN matches am ON am.id = e.match_id
     JOIN competitions ac ON ac.id = am.competition_id
-    WHERE e.assist_player_id = p.id AND e.type IN ('goal','pen-goal') AND ac.type = c.type
+    WHERE e.assist_player_id = p.id AND e.assist_side = 'united' AND e.type IN ('goal','pen-goal') AND ac.type = c.type
   ), 0),
   MIN(m.date),
   MAX(m.date)
@@ -515,7 +641,7 @@ FROM players p
 JOIN match_lineups l ON l.player_id = p.id
 JOIN matches m ON m.id = l.match_id
 JOIN competitions c ON c.id = m.competition_id
-WHERE l.bench = 0
+WHERE l.player_side = 'united' AND l.bench = 0
 GROUP BY p.id, c.type;
 `);
 

@@ -327,21 +327,110 @@ export interface PlayerTotals {
   name: string;
   apps: number;
   starts: number;
+  subs: number;
   goals: number;
   assists: number;
+  lineup_apps: number;
+  lineup_starts: number;
+  recorded_goals: number;
+  record_apps: number | null;
+  record_starts: number | null;
+  record_subs: number | null;
+  record_goals: number | null;
+  record_source_id: string | null;
+  record_source_url: string | null;
+  record_stats_as_of: string | null;
+  career: string | null;
+  first_year: number | null;
+  last_year: number | null;
+  primary_shirt: number | null;
+  primary_shirt_decade: string | null;
+  primary_shirt_apps: number | null;
+  player_image_url: string | null;
+  player_thumb_url: string | null;
+  player_image_page_url: string | null;
+  player_image_license: string | null;
   first_date: string | null;
   last_date: string | null;
 }
 
+const PLAYER_TOTALS_WITH = `
+  WITH shirt_counts AS (
+    SELECT l.player_id, l.shirt, substr(m.date,1,3) || '0s' AS decade,
+           COUNT(*) apps, SUM(l.started = 1) starts,
+           MIN(m.date) first_date, MAX(m.date) last_date
+    FROM match_lineups l
+    JOIN matches m ON m.id = l.match_id
+    WHERE l.player_side = 'united'
+      AND l.bench = 0
+      AND l.shirt IS NOT NULL
+    GROUP BY l.player_id, l.shirt, decade
+  ),
+  primary_shirts AS (
+    SELECT player_id, shirt, decade, apps
+    FROM (
+      SELECT shirt_counts.*,
+             ROW_NUMBER() OVER (
+               PARTITION BY player_id
+               ORDER BY apps DESC, last_date DESC, shirt
+             ) rn
+      FROM shirt_counts
+    )
+    WHERE rn = 1
+  )
+`;
+
+const PLAYER_TOTALS_SELECT = `
+  SELECT p.id AS player_id, p.name,
+         COALESCE(pr.apps, pt.apps, 0) apps,
+         COALESCE(pr.starts, pt.starts, 0) starts,
+         COALESCE(pr.subs, 0) subs,
+         COALESCE(pr.goals, pt.goals, 0) goals,
+         COALESCE(pt.assists, 0) assists,
+         COALESCE(pt.apps, 0) lineup_apps,
+         COALESCE(pt.starts, 0) lineup_starts,
+         COALESCE(pt.goals, 0) recorded_goals,
+         pr.apps record_apps,
+         pr.starts record_starts,
+         pr.subs record_subs,
+         pr.goals record_goals,
+         pr.source_id record_source_id,
+         pr.source_url record_source_url,
+         pr.stats_as_of record_stats_as_of,
+         pr.career,
+         pr.first_year,
+         pr.last_year,
+         ps.shirt primary_shirt,
+         ps.decade primary_shirt_decade,
+         ps.apps primary_shirt_apps,
+         pm.image_url player_image_url,
+         pm.thumb_url player_thumb_url,
+         pm.page_url player_image_page_url,
+         pm.license player_image_license,
+         COALESCE(
+           pt.first_date,
+           (SELECT MIN(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = p.id AND e.player_side = 'united'),
+           CASE WHEN pr.first_year IS NOT NULL THEN printf('%04d-01-01', pr.first_year) END
+         ) first_date,
+         COALESCE(
+           pt.last_date,
+           (SELECT MAX(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = p.id AND e.player_side = 'united'),
+           CASE WHEN pr.last_year IS NOT NULL THEN printf('%04d-12-31', pr.last_year) END
+         ) last_date
+  FROM players p
+  LEFT JOIN player_totals pt ON pt.player_id = p.id AND pt.scope = 'all'
+  LEFT JOIN player_records pr ON pr.player_id = p.id
+  LEFT JOIN primary_shirts ps ON ps.player_id = p.id
+  LEFT JOIN player_media pm ON pm.player_id = p.id
+`;
+
 export function playersIndex(): PlayerTotals[] {
   return getDb()
     .prepare(
-      `SELECT pt.player_id, p.name, pt.apps, pt.starts, pt.goals, pt.assists,
-              COALESCE(pt.first_date, (SELECT MIN(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = pt.player_id)) first_date,
-              COALESCE(pt.last_date, (SELECT MAX(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = pt.player_id)) last_date
-       FROM player_totals pt JOIN players p ON p.id = pt.player_id
-       WHERE pt.scope = 'all' AND (pt.goals > 0 OR pt.apps > 0 OR pt.assists > 0)
-       ORDER BY pt.goals DESC, pt.apps DESC, pt.starts DESC`,
+      `${PLAYER_TOTALS_WITH}
+       ${PLAYER_TOTALS_SELECT}
+       WHERE pr.player_id IS NOT NULL
+       ORDER BY goals DESC, apps DESC, starts DESC`,
     )
     .all() as PlayerTotals[];
 }
@@ -349,13 +438,38 @@ export function playersIndex(): PlayerTotals[] {
 export function playerById(id: string): PlayerTotals | undefined {
   return getDb()
     .prepare(
-      `SELECT pt.player_id, p.name, pt.apps, pt.starts, pt.goals, pt.assists,
-              COALESCE(pt.first_date, (SELECT MIN(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = pt.player_id)) first_date,
-              COALESCE(pt.last_date, (SELECT MAX(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = pt.player_id)) last_date
-       FROM player_totals pt JOIN players p ON p.id = pt.player_id
-       WHERE pt.player_id = ? AND pt.scope = 'all'`,
+      `${PLAYER_TOTALS_WITH}
+       ${PLAYER_TOTALS_SELECT}
+       WHERE p.id = ?`,
     )
     .get(id) as PlayerTotals | undefined;
+}
+
+export interface PlayerShirtNumber {
+  decade: string;
+  shirt: number;
+  apps: number;
+  starts: number;
+  first_date: string;
+  last_date: string;
+}
+
+export function playerShirtNumbersByDecade(id: string): PlayerShirtNumber[] {
+  return getDb()
+    .prepare(
+      `SELECT substr(m.date,1,3) || '0s' decade, l.shirt,
+              COUNT(*) apps, SUM(l.started = 1) starts,
+              MIN(m.date) first_date, MAX(m.date) last_date
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       WHERE l.player_id = ?
+         AND l.player_side = 'united'
+         AND l.bench = 0
+         AND l.shirt IS NOT NULL
+       GROUP BY decade, l.shirt
+       ORDER BY decade, apps DESC, l.shirt`,
+    )
+    .all(id) as PlayerShirtNumber[];
 }
 
 export function playerSplitsBySeason(id: string): {
@@ -368,19 +482,21 @@ export function playerSplitsBySeason(id: string): {
   return getDb()
     .prepare(
       `WITH seasons AS (
-         SELECT season FROM matches m JOIN match_lineups l ON l.match_id = m.id WHERE l.player_id = ? AND l.bench = 0
+         SELECT season FROM matches m JOIN match_lineups l ON l.match_id = m.id WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0
          UNION
-         SELECT season FROM matches m JOIN match_events e ON e.match_id = m.id WHERE e.player_id = ? OR e.assist_player_id = ?
+         SELECT season FROM matches m JOIN match_events e ON e.match_id = m.id
+         WHERE (e.player_id = ? AND e.player_side = 'united')
+            OR (e.assist_player_id = ? AND e.assist_side = 'united')
        )
        SELECT s.season,
               COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
-                        WHERE l.player_id = ? AND l.bench = 0 AND m.season = s.season), 0) apps,
+                        WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 AND m.season = s.season), 0) apps,
               COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
-                        WHERE l.player_id = ? AND l.started = 1 AND l.bench = 0 AND m.season = s.season), 0) starts,
+                        WHERE l.player_id = ? AND l.player_side = 'united' AND l.started = 1 AND l.bench = 0 AND m.season = s.season), 0) starts,
               COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
-                        WHERE e.player_id = ? AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) goals,
+                        WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) goals,
               COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
-                        WHERE e.assist_player_id = ? AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) assists
+                        WHERE e.assist_player_id = ? AND e.assist_side = 'united' AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) assists
        FROM seasons s ORDER BY s.season`,
     )
     .all(id, id, id, id, id, id, id) as {
@@ -407,7 +523,7 @@ export function playerLineupMatches(id: string): (MatchRow & {
        JOIN competitions c ON c.id = m.competition_id
        LEFT JOIN stadiums s ON s.id = m.stadium_id
        LEFT JOIN managers mg ON mg.id = m.manager_id
-       WHERE l.player_id = ? AND l.bench = 0 ORDER BY m.date DESC`,
+       WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 ORDER BY m.date DESC`,
     )
     .all(id) as (MatchRow & {
       started: number;
@@ -422,7 +538,7 @@ export function playerGoalsBySeason(id: string): { season: string; goals: number
     .prepare(
       `SELECT m.season, COUNT(*) goals
        FROM match_events e JOIN matches m ON m.id = e.match_id
-       WHERE e.player_id = ? AND e.type IN ('goal','pen-goal')
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
        GROUP BY m.season ORDER BY m.season`,
     )
     .all(id) as { season: string; goals: number }[];
@@ -437,7 +553,7 @@ export function playerGoalMatches(id: string): (MatchRow & { goals: number; minu
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
        JOIN competitions c ON c.id = m.competition_id
-       WHERE e.player_id = ? AND e.type IN ('goal','pen-goal')
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
        GROUP BY m.id ORDER BY m.date DESC`,
     )
     .all(id) as (MatchRow & { goals: number; minutes: string | null })[];
@@ -448,7 +564,7 @@ export function playerGoalMinutes(id: string): number[] {
     getDb()
       .prepare(
         `SELECT e.minute FROM match_events e
-         WHERE e.player_id = ? AND e.type IN ('goal','pen-goal') AND e.minute IS NOT NULL`,
+         WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND e.minute IS NOT NULL`,
       )
       .all(id) as { minute: number }[]
   ).map((r) => r.minute);
@@ -474,7 +590,11 @@ export function topAssistPartnerships(limit = 20): AssistPartnership[] {
        JOIN matches m ON m.id = e.match_id
        JOIN players sp ON sp.id = e.player_id
        JOIN players ap ON ap.id = e.assist_player_id
-       WHERE e.type IN ('goal','pen-goal') AND e.player_id IS NOT NULL AND e.assist_player_id IS NOT NULL
+       WHERE e.type IN ('goal','pen-goal')
+         AND e.player_side = 'united'
+         AND e.assist_side = 'united'
+         AND e.player_id IS NOT NULL
+         AND e.assist_player_id IS NOT NULL
        GROUP BY e.player_id, e.assist_player_id
        ORDER BY goals DESC, last_date DESC LIMIT ?`,
     )
@@ -492,6 +612,8 @@ export function playerAssistPartnerships(id: string, limit = 12): AssistPartners
        JOIN players sp ON sp.id = e.player_id
        JOIN players ap ON ap.id = e.assist_player_id
        WHERE e.type IN ('goal','pen-goal')
+         AND e.player_side = 'united'
+         AND e.assist_side = 'united'
          AND e.player_id IS NOT NULL
          AND e.assist_player_id IS NOT NULL
          AND (e.player_id = ? OR e.assist_player_id = ?)
