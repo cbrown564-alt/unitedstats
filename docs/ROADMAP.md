@@ -1,5 +1,36 @@
 # Roadmap
 
+## Product north star
+
+UnitedStats is a pattern-discovery product for stats-heavy Manchester United
+fans with researcher-grade trust expectations. The fixture record is the spine;
+question-led analysis is the discovery layer; people are the emotional entry
+points.
+
+The design target is a floodlit match-night ledger: dark, precise,
+atmospheric, and built for exploration. The UI should be United-coded, not
+United-branded. It should avoid becoming a dry database table site, while
+keeping data readability and source confidence ahead of decoration.
+
+Product principles:
+
+- **Start exploration immediately.** The homepage should become a curiosity
+      launchpad with myth-testing prompts, hybrid search, recently changed
+      evidence, and clear routes into matches, seasons, players, managers,
+      opponents, and analytics.
+- **Guide, don't pundit.** The app should suggest interesting cuts
+      ("late goals by era", "bogey sides away", "European weeks") and expose
+      the match trail rather than making unsupported editorial claims.
+- **Trust at decision points.** Coverage, source, and scope notes appear where
+      they change interpretation: rankings, charts, player totals, lineup
+      analysis, assist networks, and myth-testing modules.
+- **Every aggregate needs an evidence path.** Major stats should let users
+      reach the underlying matches, seasons, people, or opponents that produced
+      them.
+- **Adaptive medium density.** Keep records, filters, and tables compact;
+      give myth-testing modules, charts, and coverage notes enough room to be
+      understood.
+
 ## Phase 1 — Foundation ✅ (complete)
 
 - [x] Repo, docs, architecture
@@ -42,13 +73,43 @@
       where records exist
 - [ ] Wartime and abandoned matches as annotated non-official records
 - [ ] Friendlies and tours (separate competition type, off by default)
+- [ ] Add richer source/provenance records so partial scorer, assist, lineup,
+      and attendance coverage can be explained at the exact point of use
+- [ ] Build correction-friendly data pages that explain canonical JSON,
+      source lineage, coverage gaps, and how to contribute fixes
 
-## Phase 4 — Advanced analytics
+## Phase 4 — Guided exploration
 
-- [ ] Predictive: Elo-driven season simulation, "what are the odds" widget
+- [ ] Rework the homepage from status dashboard to curiosity launchpad:
+      hybrid search, myth-testing prompts, latest/recently enriched evidence,
+      and routes into the canonical record
+- [ ] Build a guided "Questions" or "Trails" surface for myth-testing modules:
+      late goals by era, bogey sides, European-week effects, manager bounce,
+      fortress Old Trafford, cup specialists
+- [ ] Add pattern-trail modules to detail pages:
+      match → Elo movement / similar matches / late goals that season;
+      player → scoring runs / goal timing / competition splits;
+      manager → first 10 matches / home-away-cup bends;
+      opponent → away record / cup meetings / longest runs
+- [ ] Add "show the matches behind this" evidence links to major analytics,
+      records, rankings, and chart modules
+- [ ] Upgrade analytics copy from chart labels to exploratory framing:
+      concise interpretation, slice definition, coverage note, and evidence
+      trail
+- [ ] Develop hybrid command search: normal lookup for players/opponents/
+      seasons/managers/matches plus shaped templates such as "record away at
+      Arsenal" and "late goals under Ferguson"
+
+## Phase 5 — Advanced analytics and distribution
+
+- [ ] Predictive: Elo-driven season simulation, "what are the odds" widget,
+      with careful scope language and evidence links
 - [ ] Spatial: shot maps where event data exists; travel-distance era maps
-- [ ] Narrative auto-summaries of seasons/eras from the data
+- [ ] Narrative auto-summaries of seasons/eras from the data, written as
+      exploratory signals rather than verdict-heavy punditry
 - [ ] Public read-only API + downloadable dataset releases
+- [ ] Reusable chart/table components with consistent coverage notes, focus
+      states, numeric alignment, and color-safe win/draw/loss encoding
 
 ## Data depth ledger
 
@@ -56,3 +117,8 @@ The UI is honest about coverage: every aggregate that depends on events or
 lineups displays the coverage window it's computed from (e.g. "goal data:
 1,234 of 6,000 matches"). This is a feature, not a caveat — stretfordend
 itself grew the same way, season by season.
+
+Coverage should stay visible at interpretation points rather than becoming
+constant noise. A user reading a player total, assist partnership, lineup
+aggregate, goal-minute chart, or myth-testing prompt should understand the
+coverage behind it before trusting the conclusion.
