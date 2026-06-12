@@ -1,4 +1,4 @@
-/** Lightweight server-rendered SVG charts — no client JS, no chart library. */
+/** Shared chart data contracts plus lightweight server-rendered SVG fallbacks. */
 
 export type ChartDatum = {
   x: number;
@@ -7,6 +7,15 @@ export type ChartDatum = {
   valueLabel: string;
   meta?: string;
   movementLabel?: string;
+  href?: string;
+};
+
+export type ChartBarDatum = {
+  label: string;
+  tickLabel?: string;
+  value: number;
+  valueLabel: string;
+  meta?: string;
   href?: string;
 };
 

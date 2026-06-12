@@ -141,10 +141,11 @@ The Chart System includes three layers:
 - Interactive chart layer: Recharts-based client-side inspection for direct reading support.
 - Chart frame: title, legend, value callouts, slice, coverage, and evidence trail.
 
-Inspectable chart data should carry reader-facing context, not only coordinates: `x` and `y`
-for plotting, `label` for the human-readable x value, `valueLabel` for the formatted value,
-optional `meta` for one short contextual line, and optional `href` when the datum maps cleanly
-to evidence.
+Inspectable chart data should carry reader-facing context, not only coordinates. Time-series
+data should include `x` and `y` for plotting, `label` for the human-readable x value,
+`valueLabel` for the formatted value, optional `meta` for one short contextual line, and
+optional `href` when the datum maps cleanly to evidence. Bar data should follow the same
+reader-facing contract with `label`, `value`, `valueLabel`, and optional `meta` or `href`.
 
 Use:
 
@@ -320,7 +321,11 @@ Chart System implementation should keep `components/charts.tsx` as the shared pr
 
 Page code should import UnitedStats chart components, not Recharts primitives directly. Recharts is the rendering engine behind the Interactive Chart Layer; UnitedStats components own the visual language, tooltip behavior, evidence affordances, color semantics, and data contracts.
 
-The first interactive components should be `InspectableTimeSeriesChart` and `EloRatingChart`. `InspectableTimeSeriesChart` is the reusable Recharts-backed line/area primitive with Quiet Analyst Tooltip, baseline, axes, highlights, and responsive behavior. `EloRatingChart` is the domain wrapper that formats Elo labels, applies the 1500 baseline, and carries peak, trough, and current rating context.
+The first interactive components are `InspectableTimeSeriesChart`, `InspectableBarChart`, and `EloRatingChart`. `InspectableTimeSeriesChart` is the reusable Recharts-backed line/area primitive with Quiet Analyst Tooltip, baseline, axes, highlights, and responsive behavior. `InspectableBarChart` is the reusable Recharts-backed bar primitive for comparisons, distributions, and records. `EloRatingChart` is the domain wrapper that formats Elo labels, applies the 1500 baseline, and carries peak, trough, and current rating context.
+
+When an inspectable bar datum has a real evidence URL, the bar may navigate to that evidence route
+and the Quiet Analyst Tooltip should say so. Do not add chart links unless the datum maps cleanly
+to a season, match set, player, opponent, manager, or source-backed evidence page.
 
 For Elo inspection, the Quiet Analyst Tooltip should show a reader-facing date or season label,
 the formatted rating, and the movement from the previous point when available. If a chart datum
@@ -328,7 +333,8 @@ also maps to a fixture, the tooltip may add opponent/result context and an evide
 but the first pass can stay with date, rating, and movement while the query contract is extended.
 
 Migration should be incremental. Keep `AreaChart`, `Bars`, and `Sparkline` intact as static
-fallbacks and migration scaffolding while Recharts-backed components are introduced. Migrate
-the `/analytics` Elo chart first, then homepage Elo and season trend charts. Revisit whether
-static primitives should be retired after the interactive coverage is broad enough; `Sparkline`
-may remain useful as a tiny no-JS primitive for dense tables.
+fallbacks and migration scaffolding while Recharts-backed components are introduced. The
+homepage, analytics, questions, odds, travel, and player chart modules now use the interactive
+layer where inspection improves reading. Revisit whether static primitives should be retired
+after the interactive coverage is broad enough; `Sparkline` may remain useful as a tiny no-JS
+primitive for dense tables.

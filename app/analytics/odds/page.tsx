@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   calibration, oddsFor, ratedOpponents, simulateLeagueSeason, HOME_ADVANTAGE,
 } from "@/lib/predict";
-import { Bars } from "@/components/charts";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { DataTable } from "@/components/DataTable";
@@ -135,11 +135,18 @@ export default async function OddsPage({
               </>
             }
           >
-            <Bars
-              data={sim.distribution.map((d) => ({ label: String(d.points), value: d.share }))}
+            <InspectableBarChart
+              data={sim.distribution.map((d) => ({
+                label: String(d.points),
+                value: d.share * 100,
+                valueLabel: `${(100 * d.share).toFixed(1)}% of replays`,
+                meta: `${fmtNum(Math.round(d.share * sim.runs))} of ${fmtNum(sim.runs)} simulations`,
+              }))}
               labelEvery={5}
               height={190}
               highlightLabel={String(sim.actualPoints)}
+              chartLabel={`${sim.season} replayed points distribution`}
+              yTickSuffix="%"
             />
           </ChartPanel>
         </section>

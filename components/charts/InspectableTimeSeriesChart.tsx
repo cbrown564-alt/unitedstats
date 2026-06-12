@@ -12,6 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import type { ChartDatum } from "@/components/charts";
+import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
 
 type InspectableTimeSeriesChartProps = {
   data: ChartDatum[];
@@ -24,30 +25,8 @@ type InspectableTimeSeriesChartProps = {
   xTicks?: { x: number; label: string }[];
   valueLabel?: string;
   chartLabel?: string;
+  yTickSuffix?: string;
 };
-
-type TooltipProps = {
-  active?: boolean;
-  payload?: { payload: ChartDatum }[];
-};
-
-function QuietAnalystTooltip({ active, payload }: TooltipProps) {
-  if (!active || !payload?.length) return null;
-
-  const datum = payload[0]?.payload;
-  if (!datum) return null;
-
-  return (
-    <div className="min-w-36 rounded-md border border-line bg-panel px-3 py-2 text-xs shadow-[0_10px_30px_rgb(0_0_0_/_0.35)]">
-      <div className="text-ink-dim">{datum.label}</div>
-      <div className="stat-num mt-0.5 text-base font-semibold text-ink">{datum.valueLabel}</div>
-      {datum.movementLabel && (
-        <div className="stat-num mt-0.5 text-[11px] text-devil-bright">{datum.movementLabel}</div>
-      )}
-      {datum.meta && <div className="mt-1 max-w-52 text-ink-faint">{datum.meta}</div>}
-    </div>
-  );
-}
 
 export function InspectableTimeSeriesChart({
   data,
@@ -60,14 +39,15 @@ export function InspectableTimeSeriesChart({
   xTicks,
   valueLabel,
   chartLabel = valueLabel ?? "Time series chart",
+  yTickSuffix = "",
 }: InspectableTimeSeriesChartProps) {
   const gradientId = useId().replace(/:/g, "");
 
   if (data.length < 2) return null;
 
   return (
-    <div className="h-full min-h-56 w-full" style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="h-full min-h-56 min-w-0 w-full" style={{ height }}>
+      <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
         <AreaChart
           data={data}
           margin={{ top: 10, right: 10, bottom: 8, left: 0 }}
@@ -100,10 +80,10 @@ export function InspectableTimeSeriesChart({
             axisLine={false}
             tickLine={false}
             tickMargin={8}
-            width={44}
+            width={58}
             stroke="var(--color-ink-faint)"
             fontSize={11}
-            tickFormatter={(value) => Math.round(Number(value)).toLocaleString("en-GB")}
+            tickFormatter={(value) => `${Math.round(Number(value)).toLocaleString("en-GB")}${yTickSuffix}`}
           />
           {baseline !== undefined && (
             <ReferenceLine

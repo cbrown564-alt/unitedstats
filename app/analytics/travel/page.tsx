@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
-import { AreaChart } from "@/components/charts";
+import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { DataTable } from "@/components/DataTable";
@@ -34,7 +34,7 @@ export default function TravelPage() {
         </nav>
         <h1 className="display text-3xl">The away map</h1>
         <p className="text-sm text-ink-dim mt-1 max-w-2xl">
-          Where {fmtNum(coverage.covered)} official away matches have taken the club, and how far a
+          Where {fmtNum(coverage.covered)}{" "}official away matches have taken the club, and how far a
           season&apos;s travel stretched as the league grew, Europe opened, and the fixture list
           globalized. Distances are one-way from Manchester to each opponent&apos;s home town, city
           level by design.
@@ -54,10 +54,18 @@ export default function TravelPage() {
             </>
           }
         >
-          <AreaChart
-            points={seasons.map((s) => ({ x: Number(s.season.slice(0, 4)), y: Math.round(s.avgKm) }))}
+          <InspectableTimeSeriesChart
+            data={seasons.map((s) => ({
+              x: Number(s.season.slice(0, 4)),
+              y: Math.round(s.avgKm),
+              label: s.season,
+              valueLabel: `${fmtNum(Math.round(s.avgKm))} km average`,
+              meta: `${fmtNum(s.trips)} away trips, ${fmtNum(Math.round(s.maxKm))} km longest`,
+            }))}
             height={220}
-            labels={[1900, 1930, 1960, 1990, 2020].map((y) => ({ x: y, text: String(y) }))}
+            chartLabel="Manchester United average away trip distance by season"
+            valueLabel="Average away trip"
+            xTicks={[1900, 1930, 1960, 1990, 2020].map((year) => ({ x: year, label: String(year) }))}
           />
         </ChartPanel>
       </section>

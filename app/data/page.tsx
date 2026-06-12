@@ -7,6 +7,7 @@ import {
   lineupCoverage,
   sourceUsage,
 } from "@/lib/queries";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -27,34 +28,33 @@ function CoverageBars({
   data,
   field,
   title,
+  color = "var(--color-devil)",
 }: {
   data: { decade: string; matches: number; withEvents?: number; withLineups?: number }[];
   field: "withEvents" | "withLineups";
   title: string;
+  color?: string;
 }) {
   return (
     <div>
       <h3 className="display text-base mb-3">{title}</h3>
-      <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
-        {data.map((c) => {
+      <InspectableBarChart
+        data={data.map((c) => {
           const covered = Number(c[field] ?? 0);
-          const f = c.matches ? covered / c.matches : 0;
-          return (
-            <div key={c.decade} className="text-center">
-              <div
-                className="h-16 rounded relative overflow-hidden bg-panel-2"
-                title={`${c.decade}: ${covered}/${c.matches} matches`}
-              >
-                <div
-                  className="absolute bottom-0 left-0 right-0 bg-devil"
-                  style={{ height: `${Math.round(100 * f)}%` }}
-                />
-              </div>
-              <div className="text-[10px] text-ink-faint mt-1 stat-num">{c.decade.slice(2)}</div>
-            </div>
-          );
+          return {
+            label: c.decade,
+            tickLabel: c.decade.slice(0, 4),
+            value: c.matches ? Math.round((1000 * covered) / c.matches) / 10 : 0,
+            valueLabel: pct(covered, c.matches),
+            meta: `${fmtNum(covered)} of ${fmtNum(c.matches)} matches`,
+          };
         })}
-      </div>
+        height={160}
+        color={color}
+        chartLabel={title}
+        labelEvery={2}
+        yTickSuffix="%"
+      />
     </div>
   );
 }
@@ -159,7 +159,12 @@ export default function DataPage() {
           <CoverageBars data={scorerCoverage} field="withEvents" title="United scorer coverage by decade" />
         </div>
         <div className="border border-line rounded-lg bg-panel p-4">
-          <CoverageBars data={lineups} field="withLineups" title="Lineup coverage by decade" />
+          <CoverageBars
+            data={lineups}
+            field="withLineups"
+            title="Lineup coverage by decade"
+            color="var(--color-gold)"
+          />
         </div>
       </section>
 
