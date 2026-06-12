@@ -355,7 +355,7 @@ export interface PlayerTotals {
 }
 
 const PLAYER_TOTALS_WITH = `
-  WITH shirt_counts AS (
+  WITH shirt_decade_counts AS (
     SELECT l.player_id, l.shirt, substr(m.date,1,3) || '0s' AS decade,
            COUNT(*) apps, SUM(l.started = 1) starts,
            MIN(m.date) first_date, MAX(m.date) last_date
@@ -366,15 +366,30 @@ const PLAYER_TOTALS_WITH = `
       AND l.shirt IS NOT NULL
     GROUP BY l.player_id, l.shirt, decade
   ),
+  shirt_totals AS (
+    SELECT player_id, shirt, SUM(apps) apps, MAX(last_date) last_date
+    FROM shirt_decade_counts
+    GROUP BY player_id, shirt
+  ),
+  shirt_decade_ranked AS (
+    SELECT shirt_decade_counts.*,
+           ROW_NUMBER() OVER (
+             PARTITION BY player_id, shirt
+             ORDER BY apps DESC, last_date DESC, decade DESC
+           ) decade_rank
+    FROM shirt_decade_counts
+  ),
   primary_shirts AS (
     SELECT player_id, shirt, decade, apps
     FROM (
-      SELECT shirt_counts.*,
+      SELECT sdr.player_id, sdr.shirt, sdr.decade, st.apps,
              ROW_NUMBER() OVER (
-               PARTITION BY player_id
-               ORDER BY apps DESC, last_date DESC, shirt
+               PARTITION BY sdr.player_id
+               ORDER BY st.apps DESC, st.last_date DESC, sdr.shirt
              ) rn
-      FROM shirt_counts
+      FROM shirt_decade_ranked sdr
+      JOIN shirt_totals st ON st.player_id = sdr.player_id AND st.shirt = sdr.shirt
+      WHERE sdr.decade_rank = 1
     )
     WHERE rn = 1
   )

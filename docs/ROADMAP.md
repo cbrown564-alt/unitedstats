@@ -51,8 +51,8 @@ Product principles:
 ## Phase 2 — Player-level depth ✅ (complete)
 
 - [x] Goal events (scorer, minute) — 10,000+ events; the all-time scorer
-      table reproduces the official club record (Rooney 254, Charlton 249,
-      Law 236...). Assists where sources record them.
+      table reproduces the official club record (Rooney 253, Charlton 249,
+      Law 237...). Assists where sources record them.
 - [x] Full lineups — canonical schema, DB tables, validation, match-page UI,
       and a Wikipedia final/late-round article ingester are live. Current
       coverage: 192 matches, 2,519 player appearances, 1,027 player identities.

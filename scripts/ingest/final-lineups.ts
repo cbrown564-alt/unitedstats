@@ -43,6 +43,8 @@ function articleTitles(competition: string, date: string): string[] | null {
     "uefa-cup": [`${year} UEFA Cup final`],
     "fifa-club-world-cup": [`${year} FIFA Club World Cup final`],
     "intercontinental-cup": [`${year} Intercontinental Cup`],
+    "charity-shield": [`${year} FA Charity Shield`, `${year} FA Community Shield`],
+    "uefa-super-cup": [`${year} UEFA Super Cup`, `${year} European Super Cup`],
   };
   const titles = base[competition];
   if (!titles) return null;
@@ -50,6 +52,9 @@ function articleTitles(competition: string, date: string): string[] | null {
   // both, but try both casings to be safe.
   return titles.flatMap((t) => [t, t.replace(/final$/, "Final")]);
 }
+
+/** One-off competitions where the match itself is the final and `round` is empty. */
+const ONE_OFF_FINALS = new Set(["charity-shield", "uefa-super-cup"]);
 
 // ------------------------------------------------------------------- parsing
 
@@ -180,7 +185,8 @@ async function main() {
     let touched = false;
 
     for (const m of sf.matches) {
-      if (!/final/i.test(m.round ?? "")) continue;
+      const oneOff = ONE_OFF_FINALS.has(m.competition) && !/group/i.test(m.round ?? "");
+      if (!/final/i.test(m.round ?? "") && !oneOff) continue;
       if (m.lineup && m.lineup.length > 0 && !REPARSE) continue;
       const titles = articleTitles(m.competition, m.date);
       if (!titles) continue;
