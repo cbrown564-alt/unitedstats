@@ -1457,7 +1457,97 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "gary-sprake",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-reaney",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-charlton",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "norman-hunter",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-bell",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-giles",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-bremner",
+          "shirt": 4,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-collins",
+          "shirt": 10,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-johanneson",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-storrie",
+          "shirt": 8,
+          "role": "SS",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alan-peacock",
+          "shirt": 9,
+          "role": "ST",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1965-03-13-chelsea-h",
@@ -1620,9 +1710,100 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "Venue: Hillsborough, Sheffield"
+      "notes": "Venue: Hillsborough, Sheffield",
+      "lineup": [
+        {
+          "player": "gary-sprake",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-reaney",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-charlton",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "norman-hunter",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-bell",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-giles",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-bremner",
+          "shirt": 4,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-collins",
+          "shirt": 10,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-johanneson",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-storrie",
+          "shirt": 8,
+          "role": "SS",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alan-peacock",
+          "shirt": 9,
+          "role": "ST",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1965-03-31-leeds-united-n",
@@ -1642,9 +1823,100 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": "FA Cup replay. Venue: City Ground, Nottingham"
+      "notes": "FA Cup replay. Venue: City Ground, Nottingham",
+      "lineup": [
+        {
+          "player": "gary-sprake",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-reaney",
+          "shirt": 2,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-charlton",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "norman-hunter",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-bell",
+          "shirt": 3,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-giles",
+          "shirt": 7,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-bremner",
+          "shirt": 4,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-collins",
+          "shirt": 10,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-johanneson",
+          "shirt": 11,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-storrie",
+          "shirt": 8,
+          "role": "SS",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alan-peacock",
+          "shirt": 9,
+          "role": "ST",
+          "start": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1965-04-03-blackburn-rovers-a",

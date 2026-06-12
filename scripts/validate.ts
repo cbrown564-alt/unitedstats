@@ -72,8 +72,17 @@ for (const file of listSeasonFiles()) {
     if (m.eventsComplete && ft && goalsInEvents !== ft[0]) {
       errors.push(`${ctx}: eventsComplete but ${goalsInEvents} scoring events != ${ft[0]} goals`);
     }
+    const lineupPlayers = new Set<string>();
     for (const l of m.lineup ?? []) {
       if (!players.has(l.player)) errors.push(`${ctx}: unknown lineup player "${l.player}"`);
+      if (lineupPlayers.has(l.player)) errors.push(`${ctx}: duplicate lineup player "${l.player}"`);
+      lineupPlayers.add(l.player);
+      if (l.shirt != null && (!Number.isInteger(l.shirt) || l.shirt < 1 || l.shirt > 99)) {
+        errors.push(`${ctx}: bad shirt number ${l.shirt} for "${l.player}"`);
+      }
+      if (l.on != null && (l.on < 0 || l.on > 125)) errors.push(`${ctx}: bad sub-on minute ${l.on}`);
+      if (l.off != null && (l.off < 0 || l.off > 125)) errors.push(`${ctx}: bad sub-off minute ${l.off}`);
+      if (!l.start && l.on == null) warnings.push(`${ctx}: substitute "${l.player}" has no sub-on minute`);
     }
     const starters = (m.lineup ?? []).filter((l) => l.start).length;
     if (m.lineup && m.lineup.length > 0 && starters !== 11) {

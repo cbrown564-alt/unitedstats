@@ -1502,7 +1502,121 @@
           "minute": 68
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "edwin-van-der-sar",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wes-brown",
+          "shirt": 6,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "rio-ferdinand",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-vidic",
+          "shirt": 15,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gabriel-heinze",
+          "shirt": 4,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "darren-fletcher",
+          "shirt": 24,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": 92
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "michael-carrick",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "cristiano-ronaldo",
+          "shirt": 7,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "SS",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "wayne-rooney",
+          "shirt": 8,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-o-shea",
+          "shirt": 22,
+          "role": "DF",
+          "start": false,
+          "on": 112,
+          "off": null
+        },
+        {
+          "player": "alan-smith",
+          "shirt": 14,
+          "role": "MF",
+          "start": false,
+          "on": 92,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 112,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2007-03-17-bolton-wanderers-h",
@@ -1577,7 +1691,121 @@
           "minute": 76
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "edwin-van-der-sar",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wes-brown",
+          "shirt": 6,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "rio-ferdinand",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-vidic",
+          "shirt": 15,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gabriel-heinze",
+          "shirt": 4,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "darren-fletcher",
+          "shirt": 24,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": 92
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "michael-carrick",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "cristiano-ronaldo",
+          "shirt": 7,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "SS",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "wayne-rooney",
+          "shirt": 8,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-o-shea",
+          "shirt": 22,
+          "role": "DF",
+          "start": false,
+          "on": 112,
+          "off": null
+        },
+        {
+          "player": "alan-smith",
+          "shirt": 14,
+          "role": "MF",
+          "start": false,
+          "on": 92,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 112,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2007-03-31-blackburn-rovers-h",
@@ -1650,6 +1878,120 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "pepe-reina",
+          "shirt": 25,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-finnan",
+          "shirt": 3,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 88
+        },
+        {
+          "player": "jamie-carragher",
+          "shirt": 23,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-agger",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-arne-riise",
+          "shirt": 6,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "xabi-alonso",
+          "shirt": 14,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "javier-mascherano",
+          "shirt": 20,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "jermaine-pennant",
+          "shirt": 16,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "boudewijn-zenden",
+          "shirt": 32,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 59
+        },
+        {
+          "player": "steven-gerrard",
+          "shirt": 8,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dirk-kuyt",
+          "shirt": 18,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alvaro-arbeloa",
+          "shirt": 2,
+          "role": "DF",
+          "start": false,
+          "on": 88,
+          "off": null
+        },
+        {
+          "player": "harry-kewell",
+          "shirt": 7,
+          "role": "FW",
+          "start": false,
+          "on": 59,
+          "off": null
+        },
+        {
+          "player": "peter-crouch",
+          "shirt": 15,
+          "role": "FW",
+          "start": false,
+          "on": 78,
+          "off": null
+        }
       ]
     },
     {
@@ -1738,6 +2080,120 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "pepe-reina",
+          "shirt": 25,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-finnan",
+          "shirt": 3,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 88
+        },
+        {
+          "player": "jamie-carragher",
+          "shirt": 23,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-agger",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-arne-riise",
+          "shirt": 6,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "xabi-alonso",
+          "shirt": 14,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "javier-mascherano",
+          "shirt": 20,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "jermaine-pennant",
+          "shirt": 16,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "boudewijn-zenden",
+          "shirt": 32,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 59
+        },
+        {
+          "player": "steven-gerrard",
+          "shirt": 8,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dirk-kuyt",
+          "shirt": 18,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alvaro-arbeloa",
+          "shirt": 2,
+          "role": "DF",
+          "start": false,
+          "on": 88,
+          "off": null
+        },
+        {
+          "player": "harry-kewell",
+          "shirt": 7,
+          "role": "FW",
+          "start": false,
+          "on": 59,
+          "off": null
+        },
+        {
+          "player": "peter-crouch",
+          "shirt": 15,
+          "role": "FW",
+          "start": false,
+          "on": 78,
+          "off": null
+        }
       ]
     },
     {
@@ -1784,7 +2240,121 @@
           "minute": 82
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "edwin-van-der-sar",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wes-brown",
+          "shirt": 6,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "rio-ferdinand",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-vidic",
+          "shirt": 15,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gabriel-heinze",
+          "shirt": 4,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "darren-fletcher",
+          "shirt": 24,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": 92
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "michael-carrick",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "cristiano-ronaldo",
+          "shirt": 7,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "SS",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "wayne-rooney",
+          "shirt": 8,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-o-shea",
+          "shirt": 22,
+          "role": "DF",
+          "start": false,
+          "on": 112,
+          "off": null
+        },
+        {
+          "player": "alan-smith",
+          "shirt": 14,
+          "role": "MF",
+          "start": false,
+          "on": 92,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 112,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2007-04-17-sheffield-united-h",
@@ -1886,6 +2456,120 @@
       ],
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "pepe-reina",
+          "shirt": 25,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-finnan",
+          "shirt": 3,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 88
+        },
+        {
+          "player": "jamie-carragher",
+          "shirt": 23,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-agger",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-arne-riise",
+          "shirt": 6,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "xabi-alonso",
+          "shirt": 14,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "javier-mascherano",
+          "shirt": 20,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "jermaine-pennant",
+          "shirt": 16,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "boudewijn-zenden",
+          "shirt": 32,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 59
+        },
+        {
+          "player": "steven-gerrard",
+          "shirt": 8,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dirk-kuyt",
+          "shirt": 18,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alvaro-arbeloa",
+          "shirt": 2,
+          "role": "DF",
+          "start": false,
+          "on": 88,
+          "off": null
+        },
+        {
+          "player": "harry-kewell",
+          "shirt": 7,
+          "role": "FW",
+          "start": false,
+          "on": 59,
+          "off": null
+        },
+        {
+          "player": "peter-crouch",
+          "shirt": 15,
+          "role": "FW",
+          "start": false,
+          "on": 78,
+          "off": null
+        }
       ]
     },
     {
@@ -1952,6 +2636,120 @@
       },
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "pepe-reina",
+          "shirt": 25,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-finnan",
+          "shirt": 3,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": 88
+        },
+        {
+          "player": "jamie-carragher",
+          "shirt": 23,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-agger",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-arne-riise",
+          "shirt": 6,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "xabi-alonso",
+          "shirt": 14,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "javier-mascherano",
+          "shirt": 20,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "jermaine-pennant",
+          "shirt": 16,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "boudewijn-zenden",
+          "shirt": 32,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 59
+        },
+        {
+          "player": "steven-gerrard",
+          "shirt": 8,
+          "role": "AM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dirk-kuyt",
+          "shirt": 18,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alvaro-arbeloa",
+          "shirt": 2,
+          "role": "DF",
+          "start": false,
+          "on": 88,
+          "off": null
+        },
+        {
+          "player": "harry-kewell",
+          "shirt": 7,
+          "role": "FW",
+          "start": false,
+          "on": 59,
+          "off": null
+        },
+        {
+          "player": "peter-crouch",
+          "shirt": 15,
+          "role": "FW",
+          "start": false,
+          "on": 78,
+          "off": null
+        }
       ]
     },
     {
@@ -2044,9 +2842,124 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "edwin-van-der-sar",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wes-brown",
+          "shirt": 6,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "rio-ferdinand",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-vidic",
+          "shirt": 15,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "gabriel-heinze",
+          "shirt": 4,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "darren-fletcher",
+          "shirt": 24,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": 92
+        },
+        {
+          "player": "paul-scholes",
+          "shirt": 18,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "michael-carrick",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "cristiano-ronaldo",
+          "shirt": 7,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ryan-giggs",
+          "shirt": 11,
+          "role": "SS",
+          "start": true,
+          "on": null,
+          "off": 112
+        },
+        {
+          "player": "wayne-rooney",
+          "shirt": 8,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-o-shea",
+          "shirt": 22,
+          "role": "DF",
+          "start": false,
+          "on": 112,
+          "off": null
+        },
+        {
+          "player": "alan-smith",
+          "shirt": 14,
+          "role": "MF",
+          "start": false,
+          "on": 92,
+          "off": null
+        },
+        {
+          "player": "ole-gunnar-solskj-r",
+          "shirt": 20,
+          "role": "FW",
+          "start": false,
+          "on": 112,
+          "off": null
+        }
+      ]
     }
   ]
 }

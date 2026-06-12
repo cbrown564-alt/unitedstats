@@ -311,7 +311,7 @@ export function playersIndex(): PlayerTotals[] {
               COALESCE(pt.last_date, (SELECT MAX(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = pt.player_id)) last_date
        FROM player_totals pt JOIN players p ON p.id = pt.player_id
        WHERE pt.scope = 'all' AND (pt.goals > 0 OR pt.apps > 0 OR pt.assists > 0)
-       ORDER BY pt.goals DESC, pt.apps DESC`,
+       ORDER BY pt.goals DESC, pt.apps DESC, pt.starts DESC`,
     )
     .all() as PlayerTotals[];
 }
@@ -319,11 +319,72 @@ export function playersIndex(): PlayerTotals[] {
 export function playerById(id: string): PlayerTotals | undefined {
   return getDb()
     .prepare(
-      `SELECT pt.player_id, p.name, pt.apps, pt.starts, pt.goals, pt.assists, pt.first_date, pt.last_date
+      `SELECT pt.player_id, p.name, pt.apps, pt.starts, pt.goals, pt.assists,
+              COALESCE(pt.first_date, (SELECT MIN(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = pt.player_id)) first_date,
+              COALESCE(pt.last_date, (SELECT MAX(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = pt.player_id)) last_date
        FROM player_totals pt JOIN players p ON p.id = pt.player_id
        WHERE pt.player_id = ? AND pt.scope = 'all'`,
     )
     .get(id) as PlayerTotals | undefined;
+}
+
+export function playerSplitsBySeason(id: string): {
+  season: string;
+  apps: number;
+  starts: number;
+  goals: number;
+  assists: number;
+}[] {
+  return getDb()
+    .prepare(
+      `WITH seasons AS (
+         SELECT season FROM matches m JOIN match_lineups l ON l.match_id = m.id WHERE l.player_id = ?
+         UNION
+         SELECT season FROM matches m JOIN match_events e ON e.match_id = m.id WHERE e.player_id = ? OR e.assist_player_id = ?
+       )
+       SELECT s.season,
+              COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
+                        WHERE l.player_id = ? AND m.season = s.season), 0) apps,
+              COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
+                        WHERE l.player_id = ? AND l.started = 1 AND m.season = s.season), 0) starts,
+              COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
+                        WHERE e.player_id = ? AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) goals,
+              COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
+                        WHERE e.assist_player_id = ? AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) assists
+       FROM seasons s ORDER BY s.season`,
+    )
+    .all(id, id, id, id, id, id, id) as {
+      season: string;
+      apps: number;
+      starts: number;
+      goals: number;
+      assists: number;
+    }[];
+}
+
+export function playerLineupMatches(id: string): (MatchRow & {
+  started: number;
+  sub_on: number | null;
+  sub_off: number | null;
+  role: string | null;
+})[] {
+  return getDb()
+    .prepare(
+      `SELECT m.*, c.name AS competition_name, s.name AS stadium_name, mg.name AS manager_name,
+              l.started, l.sub_on, l.sub_off, l.role
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       JOIN competitions c ON c.id = m.competition_id
+       LEFT JOIN stadiums s ON s.id = m.stadium_id
+       LEFT JOIN managers mg ON mg.id = m.manager_id
+       WHERE l.player_id = ? ORDER BY m.date DESC`,
+    )
+    .all(id) as (MatchRow & {
+      started: number;
+      sub_on: number | null;
+      sub_off: number | null;
+      role: string | null;
+    })[];
 }
 
 export function playerGoalsBySeason(id: string): { season: string; goals: number }[] {
@@ -361,6 +422,53 @@ export function playerGoalMinutes(id: string): number[] {
       )
       .all(id) as { minute: number }[]
   ).map((r) => r.minute);
+}
+
+export interface AssistPartnership {
+  scorer_id: string;
+  scorer_name: string;
+  assister_id: string;
+  assister_name: string;
+  goals: number;
+  first_date: string;
+  last_date: string;
+}
+
+export function topAssistPartnerships(limit = 20): AssistPartnership[] {
+  return getDb()
+    .prepare(
+      `SELECT e.player_id scorer_id, sp.name scorer_name,
+              e.assist_player_id assister_id, ap.name assister_name,
+              COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
+       FROM match_events e
+       JOIN matches m ON m.id = e.match_id
+       JOIN players sp ON sp.id = e.player_id
+       JOIN players ap ON ap.id = e.assist_player_id
+       WHERE e.type IN ('goal','pen-goal') AND e.player_id IS NOT NULL AND e.assist_player_id IS NOT NULL
+       GROUP BY e.player_id, e.assist_player_id
+       ORDER BY goals DESC, last_date DESC LIMIT ?`,
+    )
+    .all(limit) as AssistPartnership[];
+}
+
+export function playerAssistPartnerships(id: string, limit = 12): AssistPartnership[] {
+  return getDb()
+    .prepare(
+      `SELECT e.player_id scorer_id, sp.name scorer_name,
+              e.assist_player_id assister_id, ap.name assister_name,
+              COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
+       FROM match_events e
+       JOIN matches m ON m.id = e.match_id
+       JOIN players sp ON sp.id = e.player_id
+       JOIN players ap ON ap.id = e.assist_player_id
+       WHERE e.type IN ('goal','pen-goal')
+         AND e.player_id IS NOT NULL
+         AND e.assist_player_id IS NOT NULL
+         AND (e.player_id = ? OR e.assist_player_id = ?)
+       GROUP BY e.player_id, e.assist_player_id
+       ORDER BY goals DESC, last_date DESC LIMIT ?`,
+    )
+    .all(id, id, limit) as AssistPartnership[];
 }
 
 // ---------------------------------------------------------------- analytics
@@ -455,4 +563,14 @@ export function eventCoverage(): { decade: string; matches: number; withEvents: 
        FROM matches m GROUP BY 1 ORDER BY 1`,
     )
     .all() as { decade: string; matches: number; withEvents: number }[];
+}
+
+export function lineupCoverage(): { decade: string; matches: number; withLineups: number }[] {
+  return getDb()
+    .prepare(
+      `SELECT substr(date,1,3) || '0s' decade, COUNT(*) matches,
+              SUM(CASE WHEN has_lineup = 1 THEN 1 ELSE 0 END) withLineups
+       FROM matches m GROUP BY 1 ORDER BY 1`,
+    )
+    .all() as { decade: string; matches: number; withLineups: number }[];
 }

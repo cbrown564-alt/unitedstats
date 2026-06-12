@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import {
   matchById, eventsForMatch, lineupForMatch, eloForMatch, h2hBefore, formBefore,
 } from "@/lib/queries";
-import { fmtDateLong, fmtNum, scoreline, venueLabel, clubName, pct } from "@/lib/format";
+import { fmtDateLong, fmtNum, venueLabel, clubName, pct } from "@/lib/format";
 import { ResultBadge } from "@/components/ResultBadge";
 
 export const dynamic = "force-dynamic";
@@ -116,6 +116,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
                   {p.player_name}
                 </Link>
+                {p.role && <span className="text-xs text-ink-faint">{p.role}</span>}
                 {!p.started && <span className="text-xs text-ink-faint">sub {p.sub_on != null ? `${p.sub_on}'` : ""}</span>}
               </li>
             ))}

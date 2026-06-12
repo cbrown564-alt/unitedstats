@@ -10,6 +10,7 @@
     "lint": "eslint",
     "ingest": "tsx scripts/ingest/engsoccerdata.ts",
     "ingest:wikipedia": "tsx scripts/ingest/wikipedia.ts",
+    "ingest:lineups": "tsx scripts/ingest/final-lineups.ts",
     "ingest:positions": "tsx scripts/ingest/league-positions.ts",
     "build:db": "tsx scripts/build-db.ts",
     "validate": "tsx scripts/validate.ts",

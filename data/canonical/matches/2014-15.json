@@ -1075,7 +1075,121 @@
           "minute": 29
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "shay-given",
+          "shirt": 31,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alan-hutton",
+          "shirt": 21,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ron-vlaar",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jores-okore",
+          "shirt": 5,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kieran-richardson",
+          "shirt": 18,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": 68
+        },
+        {
+          "player": "ashley-westwood",
+          "shirt": 15,
+          "role": "DM",
+          "start": true,
+          "on": null,
+          "off": 71
+        },
+        {
+          "player": "tom-cleverley",
+          "shirt": 8,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fabian-delph",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charles-n-zogbia",
+          "shirt": 28,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": 53
+        },
+        {
+          "player": "jack-grealish",
+          "shirt": 40,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "christian-benteke",
+          "shirt": 20,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "leandro-bacuna",
+          "shirt": 7,
+          "role": "MF",
+          "start": false,
+          "on": 68,
+          "off": null
+        },
+        {
+          "player": "carlos-sanchez",
+          "shirt": 24,
+          "role": "MF",
+          "start": false,
+          "on": 71,
+          "off": null
+        },
+        {
+          "player": "gabriel-agbonlahor",
+          "shirt": 11,
+          "role": "FW",
+          "start": false,
+          "on": 53,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2015-03-15-tottenham-hotspur-h",

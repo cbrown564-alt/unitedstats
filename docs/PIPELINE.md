@@ -59,6 +59,8 @@ summary when an unknown competition file appears upstream.
 - `npm run update` — run the same pipeline locally.
 - `workflow_dispatch` — trigger the Action from the GitHub UI.
 - Edit any season JSON by hand → CI validates → merge → deploy.
+- `npm run ingest:lineups` — enrich historical knockout/final matches from
+  dedicated Wikipedia match articles when expanding lineup coverage.
 
 ## Secrets / configuration
 

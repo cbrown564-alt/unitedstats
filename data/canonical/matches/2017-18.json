@@ -1516,7 +1516,121 @@
           "minute": 83
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "antonio-valencia",
+          "shirt": 25,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "chris-smalling",
+          "shirt": 12,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-jones",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 87
+        },
+        {
+          "player": "ashley-young",
+          "shirt": 18,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ander-herrera",
+          "shirt": 21,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-matic",
+          "shirt": 31,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesse-lingard",
+          "shirt": 14,
+          "role": "RF",
+          "start": true,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "alexis-sanchez",
+          "shirt": 7,
+          "role": "LF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 87,
+          "off": null
+        },
+        {
+          "player": "romelu-lukaku",
+          "shirt": 9,
+          "role": "FW",
+          "start": false,
+          "on": 73,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "shirt": 11,
+          "role": "FW",
+          "start": false,
+          "on": 73,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2018-03-31-swansea-city-h",
@@ -1676,7 +1790,121 @@
           "minute": 62
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "antonio-valencia",
+          "shirt": 25,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "chris-smalling",
+          "shirt": 12,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-jones",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 87
+        },
+        {
+          "player": "ashley-young",
+          "shirt": 18,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ander-herrera",
+          "shirt": 21,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-matic",
+          "shirt": 31,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesse-lingard",
+          "shirt": 14,
+          "role": "RF",
+          "start": true,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "alexis-sanchez",
+          "shirt": 7,
+          "role": "LF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 87,
+          "off": null
+        },
+        {
+          "player": "romelu-lukaku",
+          "shirt": 9,
+          "role": "FW",
+          "start": false,
+          "on": 73,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "shirt": 11,
+          "role": "FW",
+          "start": false,
+          "on": 73,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2018-04-29-arsenal-h",
@@ -1802,9 +2030,124 @@
         "pens": null
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "wikipedia"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "antonio-valencia",
+          "shirt": 25,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "chris-smalling",
+          "shirt": 12,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-jones",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": 87
+        },
+        {
+          "player": "ashley-young",
+          "shirt": 18,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ander-herrera",
+          "shirt": 21,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-matic",
+          "shirt": 31,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "shirt": 6,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesse-lingard",
+          "shirt": 14,
+          "role": "RF",
+          "start": true,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "marcus-rashford",
+          "shirt": 19,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "alexis-sanchez",
+          "shirt": 7,
+          "role": "LF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 87,
+          "off": null
+        },
+        {
+          "player": "romelu-lukaku",
+          "shirt": 9,
+          "role": "FW",
+          "start": false,
+          "on": 73,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "shirt": 11,
+          "role": "FW",
+          "start": false,
+          "on": 73,
+          "off": null
+        }
+      ]
     }
   ]
 }

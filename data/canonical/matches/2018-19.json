@@ -1402,7 +1402,121 @@
           "minute": 95
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": false,
+      "lineup": [
+        {
+          "player": "heurelho-gomes",
+          "shirt": 1,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kiko-femenia",
+          "shirt": 21,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "adrian-mariappa",
+          "shirt": 6,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "craig-cathcart",
+          "shirt": 15,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jose-holebas",
+          "shirt": 25,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "will-hughes",
+          "shirt": 19,
+          "role": "RM",
+          "start": true,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "abdoulaye-doucoure",
+          "shirt": 16,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "etienne-capoue",
+          "shirt": 29,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roberto-pereyra",
+          "shirt": 37,
+          "role": "LM",
+          "start": true,
+          "on": null,
+          "off": 66
+        },
+        {
+          "player": "gerard-deulofeu",
+          "shirt": 7,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 66
+        },
+        {
+          "player": "troy-deeney",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tom-cleverley",
+          "shirt": 8,
+          "role": "MF",
+          "start": false,
+          "on": 73,
+          "off": null
+        },
+        {
+          "player": "isaac-success",
+          "shirt": 10,
+          "role": "FW",
+          "start": false,
+          "on": 66,
+          "off": null
+        },
+        {
+          "player": "andre-gray",
+          "shirt": 18,
+          "role": "FW",
+          "start": false,
+          "on": 66,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2019-03-30-watford-h",
@@ -1486,6 +1600,120 @@
       },
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "alisson-becker",
+          "shirt": 13,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trent-alexander-arnold",
+          "shirt": 66,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joel-matip",
+          "shirt": 32,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "virgil-van-dijk",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-robertson",
+          "shirt": 26,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jordan-henderson",
+          "shirt": 14,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fabinho",
+          "shirt": 3,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "georginio-wijnaldum",
+          "shirt": 5,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 62
+        },
+        {
+          "player": "mohamed-salah",
+          "shirt": 11,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roberto-firmino",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 58
+        },
+        {
+          "player": "sadio-mane",
+          "shirt": 10,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": 90
+        },
+        {
+          "player": "joe-gomez",
+          "shirt": 12,
+          "role": "DF",
+          "start": false,
+          "on": 90,
+          "off": null
+        },
+        {
+          "player": "james-milner",
+          "shirt": 7,
+          "role": "MF",
+          "start": false,
+          "on": 62,
+          "off": null
+        },
+        {
+          "player": "divock-origi",
+          "shirt": 27,
+          "role": "FW",
+          "start": false,
+          "on": 58,
+          "off": null
+        }
       ]
     },
     {
@@ -1537,6 +1765,120 @@
       },
       "sources": [
         "wikipedia"
+      ],
+      "lineup": [
+        {
+          "player": "alisson-becker",
+          "shirt": 13,
+          "role": "GK",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trent-alexander-arnold",
+          "shirt": 66,
+          "role": "RB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joel-matip",
+          "shirt": 32,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "virgil-van-dijk",
+          "shirt": 4,
+          "role": "CB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andy-robertson",
+          "shirt": 26,
+          "role": "LB",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jordan-henderson",
+          "shirt": 14,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fabinho",
+          "shirt": 3,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "georginio-wijnaldum",
+          "shirt": 5,
+          "role": "CM",
+          "start": true,
+          "on": null,
+          "off": 62
+        },
+        {
+          "player": "mohamed-salah",
+          "shirt": 11,
+          "role": "RW",
+          "start": true,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roberto-firmino",
+          "shirt": 9,
+          "role": "CF",
+          "start": true,
+          "on": null,
+          "off": 58
+        },
+        {
+          "player": "sadio-mane",
+          "shirt": 10,
+          "role": "LW",
+          "start": true,
+          "on": null,
+          "off": 90
+        },
+        {
+          "player": "joe-gomez",
+          "shirt": 12,
+          "role": "DF",
+          "start": false,
+          "on": 90,
+          "off": null
+        },
+        {
+          "player": "james-milner",
+          "shirt": 7,
+          "role": "MF",
+          "start": false,
+          "on": 62,
+          "off": null
+        },
+        {
+          "player": "divock-origi",
+          "shirt": 27,
+          "role": "FW",
+          "start": false,
+          "on": 58,
+          "off": null
+        }
       ]
     },
     {

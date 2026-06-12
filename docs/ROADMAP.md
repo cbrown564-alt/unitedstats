@@ -17,21 +17,29 @@
       win-expectancy on every match page, season trends, attendance history,
       goal-minute patterns, grounds, data-depth ledger
 
-## Phase 2 — Player-level depth
+## Phase 2 — Player-level depth ✅ (complete)
 
 - [x] Goal events (scorer, minute) — 10,000+ events; the all-time scorer
       table reproduces the official club record (Rooney 254, Charlton 249,
       Law 236...). Assists where sources record them.
-- [ ] Full lineups — schema, DB, and match-page UI are ready; next source:
-      Wikipedia final-match articles (structured lineups for ~40 finals),
-      then football-data.org (free key) for 2020s league lineups
-- [ ] Partnership networks (who assists whom) once assist coverage grows
-- [x] Player pages with per-season splits and goal-minute histograms
+- [x] Full lineups — canonical schema, DB tables, validation, match-page UI,
+      and a Wikipedia final/late-round article ingester are live. Current
+      coverage: 192 matches, 2,519 player appearances, 1,027 player identities.
+      Next enrichment source for breadth: football-data.org (free key) for
+      2020s league lineups.
+- [x] Partnership networks — canonical assist fields, aggregate queries,
+      analytics UI, and player-page UI are wired. The checked-in dataset has
+      no assist-bearing source rows yet, so the network panel stays honest
+      until those events are added.
+- [x] Player pages with per-season goal/app splits, lineup appearances, and
+      goal-minute histograms.
 
 ## Phase 3 — Exhaustive history
 
 - [ ] Backfill scorers for all post-war matches (RSSSF, books, curated PRs)
-- [ ] Pre-war lineups and scorers where records exist
+- [ ] Expand lineups beyond the 192 structured Wikipedia matches: modern
+      league coverage via football-data.org, then pre-war lineups and scorers
+      where records exist
 - [ ] Wartime and abandoned matches as annotated non-official records
 - [ ] Friendlies and tours (separate competition type, off by default)
 

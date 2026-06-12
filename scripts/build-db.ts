@@ -351,6 +351,30 @@ SELECT p.id, 'all',
   (SELECT MIN(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id),
   (SELECT MAX(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id)
 FROM players p;
+
+INSERT INTO player_totals
+SELECT p.id, c.type,
+  COUNT(l.match_id),
+  SUM(l.started = 1),
+  COALESCE((
+    SELECT COUNT(*) FROM match_events e
+    JOIN matches gm ON gm.id = e.match_id
+    JOIN competitions gc ON gc.id = gm.competition_id
+    WHERE e.player_id = p.id AND e.type IN ('goal','pen-goal') AND gc.type = c.type
+  ), 0),
+  COALESCE((
+    SELECT COUNT(*) FROM match_events e
+    JOIN matches am ON am.id = e.match_id
+    JOIN competitions ac ON ac.id = am.competition_id
+    WHERE e.assist_player_id = p.id AND e.type IN ('goal','pen-goal') AND ac.type = c.type
+  ), 0),
+  MIN(m.date),
+  MAX(m.date)
+FROM players p
+JOIN match_lineups l ON l.player_id = p.id
+JOIN matches m ON m.id = l.match_id
+JOIN competitions c ON c.id = m.competition_id
+GROUP BY p.id, c.type;
 `);
 
 // ---------- meta ----------
@@ -359,6 +383,10 @@ const counts = db.prepare(
 ).get() as { n: number; min_d: string; max_d: string };
 const eventsN = (db.prepare("SELECT COUNT(*) n FROM match_events").get() as { n: number }).n;
 const lineupsN = (db.prepare("SELECT COUNT(DISTINCT match_id) n FROM match_lineups").get() as { n: number }).n;
+const lineupEntriesN = (db.prepare("SELECT COUNT(*) n FROM match_lineups").get() as { n: number }).n;
+const assistsN = (
+  db.prepare("SELECT COUNT(*) n FROM match_events WHERE assist_player_id IS NOT NULL").get() as { n: number }
+).n;
 const insMeta = db.prepare("INSERT INTO meta VALUES (?,?)");
 insMeta.run("built_at", new Date().toISOString());
 insMeta.run("matches", String(counts.n));
@@ -366,6 +394,8 @@ insMeta.run("first_match", counts.min_d);
 insMeta.run("last_match", counts.max_d);
 insMeta.run("events", String(eventsN));
 insMeta.run("matches_with_lineups", String(lineupsN));
+insMeta.run("lineup_entries", String(lineupEntriesN));
+insMeta.run("assists", String(assistsN));
 
 db.close();
 console.log(
