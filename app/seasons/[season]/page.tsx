@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { seasonMatches, allSeasons, seasonsIndex } from "@/lib/queries";
+import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName } from "@/lib/format";
@@ -34,6 +35,7 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
   const avgAtt = atts.length
     ? Math.round(atts.reduce((a, m) => a + (m.attendance ?? 0), 0) / atts.length)
     : null;
+  const narrative = seasonNarrative(season);
 
   return (
     <div className="space-y-8">
@@ -71,6 +73,16 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
           )}
         </p>
         <WdlBar w={w} d={d} l={l} className="max-w-3xl" />
+        {narrative.length > 0 && (
+          <div className="border border-line rounded-lg bg-panel p-4 max-w-3xl">
+            <h2 className="text-xs uppercase tracking-wider text-ink-faint mb-1.5">Season in brief</h2>
+            <p className="text-sm text-ink-dim leading-relaxed">{narrative.join(" ")}</p>
+            <p className="text-[11px] text-ink-faint mt-2">
+              Written by the data: every sentence is computed from the match record below, and
+              scorer claims state their coverage.
+            </p>
+          </div>
+        )}
       </header>
 
       {[...byComp.entries()].map(([comp, list]) => (

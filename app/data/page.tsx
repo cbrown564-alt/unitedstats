@@ -186,6 +186,76 @@ export default function DataPage() {
         </p>
       </section>
 
+      <section id="api" className="grid lg:grid-cols-[1fr_21rem] gap-8 scroll-mt-24">
+        <div>
+          <h2 className="display text-xl mb-3">Public read-only API</h2>
+          <div className="border border-line rounded-lg bg-panel p-4">
+            <p className="text-sm text-ink-dim max-w-3xl">
+              The API serves the same read-only record used by the app. Responses are plain JSON with
+              permissive CORS, pagination on the large lists, and an attribution block that points back to
+              this coverage ledger.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-2 mt-4 text-sm">
+              {[
+                ["/api/v1/meta", "Dataset metadata and coverage counts"],
+                ["/api/v1/matches", "Paginated matches, filterable by date, season, venue, and opponent"],
+                ["/api/v1/matches/{id}", "One match with events, lineups, Elo, and sources"],
+                ["/api/v1/seasons", "Season summaries by competition"],
+                ["/api/v1/players", "Player totals with pagination"],
+                ["/api/v1/opponents", "Opponent head-to-head records"],
+              ].map(([href, text]) => (
+                <a
+                  key={href}
+                  href={href.replace("{id}", "1999-05-26-bayern-munich-n")}
+                  className="block rounded border border-line bg-panel-2 px-3 py-2 hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright"
+                >
+                  <span className="stat-num text-devil-bright">{href}</span>
+                  <span className="block text-xs text-ink-faint mt-1">{text}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <aside className="border border-line rounded-lg bg-panel p-4">
+          <h3 className="display text-base mb-2">Scope language</h3>
+          <p className="text-sm text-ink-dim">
+            API consumers should treat result rows as the stable spine and read facet flags before using
+            event, lineup, assist, card, attendance, or source-derived fields as complete historical totals.
+          </p>
+        </aside>
+      </section>
+
+      <section id="downloads" className="scroll-mt-24">
+        <h2 className="display text-xl mb-3">Dataset downloads</h2>
+        <div className="border border-line rounded-lg bg-panel p-4">
+          <p className="text-sm text-ink-dim max-w-3xl">
+            Each production build exports flat files from the compiled SQLite database, so the downloadable
+            release matches the app and API. Use the manifest first to see file counts and build metadata.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 mt-4 text-sm">
+            {[
+              ["manifest.json", "Release metadata and row counts"],
+              ["matches.csv", "Fixture spine and match facts"],
+              ["events.csv", "Goal, assist, and card event rows"],
+              ["lineups.csv", "Starting, bench, and substitution rows"],
+              ["elo_history.csv", "Pre/post-match ratings and expectancies"],
+              ["season_summaries.csv", "Competition season summaries"],
+              ["players.csv", "All-time player totals"],
+            ].map(([file, text]) => (
+              <a
+                key={file}
+                href={`/dataset/${file}`}
+                className="block rounded border border-line bg-panel-2 px-3 py-2 hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright"
+              >
+                <span className="stat-num text-devil-bright">{file}</span>
+                <span className="block text-xs text-ink-faint mt-1">{text}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section>
         <h2 className="display text-xl mb-3">Source lineage</h2>
         <div className="grid md:grid-cols-2 gap-3">
