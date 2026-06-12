@@ -6,6 +6,7 @@ import {
 } from "@/lib/queries";
 import { AreaChart, Bars } from "@/components/charts";
 import { MatchList } from "@/components/MatchList";
+import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -41,19 +42,43 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-12">
-      <header>
-        <h1 className="display text-3xl">Analytics</h1>
-        <p className="text-sm text-ink-dim mt-1 max-w-2xl">
-          The numbers behind {fmtNum(Number(meta.matches))} matches — strength ratings, eras, records,
-          crowds, and goal patterns. Every chart states the slice it is computed from and links to the
-          matches behind it; for question-led cuts, start at{" "}
-          <Link href="/questions" className="text-devil-bright hover:underline">Questions</Link>.
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="Pattern layer"
+        title="Analytics"
+        aside={
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
+            <StatTile label="Matches" value={fmtNum(Number(meta.matches))} tone="red" />
+            <StatTile label="Current Elo" value={currentElo} />
+            <StatTile label="Peak Elo" value={Math.round(peak.elo)} tone="green" />
+            <StatTile label="Scorer rows" value={fmtNum(overview.completeScorers)} />
+          </div>
+        }
+      >
+        Strength ratings, eras, records, crowds, and goal patterns. Every serious claim needs a slice,
+        coverage note, and a trail back to matches.
+      </PageHeader>
+
+      <section className="grid gap-3 lg:grid-cols-3">
+        <TrailLink href="/questions" title="Question-led cuts">
+          Myth-testing modules for late goals, awkward opponents, and era patterns.
+        </TrailLink>
+        <TrailLink href="/analytics/odds" title="Predictive ratings">
+          Pick an opponent and venue, then compare today&apos;s signal with calibration history.
+        </TrailLink>
+        <TrailLink href="/analytics/travel" title="Away map">
+          Grounds, distance, and travel load across official away fixtures.
+        </TrailLink>
+      </section>
 
       {/* Elo */}
       <section>
-        <h2 className="display text-xl mb-3">Elo rating, {meta.first_match?.slice(0, 4)}–today</h2>
+        <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">Rating signal</p>
+            <h2 className="display text-xl">Elo rating, {meta.first_match?.slice(0, 4)}-today</h2>
+          </div>
+          <Link href="/matches" className="text-sm text-devil-bright hover:underline">Open match browser</Link>
+        </div>
         <div className="border border-line rounded-lg bg-panel p-4">
           <AreaChart
             points={elo.map((e) => ({ x: Date.parse(e.date), y: e.elo }))}
@@ -82,35 +107,11 @@ export default function AnalyticsPage() {
             <span className="text-ink-dim">Slice:</span> every competitive match, closed-universe Elo —
             opponents are rated only on their matches against United, K varies by competition and goal
             margin, home advantage worth 60 points. Pre-match win expectancy from this rating drives the
-            “favourites” line on every match page; open any match from the{" "}
+            favourites line on every match page; open any match from the{" "}
             <Link href="/matches" className="text-devil-bright hover:underline">browser</Link> to see the
             rating move.
           </p>
         </div>
-      </section>
-
-      {/* deeper cuts */}
-      <section className="grid sm:grid-cols-2 gap-3">
-        <Link
-          href="/analytics/odds"
-          className="block border border-line rounded-lg bg-panel p-4 hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright transition-colors"
-        >
-          <h2 className="display text-lg">What are the odds? →</h2>
-          <p className="text-sm text-ink-dim mt-1">
-            Pick any opponent and venue and see what today&apos;s ratings say, plus a{" "}
-            10,000-run replay of the latest league season from its pre-match expectancies.
-          </p>
-        </Link>
-        <Link
-          href="/analytics/travel"
-          className="block border border-line rounded-lg bg-panel p-4 hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright transition-colors"
-        >
-          <h2 className="display text-lg">The away map →</h2>
-          <p className="text-sm text-ink-dim mt-1">
-            Every official away ground mapped, the longest trips on record, and how far a
-            season&apos;s travel stretched era by era.
-          </p>
-        </Link>
       </section>
 
       {/* season trends */}

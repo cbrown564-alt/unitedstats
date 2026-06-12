@@ -28,13 +28,13 @@ body {
 
 ::selection {
   background: var(--color-devil);
-  color: #fff;
+  color: var(--color-ink);
 }
 
 .display {
   font-family: var(--font-display);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -53,4 +53,47 @@ body {
 
 a {
   text-underline-offset: 3px;
+}
+
+input,
+select,
+button {
+  font: inherit;
+}
+
+input,
+select {
+  color-scheme: dark;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.control {
+  border: 1px solid var(--color-line);
+  background: var(--color-panel);
+  color: var(--color-ink);
+  border-radius: 0.375rem;
+  min-height: 2.375rem;
+  padding: 0.45rem 0.7rem;
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.control:hover {
+  background: var(--color-panel-2);
+}
+
+.control:focus {
+  outline: none;
+  border-color: var(--color-devil-bright);
+  box-shadow: 0 0 0 2px rgb(255 59 31 / 0.18);
+}
+
+.control::placeholder {
+  color: var(--color-ink-faint);
 }

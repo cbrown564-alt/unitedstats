@@ -16,16 +16,18 @@ export function DataTable<T>({
   columns,
   rows,
   rowKey,
+  stickyHeader = false,
 }: {
   columns: Column<T>[];
   rows: T[];
   rowKey: (row: T) => string;
+  stickyHeader?: boolean;
 }) {
   return (
-    <div className="overflow-hidden border border-line rounded-lg">
+    <div className="overflow-x-auto border border-line rounded-lg">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-panel-2 text-left text-xs uppercase tracking-wider text-ink-faint">
+          <tr className={`bg-panel-2 text-left text-xs uppercase tracking-wider text-ink-dim ${stickyHeader ? "sticky top-14 z-10" : ""}`}>
             {columns.map((c) => (
               <th
                 key={c.label}
@@ -38,7 +40,7 @@ export function DataTable<T>({
         </thead>
         <tbody className="divide-y divide-line">
           {rows.map((row) => (
-            <tr key={rowKey(row)} className="bg-pitch/40">
+            <tr key={rowKey(row)} className="bg-pitch/35 transition-colors hover:bg-panel/80">
               {columns.map((c) => (
                 <td
                   key={c.label}
