@@ -4,6 +4,7 @@ import { opponentById, findMatches } from "@/lib/queries";
 import {
   longestStreak, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
 } from "@/lib/trails";
+import { oddsFor } from "@/lib/predict";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
@@ -30,6 +31,15 @@ export default async function OpponentPage({
   const sequence = opponentResultSequence(id);
   const unbeaten = longestStreak(sequence, "unbeaten");
   const winless = longestStreak(sequence, "winless");
+  const oddsHome = oddsFor(id, "H");
+  const oddsAway = oddsFor(id, "A");
+  const oddsPanels =
+    oddsHome && oddsAway
+      ? [
+          { label: "At home", odds: oddsHome },
+          { label: "Away", odds: oddsAway },
+        ]
+      : [];
 
   return (
     <div className="space-y-8">
@@ -126,6 +136,34 @@ export default async function OpponentPage({
           </p>
         </div>
       </section>
+
+      {oddsPanels.length > 0 && (
+        <section>
+          <h2 className="display text-xl mb-3">If they met tomorrow</h2>
+          <div className="grid sm:grid-cols-2 gap-3 max-w-2xl">
+            {oddsPanels.map(({ label, odds }) => (
+              <div key={label} className="border border-line rounded-lg bg-panel px-4 py-3">
+                <div className="text-xs text-ink-faint uppercase tracking-wider mb-1">{label}</div>
+                <div className="stat-num text-lg font-semibold">
+                  <span className="text-win">{(100 * odds.pW).toFixed(0)}%</span>
+                  <span className="text-ink-faint text-sm"> W · </span>
+                  <span className="text-draw">{(100 * odds.pD).toFixed(0)}%</span>
+                  <span className="text-ink-faint text-sm"> D · </span>
+                  <span className="text-loss">{(100 * odds.pL).toFixed(0)}%</span>
+                  <span className="text-ink-faint text-sm"> L</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-ink-faint mt-2 max-w-2xl">
+            Closed-universe Elo at today&apos;s ratings, split by the historical record at that
+            expectancy; {o.name}&apos;s rating last moved when the sides last met ({o.last}).{" "}
+            <Link href={`/analytics/odds?opponent=${id}`} className="text-devil-bright hover:underline">
+              How this is computed →
+            </Link>
+          </p>
+        </section>
+      )}
 
       <section>
         <h2 className="display text-xl mb-3">All meetings</h2>

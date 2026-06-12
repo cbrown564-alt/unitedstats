@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run build:db",
+    "prebuild": "npm run build:db && npm run export:dataset",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -15,6 +15,7 @@
     "ingest:transfermarkt": "tsx scripts/ingest/transfermarkt-datasets.ts",
     "ingest:positions": "tsx scripts/ingest/league-positions.ts",
     "build:db": "tsx scripts/build-db.ts",
+    "export:dataset": "tsx scripts/export-dataset.ts",
     "validate": "tsx scripts/validate.ts",
     "update": "tsx pipeline/update.ts"
   },

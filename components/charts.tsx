@@ -52,12 +52,17 @@ export function Bars({
   height = 180,
   color = "var(--color-devil)",
   labelEvery = 1,
+  highlightLabel,
+  highlightColor = "var(--color-gold)",
 }: {
   data: { label: string; value: number }[];
   width?: number;
   height?: number;
   color?: string;
   labelEvery?: number;
+  /** Bar with this label is drawn in highlightColor and always labeled. */
+  highlightLabel?: string;
+  highlightColor?: string;
 }) {
   if (data.length === 0) return null;
   const pad = { t: 8, b: 18 };
@@ -67,6 +72,7 @@ export function Bars({
     <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto" role="img">
       {data.map((d, i) => {
         const h = ((height - pad.t - pad.b) * d.value) / max;
+        const highlighted = highlightLabel !== undefined && d.label === highlightLabel;
         return (
           <g key={i}>
             <rect
@@ -75,13 +81,20 @@ export function Bars({
               width={bw * 0.76}
               height={h}
               rx="1.5"
-              fill={color}
+              fill={highlighted ? highlightColor : color}
               opacity={0.9}
             >
               <title>{`${d.label}: ${d.value}`}</title>
             </rect>
-            {i % labelEvery === 0 && (
-              <text x={i * bw + bw / 2} y={height - 5} fontSize="10" fill="var(--color-ink-faint)" textAnchor="middle">
+            {(i % labelEvery === 0 || highlighted) && (
+              <text
+                x={i * bw + bw / 2}
+                y={height - 5}
+                fontSize="10"
+                fill={highlighted ? highlightColor : "var(--color-ink-faint)"}
+                fontWeight={highlighted ? 600 : undefined}
+                textAnchor="middle"
+              >
                 {d.label}
               </text>
             )}

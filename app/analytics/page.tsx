@@ -89,6 +89,30 @@ export default function AnalyticsPage() {
         </div>
       </section>
 
+      {/* deeper cuts */}
+      <section className="grid sm:grid-cols-2 gap-3">
+        <Link
+          href="/analytics/odds"
+          className="block border border-line rounded-lg bg-panel p-4 hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright transition-colors"
+        >
+          <h2 className="display text-lg">What are the odds? →</h2>
+          <p className="text-sm text-ink-dim mt-1">
+            Pick any opponent and venue and see what today&apos;s ratings say, plus a{" "}
+            10,000-run replay of the latest league season from its pre-match expectancies.
+          </p>
+        </Link>
+        <Link
+          href="/analytics/travel"
+          className="block border border-line rounded-lg bg-panel p-4 hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright transition-colors"
+        >
+          <h2 className="display text-lg">The away map →</h2>
+          <p className="text-sm text-ink-dim mt-1">
+            Every official away ground mapped, the longest trips on record, and how far a
+            season&apos;s travel stretched era by era.
+          </p>
+        </Link>
+      </section>
+
       {/* season trends */}
       <section className="grid lg:grid-cols-2 gap-8">
         <div>

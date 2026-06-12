@@ -162,16 +162,26 @@ slice/coverage notes and evidence links. New question modules and shaped
 search templates continue as normal product work on `lib/trails.ts` and
 `lib/search.ts`.
 
-## Phase 6 — Advanced analytics and distribution
+## Phase 6 — Advanced analytics and distribution ✅ (complete)
 
-- [ ] Predictive: Elo-driven season simulation, "what are the odds" widget,
+- [x] Predictive: Elo-driven season simulation, "what are the odds" widget,
       with careful scope language and evidence links
-- [ ] Spatial: shot maps where event data exists; travel-distance era maps
-- [ ] Narrative auto-summaries of seasons/eras from the data, written as
+- [x] Spatial: shot maps where event data exists; travel-distance era maps
+- [x] Narrative auto-summaries of seasons/eras from the data, written as
       exploratory signals rather than verdict-heavy punditry
-- [ ] Public read-only API + downloadable dataset releases
-- [ ] Reusable chart/table components with consistent coverage notes, focus
+- [x] Public read-only API + downloadable dataset releases
+- [x] Reusable chart/table components with consistent coverage notes, focus
       states, numeric alignment, and color-safe win/draw/loss encoding
+
+Phase 6 is complete as a product and distribution capability: `/analytics/odds`
+turns the closed-universe Elo model into scoped W/D/L probabilities and a
+deterministic 10,000-run league-season replay; `/analytics/travel` maps the
+away footprint and era travel load while explicitly explaining that no current
+source records shot coordinates; seasons now carry deterministic
+data-derived briefs; `/api/v1` exposes read-only JSON endpoints with CORS and
+coverage attribution; `npm run export:dataset` writes downloadable CSV/JSON
+releases into `public/dataset`; and shared chart/table/coverage components
+standardize focus states, numeric alignment, and win/draw/loss colors.
 
 ## Data depth ledger
 
