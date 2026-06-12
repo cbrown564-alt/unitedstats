@@ -2,6 +2,8 @@ import Link from "next/link";
 import { coverageOverview, getMeta, playersIndex } from "@/lib/queries";
 import { DataTable } from "@/components/DataTable";
 import { PageHeader, StatTile } from "@/components/PageHeader";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { ShirtBadge } from "@/components/ShirtBadge";
 import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +22,15 @@ export default async function PlayersPage({
   const coverage = coverageOverview();
   const topScorer = allPlayers[0];
   const mostApps = [...allPlayers].sort((a, b) => (b.apps || 0) - (a.apps || 0))[0];
+  const verifiedRecords = allPlayers.filter((p) => p.record_apps != null).length;
   const activeFilters = Boolean(q);
+
+  function spanForPlayer(p: (typeof allPlayers)[number]) {
+    const first = p.first_year ?? (p.first_date ? Number(p.first_date.slice(0, 4)) : null);
+    const last = p.last_year ?? (p.last_date ? Number(p.last_date.slice(0, 4)) : null);
+    if (!first) return "?";
+    return `${first}-${last ?? "present"}`;
+  }
 
   return (
     <div className="space-y-7">
@@ -55,38 +65,52 @@ export default async function PlayersPage({
           </label>
         </form>
         <div className="rounded-lg border border-line bg-panel p-3 text-xs leading-5 text-ink-dim">
-          <span className="font-semibold text-ink">Trust context:</span> complete scorer rows cover{" "}
-          <span className="stat-num text-ink">{fmtNum(coverage.completeScorers)}</span> matches
-          {" "}({pct(coverage.completeScorers, coverage.matches)}); lineup data covers{" "}
-          <span className="stat-num text-ink">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
+        <span className="font-semibold text-ink">Trust context:</span> complete scorer rows cover{" "}
+        <span className="stat-num text-ink">{fmtNum(coverage.completeScorers)}</span> matches
+        {" "}({pct(coverage.completeScorers, coverage.matches)}); verified player records cover{" "}
+        <span className="stat-num text-ink">{fmtNum(verifiedRecords)}</span> players; lineup data covers{" "}
+        <span className="stat-num text-ink">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
         </div>
       </section>
 
       <DataTable
         rows={players}
         rowKey={(p) => p.player_id}
-        stickyHeader
         columns={[
           { label: "#", numeric: true, render: (p) => <span className="text-ink-faint">{players.indexOf(p) + 1}</span> },
           {
+            label: "No.",
+            numeric: true,
+            hideBelow: "hidden sm:table-cell",
+            render: (p) => (
+              <ShirtBadge
+                number={p.primary_shirt}
+                decade={p.primary_shirt_decade}
+                apps={p.primary_shirt_apps}
+                compact
+              />
+            ),
+          },
+          {
             label: "Player",
             render: (p) => (
-              <Link href={`/player/${p.player_id}`} className="font-medium hover:text-devil-bright">
-                {p.name}
+              <Link href={`/player/${p.player_id}`} className="flex items-center gap-3 font-medium hover:text-devil-bright">
+                <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
+                <span>{p.name}</span>
               </Link>
             ),
           },
           { label: "Apps", numeric: true, render: (p) => p.apps || "0" },
           { label: "Starts", numeric: true, hideBelow: "hidden sm:table-cell", render: (p) => p.starts || "0" },
           { label: "Goals", numeric: true, render: (p) => <span className="font-semibold text-devil-bright">{p.goals}</span> },
-          { label: "Assists", numeric: true, hideBelow: "hidden sm:table-cell", render: (p) => p.assists || "0" },
+          { label: "Rec. ast", numeric: true, hideBelow: "hidden sm:table-cell", render: (p) => p.assists || "0" },
           {
             label: "Span",
             numeric: true,
             hideBelow: "hidden lg:table-cell",
             render: (p) => (
               <span className="text-ink-dim">
-                {p.first_date ? `${p.first_date.slice(0, 4)}-${p.last_date?.slice(0, 4)}` : "?"}
+                {spanForPlayer(p)}
               </span>
             ),
           },

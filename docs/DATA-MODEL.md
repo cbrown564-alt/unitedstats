@@ -57,6 +57,14 @@ by competition rules, not calendar).
 - **`managers.json`** — id, name, nationality, tenures `[{from, to, note}]` (handles caretakers and second spells). Match → manager is resolved by date during DB build; explicit `manager` on a match overrides.
 - **`stadiums.json`** — id, name, city, lat/lng (spatial analytics), home `[{from,to}]` ranges: North Road (1878–1893), Bank Street (1893–1910), Old Trafford (1910–), Maine Road (1941–49, wartime borrow), plus major neutral venues.
 - **`players.json`** — id (kebab slug), full name, positions, nationality, birth date when known. Players referenced by events/lineups must exist here (validated).
+- **`player-records.json`** — verified competitive first-team player totals
+  imported from Wikipedia's Manchester United player-list pages. This is the
+  headline source for all-time apps, starts, substitute appearances, goals, and
+  career span; match-derived lineup/event counts remain separate coverage
+  fields.
+- **`player-media.json`** — top-player image manifest imported from Wikidata
+  `P18` and Wikimedia Commons `imageinfo`, including thumbnail URL, Commons
+  description URL, license short name, artist, credit, and retrieval timestamp.
 - **`opponents.json`** — id, canonical display name, aliases (e.g. "Small Heath" → Birmingham City lineage kept distinct), country, lat/lng of home city (spatial layer).
 - **`sources.json`** — source catalog with id, label, kind, URL, coverage note, and usage notes. Match
   records still reference sources by id; the database expands those ids into source facets.
@@ -92,6 +100,10 @@ match_lineups(match_id FK, seq, player_id FK, player_name, player_side,
 -- precomputed analytics (rebuilt every build)
 elo_history(match_id FK, date, elo_pre, elo_post, opp_elo_pre, win_prob)
 player_totals(player_id FK, competition_type, apps, starts, goals, assists, first, last)
+player_records(player_id FK, career, first_year, last_year, starts, subs, apps,
+               goals, source_id, source_url, stats_as_of)
+player_media(player_id FK, wikidata_id, commons_file, image_url, thumb_url,
+             page_url, license, artist, credit, source_id, retrieved_at)
 season_summaries(season, competition_id, p, w, d, l, gf, ga, position, note)
 streaks(...), records(...)
 ```
@@ -138,6 +150,17 @@ During DB build, `match_sources` derives facets from the canonical fields:
   a player also has a substitution minute.
 - `cards` is partial unless a source explicitly records booking data.
 - `attendance` and `notes` are supporting facets when present.
+
+Player pages use a second source lane: `player_records` supplies verified
+competitive headline totals, while `player_totals` remains the local
+match-derived detail layer. This prevents a broad scorer source and a narrower
+lineup source from producing impossible statements such as goals exceeding
+appearances.
+
+Player portraits use a third source lane: `player_media` is optional,
+Commons-backed, and license-labelled. Missing portraits fall back to generated
+shirt/initial visuals rather than unlicensed club, agency, or search-result
+images.
 
 The UI uses these facets at interpretation points: player totals, match pages,
 coverage ledgers, and the correction guide.

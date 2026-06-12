@@ -79,9 +79,37 @@ const counts: Record<string, number> = {
   ),
   "players.csv": exportCsv(
     "players.csv",
-    `SELECT pt.player_id, p.name, pt.apps, pt.starts, pt.goals, pt.assists, pt.first_date, pt.last_date
-     FROM player_totals pt JOIN players p ON p.id = pt.player_id
-     WHERE pt.scope = 'all' ORDER BY pt.goals DESC, pt.apps DESC`,
+    `SELECT p.id player_id, p.name,
+            COALESCE(pr.apps, pt.apps, 0) apps,
+            COALESCE(pr.starts, pt.starts, 0) starts,
+            COALESCE(pr.subs, 0) subs,
+            COALESCE(pr.goals, pt.goals, 0) goals,
+            COALESCE(pt.assists, 0) recorded_assists,
+            COALESCE(pt.apps, 0) lineup_apps,
+            COALESCE(pt.starts, 0) lineup_starts,
+            COALESCE(pt.goals, 0) recorded_goals,
+            pr.source_id record_source_id,
+            pr.source_url record_source_url,
+            pr.stats_as_of record_stats_as_of,
+            pm.thumb_url player_thumb_url,
+            pm.page_url player_image_page_url,
+            pm.license player_image_license,
+            COALESCE(pt.first_date, CASE WHEN pr.first_year IS NOT NULL THEN printf('%04d-01-01', pr.first_year) END) first_date,
+            COALESCE(pt.last_date, CASE WHEN pr.last_year IS NOT NULL THEN printf('%04d-12-31', pr.last_year) END) last_date
+     FROM players p
+     LEFT JOIN player_totals pt ON pt.player_id = p.id AND pt.scope = 'all'
+     LEFT JOIN player_records pr ON pr.player_id = p.id
+     LEFT JOIN player_media pm ON pm.player_id = p.id
+     WHERE pr.player_id IS NOT NULL
+     ORDER BY goals DESC, apps DESC`,
+  ),
+  "player_media.csv": exportCsv(
+    "player_media.csv",
+    `SELECT pm.player_id, p.name, pm.wikidata_id, pm.commons_file, pm.image_url, pm.thumb_url,
+            pm.page_url, pm.license, pm.artist, pm.credit, pm.source_id, pm.retrieved_at
+     FROM player_media pm
+     JOIN players p ON p.id = pm.player_id
+     ORDER BY p.name`,
   ),
 };
 
@@ -100,7 +128,7 @@ fs.writeFileSync(
       first_match: meta.first_match,
       last_match: meta.last_match,
       files: counts,
-      attribution: "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia.",
+      attribution: "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons.",
       docs: "/data#downloads",
     },
     null,

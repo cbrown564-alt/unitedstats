@@ -256,7 +256,9 @@ export function cupSpecialists(minGoals = 25, limit = 10): CupSpecialist[] {
        JOIN matches m ON m.id = e.match_id
        JOIN competitions c ON c.id = m.competition_id
        JOIN players p ON p.id = e.player_id
-       WHERE e.type IN ('goal','pen-goal') AND e.player_id IS NOT NULL
+       WHERE e.type IN ('goal','pen-goal')
+         AND e.player_side = 'united'
+         AND e.player_id IS NOT NULL
        GROUP BY e.player_id HAVING total >= ?
        ORDER BY 1.0*cup_goals/total DESC LIMIT ?`,
     )
@@ -285,7 +287,7 @@ export function playerGoalsByCompetitionType(id: string): { type: string; goals:
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
        JOIN competitions c ON c.id = m.competition_id
-       WHERE e.player_id = ? AND e.type IN ('goal','pen-goal')
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
        GROUP BY c.type ORDER BY goals DESC`,
     )
     .all(id) as { type: string; goals: number }[];
@@ -306,14 +308,14 @@ export function playerBestScoringRun(id: string): ScoringRun | null {
       `SELECT m.date,
               EXISTS (
                 SELECT 1 FROM match_events e
-                WHERE e.match_id = m.id AND e.player_id = ? AND e.type IN ('goal','pen-goal')
+                WHERE e.match_id = m.id AND e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
               ) scored
        FROM matches m
        WHERE m.events_complete = 1
          AND m.date >= (SELECT MIN(m2.date) FROM match_events e2 JOIN matches m2 ON m2.id = e2.match_id
-                        WHERE e2.player_id = ? AND e2.type IN ('goal','pen-goal'))
+                        WHERE e2.player_id = ? AND e2.player_side = 'united' AND e2.type IN ('goal','pen-goal'))
          AND m.date <= (SELECT MAX(m2.date) FROM match_events e2 JOIN matches m2 ON m2.id = e2.match_id
-                        WHERE e2.player_id = ? AND e2.type IN ('goal','pen-goal'))
+                        WHERE e2.player_id = ? AND e2.player_side = 'united' AND e2.type IN ('goal','pen-goal'))
        ORDER BY m.date`,
     )
     .all(id, id, id) as { date: string; scored: number }[];

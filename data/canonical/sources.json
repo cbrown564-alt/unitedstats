@@ -25,6 +25,22 @@
       "notes": "Best-effort enrichment source; every extracted fact is validated into canonical JSON before the database build."
     },
     {
+      "id": "wikipedia-player-records",
+      "label": "Wikipedia Manchester United player lists",
+      "kind": "article",
+      "url": "https://en.wikipedia.org/wiki/List_of_Manchester_United_F.C._players",
+      "coverage": "Competitive first-team player starts, substitute appearances, total appearances, and goals across the three Manchester United player-list pages.",
+      "notes": "Used for verified headline player totals. The source pages exclude wartime matches and the abandoned 1939-40 season; imported with attribution metadata in data/canonical/player-records.json."
+    },
+    {
+      "id": "wikidata-commons",
+      "label": "Wikidata and Wikimedia Commons",
+      "kind": "open-media",
+      "url": "https://www.wikidata.org/wiki/Property:P18",
+      "coverage": "Licensed player image candidates via Wikidata P18 and Wikimedia Commons file metadata.",
+      "notes": "Preferred image source because Commons exposes license and attribution metadata. Do not replace with club or agency images unless explicit reuse permission is captured."
+    },
+    {
       "id": "curated",
       "label": "Curated project correction",
       "kind": "curation",
