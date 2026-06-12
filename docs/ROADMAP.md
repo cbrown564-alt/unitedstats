@@ -55,13 +55,14 @@ Product principles:
       Law 237...). Assists where sources record them.
 - [x] Full lineups — canonical schema, DB tables, validation, match-page UI,
       and a Wikipedia final/late-round article ingester are live. Current
-      coverage: 192 matches, 2,519 player appearances, 1,027 player identities.
-      Next enrichment source for breadth: football-data.org (free key) for
-      2020s league lineups.
+      coverage: 868 matches and 12,147 United player appearances, from
+      Wikipedia final/Shield/Super Cup articles plus transfermarkt-datasets
+      (2013–present). football-data.org's free tier turned out not to expose
+      match detail (lineups/goals), so it remains a token-gated option only.
 - [x] Partnership networks — canonical assist fields, aggregate queries,
-      analytics UI, and player-page UI are wired. The checked-in dataset has
-      no assist-bearing source rows yet, so the network panel stays honest
-      until those events are added.
+      analytics UI, and player-page UI are wired. The checked-in dataset now
+      carries 975 recorded assists (2012–present, transfermarkt-datasets);
+      earlier eras stay pending until a source records them.
 - [x] Player pages with per-season goal/app splits, lineup appearances, and
       goal-minute histograms.
 

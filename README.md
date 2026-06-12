@@ -39,7 +39,7 @@ npm run dev        # http://localhost:3000
 
 ## Data coverage
 
-**6,027 matches across 126 seasons (1886–present), every competition:**
+**6,028 matches across 126 seasons (1886–present), every competition:**
 
 | Layer | Coverage |
 |---|---|
@@ -48,8 +48,8 @@ npm run dev        # http://localhost:3000
 | Goal scorers (with minutes where recorded) | ~99% of matches United scored in — the all-time list reproduces the official club record |
 | League positions | every season, computed from full-league results with era-correct rules |
 | Managers | every match attributed via tenure dates, 1892– |
-| Lineups | 192 full United lineups / 2,519 player appearances from structured Wikipedia match articles; schema, DB, validation, and UI live |
-| Assist partnerships | canonical fields + query/UI support live; checked-in sources currently do not provide assist rows |
+| Lineups | 868 matches with full United lineups / 12,147 player appearances, from structured Wikipedia match articles (finals, Shields, Super Cups) and CC0 transfermarkt-datasets (2013–present); schema, DB, validation, and UI live |
+| Assist partnerships | 975 recorded assists (2012–present, transfermarkt-datasets); earlier eras pending sources that record assists |
 
 Every aggregate in the UI shows the coverage behind it (see the data-depth
 ledger on /analytics). Corrections welcome — the data is plain JSON,
@@ -61,3 +61,9 @@ engsoccerdata (league + FA Cup results), openfootball (current seasons),
 Wikipedia season articles (cups, Europe, attendance, scorers) and dedicated
 match articles (lineups) — parsed deterministically from wikitext tables,
 cached in `data/raw/wikipedia/`.
+
+## License
+
+Code is MIT (see `LICENSE`). The dataset — canonical JSON, the compiled
+SQLite database, and the CSV/JSON exports — is CC BY-SA 4.0 with per-source
+attribution (see `data/LICENSE.md`).
