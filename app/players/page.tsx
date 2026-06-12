@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { playersIndex, getMeta } from "@/lib/queries";
-import { fmtNum } from "@/lib/format";
+import { coverageOverview, getMeta, playersIndex } from "@/lib/queries";
+import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Players" };
@@ -8,6 +8,7 @@ export const metadata = { title: "Players" };
 export default function PlayersPage() {
   const players = playersIndex();
   const meta = getMeta();
+  const coverage = coverageOverview();
 
   return (
     <div className="space-y-6">
@@ -15,8 +16,10 @@ export default function PlayersPage() {
         <h1 className="display text-3xl">Players</h1>
         <p className="text-sm text-ink-dim mt-1 max-w-2xl">
           {fmtNum(players.length)} players with recorded appearances or goal contributions.
-          Goal data currently covers <span className="stat-num">{fmtNum(Number(meta.events))}</span> events;
-          lineup data covers <span className="stat-num">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
+          Complete scorer rows cover <span className="stat-num">{fmtNum(coverage.completeScorers)}</span> matches
+          {" "}({pct(coverage.completeScorers, coverage.matches)}); lineup data covers{" "}
+          <span className="stat-num">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
+          <Link href="/data" className="text-devil-bright hover:underline ml-1">Coverage details</Link>
         </p>
       </header>
       <table className="w-full text-sm border border-line rounded-lg overflow-hidden">

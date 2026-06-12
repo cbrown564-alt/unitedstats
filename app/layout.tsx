@@ -28,6 +28,7 @@ const NAV = [
   ["Managers", "/managers"],
   ["Opponents", "/opponents"],
   ["Analytics", "/analytics"],
+  ["Data", "/data"],
 ] as const;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

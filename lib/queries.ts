@@ -79,17 +79,27 @@ export interface EventRow {
   type: string;
   player_id: string | null;
   player_name: string | null;
+  player_display_name: string | null;
+  player_side: "united" | "opponent";
+  player_provider_id: string | null;
   minute: number | null;
   assist_player_id: string | null;
   assist_name: string | null;
+  assist_display_name: string | null;
+  assist_side: "united" | "opponent" | null;
+  assist_provider_id: string | null;
   detail: string | null;
 }
 
 export function eventsForMatch(matchId: string): EventRow[] {
   return getDb()
     .prepare(
-      `SELECT e.seq, e.type, e.player_id, p.name AS player_name, e.minute,
-              e.assist_player_id, ap.name AS assist_name, e.detail
+      `SELECT e.seq, e.type, e.player_id, p.name AS player_name,
+              COALESCE(p.name, e.player_name, e.detail) AS player_display_name,
+              e.player_side, e.player_provider_id, e.minute,
+              e.assist_player_id, ap.name AS assist_name,
+              COALESCE(ap.name, e.assist_name) AS assist_display_name,
+              e.assist_side, e.assist_provider_id, e.detail
        FROM match_events e
        LEFT JOIN players p ON p.id = e.player_id
        LEFT JOIN players ap ON ap.id = e.assist_player_id
@@ -99,11 +109,15 @@ export function eventsForMatch(matchId: string): EventRow[] {
 }
 
 export interface LineupRow {
-  player_id: string;
-  player_name: string;
+  player_id: string | null;
+  player_name: string | null;
+  player_display_name: string;
+  player_side: "united" | "opponent";
+  provider_id: string | null;
   shirt: number | null;
   role: string | null;
   started: number;
+  bench: number;
   sub_on: number | null;
   sub_off: number | null;
 }
@@ -111,9 +125,10 @@ export interface LineupRow {
 export function lineupForMatch(matchId: string): LineupRow[] {
   return getDb()
     .prepare(
-      `SELECT l.player_id, p.name AS player_name, l.shirt, l.role, l.started, l.sub_on, l.sub_off
-       FROM match_lineups l JOIN players p ON p.id = l.player_id
-       WHERE l.match_id = ? ORDER BY l.started DESC, l.shirt`,
+      `SELECT l.player_id, p.name AS player_name, COALESCE(p.name, l.player_name, l.provider_id) AS player_display_name,
+              l.player_side, l.provider_id, l.shirt, l.role, l.started, l.bench, l.sub_on, l.sub_off
+       FROM match_lineups l LEFT JOIN players p ON p.id = l.player_id
+       WHERE l.match_id = ? ORDER BY l.player_side DESC, l.bench, l.started DESC, l.shirt, l.seq`,
     )
     .all(matchId) as LineupRow[];
 }
@@ -338,15 +353,15 @@ export function playerSplitsBySeason(id: string): {
   return getDb()
     .prepare(
       `WITH seasons AS (
-         SELECT season FROM matches m JOIN match_lineups l ON l.match_id = m.id WHERE l.player_id = ?
+         SELECT season FROM matches m JOIN match_lineups l ON l.match_id = m.id WHERE l.player_id = ? AND l.bench = 0
          UNION
          SELECT season FROM matches m JOIN match_events e ON e.match_id = m.id WHERE e.player_id = ? OR e.assist_player_id = ?
        )
        SELECT s.season,
               COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
-                        WHERE l.player_id = ? AND m.season = s.season), 0) apps,
+                        WHERE l.player_id = ? AND l.bench = 0 AND m.season = s.season), 0) apps,
               COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
-                        WHERE l.player_id = ? AND l.started = 1 AND m.season = s.season), 0) starts,
+                        WHERE l.player_id = ? AND l.started = 1 AND l.bench = 0 AND m.season = s.season), 0) starts,
               COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
                         WHERE e.player_id = ? AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) goals,
               COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
@@ -377,7 +392,7 @@ export function playerLineupMatches(id: string): (MatchRow & {
        JOIN competitions c ON c.id = m.competition_id
        LEFT JOIN stadiums s ON s.id = m.stadium_id
        LEFT JOIN managers mg ON mg.id = m.manager_id
-       WHERE l.player_id = ? ORDER BY m.date DESC`,
+       WHERE l.player_id = ? AND l.bench = 0 ORDER BY m.date DESC`,
     )
     .all(id) as (MatchRow & {
       started: number;
@@ -573,4 +588,225 @@ export function lineupCoverage(): { decade: string; matches: number; withLineups
        FROM matches m GROUP BY 1 ORDER BY 1`,
     )
     .all() as { decade: string; matches: number; withLineups: number }[];
+}
+
+// ---------------------------------------------------------------- data/provenance
+
+export interface SourceRecord {
+  id: string;
+  label: string;
+  kind: string;
+  url: string | null;
+  coverage: string | null;
+  notes: string | null;
+}
+
+export interface MatchSourceRecord extends SourceRecord {
+  facet:
+    | "result"
+    | "united-scorers"
+    | "opposition-goals"
+    | "assists"
+    | "starting-lineup"
+    | "used-substitutes"
+    | "bench"
+    | "cards"
+    | "attendance"
+    | "notes";
+  confidence: "complete" | "partial" | "supporting";
+  source_note: string | null;
+}
+
+export function sourceCatalog(): SourceRecord[] {
+  return getDb()
+    .prepare("SELECT id, label, kind, url, coverage, notes FROM sources ORDER BY kind, label")
+    .all() as SourceRecord[];
+}
+
+export function sourcesForMatch(matchId: string): MatchSourceRecord[] {
+  return getDb()
+    .prepare(
+      `SELECT s.id, s.label, s.kind, s.url, s.coverage, s.notes,
+              ms.facet, ms.confidence, ms.note AS source_note
+       FROM match_sources ms
+       JOIN sources s ON s.id = ms.source_id
+       WHERE ms.match_id = ?
+       ORDER BY ms.facet, s.label`,
+    )
+    .all(matchId) as MatchSourceRecord[];
+}
+
+export function coverageOverview(): {
+  matches: number;
+  officialMatches: number;
+  unofficialMatches: number;
+  withScorers: number;
+  completeScorers: number;
+  withOppositionGoals: number;
+  withAssists: number;
+  withStartingLineups: number;
+  withUsedSubstitutes: number;
+  withBenches: number;
+  withCards: number;
+  withAttendance: number;
+} {
+  return getDb()
+    .prepare(
+      `SELECT
+         COUNT(*) matches,
+         SUM(CASE WHEN c.type != 'unofficial' THEN 1 ELSE 0 END) officialMatches,
+         SUM(CASE WHEN c.type = 'unofficial' THEN 1 ELSE 0 END) unofficialMatches,
+         SUM(CASE WHEN EXISTS (
+           SELECT 1 FROM match_events e
+           WHERE e.match_id = m.id AND e.type IN ('goal','pen-goal','own-goal-for')
+         ) THEN 1 ELSE 0 END) withScorers,
+         SUM(m.events_complete = 1) completeScorers,
+         SUM(CASE WHEN EXISTS (
+           SELECT 1 FROM match_events e
+           WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
+         ) THEN 1 ELSE 0 END) withOppositionGoals,
+         SUM(CASE WHEN EXISTS (
+           SELECT 1 FROM match_events e
+           WHERE e.match_id = m.id AND (e.assist_player_id IS NOT NULL OR e.assist_name IS NOT NULL)
+         ) THEN 1 ELSE 0 END) withAssists,
+         SUM(CASE WHEN EXISTS (
+           SELECT 1 FROM match_lineups l
+           WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 1
+         ) THEN 1 ELSE 0 END) withStartingLineups,
+         SUM(CASE WHEN EXISTS (
+           SELECT 1 FROM match_lineups l
+           WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 0 AND l.bench = 0
+         ) THEN 1 ELSE 0 END) withUsedSubstitutes,
+         SUM(CASE WHEN EXISTS (
+           SELECT 1 FROM match_lineups l
+           WHERE l.match_id = m.id AND l.bench = 1
+         ) THEN 1 ELSE 0 END) withBenches,
+         SUM(CASE WHEN EXISTS (
+           SELECT 1 FROM match_events e
+           WHERE e.match_id = m.id AND e.type IN ('card-yellow','card-red')
+         ) THEN 1 ELSE 0 END) withCards,
+         SUM(m.attendance IS NOT NULL) withAttendance
+       FROM matches m
+       JOIN competitions c ON c.id = m.competition_id`,
+    )
+    .get() as ReturnType<typeof coverageOverview>;
+}
+
+export function coverageByCompetitionType(): {
+  type: string;
+  matches: number;
+  withScorers: number;
+  completeScorers: number;
+  withOppositionGoals: number;
+  withAssists: number;
+  withStartingLineups: number;
+  withUsedSubstitutes: number;
+  withBenches: number;
+  withCards: number;
+  withAttendance: number;
+}[] {
+  return getDb()
+    .prepare(
+      `SELECT c.type,
+              COUNT(*) matches,
+              SUM(CASE WHEN EXISTS (
+                SELECT 1 FROM match_events e
+                WHERE e.match_id = m.id AND e.type IN ('goal','pen-goal','own-goal-for')
+              ) THEN 1 ELSE 0 END) withScorers,
+              SUM(m.events_complete = 1) completeScorers,
+              SUM(CASE WHEN EXISTS (
+                SELECT 1 FROM match_events e
+                WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
+              ) THEN 1 ELSE 0 END) withOppositionGoals,
+              SUM(CASE WHEN EXISTS (
+                SELECT 1 FROM match_events e
+                WHERE e.match_id = m.id AND (e.assist_player_id IS NOT NULL OR e.assist_name IS NOT NULL)
+              ) THEN 1 ELSE 0 END) withAssists,
+              SUM(CASE WHEN EXISTS (
+                SELECT 1 FROM match_lineups l
+                WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 1
+              ) THEN 1 ELSE 0 END) withStartingLineups,
+              SUM(CASE WHEN EXISTS (
+                SELECT 1 FROM match_lineups l
+                WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 0 AND l.bench = 0
+              ) THEN 1 ELSE 0 END) withUsedSubstitutes,
+              SUM(CASE WHEN EXISTS (
+                SELECT 1 FROM match_lineups l
+                WHERE l.match_id = m.id AND l.bench = 1
+              ) THEN 1 ELSE 0 END) withBenches,
+              SUM(CASE WHEN EXISTS (
+                SELECT 1 FROM match_events e
+                WHERE e.match_id = m.id AND e.type IN ('card-yellow','card-red')
+              ) THEN 1 ELSE 0 END) withCards,
+              SUM(m.attendance IS NOT NULL) withAttendance
+       FROM matches m
+       JOIN competitions c ON c.id = m.competition_id
+       GROUP BY c.type
+       ORDER BY matches DESC`,
+    )
+    .all() as ReturnType<typeof coverageByCompetitionType>;
+}
+
+export function sourceUsage(): (SourceRecord & { matches: number; facets: string })[] {
+  return getDb()
+    .prepare(
+      `SELECT s.id, s.label, s.kind, s.url, s.coverage, s.notes,
+              COUNT(DISTINCT ms.match_id) matches,
+              GROUP_CONCAT(DISTINCT ms.facet) facets
+       FROM sources s
+       LEFT JOIN match_sources ms ON ms.source_id = s.id
+       GROUP BY s.id
+       ORDER BY matches DESC, s.label`,
+    )
+    .all() as (SourceRecord & { matches: number; facets: string })[];
+}
+
+export function dataGaps(limit = 12): {
+  id: string;
+  date: string;
+  season: string;
+  opponent_name: string;
+  competition_name: string;
+  gf: number;
+  ga: number;
+  gap: string;
+}[] {
+  return getDb()
+    .prepare(
+      `SELECT m.id, m.date, m.season, m.opponent_name, c.name AS competition_name, m.gf, m.ga,
+              CASE
+                WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United scorers'
+                WHEN m.ga > 0 AND NOT EXISTS (
+                  SELECT 1 FROM match_events e
+                  WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
+                ) THEN 'opposition goals'
+                WHEN m.has_lineup = 0 THEN 'lineup'
+                WHEN m.attendance IS NULL THEN 'attendance'
+                ELSE 'source note'
+              END gap
+       FROM matches m
+       JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type != 'unofficial'
+         AND (
+           (m.gf > 0 AND m.events_complete = 0)
+           OR (m.ga > 0 AND NOT EXISTS (
+             SELECT 1 FROM match_events e
+             WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
+           ))
+           OR m.has_lineup = 0
+           OR m.attendance IS NULL
+         )
+       ORDER BY
+         CASE
+           WHEN m.date >= '1946-01-01' AND m.gf > 0 AND m.events_complete = 0 THEN 0
+           WHEN m.date >= '1946-01-01' AND m.ga > 0 AND NOT EXISTS (
+             SELECT 1 FROM match_events e
+             WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
+           ) THEN 1
+           ELSE 2
+         END,
+         m.date DESC
+       LIMIT ?`,
+    )
+    .all(limit) as ReturnType<typeof dataGaps>;
 }

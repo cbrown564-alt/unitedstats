@@ -1,0 +1,246 @@
+import Link from "next/link";
+import {
+  coverageByCompetitionType,
+  coverageOverview,
+  dataGaps,
+  eventCoverage,
+  lineupCoverage,
+  sourceUsage,
+} from "@/lib/queries";
+import { fmtNum, pct } from "@/lib/format";
+
+export const dynamic = "force-dynamic";
+export const metadata = { title: "Data & corrections" };
+
+const TYPE_LABELS: Record<string, string> = {
+  league: "League",
+  "domestic-cup": "FA Cup",
+  "league-cup": "League Cup",
+  european: "Europe",
+  "super-cup": "Shields & Super Cups",
+  world: "World",
+  playoff: "Test Matches",
+  unofficial: "Wartime, friendlies, tours",
+};
+
+function CoverageBars({
+  data,
+  field,
+  title,
+}: {
+  data: { decade: string; matches: number; withEvents?: number; withLineups?: number }[];
+  field: "withEvents" | "withLineups";
+  title: string;
+}) {
+  return (
+    <div>
+      <h3 className="display text-base mb-3">{title}</h3>
+      <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
+        {data.map((c) => {
+          const covered = Number(c[field] ?? 0);
+          const f = c.matches ? covered / c.matches : 0;
+          return (
+            <div key={c.decade} className="text-center">
+              <div
+                className="h-16 rounded relative overflow-hidden bg-panel-2"
+                title={`${c.decade}: ${covered}/${c.matches} matches`}
+              >
+                <div
+                  className="absolute bottom-0 left-0 right-0 bg-devil"
+                  style={{ height: `${Math.round(100 * f)}%` }}
+                />
+              </div>
+              <div className="text-[10px] text-ink-faint mt-1 stat-num">{c.decade.slice(2)}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default function DataPage() {
+  const overview = coverageOverview();
+  const byType = coverageByCompetitionType();
+  const sources = sourceUsage();
+  const scorerCoverage = eventCoverage();
+  const lineups = lineupCoverage();
+  const gaps = dataGaps(14);
+
+  return (
+    <div className="space-y-12">
+      <header>
+        <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-2">
+          Canonical record
+        </p>
+        <h1 className="display text-3xl">Data & corrections</h1>
+        <p className="text-sm text-ink-dim mt-2 max-w-3xl">
+          UnitedStats is built from plain JSON in <span className="stat-num">data/canonical</span>. Results are
+          the official spine; United scorers, opposition goals, assists, lineups, attendance, wartime records, and friendlies are
+          layered on with source facets so partial coverage can be explained where it matters.
+        </p>
+      </header>
+
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
+        {[
+          ["Official matches", fmtNum(overview.officialMatches)],
+          ["Complete United scorer rows", `${fmtNum(overview.completeScorers)} / ${fmtNum(overview.matches)}`],
+          ["Starting XIs", `${fmtNum(overview.withStartingLineups)} / ${fmtNum(overview.matches)}`],
+          ["Source records", fmtNum(sources.length)],
+        ].map(([label, value]) => (
+          <div key={label} className="bg-panel px-4 py-3">
+            <div className="stat-num text-2xl font-semibold">{value}</div>
+            <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{label}</div>
+          </div>
+        ))}
+      </section>
+
+      <section className="grid lg:grid-cols-[1fr_21rem] gap-8">
+        <div>
+          <h2 className="display text-xl mb-3">Coverage by competition type</h2>
+          <div className="overflow-hidden border border-line rounded-lg">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-panel-2 text-left text-xs uppercase tracking-wider text-ink-faint">
+                  <th className="px-3 py-2">Scope</th>
+                  <th className="px-3 py-2 text-right">Matches</th>
+                  <th className="px-3 py-2 text-right">United scorers</th>
+                  <th className="px-3 py-2 text-right hidden sm:table-cell">Opp goals</th>
+                  <th className="px-3 py-2 text-right hidden md:table-cell">Assists</th>
+                  <th className="px-3 py-2 text-right hidden lg:table-cell">Starting XI</th>
+                  <th className="px-3 py-2 text-right hidden xl:table-cell">Cards</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-line">
+                {byType.map((row) => (
+                  <tr key={row.type} className="bg-pitch/40">
+                    <td className="px-3 py-2 font-medium">{TYPE_LABELS[row.type] ?? row.type}</td>
+                    <td className="px-3 py-2 text-right stat-num">{fmtNum(row.matches)}</td>
+                    <td className="px-3 py-2 text-right stat-num">
+                      {fmtNum(row.completeScorers)} <span className="text-ink-faint">({pct(row.completeScorers, row.matches)})</span>
+                    </td>
+                    <td className="px-3 py-2 text-right stat-num hidden sm:table-cell">
+                      {fmtNum(row.withOppositionGoals)} <span className="text-ink-faint">({pct(row.withOppositionGoals, row.matches)})</span>
+                    </td>
+                    <td className="px-3 py-2 text-right stat-num hidden md:table-cell">
+                      {fmtNum(row.withAssists)} <span className="text-ink-faint">({pct(row.withAssists, row.matches)})</span>
+                    </td>
+                    <td className="px-3 py-2 text-right stat-num hidden lg:table-cell">
+                      {fmtNum(row.withStartingLineups)} <span className="text-ink-faint">({pct(row.withStartingLineups, row.matches)})</span>
+                    </td>
+                    <td className="px-3 py-2 text-right stat-num hidden xl:table-cell">
+                      {fmtNum(row.withCards)} <span className="text-ink-faint">({pct(row.withCards, row.matches)})</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside className="border border-line rounded-lg bg-panel p-4">
+          <h2 className="display text-xl mb-3">Correction contract</h2>
+          <ol className="space-y-3 text-sm text-ink-dim list-decimal list-inside">
+            <li>Edit the season file in <span className="stat-num">data/canonical/matches</span>.</li>
+            <li>Add players to <span className="stat-num">players.json</span> before referencing them.</li>
+            <li>Use <span className="stat-num">sources</span> to cite every changed fact.</li>
+            <li>Run <span className="stat-num">npm run validate</span> and <span className="stat-num">npm run build:db</span>.</li>
+          </ol>
+          <p className="text-xs text-ink-faint mt-4">
+            Wartime, abandoned matches, friendlies, and tours belong in the canonical match files with
+            <span className="stat-num"> wartime</span> or <span className="stat-num"> friendly</span> competition ids.
+            They are non-official and stay out of official records by default.
+          </p>
+        </aside>
+      </section>
+
+      <section className="grid lg:grid-cols-2 gap-8">
+        <div className="border border-line rounded-lg bg-panel p-4">
+          <CoverageBars data={scorerCoverage} field="withEvents" title="United scorer coverage by decade" />
+        </div>
+        <div className="border border-line rounded-lg bg-panel p-4">
+          <CoverageBars data={lineups} field="withLineups" title="Lineup coverage by decade" />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="display text-xl mb-3">Event and lineup facets</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
+          {[
+            ["Opposition goals", overview.withOppositionGoals],
+            ["Assists", overview.withAssists],
+            ["Used substitutes", overview.withUsedSubstitutes],
+            ["Bench records", overview.withBenches],
+            ["Cards", overview.withCards],
+            ["Attendance", overview.withAttendance],
+          ].map(([label, value]) => (
+            <div key={label} className="bg-panel px-4 py-3">
+              <div className="stat-num text-xl font-semibold">{fmtNum(Number(value))}</div>
+              <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{label}</div>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-ink-faint mt-2 max-w-3xl">
+          Phase 4 keeps each match-sheet layer separate so a reader can distinguish result certainty from
+          United scorers, opposition scorers, assists, starting lineups, substitute usage, benches, cards, and attendance.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="display text-xl mb-3">Source lineage</h2>
+        <div className="grid md:grid-cols-2 gap-3">
+          {sources.map((s) => (
+            <div key={s.id} className="border border-line rounded-lg bg-panel px-4 py-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-semibold">{s.label}</h3>
+                  <p className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{s.kind}</p>
+                </div>
+                <span className="stat-num text-xs text-ink-dim">{fmtNum(s.matches)} matches</span>
+              </div>
+              {s.coverage && <p className="text-sm text-ink-dim mt-2">{s.coverage}</p>}
+              <p className="text-xs text-ink-faint mt-2">
+                Facets: {s.facets ? s.facets.split(",").sort().join(", ") : "planned only"}
+                {s.url && (
+                  <>
+                    {" · "}
+                    <a href={s.url} className="text-devil-bright hover:underline">
+                      source
+                    </a>
+                  </>
+                )}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="display text-xl mb-3">High-value gaps</h2>
+        <div className="border border-line rounded-lg overflow-hidden">
+          <ul className="divide-y divide-line">
+            {gaps.map((g) => (
+              <li key={g.id}>
+                <Link
+                  href={`/match/${g.id}`}
+                  className="grid sm:grid-cols-[7rem_1fr_auto_auto] gap-2 px-4 py-3 hover:bg-panel transition-colors text-sm"
+                >
+                  <span className="stat-num text-ink-faint">{g.date}</span>
+                  <span className="font-medium">
+                    {g.opponent_name} <span className="stat-num text-devil-bright">{g.gf}-{g.ga}</span>
+                  </span>
+                  <span className="text-ink-faint">{g.competition_name}</span>
+                  <span className="text-xs uppercase tracking-wider text-gold">{g.gap}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="text-xs text-ink-faint mt-2">
+          The queue prioritizes recent post-war United scorer gaps, then opposition goals, lineups, and attendance. Older
+          archive work can still be added whenever a citation is strong.
+        </p>
+      </section>
+    </div>
+  );
+}

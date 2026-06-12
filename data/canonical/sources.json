@@ -1,0 +1,60 @@
+{
+  "sources": [
+    {
+      "id": "engsoccerdata",
+      "label": "engsoccerdata",
+      "kind": "dataset",
+      "url": "https://github.com/jalapic/engsoccerdata",
+      "coverage": "League, FA Cup, and historical result backbone.",
+      "notes": "Used for result-level official fixtures and scores; player events and lineups are not expected from this source."
+    },
+    {
+      "id": "openfootball",
+      "label": "openfootball",
+      "kind": "dataset",
+      "url": "https://github.com/openfootball",
+      "coverage": "Current-season result feed where available.",
+      "notes": "Used by the automatic update pipeline for result-level changes after matches are completed."
+    },
+    {
+      "id": "wikipedia",
+      "label": "Wikipedia match and season articles",
+      "kind": "article",
+      "url": "https://www.wikipedia.org/",
+      "coverage": "European fixtures, League Cup, super cups, finals, late-round cup articles, scorers, attendances, and structured lineups where available.",
+      "notes": "Best-effort enrichment source; every extracted fact is validated into canonical JSON before the database build."
+    },
+    {
+      "id": "curated",
+      "label": "Curated project correction",
+      "kind": "curation",
+      "url": null,
+      "coverage": "Manual corrections and historically checked records added through repository review.",
+      "notes": "Use this when a pull request corrects or fills a fact from a named book, archive, programme, RSSSF page, or other cited source."
+    },
+    {
+      "id": "rsssf",
+      "label": "RSSSF",
+      "kind": "reference",
+      "url": "https://www.rsssf.org/",
+      "coverage": "Historical competition records and scorer backfill candidates.",
+      "notes": "Planned/curated enrichment source for post-war scorers and competition cross-checks."
+    },
+    {
+      "id": "football-data-org",
+      "label": "football-data.org",
+      "kind": "api",
+      "url": "https://www.football-data.org/",
+      "coverage": "Modern match metadata and lineup enrichment where the free key exposes the needed fields.",
+      "notes": "Optional enrichment source controlled by FOOTBALL_DATA_TOKEN; not required for the result pipeline."
+    },
+    {
+      "id": "book-archive",
+      "label": "Books, programmes, and archive records",
+      "kind": "archive",
+      "url": null,
+      "coverage": "Pre-war and post-war scorer, lineup, abandoned, wartime, friendly, and tour records where structured open datasets are thin.",
+      "notes": "Use in curated PRs with the publication, page, archive call number, or programme issue captured in match notes."
+    }
+  ]
+}

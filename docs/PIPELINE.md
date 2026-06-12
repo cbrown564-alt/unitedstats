@@ -61,10 +61,19 @@ summary when an unknown competition file appears upstream.
 - Edit any season JSON by hand → CI validates → merge → deploy.
 - `npm run ingest:lineups` — enrich historical knockout/final matches from
   dedicated Wikipedia match articles when expanding lineup coverage.
+- `npm run ingest:football-data -- <season> [<endSeason>]` — dry-run
+  football-data.org enrichment for modern match sheets. Add `-- --write` to
+  persist matched goal events, assists, opposition scorers, cards, United
+  starting lineups, used substitutes, benches, attendance, and source facets.
+  Responses are cached in `data/raw/football-data-org/`.
+- Add source ids in `data/canonical/sources.json` before using them in match
+  files. The build expands match source ids into result/scorer/assist/lineup/
+  attendance facets for the UI.
 
 ## Secrets / configuration
 
 | Name | Required | Purpose |
 |---|---|---|
 | (none) | — | core pipeline works with zero secrets |
-| `FOOTBALL_DATA_TOKEN` | optional | scorer/lineup enrichment, football-data.org free tier |
+| `FOOTBALL_DATA_TOKEN` | optional | football-data.org scorer, assist, lineup, substitution, booking, and attendance enrichment |
+| `FOOTBALL_DATA_TEAM_ID` | optional | override the football-data.org Manchester United team id; defaults to `66` |

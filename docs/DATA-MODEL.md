@@ -28,6 +28,8 @@ result level (most of 1892–1945 today).
       "events": [                            // optional, grows over time
         { "type": "goal", "player": "teddy-sheringham", "minute": 90,
           "assist": "ryan-giggs", "detail": null },
+        { "type": "opp-goal", "playerName": "Mario Basler", "playerSide": "opponent",
+          "minute": 6, "playerProviderId": "football-data:12345" },
         { "type": "goal", "player": "ole-gunnar-solskjaer", "minute": 92,
           "assist": "teddy-sheringham", "detail": null }
         // types: goal | own-goal-for | own-goal-against | pen-goal |
@@ -35,7 +37,8 @@ result level (most of 1892–1945 today).
       ],
       "lineup": [                            // optional, grows over time
         { "player": "peter-schmeichel", "shirt": 1, "role": "GK", "start": true },
-        { "player": "teddy-sheringham", "start": false, "on": 67, "off": null }
+        { "player": "teddy-sheringham", "start": false, "on": 67, "off": null },
+        { "player": "jesper-blomqvist", "start": false, "bench": true }
       ],
       "sources": ["engsoccerdata", "curated"],
       "notes": null
@@ -55,6 +58,8 @@ by competition rules, not calendar).
 - **`stadiums.json`** — id, name, city, lat/lng (spatial analytics), home `[{from,to}]` ranges: North Road (1878–1893), Bank Street (1893–1910), Old Trafford (1910–), Maine Road (1941–49, wartime borrow), plus major neutral venues.
 - **`players.json`** — id (kebab slug), full name, positions, nationality, birth date when known. Players referenced by events/lineups must exist here (validated).
 - **`opponents.json`** — id, canonical display name, aliases (e.g. "Small Heath" → Birmingham City lineage kept distinct), country, lat/lng of home city (spatial layer).
+- **`sources.json`** — source catalog with id, label, kind, URL, coverage note, and usage notes. Match
+  records still reference sources by id; the database expands those ids into source facets.
 
 ## SQLite schema (built artifact)
 
@@ -65,6 +70,7 @@ managers(id PK, name, nationality)
 manager_tenures(manager_id FK, date_from, date_to, note)
 players(id PK, name, positions, nationality, born)
 opponents(id PK, name, country, lat, lng)
+sources(id PK, label, kind, url, coverage, notes)
 
 matches(
   id PK, season, date, competition_id FK, round,
@@ -76,8 +82,12 @@ matches(
   manager_id FK, notes, sources
 )
 
-match_events(match_id FK, seq, type, player_id FK, minute, assist_player_id FK, detail)
-match_lineups(match_id FK, player_id FK, shirt, role, started, sub_on, sub_off)
+match_sources(match_id FK, source_id FK, facet, confidence, note)
+match_events(match_id FK, seq, type, player_id FK, player_name, player_side,
+             player_provider_id, minute, assist_player_id FK, assist_name,
+             assist_side, assist_provider_id, provider_event_id, source_confidence, detail)
+match_lineups(match_id FK, seq, player_id FK, player_name, player_side,
+              provider_id, shirt, role, started, bench, sub_on, sub_off)
 
 -- precomputed analytics (rebuilt every build)
 elo_history(match_id FK, date, elo_pre, elo_post, opp_elo_pre, win_prob)
@@ -101,15 +111,48 @@ Indexes on `matches(date)`, `matches(season)`, `matches(opponent_id)`,
   with aliases (Woolwich Arsenal → Arsenal), preserving the historical display
   name per match via the alias table when it differs.
 - **Wartime**: official competitions only by default (the two World War
-  breaks); wartime regional matches can be added later under
-  `competition: wartime` and are excluded from official records by query.
+  breaks); wartime regional matches belong under `competition: wartime` and
+  are excluded from official records by query.
+- **Friendlies and tours**: use `competition: friendly`, keep them as
+  `type: unofficial`, and add the strongest available source note. They are
+  browseable as data but off by default for official aggregates.
+- **Abandoned matches**: keep the score as the recorded official status if the
+  competition counted it; otherwise add the match as unofficial with the
+  abandonment context in `notes`.
+
+## Source facets
+
+The `sources` array on each match says which source families support the row.
+During DB build, `match_sources` derives facets from the canonical fields:
+
+- `result` is complete for every accepted match row.
+- `united-scorers` is complete only when `eventsComplete: true`; this means
+  United scoring events account for United goals.
+- `opposition-goals` is complete when `opp-goal` and `own-goal-against` events
+  account for the goals against in the final score.
+- `assists` is partial unless a source explicitly records assist data.
+- `starting-lineup` is complete when the match has a validated 11-starter
+  United lineup.
+- `used-substitutes` is complete when substituted-on United players are present.
+- `bench` is supporting: bench rows are excluded from appearance totals unless
+  a player also has a substitution minute.
+- `cards` is partial unless a source explicitly records booking data.
+- `attendance` and `notes` are supporting facets when present.
+
+The UI uses these facets at interpretation points: player totals, match pages,
+coverage ledgers, and the correction guide.
 
 ## Validation (runs on every build, CI-enforced)
 
 - Every match has id/date/competition/opponent/venue/score; ids unique.
-- Event minutes sane (0–125); event players exist in players.json; goals in
-  events, when present and flagged complete, sum to the match score.
-- Lineups, when present, reference known players, contain no duplicate players,
-  and have exactly 11 starters.
+- Event minutes sane (0–125); United event players exist in players.json;
+  opposition/source-only participants use display names and provider ids instead
+  of polluting the United player table; goals in events, when present and flagged
+  complete, sum to the United score.
+- United lineups, when present, reference known players, contain no duplicate
+  players, and have exactly 11 starters. Bench rows are allowed but do not count
+  as appearances unless the player entered the match.
 - Season files internally date-ordered; no duplicate ids across seasons.
 - Reference integrity: competition/stadium/manager/opponent ids resolve.
+- Source integrity: every source id used by a match resolves in
+  `sources.json`.

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   matchById, eventsForMatch, lineupForMatch, eloForMatch, h2hBefore, formBefore,
+  sourcesForMatch,
 } from "@/lib/queries";
 import { fmtDateLong, fmtNum, venueLabel, clubName, pct } from "@/lib/format";
 import { ResultBadge } from "@/components/ResultBadge";
@@ -17,9 +18,26 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const elo = eloForMatch(id);
   const h2h = h2hBefore(m.opponent_id, m.date);
   const form = formBefore(m.date, 6);
+  const sources = sourcesForMatch(id);
   const club = clubName(m.date);
 
   const goals = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type));
+  const opponentGoals = events.filter((e) => ["opp-goal", "own-goal-against"].includes(e.type));
+  const cards = events.filter((e) => e.type === "card-yellow" || e.type === "card-red");
+  const starters = lineup.filter((p) => p.player_side === "united" && p.started && !p.bench);
+  const usedSubs = lineup.filter((p) => p.player_side === "united" && !p.started && !p.bench);
+  const bench = lineup.filter((p) => p.player_side === "united" && p.bench);
+  const sourceSummary = sources.reduce((acc, source) => {
+    const cur = acc.get(source.id) ?? {
+      label: source.label,
+      url: source.url,
+      kind: source.kind,
+      facets: [] as string[],
+    };
+    cur.facets.push(`${source.facet}${source.confidence === "complete" ? "" : `:${source.confidence}`}`);
+    acc.set(source.id, cur);
+    return acc;
+  }, new Map<string, { label: string; url: string | null; kind: string; facets: string[] }>());
 
   return (
     <div className="space-y-10">
@@ -87,12 +105,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                       {e.player_name}
                     </Link>
                   ) : (
-                    <span className="font-medium">{e.detail ?? "Goal"}</span>
+                    <span className="font-medium">{e.player_display_name ?? "Goal"}</span>
                   )}
                   {e.type === "pen-goal" && <span className="text-xs text-ink-faint ml-1.5">(pen)</span>}
                   {e.type === "own-goal-for" && <span className="text-xs text-ink-faint ml-1.5">(og)</span>}
-                  {e.assist_name && (
-                    <span className="text-xs text-ink-faint ml-1.5">assist {e.assist_name}</span>
+                  {e.assist_display_name && (
+                    <span className="text-xs text-ink-faint ml-1.5">assist {e.assist_display_name}</span>
                   )}
                 </span>
               </li>
@@ -105,22 +123,157 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           )}
         </section>
       )}
-
-      {lineup.length > 0 && (
+      {goals.length === 0 && m.gf > 0 && (
+        <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
+          <h2 className="display text-xl">Scorers</h2>
+          <p className="text-sm text-ink-dim mt-1">
+            United scored {m.gf}, but this match does not yet have scorer events in the canonical record.
+          </p>
+          <Link href="/data" className="text-xs text-devil-bright hover:underline mt-2 inline-block">
+            How to add the missing scorers
+          </Link>
+        </section>
+      )}
+      {opponentGoals.length > 0 && (
         <section>
-          <h2 className="display text-xl mb-3">Lineup</h2>
-          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
-            {lineup.map((p) => (
-              <li key={p.player_id} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
-                <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
-                <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
-                  {p.player_name}
-                </Link>
-                {p.role && <span className="text-xs text-ink-faint">{p.role}</span>}
-                {!p.started && <span className="text-xs text-ink-faint">sub {p.sub_on != null ? `${p.sub_on}'` : ""}</span>}
+          <h2 className="display text-xl mb-3">{m.opponent_name} goals</h2>
+          <ul className="space-y-2 max-w-xl">
+            {opponentGoals.map((e) => (
+              <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
+                <span className="stat-num text-loss font-semibold w-10">
+                  {e.minute != null ? `${e.minute}'` : "•"}
+                </span>
+                <span className="flex-1 font-medium">{e.player_display_name ?? "Goal"}</span>
+                {e.type === "own-goal-against" && <span className="text-xs text-ink-faint">og</span>}
               </li>
             ))}
           </ul>
+        </section>
+      )}
+      {opponentGoals.length === 0 && m.ga > 0 && (
+        <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
+          <h2 className="display text-xl">{m.opponent_name} goals</h2>
+          <p className="text-sm text-ink-dim mt-1">
+            {m.opponent_name} scored {m.ga}, but opposition scorer events are not recorded for this match yet.
+          </p>
+          <Link href="/data" className="text-xs text-devil-bright hover:underline mt-2 inline-block">
+            How to add opposition goals
+          </Link>
+        </section>
+      )}
+
+      {cards.length > 0 && (
+        <section>
+          <h2 className="display text-xl mb-3">Cards</h2>
+          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+            {cards.map((e) => (
+              <li key={e.seq} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                <span className={`stat-num w-10 ${e.type === "card-red" ? "text-loss" : "text-gold"}`}>
+                  {e.minute != null ? `${e.minute}'` : ""}
+                </span>
+                <span className="font-medium flex-1">{e.player_display_name ?? "Player"}</span>
+                <span className="text-xs text-ink-faint">{e.player_side === "united" ? club : m.opponent_name}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {starters.length > 0 && (
+        <section>
+          <h2 className="display text-xl mb-3">Starting XI</h2>
+          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+            {starters.map((p) => (
+              <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
+                {p.player_id ? (
+                  <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
+                    {p.player_display_name}
+                  </Link>
+                ) : (
+                  <span className="flex-1">{p.player_display_name}</span>
+                )}
+                {p.role && <span className="text-xs text-ink-faint">{p.role}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {usedSubs.length > 0 && (
+        <section>
+          <h2 className="display text-xl mb-3">Used substitutes</h2>
+          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+            {usedSubs.map((p) => (
+              <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
+                {p.player_id ? (
+                  <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
+                    {p.player_display_name}
+                  </Link>
+                ) : (
+                  <span className="flex-1">{p.player_display_name}</span>
+                )}
+                <span className="text-xs text-ink-faint">on {p.sub_on != null ? `${p.sub_on}'` : "—"}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {bench.length > 0 && (
+        <section>
+          <h2 className="display text-xl mb-3">Bench</h2>
+          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+            {bench.map((p) => (
+              <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
+                {p.player_id ? (
+                  <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
+                    {p.player_display_name}
+                  </Link>
+                ) : (
+                  <span className="flex-1">{p.player_display_name}</span>
+                )}
+                <span className="text-xs text-ink-faint">unused</span>
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-ink-faint mt-2">
+            Bench rows are source evidence only; they do not count as appearances unless the player entered the match.
+          </p>
+        </section>
+      )}
+      {starters.length === 0 && (
+        <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
+          <h2 className="display text-xl">Lineup</h2>
+          <p className="text-sm text-ink-dim mt-1">
+            No structured United lineup is recorded for this match yet.
+          </p>
+        </section>
+      )}
+
+      {sources.length > 0 && (
+        <section>
+          <h2 className="display text-xl mb-3">Source trail</h2>
+          <div className="grid sm:grid-cols-2 gap-2 max-w-3xl">
+            {[...sourceSummary.entries()].map(([id, s]) => (
+              <div key={id} className="border border-line rounded-lg bg-panel px-4 py-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    {s.url ? (
+                      <a href={s.url} className="font-medium hover:text-devil-bright">{s.label}</a>
+                    ) : (
+                      <span className="font-medium">{s.label}</span>
+                    )}
+                    <div className="text-xs uppercase tracking-wider text-ink-faint mt-0.5">{s.kind}</div>
+                  </div>
+                  <Link href="/data" className="text-xs text-devil-bright hover:underline">Data</Link>
+                </div>
+                <p className="text-xs text-ink-faint mt-2">
+                  {s.facets.sort().join(", ")}
+                </p>
+              </div>
+            ))}
+          </div>
         </section>
       )}
 

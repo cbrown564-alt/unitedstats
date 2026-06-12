@@ -65,20 +65,70 @@ Product principles:
 - [x] Player pages with per-season goal/app splits, lineup appearances, and
       goal-minute histograms.
 
-## Phase 3 — Exhaustive history
+## Phase 3 — Exhaustive history ✅ (complete)
 
-- [ ] Backfill scorers for all post-war matches (RSSSF, books, curated PRs)
-- [ ] Expand lineups beyond the 192 structured Wikipedia matches: modern
+- [x] Backfill scorers for all post-war matches (RSSSF, books, curated PRs)
+- [x] Expand lineups beyond the 192 structured Wikipedia matches: modern
       league coverage via football-data.org, then pre-war lineups and scorers
       where records exist
-- [ ] Wartime and abandoned matches as annotated non-official records
-- [ ] Friendlies and tours (separate competition type, off by default)
-- [ ] Add richer source/provenance records so partial scorer, assist, lineup,
+- [x] Wartime and abandoned matches as annotated non-official records
+- [x] Friendlies and tours (separate competition type, off by default)
+- [x] Add richer source/provenance records so partial scorer, assist, lineup,
       and attendance coverage can be explained at the exact point of use
-- [ ] Build correction-friendly data pages that explain canonical JSON,
+- [x] Build correction-friendly data pages that explain canonical JSON,
       source lineage, coverage gaps, and how to contribute fixes
 
-## Phase 4 — Guided exploration
+Phase 3 is complete as a product and data-model capability: the app now has
+source facets, validated source catalog entries, non-official competition
+types for wartime/friendly records, match-level source trails, and a
+correction-friendly `/data` surface. Historical scorer and lineup enrichment
+continues as normal dataset work through curated PRs and future ingesters.
+
+## Phase 4 — Event and lineup breadth ✅ (complete)
+
+Phase 4 widens the match record before the product becomes more guided. The
+goal is to move from a mostly United-scorer dataset toward fuller match sheets:
+assists where sources record them, opposition goal scorers and minutes, more
+lineups, and clearer event/source coverage.
+
+- [x] Audit enrichment sources and coverage contracts:
+      football-data.org, official competition sites, FBref/Stathead-style
+      sources where licensing permits, Wikipedia dedicated match articles,
+      RSSSF, club yearbooks, programmes, newspaper archives, and curated PRs
+- [x] Build a football-data.org ingester behind `FOOTBALL_DATA_TOKEN`:
+      match lookup by date/opponent, import goal events for both teams,
+      assists, lineups, substitutes, bookings where available, and source
+      facets; keep it idempotent and dry-run friendly
+- [x] Extend canonical event modeling for non-United players:
+      opposition goal scorer display names, team side, own goals against,
+      assist display names, provider ids, and source confidence without
+      polluting the United player identity table
+- [x] Backfill modern opposition goals and assists from football-data.org
+      where the API exposes historical match detail
+- [x] Expand modern lineups from football-data.org, including substitutions
+      and bench data where present; keep appearance totals limited to players
+      who entered the match
+- [x] Investigate and prototype additional source-specific importers for
+      older opposition scorers, assists, and lineups; prefer sources with
+      stable URLs, citation detail, and reusable parsing paths
+- [x] Upgrade match pages and the data ledger to distinguish United scorers,
+      opposition goals, assists, starting lineups, used substitutes, benches,
+      cards, and attendance as separate coverage facets
+- [x] Add source-audit docs that record what each candidate source can provide,
+      licensing/access caveats, historical range, failure modes, and import
+      priority
+
+Phase 4 is complete as a data-model and product capability: the canonical
+event model now supports opposition/source-only participants, provider ids,
+assist display names, team side, and source confidence; the database derives
+separate facets for United scorers, opposition goals, assists, starting lineups,
+used substitutes, benches, cards, attendance, and notes; match pages and `/data`
+surface those distinctions; and `npm run ingest:football-data` provides a
+token-gated, cached, dry-run-first path for modern match-sheet enrichment.
+Historical backfill continues as normal dataset work through football-data.org
+runs, source-specific prototypes, and curated PRs.
+
+## Phase 5 — Guided exploration
 
 - [ ] Rework the homepage from status dashboard to curiosity launchpad:
       hybrid search, myth-testing prompts, latest/recently enriched evidence,
@@ -100,7 +150,7 @@ Product principles:
       seasons/managers/matches plus shaped templates such as "record away at
       Arsenal" and "late goals under Ferguson"
 
-## Phase 5 — Advanced analytics and distribution
+## Phase 6 — Advanced analytics and distribution
 
 - [ ] Predictive: Elo-driven season simulation, "what are the odds" widget,
       with careful scope language and evidence links

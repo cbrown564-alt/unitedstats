@@ -40,11 +40,19 @@ interface Players {
 interface Opponents {
   opponents?: { id: string; name: string; country?: string | null; lat?: number | null; lng?: number | null }[];
 }
+interface Sources {
+  sources: {
+    id: string; label: string; kind: string; url?: string | null;
+    coverage?: string | null; notes?: string | null;
+  }[];
+}
 
 const managers = readJson<Managers>(path.join(CANONICAL, "managers.json")).managers;
 const stadiums = readJson<Stadiums>(path.join(CANONICAL, "stadiums.json")).stadiums;
 const competitions = readJson<Competitions>(path.join(CANONICAL, "competitions.json")).competitions;
 const players = readJson<Players>(path.join(CANONICAL, "players.json")).players;
+const sourcesFile = path.join(CANONICAL, "sources.json");
+const sources = fs.existsSync(sourcesFile) ? readJson<Sources>(sourcesFile).sources : [];
 const opponentsFile = path.join(CANONICAL, "opponents.json");
 const curatedOpponents = fs.existsSync(opponentsFile)
   ? readJson<Opponents>(opponentsFile).opponents ?? []
@@ -89,6 +97,14 @@ CREATE TABLE managers (id TEXT PRIMARY KEY, name TEXT NOT NULL, nationality TEXT
 CREATE TABLE manager_tenures (manager_id TEXT NOT NULL REFERENCES managers(id), date_from TEXT NOT NULL, date_to TEXT, note TEXT);
 CREATE TABLE players (id TEXT PRIMARY KEY, name TEXT NOT NULL, positions TEXT, nationality TEXT, born TEXT);
 CREATE TABLE opponents (id TEXT PRIMARY KEY, name TEXT NOT NULL, country TEXT, lat REAL, lng REAL);
+CREATE TABLE sources (
+  id TEXT PRIMARY KEY,
+  label TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  url TEXT,
+  coverage TEXT,
+  notes TEXT
+);
 
 CREATE TABLE matches (
   id TEXT PRIMARY KEY,
@@ -118,13 +134,35 @@ CREATE INDEX idx_matches_season ON matches(season);
 CREATE INDEX idx_matches_opponent ON matches(opponent_id);
 CREATE INDEX idx_matches_competition ON matches(competition_id);
 
+CREATE TABLE match_sources (
+  match_id TEXT NOT NULL REFERENCES matches(id),
+  source_id TEXT NOT NULL,
+  facet TEXT NOT NULL CHECK (facet IN (
+    'result','united-scorers','opposition-goals','assists','starting-lineup',
+    'used-substitutes','bench','cards','attendance','notes'
+  )),
+  confidence TEXT NOT NULL CHECK (confidence IN ('complete','partial','supporting')),
+  note TEXT,
+  PRIMARY KEY (match_id, source_id, facet)
+);
+CREATE INDEX idx_match_sources_source ON match_sources(source_id);
+CREATE INDEX idx_match_sources_facet ON match_sources(facet);
+
 CREATE TABLE match_events (
   match_id TEXT NOT NULL REFERENCES matches(id),
   seq INTEGER NOT NULL,
   type TEXT NOT NULL,
   player_id TEXT REFERENCES players(id),
+  player_name TEXT,
+  player_side TEXT NOT NULL DEFAULT 'united' CHECK (player_side IN ('united','opponent')),
+  player_provider_id TEXT,
   minute INTEGER,
   assist_player_id TEXT REFERENCES players(id),
+  assist_name TEXT,
+  assist_side TEXT CHECK (assist_side IN ('united','opponent')),
+  assist_provider_id TEXT,
+  provider_event_id TEXT,
+  source_confidence TEXT CHECK (source_confidence IN ('complete','partial','supporting')),
   detail TEXT,
   PRIMARY KEY (match_id, seq)
 );
@@ -132,13 +170,19 @@ CREATE INDEX idx_events_player ON match_events(player_id);
 
 CREATE TABLE match_lineups (
   match_id TEXT NOT NULL REFERENCES matches(id),
-  player_id TEXT NOT NULL REFERENCES players(id),
+  seq INTEGER NOT NULL,
+  player_id TEXT REFERENCES players(id),
+  player_name TEXT,
+  player_side TEXT NOT NULL DEFAULT 'united' CHECK (player_side IN ('united','opponent')),
+  provider_id TEXT,
   shirt INTEGER, role TEXT,
   started INTEGER NOT NULL,
+  bench INTEGER NOT NULL DEFAULT 0,
   sub_on INTEGER, sub_off INTEGER,
-  PRIMARY KEY (match_id, player_id)
+  PRIMARY KEY (match_id, seq)
 );
 CREATE INDEX idx_lineups_player ON match_lineups(player_id);
+CREATE INDEX idx_lineups_match_side ON match_lineups(match_id, player_side);
 
 CREATE TABLE elo_history (
   match_id TEXT PRIMARY KEY REFERENCES matches(id),
@@ -190,6 +234,17 @@ for (const p of players) {
   insPlayer.run(p.id, p.name, p.positions ? JSON.stringify(p.positions) : null, p.nationality ?? null, p.born ?? null);
 }
 
+const knownSourceIds = new Set(sources.map((s) => s.id));
+const insSource = db.prepare("INSERT INTO sources VALUES (?,?,?,?,?,?)");
+for (const s of sources) insSource.run(s.id, s.label, s.kind, s.url ?? null, s.coverage ?? null, s.notes ?? null);
+const sourceIdsFromMatches = new Set(allMatches.flatMap(({ m }) => m.sources));
+for (const id of sourceIdsFromMatches) {
+  if (!knownSourceIds.has(id)) {
+    insSource.run(id, id, "unknown", null, "Referenced by canonical match JSON.", "Add this source to data/canonical/sources.json with provenance details.");
+    knownSourceIds.add(id);
+  }
+}
+
 // opponents: curated entries first, then derive the rest from matches
 const oppNames = new Map<string, string>(); // id -> latest display name
 const oppMeta = new Map<string, { country: string | null; lat: number | null; lng: number | null }>();
@@ -216,8 +271,60 @@ const insMatch = db.prepare(`INSERT INTO matches VALUES
   (@id,@season,@date,@competition_id,@round,@opponent_id,@opponent_name,@venue,@stadium_id,
    @attendance,@gf,@ga,@ht_gf,@ht_ga,@aet,@pen_gf,@pen_ga,@result,@outcome,@manager_id,
    @events_complete,@has_lineup,@notes,@sources)`);
-const insEvent = db.prepare("INSERT INTO match_events VALUES (?,?,?,?,?,?,?)");
-const insLineup = db.prepare("INSERT INTO match_lineups VALUES (?,?,?,?,?,?,?)");
+const insEvent = db.prepare("INSERT INTO match_events VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+const insLineup = db.prepare("INSERT INTO match_lineups VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+const insMatchSource = db.prepare("INSERT OR IGNORE INTO match_sources VALUES (?,?,?,?,?)");
+
+function sourceFacets(m: Match): { facet: string; confidence: string; note: string | null }[] {
+  const facets = [{ facet: "result", confidence: "complete", note: null as string | null }];
+  const events = m.events ?? [];
+  const unitedGoals = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type));
+  const oppositionGoals = events.filter((e) => ["opp-goal", "own-goal-against"].includes(e.type));
+  const starters = (m.lineup ?? []).filter((l) => (l.playerSide ?? "united") === "united" && l.start).length;
+  const usedSubs = (m.lineup ?? []).filter((l) => (l.playerSide ?? "united") === "united" && !l.start && !l.bench).length;
+  const bench = (m.lineup ?? []).filter((l) => l.bench).length;
+  if (m.events && m.events.length > 0) {
+    if (unitedGoals.length > 0) {
+      facets.push({
+        facet: "united-scorers",
+        confidence: m.eventsComplete ? "complete" : "partial",
+        note: m.eventsComplete ? null : "United scoring events are present but do not fully account for United goals.",
+      });
+    }
+    if (oppositionGoals.length > 0) {
+      const complete = oppositionGoals.length === m.score.ft[1];
+      facets.push({
+        facet: "opposition-goals",
+        confidence: complete ? "complete" : "partial",
+        note: complete ? null : "Opposition goal events are present but do not fully account for goals against.",
+      });
+    }
+    if (m.events.some((e) => e.assist || e.assistName)) {
+      facets.push({ facet: "assists", confidence: "partial", note: "Only assists explicitly present in the source are recorded." });
+    }
+    if (m.events.some((e) => e.type === "card-yellow" || e.type === "card-red")) {
+      facets.push({ facet: "cards", confidence: "partial", note: "Only cards explicitly present in the source are recorded." });
+    }
+  }
+  if (m.lineup && m.lineup.length > 0) {
+    if (starters >= 11) {
+      facets.push({ facet: "starting-lineup", confidence: "complete", note: null });
+    }
+    if (usedSubs > 0) {
+      facets.push({ facet: "used-substitutes", confidence: "complete", note: "Substitute appearances are recorded for players who entered the match." });
+    }
+    if (bench > 0) {
+      facets.push({ facet: "bench", confidence: "supporting", note: "Bench players are listed separately and excluded from appearance totals unless they entered." });
+    }
+  }
+  if (m.attendance != null) {
+    facets.push({ facet: "attendance", confidence: "supporting", note: null });
+  }
+  if (m.notes) {
+    facets.push({ facet: "notes", confidence: "supporting", note: "Match note carries context from the canonical record." });
+  }
+  return facets;
+}
 
 const insertAll = db.transaction(() => {
   for (const { season, m } of allMatches) {
@@ -245,18 +352,52 @@ const insertAll = db.transaction(() => {
       result, outcome,
       manager_id: managerFor(m.date),
       events_complete: m.eventsComplete ? 1 : 0,
-      has_lineup: m.lineup && m.lineup.length > 0 ? 1 : 0,
+      has_lineup: (m.lineup ?? []).filter((l) => (l.playerSide ?? "united") === "united" && l.start).length >= 11 ? 1 : 0,
       notes: m.notes ?? null,
       sources: JSON.stringify(m.sources),
     });
     if (m.events) {
       m.events.forEach((e, i) =>
-        insEvent.run(m.id, i, e.type, e.player ?? null, e.minute ?? null, e.assist ?? null, e.detail ?? null),
+        insEvent.run(
+          m.id,
+          i,
+          e.type,
+          e.player ?? null,
+          e.playerName ?? e.detail ?? null,
+          e.playerSide ?? (e.type === "opp-goal" ? "opponent" : "united"),
+          e.playerProviderId != null ? String(e.playerProviderId) : null,
+          e.minute ?? null,
+          e.assist ?? null,
+          e.assistName ?? null,
+          e.assistSide ?? (e.assist ? "united" : null),
+          e.assistProviderId != null ? String(e.assistProviderId) : null,
+          e.providerEventId != null ? String(e.providerEventId) : null,
+          e.sourceConfidence ?? null,
+          e.detail ?? null,
+        ),
       );
     }
     if (m.lineup) {
-      for (const l of m.lineup) {
-        insLineup.run(m.id, l.player, l.shirt ?? null, l.role ?? null, l.start ? 1 : 0, l.on ?? null, l.off ?? null);
+      for (const [i, l] of m.lineup.entries()) {
+        insLineup.run(
+          m.id,
+          i,
+          l.player ?? null,
+          l.playerName ?? null,
+          l.playerSide ?? "united",
+          l.providerId != null ? String(l.providerId) : null,
+          l.shirt ?? null,
+          l.role ?? null,
+          l.start ? 1 : 0,
+          l.bench ? 1 : 0,
+          l.on ?? null,
+          l.off ?? null,
+        );
+      }
+    }
+    for (const sourceId of m.sources) {
+      for (const f of sourceFacets(m)) {
+        insMatchSource.run(m.id, sourceId, f.facet, f.confidence, f.note);
       }
     }
   }
@@ -344,12 +485,12 @@ for (const [key, v] of furthest) {
 db.exec(`
 INSERT INTO player_totals
 SELECT p.id, 'all',
-  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id), 0),
-  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.started = 1), 0),
+  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.bench = 0), 0),
+  COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.started = 1 AND l.bench = 0), 0),
   COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.player_id = p.id AND e.type IN ('goal','pen-goal')), 0),
   COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.assist_player_id = p.id AND e.type IN ('goal','pen-goal')), 0),
-  (SELECT MIN(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id),
-  (SELECT MAX(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id)
+  (SELECT MIN(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.bench = 0),
+  (SELECT MAX(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.bench = 0)
 FROM players p;
 
 INSERT INTO player_totals
@@ -374,6 +515,7 @@ FROM players p
 JOIN match_lineups l ON l.player_id = p.id
 JOIN matches m ON m.id = l.match_id
 JOIN competitions c ON c.id = m.competition_id
+WHERE l.bench = 0
 GROUP BY p.id, c.type;
 `);
 
@@ -382,10 +524,24 @@ const counts = db.prepare(
   `SELECT COUNT(*) n, MIN(date) min_d, MAX(date) max_d FROM matches`,
 ).get() as { n: number; min_d: string; max_d: string };
 const eventsN = (db.prepare("SELECT COUNT(*) n FROM match_events").get() as { n: number }).n;
-const lineupsN = (db.prepare("SELECT COUNT(DISTINCT match_id) n FROM match_lineups").get() as { n: number }).n;
-const lineupEntriesN = (db.prepare("SELECT COUNT(*) n FROM match_lineups").get() as { n: number }).n;
+const scorerMatchesN = (
+  db.prepare("SELECT COUNT(DISTINCT match_id) n FROM match_events WHERE type IN ('goal','pen-goal','own-goal-for')").get() as { n: number }
+).n;
+const eventsCompleteN = (db.prepare("SELECT COUNT(*) n FROM matches WHERE events_complete = 1").get() as { n: number }).n;
+const lineupsN = (
+  db.prepare("SELECT COUNT(DISTINCT match_id) n FROM match_lineups WHERE player_side = 'united' AND started = 1").get() as { n: number }
+).n;
+const lineupEntriesN = (
+  db.prepare("SELECT COUNT(*) n FROM match_lineups WHERE player_side = 'united' AND bench = 0").get() as { n: number }
+).n;
 const assistsN = (
-  db.prepare("SELECT COUNT(*) n FROM match_events WHERE assist_player_id IS NOT NULL").get() as { n: number }
+  db.prepare("SELECT COUNT(*) n FROM match_events WHERE assist_player_id IS NOT NULL OR assist_name IS NOT NULL").get() as { n: number }
+).n;
+const oppositionGoalsN = (
+  db.prepare("SELECT COUNT(*) n FROM match_events WHERE type IN ('opp-goal','own-goal-against')").get() as { n: number }
+).n;
+const benchN = (
+  db.prepare("SELECT COUNT(*) n FROM match_lineups WHERE bench = 1").get() as { n: number }
 ).n;
 const insMeta = db.prepare("INSERT INTO meta VALUES (?,?)");
 insMeta.run("built_at", new Date().toISOString());
@@ -393,9 +549,14 @@ insMeta.run("matches", String(counts.n));
 insMeta.run("first_match", counts.min_d);
 insMeta.run("last_match", counts.max_d);
 insMeta.run("events", String(eventsN));
+insMeta.run("matches_with_scorers", String(scorerMatchesN));
+insMeta.run("matches_events_complete", String(eventsCompleteN));
 insMeta.run("matches_with_lineups", String(lineupsN));
 insMeta.run("lineup_entries", String(lineupEntriesN));
 insMeta.run("assists", String(assistsN));
+insMeta.run("opposition_goals", String(oppositionGoalsN));
+insMeta.run("bench_entries", String(benchN));
+insMeta.run("sources", String(knownSourceIds.size));
 
 db.close();
 console.log(
