@@ -7,7 +7,7 @@ import { fullestMatchSheets } from "@/lib/trails";
 import { fmtNum, pct, fmtDate } from "@/lib/format";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
-import { AreaChart } from "@/components/charts";
+import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { SearchCommand } from "@/components/SearchCommand";
 
 export const dynamic = "force-dynamic";
@@ -205,14 +205,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="border border-line rounded-lg bg-panel p-4">
-          <AreaChart
-            points={elo.map((e) => ({ x: Date.parse(e.date), y: e.elo }))}
-            baseline={1500}
-            labels={[1900, 1925, 1950, 1975, 2000, 2025].map((y) => ({
-              x: Date.parse(`${y}-01-01`),
-              text: String(y),
-            }))}
-          />
+          <EloRatingChart points={elo} />
           <p className="text-xs text-ink-faint mt-2">
             Club Elo rating after every competitive match since {firstYear}. The dashed line is the 1500 starting
             baseline. Every match page carries its pre-match win expectancy.

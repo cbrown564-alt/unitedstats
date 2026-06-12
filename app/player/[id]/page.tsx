@@ -5,9 +5,9 @@ import {
   playerLineupMatches, playerSplitsBySeason,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
-import { Bars } from "@/components/charts";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { MatchList } from "@/components/MatchList";
-import { fmtDate } from "@/lib/format";
+import { fmtDate, fmtNum } from "@/lib/format";
 
 const TYPE_LABELS: Record<string, string> = {
   league: "League",
@@ -70,9 +70,16 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
         <section>
           <h2 className="display text-xl mb-3">Goals by season</h2>
           <div className="border border-line rounded-lg bg-panel p-4">
-            <Bars
-              data={bySeason.map((s) => ({ label: s.season.slice(0, 4), value: s.goals }))}
+            <InspectableBarChart
+              data={bySeason.map((s) => ({
+                label: s.season.slice(0, 4),
+                value: s.goals,
+                valueLabel: `${fmtNum(s.goals)} goals`,
+                meta: s.season,
+                href: `/seasons/${s.season}`,
+              }))}
               labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
+              chartLabel={`${p.name} goals by season`}
             />
           </div>
         </section>
@@ -82,11 +89,18 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
         <section>
           <h2 className="display text-xl mb-3">Appearances by season</h2>
           <div className="border border-line rounded-lg bg-panel p-4">
-            <Bars
-              data={bySeason.map((s) => ({ label: s.season.slice(0, 4), value: s.apps }))}
+            <InspectableBarChart
+              data={bySeason.map((s) => ({
+                label: s.season.slice(0, 4),
+                value: s.apps,
+                valueLabel: `${fmtNum(s.apps)} appearances`,
+                meta: s.season,
+                href: `/seasons/${s.season}`,
+              }))}
               labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
               height={160}
               color="var(--color-ink-dim)"
+              chartLabel={`${p.name} appearances by season`}
             />
             <p className="text-xs text-ink-faint mt-1">
               From the {appearances.length} covered lineups where {p.name} appears.
@@ -135,10 +149,16 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
         <section>
           <h2 className="display text-xl mb-3">When in the match</h2>
           <div className="border border-line rounded-lg bg-panel p-4 max-w-xl">
-            <Bars
-              data={buckets.map((n, i) => ({ label: bucketLabels[i], value: n }))}
+            <InspectableBarChart
+              data={buckets.map((n, i) => ({
+                label: bucketLabels[i],
+                value: n,
+                valueLabel: `${fmtNum(n)} goals`,
+                meta: "Recorded goal minutes",
+              }))}
               height={140}
               color="var(--color-gold)"
+              chartLabel={`${p.name} goals by match-minute bucket`}
             />
             <p className="text-xs text-ink-faint mt-1">
               Distribution of {minutes.length} goals with recorded minutes.

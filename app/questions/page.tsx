@@ -5,7 +5,7 @@ import {
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
 import { getMeta } from "@/lib/queries";
-import { Bars } from "@/components/charts";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
@@ -81,13 +81,19 @@ export default function QuestionsPage() {
         coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute; minute data is densest from the 1990s onward, so early decades lean on smaller samples.`}
       >
         <div className="max-w-2xl">
-          <Bars
+          <InspectableBarChart
             data={lateByDecade.map((d) => ({
-              label: d.decade.slice(2),
+              label: d.decade,
+              tickLabel: d.decade.slice(2),
               value: Math.round((1000 * d.late) / d.timed) / 10,
+              valueLabel: `${(Math.round((1000 * d.late) / d.timed) / 10).toFixed(1)}% late`,
+              meta: `${fmtNum(d.late)} of ${fmtNum(d.timed)} timed goals`,
+              href: `/matches?from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
             }))}
             height={160}
             color="var(--color-gold)"
+            chartLabel="Manchester United late goal share by decade"
+            yTickSuffix="%"
           />
           <p className="text-xs text-ink-faint mt-1">Percent of timed goals scored minute 76–90, by decade.</p>
         </div>
@@ -208,13 +214,19 @@ export default function QuestionsPage() {
         coverage="Results and venues are complete for the whole period."
       >
         <div className="max-w-2xl">
-          <Bars
+          <InspectableBarChart
             data={otDecades.map((d) => ({
-              label: d.decade.slice(2),
+              label: d.decade,
+              tickLabel: d.decade.slice(0, 4),
               value: Math.round((100 * d.w) / (d.p || 1)),
+              valueLabel: `${Math.round((100 * d.w) / (d.p || 1))}% won`,
+              meta: `${fmtNum(d.p)} home matches, ${fmtNum(d.w)} wins`,
+              href: `/matches?venue=H&from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
             }))}
             height={160}
             color="var(--color-win)"
+            chartLabel="Manchester United Old Trafford win rate by decade"
+            yTickSuffix="%"
           />
           <p className="text-xs text-ink-faint mt-1">Percent of Old Trafford home matches won, by decade.</p>
         </div>

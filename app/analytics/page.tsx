@@ -4,8 +4,9 @@ import {
   venueRecord, goalMinuteHistogram, stadiumsWithRecords, eventCoverage, getMeta,
   lineupCoverage, topAssistPartnerships, coverageOverview,
 } from "@/lib/queries";
-import { AreaChart, Bars } from "@/components/charts";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { MatchList } from "@/components/MatchList";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
@@ -31,6 +32,7 @@ export default function AnalyticsPage() {
   const peak = elo.reduce((a, b) => (b.elo > a.elo ? b : a), elo[0]);
   const trough = elo.reduce((a, b) => (b.elo < a.elo ? b : a), elo[0]);
   const minuteLabels = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90"];
+  const yearTicks = [1900, 1930, 1960, 1990, 2020].map((year) => ({ x: year, label: String(year) }));
 
   const decades = new Map<string, { p: number; w: number }>();
   for (const s of seasons) {
@@ -112,13 +114,24 @@ export default function AnalyticsPage() {
         <div>
           <h2 className="display text-xl mb-3">Win rate by season</h2>
           <div className="border border-line rounded-lg bg-panel p-4">
-            <AreaChart
-              points={seasons.map((s) => ({ x: Number(s.season.slice(0, 4)), y: s.win_pct }))}
+            <InspectableTimeSeriesChart
+              data={seasons.map((s) => ({
+                x: Number(s.season.slice(0, 4)),
+                y: s.win_pct,
+                label: s.season,
+                valueLabel: `${s.win_pct.toFixed(1)}% won`,
+                meta: `${fmtNum(s.p)} matches, ${s.w} wins`,
+              }))}
               baseline={50}
               height={200}
               stroke="var(--color-win)"
               fill="rgb(62 207 106 / 0.10)"
-              labels={[1900, 1930, 1960, 1990, 2020].map((y) => ({ x: y, text: String(y) }))}
+              baselineLabel="50%"
+              chartLabel="Manchester United win rate by season"
+              valueLabel="Win rate"
+              xTicks={yearTicks}
+              yTickSuffix="%"
+              yDomain={[0, 100]}
             />
             <p className="text-xs text-ink-faint mt-2">
               <span className="text-ink-dim">Slice:</span> all competitions per season; the dashed line is
@@ -130,12 +143,20 @@ export default function AnalyticsPage() {
         <div>
           <h2 className="display text-xl mb-3">Average home attendance</h2>
           <div className="border border-line rounded-lg bg-panel p-4">
-            <AreaChart
-              points={seasons.filter((s) => s.avg_att).map((s) => ({ x: Number(s.season.slice(0, 4)), y: s.avg_att! }))}
+            <InspectableTimeSeriesChart
+              data={seasons.filter((s) => s.avg_att).map((s) => ({
+                x: Number(s.season.slice(0, 4)),
+                y: s.avg_att!,
+                label: s.season,
+                valueLabel: `${fmtNum(s.avg_att!)} average`,
+                meta: `${fmtNum(s.p)} matches in all competitions`,
+              }))}
               height={200}
               stroke="var(--color-gold)"
               fill="rgb(245 197 24 / 0.08)"
-              labels={[1900, 1930, 1960, 1990, 2020].map((y) => ({ x: y, text: String(y) }))}
+              chartLabel="Manchester United average home attendance by season"
+              valueLabel="Average attendance"
+              xTicks={yearTicks}
             />
             <p className="text-xs text-ink-faint mt-2">
               <span className="text-ink-dim">Slice:</span> mean of recorded home attendances per season.
@@ -151,10 +172,17 @@ export default function AnalyticsPage() {
         <div>
           <h2 className="display text-xl mb-3">Goals scored per season</h2>
           <div className="border border-line rounded-lg bg-panel p-4">
-            <Bars
-              data={seasons.map((s) => ({ label: s.season.slice(0, 4), value: s.gf }))}
+            <InspectableBarChart
+              data={seasons.map((s) => ({
+                label: s.season.slice(0, 4),
+                value: s.gf,
+                valueLabel: `${fmtNum(s.gf)} goals`,
+                meta: `${s.season}, ${fmtNum(s.p)} matches`,
+                href: `/seasons/${s.season}`,
+              }))}
               labelEvery={20}
               height={200}
+              chartLabel="Manchester United goals scored per season"
             />
             <p className="text-xs text-ink-faint mt-2">
               <span className="text-ink-dim">Slice:</span> goals scored, all competitions — taller wartime-adjacent
@@ -166,13 +194,19 @@ export default function AnalyticsPage() {
         <div>
           <h2 className="display text-xl mb-3">Win rate by decade</h2>
           <div className="border border-line rounded-lg bg-panel p-4">
-            <Bars
+            <InspectableBarChart
               data={[...decades.entries()].map(([dec, v]) => ({
-                label: dec.slice(2),
+                label: dec,
+                tickLabel: dec.slice(0, 4),
                 value: Math.round((100 * v.w) / (v.p || 1)),
+                valueLabel: `${Math.round((100 * v.w) / (v.p || 1))}% won`,
+                meta: `${fmtNum(v.p)} matches, ${fmtNum(v.w)} wins`,
+                href: `/matches?from=${dec.slice(0, 4)}&to=${Number(dec.slice(0, 4)) + 9}`,
               }))}
               height={200}
               color="var(--color-win)"
+              chartLabel="Manchester United win rate by decade"
+              yTickSuffix="%"
             />
             <p className="text-xs text-ink-faint mt-1">
               <span className="text-ink-dim">Slice:</span> percent of matches won, all competitions, grouped by
@@ -190,10 +224,16 @@ export default function AnalyticsPage() {
           <div>
             <h2 className="display text-xl mb-3">When United score</h2>
             <div className="border border-line rounded-lg bg-panel p-4">
-              <Bars
-                data={minuteHist.map((b) => ({ label: minuteLabels[Number(b.bucket)] ?? b.bucket, value: b.n }))}
+              <InspectableBarChart
+                data={minuteHist.map((b) => ({
+                  label: minuteLabels[Number(b.bucket)] ?? b.bucket,
+                  value: b.n,
+                  valueLabel: `${fmtNum(b.n)} goals`,
+                  meta: "Recorded United goals with minutes",
+                }))}
                 height={180}
                 color="var(--color-gold)"
+                chartLabel="Manchester United goals by match minute bucket"
               />
               <p className="text-xs text-ink-faint mt-1">
                 <span className="text-ink-dim">Slice:</span> United goals with a recorded minute ≤ 90, by
@@ -281,25 +321,19 @@ export default function AnalyticsPage() {
       <section>
         <h2 className="display text-xl mb-3">Data depth ledger</h2>
         <div className="border border-line rounded-lg bg-panel p-4">
-          <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
-            {coverage.map((c) => {
-              const f = c.matches ? c.withEvents / c.matches : 0;
-              return (
-                <div key={c.decade} className="text-center">
-                  <div
-                    className="h-16 rounded relative overflow-hidden bg-panel-2"
-                    title={`${c.decade}: scorer data for ${c.withEvents}/${c.matches} matches`}
-                  >
-                    <div
-                      className="absolute bottom-0 left-0 right-0 bg-devil"
-                      style={{ height: `${Math.round(100 * f)}%` }}
-                    />
-                  </div>
-                  <div className="text-[10px] text-ink-faint mt-1 stat-num">{c.decade.slice(2)}</div>
-                </div>
-              );
-            })}
-          </div>
+          <InspectableBarChart
+            data={coverage.map((c) => ({
+              label: c.decade,
+              tickLabel: c.decade.slice(0, 4),
+              value: c.matches ? Math.round((1000 * c.withEvents) / c.matches) / 10 : 0,
+              valueLabel: pct(c.withEvents, c.matches),
+              meta: `${fmtNum(c.withEvents)} of ${fmtNum(c.matches)} matches with scorer data`,
+            }))}
+            height={170}
+            chartLabel="United scorer coverage by decade"
+            labelEvery={2}
+            yTickSuffix="%"
+          />
           <p className="text-xs text-ink-faint mt-3 max-w-2xl">
             Share of matches per decade with recorded goal events. Results are complete for every decade;
             scorer and lineup depth grows continuously — this ledger is the honest picture of how far the
@@ -316,25 +350,20 @@ export default function AnalyticsPage() {
         <div>
           <h2 className="display text-xl mb-3">Lineup coverage</h2>
           <div className="border border-line rounded-lg bg-panel p-4">
-            <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
-              {lineups.map((c) => {
-                const f = c.matches ? c.withLineups / c.matches : 0;
-                return (
-                  <div key={c.decade} className="text-center">
-                    <div
-                      className="h-16 rounded relative overflow-hidden bg-panel-2"
-                      title={`${c.decade}: lineups for ${c.withLineups}/${c.matches} matches`}
-                    >
-                      <div
-                        className="absolute bottom-0 left-0 right-0 bg-gold"
-                        style={{ height: `${Math.round(100 * f)}%` }}
-                      />
-                    </div>
-                    <div className="text-[10px] text-ink-faint mt-1 stat-num">{c.decade.slice(2)}</div>
-                  </div>
-                );
-              })}
-            </div>
+            <InspectableBarChart
+              data={lineups.map((c) => ({
+                label: c.decade,
+                tickLabel: c.decade.slice(0, 4),
+                value: c.matches ? Math.round((1000 * c.withLineups) / c.matches) / 10 : 0,
+                valueLabel: pct(c.withLineups, c.matches),
+                meta: `${fmtNum(c.withLineups)} of ${fmtNum(c.matches)} matches with lineups`,
+              }))}
+              height={160}
+              color="var(--color-gold)"
+              chartLabel="United lineup coverage by decade"
+              labelEvery={2}
+              yTickSuffix="%"
+            />
             <p className="text-xs text-ink-faint mt-3">
               {fmtNum(Number(meta.matches_with_lineups ?? 0))} matches have full United lineups,
               covering {fmtNum(Number(meta.lineup_entries ?? 0))} player appearances.
