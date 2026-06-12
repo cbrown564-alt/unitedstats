@@ -1,5 +1,15 @@
 /** Lightweight server-rendered SVG charts — no client JS, no chart library. */
 
+export type ChartDatum = {
+  x: number;
+  y: number;
+  label: string;
+  valueLabel: string;
+  meta?: string;
+  movementLabel?: string;
+  href?: string;
+};
+
 export function AreaChart({
   points,
   width = 800,
