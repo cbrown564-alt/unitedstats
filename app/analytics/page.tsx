@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   eloSeries, seasonAggregates, biggestWins, heaviestDefeats, highestAttendances,
   venueRecord, goalMinuteHistogram, stadiumsWithRecords, eventCoverage, getMeta,
-  lineupCoverage, topAssistPartnerships,
+  lineupCoverage, topAssistPartnerships, coverageOverview,
 } from "@/lib/queries";
 import { AreaChart, Bars } from "@/components/charts";
 import { MatchList } from "@/components/MatchList";
@@ -24,6 +24,7 @@ export default function AnalyticsPage() {
   const lineups = lineupCoverage();
   const partnerships = topAssistPartnerships(12);
   const meta = getMeta();
+  const overview = coverageOverview();
   const currentElo = elo.length ? Math.round(elo[elo.length - 1].elo) : 1500;
   const peak = elo.reduce((a, b) => (b.elo > a.elo ? b : a), elo[0]);
   const trough = elo.reduce((a, b) => (b.elo < a.elo ? b : a), elo[0]);
@@ -244,6 +245,10 @@ export default function AnalyticsPage() {
             Share of matches per decade with recorded goal events. Results are complete for every decade;
             scorer and lineup depth grows continuously — this ledger is the honest picture of how far the
             excavation has gotten.
+            {" "}Complete scorer rows: <span className="stat-num">{fmtNum(overview.completeScorers)}</span>
+            {" "}of <span className="stat-num">{fmtNum(overview.matches)}</span>.
+            {" "}
+            <Link href="/data" className="text-devil-bright hover:underline">Source and correction guide</Link>.
           </p>
         </div>
       </section>

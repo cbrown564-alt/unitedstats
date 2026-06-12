@@ -18,17 +18,29 @@ export interface MatchEvent {
     | "opp-goal"
     | "card-yellow"
     | "card-red";
-  player: string | null; // player id (United players); free text for opponents in `detail`
+  player?: string | null; // United player id when the event belongs to a known United player
+  playerName?: string | null; // display name for opposition or source-only players
+  playerSide?: "united" | "opponent" | null;
+  playerProviderId?: string | number | null;
   minute: number | null;
-  assist?: string | null;
+  assist?: string | null; // United player id when the assister is known in players.json
+  assistName?: string | null;
+  assistSide?: "united" | "opponent" | null;
+  assistProviderId?: string | number | null;
+  providerEventId?: string | number | null;
+  sourceConfidence?: "complete" | "partial" | "supporting" | null;
   detail?: string | null;
 }
 
 export interface LineupEntry {
-  player: string; // player id
+  player?: string | null; // United player id when known
+  playerName?: string | null;
+  playerSide?: "united" | "opponent" | null;
+  providerId?: string | number | null;
   shirt?: number | null;
   role?: string | null;
   start: boolean;
+  bench?: boolean;
   on?: number | null;
   off?: number | null;
 }
