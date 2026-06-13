@@ -9,6 +9,7 @@ import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { MatchList } from "@/components/MatchList";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
+import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -260,11 +261,7 @@ export default function AnalyticsPage() {
                     {fmtNum(v.p)} P · {v.w}–{v.d}–{v.l} · {pct(v.w, v.p)} W
                   </span>
                 </div>
-                <div className="flex h-1.5 rounded-full overflow-hidden bg-panel-2">
-                  <div className="bg-win" style={{ width: `${(100 * v.w) / v.p}%` }} />
-                  <div className="bg-draw/60" style={{ width: `${(100 * v.d) / v.p}%` }} />
-                  <div className="bg-loss" style={{ width: `${(100 * v.l) / v.p}%` }} />
-                </div>
+                <WdlBar w={v.w} d={v.d} l={v.l} />
               </Link>
             ))}
           </div>

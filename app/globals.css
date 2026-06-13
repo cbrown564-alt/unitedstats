@@ -43,6 +43,28 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* W/D/L bars wipe in on load: stacked from the left, diverging from the centre */
+@keyframes wdl-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes wdl-reveal-center {
+  from { clip-path: inset(0 50% 0 50%); }
+  to { clip-path: inset(0 0 0 0); }
+}
+.wdl-reveal {
+  animation: wdl-reveal 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.wdl-reveal-center {
+  animation: wdl-reveal-center 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wdl-reveal,
+  .wdl-reveal-center {
+    animation: none;
+  }
+}
+
 /* subtle pitch-line texture for the hero */
 .hero-grid {
   background-image:
