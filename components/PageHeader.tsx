@@ -72,7 +72,7 @@ export function TrailLink({
   return (
     <Link
       href={href}
-      className="group block border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 hover:bg-panel-2/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright"
+      className="group block border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 hover:bg-panel-2/70 focus-ring"
     >
       <span className="flex items-center justify-between gap-3">
         <span className="font-semibold text-ink group-hover:text-devil-bright">{title}</span>

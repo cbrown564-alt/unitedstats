@@ -24,6 +24,12 @@ const SORTS: { key: string; label: string }[] = [
   { key: "attendance", label: "Best attended" },
 ];
 
+// Selected/idle treatment for the bordered filter pills (quick views, decade jumps).
+const pillTone = (active: boolean) =>
+  active
+    ? "border-devil/60 bg-devil/15 text-devil-bright"
+    : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink";
+
 export default async function MatchesPage({
   searchParams,
 }: {
@@ -121,11 +127,7 @@ export default async function MatchesPage({
                 key={v.label}
                 href={presetHref(v.params)}
                 aria-current={active ? "true" : undefined}
-                className={`rounded-full border px-3 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
-                  active
-                    ? "border-devil/60 bg-devil/15 text-devil-bright"
-                    : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
-                }`}
+                className={`rounded-full border px-3 py-1.5 text-sm transition-colors focus-ring ${pillTone(active)}`}
               >
                 {v.label}
               </Link>
@@ -166,14 +168,14 @@ export default async function MatchesPage({
             </select>
           </label>
           <div className="flex items-end gap-2 md:col-span-2">
-            <button className="min-h-[2.375rem] flex-1 rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright">
+            <button className="min-h-[2.375rem] flex-1 rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
               Filter
             </button>
           </div>
         </div>
 
         <details className="mt-3 border-t border-line/70 pt-3" open={refineActive}>
-          <summary className="cursor-pointer select-none list-none text-xs font-semibold uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright [&::-webkit-details-marker]:hidden">
+          <summary className="cursor-pointer select-none list-none text-xs font-semibold uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
             <span className="text-devil-bright" aria-hidden>▸ </span>More filters
           </summary>
           <div className="mt-3 grid gap-3 md:grid-cols-12">
@@ -233,7 +235,7 @@ export default async function MatchesPage({
                 <Link
                   key={c.key}
                   href={`/matches${qs({ [c.key]: undefined, page: undefined })}`}
-                  className="group inline-flex items-center gap-1 rounded-full border border-line bg-panel-2 py-0.5 pl-2.5 pr-1.5 text-xs text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright"
+                  className="group inline-flex items-center gap-1 rounded-full border border-line bg-panel-2 py-0.5 pl-2.5 pr-1.5 text-xs text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
                 >
                   {c.label}
                   <span className="text-ink-faint group-hover:text-devil-bright" aria-label="remove filter">×</span>
@@ -241,7 +243,7 @@ export default async function MatchesPage({
               ))}
               <Link
                 href="/matches"
-                className="rounded-full px-2 py-0.5 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright"
+                className="rounded-full px-2 py-0.5 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
               >
                 Clear all
               </Link>
@@ -282,11 +284,7 @@ export default async function MatchesPage({
                 key={dec.decade}
                 href={`/matches${qs({ from: String(dec.from), to: String(dec.to), page: undefined })}`}
                 aria-current={active ? "true" : undefined}
-                className={`shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
-                  active
-                    ? "border-devil/60 bg-devil/15 text-devil-bright"
-                    : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
-                }`}
+                className={`shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring ${pillTone(active)}`}
               >
                 <span className="stat-num block text-xs font-semibold leading-tight">{dec.decade}</span>
                 <span className="stat-num block text-[10px] leading-tight text-ink-faint">{fmtNum(dec.n)}</span>
@@ -305,7 +303,7 @@ export default async function MatchesPage({
               key={s.key}
               href={`/matches${qs({ sort: s.key === "recent" ? undefined : s.key, page: undefined })}`}
               aria-current={active ? "true" : undefined}
-              className={`rounded-md px-2 py-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
+              className={`rounded-md px-2 py-1 transition-colors focus-ring ${
                 active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
               }`}
             >
