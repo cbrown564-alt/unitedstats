@@ -33,6 +33,7 @@ npm run dev        # http://localhost:3000
 | `npm run ingest:lineups` | one-off: add lineups from dedicated Wikipedia final/late-round match articles |
 | `npm run ingest:football-data` | one-off: dry-run football-data.org match-sheet enrichment; pass `-- --write` to persist |
 | `npm run ingest:mufcinfo-lineups` | one-off: dry-run MUFCInfo historical lineup enrichment; pass `-- --write` to persist |
+| `npm run ingest:mufcinfo-assists` | one-off: dry-run MUFCInfo assist enrichment onto existing goal events; `-- --inspect YYYY-MM-DD` dumps a page's goal format, `-- --write` persists |
 | `npm run build:db` | canonical JSON → SQLite + precomputed analytics |
 | `npm run validate` | integrity checks on canonical data |
 | `npm run update` | fetch latest results (same code the cron runs) |
@@ -50,7 +51,7 @@ npm run dev        # http://localhost:3000
 | League positions | every season, computed from full-league results with era-correct rules |
 | Managers | every match attributed via tenure dates, 1892– |
 | Lineups | 6,022 matches with full United starting lineups / 72,095 recorded United appearances, primarily from MUFCInfo match pages, structured Wikipedia match articles, and CC0 transfermarkt-datasets; only five matches remain without a validated XI |
-| Assist partnerships | 975 recorded assists (2012–present, transfermarkt-datasets); earlier eras pending sources that record assists |
+| Assist partnerships | 975 recorded assists (2012-13–present, transfermarkt-datasets, CC0). No open, redistributable source records United assists before 2012-13 (assists were not systematically tracked anywhere until the Opta era, and the pre-2012 holders — Opta, Transfermarkt.com, FBref/StatsBomb — are licence-restricted), so earlier seasons are blank by source limitation, not omission. See `docs/ASSISTS-PLAN.md`. |
 
 Every aggregate in the UI shows the coverage behind it (see the data-depth
 ledger on /analytics). Corrections welcome — the data is plain JSON,

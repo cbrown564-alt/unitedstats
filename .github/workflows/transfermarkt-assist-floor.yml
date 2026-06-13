@@ -1,0 +1,48 @@
+name: Transfermarkt assist floor
+
+# Phase A of docs/ASSISTS-PLAN.md: probe how far back transfermarkt-datasets
+# carries assists, to recover 2010-11 / 2011-12 if the data exists. GitHub-hosted
+# runners have open egress and can reach the dataset's R2 bucket. This job is
+# dry-run only by default (no write, no push); flip `write` to persist a backfill
+# (it prints a diff for review but still does not push from CI).
+
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: "Season range to process, e.g. '2009-10 2013-14'"
+        required: false
+        default: "2009-10 2013-14"
+      write:
+        description: "Persist canonical changes (true/false)"
+        required: false
+        default: "false"
+  push:
+    branches: [claude/assists-records-gap-99218q]
+    paths:
+      - .github/workflows/transfermarkt-assist-floor.yml
+
+jobs:
+  floor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Dry-run transfermarkt assist coverage
+        env:
+          SEASONS: ${{ github.event.inputs.seasons || '2009-10 2013-14' }}
+          WRITE: ${{ github.event.inputs.write || 'false' }}
+        run: |
+          if [ "$WRITE" = "true" ]; then
+            npm run ingest:transfermarkt -- $SEASONS --write
+            echo "::group::git diff (not pushed)"
+            git --no-pager diff --stat
+            echo "::endgroup::"
+          else
+            npm run ingest:transfermarkt -- $SEASONS
+          fi
