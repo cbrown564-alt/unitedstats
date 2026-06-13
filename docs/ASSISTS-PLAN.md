@@ -119,12 +119,44 @@ against a synthetic page (scorer name variants such as "Edward Sheringham" →
 `teddy-sheringham` resolve correctly); only the real-page goal-cell wording
 remains to be confirmed.
 
-### Phase C — Headline assist-totals lane (honest fallback)
-- Mirror the existing two-lane design: build
-  `data/canonical/player-assist-records.json` (analogous to `player-records.json`)
-  from MUFCInfo career-assist tables, surfaced on player pages and clearly
-  labelled "career total, not match-attributed" — the same way `player_records`
-  and `player_totals` already coexist.
+### Phase C — Headline assist-totals lane — CLOSED (negative)
+
+**Verdict (2026-06-13): MUFCInfo publishes no structured assist data to import.**
+A read-only cloud probe (`.github/workflows/mufcinfo-assist-records-probe.yml`)
+checked the aggregate stat pages and individual player-archive pages. Assists
+appear only as SEO/meta keywords (`current_season_stats`), narrative editorial
+prose (the "who leads… 2026" article), or unrelated biography ("assistant
+coach/manager"). The goals/career/all-time tables have no assist column, and the
+individual player pages — including Giggs's 2.2MB archive page and Charlton's
+1.8MB page — carry zero structured assist figures. The "Giggs 265 assists"
+number that circulates online comes from Transfermarkt-style aggregators, not
+MUFCInfo. So there is no MUFCInfo headline assist lane to build.
+
+The original plan was to mirror the two-lane design with a
+`data/canonical/player-assist-records.json` (analogous to `player-records.json`)
+sourced from MUFCInfo career-assist tables. Those tables do not exist, so this
+phase is closed.
+
+## Conclusion — current end state
+
+All three open/redistributable lanes are exhausted with evidence:
+
+- **Phase A** (transfermarkt-datasets): assists exist only from 2012-13; already
+  fully ingested. Floor confirmed.
+- **Phase B** (MUFCInfo match pages): no per-goal assists in any era.
+- **Phase C** (MUFCInfo aggregate/career pages): no structured assist data at all.
+
+**There is no open, redistributable, structured source for Manchester United
+assists before 2012-13.** Pre-2012 assists exist only in proprietary datasets
+(Opta from 2006-07; Transfermarkt.com and FBref/StatsBomb for the modern era),
+whose terms the project's licensing guardrails forbid redistributing. The honest
+position is therefore:
+
+1. Keep the complete 2012-13+ coverage from `transfermarkt-datasets` (CC0).
+2. Treat pre-2012 assists as **unavailable from open sources**, stated plainly in
+   the coverage ledger rather than presented as a fillable gap.
+3. Only Phase D (curated, cited per-match assists for landmark goals) can add
+   anything before 2012, at low volume and high manual cost.
 
 ### Phase D — Curated long tail
 - RSSSF / Wikipedia / Opta-era citations via curated PRs for notable matches and
@@ -135,10 +167,9 @@ remains to be confirmed.
   attribution captured, and expectations framed (no pre-1990 assists exist to
   recover).
 
-## Open decision
+## Status
 
-The pivotal unknown is **what MUFCInfo match pages contain per goal**. It decides
-whether Phase B is a sweeping backfill or whether the work falls to the Phase C
-headline lane. The importer now exists; resolve the unknown with
-`npm run ingest:mufcinfo-assists -- --inspect <date>` in the pipeline before any
-`--write`.
+All open lanes investigated and closed (see Conclusion above). The remaining
+open question is a product decision, not a sourcing one: whether to invest in
+Phase D curated landmark-goal assists, or to leave pre-2012 assists explicitly
+unavailable in the coverage ledger. No further automated ingestion is warranted.
