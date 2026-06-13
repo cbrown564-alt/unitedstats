@@ -11559,7 +11559,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -11583,7 +11584,201 @@
           "minute": 91
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "martin-dubravka",
+          "playerName": "Martin Dúbravka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dubravka_martin",
+          "shirt": 31,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 20,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "victor-lindelof",
+          "playerName": "Victor Lindelöf",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lindelof_victor",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 87
+        },
+        {
+          "player": "tyrell-malacia",
+          "playerName": "Tyrell Malacia",
+          "playerSide": "united",
+          "providerId": "mufcinfo:malacia_tyrell",
+          "shirt": 12,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "scott-mctominay",
+          "playerName": "Scott McTominay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mctominay_scott",
+          "shirt": 39,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "donny-van-de-beek",
+          "playerName": "Donny van de Beek",
+          "playerSide": "united",
+          "providerId": "mufcinfo:van_de_beek_donny",
+          "shirt": 34,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 62
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 82
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 62
+        },
+        {
+          "player": "alejandro-garnacho",
+          "playerName": "Alejandro Garnacho",
+          "playerSide": "united",
+          "providerId": "mufcinfo:garnacho_alejandro",
+          "shirt": 49,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 62,
+          "off": null
+        },
+        {
+          "player": "anthony-elanga",
+          "playerName": "Anthony Elanga",
+          "playerSide": "united",
+          "providerId": "mufcinfo:elanga_anthony",
+          "shirt": 36,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 62,
+          "off": null
+        },
+        {
+          "player": "christian-eriksen",
+          "playerName": "Christian Eriksen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:eriksen_christian",
+          "shirt": 14,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 62,
+          "off": null
+        },
+        {
+          "player": "casemiro",
+          "playerName": "Casemiro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:casimiro_carlos",
+          "shirt": 18,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 82,
+          "off": null
+        },
+        {
+          "player": "lisandro-martinez",
+          "playerName": "Lisandro Martínez",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martinez_lisandro",
+          "shirt": 6,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 87,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2022-11-13-fulham-a",
@@ -12175,7 +12370,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -12189,7 +12385,201 @@
           "minute": 57
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "martin-dubravka",
+          "playerName": "Martin Dúbravka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dubravka_martin",
+          "shirt": 31,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "playerName": "Aaron Wan-Bissaka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wan-bissaka_aaron",
+          "shirt": 29,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 72
+        },
+        {
+          "player": "casemiro",
+          "playerName": "Casemiro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:casimiro_carlos",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "victor-lindelof",
+          "playerName": "Victor Lindelöf",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lindelof_victor",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tyrell-malacia",
+          "playerName": "Tyrell Malacia",
+          "playerSide": "united",
+          "providerId": "mufcinfo:malacia_tyrell",
+          "shirt": 12,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 85
+        },
+        {
+          "player": "scott-mctominay",
+          "playerName": "Scott McTominay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mctominay_scott",
+          "shirt": 39,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "christian-eriksen",
+          "playerName": "Christian Eriksen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:eriksen_christian",
+          "shirt": 14,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 85
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alejandro-garnacho",
+          "playerName": "Alejandro Garnacho",
+          "playerSide": "united",
+          "providerId": "mufcinfo:garnacho_alejandro",
+          "shirt": 49,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 59
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 72
+        },
+        {
+          "player": "antony",
+          "playerName": "Antony",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dos_santos_antony",
+          "shirt": 21,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 59,
+          "off": null
+        },
+        {
+          "player": "luke-shaw",
+          "playerName": "Luke Shaw",
+          "playerSide": "united",
+          "providerId": "mufcinfo:shaw_luke",
+          "shirt": 23,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 72,
+          "off": null
+        },
+        {
+          "player": "anthony-elanga",
+          "playerName": "Anthony Elanga",
+          "playerSide": "united",
+          "providerId": "mufcinfo:elanga_anthony",
+          "shirt": 36,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 72,
+          "off": null
+        },
+        {
+          "player": "brandon-williams",
+          "playerName": "Brandon Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_brandon",
+          "shirt": 33,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 85,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 85,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2022-12-27-nottingham-forest-h",
@@ -14592,7 +14982,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -14611,7 +15002,201 @@
           "minute": 94
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "tom-heaton",
+          "playerName": "Tom Heaton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:heaton_tom",
+          "shirt": 22,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 20,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 34
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lisandro-martinez",
+          "playerName": "Lisandro Martínez",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martinez_lisandro",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tyrell-malacia",
+          "playerName": "Tyrell Malacia",
+          "playerSide": "united",
+          "providerId": "mufcinfo:malacia_tyrell",
+          "shirt": 12,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "scott-mctominay",
+          "playerName": "Scott McTominay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mctominay_scott",
+          "shirt": 39,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "antony",
+          "playerName": "Antony",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dos_santos_antony",
+          "shirt": 21,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kobbie-mainoo",
+          "playerName": "Kobbie Mainoo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mainoo_kobbie",
+          "shirt": 73,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 60
+        },
+        {
+          "player": "alejandro-garnacho",
+          "playerName": "Alejandro Garnacho",
+          "playerSide": "united",
+          "providerId": "mufcinfo:garnacho_alejandro",
+          "shirt": 49,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "anthony-elanga",
+          "playerName": "Anthony Elanga",
+          "playerSide": "united",
+          "providerId": "mufcinfo:elanga_anthony",
+          "shirt": 36,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 84
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "playerName": "Aaron Wan-Bissaka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wan-bissaka_aaron",
+          "shirt": 29,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 34,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 60,
+          "off": null
+        },
+        {
+          "player": "casemiro",
+          "playerName": "Casemiro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:casimiro_carlos",
+          "shirt": 18,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 60,
+          "off": null
+        },
+        {
+          "player": "christian-eriksen",
+          "playerName": "Christian Eriksen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:eriksen_christian",
+          "shirt": 14,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 60,
+          "off": null
+        },
+        {
+          "player": "facundo-pellistri",
+          "playerName": "Facundo Pellistri",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pellistri_facundo",
+          "shirt": 28,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 84,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2023-01-14-manchester-city-h",
@@ -16421,7 +17006,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -16440,7 +17026,189 @@
           "minute": 89
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "playerName": "David de Gea",
+          "playerSide": "united",
+          "providerId": "mufcinfo:de_gea_david",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "playerName": "Aaron Wan-Bissaka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wan-bissaka_aaron",
+          "shirt": 29,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "victor-lindelof",
+          "playerName": "Victor Lindelöf",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lindelof_victor",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lisandro-martinez",
+          "playerName": "Lisandro Martínez",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martinez_lisandro",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tyrell-malacia",
+          "playerName": "Tyrell Malacia",
+          "playerSide": "united",
+          "providerId": "mufcinfo:malacia_tyrell",
+          "shirt": 12,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "casemiro",
+          "playerName": "Casemiro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:casimiro_carlos",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "christian-eriksen",
+          "playerName": "Christian Eriksen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:eriksen_christian",
+          "shirt": 14,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 71
+        },
+        {
+          "player": "antony",
+          "playerName": "Antony",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dos_santos_antony",
+          "shirt": 21,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 57
+        },
+        {
+          "player": "wout-weghorst",
+          "playerName": "Wout Weghorst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:weghorst_wout",
+          "shirt": 27,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 85
+        },
+        {
+          "player": "alejandro-garnacho",
+          "playerName": "Alejandro Garnacho",
+          "playerSide": "united",
+          "providerId": "mufcinfo:garnacho_alejandro",
+          "shirt": 49,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 57,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 71,
+          "off": null
+        },
+        {
+          "player": "facundo-pellistri",
+          "playerName": "Facundo Pellistri",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pellistri_facundo",
+          "shirt": 28,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 71,
+          "off": null
+        },
+        {
+          "player": "anthony-elanga",
+          "playerName": "Anthony Elanga",
+          "playerSide": "united",
+          "providerId": "mufcinfo:elanga_anthony",
+          "shirt": 36,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 85,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2023-01-28-reading-h",
@@ -17070,7 +17838,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -17084,7 +17853,201 @@
           "minute": 76
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "tom-heaton",
+          "playerName": "Tom Heaton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:heaton_tom",
+          "shirt": 22,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "playerName": "Aaron Wan-Bissaka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wan-bissaka_aaron",
+          "shirt": 29,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "raphael-varane",
+          "playerName": "Raphaël Varane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:varane_raphael",
+          "shirt": 19,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "lisandro-martinez",
+          "playerName": "Lisandro Martínez",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martinez_lisandro",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "luke-shaw",
+          "playerName": "Luke Shaw",
+          "playerSide": "united",
+          "providerId": "mufcinfo:shaw_luke",
+          "shirt": 23,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "casemiro",
+          "playerName": "Casemiro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:casimiro_carlos",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "antony",
+          "playerName": "Antony",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dos_santos_antony",
+          "shirt": 21,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wout-weghorst",
+          "playerName": "Wout Weghorst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:weghorst_wout",
+          "shirt": 27,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 63
+        },
+        {
+          "player": "alejandro-garnacho",
+          "playerName": "Alejandro Garnacho",
+          "playerSide": "united",
+          "providerId": "mufcinfo:garnacho_alejandro",
+          "shirt": 49,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 62
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 62,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 9,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 63,
+          "off": null
+        },
+        {
+          "player": "jadon-sancho",
+          "playerName": "Jadon Sancho",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sancho_jadon",
+          "shirt": 25,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 63,
+          "off": null
+        },
+        {
+          "player": "victor-lindelof",
+          "playerName": "Victor Lindelöf",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lindelof_victor",
+          "shirt": 2,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2023-02-04-crystal-palace-h",
@@ -20792,7 +21755,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -20806,7 +21770,201 @@
           "minute": 39
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "playerName": "David de Gea",
+          "playerSide": "united",
+          "providerId": "mufcinfo:de_gea_david",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 20,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 45
+        },
+        {
+          "player": "raphael-varane",
+          "playerName": "Raphaël Varane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:varane_raphael",
+          "shirt": 19,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lisandro-martinez",
+          "playerName": "Lisandro Martínez",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martinez_lisandro",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "luke-shaw",
+          "playerName": "Luke Shaw",
+          "playerSide": "united",
+          "providerId": "mufcinfo:shaw_luke",
+          "shirt": 23,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "casemiro",
+          "playerName": "Casemiro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:casimiro_carlos",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "antony",
+          "playerName": "Antony",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dos_santos_antony",
+          "shirt": 21,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 88
+        },
+        {
+          "player": "wout-weghorst",
+          "playerName": "Wout Weghorst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:weghorst_wout",
+          "shirt": 27,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 70
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "playerName": "Aaron Wan-Bissaka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wan-bissaka_aaron",
+          "shirt": 29,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 45,
+          "off": null
+        },
+        {
+          "player": "marcel-sabitzer",
+          "playerName": "Marcel Sabitzer",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sabitzer_marcel",
+          "shirt": 15,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 69,
+          "off": null
+        },
+        {
+          "player": "scott-mctominay",
+          "playerName": "Scott McTominay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mctominay_scott",
+          "shirt": 39,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 70,
+          "off": null
+        },
+        {
+          "player": "jadon-sancho",
+          "playerName": "Jadon Sancho",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sancho_jadon",
+          "shirt": 25,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 83,
+          "off": null
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 88,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2023-03-01-west-ham-united-h",

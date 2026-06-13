@@ -40,7 +40,7 @@ npm run dev        # http://localhost:3000
 
 ## Data coverage
 
-**6,028 matches across 126 seasons (1886–present), every competition:**
+**6,027 matches across 126 seasons (1886–present), every competition:**
 
 | Layer | Coverage |
 |---|---|
@@ -49,7 +49,7 @@ npm run dev        # http://localhost:3000
 | Goal scorers (with minutes where recorded) | ~99% of matches United scored in — the all-time list reproduces the official club record |
 | League positions | every season, computed from full-league results with era-correct rules |
 | Managers | every match attributed via tenure dates, 1892– |
-| Lineups | 868 matches with full United lineups / 12,147 player appearances, from structured Wikipedia match articles (finals, Shields, Super Cups) and CC0 transfermarkt-datasets (2013–present); schema, DB, validation, and UI live |
+| Lineups | 6,022 matches with full United starting lineups / 72,095 recorded United appearances, primarily from MUFCInfo match pages, structured Wikipedia match articles, and CC0 transfermarkt-datasets; only five matches remain without a validated XI |
 | Assist partnerships | 975 recorded assists (2012–present, transfermarkt-datasets); earlier eras pending sources that record assists |
 
 Every aggregate in the UI shows the coverage behind it (see the data-depth

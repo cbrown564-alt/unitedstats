@@ -576,7 +576,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -595,7 +596,177 @@
           "minute": 92
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "dean-henderson",
+          "playerName": "Dean Henderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:henderson_dean",
+          "shirt": 26,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "playerName": "Aaron Wan-Bissaka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wan-bissaka_aaron",
+          "shirt": 29,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "playerName": "Eric Bailly",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bailly_eric",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brandon-williams",
+          "playerName": "Brandon Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_brandon",
+          "shirt": 33,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-matic",
+          "playerName": "Nemanja Matić",
+          "playerSide": "united",
+          "providerId": "mufcinfo:matic_nemanja",
+          "shirt": 31,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "playerName": "Juan Mata",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mata_juan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "donny-van-de-beek",
+          "playerName": "Donny van de Beek",
+          "playerSide": "united",
+          "providerId": "mufcinfo:van_de_beek_donny",
+          "shirt": 34,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "jesse-lingard",
+          "playerName": "Jesse Lingard",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lingard_jesse",
+          "shirt": 14,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "odion-ighalo",
+          "playerName": "Odion Ighalo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:ighalo_odion",
+          "shirt": 25,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 79
+        },
+        {
+          "player": "mason-greenwood",
+          "playerName": "Mason Greenwood",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greenwood_mason",
+          "shirt": 11,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 18,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 78,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 79,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2020-09-26-brighton-and-hove-albion-a",
@@ -1220,7 +1391,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1240,7 +1412,177 @@
           "detail": "Paul Pogba (og)"
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "dean-henderson",
+          "playerName": "Dean Henderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:henderson_dean",
+          "shirt": 26,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 20,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "playerName": "Eric Bailly",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bailly_eric",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "victor-lindelof",
+          "playerName": "Victor Lindelöf",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lindelof_victor",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brandon-williams",
+          "playerName": "Brandon Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_brandon",
+          "shirt": 33,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "scott-mctominay",
+          "playerName": "Scott McTominay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mctominay_scott",
+          "shirt": 39,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "playerName": "Juan Mata",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mata_juan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "donny-van-de-beek",
+          "playerName": "Donny van de Beek",
+          "playerSide": "united",
+          "providerId": "mufcinfo:van_de_beek_donny",
+          "shirt": 34,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-james",
+          "playerName": "Daniel James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_daniel",
+          "shirt": 21,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 69
+        },
+        {
+          "player": "odion-ighalo",
+          "playerName": "Odion Ighalo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:ighalo_odion",
+          "shirt": 25,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 69
+        },
+        {
+          "player": "paul-pogba",
+          "playerName": "Paul Pogba",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pogba_paul",
+          "shirt": 6,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 69,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 69,
+          "off": null
+        },
+        {
+          "player": "jesse-lingard",
+          "playerName": "Jesse Lingard",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lingard_jesse",
+          "shirt": 14,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 81,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2020-10-04-tottenham-hotspur-h",
@@ -11346,7 +11688,8 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -11360,7 +11703,177 @@
           "minute": 96
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "dean-henderson",
+          "playerName": "Dean Henderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:henderson_dean",
+          "shirt": 26,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "axel-tuanzebe",
+          "playerName": "Axel Tuanzebe",
+          "playerSide": "united",
+          "providerId": "mufcinfo:tuanzebe_axel",
+          "shirt": 38,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "playerName": "Eric Bailly",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bailly_eric",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-telles",
+          "playerName": "Alex Telles",
+          "playerSide": "united",
+          "providerId": "mufcinfo:telles_alex",
+          "shirt": 27,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 84
+        },
+        {
+          "player": "paul-pogba",
+          "playerName": "Paul Pogba",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pogba_paul",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "nemanja-matic",
+          "playerName": "Nemanja Matić",
+          "playerSide": "united",
+          "providerId": "mufcinfo:matic_nemanja",
+          "shirt": 31,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mason-greenwood",
+          "playerName": "Mason Greenwood",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greenwood_mason",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "donny-van-de-beek",
+          "playerName": "Donny van de Beek",
+          "playerSide": "united",
+          "providerId": "mufcinfo:van_de_beek_donny",
+          "shirt": 34,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "edinson-cavani",
+          "playerName": "Edinson Cavani",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cavani_edinson",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 9,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "luke-shaw",
+          "playerName": "Luke Shaw",
+          "playerSide": "united",
+          "providerId": "mufcinfo:shaw_luke",
+          "shirt": 23,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 84,
+          "off": null
+        }
+      ]
     },
     {
       "id": "2020-12-26-leicester-city-a",
@@ -13125,7 +13638,166 @@
       },
       "sources": [
         "openfootball",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "dean-henderson",
+          "playerName": "Dean Henderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:henderson_dean",
+          "shirt": 26,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "aaron-wan-bissaka",
+          "playerName": "Aaron Wan-Bissaka",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wan-bissaka_aaron",
+          "shirt": 29,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "victor-lindelof",
+          "playerName": "Victor Lindelöf",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lindelof_victor",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "luke-shaw",
+          "playerName": "Luke Shaw",
+          "playerSide": "united",
+          "providerId": "mufcinfo:shaw_luke",
+          "shirt": 23,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "scott-mctominay",
+          "playerName": "Scott McTominay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mctominay_scott",
+          "shirt": 39,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 75
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-pogba",
+          "playerName": "Paul Pogba",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pogba_paul",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mason-greenwood",
+          "playerName": "Mason Greenwood",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greenwood_mason",
+          "shirt": 11,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 75,
+          "off": null
+        },
+        {
+          "player": "donny-van-de-beek",
+          "playerName": "Donny van de Beek",
+          "playerSide": "united",
+          "providerId": "mufcinfo:van_de_beek_donny",
+          "shirt": 34,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 87,
+          "off": null
+        }
       ]
     },
     {

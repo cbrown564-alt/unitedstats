@@ -19,7 +19,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -48,7 +49,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-08-27-nottingham-forest-a",
@@ -68,7 +203,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -87,7 +223,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-08-30-blackpool-a",
@@ -107,7 +377,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -116,7 +387,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-09-03-nottingham-forest-h",
@@ -136,7 +541,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -145,7 +551,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-09-06-blackburn-rovers-h",
@@ -165,7 +705,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -199,7 +740,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "colin-webster",
+          "playerName": "Colin Webster",
+          "playerSide": "united",
+          "providerId": "mufcinfo:webster_colin",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-09-08-west-ham-united-a",
@@ -219,7 +894,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -233,7 +909,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "colin-webster",
+          "playerName": "Colin Webster",
+          "playerSide": "united",
+          "providerId": "mufcinfo:webster_colin",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-09-13-newcastle-united-a",
@@ -253,7 +1063,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -262,7 +1073,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-crowther",
+          "playerName": "Stan Crowther",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crowther_stan",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "colin-webster",
+          "playerName": "Colin Webster",
+          "playerSide": "united",
+          "providerId": "mufcinfo:webster_colin",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-09-17-west-ham-united-h",
@@ -282,7 +1227,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -306,7 +1252,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "colin-webster",
+          "playerName": "Colin Webster",
+          "playerSide": "united",
+          "providerId": "mufcinfo:webster_colin",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-09-20-tottenham-hotspur-h",
@@ -326,7 +1406,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -340,7 +1421,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "colin-webster",
+          "playerName": "Colin Webster",
+          "playerSide": "united",
+          "providerId": "mufcinfo:webster_colin",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-09-27-manchester-city-a",
@@ -360,7 +1575,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -369,7 +1585,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "colin-webster",
+          "playerName": "Colin Webster",
+          "playerSide": "united",
+          "providerId": "mufcinfo:webster_colin",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-10-04-wolverhampton-wanderers-a",
@@ -389,7 +1739,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "ray-wood",
+          "playerName": "Ray Wood",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wood_raymond",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-harrop",
+          "playerName": "Bobby Harrop",
+          "playerSide": "united",
+          "providerId": "mufcinfo:harrop_robert",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-crowther",
+          "playerName": "Stan Crowther",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crowther_stan",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "colin-webster",
+          "playerName": "Colin Webster",
+          "playerSide": "united",
+          "providerId": "mufcinfo:webster_colin",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-pearson",
+          "playerName": "Mark Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_mark",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -410,7 +1895,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -431,7 +2051,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -440,7 +2061,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-10-18-everton-a",
@@ -460,7 +2215,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -474,7 +2230,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-taylor",
+          "playerName": "Ernie Taylor",
+          "playerSide": "united",
+          "providerId": "mufcinfo:taylor_ernest",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-10-25-west-bromwich-albion-h",
@@ -494,7 +2384,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -503,7 +2394,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-harrop",
+          "playerName": "Bobby Harrop",
+          "playerSide": "united",
+          "providerId": "mufcinfo:harrop_robert",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-11-01-leeds-united-a",
@@ -523,7 +2548,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -537,7 +2563,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-harrop",
+          "playerName": "Bobby Harrop",
+          "playerSide": "united",
+          "providerId": "mufcinfo:harrop_robert",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kenny-morgans",
+          "playerName": "Kenny Morgans",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgans_kenneth",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-11-08-burnley-h",
@@ -557,7 +2717,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -566,7 +2727,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-harrop",
+          "playerName": "Bobby Harrop",
+          "playerSide": "united",
+          "providerId": "mufcinfo:harrop_robert",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kenny-morgans",
+          "playerName": "Kenny Morgans",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgans_kenneth",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-11-15-bolton-wanderers-a",
@@ -586,7 +2881,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -605,7 +2901,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-dawson",
+          "playerName": "Alex Dawson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dawson_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-11-22-luton-town-h",
@@ -625,7 +3055,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -639,7 +3070,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-11-29-birmingham-city-a",
@@ -659,7 +3224,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -683,7 +3249,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-12-06-leicester-city-h",
@@ -703,7 +3403,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -727,7 +3428,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-12-13-preston-north-end-a",
@@ -747,7 +3582,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -771,7 +3607,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-12-20-chelsea-a",
@@ -791,7 +3761,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -805,7 +3776,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": false,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-12-26-aston-villa-h",
@@ -825,7 +3930,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -839,7 +3945,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-pearson",
+          "playerName": "Mark Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_mark",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1958-12-27-aston-villa-a",
@@ -859,7 +4099,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -873,7 +4114,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "reg-hunter",
+          "playerName": "Reg Hunter",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hunter_john",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-pearson",
+          "playerName": "Mark Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_mark",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-01-03-blackpool-h",
@@ -893,7 +4268,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -912,7 +4288,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-01-10-norwich-city-a",
@@ -933,9 +4443,144 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-01-31-newcastle-united-h",
@@ -955,7 +4600,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -979,7 +4625,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-harrop",
+          "playerName": "Bobby Harrop",
+          "playerSide": "united",
+          "providerId": "mufcinfo:harrop_robert",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-02-07-tottenham-hotspur-a",
@@ -999,7 +4779,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1018,7 +4799,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-02-14-manchester-city-h",
@@ -1037,7 +4952,142 @@
         ]
       },
       "sources": [
-        "engsoccerdata"
+        "engsoccerdata",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -1058,7 +5108,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1072,7 +5123,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-02-28-arsenal-a",
@@ -1092,7 +5277,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1106,7 +5292,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-03-02-blackburn-rovers-a",
@@ -1126,7 +5446,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1145,7 +5466,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-03-07-everton-h",
@@ -1165,7 +5620,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1179,7 +5635,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-03-14-west-bromwich-albion-a",
@@ -1199,7 +5789,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1218,7 +5809,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-03-21-leeds-united-h",
@@ -1238,7 +5963,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1262,7 +5988,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-03-27-portsmouth-h",
@@ -1282,7 +6142,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1311,7 +6172,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": false,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-03-28-burnley-a",
@@ -1331,7 +6326,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1345,7 +6341,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ronnie-cope",
+          "playerName": "Ronnie Cope",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cope_ronald",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-03-30-portsmouth-a",
@@ -1365,7 +6495,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1384,7 +6515,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-04-04-bolton-wanderers-h",
@@ -1404,7 +6669,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1423,7 +6689,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-04-11-luton-town-a",
@@ -1443,7 +6843,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-pearson",
+          "playerName": "Mark Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_mark",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -1464,7 +6999,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1473,7 +7009,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wilf-mcguinness",
+          "playerName": "Wilf McGuinness",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcguinness_wilfred",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1959-04-25-leicester-city-a",
@@ -1493,7 +7163,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1502,7 +7173,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "harry-gregg",
+          "playerName": "Harry Gregg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gregg_harry",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-greaves",
+          "playerName": "Ian Greaves",
+          "playerSide": "united",
+          "providerId": "mufcinfo:greaves_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-carolan",
+          "playerName": "Joe Carolan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carolan_joseph",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "freddie-goodwin",
+          "playerName": "Freddie Goodwin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:goodwin_fredrick",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bill-foulkes",
+          "playerName": "Bill Foulkes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:foulkes_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "shay-brennan",
+          "playerName": "Shay Brennan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:brennan_shay",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "warren-bradley",
+          "playerName": "Warren Bradley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bradley_warren",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-quixall",
+          "playerName": "Albert Quixall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:quixall_albert",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dennis-viollet",
+          "playerName": "Dennis Viollet",
+          "playerSide": "united",
+          "providerId": "mufcinfo:viollet_dennis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "albert-scanlon",
+          "playerName": "Albert Scanlon",
+          "playerSide": "united",
+          "providerId": "mufcinfo:scanlon_albert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     }
   ]
 }

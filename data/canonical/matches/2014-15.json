@@ -1100,7 +1100,178 @@
         "pens": null
       },
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "playerName": "David de Gea",
+          "playerSide": "united",
+          "providerId": "mufcinfo:de_gea_david",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "michael-keane",
+          "playerName": "Michael Keane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:keane_michael",
+          "shirt": 38,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jonny-evans",
+          "playerName": "Jonny Evans",
+          "playerSide": "united",
+          "providerId": "mufcinfo:evans_jonny",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marnick-vermijl",
+          "playerName": "Marnick Vermijl",
+          "playerSide": "united",
+          "providerId": "mufcinfo:vermijl_marnick",
+          "shirt": 36,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "saidy-janko",
+          "playerName": "Saidy Janko",
+          "playerSide": "united",
+          "providerId": "mufcinfo:janko_saidy",
+          "shirt": 37,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 45
+        },
+        {
+          "player": "nick-powell",
+          "playerName": "Nick Powell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:powell_nick",
+          "shirt": 22,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 57
+        },
+        {
+          "player": "anderson",
+          "playerName": "Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_oliveira",
+          "shirt": 28,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "reece-james",
+          "playerName": "Reece James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_reece",
+          "shirt": 41,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "shinji-kagawa",
+          "playerName": "Shinji Kagawa",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kagawa_shinji",
+          "shirt": 26,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 20
+        },
+        {
+          "player": "danny-welbeck",
+          "playerName": "Danny Welbeck",
+          "playerSide": "united",
+          "providerId": "mufcinfo:welbeck_daniel",
+          "shirt": 19,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "chicharito",
+          "playerName": "Javier Hernández",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hernandez_javier",
+          "shirt": 14,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "adnan-januzaj",
+          "playerName": "Adnan Januzaj",
+          "playerSide": "united",
+          "providerId": "mufcinfo:januzaj_adnan",
+          "shirt": 11,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 20,
+          "off": null
+        },
+        {
+          "player": "andreas-pereira",
+          "playerName": "Andreas Pereira",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pereira_andreas",
+          "shirt": 44,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 45,
+          "off": null
+        },
+        {
+          "player": "james-wilson",
+          "playerName": "James Wilson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wilson_james",
+          "shirt": 49,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 57,
+          "off": null
+        }
       ]
     },
     {

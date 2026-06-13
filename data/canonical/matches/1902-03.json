@@ -19,7 +19,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -28,7 +29,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-whitehouse",
+          "playerName": "Jimmy Whitehouse",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitehouse_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-09-13-burton-united-h",
@@ -48,7 +183,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -57,7 +193,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-whitehouse",
+          "playerName": "Jimmy Whitehouse",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitehouse_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-09-20-bristol-city-a",
@@ -77,7 +347,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -86,7 +357,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-whitehouse",
+          "playerName": "Jimmy Whitehouse",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitehouse_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-09-27-glossop-h",
@@ -106,7 +511,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -115,7 +521,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-whitehouse",
+          "playerName": "Jimmy Whitehouse",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitehouse_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-10-04-chesterfield-h",
@@ -135,7 +675,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -149,7 +690,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-whitehouse",
+          "playerName": "Jimmy Whitehouse",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitehouse_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "william-bunce",
+          "playerName": "William Bunce",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bunce_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "vince-hayes",
+          "playerName": "Vince Hayes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hayes_james",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stephen-preston",
+          "playerName": "Stephen Preston",
+          "playerSide": "united",
+          "providerId": "mufcinfo:preston_stephen",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-10-11-stockport-county-a",
@@ -169,7 +844,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -178,7 +854,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-whitehouse",
+          "playerName": "Jimmy Whitehouse",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitehouse_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "william-bunce",
+          "playerName": "William Bunce",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bunce_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "vince-hayes",
+          "playerName": "Vince Hayes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hayes_james",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stephen-preston",
+          "playerName": "Stephen Preston",
+          "playerSide": "united",
+          "providerId": "mufcinfo:preston_stephen",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-10-25-arsenal-a",
@@ -198,7 +1008,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -207,7 +1018,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-11-08-lincoln-city-a",
@@ -227,7 +1172,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -246,7 +1192,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-ball",
+          "playerName": "Billy Ball",
+          "playerSide": "united",
+          "providerId": "mufcinfo:ball_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-11-15-birmingham-city-h",
@@ -266,7 +1346,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-ball",
+          "playerName": "Billy Ball",
+          "playerSide": "united",
+          "providerId": "mufcinfo:ball_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -287,7 +1502,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -296,7 +1512,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred-williams",
+          "playerName": "Fred Williams",
+          "playerSide": "united",
+          "providerId": "mufcinfo:williams_frederick",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-12-06-burnley-a",
@@ -316,7 +1666,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -331,7 +1682,141 @@
           "detail": "Own goal (og)"
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-12-20-port-vale-a",
@@ -351,7 +1836,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -360,7 +1846,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-lappin",
+          "playerName": "Harry Lappin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lappin_hubert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-12-25-manchester-city-h",
@@ -380,7 +2000,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -389,7 +2010,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-12-26-blackpool-h",
@@ -409,7 +2164,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -423,7 +2179,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-whitehouse",
+          "playerName": "Jimmy Whitehouse",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitehouse_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-lappin",
+          "playerName": "Harry Lappin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lappin_hubert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1902-12-27-barnsley-h",
@@ -443,7 +2333,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -457,7 +2348,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "james-saunders",
+          "playerName": "James Saunders",
+          "playerSide": "united",
+          "providerId": "mufcinfo:saunders_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-lappin",
+          "playerName": "Harry Lappin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lappin_hubert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-01-03-gainsborough-trinity-h",
@@ -477,7 +2502,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -496,7 +2522,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-ball",
+          "playerName": "Billy Ball",
+          "playerSide": "united",
+          "providerId": "mufcinfo:ball_william",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stephen-preston",
+          "playerName": "Stephen Preston",
+          "playerSide": "united",
+          "providerId": "mufcinfo:preston_stephen",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-lappin",
+          "playerName": "Harry Lappin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lappin_hubert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-01-10-burton-united-a",
@@ -516,7 +2676,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -525,7 +2686,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-lappin",
+          "playerName": "Harry Lappin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lappin_hubert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-01-17-bristol-city-h",
@@ -545,7 +2840,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -554,7 +2850,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-morgan",
+          "playerName": "Billy Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_01",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-richards",
+          "playerName": "Charlie Richards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:richards_charles",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stephen-preston",
+          "playerName": "Stephen Preston",
+          "playerSide": "united",
+          "providerId": "mufcinfo:preston_stephen",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-01-24-glossop-a",
@@ -574,7 +3004,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -593,7 +3024,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-bell",
+          "playerName": "Alex Bell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bell_alexander",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-01-31-chesterfield-a",
@@ -613,7 +3178,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-bell",
+          "playerName": "Alex Bell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bell_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -635,7 +3335,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "notes": null,
       "events": [
@@ -650,7 +3351,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernest-street",
+          "playerName": "Ernest Street",
+          "playerSide": "united",
+          "providerId": "mufcinfo:street_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-02-14-blackpool-a",
@@ -670,7 +3505,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-bell",
+          "playerName": "Alex Bell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bell_alexander",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -692,7 +3662,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "notes": null,
       "events": [
@@ -702,7 +3673,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernest-street",
+          "playerName": "Ernest Street",
+          "playerSide": "united",
+          "providerId": "mufcinfo:street_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-02-28-doncaster-rovers-a",
@@ -722,7 +3827,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -736,7 +3842,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-christie",
+          "playerName": "John Christie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:christie_john",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-03-07-lincoln-city-h",
@@ -756,7 +3996,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -765,7 +4006,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-stafford",
+          "playerName": "Harry Stafford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stafford_harry",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernest-street",
+          "playerName": "Ernest Street",
+          "playerSide": "united",
+          "providerId": "mufcinfo:street_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-03-09-arsenal-h",
@@ -785,7 +4160,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -804,7 +4180,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-marshall",
+          "playerName": "Arthur Marshall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:marshall_arthur",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-ball",
+          "playerName": "Billy Ball",
+          "playerSide": "united",
+          "providerId": "mufcinfo:ball_william",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-03-21-leicester-city-h",
@@ -824,7 +4334,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -853,7 +4364,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-marshall",
+          "playerName": "Arthur Marshall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:marshall_arthur",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitchett",
+          "playerName": "John Fitchett",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitchett_john",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-03-23-stockport-county-h",
@@ -873,7 +4518,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-marshall",
+          "playerName": "Arthur Marshall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:marshall_arthur",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitchett",
+          "playerName": "John Fitchett",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitchett_john",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -894,7 +4674,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-marshall",
+          "playerName": "Arthur Marshall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:marshall_arthur",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitchett",
+          "playerName": "John Fitchett",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitchett_john",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daniel-hurst",
+          "playerName": "Daniel Hurst",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hurst_daniel",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -915,7 +4830,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -939,7 +4855,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-cleaver",
+          "playerName": "Harry Cleaver",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cleaver_harry",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-04-10-manchester-city-a",
@@ -959,7 +5009,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -973,7 +5024,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-04-11-preston-north-end-a",
@@ -993,7 +5178,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1002,7 +5188,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-marshall",
+          "playerName": "Arthur Marshall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:marshall_arthur",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitchett",
+          "playerName": "John Fitchett",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitchett_john",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-04-13-doncaster-rovers-h",
@@ -1022,7 +5342,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1046,7 +5367,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-marshall",
+          "playerName": "Arthur Marshall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:marshall_arthur",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-bell",
+          "playerName": "Alex Bell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bell_alexander",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-04-18-port-vale-h",
@@ -1066,7 +5521,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1080,7 +5536,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-morrison",
+          "playerName": "Tommy Morrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morrison_thomas",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-04-20-birmingham-city-a",
@@ -1100,7 +5690,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1109,7 +5700,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "herbert-rothwell",
+          "playerName": "Herbert Rothwell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rothwell_herbert",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-bell",
+          "playerName": "Alex Bell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bell_alexander",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-peddie",
+          "playerName": "Jack Peddie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:peddie_jack",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lawrence-smith",
+          "playerName": "Lawrence Smith",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smith_lawrence",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1903-04-25-barnsley-a",
@@ -1129,7 +5854,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "herbert-birchenough",
+          "playerName": "Herbert Birchenough",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birchenough_herbert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitchett",
+          "playerName": "John Fitchett",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitchett_john",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bert-read",
+          "playerName": "Bert Read",
+          "playerSide": "united",
+          "providerId": "mufcinfo:read_thomas",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-downie",
+          "playerName": "Alex Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_alex",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-griffiths",
+          "playerName": "Billy Griffiths",
+          "playerSide": "united",
+          "providerId": "mufcinfo:griffiths_william",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-banks",
+          "playerName": "Jack Banks",
+          "playerSide": "united",
+          "providerId": "mufcinfo:banks_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schofield_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "dick-pegg",
+          "playerName": "Dick Pegg",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pegg_ernest",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-arkesden",
+          "playerName": "Tommy Arkesden",
+          "playerSide": "united",
+          "providerId": "mufcinfo:arkesden_thomas",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "walter-cartwright",
+          "playerName": "Walter Cartwright",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cartwright_walter",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arthur-beadsworth",
+          "playerName": "Arthur Beadsworth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beadsworth_arthur",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     }
   ]

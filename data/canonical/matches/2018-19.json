@@ -3838,7 +3838,178 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "sergio-romero",
+          "playerName": "Sergio Romero",
+          "playerSide": "united",
+          "providerId": "mufcinfo:romero_sergio",
+          "shirt": 22,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 20,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "eric-bailly",
+          "playerName": "Eric Bailly",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bailly_eric",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-jones",
+          "playerName": "Phil Jones",
+          "playerSide": "united",
+          "providerId": "mufcinfo:jones_phil",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ashley-young",
+          "playerName": "Ashley Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_ashley",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ander-herrera",
+          "playerName": "Ander Herrera",
+          "playerSide": "united",
+          "providerId": "mufcinfo:herrera_ander",
+          "shirt": 21,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 63
+        },
+        {
+          "player": "nemanja-matic",
+          "playerName": "Nemanja Matić",
+          "playerSide": "united",
+          "providerId": "mufcinfo:matic_nemanja",
+          "shirt": 31,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "playerName": "Juan Mata",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mata_juan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 70
+        },
+        {
+          "player": "jesse-lingard",
+          "playerName": "Jesse Lingard",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lingard_jesse",
+          "shirt": 14,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 63
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "romelu-lukaku",
+          "playerName": "Romelu Lukaku",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lukaku_romelu",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "fred",
+          "playerName": "Fred",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fred",
+          "shirt": 17,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 63,
+          "off": null
+        },
+        {
+          "player": "marouane-fellaini",
+          "playerName": "Marouane Fellaini",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fellaini_marouane",
+          "shirt": 27,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 63,
+          "off": null
+        },
+        {
+          "player": "lee-grant",
+          "playerName": "Lee Grant",
+          "playerSide": "united",
+          "providerId": "mufcinfo:grant_lee",
+          "shirt": 13,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 70,
+          "off": null
+        }
       ]
     },
     {
