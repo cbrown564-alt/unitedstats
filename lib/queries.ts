@@ -210,9 +210,19 @@ export interface MatchFilter {
   from?: string;
   to?: string;
   q?: string;
+  /** Result ordering. Defaults to most-recent-first. */
+  sort?: "recent" | "oldest" | "margin" | "attendance";
   limit?: number;
   offset?: number;
 }
+
+const MATCH_ORDER: Record<NonNullable<MatchFilter["sort"]>, string> = {
+  recent: "m.date DESC",
+  oldest: "m.date ASC",
+  margin: "(m.gf - m.ga) DESC, m.gf DESC, m.date DESC",
+  // nulls last, then largest crowd first
+  attendance: "(m.attendance IS NULL), m.attendance DESC, m.date DESC",
+};
 
 /** Shared filter compilation so the list and its summary read the same slice. */
 function matchWhere(f: MatchFilter): { cond: string; params: Record<string, string | number> } {
@@ -242,10 +252,22 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
       .prepare(`SELECT COUNT(*) n FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`)
       .get(params) as { n: number }
   ).n;
+  const orderBy = MATCH_ORDER[f.sort ?? "recent"] ?? MATCH_ORDER.recent;
   const rows = getDb()
-    .prepare(`${MATCH_SELECT} ${cond} ORDER BY m.date DESC LIMIT @limit OFFSET @offset`)
+    .prepare(`${MATCH_SELECT} ${cond} ORDER BY ${orderBy} LIMIT @limit OFFSET @offset`)
     .all({ ...params, limit: f.limit ?? 50, offset: f.offset ?? 0 }) as MatchRow[];
   return { rows, total };
+}
+
+/** Decade buckets with fixture counts, for the chronological jump rail. */
+export function matchDecades(): { decade: string; from: number; to: number; n: number }[] {
+  const rows = getDb()
+    .prepare(`SELECT substr(date,1,3) || '0' AS start, COUNT(*) n FROM matches GROUP BY 1 ORDER BY 1`)
+    .all() as { start: string; n: number }[];
+  return rows.map((r) => {
+    const from = parseInt(r.start, 10);
+    return { decade: `${from}s`, from, to: from + 9, n: r.n };
+  });
 }
 
 export interface MatchesSummary extends Record_ {
