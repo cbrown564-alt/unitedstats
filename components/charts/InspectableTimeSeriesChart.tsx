@@ -13,6 +13,7 @@ import {
   YAxis,
 } from "recharts";
 import type { ChartDatum } from "@/components/charts";
+import { fmtAxisNumber } from "@/lib/format";
 import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
 
 type InspectableTimeSeriesChartProps = {
@@ -104,7 +105,7 @@ export function InspectableTimeSeriesChart({
             width={58}
             stroke="var(--color-ink-faint)"
             fontSize={11}
-            tickFormatter={(value) => `${Math.round(Number(value)).toLocaleString("en-GB")}${yTickSuffix}`}
+            tickFormatter={(value) => fmtAxisNumber(value, yTickSuffix)}
           />
           {baseline !== undefined && (
             <ReferenceLine

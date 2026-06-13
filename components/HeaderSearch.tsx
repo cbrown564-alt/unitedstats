@@ -24,7 +24,7 @@ export function HeaderSearch() {
         aria-label="Search"
         aria-expanded={mobileOpen}
         onClick={() => setMobileOpen((v) => !v)}
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-line bg-panel text-ink-dim transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright sm:hidden"
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-line bg-panel text-ink-dim transition-colors hover:text-ink focus-ring sm:hidden"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
           <circle cx="11" cy="11" r="7" />

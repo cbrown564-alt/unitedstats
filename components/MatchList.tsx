@@ -1,18 +1,20 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
-import { fmtDate, fmtNum, scoreline } from "@/lib/format";
+import { fmtDate, fmtNum, scoreline, venuePrefix } from "@/lib/format";
 import { ResultBadge } from "./ResultBadge";
 import { CompetitionDot } from "./CompetitionChip";
 
 // Supplementary result spine. Pairs with the textual ResultBadge, so colour is
 // never the only cue; speeds up W/D/L scanning down a long list.
+const ACCENT: Record<string, string> = {
+  W: "border-l-2 border-win/50",
+  L: "border-l-2 border-loss/50",
+  D: "border-l-2 border-draw/50",
+};
+
 function accentClass(result: string): string {
-  return result === "W"
-    ? "border-l-2 border-win/50"
-    : result === "L"
-      ? "border-l-2 border-loss/50"
-      : "border-l-2 border-draw/40";
+  return ACCENT[result] ?? ACCENT.D;
 }
 
 export function MatchList<T extends MatchRow>({
@@ -46,7 +48,7 @@ export function MatchList<T extends MatchRow>({
             <ResultBadge result={m.result} outcome={m.outcome} />
             <span className="min-w-0">
               <span className="text-sm font-medium truncate block">
-                <span className="mr-1.5 text-ink-faint">{m.venue === "H" ? "v" : m.venue === "A" ? "@" : "n"}</span>
+                <span className="mr-1.5 text-ink-faint">{venuePrefix(m.venue)}</span>
                 {m.opponent_name}
               </span>
               <span className="flex items-center gap-1.5 text-xs text-ink-dim sm:hidden">

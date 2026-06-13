@@ -11,7 +11,7 @@ import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeS
 import { MatchList } from "@/components/MatchList";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
-import { fmtNum, pct, venueLabel } from "@/lib/format";
+import { fmtNum, pct, venueLabel, GOAL_MINUTE_BUCKETS } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Analytics" };
@@ -43,7 +43,7 @@ export default function AnalyticsPage() {
   const currentElo = elo.length ? Math.round(elo[elo.length - 1].elo) : 1500;
   const peak = elo.reduce((a, b) => (b.elo > a.elo ? b : a), elo[0]);
   const trough = elo.reduce((a, b) => (b.elo < a.elo ? b : a), elo[0]);
-  const minuteLabels = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90"];
+  const minuteLabels = GOAL_MINUTE_BUCKETS;
   const yearTicks = [1900, 1930, 1960, 1990, 2020].map((year) => ({ x: year, label: String(year) }));
 
   // Managerial eras shade the Elo timeline; bands tile from each manager's first
