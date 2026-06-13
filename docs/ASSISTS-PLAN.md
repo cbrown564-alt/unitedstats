@@ -54,11 +54,21 @@ where those hosts are allowlisted. They are blocked from ad-hoc web sessions.
 
 ## Plan (phased, lowest-risk first)
 
-### Phase A — Max out the source already wired
-- Re-run `npm run ingest:transfermarkt-datasets` across all modern seasons in the
-  pipeline env; check whether `game_events` carries assists for 2010-11/2011-12
-  and recover them if present.
-- Update the coverage ledger and README numbers.
+### Phase A — Max out the source already wired — DONE (floor confirmed, nothing to recover)
+
+**Verdict (2026-06-13): the transfermarkt-datasets assist floor is 2012-13 and is
+already fully ingested.** A cloud dry-run over 2009-10→2013-14
+(`.github/workflows/transfermarkt-assist-floor.yml`, with assist-availability
+reporting added to the ingester) matched 102 United games but **enriched 0** —
+canonical already holds everything the dataset offers. The per-season assist
+breakdown lists only `2012-13` and `2013-14`; 2009-10, 2010-11, and 2011-12
+contribute zero, i.e. the dataset carries no `game_events` for those seasons.
+The 2010-11/2011-12 gap is therefore **not recoverable from transfermarkt** — the
+data is absent at source, not merely un-ingested. No write was warranted.
+
+Net: modern assist coverage from open/CC0 sources is maxed out at 2012-13+. The
+1992–2012 Premier League window (and the 2006–2012 Opta window within it) can
+only be served by the Phase C headline lane or proprietary/curated sources.
 
 ### Phase B — MUFCInfo verification spike + parser extension — CLOSED (negative)
 
