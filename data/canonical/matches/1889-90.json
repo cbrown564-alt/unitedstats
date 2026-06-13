@@ -20,7 +20,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "notes": null,
       "events": [
@@ -30,7 +31,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "tom-hay",
+          "playerName": "Tom Hay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:hay_thomas",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "charlie-harrison",
+          "playerName": "Charlie Harrison",
+          "playerSide": "united",
+          "providerId": "mufcinfo:harrison_charles",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-powell",
+          "playerName": "Jack Powell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:powell_john",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-doughty",
+          "playerName": "Roger Doughty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:doughty_roger",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-davies",
+          "playerName": "Joe Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_joseph",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-owen",
+          "playerName": "Jack Owen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:owen_jack",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alf-farman",
+          "playerName": "Alf Farman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:farman_alfred",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-craig",
+          "playerName": "Thomas Craig",
+          "playerSide": "united",
+          "providerId": "mufcinfo:craig_thomas",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-doughty",
+          "playerName": "Jack Doughty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:doughty_john",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-owen",
+          "playerName": "George Owen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:owen_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "edgar-wilson",
+          "playerName": "Edgar Wilson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wilson_edgar",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     }
   ]
 }

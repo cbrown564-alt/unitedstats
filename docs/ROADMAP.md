@@ -54,11 +54,12 @@ Product principles:
       table reproduces the official club record (Rooney 253, Charlton 249,
       Law 237...). Assists where sources record them.
 - [x] Full lineups — canonical schema, DB tables, validation, match-page UI,
-      and a Wikipedia final/late-round article ingester are live. Current
-      coverage: 868 matches and 12,147 United player appearances, from
-      Wikipedia final/Shield/Super Cup articles plus transfermarkt-datasets
-      (2013–present). football-data.org's free tier turned out not to expose
-      match detail (lineups/goals), so it remains a token-gated option only.
+      and deterministic source ingesters are live. Current coverage: 6,022
+      matches and 72,095 United player appearances, primarily from MUFCInfo
+      match pages plus Wikipedia final/Shield/Super Cup articles and
+      transfermarkt-datasets. football-data.org's free tier turned out not to
+      expose match detail (lineups/goals), so it remains a token-gated option
+      only.
 - [x] Partnership networks — canonical assist fields, aggregate queries,
       analytics UI, and player-page UI are wired. The checked-in dataset now
       carries 975 recorded assists (2012–present, transfermarkt-datasets);

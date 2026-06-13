@@ -4928,7 +4928,178 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "david-de-gea",
+          "playerName": "David de Gea",
+          "playerSide": "united",
+          "providerId": "mufcinfo:de_gea_david",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "antonio-valencia",
+          "playerName": "Antonio Valencia",
+          "playerSide": "united",
+          "providerId": "mufcinfo:valencia_luis_antonio",
+          "shirt": 25,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "chris-smalling",
+          "playerName": "Chris Smalling",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smalling_chris",
+          "shirt": 12,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 70
+        },
+        {
+          "player": "daley-blind",
+          "playerName": "Daley Blind",
+          "playerSide": "united",
+          "providerId": "mufcinfo:blind_daley",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ashley-young",
+          "playerName": "Ashley Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_ashley",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bastian-schweinsteiger",
+          "playerName": "Bastian Schweinsteiger",
+          "playerSide": "united",
+          "providerId": "mufcinfo:schweinsteiger_bastian",
+          "shirt": 31,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ander-herrera",
+          "playerName": "Ander Herrera",
+          "playerSide": "united",
+          "providerId": "mufcinfo:herrera_ander",
+          "shirt": 21,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "juan-mata",
+          "playerName": "Juan Mata",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mata_juan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 70
+        },
+        {
+          "player": "wayne-rooney",
+          "playerName": "Wayne Rooney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rooney_wayne",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 81
+        },
+        {
+          "player": "andreas-pereira",
+          "playerName": "Andreas Pereira",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pereira_andreas",
+          "shirt": 44,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marouane-fellaini",
+          "playerName": "Marouane Fellaini",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fellaini_marouane",
+          "shirt": 27,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "phil-jones",
+          "playerName": "Phil Jones",
+          "playerSide": "united",
+          "providerId": "mufcinfo:jones_phil",
+          "shirt": 4,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 70,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 9,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 70,
+          "off": null
+        },
+        {
+          "player": "memphis-depay",
+          "playerName": "Memphis Depay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:depay_memphis",
+          "shirt": 7,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 81,
+          "off": null
+        }
       ]
     },
     {
@@ -8180,7 +8351,178 @@
         ]
       },
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "sergio-romero",
+          "playerName": "Sergio Romero",
+          "playerSide": "united",
+          "providerId": "mufcinfo:romero_sergio",
+          "shirt": 20,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "matteo-darmian",
+          "playerName": "Matteo Darmian",
+          "playerSide": "united",
+          "providerId": "mufcinfo:darmian_matteo",
+          "shirt": 36,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "chris-smalling",
+          "playerName": "Chris Smalling",
+          "playerSide": "united",
+          "providerId": "mufcinfo:smalling_chris",
+          "shirt": 12,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "daley-blind",
+          "playerName": "Daley Blind",
+          "playerSide": "united",
+          "providerId": "mufcinfo:blind_daley",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcos-rojo",
+          "playerName": "Marcos Rojo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rojo_marcos",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 61
+        },
+        {
+          "player": "michael-carrick",
+          "playerName": "Michael Carrick",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carrick_michael",
+          "shirt": 16,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marouane-fellaini",
+          "playerName": "Marouane Fellaini",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fellaini_marouane",
+          "shirt": 27,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jesse-lingard",
+          "playerName": "Jesse Lingard",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lingard_jesse",
+          "shirt": 35,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andreas-pereira",
+          "playerName": "Andreas Pereira",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pereira_andreas",
+          "shirt": 44,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "memphis-depay",
+          "playerName": "Memphis Depay",
+          "playerSide": "united",
+          "providerId": "mufcinfo:depay_memphis",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 71
+        },
+        {
+          "player": "james-wilson",
+          "playerName": "James Wilson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:wilson_james",
+          "shirt": 49,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 45
+        },
+        {
+          "player": "wayne-rooney",
+          "playerName": "Wayne Rooney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rooney_wayne",
+          "shirt": 10,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 45,
+          "off": null
+        },
+        {
+          "player": "ashley-young",
+          "playerName": "Ashley Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_ashley",
+          "shirt": 18,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 61,
+          "off": null
+        },
+        {
+          "player": "anthony-martial",
+          "playerName": "Anthony Martial",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martial_anthony",
+          "shirt": 9,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 71,
+          "off": null
+        }
       ]
     },
     {
@@ -29351,26 +29693,6 @@
       ]
     },
     {
-      "id": "2016-05-16-bournemouth-h",
-      "date": "2016-05-16",
-      "competition": "premier-league",
-      "round": null,
-      "opponent": "AFC Bournemouth",
-      "opponentId": "bournemouth",
-      "venue": "H",
-      "stadium": null,
-      "attendance": null,
-      "score": {
-        "ft": [
-          3,
-          1
-        ]
-      },
-      "sources": [
-        "engsoccerdata"
-      ]
-    },
-    {
       "id": "2016-05-17-bournemouth-h",
       "date": "2016-05-17",
       "competition": "premier-league",
@@ -29388,7 +29710,9 @@
         "pens": null
       },
       "sources": [
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "engsoccerdata",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {

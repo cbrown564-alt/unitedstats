@@ -19,7 +19,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -28,7 +29,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 67,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-08-15-liverpool-a",
@@ -48,7 +195,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 78
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 78,
+          "off": null
+        }
       ]
     },
     {
@@ -69,7 +363,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 75
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitzpatrick",
+          "playerName": "John Fitzpatrick",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitzpatrick_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 75,
+          "off": null
+        }
       ]
     },
     {
@@ -90,7 +531,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -99,7 +541,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitzpatrick",
+          "playerName": "John Fitzpatrick",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitzpatrick_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-08-26-arsenal-h",
@@ -119,7 +707,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -140,7 +863,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitzpatrick",
+          "playerName": "John Fitzpatrick",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitzpatrick_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 75
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 75,
+          "off": null
+        }
       ]
     },
     {
@@ -161,7 +1031,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -175,7 +1046,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-09-06-oxford-united-a",
@@ -208,7 +1225,154 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        }
       ]
     },
     {
@@ -229,7 +1393,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitzpatrick",
+          "playerName": "John Fitzpatrick",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitzpatrick_john",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 73,
+          "off": null
+        }
       ]
     },
     {
@@ -268,7 +1579,154 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitzpatrick",
+          "playerName": "John Fitzpatrick",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitzpatrick_john",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 45
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 45,
+          "off": null
+        }
       ]
     },
     {
@@ -289,7 +1747,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-fitzpatrick",
+          "playerName": "John Fitzpatrick",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fitzpatrick_john",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 54
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 54,
+          "off": null
+        }
       ]
     },
     {
@@ -310,7 +1915,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -329,7 +1935,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-donald",
+          "playerName": "Ian Donald",
+          "playerSide": "united",
+          "providerId": "mufcinfo:donald_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-09-30-sheffield-united-a",
@@ -349,7 +2089,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-donald",
+          "playerName": "Ian Donald",
+          "playerSide": "united",
+          "providerId": "mufcinfo:donald_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 30
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 30,
+          "off": null
+        }
       ]
     },
     {
@@ -378,7 +2265,142 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-donald",
+          "playerName": "Ian Donald",
+          "playerSide": "united",
+          "providerId": "mufcinfo:donald_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -399,7 +2421,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -413,7 +2436,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-donald",
+          "playerName": "Ian Donald",
+          "playerSide": "united",
+          "providerId": "mufcinfo:donald_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-10-11-bristol-rovers-h",
@@ -441,7 +2598,154 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-watson",
+          "playerName": "Willie Watson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:watson_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 72
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 72,
+          "off": null
+        }
       ]
     },
     {
@@ -462,7 +2766,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -471,7 +2776,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-watson",
+          "playerName": "Willie Watson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:watson_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-10-21-newcastle-united-a",
@@ -491,7 +2930,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -500,7 +2940,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-watson",
+          "playerName": "Willie Watson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:watson_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 75
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 75,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-10-28-tottenham-hotspur-h",
@@ -520,7 +3106,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -529,7 +3116,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-watson",
+          "playerName": "Willie Watson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:watson_william",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-11-04-leicester-city-a",
@@ -549,7 +3270,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -563,7 +3285,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-donald",
+          "playerName": "Ian Donald",
+          "playerSide": "united",
+          "providerId": "mufcinfo:donald_ian",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-11-11-liverpool-h",
@@ -583,7 +3439,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -597,7 +3454,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 69
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "sammy-mcilroy",
+          "playerName": "Sammy McIlroy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcilroy_sammy",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 69,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-11-18-manchester-city-a",
@@ -617,7 +3620,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 77
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 77,
+          "off": null
+        }
       ]
     },
     {
@@ -638,7 +3788,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -652,7 +3803,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "paul-edwards",
+          "playerName": "Paul Edwards",
+          "playerSide": "united",
+          "providerId": "mufcinfo:edwards_paul",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-best",
+          "playerName": "George Best",
+          "playerSide": "united",
+          "providerId": "mufcinfo:best_george",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-12-02-norwich-city-a",
@@ -672,7 +3957,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -686,7 +3972,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-12-09-stoke-city-h",
@@ -706,7 +4126,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": true,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -727,7 +4294,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 25
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 25,
+          "off": null
+        }
       ]
     },
     {
@@ -748,7 +4462,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -757,7 +4472,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1972-12-26-derby-county-a",
@@ -777,7 +4638,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -786,7 +4648,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tommy-o-neil",
+          "playerName": "Tommy O'Neil",
+          "playerSide": "united",
+          "providerId": "mufcinfo:o&#039;neil_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 46
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 46,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-01-06-arsenal-a",
@@ -806,7 +4814,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -815,7 +4824,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-01-13-wolverhampton-wanderers-a",
@@ -836,9 +4979,156 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "david-sadler",
+          "playerName": "David Sadler",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sadler_david",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 57
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 57,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-01-20-west-ham-united-h",
@@ -858,7 +5148,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -872,7 +5163,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 55
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "wyn-davies",
+          "playerName": "Wyn Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_wyn",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 55,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-01-24-everton-h",
@@ -892,7 +5329,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 56
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 56,
+          "off": null
+        }
       ]
     },
     {
@@ -913,7 +5497,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -922,7 +5507,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-02-10-wolverhampton-wanderers-h",
@@ -942,7 +5661,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -956,7 +5676,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-02-17-ipswich-town-a",
@@ -976,7 +5830,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -985,7 +5840,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-dunne",
+          "playerName": "Tony Dunne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dunne_anthony",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ted-macdougall",
+          "playerName": "Ted MacDougall",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macdougall_edward",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-03-03-west-bromwich-albion-h",
@@ -1005,7 +5994,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1019,7 +6009,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 83
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 83,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-03-10-birmingham-city-a",
@@ -1039,7 +6175,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1048,7 +6185,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-rimmer",
+          "playerName": "Jimmy Rimmer",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rimmer_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "alex-forsyth",
+          "playerName": "Alex Forsyth",
+          "playerSide": "united",
+          "providerId": "mufcinfo:forsyth_alex",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ian-storey-moore",
+          "playerName": "Ian Storey-Moore",
+          "playerSide": "united",
+          "providerId": "mufcinfo:storey_moore_ian",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 45
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 45,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-03-17-newcastle-united-h",
@@ -1068,7 +6351,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1082,7 +6366,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-rimmer",
+          "playerName": "Jimmy Rimmer",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rimmer_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-03-24-tottenham-hotspur-a",
@@ -1102,7 +6520,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1111,7 +6530,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-rimmer",
+          "playerName": "Jimmy Rimmer",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rimmer_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-03-31-southampton-a",
@@ -1131,7 +6684,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1145,7 +6699,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jimmy-rimmer",
+          "playerName": "Jimmy Rimmer",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rimmer_james",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 65
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-anderson",
+          "playerName": "Trevor Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_trevor",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 65,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-04-07-norwich-city-h",
@@ -1165,7 +6865,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1174,7 +6875,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "denis-law",
+          "playerName": "Denis Law",
+          "playerSide": "united",
+          "providerId": "mufcinfo:law_denis",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-anderson",
+          "playerName": "Trevor Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_trevor",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-04-11-crystal-palace-h",
@@ -1194,7 +7041,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1208,7 +7056,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 55
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-anderson",
+          "playerName": "Trevor Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_trevor",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 55,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-04-14-stoke-city-a",
@@ -1228,7 +7222,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1242,7 +7237,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-anderson",
+          "playerName": "Trevor Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_trevor",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "peter-fletcher",
+          "playerName": "Peter Fletcher",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fletcher_peter",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-04-18-leeds-united-a",
@@ -1262,7 +7403,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1271,7 +7413,153 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-anderson",
+          "playerName": "Trevor Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_trevor",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "peter-fletcher",
+          "playerName": "Peter Fletcher",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fletcher_peter",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": true,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-04-21-manchester-city-h",
@@ -1291,7 +7579,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "steve-james",
+          "playerName": "Steve James",
+          "playerSide": "united",
+          "providerId": "mufcinfo:james_steven",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-anderson",
+          "playerName": "Trevor Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_trevor",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": true,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -1312,7 +7747,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1321,7 +7757,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arnie-sidebottom",
+          "playerName": "Arnie Sidebottom",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sidebottom_arnold",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1973-04-28-chelsea-a",
@@ -1341,7 +7911,154 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "alex-stepney",
+          "playerName": "Alex Stepney",
+          "playerSide": "united",
+          "providerId": "mufcinfo:stepney_alex",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tony-young",
+          "playerName": "Tony Young",
+          "playerSide": "united",
+          "providerId": "mufcinfo:young_anthony",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "arnie-sidebottom",
+          "playerName": "Arnie Sidebottom",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sidebottom_arnold",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "george-graham",
+          "playerName": "George Graham",
+          "playerSide": "united",
+          "providerId": "mufcinfo:graham_george",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jim-holton",
+          "playerName": "Jim Holton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:holton_jim",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "martin-buchan",
+          "playerName": "Martin Buchan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:buchan_martin",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "willie-morgan",
+          "playerName": "Willie Morgan",
+          "playerSide": "united",
+          "providerId": "mufcinfo:morgan_william_02",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-kidd",
+          "playerName": "Brian Kidd",
+          "playerSide": "united",
+          "providerId": "mufcinfo:kidd_brian",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 38
+        },
+        {
+          "player": "bobby-charlton",
+          "playerName": "Bobby Charlton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:charlton_bobby",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lou-macari",
+          "playerName": "Lou Macari",
+          "playerSide": "united",
+          "providerId": "mufcinfo:macari_lou",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mick-martin",
+          "playerName": "Mick Martin",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martin_michael",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "trevor-anderson",
+          "playerName": "Trevor Anderson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:anderson_trevor",
+          "shirt": 12,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 38,
+          "off": null
+        }
       ]
     }
   ]

@@ -19,7 +19,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -38,7 +39,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-mcglen",
+          "playerName": "Billy McGlen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcglen_william",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-08-22-middlesbrough-h",
@@ -58,7 +193,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -82,7 +218,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-08-25-newcastle-united-h",
@@ -102,7 +372,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -116,7 +387,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-08-29-middlesbrough-a",
@@ -136,7 +541,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -160,7 +566,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-09-01-bolton-wanderers-a",
@@ -180,7 +720,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -201,7 +876,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -220,7 +896,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-09-08-stoke-city-h",
@@ -240,7 +1050,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -264,7 +1075,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-09-12-charlton-athletic-a",
@@ -284,7 +1229,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -298,7 +1244,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-09-15-manchester-city-a",
@@ -318,7 +1398,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -332,7 +1413,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "laurie-cassidy",
+          "playerName": "Laurie Cassidy",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cassidy_laurence",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-09-22-tottenham-hotspur-a",
@@ -352,7 +1567,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -373,7 +1723,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -382,7 +1733,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-walton",
+          "playerName": "John Walton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:walton_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-10-06-derby-county-h",
@@ -402,7 +1887,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -416,7 +1902,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-walton",
+          "playerName": "John Walton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:walton_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-10-13-aston-villa-a",
@@ -436,7 +2056,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -465,7 +2086,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-10-20-sunderland-h",
@@ -485,7 +2240,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-mcglen",
+          "playerName": "Billy McGlen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcglen_william",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -506,7 +2396,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -520,7 +2411,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-birch",
+          "playerName": "Brian Birch",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birch_brian",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-11-03-huddersfield-town-h",
@@ -540,7 +2565,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -549,7 +2575,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "harry-mcshane",
+          "playerName": "Harry McShane",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcshane_harry",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "brian-birch",
+          "playerName": "Brian Birch",
+          "playerSide": "united",
+          "providerId": "mufcinfo:birch_brian",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-11-10-chelsea-a",
@@ -569,7 +2729,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -583,7 +2744,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-11-17-portsmouth-h",
@@ -603,7 +2898,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -612,7 +2908,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "billy-redman",
+          "playerName": "Billy Redman",
+          "playerSide": "united",
+          "providerId": "mufcinfo:redman_william",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "don-gibson",
+          "playerName": "Don Gibson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gibson_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-11-24-liverpool-a",
@@ -632,7 +3062,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jackie-blanchflower",
+          "playerName": "Jackie Blanchflower",
+          "playerSide": "united",
+          "providerId": "mufcinfo:blanchflower_jackie",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -653,7 +3218,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -672,7 +3238,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-12-08-arsenal-a",
@@ -692,7 +3392,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -706,7 +3407,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": false,
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-12-15-west-bromwich-albion-h",
@@ -726,7 +3561,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -755,7 +3591,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-12-22-newcastle-united-a",
@@ -775,7 +3745,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -789,7 +3760,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-12-25-fulham-h",
@@ -809,7 +3914,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -828,7 +3934,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-jones",
+          "playerName": "Mark Jones",
+          "playerSide": "united",
+          "providerId": "mufcinfo:jones_mark",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-12-26-fulham-a",
@@ -848,7 +4088,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -867,7 +4108,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-jones",
+          "playerName": "Mark Jones",
+          "playerSide": "united",
+          "providerId": "mufcinfo:jones_mark",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1951-12-29-bolton-wanderers-h",
@@ -887,7 +4262,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -896,7 +4272,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mark-jones",
+          "playerName": "Mark Jones",
+          "playerSide": "united",
+          "providerId": "mufcinfo:jones_mark",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-01-05-stoke-city-a",
@@ -916,7 +4426,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -938,9 +4583,144 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
-      "notes": null
+      "notes": null,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-01-19-manchester-city-h",
@@ -960,7 +4740,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -969,7 +4750,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-01-26-tottenham-hotspur-h",
@@ -989,7 +4904,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -998,7 +4914,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": false,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-02-09-preston-north-end-a",
@@ -1018,7 +5068,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1032,7 +5083,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-02-16-derby-county-a",
@@ -1052,7 +5237,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1071,7 +5257,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-03-01-aston-villa-h",
@@ -1091,7 +5411,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1100,7 +5421,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-03-08-sunderland-a",
@@ -1120,7 +5575,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1134,7 +5590,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-03-15-wolverhampton-wanderers-h",
@@ -1154,7 +5744,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1168,7 +5759,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-03-22-huddersfield-town-a",
@@ -1188,7 +5913,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1202,7 +5928,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-04-05-portsmouth-a",
@@ -1222,7 +6082,142 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "jack-crompton",
+          "playerName": "Jack Crompton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:crompton_jack",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jeff-whitefoot",
+          "playerName": "Jeff Whitefoot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitefoot_jefferey",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "frank-clempson",
+          "playerName": "Frank Clempson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:clempson_frank",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ernie-bond",
+          "playerName": "Ernie Bond",
+          "playerSide": "united",
+          "providerId": "mufcinfo:bond_ernie",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     },
     {
@@ -1243,7 +6238,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1253,7 +6249,141 @@
           "detail": "Roger Byrne (og)"
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-04-12-liverpool-h",
@@ -1273,7 +6403,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1299,7 +6430,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jeff-whitefoot",
+          "playerName": "Jeff Whitefoot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitefoot_jefferey",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-04-14-burnley-h",
@@ -1319,7 +6584,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1355,7 +6621,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jeff-whitefoot",
+          "playerName": "Jeff Whitefoot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:whitefoot_jefferey",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-04-19-blackpool-a",
@@ -1375,7 +6775,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1390,7 +6791,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-04-21-chelsea-h",
@@ -1410,7 +6945,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1424,7 +6960,141 @@
           "minute": null
         }
       ],
-      "eventsComplete": false
+      "eventsComplete": false,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     },
     {
       "id": "1952-04-26-arsenal-h",
@@ -1444,7 +7114,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
       ],
       "events": [
         {
@@ -1479,7 +7150,141 @@
           "detail": "Roger Byrne (og)"
         }
       ],
-      "eventsComplete": true
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "reg-allen",
+          "playerName": "Reg Allen",
+          "playerSide": "united",
+          "providerId": "mufcinfo:allen_arthur",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "thomas-mcnulty",
+          "playerName": "Thomas McNulty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mcnulty_thomas",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-aston-sr",
+          "playerName": "John Aston Sr.",
+          "playerSide": "united",
+          "providerId": "mufcinfo:aston_john_snr",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-carey",
+          "playerName": "Johnny Carey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:carey_johnny",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "allenby-chilton",
+          "playerName": "Allenby Chilton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:chilton_allenby",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "henry-cockburn",
+          "playerName": "Henry Cockburn",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cockburn_henry",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "johnny-berry",
+          "playerName": "Johnny Berry",
+          "playerSide": "united",
+          "providerId": "mufcinfo:berry_johnny",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-downie",
+          "playerName": "Johnny Downie",
+          "playerSide": "united",
+          "providerId": "mufcinfo:downie_john",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-rowley",
+          "playerName": "Jack Rowley",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rowley_jack",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "stan-pearson",
+          "playerName": "Stan Pearson",
+          "playerSide": "united",
+          "providerId": "mufcinfo:pearson_stan",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "roger-byrne",
+          "playerName": "Roger Byrne",
+          "playerSide": "united",
+          "providerId": "mufcinfo:byrne_roger",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
+      ]
     }
   ]
 }

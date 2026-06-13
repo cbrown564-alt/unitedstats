@@ -32,6 +32,17 @@ const CONCURRENCY = numberArg("--concurrency", 6);
 const LIMIT = numberArg("--limit", 0);
 const DATE = stringArg("--date");
 
+const MUFCINFO_DATE_ALIASES: Record<string, string> = {
+  // MUFCInfo exposes these 1899-00 fixtures one day later than the
+  // canonical Saturday dates used by engsoccerdata and the local schedule.
+  "1900-01-06": "1900-01-07",
+  "1900-01-13": "1900-01-14",
+  "1900-02-03": "1900-02-04",
+  "1900-02-10": "1900-02-11",
+  "1900-02-17": "1900-02-18",
+  "1900-02-24": "1900-02-25",
+};
+
 interface PlayerRecord {
   playerId: string;
   name: string;
@@ -85,37 +96,104 @@ const HREF_ALIASES: Record<string, string> = {
   anderson: "anderson",
   anderson_oliveira: "anderson",
   bennion_samuel: "ray-bennion",
+  astley_john: "joe-astley",
+  bayindir_altay: "altay-bay-nd-r",
+  bebe_tiago: "bebe",
+  birkett_clifford: "cliff-birkett",
+  black_arthur: "dick-black",
+  bradbury_leonard: "len-bradbury",
+  brown_robert: "berry-brown",
+  brown_william: "rimmer-brown",
   brown_wesley: "wes-brown",
+  buckley_franklin: "frank-buckley",
   bryant_william_02: "billy-bryant",
   buckle_edward: "ted-buckle",
+  caine_james: "james-caine",
+  capper_alfred: "freddy-capper",
+  casimiro_carlos: "casemiro",
+  cassidy_laurence: "laurie-cassidy",
   chalmers_william: "stewart-chalmers",
+  chester_reginald: "reg-chester",
   chisnall_phillip: "phil-chisnall",
+  collinson_clifford: "cliff-collinson",
+  connaughton_patrick: "john-connaughton",
+  connor_edward: "ted-connor",
   cole_andrew: "andy-cole",
   da_silva_fabio: "fabio-pereira-da-silva",
   da_silva_rafael: "rafael",
+  dalton_edward: "ted-dalton",
+  davies_ronald: "ron-davies",
+  donaghy_bernard: "mal-donaghy",
   donnelly_anthony: "tony-donnelly",
+  dong_fangzhou: "dong-fangzhuo",
+  draycott_levi: "billy-draycott",
   dos_santos_antony: "antony",
   duxbury_michael: "mike-duxbury",
+  farman_alfred: "alf-farman",
+  feehan_john: "sonny-feehan",
+  ferguson_daniel: "danny-ferguson",
+  ferrier_ronald: "ron-ferrier",
+  fitton_george: "arthur-fitton",
   fred: "fred",
+  fryers_ezekiel: "zeki-fryers",
+  gardner_charles: "dick-gardner",
   gibson_thomas: "don-gibson",
   goldthorpe_ernest: "ernie-goldthorpe",
+  green_robert: "eddie-green",
+  grimshaw_anthony: "tony-grimshaw",
+  halton_reginald: "reg-halton",
   hamill_michael: "mickey-hamill",
+  haworth_ronald: "ron-haworth",
+  hawksworth_anthony: "tony-hawksworth",
+  heathcote_joseph: "joe-heathcote",
   hilditch_clarence: "lal-hilditch",
   hine_ernest: "ernie-hine",
+  hunter_john: "reg-hunter",
+  jenkyns_ceaser: "caesar-jenkyns",
+  johnson_edward: "eddie-johnson",
+  jones_ernest: "peter-jones",
+  jones_thomas: "tom-jones",
+  jones_thomas_john: "tommy-jones",
   kleberson_jose_pereira: "jose-kleberson",
+  langford_leonard: "len-langford",
   lappin_hubert: "harry-lappin",
+  lawson_reginald: "reg-lawson",
   lawton_norbert: "nobby-lawton",
   lewis_edward: "eddie-lewis",
+  lynn_samuel: "sammy-lynn",
+  macdonald_kenneth: "ken-macdonald",
+  maiorana_guiliano: "giuliano-maiorana",
+  mcfetridge_david: "david-mcfetridge",
+  mcilvenny_edward: "ed-mcilvenny",
+  mcmillan_samuel: "sammy-mcmillan",
+  montgomery_archibald: "archie-montgomery",
+  morton_benjamin: "ben-morton",
+  mulryne_philip: "phil-mulryne",
   nani: "nani",
   neville_phillip: "phil-neville",
+  paterson_steven: "steve-paterson",
+  pepper_francis: "frank-pepper",
+  pinner_michael: "mike-pinner",
   pique_gerard: "gerard-pique",
+  ricardo_lopez_felipe: "ricardo",
   rennox_clatworthy: "charlie-rennox",
+  roberts_w_f: "bogie-roberts",
   richardson_lancelot: "lance-richardson",
   roughton_william: "george-roughton",
+  savage_robert: "ted-savage",
+  smith_william: "stockport-smith",
   taylor_christopher: "chris-taylor",
+  thomson_william: "william-thomson",
+  tomlinson_greame: "graeme-tomlinson",
+  tranter_wilfred: "wilf-tranter",
+  tyler_sidney: "syd-tyler",
+  wedge_francis: "frank-wedge",
+  wellens_richard: "richie-wellens",
   whitefoot_jefferey: "jeff-whitefoot",
   williams_rees: "rees-williams",
   woodcock_wilfred: "wilf-woodcock",
+  worrall_harold: "harry-worrall",
+  zaha_wilfred: "wilfried-zaha",
 };
 
 const NAME_ALIASES: Record<string, string> = {
@@ -329,10 +407,11 @@ function cacheFile(date: string): string {
 }
 
 async function matchHtml(date: string): Promise<string> {
-  const file = cacheFile(date);
+  const sourceDate = MUFCINFO_DATE_ALIASES[date] ?? date;
+  const file = cacheFile(sourceDate);
   if (fs.existsSync(file) && !REFRESH) return fs.readFileSync(file, "utf8");
   fs.mkdirSync(CACHE, { recursive: true });
-  const res = await fetch(`${BASE_URL}?my_match_date=${date}`, {
+  const res = await fetch(`${BASE_URL}?my_match_date=${sourceDate}`, {
     headers: { "user-agent": USER_AGENT },
   });
   if (!res.ok) throw new Error(`MUFCInfo ${res.status} ${res.statusText}: ${date}`);
@@ -367,9 +446,16 @@ function buildResolver(playersFile: PlayersFile, records: PlayerRecord[]): (row:
   };
 
   return (row: MufcInfoRow): ResolvedPlayer | null => {
+    const explicitAlias = HREF_ALIASES[row.hrefKey] ?? NAME_ALIASES[row.displaySlug];
+    if (explicitAlias) {
+      return directFor(explicitAlias) ?? {
+        playerId: explicitAlias,
+        name: row.displayName,
+        inPlayers: false,
+      };
+    }
+
     const direct =
-      directFor(HREF_ALIASES[row.hrefKey]) ??
-      directFor(NAME_ALIASES[row.displaySlug]) ??
       directFor(row.displaySlug) ??
       directFor(hrefSlug(row.hrefKey));
     if (direct) return direct;

@@ -32,7 +32,142 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "robert-beckett",
+          "playerName": "Robert Beckett",
+          "playerSide": "united",
+          "providerId": "mufcinfo:beckett_robert",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-powell",
+          "playerName": "Jack Powell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:powell_john",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-mitchell",
+          "playerName": "John Mitchell",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mitchell_john",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "tom-burke",
+          "playerName": "Tom Burke",
+          "playerSide": "united",
+          "providerId": "mufcinfo:burke_thomas",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "joe-davies",
+          "playerName": "Joe Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_joseph",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "edward-howles",
+          "playerName": "Edward Howles",
+          "playerSide": "united",
+          "providerId": "mufcinfo:howles_edward",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "john-earp",
+          "playerName": "John Earp",
+          "playerSide": "united",
+          "providerId": "mufcinfo:earp_john",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "a-longton",
+          "playerName": "A Longton",
+          "playerSide": "united",
+          "providerId": "mufcinfo:longton_a",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "jack-doughty",
+          "playerName": "Jack Doughty",
+          "playerSide": "united",
+          "providerId": "mufcinfo:doughty_john",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "james-gotheridge",
+          "playerName": "James Gotheridge",
+          "playerSide": "united",
+          "providerId": "mufcinfo:gotheridge_james",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "heber-davies",
+          "playerName": "Heber Davies",
+          "playerSide": "united",
+          "providerId": "mufcinfo:davies_heber",
+          "shirt": 11,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        }
       ]
     }
   ]
