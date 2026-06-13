@@ -7,6 +7,7 @@ import {
 import { lateGoalMatchesInSeason, similarMatches } from "@/lib/trails";
 import { fmtDateLong, fmtNum, venueLabel, clubName, pct } from "@/lib/format";
 import { ResultBadge } from "@/components/ResultBadge";
+import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
 
 export const dynamic = "force-dynamic";
@@ -51,11 +52,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="space-y-10">
       <header className="space-y-4">
-        <nav className="text-sm text-ink-faint">
+        <nav className="flex items-center gap-2 text-sm text-ink-faint">
           <Link href={`/seasons/${m.season}`} className="hover:text-ink">{m.season}</Link>
-          {" · "}
-          <span>{m.competition_name}</span>
-          {m.round && <span> · {m.round}</span>}
+          <span aria-hidden>·</span>
+          <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} />
         </nav>
         <div>
           <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
