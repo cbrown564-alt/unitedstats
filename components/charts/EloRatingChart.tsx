@@ -4,6 +4,8 @@ import type { ChartDatum } from "@/components/charts";
 type EloRatingChartProps = {
   points: { date: string; elo: number }[];
   height?: number;
+  /** Managerial eras to shade behind the rating line; long tenures carry a label. */
+  eras?: { from: string; to: string; label?: string }[];
 };
 
 function formatDateLabel(date: string) {
@@ -20,7 +22,7 @@ function movementLabel(current: number, previous?: number) {
   return `${movement > 0 ? "+" : ""}${movement} since previous point`;
 }
 
-export function EloRatingChart({ points, height = 260 }: EloRatingChartProps) {
+export function EloRatingChart({ points, height = 260, eras }: EloRatingChartProps) {
   const data: ChartDatum[] = points.map((point, index) => ({
     x: Date.parse(point.date),
     y: point.elo,
@@ -39,6 +41,13 @@ export function EloRatingChart({ points, height = 260 }: EloRatingChartProps) {
   const max = Math.max(...values, 1500);
   const padding = Math.max(30, Math.round((max - min) * 0.08));
 
+  const eraAreas = eras?.map((era) => ({
+    key: `${era.from}-${era.label ?? ""}`,
+    x0: Date.parse(era.from),
+    x1: Date.parse(era.to),
+    label: era.label,
+  }));
+
   return (
     <InspectableTimeSeriesChart
       data={data}
@@ -49,6 +58,7 @@ export function EloRatingChart({ points, height = 260 }: EloRatingChartProps) {
       chartLabel="Manchester United Elo rating over time"
       xTicks={ticks}
       yDomain={[Math.floor(min - padding), Math.ceil(max + padding)]}
+      eras={eraAreas}
     />
   );
 }
