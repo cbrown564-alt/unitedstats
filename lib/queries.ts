@@ -606,6 +606,41 @@ export function playerGoalMinutes(id: string): number[] {
   ).map((r) => r.minute);
 }
 
+export interface PlayerOpponentGoals {
+  opponent_id: string;
+  opponent_name: string;
+  goals: number;
+  matches: number;
+  last_date: string;
+}
+
+/** Opponents this player scored most recorded goals against. */
+export function playerGoalsByOpponent(id: string, limit = 8): PlayerOpponentGoals[] {
+  return getDb()
+    .prepare(
+      `SELECT m.opponent_id, m.opponent_name, COUNT(*) goals,
+              COUNT(DISTINCT m.id) matches, MAX(m.date) last_date
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
+       GROUP BY m.opponent_id
+       ORDER BY goals DESC, matches ASC, last_date DESC LIMIT ?`,
+    )
+    .all(id, limit) as PlayerOpponentGoals[];
+}
+
+/**
+ * Where this player sits among players with a verified record, by headline
+ * goals and apps. Null when the player has no verified record to rank.
+ */
+export function playerClubRanks(id: string): { goalRank: number; appRank: number; total: number } | null {
+  const index = playersIndex();
+  const goalRank = index.findIndex((p) => p.player_id === id) + 1; // index is goals-sorted
+  if (goalRank === 0) return null;
+  const appRank =
+    [...index].sort((a, b) => b.apps - a.apps).findIndex((p) => p.player_id === id) + 1;
+  return { goalRank, appRank, total: index.length };
+}
+
 export interface AssistPartnership {
   scorer_id: string;
   scorer_name: string;
