@@ -62,7 +62,7 @@ export default async function OpponentPage({
             </div>
           ))}
         </div>
-        <WdlBar w={o.w} d={o.d} l={o.l} className="max-w-2xl mt-3" />
+        <WdlBar w={o.w} d={o.d} l={o.l} size="md" showLabels className="max-w-2xl mt-3" />
       </header>
 
       <section className="grid lg:grid-cols-3 gap-8">

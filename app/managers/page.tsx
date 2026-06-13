@@ -30,7 +30,7 @@ export default function ManagersPage() {
                   {m.first?.slice(0, 4)}–{m.last?.slice(0, 4)} · {m.role}
                 </span>
               </span>
-              <WdlBar w={m.w} d={m.d} l={m.l} />
+              <WdlBar w={m.w} d={m.d} l={m.l} variant="diverging" />
               <span className="stat-num text-xs text-ink-faint whitespace-nowrap">
                 {fmtNum(m.p)} P · {pct(m.w, m.p)} W
               </span>

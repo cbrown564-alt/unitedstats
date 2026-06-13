@@ -97,7 +97,7 @@ export default function SeasonsPage() {
                         {league.w}-{league.d}-{league.l}
                       </span>
                     </div>
-                    <WdlBar w={league.w} d={league.d} l={league.l} />
+                    <WdlBar w={league.w} d={league.d} l={league.l} tooltip={false} />
                   </div>
                 )}
                 <div className="sm:text-right">
