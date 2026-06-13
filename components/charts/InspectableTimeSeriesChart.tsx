@@ -5,6 +5,7 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
+  ReferenceArea,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -26,6 +27,8 @@ type InspectableTimeSeriesChartProps = {
   valueLabel?: string;
   chartLabel?: string;
   yTickSuffix?: string;
+  /** Background era bands (e.g. managerial tenures) drawn behind the series. */
+  eras?: { x0: number; x1: number; label?: string; key: string }[];
 };
 
 export function InspectableTimeSeriesChart({
@@ -40,6 +43,7 @@ export function InspectableTimeSeriesChart({
   valueLabel,
   chartLabel = valueLabel ?? "Time series chart",
   yTickSuffix = "",
+  eras,
 }: InspectableTimeSeriesChartProps) {
   const gradientId = useId().replace(/:/g, "");
 
@@ -60,6 +64,23 @@ export function InspectableTimeSeriesChart({
               <stop offset="82%" stopColor={stroke} stopOpacity={0.02} />
             </linearGradient>
           </defs>
+          {eras?.map((era, i) => (
+            <ReferenceArea
+              key={era.key}
+              x1={era.x0}
+              x2={era.x1}
+              ifOverflow="hidden"
+              fill="var(--color-ink)"
+              fillOpacity={i % 2 === 0 ? 0.04 : 0}
+              stroke="var(--color-line)"
+              strokeOpacity={0.5}
+              label={
+                era.label
+                  ? { value: era.label, position: "insideTop", fill: "var(--color-ink-faint)", fontSize: 10 }
+                  : undefined
+              }
+            />
+          ))}
           <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.72} vertical={false} />
           <XAxis
             dataKey="x"

@@ -33,6 +33,29 @@ export function clubName(date: string): string {
   return "Manchester United";
 }
 
+/**
+ * Competition colour category. Three readable groups carry the product's
+ * narrative axes — the league grind, cup nights, and European nights — while
+ * the specific competition name still does the precise labelling.
+ */
+export type CompetitionTone = "league" | "cup" | "europe" | "muted";
+
+export function competitionTone(type: string | null | undefined): CompetitionTone {
+  switch (type) {
+    case "european":
+      return "europe";
+    case "domestic-cup":
+    case "league-cup":
+    case "super-cup":
+    case "world":
+      return "cup";
+    case "league":
+      return "league";
+    default:
+      return "muted";
+  }
+}
+
 export function scoreline(gf: number, ga: number, pens?: [number | null, number | null] | null, aet?: boolean): string {
   let s = `${gf}–${ga}`;
   if (aet) s += " aet";

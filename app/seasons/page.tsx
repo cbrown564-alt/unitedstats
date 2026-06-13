@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { seasonsIndex } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
+import { CompetitionChip } from "@/components/CompetitionChip";
 import { PageHeader, StatTile } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { clubName, fmtNum } from "@/lib/format";
@@ -108,13 +109,12 @@ export default function SeasonsPage() {
                   {cups.length > 0 && (
                     <div className="mt-1 flex flex-wrap gap-1.5 sm:justify-end">
                     {cups.map((c) => (
-                      <span
+                      <CompetitionChip
                         key={c.competition_id}
-                        className="rounded border border-line bg-panel-2 px-1.5 py-0.5 text-[11px] text-ink-dim"
-                      >
-                        {c.competition_name.replace("UEFA ", "").replace("FA Charity/Community Shield", "Shield")}
-                        {c.furthest_round ? ` · ${c.furthest_round}` : ""}
-                      </span>
+                        type={c.type}
+                        name={c.competition_name.replace("UEFA ", "").replace("FA Charity/Community Shield", "Shield")}
+                        round={c.furthest_round}
+                      />
                     ))}
                     </div>
                   )}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { MatchRow } from "@/lib/queries";
 import { fmtDate, scoreline } from "@/lib/format";
 import { ResultBadge } from "./ResultBadge";
+import { CompetitionDot } from "./CompetitionChip";
 
 export function MatchList({ matches, showSeason = false }: { matches: MatchRow[]; showSeason?: boolean }) {
   return (
@@ -19,7 +20,8 @@ export function MatchList({ matches, showSeason = false }: { matches: MatchRow[]
                 <span className="mr-1.5 text-ink-faint">{m.venue === "H" ? "v" : m.venue === "A" ? "@" : "n"}</span>
                 {m.opponent_name}
               </span>
-              <span className="text-xs text-ink-dim sm:hidden">
+              <span className="flex items-center gap-1.5 text-xs text-ink-dim sm:hidden">
+                <CompetitionDot type={m.competition_type} />
                 {fmtDate(m.date)}
                 {showSeason ? ` · ${m.season}` : ""}
               </span>
@@ -27,10 +29,13 @@ export function MatchList({ matches, showSeason = false }: { matches: MatchRow[]
             <span className="stat-num rounded bg-panel-2 px-2 py-1 text-sm font-semibold whitespace-nowrap">
               {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet)}
             </span>
-            <span className="hidden w-36 truncate text-right text-xs text-ink-dim sm:block">
-              {showSeason ? `${m.season} · ` : ""}
-              {m.competition_name}
-              {m.round ? ` · ${m.round}` : ""}
+            <span className="hidden w-40 items-center justify-end gap-1.5 text-xs text-ink-dim sm:flex">
+              <CompetitionDot type={m.competition_type} />
+              <span className="truncate">
+                {showSeason ? `${m.season} · ` : ""}
+                {m.competition_name}
+                {m.round ? ` · ${m.round}` : ""}
+              </span>
             </span>
           </Link>
         </li>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { seasonMatches, allSeasons, seasonsIndex } from "@/lib/queries";
 import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
+import { CompetitionDot } from "@/components/CompetitionChip";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName } from "@/lib/format";
 
@@ -87,8 +88,11 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
 
       {[...byComp.entries()].map(([comp, list]) => (
         <section key={comp}>
-          <h2 className="display text-xl mb-3">
-            {comp} <span className="text-ink-faint text-sm font-normal">({list.length})</span>
+          <h2 className="display mb-3 flex items-center gap-2 text-xl">
+            <CompetitionDot type={list[0].competition_type} className="h-2 w-2" />
+            <span>
+              {comp} <span className="text-ink-faint text-sm font-normal">({list.length})</span>
+            </span>
           </h2>
           <MatchList matches={list} />
         </section>
