@@ -60,9 +60,22 @@ where those hosts are allowlisted. They are blocked from ad-hoc web sessions.
   and recover them if present.
 - Update the coverage ledger and README numbers.
 
-### Phase B — MUFCInfo verification spike + parser extension (the big one)
+### Phase B — MUFCInfo verification spike + parser extension — CLOSED (negative)
 
-**Status: ingester built, awaiting real-page verification.**
+**Verdict (2026-06-13): MUFCInfo match pages carry no per-goal assists.** The
+spike ran on GitHub-hosted runners (open egress reaches mufcinfo.com) via
+`.github/workflows/mufcinfo-assist-spike.yml`, inspecting match pages across
+1968, 1985, 1994, 2008, and 2017. On every page the goal summary is plain
+"Scorer minute', minute'" text (United and opposition in separate cells), with
+no "assisted by" / "made by" wording and no player link in the goal cell. The
+conservative ingester behaved correctly — `parseGoals()` found nothing and a
+1998-99 dry-run attached zero assists — so no source change is warranted.
+Per-match assist backfill from MUFCInfo is not possible; the assist gap before
+2012 must be served by the Phase C headline lane (or left as honestly
+unrecorded). MUFCInfo's own assist numbers live on aggregate stat pages
+(career/season), not match pages — that is the Phase C input to evaluate.
+
+Historical detail of the now-closed spike:
 `scripts/ingest/mufcinfo-events.ts` (`npm run ingest:mufcinfo-assists`) is in
 place. It reuses the cached MUFCInfo match pages and the player-resolution
 approach of `scripts/ingest/mufcinfo-lineups.ts`, and is strictly additive: it
