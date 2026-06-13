@@ -62,8 +62,10 @@ Product principles:
       only.
 - [x] Partnership networks — canonical assist fields, aggregate queries,
       analytics UI, and player-page UI are wired. The checked-in dataset now
-      carries 975 recorded assists (2012–present, transfermarkt-datasets);
-      earlier eras stay pending until a source records them.
+      carries 975 recorded assists (2012-13–present, transfermarkt-datasets).
+      No open, redistributable source records United assists before 2012-13
+      (investigated and documented in docs/ASSISTS-PLAN.md), so earlier seasons
+      are blank by source limitation rather than pending enrichment.
 - [x] Player pages with per-season goal/app splits, lineup appearances, and
       goal-minute histograms.
 
