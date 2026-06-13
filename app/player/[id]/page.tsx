@@ -8,7 +8,7 @@ import {
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
 import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
-import { Column, DataTable } from "@/components/DataTable";
+import { Column, DataTable, type SortDirection } from "@/components/DataTable";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -39,12 +39,50 @@ type SeasonSplit = {
   assists: number;
 };
 
+type SeasonSortKey = "season" | "apps" | "starts" | "goals" | "assists" | "ga";
+
+const SEASON_SORT_DEFAULTS: Record<SeasonSortKey, SortDirection> = {
+  season: "asc",
+  apps: "desc",
+  starts: "desc",
+  goals: "desc",
+  assists: "desc",
+  ga: "desc",
+};
+
+const SEASON_SORT_LABELS: Record<SeasonSortKey, string> = {
+  season: "Season",
+  apps: "Apps",
+  starts: "Starts",
+  goals: "Goals",
+  assists: "Assists",
+  ga: "goals + assists",
+};
+
+function parseSeasonSort(value: string | undefined): SeasonSortKey {
+  return value && Object.hasOwn(SEASON_SORT_DEFAULTS, value) ? (value as SeasonSortKey) : "season";
+}
+
+function compareSeasons(a: SeasonSplit, b: SeasonSplit, key: SeasonSortKey, dir: SortDirection): number {
+  const n = (x: number, y: number) => (dir === "asc" ? x - y : y - x);
+  const ga = (s: SeasonSplit) => s.goals + s.assists;
+  const primary =
+    key === "season" ? (dir === "asc" ? a.season.localeCompare(b.season) : b.season.localeCompare(a.season))
+    : key === "apps" ? n(a.apps, b.apps)
+    : key === "starts" ? n(a.starts, b.starts)
+    : key === "goals" ? n(a.goals, b.goals)
+    : key === "assists" ? n(a.assists, b.assists)
+    : n(ga(a), ga(b));
+  // Stable, readable tiebreak: oldest season first.
+  return primary || a.season.localeCompare(b.season);
+}
+
 export default async function PlayerPage({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; sort?: string; dir?: string }>;
 }) {
   const { id } = await params;
   const sp = await searchParams;
@@ -102,28 +140,83 @@ export default async function PlayerPage({
   const goalsPage = Math.min(Math.max(1, parseInt(sp.page ?? "1", 10) || 1), goalsPages);
   const pagedMatches = matches.slice((goalsPage - 1) * GOALS_PAGE_SIZE, goalsPage * GOALS_PAGE_SIZE);
 
+  // Season table sort, kept independent of the goals-list pagination above.
+  const seasonSortKey = parseSeasonSort(sp.sort);
+  const seasonSortDir: SortDirection =
+    sp.dir === "asc" || sp.dir === "desc" ? sp.dir : SEASON_SORT_DEFAULTS[seasonSortKey];
+  const sortedSeasons = [...bySeason].sort((a, b) => compareSeasons(a, b, seasonSortKey, seasonSortDir));
+
+  function seasonSortHref(nextKey: string, nextDir: SortDirection) {
+    const params = new URLSearchParams();
+    if (goalsPage > 1) params.set("page", String(goalsPage));
+    params.set("sort", nextKey);
+    params.set("dir", nextDir);
+    return `/player/${id}?${params.toString()}#seasons`;
+  }
+
+  function goalsPageHref(targetPage: number) {
+    const params = new URLSearchParams();
+    params.set("page", String(targetPage));
+    if (sp.sort) params.set("sort", seasonSortKey);
+    if (sp.dir) params.set("dir", seasonSortDir);
+    return `/player/${id}?${params.toString()}#scored`;
+  }
+
   const seasonColumns: Column<SeasonSplit>[] = [
     {
       label: "Season",
+      key: "season",
+      sortKey: "season",
+      sortDefaultDirection: SEASON_SORT_DEFAULTS.season,
       render: (s) => (
         <Link href={`/seasons/${s.season}`} className="font-medium text-ink hover:text-devil-bright">
           {s.season}
         </Link>
       ),
     },
-    { label: "Apps", numeric: true, render: (s) => (s.apps ? fmtNum(s.apps) : "—") },
-    { label: "Starts", numeric: true, hideBelow: "hidden sm:table-cell", render: (s) => (s.starts ? fmtNum(s.starts) : "—") },
+    {
+      label: "Apps",
+      key: "apps",
+      numeric: true,
+      sortKey: "apps",
+      sortDefaultDirection: SEASON_SORT_DEFAULTS.apps,
+      render: (s) => (s.apps ? fmtNum(s.apps) : "—"),
+    },
+    {
+      label: "Starts",
+      key: "starts",
+      numeric: true,
+      hideBelow: "hidden sm:table-cell",
+      sortKey: "starts",
+      sortDefaultDirection: SEASON_SORT_DEFAULTS.starts,
+      render: (s) => (s.starts ? fmtNum(s.starts) : "—"),
+    },
     {
       label: "Goals",
+      key: "goals",
       numeric: true,
+      sortKey: "goals",
+      sortDefaultDirection: SEASON_SORT_DEFAULTS.goals,
       render: (s) => (
         <span className={s.goals > 0 ? "text-devil-bright" : "text-ink-faint"}>{s.goals || "—"}</span>
       ),
     },
-    { label: "Assists", numeric: true, hideBelow: "hidden sm:table-cell", render: (s) => (s.assists ? fmtNum(s.assists) : "—") },
+    {
+      label: "Assists",
+      key: "assists",
+      numeric: true,
+      hideBelow: "hidden sm:table-cell",
+      sortKey: "assists",
+      sortDefaultDirection: SEASON_SORT_DEFAULTS.assists,
+      render: (s) => (s.assists ? fmtNum(s.assists) : "—"),
+    },
     {
       label: "G+A",
+      key: "ga",
       numeric: true,
+      sortKey: "ga",
+      sortDefaultDirection: SEASON_SORT_DEFAULTS.ga,
+      sortLabel: "goals plus assists",
       render: (s) => (s.goals + s.assists > 0 ? fmtNum(s.goals + s.assists) : "—"),
     },
   ];
@@ -343,7 +436,7 @@ export default async function PlayerPage({
       </div>
 
       {bySeason.length > 0 && (
-        <section>
+        <section id="seasons">
           <details open className="group">
             <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
               <h2 className="display text-xl">Season by season</h2>
@@ -353,22 +446,25 @@ export default async function PlayerPage({
             <div className="mt-3">
               <DataTable
                 columns={seasonColumns}
-                rows={bySeason}
+                rows={sortedSeasons}
                 rowKey={(s) => s.season}
                 density="compact"
                 caption={`${p.name} season-by-season apps, goals, and assists`}
+                sort={{ key: seasonSortKey, direction: seasonSortDir, hrefFor: seasonSortHref }}
                 summary={
                   <>
                     <span>{fmtNum(bySeason.length)} recorded seasons</span>
-                    <span className="stat-num">
-                      {fmtNum(coveredSeasons.length)} with lineup coverage
+                    <span>
+                      Sorted by{" "}
+                      <span className="font-semibold text-ink">{SEASON_SORT_LABELS[seasonSortKey]}</span>,{" "}
+                      {seasonSortDir === "asc" ? "ascending" : "descending"}
                     </span>
                   </>
                 }
               />
               <CoverageNote
                 slice="all competitions, per season"
-                coverage="apps and assists reflect local lineup and scorer coverage; empty cells are coverage gaps, not zero."
+                coverage={`${fmtNum(coveredSeasons.length)} of ${fmtNum(bySeason.length)} seasons carry lineup coverage; apps and assists reflect local data, so empty cells are coverage gaps, not zero.`}
               />
             </div>
           </details>
@@ -433,7 +529,7 @@ export default async function PlayerPage({
           <nav className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-3 py-2 text-sm">
             {goalsPage > 1 ? (
               <Link
-                href={`/player/${id}?page=${goalsPage - 1}#scored`}
+                href={goalsPageHref(goalsPage - 1)}
                 className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright"
               >
                 Newer
@@ -446,7 +542,7 @@ export default async function PlayerPage({
             </span>
             {goalsPage < goalsPages ? (
               <Link
-                href={`/player/${id}?page=${goalsPage + 1}#scored`}
+                href={goalsPageHref(goalsPage + 1)}
                 className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright"
               >
                 Older
