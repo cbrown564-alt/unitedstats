@@ -18,7 +18,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   CANONICAL, LineupEntry, Match, RAW, SeasonFile,
-  loadSeasonFile, readJson, saveSeasonFile, seasonKey, seasonOfDate, slugify, writeJson,
+  loadSeasonFile, parseSeasonArgs, readJson, saveSeasonFile, seasonOfDate, slugify, writeJson,
 } from "../lib";
 
 const SOURCE_ID = "mufcinfo-match-lineups";
@@ -377,29 +377,7 @@ function matchesOffName(row: MufcInfoRow, name: string): boolean {
 
 function seasonsFromArgs(): string[] {
   if (DATE) return [seasonOfDate(DATE)];
-  const args = process.argv.slice(2).filter((arg) =>
-    /^\d{4}-\d{2}$/.test(arg) || arg === "current" || arg === "all",
-  );
-  if (args.length === 0) usage();
-  if (args.includes("all")) return allSeasonKeys();
-  if (args.includes("current")) {
-    const now = new Date();
-    const startYear = now.getUTCMonth() + 1 >= 7 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
-    return [seasonKey(startYear)];
-  }
-  const start = parseInt(args[0].slice(0, 4), 10);
-  const end = args[1] ? parseInt(args[1].slice(0, 4), 10) : start;
-  const seasons: string[] = [];
-  for (let y = start; y <= end; y++) seasons.push(seasonKey(y));
-  return seasons;
-}
-
-function allSeasonKeys(): string[] {
-  const dir = path.join(CANONICAL, "matches");
-  return fs.readdirSync(dir)
-    .filter((file) => /^\d{4}-\d{2}\.json$/.test(file))
-    .map((file) => file.replace(".json", ""))
-    .sort();
+  return parseSeasonArgs(process.argv.slice(2), { allowAll: true }) ?? usage();
 }
 
 function cacheFile(date: string): string {
