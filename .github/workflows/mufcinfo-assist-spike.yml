@@ -1,0 +1,36 @@
+name: MUFCInfo assist spike
+
+# Manual, read-only verification of the MUFCInfo assist lane (docs/ASSISTS-PLAN.md
+# Phase B). GitHub-hosted runners have open outbound internet, so they can reach
+# mufcinfo.com. This job only runs --inspect / dry-run; it never writes canonical
+# data or pushes, so it cannot affect the deployed site.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dates:
+        description: "Space-separated match dates to inspect (YYYY-MM-DD)"
+        required: false
+        default: "1999-05-26 1994-01-04 1968-05-29 2008-05-21 1985-05-18 2017-05-24"
+
+jobs:
+  spike:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Inspect goal-cell format across eras
+        run: |
+          for d in ${{ github.event.inputs.dates }}; do
+            echo "::group::inspect $d"
+            npm run ingest:mufcinfo-assists -- --inspect "$d" || echo "inspect failed for $d"
+            echo "::endgroup::"
+          done
+
+      - name: Dry-run a sample modern season (no write)
+        run: npm run ingest:mufcinfo-assists -- 1998-99 || echo "dry-run failed"
