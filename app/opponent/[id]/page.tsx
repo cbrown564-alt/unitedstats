@@ -6,6 +6,7 @@ import {
 } from "@/lib/trails";
 import { oddsFor } from "@/lib/predict";
 import { MatchList } from "@/components/MatchList";
+import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct, venueLabel } from "@/lib/format";
@@ -43,27 +44,21 @@ export default async function OpponentPage({
 
   return (
     <div className="space-y-8">
-      <header>
-        <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-2">Head to head</p>
-        <h1 className="display text-4xl">United v {o.name}</h1>
-        <p className="text-sm text-ink-dim mt-2 stat-num">
-          First met {o.first} · last met {o.last}
-        </p>
-        <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-2xl">
-          {[
-            ["Played", fmtNum(o.p)],
-            ["Record", `${o.w}–${o.d}–${o.l}`],
-            ["Win rate", pct(o.w, o.p)],
-            ["Goals", `${fmtNum(o.gf)}–${fmtNum(o.ga)}`],
-          ].map(([k, v]) => (
-            <div key={k} className="bg-panel px-4 py-3">
-              <div className="stat-num text-xl font-semibold">{v}</div>
-              <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{k}</div>
-            </div>
-          ))}
-        </div>
-        <WdlBar w={o.w} d={o.d} l={o.l} size="md" showLabels className="max-w-2xl mt-3" />
-      </header>
+      <PageHeader
+        eyebrow="Head to head"
+        title={`United v ${o.name}`}
+        aside={
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
+            <StatTile label="Played" value={fmtNum(o.p)} tone="red" />
+            <StatTile label="Record" value={`${o.w}–${o.d}–${o.l}`} />
+            <StatTile label="Win rate" value={pct(o.w, o.p)} tone="green" />
+            <StatTile label="Goals" value={`${fmtNum(o.gf)}–${fmtNum(o.ga)}`} />
+          </div>
+        }
+      >
+        <span className="stat-num">First met {o.first} · last met {o.last}</span>
+      </PageHeader>
+      <WdlBar w={o.w} d={o.d} l={o.l} size="md" showLabels className="max-w-2xl" />
 
       <section className="grid lg:grid-cols-3 gap-8">
         <div>
@@ -179,6 +174,23 @@ export default async function OpponentPage({
             )}
           </nav>
         )}
+      </section>
+
+      <section>
+        <h2 className="display mb-3 text-xl">Keep exploring</h2>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <TrailLink href={`/matches?opponent=${id}&venue=A`} title="Away record">
+            Every meeting at their ground, where bogey records usually live.
+          </TrailLink>
+          {cup.p > 0 && (
+            <TrailLink href={`/matches?opponent=${id}&type=cup`} title="Cup ties">
+              The {cup.p} knockout meeting{cup.p === 1 ? "" : "s"} between the sides.
+            </TrailLink>
+          )}
+          <TrailLink href="/opponents" title="All opponents">
+            Compare this head-to-head against every other side United have faced.
+          </TrailLink>
+        </div>
       </section>
     </div>
   );

@@ -25,6 +25,11 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const similar = similarMatches(m, 6);
   const seasonLateGoals = lateGoalMatchesInSeason(m.season, m.id);
 
+  // Scoreline tone follows the result, never brand red by default — a heavy
+  // defeat should not read as a celebration.
+  const resultTone = m.outcome === "W" ? "text-win" : m.outcome === "L" ? "text-loss" : "text-draw";
+  const resultWord = m.outcome === "W" ? "Won" : m.outcome === "L" ? "Lost" : "Drawn";
+
   const goals = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type));
   const opponentGoals = events.filter((e) => ["opp-goal", "own-goal-against"].includes(e.type));
   const cards = events.filter((e) => e.type === "card-yellow" || e.type === "card-red");
@@ -53,20 +58,26 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           {m.round && <span> · {m.round}</span>}
         </nav>
         <div>
-          <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-2">
-            {fmtDateLong(m.date)}
-          </p>
+          <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
+              {fmtDateLong(m.date)}
+            </p>
+            <span aria-hidden className="text-ink-faint">·</span>
+            <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${resultTone}`}>
+              {resultWord}
+            </span>
+          </div>
           <h1 className="display text-3xl sm:text-5xl leading-tight">
             {m.venue === "A" ? (
               <>
                 <Link href={`/opponent/${m.opponent_id}`} className="hover:text-devil-bright">{m.opponent_name}</Link>
                 {" "}
-                <span className="stat-num text-devil-bright">{m.ga}–{m.gf}</span> {club}
+                <span className={`stat-num ${resultTone}`}>{m.ga}–{m.gf}</span> {club}
               </>
             ) : (
               <>
                 {club}{" "}
-                <span className="stat-num text-devil-bright">{m.gf}–{m.ga}</span>{" "}
+                <span className={`stat-num ${resultTone}`}>{m.gf}–{m.ga}</span>{" "}
                 <Link href={`/opponent/${m.opponent_id}`} className="hover:text-devil-bright">{m.opponent_name}</Link>
               </>
             )}
@@ -225,7 +236,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       )}
       {bench.length > 0 && (
         <section>
-          <h2 className="display text-xl mb-3">Bench</h2>
+          <details className="group">
+            <summary className="mb-3 flex cursor-pointer list-none items-baseline justify-between gap-3">
+              <h2 className="display text-xl">Bench</h2>
+              <span className="stat-num text-xs text-devil-bright">
+                <span className="group-open:hidden">show</span>
+                <span className="hidden group-open:inline">hide</span>
+              </span>
+            </summary>
           <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
             {bench.map((p) => (
               <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
@@ -244,6 +262,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <p className="text-xs text-ink-faint mt-2">
             Bench rows are source evidence only; they do not count as appearances unless the player entered the match.
           </p>
+          </details>
         </section>
       )}
       {starters.length === 0 && (
@@ -257,7 +276,15 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
       {sources.length > 0 && (
         <section>
-          <h2 className="display text-xl mb-3">Source trail</h2>
+          <details className="group">
+            <summary className="mb-3 flex cursor-pointer list-none items-baseline justify-between gap-3">
+              <h2 className="display text-xl">Source trail</h2>
+              <span className="stat-num text-xs text-ink-faint">
+                {sourceSummary.size} source{sourceSummary.size === 1 ? "" : "s"} ·{" "}
+                <span className="text-devil-bright group-open:hidden">show</span>
+                <span className="hidden text-devil-bright group-open:inline">hide</span>
+              </span>
+            </summary>
           <div className="grid sm:grid-cols-2 gap-2 max-w-3xl">
             {[...sourceSummary.entries()].map(([id, s]) => (
               <div key={id} className="border border-line rounded-lg bg-panel px-4 py-3">
@@ -278,6 +305,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             ))}
           </div>
+          </details>
         </section>
       )}
 
