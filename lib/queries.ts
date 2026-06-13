@@ -214,7 +214,8 @@ export interface MatchFilter {
   offset?: number;
 }
 
-export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number } {
+/** Shared filter compilation so the list and its summary read the same slice. */
+function matchWhere(f: MatchFilter): { cond: string; params: Record<string, string | number> } {
   const where: string[] = [];
   const params: Record<string, string | number> = {};
   if (f.competition) { where.push("m.competition_id = @competition"); params.competition = f.competition; }
@@ -231,7 +232,11 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
   if (f.from) { where.push("m.date >= @from"); params.from = f.from; }
   if (f.to) { where.push("m.date <= @to"); params.to = f.to; }
   if (f.q) { where.push("m.opponent_name LIKE @q"); params.q = `%${f.q}%`; }
-  const cond = where.length ? `WHERE ${where.join(" AND ")}` : "";
+  return { cond: where.length ? `WHERE ${where.join(" AND ")}` : "", params };
+}
+
+export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number } {
+  const { cond, params } = matchWhere(f);
   const total = (
     getDb()
       .prepare(`SELECT COUNT(*) n FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`)
@@ -241,6 +246,26 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
     .prepare(`${MATCH_SELECT} ${cond} ORDER BY m.date DESC LIMIT @limit OFFSET @offset`)
     .all({ ...params, limit: f.limit ?? 50, offset: f.offset ?? 0 }) as MatchRow[];
   return { rows, total };
+}
+
+export interface MatchesSummary extends Record_ {
+  first: string | null;
+  last: string | null;
+  avg_home_att: number | null;
+}
+
+/** Aggregate record for the whole filtered set, independent of pagination. */
+export function matchesSummary(f: MatchFilter): MatchesSummary {
+  const { cond, params } = matchWhere(f);
+  return getDb()
+    .prepare(
+      `SELECT COUNT(*) p, COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d,
+              COALESCE(SUM(result='L'),0) l, COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga,
+              MIN(date) first, MAX(date) last,
+              ROUND(AVG(CASE WHEN venue='H' THEN attendance END)) avg_home_att
+       FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`,
+    )
+    .get(params) as MatchesSummary;
 }
 
 export function competitionsList(): { id: string; name: string; type: string; n: number }[] {
