@@ -78,6 +78,16 @@ where those hosts are allowlisted. They are blocked from ad-hoc web sessions.
   labelled "career total, not match-attributed" — the same way `player_records`
   and `player_totals` already coexist.
 
+### Phase C′ — Curated Tableau season aggregate (delivered)
+A hand-curated Tableau workbook now supplies season-level goals **and assists**
+by player/opponent/competition for **1987-88 → 2014-15** — richer than career
+totals and covering the pre-2012 era this gap is about. It is normalized into
+`data/canonical/tableau-goals-assists.json` (2,469 assists) but is **not
+match-attributed** (no dates/minutes), so it lands as its own season-level lane
+rather than `match_events`, exactly like the `player_records` headline lane.
+See `docs/TABLEAU-GOALS-ASSISTS.md`. Wiring it into `build:db` and player pages
+(clearly labelled "curated, season-level") is the open follow-up.
+
 ### Phase D — Curated long tail
 - RSSSF / Wikipedia / Opta-era citations via curated PRs for notable matches and
   goals only.
