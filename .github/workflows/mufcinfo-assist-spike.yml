@@ -12,6 +12,13 @@ on:
         description: "Space-separated match dates to inspect (YYYY-MM-DD)"
         required: false
         default: "1999-05-26 1994-01-04 1968-05-29 2008-05-21 1985-05-18 2017-05-24"
+  # Also runs on push to the spike branch so it can execute before the workflow
+  # is on the default branch (workflow_dispatch isn't available off-default).
+  push:
+    branches: [claude/assists-records-gap-99218q]
+    paths:
+      - .github/workflows/mufcinfo-assist-spike.yml
+      - scripts/ingest/mufcinfo-events.ts
 
 jobs:
   spike:
@@ -25,8 +32,10 @@ jobs:
       - run: npm ci
 
       - name: Inspect goal-cell format across eras
+        env:
+          DATES: ${{ github.event.inputs.dates || '1999-05-26 1994-01-04 1968-05-29 2008-05-21 1985-05-18 2017-05-24' }}
         run: |
-          for d in ${{ github.event.inputs.dates }}; do
+          for d in $DATES; do
             echo "::group::inspect $d"
             npm run ingest:mufcinfo-assists -- --inspect "$d" || echo "inspect failed for $d"
             echo "::endgroup::"
