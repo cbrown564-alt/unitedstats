@@ -16,6 +16,16 @@ import { fmtNum, pct, venueLabel } from "@/lib/format";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Analytics" };
 
+/** Quiet chapter divider that groups the chart panels into readable bands. */
+function Band({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">{label}</span>
+      <span aria-hidden className="h-px flex-1 bg-line" />
+    </div>
+  );
+}
+
 export default function AnalyticsPage() {
   const elo = eloSeries();
   const seasons = seasonAggregates();
@@ -122,6 +132,8 @@ export default function AnalyticsPage() {
           </p>
         </div>
       </section>
+
+      <Band label="Trends over time" />
 
       {/* season trends */}
       <section className="grid lg:grid-cols-2 gap-8">
@@ -236,6 +248,8 @@ export default function AnalyticsPage() {
         </ChartPanel>
       </section>
 
+      <Band label="Goals and grounds" />
+
       {/* goal minutes + venue split */}
       <section className="grid lg:grid-cols-2 gap-8">
         {minuteHist.length > 0 && (
@@ -303,6 +317,8 @@ export default function AnalyticsPage() {
         </div>
       </section>
 
+      <Band label="Records" />
+
       {/* records */}
       <section className="grid lg:grid-cols-2 gap-8">
         <div>
@@ -331,6 +347,8 @@ export default function AnalyticsPage() {
           largest crowds in English club history.
         </p>
       </section>
+
+      <Band label="Data coverage" />
 
       {/* coverage ledger */}
       <section>
