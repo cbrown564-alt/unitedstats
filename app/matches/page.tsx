@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { findMatches, matchesSummary, competitionsList, allSeasons } from "@/lib/queries";
+import { findMatches, matchesSummary, matchDecades, competitionsList, allSeasons } from "@/lib/queries";
+import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { PageHeader, StatTile } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
@@ -21,6 +22,13 @@ const TYPE_LABELS: Record<string, string> = {
 
 const RESULT_LABELS: Record<string, string> = { W: "Won", D: "Drawn", L: "Lost" };
 
+const SORTS: { key: string; label: string }[] = [
+  { key: "recent", label: "Most recent" },
+  { key: "oldest", label: "Oldest first" },
+  { key: "margin", label: "Biggest win" },
+  { key: "attendance", label: "Best attended" },
+];
+
 export default async function MatchesPage({
   searchParams,
 }: {
@@ -28,6 +36,12 @@ export default async function MatchesPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
+  const sort = (["oldest", "margin", "attendance"].includes(sp.sort ?? "") ? sp.sort : "recent") as
+    | "recent"
+    | "oldest"
+    | "margin"
+    | "attendance";
+  const chronological = sort === "recent" || sort === "oldest";
   // `from`/`to` accept a bare year (evidence links from decade/era modules) or a full ISO date
   const year = (v: string | undefined, edge: "from" | "to") =>
     v ? (/^\d{4}$/.test(v) ? `${v}-${edge === "from" ? "01-01" : "12-31"}` : v) : undefined;
@@ -41,6 +55,7 @@ export default async function MatchesPage({
     from: year(sp.from, "from"),
     to: year(sp.to, "to"),
     q: sp.q || undefined,
+    sort,
     limit: PAGE_SIZE,
     offset: (page - 1) * PAGE_SIZE,
   };
@@ -48,6 +63,7 @@ export default async function MatchesPage({
   const summary = matchesSummary(filter);
   const comps = competitionsList();
   const seasons = allSeasons();
+  const decades = matchDecades();
   const pages = Math.ceil(total / PAGE_SIZE);
   const hasFilters = Boolean(
     sp.q || sp.competition || sp.opponent || sp.season || sp.venue || sp.result || sp.type || sp.from || sp.to,
@@ -79,8 +95,9 @@ export default async function MatchesPage({
   ];
   const presetActive = (params: Record<string, string>) =>
     Object.entries(params).every(([k, v]) => sp[k] === v) &&
-    // exact match: no other filters layered on top
-    Object.keys(params).length === Object.keys(sp).filter((k) => k !== "page" && sp[k]).length;
+    // exact match: no other filters layered on top (sort/page are not filters)
+    Object.keys(params).length ===
+      Object.keys(sp).filter((k) => k !== "page" && k !== "sort" && sp[k]).length;
 
   // Active filters, rendered as individually removable chips.
   const chips: { key: string; label: string }[] = [];
@@ -134,6 +151,7 @@ export default async function MatchesPage({
       </div>
 
       <form className="rounded-lg border border-line bg-panel p-3 text-sm shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]" method="get" action="/matches">
+        {sort !== "recent" && <input type="hidden" name="sort" value={sort} />}
         <div className="grid gap-3 md:grid-cols-12">
           <label className="md:col-span-4">
             <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Opponent</span>
@@ -273,7 +291,54 @@ export default async function MatchesPage({
         )}
       </section>
 
-      <MatchGroups matches={rows} />
+      <div>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Jump to a decade</p>
+        <div className="flex gap-1.5 overflow-x-auto pb-1">
+          {decades.map((dec) => {
+            const active = sp.from === String(dec.from) && sp.to === String(dec.to);
+            return (
+              <Link
+                key={dec.decade}
+                href={`/matches${qs({ from: String(dec.from), to: String(dec.to), page: undefined })}`}
+                aria-current={active ? "true" : undefined}
+                className={`shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
+                  active
+                    ? "border-devil/60 bg-devil/15 text-devil-bright"
+                    : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
+                }`}
+              >
+                <span className="stat-num block text-xs font-semibold leading-tight">{dec.decade}</span>
+                <span className="stat-num block text-[10px] leading-tight text-ink-faint">{fmtNum(dec.n)}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm">
+        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Sort</span>
+        {SORTS.map((s) => {
+          const active = sort === s.key;
+          return (
+            <Link
+              key={s.key}
+              href={`/matches${qs({ sort: s.key === "recent" ? undefined : s.key, page: undefined })}`}
+              aria-current={active ? "true" : undefined}
+              className={`rounded-md px-2 py-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
+                active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
+              }`}
+            >
+              {s.label}
+            </Link>
+          );
+        })}
+      </div>
+
+      {chronological ? (
+        <MatchGroups matches={rows} showAttendance accentResult />
+      ) : (
+        <MatchList matches={rows} showSeason showAttendance accentResult />
+      )}
 
       {pages > 1 && (
         <nav className="flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-3 py-2 text-sm">
