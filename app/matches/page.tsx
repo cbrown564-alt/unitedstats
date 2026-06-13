@@ -4,23 +4,16 @@ import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { PageHeader, StatTile } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
-import { fmtNum, fmtDate, pct, venueLabel } from "@/lib/format";
+import { fmtNum, fmtDate, pct, venueLabel, resultLabel, COMPETITION_TYPE_LABELS } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Matches" };
 
 const PAGE_SIZE = 50;
 
-const TYPE_LABELS: Record<string, string> = {
-  league: "League",
-  cup: "All cups",
-  "domestic-cup": "FA Cup",
-  "league-cup": "League Cup",
-  european: "Europe",
-  unofficial: "Wartime and friendlies",
-};
-
-const RESULT_LABELS: Record<string, string> = { W: "Won", D: "Drawn", L: "Lost" };
+// Curated subset of competition types offered in the filter, in display order.
+const TYPE_FILTER_KEYS = ["league", "cup", "domestic-cup", "league-cup", "european", "unofficial"];
+const RESULT_FILTER_KEYS = ["W", "D", "L"];
 
 const SORTS: { key: string; label: string }[] = [
   { key: "recent", label: "Most recent" },
@@ -106,8 +99,8 @@ export default async function MatchesPage({
     chips.push({ key: "competition", label: comps.find((c) => c.id === sp.competition)?.name ?? sp.competition });
   if (sp.season) chips.push({ key: "season", label: `Season ${sp.season}` });
   if (sp.venue) chips.push({ key: "venue", label: venueLabel(sp.venue) });
-  if (sp.result) chips.push({ key: "result", label: RESULT_LABELS[sp.result] ?? sp.result });
-  if (sp.type) chips.push({ key: "type", label: TYPE_LABELS[sp.type] ?? sp.type });
+  if (sp.result) chips.push({ key: "result", label: resultLabel(sp.result) });
+  if (sp.type) chips.push({ key: "type", label: COMPETITION_TYPE_LABELS[sp.type] ?? sp.type });
   if (sp.from) chips.push({ key: "from", label: `From ${sp.from}` });
   if (sp.to) chips.push({ key: "to", label: `To ${sp.to}` });
 
@@ -206,21 +199,18 @@ export default async function MatchesPage({
               <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Result</span>
               <select name="result" defaultValue={sp.result ?? ""} className="control w-full">
                 <option value="">Any result</option>
-                <option value="W">Won</option>
-                <option value="D">Drawn</option>
-                <option value="L">Lost</option>
+                {RESULT_FILTER_KEYS.map((r) => (
+                  <option key={r} value={r}>{resultLabel(r)}</option>
+                ))}
               </select>
             </label>
             <label className="md:col-span-3">
               <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Match type</span>
               <select name="type" defaultValue={sp.type ?? ""} className="control w-full">
                 <option value="">Any type</option>
-                <option value="league">League</option>
-                <option value="cup">All cups</option>
-                <option value="domestic-cup">FA Cup</option>
-                <option value="league-cup">League Cup</option>
-                <option value="european">Europe</option>
-                <option value="unofficial">Wartime and friendlies</option>
+                {TYPE_FILTER_KEYS.map((t) => (
+                  <option key={t} value={t}>{COMPETITION_TYPE_LABELS[t]}</option>
+                ))}
               </select>
             </label>
             <label className="md:col-span-2">

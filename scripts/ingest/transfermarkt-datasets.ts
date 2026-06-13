@@ -17,7 +17,8 @@ import { Readable } from "node:stream";
 import zlib from "node:zlib";
 import {
   CANONICAL, LineupEntry, Match, MatchEvent, RAW,
-  loadSeasonFile, readJson, saveSeasonFile, seasonKey, seasonOfDate, slugify, writeJson,
+  loadSeasonFile, parseCsvLine, parseSeasonArgs, readJson, saveSeasonFile,
+  seasonKey, seasonOfDate, slugify, writeJson,
 } from "../lib";
 
 const BASE_URL = "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data";
@@ -96,18 +97,7 @@ function usage(): never {
 }
 
 function seasonsFromArgs(): string[] {
-  const args = process.argv.slice(2).filter((a) => /^\d{4}-\d{2}$/.test(a) || a === "current");
-  if (args.includes("current")) {
-    const now = new Date();
-    const startYear = now.getUTCMonth() + 1 >= 7 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
-    return [seasonKey(startYear)];
-  }
-  if (args.length === 0) usage();
-  const start = parseInt(args[0].slice(0, 4), 10);
-  const end = args[1] ? parseInt(args[1].slice(0, 4), 10) : start;
-  const seasons: string[] = [];
-  for (let y = start; y <= end; y++) seasons.push(seasonKey(y));
-  return seasons;
+  return parseSeasonArgs(process.argv.slice(2)) ?? usage();
 }
 
 function cacheFile(table: Table): string {
@@ -130,25 +120,6 @@ async function ensureCached(table: Table): Promise<void> {
       .on("finish", resolve);
   });
   fs.renameSync(temp, file);
-}
-
-function parseCsvLine(line: string): string[] {
-  const cells: string[] = [];
-  let field = "";
-  let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (inQuotes) {
-      if (c === "\"") {
-        if (line[i + 1] === "\"") { field += "\""; i++; }
-        else inQuotes = false;
-      } else field += c;
-    } else if (c === "\"") inQuotes = true;
-    else if (c === ",") { cells.push(field); field = ""; }
-    else field += c;
-  }
-  cells.push(field);
-  return cells;
 }
 
 async function eachCsvRow(table: Table, visit: (row: Record<string, string>) => void | Promise<void>): Promise<void> {

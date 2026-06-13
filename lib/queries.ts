@@ -30,7 +30,7 @@ export interface MatchRow {
   notes: string | null;
 }
 
-const MATCH_SELECT = `
+export const MATCH_SELECT = `
   SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name
   FROM matches m
   JOIN competitions c ON c.id = m.competition_id
@@ -600,7 +600,7 @@ export function playerLineupMatches(id: string): (MatchRow & {
 })[] {
   return getDb()
     .prepare(
-      `SELECT m.*, c.name AS competition_name, s.name AS stadium_name, mg.name AS manager_name,
+      `SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name,
               l.started, l.sub_on, l.sub_off, l.role
        FROM match_lineups l
        JOIN matches m ON m.id = l.match_id
@@ -631,7 +631,7 @@ export function playerGoalsBySeason(id: string): { season: string; goals: number
 export function playerGoalMatches(id: string): (MatchRow & { goals: number; minutes: string | null })[] {
   return getDb()
     .prepare(
-      `SELECT m.*, c.name AS competition_name, NULL AS stadium_name, NULL AS manager_name,
+      `SELECT m.*, c.name AS competition_name, c.type AS competition_type, NULL AS stadium_name, NULL AS manager_name,
               COUNT(*) goals,
               GROUP_CONCAT(COALESCE(e.minute, ''), ',') minutes
        FROM match_events e

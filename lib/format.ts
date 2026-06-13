@@ -56,6 +56,40 @@ export function competitionTone(type: string | null | undefined): CompetitionTon
   }
 }
 
+export type Outcome = "W" | "D" | "L";
+
+const RESULT_LABELS: Record<Outcome, string> = { W: "Won", D: "Drawn", L: "Lost" };
+const RESULT_TONES: Record<Outcome, string> = { W: "text-win", D: "text-draw", L: "text-loss" };
+
+/** Past-tense word for a result/outcome code ("W" → "Won"). */
+export function resultLabel(outcome: string): string {
+  return RESULT_LABELS[outcome as Outcome] ?? outcome;
+}
+
+/**
+ * Result-coloured text class. Tone follows the outcome, never brand red by
+ * default — a heavy defeat should not read as a celebration.
+ */
+export function resultTone(outcome: string): string {
+  return RESULT_TONES[outcome as Outcome] ?? "text-draw";
+}
+
+/**
+ * Human labels for competition `type` codes. `cup` is a virtual grouping used
+ * by the matches filter (domestic + league cups together); the rest map 1:1.
+ */
+export const COMPETITION_TYPE_LABELS: Record<string, string> = {
+  league: "League",
+  cup: "All cups",
+  "domestic-cup": "FA Cup",
+  "league-cup": "League Cup",
+  european: "Europe",
+  "super-cup": "Shields & Super Cups",
+  world: "World",
+  playoff: "Test Matches",
+  unofficial: "Wartime & friendlies",
+};
+
 export function scoreline(gf: number, ga: number, pens?: [number | null, number | null] | null, aet?: boolean): string {
   let s = `${gf}–${ga}`;
   if (aet) s += " aet";

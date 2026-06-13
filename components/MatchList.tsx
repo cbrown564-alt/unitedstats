@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
 import { fmtDate, fmtNum, scoreline } from "@/lib/format";
 import { ResultBadge } from "./ResultBadge";
@@ -14,26 +15,32 @@ function accentClass(result: string): string {
       : "border-l-2 border-draw/40";
 }
 
-export function MatchList({
+export function MatchList<T extends MatchRow>({
   matches,
   showSeason = false,
   showAttendance = false,
   accentResult = false,
+  renderExtra,
 }: {
-  matches: MatchRow[];
+  matches: T[];
   showSeason?: boolean;
   /** Append the recorded crowd to the right-hand meta column where present. */
   showAttendance?: boolean;
   /** Add a result-coloured left edge to each row. */
   accentResult?: boolean;
+  /** Render an extra trailing cell per row (e.g. a goals/minutes annotation). */
+  renderExtra?: (m: T) => ReactNode;
 }) {
+  const cols = renderExtra
+    ? "grid-cols-[auto_1fr_auto_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto_auto]"
+    : "grid-cols-[auto_1fr_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto]";
   return (
     <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
       {matches.map((m) => (
         <li key={m.id}>
           <Link
             href={`/match/${m.id}`}
-            className={`grid min-h-14 grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:grid-cols-[7rem_auto_1fr_auto_auto] sm:px-4 ${accentResult ? accentClass(m.result) : ""}`}
+            className={`grid min-h-14 ${cols} items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:px-4 ${accentResult ? accentClass(m.result) : ""}`}
           >
             <span className="stat-num hidden text-xs text-ink-dim sm:block">{fmtDate(m.date)}</span>
             <ResultBadge result={m.result} outcome={m.outcome} />
@@ -65,6 +72,7 @@ export function MatchList({
                 )}
               </span>
             </span>
+            {renderExtra && <span className="justify-self-end">{renderExtra(m)}</span>}
           </Link>
         </li>
       ))}
