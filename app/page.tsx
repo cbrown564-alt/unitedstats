@@ -4,24 +4,13 @@ import {
   eloSeries, topScorers,
 } from "@/lib/queries";
 import { fullestMatchSheets } from "@/lib/trails";
-import { fmtNum, pct, fmtDate } from "@/lib/format";
+import { fmtNum, pct, fmtDate, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { SearchCommand } from "@/components/SearchCommand";
 
 export const dynamic = "force-dynamic";
-
-const TYPE_LABELS: Record<string, string> = {
-  league: "League",
-  "domestic-cup": "FA Cup",
-  "league-cup": "League Cup",
-  european: "Europe",
-  "super-cup": "Shields & Super Cups",
-  world: "World",
-  playoff: "Test Matches",
-  unofficial: "Unofficial",
-};
 
 const MYTHS: [question: string, hook: string, href: string][] = [
   ["Do United really score late?", "Late-goal share by decade — is Fergie time an era or a habit?", "/questions#late-goals"],
@@ -130,7 +119,7 @@ export default function Home() {
                 <div key={t.type}>
                   <div className="flex justify-between text-sm mb-1">
                     <Link href={`/matches?type=${t.type}`} className="text-ink-dim hover:text-ink">
-                      {TYPE_LABELS[t.type] ?? t.type}
+                      {COMPETITION_TYPE_LABELS[t.type] ?? t.type}
                     </Link>
                     <span className="stat-num text-xs text-ink-faint">
                       {fmtNum(t.p)} P · {pct(t.w, t.p)} W
