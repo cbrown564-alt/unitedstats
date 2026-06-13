@@ -15,6 +15,15 @@ import { fmtDate, fmtNum, pct } from "@/lib/format";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Questions" };
 
+const QUESTION_NAV: [id: string, label: string][] = [
+  ["late-goals", "Late goals"],
+  ["bogey-sides", "Bogey teams"],
+  ["european-weeks", "European weeks"],
+  ["manager-bounce", "Manager bounce"],
+  ["fortress", "Fortress OT"],
+  ["cup-specialists", "Cup specialists"],
+];
+
 function Module({
   id, question, finding, children, slice, coverage,
 }: {
@@ -26,7 +35,7 @@ function Module({
   coverage: string;
 }) {
   return (
-    <section id={id} className="border border-line rounded-lg bg-panel p-5 sm:p-6 scroll-mt-20 space-y-4">
+    <section id={id} className="border border-line rounded-lg bg-panel p-5 sm:p-6 scroll-mt-28 space-y-4">
       <header>
         <h2 className="display text-2xl">{question}</h2>
         <p className="text-sm text-ink-dim mt-1 max-w-2xl">{finding}</p>
@@ -73,6 +82,24 @@ export default function QuestionsPage() {
           conclusion is yours to draw.
         </p>
       </header>
+
+      <nav
+        aria-label="Jump to a question"
+        className="sticky top-14 z-30 -mx-4 border-b border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:-mx-6 sm:px-6"
+      >
+        <ul className="scrollbar-none flex gap-2 overflow-x-auto text-xs">
+          {QUESTION_NAV.map(([id, label]) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className="inline-block whitespace-nowrap rounded-md border border-line px-2.5 py-1 text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <Module
         id="late-goals"
