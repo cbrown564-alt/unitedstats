@@ -19,22 +19,38 @@ only reaches back to 2012-13 (see `ASSISTS-PLAN.md`).
   assists; Van Nistelrooy 150 goals; Solskjær 126), but it is not a complete
   record and is not treated as one.
 
+## Goal types (body part)
+
+A second export breaks goals down by the **body part / technique** used to score:
+**Right Foot** (1,613), **Left Foot** (701), **Head** (518), **Knee** (16),
+**Backheel** (16), **Torso** (11), **Shoulder** (2) — 2,877 goals (a subset of
+the summary goal total; own goals are excluded). It normalizes to
+`data/canonical/tableau-goal-types.json` at grain
+`(player, goalType, season, competition, opponent)` with a count. Body-part
+profiles read true to life (e.g. Giggs 126 left-foot vs 22 right-foot;
+Van Persie left-dominant), a good independent quality signal.
+
+This is body-part detail, **not** penalty/free-kick/open-play classification —
+that distinction is not in the export.
+
 ## What it is not
 
-- **Not match-attributed.** The export carries no dates or minutes, so it can
-  never be written to `match_events` / a specific match. It is a season-level
-  aggregate lane, mirroring the way `player_records` coexists with the
+- **Not match-attributed.** The exports carry no dates or minutes, so they can
+  never be written to `match_events` / a specific match. They are season-level
+  aggregate lanes, mirroring the way `player_records` coexists with the
   match-derived `player_totals`.
-- **No goal-type detail.** `kind=goal` counts include penalties; this particular
-  export does not break goals down by type (header, penalty, etc.).
+- **`kind=goal` counts include penalties** in the summary; the goal-type export
+  classifies by body part only.
 
 ## Files
 
 | File | Role |
 |---|---|
-| `data/sources/tableau/goals-assists-summary.csv` | Raw export, committed for provenance (the host is not refetchable from CI). |
-| `scripts/ingest/tableau-goals-assists.ts` | Deterministic normalizer (`npm run ingest:tableau-goals-assists [-- --write]`). |
-| `data/canonical/tableau-goals-assists.json` | Normalized output. |
+| `data/sources/tableau/goals-assists-summary.csv` | Raw goals+assists export, committed for provenance (the host is not refetchable from CI). |
+| `data/sources/tableau/goal-breakdown.csv` | Raw goal-type export. |
+| `scripts/ingest/tableau-goals-assists.ts` | Deterministic normalizer for both exports (`npm run ingest:tableau-goals-assists [-- --write]`). |
+| `data/canonical/tableau-goals-assists.json` | Normalized goals + assists. |
+| `data/canonical/tableau-goal-types.json` | Normalized goals by body part. |
 | `data/canonical/sources.json` → `tableau-goals-assists` | Source registration. |
 
 ## Normalization decisions
