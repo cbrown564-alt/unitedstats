@@ -366,4 +366,9 @@ function main() {
   }
 }
 
-main();
+try {
+  main();
+} catch (error) {
+  console.error("tableau-goals-assists failed:", error);
+  process.exit(1);
+}

@@ -1,4 +1,5 @@
 import { getDb } from "./db";
+import { tallyWdl } from "./format";
 import { MATCH_SELECT, type MatchRow, type Record_ } from "./queries";
 
 const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
@@ -155,9 +156,7 @@ export function managerBounce(): ManagerBounce[] {
     .all() as { id: string; name: string; first_date: string }[];
   const recordOf = (rows: { result: string }[]): Record_ => ({
     p: rows.length,
-    w: rows.filter((r) => r.result === "W").length,
-    d: rows.filter((r) => r.result === "D").length,
-    l: rows.filter((r) => r.result === "L").length,
+    ...tallyWdl(rows),
     gf: 0,
     ga: 0,
   });
