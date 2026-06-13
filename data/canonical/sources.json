@@ -81,6 +81,14 @@
       "notes": "Used for conservative match-lineup enrichment and data/canonical/player-shirts.json summaries. Raw pages are cached under data/raw/mufcinfo and are not redistributed."
     },
     {
+      "id": "tableau-goals-assists",
+      "label": "Manchester United Games (Tableau Public, conor.brown)",
+      "kind": "curation",
+      "url": "https://public.tableau.com/app/profile/conor.brown/viz/ManchesterUnitedGames/SeasonSummary",
+      "coverage": "Hand-curated goals, assists, and goal types (body part) by player, opponent, season, and competition for 1987-88 to 2014-15 (the Ferguson era and immediately after).",
+      "notes": "Season-level scorer/assist/goal-type aggregate, not match-attributed (no dates or minutes), so it never enters match_events. The only structured assist and goal-type data this project has before 2012-13. Raw exports committed under data/sources/tableau/; normalized into data/canonical/tableau-goals-assists.json and tableau-goal-types.json by scripts/ingest/tableau-goals-assists.ts. Curated and not exhaustive."
+    },
+    {
       "id": "book-archive",
       "label": "Books, programmes, and archive records",
       "kind": "archive",
