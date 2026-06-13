@@ -588,6 +588,7 @@ async function main() {
   let matchedRows = 0;
   let unmatchedRows = 0;
   let touchedMatches = 0;
+  const assistsBySeason = new Map<string, number>();
 
   for (const season of seasons) {
     const sf = loadSeasonFile(season);
@@ -618,6 +619,8 @@ async function main() {
 
       const rawEvents = provider.eventsByGame.get(game.gameId) ?? [];
       const incomingEvents = eventsFromProvider(game, rawEvents, provider.playerNames, knownPlayers, newPlayers);
+      const incomingAssists = incomingEvents.filter((e) => e.assist || e.assistName).length;
+      if (incomingAssists > 0) assistsBySeason.set(season, (assistsBySeason.get(season) ?? 0) + incomingAssists);
       const mergedEvents = mergeEvents(match, incomingEvents);
       if (mergedEvents.changed) {
         match.events = mergedEvents.events;
@@ -661,10 +664,18 @@ async function main() {
     writeJson(path.join(CANONICAL, "players.json"), playersFile);
   }
 
+  const totalAssists = [...assistsBySeason.values()].reduce((a, b) => a + b, 0);
+  const assistBreakdown = [...assistsBySeason.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([s, n]) => `${s}:${n}`)
+    .join(" ");
   console.log(
     `transfermarkt-datasets ${WRITE ? "write" : "dry-run"}: ${matchedRows} matched, ` +
     `${touchedMatches} enriched, ${unmatchedRows} provider rows unmatched, ` +
     `${newPlayers.size} new United players${WRITE ? "" : " (not written)"}`,
+  );
+  console.log(
+    `provider assists available: ${totalAssists}${assistBreakdown ? ` (by season: ${assistBreakdown})` : ""}`,
   );
 }
 
