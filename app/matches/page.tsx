@@ -2,9 +2,11 @@ import Link from "next/link";
 import { findMatches, matchesSummary, matchDecades, competitionsList, allSeasons } from "@/lib/queries";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
+import { Pager } from "@/components/Pager";
 import { PageHeader, StatTile } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, fmtDate, pct, venueLabel, resultLabel, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Matches" };
@@ -63,21 +65,10 @@ export default async function MatchesPage({
   );
   const refineActive = Boolean(sp.venue || sp.result || sp.type || sp.from || sp.to);
 
-  const qs = (overrides: Record<string, string | undefined>) => {
-    const params = new URLSearchParams();
-    for (const [k, v] of Object.entries({ ...sp, ...overrides })) {
-      if (v) params.set(k, v);
-    }
-    const s = params.toString();
-    return s ? `?${s}` : "";
-  };
+  const qs = (overrides: Record<string, string | undefined>) => queryString({ ...sp, ...overrides });
 
   // Quick views are fresh slices, not refinements of the current filter.
-  const presetHref = (params: Record<string, string>) => {
-    const u = new URLSearchParams(params);
-    const s = u.toString();
-    return s ? `/matches?${s}` : "/matches";
-  };
+  const presetHref = (params: Record<string, string>) => `/matches${queryString(params)}`;
   const quickViews: { label: string; params: Record<string, string> }[] = [
     ...(seasons[0] ? [{ label: "This season", params: { season: seasons[0] } }] : []),
     { label: "Home wins", params: { venue: "H", result: "W" } },
@@ -330,25 +321,7 @@ export default async function MatchesPage({
         <MatchList matches={rows} showSeason showAttendance accentResult />
       )}
 
-      {pages > 1 && (
-        <nav className="flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-3 py-2 text-sm">
-          {page > 1 && (
-            <Link href={`/matches${qs({ page: String(page - 1) })}`} className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright">
-              Newer
-            </Link>
-          )}
-          {page <= 1 && <span />}
-          <span className="text-ink-faint stat-num">
-            page {page} / {fmtNum(pages)}
-          </span>
-          {page < pages && (
-            <Link href={`/matches${qs({ page: String(page + 1) })}`} className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright">
-              Older
-            </Link>
-          )}
-          {page >= pages && <span />}
-        </nav>
-      )}
+      <Pager page={page} pages={pages} hrefFor={(p) => `/matches${qs({ page: String(p) })}`} />
     </div>
   );
 }

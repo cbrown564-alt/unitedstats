@@ -4,7 +4,7 @@ import { managerById, managerTenures } from "@/lib/queries";
 import { managerFirstMatches, managerSplits } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
-import { fmtDate, fmtNum, pct } from "@/lib/format";
+import { fmtDate, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -43,7 +43,7 @@ export default async function ManagerPage({
   const pages = Math.ceil(total / PAGE);
   const first10 = m.p >= 10 ? managerFirstMatches(id, 10) : [];
   const splits = managerSplits(id);
-  const first10W = first10.filter((r) => r.result === "W").length;
+  const first10W = tallyWdl(first10).w;
   const bendRows: [label: string, rec: typeof splits.home][] = [
     ["Home", splits.home],
     ["Away", splits.away],

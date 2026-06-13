@@ -6,6 +6,7 @@ import {
 } from "@/lib/trails";
 import { oddsFor } from "@/lib/predict";
 import { MatchList } from "@/components/MatchList";
+import { Pager } from "@/components/Pager";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
@@ -163,17 +164,7 @@ export default async function OpponentPage({
       <section>
         <h2 className="display text-xl mb-3">All meetings</h2>
         <MatchList matches={rows} showSeason />
-        {pages > 1 && (
-          <nav className="flex items-center gap-3 text-sm mt-3">
-            {page > 1 && (
-              <Link href={`/opponent/${id}?page=${page - 1}`} className="text-devil-bright hover:underline">← Newer</Link>
-            )}
-            <span className="text-ink-faint stat-num">page {page} / {pages}</span>
-            {page < pages && (
-              <Link href={`/opponent/${id}?page=${page + 1}`} className="text-devil-bright hover:underline">Older →</Link>
-            )}
-          </nav>
-        )}
+        <Pager page={page} pages={pages} hrefFor={(p) => `/opponent/${id}?page=${p}`} className="mt-3" />
       </section>
 
       <section>

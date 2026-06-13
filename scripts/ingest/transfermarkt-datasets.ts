@@ -18,7 +18,7 @@ import zlib from "node:zlib";
 import {
   CANONICAL, LineupEntry, Match, MatchEvent, RAW,
   loadSeasonFile, parseCsvLine, parseSeasonArgs, readJson, saveSeasonFile,
-  seasonKey, seasonOfDate, slugify, writeJson,
+  seasonKey, seasonOfDate, slugify, userAgent, writeJson,
 } from "../lib";
 
 const BASE_URL = "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data";
@@ -28,7 +28,7 @@ const UNITED_CLUB_ID = process.env.TRANSFERMARKT_UNITED_CLUB_ID ?? "985";
 const WRITE = process.argv.includes("--write");
 const REPARSE = process.argv.includes("--reparse");
 const REFRESH = process.argv.includes("--refresh");
-const USER_AGENT = "unitedstats/1.0 transfermarkt-datasets ingest";
+const USER_AGENT = userAgent("transfermarkt-datasets ingest");
 
 const TABLES = ["clubs", "games", "players", "game_events", "game_lineups"] as const;
 type Table = typeof TABLES[number];

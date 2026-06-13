@@ -90,6 +90,17 @@ export const COMPETITION_TYPE_LABELS: Record<string, string> = {
   unofficial: "Wartime & friendlies",
 };
 
+/** Count wins/draws/losses over a list of result-bearing rows. */
+export function tallyWdl(rows: { result: string }[]): { w: number; d: number; l: number } {
+  let w = 0, d = 0, l = 0;
+  for (const r of rows) {
+    if (r.result === "W") w++;
+    else if (r.result === "D") d++;
+    else if (r.result === "L") l++;
+  }
+  return { w, d, l };
+}
+
 export function scoreline(gf: number, ga: number, pens?: [number | null, number | null] | null, aet?: boolean): string {
   let s = `${gf}–${ga}`;
   if (aet) s += " aet";
