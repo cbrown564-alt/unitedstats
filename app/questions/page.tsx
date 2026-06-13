@@ -6,6 +6,7 @@ import {
 } from "@/lib/trails";
 import { getMeta } from "@/lib/queries";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { DataTable } from "@/components/DataTable";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
@@ -168,37 +169,56 @@ export default function QuestionsPage() {
         slice="Each manager's first 10 matches in charge versus the club's previous 10 matches (any manager), all competitions; managers with fewer than 10 matches, and the first manager on record, are excluded."
         coverage="Manager attribution comes from tenure records applied to every match; results are complete."
       >
-        <div className="overflow-x-auto">
-          <table className="text-sm w-full max-w-3xl">
-            <thead>
-              <tr className="text-left text-xs text-ink-faint uppercase tracking-wider border-b border-line">
-                <th className="py-2 pr-3 font-medium">Manager</th>
-                <th className="py-2 pr-3 font-medium">From</th>
-                <th className="py-2 pr-3 font-medium text-right">Prev 10</th>
-                <th className="py-2 pr-3 font-medium text-right">First 10</th>
-                <th className="py-2 font-medium text-right">Swing</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bounce.map((b) => {
+        <DataTable
+          caption="New-manager bounce comparison"
+          rows={bounce}
+          rowKey={(b) => b.id}
+          density="compact"
+          className="max-w-3xl"
+          columns={[
+            {
+              label: "Manager",
+              key: "manager",
+              render: (b) => (
+                <Link href={`/manager/${b.id}`} className="font-medium hover:text-devil-bright">
+                  {b.name}
+                </Link>
+              ),
+            },
+            {
+              label: "From",
+              key: "from",
+              className: "text-xs text-ink-faint",
+              render: (b) => fmtDate(b.first_date),
+            },
+            {
+              label: "Prev 10",
+              key: "prev",
+              numeric: true,
+              className: "text-ink-dim",
+              render: (b) => `${b.prev10.w}W ${b.prev10.d}D ${b.prev10.l}L`,
+            },
+            {
+              label: "First 10",
+              key: "first",
+              numeric: true,
+              render: (b) => `${b.first10.w}W ${b.first10.d}D ${b.first10.l}L`,
+            },
+            {
+              label: "Swing",
+              key: "swing",
+              numeric: true,
+              render: (b) => {
                 const delta = b.first10.w - b.prev10.w;
                 return (
-                  <tr key={b.id} className="border-b border-line/60">
-                    <td className="py-1.5 pr-3">
-                      <Link href={`/manager/${b.id}`} className="hover:text-devil-bright">{b.name}</Link>
-                    </td>
-                    <td className="py-1.5 pr-3 stat-num text-xs text-ink-faint">{fmtDate(b.first_date)}</td>
-                    <td className="py-1.5 pr-3 stat-num text-right text-ink-dim">{b.prev10.w}W {b.prev10.d}D {b.prev10.l}L</td>
-                    <td className="py-1.5 pr-3 stat-num text-right">{b.first10.w}W {b.first10.d}D {b.first10.l}L</td>
-                    <td className={`py-1.5 stat-num text-right ${delta > 0 ? "text-win" : delta < 0 ? "text-loss" : "text-ink-faint"}`}>
-                      {delta > 0 ? `+${delta}` : delta}
-                    </td>
-                  </tr>
+                  <span className={delta > 0 ? "text-win" : delta < 0 ? "text-loss" : "text-ink-faint"}>
+                    {delta > 0 ? `+${delta}` : delta}
+                  </span>
                 );
-              })}
-            </tbody>
-          </table>
-        </div>
+              },
+            },
+          ]}
+        />
         <EvidenceLink href="/managers" label="Every manager's full record →" />
       </Module>
 

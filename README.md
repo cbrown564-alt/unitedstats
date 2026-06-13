@@ -32,6 +32,7 @@ npm run dev        # http://localhost:3000
 | `npm run ingest:wikipedia` | one-off: enrich canonical JSON from Wikipedia season articles |
 | `npm run ingest:lineups` | one-off: add lineups from dedicated Wikipedia final/late-round match articles |
 | `npm run ingest:football-data` | one-off: dry-run football-data.org match-sheet enrichment; pass `-- --write` to persist |
+| `npm run ingest:mufcinfo-lineups` | one-off: dry-run MUFCInfo historical lineup enrichment; pass `-- --write` to persist |
 | `npm run build:db` | canonical JSON → SQLite + precomputed analytics |
 | `npm run validate` | integrity checks on canonical data |
 | `npm run update` | fetch latest results (same code the cron runs) |
@@ -58,9 +59,10 @@ fixable with a PR.
 ## Sources
 
 engsoccerdata (league + FA Cup results), openfootball (current seasons),
-Wikipedia season articles (cups, Europe, attendance, scorers) and dedicated
-match articles (lineups) — parsed deterministically from wikitext tables,
-cached in `data/raw/wikipedia/`.
+Wikipedia season articles (cups, Europe, attendance, scorers), dedicated
+match articles (lineups), MUFCInfo match pages (historical United lineups and
+shirt numbers), and transfermarkt-datasets for modern match sheets — parsed
+deterministically and cached under `data/raw/`.
 
 ## License
 

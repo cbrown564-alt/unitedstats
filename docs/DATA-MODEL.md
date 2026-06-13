@@ -166,13 +166,17 @@ Commons-backed, and license-labelled. Missing portraits fall back to generated
 shirt/initial visuals rather than unlicensed club, agency, or search-result
 images.
 
-Shirt numbers are a coverage field. For top appearance players, the preferred
-lane is `player_shirts`, a MUFCInfo match-page summary by player/shirt/decade.
-For everyone else, the app falls back to the non-bench United shirt number with
-the most locally covered lineup appearances. The badge shade uses the dominant
-decade for that selected shirt. Players with no numbered source rows keep shirt
-number blank even when verified career totals exist; this mainly affects
-Newton Heath-era players before numbered-shirt rows are available.
+MUFCInfo is the preferred broad historical lane for United lineup and shirt
+number enrichment. `npm run ingest:mufcinfo-lineups` writes match-level
+lineups only when all 11 starters and any used substitutes resolve to United
+player ids. Shirt numbers are also a coverage field: for top appearance
+players, the preferred lane is `player_shirts`, a MUFCInfo match-page summary
+by player/shirt/decade. For everyone else, the app falls back to the non-bench
+United shirt number with the most locally covered lineup appearances. The badge
+shade uses the dominant decade for that selected shirt. Players with no
+numbered source rows keep shirt number blank even when verified career totals
+exist; this mainly affects Newton Heath-era players before numbered-shirt rows
+are available.
 
 The UI uses these facets at interpretation points: player totals, match pages,
 coverage ledgers, and the correction guide.
