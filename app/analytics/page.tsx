@@ -4,6 +4,7 @@ import {
   venueRecord, goalMinuteHistogram, stadiumsWithRecords, eventCoverage, getMeta,
   lineupCoverage, topAssistPartnerships, coverageOverview,
 } from "@/lib/queries";
+import { ChartPanel } from "@/components/ChartPanel";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
@@ -112,139 +113,144 @@ export default function AnalyticsPage() {
 
       {/* season trends */}
       <section className="grid lg:grid-cols-2 gap-8">
-        <div>
-          <h2 className="display text-xl mb-3">Win rate by season</h2>
-          <div className="border border-line rounded-lg bg-panel p-4">
-            <InspectableTimeSeriesChart
-              data={seasons.map((s) => ({
-                x: Number(s.season.slice(0, 4)),
-                y: s.win_pct,
-                label: s.season,
-                valueLabel: `${s.win_pct.toFixed(1)}% won`,
-                meta: `${fmtNum(s.p)} matches, ${s.w} wins`,
-              }))}
-              baseline={50}
-              height={200}
-              stroke="var(--color-win)"
-              fill="rgb(62 207 106 / 0.10)"
-              baselineLabel="50%"
-              chartLabel="Manchester United win rate by season"
-              valueLabel="Win rate"
-              xTicks={yearTicks}
-              yTickSuffix="%"
-              yDomain={[0, 100]}
-            />
-            <p className="text-xs text-ink-faint mt-2">
+        <ChartPanel
+          title="Win rate by season"
+          note={
+            <>
               <span className="text-ink-dim">Slice:</span> all competitions per season; the dashed line is
               50%. Troughs mark the relegation seasons and the early 1930s; the plateau is the Ferguson era.{" "}
               <Link href="/seasons" className="text-devil-bright hover:underline">Season by season →</Link>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h2 className="display text-xl mb-3">Average home attendance</h2>
-          <div className="border border-line rounded-lg bg-panel p-4">
-            <InspectableTimeSeriesChart
-              data={seasons.filter((s) => s.avg_att).map((s) => ({
-                x: Number(s.season.slice(0, 4)),
-                y: s.avg_att!,
-                label: s.season,
-                valueLabel: `${fmtNum(s.avg_att!)} average`,
-                meta: `${fmtNum(s.p)} matches in all competitions`,
-              }))}
-              height={200}
-              stroke="var(--color-gold)"
-              fill="rgb(245 197 24 / 0.08)"
-              chartLabel="Manchester United average home attendance by season"
-              valueLabel="Average attendance"
-              xTicks={yearTicks}
-            />
-            <p className="text-xs text-ink-faint mt-2">
+            </>
+          }
+        >
+          <InspectableTimeSeriesChart
+            data={seasons.map((s) => ({
+              x: Number(s.season.slice(0, 4)),
+              y: s.win_pct,
+              label: s.season,
+              valueLabel: `${s.win_pct.toFixed(1)}% won`,
+              meta: `${fmtNum(s.p)} matches, ${s.w} wins`,
+            }))}
+            baseline={50}
+            height={200}
+            stroke="var(--color-win)"
+            fill="rgb(62 207 106 / 0.10)"
+            baselineLabel="50%"
+            chartLabel="Manchester United win rate by season"
+            valueLabel="Win rate"
+            xTicks={yearTicks}
+            yTickSuffix="%"
+            yDomain={[0, 100]}
+          />
+        </ChartPanel>
+        <ChartPanel
+          title="Average home attendance"
+          note={
+            <>
               <span className="text-ink-dim">Slice:</span> mean of recorded home attendances per season.
               <span className="text-ink-dim"> Coverage:</span> sparse before the 1920s — early points lean
               on few matches. The post-war boom and the 1990s expansion of Old Trafford are the two big climbs.
-            </p>
-          </div>
-        </div>
+            </>
+          }
+        >
+          <InspectableTimeSeriesChart
+            data={seasons.filter((s) => s.avg_att).map((s) => ({
+              x: Number(s.season.slice(0, 4)),
+              y: s.avg_att!,
+              label: s.season,
+              valueLabel: `${fmtNum(s.avg_att!)} average`,
+              meta: `${fmtNum(s.p)} matches in all competitions`,
+            }))}
+            height={200}
+            stroke="var(--color-gold)"
+            fill="rgb(245 197 24 / 0.08)"
+            chartLabel="Manchester United average home attendance by season"
+            valueLabel="Average attendance"
+            xTicks={yearTicks}
+          />
+        </ChartPanel>
       </section>
 
       {/* goals per season + decades */}
       <section className="grid lg:grid-cols-2 gap-8">
-        <div>
-          <h2 className="display text-xl mb-3">Goals scored per season</h2>
-          <div className="border border-line rounded-lg bg-panel p-4">
-            <InspectableBarChart
-              data={seasons.map((s) => ({
-                label: s.season.slice(0, 4),
-                value: s.gf,
-                valueLabel: `${fmtNum(s.gf)} goals`,
-                meta: `${s.season}, ${fmtNum(s.p)} matches`,
-                href: `/seasons/${s.season}`,
-              }))}
-              labelEvery={20}
-              height={200}
-              chartLabel="Manchester United goals scored per season"
-            />
-            <p className="text-xs text-ink-faint mt-2">
+        <ChartPanel
+          title="Goals scored per season"
+          note={
+            <>
               <span className="text-ink-dim">Slice:</span> goals scored, all competitions — taller wartime-adjacent
               seasons partly reflect longer cup runs.{" "}
               <Link href="/seasons" className="text-devil-bright hover:underline">Season detail →</Link>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h2 className="display text-xl mb-3">Win rate by decade</h2>
-          <div className="border border-line rounded-lg bg-panel p-4">
-            <InspectableBarChart
-              data={[...decades.entries()].map(([dec, v]) => ({
-                label: dec,
-                tickLabel: dec.slice(0, 4),
-                value: Math.round((100 * v.w) / (v.p || 1)),
-                valueLabel: `${Math.round((100 * v.w) / (v.p || 1))}% won`,
-                meta: `${fmtNum(v.p)} matches, ${fmtNum(v.w)} wins`,
-                href: `/matches?from=${dec.slice(0, 4)}&to=${Number(dec.slice(0, 4)) + 9}`,
-              }))}
-              height={200}
-              color="var(--color-win)"
-              chartLabel="Manchester United win rate by decade"
-              yTickSuffix="%"
-            />
-            <p className="text-xs text-ink-faint mt-1">
+            </>
+          }
+        >
+          <InspectableBarChart
+            data={seasons.map((s) => ({
+              label: s.season.slice(0, 4),
+              value: s.gf,
+              valueLabel: `${fmtNum(s.gf)} goals`,
+              meta: `${s.season}, ${fmtNum(s.p)} matches`,
+              href: `/seasons/${s.season}`,
+            }))}
+            labelEvery={20}
+            height={200}
+            chartLabel="Manchester United goals scored per season"
+          />
+        </ChartPanel>
+        <ChartPanel
+          title="Win rate by decade"
+          note={
+            <>
               <span className="text-ink-dim">Slice:</span> percent of matches won, all competitions, grouped by
               decade. Pull any decade&apos;s matches with the year filters in the{" "}
               <Link href="/matches" className="text-devil-bright hover:underline">match browser</Link> — e.g.{" "}
               <Link href="/matches?from=1990&to=1999" className="text-devil-bright hover:underline">the 1990s</Link>.
-            </p>
-          </div>
-        </div>
+            </>
+          }
+        >
+          <InspectableBarChart
+            data={[...decades.entries()].map(([dec, v]) => ({
+              label: dec,
+              tickLabel: dec.slice(0, 4),
+              value: Math.round((100 * v.w) / (v.p || 1)),
+              valueLabel: `${Math.round((100 * v.w) / (v.p || 1))}% won`,
+              meta: `${fmtNum(v.p)} matches, ${fmtNum(v.w)} wins`,
+              href: `/matches?from=${dec.slice(0, 4)}&to=${Number(dec.slice(0, 4)) + 9}`,
+            }))}
+            height={200}
+            color="var(--color-win)"
+            chartLabel="Manchester United win rate by decade"
+            yTickSuffix="%"
+          />
+        </ChartPanel>
       </section>
 
       {/* goal minutes + venue split */}
       <section className="grid lg:grid-cols-2 gap-8">
         {minuteHist.length > 0 && (
-          <div>
-            <h2 className="display text-xl mb-3">When United score</h2>
-            <div className="border border-line rounded-lg bg-panel p-4">
-              <InspectableBarChart
-                data={minuteHist.map((b) => ({
-                  label: minuteLabels[Number(b.bucket)] ?? b.bucket,
-                  value: b.n,
-                  valueLabel: `${fmtNum(b.n)} goals`,
-                  meta: "Recorded United goals with minutes",
-                }))}
-                height={180}
-                color="var(--color-gold)"
-                chartLabel="Manchester United goals by match minute bucket"
-              />
-              <p className="text-xs text-ink-faint mt-1">
+          <ChartPanel
+            title="When United score"
+            note={
+              <>
                 <span className="text-ink-dim">Slice:</span> United goals with a recorded minute ≤ 90, by
                 15-minute window. The final-window lean is tested decade by decade in{" "}
                 <Link href="/questions#late-goals" className="text-devil-bright hover:underline">
                   Do United really score late? →
                 </Link>
-              </p>
-            </div>
-          </div>
+              </>
+            }
+          >
+            <InspectableBarChart
+              data={minuteHist.map((b) => ({
+                label: minuteLabels[Number(b.bucket)] ?? b.bucket,
+                value: b.n,
+                valueLabel: `${fmtNum(b.n)} goals`,
+                meta: "Recorded United goals with minutes",
+              }))}
+              height={180}
+              color="var(--color-gold)"
+              chartLabel="Manchester United goals by match minute bucket"
+            />
+          </ChartPanel>
         )}
         <div>
           <h2 className="display text-xl mb-3">Home, away, neutral</h2>
@@ -316,8 +322,20 @@ export default function AnalyticsPage() {
 
       {/* coverage ledger */}
       <section>
-        <h2 className="display text-xl mb-3">Data depth ledger</h2>
-        <div className="border border-line rounded-lg bg-panel p-4">
+        <ChartPanel
+          title="Data depth ledger"
+          note={
+            <>
+              Share of matches per decade with recorded goal events. Results are complete for every decade;
+              scorer and lineup depth grows continuously — this ledger is the honest picture of how far the
+              excavation has gotten.
+              {" "}Complete scorer rows: <span className="stat-num">{fmtNum(overview.completeScorers)}</span>
+              {" "}of <span className="stat-num">{fmtNum(overview.matches)}</span>.
+              {" "}
+              <Link href="/data" className="text-devil-bright hover:underline">Source and correction guide</Link>.
+            </>
+          }
+        >
           <InspectableBarChart
             data={coverage.map((c) => ({
               label: c.decade,
@@ -331,74 +349,61 @@ export default function AnalyticsPage() {
             labelEvery={2}
             yTickSuffix="%"
           />
-          <p className="text-xs text-ink-faint mt-3 max-w-2xl">
-            Share of matches per decade with recorded goal events. Results are complete for every decade;
-            scorer and lineup depth grows continuously — this ledger is the honest picture of how far the
-            excavation has gotten.
-            {" "}Complete scorer rows: <span className="stat-num">{fmtNum(overview.completeScorers)}</span>
-            {" "}of <span className="stat-num">{fmtNum(overview.matches)}</span>.
-            {" "}
-            <Link href="/data" className="text-devil-bright hover:underline">Source and correction guide</Link>.
-          </p>
-        </div>
+        </ChartPanel>
       </section>
 
       <section className="grid lg:grid-cols-2 gap-8">
-        <div>
-          <h2 className="display text-xl mb-3">Lineup coverage</h2>
-          <div className="border border-line rounded-lg bg-panel p-4">
-            <InspectableBarChart
-              data={lineups.map((c) => ({
-                label: c.decade,
-                tickLabel: c.decade.slice(0, 4),
-                value: c.matches ? Math.round((1000 * c.withLineups) / c.matches) / 10 : 0,
-                valueLabel: pct(c.withLineups, c.matches),
-                meta: `${fmtNum(c.withLineups)} of ${fmtNum(c.matches)} matches with lineups`,
-              }))}
-              height={160}
-              color="var(--color-gold)"
-              chartLabel="United lineup coverage by decade"
-              labelEvery={2}
-              yTickSuffix="%"
-            />
-            <p className="text-xs text-ink-faint mt-3">
+        <ChartPanel
+          title="Lineup coverage"
+          note={
+            <>
               {fmtNum(Number(meta.matches_with_lineups ?? 0))} matches have full United lineups,
               covering {fmtNum(Number(meta.lineup_entries ?? 0))} player appearances.
-            </p>
-          </div>
-        </div>
+            </>
+          }
+        >
+          <InspectableBarChart
+            data={lineups.map((c) => ({
+              label: c.decade,
+              tickLabel: c.decade.slice(0, 4),
+              value: c.matches ? Math.round((1000 * c.withLineups) / c.matches) / 10 : 0,
+              valueLabel: pct(c.withLineups, c.matches),
+              meta: `${fmtNum(c.withLineups)} of ${fmtNum(c.matches)} matches with lineups`,
+            }))}
+            height={160}
+            color="var(--color-gold)"
+            chartLabel="United lineup coverage by decade"
+            labelEvery={2}
+            yTickSuffix="%"
+          />
+        </ChartPanel>
 
-        <div>
-          <h2 className="display text-xl mb-3">Assist partnerships</h2>
-          <div className="border border-line rounded-lg bg-panel p-4">
-            {partnerships.length > 0 ? (
-              <div className="space-y-2 text-sm">
-                {partnerships.map((row) => (
-                  <div key={`${row.assister_id}-${row.scorer_id}`} className="flex items-center gap-2">
-                    <Link href={`/player/${row.assister_id}`} className="font-medium hover:text-devil-bright">
-                      {row.assister_name}
-                    </Link>
-                    <span className="text-ink-faint">→</span>
-                    <Link href={`/player/${row.scorer_id}`} className="font-medium hover:text-devil-bright flex-1">
-                      {row.scorer_name}
-                    </Link>
-                    <span className="stat-num text-devil-bright">{row.goals}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-ink-dim">
-                Assist fields are wired through the canonical data, database, and player pages; no current
-                source in the checked-in dataset records assists for these matches.
-              </p>
-            )}
-            <p className="text-xs text-ink-faint mt-3">
-              Built from goal events that record an assist. Assist data exists only from 2012-13 onward
-              (transfermarkt-datasets); no open source records United assists before then, so earlier
-              seasons are blank by source limitation, not omission.
+        <ChartPanel
+          title="Assist partnerships"
+          note="Built from goal events that record an assist. Assist data exists only from 2012-13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission."
+        >
+          {partnerships.length > 0 ? (
+            <div className="space-y-2 text-sm">
+              {partnerships.map((row) => (
+                <div key={`${row.assister_id}-${row.scorer_id}`} className="flex items-center gap-2">
+                  <Link href={`/player/${row.assister_id}`} className="font-medium hover:text-devil-bright">
+                    {row.assister_name}
+                  </Link>
+                  <span className="text-ink-faint">→</span>
+                  <Link href={`/player/${row.scorer_id}`} className="font-medium hover:text-devil-bright flex-1">
+                    {row.scorer_name}
+                  </Link>
+                  <span className="stat-num text-devil-bright">{row.goals}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-ink-dim">
+              Assist fields are wired through the canonical data, database, and player pages; no current
+              source in the checked-in dataset records assists for these matches.
             </p>
-          </div>
-        </div>
+          )}
+        </ChartPanel>
       </section>
 
       <p className="text-sm text-ink-dim">

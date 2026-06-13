@@ -67,7 +67,7 @@ export default function Home() {
           cup, and European football — start with a question, a name, or a season.
         </p>
         <div className="mt-6">
-          <SearchCommand />
+          <SearchCommand autoFocusKey={false} />
           <p className="text-xs text-ink-faint mt-1.5">
             Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search — names, seasons,
             or shaped questions like &ldquo;record away at Arsenal&rdquo;.
