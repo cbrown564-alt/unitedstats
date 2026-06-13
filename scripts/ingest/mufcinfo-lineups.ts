@@ -18,12 +18,12 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   CANONICAL, LineupEntry, Match, RAW, SeasonFile,
-  loadSeasonFile, parseSeasonArgs, readJson, saveSeasonFile, seasonOfDate, slugify, writeJson,
+  loadSeasonFile, parseSeasonArgs, readJson, saveSeasonFile, seasonOfDate, slugify, userAgent, writeJson,
 } from "../lib";
 
 const SOURCE_ID = "mufcinfo-match-lineups";
 const BASE_URL = "https://www.mufcinfo.com/manupag/match_data/match_sql.php";
-const USER_AGENT = "unitedstats/1.0 mufcinfo-lineup-ingest";
+const USER_AGENT = userAgent("mufcinfo-lineup-ingest");
 const CACHE = path.join(RAW, "mufcinfo", "matches");
 const WRITE = process.argv.includes("--write");
 const REPARSE = process.argv.includes("--reparse");

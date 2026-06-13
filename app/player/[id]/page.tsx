@@ -12,9 +12,11 @@ import { Column, DataTable, type SortDirection } from "@/components/DataTable";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { MatchList } from "@/components/MatchList";
+import { Pager } from "@/components/Pager";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { fmtDate, fmtNum, pct, scoreline, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
 
@@ -136,19 +138,11 @@ export default async function PlayerPage({
   const sortedSeasons = [...bySeason].sort((a, b) => compareSeasons(a, b, seasonSortKey, seasonSortDir));
 
   function seasonSortHref(nextKey: string, nextDir: SortDirection) {
-    const params = new URLSearchParams();
-    if (goalsPage > 1) params.set("page", String(goalsPage));
-    params.set("sort", nextKey);
-    params.set("dir", nextDir);
-    return `/player/${id}?${params.toString()}#seasons`;
+    return `/player/${id}${queryString({ page: goalsPage > 1 ? goalsPage : undefined, sort: nextKey, dir: nextDir })}#seasons`;
   }
 
   function goalsPageHref(targetPage: number) {
-    const params = new URLSearchParams();
-    params.set("page", String(targetPage));
-    if (sp.sort) params.set("sort", seasonSortKey);
-    if (sp.dir) params.set("dir", seasonSortDir);
-    return `/player/${id}?${params.toString()}#scored`;
+    return `/player/${id}${queryString({ page: targetPage, sort: sp.sort ? seasonSortKey : undefined, dir: sp.dir ? seasonSortDir : undefined })}#scored`;
   }
 
   const seasonColumns: Column<SeasonSplit>[] = [
@@ -495,33 +489,7 @@ export default async function PlayerPage({
             No matches with recorded scorer data yet.
           </p>
         )}
-        {goalsPages > 1 && (
-          <nav className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-3 py-2 text-sm">
-            {goalsPage > 1 ? (
-              <Link
-                href={goalsPageHref(goalsPage - 1)}
-                className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright"
-              >
-                Newer
-              </Link>
-            ) : (
-              <span />
-            )}
-            <span className="stat-num text-ink-faint">
-              page {goalsPage} / {fmtNum(goalsPages)}
-            </span>
-            {goalsPage < goalsPages ? (
-              <Link
-                href={goalsPageHref(goalsPage + 1)}
-                className="rounded px-2 py-1 text-devil-bright hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright"
-              >
-                Older
-              </Link>
-            ) : (
-              <span />
-            )}
-          </nav>
-        )}
+        <Pager page={goalsPage} pages={goalsPages} hrefFor={goalsPageHref} className="mt-3" />
       </section>
 
       {appearances.length > 0 && (

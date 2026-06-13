@@ -135,6 +135,11 @@ export function parseCsv(text: string): Record<string, string>[] {
   });
 }
 
+/** Shared User-Agent for outbound ingest fetches; `scope` names the lane. */
+export function userAgent(scope: string): string {
+  return `unitedstats/1.0 ${scope}`;
+}
+
 /** Split one CSV line into fields, honouring quoted fields with "" escapes. */
 export function parseCsvLine(line: string): string[] {
   const cells: string[] = [];
