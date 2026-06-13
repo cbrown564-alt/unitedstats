@@ -389,11 +389,13 @@ export default function AnalyticsPage() {
             ) : (
               <p className="text-sm text-ink-dim">
                 Assist fields are wired through the canonical data, database, and player pages; no current
-                source in the checked-in dataset records enough assists to rank partnerships yet.
+                source in the checked-in dataset records assists for these matches.
               </p>
             )}
             <p className="text-xs text-ink-faint mt-3">
-              Built from goal events that include an assist player.
+              Built from goal events that record an assist. Assist data exists only from 2012-13 onward
+              (transfermarkt-datasets); no open source records United assists before then, so earlier
+              seasons are blank by source limitation, not omission.
             </p>
           </div>
         </div>

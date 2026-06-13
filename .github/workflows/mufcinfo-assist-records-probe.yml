@@ -1,0 +1,64 @@
+name: MUFCInfo assist records probe
+
+# Phase C feasibility probe (docs/ASSISTS-PLAN.md): do MUFCInfo's AGGREGATE pages
+# (career/season stat tables, individual player-archive pages) carry assist
+# columns, and how far back? Read-only, no canonical writes, no push. Runs on
+# GitHub-hosted runners which can reach mufcinfo.com.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/assists-records-gap-99218q]
+    paths:
+      - .github/workflows/mufcinfo-assist-records-probe.yml
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe MUFCInfo aggregate pages for assist columns
+        run: |
+          node <<'EOF'
+          const base = "https://www.mufcinfo.com/manupag/";
+          const urls = [
+            // aggregate stat tables
+            "current_season_stats/current_season_stats.html",
+            "current_career_goals/current_career_goals.html",
+            "complete_all_time_goalscoring_records/complete_all_time_goal_scoring_records.html",
+            "articles/article_pages/who-leads-manchester-united-in-goals-assists-and-stats-in-2026.html",
+            // individual player-archive pages: historical vs modern
+            "a-z_player_archive/a-z_player_archive_pages/giggs_ryan.html",
+            "a-z_player_archive/a-z_player_archive_pages/charlton_bobby.html",
+            "a-z_player_archive/a-z_player_archive_pages/beckham_david.html",
+            "a-z_player_archive/a-z_player_archive_pages/best_george.html",
+          ];
+          const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36";
+          const strip = (s) => s.replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+
+          for (const u of urls) {
+            const url = base + u;
+            try {
+              const res = await fetch(url, { headers: { "user-agent": UA } });
+              const html = res.ok ? await res.text() : "";
+              const lc = html.toLowerCase();
+              const count = (lc.match(/assist/g) || []).length;
+              console.log("\n=== " + u + " ===");
+              console.log("  status " + res.status + ", " + html.length + " bytes, 'assist' x" + count);
+              if (!res.ok || count === 0) continue;
+              // table header rows mentioning assist
+              const headers = [...html.matchAll(/<tr[\s\S]*?<\/tr>/gi)]
+                .map((m) => strip(m[0]))
+                .filter((t) => /assist/i.test(t) && t.length < 300);
+              for (const h of headers.slice(0, 4)) console.log("  [row] " + h.slice(0, 220));
+              // first contexts around 'assist'
+              let idx = -1, shown = 0;
+              while ((idx = lc.indexOf("assist", idx + 1)) >= 0 && shown < 4) {
+                console.log("  [ctx] ..." + strip(html.slice(Math.max(0, idx - 90), idx + 60)).slice(-150));
+                shown++;
+                idx += 50;
+              }
+            } catch (e) {
+              console.log("\n=== " + u + " ===\n  ERROR " + e.message);
+            }
+          }
+          EOF
