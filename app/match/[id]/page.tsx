@@ -5,7 +5,7 @@ import {
   sourcesForMatch,
 } from "@/lib/queries";
 import { lateGoalMatchesInSeason, similarMatches } from "@/lib/trails";
-import { fmtDateLong, fmtNum, venueLabel, clubName, pct } from "@/lib/format";
+import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone } from "@/lib/format";
 import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
@@ -26,10 +26,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const similar = similarMatches(m, 6);
   const seasonLateGoals = lateGoalMatchesInSeason(m.season, m.id);
 
-  // Scoreline tone follows the result, never brand red by default — a heavy
-  // defeat should not read as a celebration.
-  const resultTone = m.outcome === "W" ? "text-win" : m.outcome === "L" ? "text-loss" : "text-draw";
-  const resultWord = m.outcome === "W" ? "Won" : m.outcome === "L" ? "Lost" : "Drawn";
+  const tone = resultTone(m.outcome);
+  const word = resultLabel(m.outcome);
 
   const goals = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type));
   const opponentGoals = events.filter((e) => ["opp-goal", "own-goal-against"].includes(e.type));
@@ -63,8 +61,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               {fmtDateLong(m.date)}
             </p>
             <span aria-hidden className="text-ink-faint">·</span>
-            <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${resultTone}`}>
-              {resultWord}
+            <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${tone}`}>
+              {word}
             </span>
           </div>
           <h1 className="display text-3xl sm:text-5xl leading-tight">
@@ -72,12 +70,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <>
                 <Link href={`/opponent/${m.opponent_id}`} className="hover:text-devil-bright">{m.opponent_name}</Link>
                 {" "}
-                <span className={`stat-num ${resultTone}`}>{m.ga}–{m.gf}</span> {club}
+                <span className={`stat-num ${tone}`}>{m.ga}–{m.gf}</span> {club}
               </>
             ) : (
               <>
                 {club}{" "}
-                <span className={`stat-num ${resultTone}`}>{m.gf}–{m.ga}</span>{" "}
+                <span className={`stat-num ${tone}`}>{m.gf}–{m.ga}</span>{" "}
                 <Link href={`/opponent/${m.opponent_id}`} className="hover:text-devil-bright">{m.opponent_name}</Link>
               </>
             )}

@@ -11,21 +11,10 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { Column, DataTable, type SortDirection } from "@/components/DataTable";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
+import { MatchList } from "@/components/MatchList";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
-import { ResultBadge } from "@/components/ResultBadge";
 import { ShirtBadge } from "@/components/ShirtBadge";
-import { fmtDate, fmtNum, pct, scoreline } from "@/lib/format";
-
-const TYPE_LABELS: Record<string, string> = {
-  league: "League",
-  "domestic-cup": "FA Cup",
-  "league-cup": "League Cup",
-  european: "Europe",
-  "super-cup": "Shields & Super Cups",
-  world: "World",
-  playoff: "Test Matches",
-  unofficial: "Wartime & friendlies",
-};
+import { fmtDate, fmtNum, pct, scoreline, COMPETITION_TYPE_LABELS } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -388,7 +377,7 @@ export default async function PlayerPage({
             <ul className="divide-y divide-line text-sm">
               {compSplits.map((c) => (
                 <li key={c.type} className="flex items-center justify-between py-2">
-                  <span className="text-ink-dim">{TYPE_LABELS[c.type] ?? c.type}</span>
+                  <span className="text-ink-dim">{COMPETITION_TYPE_LABELS[c.type] ?? c.type}</span>
                   <span className="stat-num text-devil-bright">{fmtNum(c.goals)}</span>
                 </li>
               ))}
@@ -479,47 +468,28 @@ export default async function PlayerPage({
           )}
         </div>
         {pagedMatches.length > 0 ? (
-          <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
-            {pagedMatches.map((m) => {
+          <MatchList
+            matches={pagedMatches}
+            showSeason
+            renderExtra={(m) => {
               const mins = (m.minutes ?? "")
                 .split(",")
                 .map((s) => Number(s))
                 .filter((n) => Number.isFinite(n) && n > 0)
                 .sort((a, b) => a - b);
               return (
-                <li key={m.id}>
-                  <Link
-                    href={`/match/${m.id}`}
-                    className="grid min-h-14 grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:grid-cols-[7rem_auto_1fr_auto_auto] sm:px-4"
-                  >
-                    <span className="stat-num hidden text-xs text-ink-dim sm:block">{fmtDate(m.date)}</span>
-                    <ResultBadge result={m.result} outcome={m.outcome} />
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium">
-                        <span className="mr-1.5 text-ink-faint">{m.venue === "H" ? "v" : m.venue === "A" ? "@" : "n"}</span>
-                        {m.opponent_name}
-                      </span>
-                      <span className="text-xs text-ink-dim sm:hidden">
-                        {fmtDate(m.date)} · {m.season}
-                      </span>
-                    </span>
-                    <span
-                      className={`stat-num whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold ${
-                        m.goals >= 3 ? "bg-gold/15 text-gold" : m.goals >= 2 ? "bg-devil/15 text-devil-bright" : "text-ink-faint"
-                      }`}
-                      title={mins.length ? `Goals at ${mins.map((x) => `${x}'`).join(", ")}` : undefined}
-                    >
-                      {m.goals >= 3 ? `${m.goals} goals` : m.goals === 2 ? "brace" : "1 goal"}
-                      {mins.length > 0 && <span className="ml-1 font-normal text-ink-faint">{mins.map((x) => `${x}'`).join(" ")}</span>}
-                    </span>
-                    <span className="stat-num hidden whitespace-nowrap rounded bg-panel-2 px-2 py-1 text-sm font-semibold sm:block">
-                      {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet)}
-                    </span>
-                  </Link>
-                </li>
+                <span
+                  className={`stat-num whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold ${
+                    m.goals >= 3 ? "bg-gold/15 text-gold" : m.goals >= 2 ? "bg-devil/15 text-devil-bright" : "text-ink-faint"
+                  }`}
+                  title={mins.length ? `Goals at ${mins.map((x) => `${x}'`).join(", ")}` : undefined}
+                >
+                  {m.goals >= 3 ? `${m.goals} goals` : m.goals === 2 ? "brace" : "1 goal"}
+                  {mins.length > 0 && <span className="ml-1 font-normal text-ink-faint">{mins.map((x) => `${x}'`).join(" ")}</span>}
+                </span>
               );
-            })}
-          </ul>
+            }}
+          />
         ) : (
           <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-faint">
             No matches with recorded scorer data yet.
