@@ -121,6 +121,12 @@ select {
   color: var(--color-ink-faint);
 }
 
+/* Shared keyboard-focus ring, mirroring outline-2 / offset-2 / devil-bright. */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-devil-bright);
+  outline-offset: 2px;
+}
+
 .data-table-shell {
   overflow: hidden;
   border: 1px solid color-mix(in oklab, var(--color-line), var(--color-ink) 5%);

@@ -15,7 +15,7 @@ import { MatchList } from "@/components/MatchList";
 import { Pager } from "@/components/Pager";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
-import { fmtDate, fmtNum, pct, scoreline, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { fmtDate, fmtNum, pct, scoreline, venuePrefix, COMPETITION_TYPE_LABELS, GOAL_MINUTE_BUCKETS } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
@@ -96,7 +96,7 @@ export default async function PlayerPage({
   // Goal-minute distribution, with the final-15 share called out for the late-goals trail.
   const buckets = [0, 0, 0, 0, 0, 0];
   for (const m of minutes) buckets[Math.min(Math.floor((m - 1) / 15), 5)]++;
-  const bucketLabels = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90+"];
+  const bucketLabels = GOAL_MINUTE_BUCKETS;
   const lateGoals = buckets[5];
 
   // Multi-goal hauls are computed from recorded scorer data, not headline totals.
@@ -293,7 +293,7 @@ export default async function PlayerPage({
             >
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">First recorded match</p>
               <p className="mt-1 text-sm font-medium group-hover:text-devil-bright">
-                {debut.venue === "A" ? "@ " : "v "}
+                {`${venuePrefix(debut.venue)} `}
                 {debut.opponent_name}
                 <span className="stat-num ml-2 text-ink-dim">{scoreline(debut.gf, debut.ga)}</span>
               </p>
@@ -307,7 +307,7 @@ export default async function PlayerPage({
             >
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">Most recent recorded match</p>
               <p className="mt-1 text-sm font-medium group-hover:text-devil-bright">
-                {latest.venue === "A" ? "@ " : "v "}
+                {`${venuePrefix(latest.venue)} `}
                 {latest.opponent_name}
                 <span className="stat-num ml-2 text-ink-dim">{scoreline(latest.gf, latest.ga)}</span>
               </p>

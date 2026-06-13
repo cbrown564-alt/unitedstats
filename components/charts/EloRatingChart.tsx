@@ -1,5 +1,6 @@
 import { InspectableTimeSeriesChart } from "./InspectableTimeSeriesChart";
 import type { ChartDatum } from "@/components/charts";
+import { fmtAxisNumber, fmtMonthYear } from "@/lib/format";
 
 type EloRatingChartProps = {
   points: { date: string; elo: number }[];
@@ -7,13 +8,6 @@ type EloRatingChartProps = {
   /** Managerial eras to shade behind the rating line; long tenures carry a label. */
   eras?: { from: string; to: string; label?: string }[];
 };
-
-function formatDateLabel(date: string) {
-  return new Intl.DateTimeFormat("en-GB", {
-    month: "short",
-    year: "numeric",
-  }).format(new Date(`${date.slice(0, 10)}T00:00:00Z`));
-}
 
 function movementLabel(current: number, previous?: number) {
   if (previous === undefined) return undefined;
@@ -26,8 +20,8 @@ export function EloRatingChart({ points, height = 260, eras }: EloRatingChartPro
   const data: ChartDatum[] = points.map((point, index) => ({
     x: Date.parse(point.date),
     y: point.elo,
-    label: formatDateLabel(point.date),
-    valueLabel: `${Math.round(point.elo).toLocaleString("en-GB")} Elo`,
+    label: fmtMonthYear(point.date.slice(0, 10)),
+    valueLabel: fmtAxisNumber(point.elo, " Elo"),
     movementLabel: movementLabel(point.elo, points[index - 1]?.elo),
   }));
 

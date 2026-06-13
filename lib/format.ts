@@ -1,21 +1,32 @@
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export function fmtDate(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
   return `${d} ${MONTHS[m - 1]} ${y}`;
 }
 
+/** Short "Mon YYYY" label from an ISO date. */
+export function fmtMonthYear(iso: string): string {
+  const [y, m] = iso.split("-").map(Number);
+  return `${MONTHS[m - 1]} ${y}`;
+}
+
 export function fmtDateLong(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
   const date = new Date(Date.UTC(y, m - 1, d));
-  const dow = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][date.getUTCDay()];
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  return `${dow} ${d} ${months[m - 1]} ${y}`;
+  return `${WEEKDAYS[date.getUTCDay()]} ${d} ${MONTHS_LONG[m - 1]} ${y}`;
 }
 
 export function fmtNum(n: number | null | undefined): string {
   if (n == null) return "—";
   return n.toLocaleString("en-GB");
+}
+
+/** Round to an integer, group with en-GB thousands separators, append an optional suffix. */
+export function fmtAxisNumber(value: number | string, suffix = ""): string {
+  return `${Math.round(Number(value)).toLocaleString("en-GB")}${suffix}`;
 }
 
 export function pct(part: number, whole: number): string {
@@ -26,6 +37,14 @@ export function pct(part: number, whole: number): string {
 export function venueLabel(v: string): string {
   return v === "H" ? "Home" : v === "A" ? "Away" : "Neutral";
 }
+
+/** Compact glyph prefixing an opponent name: "v" home, "@" away, "n" neutral. */
+export function venuePrefix(v: string): string {
+  return v === "H" ? "v" : v === "A" ? "@" : "n";
+}
+
+/** 15-minute goal-time bucket labels; the final bucket folds in stoppage time. */
+export const GOAL_MINUTE_BUCKETS = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90+"];
 
 /** Club display name by era. */
 export function clubName(date: string): string {
