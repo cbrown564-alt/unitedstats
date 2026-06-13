@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   eloSeries, seasonAggregates, biggestWins, heaviestDefeats, highestAttendances,
   venueRecord, goalMinuteHistogram, stadiumsWithRecords, eventCoverage, getMeta,
-  lineupCoverage, topAssistPartnerships, coverageOverview,
+  lineupCoverage, topAssistPartnerships, coverageOverview, managersIndex,
 } from "@/lib/queries";
 import { ChartPanel } from "@/components/ChartPanel";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
@@ -35,6 +35,16 @@ export default function AnalyticsPage() {
   const trough = elo.reduce((a, b) => (b.elo < a.elo ? b : a), elo[0]);
   const minuteLabels = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90"];
   const yearTicks = [1900, 1930, 1960, 1990, 2020].map((year) => ({ x: year, label: String(year) }));
+
+  // Managerial eras shade the Elo timeline; bands tile from each manager's first
+  // match to the next, and only long tenures (250+ matches) carry a label.
+  const managers = managersIndex().filter((m) => m.first && m.p > 0);
+  const lastEloDate = elo.length ? elo[elo.length - 1].date : null;
+  const managerEras = managers.map((m, i) => ({
+    from: m.first!,
+    to: managers[i + 1]?.first ?? lastEloDate ?? m.last!,
+    label: m.p >= 250 ? m.name.split(" ").pop() : undefined,
+  }));
 
   const decades = new Map<string, { p: number; w: number }>();
   for (const s of seasons) {
@@ -85,7 +95,7 @@ export default function AnalyticsPage() {
           <Link href="/matches" className="text-sm text-devil-bright hover:underline">Open match browser</Link>
         </div>
         <div className="border border-line rounded-lg bg-panel p-4">
-          <EloRatingChart points={elo} height={260} />
+          <EloRatingChart points={elo} height={260} eras={managerEras} />
           <div className="grid grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden mt-4 text-sm max-w-xl">
             <div className="bg-panel-2 px-3 py-2">
               <div className="stat-num text-lg font-semibold">{currentElo}</div>
@@ -103,8 +113,10 @@ export default function AnalyticsPage() {
           <p className="text-xs text-ink-faint mt-3 max-w-2xl">
             <span className="text-ink-dim">Slice:</span> every competitive match, closed-universe Elo —
             opponents are rated only on their matches against United, K varies by competition and goal
-            margin, home advantage worth 60 points. Pre-match win expectancy from this rating drives the
-            favourites line on every match page; open any match from the{" "}
+            margin, home advantage worth 60 points. Shaded bands mark managerial eras, with the
+            longest-serving managers labelled, so rises and falls can be read against who was in charge.
+            Pre-match win expectancy from this rating drives the favourites line on every match page; open
+            any match from the{" "}
             <Link href="/matches" className="text-devil-bright hover:underline">browser</Link> to see the
             rating move.
           </p>
