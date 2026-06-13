@@ -147,3 +147,10 @@ should enter the canonical record.
   enriched, skipped, and unmatched rows before any write.
 - Every aggregate-facing fact must land with a source id so the UI can expose
   its coverage facet.
+
+## Assists
+
+Assist coverage is the largest remaining event-data gap (only ~9% of all-time
+United goals carry an assist, all from `transfermarkt-datasets`, 2012-13 onward).
+The measured gap, source assessment, and a phased plan to plug it live in
+`docs/ASSISTS-PLAN.md`.
