@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
 import { MainNav } from "@/components/MainNav";
+import { HeaderSearch } from "@/components/HeaderSearch";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -26,8 +27,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <header className="border-b border-line sticky top-0 z-50 bg-pitch/95 backdrop-blur">
-          <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:gap-6 sm:px-6">
+        <header className="sticky top-0 z-50 border-b border-line bg-pitch/95 backdrop-blur">
+          <div className="relative mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:gap-6 sm:px-6">
             <Link
               href="/"
               className="display text-lg tracking-tight whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-devil-bright"
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <span className="text-devil-bright">United</span>Stats
             </Link>
             <MainNav />
+            <HeaderSearch />
           </div>
         </header>
         <main className="flex-1 w-full mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">{children}</main>

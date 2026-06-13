@@ -27,7 +27,22 @@ const KIND_LABELS: Record<string, string> = {
   match: "Match",
 };
 
-export function SearchCommand({ autoFocusKey = true }: { autoFocusKey?: boolean }) {
+export function SearchCommand({
+  autoFocusKey = true,
+  autoFocusOnMount = false,
+  compact = false,
+  placeholder,
+  onNavigate,
+}: {
+  autoFocusKey?: boolean;
+  /** Focus the input as soon as it mounts (used by the mobile header panel). */
+  autoFocusOnMount?: boolean;
+  /** Slimmer styling and shorter placeholder for the persistent header search. */
+  compact?: boolean;
+  placeholder?: string;
+  /** Fired when a result is chosen, so a wrapping panel can close itself. */
+  onNavigate?: () => void;
+}) {
   const [q, setQ] = useState("");
   const [shaped, setShaped] = useState<ShapedAnswer[]>([]);
   const [entities, setEntities] = useState<SearchEntity[]>([]);
@@ -71,6 +86,10 @@ export function SearchCommand({ autoFocusKey = true }: { autoFocusKey?: boolean 
   }, [q]);
 
   useEffect(() => {
+    if (autoFocusOnMount) inputRef.current?.focus();
+  }, [autoFocusOnMount]);
+
+  useEffect(() => {
     if (!autoFocusKey) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "/" && document.activeElement?.tagName !== "INPUT" &&
@@ -103,6 +122,7 @@ export function SearchCommand({ autoFocusKey = true }: { autoFocusKey?: boolean 
       const target = rows[active === -1 ? 0 : active];
       if (target) {
         setOpen(false);
+        onNavigate?.();
         router.push(target.href);
       }
     } else if (e.key === "Escape") {
@@ -111,7 +131,7 @@ export function SearchCommand({ autoFocusKey = true }: { autoFocusKey?: boolean 
   };
 
   return (
-    <div ref={boxRef} className="relative max-w-xl">
+    <div ref={boxRef} className={`relative ${compact ? "w-full" : "max-w-xl"}`}>
       <input
         ref={inputRef}
         type="search"
@@ -119,17 +139,33 @@ export function SearchCommand({ autoFocusKey = true }: { autoFocusKey?: boolean 
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => rows.length > 0 && setOpen(true)}
         onKeyDown={onKeyDown}
-        placeholder={'Search — try "record away at Arsenal", "late goals under Ferguson", or a name…'}
+        placeholder={
+          placeholder ??
+          (compact
+            ? "Search…"
+            : 'Search — try "record away at Arsenal", "late goals under Ferguson", or a name…')
+        }
         aria-label="Search players, opponents, seasons, managers, and shaped questions"
-        className="w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil"
+        className={
+          compact
+            ? "w-full rounded-md border border-line bg-panel px-3 py-1.5 text-sm placeholder:text-ink-faint focus:border-devil focus:outline-none"
+            : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil"
+        }
       />
       {open && rows.length > 0 && (
-        <div className="absolute z-40 mt-1 w-full border border-line rounded-lg bg-panel shadow-xl overflow-hidden">
+        <div
+          className={`absolute right-0 z-40 mt-1 w-full overflow-hidden rounded-lg border border-line bg-panel shadow-xl ${
+            compact ? "sm:w-96" : ""
+          }`}
+        >
           {shaped.map((s, i) => (
             <Link
               key={s.title}
               href={s.href}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                onNavigate?.();
+              }}
               className={`block px-4 py-2.5 border-b border-line ${active === i ? "bg-panel-2" : "hover:bg-panel-2"}`}
             >
               <div className="flex justify-between gap-3 text-sm">
@@ -143,7 +179,10 @@ export function SearchCommand({ autoFocusKey = true }: { autoFocusKey?: boolean 
             <Link
               key={`${r.kind}-${r.href}`}
               href={r.href}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                onNavigate?.();
+              }}
               className={`flex items-center justify-between gap-3 px-4 py-2 text-sm ${
                 active === shaped.length + i ? "bg-panel-2" : "hover:bg-panel-2"
               }`}
