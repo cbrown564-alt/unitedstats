@@ -9,21 +9,10 @@ import {
 } from "@/lib/queries";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { DataTable } from "@/components/DataTable";
-import { fmtNum, pct } from "@/lib/format";
+import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Data & corrections" };
-
-const TYPE_LABELS: Record<string, string> = {
-  league: "League",
-  "domestic-cup": "FA Cup",
-  "league-cup": "League Cup",
-  european: "Europe",
-  "super-cup": "Shields & Super Cups",
-  world: "World",
-  playoff: "Test Matches",
-  unofficial: "Wartime, friendlies, tours",
-};
 
 function CoverageBars({
   data,
@@ -108,7 +97,7 @@ export default function DataPage() {
                 label: "Scope",
                 key: "scope",
                 className: "font-medium",
-                render: (row) => TYPE_LABELS[row.type] ?? row.type,
+                render: (row) => COMPETITION_TYPE_LABELS[row.type] ?? row.type,
               },
               { label: "Matches", key: "matches", numeric: true, render: (row) => fmtNum(row.matches) },
               {
