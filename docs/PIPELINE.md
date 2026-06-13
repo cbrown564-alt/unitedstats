@@ -66,6 +66,10 @@ summary when an unknown competition file appears upstream.
   persist matched goal events, assists, opposition scorers, cards, United
   starting lineups, used substitutes, benches, attendance, and source facets.
   Responses are cached in `data/raw/football-data-org/`.
+- `npm run ingest:mufcinfo-lineups -- <season> [<endSeason>]` — dry-run
+  MUFCInfo historical lineup enrichment. Add `-- --write` to persist matched
+  United starting lineups, substituted-on players, shirt numbers, and source
+  facets. Pages are cached in `data/raw/mufcinfo/matches/`.
 - Add source ids in `data/canonical/sources.json` before using them in match
   files. The build expands match source ids into result/scorer/assist/lineup/
   attendance facets for the UI.

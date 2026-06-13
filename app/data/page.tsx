@@ -8,6 +8,7 @@ import {
   sourceUsage,
 } from "@/lib/queries";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { DataTable } from "@/components/DataTable";
 import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -98,44 +99,78 @@ export default function DataPage() {
       <section className="grid lg:grid-cols-[1fr_21rem] gap-8">
         <div>
           <h2 className="display text-xl mb-3">Coverage by competition type</h2>
-          <div className="overflow-hidden border border-line rounded-lg">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-panel-2 text-left text-xs uppercase tracking-wider text-ink-faint">
-                  <th className="px-3 py-2">Scope</th>
-                  <th className="px-3 py-2 text-right">Matches</th>
-                  <th className="px-3 py-2 text-right">United scorers</th>
-                  <th className="px-3 py-2 text-right hidden sm:table-cell">Opp goals</th>
-                  <th className="px-3 py-2 text-right hidden md:table-cell">Assists</th>
-                  <th className="px-3 py-2 text-right hidden lg:table-cell">Starting XI</th>
-                  <th className="px-3 py-2 text-right hidden xl:table-cell">Cards</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-line">
-                {byType.map((row) => (
-                  <tr key={row.type} className="bg-pitch/40">
-                    <td className="px-3 py-2 font-medium">{TYPE_LABELS[row.type] ?? row.type}</td>
-                    <td className="px-3 py-2 text-right stat-num">{fmtNum(row.matches)}</td>
-                    <td className="px-3 py-2 text-right stat-num">
-                      {fmtNum(row.completeScorers)} <span className="text-ink-faint">({pct(row.completeScorers, row.matches)})</span>
-                    </td>
-                    <td className="px-3 py-2 text-right stat-num hidden sm:table-cell">
-                      {fmtNum(row.withOppositionGoals)} <span className="text-ink-faint">({pct(row.withOppositionGoals, row.matches)})</span>
-                    </td>
-                    <td className="px-3 py-2 text-right stat-num hidden md:table-cell">
-                      {fmtNum(row.withAssists)} <span className="text-ink-faint">({pct(row.withAssists, row.matches)})</span>
-                    </td>
-                    <td className="px-3 py-2 text-right stat-num hidden lg:table-cell">
-                      {fmtNum(row.withStartingLineups)} <span className="text-ink-faint">({pct(row.withStartingLineups, row.matches)})</span>
-                    </td>
-                    <td className="px-3 py-2 text-right stat-num hidden xl:table-cell">
-                      {fmtNum(row.withCards)} <span className="text-ink-faint">({pct(row.withCards, row.matches)})</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <DataTable
+            caption="Coverage by competition type"
+            rows={byType}
+            rowKey={(row) => row.type}
+            columns={[
+              {
+                label: "Scope",
+                key: "scope",
+                className: "font-medium",
+                render: (row) => TYPE_LABELS[row.type] ?? row.type,
+              },
+              { label: "Matches", key: "matches", numeric: true, render: (row) => fmtNum(row.matches) },
+              {
+                label: "United scorers",
+                key: "scorers",
+                numeric: true,
+                render: (row) => (
+                  <>
+                    {fmtNum(row.completeScorers)}{" "}
+                    <span className="text-ink-faint">({pct(row.completeScorers, row.matches)})</span>
+                  </>
+                ),
+              },
+              {
+                label: "Opp goals",
+                key: "opp-goals",
+                numeric: true,
+                hideBelow: "hidden sm:table-cell",
+                render: (row) => (
+                  <>
+                    {fmtNum(row.withOppositionGoals)}{" "}
+                    <span className="text-ink-faint">({pct(row.withOppositionGoals, row.matches)})</span>
+                  </>
+                ),
+              },
+              {
+                label: "Assists",
+                key: "assists",
+                numeric: true,
+                hideBelow: "hidden md:table-cell",
+                render: (row) => (
+                  <>
+                    {fmtNum(row.withAssists)}{" "}
+                    <span className="text-ink-faint">({pct(row.withAssists, row.matches)})</span>
+                  </>
+                ),
+              },
+              {
+                label: "Starting XI",
+                key: "starting-xi",
+                numeric: true,
+                hideBelow: "hidden lg:table-cell",
+                render: (row) => (
+                  <>
+                    {fmtNum(row.withStartingLineups)}{" "}
+                    <span className="text-ink-faint">({pct(row.withStartingLineups, row.matches)})</span>
+                  </>
+                ),
+              },
+              {
+                label: "Cards",
+                key: "cards",
+                numeric: true,
+                hideBelow: "hidden xl:table-cell",
+                render: (row) => (
+                  <>
+                    {fmtNum(row.withCards)} <span className="text-ink-faint">({pct(row.withCards, row.matches)})</span>
+                  </>
+                ),
+              },
+            ]}
+          />
         </div>
 
         <aside className="border border-line rounded-lg bg-panel p-4">

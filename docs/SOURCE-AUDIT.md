@@ -10,7 +10,7 @@ should enter the canonical record.
 |---|---|---|---|
 | 0 | Wikipedia Manchester United player lists | Verified all-time player starts, substitute appearances, total appearances, and goals | CC BY-SA attribution required; page scope excludes wartime and abandoned 1939-40 matches |
 | 1 | Wikidata and Wikimedia Commons | Licensed image candidates and attribution metadata for top players | Verify likeness and license metadata before widening display |
-| 2 | MUFCInfo match lineups | Historical match-page shirt-number rows for top-player shirt summaries | Best available reference lane for shirt numbers; early Newton Heath pages do not expose numbered rows |
+| 2 | MUFCInfo match lineups | Historical match-page United lineups, substituted-on players, and shirt numbers | Best available broad historical lineup lane; use attribution and deterministic validation because pages are a maintained reference compilation |
 | 2 | football-data.org | Modern goals, assists, bookings, lineups, benches, substitutions, attendance | Token required; free tier is rate-limited and historical depth varies |
 | 3 | Wikipedia season and match articles | Scorers, attendance, rounds, final/late-round lineups | Wikitext tables vary; deterministic parser plus validation required |
 | 4 | RSSSF | Historical competition results and scorer cross-checks | Citation granularity varies by page |
@@ -50,6 +50,23 @@ should enter the canonical record.
   for players.
 - **Canonical rule:** United players may be added to `players.json`; opposition
   players remain event or lineup display names with provider ids.
+
+## MUFCInfo
+
+- **Provides:** Manchester United and Newton Heath match-page lineup rows,
+  shirt numbers, player archive links, and substituted-on players when listed.
+- **Range:** broad historical coverage by match date. Individual page detail
+  varies, so the importer treats MUFCInfo as a reference lane and validates
+  each match before writing.
+- **Importer:** `npm run ingest:mufcinfo-lineups -- <season>` dry-runs by
+  default; add `-- --write` to persist canonical lineup changes. Use
+  `-- --date YYYY-MM-DD` for a single-match probe.
+- **Failure modes:** nickname/local-id mismatches, same-name historical
+  collisions, missing player rows, source pages listing only used substitutes,
+  and source-page changes.
+- **Canonical rule:** write a match only when all 11 starters and any used
+  substitutes resolve to United player ids. Missing player ids may be added
+  from verified player-record rows; unresolved matches stay untouched.
 
 ## Wikipedia
 

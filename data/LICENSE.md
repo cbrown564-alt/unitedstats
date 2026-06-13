@@ -24,6 +24,7 @@ repository, and preserve the source attributions below.
 | [engsoccerdata](https://github.com/jalapic/engsoccerdata) (James Curley) | League and FA Cup results, 1886–present | R package licensed GPL (≥ 2); results used as factual records with attribution |
 | [openfootball](https://github.com/openfootball) | Current-season results | CC0 / public domain |
 | [Wikipedia](https://en.wikipedia.org) season and match articles | Cup/European results, attendance, scorers, finals lineups | CC BY-SA 4.0; parsed deterministically from wikitext |
+| [MUFCInfo](https://www.mufcinfo.com/) | Historical Manchester United match lineups and shirt-number references | Copyright Mark Graham; used as an attributed factual reference, with raw pages cached locally and not redistributed |
 | [Wikidata](https://www.wikidata.org) / [Wikimedia Commons](https://commons.wikimedia.org) | Player records, portrait references | CC0 (Wikidata); each Commons image carries its own license, recorded per file in `data/canonical/player-media.json` and displayed with attribution in the UI |
 | [transfermarkt-datasets](https://github.com/dcaribou/transfermarkt-datasets) | Modern lineups, goal events, cards, substitutions | CC0 (dataset project) |
 | [football-data.org](https://www.football-data.org) | Match-sheet enrichment (token-gated; not redistributed raw) | Per their terms of use |
