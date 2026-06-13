@@ -7,7 +7,15 @@ import { WdlBar } from "./WdlBar";
  * group consecutively; each subheader carries that season's W-D-L so the list
  * reads as a sequence of slices rather than one undifferentiated stream.
  */
-export function MatchGroups({ matches }: { matches: MatchRow[] }) {
+export function MatchGroups({
+  matches,
+  showAttendance = false,
+  accentResult = false,
+}: {
+  matches: MatchRow[];
+  showAttendance?: boolean;
+  accentResult?: boolean;
+}) {
   if (matches.length === 0) return <MatchList matches={[]} />;
 
   const groups: { season: string; rows: MatchRow[] }[] = [];
@@ -32,7 +40,7 @@ export function MatchGroups({ matches }: { matches: MatchRow[] }) {
               </span>
               <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} className="ml-auto max-w-[8rem]" />
             </div>
-            <MatchList matches={g.rows} />
+            <MatchList matches={g.rows} showAttendance={showAttendance} accentResult={accentResult} />
           </section>
         );
       })}
