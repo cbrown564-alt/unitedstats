@@ -15,6 +15,7 @@
     "ingest:lineups": "tsx scripts/ingest/final-lineups.ts",
     "ingest:football-data": "tsx scripts/ingest/football-data-org.ts",
     "ingest:mufcinfo-lineups": "tsx scripts/ingest/mufcinfo-lineups.ts",
+    "ingest:mufcinfo-assists": "tsx scripts/ingest/mufcinfo-events.ts",
     "ingest:transfermarkt": "tsx scripts/ingest/transfermarkt-datasets.ts",
     "ingest:player-records": "tsx scripts/ingest/wikipedia-player-records.ts",
     "ingest:player-media": "tsx scripts/ingest/wikidata-player-media.ts",
