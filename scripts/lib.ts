@@ -135,6 +135,58 @@ export function parseCsv(text: string): Record<string, string>[] {
   });
 }
 
+/** Split one CSV line into fields, honouring quoted fields with "" escapes. */
+export function parseCsvLine(line: string): string[] {
+  const cells: string[] = [];
+  let field = "";
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (line[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += c;
+    } else if (c === '"') inQuotes = true;
+    else if (c === ",") { cells.push(field); field = ""; }
+    else field += c;
+  }
+  cells.push(field);
+  return cells;
+}
+
+/** Current season key using the Jul 1 boundary. */
+export function currentSeasonKey(now = new Date()): string {
+  const startYear = now.getUTCMonth() + 1 >= 7 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
+  return seasonKey(startYear);
+}
+
+/** Season keys (e.g. "1998-99") that have a canonical match file on disk. */
+export function seasonKeysOnDisk(): string[] {
+  return listSeasonFiles()
+    .filter((f) => /^\d{4}-\d{2}\.json$/.test(f))
+    .map((f) => f.replace(".json", ""));
+}
+
+/**
+ * Parse a season selection from CLI tokens: a single "YYYY-YY", an inclusive
+ * "YYYY-YY YYYY-YY" range, "current", or (when allowAll) "all". Returns null
+ * when no season-like token is present so callers can print their own usage.
+ */
+export function parseSeasonArgs(argv: string[], opts: { allowAll?: boolean } = {}): string[] | null {
+  const tokens = argv.filter(
+    (a) => /^\d{4}-\d{2}$/.test(a) || a === "current" || (opts.allowAll === true && a === "all"),
+  );
+  if (tokens.length === 0) return null;
+  if (opts.allowAll === true && tokens.includes("all")) return seasonKeysOnDisk();
+  if (tokens.includes("current")) return [currentSeasonKey()];
+  const start = parseInt(tokens[0].slice(0, 4), 10);
+  const end = tokens[1] ? parseInt(tokens[1].slice(0, 4), 10) : start;
+  const seasons: string[] = [];
+  for (let y = start; y <= end; y++) seasons.push(seasonKey(y));
+  return seasons;
+}
+
 export function readJson<T>(file: string): T {
   return JSON.parse(fs.readFileSync(file, "utf8")) as T;
 }

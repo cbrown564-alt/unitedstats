@@ -1,13 +1,5 @@
 import { getDb } from "./db";
-import type { MatchRow, Record_ } from "./queries";
-
-const MATCH_SELECT = `
-  SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name
-  FROM matches m
-  JOIN competitions c ON c.id = m.competition_id
-  LEFT JOIN stadiums s ON s.id = m.stadium_id
-  LEFT JOIN managers mg ON mg.id = m.manager_id
-`;
+import { MATCH_SELECT, type MatchRow, type Record_ } from "./queries";
 
 const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
