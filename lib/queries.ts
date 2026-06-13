@@ -6,6 +6,7 @@ export interface MatchRow {
   date: string;
   competition_id: string;
   competition_name: string;
+  competition_type: string;
   round: string | null;
   opponent_id: string;
   opponent_name: string;
@@ -30,7 +31,7 @@ export interface MatchRow {
 }
 
 const MATCH_SELECT = `
-  SELECT m.*, c.name AS competition_name, s.name AS stadium_name, mg.name AS manager_name
+  SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name
   FROM matches m
   JOIN competitions c ON c.id = m.competition_id
   LEFT JOIN stadiums s ON s.id = m.stadium_id
