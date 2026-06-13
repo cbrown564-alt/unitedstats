@@ -61,15 +61,40 @@ where those hosts are allowlisted. They are blocked from ad-hoc web sessions.
 - Update the coverage ledger and README numbers.
 
 ### Phase B — MUFCInfo verification spike + parser extension (the big one)
-- In the pipeline env, pull MUFCInfo match pages across several eras (e.g. 1968,
-  1994, 1999, 2008) and inspect the goals/scorers section for any creator
-  annotation ("made by" / "assisted by").
-- If per-goal assists exist: add a `mufcinfo-events` ingester (sibling to
-  `scripts/ingest/mufcinfo-lineups.ts`, reusing its player-resolution machinery)
-  that writes `assist`/`assistName` onto existing goal events — conservative,
-  dry-run-first, only when the assister resolves to a United id. Could plug
-  1992–2012 and possibly earlier in one stroke.
-- If only career assist totals exist: fall back to Phase C.
+
+**Status: ingester built, awaiting real-page verification.**
+`scripts/ingest/mufcinfo-events.ts` (`npm run ingest:mufcinfo-assists`) is in
+place. It reuses the cached MUFCInfo match pages and the player-resolution
+approach of `scripts/ingest/mufcinfo-lineups.ts`, and is strictly additive: it
+attaches an assist to an **existing** United `goal`/`pen-goal` event only when
+the assister resolves to a known United player id — never creating, removing, or
+re-scoring events, and never touching the opposition. Dry-run by default;
+`--write` persists.
+
+The one open unknown is the **goals-section HTML format** on the match pages,
+which is not yet pinned to a checked-in fixture (mufcinfo.com is not reachable
+from ad-hoc sessions; it is allowlisted in the pipeline). The ingester therefore
+ships an `--inspect` mode that makes the spike a single command:
+
+```
+npm run ingest:mufcinfo-assists -- --inspect 1999-05-26   # then 1994, 1968, 2008…
+```
+
+`--inspect` dumps every page region carrying a minute marker, a player-archive
+link, or an assist keyword, plus what `parseGoals()` currently extracts. Steps:
+
+1. Run `--inspect` on a few matches across eras in the pipeline env.
+2. If per-goal assists exist, adjust `GOAL_KEYWORDS` / `ASSIST_KEYWORDS` /
+   `parseGoals()` to the confirmed wording and add a fixture-backed test; then
+   dry-run a season, review, and `--write`. Could plug 1992–2012 and possibly
+   earlier in one stroke.
+3. If the pages carry only career assist totals (no per-goal creator), stop here
+   and fall back to Phase C.
+
+The parse → resolve → conservative-attach mechanics are verified end-to-end
+against a synthetic page (scorer name variants such as "Edward Sheringham" →
+`teddy-sheringham` resolve correctly); only the real-page goal-cell wording
+remains to be confirmed.
 
 ### Phase C — Headline assist-totals lane (honest fallback)
 - Mirror the existing two-lane design: build
@@ -91,4 +116,6 @@ where those hosts are allowlisted. They are blocked from ad-hoc web sessions.
 
 The pivotal unknown is **what MUFCInfo match pages contain per goal**. It decides
 whether Phase B is a sweeping backfill or whether the work falls to the Phase C
-headline lane. Resolve it first (Phase B spike) before committing to an importer.
+headline lane. The importer now exists; resolve the unknown with
+`npm run ingest:mufcinfo-assists -- --inspect <date>` in the pipeline before any
+`--write`.
