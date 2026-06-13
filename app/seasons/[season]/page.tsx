@@ -5,7 +5,7 @@ import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
 import { CompetitionDot } from "@/components/CompetitionChip";
 import { WdlBar } from "@/components/WdlBar";
-import { fmtNum, pct, clubName } from "@/lib/format";
+import { fmtNum, pct, clubName, tallyWdl } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -25,9 +25,7 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
     list.push(m);
     byComp.set(m.competition_name, list);
   }
-  const w = matches.filter((m) => m.result === "W").length;
-  const d = matches.filter((m) => m.result === "D").length;
-  const l = matches.filter((m) => m.result === "L").length;
+  const { w, d, l } = tallyWdl(matches);
   const gf = matches.reduce((a, m) => a + m.gf, 0);
   const ga = matches.reduce((a, m) => a + m.ga, 0);
   const managers = [...new Set(matches.map((m) => m.manager_name).filter(Boolean))];

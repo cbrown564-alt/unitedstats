@@ -1,4 +1,5 @@
 import type { MatchRow } from "@/lib/queries";
+import { tallyWdl } from "@/lib/format";
 import { MatchList } from "./MatchList";
 import { WdlBar } from "./WdlBar";
 
@@ -28,9 +29,7 @@ export function MatchGroups({
   return (
     <div className="space-y-6">
       {groups.map((g) => {
-        const w = g.rows.filter((r) => r.result === "W").length;
-        const d = g.rows.filter((r) => r.result === "D").length;
-        const l = g.rows.filter((r) => r.result === "L").length;
+        const { w, d, l } = tallyWdl(g.rows);
         return (
           <section key={`${g.season}-${g.rows[0].id}`}>
             <div className="mb-2 flex items-center gap-3">

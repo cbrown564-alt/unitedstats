@@ -45,20 +45,25 @@ export function getMeta(): Record<string, string> {
 
 export interface Record_ { p: number; w: number; d: number; l: number; gf: number; ga: number }
 
+/**
+ * Coalesced played/W/D/L/goals columns matching the `Record_` shape. `result`,
+ * `gf`, and `ga` live only on `matches`, so this stays unambiguous across joins.
+ * COALESCE keeps empty groups returning 0 rather than NULL.
+ */
+const RECORD_COLS = `COUNT(*) p,
+  COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d, COALESCE(SUM(result='L'),0) l,
+  COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga`;
+
 export function allTimeRecord(): Record_ {
   return getDb()
-    .prepare(
-      `SELECT COUNT(*) p, SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga FROM matches`,
-    )
+    .prepare(`SELECT ${RECORD_COLS} FROM matches`)
     .get() as Record_;
 }
 
 export function recordByCompetitionType(): (Record_ & { type: string })[] {
   return getDb()
     .prepare(
-      `SELECT c.type, COUNT(*) p, SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(m.gf) gf, SUM(m.ga) ga
+      `SELECT c.type, ${RECORD_COLS}
        FROM matches m JOIN competitions c ON c.id = m.competition_id
        GROUP BY c.type ORDER BY p DESC`,
     )
@@ -146,9 +151,7 @@ export function eloForMatch(matchId: string):
 export function h2hBefore(opponentId: string, date: string): Record_ {
   return getDb()
     .prepare(
-      `SELECT COUNT(*) p, COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d,
-              COALESCE(SUM(result='L'),0) l, COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga
-       FROM matches WHERE opponent_id = ? AND date < ?`,
+      `SELECT ${RECORD_COLS} FROM matches WHERE opponent_id = ? AND date < ?`,
     )
     .get(opponentId, date) as Record_;
 }
@@ -281,8 +284,7 @@ export function matchesSummary(f: MatchFilter): MatchesSummary {
   const { cond, params } = matchWhere(f);
   return getDb()
     .prepare(
-      `SELECT COUNT(*) p, COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d,
-              COALESCE(SUM(result='L'),0) l, COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga,
+      `SELECT ${RECORD_COLS},
               MIN(date) first, MAX(date) last,
               ROUND(AVG(CASE WHEN venue='H' THEN attendance END)) avg_home_att
        FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`,
@@ -760,8 +762,7 @@ export function seasonAggregates(): {
 }[] {
   return getDb()
     .prepare(
-      `SELECT season, COUNT(*) p, SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga,
+      `SELECT season, ${RECORD_COLS},
               ROUND(100.0*SUM(result='W')/COUNT(*),1) win_pct,
               ROUND(AVG(CASE WHEN venue='H' THEN attendance END)) avg_att
        FROM matches GROUP BY season ORDER BY season`,
@@ -805,9 +806,7 @@ export function goalMinuteHistogram(): { bucket: string; n: number }[] {
 export function venueRecord(): (Record_ & { venue: string })[] {
   return getDb()
     .prepare(
-      `SELECT venue, COUNT(*) p, SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga
-       FROM matches GROUP BY venue ORDER BY p DESC`,
+      `SELECT venue, ${RECORD_COLS} FROM matches GROUP BY venue ORDER BY p DESC`,
     )
     .all() as (Record_ & { venue: string })[];
 }
