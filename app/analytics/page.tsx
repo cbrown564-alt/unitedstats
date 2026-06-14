@@ -10,7 +10,7 @@ import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { MatchList } from "@/components/MatchList";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
-import { WdlBar } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { fmtNum, pct, venueLabel, GOAL_MINUTE_BUCKETS } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -290,7 +290,7 @@ export default function AnalyticsPage() {
                 <div className="flex justify-between text-sm mb-1.5">
                   <span className="font-medium">{venueLabel(v.venue)}</span>
                   <span className="stat-num text-xs text-ink-faint">
-                    {fmtNum(v.p)} P · {v.w}–{v.d}–{v.l} · {pct(v.w, v.p)} W
+                    {fmtNum(v.p)} P · <WdlRecord w={v.w} d={v.d} l={v.l} /> · {pct(v.w, v.p)} W
                   </span>
                 </div>
                 <WdlBar w={v.w} d={v.d} l={v.l} />
