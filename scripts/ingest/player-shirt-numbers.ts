@@ -13,8 +13,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
-  CANONICAL, MATCHES_DIR, RAW, listSeasonFiles, readJson, slugify, writeJson,
+  CANONICAL, MATCHES_DIR, RAW, listSeasonFiles, readJson, writeJson,
 } from "../lib";
+import { displayName, normalizedSlug } from "../player-resolver";
 
 const SOURCE_ID = "mufcinfo-match-lineups";
 const USER_AGENT = "unitedstats/1.0 player-shirt ingest";
@@ -154,46 +155,6 @@ function numberArg(flag: string, fallback: number): number {
   if (index < 0) return fallback;
   const value = Number(process.argv[index + 1]);
   return Number.isFinite(value) && value > 0 ? value : fallback;
-}
-
-function htmlDecode(value: string): string {
-  return value
-    .replace(/&quot;/g, "\"")
-    .replace(/&#039;/g, "'")
-    .replace(/&amp;/g, "&")
-    .replace(/&nbsp;/g, " ")
-    .replace(/<[^>]*>/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function cleanPersonName(name: string): string {
-  return name
-    .replace(/"/g, "")
-    .replace(/\bJnr\b\.?/i, "Jr")
-    .replace(/\bSnr\b\.?/i, "Sr")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function displayName(lastFirst: string): string {
-  const cleaned = cleanPersonName(htmlDecode(lastFirst));
-  const parts = cleaned.split(",").map((part) => part.trim()).filter(Boolean);
-  return parts.length >= 2 ? `${parts.slice(1).join(" ")} ${parts[0]}` : cleaned;
-}
-
-function normalizedSlug(name: string): string {
-  return slugify(
-    cleanPersonName(name)
-      .replace(/æ/g, "ae")
-      .replace(/Æ/g, "Ae")
-      .replace(/ø/g, "o")
-      .replace(/Ø/g, "O")
-      .replace(/ð/g, "d")
-      .replace(/Ð/g, "D")
-      .replace(/þ/g, "th")
-      .replace(/Þ/g, "Th"),
-  );
 }
 
 function nameParts(name: string): { first: string; last: string } | null {

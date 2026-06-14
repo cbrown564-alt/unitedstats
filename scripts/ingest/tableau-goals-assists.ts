@@ -33,6 +33,7 @@ import {
   seasonKey,
   type AliasFile,
 } from "../lib";
+import { normalizedSlug } from "../player-resolver";
 
 const SOURCE_ID = "tableau-goals-assists";
 const SOURCE_NAME = "Manchester United Games (Tableau Public, conor.brown)";
@@ -117,8 +118,6 @@ const EXPLICIT_ID: Record<string, string> = {
   "Fábio da Silva": "fabio-pereira-da-silva",
   // surname-first / initialled / spelling-variant labels
   Park: "park-ji-sung",
-  // slugify renders "æ" as a separator, so the surname index cannot reach him
-  Solskjær: "ole-gunnar-solskj-r",
   "R. Jones": "ritchie-jones",
   "Djemba-Djemba": "eric-djemba-djemba",
   DjembaDjemba: "eric-djemba-djemba",
@@ -146,7 +145,7 @@ function buildResolver(): Resolver {
   ).players;
   const playerIds = new Set(players.map((p) => p.id));
 
-  const norm = (s: string) => slugify(s);
+  const norm = (s: string) => normalizedSlug(s);
   const bySurname = new Map<string, string[]>();
   const byFull = new Map<string, string>();
   for (const p of players) {
