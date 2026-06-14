@@ -83,6 +83,32 @@ interface PlayerShirts {
     sourceId: string;
   }[];
 }
+interface TableauGoalAssistRow {
+  playerId: string | null;
+  playerLabel: string;
+  attribution: string;
+  kind: "goal" | "assist";
+  season: string;
+  competition: string;
+  opponent: string;
+  opponentId: string | null;
+  count: number;
+}
+interface TableauGoalTypeRow {
+  playerId: string | null;
+  playerLabel: string;
+  attribution: string;
+  goalType: string;
+  season: string;
+  competition: string;
+  opponent: string;
+  opponentId: string | null;
+  count: number;
+}
+interface TableauFile<R> {
+  sourceId: string;
+  rows: R[];
+}
 interface Opponents {
   opponents?: { id: string; name: string; country?: string | null; lat?: number | null; lng?: number | null }[];
 }
@@ -108,6 +134,14 @@ const playerShirtsFile = path.join(CANONICAL, "player-shirts.json");
 const playerShirts = fs.existsSync(playerShirtsFile)
   ? readJson<PlayerShirts>(playerShirtsFile).records
   : [];
+const tableauGoalsAssistsFile = path.join(CANONICAL, "tableau-goals-assists.json");
+const tableauGoalsAssists = fs.existsSync(tableauGoalsAssistsFile)
+  ? readJson<TableauFile<TableauGoalAssistRow>>(tableauGoalsAssistsFile)
+  : null;
+const tableauGoalTypesFile = path.join(CANONICAL, "tableau-goal-types.json");
+const tableauGoalTypes = fs.existsSync(tableauGoalTypesFile)
+  ? readJson<TableauFile<TableauGoalTypeRow>>(tableauGoalTypesFile)
+  : null;
 const playerBase = readJson<Players>(path.join(CANONICAL, "players.json")).players;
 const playerById = new Map(playerBase.map((p) => [p.id, p]));
 for (const r of playerRecords) {
@@ -261,6 +295,7 @@ CREATE TABLE match_events (
   PRIMARY KEY (match_id, seq)
 );
 CREATE INDEX idx_events_player ON match_events(player_id);
+CREATE INDEX idx_events_assist_player ON match_events(assist_player_id);
 
 CREATE TABLE match_lineups (
   match_id TEXT NOT NULL REFERENCES matches(id),
@@ -343,6 +378,36 @@ CREATE TABLE player_shirts (
 CREATE INDEX idx_player_shirts_player ON player_shirts(player_id);
 CREATE INDEX idx_player_shirts_source ON player_shirts(source_id);
 
+-- curated season-level scorer/assist + goal-type aggregates (Tableau lane).
+-- Not match-attributed (no dates/minutes); kept separate from match_events.
+CREATE TABLE tableau_goals_assists (
+  player_id TEXT REFERENCES players(id),
+  player_label TEXT NOT NULL,
+  attribution TEXT NOT NULL,
+  kind TEXT NOT NULL CHECK (kind IN ('goal','assist')),
+  season TEXT NOT NULL,
+  competition_id TEXT REFERENCES competitions(id),
+  opponent_id TEXT,
+  opponent_name TEXT NOT NULL,
+  count INTEGER NOT NULL,
+  source_id TEXT NOT NULL REFERENCES sources(id)
+);
+CREATE INDEX idx_tga_player ON tableau_goals_assists(player_id);
+
+CREATE TABLE tableau_goal_types (
+  player_id TEXT REFERENCES players(id),
+  player_label TEXT NOT NULL,
+  attribution TEXT NOT NULL,
+  goal_type TEXT NOT NULL,
+  season TEXT NOT NULL,
+  competition_id TEXT REFERENCES competitions(id),
+  opponent_id TEXT,
+  opponent_name TEXT NOT NULL,
+  count INTEGER NOT NULL,
+  source_id TEXT NOT NULL REFERENCES sources(id)
+);
+CREATE INDEX idx_tgt_player ON tableau_goal_types(player_id);
+
 CREATE TABLE season_summaries (
   season TEXT NOT NULL,
   competition_id TEXT NOT NULL,
@@ -384,6 +449,8 @@ const sourceIdsFromCanonical = new Set([
   ...playerRecords.map((r) => r.sourceId),
   ...playerMedia.map((r) => r.sourceId),
   ...playerShirts.map((r) => r.sourceId),
+  ...(tableauGoalsAssists ? [tableauGoalsAssists.sourceId] : []),
+  ...(tableauGoalTypes ? [tableauGoalTypes.sourceId] : []),
 ]);
 for (const id of sourceIdsFromCanonical) {
   if (!knownSourceIds.has(id)) {
@@ -441,6 +508,27 @@ for (const s of playerShirts) {
     s.lastDate,
     s.sourceId,
   );
+}
+
+if (tableauGoalsAssists) {
+  const ins = db.prepare("INSERT INTO tableau_goals_assists VALUES (?,?,?,?,?,?,?,?,?,?)");
+  const tx = db.transaction(() => {
+    for (const r of tableauGoalsAssists.rows) {
+      ins.run(r.playerId, r.playerLabel, r.attribution, r.kind, r.season,
+        r.competition, r.opponentId, r.opponent, r.count, tableauGoalsAssists.sourceId);
+    }
+  });
+  tx();
+}
+if (tableauGoalTypes) {
+  const ins = db.prepare("INSERT INTO tableau_goal_types VALUES (?,?,?,?,?,?,?,?,?,?)");
+  const tx = db.transaction(() => {
+    for (const r of tableauGoalTypes.rows) {
+      ins.run(r.playerId, r.playerLabel, r.attribution, r.goalType, r.season,
+        r.competition, r.opponentId, r.opponent, r.count, tableauGoalTypes.sourceId);
+    }
+  });
+  tx();
 }
 
 // opponents: curated entries first, then derive the rest from matches
