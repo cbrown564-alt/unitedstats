@@ -8,7 +8,7 @@ import { oddsFor } from "@/lib/predict";
 import { MatchList } from "@/components/MatchList";
 import { Pager } from "@/components/Pager";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
-import { WdlBar } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct, venueLabel } from "@/lib/format";
 
@@ -51,7 +51,7 @@ export default async function OpponentPage({
         aside={
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
             <StatTile label="Played" value={fmtNum(o.p)} tone="red" />
-            <StatTile label="Record" value={`${o.w}–${o.d}–${o.l}`} />
+            <StatTile label="Record" value={<WdlRecord w={o.w} d={o.d} l={o.l} />} />
             <StatTile label="Win rate" value={pct(o.w, o.p)} tone="green" />
             <StatTile label="Goals" value={`${fmtNum(o.gf)}–${fmtNum(o.ga)}`} />
           </div>
@@ -86,8 +86,8 @@ export default async function OpponentPage({
           {cup.p > 0 ? (
             <>
               <div className="border border-line rounded-lg bg-panel px-4 py-3">
-                <div className="stat-num text-2xl font-semibold">
-                  {cup.w}–{cup.d}–{cup.l}
+                <div className="text-2xl font-semibold">
+                  <WdlRecord w={cup.w} d={cup.d} l={cup.l} />
                 </div>
                 <div className="text-xs text-ink-faint mt-1">
                   {cup.p} cup ties · {pct(cup.w, cup.p)} won

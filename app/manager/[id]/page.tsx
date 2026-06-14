@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { managerById, managerTenures } from "@/lib/queries";
 import { managerFirstMatches, managerSplits } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
-import { WdlBar } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { fmtDate, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 
@@ -60,11 +60,11 @@ export default async function ManagerPage({
         <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-2xl">
           {[
             ["Matches", fmtNum(m.p)],
-            ["Record", `${m.w}–${m.d}–${m.l}`],
+            ["Record", <WdlRecord key="record" w={m.w} d={m.d} l={m.l} />],
             ["Win rate", pct(m.w, m.p)],
             ["Goals", `${fmtNum(m.gf)}–${fmtNum(m.ga)}`],
-          ].map(([k, v]) => (
-            <div key={k} className="bg-panel px-4 py-3">
+          ].map(([k, v], i) => (
+            <div key={i} className="bg-panel px-4 py-3">
               <div className="stat-num text-xl font-semibold">{v}</div>
               <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{k}</div>
             </div>
@@ -124,7 +124,7 @@ export default async function ManagerPage({
             <div key={c.name} className="border border-line rounded-lg bg-panel px-4 py-2.5 flex justify-between items-center gap-3">
               <span className="truncate">{c.name}</span>
               <span className="stat-num text-xs text-ink-faint whitespace-nowrap">
-                {c.w}–{c.d}–{c.l} ({pct(c.w, c.p)})
+<WdlRecord w={c.w} d={c.d} l={c.l} /> ({pct(c.w, c.p)})
               </span>
             </div>
           ))}
