@@ -235,30 +235,53 @@ keeping coverage and source notes at every interpretation point. Curated-lane
 extension (more seasons, more goal-type detail) and historical match-level
 enrichment continue as normal dataset work.
 
-## Phase 8 — Consolidation and simplification ⏳ (next)
+## Phase 8 — Consolidation and simplification ✅ (complete)
 
 Six build-out phases added a lot of surface area fast. Before expanding the
 discovery layer, take a deliberate critical pass over everything that exists and
 ask, for each piece, whether it is the simplest, most elegant solution — pruning
 and consolidating rather than adding. Earn the right to expand.
 
-- [ ] Inventory every surface — routes, shared components, analytics modules,
+- [x] Inventory every surface — routes, shared components, analytics modules,
       question/trail modules, and data lanes — with each one's purpose, the data
-      it shows, and where it overlaps or duplicates another surface.
-- [ ] Visual-hierarchy audit: each page should lead with one clear primary
+      it shows, and where it overlaps or duplicates another surface. Captured in
+      `docs/INVENTORY.md` as a durable map kept honest (resolved overlaps marked,
+      remaining ones flagged).
+- [x] Visual-hierarchy audit: each page should lead with one clear primary
       answer or action; demote, merge, or cut elements that compete with it.
-- [ ] Data-density audit against the "adaptive medium density" principle:
+      Recorded in `docs/VISUAL-AUDIT.md`; remaining hierarchy items (odds hero,
+      travel map-first, `/data` split) carry forward there.
+- [x] Data-density audit against the "adaptive medium density" principle:
       records, filters, and tables stay compact; interpretation modules, charts,
-      and coverage notes get room. Flag cramped and sparse spots.
-- [ ] Feature-creep and redundancy pass: find modules that duplicate each other
-      or rarely earn their space, and consolidate or remove them.
-- [ ] Consistency pass: confirm shared components (competition chips, WdlBar,
+      and coverage notes get room. The clearest density failure — caveat text
+      below comfortable contrast at the trust point — was fixed by raising
+      `CoverageNote` from faint to dim ink with brighter labels.
+- [x] Feature-creep and redundancy pass: find modules that duplicate each other
+      or rarely earn their space, and consolidate or remove them. Static chart
+      primitives were audited (`AreaChart` is a live no-JS fallback, `Bars` is
+      used, `Sparkline` is unused and flagged for a deliberate keep/prune call).
+- [x] Consistency pass: confirm shared components (competition chips, WdlBar,
       Pager, coverage notes) are used everywhere they should be, with no
-      lingering one-off variants.
-- [ ] Performance and accessibility spot-check while surfaces are open: server
-      component boundaries, focus states, and colour-safe encodings.
+      lingering one-off variants. Folded the remaining hand-rolled variants into
+      shared components: `StatTile` (`/manager/[id]`, `/matches` slice),
+      `PageHeader` (`/managers`), `Pager` (`/manager/[id]`), and the shared
+      `.control`/`focus-ring` form vocabulary (`/analytics/odds`). The
+      `/match/[id]` textual facts grid was deliberately left bespoke.
+- [x] Performance and accessibility spot-check while surfaces are open: server
+      component boundaries held (no new client components introduced), the
+      contrast fix above addresses the main act-on-text legibility gap, and
+      `next build` + golden tests + lint + typecheck pass clean.
 
-## Phase 9 — Discovery and comparison (planned)
+Phase 8 is complete as a consolidation pass: the surface area is mapped in
+`docs/INVENTORY.md`, the lingering one-off variants are folded into the shared
+component vocabulary, the trust-surface contrast gap is closed, and the
+remaining visual-hierarchy items are recorded in `docs/VISUAL-AUDIT.md` rather
+than left implicit. The bigger interface bets that are genuinely *additions*
+(searchable odds combobox, segmented index grouping, comparison modes) are
+deferred to Phase 9 where they belong, so this phase pruned and tightened rather
+than expanded.
+
+## Phase 9 — Discovery and comparison ⏳ (next)
 
 With the surface simplified, expand the core premise — question-led pattern
 discovery — by adding the comparison and exploration tools it is currently
