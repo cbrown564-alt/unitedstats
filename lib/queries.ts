@@ -997,6 +997,46 @@ export function sourcesForMatch(matchId: string): MatchSourceRecord[] {
     .all(matchId) as MatchSourceRecord[];
 }
 
+/** EXISTS predicate: match `m` has at least one opposition goal recorded as an event. */
+const OPP_GOALS_EXISTS = `EXISTS (
+  SELECT 1 FROM match_events e WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
+)`;
+
+/**
+ * Per-match coverage facets — one boolean SUM per data facet — shared by the
+ * overall and per-competition-type coverage queries so the two cannot drift.
+ * The surrounding query must expose `m` (matches); callers add their own
+ * leading columns (and GROUP BY for the per-type variant).
+ */
+const COVERAGE_FACETS = `
+  SUM(CASE WHEN EXISTS (
+    SELECT 1 FROM match_events e
+    WHERE e.match_id = m.id AND e.type IN ('goal','pen-goal','own-goal-for')
+  ) THEN 1 ELSE 0 END) withScorers,
+  SUM(m.events_complete = 1) completeScorers,
+  SUM(CASE WHEN ${OPP_GOALS_EXISTS} THEN 1 ELSE 0 END) withOppositionGoals,
+  SUM(CASE WHEN EXISTS (
+    SELECT 1 FROM match_events e
+    WHERE e.match_id = m.id AND (e.assist_player_id IS NOT NULL OR e.assist_name IS NOT NULL)
+  ) THEN 1 ELSE 0 END) withAssists,
+  SUM(CASE WHEN EXISTS (
+    SELECT 1 FROM match_lineups l
+    WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 1
+  ) THEN 1 ELSE 0 END) withStartingLineups,
+  SUM(CASE WHEN EXISTS (
+    SELECT 1 FROM match_lineups l
+    WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 0 AND l.bench = 0
+  ) THEN 1 ELSE 0 END) withUsedSubstitutes,
+  SUM(CASE WHEN EXISTS (
+    SELECT 1 FROM match_lineups l
+    WHERE l.match_id = m.id AND l.bench = 1
+  ) THEN 1 ELSE 0 END) withBenches,
+  SUM(CASE WHEN EXISTS (
+    SELECT 1 FROM match_events e
+    WHERE e.match_id = m.id AND e.type IN ('card-yellow','card-red')
+  ) THEN 1 ELSE 0 END) withCards,
+  SUM(m.attendance IS NOT NULL) withAttendance`;
+
 export function coverageOverview(): {
   matches: number;
   officialMatches: number;
@@ -1017,36 +1057,7 @@ export function coverageOverview(): {
          COUNT(*) matches,
          SUM(CASE WHEN c.type != 'unofficial' THEN 1 ELSE 0 END) officialMatches,
          SUM(CASE WHEN c.type = 'unofficial' THEN 1 ELSE 0 END) unofficialMatches,
-         SUM(CASE WHEN EXISTS (
-           SELECT 1 FROM match_events e
-           WHERE e.match_id = m.id AND e.type IN ('goal','pen-goal','own-goal-for')
-         ) THEN 1 ELSE 0 END) withScorers,
-         SUM(m.events_complete = 1) completeScorers,
-         SUM(CASE WHEN EXISTS (
-           SELECT 1 FROM match_events e
-           WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
-         ) THEN 1 ELSE 0 END) withOppositionGoals,
-         SUM(CASE WHEN EXISTS (
-           SELECT 1 FROM match_events e
-           WHERE e.match_id = m.id AND (e.assist_player_id IS NOT NULL OR e.assist_name IS NOT NULL)
-         ) THEN 1 ELSE 0 END) withAssists,
-         SUM(CASE WHEN EXISTS (
-           SELECT 1 FROM match_lineups l
-           WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 1
-         ) THEN 1 ELSE 0 END) withStartingLineups,
-         SUM(CASE WHEN EXISTS (
-           SELECT 1 FROM match_lineups l
-           WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 0 AND l.bench = 0
-         ) THEN 1 ELSE 0 END) withUsedSubstitutes,
-         SUM(CASE WHEN EXISTS (
-           SELECT 1 FROM match_lineups l
-           WHERE l.match_id = m.id AND l.bench = 1
-         ) THEN 1 ELSE 0 END) withBenches,
-         SUM(CASE WHEN EXISTS (
-           SELECT 1 FROM match_events e
-           WHERE e.match_id = m.id AND e.type IN ('card-yellow','card-red')
-         ) THEN 1 ELSE 0 END) withCards,
-         SUM(m.attendance IS NOT NULL) withAttendance
+         ${COVERAGE_FACETS}
        FROM matches m
        JOIN competitions c ON c.id = m.competition_id`,
     )
@@ -1070,36 +1081,7 @@ export function coverageByCompetitionType(): {
     .prepare(
       `SELECT c.type,
               COUNT(*) matches,
-              SUM(CASE WHEN EXISTS (
-                SELECT 1 FROM match_events e
-                WHERE e.match_id = m.id AND e.type IN ('goal','pen-goal','own-goal-for')
-              ) THEN 1 ELSE 0 END) withScorers,
-              SUM(m.events_complete = 1) completeScorers,
-              SUM(CASE WHEN EXISTS (
-                SELECT 1 FROM match_events e
-                WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
-              ) THEN 1 ELSE 0 END) withOppositionGoals,
-              SUM(CASE WHEN EXISTS (
-                SELECT 1 FROM match_events e
-                WHERE e.match_id = m.id AND (e.assist_player_id IS NOT NULL OR e.assist_name IS NOT NULL)
-              ) THEN 1 ELSE 0 END) withAssists,
-              SUM(CASE WHEN EXISTS (
-                SELECT 1 FROM match_lineups l
-                WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 1
-              ) THEN 1 ELSE 0 END) withStartingLineups,
-              SUM(CASE WHEN EXISTS (
-                SELECT 1 FROM match_lineups l
-                WHERE l.match_id = m.id AND l.player_side = 'united' AND l.started = 0 AND l.bench = 0
-              ) THEN 1 ELSE 0 END) withUsedSubstitutes,
-              SUM(CASE WHEN EXISTS (
-                SELECT 1 FROM match_lineups l
-                WHERE l.match_id = m.id AND l.bench = 1
-              ) THEN 1 ELSE 0 END) withBenches,
-              SUM(CASE WHEN EXISTS (
-                SELECT 1 FROM match_events e
-                WHERE e.match_id = m.id AND e.type IN ('card-yellow','card-red')
-              ) THEN 1 ELSE 0 END) withCards,
-              SUM(m.attendance IS NOT NULL) withAttendance
+              ${COVERAGE_FACETS}
        FROM matches m
        JOIN competitions c ON c.id = m.competition_id
        GROUP BY c.type
@@ -1137,10 +1119,7 @@ export function dataGaps(limit = 12): {
       `SELECT m.id, m.date, m.season, m.opponent_name, c.name AS competition_name, m.gf, m.ga,
               CASE
                 WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United scorers'
-                WHEN m.ga > 0 AND NOT EXISTS (
-                  SELECT 1 FROM match_events e
-                  WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
-                ) THEN 'opposition goals'
+                WHEN m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 'opposition goals'
                 WHEN m.has_lineup = 0 THEN 'lineup'
                 WHEN m.attendance IS NULL THEN 'attendance'
                 ELSE 'source note'
@@ -1150,20 +1129,14 @@ export function dataGaps(limit = 12): {
        WHERE c.type != 'unofficial'
          AND (
            (m.gf > 0 AND m.events_complete = 0)
-           OR (m.ga > 0 AND NOT EXISTS (
-             SELECT 1 FROM match_events e
-             WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
-           ))
+           OR (m.ga > 0 AND NOT ${OPP_GOALS_EXISTS})
            OR m.has_lineup = 0
            OR m.attendance IS NULL
          )
        ORDER BY
          CASE
            WHEN m.date >= '1946-01-01' AND m.gf > 0 AND m.events_complete = 0 THEN 0
-           WHEN m.date >= '1946-01-01' AND m.ga > 0 AND NOT EXISTS (
-             SELECT 1 FROM match_events e
-             WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against')
-           ) THEN 1
+           WHEN m.date >= '1946-01-01' AND m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 1
            ELSE 2
          END,
          m.date DESC
