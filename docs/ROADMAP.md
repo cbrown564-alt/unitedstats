@@ -50,7 +50,7 @@ Product principles:
 
 ## Phase 2 — Player-level depth ✅ (complete)
 
-- [x] Goal events (scorer, minute) — 10,000+ events; the all-time scorer
+- [x] Goal events (scorer, minute) — 13,992 events; the all-time scorer
       table reproduces the official club record (Rooney 253, Charlton 249,
       Law 237...). Assists where sources record them.
 - [x] Full lineups — canonical schema, DB tables, validation, match-page UI,
@@ -61,11 +61,14 @@ Product principles:
       expose match detail (lineups/goals), so it remains a token-gated option
       only.
 - [x] Partnership networks — canonical assist fields, aggregate queries,
-      analytics UI, and player-page UI are wired. The checked-in dataset now
-      carries 975 recorded assists (2012-13–present, transfermarkt-datasets).
-      No open, redistributable source records United assists before 2012-13
-      (investigated and documented in docs/ASSISTS-PLAN.md), so earlier seasons
-      are blank by source limitation rather than pending enrichment.
+      analytics UI, and player-page UI are wired. The checked-in dataset
+      carries 975 match-attributed assists (2012-13–present,
+      transfermarkt-datasets) that drive scorer↔assister partnerships. No open
+      source records *match-level* United assists before 2012-13 (investigated
+      and documented in docs/ASSISTS-PLAN.md); the Ferguson-era gap is now
+      filled at season level by the curated Tableau lane (see Phase 7), so the
+      combined headline assist figure spans 1987-88–present rather than being
+      blank before 2012-13.
 - [x] Player pages with per-season goal/app splits, lineup appearances, and
       goal-minute histograms.
 
@@ -186,6 +189,109 @@ data-derived briefs; `/api/v1` exposes read-only JSON endpoints with CORS and
 coverage attribution; `npm run export:dataset` writes downloadable CSV/JSON
 releases into `public/dataset`; and shared chart/table/coverage components
 standardize focus states, numeric alignment, and win/draw/loss colors.
+
+## Phase 7 — Ferguson-era depth and product polish ✅ (complete)
+
+Phase 7 deepens the player record back through the Ferguson era and lifts the
+interface from a competent ledger toward the floodlit match-night feel the
+north star calls for, without loosening the trust contract.
+
+- [x] Curated Tableau goals/assists lane — a hand-curated public Tableau
+      workbook now supplies season-level goals, assists, and goal-type (body
+      part) breakdowns for 1987-88–2014-15: 2,887 goals, 2,469 assists, and
+      2,536 goal-type rows across 28 seasons. It is aggregate, not
+      match-attributed, so it is surfaced as its own clearly labelled lane on
+      player pages and the season table and never enters `match_events`. The
+      combined assist definition (curated through 2014-15, match events after)
+      is centralized in `lib/queries.ts` so every surface agrees. Documented in
+      docs/TABLEAU-GOALS-ASSISTS.md and docs/ASSISTS-PLAN.md.
+- [x] Player identity depth — the official club appearance/goal record
+      (Wikipedia "List of Manchester United F.C. players") is reproduced in
+      `player_records` and pinned by golden tests; player photos arrive via
+      Wikidata (128 images with license/provenance); primary shirt numbers by
+      decade come from MUFCInfo match pages (1,788 rows).
+- [x] Record and competition cues — a diverging win/draw/loss bar (losses left,
+      wins right of a centre fulcrum) is the default record glyph, with a
+      stacked variant for labelled rows; a competition-identity colour system
+      (league / cup / Europe chips and dots) makes fixture type scannable
+      without leaning on colour alone.
+- [x] Exploration surfaces — a persistent global header search keeps hybrid
+      command search reachable on every route; the match browser was rebuilt
+      with sort controls, a decade jump rail, season-grouped rows, and a
+      summary band; the player profile was redesigned around progressive
+      disclosure with a sortable season-by-season table; analytics is tiered
+      into chapters behind a sticky question rail; and the Elo timeline is
+      shaded by managerial era.
+- [x] Engineering consolidation — shared formatting/query/url helpers, a single
+      MUFCInfo + Tableau player-name resolver, and consolidated coverage/gaps
+      SQL remove cross-surface drift; a golden-test + lint + typecheck gate
+      guards the query layer that every page depends on.
+
+Phase 7 is complete as a data and product capability: the dataset now carries a
+labelled Ferguson-era goals/assists/goal-type lane alongside the
+match-attributed modern record, player identity is richer (records, photos,
+shirt numbers), and the interface is more atmospheric and more scannable while
+keeping coverage and source notes at every interpretation point. Curated-lane
+extension (more seasons, more goal-type detail) and historical match-level
+enrichment continue as normal dataset work.
+
+## Phase 8 — Consolidation and simplification ⏳ (next)
+
+Six build-out phases added a lot of surface area fast. Before expanding the
+discovery layer, take a deliberate critical pass over everything that exists and
+ask, for each piece, whether it is the simplest, most elegant solution — pruning
+and consolidating rather than adding. Earn the right to expand.
+
+- [ ] Inventory every surface — routes, shared components, analytics modules,
+      question/trail modules, and data lanes — with each one's purpose, the data
+      it shows, and where it overlaps or duplicates another surface.
+- [ ] Visual-hierarchy audit: each page should lead with one clear primary
+      answer or action; demote, merge, or cut elements that compete with it.
+- [ ] Data-density audit against the "adaptive medium density" principle:
+      records, filters, and tables stay compact; interpretation modules, charts,
+      and coverage notes get room. Flag cramped and sparse spots.
+- [ ] Feature-creep and redundancy pass: find modules that duplicate each other
+      or rarely earn their space, and consolidate or remove them.
+- [ ] Consistency pass: confirm shared components (competition chips, WdlBar,
+      Pager, coverage notes) are used everywhere they should be, with no
+      lingering one-off variants.
+- [ ] Performance and accessibility spot-check while surfaces are open: server
+      component boundaries, focus states, and colour-safe encodings.
+
+## Phase 9 — Discovery and comparison (planned)
+
+With the surface simplified, expand the core premise — question-led pattern
+discovery — by adding the comparison and exploration tools it is currently
+missing, each tied to its match evidence and coverage note.
+
+- [ ] Comparison views: player vs player, era vs era, and manager vs manager on
+      shared, coverage-aware metrics.
+- [ ] Expand the question/trail catalogue with new myth-testing cuts beyond the
+      current six modules.
+- [ ] Streak and run detection (unbeaten runs, scoring streaks, clean-sheet
+      runs) as first-class, evidence-linked modules.
+- [ ] A guided "build your own cut" explorer over the existing filter and
+      aggregate layer.
+
+## Parked pathways (open questions)
+
+Real directions, deliberately not the immediate focus. Recorded so they are not
+forgotten and can be promoted when the timing or evidence is right.
+
+- **Historical data depth.** Backfill opposition scorers (currently ~891
+      matches), extend the curated lane earlier than 1987-88, and chase
+      pre-2012 match-level assists. The most "researcher-grade" play, but gated
+      by open, redistributable source availability and the scraper/rate-limit
+      realities already documented; advances opportunistically through curated
+      PRs and new ingesters rather than on a fixed schedule.
+- **Engagement and distribution.** "On this day", shareable evidence cards,
+      saved questions, and growing the public API / dataset releases. Serves
+      reach over depth; worth revisiting once the discovery layer is strong
+      enough to justify an audience push.
+- **Trust and contribution loop.** Turn the correction-friendly `/data` surface
+      into an active workflow: correction templates, canonical-JSON validation
+      CI, and diff previews so others can improve data quality at scale.
+      Compelling once there is contributor demand to support.
 
 ## Data depth ledger
 
