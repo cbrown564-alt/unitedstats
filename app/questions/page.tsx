@@ -8,7 +8,7 @@ import { getMeta } from "@/lib/queries";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { DataTable } from "@/components/DataTable";
 import { MatchList } from "@/components/MatchList";
-import { WdlBar } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
 
@@ -169,7 +169,7 @@ export default function QuestionsPage() {
             <div className="text-xs uppercase tracking-wider text-ink-faint mb-1">1–4 days after Europe</div>
             <div className="stat-num text-2xl font-semibold">{pct(euro.afterEuro.w, euro.afterEuro.p)}</div>
             <div className="text-xs text-ink-faint stat-num mt-0.5">
-              {euro.afterEuro.w}–{euro.afterEuro.d}–{euro.afterEuro.l} in {fmtNum(euro.afterEuro.p)} matches
+              <WdlRecord w={euro.afterEuro.w} d={euro.afterEuro.d} l={euro.afterEuro.l} /> in {fmtNum(euro.afterEuro.p)} matches
             </div>
             <WdlBar w={euro.afterEuro.w} d={euro.afterEuro.d} l={euro.afterEuro.l} className="mt-2" />
           </div>
@@ -177,7 +177,7 @@ export default function QuestionsPage() {
             <div className="text-xs uppercase tracking-wider text-ink-faint mb-1">Other league matches, same seasons</div>
             <div className="stat-num text-2xl font-semibold">{pct(euro.baseline.w, euro.baseline.p)}</div>
             <div className="text-xs text-ink-faint stat-num mt-0.5">
-              {euro.baseline.w}–{euro.baseline.d}–{euro.baseline.l} in {fmtNum(euro.baseline.p)} matches
+              <WdlRecord w={euro.baseline.w} d={euro.baseline.d} l={euro.baseline.l} /> in {fmtNum(euro.baseline.p)} matches
             </div>
             <WdlBar w={euro.baseline.w} d={euro.baseline.d} l={euro.baseline.l} className="mt-2" />
           </div>

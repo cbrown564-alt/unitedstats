@@ -4,7 +4,7 @@ import { seasonMatches, allSeasons, seasonsIndex } from "@/lib/queries";
 import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
 import { CompetitionDot } from "@/components/CompetitionChip";
-import { WdlBar } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -50,12 +50,12 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-3xl">
           {[
             ["Played", String(matches.length)],
-            ["W–D–L", `${w}–${d}–${l}`],
+            ["W–D–L", <WdlRecord key="wdl" w={w} d={d} l={l} />],
             ["Goals", `${gf}–${ga}`],
             ["Win rate", pct(w, matches.length)],
             ["Avg home crowd", avgAtt ? fmtNum(avgAtt) : "—"],
-          ].map(([label, value]) => (
-            <div key={label} className="bg-panel px-3 py-2.5">
+          ].map(([label, value], i) => (
+            <div key={i} className="bg-panel px-3 py-2.5">
               <div className="stat-num text-lg font-semibold">{value}</div>
               <div className="text-[11px] text-ink-faint uppercase tracking-wider">{label}</div>
             </div>

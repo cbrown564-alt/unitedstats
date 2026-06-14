@@ -4,19 +4,20 @@
  *
  * Variants:
  *  - "diverging" (default) — losses grow left, wins grow right from a centre
- *                  axis; makes "good vs bad record?" legible at a glance.
- *  - "stacked"   — left-anchored proportions, reads as a share bar. Supports
- *                  inline count labels (showLabels) on md/lg sizes.
+ *                  fulcrum; "good vs bad record?" reads at a glance. No track
+ *                  chrome — the coloured segments are the bar.
+ *  - "stacked"   — left-anchored proportions on a muted track. Supports inline
+ *                  count labels (showLabels) on md/lg sizes.
  */
 
 type WdlSize = "xs" | "sm" | "md" | "lg";
 type WdlVariant = "stacked" | "diverging";
 
 const HEIGHTS: Record<WdlSize, string> = {
-  xs: "h-1", // 4px
-  sm: "h-1.5", // 6px — the historical default
-  md: "h-2.5", // 10px
-  lg: "h-3.5", // 14px
+  xs: "h-2", // 8px
+  sm: "h-3", // 12px — list rows
+  md: "h-4", // 16px — detail headers
+  lg: "h-5", // 20px
 };
 
 // Label visibility threshold (segment must own at least this % of the bar).
@@ -38,7 +39,7 @@ export function WdlBar({
   className?: string;
   size?: WdlSize;
   variant?: WdlVariant;
-  /** Render counts inside segments wide enough to hold them (md/lg only). */
+  /** Render counts inside segments wide enough to hold them (stacked, md/lg only). */
   showLabels?: boolean;
   /** Styled hover tooltip. Disable inside `overflow-hidden` rows; falls back to a native title. */
   tooltip?: boolean;
@@ -50,30 +51,25 @@ export function WdlBar({
   const winRate = Math.round((100 * w) / total);
   const aria = `${w} wins, ${d} draws, ${l} losses`;
   const height = HEIGHTS[size];
+  const diverging = variant === "diverging";
   const canLabel = showLabels && (size === "md" || size === "lg");
 
   const track = (
     <div
-      className={`relative ${height} w-full overflow-hidden rounded-full bg-panel-2 shadow-[inset_0_1px_2px_rgba(0,0,0,0.45)] ring-1 ring-inset ring-white/[0.06] transition-[filter] duration-200 group-hover/wdl:brightness-110`}
+      className={
+        diverging
+          ? `relative ${height} w-full`
+          : `relative ${height} w-full overflow-hidden rounded-full bg-panel-2`
+      }
       role="img"
       aria-label={aria}
       {...(tooltip ? {} : { title: `W${w} D${d} L${l} · ${winRate}% win` })}
     >
-      {variant === "diverging" ? (
+      {diverging ? (
         <DivergingSegments wPct={wPct} dPct={dPct} lPct={lPct} />
       ) : (
-        <StackedSegments
-          w={w}
-          d={d}
-          l={l}
-          wPct={wPct}
-          dPct={dPct}
-          lPct={lPct}
-          canLabel={canLabel}
-        />
+        <StackedSegments w={w} d={d} l={l} wPct={wPct} dPct={dPct} lPct={lPct} canLabel={canLabel} />
       )}
-      {/* glassy sheen for a touch of depth */}
-      <div className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.12] to-transparent" />
     </div>
   );
 
@@ -85,6 +81,36 @@ export function WdlBar({
     <div className={`group/wdl relative w-full ${className}`}>
       {track}
       <WdlTooltip w={w} d={d} l={l} total={total} winRate={winRate} />
+    </div>
+  );
+}
+
+function DivergingSegments({ wPct, dPct, lPct }: { wPct: number; dPct: number; lPct: number }) {
+  // Each side is scaled to half the track, so the centre line is the neutral
+  // axis: losses extend left, wins extend right, draws straddle the middle.
+  const dHalf = dPct / 4;
+  return (
+    <div className="absolute inset-0 wdl-reveal-center">
+      {lPct > 0 && (
+        <div
+          className="absolute inset-y-0 rounded-l-full bg-loss"
+          style={{ left: `${50 - dHalf - lPct / 2}%`, width: `${lPct / 2}%` }}
+        />
+      )}
+      {dPct > 0 && (
+        <div
+          className="absolute inset-y-0 bg-draw/70"
+          style={{ left: `${50 - dHalf}%`, width: `${dPct / 2}%` }}
+        />
+      )}
+      {wPct > 0 && (
+        <div
+          className="absolute inset-y-0 rounded-r-full bg-win"
+          style={{ left: `${50 + dHalf}%`, width: `${wPct / 2}%` }}
+        />
+      )}
+      {/* centre fulcrum — the neutral axis the bar pivots around */}
+      <div className="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-pitch/70" />
     </div>
   );
 }
@@ -140,24 +166,26 @@ function Segment({
   );
 }
 
-function DivergingSegments({ wPct, dPct, lPct }: { wPct: number; dPct: number; lPct: number }) {
-  // Each side is scaled to half the track, so the centre line is the neutral
-  // axis: losses extend left, wins extend right, draws straddle the middle.
-  const dHalf = dPct / 4;
+/** W–D–L record with each figure tinted to match the bar colours. */
+export function WdlRecord({
+  w,
+  d,
+  l,
+  className = "",
+}: {
+  w: number;
+  d: number;
+  l: number;
+  className?: string;
+}) {
   return (
-    <div className="absolute inset-0 wdl-reveal-center">
-      <div
-        className="absolute inset-y-0 bg-loss"
-        style={{ right: `${50 + dHalf}%`, width: `${lPct / 2}%` }}
-      />
-      <div
-        className="absolute inset-y-0 left-1/2 -translate-x-1/2 bg-draw/60"
-        style={{ width: `${dPct / 2}%` }}
-      />
-      <div className="absolute inset-y-0 bg-win" style={{ left: `${50 + dHalf}%`, width: `${wPct / 2}%` }} />
-      {/* neutral centre tick */}
-      <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-ink/25" />
-    </div>
+    <span className={`stat-num whitespace-nowrap ${className}`}>
+      <span className="text-win">{w}</span>
+      <span className="text-ink-faint">–</span>
+      <span className="text-draw">{d}</span>
+      <span className="text-ink-faint">–</span>
+      <span className="text-loss">{l}</span>
+    </span>
   );
 }
 

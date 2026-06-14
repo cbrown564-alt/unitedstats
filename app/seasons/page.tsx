@@ -3,7 +3,7 @@ import { seasonsIndex } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
 import { CompetitionChip } from "@/components/CompetitionChip";
 import { PageHeader, StatTile } from "@/components/PageHeader";
-import { WdlBar } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { clubName, fmtNum } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -94,9 +94,7 @@ export default function SeasonsPage() {
                   <div className="min-w-0">
                     <div className="mb-1 flex justify-between gap-3 text-xs text-ink-dim">
                       <span>{league.competition_name}</span>
-                      <span className="stat-num">
-                        {league.w}-{league.d}-{league.l}
-                      </span>
+                      <WdlRecord w={league.w} d={league.d} l={league.l} />
                     </div>
                     <WdlBar w={league.w} d={league.d} l={league.l} tooltip={false} />
                   </div>
