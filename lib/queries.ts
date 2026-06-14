@@ -380,6 +380,8 @@ export interface PlayerTotals {
   subs: number;
   goals: number;
   assists: number;
+  recorded_assists: number;
+  curated_assists: number;
   lineup_apps: number;
   lineup_starts: number;
   recorded_goals: number;
@@ -402,6 +404,34 @@ export interface PlayerTotals {
   player_image_license: string | null;
   first_date: string | null;
   last_date: string | null;
+}
+
+// ---- canonical "assists" definition -------------------------------------
+// Assists come from two non-overlapping lanes: the curated Tableau lane covers
+// 1987-88 through CURATED_ASSISTS_LAST_SEASON, and match-event assists take over
+// after it. Every assist *total* in the app must combine them through these
+// builders so the figure is identical on the players index, the player header,
+// the season table, and the API. (Match-coverage stats and scorer↔assister
+// partnerships are deliberately match-event only — curated rows are not
+// match-attributed and cannot be linked to a specific goal.)
+export const CURATED_ASSISTS_LAST_SEASON = "2014-15";
+
+/** Curated assist count for the player named by `ref` (e.g. "p.id" or "?"), optionally one season. */
+function curatedAssistsExpr(ref: string, seasonExpr?: string): string {
+  return `COALESCE((SELECT SUM(tga.count) FROM tableau_goals_assists tga
+            WHERE tga.player_id = ${ref} AND tga.kind = 'assist'${seasonExpr ? ` AND tga.season = ${seasonExpr}` : ""}), 0)`;
+}
+
+/** Match-event assist count for the player named by `ref`, restricted by `seasonPred`. */
+function matchAssistsExpr(ref: string, seasonPred: string): string {
+  return `COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id = e.match_id
+            WHERE e.assist_player_id = ${ref} AND e.assist_side = 'united'
+              AND e.type IN ('goal','pen-goal') AND ${seasonPred}), 0)`;
+}
+
+/** Combined career assists (curated through the boundary + match events after it). */
+function combinedAssistsExpr(ref: string): string {
+  return `(${curatedAssistsExpr(ref)} + ${matchAssistsExpr(ref, `m.season > '${CURATED_ASSISTS_LAST_SEASON}'`)})`;
 }
 
 const PLAYER_TOTALS_WITH = `
@@ -461,7 +491,9 @@ const PLAYER_TOTALS_SELECT = `
          COALESCE(pr.starts, pt.starts, 0) starts,
          COALESCE(pr.subs, 0) subs,
          COALESCE(pr.goals, pt.goals, 0) goals,
-         COALESCE(pt.assists, 0) assists,
+         ${combinedAssistsExpr("p.id")} assists,
+         COALESCE(pt.assists, 0) recorded_assists,
+         ${curatedAssistsExpr("p.id")} curated_assists,
          COALESCE(pt.apps, 0) lineup_apps,
          COALESCE(pt.starts, 0) lineup_starts,
          COALESCE(pt.goals, 0) recorded_goals,
@@ -573,6 +605,8 @@ export function playerSplitsBySeason(id: string): {
          SELECT season FROM matches m JOIN match_events e ON e.match_id = m.id
          WHERE (e.player_id = ? AND e.player_side = 'united')
             OR (e.assist_player_id = ? AND e.assist_side = 'united')
+         UNION
+         SELECT season FROM tableau_goals_assists WHERE player_id = ?
        )
        SELECT s.season,
               COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
@@ -581,11 +615,14 @@ export function playerSplitsBySeason(id: string): {
                         WHERE l.player_id = ? AND l.player_side = 'united' AND l.started = 1 AND l.bench = 0 AND m.season = s.season), 0) starts,
               COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
                         WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) goals,
-              COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
-                        WHERE e.assist_player_id = ? AND e.assist_side = 'united' AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) assists
+              -- assists: same combined definition as the headline figure
+              CASE WHEN s.season <= '${CURATED_ASSISTS_LAST_SEASON}'
+                THEN ${curatedAssistsExpr("?", "s.season")}
+                ELSE ${matchAssistsExpr("?", "m.season = s.season")}
+              END assists
        FROM seasons s ORDER BY s.season`,
     )
-    .all(id, id, id, id, id, id, id) as {
+    .all(id, id, id, id, id, id, id, id, id) as {
       season: string;
       apps: number;
       starts: number;
@@ -742,6 +779,75 @@ export function playerAssistPartnerships(id: string, limit = 12): AssistPartners
        ORDER BY goals DESC, last_date DESC LIMIT ?`,
     )
     .all(id, id, limit) as AssistPartnership[];
+}
+
+// --------------------------------------------- curated Tableau season lane
+// Hand-curated goals/assists/goal-types by season for 1987-88..2014-15. Not
+// match-attributed; surfaced as its own labelled lane (docs/TABLEAU-GOALS-ASSISTS.md).
+
+export interface CuratedTotals {
+  goals: number;
+  assists: number;
+  seasons: number;
+  from_season: string | null;
+  to_season: string | null;
+  source_id: string | null;
+  source_url: string | null;
+}
+
+/** Curated goal/assist totals for a player, or null when the source has nothing. */
+export function playerCuratedTotals(id: string): CuratedTotals | null {
+  const row = getDb()
+    .prepare(
+      `SELECT
+         COALESCE(SUM(CASE WHEN kind='goal' THEN count END), 0) goals,
+         COALESCE(SUM(CASE WHEN kind='assist' THEN count END), 0) assists,
+         COUNT(DISTINCT season) seasons,
+         MIN(season) from_season, MAX(season) to_season,
+         MIN(source_id) source_id
+       FROM tableau_goals_assists WHERE player_id = ?`,
+    )
+    .get(id) as Omit<CuratedTotals, "source_url"> & { source_id: string | null };
+  if (!row || (row.goals === 0 && row.assists === 0)) return null;
+  const src = row.source_id
+    ? (getDb().prepare("SELECT url FROM sources WHERE id = ?").get(row.source_id) as { url: string | null } | undefined)
+    : undefined;
+  return { ...row, source_url: src?.url ?? null };
+}
+
+export interface CuratedGoalType {
+  goal_type: string;
+  goals: number;
+}
+
+/** Goals broken down by body part / technique, most common first. */
+export function playerCuratedGoalTypes(id: string): CuratedGoalType[] {
+  return getDb()
+    .prepare(
+      `SELECT goal_type, SUM(count) goals
+       FROM tableau_goal_types WHERE player_id = ?
+       GROUP BY goal_type ORDER BY goals DESC, goal_type`,
+    )
+    .all(id) as CuratedGoalType[];
+}
+
+export interface CuratedSeasonSplit {
+  season: string;
+  goals: number;
+  assists: number;
+}
+
+/** Curated goals and assists per season for the player. */
+export function playerCuratedBySeason(id: string): CuratedSeasonSplit[] {
+  return getDb()
+    .prepare(
+      `SELECT season,
+              COALESCE(SUM(CASE WHEN kind='goal' THEN count END), 0) goals,
+              COALESCE(SUM(CASE WHEN kind='assist' THEN count END), 0) assists
+       FROM tableau_goals_assists WHERE player_id = ?
+       GROUP BY season ORDER BY season`,
+    )
+    .all(id) as CuratedSeasonSplit[];
 }
 
 // ---------------------------------------------------------------- analytics

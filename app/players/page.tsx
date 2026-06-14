@@ -29,7 +29,7 @@ const PLAYER_SORT_LABELS: Record<PlayerSortKey, string> = {
   apps: "Apps",
   starts: "Starts",
   goals: "Goals",
-  assists: "Recorded assists",
+  assists: "Assists",
   span: "Span",
 };
 
@@ -249,13 +249,13 @@ export default async function PlayersPage({
             render: (p) => <span className="font-semibold text-devil-bright">{p.goals}</span>,
           },
           {
-            label: "Rec. ast",
+            label: "Assists",
             key: "assists",
             numeric: true,
             hideBelow: "hidden sm:table-cell",
             sortKey: "assists",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
-            sortLabel: "recorded assists",
+            sortLabel: "assists",
             render: (p) => p.assists || "0",
           },
           {
