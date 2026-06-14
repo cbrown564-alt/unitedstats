@@ -99,18 +99,21 @@ export function normalizedSlug(name: string): string {
   );
 }
 
-function nameParts(name: string): { first: string; last: string } | null {
+/** Split a name into its first/last slug tokens, or null if it has fewer than two. */
+export function nameParts(name: string): { first: string; last: string } | null {
   const parts = normalizedSlug(name).split("-").filter(Boolean);
   if (parts.length < 2) return null;
   return { first: parts[0], last: parts[parts.length - 1] };
 }
 
-function compatibleFirstNames(a: string, b: string): boolean {
+/** True when two first-name slugs match directly or via the nickname table. */
+export function compatibleFirstNames(a: string, b: string): boolean {
   if (a === b) return true;
   return (NICKNAMES[a] ?? []).includes(b) || (NICKNAMES[b] ?? []).includes(a);
 }
 
-function careerContains(record: PlayerRecord, year: number): boolean {
+/** True when `year` falls within a record's career window (±1 season slack). */
+export function careerContains(record: PlayerRecord, year: number): boolean {
   const first = record.firstYear ?? 0;
   const last = record.lastYear ?? 9999;
   return year >= first - 1 && year <= last + 1;
