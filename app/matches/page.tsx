@@ -267,7 +267,7 @@ export default async function MatchesPage({
                 </div>
               ))}
             </div>
-            <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" showLabels className="mt-3" />
+            <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" className="mt-3" />
           </>
         ) : (
           <p className="mt-2 text-sm text-ink-dim">No matches fit this filter. Loosen a control or clear the slice.</p>

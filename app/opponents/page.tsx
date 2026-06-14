@@ -65,7 +65,7 @@ export default async function OpponentsPage({
                   {o.first.slice(0, 4)}-{o.last.slice(0, 4)}
                 </span>
               </span>
-              <WdlBar w={o.w} d={o.d} l={o.l} variant="diverging" tooltip={false} className="hidden sm:block" />
+              <WdlBar w={o.w} d={o.d} l={o.l} tooltip={false} className="hidden sm:block" />
               <span className="stat-num text-right text-xs text-ink-dim whitespace-nowrap">
                 {fmtNum(o.p)} P · {pct(o.w, o.p)} W
               </span>

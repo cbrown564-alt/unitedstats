@@ -59,7 +59,7 @@ export default async function OpponentPage({
       >
         <span className="stat-num">First met {o.first} · last met {o.last}</span>
       </PageHeader>
-      <WdlBar w={o.w} d={o.d} l={o.l} size="md" showLabels className="max-w-2xl" />
+      <WdlBar w={o.w} d={o.d} l={o.l} size="md" className="max-w-2xl" />
 
       <section className="grid lg:grid-cols-3 gap-8">
         <div>
