@@ -3,9 +3,10 @@
  * always render this next to the textual record, never instead of it.
  *
  * Variants:
- *  - "stacked"   (default) — left-anchored proportions, reads as a share bar.
- *  - "diverging" — losses grow left, wins grow right from a centre axis;
- *                  makes "good vs bad record?" legible at a glance across a list.
+ *  - "diverging" (default) — losses grow left, wins grow right from a centre
+ *                  axis; makes "good vs bad record?" legible at a glance.
+ *  - "stacked"   — left-anchored proportions, reads as a share bar. Supports
+ *                  inline count labels (showLabels) on md/lg sizes.
  */
 
 type WdlSize = "xs" | "sm" | "md" | "lg";
@@ -27,7 +28,7 @@ export function WdlBar({
   l,
   className = "",
   size = "sm",
-  variant = "stacked",
+  variant = "diverging",
   showLabels = false,
   tooltip = true,
 }: {

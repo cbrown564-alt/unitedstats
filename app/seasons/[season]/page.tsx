@@ -71,7 +71,7 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
             <>Manager{managers.length > 1 ? "s" : ""}: {managers.join(", ")}.</>
           )}
         </p>
-        <WdlBar w={w} d={d} l={l} size="md" showLabels className="max-w-3xl" />
+        <WdlBar w={w} d={d} l={l} size="md" className="max-w-3xl" />
         {narrative.length > 0 && (
           <div className="border border-line rounded-lg bg-panel p-4 max-w-3xl">
             <h2 className="text-xs uppercase tracking-wider text-ink-faint mb-1.5">Season in brief</h2>

@@ -70,7 +70,7 @@ export default async function ManagerPage({
             </div>
           ))}
         </div>
-        <WdlBar w={m.w} d={m.d} l={m.l} size="md" showLabels className="max-w-2xl mt-3" />
+        <WdlBar w={m.w} d={m.d} l={m.l} size="md" className="max-w-2xl mt-3" />
         <ul className="mt-4 space-y-1 text-sm text-ink-dim">
           {tenures.map((t) => (
             <li key={t.date_from}>
