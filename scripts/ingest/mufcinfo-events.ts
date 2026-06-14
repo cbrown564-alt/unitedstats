@@ -31,8 +31,12 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   CANONICAL, Match, MatchEvent, RAW, SeasonFile,
-  loadSeasonFile, parseSeasonArgs, readJson, saveSeasonFile, seasonOfDate, slugify, userAgent,
+  loadSeasonFile, parseSeasonArgs, readJson, saveSeasonFile, seasonOfDate, userAgent,
 } from "../lib";
+import {
+  createPlayerResolver, displayName, htmlDecode, normalizedSlug,
+  type PlayerRecord, type PlayersFile, type ResolvedPlayer,
+} from "../player-resolver";
 
 const SOURCE_ID = "mufcinfo-match-lineups";
 const BASE_URL = "https://www.mufcinfo.com/manupag/match_data/match_sql.php";
@@ -66,24 +70,6 @@ const ASSIST_KEYWORDS = [
 ];
 const GOAL_KEYWORDS = ["goal", "scored", "penalty", "pen.", "header", "tap"];
 
-interface PlayerRecord {
-  playerId: string;
-  name: string;
-  wikiTitle?: string | null;
-  firstYear?: number | null;
-  lastYear?: number | null;
-}
-
-interface PlayersFile {
-  players: { id: string; name: string; positions?: string[] | null; nationality?: string | null; born?: string | null }[];
-}
-
-interface ResolvedPlayer {
-  playerId: string;
-  name: string;
-  inPlayers: boolean;
-}
-
 interface ParsedGoal {
   scorerName: string;
   scorerSlug: string;
@@ -114,40 +100,6 @@ interface ImportStats {
   failed: number;
 }
 
-const NICKNAMES: Record<string, string[]> = {
-  alex: ["alexander", "sandy"],
-  alf: ["alfred"],
-  andy: ["andrew"],
-  bert: ["albert", "herbert", "robert", "thomas"],
-  bill: ["billy", "will", "william", "willie"],
-  billy: ["bill", "will", "william", "willie"],
-  bob: ["robert"],
-  bobby: ["bob", "robert"],
-  charlie: ["charles"],
-  dick: ["ernest", "richard"],
-  fred: ["frederick"],
-  freddie: ["frederick"],
-  harry: ["henry"],
-  jack: ["john"],
-  jackie: ["jack", "john"],
-  jim: ["james", "jimmy"],
-  jimmy: ["james", "jim"],
-  joe: ["joseph"],
-  johnny: ["john"],
-  matthew: ["matt"],
-  pat: ["patrick", "paddy"],
-  paddy: ["pat", "patrick"],
-  ray: ["raymond"],
-  ronnie: ["ron", "ronald"],
-  sandy: ["alex", "alexander"],
-  teddy: ["edward", "ted"],
-  tom: ["thomas", "tommy"],
-  tommy: ["thomas", "tom"],
-  will: ["bill", "billy", "william", "willie"],
-  william: ["bill", "billy", "will", "willie"],
-  willie: ["bill", "billy", "will", "william"],
-};
-
 function numberArg(flag: string, fallback: number): number {
   const index = process.argv.indexOf(flag);
   if (index < 0) return fallback;
@@ -168,105 +120,6 @@ function usage(): never {
       "[--date YYYY-MM-DD] [--inspect YYYY-MM-DD] [--write] [--refresh]",
   );
   process.exit(1);
-}
-
-function htmlDecode(value: string): string {
-  return value
-    .replace(/&quot;/g, "\"")
-    .replace(/&#039;/g, "'")
-    .replace(/&amp;/g, "&")
-    .replace(/&nbsp;/g, " ")
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function cleanPersonName(name: string): string {
-  return name
-    .replace(/"/g, "")
-    .replace(/\bJnr\b\.?/i, "Jr")
-    .replace(/\bSnr\b\.?/i, "Sr")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/** MUFCInfo names are "Last, First"; normalize to "First Last". */
-function displayName(lastFirst: string): string {
-  const cleaned = cleanPersonName(htmlDecode(lastFirst));
-  const parts = cleaned.split(",").map((part) => part.trim()).filter(Boolean);
-  return parts.length >= 2 ? `${parts.slice(1).join(" ")} ${parts[0]}` : cleaned;
-}
-
-function normalizedSlug(name: string): string {
-  return slugify(
-    cleanPersonName(name)
-      .replace(/æ/g, "ae").replace(/Æ/g, "Ae")
-      .replace(/ø/g, "o").replace(/Ø/g, "O")
-      .replace(/ð/g, "d").replace(/Ð/g, "D")
-      .replace(/þ/g, "th").replace(/Þ/g, "Th"),
-  );
-}
-
-function nameParts(name: string): { first: string; last: string } | null {
-  const parts = normalizedSlug(name).split("-").filter(Boolean);
-  if (parts.length < 2) return null;
-  return { first: parts[0], last: parts[parts.length - 1] };
-}
-
-function compatibleFirstNames(a: string, b: string): boolean {
-  if (a === b) return true;
-  return (NICKNAMES[a] ?? []).includes(b) || (NICKNAMES[b] ?? []).includes(a);
-}
-
-function careerContains(record: PlayerRecord, year: number): boolean {
-  const first = record.firstYear ?? 0;
-  const last = record.lastYear ?? 9999;
-  return year >= first - 1 && year <= last + 1;
-}
-
-function hrefSlug(hrefKey: string | null): string | null {
-  if (!hrefKey) return null;
-  const parts = hrefKey.split("_").filter(Boolean);
-  if (parts.length < 2) return null;
-  const suffix = /^\d+$/.test(parts[parts.length - 1]) ? parts.slice(1, -1) : parts.slice(1);
-  return normalizedSlug([...suffix, parts[0]].join(" "));
-}
-
-function buildResolver(
-  playersFile: PlayersFile,
-  records: PlayerRecord[],
-): (name: string, hrefKey: string | null, year: number) => ResolvedPlayer | null {
-  const inPlayers = new Set(playersFile.players.map((p) => p.id));
-  const people = new Map<string, ResolvedPlayer>();
-  for (const player of playersFile.players) {
-    const resolved = { playerId: player.id, name: player.name, inPlayers: true };
-    people.set(player.id, resolved);
-    people.set(normalizedSlug(player.name), resolved);
-  }
-  for (const record of records) {
-    const resolved = { playerId: record.playerId, name: record.name, inPlayers: inPlayers.has(record.playerId) };
-    people.set(record.playerId, resolved);
-    people.set(normalizedSlug(record.name), resolved);
-    if (record.wikiTitle) people.set(normalizedSlug(record.wikiTitle.replace(/\(.+\)$/, "")), resolved);
-  }
-
-  const directFor = (id: string | null | undefined): ResolvedPlayer | null =>
-    id ? people.get(id) ?? people.get(normalizedSlug(id)) ?? null : null;
-
-  return (name: string, hrefKey: string | null, year: number): ResolvedPlayer | null => {
-    const direct = directFor(normalizedSlug(name)) ?? directFor(hrefSlug(hrefKey));
-    if (direct) return direct;
-
-    const parsed = nameParts(name);
-    if (!parsed) return null;
-    const candidates = records.filter((record) => {
-      if (!careerContains(record, year)) return false;
-      const recordParts = nameParts(record.name);
-      if (!recordParts) return false;
-      return parsed.last === recordParts.last && compatibleFirstNames(parsed.first, recordParts.first);
-    });
-    return candidates.length === 1 ? directFor(candidates[0].playerId) : null;
-  };
 }
 
 function seasonsFromArgs(): string[] {
@@ -419,7 +272,7 @@ function plannedJobs(seasons: string[]): { jobs: MatchJob[]; seasonFiles: Map<st
 async function main() {
   const playersFile = readJson<PlayersFile>(path.join(CANONICAL, "players.json"));
   const playerRecords = readJson<{ records: PlayerRecord[] }>(path.join(CANONICAL, "player-records.json")).records;
-  const resolve = buildResolver(playersFile, playerRecords);
+  const { resolve } = createPlayerResolver(playersFile, playerRecords);
 
   if (INSPECT) {
     inspect(INSPECT, await matchHtml(INSPECT));
