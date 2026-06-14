@@ -254,18 +254,11 @@ export default async function MatchesPage({
         {summary.p > 0 ? (
           <>
             <div className="mt-3 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-5">
-              {[
-                ["Played", fmtNum(summary.p)],
-                ["W–D–L", `${summary.w}–${summary.d}–${summary.l}`],
-                ["Goals", `${fmtNum(summary.gf)}–${fmtNum(summary.ga)}`],
-                ["Win rate", pct(summary.w, summary.p)],
-                ["Avg home crowd", summary.avg_home_att ? fmtNum(summary.avg_home_att) : "—"],
-              ].map(([label, value]) => (
-                <div key={label} className="bg-panel px-3 py-2">
-                  <div className="stat-num text-base font-semibold">{value}</div>
-                  <div className="mt-0.5 text-[11px] uppercase tracking-[0.12em] text-ink-faint">{label}</div>
-                </div>
-              ))}
+              <StatTile label="Played" value={fmtNum(summary.p)} />
+              <StatTile label="W–D–L" value={`${summary.w}–${summary.d}–${summary.l}`} />
+              <StatTile label="Goals" value={`${fmtNum(summary.gf)}–${fmtNum(summary.ga)}`} />
+              <StatTile label="Win rate" value={pct(summary.w, summary.p)} />
+              <StatTile label="Avg home crowd" value={summary.avg_home_att ? fmtNum(summary.avg_home_att) : "—"} />
             </div>
             <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" className="mt-3" />
           </>

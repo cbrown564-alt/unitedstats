@@ -24,15 +24,15 @@ export function CoverageNote({
   className?: string;
 }) {
   return (
-    <p className={`text-xs text-ink-faint mt-2 max-w-2xl ${className}`}>
+    <p className={`text-xs text-ink-dim mt-2 max-w-2xl ${className}`}>
       {slice && (
         <>
-          <span className="text-ink-dim">Slice:</span> {slice}{" "}
+          <span className="font-medium text-ink">Slice:</span> {slice}{" "}
         </>
       )}
       {coverage && (
         <>
-          <span className="text-ink-dim">Coverage:</span> {coverage}{" "}
+          <span className="font-medium text-ink">Coverage:</span> {coverage}{" "}
         </>
       )}
       {children}

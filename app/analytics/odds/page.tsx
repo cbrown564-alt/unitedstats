@@ -53,11 +53,7 @@ export default async function OddsPage({
           <form method="GET" className="flex flex-wrap items-end gap-3 text-sm">
             <label className="flex flex-col gap-1">
               <span className="text-xs text-ink-faint uppercase tracking-wider">Opponent</span>
-              <select
-                name="opponent"
-                defaultValue={opponentId}
-                className="bg-panel-2 border border-line rounded px-2 py-1.5 focus:outline-2 focus:outline-devil-bright"
-              >
+              <select name="opponent" defaultValue={opponentId} className="control">
                 {opponents.map((o) => (
                   <option key={o.id} value={o.id}>{o.name}</option>
                 ))}
@@ -65,11 +61,7 @@ export default async function OddsPage({
             </label>
             <label className="flex flex-col gap-1">
               <span className="text-xs text-ink-faint uppercase tracking-wider">Venue</span>
-              <select
-                name="venue"
-                defaultValue={venue}
-                className="bg-panel-2 border border-line rounded px-2 py-1.5 focus:outline-2 focus:outline-devil-bright"
-              >
+              <select name="venue" defaultValue={venue} className="control">
                 <option value="H">Home</option>
                 <option value="A">Away</option>
                 <option value="N">Neutral</option>
@@ -77,7 +69,7 @@ export default async function OddsPage({
             </label>
             <button
               type="submit"
-              className="bg-devil text-ink rounded px-4 py-1.5 font-medium hover:bg-devil-bright focus:outline-2 focus:outline-devil-bright transition-colors"
+              className="min-h-[2.375rem] rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring"
             >
               Work it out
             </button>

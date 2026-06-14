@@ -1,6 +1,6 @@
 # UnitedStats Visual Audit
 
-Last refreshed: 2026-06-13 (supersedes the 2026-06-12 pass)
+Last refreshed: 2026-06-14 (Phase 8 consolidation pass; supersedes 2026-06-13)
 
 This audit reflects the current state of the app after the repo-polish work
 (global header search, page systematization, the competition-identity system,
@@ -12,6 +12,22 @@ Scope of the original review: desktop default viewport and mobile 390 x 844,
 across `/`, `/questions`, `/matches`, `/seasons`, `/players`, `/managers`,
 `/opponents`, `/analytics`, `/analytics/odds`, `/analytics/travel`, `/data`, and
 representative detail pages.
+
+## Resolved in the Phase 8 consolidation pass (2026-06-14)
+
+- **G-05 (caveat contrast) at the trust surface.** `CoverageNote` — the canonical
+  slice/coverage footer used across charts, tables, and modules — moved from
+  `text-ink-faint` to `text-ink-dim` with brighter `text-ink` labels, raising
+  contrast exactly where the reader is meant to act. Remaining faint-text spots
+  on `/data` are tracked below.
+- **Component consistency (consistency pass).** `/manager/[id]` and the
+  `/matches` slice summary now use the shared `StatTile` instead of hand-rolled
+  tile grids; `/managers` uses `PageHeader`; `/manager/[id]` uses the shared
+  `Pager`. See `docs/INVENTORY.md` for the full surface map.
+- **G-07 (focus/hover) on `/analytics/odds`.** The form selects and button
+  dropped their ad-hoc focus styling for the shared `.control` + `focus-ring`
+  vocabulary. (The searchable opponent combobox remains a separate feature, not
+  a consolidation — still open below.)
 
 ## Resolved since the last audit
 

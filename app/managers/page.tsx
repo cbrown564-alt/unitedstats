@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { managersIndex } from "@/lib/queries";
 import { WdlBar } from "@/components/WdlBar";
+import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -11,12 +12,9 @@ export default function ManagersPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="display text-3xl">Managers</h1>
-        <p className="text-sm text-ink-dim mt-1">
-          Every man to pick the team since 1892 — secretaries, caretakers, and knights of the realm.
-        </p>
-      </header>
+      <PageHeader title="Managers">
+        Every man to pick the team since 1892: secretaries, caretakers, and knights of the realm.
+      </PageHeader>
       <ul className="space-y-2">
         {managers.map((m) => (
           <li key={m.id}>

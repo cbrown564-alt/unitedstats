@@ -4,6 +4,8 @@ import { managerById, managerTenures } from "@/lib/queries";
 import { managerFirstMatches, managerSplits } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar, WdlRecord } from "@/components/WdlBar";
+import { StatTile } from "@/components/PageHeader";
+import { Pager } from "@/components/Pager";
 import { fmtDate, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 
@@ -58,17 +60,10 @@ export default async function ManagerPage({
         <h1 className="display text-4xl">{m.name}</h1>
         <p className="text-sm text-ink-dim mt-2">{m.nationality}</p>
         <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-2xl">
-          {[
-            ["Matches", fmtNum(m.p)],
-            ["Record", <WdlRecord key="record" w={m.w} d={m.d} l={m.l} />],
-            ["Win rate", pct(m.w, m.p)],
-            ["Goals", `${fmtNum(m.gf)}–${fmtNum(m.ga)}`],
-          ].map(([k, v], i) => (
-            <div key={i} className="bg-panel px-4 py-3">
-              <div className="stat-num text-xl font-semibold">{v}</div>
-              <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{k}</div>
-            </div>
-          ))}
+          <StatTile label="Matches" value={fmtNum(m.p)} />
+          <StatTile label="Record" value={<WdlRecord w={m.w} d={m.d} l={m.l} />} />
+          <StatTile label="Win rate" value={pct(m.w, m.p)} />
+          <StatTile label="Goals" value={`${fmtNum(m.gf)}–${fmtNum(m.ga)}`} />
         </div>
         <WdlBar w={m.w} d={m.d} l={m.l} size="md" className="max-w-2xl mt-3" />
         <ul className="mt-4 space-y-1 text-sm text-ink-dim">
@@ -134,17 +129,7 @@ export default async function ManagerPage({
       <section>
         <h2 className="display text-xl mb-3">Matches</h2>
         <MatchList matches={rows} showSeason />
-        {pages > 1 && (
-          <nav className="flex items-center gap-3 text-sm mt-3">
-            {page > 1 && (
-              <Link href={`/manager/${id}?page=${page - 1}`} className="text-devil-bright hover:underline">← Newer</Link>
-            )}
-            <span className="text-ink-faint stat-num">page {page} / {pages}</span>
-            {page < pages && (
-              <Link href={`/manager/${id}?page=${page + 1}`} className="text-devil-bright hover:underline">Older →</Link>
-            )}
-          </nav>
-        )}
+        <Pager page={page} pages={pages} hrefFor={(p) => `/manager/${id}?page=${p}`} className="mt-3" />
       </section>
     </div>
   );
