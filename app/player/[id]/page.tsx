@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  playerAssistPartnerships, playerById, playerClubRanks, playerGoalMatches,
-  playerGoalMinutes, playerGoalsByOpponent, playerLineupMatches,
+  playerAssistPartnerships, playerById, playerClubRanks,
+  playerCuratedBySeason, playerCuratedGoalTypes, playerCuratedTotals,
+  playerGoalMatches, playerGoalMinutes, playerGoalsByOpponent, playerLineupMatches,
   playerShirtNumbersByDecade, playerSplitsBySeason,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
@@ -61,6 +62,13 @@ export default async function PlayerPage({
   const opponentGoals = playerGoalsByOpponent(id, 8);
   const ranks = playerClubRanks(id);
   const bestRun = p.goals >= 5 ? playerBestScoringRun(id) : null;
+
+  // Curated Tableau lane: season-level goals/assists and goal-type breakdown,
+  // 1987-88..2014-15. Not match-attributed, so it stays in its own labelled section.
+  const curatedTotals = playerCuratedTotals(id);
+  const curatedGoalTypes = curatedTotals ? playerCuratedGoalTypes(id) : [];
+  const curatedSeasons = curatedTotals ? playerCuratedBySeason(id) : [];
+  const curatedTopType = curatedGoalTypes[0];
 
   const coveredSeasons = bySeason.filter((s) => s.apps > 0);
 
@@ -181,7 +189,7 @@ export default async function PlayerPage({
           {ranks ? (
             <StatTile label="Goal rank" value={`#${fmtNum(ranks.goalRank)}`} detail={`of ${fmtNum(ranks.total)}`} />
           ) : (
-            <StatTile label="Assists" value={p.assists ? fmtNum(p.assists) : "—"} detail="recorded" />
+            <StatTile label="Assists" value={p.assists ? fmtNum(p.assists) : "—"} detail={p.curated_assists > 0 ? "incl. curated" : "recorded"} />
           )}
         </div>
         <p className="max-w-3xl text-xs text-ink-faint">
@@ -341,6 +349,83 @@ export default async function PlayerPage({
           </ChartPanel>
         )}
       </div>
+
+      {curatedTotals && (
+        <section className="space-y-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="display text-xl">How he scored &amp; created</h2>
+            <span className="stat-num text-xs text-ink-faint">
+              curated · {curatedTotals.from_season?.slice(0, 4)}–{curatedTotals.to_season?.slice(0, 4)}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <StatTile label="Goals" value={fmtNum(curatedTotals.goals)} tone="red" />
+            <StatTile label="Assists" value={fmtNum(curatedTotals.assists)} tone="gold" />
+            <StatTile
+              label="Goals + assists"
+              value={fmtNum(curatedTotals.goals + curatedTotals.assists)}
+            />
+            {curatedTopType ? (
+              <StatTile
+                label="Main finish"
+                value={curatedTopType.goal_type}
+                detail={`${pct(curatedTopType.goals, curatedTotals.goals)} of goals`}
+              />
+            ) : (
+              <StatTile label="Seasons" value={fmtNum(curatedTotals.seasons)} />
+            )}
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {curatedGoalTypes.length > 1 && (
+              <ChartPanel
+                title="How the goals were scored"
+                note="Body part / technique behind each curated goal."
+              >
+                <InspectableBarChart
+                  data={curatedGoalTypes.map((t) => ({
+                    label: t.goal_type,
+                    value: t.goals,
+                    valueLabel: `${fmtNum(t.goals)} goals · ${pct(t.goals, curatedTotals.goals)}`,
+                    meta: "Curated goal type",
+                  }))}
+                  height={Math.max(150, curatedGoalTypes.length * 30)}
+                  color="var(--color-gold)"
+                  highlightLabel={curatedTopType?.goal_type}
+                  chartLabel={`${p.name} goals by body part`}
+                />
+              </ChartPanel>
+            )}
+
+            {curatedSeasons.some((s) => s.assists > 0) && (
+              <ChartPanel
+                title="Assists by season"
+                note="Chances created — the part of the assist gap this curated source fills before 2012-13."
+              >
+                <InspectableBarChart
+                  data={curatedSeasons.map((s) => ({
+                    label: s.season.slice(0, 4),
+                    value: s.assists,
+                    valueLabel: `${fmtNum(s.assists)} assists`,
+                    meta: s.season,
+                    href: `/seasons/${s.season}`,
+                  }))}
+                  height={150}
+                  labelEvery={Math.max(1, Math.floor(curatedSeasons.length / 10))}
+                  chartLabel={`${p.name} curated assists by season`}
+                />
+              </ChartPanel>
+            )}
+          </div>
+
+          <CoverageNote
+            slice="curated goals, assists & goal types, 1987–2015"
+            coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
+            evidenceHref={curatedTotals.source_url ?? undefined}
+            evidenceLabel="Tableau source"
+          />
+        </section>
+      )}
 
       {bySeason.length > 0 && (
         <section>
