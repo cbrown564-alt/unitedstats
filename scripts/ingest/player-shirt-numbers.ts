@@ -15,7 +15,9 @@ import path from "node:path";
 import {
   CANONICAL, MATCHES_DIR, RAW, listSeasonFiles, readJson, writeJson,
 } from "../lib";
-import { displayName, normalizedSlug } from "../player-resolver";
+import {
+  careerContains, compatibleFirstNames, displayName, nameParts, normalizedSlug,
+} from "../player-resolver";
 
 const SOURCE_ID = "mufcinfo-match-lineups";
 const USER_AGENT = "unitedstats/1.0 player-shirt ingest";
@@ -117,61 +119,11 @@ const NAME_ALIASES: Record<string, string> = {
   "william-foulkes": "bill-foulkes",
 };
 
-const NICKNAMES: Record<string, string[]> = {
-  alex: ["alexander", "sandy"],
-  alf: ["alfred"],
-  andy: ["andrew"],
-  bert: ["albert", "herbert", "robert", "thomas"],
-  bill: ["billy", "will", "william", "willie"],
-  billy: ["bill", "will", "william", "willie"],
-  bob: ["robert"],
-  bobby: ["bob", "robert"],
-  charlie: ["charles"],
-  dick: ["ernest", "richard"],
-  fred: ["frederick"],
-  freddie: ["frederick"],
-  harry: ["henry"],
-  jack: ["john"],
-  jackie: ["jack", "john"],
-  jim: ["james", "jimmy"],
-  jimmy: ["james", "jim"],
-  joe: ["joseph"],
-  johnny: ["john"],
-  matthew: ["matt"],
-  pat: ["patrick", "paddy"],
-  paddy: ["pat", "patrick"],
-  ray: ["raymond"],
-  ronnie: ["ron", "ronald"],
-  teddy: ["edward", "ted"],
-  tom: ["thomas", "tommy"],
-  tommy: ["thomas", "tom"],
-  will: ["bill", "billy", "william", "willie"],
-  william: ["bill", "billy", "will", "willie"],
-  willie: ["bill", "billy", "will", "william"],
-};
-
 function numberArg(flag: string, fallback: number): number {
   const index = process.argv.indexOf(flag);
   if (index < 0) return fallback;
   const value = Number(process.argv[index + 1]);
   return Number.isFinite(value) && value > 0 ? value : fallback;
-}
-
-function nameParts(name: string): { first: string; last: string } | null {
-  const parts = normalizedSlug(name).split("-").filter(Boolean);
-  if (parts.length < 2) return null;
-  return { first: parts[0], last: parts[parts.length - 1] };
-}
-
-function compatibleFirstNames(a: string, b: string): boolean {
-  if (a === b) return true;
-  return (NICKNAMES[a] ?? []).includes(b) || (NICKNAMES[b] ?? []).includes(a);
-}
-
-function careerContains(record: PlayerRecord, year: number): boolean {
-  const first = record.firstYear ?? 0;
-  const last = record.lastYear ?? 9999;
-  return year >= first - 1 && year <= last + 1;
 }
 
 function parseRows(date: string, html: string): ShirtRow[] {
