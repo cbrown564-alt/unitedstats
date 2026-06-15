@@ -878,24 +878,6 @@ export function seasonAggregates(): {
     .all() as ReturnType<typeof seasonAggregates>;
 }
 
-export function biggestWins(limit = 12): MatchRow[] {
-  return getDb()
-    .prepare(`${MATCH_SELECT} ORDER BY (m.gf - m.ga) DESC, m.gf DESC LIMIT ?`)
-    .all(limit) as MatchRow[];
-}
-
-export function heaviestDefeats(limit = 12): MatchRow[] {
-  return getDb()
-    .prepare(`${MATCH_SELECT} ORDER BY (m.ga - m.gf) DESC, m.ga DESC LIMIT ?`)
-    .all(limit) as MatchRow[];
-}
-
-export function highestAttendances(limit = 12): MatchRow[] {
-  return getDb()
-    .prepare(`${MATCH_SELECT} WHERE m.attendance IS NOT NULL ORDER BY m.attendance DESC LIMIT ?`)
-    .all(limit) as MatchRow[];
-}
-
 export function topScorers(limit = 25): PlayerTotals[] {
   return playersIndex().slice(0, limit);
 }
@@ -909,14 +891,6 @@ export function goalMinuteHistogram(): { bucket: string; n: number }[] {
        GROUP BY 1 ORDER BY 1`,
     )
     .all() as { bucket: string; n: number }[];
-}
-
-export function venueRecord(): (Record_ & { venue: string })[] {
-  return getDb()
-    .prepare(
-      `SELECT venue, ${RECORD_COLS} FROM matches GROUP BY venue ORDER BY p DESC`,
-    )
-    .all() as (Record_ & { venue: string })[];
 }
 
 export function stadiumsWithRecords(): {

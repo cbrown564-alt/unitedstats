@@ -4,13 +4,13 @@ import {
   lateGoalShareByDecade, lateWinners, leagueMatchesAfterEuropean, longestStreak,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
-import { getMeta } from "@/lib/queries";
+import { getMeta, goalMinuteHistogram } from "@/lib/queries";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { DataTable } from "@/components/DataTable";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
-import { fmtDate, fmtNum, pct } from "@/lib/format";
+import { fmtDate, fmtNum, pct, GOAL_MINUTE_BUCKETS } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Questions" };
@@ -52,6 +52,8 @@ function Module({
 export default function QuestionsPage() {
   const meta = getMeta();
   const lateByDecade = lateGoalShareByDecade();
+  const minuteHist = goalMinuteHistogram();
+  const minuteLabels = GOAL_MINUTE_BUCKETS;
   const timed = timedGoalCounts();
   const winners = lateWinners(8);
   const bogeys = bogeyOpponents(20, 10);
@@ -125,11 +127,28 @@ export default function QuestionsPage() {
           />
           <p className="text-xs text-ink-faint mt-1">Percent of timed goals scored minute 76–90, by decade.</p>
         </div>
+        {minuteHist.length > 0 && (
+          <div className="max-w-2xl">
+            <h3 className="text-sm font-medium mb-2 text-ink-dim">When in the match United score</h3>
+            <InspectableBarChart
+              data={minuteHist.map((b) => ({
+                label: minuteLabels[Number(b.bucket)] ?? b.bucket,
+                value: b.n,
+                valueLabel: `${fmtNum(b.n)} goals`,
+                meta: "Recorded United goals with minutes",
+              }))}
+              height={160}
+              color="var(--color-gold)"
+              chartLabel="Manchester United goals by match minute bucket"
+            />
+            <p className="text-xs text-ink-faint mt-1">United goals with a recorded minute ≤ 90, by 15-minute window.</p>
+          </div>
+        )}
         <div>
           <h3 className="text-sm font-medium mb-2 text-ink-dim">Latest one-goal wins sealed in the 85th minute or later</h3>
           <MatchList matches={winners} showSeason />
         </div>
-        <EvidenceLink href="/analytics" label="Goal-minute distribution in analytics →" />
+        <EvidenceLink href="/matches" label="Browse every match →" />
       </Module>
 
       <Module
