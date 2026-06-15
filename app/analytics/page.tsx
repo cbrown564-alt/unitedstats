@@ -3,12 +3,15 @@ import {
   eloSeries, seasonAggregates, stadiumsWithRecords, getMeta,
   topAssistPartnerships, coverageOverview, managersIndex,
 } from "@/lib/queries";
+import { calibration, oddsFor, ratedOpponents, simulateLeagueSeason, HOME_ADVANTAGE } from "@/lib/predict";
 import { ChartPanel } from "@/components/ChartPanel";
+import { CoverageNote } from "@/components/CoverageNote";
+import { DataTable } from "@/components/DataTable";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
-import { fmtNum, pct } from "@/lib/format";
+import { fmtNum, pct, venueLabel } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Analytics" };
@@ -23,13 +26,32 @@ function Band({ label }: { label: string }) {
   );
 }
 
-export default function AnalyticsPage() {
+function Pct({ value }: { value: number }) {
+  return <span className="stat-num">{(100 * value).toFixed(0)}%</span>;
+}
+
+export default async function AnalyticsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ opponent?: string; venue?: string }>;
+}) {
+  const sp = await searchParams;
   const elo = eloSeries();
   const seasons = seasonAggregates();
   const grounds = stadiumsWithRecords();
   const partnerships = topAssistPartnerships(12);
   const meta = getMeta();
   const overview = coverageOverview();
+
+  // Prospective half of the strength signal: what the same Elo projects forward.
+  const opponents = ratedOpponents();
+  const opponentId = sp.opponent && opponents.some((o) => o.id === sp.opponent) ? sp.opponent : "liverpool";
+  const venue = sp.venue === "A" || sp.venue === "N" ? sp.venue : "H";
+  const odds = oddsFor(opponentId, venue);
+  const sim = simulateLeagueSeason();
+  const buckets = calibration();
+  const totalRated = buckets.reduce((a, b) => a + b.p, 0);
+
   const currentElo = elo.length ? Math.round(elo[elo.length - 1].elo) : 1500;
   const peak = elo.reduce((a, b) => (b.elo > a.elo ? b : a), elo[0]);
   const trough = elo.reduce((a, b) => (b.elo < a.elo ? b : a), elo[0]);
@@ -59,8 +81,9 @@ export default function AnalyticsPage() {
           </div>
         }
       >
-        Strength ratings and long-run trends. Records and coverage live in the match browser and the
-        data ledger — they link out from here rather than being restated.
+        The strength layer: the Elo record behind United, what it projects forward, and the long-run
+        trends. Records and coverage live in the match browser and the data ledger — they link out
+        from here rather than being restated.
       </PageHeader>
 
       {/* Elo — the canonical home of the strength signal */}
@@ -99,6 +122,128 @@ export default function AnalyticsPage() {
             rating move.
           </p>
         </div>
+      </section>
+
+      {/* Prospective half: the same Elo projected forward. */}
+      <section>
+        <div className="mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">What the ratings project</p>
+          <h2 className="display text-xl">A hypothetical next meeting</h2>
+        </div>
+        <div className="border border-line rounded-lg bg-panel p-4">
+          <form method="GET" action="/analytics" className="flex flex-wrap items-end gap-3 text-sm">
+            <label className="flex flex-col gap-1">
+              <span className="text-xs text-ink-faint uppercase tracking-wider">Opponent</span>
+              <select name="opponent" defaultValue={opponentId} className="control">
+                {opponents.map((o) => (
+                  <option key={o.id} value={o.id}>{o.name}</option>
+                ))}
+              </select>
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="text-xs text-ink-faint uppercase tracking-wider">Venue</span>
+              <select name="venue" defaultValue={venue} className="control">
+                <option value="H">Home</option>
+                <option value="A">Away</option>
+                <option value="N">Neutral</option>
+              </select>
+            </label>
+            <button
+              type="submit"
+              className="min-h-[2.375rem] rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring"
+            >
+              Work it out
+            </button>
+          </form>
+
+          {odds && (
+            <div className="mt-5">
+              <p className="text-sm text-ink-dim mb-3">
+                United v <span className="text-ink font-medium">{odds.opponentName}</span>,{" "}
+                {venueLabel(venue).toLowerCase()}, at today&apos;s ratings:
+              </p>
+              <div className="grid grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-xl text-center">
+                <div className="bg-panel-2 px-3 py-3">
+                  <div className="stat-num text-2xl font-semibold text-win">{(100 * odds.pW).toFixed(0)}%</div>
+                  <div className="text-[11px] text-ink-faint uppercase tracking-wider">United win</div>
+                </div>
+                <div className="bg-panel-2 px-3 py-3">
+                  <div className="stat-num text-2xl font-semibold text-draw">{(100 * odds.pD).toFixed(0)}%</div>
+                  <div className="text-[11px] text-ink-faint uppercase tracking-wider">Draw</div>
+                </div>
+                <div className="bg-panel-2 px-3 py-3">
+                  <div className="stat-num text-2xl font-semibold text-loss">{(100 * odds.pL).toFixed(0)}%</div>
+                  <div className="text-[11px] text-ink-faint uppercase tracking-wider">{odds.opponentName} win</div>
+                </div>
+              </div>
+              <CoverageNote
+                slice={`United ${Math.round(odds.unitedElo)} v ${odds.opponentName} ${Math.round(odds.opponentElo)} (closed-universe Elo, ${venueLabel(venue).toLowerCase()} worth ${venue === "N" ? 0 : HOME_ADVANTAGE} points), expectancy ${(100 * odds.expected).toFixed(0)}%, split using the ${fmtNum(odds.sample)} historical matches in that expectancy band.`}
+                evidenceHref={`/matches?opponent=${opponentId}`}
+                evidenceLabel={`All ${fmtNum(odds.meetings)} rated meetings →`}
+              >
+                {odds.opponentName}&apos;s rating moves only when they play United; it was last
+                updated {odds.lastMet}. Treat long-dormant opponents accordingly.
+              </CoverageNote>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {sim && (
+        <section>
+          <ChartPanel
+            title={`Replaying ${sim.season} from the ratings`}
+            slice={`each of the ${sim.matches} ${sim.competitionName} matches redrawn ${fmtNum(sim.runs)} times from its pre-match win expectancy, 3 points for a win. This describes points totals, not table positions.`}
+            note={
+              <>
+                The ratings expected about {sim.meanPoints.toFixed(0)} points (90% of replays
+                landed between {sim.p5} and {sim.p95}); the real side took{" "}
+                <span className="text-gold stat-num">{sim.actualPoints}</span>, a total only{" "}
+                {pct(Math.round(sim.shareAbove * sim.runs), sim.runs)} of replays beat. Open the{" "}
+                <Link href={`/seasons/${sim.season}`} className="text-devil-bright hover:underline">
+                  season
+                </Link>{" "}
+                to see which results did it.
+              </>
+            }
+          >
+            <InspectableBarChart
+              data={sim.distribution.map((d) => ({
+                label: String(d.points),
+                value: d.share * 100,
+                valueLabel: `${(100 * d.share).toFixed(1)}% of replays`,
+                meta: `${fmtNum(Math.round(d.share * sim.runs))} of ${fmtNum(sim.runs)} simulations`,
+              }))}
+              labelEvery={5}
+              height={190}
+              highlightLabel={String(sim.actualPoints)}
+              chartLabel={`${sim.season} replayed points distribution`}
+              yTickSuffix="%"
+            />
+          </ChartPanel>
+        </section>
+      )}
+
+      <section>
+        <h2 className="display text-xl mb-3">Where the probabilities come from</h2>
+        <DataTable
+          columns={[
+            { label: "Pre-match expectancy", render: (b: (typeof buckets)[number]) => `${(100 * b.lo).toFixed(0)}–${(100 * b.hi).toFixed(0)}%` },
+            { label: "Matches", numeric: true, render: (b) => fmtNum(b.p) },
+            { label: "Won", numeric: true, render: (b) => <Pct value={b.w / b.p} /> },
+            { label: "Drawn", numeric: true, render: (b) => <Pct value={b.d / b.p} /> },
+            { label: "Lost", numeric: true, render: (b) => <Pct value={b.l / b.p} /> },
+          ]}
+          rows={buckets}
+          rowKey={(b) => String(b.lo)}
+        />
+        <CoverageNote
+          slice={`all ${fmtNum(totalRated)} rated matches since 1886, grouped by the Elo win expectancy United carried into them.`}
+        >
+          Elo folds draws into one number, so the W/D/L split is read straight from history: when
+          the ratings said 60–70%, United actually won half and drew a quarter. That observed split
+          is what the widget above applies. The expectancy itself is on every match page.
+        </CoverageNote>
       </section>
 
       <Band label="Trends over time" />
