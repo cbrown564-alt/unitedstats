@@ -1,17 +1,14 @@
 import Link from "next/link";
 import {
-  eloSeries, seasonAggregates, biggestWins, heaviestDefeats, highestAttendances,
-  venueRecord, goalMinuteHistogram, stadiumsWithRecords, eventCoverage, getMeta,
-  lineupCoverage, topAssistPartnerships, coverageOverview, managersIndex,
+  eloSeries, seasonAggregates, stadiumsWithRecords, getMeta,
+  topAssistPartnerships, coverageOverview, managersIndex,
 } from "@/lib/queries";
 import { ChartPanel } from "@/components/ChartPanel";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
-import { MatchList } from "@/components/MatchList";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
-import { WdlBar, WdlRecord } from "@/components/WdlBar";
-import { fmtNum, pct, venueLabel, GOAL_MINUTE_BUCKETS } from "@/lib/format";
+import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Analytics" };
@@ -29,21 +26,13 @@ function Band({ label }: { label: string }) {
 export default function AnalyticsPage() {
   const elo = eloSeries();
   const seasons = seasonAggregates();
-  const wins = biggestWins(10);
-  const defeats = heaviestDefeats(10);
-  const crowds = highestAttendances(10);
-  const venues = venueRecord();
-  const minuteHist = goalMinuteHistogram();
   const grounds = stadiumsWithRecords();
-  const coverage = eventCoverage();
-  const lineups = lineupCoverage();
   const partnerships = topAssistPartnerships(12);
   const meta = getMeta();
   const overview = coverageOverview();
   const currentElo = elo.length ? Math.round(elo[elo.length - 1].elo) : 1500;
   const peak = elo.reduce((a, b) => (b.elo > a.elo ? b : a), elo[0]);
   const trough = elo.reduce((a, b) => (b.elo < a.elo ? b : a), elo[0]);
-  const minuteLabels = GOAL_MINUTE_BUCKETS;
   const yearTicks = [1900, 1930, 1960, 1990, 2020].map((year) => ({ x: year, label: String(year) }));
 
   // Managerial eras shade the Elo timeline; bands tile from each manager's first
@@ -56,19 +45,10 @@ export default function AnalyticsPage() {
     label: m.p >= 250 ? m.name.split(" ").pop() : undefined,
   }));
 
-  const decades = new Map<string, { p: number; w: number }>();
-  for (const s of seasons) {
-    const dec = s.season.slice(0, 3) + "0s";
-    const cur = decades.get(dec) ?? { p: 0, w: 0 };
-    cur.p += s.p;
-    cur.w += s.w;
-    decades.set(dec, cur);
-  }
-
   return (
     <div className="space-y-12">
       <PageHeader
-        eyebrow="Pattern layer"
+        eyebrow="Strength layer"
         title="Analytics"
         aside={
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
@@ -79,23 +59,11 @@ export default function AnalyticsPage() {
           </div>
         }
       >
-        Strength ratings, eras, records, crowds, and goal patterns. Every serious claim needs a slice,
-        coverage note, and a trail back to matches.
+        Strength ratings and long-run trends. Records and coverage live in the match browser and the
+        data ledger — they link out from here rather than being restated.
       </PageHeader>
 
-      <section className="grid gap-3 lg:grid-cols-3">
-        <TrailLink href="/questions" title="Question-led cuts">
-          Myth-testing modules for late goals, awkward opponents, and era patterns.
-        </TrailLink>
-        <TrailLink href="/analytics/odds" title="Predictive ratings">
-          Pick an opponent and venue, then compare today&apos;s signal with calibration history.
-        </TrailLink>
-        <TrailLink href="/analytics/travel" title="Away map">
-          Grounds, distance, and travel load across official away fixtures.
-        </TrailLink>
-      </section>
-
-      {/* Elo */}
+      {/* Elo — the canonical home of the strength signal */}
       <section>
         <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
           <div>
@@ -195,14 +163,15 @@ export default function AnalyticsPage() {
         </ChartPanel>
       </section>
 
-      {/* goals per season + decades */}
-      <section className="grid lg:grid-cols-2 gap-8">
+      {/* goals per season */}
+      <section>
         <ChartPanel
           title="Goals scored per season"
           note={
             <>
               <span className="text-ink-dim">Slice:</span> goals scored, all competitions — taller wartime-adjacent
-              seasons partly reflect longer cup runs.{" "}
+              seasons partly reflect longer cup runs. Pull any decade&apos;s matches with the year filters in the{" "}
+              <Link href="/matches" className="text-devil-bright hover:underline">match browser</Link>.{" "}
               <Link href="/seasons" className="text-devil-bright hover:underline">Season detail →</Link>
             </>
           }
@@ -220,88 +189,10 @@ export default function AnalyticsPage() {
             chartLabel="Manchester United goals scored per season"
           />
         </ChartPanel>
-        <ChartPanel
-          title="Win rate by decade"
-          note={
-            <>
-              <span className="text-ink-dim">Slice:</span> percent of matches won, all competitions, grouped by
-              decade. Pull any decade&apos;s matches with the year filters in the{" "}
-              <Link href="/matches" className="text-devil-bright hover:underline">match browser</Link> — e.g.{" "}
-              <Link href="/matches?from=1990&to=1999" className="text-devil-bright hover:underline">the 1990s</Link>.
-            </>
-          }
-        >
-          <InspectableBarChart
-            data={[...decades.entries()].map(([dec, v]) => ({
-              label: dec,
-              tickLabel: dec.slice(0, 4),
-              value: Math.round((100 * v.w) / (v.p || 1)),
-              valueLabel: `${Math.round((100 * v.w) / (v.p || 1))}% won`,
-              meta: `${fmtNum(v.p)} matches, ${fmtNum(v.w)} wins`,
-              href: `/matches?from=${dec.slice(0, 4)}&to=${Number(dec.slice(0, 4)) + 9}`,
-            }))}
-            height={200}
-            color="var(--color-win)"
-            chartLabel="Manchester United win rate by decade"
-            yTickSuffix="%"
-          />
-        </ChartPanel>
       </section>
 
-      <Band label="Goals and grounds" />
+      <Band label="Grounds" />
 
-      {/* goal minutes + venue split */}
-      <section className="grid lg:grid-cols-2 gap-8">
-        {minuteHist.length > 0 && (
-          <ChartPanel
-            title="When United score"
-            note={
-              <>
-                <span className="text-ink-dim">Slice:</span> United goals with a recorded minute ≤ 90, by
-                15-minute window. The final-window lean is tested decade by decade in{" "}
-                <Link href="/questions#late-goals" className="text-devil-bright hover:underline">
-                  Do United really score late? →
-                </Link>
-              </>
-            }
-          >
-            <InspectableBarChart
-              data={minuteHist.map((b) => ({
-                label: minuteLabels[Number(b.bucket)] ?? b.bucket,
-                value: b.n,
-                valueLabel: `${fmtNum(b.n)} goals`,
-                meta: "Recorded United goals with minutes",
-              }))}
-              height={180}
-              color="var(--color-gold)"
-              chartLabel="Manchester United goals by match minute bucket"
-            />
-          </ChartPanel>
-        )}
-        <div>
-          <h2 className="display text-xl mb-3">Home, away, neutral</h2>
-          <div className="space-y-3">
-            {venues.map((v) => (
-              <Link
-                key={v.venue}
-                href={`/matches?venue=${v.venue}`}
-                className="block border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
-              >
-                <div className="flex justify-between text-sm mb-1.5">
-                  <span className="font-medium">{venueLabel(v.venue)}</span>
-                  <span className="stat-num text-xs text-ink-faint">
-                    {fmtNum(v.p)} P · <WdlRecord w={v.w} d={v.d} l={v.l} /> · {pct(v.w, v.p)} W
-                  </span>
-                </div>
-                <WdlBar w={v.w} d={v.d} l={v.l} />
-              </Link>
-            ))}
-          </div>
-          <p className="text-xs text-ink-faint mt-2">Each row opens its matches.</p>
-        </div>
-      </section>
-
-      {/* grounds */}
       <section>
         <h2 className="display text-xl mb-3">Grounds United have called home (and the big neutral stages)</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
@@ -319,95 +210,36 @@ export default function AnalyticsPage() {
 
       <Band label="Records" />
 
-      {/* records */}
-      <section className="grid lg:grid-cols-2 gap-8">
-        <div>
-          <h2 className="display text-xl mb-3">Biggest wins</h2>
-          <MatchList matches={wins} showSeason />
-          <p className="text-xs text-ink-faint mt-2">
-            <span className="text-ink-dim">Slice:</span> ranked by margin, then goals scored, all competitions —
-            each row is the evidence.
-          </p>
-        </div>
-        <div>
-          <h2 className="display text-xl mb-3">Heaviest defeats</h2>
-          <MatchList matches={defeats} showSeason />
-          <p className="text-xs text-ink-faint mt-2">
-            <span className="text-ink-dim">Slice:</span> ranked by margin conceded, all competitions.
-          </p>
-        </div>
-      </section>
-
-      <section>
-        <h2 className="display text-xl mb-3">Biggest crowds</h2>
-        <MatchList matches={crowds} showSeason />
-        <p className="text-xs text-ink-faint mt-2">
-          <span className="text-ink-dim">Slice:</span> matches with a recorded attendance, ranked. The 1948
-          FA Cup semi-final v Derby County, played at Hillsborough, and wartime-era cup ties drew some of the
-          largest crowds in English club history.
-        </p>
+      {/* Records are sorts of The Record — link into the browser, never restate it. */}
+      <section className="grid gap-3 sm:grid-cols-3">
+        <TrailLink href="/matches?sort=margin" title="Biggest wins">
+          United&apos;s record victories, ranked by goal margin in the match browser.
+        </TrailLink>
+        <TrailLink href="/matches?sort=defeat" title="Heaviest defeats">
+          The worst results on record, ranked by losing margin.
+        </TrailLink>
+        <TrailLink href="/matches?sort=attendance" title="Biggest crowds">
+          The best-attended matches, ranked by recorded attendance.
+        </TrailLink>
       </section>
 
       <Band label="Data coverage" />
 
-      {/* coverage ledger */}
-      <section>
-        <ChartPanel
-          title="Data depth ledger"
-          note={
-            <>
-              Share of matches per decade with recorded goal events. Results are complete for every decade;
-              scorer and lineup depth grows continuously — this ledger is the honest picture of how far the
-              excavation has gotten.
-              {" "}Complete scorer rows: <span className="stat-num">{fmtNum(overview.completeScorers)}</span>
-              {" "}of <span className="stat-num">{fmtNum(overview.matches)}</span>.
-              {" "}
-              <Link href="/data" className="text-devil-bright hover:underline">Source and correction guide</Link>.
-            </>
-          }
-        >
-          <InspectableBarChart
-            data={coverage.map((c) => ({
-              label: c.decade,
-              tickLabel: c.decade.slice(0, 4),
-              value: c.matches ? Math.round((1000 * c.withEvents) / c.matches) / 10 : 0,
-              valueLabel: pct(c.withEvents, c.matches),
-              meta: `${fmtNum(c.withEvents)} of ${fmtNum(c.matches)} matches with scorer data`,
-            }))}
-            height={170}
-            chartLabel="United scorer coverage by decade"
-            labelEvery={2}
-            yTickSuffix="%"
-          />
-        </ChartPanel>
+      {/* Coverage is owned by /data — link out rather than re-render the ledger. */}
+      <section className="grid gap-3 sm:grid-cols-2">
+        <TrailLink href="/data" title="Scorer & lineup ledger">
+          Results are complete for every decade; scorer depth reaches{" "}
+          {fmtNum(overview.completeScorers)} of {fmtNum(overview.matches)} matches and grows continuously.
+          See coverage by decade and how to fill the gaps.
+        </TrailLink>
+        <TrailLink href="/data" title="Lineup coverage">
+          {fmtNum(Number(meta.matches_with_lineups ?? 0))} matches carry full United lineups, covering{" "}
+          {fmtNum(Number(meta.lineup_entries ?? 0))} player appearances. Track depth and corrections.
+        </TrailLink>
       </section>
 
-      <section className="grid lg:grid-cols-2 gap-8">
-        <ChartPanel
-          title="Lineup coverage"
-          note={
-            <>
-              {fmtNum(Number(meta.matches_with_lineups ?? 0))} matches have full United lineups,
-              covering {fmtNum(Number(meta.lineup_entries ?? 0))} player appearances.
-            </>
-          }
-        >
-          <InspectableBarChart
-            data={lineups.map((c) => ({
-              label: c.decade,
-              tickLabel: c.decade.slice(0, 4),
-              value: c.matches ? Math.round((1000 * c.withLineups) / c.matches) / 10 : 0,
-              valueLabel: pct(c.withLineups, c.matches),
-              meta: `${fmtNum(c.withLineups)} of ${fmtNum(c.matches)} matches with lineups`,
-            }))}
-            height={160}
-            color="var(--color-gold)"
-            chartLabel="United lineup coverage by decade"
-            labelEvery={2}
-            yTickSuffix="%"
-          />
-        </ChartPanel>
-
+      {/* Assist partnerships — canonical home of the assist-link cut. */}
+      <section>
         <ChartPanel
           title="Assist partnerships"
           note="Built from goal events that record an assist. Assist data exists only from 2012-13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission."
