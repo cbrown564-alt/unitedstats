@@ -39,7 +39,12 @@ function Module({
   finding: string;
   children: React.ReactNode;
   slice: string;
-  coverage: string;
+  /**
+   * Graded: omit where the facet is complete for this cut. A present coverage
+   * line should always carry real counts or a real limitation; its absence
+   * means the underlying results are whole.
+   */
+  coverage?: string;
 }) {
   return (
     <section id={id} className="border border-line rounded-lg bg-panel p-5 sm:p-6 scroll-mt-28 space-y-4">
@@ -50,7 +55,7 @@ function Module({
       {children}
       <footer className="text-xs text-ink-faint space-y-1 border-t border-line pt-3">
         <p><span className="text-ink-dim">Slice:</span> {slice}</p>
-        <p><span className="text-ink-dim">Coverage:</span> {coverage}</p>
+        {coverage && <p><span className="text-ink-dim">Coverage:</span> {coverage}</p>}
       </footer>
     </section>
   );
@@ -171,7 +176,6 @@ export default function QuestionsPage() {
         question="Which sides are the real bogey teams?"
         finding="The opponents United beat least often, among sides met at least 20 times in official competition. Low win rates against fellow giants are expected; the surprises are further down the table."
         slice="All official competitions, minimum 20 meetings, ranked by win rate ascending. Away columns show whether the problem travels."
-        coverage="Results are complete for every opponent — this table needs no caveat."
       >
         <div className="space-y-3 max-w-3xl">
           {bogeys.map((o) => (
@@ -196,7 +200,6 @@ export default function QuestionsPage() {
         question="Does Europe cost points at the weekend?"
         finding={`League matches played within four days of a European tie: ${pct(euro.afterEuro.w, euro.afterEuro.p)} won, against ${pct(euro.baseline.w, euro.baseline.p)} in other league matches of the same seasons — a ${euroDelta >= 0 ? "gain" : "drop"} of ${Math.abs(euroDelta).toFixed(1)} points of win rate.`}
         slice={`League matches in seasons with European football (1956– ), split by whether a European tie fell 1–4 days before; baseline is the remaining league matches of those same seasons (${fmtNum(euro.baseline.p)} matches).`}
-        coverage="Built from complete result data on both sides of the split; no scorer or lineup coverage is required."
       >
         <div className="grid sm:grid-cols-2 gap-4 max-w-3xl text-sm">
           <div className="border border-line rounded-lg bg-panel-2 px-4 py-3">
@@ -228,7 +231,6 @@ export default function QuestionsPage() {
         question="Is the new-manager bounce real?"
         finding={`${bounceUp} of ${bounce.length} United managers won more of their first ten matches than the club won of the ten before they arrived. The bounce exists for some appointments — and the table shows exactly which.`}
         slice="Each manager's first 10 matches in charge versus the club's previous 10 matches (any manager), all competitions; managers with fewer than 10 matches, and the first manager on record, are excluded."
-        coverage="Manager attribution comes from tenure records applied to every match; results are complete."
       >
         <DataTable
           caption="New-manager bounce comparison"
@@ -292,7 +294,6 @@ export default function QuestionsPage() {
             : "Home record at Old Trafford by decade."
         }
         slice="Home matches played at Old Trafford only (1910– ), all competitions; Maine Road years and neutral venues are excluded. The unbeaten run counts consecutive home matches without defeat."
-        coverage="Results and venues are complete for the whole period."
       >
         <div className="max-w-2xl">
           <InspectableBarChart
