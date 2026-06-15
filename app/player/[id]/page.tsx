@@ -334,7 +334,7 @@ export default async function PlayerPage({
             noun: "seasons carry recorded data",
             note: `${fmtNum(p.recorded_goals)} recorded goals`,
           }}
-          note="Bars use recorded scorer data, so early or sparsely covered seasons can read low."
+          note="These bars use recorded scorer data, so early or sparsely covered seasons can read low."
         >
           <InspectableBarChart
             data={bySeason.map((s) => ({

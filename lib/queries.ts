@@ -658,17 +658,6 @@ export function playerLineupMatches(id: string): (MatchRow & {
     })[];
 }
 
-export function playerGoalsBySeason(id: string): { season: string; goals: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT m.season, COUNT(*) goals
-       FROM match_events e JOIN matches m ON m.id = e.match_id
-       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
-       GROUP BY m.season ORDER BY m.season`,
-    )
-    .all(id) as { season: string; goals: number }[];
-}
-
 export function playerGoalMatches(id: string): (MatchRow & { goals: number; minutes: string | null })[] {
   return getDb()
     .prepare(
@@ -952,12 +941,6 @@ export interface MatchSourceRecord extends SourceRecord {
     | "notes";
   confidence: "complete" | "partial" | "supporting";
   source_note: string | null;
-}
-
-export function sourceCatalog(): SourceRecord[] {
-  return getDb()
-    .prepare("SELECT id, label, kind, url, coverage, notes FROM sources ORDER BY kind, label")
-    .all() as SourceRecord[];
 }
 
 export function sourcesForMatch(matchId: string): MatchSourceRecord[] {
