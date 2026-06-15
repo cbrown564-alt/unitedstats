@@ -297,3 +297,17 @@ reduction, which is the success metric — not route count.
    add a lint rule failing on unused exports so the inventory cannot drift again.
 7. Re-run the inventory; confirm module count and per-page Ten-Second clarity
    improved (route count, module count down; primary-answer clarity up).
+
+### Execution status (completed 2026-06-15)
+
+Items 1–5 and 7 are done. Item 6 is done except for the unused-export lint
+rule: `import/no-unused-modules` is broken under this project's flat-config +
+TypeScript setup (its file enumerator scans only `.js`, so it reports imported
+`.tsx` code such as `AreaChart` as unused). The guard is deferred to Phase 9 —
+a TypeScript-compiler check script or `knip` is the reliable path. Dead exports
+were removed by hand instead (`Sparkline`, `Bars`, `playerGoalsBySeason`,
+`sourceCatalog`). Outcome: routes 16 → 14; `/analytics` ~14 modules → strength
+(retrospective + prospective) + trends + grounds + assist partnerships, with
+records and coverage demoted to links; `/match/[id]` opens as scoreline +
+scorers with three labelled disclosures; coverage notes graded. See
+`docs/INVENTORY.md` for the refreshed map.
