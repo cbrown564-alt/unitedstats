@@ -214,7 +214,7 @@ export interface MatchFilter {
   to?: string;
   q?: string;
   /** Result ordering. Defaults to most-recent-first. */
-  sort?: "recent" | "oldest" | "margin" | "attendance";
+  sort?: "recent" | "oldest" | "margin" | "defeat" | "attendance";
   limit?: number;
   offset?: number;
 }
@@ -223,6 +223,8 @@ const MATCH_ORDER: Record<NonNullable<MatchFilter["sort"]>, string> = {
   recent: "m.date DESC",
   oldest: "m.date ASC",
   margin: "(m.gf - m.ga) DESC, m.gf DESC, m.date DESC",
+  // heaviest losing margin first, then most goals conceded
+  defeat: "(m.gf - m.ga) ASC, m.ga DESC, m.date DESC",
   // nulls last, then largest crowd first
   attendance: "(m.attendance IS NULL), m.attendance DESC, m.date DESC",
 };
