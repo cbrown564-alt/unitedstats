@@ -49,7 +49,7 @@ already applied are recorded as resolved and the remaining overlaps are flagged.
 | `Pager` | Newer / page / Older pagination | `/matches`, `/manager/[id]` |
 | `HeaderSearch` / `SearchCommand` / `MainNav` | global header search + nav | layout |
 | charts: `InspectableTimeSeriesChart`, `InspectableBarChart`, `EloRatingChart` | Recharts-backed inspection layer | analytics, home, player, odds |
-| charts (static): `AreaChart`, `Bars`, `Sparkline` | no-JS SVG fallbacks / migration scaffolding | `AreaChart` is the fallback inside `InspectableTimeSeriesChart`; `Bars` on player page; **`Sparkline` currently unused** (kept by design as a no-JS dense-table primitive) |
+| charts (static): `AreaChart`, ~~`Bars`~~, ~~`Sparkline`~~ | no-JS SVG fallback | `AreaChart` is the live fallback inside `InspectableTimeSeriesChart`. **`Bars` and `Sparkline` have no callers** — the player page migrated to `InspectableBarChart` — and are slated for deletion (ADR 0002). |
 
 ## Data lanes
 
@@ -88,7 +88,9 @@ Intentionally left bespoke:
   not `PageHeader`.
 
 Flagged, not yet done (carry into Phase 9 / parked):
-- `Sparkline` is unused; keep or prune deliberately, don't let it rot.
+- `Sparkline` and `Bars` are both unused; decided in ADR 0002 — delete both, keep
+  `AreaChart` (live no-JS fallback). Enforce unused-export removal in lint/CI so
+  this map cannot drift again.
 - `/analytics/odds` opponent picker is a long native `<select>`; a searchable
   combobox (reuse the `SearchCommand` pattern) is a feature, not a consolidation.
 - Segmented grouping on `/managers` and `/opponents` (by era / alphabet) is

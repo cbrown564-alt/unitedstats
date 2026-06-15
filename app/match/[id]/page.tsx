@@ -47,6 +47,21 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     return acc;
   }, new Map<string, { label: string; url: string | null; kind: string; facets: string[] }>());
 
+  // Disclosure summaries must advertise their contents (Primary-Answer rule).
+  const hasTeamsheet = starters.length > 0 || usedSubs.length > 0 || bench.length > 0 || cards.length > 0;
+  const teamsheetParts = [
+    starters.length > 0 ? "Starting XI" : null,
+    usedSubs.length > 0 ? `${usedSubs.length} sub${usedSubs.length === 1 ? "" : "s"}` : null,
+    bench.length > 0 ? "bench" : null,
+    cards.length > 0 ? `${cards.length} card${cards.length === 1 ? "" : "s"}` : null,
+  ].filter(Boolean) as string[];
+  const contextParts = [
+    elo ? "Elo" : null,
+    h2h.p > 0 ? "head-to-head" : null,
+    "form",
+    similar.length > 0 || seasonLateGoals.length > 0 ? "related matches" : null,
+  ].filter(Boolean) as string[];
+
   return (
     <div className="space-y-10">
       <header className="space-y-4">
@@ -175,108 +190,188 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
 
-      {cards.length > 0 && (
-        <section>
-          <h2 className="display text-xl mb-3">Cards</h2>
-          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
-            {cards.map((e) => (
-              <li key={e.seq} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
-                <span className={`stat-num w-10 ${e.type === "card-red" ? "text-loss" : "text-gold"}`}>
-                  {e.minute != null ? `${e.minute}'` : ""}
-                </span>
-                <span className="font-medium flex-1">{e.player_display_name ?? "Player"}</span>
-                <span className="text-xs text-ink-faint">{e.player_side === "united" ? club : m.opponent_name}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {starters.length > 0 && (
-        <section>
-          <h2 className="display text-xl mb-3">Starting XI</h2>
-          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
-            {starters.map((p) => (
-              <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
-                <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
-                {p.player_id ? (
-                  <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
-                    {p.player_display_name}
-                  </Link>
-                ) : (
-                  <span className="flex-1">{p.player_display_name}</span>
-                )}
-                {p.role && <span className="text-xs text-ink-faint">{p.role}</span>}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-      {usedSubs.length > 0 && (
-        <section>
-          <h2 className="display text-xl mb-3">Used substitutes</h2>
-          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
-            {usedSubs.map((p) => (
-              <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
-                <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
-                {p.player_id ? (
-                  <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
-                    {p.player_display_name}
-                  </Link>
-                ) : (
-                  <span className="flex-1">{p.player_display_name}</span>
-                )}
-                <span className="text-xs text-ink-faint">on {p.sub_on != null ? `${p.sub_on}'` : "—"}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-      {bench.length > 0 && (
+      {hasTeamsheet && (
         <section>
           <details className="group">
-            <summary className="mb-3 flex cursor-pointer list-none items-baseline justify-between gap-3">
-              <h2 className="display text-xl">Bench</h2>
-              <span className="stat-num text-xs text-devil-bright">
-                <span className="group-open:hidden">show</span>
-                <span className="hidden group-open:inline">hide</span>
+            <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
+              <h2 className="display text-xl">Teamsheet</h2>
+              <span className="stat-num text-xs text-ink-faint">
+                {teamsheetParts.join(" · ")}
+                {teamsheetParts.length > 0 ? " · " : ""}
+                <span className="text-devil-bright group-open:hidden">show</span>
+                <span className="hidden text-devil-bright group-open:inline">hide</span>
               </span>
             </summary>
-          <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
-            {bench.map((p) => (
-              <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
-                <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
-                {p.player_id ? (
-                  <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
-                    {p.player_display_name}
-                  </Link>
-                ) : (
-                  <span className="flex-1">{p.player_display_name}</span>
-                )}
-                <span className="text-xs text-ink-faint">unused</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-xs text-ink-faint mt-2">
-            Bench rows are source evidence only; they do not count as appearances unless the player entered the match.
-          </p>
+            <div className="space-y-6">
+              {starters.length > 0 && (
+                <div>
+                  <h3 className="display text-lg mb-3">Starting XI</h3>
+                  <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+                    {starters.map((p) => (
+                      <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                        <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
+                        {p.player_id ? (
+                          <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
+                            {p.player_display_name}
+                          </Link>
+                        ) : (
+                          <span className="flex-1">{p.player_display_name}</span>
+                        )}
+                        {p.role && <span className="text-xs text-ink-faint">{p.role}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {usedSubs.length > 0 && (
+                <div>
+                  <h3 className="display text-lg mb-3">Used substitutes</h3>
+                  <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+                    {usedSubs.map((p) => (
+                      <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                        <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
+                        {p.player_id ? (
+                          <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
+                            {p.player_display_name}
+                          </Link>
+                        ) : (
+                          <span className="flex-1">{p.player_display_name}</span>
+                        )}
+                        <span className="text-xs text-ink-faint">on {p.sub_on != null ? `${p.sub_on}'` : "—"}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {bench.length > 0 && (
+                <div>
+                  <h3 className="display text-lg mb-3">Bench</h3>
+                  <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+                    {bench.map((p) => (
+                      <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                        <span className="stat-num text-ink-faint w-6">{p.shirt ?? ""}</span>
+                        {p.player_id ? (
+                          <Link href={`/player/${p.player_id}`} className="hover:text-devil-bright flex-1">
+                            {p.player_display_name}
+                          </Link>
+                        ) : (
+                          <span className="flex-1">{p.player_display_name}</span>
+                        )}
+                        <span className="text-xs text-ink-faint">unused</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-ink-faint mt-2">
+                    Bench rows are source evidence only; they do not count as appearances unless the player entered the match.
+                  </p>
+                </div>
+              )}
+              {cards.length > 0 && (
+                <div>
+                  <h3 className="display text-lg mb-3">Cards</h3>
+                  <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
+                    {cards.map((e) => (
+                      <li key={e.seq} className="flex items-center gap-2 border border-line rounded bg-panel px-3 py-1.5">
+                        <span className={`stat-num w-10 ${e.type === "card-red" ? "text-loss" : "text-gold"}`}>
+                          {e.minute != null ? `${e.minute}'` : ""}
+                        </span>
+                        <span className="font-medium flex-1">{e.player_display_name ?? "Player"}</span>
+                        <span className="text-xs text-ink-faint">{e.player_side === "united" ? club : m.opponent_name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </details>
         </section>
       )}
-      {starters.length === 0 && (
-        <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
-          <h2 className="display text-xl">Lineup</h2>
-          <p className="text-sm text-ink-dim mt-1">
-            No structured United lineup is recorded for this match yet.
-          </p>
-        </section>
-      )}
+
+      <section>
+        <details className="group">
+          <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
+            <h2 className="display text-xl">Context</h2>
+            <span className="stat-num text-xs text-ink-faint">
+              {contextParts.join(" · ")} ·{" "}
+              <span className="text-devil-bright group-open:hidden">show</span>
+              <span className="hidden text-devil-bright group-open:inline">hide</span>
+            </span>
+          </summary>
+          <div className="space-y-8">
+            <div className="grid sm:grid-cols-2 gap-8 max-w-3xl">
+              <div>
+                <h3 className="display text-lg mb-3">Going into the match</h3>
+                <div className="space-y-2 text-sm">
+                  {elo && (
+                    <p className="text-ink-dim">
+                      Elo {Math.round(elo.elo_pre)} v {Math.round(elo.opp_elo_pre)} — {club} were{" "}
+                      <span className="stat-num text-ink">{Math.round(elo.expected * 100)}%</span> favourites
+                      {" "}→ rating {elo.elo_post > elo.elo_pre ? "rose" : elo.elo_post < elo.elo_pre ? "fell" : "held"} to{" "}
+                      <span className="stat-num text-ink">{Math.round(elo.elo_post)}</span>.
+                    </p>
+                  )}
+                  <p className="text-ink-dim">
+                    Previous meetings with {m.opponent_name}:{" "}
+                    <span className="stat-num text-ink">{h2h.p}</span> played,{" "}
+                    <span className="stat-num text-win">{h2h.w}W</span>{" "}
+                    <span className="stat-num text-draw">{h2h.d}D</span>{" "}
+                    <span className="stat-num text-loss">{h2h.l}L</span>
+                    {h2h.p > 0 && <> ({pct(h2h.w, h2h.p)} win rate)</>}.
+                  </p>
+                </div>
+              </div>
+              <div>
+                <h3 className="display text-lg mb-3">Form before</h3>
+                <div className="flex gap-1.5">
+                  {form.map((f) => (
+                    <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${f.venue} ${f.opponent_name} ${f.gf}-${f.ga}`}>
+                      <ResultBadge result={f.result} outcome={f.outcome} />
+                    </Link>
+                  ))}
+                  {form.length === 0 && <span className="text-sm text-ink-faint">First recorded match</span>}
+                </div>
+              </div>
+            </div>
+
+            {(similar.length > 0 || seasonLateGoals.length > 0) && (
+              <div className="grid lg:grid-cols-2 gap-8">
+                {similar.length > 0 && (
+                  <div>
+                    <h3 className="display text-lg mb-3">This exact result, before</h3>
+                    <MatchList matches={similar} showSeason />
+                    <p className="text-xs text-ink-faint mt-2">
+                      Other {m.venue === "A" ? "away" : m.venue === "H" ? "home" : "neutral"} meetings with{" "}
+                      {m.opponent_name} that finished {m.gf}–{m.ga}.{" "}
+                      <Link href={`/opponent/${m.opponent_id}`} className="text-devil-bright hover:underline">
+                        Full head-to-head →
+                      </Link>
+                    </p>
+                  </div>
+                )}
+                {seasonLateGoals.length > 0 && (
+                  <div>
+                    <h3 className="display text-lg mb-3">Late goals that season</h3>
+                    <MatchList matches={seasonLateGoals.slice(0, 6)} />
+                    <p className="text-xs text-ink-faint mt-2">
+                      {m.season} matches with a {club} goal in the 85th minute or later, from matches with
+                      timed scorer records.{" "}
+                      <Link href="/questions#late-goals" className="text-devil-bright hover:underline">
+                        Do United really score late? →
+                      </Link>
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </details>
+      </section>
 
       {sources.length > 0 && (
         <section>
           <details className="group">
-            <summary className="mb-3 flex cursor-pointer list-none items-baseline justify-between gap-3">
-              <h2 className="display text-xl">Source trail</h2>
+            <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
+              <h2 className="display text-xl">Provenance</h2>
               <span className="stat-num text-xs text-ink-faint">
                 {sourceSummary.size} source{sourceSummary.size === 1 ? "" : "s"} ·{" "}
                 <span className="text-devil-bright group-open:hidden">show</span>
@@ -304,72 +399,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             ))}
           </div>
           </details>
-        </section>
-      )}
-
-      <section className="grid sm:grid-cols-2 gap-8 max-w-3xl">
-        <div>
-          <h2 className="display text-xl mb-3">Going into the match</h2>
-          <div className="space-y-2 text-sm">
-            {elo && (
-              <p className="text-ink-dim">
-                Elo {Math.round(elo.elo_pre)} v {Math.round(elo.opp_elo_pre)} — {club} were{" "}
-                <span className="stat-num text-ink">{Math.round(elo.expected * 100)}%</span> favourites
-                {" "}→ rating {elo.elo_post > elo.elo_pre ? "rose" : elo.elo_post < elo.elo_pre ? "fell" : "held"} to{" "}
-                <span className="stat-num text-ink">{Math.round(elo.elo_post)}</span>.
-              </p>
-            )}
-            <p className="text-ink-dim">
-              Previous meetings with {m.opponent_name}:{" "}
-              <span className="stat-num text-ink">{h2h.p}</span> played,{" "}
-              <span className="stat-num text-win">{h2h.w}W</span>{" "}
-              <span className="stat-num text-draw">{h2h.d}D</span>{" "}
-              <span className="stat-num text-loss">{h2h.l}L</span>
-              {h2h.p > 0 && <> ({pct(h2h.w, h2h.p)} win rate)</>}.
-            </p>
-          </div>
-        </div>
-        <div>
-          <h2 className="display text-xl mb-3">Form before</h2>
-          <div className="flex gap-1.5">
-            {form.map((f) => (
-              <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${f.venue} ${f.opponent_name} ${f.gf}-${f.ga}`}>
-                <ResultBadge result={f.result} outcome={f.outcome} />
-              </Link>
-            ))}
-            {form.length === 0 && <span className="text-sm text-ink-faint">First recorded match</span>}
-          </div>
-        </div>
-      </section>
-
-      {(similar.length > 0 || seasonLateGoals.length > 0) && (
-        <section className="grid lg:grid-cols-2 gap-8">
-          {similar.length > 0 && (
-            <div>
-              <h2 className="display text-xl mb-3">This exact result, before</h2>
-              <MatchList matches={similar} showSeason />
-              <p className="text-xs text-ink-faint mt-2">
-                Other {m.venue === "A" ? "away" : m.venue === "H" ? "home" : "neutral"} meetings with{" "}
-                {m.opponent_name} that finished {m.gf}–{m.ga}.{" "}
-                <Link href={`/opponent/${m.opponent_id}`} className="text-devil-bright hover:underline">
-                  Full head-to-head →
-                </Link>
-              </p>
-            </div>
-          )}
-          {seasonLateGoals.length > 0 && (
-            <div>
-              <h2 className="display text-xl mb-3">Late goals that season</h2>
-              <MatchList matches={seasonLateGoals.slice(0, 6)} />
-              <p className="text-xs text-ink-faint mt-2">
-                {m.season} matches with a {club} goal in the 85th minute or later, from matches with
-                timed scorer records.{" "}
-                <Link href="/questions#late-goals" className="text-devil-bright hover:underline">
-                  Do United really score late? →
-                </Link>
-              </p>
-            </div>
-          )}
         </section>
       )}
     </div>
