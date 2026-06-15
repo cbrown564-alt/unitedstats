@@ -5,12 +5,18 @@ import {
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
 import { getMeta, goalMinuteHistogram } from "@/lib/queries";
+import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { DataTable } from "@/components/DataTable";
+import { GeoScatter } from "@/components/GeoScatter";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct, GOAL_MINUTE_BUCKETS } from "@/lib/format";
+
+const BRITAIN: [number, number, number, number] = [49.8, 56.3, -7.6, 2.3];
+const EUROPE: [number, number, number, number] = [34, 61.5, -11, 36];
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Questions" };
@@ -22,6 +28,7 @@ const QUESTION_NAV: [id: string, label: string][] = [
   ["manager-bounce", "Manager bounce"],
   ["fortress", "Fortress OT"],
   ["cup-specialists", "Cup specialists"],
+  ["away-days", "Away days"],
 ];
 
 function Module({
@@ -63,6 +70,14 @@ export default function QuestionsPage() {
   const otDecades = oldTraffordByDecade();
   const otUnbeaten = longestStreak(homeMatchesAtOldTrafford(), "unbeaten");
   const specialists = cupSpecialists(25, 10);
+
+  // Away-days geography (folded in from the former /analytics/travel surface).
+  const footprint = awayFootprint();
+  const travelSeasons = travelBySeason();
+  const travelCov = travelCoverage();
+  const domestic = footprint.filter((v) => v.european === 0);
+  const european = footprint.filter((v) => v.european > 0);
+  const farthest = [...footprint].sort((a, b) => b.km - a.km)[0];
 
   const overallLateShare = lateByDecade.reduce(
     (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
@@ -320,6 +335,57 @@ export default function QuestionsPage() {
           ))}
         </div>
         <EvidenceLink href="/matches?type=cup" label="Every cup match →" />
+      </Module>
+
+      <Module
+        id="away-days"
+        question="How far do away days take United?"
+        finding={`Across ${fmtNum(travelCov.covered)} mapped away matches, the trips run from short Lancashire hops to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Season travel steps up with the First Division's southern spread and European football from 1956.`}
+        slice={`official away matches; one-way distance from Manchester to each opponent's home town, city level. Average trip per season, ${travelSeasons[0]?.season}–${travelSeasons[travelSeasons.length - 1]?.season}.`}
+        coverage={`opponent home towns are mapped for ${fmtNum(travelCov.covered)} of ${fmtNum(travelCov.total)} official away matches.`}
+      >
+        <div className="grid lg:grid-cols-2 gap-4">
+          <div>
+            <h3 className="text-sm font-medium mb-2 text-ink-dim">
+              The league footprint · {domestic.length} grounds
+            </h3>
+            <GeoScatter
+              points={domestic.map((v) => ({ lat: v.lat, lng: v.lng, label: v.name, value: v.p }))}
+              origin={{ ...MANCHESTER, label: "Manchester" }}
+              bounds={BRITAIN}
+              labelTop={6}
+            />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2 text-ink-dim">
+              European nights · {european.length} clubs
+            </h3>
+            <GeoScatter
+              points={european.map((v) => ({ lat: v.lat, lng: v.lng, label: v.name, value: v.p }))}
+              origin={{ ...MANCHESTER, label: "Manchester" }}
+              bounds={EUROPE}
+              labelTop={8}
+              dotColor="var(--color-gold)"
+            />
+          </div>
+        </div>
+        <div className="max-w-2xl">
+          <h3 className="text-sm font-medium mb-2 text-ink-dim">Average away trip per season</h3>
+          <InspectableTimeSeriesChart
+            data={travelSeasons.map((s) => ({
+              x: Number(s.season.slice(0, 4)),
+              y: Math.round(s.avgKm),
+              label: s.season,
+              valueLabel: `${fmtNum(Math.round(s.avgKm))} km average`,
+              meta: `${fmtNum(s.trips)} away trips, ${fmtNum(Math.round(s.maxKm))} km longest`,
+            }))}
+            height={200}
+            chartLabel="Manchester United average away trip distance by season"
+            valueLabel="Average away trip"
+            xTicks={[1900, 1930, 1960, 1990, 2020].map((year) => ({ x: year, label: String(year) }))}
+          />
+        </div>
+        <EvidenceLink href="/matches?venue=A" label="Every away match →" />
       </Module>
 
       <p className="text-sm text-ink-dim">
