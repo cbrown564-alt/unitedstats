@@ -8,6 +8,7 @@ export function ChartPanel({
   title,
   slice,
   coverage,
+  count,
   evidenceHref,
   evidenceLabel,
   note,
@@ -18,6 +19,8 @@ export function ChartPanel({
   kicker?: string;
   slice?: string;
   coverage?: string;
+  /** Graded coverage: rendered only when covered < total, silent when complete. */
+  count?: { covered: number; total: number; noun: string; note?: string };
   evidenceHref?: string;
   evidenceLabel?: string;
   /** Extra note content rendered inside the CoverageNote. */
@@ -34,10 +37,11 @@ export function ChartPanel({
       )}
       <div className="border border-line rounded-lg bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
         {children}
-        {(slice || coverage || note || evidenceHref) && (
+        {(slice || coverage || count || note || evidenceHref) && (
           <CoverageNote
             slice={slice}
             coverage={coverage}
+            count={count}
             evidenceHref={evidenceHref}
             evidenceLabel={evidenceLabel}
           >

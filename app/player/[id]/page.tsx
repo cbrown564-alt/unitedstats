@@ -328,7 +328,12 @@ export default async function PlayerPage({
       {bySeason.length > 1 && (
         <ChartPanel
           title="Goals by season"
-          coverage={`${fmtNum(p.recorded_goals)} recorded goals across ${fmtNum(coveredSeasons.length)} of ${fmtNum(bySeason.length)} seasons.`}
+          count={{
+            covered: coveredSeasons.length,
+            total: bySeason.length,
+            noun: "seasons carry recorded data",
+            note: `${fmtNum(p.recorded_goals)} recorded goals`,
+          }}
           note="Bars use recorded scorer data, so early or sparsely covered seasons can read low."
         >
           <InspectableBarChart
@@ -532,7 +537,12 @@ export default async function PlayerPage({
               />
               <CoverageNote
                 slice="all competitions, per season"
-                coverage={`${fmtNum(coveredSeasons.length)} of ${fmtNum(bySeason.length)} seasons carry lineup coverage; apps and assists reflect local data, so empty cells are coverage gaps, not zero.`}
+                count={{
+                  covered: coveredSeasons.length,
+                  total: bySeason.length,
+                  noun: "seasons carry lineup coverage",
+                  note: "apps and assists reflect local data, so empty cells are coverage gaps, not zero",
+                }}
               />
             </div>
           </details>
