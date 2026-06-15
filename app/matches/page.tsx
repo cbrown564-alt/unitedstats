@@ -21,6 +21,7 @@ const SORTS: { key: string; label: string }[] = [
   { key: "recent", label: "Most recent" },
   { key: "oldest", label: "Oldest first" },
   { key: "margin", label: "Biggest win" },
+  { key: "defeat", label: "Heaviest defeat" },
   { key: "attendance", label: "Best attended" },
 ];
 
@@ -37,10 +38,11 @@ export default async function MatchesPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
-  const sort = (["oldest", "margin", "attendance"].includes(sp.sort ?? "") ? sp.sort : "recent") as
+  const sort = (["oldest", "margin", "defeat", "attendance"].includes(sp.sort ?? "") ? sp.sort : "recent") as
     | "recent"
     | "oldest"
     | "margin"
+    | "defeat"
     | "attendance";
   const chronological = sort === "recent" || sort === "oldest";
   // `from`/`to` accept a bare year (evidence links from decade/era modules) or a full ISO date
