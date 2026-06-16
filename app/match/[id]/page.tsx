@@ -11,6 +11,7 @@ import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
 import { GoalTimeline } from "@/components/GoalTimeline";
 import { EloWinBar } from "@/components/EloWinBar";
+import { ScoreRibbon } from "@/components/ScoreRibbon";
 
 export const dynamic = "force-dynamic";
 
@@ -146,6 +147,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             ga={m.ga}
             aet={!!m.aet}
           />
+          <div className="mt-3">
+            <ScoreRibbon unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
+          </div>
           {!m.events_complete && (
             <p className="text-xs text-ink-faint mt-2">
               Scorer data for this match may be incomplete.
