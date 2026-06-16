@@ -1,10 +1,11 @@
 /**
  * The fortress rule, drawn as a wall. One dot per Old Trafford home league game
- * United led at half-time, oldest top-left, read in rows like text. Wins are solid
- * green bricks; draws are hollow gold — the games where the lead slipped but the
- * record held; a defeat would be a devil-red breach, and the point of the picture
- * is that there isn't one. A handful of "closest call" games carry a numbered halo
- * that ties them to the list below.
+ * United led at half-time, in chronological order. The grid is filled COLUMN by
+ * column, top to bottom, so reading left → right tracks time — the same axis as
+ * the year labels beneath it. Wins are solid green; draws are hollow gold — the
+ * games where the lead slipped but the record held; a defeat would be a devil-red
+ * breach, and the point of the picture is that there isn't one. A handful of
+ * "closest call" games carry a numbered halo that ties them to the list below.
  *
  * Server-rendered SVG: no client JS, scales to its container via viewBox.
  */
@@ -17,9 +18,11 @@ export type LeadDot = {
   title: string;
 };
 
-const CELL = 22; // grid pitch in viewBox units
-const PAD_X = 10;
-const PAD_T = 12;
+const CELL = 15; // grid pitch in viewBox units
+const R_WON = 4; // dot radii — small and tightly packed
+const R_DREW = 3.6;
+const PAD_X = 8;
+const PAD_T = 14;
 const PAD_B = 22; // room for the corner year labels
 
 export function LeadHeldDotplot({
@@ -33,14 +36,16 @@ export function LeadHeldDotplot({
 }) {
   if (dots.length === 0) return null;
 
-  // Wide rectangle (~3.2:1) so the field reads as an unbroken wall rather than a column.
-  const cols = Math.ceil(Math.sqrt(dots.length * 3.2));
-  const rows = Math.ceil(dots.length / cols);
+  // Few rows / many columns: a long, dense ribbon read left-to-right by column,
+  // so the time axis runs the same way as the year labels.
+  const rows = Math.max(7, Math.round(Math.sqrt(dots.length / 6)));
+  const cols = Math.ceil(dots.length / rows);
   const width = cols * CELL + PAD_X * 2;
   const height = rows * CELL + PAD_T + PAD_B;
 
-  const cx = (i: number) => PAD_X + (i % cols) * CELL + CELL / 2;
-  const cy = (i: number) => PAD_T + Math.floor(i / cols) * CELL + CELL / 2;
+  // Column-major: column advances every `rows` games, row cycles within a column.
+  const cx = (i: number) => PAD_X + Math.floor(i / rows) * CELL + CELL / 2;
+  const cy = (i: number) => PAD_T + (i % rows) * CELL + CELL / 2;
 
   return (
     <svg
@@ -54,34 +59,30 @@ export function LeadHeldDotplot({
         const y = cy(i);
         const won = d.result === "W";
         const lost = d.result === "L";
-        const fill = lost
-          ? "var(--color-loss)"
-          : won
-            ? "var(--color-win)"
-            : "var(--color-pitch)";
+        const fill = lost ? "var(--color-loss)" : won ? "var(--color-win)" : "var(--color-pitch)";
         return (
           <g key={i}>
             {/* featured halo, drawn under the dot so the dot reads clean on top */}
             {d.rank != null && (
-              <circle cx={x} cy={y} r={9} fill="none" stroke="var(--color-ink-dim)" strokeWidth="1" opacity="0.55" />
+              <circle cx={x} cy={y} r={6.4} fill="none" stroke="var(--color-ink-dim)" strokeWidth="0.9" opacity="0.6" />
             )}
             <circle
               cx={x}
               cy={y}
-              r={d.surrendered ? 5.5 : 6}
+              r={d.surrendered ? R_DREW : R_WON}
               fill={fill}
-              fillOpacity={won ? 0.9 : 1}
+              fillOpacity={won ? 0.92 : 1}
               stroke={d.surrendered && !lost ? "var(--color-gold)" : "none"}
-              strokeWidth={d.surrendered && !lost ? 1.6 : 0}
+              strokeWidth={d.surrendered && !lost ? 1.2 : 0}
             >
               <title>{d.title}</title>
             </circle>
             {d.rank != null && (
               <text
                 x={x}
-                y={y - 11}
+                y={y - 8}
                 textAnchor="middle"
-                fontSize="9"
+                fontSize="7.5"
                 fontWeight="700"
                 fill="var(--color-ink-dim)"
                 className="stat-num"
