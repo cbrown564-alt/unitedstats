@@ -4,7 +4,7 @@ import { seasonMatches, allSeasons, seasonsIndex } from "@/lib/queries";
 import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
 import { CompetitionDot } from "@/components/CompetitionChip";
-import { WdlBar, WdlRecord } from "@/components/WdlBar";
+import { WdlBar, WdlColumns, WdlRecord } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -71,7 +71,10 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
             <>Manager{managers.length > 1 ? "s" : ""}: {managers.join(", ")}.</>
           )}
         </p>
-        <WdlBar w={w} d={d} l={l} size="md" className="max-w-3xl" />
+        <div className="max-w-3xl space-y-2">
+          <WdlColumns w={w} d={d} l={l} />
+          <WdlBar w={w} d={d} l={l} size="md" />
+        </div>
         {narrative.length > 0 && (
           <div className="border border-line rounded-lg bg-panel p-4 max-w-3xl">
             <h2 className="text-xs uppercase tracking-wider text-ink-faint mb-1.5">Season in brief</h2>

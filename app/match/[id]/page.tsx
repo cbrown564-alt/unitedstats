@@ -4,7 +4,7 @@ import {
   matchById, eventsForMatch, lineupForMatch, eloForMatch, h2hBefore, formBefore,
   sourcesForMatch,
 } from "@/lib/queries";
-import { lateGoalMatchesInSeason, similarMatches } from "@/lib/trails";
+import { similarMatches } from "@/lib/trails";
 import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone } from "@/lib/format";
 import { clubNames, opponentNames, type ClubNames } from "@/lib/clubNames";
 import { ResultBadge } from "@/components/ResultBadge";
@@ -12,6 +12,7 @@ import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
 import { MatchFlow } from "@/components/MatchFlow";
 import { EloWinBar } from "@/components/EloWinBar";
+import { WdlBar, WdlColumns } from "@/components/WdlBar";
 import { FormationPitch, Bench, roleBand, type MatchMarks } from "@/components/FormationPitch";
 
 export const dynamic = "force-dynamic";
@@ -56,7 +57,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const clubN = clubNames(m.date);
   const oppN = opponentNames(m.opponent_id, m.opponent_name);
   const similar = similarMatches(m, 6);
-  const seasonLateGoals = lateGoalMatchesInSeason(m.season, m.id);
 
   const tone = resultTone(m.outcome);
   const word = resultLabel(m.outcome);
@@ -113,7 +113,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const contextParts = [
     h2h.p > 0 ? "head-to-head" : null,
     "form",
-    similar.length > 0 || seasonLateGoals.length > 0 ? "related matches" : null,
+    similar.length > 0 ? "related matches" : null,
   ].filter(Boolean) as string[];
 
   return (
@@ -397,16 +397,18 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             <div className="grid sm:grid-cols-2 gap-8 max-w-3xl">
               <div>
                 <h3 className="display text-lg mb-3">Head-to-head before</h3>
-                <div className="space-y-2 text-sm">
-                  <p className="text-ink-dim">
-                    Previous meetings with {m.opponent_name}:{" "}
-                    <span className="stat-num text-ink">{h2h.p}</span> played,{" "}
-                    <span className="stat-num text-win">{h2h.w}W</span>{" "}
-                    <span className="stat-num text-draw">{h2h.d}D</span>{" "}
-                    <span className="stat-num text-loss">{h2h.l}L</span>
-                    {h2h.p > 0 && <> ({pct(h2h.w, h2h.p)} win rate)</>}.
-                  </p>
-                </div>
+                {h2h.p > 0 ? (
+                  <div className="space-y-3">
+                    <WdlColumns w={h2h.w} d={h2h.d} l={h2h.l} />
+                    <WdlBar w={h2h.w} d={h2h.d} l={h2h.l} size="md" />
+                    <p className="text-xs text-ink-faint">
+                      {h2h.p} previous meeting{h2h.p === 1 ? "" : "s"} with {m.opponent_name} ·{" "}
+                      {pct(h2h.w, h2h.p)} win rate
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-sm text-ink-faint">First recorded meeting with {m.opponent_name}.</p>
+                )}
               </div>
               <div>
                 <h3 className="display text-lg mb-3">Form before</h3>
@@ -421,34 +423,17 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            {(similar.length > 0 || seasonLateGoals.length > 0) && (
-              <div className="grid lg:grid-cols-2 gap-8">
-                {similar.length > 0 && (
-                  <div>
-                    <h3 className="display text-lg mb-3">This exact result, before</h3>
-                    <MatchList matches={similar} showSeason />
-                    <p className="text-xs text-ink-faint mt-2">
-                      Other {m.venue === "A" ? "away" : m.venue === "H" ? "home" : "neutral"} meetings with{" "}
-                      {m.opponent_name} that finished {m.gf}–{m.ga}.{" "}
-                      <Link href={`/opponent/${m.opponent_id}`} className="text-devil-bright hover:underline">
-                        Full head-to-head →
-                      </Link>
-                    </p>
-                  </div>
-                )}
-                {seasonLateGoals.length > 0 && (
-                  <div>
-                    <h3 className="display text-lg mb-3">Late goals that season</h3>
-                    <MatchList matches={seasonLateGoals.slice(0, 6)} />
-                    <p className="text-xs text-ink-faint mt-2">
-                      {m.season} matches with a {club} goal in the 85th minute or later, from matches with
-                      timed scorer records.{" "}
-                      <Link href="/questions#late-goals" className="text-devil-bright hover:underline">
-                        Do United really score late? →
-                      </Link>
-                    </p>
-                  </div>
-                )}
+            {similar.length > 0 && (
+              <div>
+                <h3 className="display text-lg mb-3">This exact result, before</h3>
+                <MatchList matches={similar} showSeason />
+                <p className="text-xs text-ink-faint mt-2">
+                  Other {m.venue === "A" ? "away" : m.venue === "H" ? "home" : "neutral"} meetings with{" "}
+                  {m.opponent_name} that finished {m.gf}–{m.ga}.{" "}
+                  <Link href={`/opponent/${m.opponent_id}`} className="text-devil-bright hover:underline">
+                    Full head-to-head →
+                  </Link>
+                </p>
               </div>
             )}
           </div>

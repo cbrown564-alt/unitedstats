@@ -1,4 +1,4 @@
-import { competitionTone, type CompetitionTone } from "@/lib/format";
+import { competitionTone, fmtRound, type CompetitionTone } from "@/lib/format";
 
 /**
  * Competition identity, used as a secondary grouping cue (NN/g: colour supports,
@@ -37,7 +37,7 @@ export function CompetitionChip({
       className={`inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-[11px] leading-none ${CHIP_TONE[tone]} ${className}`}
     >
       {name}
-      {round ? <span className="opacity-70">· {round}</span> : null}
+      {round ? <span className="opacity-70">· {fmtRound(round)}</span> : null}
     </span>
   );
 }
