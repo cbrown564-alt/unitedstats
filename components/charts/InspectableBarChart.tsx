@@ -6,6 +6,7 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
+  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -24,6 +25,11 @@ type InspectableBarChartProps = {
   labelEvery?: number;
   chartLabel?: string;
   yTickSuffix?: string;
+  /**
+   * Optional comparison line drawn across the plot — the "what would random look
+   * like" baseline. Encodes the contrast on the object instead of in prose.
+   */
+  baseline?: { value: number; label?: string };
 };
 
 export function InspectableBarChart({
@@ -35,6 +41,7 @@ export function InspectableBarChart({
   labelEvery = 1,
   chartLabel = "Bar chart",
   yTickSuffix = "",
+  baseline,
 }: InspectableBarChartProps) {
   const router = useRouter();
 
@@ -73,6 +80,25 @@ export function InspectableBarChart({
             cursor={{ fill: "rgb(255 255 255 / 0.035)" }}
             isAnimationActive={false}
           />
+          {baseline && (
+            <ReferenceLine
+              y={baseline.value}
+              stroke="var(--color-ink-faint)"
+              strokeDasharray="3 3"
+              strokeWidth={1}
+              ifOverflow="extendDomain"
+              label={
+                baseline.label
+                  ? {
+                      value: baseline.label,
+                      position: "insideTopRight",
+                      fill: "var(--color-ink-faint)",
+                      fontSize: 10,
+                    }
+                  : undefined
+              }
+            />
+          )}
           <Bar dataKey="value" radius={[2, 2, 0, 0]} isAnimationActive={false}>
             {data.map((datum, index) => (
               <Cell

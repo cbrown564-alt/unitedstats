@@ -20,6 +20,26 @@ export function lateGoalShareByDecade(): { decade: string; timed: number; late: 
     .all() as { decade: string; timed: number; late: number }[];
 }
 
+/**
+ * United goals by 5-minute bin across the match, for the late-goals ridge. Same
+ * goal definition as {@link lateGoalShareByDecade}; stoppage time folds into the
+ * final 86–90+ bin so the closing surge stays on the chart. Returns all 18 bins,
+ * zero-filled, so the caller can render an unbroken timeline.
+ */
+export function goalMinuteRidge(): { lo: number; hi: number; n: number }[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT MIN((e.minute - 1) / 5, 17) AS bin, COUNT(*) n
+       FROM match_events e
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL AND e.minute >= 1
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all() as { bin: number; n: number }[];
+  const bins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
+  for (const r of rows) if (bins[r.bin]) bins[r.bin].n = r.n;
+  return bins;
+}
+
 export function timedGoalCounts(): { timed: number; total: number } {
   return getDb()
     .prepare(
