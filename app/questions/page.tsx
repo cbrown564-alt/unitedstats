@@ -1,13 +1,14 @@
 import Link from "next/link";
 import {
-  bogeyOpponents, cupSpecialists, goalMinuteRidge, homeMatchesAtOldTrafford,
-  iconicLateWinners, lateGoalShareByDecade, longestStreak,
+  bogeyOpponents, cupSpecialists, goalMinuteRidge,
+  iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
 import { getMeta, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
@@ -78,8 +79,29 @@ export default function QuestionsPage() {
   const bounce = managerBounce();
   const otDecades = oldTraffordByDecade();
   const otRecord = otDecades.reduce((a, d) => ({ p: a.p + d.p, w: a.w + d.w }), { p: 0, w: 0 });
-  const otUnbeaten = longestStreak(homeMatchesAtOldTrafford(), "unbeaten");
   const specialists = cupSpecialists(25, 10);
+
+  // Fortress, stated as a rule: lead at half-time at Old Trafford and you don't lose.
+  const leadHeld = leadHeldAtHome();
+  // Closest calls — games where the lead was surrendered, ranked by how near defeat
+  // came (deepest second-half deficit, then biggest scoreline), shown chronologically.
+  const leadDraws = leadHeld.games.filter((g) => g.result === "D");
+  const leadFellBehind = leadHeld.games.filter((g) => g.worst < 0).length; // led, trailed after the break, rescued
+  // Closest calls — the surrendered leads, ranked by how near defeat came (deepest
+  // second-half deficit, then biggest scoreline), shown chronologically.
+  const closeCalls = [...leadDraws]
+    .sort((a, b) => a.worst - b.worst || b.ga - a.ga || b.date.localeCompare(a.date))
+    .slice(0, 5)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const closeCallRank = new Map(closeCalls.map((g, i) => [g.id, i + 1]));
+  const leadDots: LeadDot[] = leadHeld.games.map((g) => ({
+    result: g.result as LeadDot["result"],
+    surrendered: g.result === "D",
+    rank: closeCallRank.get(g.id),
+    title: `${fmtDate(g.date)} — ${g.result === "W" ? `won ${g.gf}–${g.ga}` : `drew ${g.gf}–${g.ga}`} v ${g.opponent_name}${
+      g.worst < 0 ? " (fell behind, rescued)" : g.result === "D" ? " (lead surrendered)" : ""
+    }`,
+  }));
 
   // "Own Goal" as a scorer — opponents netting into their own goal in United's favour.
   const ogSummary = ownGoalSummary();
@@ -324,31 +346,79 @@ export default function QuestionsPage() {
       <Module
         id="fortress"
         question="How much of a fortress is Old Trafford?"
-        finding={
-          otUnbeaten
-            ? `The longest unbeaten home run at Old Trafford is ${otUnbeaten.length} matches, ${fmtDate(otUnbeaten.from)} to ${fmtDate(otUnbeaten.to)}. The decade bars show when the fortress held and when it didn't.`
-            : "Home record at Old Trafford by decade."
-        }
-        slice="Home matches played at Old Trafford only (1910– ), all competitions; Maine Road years and neutral venues are excluded. The unbeaten run counts consecutive home matches without defeat."
+        finding={`Take a lead into half-time at Old Trafford and the record says you do not lose it. Across the ${fmtNum(leadHeld.games.length)} home league games we can place where United led at the break, ${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}, they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and lost none.`}
+        slice="Old Trafford home league games where United led at half-time, the half-time score reconstructed from minute-stamped goal events. Restricted to matches whose goals all carry a minute, so it is the verifiable part of the record rather than a single continuous run."
+        coverage={`Half-time scores only reconstruct where every goal has a recorded minute, so these ${fmtNum(leadHeld.games.length)} games are a sample, not a sequence. Opta, working from complete half-time data, puts the current unbeaten run at 400 home league games led at half-time — W365 D35 — back to August 1984.`}
       >
-        {otUnbeaten && (
-          <div className="grid items-stretch gap-3 sm:grid-cols-[auto_auto_1fr]">
-            <div className="rounded-lg border border-line bg-panel-2 px-5 py-4">
-              <div className="stat-num text-4xl font-semibold leading-none text-win">{otUnbeaten.length}</div>
-              <div className="mt-1.5 text-[11px] uppercase tracking-wider text-ink-faint">home games unbeaten</div>
+        <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+          <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
+            <div className="stat-num text-5xl font-semibold leading-none text-win">0</div>
+            <div className="mx-auto mt-1.5 max-w-28 text-[11px] uppercase tracking-wider text-ink-faint">
+              defeats in {fmtNum(leadHeld.games.length)} games led at the break
             </div>
-            <div className="rounded-lg border border-line bg-panel-2 px-5 py-4">
-              <div className="stat-num text-4xl font-semibold leading-none">{pct(otRecord.w, otRecord.p)}</div>
-              <div className="mt-1.5 text-[11px] uppercase tracking-wider text-ink-faint">won, all-time</div>
-            </div>
-            <div className="flex items-center text-sm text-ink-dim sm:px-2">
-              The longest run without a home defeat ran from {fmtDate(otUnbeaten.from)} to {fmtDate(otUnbeaten.to)} —
-              {" "}{fmtNum(otRecord.w)} of {fmtNum(otRecord.p)} Old Trafford matches won across the decades below.
+          </div>
+          <div className="flex items-center text-sm text-ink-dim sm:px-2">
+            <span>
+              <span className="text-ink">Won {fmtNum(leadHeld.w)}, drawn {fmtNum(leadHeld.d)}, lost none.</span>{" "}
+              The lead was let slip to a draw {fmtNum(leadHeld.d)} times, and only {leadFellBehind === 1 ? "once" : `${fmtNum(leadFellBehind)} times`} did
+              United actually fall behind after the interval and still rescue the game. Opta dates the run unbeaten to 400 such
+              games, back to August 1984.
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="mb-2 text-sm font-medium text-ink-dim">Every home league game United led at half-time — oldest first</h3>
+          <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-faint">
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "var(--color-win)" }} /> won
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-full border-2 bg-pitch" style={{ borderColor: "var(--color-gold)" }} /> lead surrendered — drew
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-full opacity-30" style={{ background: "var(--color-loss)" }} /> a defeat would sit here — there are none
+            </span>
+          </div>
+          <LeadHeldDotplot dots={leadDots} fromLabel={leadHeld.from.slice(0, 4)} toLabel={leadHeld.to.slice(0, 4)} />
+          <p className="text-xs text-ink-faint mt-1">
+            Each dot is one home league game United led at half-time; the numbered dots are the closest calls below.
+          </p>
+        </div>
+
+        {closeCalls.length > 0 && (
+          <div>
+            <h3 className="mb-2 text-sm font-medium text-ink-dim">Closest calls — the leads United nearly let slip</h3>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {closeCalls.map((g) => (
+                <Link
+                  key={g.id}
+                  href={`/match/${g.id}`}
+                  className="group rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
+                >
+                  <div className="mb-1 flex items-center justify-between">
+                    <span className="stat-num flex h-5 w-5 items-center justify-center rounded-full border border-line text-[11px] text-ink-dim">
+                      {closeCallRank.get(g.id)}
+                    </span>
+                    <span className={`text-[10px] uppercase tracking-wide ${g.worst < 0 ? "text-devil-bright" : "text-gold"}`}>
+                      {g.worst < 0 ? "fell behind" : "lead surrendered"}
+                    </span>
+                  </div>
+                  <div className="truncate font-medium group-hover:text-devil-bright">{g.opponent_name}</div>
+                  <div className="stat-num mt-0.5 text-xs text-ink-dim">
+                    Led {g.htf}–{g.hta} at HT · finished {g.gf}–{g.ga}
+                  </div>
+                  <div className="stat-num mt-0.5 text-[11px] text-ink-faint">{fmtDate(g.date)} · {g.season}</div>
+                </Link>
+              ))}
             </div>
           </div>
         )}
+
         <div>
-          <h3 className="mb-2 text-sm font-medium text-ink-dim">When the fortress held — home win rate by decade</h3>
+          <h3 className="mb-2 text-sm font-medium text-ink-dim">
+            The fortress over time — home win rate by decade ({pct(otRecord.w, otRecord.p)} won all-time)
+          </h3>
           <InspectableBarChart
             data={otDecades.map((d) => ({
               label: d.decade,
