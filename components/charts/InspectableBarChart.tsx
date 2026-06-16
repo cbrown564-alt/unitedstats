@@ -30,6 +30,12 @@ type InspectableBarChartProps = {
    * like" baseline. Encodes the contrast on the object instead of in prose.
    */
   baseline?: { value: number; label?: string };
+  /**
+   * Fill the parent's height instead of using a fixed `height`. The parent must
+   * supply a definite height (e.g. a flex-1 cell) — lets the chart match the
+   * height of a sibling such as a match list.
+   */
+  fill?: boolean;
 };
 
 export function InspectableBarChart({
@@ -42,6 +48,7 @@ export function InspectableBarChart({
   chartLabel = "Bar chart",
   yTickSuffix = "",
   baseline,
+  fill = false,
 }: InspectableBarChartProps) {
   const router = useRouter();
 
@@ -50,7 +57,7 @@ export function InspectableBarChart({
   const hasEvidenceLinks = data.some((datum) => datum.href);
 
   return (
-    <div className="h-full min-h-40 min-w-0 w-full" style={{ height }}>
+    <div className="h-full min-h-40 min-w-0 w-full" style={fill ? undefined : { height }}>
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
         <BarChart data={data} margin={{ top: 10, right: 8, bottom: 8, left: 0 }} accessibilityLayer aria-label={chartLabel}>
           <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.64} vertical={false} />

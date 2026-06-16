@@ -47,8 +47,8 @@ export function MinuteRidge({
   const lateX = X(lateFrom);
   const lateStop = lateFrom / end; // gradient split point
   const axisTicks = [0, 15, 30, 45, 60, 75, 90];
-  // The tallest bin carries the headline — annotate it so the spike has a number.
-  const peak = bins.reduce((p, b) => (b.n > p.n ? b : p), bins[0]);
+  // Goals falling in the closing window — the headline number for the annotation.
+  const lateGoals = bins.filter((b) => b.lo >= lateFrom).reduce((a, b) => a + b.n, 0);
 
   return (
     <svg
@@ -98,21 +98,13 @@ export function MinuteRidge({
         even spread
       </text>
 
-      {/* climax annotation over the late zone */}
-      <text
-        x={(lateX + X(end)) / 2}
-        y={PAD_T - 12}
-        fontSize="10"
-        fontWeight="700"
-        letterSpacing="0.08em"
-        fill="var(--color-devil-bright)"
-        textAnchor="middle"
-      >
+      {/* climax annotation over the late zone — right-aligned so it stays put
+          however narrow the closing window is */}
+      <text x={X(end)} y={PAD_T - 14} fontSize="10" fontWeight="700" letterSpacing="0.08em" fill="var(--color-devil-bright)" textAnchor="end">
         FERGIE TIME
       </text>
-      {/* peak callout */}
-      <text x={X((peak.lo + peak.hi) / 2)} y={Y(peak.n) - 5} fontSize="10" fill="var(--color-ink)" textAnchor="middle" className="stat-num">
-        {peak.n}
+      <text x={X(end)} y={PAD_T - 3} fontSize="9" fill="var(--color-ink-dim)" textAnchor="end" className="stat-num">
+        {lateGoals} goals
       </text>
 
       {/* minute axis */}
