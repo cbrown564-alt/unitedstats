@@ -3,10 +3,11 @@ import Image from "next/image";
 interface PlayerPortraitProps {
   name: string;
   src?: string | null;
-  size?: "sm" | "lg";
+  size?: "xs" | "sm" | "lg";
 }
 
 const SIZES = {
+  xs: { box: "h-7 w-7", pixels: 28, text: "text-[9px]" },
   sm: { box: "h-10 w-10", pixels: 40, text: "text-xs" },
   lg: { box: "h-40 w-40 sm:h-44 sm:w-44", pixels: 176, text: "text-3xl" },
 };

@@ -347,6 +347,8 @@ export interface ManagerRecord extends Record_ {
   role: string | null;
   first: string | null;
   last: string | null;
+  thumb_url: string | null;
+  image_url: string | null;
 }
 
 export function managersIndex(): ManagerRecord[] {
@@ -355,8 +357,10 @@ export function managersIndex(): ManagerRecord[] {
       `SELECT mg.id, mg.name, mg.nationality, mg.role,
               COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
               COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga,
-              MIN(m.date) first, MAX(m.date) last
+              MIN(m.date) first, MAX(m.date) last,
+              mm.thumb_url, mm.image_url
        FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
+       LEFT JOIN manager_media mm ON mm.manager_id = mg.id
        GROUP BY mg.id ORDER BY first`,
     )
     .all() as ManagerRecord[];
@@ -936,6 +940,16 @@ export interface OwnGoalScorer {
   recent_opponent: string;
   recent_opponent_id: string;
   recent_match_id: string;
+  thumb_url: string | null;
+  image_url: string | null;
+}
+
+/** Commons portrait per own-goal scorer name, where one resolved. */
+function ownGoalScorerMedia(): Map<string, { thumb_url: string | null; image_url: string | null }> {
+  const rows = getDb()
+    .prepare("SELECT name, thumb_url, image_url FROM og_scorer_media")
+    .all() as { name: string; thumb_url: string | null; image_url: string | null }[];
+  return new Map(rows.map((r) => [r.name, { thumb_url: r.thumb_url, image_url: r.image_url }]));
 }
 
 /** Opposition players ranked by own goals gifted to United (named scorers only). */
@@ -952,7 +966,16 @@ export function ownGoalScorers(): OwnGoalScorer[] {
       map.set(r.scorer, {
         name: r.scorer, n: 1, first: r.date, last: r.date,
         recent_opponent: r.opponent_name, recent_opponent_id: r.opponent_id, recent_match_id: r.match_id,
+        thumb_url: null, image_url: null,
       });
+    }
+  }
+  const media = ownGoalScorerMedia();
+  for (const scorer of map.values()) {
+    const m = media.get(scorer.name);
+    if (m) {
+      scorer.thumb_url = m.thumb_url;
+      scorer.image_url = m.image_url;
     }
   }
   return [...map.values()].sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.name.localeCompare(b.name));

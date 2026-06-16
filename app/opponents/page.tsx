@@ -2,6 +2,7 @@ import Link from "next/link";
 import { opponentsIndex } from "@/lib/queries";
 import { PageHeader, StatTile } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
+import { ClubBadge } from "@/components/ClubBadge";
 import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -59,10 +60,13 @@ export default async function OpponentsPage({
               href={`/opponent/${o.id}`}
               className="grid min-h-16 grid-cols-[1fr_auto] items-center gap-x-6 gap-y-1.5 px-4 py-3 transition-colors hover:bg-panel sm:grid-cols-[16rem_1fr_auto]"
             >
-              <span>
-                <span className="font-medium">{o.name}</span>
-                <span className="block text-xs text-ink-dim stat-num">
-                  {o.first.slice(0, 4)}-{o.last.slice(0, 4)}
+              <span className="flex min-w-0 items-center gap-3">
+                <ClubBadge id={o.id} name={o.name} size="md" />
+                <span className="min-w-0">
+                  <span className="block truncate font-medium">{o.name}</span>
+                  <span className="block text-xs text-ink-dim stat-num">
+                    {o.first.slice(0, 4)}-{o.last.slice(0, 4)}
+                  </span>
                 </span>
               </span>
               <WdlBar w={o.w} d={o.d} l={o.l} tooltip={false} className="hidden sm:block" />

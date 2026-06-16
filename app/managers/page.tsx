@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { managersIndex } from "@/lib/queries";
 import { WdlBar } from "@/components/WdlBar";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, pct } from "@/lib/format";
 
@@ -22,10 +23,13 @@ export default function ManagersPage() {
               href={`/manager/${m.id}`}
               className="grid sm:grid-cols-[16rem_1fr_auto] items-center gap-x-6 gap-y-2 border border-line rounded-lg bg-panel hover:bg-panel-2 transition-colors px-4 py-3"
             >
-              <span>
-                <span className="font-semibold">{m.name}</span>
-                <span className="block text-xs text-ink-faint">
-                  {m.first?.slice(0, 4)}–{m.last?.slice(0, 4)} · {m.role}
+              <span className="flex min-w-0 items-center gap-3">
+                <PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="sm" />
+                <span className="min-w-0">
+                  <span className="block truncate font-semibold">{m.name}</span>
+                  <span className="block text-xs text-ink-faint">
+                    {m.first?.slice(0, 4)}–{m.last?.slice(0, 4)} · {m.role}
+                  </span>
                 </span>
               </span>
               <WdlBar w={m.w} d={m.d} l={m.l} />
