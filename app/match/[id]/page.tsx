@@ -130,6 +130,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             subs={usedSubs}
             club={club}
             opponentName={m.opponent_name}
+            venue={m.venue}
+            gf={m.gf}
+            ga={m.ga}
             aet={!!m.aet}
           />
           {!m.events_complete && (

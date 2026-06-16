@@ -4,10 +4,14 @@ import type { EventRow, LineupRow } from "@/lib/queries";
 /**
  * Shared match timeline: both teams' goals on one 0–FT axis, so the *flow* of a
  * match (clusters, comebacks, late winners) reads pre-attentively before any text.
+ *
+ * Two encoding channels, kept independent:
+ *   - vertical position = venue: the home team sits above the baseline, away below.
+ *   - colour = team identity: United is always red; the opponent is loss-red.
  * Goals are the hero marks; cards and substitutions are quiet baseline ticks.
  *
- * Server-rendered. Built only from data the archive owns: goal/card minutes and
- * substitution-on minutes. Matches with no timed events fall back to a list.
+ * Server-rendered, built only from data the archive owns (goal/card/sub minutes).
+ * Matches with no timed events fall back to a list (handled by the caller).
  */
 
 function surname(name: string | null | undefined): string {
@@ -26,8 +30,8 @@ type GoalMark = {
   title: string;
 };
 
-const TOP_H = 66; // px, United zone (above baseline)
-const BOT_H = 66; // px, opponent zone (below baseline)
+const TOP_H = 66; // px, zone above the baseline
+const BOT_H = 66; // px, zone below the baseline
 
 export function GoalTimeline({
   unitedGoals,
@@ -36,6 +40,9 @@ export function GoalTimeline({
   subs,
   club,
   opponentName,
+  venue,
+  gf,
+  ga,
   aet,
 }: {
   unitedGoals: EventRow[];
@@ -44,6 +51,9 @@ export function GoalTimeline({
   subs: LineupRow[];
   club: string;
   opponentName: string;
+  venue: string;
+  gf: number;
+  ga: number;
   aet: boolean;
 }) {
   const timed = (e: EventRow) => e.minute != null;
@@ -74,6 +84,9 @@ export function GoalTimeline({
     })),
   ];
 
+  // Nothing has a minute → caller should render the list fallback instead.
+  if (goals.length === 0) return null;
+
   const cardMarks = cards
     .filter(timed)
     .map((e) => ({
@@ -92,8 +105,17 @@ export function GoalTimeline({
       title: `${s.sub_on}' On · ${s.player_display_name}`,
     }));
 
-  // Nothing has a minute → caller should render the list fallback instead.
-  if (goals.length === 0) return null;
+  // Venue determines vertical placement: home team above the baseline, away below.
+  // Neutral has no home side, so keep United above by convention (no H/A labels).
+  const neutral = venue === "N";
+  const unitedHome = venue === "H";
+  const unitedAbove = venue !== "A";
+  const homeIsUnited = unitedHome || neutral;
+  const homeName = homeIsUnited ? club : opponentName;
+  const awayName = homeIsUnited ? opponentName : club;
+  const homeScore = homeIsUnited ? gf : ga;
+  const awayScore = homeIsUnited ? ga : gf;
+  const isAbove = (side: "united" | "opponent") => (side === "united" ? unitedAbove : !unitedAbove);
 
   const allMin = [
     ...goals.map((g) => g.minute),
@@ -121,9 +143,10 @@ export function GoalTimeline({
   const oppLane = laneFor(goals.filter((g) => g.side === "opponent"));
 
   function GoalColumn({ g, lane }: { g: GoalMark; lane: number }) {
-    const up = g.side === "united";
-    const color = up ? "text-devil-bright" : "text-loss";
-    const dot = up ? "bg-devil-bright" : "bg-loss";
+    const up = isAbove(g.side);
+    const isUnited = g.side === "united";
+    const color = isUnited ? "text-devil-bright" : "text-loss";
+    const dot = isUnited ? "bg-devil-bright" : "bg-loss";
     const height = lane === 0 ? 34 : TOP_H - 6;
     const label = (
       <span className="flex items-center gap-1 whitespace-nowrap text-[11px] leading-none">
@@ -168,10 +191,31 @@ export function GoalTimeline({
 
   return (
     <div className="max-w-3xl overflow-hidden rounded-lg border border-line bg-panel">
-      <div className="flex items-baseline justify-between gap-3 border-b border-line px-4 py-2 text-[11px] uppercase tracking-wider text-ink-faint">
-        <span className="text-devil-bright">{club}</span>
-        <span>{opponentName}</span>
+      {/* Scoreboard band: home left, away right, scoreline between, aligned on one row. */}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-line px-4 py-2.5">
+        <div className="min-w-0">
+          <div className={`truncate text-sm font-medium ${homeIsUnited ? "text-devil-bright" : "text-ink"}`}>
+            {homeName}
+          </div>
+          <div className="text-[10px] uppercase tracking-wider text-ink-faint">
+            {neutral ? "Neutral" : "Home"}
+          </div>
+        </div>
+        <div className="stat-num whitespace-nowrap text-base font-semibold text-ink">
+          {homeScore}
+          <span className="mx-0.5 text-ink-faint">&ndash;</span>
+          {awayScore}
+        </div>
+        <div className="min-w-0 text-right">
+          <div className={`truncate text-sm font-medium ${homeIsUnited ? "text-ink" : "text-devil-bright"}`}>
+            {awayName}
+          </div>
+          <div className="text-[10px] uppercase tracking-wider text-ink-faint">
+            {neutral ? "Neutral" : "Away"}
+          </div>
+        </div>
       </div>
+
       <div className="relative px-5 pb-7 pt-4">
         <div className="relative" style={{ height: TOP_H + BOT_H }}>
           {/* gridlines + baseline */}
@@ -192,27 +236,35 @@ export function GoalTimeline({
             aria-hidden
           />
 
-          {/* substitution + card ticks, hugging the baseline */}
+          {/* substitution ticks (always United) hug the baseline on United's side */}
           {subMarks.map((s) => (
             <span
               key={s.key}
-              className="absolute h-1.5 w-1.5 rotate-45 border border-ink-faint"
-              style={{ left: `${pos(s.minute)}%`, top: `${TOP_H + 5}px`, transform: "translateX(-50%) rotate(45deg)" }}
+              className="absolute h-1.5 w-1.5 border border-ink-faint"
+              style={{
+                left: `${pos(s.minute)}%`,
+                top: unitedAbove ? `${TOP_H - 9}px` : `${TOP_H + 5}px`,
+                transform: "translateX(-50%) rotate(45deg)",
+              }}
               title={s.title}
             />
           ))}
-          {cardMarks.map((c) => (
-            <span
-              key={c.key}
-              className={`absolute h-2.5 w-[6px] rounded-[1px] ${c.red ? "bg-loss" : "bg-gold"}`}
-              style={{
-                left: `${pos(c.minute)}%`,
-                top: c.side === "united" ? `${TOP_H - 13}px` : `${TOP_H + 3}px`,
-                transform: "translateX(-50%)",
-              }}
-              title={c.title}
-            />
-          ))}
+          {/* card ticks sit on the carded team's side of the baseline */}
+          {cardMarks.map((c) => {
+            const above = isAbove(c.side);
+            return (
+              <span
+                key={c.key}
+                className={`absolute h-2.5 w-[6px] rounded-[1px] ${c.red ? "bg-loss" : "bg-gold"}`}
+                style={{
+                  left: `${pos(c.minute)}%`,
+                  top: above ? `${TOP_H - 13}px` : `${TOP_H + 3}px`,
+                  transform: "translateX(-50%)",
+                }}
+                title={c.title}
+              />
+            );
+          })}
 
           {/* goals */}
           {goals.map((g) => (
