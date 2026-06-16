@@ -12,6 +12,7 @@ import { MatchList } from "@/components/MatchList";
 import { GoalTimeline } from "@/components/GoalTimeline";
 import { EloWinBar } from "@/components/EloWinBar";
 import { ScoreRibbon } from "@/components/ScoreRibbon";
+import { FormationPitch, roleBand } from "@/components/FormationPitch";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const usedSubs = lineup.filter((p) => p.player_side === "united" && !p.started && !p.bench);
   const bench = lineup.filter((p) => p.player_side === "united" && p.bench);
   const hasTimedGoals = goals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
+  // Pitch needs a role for every starter (role data is per-match all-or-nothing).
+  const canPitch = starters.length >= 7 && starters.every((p) => roleBand(p.role) !== null);
   const sourceSummary = sources.reduce((acc, source) => {
     const cur = acc.get(source.id) ?? {
       label: source.label,
@@ -243,7 +246,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </span>
             </summary>
             <div className="space-y-6">
-              {starters.length > 0 && (
+              {starters.length > 0 && canPitch && (
+                <div>
+                  <h3 className="display text-lg mb-3">Starting XI</h3>
+                  <FormationPitch starters={starters} decade={m.date.slice(0, 4)} />
+                </div>
+              )}
+              {starters.length > 0 && !canPitch && (
                 <div>
                   <h3 className="display text-lg mb-3">Starting XI</h3>
                   <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
