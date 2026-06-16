@@ -194,7 +194,7 @@ export function GoalTimeline({
       {/* Scoreboard band: home left, away right, scoreline between, aligned on one row. */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-line px-4 py-2.5">
         <div className="min-w-0">
-          <div className={`truncate text-sm font-medium ${homeIsUnited ? "text-devil-bright" : "text-ink"}`}>
+          <div className={`text-sm font-medium break-words ${homeIsUnited ? "text-devil-bright" : "text-ink"}`}>
             {homeName}
           </div>
           <div className="text-[10px] uppercase tracking-wider text-ink-faint">
@@ -207,7 +207,7 @@ export function GoalTimeline({
           {awayScore}
         </div>
         <div className="min-w-0 text-right">
-          <div className={`truncate text-sm font-medium ${homeIsUnited ? "text-ink" : "text-devil-bright"}`}>
+          <div className={`text-sm font-medium break-words ${homeIsUnited ? "text-ink" : "text-devil-bright"}`}>
             {awayName}
           </div>
           <div className="text-[10px] uppercase tracking-wider text-ink-faint">
