@@ -109,6 +109,8 @@ export interface ManagerBounce {
   first_date: string;
   first10: Record_;
   prev10: Record_;
+  thumb_url: string | null;
+  image_url: string | null;
 }
 
 /** First 10 matches under each manager vs the club's 10 matches before they took over. */
@@ -116,11 +118,13 @@ export function managerBounce(): ManagerBounce[] {
   const db = getDb();
   const managers = db
     .prepare(
-      `SELECT mg.id, mg.name, MIN(m.date) first_date, COUNT(*) p
+      `SELECT mg.id, mg.name, MIN(m.date) first_date, COUNT(*) p,
+              mm.thumb_url, mm.image_url
        FROM managers mg JOIN matches m ON m.manager_id = mg.id
+       LEFT JOIN manager_media mm ON mm.manager_id = mg.id
        GROUP BY mg.id HAVING p >= 10 ORDER BY first_date`,
     )
-    .all() as { id: string; name: string; first_date: string }[];
+    .all() as { id: string; name: string; first_date: string; thumb_url: string | null; image_url: string | null }[];
   const recordOf = (rows: { result: string }[]): Record_ => ({
     p: rows.length,
     ...tallyWdl(rows),
@@ -140,6 +144,8 @@ export function managerBounce(): ManagerBounce[] {
       first_date: mg.first_date,
       first10: recordOf(first10Stmt.all(mg.id) as { result: string }[]),
       prev10: recordOf(prev10Stmt.all(mg.first_date) as { result: string }[]),
+      thumb_url: mg.thumb_url,
+      image_url: mg.image_url,
     }))
     .filter((b) => b.prev10.p === 10);
 }
@@ -322,6 +328,8 @@ export interface CupSpecialist {
   total: number;
   cup_goals: number;
   league_goals: number;
+  thumb_url: string | null;
+  image_url: string | null;
 }
 
 /** Players whose recorded goals lean most toward cup competitions. */
@@ -330,11 +338,13 @@ export function cupSpecialists(minGoals = 25, limit = 10): CupSpecialist[] {
     .prepare(
       `SELECT e.player_id, p.name, COUNT(*) total,
               SUM(c.type NOT IN ('league','unofficial')) cup_goals,
-              SUM(c.type = 'league') league_goals
+              SUM(c.type = 'league') league_goals,
+              pm.thumb_url, pm.image_url
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
        JOIN competitions c ON c.id = m.competition_id
        JOIN players p ON p.id = e.player_id
+       LEFT JOIN player_media pm ON pm.player_id = e.player_id
        WHERE e.type IN ('goal','pen-goal')
          AND e.player_side = 'united'
          AND e.player_id IS NOT NULL

@@ -20,6 +20,8 @@
     "ingest:transfermarkt": "tsx scripts/ingest/transfermarkt-datasets.ts",
     "ingest:player-records": "tsx scripts/ingest/wikipedia-player-records.ts",
     "ingest:player-media": "tsx scripts/ingest/wikidata-player-media.ts",
+    "ingest:manager-media": "tsx scripts/ingest/wikidata-manager-media.ts",
+    "ingest:ogscorer-media": "tsx scripts/ingest/wikidata-ogscorer-media.ts",
     "ingest:player-shirts": "tsx scripts/ingest/player-shirt-numbers.ts",
     "ingest:positions": "tsx scripts/ingest/league-positions.ts",
     "ingest:tableau-goals-assists": "tsx scripts/ingest/tableau-goals-assists.ts",

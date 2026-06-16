@@ -13,6 +13,21 @@ const USER_AGENT = "unitedstats/1.0 player-media ingest";
 const SOURCE_ID = "wikidata-commons";
 const TOP_N = 100;
 const PREMIER_LEAGUE_ERA_START_YEAR = 1992;
+
+/**
+ * Players featured on editorial surfaces (e.g. the /questions cup-specialists
+ * ladder) who fall outside the top-N appearance cohorts and would otherwise have
+ * no portrait. Keyed by the players-table id used as the media join key, with an
+ * explicit Wikipedia title so short-career stars resolve correctly. Names that
+ * already appear in the top-N cohorts are harmless duplicates (deduped on id).
+ */
+const FEATURED_PLAYERS: { playerId: string; name: string; wikiTitle: string }[] = [
+  { playerId: "casemiro", name: "Casemiro", wikiTitle: "Casemiro" },
+  { playerId: "lee-sharpe", name: "Lee Sharpe", wikiTitle: "Lee Sharpe" },
+  { playerId: "zlatan-ibrahimovic", name: "Zlatan Ibrahimović", wikiTitle: "Zlatan Ibrahimović" },
+  { playerId: "javier-hernandez", name: "Javier Hernández", wikiTitle: "Javier Hernández" },
+  { playerId: "john-connelly", name: "John Connelly", wikiTitle: "John Connelly (footballer, born 1938)" },
+];
 const COMMONS_THUMB_WIDTH = 320;
 const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
 
@@ -181,6 +196,25 @@ function selectTopPlayers(playerRecords: PlayerRecord[]): SelectedPlayer[] {
         premierLeagueEraRank: index + 1,
       });
     }
+  }
+
+  // Always include featured players, even when outside the appearance cohorts.
+  const recordById = new Map(playerRecords.map((p) => [p.playerId, p]));
+  for (const featured of FEATURED_PLAYERS) {
+    if (selected.has(featured.playerId)) continue;
+    const record = recordById.get(featured.playerId);
+    selected.set(featured.playerId, {
+      playerId: featured.playerId,
+      name: featured.name,
+      wikiTitle: featured.wikiTitle,
+      career: record?.career ?? "",
+      firstYear: record?.firstYear ?? null,
+      lastYear: record?.lastYear ?? null,
+      apps: record?.apps ?? 0,
+      goals: record?.goals ?? 0,
+      overallRank: null,
+      premierLeagueEraRank: null,
+    });
   }
 
   return [...selected.values()];

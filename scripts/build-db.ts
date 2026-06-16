@@ -71,6 +71,36 @@ interface PlayerMedia {
     retrievedAt?: string | null;
   }[];
 }
+interface ManagerMedia {
+  records: {
+    managerId: string;
+    wikidataId?: string | null;
+    commonsFile: string;
+    imageUrl: string;
+    thumbUrl?: string | null;
+    pageUrl?: string | null;
+    license?: string | null;
+    artist?: string | null;
+    credit?: string | null;
+    sourceId: string;
+    retrievedAt?: string | null;
+  }[];
+}
+interface OgScorerMedia {
+  records: {
+    name: string;
+    wikidataId?: string | null;
+    commonsFile: string;
+    imageUrl: string;
+    thumbUrl?: string | null;
+    pageUrl?: string | null;
+    license?: string | null;
+    artist?: string | null;
+    credit?: string | null;
+    sourceId: string;
+    retrievedAt?: string | null;
+  }[];
+}
 interface PlayerShirts {
   records: {
     playerId: string;
@@ -129,6 +159,14 @@ const playerRecords = fs.existsSync(playerRecordsFile)
 const playerMediaFile = path.join(CANONICAL, "player-media.json");
 const playerMedia = fs.existsSync(playerMediaFile)
   ? readJson<PlayerMedia>(playerMediaFile).records
+  : [];
+const managerMediaFile = path.join(CANONICAL, "manager-media.json");
+const managerMedia = fs.existsSync(managerMediaFile)
+  ? readJson<ManagerMedia>(managerMediaFile).records
+  : [];
+const ogScorerMediaFile = path.join(CANONICAL, "og-scorer-media.json");
+const ogScorerMedia = fs.existsSync(ogScorerMediaFile)
+  ? readJson<OgScorerMedia>(ogScorerMediaFile).records
   : [];
 const playerShirtsFile = path.join(CANONICAL, "player-shirts.json");
 const playerShirts = fs.existsSync(playerShirtsFile)
@@ -365,6 +403,34 @@ CREATE TABLE player_media (
 );
 CREATE INDEX idx_player_media_source ON player_media(source_id);
 
+CREATE TABLE manager_media (
+  manager_id TEXT PRIMARY KEY REFERENCES managers(id),
+  wikidata_id TEXT,
+  commons_file TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  thumb_url TEXT,
+  page_url TEXT,
+  license TEXT,
+  artist TEXT,
+  credit TEXT,
+  source_id TEXT NOT NULL REFERENCES sources(id),
+  retrieved_at TEXT
+);
+
+CREATE TABLE og_scorer_media (
+  name TEXT PRIMARY KEY,
+  wikidata_id TEXT,
+  commons_file TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  thumb_url TEXT,
+  page_url TEXT,
+  license TEXT,
+  artist TEXT,
+  credit TEXT,
+  source_id TEXT NOT NULL REFERENCES sources(id),
+  retrieved_at TEXT
+);
+
 CREATE TABLE player_shirts (
   player_id TEXT NOT NULL REFERENCES players(id),
   shirt INTEGER NOT NULL,
@@ -448,6 +514,8 @@ const sourceIdsFromCanonical = new Set([
   ...allMatches.flatMap(({ m }) => m.sources),
   ...playerRecords.map((r) => r.sourceId),
   ...playerMedia.map((r) => r.sourceId),
+  ...managerMedia.map((r) => r.sourceId),
+  ...ogScorerMedia.map((r) => r.sourceId),
   ...playerShirts.map((r) => r.sourceId),
   ...(tableauGoalsAssists ? [tableauGoalsAssists.sourceId] : []),
   ...(tableauGoalTypes ? [tableauGoalTypes.sourceId] : []),
@@ -494,6 +562,24 @@ for (const m of playerMedia) {
     m.credit ?? null,
     m.sourceId,
     m.retrievedAt ?? null,
+  );
+}
+
+const managerIds = new Set(managers.map((m) => m.id));
+const insManagerMedia = db.prepare("INSERT OR REPLACE INTO manager_media VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+for (const m of managerMedia) {
+  if (!managerIds.has(m.managerId)) continue;
+  insManagerMedia.run(
+    m.managerId, m.wikidataId ?? null, m.commonsFile, m.imageUrl, m.thumbUrl ?? null,
+    m.pageUrl ?? null, m.license ?? null, m.artist ?? null, m.credit ?? null, m.sourceId, m.retrievedAt ?? null,
+  );
+}
+
+const insOgMedia = db.prepare("INSERT OR REPLACE INTO og_scorer_media VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+for (const m of ogScorerMedia) {
+  insOgMedia.run(
+    m.name, m.wikidataId ?? null, m.commonsFile, m.imageUrl, m.thumbUrl ?? null,
+    m.pageUrl ?? null, m.license ?? null, m.artist ?? null, m.credit ?? null, m.sourceId, m.retrievedAt ?? null,
   );
 }
 

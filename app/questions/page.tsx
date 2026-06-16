@@ -17,6 +17,8 @@ import { GeoScatter } from "@/components/GeoScatter";
 import { MatchList } from "@/components/MatchList";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { WdlBar } from "@/components/WdlBar";
+import { ClubBadge } from "@/components/ClubBadge";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
 
@@ -51,17 +53,18 @@ function Module({
    */
   coverage?: string;
 }) {
-  // Prose stays at a readable measure (~65–75ch); the evidence fills the box so
-  // charts, ladders, and maps use the full width instead of leaving a dead band
-  // on the right. Each module's children own their own internal rhythm.
+  // Title, finding, and footnotes fill the panel width and wrap responsively by
+  // viewport, matching the evidence below them rather than capping at a narrow
+  // measure that leaves a dead band on the right. Each module's children own
+  // their own internal rhythm.
   return (
     <section id={id} className="border border-line rounded-lg bg-panel p-5 sm:p-6 scroll-mt-28 space-y-5">
-      <header className="max-w-2xl">
-        <h2 className="display text-2xl">{question}</h2>
-        <p className="text-sm text-ink-dim mt-1">{finding}</p>
+      <header>
+        <h2 className="display text-2xl text-balance">{question}</h2>
+        <p className="text-sm text-ink-dim mt-1 text-pretty">{finding}</p>
       </header>
       <div className="space-y-5">{children}</div>
-      <footer className="max-w-2xl text-xs text-ink-faint space-y-1 border-t border-line pt-3">
+      <footer className="text-xs text-ink-faint space-y-1 border-t border-line pt-3">
         <p><span className="text-ink-dim">Slice:</span> {slice}</p>
         {coverage && <p><span className="text-ink-dim">Coverage:</span> {coverage}</p>}
       </footer>
@@ -129,7 +132,7 @@ export default function QuestionsPage() {
     <div className="space-y-8">
       <header>
         <h1 className="display text-3xl">Questions</h1>
-        <p className="text-sm text-ink-dim mt-1 max-w-2xl">
+        <p className="text-sm text-ink-dim mt-1 text-pretty">
           Myths fans repeat, tested against the canonical record. Each module states the slice it is
           computed from, the coverage behind it, and a route to the matches that produced it — the
           conclusion is yours to draw.
@@ -228,9 +231,10 @@ export default function QuestionsPage() {
                   <div className="mt-0.5 text-[10px] uppercase tracking-wide text-ink-faint">win</div>
                 </div>
                 <div className="min-w-0">
-                  <div className="mb-1 flex items-baseline justify-between gap-3">
-                    <Link href={`/opponent/${o.id}`} className="truncate font-medium hover:text-devil-bright">
-                      {o.name}
+                  <div className="mb-1 flex items-center justify-between gap-3">
+                    <Link href={`/opponent/${o.id}`} className="flex min-w-0 items-center gap-2 font-medium hover:text-devil-bright">
+                      <ClubBadge id={o.id} name={o.name} />
+                      <span className="truncate">{o.name}</span>
                     </Link>
                     <span className="stat-num whitespace-nowrap text-[11px] text-ink-faint">
                       {o.p} met · away {o.away_p ? pct(o.away_w, o.away_p) : "—"}
@@ -271,9 +275,10 @@ export default function QuestionsPage() {
               .map((b) => {
                 const swing = b.first10.w - b.prev10.w;
                 return (
-                  <div key={b.id} className="grid grid-cols-[7.5rem_1fr_2.25rem] items-center gap-3 sm:grid-cols-[10rem_1fr_2.5rem]">
-                    <Link href={`/manager/${b.id}`} title={b.name} className="truncate text-sm hover:text-devil-bright">
-                      {b.name}
+                  <div key={b.id} className="grid grid-cols-[9.5rem_1fr_2.25rem] items-center gap-3 sm:grid-cols-[12rem_1fr_2.5rem]">
+                    <Link href={`/manager/${b.id}`} title={b.name} className="flex min-w-0 items-center gap-2 text-sm hover:text-devil-bright">
+                      <PlayerPortrait name={b.name} src={b.thumb_url ?? b.image_url} size="xs" />
+                      <span className="truncate">{b.name}</span>
                     </Link>
                     <SlopeCompare compact from={{ value: b.prev10.w }} to={{ value: b.first10.w }} min={0} max={10} />
                     <span
@@ -510,11 +515,14 @@ export default function QuestionsPage() {
                   key={s.name}
                   className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-md px-3 py-2 odd:bg-panel-2/40"
                 >
-                  <div className="min-w-0">
-                    <span className="font-medium">{s.name}</span>
-                    <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-xs text-ink-faint hover:text-devil-bright">
-                      {s.recent_opponent}
-                    </Link>
+                  <div className="flex min-w-0 items-center gap-2.5">
+                    <PlayerPortrait name={s.name} src={s.thumb_url ?? s.image_url} size="xs" />
+                    <div className="min-w-0">
+                      <span className="font-medium">{s.name}</span>
+                      <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-xs text-ink-faint hover:text-devil-bright">
+                        {s.recent_opponent}
+                      </Link>
+                    </div>
                   </div>
                   <span className="stat-num whitespace-nowrap text-xs text-ink-faint">
                     <span className="text-devil-bright">{s.n}</span> own goals · last{" "}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 
 export interface CupLeanRow {
   player_id: string;
@@ -6,6 +7,8 @@ export interface CupLeanRow {
   total: number;
   cup_goals: number;
   league_goals: number;
+  thumb_url?: string | null;
+  image_url?: string | null;
 }
 
 /**
@@ -28,7 +31,7 @@ export function CupLeanBar({
     <div>
       {/* Shared axis: the club rate, marked once at the top and tracked down every
           row. Same column template as the rows, so the markers sit over the bars. */}
-      <div className="mb-1.5 grid grid-cols-[8.5rem_minmax(0,1fr)_3.75rem] gap-3 sm:grid-cols-[11rem_minmax(0,1fr)_4.25rem]">
+      <div className="mb-1.5 grid grid-cols-[10.5rem_minmax(0,1fr)_3.75rem] gap-3 sm:grid-cols-[13rem_minmax(0,1fr)_4.25rem]">
         <div />
         <div className="relative h-3.5 text-[10px] text-ink-faint">
           <span className="stat-num absolute left-0 bottom-0">0%</span>
@@ -57,9 +60,10 @@ export function CupLeanBar({
               <Link
                 href={`/player/${p.player_id}`}
                 title={p.name}
-                className="flex items-baseline gap-2 truncate text-sm font-medium hover:text-devil-bright"
+                className="flex items-center gap-2 truncate text-sm font-medium hover:text-devil-bright"
               >
-                <span className="stat-num w-4 shrink-0 text-right text-[11px] text-ink-faint">{i + 1}</span>
+                <span className="stat-num w-3 shrink-0 text-right text-[11px] text-ink-faint">{i + 1}</span>
+                <PlayerPortrait name={p.name} src={p.thumb_url ?? p.image_url} size="xs" />
                 <span className="truncate">{p.name}</span>
               </Link>
 
@@ -99,7 +103,7 @@ export function CupLeanBar({
 
         {/* One continuous club-rate line laid over the whole stack, aligned to the
             bar column by reusing the row grid so it runs unbroken through the gaps. */}
-        <div className="pointer-events-none absolute inset-0 grid grid-cols-[8.5rem_minmax(0,1fr)_3.75rem] gap-3 sm:grid-cols-[11rem_minmax(0,1fr)_4.25rem]">
+        <div className="pointer-events-none absolute inset-0 grid grid-cols-[10.5rem_minmax(0,1fr)_3.75rem] gap-3 sm:grid-cols-[13rem_minmax(0,1fr)_4.25rem]">
           <div />
           <div className="relative">
             <div

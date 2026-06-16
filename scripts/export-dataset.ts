@@ -163,6 +163,21 @@ const counts: Record<string, number> = {
      JOIN players p ON p.id = pm.player_id
      ORDER BY p.name`,
   ),
+  "manager_media.csv": exportCsv(
+    "manager_media.csv",
+    `SELECT mm.manager_id, mg.name, mm.wikidata_id, mm.commons_file, mm.image_url, mm.thumb_url,
+            mm.page_url, mm.license, mm.artist, mm.credit, mm.source_id, mm.retrieved_at
+     FROM manager_media mm
+     JOIN managers mg ON mg.id = mm.manager_id
+     ORDER BY mg.name`,
+  ),
+  "og_scorer_media.csv": exportCsv(
+    "og_scorer_media.csv",
+    `SELECT name, wikidata_id, commons_file, image_url, thumb_url,
+            page_url, license, artist, credit, source_id, retrieved_at
+     FROM og_scorer_media
+     ORDER BY name`,
+  ),
 };
 
 const meta = Object.fromEntries(
