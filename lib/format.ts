@@ -43,6 +43,14 @@ export function venuePrefix(v: string): string {
   return v === "H" ? "v" : v === "A" ? "@" : "n";
 }
 
+/** Round/stage label for display. Collapses the verbose league "N. Matchday"
+ * scraped form to a compact "Game N"; leaves cup stages (Final, Round 3) as-is. */
+export function fmtRound(round: string | null | undefined): string {
+  if (!round) return "";
+  const md = round.match(/^(\d+)\.\s*Matchday$/i);
+  return md ? `Game ${md[1]}` : round;
+}
+
 /** 15-minute goal-time bucket labels; the final bucket folds in stoppage time. */
 export const GOAL_MINUTE_BUCKETS = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90+"];
 

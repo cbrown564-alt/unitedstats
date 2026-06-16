@@ -44,21 +44,6 @@ export function lateWinners(limit = 10): MatchRow[] {
     .all(limit) as MatchRow[];
 }
 
-/** Matches in a season with a United goal in the 85th minute or later. */
-export function lateGoalMatchesInSeason(season: string, excludeId?: string): MatchRow[] {
-  return getDb()
-    .prepare(
-      `${MATCH_SELECT}
-       WHERE m.season = ? AND m.id != ?
-         AND EXISTS (
-           SELECT 1 FROM match_events e
-           WHERE e.match_id = m.id AND e.type IN ${UNITED_GOAL_TYPES} AND e.minute >= 85
-         )
-       ORDER BY m.date`,
-    )
-    .all(season, excludeId ?? "") as MatchRow[];
-}
-
 // ---------------------------------------------------------------- bogey sides
 
 export interface BogeyOpponent extends Record_ {

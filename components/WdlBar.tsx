@@ -166,6 +166,40 @@ function Segment({
   );
 }
 
+/**
+ * W/D/L record as three small labelled columns — the tinted letter sits
+ * directly above its figure. Ordered L · D · W to echo a diverging WdlBar
+ * (losses left, wins right); kept tight and centred so it reads as a caption
+ * for the bar rather than a headline stat.
+ */
+export function WdlColumns({
+  w,
+  d,
+  l,
+  className = "",
+}: {
+  w: number;
+  d: number;
+  l: number;
+  className?: string;
+}) {
+  const cells: [string, number, string][] = [
+    ["L", l, "text-loss"],
+    ["D", d, "text-draw"],
+    ["W", w, "text-win"],
+  ];
+  return (
+    <div className={`flex justify-center gap-5 ${className}`}>
+      {cells.map(([label, n, tone]) => (
+        <div key={label} className="flex flex-col items-center gap-0.5 leading-none">
+          <span className={`text-[10px] font-semibold uppercase tracking-wider opacity-70 ${tone}`}>{label}</span>
+          <span className={`stat-num text-sm font-semibold ${tone}`}>{n}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /** W–D–L record with each figure tinted to match the bar colours. */
 export function WdlRecord({
   w,

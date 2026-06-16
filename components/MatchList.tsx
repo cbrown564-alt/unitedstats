@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
-import { fmtDate, fmtNum, scoreline, venuePrefix } from "@/lib/format";
+import { fmtDate, fmtNum, fmtRound, scoreline, venuePrefix } from "@/lib/format";
 import { ResultBadge } from "./ResultBadge";
 import { CompetitionDot } from "./CompetitionChip";
 
@@ -61,16 +61,26 @@ export function MatchList<T extends MatchRow>({
             <span className="stat-num rounded bg-panel-2 px-2 py-1 text-sm font-semibold whitespace-nowrap">
               {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet)}
             </span>
-            <span className="hidden w-40 items-center justify-end gap-1.5 text-xs text-ink-dim sm:flex">
-              <CompetitionDot type={m.competition_type} />
+            {/* Fixed-width sub-columns so season / competition / round line up
+                vertically down the list and stay scannable row to row. */}
+            <span
+              className={`hidden items-center gap-x-3 text-xs text-ink-dim sm:grid ${
+                showSeason
+                  ? "[grid-template-columns:3.75rem_8rem_4.5rem]"
+                  : "[grid-template-columns:8rem_4.5rem]"
+              }`}
+            >
+              {showSeason && <span className="stat-num whitespace-nowrap text-ink-faint">{m.season}</span>}
+              <span className="flex min-w-0 items-center gap-1.5">
+                <CompetitionDot type={m.competition_type} />
+                <span className="truncate">{m.competition_name}</span>
+              </span>
               <span className="min-w-0">
-                <span className="block truncate">
-                  {showSeason ? `${m.season} · ` : ""}
-                  {m.competition_name}
-                  {m.round ? ` · ${m.round}` : ""}
+                <span className="block truncate text-ink-faint" title={m.round ?? undefined}>
+                  {m.round ? fmtRound(m.round) : ""}
                 </span>
                 {showAttendance && m.attendance != null && (
-                  <span className="stat-num block text-right text-[11px] text-ink-faint">{fmtNum(m.attendance)}</span>
+                  <span className="stat-num block text-[11px] text-ink-faint">{fmtNum(m.attendance)}</span>
                 )}
               </span>
             </span>
