@@ -64,7 +64,13 @@ Removed this pass: `/analytics/odds` (folded into `/analytics`) and
 | `Pager` | Newer / page / Older pagination | `/matches`, `/manager/[id]` |
 | `HeaderSearch` / `SearchCommand` / `MainNav` | global header search + nav | layout |
 | charts: `InspectableTimeSeriesChart`, `InspectableBarChart`, `EloRatingChart` | Recharts-backed inspection layer | analytics, home, player, odds |
-| charts (static): `AreaChart` | no-JS SVG fallback | `AreaChart` is the live fallback inside `InspectableTimeSeriesChart`. `Bars` and `Sparkline` were **deleted** this pass (no callers; player page uses `InspectableBarChart`). |
+| `components/charts.tsx` | shared chart data contracts (`ChartDatum`, `ChartBarDatum`) | the inspectable chart components |
+
+The static SVG primitives are all gone: `Bars` and `Sparkline` were deleted in
+the Bold Simplification pass, and the local `AreaChart` followed once `knip`
+showed `InspectableTimeSeriesChart` imports Recharts' `AreaChart`, not the local
+one — i.e. the "live no-JS fallback" claim was itself drift. `components/charts.tsx`
+now only holds the shared `ChartDatum` / `ChartBarDatum` type contracts.
 
 ## Data lanes
 
@@ -125,13 +131,17 @@ Intentionally left bespoke:
 - **`/` and `/match/[id]` heroes.** Scoreline/launchpad heroes are deliberately
   not `PageHeader`.
 
+Done since the simplification pass:
+- **Unused-export guard.** `knip` (`npm run knip`, wired into CI ahead of
+  `validate`) is the guard ADR 0002 called for. `import/no-unused-modules` was
+  unusable under this flat-config + TypeScript setup (its enumerator scans only
+  `.js`); `knip` understands `.tsx` and reports unused files, exports, types, and
+  dependencies. Baseline taken to zero: deleted the dead local `AreaChart` and
+  `seasonStartYear` + the `tmp-check.ts` scratch file; un-exported ~13 symbols
+  that were only used inside their own module; registered the standalone manual
+  scripts (`fix-*`, `stats-check`) as knip entries. `knip.json` holds the config.
+
 Flagged, not yet done (carry into Phase 9 / parked):
-- **Unused-export guard.** Decided in ADR 0002 to add a lint rule failing on
-  unused exports. `import/no-unused-modules` is broken under this flat-config +
-  TypeScript setup — its file enumerator scans only `.js`, so it reports imported
-  `.tsx` code (e.g. `AreaChart`) as unused. Deferred; a TS-compiler check script
-  or `knip` is the reliable path. Dead exports are removed by hand for now
-  (`Sparkline`, `Bars`, `playerGoalsBySeason`, `sourceCatalog` this pass).
 - The odds opponent picker is a long native `<select>`; a searchable combobox
   (reuse the `SearchCommand` pattern) is a feature, not a consolidation.
 - Segmented grouping on `/managers` and `/opponents` (by era / alphabet) is

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "scripts/fix-final-lineup-bleed.ts",
+    "scripts/fix-opponents.ts",
+    "scripts/stats-check.ts"
+  ]
+}

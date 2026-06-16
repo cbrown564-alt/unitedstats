@@ -46,7 +46,7 @@ export function calibration(): CalibrationBucket[] {
   return calibrationCache;
 }
 
-export interface Probabilities {
+interface Probabilities {
   pW: number;
   pD: number;
   pL: number;
@@ -55,20 +55,20 @@ export interface Probabilities {
 }
 
 /** Map an Elo expectancy to W/D/L probabilities via the empirical calibration. */
-export function probabilitiesFor(expected: number): Probabilities {
+function probabilitiesFor(expected: number): Probabilities {
   const buckets = calibration();
   const idx = Math.min(Math.floor(expected * 10), 9);
   const b = buckets.find((x) => Math.round(x.lo * 10) === idx) ?? buckets[buckets.length - 1];
   return { pW: b.w / b.p, pD: b.d / b.p, pL: b.l / b.p, sample: b.p };
 }
 
-export function unitedEloNow(): { elo: number; date: string } {
+function unitedEloNow(): { elo: number; date: string } {
   return getDb()
     .prepare("SELECT elo_post elo, date FROM elo_history ORDER BY date DESC LIMIT 1")
     .get() as { elo: number; date: string };
 }
 
-export interface OpponentRating {
+interface OpponentRating {
   opponent_id: string;
   name: string;
   elo: number;
@@ -80,7 +80,7 @@ export interface OpponentRating {
  * An opponent's current closed-universe rating: their rating going into the
  * most recent meeting, adjusted by the (zero-sum) exchange from that match.
  */
-export function opponentEloNow(opponentId: string): OpponentRating | undefined {
+function opponentEloNow(opponentId: string): OpponentRating | undefined {
   return getDb()
     .prepare(
       `SELECT m.opponent_id, o.name,

@@ -300,13 +300,18 @@ reduction, which is the success metric — not route count.
 
 ### Execution status (completed 2026-06-15)
 
-Items 1–5 and 7 are done. Item 6 is done except for the unused-export lint
-rule: `import/no-unused-modules` is broken under this project's flat-config +
-TypeScript setup (its file enumerator scans only `.js`, so it reports imported
-`.tsx` code such as `AreaChart` as unused). The guard is deferred to Phase 9 —
-a TypeScript-compiler check script or `knip` is the reliable path. Dead exports
-were removed by hand instead (`Sparkline`, `Bars`, `playerGoalsBySeason`,
-`sourceCatalog`). Outcome: routes 16 → 14; `/analytics` ~14 modules → strength
+Items 1–5 and 7 are done. Item 6's hand removals (`Sparkline`, `Bars`,
+`playerGoalsBySeason`, `sourceCatalog`) shipped with the pass; the unused-export
+*guard* it left open was completed at the head of Phase 9: `knip` (`npm run
+knip`, wired into CI before `validate`) replaces the broken
+`import/no-unused-modules` rule — `knip` understands `.tsx`, so it catches unused
+files, exports, types, and dependencies. Setting its baseline to zero exposed
+that the "keep `AreaChart` as a live no-JS fallback" decision (item 6, and the
+`/analytics` disposition above) rested on a false premise: nothing imported the
+local `AreaChart` — `InspectableTimeSeriesChart` uses Recharts' `AreaChart`. It
+is now deleted along with `seasonStartYear` and the `tmp-check.ts` scratch file;
+~13 module-internal symbols were un-exported. Outcome: routes 16 → 14;
+`/analytics` ~14 modules → strength
 (retrospective + prospective) + trends + grounds + assist partnerships, with
 records and coverage demoted to links; `/match/[id]` opens as scoreline +
 scorers with three labelled disclosures; coverage notes graded. See

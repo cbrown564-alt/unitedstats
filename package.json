@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "knip": "knip",
     "ingest": "tsx scripts/ingest/engsoccerdata.ts",
     "ingest:wikipedia": "tsx scripts/ingest/wikipedia.ts",
     "ingest:lineups": "tsx scripts/ingest/final-lineups.ts",
@@ -42,6 +43,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "knip": "^6.16.1",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
     "typescript": "^5"
