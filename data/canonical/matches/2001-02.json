@@ -581,9 +581,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 90,
-          "detail": "Alpay Özalan (og)"
+          "detail": "Alpay Özalan (og)",
+          "playerName": "Alpay Özalan",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2175,9 +2177,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 35,
-          "detail": "Stanislav Varga (og)"
+          "detail": "Stanislav Varga (og)",
+          "playerName": "Stanislav Varga",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -10453,9 +10457,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 29,
-          "detail": "Boris Živković (og)"
+          "detail": "Boris Živković (og)",
+          "playerName": "Boris Živković",
+          "playerSide": "opponent"
         },
         {
           "type": "pen-goal",

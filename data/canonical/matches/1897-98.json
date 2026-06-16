@@ -383,13 +383,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -547,13 +548,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dick-smith",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -1036,13 +1038,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "matthew-gillespie",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -1200,13 +1203,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "william-bryant",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -2039,9 +2043,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3376,9 +3381,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Pears (og)"
+          "detail": "Pears (og)",
+          "playerName": "Pears",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3695,14 +3702,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "jimmy-collinson",
-          "minute": null
+          "minute": 36
         }
       ],
       "eventsComplete": true,
@@ -3885,9 +3893,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Ord (og)"
+          "detail": "Ord (og)",
+          "playerName": "Ord",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -4393,18 +4403,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "henry-boyd",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,

@@ -23,17 +23,18 @@
         {
           "type": "goal",
           "player": "jack-doughty",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "jack-doughty",
-          "minute": null
+          "minute": 56
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {

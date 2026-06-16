@@ -373,13 +373,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-sagar",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -537,18 +538,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-bell",
-          "minute": null
+          "minute": 72
         },
         {
           "type": "goal",
           "player": "clem-beddow",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -706,23 +708,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "charlie-sagar",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -880,13 +883,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-roberts",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -1699,13 +1703,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -1863,18 +1868,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "charlie-roberts",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -2357,7 +2363,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2369,6 +2376,14 @@
           "type": "goal",
           "player": "jack-picken",
           "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": "own-goal",
+          "playerName": "William Silto",
+          "playerSide": "opponent",
+          "minute": 84,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": false,
@@ -2705,23 +2720,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "clem-beddow",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -2879,18 +2895,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -3204,13 +3221,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-roberts",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -4088,13 +4106,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -4769,34 +4788,35 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "charlie-sagar",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "charlie-sagar",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -5139,19 +5159,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "charlie-sagar",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true,
@@ -6012,13 +6033,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -6176,13 +6198,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-sagar",
-          "minute": null
+          "minute": 64
         }
       ],
       "eventsComplete": true,
@@ -6847,23 +6870,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-allan",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "jack-allan",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,

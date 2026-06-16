@@ -20,18 +20,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 33
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -189,23 +190,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -378,9 +380,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -538,33 +541,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 36
         }
       ],
       "eventsComplete": true,
@@ -722,13 +726,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -886,13 +891,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "allenby-chilton",
-          "minute": null
+          "minute": 78
         }
       ],
       "eventsComplete": true,
@@ -1050,18 +1056,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 77
         },
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 72
         }
       ],
       "eventsComplete": true,
@@ -1219,33 +1226,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 77
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "billy-wrigglesworth",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -1403,13 +1411,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-wrigglesworth",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -1567,18 +1576,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -1736,13 +1746,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -2212,28 +2223,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 24
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 55
         }
       ],
       "eventsComplete": true,
@@ -2391,18 +2403,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -2560,33 +2573,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 1
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 81
         },
         {
           "type": "goal",
           "player": "johnny-morris",
-          "minute": null
+          "minute": 71
         },
         {
           "type": "goal",
           "player": "johnny-morris",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -2744,18 +2758,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -2913,28 +2928,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -3092,13 +3108,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-morris",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -3256,18 +3273,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -3425,13 +3443,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -4437,18 +4456,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-morris",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -4770,23 +4790,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -4944,13 +4965,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -5108,18 +5130,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ronnie-burke",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -5277,23 +5300,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ronnie-burke",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "ronnie-burke",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -5451,23 +5475,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ronnie-burke",
-          "minute": null
+          "minute": 57
         },
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "jack-warner",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -5625,18 +5650,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 1
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -5794,23 +5820,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -6142,18 +6169,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ronnie-burke",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "billy-mcglen",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -6487,9 +6515,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -6647,13 +6676,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -6967,13 +6997,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -7131,23 +7162,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "johnny-morris",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 84
         }
       ],
       "eventsComplete": true,
@@ -7305,38 +7337,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 64
         },
         {
           "type": "goal",
           "player": "johnny-morris",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "johnny-morris",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,

@@ -30,9 +30,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 14,
-          "detail": "Ian Pearce (og)"
+          "detail": "Ian Pearce (og)",
+          "playerName": "Ian Pearce",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -6767,9 +6769,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 60,
-          "detail": "Lloyd Doyley (og)"
+          "detail": "Lloyd Doyley (og)",
+          "playerName": "Lloyd Doyley",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -10779,9 +10783,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 68,
-          "detail": "Phil Neville (og)"
+          "detail": "Phil Neville (og)",
+          "playerName": "Phil Neville",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

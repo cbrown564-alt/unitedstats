@@ -527,13 +527,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "matthew-gillespie",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -691,13 +692,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "henry-boyd",
-          "minute": null
+          "minute": 6
         }
       ],
       "eventsComplete": true,
@@ -1024,13 +1026,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -2584,9 +2587,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Radcliffe (og)"
+          "detail": "Radcliffe (og)",
+          "playerName": "Radcliffe",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3258,23 +3263,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-cunningham",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "fred-erentz",
-          "minute": null
+          "minute": 21
         },
         {
           "type": "goal",
           "player": "matthew-gillespie",
-          "minute": null
+          "minute": 46
         }
       ],
       "eventsComplete": true,
@@ -3589,14 +3595,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -4259,10 +4266,12 @@
           "minute": null
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "bogie-roberts",
           "minute": null,
-          "detail": "Bogie Roberts (og)"
+          "detail": null,
+          "playerName": "Bogie Roberts",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -5065,13 +5074,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -5229,18 +5239,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "edwin-lee",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "edwin-lee",
-          "minute": null
+          "minute": 13
         }
       ],
       "eventsComplete": true,
@@ -5398,13 +5409,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "edwin-lee",
-          "minute": null
+          "minute": 9
         }
       ],
       "eventsComplete": true,
@@ -5915,13 +5927,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-morgan",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,

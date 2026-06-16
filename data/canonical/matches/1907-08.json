@@ -527,13 +527,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-bannister",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -1029,7 +1030,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -1039,9 +1041,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "George Maltby (og)"
+          "player": "own-goal",
+          "minute": 46,
+          "detail": "George Maltby (og)",
+          "playerName": "George Maltby",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -1562,18 +1566,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-turnbull",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 46
         }
       ],
       "eventsComplete": true,
@@ -2727,13 +2732,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-meredith",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -3060,18 +3066,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-turnbull",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "billy-meredith",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -3385,13 +3392,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -3876,13 +3884,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-turnbull",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -4041,14 +4050,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -4206,13 +4216,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-turnbull",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -4370,13 +4381,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -4535,19 +4547,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 27
         },
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 33
         }
       ],
       "eventsComplete": true,
@@ -4705,13 +4718,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 9
         }
       ],
       "eventsComplete": true,
@@ -4870,14 +4884,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jimmy-turnbull",
-          "minute": null
+          "minute": 56
         }
       ],
       "eventsComplete": true,
@@ -5365,23 +5380,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 79
         },
         {
           "type": "goal",
           "player": "jimmy-bannister",
-          "minute": null
+          "minute": 84
         }
       ],
       "eventsComplete": false,
@@ -5713,13 +5729,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -5877,23 +5894,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harold-halse",
-          "minute": null
+          "minute": 45
         },
         {
           "type": "pen-goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -6519,13 +6537,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -6683,18 +6702,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harold-halse",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "pen-goal",
           "player": "george-stacey",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -6862,9 +6882,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Tommy Rodway (og)"
+          "detail": "Tommy Rodway (og)",
+          "playerName": "Tommy Rodway",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -7025,7 +7047,7 @@
         {
           "type": "goal",
           "player": "billy-meredith",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "opp-goal",
@@ -7036,7 +7058,8 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {

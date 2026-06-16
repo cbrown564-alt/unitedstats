@@ -358,13 +358,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alf-farman",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -1177,13 +1178,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-hood",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,
@@ -2137,13 +2139,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "william-campbell",
-          "minute": null
+          "minute": 69
         }
       ],
       "eventsComplete": true,
@@ -3601,14 +3604,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 13
         }
       ],
       "eventsComplete": true,

@@ -176,18 +176,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "teddy-partridge",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "james-robinson",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -345,18 +346,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-harrison",
-          "minute": null
+          "minute": 38
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 51
         }
       ],
       "eventsComplete": true,
@@ -982,18 +984,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "teddy-partridge",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -1151,13 +1154,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -1315,18 +1319,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 53
         }
       ],
       "eventsComplete": true,
@@ -1484,18 +1489,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 57
         }
       ],
       "eventsComplete": true,
@@ -1653,13 +1659,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -1817,23 +1824,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -1991,23 +1999,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -2321,13 +2330,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -2485,13 +2495,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -2649,13 +2660,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -2813,13 +2825,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -2977,13 +2990,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -3453,18 +3467,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -3935,14 +3950,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -4256,13 +4272,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -4420,23 +4437,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -4594,13 +4612,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -4758,13 +4777,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 58
         }
       ],
       "eventsComplete": true,
@@ -4922,13 +4942,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -5086,13 +5107,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-sapsford",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -5250,13 +5272,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -5882,13 +5905,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -6358,23 +6382,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-harrison",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 11
         },
         {
           "type": "goal",
           "player": "teddy-partridge",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -6532,13 +6557,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 46
         }
       ],
       "eventsComplete": true,
@@ -6696,13 +6722,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "teddy-partridge",
-          "minute": null
+          "minute": 28
         }
       ],
       "eventsComplete": true,
@@ -6860,13 +6887,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,

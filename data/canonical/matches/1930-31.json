@@ -20,23 +20,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "arthur-warburton",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -194,13 +195,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -358,18 +360,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -683,28 +686,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 55
         }
       ],
       "eventsComplete": true,
@@ -1330,13 +1334,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -1494,13 +1499,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -1658,13 +1664,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-mclachlan",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -1822,13 +1829,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -1986,18 +1994,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 4
         }
       ],
       "eventsComplete": true,
@@ -2155,28 +2164,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-bullock",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "jimmy-bullock",
-          "minute": null
+          "minute": 41
         },
         {
           "type": "goal",
           "player": "jimmy-bullock",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "george-mclachlan",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -2490,13 +2500,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 9
         }
       ],
       "eventsComplete": true,
@@ -2654,13 +2665,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -2982,18 +2994,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 64
         }
       ],
       "eventsComplete": true,
@@ -3471,13 +3484,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -3947,13 +3961,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-warburton",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -4112,24 +4127,25 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 1
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -4445,23 +4461,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-warburton",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "arthur-warburton",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 78
         }
       ],
       "eventsComplete": true,
@@ -4620,29 +4637,30 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay2",
       "events": [
         {
           "type": "goal",
           "player": "samuel-hopkinson",
-          "minute": null
+          "minute": 78
         },
         {
           "type": "goal",
           "player": "samuel-hopkinson",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -4958,28 +4976,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "samuel-hopkinson",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "arthur-warburton",
-          "minute": null
+          "minute": 64
         }
       ],
       "eventsComplete": true,
@@ -5137,13 +5156,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -5301,13 +5321,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -5465,13 +5486,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -5629,13 +5651,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-thomson",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true,
@@ -6105,13 +6128,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "samuel-hopkinson",
-          "minute": null
+          "minute": 72
         }
       ],
       "eventsComplete": true,
@@ -6425,13 +6449,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "samuel-hopkinson",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -6589,13 +6614,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-wilson",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -6753,18 +6779,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "samuel-hopkinson",
-          "minute": null
+          "minute": 72
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -6922,28 +6949,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "hugh-mclenahan",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -7257,13 +7285,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 54
         }
       ],
       "eventsComplete": true,

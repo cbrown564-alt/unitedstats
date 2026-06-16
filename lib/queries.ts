@@ -538,7 +538,7 @@ export function playersIndex(): PlayerTotals[] {
     .prepare(
       `${PLAYER_TOTALS_WITH}
        ${PLAYER_TOTALS_SELECT}
-       WHERE pr.player_id IS NOT NULL
+       WHERE pr.player_id IS NOT NULL OR p.id = 'own-goal'
        ORDER BY goals DESC, apps DESC, starts DESC`,
     )
     .all() as PlayerTotals[];
@@ -869,6 +869,93 @@ export function seasonAggregates(): {
 
 export function topScorers(limit = 25): PlayerTotals[] {
   return playersIndex().slice(0, limit);
+}
+
+// ---------------------------------------------------------------- own goals for United
+
+// Own goals scored FOR United carry the opposition scorer in player_name; older
+// rows recorded no scorer at all ("own goal (og)") or a stray fragment ("s"), so
+// a usable scorer name needs two consecutive letters and must not itself read as
+// "own goal". Everything else collapses to an unknown scorer.
+const OG_SCORER_NAME =
+  `CASE WHEN e.player_name GLOB '*[A-Za-z][A-Za-z]*' AND lower(e.player_name) NOT LIKE '%own%goal%' THEN e.player_name END`;
+
+export interface OwnGoalForEvent {
+  match_id: string;
+  date: string;
+  season: string;
+  opponent_id: string;
+  opponent_name: string;
+  venue: string;
+  gf: number;
+  ga: number;
+  result: string;
+  minute: number | null;
+  scorer: string | null;
+}
+
+/** Every own goal scored FOR United, newest first, with the scorer resolved to null when unrecorded. */
+export function ownGoalForEvents(): OwnGoalForEvent[] {
+  return getDb()
+    .prepare(
+      `SELECT m.id match_id, m.date, m.season, m.opponent_id, m.opponent_name, m.venue,
+              m.gf, m.ga, m.result, e.minute, ${OG_SCORER_NAME} scorer
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.type = 'own-goal-for' ORDER BY m.date DESC, m.id`,
+    )
+    .all() as OwnGoalForEvent[];
+}
+
+export interface OwnGoalSummary {
+  total: number;
+  named: number;
+  unknown: number;
+  scorers: number;
+  first: string;
+  last: string;
+}
+
+export function ownGoalSummary(): OwnGoalSummary {
+  const r = getDb()
+    .prepare(
+      `SELECT COUNT(*) total,
+              SUM(CASE WHEN ${OG_SCORER_NAME} IS NOT NULL THEN 1 ELSE 0 END) named,
+              COUNT(DISTINCT ${OG_SCORER_NAME}) scorers,
+              MIN(m.date) first, MAX(m.date) last
+       FROM match_events e JOIN matches m ON m.id = e.match_id WHERE e.type = 'own-goal-for'`,
+    )
+    .get() as { total: number; named: number; scorers: number; first: string; last: string };
+  return { total: r.total, named: r.named, unknown: r.total - r.named, scorers: r.scorers, first: r.first, last: r.last };
+}
+
+export interface OwnGoalScorer {
+  name: string;
+  n: number;
+  first: string;
+  last: string;
+  recent_opponent: string;
+  recent_opponent_id: string;
+  recent_match_id: string;
+}
+
+/** Opposition players ranked by own goals gifted to United (named scorers only). */
+export function ownGoalScorers(): OwnGoalScorer[] {
+  const map = new Map<string, OwnGoalScorer>();
+  for (const r of ownGoalForEvents()) {
+    // rows arrive newest-first, so the first sighting of a name is its latest.
+    if (!r.scorer) continue;
+    const existing = map.get(r.scorer);
+    if (existing) {
+      existing.n++;
+      if (r.date < existing.first) existing.first = r.date;
+    } else {
+      map.set(r.scorer, {
+        name: r.scorer, n: 1, first: r.date, last: r.date,
+        recent_opponent: r.opponent_name, recent_opponent_id: r.opponent_id, recent_match_id: r.match_id,
+      });
+    }
+  }
+  return [...map.values()].sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.name.localeCompare(b.name));
 }
 
 export function stadiumsWithRecords(): {

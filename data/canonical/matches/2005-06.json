@@ -5955,9 +5955,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 8,
-          "detail": "Bruno Ngotty (og)"
+          "detail": "Bruno Ngotty (og)",
+          "playerName": "Bruno Ngotty",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -7934,9 +7936,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 6,
-          "detail": "Carlos Bocanegra (og)"
+          "detail": "Carlos Bocanegra (og)",
+          "playerName": "Carlos Bocanegra",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -8717,9 +8721,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 90,
-          "detail": "Pascal Chimbonda (og)"
+          "detail": "Pascal Chimbonda (og)",
+          "playerName": "Pascal Chimbonda",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -10831,9 +10837,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 34,
-          "detail": "Jason Euell (og)"
+          "detail": "Jason Euell (og)",
+          "playerName": "Jason Euell",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

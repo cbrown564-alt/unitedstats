@@ -20,18 +20,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-allan",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "jack-allan",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -368,13 +369,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charles-mackie",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -532,18 +534,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-allan",
-          "minute": null
+          "minute": 4
         },
         {
           "type": "goal",
           "player": "charlie-roberts",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -701,13 +704,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -865,18 +869,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -1034,23 +1039,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 82
         },
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -1556,13 +1562,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -1720,13 +1727,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-bell",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -1884,13 +1892,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 46
         }
       ],
       "eventsComplete": true,
@@ -2396,23 +2405,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "charlie-roberts",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "harry-williams",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -2968,9 +2978,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3307,13 +3318,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -4466,18 +4478,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-allan",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "dick-duckworth",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -4635,13 +4648,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-grassam",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,

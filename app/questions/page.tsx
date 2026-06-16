@@ -4,7 +4,7 @@ import {
   iconicLateWinners, lateGoalShareByDecade, longestStreak,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
-import { getMeta } from "@/lib/queries";
+import { getMeta, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
@@ -31,6 +31,7 @@ const QUESTION_NAV: [id: string, label: string][] = [
   ["manager-bounce", "Manager bounce"],
   ["fortress", "Fortress OT"],
   ["cup-specialists", "Cup specialists"],
+  ["own-goals", "Own goals"],
   ["away-days", "Away days"],
 ];
 
@@ -79,6 +80,12 @@ export default function QuestionsPage() {
   const otRecord = otDecades.reduce((a, d) => ({ p: a.p + d.p, w: a.w + d.w }), { p: 0, w: 0 });
   const otUnbeaten = longestStreak(homeMatchesAtOldTrafford(), "unbeaten");
   const specialists = cupSpecialists(25, 10);
+
+  // "Own Goal" as a scorer — opponents netting into their own goal in United's favour.
+  const ogSummary = ownGoalSummary();
+  const ogScorers = ownGoalScorers();
+  const ogRepeat = ogScorers.filter((s) => s.n > 1);
+  const ogRank = topScorers(12).findIndex((p) => p.player_id === "own-goal") + 1;
 
   // Away-days geography (folded in from the former /analytics/travel surface).
   const footprint = awayFootprint();
@@ -396,6 +403,56 @@ export default function QuestionsPage() {
           </div>
         </div>
         <EvidenceLink href="/matches?type=cup" label="Every cup match →" />
+      </Module>
+
+      <Module
+        id="own-goals"
+        question="Is &ldquo;Own Goal&rdquo; one of United&apos;s top scorers?"
+        finding={`Treat every own goal an opponent has turned into United's net as one scorer and the answer is yes: ${fmtNum(ogSummary.total)} of them${ogRank ? `, the ${ogRank === 5 ? "fifth" : `#${ogRank}`}-most in the club's history` : ""} — and spread so thin across ${fmtNum(ogSummary.scorers)} different players that no one has done it more than ${ogRepeat[0]?.n ?? 1} times.`}
+        slice="Own goals credited to United (an opponent scoring into his own net), all official competitions, gathered under the synthetic scorer 'Own Goal'. The leaderboard counts only own goals with a recorded scorer."
+        coverage={`${fmtNum(ogSummary.named)} of ${fmtNum(ogSummary.total)} own goals carry a named scorer; the remaining ${fmtNum(ogSummary.unknown)}, mostly pre-war, were recorded only as "own goal".`}
+      >
+        <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+          <Link
+            href="/player/own-goal"
+            className="group flex flex-col justify-center rounded-lg border border-line bg-panel-2 px-5 py-4 transition-colors hover:border-devil/60"
+          >
+            <div className="stat-num text-4xl font-semibold leading-none text-devil-bright">{fmtNum(ogSummary.total)}</div>
+            <div className="mt-1.5 text-[11px] uppercase tracking-wider text-ink-faint group-hover:text-ink-dim">
+              own goals for United{ogRank ? ` · #${ogRank} all-time` : ""}
+            </div>
+          </Link>
+          <div className="flex items-center text-sm text-ink-dim sm:px-2">
+            Gifted by {fmtNum(ogSummary.scorers)} different opposition players between {fmtDate(ogSummary.first)} and{" "}
+            {fmtDate(ogSummary.last)} — more than United legends like George Best managed in open play. &ldquo;Own
+            Goal&rdquo; sits among the club&apos;s leading scorers precisely because it belongs to no one.
+          </div>
+        </div>
+        {ogRepeat.length > 0 && (
+          <div>
+            <h3 className="mb-2 text-sm font-medium text-ink-dim">The only repeat benefactors — twice apiece</h3>
+            <div className="space-y-1">
+              {ogRepeat.map((s) => (
+                <div
+                  key={s.name}
+                  className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-md px-3 py-2 odd:bg-panel-2/40"
+                >
+                  <div className="min-w-0">
+                    <span className="font-medium">{s.name}</span>
+                    <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-xs text-ink-faint hover:text-devil-bright">
+                      {s.recent_opponent}
+                    </Link>
+                  </div>
+                  <span className="stat-num whitespace-nowrap text-xs text-ink-faint">
+                    <span className="text-devil-bright">{s.n}</span> own goals · last{" "}
+                    <Link href={`/match/${s.recent_match_id}`} className="hover:text-devil-bright">{s.last.slice(0, 4)}</Link>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        <EvidenceLink href="/player/own-goal" label="Every own goal for United →" />
       </Module>
 
       <Module

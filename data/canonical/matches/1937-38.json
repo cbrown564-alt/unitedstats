@@ -675,28 +675,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 41
         },
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 36
         }
       ],
       "eventsComplete": true,
@@ -1179,13 +1180,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -1499,13 +1501,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -1663,13 +1666,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -2497,23 +2501,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 41
         },
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -3185,28 +3190,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "bill-mckay",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "billy-wrigglesworth",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -3538,18 +3544,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 28
         }
       ],
       "eventsComplete": true,
@@ -4044,19 +4051,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "johnny-carey",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -4215,14 +4223,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -4554,18 +4563,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 59
         },
         {
           "type": "goal",
           "player": "jack-smith",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -4723,23 +4733,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "hubert-redwood",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "hubert-redwood",
-          "minute": null
+          "minute": 72
         },
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -5380,28 +5391,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "goal",
           "player": "jack-smith",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "jackie-wassall",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -5902,13 +5914,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -6066,13 +6079,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -6877,18 +6891,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 24
         },
         {
           "type": "goal",
           "player": "jack-smith",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -7225,23 +7240,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "bill-mckay",
-          "minute": null
+          "minute": 4
         },
         {
           "type": "goal",
           "player": "jack-smith",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -7555,18 +7571,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-mckay",
-          "minute": null
+          "minute": 63
         },
         {
           "type": "goal",
           "player": "jack-smith",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,

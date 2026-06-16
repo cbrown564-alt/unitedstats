@@ -1356,23 +1356,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hodge",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "fred-hopkin",
-          "minute": null
+          "minute": 1
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -1530,13 +1531,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -2037,13 +2039,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hodge",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -2851,18 +2854,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-hodges",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -3653,14 +3657,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "billy-toms",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -4460,13 +4465,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-bissett",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -4624,18 +4630,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-harris",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "goal",
           "player": "frank-hodges",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -4967,13 +4974,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -5287,13 +5295,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-bissett",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -5763,13 +5772,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-bissett",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -6083,13 +6093,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-toms",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -7086,18 +7097,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-meredith",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,

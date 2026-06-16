@@ -840,7 +840,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Lewis Dunk",
           "playerProviderId": "148153",
           "playerSide": "opponent",
@@ -1406,10 +1406,12 @@
           "minute": 73
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "paul-pogba",
           "minute": 80,
-          "detail": "Paul Pogba (og)"
+          "detail": null,
+          "playerName": "Paul Pogba",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -9421,7 +9423,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Ibrahima Konaté",
           "playerProviderId": "357119",
           "playerSide": "opponent",
@@ -17834,7 +17836,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Jan Bednarek",
           "playerProviderId": "243028",
           "playerSide": "opponent",
@@ -24258,7 +24260,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Craig Dawson",
           "playerProviderId": "121477",
           "playerSide": "opponent",
@@ -27907,7 +27909,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Jesús Vallejo",
           "playerProviderId": "251896",
           "playerSide": "opponent",

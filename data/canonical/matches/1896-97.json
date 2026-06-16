@@ -1870,23 +1870,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 1
         },
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -3695,14 +3696,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -4716,9 +4718,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Lowe (og)"
+          "detail": "Lowe (og)",
+          "playerName": "Lowe",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -4876,13 +4880,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "henry-boyd",
-          "minute": null
+          "minute": 28
         }
       ],
       "eventsComplete": true,
@@ -5378,18 +5383,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "henry-boyd",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -6031,12 +6037,13 @@
         {
           "type": "goal",
           "player": "henry-boyd",
-          "minute": null
+          "minute": 20
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {

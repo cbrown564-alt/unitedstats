@@ -20,18 +20,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -189,23 +190,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 77
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -363,23 +365,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 74
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,
@@ -537,23 +540,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -711,23 +715,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 74
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 33
         }
       ],
       "eventsComplete": true,
@@ -885,18 +890,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -1054,13 +1060,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -1221,17 +1228,18 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 27
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1387,28 +1395,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 19
         }
       ],
       "eventsComplete": true,
@@ -1566,18 +1575,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -1738,57 +1748,58 @@
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 54
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 63
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 78
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1944,18 +1955,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -2113,28 +2125,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -2292,7 +2305,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2304,6 +2318,14 @@
           "type": "goal",
           "player": "billy-whelan",
           "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": "own-goal",
+          "playerName": "William Morrison",
+          "playerSide": "opponent",
+          "minute": 73,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": false,
@@ -2464,22 +2486,23 @@
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 30
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -2635,18 +2658,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -2980,18 +3004,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -3149,23 +3174,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -3479,23 +3505,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 64
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 57
         }
       ],
       "eventsComplete": true,
@@ -3809,18 +3836,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "eddie-colman",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -3978,23 +4006,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": null
+          "minute": 4
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 79
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -4152,23 +4181,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -4326,13 +4356,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -4490,23 +4521,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -4664,23 +4696,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 48
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 69
         }
       ],
       "eventsComplete": true,
@@ -4838,23 +4871,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -5169,38 +5203,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 21
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,
@@ -5361,22 +5396,23 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 48
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 54
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 85
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5532,13 +5568,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 81
         }
       ],
       "eventsComplete": true,
@@ -5722,10 +5759,12 @@
           "minute": null
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "roger-byrne",
           "minute": null,
-          "detail": "Roger Byrne (og)"
+          "detail": null,
+          "playerName": "Roger Byrne",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -5883,28 +5922,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -6065,22 +6105,23 @@
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 42
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6236,38 +6277,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -6426,14 +6468,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -6591,33 +6634,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 59
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -6932,19 +6976,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -7102,18 +7147,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -7271,13 +7317,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -7435,13 +7482,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -7600,19 +7648,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "Venue: Hillsborough, Sheffield",
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 13
         }
       ],
       "eventsComplete": true,
@@ -7926,18 +7975,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -8254,12 +8304,13 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 82
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -8415,18 +8466,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 76
         }
       ],
       "eventsComplete": true,
@@ -8584,23 +8636,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -8758,28 +8811,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": null
+          "minute": 74
         },
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": null
+          "minute": 81
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -8937,18 +8991,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -9109,17 +9164,18 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 62
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -9275,23 +9331,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 90
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -9449,13 +9506,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -9613,14 +9671,15 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "opp-goal",

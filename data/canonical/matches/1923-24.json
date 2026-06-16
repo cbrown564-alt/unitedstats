@@ -353,18 +353,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 33
         }
       ],
       "eventsComplete": true,
@@ -1146,13 +1147,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 69
         }
       ],
       "eventsComplete": true,
@@ -1315,15 +1317,19 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goals (og)"
+          "detail": "own goals (og)",
+          "playerName": "s",
+          "playerSide": "opponent"
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goals (og)"
+          "detail": "own goals (og)",
+          "playerName": "s",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -1481,18 +1487,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-bain",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "david-bain",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -1650,23 +1657,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-mann",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "frank-mann",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "david-bain",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -1824,18 +1832,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-barber",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 6
         }
       ],
       "eventsComplete": true,
@@ -1993,18 +2002,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -2162,23 +2172,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "frank-mann",
-          "minute": null
+          "minute": 82
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -2341,9 +2352,10 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2831,13 +2843,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-grimwood",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -2995,33 +3008,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-bain",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "david-bain",
-          "minute": null
+          "minute": 24
         },
         {
           "type": "goal",
           "player": "david-bain",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -3179,13 +3193,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-grimwood",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -3655,13 +3670,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-bain",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,
@@ -3994,14 +4010,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "frank-mcpherson",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -4159,13 +4176,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -5586,13 +5604,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -5750,13 +5769,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "james-miller",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -5914,18 +5934,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -6239,33 +6260,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 27
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 58
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -6579,13 +6601,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -6912,18 +6935,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 71
         }
       ],
       "eventsComplete": true,

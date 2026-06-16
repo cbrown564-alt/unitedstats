@@ -823,9 +823,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 64,
-          "detail": "Abou Diaby (og)"
+          "detail": "Abou Diaby (og)",
+          "playerName": "Abou Diaby",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2228,9 +2230,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 94,
-          "detail": "Anton Ferdinand (og)"
+          "detail": "Anton Ferdinand (og)",
+          "playerName": "Anton Ferdinand",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2429,9 +2433,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 5,
-          "detail": "Zat Knight (og)"
+          "detail": "Zat Knight (og)",
+          "playerName": "Zat Knight",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -5601,9 +5607,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 73,
-          "detail": "Andy Dawson (og)"
+          "detail": "Andy Dawson (og)",
+          "playerName": "Andy Dawson",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -6209,9 +6217,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 63,
-          "detail": "Scott Dann (og)"
+          "detail": "Scott Dann (og)",
+          "playerName": "Scott Dann",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -7221,9 +7231,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 33,
-          "detail": "Manuel Almunia (og)"
+          "detail": "Manuel Almunia (og)",
+          "playerName": "Manuel Almunia",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -7437,9 +7449,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 45,
-          "detail": "Anthony Vanden Borre (og)"
+          "detail": "Anthony Vanden Borre (og)",
+          "playerName": "Anthony Vanden Borre",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -7453,9 +7467,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 69,
-          "detail": "Marc Wilson (og)"
+          "detail": "Marc Wilson (og)",
+          "playerName": "Marc Wilson",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -7654,9 +7670,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 23,
-          "detail": "James Collins (og)"
+          "detail": "James Collins (og)",
+          "playerName": "James Collins",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -9412,9 +9430,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 38,
-          "detail": "Jlloyd Samuel (og)"
+          "detail": "Jlloyd Samuel (og)",
+          "playerName": "Jlloyd Samuel",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -11050,9 +11070,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 54,
-          "detail": "Danny Higginbotham (og)"
+          "detail": "Danny Higginbotham (og)",
+          "playerName": "Danny Higginbotham",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

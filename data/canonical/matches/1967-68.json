@@ -23,42 +23,43 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 72
         },
         {
           "type": "opp-goal",
           "player": null,
           "playerName": "Jimmy Robertson",
           "playerSide": "opponent",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "opp-goal",
           "player": null,
           "playerName": "Pat Jennings",
           "playerSide": "opponent",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "opp-goal",
           "player": null,
           "playerName": "Frank Saul",
           "playerSide": "opponent",
-          "minute": null
+          "minute": 49
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -170,13 +171,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -346,13 +348,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -510,13 +513,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-foulkes",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -674,23 +678,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 54
         },
         {
           "type": "goal",
           "player": "jimmy-ryan",
-          "minute": null
+          "minute": 82
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 59
         }
       ],
       "eventsComplete": true,
@@ -848,13 +853,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -1024,18 +1030,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "francis-burns",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -1205,13 +1212,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -1372,27 +1380,28 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 58
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1548,23 +1557,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 6
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -1878,18 +1888,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -2059,13 +2070,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 76
         }
       ],
       "eventsComplete": true,
@@ -2223,23 +2235,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 64
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,
@@ -2409,28 +2422,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 58
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 33
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -2588,13 +2602,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 71
         }
       ],
       "eventsComplete": true,
@@ -2752,13 +2767,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -3084,18 +3100,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -3409,23 +3426,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 41
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -3583,13 +3601,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -3750,17 +3769,18 @@
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 63
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3916,18 +3936,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 21
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -4085,18 +4106,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tony-dunne",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,
@@ -4254,23 +4276,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 64
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -4428,18 +4451,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 69
         }
       ],
       "eventsComplete": true,
@@ -4597,28 +4621,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -4776,23 +4801,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -4950,23 +4976,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 77
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 51
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -5124,28 +5151,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 56
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 64
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -5304,19 +5332,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 4
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -5631,18 +5660,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -5800,13 +5830,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -5964,13 +5995,22 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
           "minute": null
+        },
+        {
+          "type": "own-goal-for",
+          "player": "own-goal",
+          "playerName": "Peter Storey",
+          "playerSide": "opponent",
+          "minute": 23,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": false,
@@ -6130,9 +6170,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Stefan Florenski (og)"
+          "player": "own-goal",
+          "minute": 60,
+          "detail": "Stefan Florenski (og)",
+          "playerName": "Stefan Florenski",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -6142,7 +6184,8 @@
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6298,13 +6341,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -6786,23 +6830,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "shay-brennan",
-          "minute": null
+          "minute": 29
         },
         {
           "type": "goal",
           "player": "francis-burns",
-          "minute": null
+          "minute": 69
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -6960,13 +7005,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true,
@@ -7136,28 +7182,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 69
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "alan-gowling",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "jimmy-ryan",
-          "minute": null
+          "minute": 78
         }
       ],
       "eventsComplete": true,
@@ -7327,13 +7374,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -7491,28 +7539,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -7670,18 +7719,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 42
         }
       ],
       "eventsComplete": true,
@@ -7839,23 +7889,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -8013,13 +8064,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -8180,12 +8232,13 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 36
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -8341,23 +8394,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -8515,38 +8569,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 27
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -8704,13 +8759,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -8892,14 +8948,17 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Ignacio Zoco (og)"
+          "player": "own-goal",
+          "minute": 43,
+          "detail": "Ignacio Zoco (og)",
+          "playerName": "Ignacio Zoco",
+          "playerSide": "opponent"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -9059,22 +9118,22 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 99
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 92
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 93
         },
         {
           "type": "opp-goal",
@@ -9085,7 +9144,8 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {

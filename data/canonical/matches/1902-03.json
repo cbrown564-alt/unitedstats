@@ -20,13 +20,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-richards",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -184,13 +185,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "daniel-hurst",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -348,13 +350,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "daniel-hurst",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -1677,9 +1680,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Own goal (og)"
+          "detail": "Own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -1837,13 +1841,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -2001,13 +2006,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dick-pegg",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -3336,19 +3342,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -3663,14 +3670,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "billy-griffiths",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -3828,18 +3836,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-morrison",
-          "minute": null
+          "minute": 54
         },
         {
           "type": "goal",
           "player": "tommy-morrison",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -5010,18 +5019,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,

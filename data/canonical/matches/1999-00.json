@@ -1552,9 +1552,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 4,
-          "detail": "Jamie Carragher (og)"
+          "detail": "Jamie Carragher (og)",
+          "playerName": "Jamie Carragher",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -10573,9 +10575,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 15,
-          "detail": "Francis Benali (og)"
+          "detail": "Francis Benali (og)",
+          "playerName": "Francis Benali",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

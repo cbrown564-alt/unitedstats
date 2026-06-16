@@ -20,18 +20,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -189,13 +190,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 62
         }
       ],
       "eventsComplete": true,
@@ -353,13 +355,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -829,23 +832,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 84
         }
       ],
       "eventsComplete": true,
@@ -1003,13 +1007,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 56
         }
       ],
       "eventsComplete": true,
@@ -1167,23 +1172,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 71
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 33
         }
       ],
       "eventsComplete": true,
@@ -1353,9 +1359,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Roger Byrne (og)"
+          "detail": "Roger Byrne (og)",
+          "playerName": "Roger Byrne",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -1646,18 +1654,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -1971,33 +1980,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 4
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 21
         }
       ],
       "eventsComplete": true,
@@ -2155,13 +2165,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -2319,18 +2330,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 38
         },
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -2488,13 +2500,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -2652,18 +2665,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 42
         }
       ],
       "eventsComplete": true,
@@ -2821,18 +2835,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 74
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -2990,13 +3005,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "eddie-lewis",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -3154,23 +3170,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -3328,18 +3345,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -3497,23 +3515,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-doherty",
-          "minute": null
+          "minute": 11
         },
         {
           "type": "goal",
           "player": "john-doherty",
-          "minute": null
+          "minute": 29
         },
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -3827,18 +3846,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-carey",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "eddie-lewis",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -3996,13 +4016,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "eddie-lewis",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -4160,13 +4181,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -4325,14 +4347,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -4490,13 +4513,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "eddie-lewis",
-          "minute": null
+          "minute": 58
         }
       ],
       "eventsComplete": true,
@@ -4654,13 +4678,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "eddie-lewis",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -4819,14 +4844,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "eddie-lewis",
-          "minute": null
+          "minute": 39
         }
       ],
       "eventsComplete": true,
@@ -5000,10 +5026,12 @@
           "minute": null
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "roger-byrne",
           "minute": null,
-          "detail": "Roger Byrne (og)"
+          "detail": null,
+          "playerName": "Roger Byrne",
+          "playerSide": "united"
         },
         {
           "type": "goal",
@@ -5171,23 +5199,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 48
         },
         {
           "type": "goal",
           "player": "eddie-lewis",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -5346,14 +5375,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -5836,13 +5866,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 22
         }
       ],
       "eventsComplete": true,
@@ -6000,33 +6031,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 36
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -6188,10 +6220,12 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "roger-byrne",
           "minute": null,
-          "detail": "Roger Byrne (og)"
+          "detail": null,
+          "playerName": "Roger Byrne",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -6349,23 +6383,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -6679,18 +6714,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -6852,10 +6888,12 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "roger-byrne",
           "minute": null,
-          "detail": "Roger Byrne (og)"
+          "detail": null,
+          "playerName": "Roger Byrne",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -7013,23 +7051,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -7187,18 +7226,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": null
+          "minute": 58
         }
       ],
       "eventsComplete": true,
@@ -7356,18 +7396,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -7525,23 +7566,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 6
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 9
         }
       ],
       "eventsComplete": true,

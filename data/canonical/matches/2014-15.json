@@ -6292,7 +6292,7 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Kieran Gibbs",
           "playerProviderId": "44792",
           "playerSide": "opponent",
@@ -13273,7 +13273,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Wes Morgan",
           "playerProviderId": "10003",
           "playerSide": "opponent",

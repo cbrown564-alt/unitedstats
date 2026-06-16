@@ -2753,9 +2753,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 13,
-          "detail": "Hakan Şükür (og)"
+          "detail": "Hakan Şükür (og)",
+          "playerName": "Hakan Şükür",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

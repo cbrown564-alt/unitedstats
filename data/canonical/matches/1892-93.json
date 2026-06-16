@@ -194,13 +194,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -358,13 +359,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -1542,13 +1544,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alf-farman",
-          "minute": null
+          "minute": 57
         }
       ],
       "eventsComplete": true,
@@ -2049,18 +2052,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-coupar",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "tommy-fitzsimmons",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -2857,13 +2861,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-hood",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -3378,13 +3383,14 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-coupar",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true
@@ -3408,13 +3414,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -3886,13 +3893,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-fitzsimmons",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,

@@ -20,13 +20,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 21
         }
       ],
       "eventsComplete": true,
@@ -184,13 +185,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -348,28 +350,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 24
         },
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 51
         },
         {
           "type": "goal",
           "player": "jackie-wassall",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -875,13 +878,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -1039,13 +1043,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -1528,13 +1533,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 51
         }
       ],
       "eventsComplete": true,
@@ -2329,18 +2335,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "ernie-thompson",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -2662,13 +2669,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-mutch",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -2995,18 +3003,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-mckay",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "george-mutch",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -3164,13 +3173,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -3328,13 +3338,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-mckay",
-          "minute": null
+          "minute": 41
         }
       ],
       "eventsComplete": true,
@@ -3840,18 +3851,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 22
         }
       ],
       "eventsComplete": true,
@@ -4166,14 +4178,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -4645,13 +4658,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-wrigglesworth",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -4809,13 +4823,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -4973,13 +4988,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -5293,18 +5309,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "george-gladwin",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -5462,18 +5479,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "jimmy-mcclelland",
-          "minute": null
+          "minute": 4
         }
       ],
       "eventsComplete": true,
@@ -5787,13 +5805,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-cape",
-          "minute": null
+          "minute": 46
         }
       ],
       "eventsComplete": true,
@@ -5951,18 +5970,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-baird",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "george-mutch",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -6606,18 +6626,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 29
         },
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 56
         }
       ],
       "eventsComplete": true,
@@ -6944,13 +6965,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-bamford",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,

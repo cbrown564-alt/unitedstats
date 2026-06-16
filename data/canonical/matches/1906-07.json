@@ -20,18 +20,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-roberts",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 31
         }
       ],
       "eventsComplete": true,
@@ -189,18 +190,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 34
         }
       ],
       "eventsComplete": true,
@@ -514,18 +516,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-downie",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "alex-bell",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -847,13 +850,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-bell",
-          "minute": null
+          "minute": 55
         }
       ],
       "eventsComplete": true,
@@ -1011,18 +1015,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dick-duckworth",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "dick-duckworth",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -1180,13 +1185,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,
@@ -1344,13 +1350,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -1833,13 +1840,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-downie",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -1997,18 +2005,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-menzies",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "jack-peddie",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -2821,13 +2830,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-menzies",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -3453,13 +3463,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -3774,19 +3785,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jack-picken",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -3945,14 +3957,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 34
         }
       ],
       "eventsComplete": true,
@@ -4110,18 +4123,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -4279,13 +4293,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 81
         }
       ],
       "eventsComplete": true,
@@ -4599,14 +4614,17 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Tom Holford (og)"
+          "player": "own-goal",
+          "minute": 14,
+          "detail": "Tom Holford (og)",
+          "playerName": "Tom Holford",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -5132,13 +5150,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-menzies",
-          "minute": null
+          "minute": 42
         }
       ],
       "eventsComplete": true,
@@ -5621,18 +5640,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-meredith",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "alex-menzies",
-          "minute": null
+          "minute": 55
         }
       ],
       "eventsComplete": true,
@@ -5790,13 +5810,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -5954,13 +5975,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-roberts",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,

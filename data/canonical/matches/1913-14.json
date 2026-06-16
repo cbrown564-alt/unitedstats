@@ -35,9 +35,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -195,23 +196,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "arthur-whalley",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -525,18 +527,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -694,28 +697,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "enoch-west",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "enoch-west",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -873,23 +877,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-stacey",
-          "minute": null
+          "minute": 48
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "arthur-whalley",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -1047,18 +1052,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -1216,23 +1222,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -1390,13 +1397,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "enoch-west",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -1554,23 +1562,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "enoch-west",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -2204,23 +2213,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "sandy-turnbull",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "billy-meredith",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -2378,18 +2388,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -2547,13 +2558,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-knowles",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -2716,9 +2728,10 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3188,18 +3201,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-meredith",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 33
         }
       ],
       "eventsComplete": true,
@@ -3357,13 +3371,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 22
         }
       ],
       "eventsComplete": true,
@@ -3521,13 +3536,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "enoch-west",
-          "minute": null
+          "minute": 72
         }
       ],
       "eventsComplete": true,
@@ -4168,13 +4184,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -4488,13 +4505,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -4652,18 +4670,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "arthur-potts",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -4821,18 +4840,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-travers",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -5146,18 +5166,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 78
         },
         {
           "type": "goal",
           "player": "george-travers",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -5627,13 +5648,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-travers",
-          "minute": null
+          "minute": 19
         }
       ],
       "eventsComplete": true,
@@ -5791,18 +5813,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-travers",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "george-wall",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -5960,13 +5983,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "james-thomson",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -6124,18 +6148,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "george-anderson",
-          "minute": null
+          "minute": 61
         }
       ],
       "eventsComplete": true,

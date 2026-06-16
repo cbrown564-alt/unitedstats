@@ -20,13 +20,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -509,18 +510,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 33
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -678,18 +680,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 72
         },
         {
           "type": "goal",
           "player": "jack-silcock",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -847,13 +850,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,
@@ -1011,33 +1015,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 63
         },
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 22
         }
       ],
       "eventsComplete": true,
@@ -1374,13 +1379,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -1538,13 +1544,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -1702,18 +1709,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 9
         }
       ],
       "eventsComplete": true,
@@ -1871,13 +1879,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -2035,13 +2044,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -2355,13 +2365,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -2519,13 +2530,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-ramsden",
-          "minute": null
+          "minute": 57
         }
       ],
       "eventsComplete": true,
@@ -2683,13 +2695,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -2847,13 +2860,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -3167,13 +3181,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "charlie-ramsden",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -3331,13 +3346,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -3495,13 +3511,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 38
         }
       ],
       "eventsComplete": true,
@@ -3828,13 +3845,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -3993,24 +4011,25 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "chris-taylor",
-          "minute": null
+          "minute": 38
         }
       ],
       "eventsComplete": true,
@@ -4168,13 +4187,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "eric-sweeney",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -4490,18 +4510,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -4815,23 +4836,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 33
         },
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 32
         }
       ],
       "eventsComplete": true,
@@ -4989,13 +5011,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -5153,18 +5176,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -5322,13 +5346,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -5486,13 +5511,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 55
         }
       ],
       "eventsComplete": true,
@@ -5650,13 +5676,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true,
@@ -5814,18 +5841,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "harry-rowley",
-          "minute": null
+          "minute": 57
         }
       ],
       "eventsComplete": true,
@@ -5983,23 +6011,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -6157,13 +6186,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -6321,13 +6351,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -6485,23 +6516,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "frank-mann",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -6659,23 +6691,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "charlie-ramsden",
-          "minute": null
+          "minute": 32
         }
       ],
       "eventsComplete": true,
@@ -6833,28 +6866,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -7012,28 +7046,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,

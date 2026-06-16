@@ -57,7 +57,12 @@ test("Matt Busby tenure record (closed)", () => {
 // --------------------------------------------------- official scorer record
 
 test("all-time top scorers reproduce the official club record", () => {
-  const top = topScorers(8).map((p) => [p.player_id, p.goals]);
+  // "Own Goal" is a synthetic aggregate scorer (see below); the official record
+  // is real players, so it is excluded from this calibration.
+  const top = topScorers(9)
+    .filter((p) => p.player_id !== "own-goal")
+    .slice(0, 8)
+    .map((p) => [p.player_id, p.goals]);
   assert.deepEqual(top, [
     ["wayne-rooney", 253],
     ["bobby-charlton", 249],
@@ -68,6 +73,19 @@ test("all-time top scorers reproduce the official club record", () => {
     ["ryan-giggs", 168],
     ["joe-spence", 168],
   ]);
+});
+
+test("Own Goal aggregates opponents' own goals as a synthetic top scorer", () => {
+  // Own goals scored FOR United gather under one synthetic 'own-goal' scorer,
+  // which ranks among the club's leading scorers. Pinned as calibration: a player
+  // in United's own lineup can never own-goal in United's favour, so this number
+  // must not absorb mislabelled real goals (the Roger Byrne cluster).
+  const top = topScorers(6);
+  const og = top.find((p) => p.player_id === "own-goal");
+  assert.ok(og, "Own Goal should rank among the top scorers");
+  assert.equal(og?.name, "Own Goal");
+  assert.equal(og?.goals, 202);
+  assert.equal(top.indexOf(og!), 4, "Own Goal should rank fifth all-time");
 });
 
 test("Wayne Rooney official appearance record", () => {

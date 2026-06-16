@@ -175,9 +175,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 83,
-          "detail": "Ramon Vega (og)"
+          "detail": "Ramon Vega (og)",
+          "playerName": "Ramon Vega",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2246,9 +2248,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 30,
-          "detail": "Hermann Hreiðarsson (og)"
+          "detail": "Hermann Hreiðarsson (og)",
+          "playerName": "Hermann Hreiðarsson",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3253,9 +3257,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 20,
-          "detail": "Jon Newsome (og)"
+          "detail": "Jon Newsome (og)",
+          "playerName": "Jon Newsome",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -4070,9 +4076,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 85,
-          "detail": "Ľubomír Faktor (og)"
+          "detail": "Ľubomír Faktor (og)",
+          "playerName": "Ľubomír Faktor",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -4289,15 +4297,19 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 59,
-          "detail": "Stéphane Henchoz (og)"
+          "detail": "Stéphane Henchoz (og)",
+          "playerName": "Stéphane Henchoz",
+          "playerSide": "opponent"
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 84,
-          "detail": "Jeff Kenna (og)"
+          "detail": "Jeff Kenna (og)",
+          "playerName": "Jeff Kenna",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

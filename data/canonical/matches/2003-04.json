@@ -6264,9 +6264,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 47,
-          "detail": "Chris Hargreaves (og)"
+          "detail": "Chris Hargreaves (og)",
+          "playerName": "Chris Hargreaves",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

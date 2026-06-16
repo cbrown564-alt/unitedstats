@@ -8151,9 +8151,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 44,
-          "detail": "Steve Clarke (og)"
+          "detail": "Steve Clarke (og)",
+          "playerName": "Steve Clarke",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

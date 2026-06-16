@@ -539,13 +539,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -2254,13 +2255,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -4520,9 +4522,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "McDermidd (og)"
+          "detail": "McDermidd (og)",
+          "playerName": "McDermidd",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

@@ -3521,9 +3521,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 35,
-          "detail": "Jamie Hoyland (og)"
+          "detail": "Jamie Hoyland (og)",
+          "playerName": "Jamie Hoyland",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

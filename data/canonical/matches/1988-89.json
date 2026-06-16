@@ -5184,9 +5184,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 63,
-          "detail": "Jimmy Phillips (og)"
+          "detail": "Jimmy Phillips (og)",
+          "playerName": "Jimmy Phillips",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -7002,9 +7004,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 85,
-          "detail": "Tony Adams (og)"
+          "detail": "Tony Adams (og)",
+          "playerName": "Tony Adams",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
