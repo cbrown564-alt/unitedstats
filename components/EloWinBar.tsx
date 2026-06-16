@@ -65,14 +65,10 @@ export function EloWinBar({
         <div className="h-full bg-devil" style={{ width: `${unitedPct}%` }} />
       </div>
 
-      <div className="mt-1 flex items-baseline justify-between stat-num text-[11px] text-ink-faint">
-        <span>Elo {Math.round(eloPre)}</span>
-        <span>Elo {Math.round(oppEloPre)}</span>
-      </div>
-
       <p className="mt-2 text-xs text-ink-faint">
-        {club} went in the {favourite ? "favourite" : "underdog"} by rating. Elo expectancy splits draws
-        into the figure, so it is one rating-implied number, not a separate win/draw/loss forecast.
+        {club} went in the {favourite ? "favourite" : "underdog"} by rating, {Math.round(eloPre)} to{" "}
+        {opponentName}&rsquo;s {Math.round(oppEloPre)}. Expectancy folds draws into one figure, not a
+        separate win/draw/loss split.
       </p>
     </div>
   );
