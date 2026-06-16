@@ -9,6 +9,10 @@ import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone
 import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
+import { GoalTimeline } from "@/components/GoalTimeline";
+import { EloWinBar } from "@/components/EloWinBar";
+import { ScoreRibbon } from "@/components/ScoreRibbon";
+import { FormationPitch, roleBand } from "@/components/FormationPitch";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +39,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const starters = lineup.filter((p) => p.player_side === "united" && p.started && !p.bench);
   const usedSubs = lineup.filter((p) => p.player_side === "united" && !p.started && !p.bench);
   const bench = lineup.filter((p) => p.player_side === "united" && p.bench);
+  const hasTimedGoals = goals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
+  // Pitch needs a role for every starter (role data is per-match all-or-nothing).
+  const canPitch = starters.length >= 7 && starters.every((p) => roleBand(p.role) !== null);
   const sourceSummary = sources.reduce((acc, source) => {
     const cur = acc.get(source.id) ?? {
       label: source.label,
@@ -56,7 +63,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     cards.length > 0 ? `${cards.length} card${cards.length === 1 ? "" : "s"}` : null,
   ].filter(Boolean) as string[];
   const contextParts = [
-    elo ? "Elo" : null,
     h2h.p > 0 ? "head-to-head" : null,
     "form",
     similar.length > 0 || seasonLateGoals.length > 0 ? "related matches" : null,
@@ -118,32 +124,35 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         {m.notes && <p className="text-sm text-ink-dim italic max-w-3xl">{m.notes}</p>}
       </header>
 
-      {goals.length > 0 && (
+      {elo && (
+        <EloWinBar
+          club={club}
+          opponentName={m.opponent_name}
+          eloPre={elo.elo_pre}
+          oppEloPre={elo.opp_elo_pre}
+          expected={elo.expected}
+          eloPost={elo.elo_post}
+        />
+      )}
+
+      {hasTimedGoals && (
         <section>
-          <h2 className="display text-xl mb-3">{club} goals</h2>
-          <ul className="space-y-2 max-w-xl">
-            {goals.map((e) => (
-              <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
-                <span className="stat-num text-devil-bright font-semibold w-10">
-                  {e.minute != null ? `${e.minute}'` : "•"}
-                </span>
-                <span className="flex-1">
-                  {e.player_id ? (
-                    <Link href={`/player/${e.player_id}`} className="font-medium hover:text-devil-bright">
-                      {e.player_name}
-                    </Link>
-                  ) : (
-                    <span className="font-medium">{e.player_display_name ?? "Goal"}</span>
-                  )}
-                  {e.type === "pen-goal" && <span className="text-xs text-ink-faint ml-1.5">(pen)</span>}
-                  {e.type === "own-goal-for" && <span className="text-xs text-ink-faint ml-1.5">(og)</span>}
-                  {e.assist_display_name && (
-                    <span className="text-xs text-ink-faint ml-1.5">assist {e.assist_display_name}</span>
-                  )}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <h2 className="display text-xl mb-3">Goal timeline</h2>
+          <GoalTimeline
+            unitedGoals={goals}
+            opponentGoals={opponentGoals}
+            cards={cards}
+            subs={usedSubs}
+            club={club}
+            opponentName={m.opponent_name}
+            venue={m.venue}
+            gf={m.gf}
+            ga={m.ga}
+            aet={!!m.aet}
+          />
+          <div className="mt-3">
+            <ScoreRibbon unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
+          </div>
           {!m.events_complete && (
             <p className="text-xs text-ink-faint mt-2">
               Scorer data for this match may be incomplete.
@@ -151,6 +160,56 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           )}
         </section>
       )}
+
+      {/* Untimed scorers: events exist but no minutes — keep a plain list. */}
+      {!hasTimedGoals && (goals.length > 0 || opponentGoals.length > 0) && (
+        <section className="grid sm:grid-cols-2 gap-x-8 gap-y-4 max-w-3xl">
+          {goals.length > 0 && (
+            <div>
+              <h2 className="display text-xl mb-3">{club} goals</h2>
+              <ul className="space-y-2">
+                {goals.map((e) => (
+                  <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
+                    <span className="stat-num text-devil-bright font-semibold w-6">•</span>
+                    <span className="flex-1">
+                      {e.player_id ? (
+                        <Link href={`/player/${e.player_id}`} className="font-medium hover:text-devil-bright">
+                          {e.player_name}
+                        </Link>
+                      ) : (
+                        <span className="font-medium">{e.player_display_name ?? "Goal"}</span>
+                      )}
+                      {e.type === "pen-goal" && <span className="text-xs text-ink-faint ml-1.5">(pen)</span>}
+                      {e.type === "own-goal-for" && <span className="text-xs text-ink-faint ml-1.5">(og)</span>}
+                      {e.assist_display_name && (
+                        <span className="text-xs text-ink-faint ml-1.5">assist {e.assist_display_name}</span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {opponentGoals.length > 0 && (
+            <div>
+              <h2 className="display text-xl mb-3">{m.opponent_name} goals</h2>
+              <ul className="space-y-2">
+                {opponentGoals.map((e) => (
+                  <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
+                    <span className="stat-num text-loss font-semibold w-6">•</span>
+                    <span className="flex-1 font-medium">{e.player_display_name ?? "Goal"}</span>
+                    {e.type === "own-goal-against" && <span className="text-xs text-ink-faint">og</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {!m.events_complete && (
+            <p className="text-xs text-ink-faint sm:col-span-2">Scorer data for this match may be incomplete.</p>
+          )}
+        </section>
+      )}
+
       {goals.length === 0 && m.gf > 0 && (
         <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
           <h2 className="display text-xl">Scorers</h2>
@@ -160,22 +219,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <Link href="/data" className="text-xs text-devil-bright hover:underline mt-2 inline-block">
             How to add the missing scorers
           </Link>
-        </section>
-      )}
-      {opponentGoals.length > 0 && (
-        <section>
-          <h2 className="display text-xl mb-3">{m.opponent_name} goals</h2>
-          <ul className="space-y-2 max-w-xl">
-            {opponentGoals.map((e) => (
-              <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
-                <span className="stat-num text-loss font-semibold w-10">
-                  {e.minute != null ? `${e.minute}'` : "•"}
-                </span>
-                <span className="flex-1 font-medium">{e.player_display_name ?? "Goal"}</span>
-                {e.type === "own-goal-against" && <span className="text-xs text-ink-faint">og</span>}
-              </li>
-            ))}
-          </ul>
         </section>
       )}
       {opponentGoals.length === 0 && m.ga > 0 && (
@@ -203,7 +246,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </span>
             </summary>
             <div className="space-y-6">
-              {starters.length > 0 && (
+              {starters.length > 0 && canPitch && (
+                <div>
+                  <h3 className="display text-lg mb-3">Starting XI</h3>
+                  <FormationPitch starters={starters} decade={m.date.slice(0, 4)} />
+                </div>
+              )}
+              {starters.length > 0 && !canPitch && (
                 <div>
                   <h3 className="display text-lg mb-3">Starting XI</h3>
                   <ul className="grid sm:grid-cols-2 gap-1.5 max-w-2xl text-sm">
@@ -300,16 +349,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <div className="space-y-8">
             <div className="grid sm:grid-cols-2 gap-8 max-w-3xl">
               <div>
-                <h3 className="display text-lg mb-3">Going into the match</h3>
+                <h3 className="display text-lg mb-3">Head-to-head before</h3>
                 <div className="space-y-2 text-sm">
-                  {elo && (
-                    <p className="text-ink-dim">
-                      Elo {Math.round(elo.elo_pre)} v {Math.round(elo.opp_elo_pre)} — {club} were{" "}
-                      <span className="stat-num text-ink">{Math.round(elo.expected * 100)}%</span> favourites
-                      {" "}→ rating {elo.elo_post > elo.elo_pre ? "rose" : elo.elo_post < elo.elo_pre ? "fell" : "held"} to{" "}
-                      <span className="stat-num text-ink">{Math.round(elo.elo_post)}</span>.
-                    </p>
-                  )}
                   <p className="text-ink-dim">
                     Previous meetings with {m.opponent_name}:{" "}
                     <span className="stat-num text-ink">{h2h.p}</span> played,{" "}
