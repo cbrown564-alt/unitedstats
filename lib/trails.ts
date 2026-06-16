@@ -191,19 +191,11 @@ export function longestStreak(
   return best;
 }
 
-export function homeMatchesAtOldTrafford(): { date: string; result: string }[] {
-  return getDb()
-    .prepare(
-      "SELECT date, result FROM matches WHERE stadium_id = 'old-trafford' AND venue = 'H' ORDER BY date",
-    )
-    .all() as { date: string; result: string }[];
-}
-
 const UNITED_GOAL = "('goal','pen-goal','own-goal-for')";
 const OPP_GOAL = "('opp-goal','own-goal-against')";
 const UNITED_GOAL_SET = new Set(["goal", "pen-goal", "own-goal-for"]);
 
-export interface LeadHeldGame {
+interface LeadHeldGame {
   id: string;
   date: string;
   season: string;

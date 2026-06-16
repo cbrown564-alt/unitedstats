@@ -10,7 +10,7 @@ import { userAgent } from "../lib";
 const COMMONS_THUMB_WIDTH = 320;
 const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
 
-export type SourceMethod = "wikidata-p18" | "wikipedia-pageimage";
+type SourceMethod = "wikidata-p18" | "wikipedia-pageimage";
 
 export interface MediaSubject {
   /** Stable key the caller uses to look the result back up (id, name, …). */
@@ -19,7 +19,7 @@ export interface MediaSubject {
   wikiTitle: string;
 }
 
-export interface ResolvedMedia {
+interface ResolvedMedia {
   key: string;
   wikiTitle: string;
   wikidataId: string | null;
