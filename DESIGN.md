@@ -131,6 +131,48 @@ Cards:
 - Do not put every section into a card by default.
 - Prefer table/list rhythm for records, not identical decorative card grids.
 
+## Composition Principles
+
+These principles were distilled from the match-detail redesign (June 2026) but apply
+across the product. They favour a few dense, self-explanatory objects over stacks of
+labelled panels.
+
+**One element per fact.** If two elements derive from the same underlying events, they
+are one element. The match page had a goal timeline and a score ribbon that were two
+views of the same timed goals; they became a single `MatchFlow` bar. The header score
+and Elo rating row were de-duplicated the same way. Before adding a panel, check whether
+an existing one already carries the same data.
+
+**Encode meaning in the object, not a legend.** Prefer colour, position, and shape over
+captions and keys. `MatchFlow` colours the bar by United's lead — red ahead, neutral grey
+at level, near-black behind, deepening with the margin — so the shape of the result reads
+at a glance with no numbers. This extends the color-semantic rule from Charts: encoding is
+fine when it is intrinsic to the object and still text-backed on inspection.
+
+**Position carries category.** Use spatial placement to distinguish groups instead of a
+legend. `MatchFlow` puts United scorers above the bar and opponent scorers below; the side
+is the team. Labels only stagger into a second lane when same-side events cluster in time,
+because opposite sides can never collide.
+
+**Events live on the object they belong to.** Put a fact where the reader would look for
+it. Goals, assists, and bookings render onto the player shirts on the teamsheet pitch (a
+football for a scorer, a boot for an assister, a card marker for a booking) rather than in
+stacked boxes below. The bench sits beside the pitch, unused subs drained of shirt colour.
+
+**Share one content column.** Sibling sections should align to the same width. The venue
+strip, Elo bar, and timeline span the content column together rather than floating at mixed
+`max-w` values. Fixture meta splits into aligned sub-columns. Use a fixed-column grid for
+anything that must never wrap, such as the scoreboard score.
+
+**Responsive by swapping content, not scrolling.** Long labels swap tier by viewport
+rather than forcing horizontal scroll: hero team names render as full name → broadcast
+short → 3-letter code (`lib/clubNames.ts`), with `min-w-0` grid cells and the full name
+preserved in the tooltip.
+
+**Subtract aggressively.** Delete context that does not earn its place. The redesign
+removed two whole components and a "late goals that season" section outright. Fewer, denser
+objects beat more, thinner ones.
+
 ## Charts And Data Visualization
 
 Charts should make patterns readable before they look impressive.
