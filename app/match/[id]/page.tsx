@@ -10,6 +10,7 @@ import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
 import { GoalTimeline } from "@/components/GoalTimeline";
+import { EloWinBar } from "@/components/EloWinBar";
 
 export const dynamic = "force-dynamic";
 
@@ -58,7 +59,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     cards.length > 0 ? `${cards.length} card${cards.length === 1 ? "" : "s"}` : null,
   ].filter(Boolean) as string[];
   const contextParts = [
-    elo ? "Elo" : null,
     h2h.p > 0 ? "head-to-head" : null,
     "form",
     similar.length > 0 || seasonLateGoals.length > 0 ? "related matches" : null,
@@ -119,6 +119,17 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </dl>
         {m.notes && <p className="text-sm text-ink-dim italic max-w-3xl">{m.notes}</p>}
       </header>
+
+      {elo && (
+        <EloWinBar
+          club={club}
+          opponentName={m.opponent_name}
+          eloPre={elo.elo_pre}
+          oppEloPre={elo.opp_elo_pre}
+          expected={elo.expected}
+          eloPost={elo.elo_post}
+        />
+      )}
 
       {hasTimedGoals && (
         <section>
@@ -325,16 +336,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <div className="space-y-8">
             <div className="grid sm:grid-cols-2 gap-8 max-w-3xl">
               <div>
-                <h3 className="display text-lg mb-3">Going into the match</h3>
+                <h3 className="display text-lg mb-3">Head-to-head before</h3>
                 <div className="space-y-2 text-sm">
-                  {elo && (
-                    <p className="text-ink-dim">
-                      Elo {Math.round(elo.elo_pre)} v {Math.round(elo.opp_elo_pre)} — {club} were{" "}
-                      <span className="stat-num text-ink">{Math.round(elo.expected * 100)}%</span> favourites
-                      {" "}→ rating {elo.elo_post > elo.elo_pre ? "rose" : elo.elo_post < elo.elo_pre ? "fell" : "held"} to{" "}
-                      <span className="stat-num text-ink">{Math.round(elo.elo_post)}</span>.
-                    </p>
-                  )}
                   <p className="text-ink-dim">
                     Previous meetings with {m.opponent_name}:{" "}
                     <span className="stat-num text-ink">{h2h.p}</span> played,{" "}
