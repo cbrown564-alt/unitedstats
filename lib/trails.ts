@@ -193,6 +193,127 @@ export function homeMatchesAtOldTrafford(): { date: string; result: string }[] {
     .all() as { date: string; result: string }[];
 }
 
+const UNITED_GOAL = "('goal','pen-goal','own-goal-for')";
+const OPP_GOAL = "('opp-goal','own-goal-against')";
+const UNITED_GOAL_SET = new Set(["goal", "pen-goal", "own-goal-for"]);
+
+export interface LeadHeldGame {
+  id: string;
+  date: string;
+  season: string;
+  result: string;
+  gf: number;
+  ga: number;
+  opponent_name: string;
+  /** United's half-time margin (always > 0 here — these are the games led at the break). */
+  htf: number;
+  hta: number;
+  /** Lowest United margin reached after half-time: 0 = pegged level, < 0 = fell behind. */
+  worst: number;
+  /** Latest minute United were level or behind in the second half, or null if never. */
+  riskMinute: number | null;
+}
+
+export interface LeadHeldSummary {
+  games: LeadHeldGame[];
+  w: number;
+  d: number;
+  l: number;
+  from: string;
+  to: string;
+}
+
+/**
+ * Old Trafford home *league* games United led at half-time, in chronological order
+ * — the canonical-record view of the "lead at the break and the fortress holds"
+ * rule. Half-time scores are reconstructed from minute-stamped events, so this is
+ * restricted to matches where every goal carries a minute and the reconstructed
+ * full-time score matches the recorded one; that pins coverage to the mid-1980s on
+ * (see {@link goalMinuteRidge} for why minute data thins before then). The published
+ * run is longer and older — Opta has it unbeaten across 400 such games back to
+ * August 1984 — so what we render here is the verifiable tail of that record, and
+ * the point it proves is the zero in the loss column.
+ *
+ * `worst`/`riskMinute` come from replaying each match's goals in order, so the
+ * caller can surface the games where the lead was surrendered or, rarer still,
+ * where United fell behind after the break and still rescued the result.
+ */
+export function leadHeldAtHome(): LeadHeldSummary {
+  const db = getDb();
+  const candidates = db
+    .prepare(
+      `SELECT m.id, m.date, m.season, m.result, m.gf, m.ga, m.opponent_name,
+              SUM(CASE WHEN e.type IN ${UNITED_GOAL} OR e.type IN ${OPP_GOAL} THEN (e.minute IS NULL) ELSE 0 END) nomin,
+              COALESCE(SUM(CASE WHEN e.minute <= 45 AND e.type IN ${UNITED_GOAL} THEN 1 ELSE 0 END), 0) htf,
+              COALESCE(SUM(CASE WHEN e.minute <= 45 AND e.type IN ${OPP_GOAL} THEN 1 ELSE 0 END), 0) hta,
+              COALESCE(SUM(e.type IN ${UNITED_GOAL}), 0) ftf,
+              COALESCE(SUM(e.type IN ${OPP_GOAL}), 0) fta
+       FROM matches m
+       JOIN competitions c ON c.id = m.competition_id
+       LEFT JOIN match_events e ON e.match_id = m.id
+       WHERE m.events_complete = 1 AND m.stadium_id = 'old-trafford'
+         AND m.venue = 'H' AND c.type = 'league'
+       GROUP BY m.id ORDER BY m.date`,
+    )
+    .all() as (Omit<LeadHeldGame, "worst" | "riskMinute"> & {
+      nomin: number;
+      ftf: number;
+      fta: number;
+    })[];
+
+  // Trustworthy half-time only: no minute gaps, and the reconstructed full-time
+  // score reproduces the recorded one. Then keep the games led at the break.
+  const led = candidates.filter(
+    (r) => r.nomin === 0 && r.ftf === r.gf && r.fta === r.ga && r.htf > r.hta,
+  );
+  if (led.length === 0) return { games: [], w: 0, d: 0, l: 0, from: "", to: "" };
+
+  // One pass for every goal in the qualifying matches; replay each to find the
+  // deepest second-half wobble and how late United were last level or behind.
+  const ids = led.map((r) => r.id);
+  const events = db
+    .prepare(
+      `SELECT match_id, type, minute FROM match_events
+       WHERE match_id IN (${ids.map(() => "?").join(",")})
+         AND (type IN ${UNITED_GOAL} OR type IN ${OPP_GOAL})
+       ORDER BY match_id, minute, seq`,
+    )
+    .all(...ids) as { match_id: string; type: string; minute: number }[];
+
+  const byMatch = new Map<string, { type: string; minute: number }[]>();
+  for (const e of events) (byMatch.get(e.match_id) ?? byMatch.set(e.match_id, []).get(e.match_id)!).push(e);
+
+  const games: LeadHeldGame[] = led.map((r) => {
+    let uf = 0;
+    let oa = 0;
+    let worst = r.htf - r.hta;
+    let riskMinute: number | null = null;
+    for (const e of byMatch.get(r.id) ?? []) {
+      if (UNITED_GOAL_SET.has(e.type)) uf++;
+      else oa++;
+      if (e.minute > 45) {
+        const margin = uf - oa;
+        if (margin < worst) worst = margin;
+        if (margin <= 0) riskMinute = e.minute;
+      }
+    }
+    return {
+      id: r.id, date: r.date, season: r.season, result: r.result,
+      gf: r.gf, ga: r.ga, opponent_name: r.opponent_name,
+      htf: r.htf, hta: r.hta, worst, riskMinute,
+    };
+  });
+
+  return {
+    games,
+    w: games.filter((g) => g.result === "W").length,
+    d: games.filter((g) => g.result === "D").length,
+    l: games.filter((g) => g.result === "L").length,
+    from: games[0].date,
+    to: games[games.length - 1].date,
+  };
+}
+
 // ---------------------------------------------------------------- cup specialists
 
 export interface CupSpecialist {
