@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  bogeyOpponents, cupSpecialists, goalMinuteRidge,
+  bogeyOpponents, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
@@ -15,7 +15,7 @@ import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { DataTable } from "@/components/DataTable";
 import { GeoScatter } from "@/components/GeoScatter";
 import { MatchList } from "@/components/MatchList";
-import { SplitBar } from "@/components/charts/SplitBar";
+import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { WdlBar } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
@@ -80,6 +80,8 @@ export default function QuestionsPage() {
   const otDecades = oldTraffordByDecade();
   const otRecord = otDecades.reduce((a, d) => ({ p: a.p + d.p, w: a.w + d.w }), { p: 0, w: 0 });
   const specialists = cupSpecialists(25, 10);
+  const cupBaseline = cupGoalShareBaseline();
+  const topCupLean = specialists[0];
 
   // Fortress, stated as a rule: lead at half-time at Old Trafford and you don't lose.
   const leadHeld = leadHeldAtHome();
@@ -442,35 +444,36 @@ export default function QuestionsPage() {
       <Module
         id="cup-specialists"
         question="Who saved their goals for cup nights?"
-        finding="Players whose recorded goals lean most toward cup competition — FA Cup, League Cup, Europe, and the one-off finals — among scorers with at least 25 recorded goals."
-        slice="Goals (excluding own goals) per player split league v cup by competition type, minimum 25 recorded goals, ranked by cup share."
+        finding={`United score just ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups — FA Cup, League Cup, Europe, and the one-off finals. These ten scorers all more than double that, ${topCupLean.name} most of all at ${(cupBaseline.share ? (topCupLean.cup_goals / topCupLean.total) / cupBaseline.share : 0).toFixed(1)}× the club rate.`}
+        slice="Goals (excluding own goals) per player split league v cup by competition type, minimum 25 recorded goals, ranked by cup share. The multiplier is each player's cup share over the club-wide cup share."
         coverage={`Scorer attribution exists for ${fmtNum(Number(meta.matches_with_scorers))} of ${fmtNum(Number(meta.matches))} matches, weighted toward the post-war era — pre-war specialists may be under-counted.`}
       >
+        <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+          <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
+            <div className="stat-num text-5xl font-semibold leading-none text-gold">{pct(cupBaseline.cup, cupBaseline.total)}</div>
+            <div className="mx-auto mt-1.5 max-w-32 text-[11px] uppercase tracking-wider text-ink-faint">
+              of all United goals come on cup nights
+            </div>
+          </div>
+          <div className="flex items-center text-sm text-ink-dim sm:px-2">
+            <span>
+              Of {fmtNum(cupBaseline.total)} recorded goals, just {fmtNum(cupBaseline.cup)} landed in a cup. So a scorer
+              who hits the same rate is ordinary; the players below cleared{" "}
+              <span className="text-gold">double the club&apos;s {pct(cupBaseline.cup, cupBaseline.total)}</span> — they truly saved their goals for cup nights.
+            </span>
+          </div>
+        </div>
+
         <div>
-          <div className="mb-2 flex items-center gap-4 text-[11px] text-ink-faint">
+          <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-faint">
             <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm bg-gold" /> cup goals</span>
-            <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "var(--color-ink-faint)" }} /> league goals</span>
-            <span className="ml-auto stat-num">cup share →</span>
+            <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "var(--color-panel-2)" }} /> league goals</span>
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-3 w-0.5 bg-devil-bright" /> club rate {pct(cupBaseline.cup, cupBaseline.total)}
+            </span>
+            <span className="ml-auto stat-num">× club rate →</span>
           </div>
-          <div className="space-y-1.5 text-sm">
-            {specialists.map((p) => (
-              <div
-                key={p.player_id}
-                className="grid grid-cols-[8.5rem_minmax(0,1fr)_3rem] items-center gap-3 sm:grid-cols-[11rem_minmax(0,1fr)_3.5rem]"
-              >
-                <Link href={`/player/${p.player_id}`} title={p.name} className="truncate font-medium hover:text-devil-bright">
-                  {p.name}
-                </Link>
-                <SplitBar
-                  segments={[
-                    { value: p.cup_goals, color: "var(--color-gold)", label: `${p.cup_goals} cup` },
-                    { value: p.league_goals, color: "var(--color-ink-faint)", label: `${p.league_goals}`, textColor: "var(--color-pitch)" },
-                  ]}
-                />
-                <span className="stat-num text-right font-semibold text-gold">{pct(p.cup_goals, p.total)}</span>
-              </div>
-            ))}
-          </div>
+          <CupLeanBar rows={specialists} baseline={cupBaseline.share} />
         </div>
         <EvidenceLink href="/matches?type=cup" label="Every cup match →" />
       </Module>

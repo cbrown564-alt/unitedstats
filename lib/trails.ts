@@ -344,6 +344,28 @@ export function cupSpecialists(minGoals = 25, limit = 10): CupSpecialist[] {
     .all(minGoals, limit) as CupSpecialist[];
 }
 
+/**
+ * Club-wide split of recorded United goals into cup vs league — the baseline a
+ * specialist's cup share is measured against. The `cup` fraction is the rate any
+ * given goal lands in a cup, so a player well above it "saved goals for cup nights".
+ */
+export function cupGoalShareBaseline(): { total: number; cup: number; league: number; share: number } {
+  const r = getDb()
+    .prepare(
+      `SELECT COUNT(*) total,
+              SUM(c.type NOT IN ('league','unofficial')) cup,
+              SUM(c.type = 'league') league
+       FROM match_events e
+       JOIN matches m ON m.id = e.match_id
+       JOIN competitions c ON c.id = m.competition_id
+       WHERE e.type IN ('goal','pen-goal')
+         AND e.player_side = 'united'
+         AND e.player_id IS NOT NULL`,
+    )
+    .get() as { total: number; cup: number; league: number };
+  return { ...r, share: r.cup / r.total };
+}
+
 // ---------------------------------------------------------------- match trails
 
 /** Other meetings with the same opponent, venue, and scoreline. */
