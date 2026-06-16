@@ -1,8 +1,11 @@
+import type { LandRing } from "@/lib/geo/land";
+
 /**
  * Server-rendered SVG dot map on an equirectangular projection — no tiles,
  * no client JS. Designed for away-ground footprints: dots scale with visit
- * count, the origin (Manchester) is marked, and the biggest dots are labeled
- * so the map stays readable without a coastline.
+ * count, the origin (Manchester) is marked, and the biggest dots are labeled.
+ * A faded land layer (real coastlines, passed in already clipped to `bounds`)
+ * sits behind the dots so the geography is recognisable at a glance.
  */
 export interface GeoPoint {
   lat: number;
@@ -15,6 +18,7 @@ export function GeoScatter({
   points,
   origin,
   bounds,
+  land,
   width = 800,
   labelTop = 8,
   dotColor = "var(--color-devil)",
@@ -24,6 +28,8 @@ export function GeoScatter({
   origin?: { lat: number; lng: number; label: string };
   /** [latMin, latMax, lngMin, lngMax]; points outside are dropped. */
   bounds: [number, number, number, number];
+  /** Coastline rings ([lng,lat]) pre-clipped to `bounds`, drawn faded behind the dots. */
+  land?: LandRing[];
   width?: number;
   /** How many of the highest-value points get a text label. */
   labelTop?: number;
@@ -55,8 +61,18 @@ export function GeoScatter({
   const lngLines: number[] = [];
   for (let lng = Math.ceil(lngMin / 5) * 5; lng < lngMax; lng += 5) lngLines.push(lng);
 
+  const landPath = (ring: LandRing) =>
+    ring.map(([lng, lat], i) => `${i === 0 ? "M" : "L"}${X(lng).toFixed(1)},${Y(lat).toFixed(1)}`).join("") + "Z";
+
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto" role="img">
+      {land && land.length > 0 && (
+        <g aria-hidden>
+          {land.map((ring, i) => (
+            <path key={i} d={landPath(ring)} fill="var(--color-panel-2)" stroke="var(--color-line)" strokeWidth="0.6" strokeLinejoin="round" />
+          ))}
+        </g>
+      )}
       {latLines.map((lat) => (
         <line key={`lat${lat}`} x1={0} x2={width} y1={Y(lat)} y2={Y(lat)}
           stroke="var(--color-line)" strokeWidth="0.5" strokeDasharray="2 6" />

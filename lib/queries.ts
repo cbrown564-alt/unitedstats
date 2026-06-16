@@ -871,17 +871,6 @@ export function topScorers(limit = 25): PlayerTotals[] {
   return playersIndex().slice(0, limit);
 }
 
-export function goalMinuteHistogram(): { bucket: string; n: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT CAST(MIN((minute-1)/15, 5) AS TEXT) bucket, COUNT(*) n
-       FROM match_events
-       WHERE type IN ('goal','pen-goal') AND minute IS NOT NULL AND minute <= 90
-       GROUP BY 1 ORDER BY 1`,
-    )
-    .all() as { bucket: string; n: number }[];
-}
-
 export function stadiumsWithRecords(): {
   id: string; name: string; city: string | null; lat: number | null; lng: number | null;
   p: number; w: number; first: string; last: string;
