@@ -15,7 +15,6 @@ export const dynamic = "force-dynamic";
 const MYTHS: [question: string, hook: string, href: string][] = [
   ["Do United really score late?", "Late-goal share by decade — is Fergie time an era or a habit?", "/questions#late-goals"],
   ["Which sides are the real bogey teams?", "Lowest win rates across 20+ meetings, home and away.", "/questions#bogey-sides"],
-  ["Does Europe cost points at the weekend?", "League form 1–4 days after a European tie, against the same seasons' baseline.", "/questions#european-weeks"],
   ["Is the new-manager bounce real?", "Every manager's first ten matches against the ten before they arrived.", "/questions#manager-bounce"],
   ["How much of a fortress is Old Trafford?", "Home win rate by decade and the longest unbeaten run.", "/questions#fortress"],
   ["Who saved their goals for cup nights?", "Scorers whose goals lean hardest toward cup competition.", "/questions#cup-specialists"],

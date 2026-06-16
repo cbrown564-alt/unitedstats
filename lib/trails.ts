@@ -6,15 +6,20 @@ const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
 // ---------------------------------------------------------------- late goals
 
-/** Share of United goals (with recorded minutes) scored in the final 15 minutes, per decade. */
+/**
+ * Share of United goals (with recorded minutes) scored after the 85th minute,
+ * per decade. The whole late-goals module is pinned to this one window — minute
+ * ≥ 86, stoppage time included — so the ridge, the decade bars, and the curated
+ * match list all describe the same closing five minutes.
+ */
 export function lateGoalShareByDecade(): { decade: string; timed: number; late: number }[] {
   return getDb()
     .prepare(
       `SELECT substr(m.date,1,3) || '0s' decade,
               COUNT(*) timed,
-              SUM(e.minute >= 76) late
+              SUM(e.minute >= 86) late
        FROM match_events e JOIN matches m ON m.id = e.match_id
-       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL AND e.minute <= 90
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL
        GROUP BY 1 HAVING COUNT(*) >= 20 ORDER BY 1`,
     )
     .all() as { decade: string; timed: number; late: number }[];
@@ -49,19 +54,26 @@ export function timedGoalCounts(): { timed: number; total: number } {
     .get() as { timed: number; total: number };
 }
 
-/** One-goal wins sealed by a United goal in the 85th minute or later. */
-export function lateWinners(limit = 10): MatchRow[] {
+/**
+ * A hand-picked spine of iconic matches United won with a goal after the 85th
+ * minute — the late-show greatest hits, oldest first. Curated rather than queried
+ * because "iconic" is editorial; every entry is still a real one-goal win sealed
+ * in the closing minutes, verified against the record.
+ */
+const ICONIC_LATE_DATES = [
+  "1993-04-10", // Bruce's brace v Sheffield Wednesday — the original "Fergie time"
+  "1996-05-11", // Cantona's late winner v Liverpool — the FA Cup final
+  "1999-05-26", // Sheringham & Solskjaer v Bayern — the Treble sealed in stoppage
+  "2009-04-05", // Macheda's debut winner v Aston Villa
+  "2009-09-20", // Owen's 96th-minute derby winner v Manchester City
+  "2010-04-17", // Scholes' late header v City at Eastlands
+];
+
+export function iconicLateWinners(): MatchRow[] {
+  const placeholders = ICONIC_LATE_DATES.map(() => "?").join(",");
   return getDb()
-    .prepare(
-      `${MATCH_SELECT}
-       WHERE m.result = 'W' AND m.gf - m.ga = 1
-         AND EXISTS (
-           SELECT 1 FROM match_events e
-           WHERE e.match_id = m.id AND e.type IN ${UNITED_GOAL_TYPES} AND e.minute >= 85
-         )
-       ORDER BY m.date DESC LIMIT ?`,
-    )
-    .all(limit) as MatchRow[];
+    .prepare(`${MATCH_SELECT} WHERE m.date IN (${placeholders}) ORDER BY m.date ASC`)
+    .all(...ICONIC_LATE_DATES) as MatchRow[];
 }
 
 // ---------------------------------------------------------------- bogey sides
@@ -87,56 +99,6 @@ export function bogeyOpponents(minMeetings = 20, limit = 10): BogeyOpponent[] {
        ORDER BY 1.0*w/p ASC LIMIT ?`,
     )
     .all(minMeetings, limit) as BogeyOpponent[];
-}
-
-// ---------------------------------------------------------------- European weeks
-
-export interface EuropeanWeekSplit {
-  afterEuro: Record_;
-  baseline: Record_;
-}
-
-/** League matches played 1–4 days after a European tie, vs other league matches in European seasons. */
-export function europeanWeekEffect(): EuropeanWeekSplit {
-  const rows = getDb()
-    .prepare(
-      `WITH euro AS (
-         SELECT m.date, m.season FROM matches m
-         JOIN competitions c ON c.id = m.competition_id WHERE c.type = 'european'
-       )
-       SELECT CASE WHEN EXISTS (
-                SELECT 1 FROM euro e WHERE e.season = m.season
-                  AND julianday(m.date) - julianday(e.date) BETWEEN 1 AND 4
-              ) THEN 1 ELSE 0 END after_euro,
-              COUNT(*) p, SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga
-       FROM matches m JOIN competitions c ON c.id = m.competition_id
-       WHERE c.type = 'league' AND m.season IN (SELECT DISTINCT season FROM euro)
-       GROUP BY after_euro`,
-    )
-    .all() as (Record_ & { after_euro: number })[];
-  const empty: Record_ = { p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 };
-  return {
-    afterEuro: rows.find((r) => r.after_euro === 1) ?? empty,
-    baseline: rows.find((r) => r.after_euro === 0) ?? empty,
-  };
-}
-
-export function leagueMatchesAfterEuropean(limit = 8): MatchRow[] {
-  return getDb()
-    .prepare(
-      `WITH euro AS (
-         SELECT m.date, m.season FROM matches m
-         JOIN competitions c ON c.id = m.competition_id WHERE c.type = 'european'
-       )
-       ${MATCH_SELECT}
-       WHERE c.type = 'league' AND EXISTS (
-         SELECT 1 FROM euro e WHERE e.season = m.season
-           AND julianday(m.date) - julianday(e.date) BETWEEN 1 AND 4
-       )
-       ORDER BY m.date DESC LIMIT ?`,
-    )
-    .all(limit) as MatchRow[];
 }
 
 // ---------------------------------------------------------------- manager bounce

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
-  bogeyOpponents, cupSpecialists, europeanWeekEffect, goalMinuteRidge, homeMatchesAtOldTrafford,
-  lateGoalShareByDecade, lateWinners, leagueMatchesAfterEuropean, longestStreak,
+  bogeyOpponents, cupSpecialists, goalMinuteRidge, homeMatchesAtOldTrafford,
+  iconicLateWinners, lateGoalShareByDecade, longestStreak,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
 import { getMeta } from "@/lib/queries";
@@ -15,7 +15,7 @@ import { DataTable } from "@/components/DataTable";
 import { GeoScatter } from "@/components/GeoScatter";
 import { MatchList } from "@/components/MatchList";
 import { SplitBar } from "@/components/charts/SplitBar";
-import { WdlBar, WdlRecord } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
 
@@ -28,7 +28,6 @@ export const metadata = { title: "Questions" };
 const QUESTION_NAV: [id: string, label: string][] = [
   ["late-goals", "Late goals"],
   ["bogey-sides", "Bogey teams"],
-  ["european-weeks", "European weeks"],
   ["manager-bounce", "Manager bounce"],
   ["fortress", "Fortress OT"],
   ["cup-specialists", "Cup specialists"],
@@ -73,10 +72,8 @@ export default function QuestionsPage() {
   const lateByDecade = lateGoalShareByDecade();
   const ridge = goalMinuteRidge();
   const timed = timedGoalCounts();
-  const winners = lateWinners(6);
+  const winners = iconicLateWinners();
   const bogeys = bogeyOpponents(20, 10);
-  const euro = europeanWeekEffect();
-  const euroSample = leagueMatchesAfterEuropean(6);
   const bounce = managerBounce();
   const otDecades = oldTraffordByDecade();
   const otRecord = otDecades.reduce((a, d) => ({ p: a.p + d.p, w: a.w + d.w }), { p: 0, w: 0 });
@@ -95,10 +92,6 @@ export default function QuestionsPage() {
     (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
     { timed: 0, late: 0 },
   );
-  const euroDelta =
-    euro.afterEuro.p && euro.baseline.p
-      ? (100 * euro.afterEuro.w) / euro.afterEuro.p - (100 * euro.baseline.w) / euro.baseline.p
-      : 0;
   const bounceUp = bounce.filter((b) => b.first10.w > b.prev10.w).length;
 
   return (
@@ -133,44 +126,47 @@ export default function QuestionsPage() {
       <Module
         id="late-goals"
         question="Do United really score late?"
-        finding={`Of ${fmtNum(overallLateShare.timed)} goals with a recorded minute, ${pct(overallLateShare.late, overallLateShare.timed)} arrived in the final 15 minutes. The decade bars, read against the even-share line, show whether "Fergie time" is an era or a habit.`}
-        slice="United goals (including penalties and own goals for) with a recorded minute ≤ 90, bucketed by decade; decades with fewer than 20 timed goals are hidden."
+        finding={`Of ${fmtNum(overallLateShare.timed)} goals with a recorded minute, ${pct(overallLateShare.late, overallLateShare.timed)} came after the 85th minute — roughly double an even spread. The decade bars show whether "Fergie time" is an era or a habit.`}
+        slice="United goals (including penalties and own goals for) with a recorded minute, bucketed by decade; the late share counts goals from the 86th minute on, stoppage time included. Decades with fewer than 20 timed goals are hidden."
         coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute; minute data is densest from the 1990s onward, so early decades lean on smaller samples.`}
       >
         <div>
           <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals actually land</h3>
-          <MinuteRidge bins={ridge} />
+          <MinuteRidge bins={ridge} lateFrom={85} />
           <p className="text-xs text-ink-faint mt-1">
-            United goals by 5-minute window; the closing 15 minutes are shaded red and stoppage time folds into the
-            final bar. The dashed line is an even spread across the match.
+            United goals by 5-minute window; the closing five minutes (plus stoppage, folded into the final bar) are
+            shaded red. The dashed line is an even spread across the match.
           </p>
         </div>
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start">
-          <div>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-stretch">
+          <div className="flex flex-col">
             <h3 className="text-sm font-medium mb-2 text-ink-dim">Is it an era, or a habit? Late share by decade</h3>
-            <InspectableBarChart
-              data={lateByDecade.map((d) => ({
-                label: d.decade,
-                tickLabel: d.decade.slice(2),
-                value: Math.round((1000 * d.late) / d.timed) / 10,
-                valueLabel: `${(Math.round((1000 * d.late) / d.timed) / 10).toFixed(1)}% late`,
-                meta: `${fmtNum(d.late)} of ${fmtNum(d.timed)} timed goals`,
-                href: `/matches?from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
-              }))}
-              height={180}
-              color="var(--color-gold)"
-              chartLabel="Manchester United late goal share by decade"
-              yTickSuffix="%"
-              baseline={{ value: 100 / 6, label: "even share 16.7%" }}
-            />
+            <div className="min-h-40 flex-1">
+              <InspectableBarChart
+                data={lateByDecade.map((d) => ({
+                  label: d.decade,
+                  tickLabel: d.decade.slice(2),
+                  value: Math.round((1000 * d.late) / d.timed) / 10,
+                  valueLabel: `${(Math.round((1000 * d.late) / d.timed) / 10).toFixed(1)}% late`,
+                  meta: `${fmtNum(d.late)} of ${fmtNum(d.timed)} timed goals`,
+                  href: `/matches?from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
+                }))}
+                fill
+                color="var(--color-gold)"
+                chartLabel="Manchester United late goal share by decade"
+                yTickSuffix="%"
+                baseline={{ value: 100 / 18, label: "even spread 5.6%" }}
+              />
+            </div>
             <p className="text-xs text-ink-faint mt-1">
-              Percent of timed goals scored minute 76–90, by decade. Dashed line is an even sixth of the match.
+              Percent of timed goals scored after the 85th minute, by decade. Dashed line is an even spread across the match.
             </p>
           </div>
-          <div className="lg:pt-6">
-            <h3 className="text-sm font-medium mb-2 text-ink-dim">Sealed at the death</h3>
+          <div className="flex flex-col">
+            <h3 className="text-sm font-medium mb-2 text-ink-dim">The late show — six United sealed at the death</h3>
             <p className="text-xs text-ink-dim mb-3">
-              One-goal wins decided by a United goal in the 85th minute or later — the matches the ridge is built on.
+              Iconic one-goal wins decided by a United goal after the 85th minute — from Bruce against Sheffield
+              Wednesday to the Treble night in Barcelona.
             </p>
             <MatchList matches={winners} showSeason />
           </div>
@@ -216,64 +212,6 @@ export default function QuestionsPage() {
           })}
         </div>
         <EvidenceLink href="/opponents" label="Every head-to-head record →" />
-      </Module>
-
-      <Module
-        id="european-weeks"
-        question="Does Europe cost points at the weekend?"
-        finding={`Do midweek trips to Europe drag on the weekend? The two splits below set league form within four days of a European tie against the rest of those same seasons — a ${euroDelta >= 0 ? "gain" : "drop"} of ${Math.abs(euroDelta).toFixed(1)} points of win rate.`}
-        slice={`League matches in seasons with European football (1956– ), split by whether a European tie fell 1–4 days before; baseline is the remaining league matches of those same seasons (${fmtNum(euro.baseline.p)} matches).`}
-      >
-        <div className="rounded-lg border border-line bg-panel-2 p-5">
-          <div className="mb-2 flex items-baseline justify-between gap-4">
-            <span className="text-xs uppercase tracking-wider text-ink-faint">League win rate — after Europe vs the rest</span>
-            <span
-              className="stat-num text-sm font-semibold"
-              style={{ color: euroDelta >= 0 ? "var(--color-win)" : "var(--color-loss)" }}
-            >
-              {euroDelta >= 0 ? "+" : "−"}{Math.abs(euroDelta).toFixed(1)} pts
-            </span>
-          </div>
-          <SlopeCompare
-            from={{ value: (100 * euro.baseline.w) / (euro.baseline.p || 1), label: "Other weeks" }}
-            to={{ value: (100 * euro.afterEuro.w) / (euro.afterEuro.p || 1), label: "After Europe" }}
-            min={0}
-            max={100}
-            format={(v) => `${v.toFixed(1)}%`}
-            showValues
-          />
-          <div className="mt-1 flex justify-between stat-num text-[10px] text-ink-faint">
-            <span>0%</span>
-            <span>100%</span>
-          </div>
-          <div className="mt-4 grid gap-4 text-sm sm:grid-cols-2">
-            <div>
-              <div className="mb-1 flex items-center gap-2 text-xs">
-                <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: euroDelta >= 0 ? "var(--color-win)" : "var(--color-loss)" }} />
-                <span className="text-ink-dim">1–4 days after a European tie</span>
-              </div>
-              <div className="stat-num text-xs text-ink-faint">
-                <WdlRecord w={euro.afterEuro.w} d={euro.afterEuro.d} l={euro.afterEuro.l} /> in {fmtNum(euro.afterEuro.p)} matches
-              </div>
-              <WdlBar w={euro.afterEuro.w} d={euro.afterEuro.d} l={euro.afterEuro.l} className="mt-2" />
-            </div>
-            <div>
-              <div className="mb-1 flex items-center gap-2 text-xs">
-                <span className="inline-block h-2.5 w-2.5 rounded-full border-2 bg-pitch" style={{ borderColor: "var(--color-ink-faint)" }} />
-                <span className="text-ink-dim">Other league weeks, same seasons</span>
-              </div>
-              <div className="stat-num text-xs text-ink-faint">
-                <WdlRecord w={euro.baseline.w} d={euro.baseline.d} l={euro.baseline.l} /> in {fmtNum(euro.baseline.p)} matches
-              </div>
-              <WdlBar w={euro.baseline.w} d={euro.baseline.d} l={euro.baseline.l} className="mt-2" />
-            </div>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium mb-2 text-ink-dim">Most recent league matches in a European week</h3>
-          <MatchList matches={euroSample} showSeason />
-        </div>
-        <EvidenceLink href="/matches?type=european" label="All European matches →" />
       </Module>
 
       <Module
