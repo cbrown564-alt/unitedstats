@@ -3146,9 +3146,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 23,
-          "detail": "Craig Short (og)"
+          "detail": "Craig Short (og)",
+          "playerName": "Craig Short",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -11064,9 +11066,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 20,
-          "detail": "Steve Watson (og)"
+          "detail": "Steve Watson (og)",
+          "playerName": "Steve Watson",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

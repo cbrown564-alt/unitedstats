@@ -4768,9 +4768,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 88,
-          "detail": "Bülent Korkmaz (og)"
+          "detail": "Bülent Korkmaz (og)",
+          "playerName": "Bülent Korkmaz",
+          "playerSide": "opponent"
         }
       ],
       "sources": [
@@ -6815,9 +6817,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 81,
-          "detail": "Tony Humes (og)"
+          "detail": "Tony Humes (og)",
+          "playerName": "Tony Humes",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

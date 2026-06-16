@@ -621,7 +621,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Rodrigo Muniz",
           "playerProviderId": "735571",
           "playerSide": "opponent",
@@ -1787,7 +1787,7 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Josh Cullen",
           "playerProviderId": "242606",
           "playerSide": "opponent",
@@ -19322,7 +19322,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "James Hill",
           "playerProviderId": "611793",
           "playerSide": "opponent",

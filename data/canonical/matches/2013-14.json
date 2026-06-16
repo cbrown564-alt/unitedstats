@@ -6209,7 +6209,7 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Iñigo Martínez",
           "playerProviderId": "158863",
           "playerSide": "opponent",
@@ -9759,7 +9759,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Emir Spahic",
           "playerProviderId": "25812",
           "playerSide": "opponent",
@@ -13795,7 +13795,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "James Chester",
           "playerProviderId": "73482",
           "playerSide": "opponent",

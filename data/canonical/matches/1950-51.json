@@ -20,13 +20,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -184,13 +185,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -504,13 +506,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -672,10 +675,12 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "tommy-bogan",
           "minute": null,
-          "detail": "Tommy Bogan (og)"
+          "detail": null,
+          "playerName": "Tommy Bogan",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -833,23 +838,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 61
         }
       ],
       "eventsComplete": true,
@@ -1319,23 +1325,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": null
+          "minute": 77
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -1493,18 +1500,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 58
         }
       ],
       "eventsComplete": true,
@@ -1818,23 +1826,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "harry-mcshane",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -2304,28 +2313,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -2483,13 +2493,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-mcshane",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -2959,13 +2970,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-birch",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -3123,13 +3135,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-birch",
-          "minute": null
+          "minute": 39
         }
       ],
       "eventsComplete": true,
@@ -3461,18 +3474,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 62
         }
       ],
       "eventsComplete": true,
@@ -3630,18 +3644,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -3799,13 +3814,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -3967,16 +3983,20 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "tommy-bogan",
           "minute": null,
-          "detail": "Tommy Bogan (og)"
+          "detail": null,
+          "playerName": "Tommy Bogan",
+          "playerSide": "united"
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "tommy-bogan",
           "minute": null,
-          "detail": "Tommy Bogan (og)"
+          "detail": null,
+          "playerName": "Tommy Bogan",
+          "playerSide": "united"
         },
         {
           "type": "goal",
@@ -4161,9 +4181,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -4321,18 +4342,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-birch",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -4660,29 +4682,30 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -4840,13 +4863,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -5005,14 +5029,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -5170,18 +5195,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-birch",
-          "minute": null
+          "minute": 54
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 46
         }
       ],
       "eventsComplete": true,
@@ -5497,28 +5523,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-mcshane",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 36
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 55
         }
       ],
       "eventsComplete": true,
@@ -5676,23 +5703,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 14
         }
       ],
       "eventsComplete": true,
@@ -6006,23 +6034,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 1
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 11
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -6180,18 +6209,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -6349,18 +6379,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "harry-mcshane",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -6518,28 +6549,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 84
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -6697,28 +6729,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 33
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "harry-mcshane",
-          "minute": null
+          "minute": 38
         }
       ],
       "eventsComplete": true,
@@ -7032,23 +7065,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 84
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -7206,18 +7240,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -7375,38 +7410,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "john-aston-sr",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "harry-mcshane",
-          "minute": null
+          "minute": 6
         },
         {
           "type": "goal",
           "player": "harry-mcshane",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -7564,13 +7600,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": null
+          "minute": 32
         }
       ],
       "eventsComplete": true,

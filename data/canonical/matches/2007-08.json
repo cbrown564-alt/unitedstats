@@ -3163,9 +3163,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 45,
-          "detail": "William Gallas (og)"
+          "detail": "William Gallas (og)",
+          "playerName": "William Gallas",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -7855,9 +7857,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 72,
-          "detail": "Simon Davies (og)"
+          "detail": "Simon Davies (og)",
+          "playerName": "Simon Davies",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

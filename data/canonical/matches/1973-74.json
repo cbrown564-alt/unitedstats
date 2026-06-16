@@ -188,13 +188,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-james",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -364,18 +365,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jim-holton",
-          "minute": null
+          "minute": 63
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -713,13 +715,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "trevor-anderson",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -889,13 +892,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "alex-stepney",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -1053,23 +1057,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "ian-storey-moore",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -1575,13 +1580,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 81
         }
       ],
       "eventsComplete": true,
@@ -2075,13 +2081,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "alex-stepney",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -2419,18 +2426,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 90
         },
         {
           "type": "goal",
           "player": "tony-young",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -2588,13 +2596,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -2752,18 +2761,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-graham",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 34
         }
       ],
       "eventsComplete": true,
@@ -3257,18 +3267,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -3606,13 +3617,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -3770,18 +3782,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 77
         }
       ],
       "eventsComplete": true,
@@ -4096,14 +4109,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 64
         }
       ],
       "eventsComplete": true,
@@ -4273,13 +4287,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -4449,13 +4464,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-james",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -5119,18 +5135,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -5468,13 +5485,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -6124,23 +6142,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -6310,23 +6329,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-forsyth",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "jim-holton",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true,
@@ -6484,18 +6504,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -6657,10 +6678,12 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "jim-mccalliog",
           "minute": null,
-          "detail": "Jim McCalliog (og)"
+          "detail": null,
+          "playerName": "Jim McCalliog",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -6822,16 +6845,20 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "jim-mccalliog",
           "minute": null,
-          "detail": "Jim McCalliog (og)"
+          "detail": null,
+          "playerName": "Jim McCalliog",
+          "playerSide": "united"
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "jim-mccalliog",
           "minute": null,
-          "detail": "Jim McCalliog (og)"
+          "detail": null,
+          "playerName": "Jim McCalliog",
+          "playerSide": "united"
         },
         {
           "type": "goal",
@@ -7010,10 +7037,12 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "jim-mccalliog",
           "minute": null,
-          "detail": "Jim McCalliog (og)"
+          "detail": null,
+          "playerName": "Jim McCalliog",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,

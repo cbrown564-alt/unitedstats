@@ -216,9 +216,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 72,
-          "detail": "Angelo Alistar (og)"
+          "detail": "Angelo Alistar (og)",
+          "playerName": "Angelo Alistar",
+          "playerSide": "opponent"
         }
       ],
       "sources": [
@@ -3135,9 +3137,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 59,
-          "detail": "Stephen Foster (og)"
+          "detail": "Stephen Foster (og)",
+          "playerName": "Stephen Foster",
+          "playerSide": "opponent"
         }
       ],
       "sources": [
@@ -5682,9 +5686,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 48,
-          "detail": "Emmerson Boyce (og)"
+          "detail": "Emmerson Boyce (og)",
+          "playerName": "Emmerson Boyce",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -8434,9 +8440,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 75,
-          "detail": "Richard Dunne (og)"
+          "detail": "Richard Dunne (og)",
+          "playerName": "Richard Dunne",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

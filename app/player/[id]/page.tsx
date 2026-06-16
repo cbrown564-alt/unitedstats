@@ -14,6 +14,7 @@ import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { MatchList } from "@/components/MatchList";
 import { Pager } from "@/components/Pager";
+import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { fmtDate, fmtNum, pct, scoreline, venuePrefix, COMPETITION_TYPE_LABELS, GOAL_MINUTE_BUCKETS } from "@/lib/format";
@@ -78,6 +79,11 @@ export default async function PlayerPage({
 }) {
   const { id } = await params;
   const sp = await searchParams;
+
+  // "Own Goal" is a synthetic scorer, not a person: its page shows the opposition
+  // players behind the tally rather than a career.
+  if (id === "own-goal") return <OwnGoalProfile />;
+
   const p = playerById(id);
   if (!p) notFound();
 

@@ -20,18 +20,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 72
         }
       ],
       "eventsComplete": true,
@@ -345,23 +346,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -519,38 +521,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 28
         }
       ],
       "eventsComplete": true,
@@ -708,13 +711,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 42
         }
       ],
       "eventsComplete": true,
@@ -872,38 +876,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -1061,13 +1066,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -1235,9 +1241,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -1707,28 +1714,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 22
         }
       ],
       "eventsComplete": true,
@@ -1906,9 +1914,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2076,9 +2085,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2236,23 +2246,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 51
         },
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -2410,13 +2421,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 16
         }
       ],
       "eventsComplete": true,
@@ -2574,23 +2586,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 9
         }
       ],
       "eventsComplete": true,
@@ -2748,13 +2761,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -3091,13 +3105,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -3255,23 +3270,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "mark-pearson",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -3429,33 +3445,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 81
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 72
         }
       ],
       "eventsComplete": true,
@@ -3613,18 +3630,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -3782,13 +3800,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -3946,28 +3965,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 90
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -4125,23 +4145,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -4321,9 +4342,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -4481,18 +4503,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 51
         }
       ],
       "eventsComplete": true,
@@ -4650,13 +4673,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -4815,24 +4839,25 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -5146,13 +5171,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -5468,13 +5494,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 39
         }
       ],
       "eventsComplete": true,
@@ -5632,38 +5659,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 54
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -5977,23 +6005,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 51
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -6151,33 +6180,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "goal",
           "player": "johnny-giles",
-          "minute": null
+          "minute": 77
         },
         {
           "type": "goal",
           "player": "mark-pearson",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,
@@ -6335,18 +6365,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -6504,18 +6535,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -6673,23 +6705,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -6847,13 +6880,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -7011,13 +7045,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -7175,33 +7210,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 84
         }
       ],
       "eventsComplete": true,
@@ -7359,18 +7395,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-giles",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "mark-pearson",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -7528,33 +7565,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "warren-bradley",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,

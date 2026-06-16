@@ -350,13 +350,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-griffiths",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -514,7 +515,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -531,6 +533,14 @@
           "type": "goal",
           "player": "alf-schofield",
           "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "alf-schofield",
+          "playerName": "Alf Schofield",
+          "playerSide": "united",
+          "minute": 7,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": false,
@@ -1678,13 +1688,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-griffiths",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true,
@@ -2175,13 +2186,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-richards",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -3452,13 +3464,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "fred-erentz",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,

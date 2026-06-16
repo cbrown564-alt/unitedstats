@@ -176,23 +176,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-barson",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -2008,13 +2009,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -2520,23 +2522,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-mcpherson",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "frank-mcpherson",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -3355,18 +3358,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -4377,19 +4381,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -5398,13 +5403,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -7183,13 +7189,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -7511,33 +7518,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "chris-taylor",
-          "minute": null
+          "minute": 56
         },
         {
           "type": "goal",
           "player": "chris-taylor",
-          "minute": null
+          "minute": 57
         },
         {
           "type": "goal",
           "player": "chris-taylor",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 42
         },
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 36
         }
       ],
       "eventsComplete": true,
@@ -7851,13 +7859,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-inglis",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -8015,23 +8024,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "chris-taylor",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "chris-taylor",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "goal",
           "player": "chris-taylor",
-          "minute": null
+          "minute": 55
         }
       ],
       "eventsComplete": true,

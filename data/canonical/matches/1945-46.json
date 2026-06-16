@@ -21,19 +21,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup leg1",
       "events": [
         {
           "type": "goal",
           "player": "jack-smith",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "goal",
           "player": "billy-wrigglesworth",
-          "minute": null
+          "minute": 32
         }
       ],
       "eventsComplete": true,
@@ -218,9 +219,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -379,14 +381,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup leg1",
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -545,14 +548,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup leg2",
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanlon",
-          "minute": null
+          "minute": 71
         }
       ],
       "eventsComplete": true,

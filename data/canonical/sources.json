@@ -81,6 +81,14 @@
       "notes": "Used for conservative match-lineup enrichment and data/canonical/player-shirts.json summaries. Raw pages are cached under data/raw/mufcinfo and are not redistributed."
     },
     {
+      "id": "mufcinfo-goal-minutes",
+      "label": "MUFCInfo goal minutes",
+      "kind": "reference",
+      "url": "https://www.mufcinfo.com/manupag/match_data/match_sql.php",
+      "coverage": "Goal minutes from the scoreboard block of historical Manchester United and Newton Heath match pages, backfilling the minute on existing goal events (chiefly pre-1980s, where scorers were known but minutes were not).",
+      "notes": "Used by scripts/ingest/mufcinfo-goal-minutes.ts to stamp minutes onto existing goal events only when the parsed scorers reconcile 1:1 with the recorded goals for that side. Never creates or re-scores events. Raw pages are cached under data/raw/mufcinfo and are not redistributed."
+    },
+    {
       "id": "tableau-goals-assists",
       "label": "Manchester United Games (Tableau Public, conor.brown)",
       "kind": "curation",

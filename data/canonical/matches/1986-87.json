@@ -4521,9 +4521,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 4,
-          "detail": "Peter Jackson (og)"
+          "detail": "Peter Jackson (og)",
+          "playerName": "Peter Jackson",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -6104,9 +6106,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 62,
-          "detail": "Nicky Reid (og)"
+          "detail": "Nicky Reid (og)",
+          "playerName": "Nicky Reid",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

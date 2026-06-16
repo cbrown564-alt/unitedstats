@@ -2396,9 +2396,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 66,
-          "detail": "Georgios Anatolakis (og)"
+          "detail": "Georgios Anatolakis (og)",
+          "playerName": "Georgios Anatolakis",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -5760,9 +5762,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 61,
-          "detail": "Sebastian Schemmel (og)"
+          "detail": "Sebastian Schemmel (og)",
+          "playerName": "Sebastian Schemmel",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -9649,9 +9653,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 20,
-          "detail": "Lucas Radebe (og)"
+          "detail": "Lucas Radebe (og)",
+          "playerName": "Lucas Radebe",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -11606,9 +11612,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 52,
-          "detail": "Iván Helguera (og)"
+          "detail": "Iván Helguera (og)",
+          "playerName": "Iván Helguera",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

@@ -20,23 +20,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "ashley-grimes",
-          "minute": null
+          "minute": 90
         },
         {
           "type": "goal",
           "player": "mickey-thomas",
-          "minute": null
+          "minute": 41
         }
       ],
       "eventsComplete": true,
@@ -710,13 +711,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": null
+          "minute": 59
         }
       ],
       "eventsComplete": true,
@@ -1198,33 +1200,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "ashley-grimes",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 59
         }
       ],
       "eventsComplete": true,
@@ -1397,12 +1400,13 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 4
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1738,18 +1742,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "arthur-albiston",
-          "minute": null
+          "minute": 72
         }
       ],
       "eventsComplete": true,
@@ -2087,18 +2092,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -2593,13 +2599,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -2757,18 +2764,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 58
         }
       ],
       "eventsComplete": true,
@@ -2938,18 +2946,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -3587,13 +3596,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 58
         }
       ],
       "eventsComplete": true,
@@ -3942,13 +3952,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -4106,14 +4117,17 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Kevin Bond (og)"
+          "player": "own-goal",
+          "minute": 10,
+          "detail": "Kevin Bond (og)",
+          "playerName": "Kevin Bond",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -4276,18 +4290,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -4445,13 +4460,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -4765,13 +4781,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": null
+          "minute": 54
         }
       ],
       "eventsComplete": true,
@@ -5113,19 +5130,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "jimmy-nicholl",
-          "minute": null
+          "minute": 33
         },
         {
           "type": "goal",
           "player": "garry-birtles",
-          "minute": null
+          "minute": 72
         }
       ],
       "eventsComplete": true,
@@ -5295,18 +5313,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -5790,18 +5809,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -6775,23 +6795,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 66
         },
         {
           "type": "pen-goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -6949,14 +6970,17 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Kenny Burns (og)"
+          "player": "own-goal",
+          "minute": 44,
+          "detail": "Kenny Burns (og)",
+          "playerName": "Kenny Burns",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -7126,18 +7150,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "mickey-thomas",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "goal",
           "player": "jimmy-nicholl",
-          "minute": null
+          "minute": 53
         }
       ],
       "eventsComplete": true,
@@ -7295,13 +7320,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -7647,18 +7673,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -7816,13 +7843,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -7980,18 +8008,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 33
         }
       ],
       "eventsComplete": true,
@@ -8149,13 +8178,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 57
         }
       ],
       "eventsComplete": true,

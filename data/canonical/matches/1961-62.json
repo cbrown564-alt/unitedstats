@@ -20,13 +20,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -184,23 +185,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "mark-pearson",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -358,38 +360,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 74
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 78
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 58
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 59
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "maurice-setters",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,
@@ -703,23 +706,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 74
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 22
         }
       ],
       "eventsComplete": true,
@@ -877,13 +881,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -1041,18 +1046,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 21
         }
       ],
       "eventsComplete": true,
@@ -1210,13 +1216,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -1389,9 +1396,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -1705,13 +1713,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-dawson",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -2025,13 +2034,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -2345,13 +2355,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -2509,18 +2520,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-giles",
-          "minute": null
+          "minute": 38
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -2678,13 +2690,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcmillan",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -2842,13 +2855,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 6
         }
       ],
       "eventsComplete": true,
@@ -3006,13 +3020,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -3170,23 +3185,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 38
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "nobby-lawton",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -3344,13 +3360,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -3508,38 +3525,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "nobby-lawton",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "nobby-lawton",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "nobby-lawton",
-          "minute": null
+          "minute": 71
         },
         {
           "type": "goal",
           "player": "shay-brennan",
-          "minute": null
+          "minute": 78
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 24
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -3698,19 +3716,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jimmy-nicholson",
-          "minute": null
+          "minute": 90
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -4024,18 +4043,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -4193,18 +4213,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -4363,14 +4384,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "maurice-setters",
-          "minute": null
+          "minute": 28
         }
       ],
       "eventsComplete": true,
@@ -4528,23 +4550,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "johnny-giles",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "nobby-lawton",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -4702,18 +4725,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "phil-chisnall",
-          "minute": null
+          "minute": 34
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -5030,19 +5054,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "johnny-giles",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,
@@ -5200,28 +5225,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "maurice-setters",
-          "minute": null
+          "minute": 57
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -5379,18 +5405,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "nobby-lawton",
-          "minute": null
+          "minute": 32
         }
       ],
       "eventsComplete": true,
@@ -5548,13 +5575,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -5871,19 +5899,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -6353,13 +6382,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 28
         }
       ],
       "eventsComplete": true,
@@ -6518,14 +6548,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "Venue: Hillsborough, Sheffield",
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,
@@ -6683,23 +6714,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcmillan",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "sammy-mcmillan",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -6857,33 +6889,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "albert-quixall",
-          "minute": null
+          "minute": 48
         },
         {
           "type": "goal",
           "player": "maurice-setters",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -7197,23 +7230,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "shay-brennan",
-          "minute": null
+          "minute": 64
         },
         {
           "type": "goal",
           "player": "noel-cantwell",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -7371,18 +7405,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "noel-cantwell",
-          "minute": null
+          "minute": 71
         },
         {
           "type": "goal",
           "player": "sammy-mcmillan",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -7540,13 +7575,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 38
         }
       ],
       "eventsComplete": true,
@@ -7860,23 +7896,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcmillan",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "sammy-mcmillan",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 78
         }
       ],
       "eventsComplete": true,

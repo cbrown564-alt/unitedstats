@@ -184,13 +184,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 36
         }
       ],
       "eventsComplete": true,
@@ -504,13 +505,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -852,23 +854,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 36
         }
       ],
       "eventsComplete": true,
@@ -1195,13 +1198,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -1359,13 +1363,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -1523,18 +1528,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -1848,18 +1854,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,
@@ -2017,13 +2024,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -2350,13 +2358,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 31
         }
       ],
       "eventsComplete": true,
@@ -2514,13 +2523,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -3021,13 +3031,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -3674,13 +3685,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-grimwood",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -3838,18 +3850,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "bill-henderson",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -4656,13 +4669,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 42
         }
       ],
       "eventsComplete": true,
@@ -4820,13 +4834,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-pape",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -5314,18 +5329,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -5483,13 +5499,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -5959,18 +5976,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-pape",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "albert-pape",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -6128,13 +6146,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "arthur-lochhead",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -6448,13 +6467,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-smith",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -6612,13 +6632,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "albert-pape",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,

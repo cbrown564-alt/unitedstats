@@ -20,18 +20,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -370,18 +371,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -539,13 +541,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 4
         }
       ],
       "eventsComplete": true,
@@ -715,18 +718,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -918,9 +922,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Richie Bowman (og)"
+          "detail": "Richie Bowman (og)",
+          "playerName": "Richie Bowman",
+          "playerSide": "opponent"
         }
       ],
       "sources": [
@@ -1093,13 +1099,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 32
         }
       ],
       "eventsComplete": true,
@@ -1269,13 +1276,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -1445,7 +1453,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -1455,9 +1464,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Frankie Prince (og)"
+          "player": "own-goal",
+          "minute": 28,
+          "detail": "Frankie Prince (og)",
+          "playerName": "Frankie Prince",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -1627,7 +1638,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -1642,9 +1654,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Don McAllister (og)"
+          "player": "own-goal",
+          "minute": 65,
+          "detail": "Don McAllister (og)",
+          "playerName": "Don McAllister",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -1970,18 +1984,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 76
         }
       ],
       "eventsComplete": true,
@@ -2154,12 +2169,13 @@
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 78
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -2327,13 +2343,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -2685,10 +2702,12 @@
           "minute": null
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "jim-mccalliog",
           "minute": null,
-          "detail": "Jim McCalliog (og)"
+          "detail": null,
+          "playerName": "Jim McCalliog",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -2858,13 +2877,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 78
         }
       ],
       "eventsComplete": true,
@@ -3034,28 +3054,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 9
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 45
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 24
         }
       ],
       "eventsComplete": true,
@@ -3396,22 +3417,23 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 29
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": null
+          "minute": 49
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3911,23 +3933,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 11
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 61
         }
       ],
       "eventsComplete": true,
@@ -4265,28 +4288,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -4627,22 +4651,23 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 69
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 82
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -4810,13 +4835,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -4986,18 +5012,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -5493,19 +5520,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 114
         }
       ],
       "eventsComplete": true,
@@ -5679,10 +5707,12 @@
       ],
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "jim-mccalliog",
           "minute": null,
-          "detail": "Jim McCalliog (og)"
+          "detail": null,
+          "playerName": "Jim McCalliog",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": false,
@@ -5855,17 +5885,18 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 51
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 71
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6693,18 +6724,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,
@@ -7042,28 +7074,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": null
+          "minute": 59
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -7233,13 +7266,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -7409,13 +7443,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -7585,13 +7620,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -7749,13 +7785,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -7925,18 +7962,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": null
+          "minute": 74
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -8094,23 +8132,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -8280,13 +8319,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 76
         }
       ],
       "eventsComplete": true,
@@ -8456,13 +8496,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -8620,18 +8661,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -8789,28 +8831,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": null
+          "minute": 54
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 78
         },
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,

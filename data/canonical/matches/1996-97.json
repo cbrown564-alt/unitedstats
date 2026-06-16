@@ -386,9 +386,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 82,
-          "detail": "David Unsworth (og)"
+          "detail": "David Unsworth (og)",
+          "playerName": "David Unsworth",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -944,9 +946,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 3,
-          "detail": "Nigel Martyn (og)"
+          "detail": "Nigel Martyn (og)",
+          "playerName": "Nigel Martyn",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -3453,9 +3457,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 63,
-          "detail": "Nigel Winterburn (og)"
+          "detail": "Nigel Winterburn (og)",
+          "playerName": "Nigel Winterburn",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -7466,15 +7472,19 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 4,
-          "detail": "Gary Breen (og)"
+          "detail": "Gary Breen (og)",
+          "playerName": "Gary Breen",
+          "playerSide": "opponent"
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 5,
-          "detail": "Eoin Jess (og)"
+          "detail": "Eoin Jess (og)",
+          "playerName": "Eoin Jess",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -7857,9 +7867,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 77,
-          "detail": "Andy Melville (og)"
+          "detail": "Andy Melville (og)",
+          "playerName": "Andy Melville",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

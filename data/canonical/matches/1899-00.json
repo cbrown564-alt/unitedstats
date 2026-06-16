@@ -1345,10 +1345,12 @@
           "minute": null
         },
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "bogie-roberts",
           "minute": null,
-          "detail": "Bogie Roberts (og)"
+          "detail": null,
+          "playerName": "Bogie Roberts",
+          "playerSide": "united"
         }
       ],
       "eventsComplete": true,
@@ -2522,13 +2524,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bob-parkinson",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -3019,28 +3022,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "matthew-gillespie",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "matthew-gillespie",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "matthew-gillespie",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "bob-parkinson",
-          "minute": null
+          "minute": 35
         }
       ],
       "eventsComplete": true,
@@ -3871,13 +3875,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dick-smith",
-          "minute": null
+          "minute": 4
         }
       ],
       "eventsComplete": true,

@@ -685,23 +685,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "dick-pegg",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "dick-pegg",
-          "minute": null
+          "minute": 72
         },
         {
           "type": "goal",
           "player": "dick-pegg",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -3204,24 +3205,25 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 63
         },
         {
           "type": "goal",
           "player": "alex-downie",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -3380,19 +3382,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "tommy-morrison",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "dick-pegg",
-          "minute": null
+          "minute": 38
         }
       ],
       "eventsComplete": true,
@@ -3550,18 +3553,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-downie",
-          "minute": null
+          "minute": 5
         },
         {
           "type": "goal",
           "player": "billy-griffiths",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -3877,13 +3881,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-grassam",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -4041,23 +4046,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-grassam",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "billy-grassam",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "billy-griffiths",
-          "minute": null
+          "minute": 43
         }
       ],
       "eventsComplete": true,
@@ -4215,13 +4221,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-arkesden",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -4548,23 +4555,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "proctor-hall",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "dick-pegg",
-          "minute": null
+          "minute": 65
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -4891,13 +4899,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "william-mccartney",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -5055,18 +5064,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-grassam",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,

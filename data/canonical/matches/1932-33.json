@@ -176,13 +176,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -350,9 +351,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -510,13 +512,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "hugh-mclenahan",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -674,13 +677,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-ridding",
-          "minute": null
+          "minute": 61
         }
       ],
       "eventsComplete": true,
@@ -1002,13 +1006,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -1496,18 +1501,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 57
         }
       ],
       "eventsComplete": true,
@@ -2033,18 +2039,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "bill-ridding",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -2550,13 +2557,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-ridding",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -2870,13 +2878,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-ridding",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -3054,9 +3063,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3378,23 +3388,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "tommy-reid",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -3708,28 +3719,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-ridding",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "bill-ridding",
-          "minute": null
+          "minute": 36
         },
         {
           "type": "goal",
           "player": "stewart-chalmers",
-          "minute": null
+          "minute": 51
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -3887,13 +3899,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "willie-mcdonald",
-          "minute": null
+          "minute": 9
         }
       ],
       "eventsComplete": true,
@@ -4052,14 +4065,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -4217,18 +4231,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-frame",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "willie-mcdonald",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -4386,13 +4401,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "william-stewart",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -4550,18 +4566,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-ridding",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "william-stewart",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -4893,18 +4910,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "willie-mcdonald",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "arthur-warburton",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -5702,13 +5720,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "neil-dewar",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -5866,13 +5885,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ernest-vincent",
-          "minute": null
+          "minute": 5
         }
       ],
       "eventsComplete": true,
@@ -6030,18 +6050,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "neil-dewar",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "tommy-frame",
-          "minute": null
+          "minute": 51
         }
       ],
       "eventsComplete": true,
@@ -6706,13 +6727,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "neil-dewar",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,

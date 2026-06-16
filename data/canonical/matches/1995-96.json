@@ -5904,9 +5904,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 45,
-          "detail": "Chris Perry (og)"
+          "detail": "Chris Perry (og)",
+          "playerName": "Chris Perry",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

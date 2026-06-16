@@ -20,23 +20,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -194,18 +195,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 38
         },
         {
           "type": "goal",
           "player": "teddy-partridge",
-          "minute": null
+          "minute": 1
         }
       ],
       "eventsComplete": true,
@@ -683,13 +685,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -847,18 +850,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -1172,23 +1176,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -1671,18 +1676,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 82
         },
         {
           "type": "goal",
           "player": "eric-sweeney",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -2034,9 +2040,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2204,9 +2211,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2364,13 +2372,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 41
         }
       ],
       "eventsComplete": true,
@@ -3024,13 +3033,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -3523,13 +3533,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -3687,18 +3698,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -3856,13 +3868,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -4216,13 +4229,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "teddy-partridge",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -4381,14 +4395,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 78
         }
       ],
       "eventsComplete": true,
@@ -4547,14 +4562,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -4712,13 +4728,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -4876,33 +4893,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-nicol",
-          "minute": null
+          "minute": 43
         },
         {
           "type": "goal",
           "player": "george-nicol",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 62
         },
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -5061,14 +5079,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -5696,13 +5715,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -5860,13 +5880,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -6336,13 +6357,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 49
         }
       ],
       "eventsComplete": true,
@@ -6500,18 +6522,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 34
         }
       ],
       "eventsComplete": true,
@@ -6669,28 +6692,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "rees-williams",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -6848,18 +6872,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 31
         }
       ],
       "eventsComplete": true,
@@ -7191,18 +7216,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 84
         },
         {
           "type": "goal",
           "player": "harry-thomas",
-          "minute": null
+          "minute": 51
         }
       ],
       "eventsComplete": true,
@@ -7360,18 +7386,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "billy-johnston",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -7529,13 +7556,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 38
         }
       ],
       "eventsComplete": true,
@@ -7693,38 +7721,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "joe-spence",
-          "minute": null
+          "minute": 48
         },
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "bill-rawlings",
-          "minute": null
+          "minute": 36
         },
         {
           "type": "goal",
           "player": "jimmy-hanson",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,

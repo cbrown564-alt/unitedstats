@@ -332,13 +332,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "eddie-green",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -496,13 +497,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "william-stewart",
-          "minute": null
+          "minute": 79
         }
       ],
       "eventsComplete": true,
@@ -1671,13 +1673,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-byrne",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,
@@ -2024,9 +2027,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2184,13 +2188,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,
@@ -2522,9 +2527,10 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "own goal (og)"
+          "detail": "own goal (og)",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -2856,13 +2862,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "neil-dewar",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -3184,13 +3191,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "neil-dewar",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -3512,23 +3520,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-byrne",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "david-byrne",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "tommy-frame",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -4007,14 +4016,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "hugh-mclenahan",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -4173,14 +4183,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "jack-ball",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -4338,13 +4349,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-ball",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -4502,13 +4514,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-ball",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -5014,18 +5027,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 77
         },
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -5339,18 +5353,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-ball",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "stanley-gallimore",
-          "minute": null
+          "minute": 82
         }
       ],
       "eventsComplete": true,
@@ -5508,13 +5523,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-ball",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -5672,13 +5688,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-ball",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -6317,13 +6334,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-cape",
-          "minute": null
+          "minute": 69
         }
       ],
       "eventsComplete": true,
@@ -6481,13 +6499,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-cape",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -6970,13 +6989,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "henry-topping",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -7134,18 +7154,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jack-cape",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "tom-manley",
-          "minute": null
+          "minute": 8
         }
       ],
       "eventsComplete": true,

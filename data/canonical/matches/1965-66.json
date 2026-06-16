@@ -23,12 +23,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 29
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 82
         },
         {
           "type": "opp-goal",
@@ -46,7 +46,8 @@
         }
       ],
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -166,13 +167,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -330,18 +332,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 66
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -499,13 +502,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -819,13 +823,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -983,18 +988,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -1308,13 +1314,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -1472,28 +1479,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 78
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -1654,22 +1662,23 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 1
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 36
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1825,18 +1834,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 68
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -1997,37 +2007,38 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 60
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -2183,18 +2194,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -2352,13 +2364,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -2528,28 +2541,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 24
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 59
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -2707,18 +2721,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -2876,18 +2891,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 38
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -3057,33 +3073,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 44
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 11
         }
       ],
       "eventsComplete": true,
@@ -3244,17 +3261,18 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 72
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3410,23 +3428,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 38
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -3587,22 +3606,23 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 90
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3914,23 +3934,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 59
         }
       ],
       "eventsComplete": true,
@@ -4088,23 +4109,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 52
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -4262,7 +4284,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -4287,9 +4310,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Phil Beal (og)"
+          "player": "own-goal",
+          "minute": 36,
+          "detail": "Phil Beal (og)",
+          "playerName": "Phil Beal",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -4447,13 +4472,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -4611,13 +4637,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -4775,13 +4802,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,
@@ -4939,13 +4967,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -5103,13 +5132,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -5268,34 +5298,35 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 76
         }
       ],
       "eventsComplete": true,
@@ -5612,22 +5643,23 @@
         {
           "type": "goal",
           "player": "bill-foulkes",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 42
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5783,38 +5815,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 27
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 84
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 6
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 46
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 10
         }
       ],
       "eventsComplete": true,
@@ -6131,14 +6164,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 115
         }
       ],
       "eventsComplete": true,
@@ -6296,18 +6330,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 58
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 39
         }
       ],
       "eventsComplete": true,
@@ -6465,28 +6500,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 40
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 63
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 67
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 3
         }
       ],
       "eventsComplete": true,
@@ -6645,29 +6681,30 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 61
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 72
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,
@@ -6828,32 +6865,33 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 6
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 16
         },
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": null
+          "minute": 80
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -7165,18 +7203,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 2
         },
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -7335,14 +7374,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -7501,24 +7541,25 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 87
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -7676,13 +7717,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "noel-cantwell",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -7840,13 +7882,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": null
+          "minute": 81
         }
       ],
       "eventsComplete": true,
@@ -8160,13 +8203,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 71
         }
       ],
       "eventsComplete": true,
@@ -8327,12 +8371,13 @@
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": null
+          "minute": 72
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -8801,18 +8846,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -8970,18 +9016,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 78
         },
         {
           "type": "goal",
           "player": "noel-cantwell",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -9151,23 +9198,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": null
+          "minute": 49
         },
         {
           "type": "goal",
           "player": "tony-dunne",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 27
         }
       ],
       "eventsComplete": true,
@@ -9337,28 +9385,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 27
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 31
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -9516,38 +9565,39 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 12
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 73
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 15
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": null
+          "minute": 55
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "goal",
           "player": "jimmy-ryan",
-          "minute": null
+          "minute": 18
         }
       ],
       "eventsComplete": true,
@@ -9705,13 +9755,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,

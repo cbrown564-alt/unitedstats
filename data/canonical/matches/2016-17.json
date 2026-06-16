@@ -9582,7 +9582,7 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "playerName": "Brad Jones",
           "playerProviderId": "4042",
           "playerSide": "opponent",
@@ -16952,10 +16952,12 @@
       "eventsComplete": true,
       "events": [
         {
-          "type": "own-goal-for",
-          "player": null,
+          "type": "goal",
+          "player": "paul-pogba",
           "minute": 66,
-          "detail": "Paul Pogba (og)"
+          "detail": null,
+          "playerName": "Paul Pogba",
+          "playerSide": "united"
         }
       ],
       "sources": [

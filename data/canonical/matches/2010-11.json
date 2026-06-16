@@ -424,9 +424,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 84,
-          "detail": "Brede Hangeland (og)"
+          "detail": "Brede Hangeland (og)",
+          "playerName": "Brede Hangeland",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -5249,9 +5251,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 57,
-          "detail": "Anton Ferdinand (og)"
+          "detail": "Anton Ferdinand (og)",
+          "playerName": "Anton Ferdinand",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -11597,9 +11601,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 74,
-          "detail": "Ian Evatt (og)"
+          "detail": "Ian Evatt (og)",
+          "playerName": "Ian Evatt",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",

@@ -773,7 +773,7 @@ INSERT INTO player_totals
 SELECT p.id, 'all',
   COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.player_side = 'united' AND l.bench = 0), 0),
   COALESCE((SELECT COUNT(*) FROM match_lineups l WHERE l.player_id = p.id AND l.player_side = 'united' AND l.started = 1 AND l.bench = 0), 0),
-  COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.player_id = p.id AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')), 0),
+  COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.player_id = p.id AND ((e.player_side = 'united' AND e.type IN ('goal','pen-goal')) OR e.type = 'own-goal-for')), 0),
   COALESCE((SELECT COUNT(*) FROM match_events e WHERE e.assist_player_id = p.id AND e.assist_side = 'united' AND e.type IN ('goal','pen-goal')), 0),
   (SELECT MIN(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.player_side = 'united' AND l.bench = 0),
   (SELECT MAX(m.date) FROM match_lineups l JOIN matches m ON m.id=l.match_id WHERE l.player_id = p.id AND l.player_side = 'united' AND l.bench = 0)
@@ -787,7 +787,7 @@ SELECT p.id, c.type,
     SELECT COUNT(*) FROM match_events e
     JOIN matches gm ON gm.id = e.match_id
     JOIN competitions gc ON gc.id = gm.competition_id
-    WHERE e.player_id = p.id AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND gc.type = c.type
+    WHERE e.player_id = p.id AND ((e.player_side = 'united' AND e.type IN ('goal','pen-goal')) OR e.type = 'own-goal-for') AND gc.type = c.type
   ), 0),
   COALESCE((
     SELECT COUNT(*) FROM match_events e

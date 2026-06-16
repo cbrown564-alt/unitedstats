@@ -20,13 +20,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -184,23 +185,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 82
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 12
         }
       ],
       "eventsComplete": true,
@@ -529,22 +531,23 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 90
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 10
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -700,13 +703,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "martin-buchan",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -876,13 +880,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,
@@ -1040,13 +1045,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 66
         }
       ],
       "eventsComplete": true,
@@ -1216,13 +1222,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 29
         }
       ],
       "eventsComplete": true,
@@ -1380,13 +1387,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -1547,12 +1555,13 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 40
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1720,23 +1729,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 3
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 76
         }
       ],
       "eventsComplete": true,
@@ -1906,18 +1916,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 71
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 50
         }
       ],
       "eventsComplete": true,
@@ -2075,13 +2086,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -2251,28 +2263,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 21
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 45
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 52
         }
       ],
       "eventsComplete": true,
@@ -2442,13 +2455,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -2606,13 +2620,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 13
         }
       ],
       "eventsComplete": true,
@@ -2782,18 +2797,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -3131,13 +3147,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -3295,23 +3312,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,
@@ -3469,18 +3487,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 75
         },
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 17
         }
       ],
       "eventsComplete": true,
@@ -3962,23 +3981,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 21
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -4149,24 +4169,25 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 27
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 70
         },
         {
           "type": "goal",
           "player": "ashley-grimes",
-          "minute": null
+          "minute": 61
         }
       ],
       "eventsComplete": true,
@@ -4325,14 +4346,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -4670,23 +4692,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 35
         },
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 69
         }
       ],
       "eventsComplete": true,
@@ -4845,14 +4868,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -5011,14 +5035,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 86
         }
       ],
       "eventsComplete": true,
@@ -5188,13 +5213,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 75
         }
       ],
       "eventsComplete": true,
@@ -5364,18 +5390,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 2
         }
       ],
       "eventsComplete": true,
@@ -5533,18 +5560,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 76
         },
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -5703,14 +5731,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "mickey-thomas",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -5881,19 +5910,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -6051,23 +6081,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 36
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 89
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 64
         }
       ],
       "eventsComplete": true,
@@ -6225,28 +6256,29 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 18
         },
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 79
         },
         {
           "type": "goal",
           "player": "mickey-thomas",
-          "minute": null
+          "minute": 20
         }
       ],
       "eventsComplete": true,
@@ -6416,18 +6448,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 51
         },
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 48
         }
       ],
       "eventsComplete": true,
@@ -6586,19 +6619,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 19
         },
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": null
+          "minute": 56
         }
       ],
       "eventsComplete": true,
@@ -6757,14 +6791,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay. Venue: Goodison Park, Liverpool",
       "events": [
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": null
+          "minute": 78
         }
       ],
       "eventsComplete": true,
@@ -6934,18 +6969,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 83
         },
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 74
         }
       ],
       "eventsComplete": true,
@@ -7103,13 +7139,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "martin-buchan",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -7603,13 +7640,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -7779,13 +7817,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 14
         }
       ],
       "eventsComplete": true,
@@ -7955,13 +7994,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 88
         }
       ],
       "eventsComplete": true,
@@ -8299,13 +8339,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 13
         }
       ],
       "eventsComplete": true,
@@ -8631,23 +8672,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 41
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "andy-ritchie",
-          "minute": null
+          "minute": 14
         }
       ],
       "eventsComplete": true,
@@ -8817,19 +8859,20 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": null
+          "minute": 88
         },
         {
           "type": "opp-goal",
@@ -8964,13 +9007,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": null
+          "minute": 7
         }
       ],
       "eventsComplete": true,

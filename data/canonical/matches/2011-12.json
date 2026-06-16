@@ -213,9 +213,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 81,
-          "detail": "Steven Reid (og)"
+          "detail": "Steven Reid (og)",
+          "playerName": "Steven Reid",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3307,9 +3309,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 87,
-          "detail": "Cristian Sârghi (og)"
+          "detail": "Cristian Sârghi (og)",
+          "playerName": "Cristian Sârghi",
+          "playerSide": "opponent"
         }
       ],
       "sources": [
@@ -3511,9 +3515,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 46,
-          "detail": "Wes Brown (og)"
+          "detail": "Wes Brown (og)",
+          "playerName": "Wes Brown",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -10525,18 +10531,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "paul-scholes",
-          "minute": null
+          "minute": 28
         },
         {
           "type": "goal",
           "player": "ashley-young",
-          "minute": null
+          "minute": 41
         }
       ],
       "eventsComplete": true,

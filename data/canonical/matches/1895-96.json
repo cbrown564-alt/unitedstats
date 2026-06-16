@@ -204,23 +204,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 80
         },
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 85
         },
         {
           "type": "goal",
           "player": "james-mcnaught",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -731,13 +732,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-clarkin",
-          "minute": null
+          "minute": 44
         }
       ],
       "eventsComplete": true,
@@ -895,13 +897,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 40
         }
       ],
       "eventsComplete": true,
@@ -1576,13 +1579,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "joe-cassidy",
-          "minute": null
+          "minute": 47
         }
       ],
       "eventsComplete": true,
@@ -3422,18 +3426,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "william-kennedy",
-          "minute": null
+          "minute": 10
         },
         {
           "type": "goal",
           "player": "dick-smith",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -3922,14 +3927,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "bob-donaldson",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,

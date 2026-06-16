@@ -20,13 +20,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 22
         }
       ],
       "eventsComplete": true,
@@ -352,13 +353,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 33
         }
       ],
       "eventsComplete": true,
@@ -528,13 +530,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jesper-olsen",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -1043,22 +1046,23 @@
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 17
         },
         {
           "type": "goal",
           "player": "arnold-muhren",
-          "minute": null
+          "minute": 37
         },
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 74
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1214,13 +1218,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -1571,18 +1576,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "pen-goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 65
         }
       ],
       "eventsComplete": true,
@@ -1743,17 +1749,18 @@
         {
           "type": "goal",
           "player": "alan-brazil",
-          "minute": null
+          "minute": 9
         },
         {
           "type": "pen-goal",
           "player": "arnold-muhren",
-          "minute": null
+          "minute": 75
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -2246,33 +2253,34 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 25
         },
         {
           "type": "goal",
           "player": "alan-brazil",
-          "minute": null
+          "minute": 32
         },
         {
           "type": "goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 50
         },
         {
           "type": "goal",
           "player": "remi-moses",
-          "minute": null
+          "minute": 64
         },
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 77
         }
       ],
       "eventsComplete": true,
@@ -2430,13 +2438,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -2921,12 +2930,13 @@
         {
           "type": "goal",
           "player": "alan-brazil",
-          "minute": null
+          "minute": 23
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3271,12 +3281,13 @@
         {
           "type": "pen-goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 97
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3456,23 +3467,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alan-brazil",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "pen-goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 89
         }
       ],
       "eventsComplete": true,
@@ -3818,18 +3830,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 13
         },
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 15
         }
       ],
       "eventsComplete": true,
@@ -4002,17 +4015,18 @@
         {
           "type": "pen-goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 9
         },
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 47
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -4180,18 +4194,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 14
         },
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 32
         }
       ],
       "eventsComplete": true,
@@ -4520,9 +4535,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
-          "minute": null,
-          "detail": "Gary McGinnis (og)"
+          "player": "own-goal",
+          "minute": 40,
+          "detail": "Gary McGinnis (og)",
+          "playerName": "Gary McGinnis",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -4532,7 +4549,8 @@
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -4862,23 +4880,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-gidman",
-          "minute": null
+          "minute": 86
         },
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 53
         },
         {
           "type": "pen-goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 31
         }
       ],
       "eventsComplete": true,
@@ -5036,13 +5055,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 23
         }
       ],
       "eventsComplete": true,
@@ -5212,23 +5232,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "remi-moses",
-          "minute": null
+          "minute": 26
         },
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -5386,13 +5407,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 63
         }
       ],
       "eventsComplete": true,
@@ -5551,24 +5573,25 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": null
+          "minute": 39
         },
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 58
         },
         {
           "type": "goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 21
         }
       ],
       "eventsComplete": true,
@@ -5895,19 +5918,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 20
         },
         {
           "type": "goal",
           "player": "paul-mcgrath",
-          "minute": null
+          "minute": 26
         }
       ],
       "eventsComplete": true,
@@ -6241,13 +6265,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "kevin-moran",
-          "minute": null
+          "minute": 45
         }
       ],
       "eventsComplete": true,
@@ -6418,19 +6443,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "gordon-strachan",
-          "minute": null
+          "minute": 7
         },
         {
           "type": "goal",
           "player": "paul-mcgrath",
-          "minute": null
+          "minute": 87
         }
       ],
       "eventsComplete": true,
@@ -6588,13 +6614,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "norman-whiteside",
-          "minute": null
+          "minute": 31
         }
       ],
       "eventsComplete": true,
@@ -6764,13 +6791,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "jesper-olsen",
-          "minute": null
+          "minute": 37
         }
       ],
       "eventsComplete": true,
@@ -6931,12 +6959,13 @@
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 60
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -7263,18 +7292,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 23
         },
         {
           "type": "goal",
           "player": "norman-whiteside",
-          "minute": null
+          "minute": 83
         }
       ],
       "eventsComplete": true,
@@ -7432,18 +7462,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 30
         },
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 68
         }
       ],
       "eventsComplete": true,
@@ -7953,13 +7984,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 73
         }
       ],
       "eventsComplete": true,
@@ -8117,18 +8149,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 69
         },
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 85
         }
       ],
       "eventsComplete": true,
@@ -8642,19 +8675,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "Venue: Goodison Park, Liverpool",
       "events": [
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 69
         },
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 98
         }
       ],
       "eventsComplete": true,
@@ -8813,19 +8847,20 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 47
         },
         {
           "type": "goal",
           "player": "mark-hughes",
-          "minute": null
+          "minute": 60
         }
       ],
       "eventsComplete": true,
@@ -8983,13 +9018,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "norman-whiteside",
-          "minute": null
+          "minute": 71
         }
       ],
       "eventsComplete": true,
@@ -9315,18 +9351,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "bryan-robson",
-          "minute": null
+          "minute": 6
         },
         {
           "type": "goal",
           "player": "kevin-moran",
-          "minute": null
+          "minute": 76
         }
       ],
       "eventsComplete": true,
@@ -9496,13 +9533,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "kevin-moran",
-          "minute": null
+          "minute": 34
         }
       ],
       "eventsComplete": true,
@@ -9660,18 +9698,19 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "john-gidman",
-          "minute": null
+          "minute": 8
         },
         {
           "type": "goal",
           "player": "frank-stapleton",
-          "minute": null
+          "minute": 70
         }
       ],
       "eventsComplete": true,
@@ -10022,13 +10061,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "kevin-moran",
-          "minute": null
+          "minute": 90
         }
       ],
       "eventsComplete": true,
@@ -10199,14 +10239,15 @@
       },
       "sources": [
         "engsoccerdata",
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
         {
           "type": "goal",
           "player": "norman-whiteside",
-          "minute": null
+          "minute": 110
         }
       ],
       "eventsComplete": true,

@@ -6380,9 +6380,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 80,
-          "detail": "Ronnie Whelan (og)"
+          "detail": "Ronnie Whelan (og)",
+          "playerName": "Ronnie Whelan",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

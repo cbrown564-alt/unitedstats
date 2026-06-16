@@ -2799,9 +2799,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 82,
-          "detail": "Matt Jones (og)"
+          "detail": "Matt Jones (og)",
+          "playerName": "Matt Jones",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -6338,9 +6340,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 33,
-          "detail": "Stuart Pearce (og)"
+          "detail": "Stuart Pearce (og)",
+          "playerName": "Stuart Pearce",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -7536,9 +7540,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 52,
-          "detail": "Steve Watson (og)"
+          "detail": "Steve Watson (og)",
+          "playerName": "Steve Watson",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,

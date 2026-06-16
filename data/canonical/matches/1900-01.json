@@ -846,13 +846,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "william-jackson",
-          "minute": null
+          "minute": 80
         }
       ],
       "eventsComplete": true,
@@ -1010,13 +1011,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-leigh",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -2318,9 +2320,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": null,
-          "detail": "Hancock (og)"
+          "detail": "Hancock (og)",
+          "playerName": "Hancock",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
@@ -3471,14 +3475,15 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
         {
           "type": "goal",
           "player": "alf-schofield",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,
@@ -4440,13 +4445,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-leigh",
-          "minute": null
+          "minute": 30
         }
       ],
       "eventsComplete": true,
@@ -5597,13 +5603,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "hugh-morgan",
-          "minute": null
+          "minute": 67
         }
       ],
       "eventsComplete": true,
@@ -5761,13 +5768,14 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "tommy-leigh",
-          "minute": null
+          "minute": 25
         }
       ],
       "eventsComplete": true,

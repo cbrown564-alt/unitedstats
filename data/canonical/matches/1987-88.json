@@ -5021,9 +5021,11 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 28,
-          "detail": "Jean-Michel d'Avray (og)"
+          "detail": "Jean-Michel d'Avray (og)",
+          "playerName": "Jean-Michel d'Avray",
+          "playerSide": "opponent"
         },
         {
           "type": "goal",
@@ -8184,9 +8186,11 @@
         },
         {
           "type": "own-goal-for",
-          "player": null,
+          "player": "own-goal",
           "minute": 83,
-          "detail": "Paul Parker (og)"
+          "detail": "Paul Parker (og)",
+          "playerName": "Paul Parker",
+          "playerSide": "opponent"
         }
       ],
       "eventsComplete": true,
