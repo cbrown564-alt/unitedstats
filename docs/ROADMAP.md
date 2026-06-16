@@ -287,6 +287,19 @@ With the surface simplified, expand the core premise — question-led pattern
 discovery — by adding the comparison and exploration tools it is currently
 missing, each tied to its match evidence and coverage note.
 
+Groundwork (done):
+
+- [x] Unused-export guard — the drift guard deferred from Phase 8 is live.
+      `knip` (`npm run knip`, wired into CI before `validate`) replaces the
+      broken `import/no-unused-modules` rule and catches unused files, exports,
+      types, and dependencies across `.tsx`. Baseline taken to zero: deleted the
+      dead local `AreaChart` (knip showed `InspectableTimeSeriesChart` uses
+      Recharts' `AreaChart`, so the "live no-JS fallback" claim was drift),
+      `seasonStartYear`, and the `tmp-check.ts` scratch file; un-exported ~13
+      module-internal symbols. See `docs/INVENTORY.md`.
+
+Discovery work:
+
 - [ ] Comparison views: player vs player, era vs era, and manager vs manager on
       shared, coverage-aware metrics.
 - [ ] Expand the question/trail catalogue with new myth-testing cuts beyond the

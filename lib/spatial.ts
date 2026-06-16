@@ -13,7 +13,7 @@ export const MANCHESTER = { lat: 53.463, lng: -2.291 };
 
 const EARTH_RADIUS_KM = 6371;
 
-export function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
+function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
   const rad = Math.PI / 180;
   const dLat = (bLat - aLat) * rad;
   const dLng = (bLng - aLng) * rad;

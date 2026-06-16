@@ -89,11 +89,6 @@ export function seasonKey(startYear: number): string {
   return `${startYear}-${String(end).padStart(2, "0")}`;
 }
 
-/** "1892-93" -> 1892 */
-export function seasonStartYear(season: string): number {
-  return parseInt(season.slice(0, 4), 10);
-}
-
 /** Season a given date belongs to (Jul 1 boundary). */
 export function seasonOfDate(date: string): string {
   const [y, m] = date.split("-").map(Number);
@@ -161,13 +156,13 @@ export function parseCsvLine(line: string): string[] {
 }
 
 /** Current season key using the Jul 1 boundary. */
-export function currentSeasonKey(now = new Date()): string {
+function currentSeasonKey(now = new Date()): string {
   const startYear = now.getUTCMonth() + 1 >= 7 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
   return seasonKey(startYear);
 }
 
 /** Season keys (e.g. "1998-99") that have a canonical match file on disk. */
-export function seasonKeysOnDisk(): string[] {
+function seasonKeysOnDisk(): string[] {
   return listSeasonFiles()
     .filter((f) => /^\d{4}-\d{2}\.json$/.test(f))
     .map((f) => f.replace(".json", ""));

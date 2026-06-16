@@ -120,7 +120,7 @@ export function careerContains(record: PlayerRecord, year: number): boolean {
 }
 
 /** Reorder an archive href slug ("smith_john_42" -> "john smith") to a name slug. */
-export function hrefSlug(hrefKey: string | null): string | null {
+function hrefSlug(hrefKey: string | null): string | null {
   if (!hrefKey) return null;
   const parts = hrefKey.split("_").filter(Boolean);
   if (parts.length < 2) return null;

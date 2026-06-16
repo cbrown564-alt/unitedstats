@@ -75,7 +75,7 @@ export function competitionTone(type: string | null | undefined): CompetitionTon
   }
 }
 
-export type Outcome = "W" | "D" | "L";
+type Outcome = "W" | "D" | "L";
 
 const RESULT_LABELS: Record<Outcome, string> = { W: "Won", D: "Drawn", L: "Lost" };
 const RESULT_TONES: Record<Outcome, string> = { W: "text-win", D: "text-draw", L: "text-loss" };

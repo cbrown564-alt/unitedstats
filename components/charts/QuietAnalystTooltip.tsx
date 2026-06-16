@@ -1,6 +1,6 @@
 "use client";
 
-export type QuietAnalystTooltipDatum = {
+type QuietAnalystTooltipDatum = {
   label: string;
   valueLabel: string;
   meta?: string;

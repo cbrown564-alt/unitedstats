@@ -416,7 +416,7 @@ export interface PlayerTotals {
 // the season table, and the API. (Match-coverage stats and scorer↔assister
 // partnerships are deliberately match-event only — curated rows are not
 // match-attributed and cannot be linked to a specific goal.)
-export const CURATED_ASSISTS_LAST_SEASON = "2014-15";
+const CURATED_ASSISTS_LAST_SEASON = "2014-15";
 
 /** Curated assist count for the player named by `ref` (e.g. "p.id" or "?"), optionally one season. */
 function curatedAssistsExpr(ref: string, seasonExpr?: string): string {

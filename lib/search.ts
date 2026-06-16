@@ -1,14 +1,14 @@
 import { getDb } from "./db";
 import type { Record_ } from "./queries";
 
-export interface SearchEntity {
+interface SearchEntity {
   kind: "player" | "manager" | "opponent" | "season" | "competition" | "match";
   label: string;
   detail: string;
   href: string;
 }
 
-export interface ShapedAnswer {
+interface ShapedAnswer {
   title: string;
   summary: string;
   href: string;
