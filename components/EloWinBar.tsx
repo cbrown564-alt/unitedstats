@@ -31,7 +31,7 @@ export function EloWinBar({
   const favourite = expected >= 0.5;
 
   return (
-    <div className="max-w-3xl rounded-lg border border-line bg-panel px-4 py-3">
+    <div className="w-full rounded-lg border border-line bg-panel px-4 py-3">
       <div className="mb-2 flex items-baseline justify-between gap-3">
         <span className="text-[11px] uppercase tracking-wider text-ink-faint">Pre-match Elo</span>
         <span className="stat-num text-xs text-ink-dim">
