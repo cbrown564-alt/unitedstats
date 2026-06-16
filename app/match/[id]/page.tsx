@@ -9,6 +9,7 @@ import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone
 import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
+import { GoalTimeline } from "@/components/GoalTimeline";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +36,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const starters = lineup.filter((p) => p.player_side === "united" && p.started && !p.bench);
   const usedSubs = lineup.filter((p) => p.player_side === "united" && !p.started && !p.bench);
   const bench = lineup.filter((p) => p.player_side === "united" && p.bench);
+  const hasTimedGoals = goals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
   const sourceSummary = sources.reduce((acc, source) => {
     const cur = acc.get(source.id) ?? {
       label: source.label,
@@ -118,32 +120,18 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         {m.notes && <p className="text-sm text-ink-dim italic max-w-3xl">{m.notes}</p>}
       </header>
 
-      {goals.length > 0 && (
+      {hasTimedGoals && (
         <section>
-          <h2 className="display text-xl mb-3">{club} goals</h2>
-          <ul className="space-y-2 max-w-xl">
-            {goals.map((e) => (
-              <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
-                <span className="stat-num text-devil-bright font-semibold w-10">
-                  {e.minute != null ? `${e.minute}'` : "•"}
-                </span>
-                <span className="flex-1">
-                  {e.player_id ? (
-                    <Link href={`/player/${e.player_id}`} className="font-medium hover:text-devil-bright">
-                      {e.player_name}
-                    </Link>
-                  ) : (
-                    <span className="font-medium">{e.player_display_name ?? "Goal"}</span>
-                  )}
-                  {e.type === "pen-goal" && <span className="text-xs text-ink-faint ml-1.5">(pen)</span>}
-                  {e.type === "own-goal-for" && <span className="text-xs text-ink-faint ml-1.5">(og)</span>}
-                  {e.assist_display_name && (
-                    <span className="text-xs text-ink-faint ml-1.5">assist {e.assist_display_name}</span>
-                  )}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <h2 className="display text-xl mb-3">Goal timeline</h2>
+          <GoalTimeline
+            unitedGoals={goals}
+            opponentGoals={opponentGoals}
+            cards={cards}
+            subs={usedSubs}
+            club={club}
+            opponentName={m.opponent_name}
+            aet={!!m.aet}
+          />
           {!m.events_complete && (
             <p className="text-xs text-ink-faint mt-2">
               Scorer data for this match may be incomplete.
@@ -151,6 +139,56 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           )}
         </section>
       )}
+
+      {/* Untimed scorers: events exist but no minutes — keep a plain list. */}
+      {!hasTimedGoals && (goals.length > 0 || opponentGoals.length > 0) && (
+        <section className="grid sm:grid-cols-2 gap-x-8 gap-y-4 max-w-3xl">
+          {goals.length > 0 && (
+            <div>
+              <h2 className="display text-xl mb-3">{club} goals</h2>
+              <ul className="space-y-2">
+                {goals.map((e) => (
+                  <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
+                    <span className="stat-num text-devil-bright font-semibold w-6">•</span>
+                    <span className="flex-1">
+                      {e.player_id ? (
+                        <Link href={`/player/${e.player_id}`} className="font-medium hover:text-devil-bright">
+                          {e.player_name}
+                        </Link>
+                      ) : (
+                        <span className="font-medium">{e.player_display_name ?? "Goal"}</span>
+                      )}
+                      {e.type === "pen-goal" && <span className="text-xs text-ink-faint ml-1.5">(pen)</span>}
+                      {e.type === "own-goal-for" && <span className="text-xs text-ink-faint ml-1.5">(og)</span>}
+                      {e.assist_display_name && (
+                        <span className="text-xs text-ink-faint ml-1.5">assist {e.assist_display_name}</span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {opponentGoals.length > 0 && (
+            <div>
+              <h2 className="display text-xl mb-3">{m.opponent_name} goals</h2>
+              <ul className="space-y-2">
+                {opponentGoals.map((e) => (
+                  <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
+                    <span className="stat-num text-loss font-semibold w-6">•</span>
+                    <span className="flex-1 font-medium">{e.player_display_name ?? "Goal"}</span>
+                    {e.type === "own-goal-against" && <span className="text-xs text-ink-faint">og</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {!m.events_complete && (
+            <p className="text-xs text-ink-faint sm:col-span-2">Scorer data for this match may be incomplete.</p>
+          )}
+        </section>
+      )}
+
       {goals.length === 0 && m.gf > 0 && (
         <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
           <h2 className="display text-xl">Scorers</h2>
@@ -160,22 +198,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <Link href="/data" className="text-xs text-devil-bright hover:underline mt-2 inline-block">
             How to add the missing scorers
           </Link>
-        </section>
-      )}
-      {opponentGoals.length > 0 && (
-        <section>
-          <h2 className="display text-xl mb-3">{m.opponent_name} goals</h2>
-          <ul className="space-y-2 max-w-xl">
-            {opponentGoals.map((e) => (
-              <li key={e.seq} className="flex items-center gap-3 border border-line rounded-lg bg-panel px-4 py-2.5">
-                <span className="stat-num text-loss font-semibold w-10">
-                  {e.minute != null ? `${e.minute}'` : "•"}
-                </span>
-                <span className="flex-1 font-medium">{e.player_display_name ?? "Goal"}</span>
-                {e.type === "own-goal-against" && <span className="text-xs text-ink-faint">og</span>}
-              </li>
-            ))}
-          </ul>
         </section>
       )}
       {opponentGoals.length === 0 && m.ga > 0 && (
