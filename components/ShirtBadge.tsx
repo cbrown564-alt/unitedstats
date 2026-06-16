@@ -3,6 +3,8 @@ interface ShirtBadgeProps {
   decade?: string | null;
   apps?: number | null;
   compact?: boolean;
+  /** Drain the shirt colour for an unused substitute who never took the pitch. */
+  muted?: boolean;
 }
 
 function paletteForDecade(decade?: string | null): { background: string; color: string; border: string } {
@@ -28,7 +30,7 @@ function paletteForDecade(decade?: string | null): { background: string; color: 
   };
 }
 
-export function ShirtBadge({ number, decade, apps, compact = false }: ShirtBadgeProps) {
+export function ShirtBadge({ number, decade, apps, compact = false, muted = false }: ShirtBadgeProps) {
   if (number == null) {
     return <span className="text-ink-faint">{compact ? "--" : "No shirt data"}</span>;
   }
@@ -46,6 +48,7 @@ export function ShirtBadge({ number, decade, apps, compact = false }: ShirtBadge
           color: palette.color,
           borderColor: palette.border,
           clipPath: "polygon(18% 0, 35% 0, 42% 12%, 58% 12%, 65% 0, 82% 0, 100% 24%, 82% 42%, 82% 100%, 18% 100%, 18% 42%, 0 24%)",
+          ...(muted ? { filter: "grayscale(0.85) brightness(0.85)", opacity: 0.55 } : null),
         }}
       >
         {number}
