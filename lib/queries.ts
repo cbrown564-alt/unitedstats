@@ -826,25 +826,6 @@ export function playerCuratedGoalTypes(id: string): CuratedGoalType[] {
     .all(id) as CuratedGoalType[];
 }
 
-export interface CuratedSeasonSplit {
-  season: string;
-  goals: number;
-  assists: number;
-}
-
-/** Curated goals and assists per season for the player. */
-export function playerCuratedBySeason(id: string): CuratedSeasonSplit[] {
-  return getDb()
-    .prepare(
-      `SELECT season,
-              COALESCE(SUM(CASE WHEN kind='goal' THEN count END), 0) goals,
-              COALESCE(SUM(CASE WHEN kind='assist' THEN count END), 0) assists
-       FROM tableau_goals_assists WHERE player_id = ?
-       GROUP BY season ORDER BY season`,
-    )
-    .all(id) as CuratedSeasonSplit[];
-}
-
 // ---------------------------------------------------------------- analytics
 
 export function eloSeries(): { date: string; elo: number }[] {

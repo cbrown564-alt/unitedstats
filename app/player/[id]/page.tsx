@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerClubRanks,
-  playerCuratedBySeason, playerCuratedGoalTypes, playerCuratedTotals,
+  playerCuratedGoalTypes, playerCuratedTotals,
   playerGoalMatches, playerGoalMinutes, playerGoalsByOpponent, playerLineupMatches,
   playerShirtNumbersByDecade, playerSplitsBySeason,
 } from "@/lib/queries";
@@ -12,6 +12,7 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { Column, DataTable, type SortDirection } from "@/components/DataTable";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
+import { SeasonContributionChart } from "@/components/charts/SeasonContributionChart";
 import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
@@ -103,7 +104,6 @@ export default async function PlayerPage({
   // 1987-88..2014-15. Not match-attributed, so it stays in its own labelled section.
   const curatedTotals = playerCuratedTotals(id);
   const curatedGoalTypes = curatedTotals ? playerCuratedGoalTypes(id) : [];
-  const curatedSeasons = curatedTotals ? playerCuratedBySeason(id) : [];
   const curatedTopType = curatedGoalTypes[0];
 
   const coveredSeasons = bySeason.filter((s) => s.apps > 0);
@@ -257,31 +257,6 @@ export default async function PlayerPage({
         caveat="Goals, apps, and starts use verified competitive player records where available. Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from recorded match coverage — the part of a career we can evidence, not a career total."
       />
 
-      {bySeason.length > 1 && (
-        <ChartPanel
-          title="Goals by season"
-          count={{
-            covered: coveredSeasons.length,
-            total: bySeason.length,
-            noun: "seasons carry recorded data",
-            note: `${fmtNum(p.recorded_goals)} recorded goals`,
-          }}
-          note="These bars use recorded scorer data, so early or sparsely covered seasons can read low."
-        >
-          <InspectableBarChart
-            data={bySeason.map((s) => ({
-              label: s.season.slice(0, 4),
-              value: s.goals,
-              valueLabel: `${fmtNum(s.goals)} goals`,
-              meta: s.season,
-              href: `/seasons/${s.season}`,
-            }))}
-            labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
-            chartLabel={`${p.name} goals by season`}
-          />
-        </ChartPanel>
-      )}
-
       {(minutes.length > 3 || facetCount > 0) && (
         <section className="space-y-3">
           <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -402,47 +377,25 @@ export default async function PlayerPage({
             )}
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
-            {curatedGoalTypes.length > 1 && (
-              <ChartPanel
-                title="How the goals were scored"
-                note="Body part / technique behind each curated goal."
-              >
-                <InspectableBarChart
-                  data={curatedGoalTypes.map((t) => ({
-                    label: t.goal_type,
-                    value: t.goals,
-                    valueLabel: `${fmtNum(t.goals)} goals · ${pct(t.goals, curatedTotals.goals)}`,
-                    meta: "Curated goal type",
-                  }))}
-                  height={Math.max(150, curatedGoalTypes.length * 30)}
-                  color="var(--color-gold)"
-                  highlightLabel={curatedTopType?.goal_type}
-                  chartLabel={`${p.name} goals by body part`}
-                />
-              </ChartPanel>
-            )}
-
-            {curatedSeasons.some((s) => s.assists > 0) && (
-              <ChartPanel
-                title="Assists by season"
-                note="Chances created — the part of the assist gap this curated source fills before 2012-13."
-              >
-                <InspectableBarChart
-                  data={curatedSeasons.map((s) => ({
-                    label: s.season.slice(0, 4),
-                    value: s.assists,
-                    valueLabel: `${fmtNum(s.assists)} assists`,
-                    meta: s.season,
-                    href: `/seasons/${s.season}`,
-                  }))}
-                  height={150}
-                  labelEvery={Math.max(1, Math.floor(curatedSeasons.length / 10))}
-                  chartLabel={`${p.name} curated assists by season`}
-                />
-              </ChartPanel>
-            )}
-          </div>
+          {curatedGoalTypes.length > 1 && (
+            <ChartPanel
+              title="How the goals were scored"
+              note="Body part / technique behind each curated goal."
+            >
+              <InspectableBarChart
+                data={curatedGoalTypes.map((t) => ({
+                  label: t.goal_type,
+                  value: t.goals,
+                  valueLabel: `${fmtNum(t.goals)} goals · ${pct(t.goals, curatedTotals.goals)}`,
+                  meta: "Curated goal type",
+                }))}
+                height={Math.max(150, curatedGoalTypes.length * 30)}
+                color="var(--color-gold)"
+                highlightLabel={curatedTopType?.goal_type}
+                chartLabel={`${p.name} goals by body part`}
+              />
+            </ChartPanel>
+          )}
 
           <CoverageNote
             slice="curated goals, assists & goal types, 1987–2015"
@@ -454,10 +407,42 @@ export default async function PlayerPage({
       )}
 
       {bySeason.length > 0 && (
-        <section id="seasons">
+        <section id="seasons" className="space-y-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="display text-xl">Season by season</h2>
+            <span className="stat-num text-xs text-ink-faint">
+              {fmtNum(p.recorded_goals)} recorded goals · {fmtNum(coveredSeasons.length)} of {fmtNum(bySeason.length)} seasons covered
+            </span>
+          </div>
+
+          {bySeason.length > 1 && (
+            <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
+              <div className="mb-2 flex items-center gap-4 text-[11px] text-ink-faint">
+                <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" /> goals</span>
+                <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" /> assists</span>
+              </div>
+              <SeasonContributionChart
+                data={bySeason.map((s) => ({
+                  label: s.season.slice(0, 4),
+                  goals: s.goals,
+                  assists: s.assists,
+                  valueLabel: `${fmtNum(s.goals)} goals · ${fmtNum(s.assists)} assists`,
+                  meta: s.season,
+                  href: `/seasons/${s.season}`,
+                }))}
+                labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
+                chartLabel={`${p.name} goals and assists by season`}
+              />
+              <p className="mt-1 text-xs text-ink-faint">
+                Recorded goals and combined assists (curated through 2014-15, match events after) per season;
+                early or sparsely covered seasons can read low.
+              </p>
+            </div>
+          )}
+
           <details open className="group">
             <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
-              <h2 className="display text-xl">Season by season</h2>
+              <h3 className="text-sm font-medium text-ink-dim">The full table</h3>
               <span className="stat-num text-xs text-ink-faint group-open:hidden">show</span>
               <span className="stat-num text-xs text-ink-faint hidden group-open:inline">hide</span>
             </summary>
