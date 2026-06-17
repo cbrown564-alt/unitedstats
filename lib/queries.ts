@@ -726,8 +726,10 @@ export function playerClubRanks(id: string): { goalRank: number; appRank: number
 export interface AssistPartnership {
   scorer_id: string;
   scorer_name: string;
+  scorer_thumb: string | null;
   assister_id: string;
   assister_name: string;
+  assister_thumb: string | null;
   goals: number;
   first_date: string;
   last_date: string;
@@ -736,13 +738,15 @@ export interface AssistPartnership {
 export function topAssistPartnerships(limit = 20): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name,
-              e.assist_player_id assister_id, ap.name assister_name,
+      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.thumb_url scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name, apm.thumb_url assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
        JOIN players sp ON sp.id = e.player_id
        JOIN players ap ON ap.id = e.assist_player_id
+       LEFT JOIN player_media spm ON spm.player_id = sp.id
+       LEFT JOIN player_media apm ON apm.player_id = ap.id
        WHERE e.type IN ('goal','pen-goal')
          AND e.player_side = 'united'
          AND e.assist_side = 'united'
@@ -757,13 +761,15 @@ export function topAssistPartnerships(limit = 20): AssistPartnership[] {
 export function playerAssistPartnerships(id: string, limit = 12): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name,
-              e.assist_player_id assister_id, ap.name assister_name,
+      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.thumb_url scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name, apm.thumb_url assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
        JOIN players sp ON sp.id = e.player_id
        JOIN players ap ON ap.id = e.assist_player_id
+       LEFT JOIN player_media spm ON spm.player_id = sp.id
+       LEFT JOIN player_media apm ON apm.player_id = ap.id
        WHERE e.type IN ('goal','pen-goal')
          AND e.player_side = 'united'
          AND e.assist_side = 'united'
