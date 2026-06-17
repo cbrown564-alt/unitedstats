@@ -33,8 +33,11 @@ export function MatchList<T extends MatchRow>({
   /** Render an extra trailing cell per row (e.g. a goals/minutes annotation). */
   renderExtra?: (m: T) => ReactNode;
 }) {
+  // The trailing extra cell (e.g. a goals/minutes badge) is given a fixed width
+  // so its variable content can't push the score / season / competition / round
+  // columns around row to row — they stay vertically scannable.
   const cols = renderExtra
-    ? "grid-cols-[auto_1fr_auto_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto_auto]"
+    ? "grid-cols-[auto_1fr_auto_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto_13rem]"
     : "grid-cols-[auto_1fr_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto]";
   return (
     <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
