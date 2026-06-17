@@ -10,7 +10,7 @@ import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails
 import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { Column, DataTable, type SortDirection } from "@/components/DataTable";
-import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SeasonContributionChart } from "@/components/charts/SeasonContributionChart";
 import { SplitBar } from "@/components/charts/SplitBar";
@@ -382,18 +382,7 @@ export default async function PlayerPage({
               title="How the goals were scored"
               note="Body part / technique behind each curated goal."
             >
-              <InspectableBarChart
-                data={curatedGoalTypes.map((t) => ({
-                  label: t.goal_type,
-                  value: t.goals,
-                  valueLabel: `${fmtNum(t.goals)} goals · ${pct(t.goals, curatedTotals.goals)}`,
-                  meta: "Curated goal type",
-                }))}
-                height={Math.max(150, curatedGoalTypes.length * 30)}
-                color="var(--color-gold)"
-                highlightLabel={curatedTopType?.goal_type}
-                chartLabel={`${p.name} goals by body part`}
-              />
+              <GoalBodyMap types={curatedGoalTypes} totalGoals={curatedTotals.goals} />
             </ChartPanel>
           )}
 
