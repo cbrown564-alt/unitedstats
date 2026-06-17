@@ -16,6 +16,7 @@ import { SeasonContributionChart } from "@/components/charts/SeasonContributionC
 import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
+import { AssistPartnerships } from "@/components/AssistPartnerships";
 import { MatchList } from "@/components/MatchList";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
@@ -571,13 +572,46 @@ export default async function PlayerPage({
       </section>
 
       {appearances.length > 0 && (
-        <section>
+        <section className="space-y-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="display text-xl">Lineup appearances</h2>
+            <span className="stat-num text-xs text-ink-faint">{fmtNum(appearances.length)} covered</span>
+          </div>
+
+          {(() => {
+            const started = appearances.filter((m) => m.started).length;
+            const sub = appearances.length - started;
+            return (
+              <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
+                <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">How he came into the game</p>
+                <SplitBar
+                  height={16}
+                  segments={[
+                    { value: started, color: "var(--color-devil)" },
+                    { value: sub, color: "var(--color-draw)" },
+                  ]}
+                />
+                <div className="stat-num mt-2.5 flex items-center justify-between text-xs">
+                  <span className="text-ink-dim">
+                    Started <span className="text-devil-bright">{fmtNum(started)}</span>
+                  </span>
+                  <span className="text-ink-dim">
+                    Off the bench <span className="text-ink">{fmtNum(sub)}</span>
+                  </span>
+                </div>
+                <p className="mt-2 text-xs text-ink-faint">
+                  Across {fmtNum(appearances.length)} appearances with lineup coverage — not a career total.
+                </p>
+              </div>
+            );
+          })()}
+
           <details className="group">
             <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
-              <h2 className="display text-xl">Lineup appearances</h2>
-              <span className="stat-num text-xs text-ink-faint">
-                {fmtNum(appearances.length)} covered · <span className="text-devil-bright group-open:hidden">show</span>
-                <span className="hidden text-devil-bright group-open:inline">hide</span>
+              <h3 className="text-sm font-medium text-ink-dim">The matches</h3>
+              <span className="stat-num text-xs text-devil-bright">
+                <span className="group-open:hidden">show</span>
+                <span className="hidden group-open:inline">hide</span>
               </span>
             </summary>
             <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
@@ -606,21 +640,7 @@ export default async function PlayerPage({
       )}
 
       {partnerships.length > 0 && (
-        <section>
-          <h2 className="display mb-3 text-xl">Assist partnerships</h2>
-          <ul className="max-w-2xl divide-y divide-line overflow-hidden rounded-lg border border-line bg-panel text-sm">
-            {partnerships.map((row) => (
-              <li key={`${row.assister_id}-${row.scorer_id}`} className="flex items-center justify-between gap-3 px-4 py-2.5">
-                <span>
-                  <span className="font-medium">{row.assister_name}</span>
-                  <span className="text-ink-faint"> assisted </span>
-                  <span className="font-medium">{row.scorer_name}</span>
-                </span>
-                <span className="stat-num shrink-0 text-devil-bright">{fmtNum(row.goals)}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <AssistPartnerships playerId={id} rows={partnerships} />
       )}
 
       {(peakSeason || topOpponent) && (
