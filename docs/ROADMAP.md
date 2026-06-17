@@ -328,6 +328,14 @@ forgotten and can be promoted when the timing or evidence is right.
       into an active workflow: correction templates, canonical-JSON validation
       CI, and diff previews so others can improve data quality at scale.
       Compelling once there is contributor demand to support.
+- **Polish the tricky custom graphics.** A few bespoke SVG figures don't yet
+      reach the design bar and are parked for a deliberate pass. The clearest is
+      the player page's goal "body map" (`components/charts/GoalBodyMap.tsx`): the
+      data mapping and badge placement are right, but the hand-authored striker
+      silhouette still reads as amateurish. Revisit with a professionally
+      designed or properly licensed (CC0) footballer-striking vector rather than
+      more hand-bezier iteration. `sharp` is available for a render-and-inspect
+      loop when polishing any SVG-based view.
 
 ## Data depth ledger
 
