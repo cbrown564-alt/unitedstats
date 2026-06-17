@@ -238,6 +238,12 @@ select {
   font-variant-numeric: tabular-nums;
 }
 
+/* Outrank `.data-table th { text-align: left }` so numeric headers sit over
+   their right-aligned values. */
+.data-table th.data-table__numeric {
+  text-align: right;
+}
+
 .data-table-sort {
   display: inline-flex;
   align-items: center;
@@ -256,7 +262,9 @@ select {
 }
 
 .data-table__numeric .data-table-sort {
-  margin-left: auto;
+  /* Zero the right bleed so the sort control's right edge lines up with the
+     values below it; keep the vertical bleed for the hover target. */
+  margin: -0.25rem 0 -0.25rem auto;
   justify-content: flex-end;
 }
 
