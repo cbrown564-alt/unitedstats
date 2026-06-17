@@ -51,9 +51,6 @@ export function fmtRound(round: string | null | undefined): string {
   return md ? `Game ${md[1]}` : round;
 }
 
-/** 15-minute goal-time bucket labels; the final bucket folds in stoppage time. */
-export const GOAL_MINUTE_BUCKETS = ["1–15", "16–30", "31–45", "46–60", "61–75", "76–90+"];
-
 /** Club display name by era. */
 export function clubName(date: string): string {
   if (date < "1902-04-26") return "Newton Heath";
