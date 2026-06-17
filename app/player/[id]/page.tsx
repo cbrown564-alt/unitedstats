@@ -17,14 +17,11 @@ import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
 import { MatchList } from "@/components/MatchList";
-import { Pager } from "@/components/Pager";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
-
-const GOALS_PAGE_SIZE = 50;
 
 type SeasonSplit = {
   season: string;
@@ -77,7 +74,7 @@ export default async function PlayerPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ page?: string; sort?: string; dir?: string }>;
+  searchParams: Promise<{ sort?: string; dir?: string }>;
 }) {
   const { id } = await params;
   const sp = await searchParams;
@@ -145,23 +142,54 @@ export default async function PlayerPage({
         ? `${p.first_year}–`
         : null);
 
-  // Goals matches list, paginated, newest first.
-  const goalsPages = Math.max(1, Math.ceil(matches.length / GOALS_PAGE_SIZE));
-  const goalsPage = Math.min(Math.max(1, parseInt(sp.page ?? "1", 10) || 1), goalsPages);
-  const pagedMatches = matches.slice((goalsPage - 1) * GOALS_PAGE_SIZE, goalsPage * GOALS_PAGE_SIZE);
+  // Scoring matches (newest first). For a prolific scorer the flat list is huge,
+  // so we lead with the hauls and tuck the complete record, season-grouped, behind
+  // a disclosure. The hauls lead with the biggest, then most recent.
+  const braces = multiGoalGames - hatTricks;
+  const hauls = matches
+    .filter((m) => m.goals >= 2)
+    .sort((a, b) => b.goals - a.goals || b.date.localeCompare(a.date));
+  const longScoredList = matches.length > 25;
+  const scoredBySeason: [string, typeof matches][] = [];
+  const seasonIndex = new Map<string, number>();
+  for (const m of matches) {
+    let i = seasonIndex.get(m.season);
+    if (i === undefined) {
+      i = scoredBySeason.length;
+      seasonIndex.set(m.season, i);
+      scoredBySeason.push([m.season, []]);
+    }
+    scoredBySeason[i][1].push(m);
+  }
 
-  // Season table sort, kept independent of the goals-list pagination above.
+  // Goal-count badge with the recorded minutes, reused across the scored lists.
+  const goalExtra = (m: { goals: number; minutes?: string | null }) => {
+    const mins = (m.minutes ?? "")
+      .split(",")
+      .map((s) => Number(s))
+      .filter((n) => Number.isFinite(n) && n > 0)
+      .sort((a, b) => a - b);
+    return (
+      <span
+        className={`stat-num whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold ${
+          m.goals >= 3 ? "bg-gold/15 text-gold" : m.goals >= 2 ? "bg-devil/15 text-devil-bright" : "text-ink-faint"
+        }`}
+        title={mins.length ? `Goals at ${mins.map((x) => `${x}'`).join(", ")}` : undefined}
+      >
+        {m.goals >= 3 ? `${m.goals} goals` : m.goals === 2 ? "brace" : "1 goal"}
+        {mins.length > 0 && <span className="ml-1 font-normal text-ink-faint">{mins.map((x) => `${x}'`).join(" ")}</span>}
+      </span>
+    );
+  };
+
+  // Season table sort.
   const seasonSortKey = parseSeasonSort(sp.sort);
   const seasonSortDir: SortDirection =
     sp.dir === "asc" || sp.dir === "desc" ? sp.dir : SEASON_SORT_DEFAULTS[seasonSortKey];
   const sortedSeasons = [...bySeason].sort((a, b) => compareSeasons(a, b, seasonSortKey, seasonSortDir));
 
   function seasonSortHref(nextKey: string, nextDir: SortDirection) {
-    return `/player/${id}${queryString({ page: goalsPage > 1 ? goalsPage : undefined, sort: nextKey, dir: nextDir })}#seasons`;
-  }
-
-  function goalsPageHref(targetPage: number) {
-    return `/player/${id}${queryString({ page: targetPage, sort: sp.sort ? seasonSortKey : undefined, dir: sp.dir ? seasonSortDir : undefined })}#scored`;
+    return `/player/${id}${queryString({ sort: nextKey, dir: nextDir })}#seasons`;
   }
 
   const seasonColumns: Column<SeasonSplit>[] = [
@@ -470,42 +498,76 @@ export default async function PlayerPage({
         </section>
       )}
 
-      <section id="scored">
-        <div className="mb-3 flex items-baseline justify-between">
+      <section id="scored" className="space-y-4">
+        <div className="flex items-baseline justify-between">
           <h2 className="display text-xl">Matches scored in</h2>
           {matches.length > 0 && (
             <span className="stat-num text-xs text-ink-faint">{fmtNum(matches.length)} matches</span>
           )}
         </div>
-        {pagedMatches.length > 0 ? (
-          <MatchList
-            matches={pagedMatches}
-            showSeason
-            renderExtra={(m) => {
-              const mins = (m.minutes ?? "")
-                .split(",")
-                .map((s) => Number(s))
-                .filter((n) => Number.isFinite(n) && n > 0)
-                .sort((a, b) => a - b);
-              return (
-                <span
-                  className={`stat-num whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold ${
-                    m.goals >= 3 ? "bg-gold/15 text-gold" : m.goals >= 2 ? "bg-devil/15 text-devil-bright" : "text-ink-faint"
-                  }`}
-                  title={mins.length ? `Goals at ${mins.map((x) => `${x}'`).join(", ")}` : undefined}
-                >
-                  {m.goals >= 3 ? `${m.goals} goals` : m.goals === 2 ? "brace" : "1 goal"}
-                  {mins.length > 0 && <span className="ml-1 font-normal text-ink-faint">{mins.map((x) => `${x}'`).join(" ")}</span>}
-                </span>
-              );
-            }}
-          />
-        ) : (
+
+        {matches.length === 0 ? (
           <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-faint">
             No matches with recorded scorer data yet.
           </p>
+        ) : !longScoredList ? (
+          <MatchList matches={matches} showSeason renderExtra={goalExtra} />
+        ) : (
+          <>
+            <p className="text-sm text-ink-dim">
+              {fmtNum(matches.length)} matches carry a recorded goal
+              {multiGoalGames > 0 && (
+                <>
+                  , including{" "}
+                  {braces > 0 && (
+                    <span className="text-devil-bright">{fmtNum(braces)} brace{braces === 1 ? "" : "s"}</span>
+                  )}
+                  {braces > 0 && hatTricks > 0 && " and "}
+                  {hatTricks > 0 && (
+                    <span className="text-gold">{fmtNum(hatTricks)} hat-trick{hatTricks === 1 ? "" : "s"}</span>
+                  )}
+                </>
+              )}
+              .
+            </p>
+
+            {hauls.length > 0 && (
+              <div>
+                <h3 className="mb-2 text-sm font-medium text-ink-dim">The hauls — braces &amp; hat-tricks</h3>
+                <MatchList matches={hauls} showSeason renderExtra={goalExtra} />
+              </div>
+            )}
+
+            <details className="group">
+              <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
+                <h3 className="text-sm font-medium text-ink-dim">Every scoring match, season by season</h3>
+                <span className="stat-num text-xs text-devil-bright">
+                  <span className="group-open:hidden">show all {fmtNum(matches.length)}</span>
+                  <span className="hidden group-open:inline">hide</span>
+                </span>
+              </summary>
+              <div className="mt-3 space-y-6">
+                {scoredBySeason.map(([season, ms]) => {
+                  const seasonGoals = ms.reduce((a, m) => a + m.goals, 0);
+                  return (
+                    <div key={season}>
+                      <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
+                        <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright">
+                          {season}
+                        </Link>
+                        <span className="stat-num text-xs text-ink-faint">
+                          <span className="text-devil-bright">{fmtNum(seasonGoals)}</span> goal{seasonGoals === 1 ? "" : "s"}
+                          {" · "}{fmtNum(ms.length)} match{ms.length === 1 ? "" : "es"}
+                        </span>
+                      </div>
+                      <MatchList matches={ms} renderExtra={goalExtra} />
+                    </div>
+                  );
+                })}
+              </div>
+            </details>
+          </>
         )}
-        <Pager page={goalsPage} pages={goalsPages} hrefFor={goalsPageHref} className="mt-3" />
       </section>
 
       {appearances.length > 0 && (
