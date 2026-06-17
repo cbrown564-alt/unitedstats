@@ -19,11 +19,17 @@ export function MinuteRidge({
   bins,
   height = 200,
   lateFrom = 75,
+  lateLabel = "Fergie time",
+  subject = "United",
 }: {
   bins: Bin[];
   height?: number;
   /** Minute at which the closing "late" zone begins. */
   lateFrom?: number;
+  /** Uppercase annotation over the late zone; pass null to hide (e.g. a single player). */
+  lateLabel?: string | null;
+  /** Whose goals these are, for the accessible label. */
+  subject?: string;
 }) {
   if (bins.length === 0) return null;
   const end = bins[bins.length - 1].hi; // 90
@@ -55,7 +61,7 @@ export function MinuteRidge({
       viewBox={`0 0 ${W} ${height}`}
       className="w-full h-auto"
       role="img"
-      aria-label="United goals by match minute, with the closing 15 minutes highlighted"
+      aria-label={`${subject} goals by match minute, with the closing minutes highlighted`}
     >
       <defs>
         {/* Horizontal split: calm gold through the match, devil-red once the late
@@ -100,11 +106,13 @@ export function MinuteRidge({
 
       {/* climax annotation over the late zone — right-aligned so it stays put
           however narrow the closing window is */}
-      <text x={X(end)} y={PAD_T - 14} fontSize="10" fontWeight="700" letterSpacing="0.08em" fill="var(--color-devil-bright)" textAnchor="end">
-        FERGIE TIME
-      </text>
+      {lateLabel && (
+        <text x={X(end)} y={PAD_T - 14} fontSize="10" fontWeight="700" letterSpacing="0.08em" fill="var(--color-devil-bright)" textAnchor="end">
+          {lateLabel.toUpperCase()}
+        </text>
+      )}
       <text x={X(end)} y={PAD_T - 3} fontSize="9" fill="var(--color-ink-dim)" textAnchor="end" className="stat-num">
-        {lateGoals} goals
+        {lateGoals} late
       </text>
 
       {/* minute axis */}

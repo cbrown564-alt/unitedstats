@@ -11,12 +11,14 @@ import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { Column, DataTable, type SortDirection } from "@/components/DataTable";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { MinuteRidge } from "@/components/charts/MinuteRidge";
+import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
 import { MatchList } from "@/components/MatchList";
 import { Pager } from "@/components/Pager";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
-import { fmtDate, fmtNum, pct, COMPETITION_TYPE_LABELS, GOAL_MINUTE_BUCKETS } from "@/lib/format";
+import { fmtDate, fmtNum, pct } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
@@ -106,11 +108,15 @@ export default async function PlayerPage({
 
   const coveredSeasons = bySeason.filter((s) => s.apps > 0);
 
-  // Goal-minute distribution, with the final-15 share called out for the late-goals trail.
-  const buckets = [0, 0, 0, 0, 0, 0];
-  for (const m of minutes) buckets[Math.min(Math.floor((m - 1) / 15), 5)]++;
-  const bucketLabels = GOAL_MINUTE_BUCKETS;
-  const lateGoals = buckets[5];
+  // Goal-minute distribution as a 5-minute ridge across the 90; minutes past 90
+  // fold into the closing bin. The final-15 share is called out for the late trail.
+  const ridgeBins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
+  for (const m of minutes) ridgeBins[Math.min(17, Math.floor((m - 1) / 5))].n++;
+  const lateGoals = minutes.filter((m) => m > 75).length;
+
+  // League vs cup split of recorded goals (unofficial excluded, matching the rest of the app).
+  const leagueGoals = compSplits.filter((c) => c.type === "league").reduce((a, c) => a + c.goals, 0);
+  const cupGoals = compSplits.filter((c) => c.type !== "league" && c.type !== "unofficial").reduce((a, c) => a + c.goals, 0);
 
   // Multi-goal hauls are computed from recorded scorer data, not headline totals.
   const multiGoalGames = matches.filter((m) => m.goals >= 2).length;
@@ -217,6 +223,12 @@ export default async function PlayerPage({
     },
   ];
 
+  // The scoring-profile panel shows only the facets we can fill, so its column
+  // count tracks what is present rather than leaving empty cells.
+  const facetCount = [leagueGoals + cupGoals > 0, !!topOpponent, !!bestRun].filter(Boolean).length;
+  const facetColsClass =
+    facetCount >= 3 ? "sm:grid-cols-3" : facetCount === 2 ? "sm:grid-cols-2" : "sm:grid-cols-1";
+
   return (
     <div className="space-y-10">
       <PlayerPlate
@@ -270,86 +282,99 @@ export default async function PlayerPage({
         </ChartPanel>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        {minutes.length > 3 && (
-          <ChartPanel
-            title="When in the match"
-            coverage={`${fmtNum(minutes.length)} goals with a recorded minute.`}
-            note={
-              lateGoals > 0
-                ? `${pct(lateGoals, minutes.length)} of those came in the final 15 minutes.`
-                : undefined
-            }
-          >
-            <InspectableBarChart
-              data={buckets.map((n, i) => ({
-                label: bucketLabels[i],
-                value: n,
-                valueLabel: `${fmtNum(n)} goals`,
-                meta: "Recorded goal minutes",
-              }))}
-              height={150}
-              color="var(--color-gold)"
-              highlightLabel="76–90+"
-              chartLabel={`${p.name} goals by match-minute bucket`}
-            />
-          </ChartPanel>
-        )}
+      {(minutes.length > 3 || facetCount > 0) && (
+        <section className="space-y-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="display text-xl">The shape of his scoring</h2>
+            <span className="stat-num text-xs text-ink-faint">recorded goals</span>
+          </div>
 
-        {compSplits.length > 1 && (
-          <ChartPanel
-            title="Goals by competition"
-            note="Recorded goals only — cup splits depend on scorer coverage for those competitions."
-          >
-            <ul className="divide-y divide-line text-sm">
-              {compSplits.map((c) => (
-                <li key={c.type} className="flex items-center justify-between py-2">
-                  <span className="text-ink-dim">{COMPETITION_TYPE_LABELS[c.type] ?? c.type}</span>
-                  <span className="stat-num text-devil-bright">{fmtNum(c.goals)}</span>
-                </li>
-              ))}
-            </ul>
-          </ChartPanel>
-        )}
-
-        {opponentGoals.length > 0 && (
-          <ChartPanel
-            title="Goals by opponent"
-            note="Opponents this player has the most recorded goals against."
-          >
-            <ul className="divide-y divide-line text-sm">
-              {opponentGoals.map((o) => (
-                <li key={o.opponent_id}>
-                  <Link
-                    href={`/opponent/${o.opponent_id}`}
-                    className="flex items-center justify-between gap-3 py-2 hover:text-devil-bright"
-                  >
-                    <span className="min-w-0 truncate text-ink-dim">{o.opponent_name}</span>
-                    <span className="stat-num shrink-0 text-ink-faint">
-                      <span className="text-devil-bright">{fmtNum(o.goals)}</span> in {fmtNum(o.matches)}
+          <div className="overflow-hidden rounded-xl border border-line bg-panel">
+            {minutes.length > 3 && (
+              <div className="border-b border-line p-4 sm:p-5">
+                <div className="mb-2 flex items-baseline justify-between gap-3">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">When in the match the goals come</p>
+                  {lateGoals > 0 && (
+                    <span className="stat-num text-xs text-ink-dim">
+                      <span className="text-devil-bright">{pct(lateGoals, minutes.length)}</span> in the final 15
                     </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </ChartPanel>
-        )}
+                  )}
+                </div>
+                <MinuteRidge bins={ridgeBins} lateFrom={75} lateLabel={null} subject={p.name} height={170} />
+                <p className="mt-1 text-xs text-ink-faint">
+                  {fmtNum(minutes.length)} goals with a recorded minute, in 5-minute windows. The closing 15 are shaded;
+                  the dashed line is an even spread across the 90.
+                </p>
+              </div>
+            )}
 
-        {bestRun && (
-          <ChartPanel
-            title="Best scoring run"
-            note="Counted across matches with complete scorer records; gaps in coverage break a run rather than extend it."
-          >
-            <div className="flex items-baseline gap-3">
-              <span className="stat-num text-4xl font-semibold text-devil-bright">{bestRun.length}</span>
-              <span className="text-sm text-ink-dim">consecutive matches scored in</span>
-            </div>
-            <p className="stat-num mt-1 text-xs text-ink-faint">
-              {fmtDate(bestRun.from)} – {fmtDate(bestRun.to)}
-            </p>
-          </ChartPanel>
-        )}
-      </div>
+            {facetCount > 0 && (
+              <div className={`grid divide-y divide-line sm:divide-x sm:divide-y-0 ${facetColsClass}`}>
+                {leagueGoals + cupGoals > 0 && (
+                  <div className="p-4 sm:p-5">
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Where they landed</p>
+                    <SplitBar
+                      height={16}
+                      segments={[
+                        { value: leagueGoals, color: "var(--color-draw)" },
+                        { value: cupGoals, color: "var(--color-gold)" },
+                      ]}
+                    />
+                    <div className="stat-num mt-2.5 flex items-center justify-between text-xs">
+                      <span className="text-ink-dim">
+                        League <span className="text-ink">{fmtNum(leagueGoals)}</span>
+                      </span>
+                      <span className="text-gold">
+                        Cup {fmtNum(cupGoals)}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {topOpponent && (
+                  <div className="p-4 sm:p-5">
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Favourite victim</p>
+                    <Link href={`/opponent/${topOpponent.opponent_id}`} className="group block">
+                      <span className="stat-num text-3xl font-semibold text-devil-bright">{fmtNum(topOpponent.goals)}</span>
+                      <span className="ml-2 text-sm text-ink-dim">goals</span>
+                      <div className="mt-0.5 truncate text-sm font-medium group-hover:text-devil-bright">
+                        v {topOpponent.opponent_name}
+                      </div>
+                    </Link>
+                    {opponentGoals.length > 1 && (
+                      <p className="mt-1.5 truncate text-xs text-ink-faint">
+                        then{" "}
+                        {opponentGoals.slice(1, 3).map((o, i) => (
+                          <span key={o.opponent_id}>
+                            {i > 0 && ", "}
+                            <Link href={`/opponent/${o.opponent_id}`} className="hover:text-devil-bright">
+                              {o.opponent_name} <span className="stat-num">{fmtNum(o.goals)}</span>
+                            </Link>
+                          </span>
+                        ))}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {bestRun && (
+                  <div className="p-4 sm:p-5">
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Best scoring run</p>
+                    <span className="stat-num text-3xl font-semibold text-devil-bright">{bestRun.length}</span>
+                    <span className="ml-2 text-sm text-ink-dim">in a row</span>
+                    <p className="stat-num mt-1 text-xs text-ink-faint">
+                      {fmtDate(bestRun.from)} – {fmtDate(bestRun.to)}
+                    </p>
+                    <p className="mt-1 text-[11px] leading-4 text-ink-faint">
+                      Consecutive matches scored in, across games with complete scorer records — gaps break a run.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {curatedTotals && (
         <section className="space-y-4">
