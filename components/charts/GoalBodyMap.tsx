@@ -19,11 +19,11 @@ const ZONE_OF: Record<string, Zone> = {
 // Anchors over the striker silhouette (viewBox 260 x 300). The kicking boot is
 // the Right Foot — the dominant badge lands there, beside the ball.
 const POS: Record<Zone, { x: number; y: number }> = {
-  head: { x: 104, y: 50 },
-  chest: { x: 116, y: 116 },
-  knee: { x: 180, y: 184 },
-  rightFoot: { x: 200, y: 238 },
-  leftFoot: { x: 114, y: 268 },
+  head: { x: 92, y: 40 },
+  chest: { x: 104, y: 114 },
+  knee: { x: 168, y: 188 },
+  rightFoot: { x: 224, y: 236 },
+  leftFoot: { x: 111, y: 261 },
 };
 
 /**
@@ -61,25 +61,27 @@ export function GoalBodyMap({
         role="img"
         aria-label={`Goals by body part: ${zones.map((z) => `${z} ${zoneCounts[z]}`).join(", ")}`}
       >
-        {/* a footballer on the follow-through of a strike, facing the ball */}
-        <g fill="var(--color-panel-2)" stroke="var(--color-line)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round">
-          {/* head */}
-          <circle cx="104" cy="50" r="17" />
-          {/* leaning torso */}
-          <path d="M92 66 Q120 58 126 78 L150 150 Q150 166 132 168 L110 168 Q96 150 90 110 Z" />
-          {/* trailing arm, flung up-back for balance */}
-          <path d="M96 80 Q70 70 52 44 Q48 40 53 35 Q60 33 64 40 Q80 64 102 72 Z" />
-          {/* leading arm, reaching down-forward */}
-          <path d="M132 90 Q156 104 168 128 Q170 134 164 137 Q158 138 154 132 Q142 114 122 104 Z" />
-          {/* planted leg + boot */}
-          <path d="M112 160 L132 160 L126 262 L108 262 Z" />
-          <path d="M104 258 L128 258 L132 274 L98 274 Z" />
-          {/* kicking leg, extended forward to the ball, with boot */}
-          <path d="M122 158 Q150 156 172 176 Q180 184 196 214 L214 244 Q218 250 210 254 L200 250 L182 220 Q166 196 150 190 L128 188 Z" />
-          <path d="M198 244 L216 240 L230 252 L218 262 L200 256 Z" />
+        {/* A striker pictogram on the follow-through, built from round-capped
+            strokes so the joints read clean: trailing arm up for balance,
+            leading arm forward, planted leg down, kicking leg swung to the ball. */}
+        <defs>
+          <linearGradient id="bodymap-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#4a413b" />
+            <stop offset="1" stopColor="#241e1c" />
+          </linearGradient>
+        </defs>
+        <circle cx="92" cy="40" r="16" fill="url(#bodymap-fill)" />
+        <g fill="none" stroke="url(#bodymap-fill)" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M96 66 Q104 116 112 166" strokeWidth="19" />
+          <path d="M96 70 L72 58 L50 40" strokeWidth="13" />
+          <path d="M98 72 L126 92 L152 118" strokeWidth="13" />
+          <path d="M108 164 L103 214 L100 258" strokeWidth="18" />
+          <path d="M100 258 L122 264" strokeWidth="18" />
+          <path d="M118 164 L170 190 L210 230" strokeWidth="18" />
+          <path d="M210 230 L234 240" strokeWidth="18" />
         </g>
         {/* the ball being struck */}
-        <circle cx="244" cy="262" r="12" fill="var(--color-panel)" stroke="var(--color-ink-faint)" strokeWidth="2" />
+        <circle cx="236" cy="256" r="13" fill="var(--color-panel)" stroke="var(--color-ink-faint)" strokeWidth="2" />
 
         {zones.map((z) => {
           const n = zoneCounts[z];
