@@ -210,7 +210,9 @@ export default async function PlayerPage({
       hideBelow: "hidden sm:table-cell",
       sortKey: "assists",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.assists,
-      render: (s) => (s.assists ? fmtNum(s.assists) : "—"),
+      render: (s) => (
+        <span className={s.assists > 0 ? "text-gold" : "text-ink-faint"}>{s.assists || "—"}</span>
+      ),
     },
     {
       label: "G+A",
