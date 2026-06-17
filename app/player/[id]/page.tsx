@@ -11,13 +11,12 @@ import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { Column, DataTable, type SortDirection } from "@/components/DataTable";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
-import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
+import { StatTile, TrailLink } from "@/components/PageHeader";
+import { PlayerPlate } from "@/components/PlayerPlate";
 import { MatchList } from "@/components/MatchList";
 import { Pager } from "@/components/Pager";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
-import { PlayerPortrait } from "@/components/PlayerPortrait";
-import { ShirtBadge } from "@/components/ShirtBadge";
-import { fmtDate, fmtNum, pct, scoreline, venuePrefix, COMPETITION_TYPE_LABELS, GOAL_MINUTE_BUCKETS } from "@/lib/format";
+import { fmtDate, fmtNum, pct, COMPETITION_TYPE_LABELS, GOAL_MINUTE_BUCKETS } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
@@ -220,116 +219,31 @@ export default async function PlayerPage({
 
   return (
     <div className="space-y-10">
-      <PageHeader
-        eyebrow="Player"
-        title={p.name}
-        aside={
-          <div className="lg:justify-self-end lg:text-right">
-            <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} size="lg" />
-            {p.player_image_page_url && (
-              <a
-                href={p.player_image_page_url}
-                className="mt-2 block max-w-44 text-xs text-ink-faint hover:text-devil-bright lg:ml-auto"
-              >
-                Wikimedia Commons{p.player_image_license ? ` · ${p.player_image_license}` : ""}
-              </a>
-            )}
-          </div>
-        }
-      >
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 stat-num text-ink-dim">
-          {careerYears && <span>United {careerYears}</span>}
-          {p.primary_shirt != null && (
-            <>
-              <span aria-hidden className="text-ink-faint">·</span>
-              <span>#{p.primary_shirt}</span>
-            </>
-          )}
-          {ranks && (
-            <>
-              <span aria-hidden className="text-ink-faint">·</span>
-              <span>
-                #{ranks.goalRank} of {fmtNum(ranks.total)} recorded scorers
-              </span>
-            </>
-          )}
-        </div>
-      </PageHeader>
-
-      <section className="space-y-3">
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-          <StatTile label="Goals" value={fmtNum(p.goals)} tone="red" />
-          <StatTile label="Apps" value={p.apps ? fmtNum(p.apps) : "—"} />
-          <StatTile label="Starts" value={p.starts ? fmtNum(p.starts) : "—"} detail={p.subs ? `${fmtNum(p.subs)} sub` : undefined} />
-          <StatTile label="Goals / app" value={goalsPerApp != null ? goalsPerApp.toFixed(2) : "—"} />
-          <StatTile
-            label="Multi-goal"
-            value={multiGoalGames ? fmtNum(multiGoalGames) : "—"}
-            detail={hatTricks ? `${fmtNum(hatTricks)} hat-trick${hatTricks === 1 ? "" : "s"}` : undefined}
-            tone={hatTricks ? "gold" : "default"}
-          />
-          {ranks ? (
-            <StatTile label="Goal rank" value={`#${fmtNum(ranks.goalRank)}`} detail={`of ${fmtNum(ranks.total)}`} />
-          ) : (
-            <StatTile label="Assists" value={p.assists ? fmtNum(p.assists) : "—"} detail={p.curated_assists > 0 ? "incl. curated" : "recorded"} />
-          )}
-        </div>
-        <p className="max-w-3xl text-xs text-ink-faint">
-          Goals, apps, and starts use verified competitive player records where available.
-          Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from
-          recorded match coverage, so they read as the part of a career we can evidence rather than a
-          career total.
-        </p>
-        {shirts.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {shirts.map((shirt) => (
-              <div
-                key={`${shirt.decade}-${shirt.shirt}`}
-                className="flex items-center gap-3 rounded-lg border border-line bg-panel px-3 py-2"
-              >
-                <ShirtBadge number={shirt.shirt} decade={shirt.decade} apps={shirt.apps} />
-                <span className="text-xs leading-4 text-ink-faint">
-                  <span className="stat-num text-ink">{fmtNum(shirt.apps)}</span> covered apps
-                  {shirt.starts ? `, ${fmtNum(shirt.starts)} starts` : ""}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {(debut || latest) && (
-        <section className="grid gap-3 sm:grid-cols-2">
-          {debut && (
-            <Link
-              href={`/match/${debut.id}`}
-              className="group block rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 hover:bg-panel-2/70"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">First recorded match</p>
-              <p className="mt-1 text-sm font-medium group-hover:text-devil-bright">
-                {`${venuePrefix(debut.venue)} `}
-                {debut.opponent_name}
-                <span className="stat-num ml-2 text-ink-dim">{scoreline(debut.gf, debut.ga)}</span>
-              </p>
-              <p className="stat-num mt-0.5 text-xs text-ink-faint">{fmtDate(debut.date)} · {debut.season}</p>
-            </Link>
-          )}
-          {latest && (
-            <Link
-              href={`/match/${latest.id}`}
-              className="group block rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 hover:bg-panel-2/70"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">Most recent recorded match</p>
-              <p className="mt-1 text-sm font-medium group-hover:text-devil-bright">
-                {`${venuePrefix(latest.venue)} `}
-                {latest.opponent_name}
-                <span className="stat-num ml-2 text-ink-dim">{scoreline(latest.gf, latest.ga)}</span>
-              </p>
-              <p className="stat-num mt-0.5 text-xs text-ink-faint">{fmtDate(latest.date)} · {latest.season}</p>
-            </Link>
-          )}
-        </section>
-      )}
+      <PlayerPlate
+        name={p.name}
+        portrait={{
+          src: p.player_thumb_url ?? p.player_image_url,
+          pageUrl: p.player_image_page_url,
+          license: p.player_image_license,
+        }}
+        primaryShirt={p.primary_shirt}
+        careerYears={careerYears}
+        rank={ranks}
+        stats={{
+          goals: p.goals,
+          apps: p.apps,
+          starts: p.starts,
+          subs: p.subs,
+          goalsPerApp,
+          multiGoalGames,
+          hatTricks,
+          assists: p.assists,
+          curatedAssists: p.curated_assists,
+        }}
+        span={{ debut, latest, peakSeason }}
+        shirts={shirts}
+        caveat="Goals, apps, and starts use verified competitive player records where available. Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from recorded match coverage — the part of a career we can evidence, not a career total."
+      />
 
       {bySeason.length > 1 && (
         <ChartPanel
