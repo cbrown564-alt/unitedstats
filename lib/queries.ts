@@ -230,8 +230,8 @@ const MATCH_ORDER: Record<NonNullable<MatchFilter["sort"]>, string> = {
   attendance: "(m.attendance IS NULL), m.attendance DESC, m.date DESC",
 };
 
-/** Shared filter compilation so the list and its summary read the same slice. */
-function matchWhere(f: MatchFilter): { cond: string; params: Record<string, string | number> } {
+/** Shared filter compilation so the list, its summary, and its spine read the same slice. */
+export function matchWhere(f: MatchFilter): { cond: string; params: Record<string, string | number> } {
   const where: string[] = [];
   const params: Record<string, string | number> = {};
   if (f.competition) { where.push("m.competition_id = @competition"); params.competition = f.competition; }

@@ -5,6 +5,7 @@ import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
 import { CompetitionDot } from "@/components/CompetitionChip";
 import { WdlBar, WdlColumns, WdlRecord } from "@/components/WdlBar";
+import { GoalDiff } from "@/components/GoalDiff";
 import { fmtNum, pct, clubName, tallyWdl } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -51,7 +52,7 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
           {[
             ["Played", String(matches.length)],
             ["W–D–L", <WdlRecord key="wdl" w={w} d={d} l={l} />],
-            ["Goals", `${gf}–${ga}`],
+            ["Goal diff", <GoalDiff key="gd" gf={gf} ga={ga} inline />],
             ["Win rate", pct(w, matches.length)],
             ["Avg home crowd", avgAtt ? fmtNum(avgAtt) : "—"],
           ].map(([label, value], i) => (

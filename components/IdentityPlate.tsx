@@ -1,4 +1,5 @@
 import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { GoalDiff } from "@/components/GoalDiff";
 import { fmtNum, pct } from "@/lib/format";
 
 interface Readout {
@@ -57,11 +58,6 @@ export function IdentityPlate({
   const { w, d, l, p, gf, ga } = record;
   const wash = accent ?? "var(--color-devil)";
 
-  const readouts: Readout[] = [
-    { value: `${fmtNum(gf)}–${fmtNum(ga)}`, label: "goals", detail: "for / against" },
-    ...secondary,
-  ];
-
   return (
     <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
       {/* pitch-line texture + a single floodlight wash, tinted to the subject */}
@@ -98,17 +94,22 @@ export function IdentityPlate({
                 from {fmtNum(p)} {p === 1 ? "match" : "matches"}
               </p>
             </div>
-            <dl className="grid grid-cols-2 gap-x-7 gap-y-3.5 border-l border-line pl-6 sm:flex sm:flex-wrap sm:items-end">
-              {readouts.map((s) => (
-                <div key={s.label} className="leading-none">
-                  <dd className={`stat-num text-xl font-semibold ${s.tone ?? "text-ink"}`}>{s.value}</dd>
-                  <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                    {s.label}
-                    {s.detail && <span className="ml-1 normal-case tracking-normal text-ink-dim">{s.detail}</span>}
-                  </dt>
-                </div>
-              ))}
-            </dl>
+            <div className="flex flex-wrap items-end gap-x-7 gap-y-3.5 border-l border-line pl-6">
+              <GoalDiff gf={gf} ga={ga} played={p} />
+              {secondary.length > 0 && (
+                <dl className="grid grid-cols-2 gap-x-7 gap-y-3.5 sm:flex sm:flex-wrap sm:items-end">
+                  {secondary.map((s) => (
+                    <div key={s.label} className="leading-none">
+                      <dd className={`stat-num text-xl font-semibold ${s.tone ?? "text-ink"}`}>{s.value}</dd>
+                      <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
+                        {s.label}
+                        {s.detail && <span className="ml-1 normal-case tracking-normal text-ink-dim">{s.detail}</span>}
+                      </dt>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </div>
           </div>
 
           {/* W-D-L counts sit directly above the diverging bar (L · D · W echoes the
