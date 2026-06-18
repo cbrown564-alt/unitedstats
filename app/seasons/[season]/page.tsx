@@ -6,7 +6,7 @@ import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
 import { CompetitionBadge } from "@/components/CompetitionBadge";
 import { CupRun } from "@/components/CupRun";
-import { TrophyIcon, MedalIcon } from "@/components/CampaignIcons";
+import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
 import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
@@ -31,13 +31,11 @@ const CHEVRON =
  * into a season-within-the-season. League uses the final table position; a cup
  * states the trophy (won/lost final) or the furthest round reached.
  *
- * `tier` grades the achievement so the lane can render it at the right weight:
- * `silverware` (a trophy — title or cup won) and `final-loss` (runners-up) are
- * the critical outcomes that earn a medal + an accented lane; everything else is
- * a `neutral` placing stated quietly.
+ * `tier` grades the achievement so the lane can render it at the right weight
+ * (see {@link CampaignVerdict}): `silverware` (a trophy — title or cup won) and
+ * `final-loss` (runners-up) are the critical outcomes that earn a medal + an
+ * accented lane; everything else is a `neutral` placing stated quietly.
  */
-type CampaignTier = "silverware" | "final-loss" | "neutral";
-
 function campaignOutcome(
   summary: SeasonSummary | undefined,
   list: MatchRow[],
@@ -62,24 +60,6 @@ function campaignOutcome(
   }
   const round = summary?.furthest_round ?? list[list.length - 1]?.round ?? null;
   return round ? { label: fmtRound(round), tier: "neutral" } : null;
-}
-
-/** The campaign verdict rendered at a weight that matches its achievement tier. */
-function CampaignVerdict({ label, tier }: { label: string; tier: CampaignTier }) {
-  if (tier === "neutral") {
-    return <span className="stat-num shrink-0 text-xs text-ink-dim">{label}</span>;
-  }
-  const silver = tier === "final-loss";
-  return (
-    <span
-      className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold leading-none ${
-        silver ? "border-silver/45 bg-silver/10 text-silver" : "border-gold/55 bg-gold/15 text-gold"
-      }`}
-    >
-      {silver ? <MedalIcon className="h-3 w-3" /> : <TrophyIcon className="h-3.5 w-3.5" />}
-      {label}
-    </span>
-  );
 }
 
 export default async function SeasonPage({ params }: { params: Promise<{ season: string }> }) {
