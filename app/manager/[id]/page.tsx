@@ -135,9 +135,9 @@ export default async function ManagerPage({
         <section>
           <SectionHead title="Longest runs" aside="under this manager" />
           <RunCallouts runs={runs} empty="" className="flex flex-wrap gap-3" />
-          <p className="mt-2 text-[11px] leading-4 text-ink-faint">
-            Consecutive competitive matches under this manager — any other result breaks the run.
-          </p>
+          <CoverageNote slice="consecutive competitive matches under this manager.">
+            Any other result breaks the run.
+          </CoverageNote>
         </section>
       )}
 
@@ -168,10 +168,10 @@ export default async function ManagerPage({
                 </div>
               );
             })}
-            <p className="text-[11px] leading-4 text-ink-faint">
-              Every match managed, cut by venue and by competition. Bar length tracks games
-              played; each pivots on its centre, so past halfway is a winning record.
-            </p>
+            <CoverageNote slice="every match managed, cut by venue and by competition.">
+              Bar length tracks games played; each pivots on its centre, so past halfway is a
+              winning record.
+            </CoverageNote>
           </div>
         </div>
         {first10.length === 10 && (
