@@ -3,7 +3,7 @@ import { seasonsIndex, type SeasonSummary } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
 import { CompetitionChip } from "@/components/CompetitionChip";
 import { PageHeader } from "@/components/PageHeader";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
 import { TrophyIcon } from "@/components/CampaignIcons";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -21,19 +21,42 @@ function ordinal(n: number): string {
 const isTopFlight = (s: { competition_name: string }) =>
   s.competition_name === "First Division" || s.competition_name === "Premier League";
 
-function decadeLine(b: {
-  seasons: number; matches: number; winPct: number; titles: number; cupsWon: number;
-  bestPosition: number | null; worstPosition: number | null;
-}): string {
-  const honours: string[] = [];
-  if (b.titles > 0) honours.push(`${b.titles} league title${b.titles > 1 ? "s" : ""}`);
-  if (b.cupsWon > 0) honours.push(`${b.cupsWon} cup${b.cupsWon > 1 ? "s" : ""} won`);
-  const honoursText = honours.length ? `${honours.join(", ")} · ` : "";
+/**
+ * The decade's quantitative tail — win rate over its matches and finishing
+ * range. Honours moved out of the prose into {@link DecadeHonours} chips, so the
+ * count there stays honest (top-flight titles only) without the prose drifting.
+ */
+function decadeTail(b: { matches: number; winPct: number; bestPosition: number | null; worstPosition: number | null }): string {
   const range =
     b.bestPosition != null && b.worstPosition != null && b.bestPosition !== b.worstPosition
-      ? ` · finished between ${b.bestPosition} and ${b.worstPosition}`
+      ? ` · finished ${ordinal(b.bestPosition)} to ${ordinal(b.worstPosition)}`
       : "";
-  return `${honoursText}${b.winPct}% of ${fmtNum(b.matches)} matches won${range}`;
+  return `${b.winPct}% of ${fmtNum(b.matches)} matches won${range}`;
+}
+
+/**
+ * A decade's silverware as scannable chips, echoing the timeline's gold: a gold
+ * chip per count of top-flight league titles (weighted heaviest), a quieter chip
+ * for cups won. Renders nothing for a barren decade.
+ */
+function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
+  if (!titles && !cups) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      {titles > 0 && (
+        <span className="inline-flex items-center gap-1 rounded-full border border-gold/50 bg-gold/15 px-2 py-0.5 text-[11px] font-semibold leading-none text-gold">
+          <TrophyIcon className="h-3 w-3" />
+          {titles} {titles > 1 ? "league titles" : "league title"}
+        </span>
+      )}
+      {cups > 0 && (
+        <span className="inline-flex items-center gap-1 rounded-full border border-line bg-panel-2/70 px-2 py-0.5 text-[11px] font-medium leading-none text-ink-dim">
+          <TrophyIcon className="h-3 w-3 text-silver" />
+          {cups} {cups > 1 ? "cups won" : "cup won"}
+        </span>
+      )}
+    </div>
+  );
 }
 
 /**
@@ -107,7 +130,9 @@ export default function SeasonsPage() {
   const totalMatches = summaries.reduce((sum, s) => sum + s.p, 0);
   const topFlightTitles = leagueRows.filter((s) => isTopFlight(s) && s.position === 1).length;
   const topFlightSeasons = leagueRows.filter((s) => isTopFlight(s)).length;
-  const firstSeason = [...bySeason.keys()].sort()[0];
+  const sortedSeasons = [...bySeason.keys()].sort();
+  const firstSeason = sortedSeasons[0];
+  const latestSeason = sortedSeasons.at(-1);
 
   const ribbon: { value: string; label: string; tone?: string }[] = [
     { value: fmtNum(topFlightTitles), label: "League titles", tone: "text-gold" },
@@ -152,7 +177,7 @@ export default function SeasonsPage() {
           <FinishTimeline points={points} />
           <CoverageNote
             className="mt-3"
-            slice={`league finishes from ${firstSeason ?? "1892-93"} to ${[...bySeason.keys()].sort().at(-1)}.`}
+            slice={`league finishes from ${firstSeason ?? "1892-93"} to ${latestSeason}.`}
             coverage="Final-table positions are complete for every league season; the breaks are the war years, when no league ran."
           />
         </div>
@@ -160,11 +185,18 @@ export default function SeasonsPage() {
 
       {[...byDecade.entries()].map(([decade, seasons]) => {
         const brief = briefs.get(decade);
+        const titles = seasons.filter(([, comps]) => {
+          const lg = comps.find((c) => c.type === "league");
+          return lg && isTopFlight(lg) && lg.position === 1;
+        }).length;
         return (
           <section key={decade}>
-            <div className="mb-3 grid gap-2 border-b border-line pb-3 sm:grid-cols-[9rem_1fr] sm:items-end">
-              <h2 className="display text-2xl">{decade}</h2>
-              {brief && <p className="text-sm leading-5 text-ink-dim">{decadeLine(brief)}</p>}
+            <div className="mb-3 flex flex-col gap-2 border-b border-line pb-3 sm:flex-row sm:items-end sm:justify-between">
+              <h2 className="display shrink-0 text-2xl">{decade}</h2>
+              <div className="flex flex-col gap-1.5 sm:items-end">
+                <DecadeHonours titles={titles} cups={brief?.cupsWon ?? 0} />
+                {brief && <p className="text-sm leading-5 text-ink-dim">{decadeTail(brief)}</p>}
+              </div>
             </div>
             <ul className="overflow-hidden rounded-lg border border-line bg-pitch/35">
               {seasons.map(([season, comps]) => {
@@ -186,18 +218,22 @@ export default function SeasonsPage() {
                   <li key={season} className={`border-b border-l-2 border-line last:border-b-0 ${accent}`}>
                     <Link
                       href={`/seasons/${season}`}
-                      className="grid gap-3 px-4 py-3 transition-colors hover:bg-panel sm:grid-cols-[8rem_1fr_14rem] sm:items-center"
+                      className="grid gap-x-4 gap-y-2.5 px-4 py-3 transition-colors hover:bg-panel-2/70 sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-center"
                     >
                       <div>
                         <span className="display text-lg">{season}</span>
-                        <span className="stat-num mt-0.5 block text-xs text-ink-dim">{totalP} matches</span>
+                        <span className="stat-num mt-0.5 block text-xs text-ink-faint">{totalP} matches</span>
                       </div>
-                      {league && (
-                        <div className="min-w-0">
-                          <div className="mb-1 text-center text-xs text-ink-dim">{league.competition_name}</div>
-                          <WdlColumns w={league.w} d={league.d} l={league.l} className="mb-1" />
+                      {league ? (
+                        <div className="min-w-0 space-y-1.5">
+                          <div className="flex items-baseline justify-between gap-3">
+                            <span className="truncate text-xs text-ink-dim">{league.competition_name}</span>
+                            <WdlRecord w={league.w} d={league.d} l={league.l} className="shrink-0 text-xs" />
+                          </div>
                           <WdlBar w={league.w} d={league.d} l={league.l} tooltip={false} />
                         </div>
+                      ) : (
+                        <span className="self-center text-xs text-ink-faint">Cup competitions only</span>
                       )}
                       <div className="flex flex-col items-start gap-1.5 sm:items-end">
                         {league ? (
