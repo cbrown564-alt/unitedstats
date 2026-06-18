@@ -170,6 +170,96 @@ export interface Streak {
   to: string;
 }
 
+/**
+ * A match in a tenure / head-to-head sequence, carrying enough identity to link
+ * it and draw its scoreline. Date-ordered by the queries that build it; the
+ * extra fields beyond `date`/`result` feed {@link notableMatches} while
+ * {@link longestStreak} reads only those two.
+ */
+export interface SequenceMatch {
+  id: string;
+  date: string;
+  season: string;
+  venue: string;
+  result: string;
+  gf: number;
+  ga: number;
+  aet: number;
+  pen_gf: number | null;
+  pen_ga: number | null;
+  opponent_name: string;
+  competition_name: string;
+}
+
+const SEQ_SELECT = `m.id, m.date, m.season, m.venue, m.result, m.gf, m.ga, m.aet,
+  m.pen_gf, m.pen_ga, m.opponent_name, c.name AS competition_name`;
+
+/** A {@link SequenceMatch} surfaced as a standout, with the reason it earned a card. */
+export interface NotableMatch extends SequenceMatch {
+  reason: string;
+}
+
+/**
+ * Curated "standout matches" for a tenure or head-to-head: the biggest win and
+ * heaviest defeat by margin, plus the match that *ended* each supplied run.
+ *
+ * Each card appears only when it is real — no win means no biggest-win card, an
+ * ongoing run has no ender, so it drops silently rather than printing a blank.
+ * Below `minMatches` the whole set is suppressed: extremes off a handful of
+ * games are noise, not a finding. Notability is computed only from signals the
+ * page already owns (margin, the runs it already draws), never asserted.
+ */
+export function notableMatches(
+  seq: SequenceMatch[],
+  runs: { streak: Streak | null; noun: string }[] = [],
+  opts: { minMatches?: number; runThreshold?: number } = {},
+): NotableMatch[] {
+  const { minMatches = 15, runThreshold = 5 } = opts;
+  if (seq.length < minMatches) return [];
+
+  const out: NotableMatch[] = [];
+  const seen = new Set<string>();
+  const push = (m: SequenceMatch | null | undefined, reason: string) => {
+    if (!m || seen.has(m.id)) return;
+    seen.add(m.id);
+    out.push({ ...m, reason });
+  };
+
+  // Margin extremes over the whole history. Ties break to the bigger score
+  // (6–1 beats 5–0), then to the earlier match (the original feat). `sign` flips
+  // the comparison so the same routine finds the heaviest defeat.
+  const better = (best: SequenceMatch | null, m: SequenceMatch, sign: 1 | -1): SequenceMatch => {
+    if (!best) return m;
+    const dm = sign * (m.gf - m.ga);
+    const db = sign * (best.gf - best.ga);
+    if (dm !== db) return dm > db ? m : best;
+    const sm = sign > 0 ? m.gf : m.ga;
+    const sb = sign > 0 ? best.gf : best.ga;
+    if (sm !== sb) return sm > sb ? m : best;
+    return m.date < best.date ? m : best;
+  };
+  let bestWin: SequenceMatch | null = null;
+  let worstLoss: SequenceMatch | null = null;
+  for (const m of seq) {
+    if (m.result === "W") bestWin = better(bestWin, m, 1);
+    else if (m.result === "L") worstLoss = better(worstLoss, m, -1);
+  }
+  push(bestWin, "Biggest win");
+  push(worstLoss, "Heaviest defeat");
+
+  // The match that ended each run: the row right after the run's final date in
+  // the date-ordered sequence. A run that is still current has no following row
+  // and drops. Runs shorter than the threshold aren't notable enough to mark.
+  for (const { streak, noun } of runs) {
+    if (!streak || streak.length < runThreshold) continue;
+    const endIdx = seq.findIndex((m) => m.date === streak.to);
+    const ender = endIdx >= 0 ? seq[endIdx + 1] : undefined;
+    push(ender, `Ended a ${streak.length}-match ${noun}`);
+  }
+
+  return out;
+}
+
 /** Longest run of consecutive matches without defeat (or without a win, if kind = "winless"). */
 export function longestStreak(
   rows: { date: string; result: string }[],
@@ -489,11 +579,15 @@ export function managerSplits(id: string): ManagerSplits {
   };
 }
 
-/** Every match under this manager in date order — feeds {@link longestStreak}. */
-export function managerResultSequence(id: string): { date: string; result: string }[] {
+/** Every match under this manager in date order — feeds {@link longestStreak} and {@link notableMatches}. */
+export function managerResultSequence(id: string): SequenceMatch[] {
   return getDb()
-    .prepare("SELECT date, result FROM matches WHERE manager_id = ? ORDER BY date")
-    .all(id) as { date: string; result: string }[];
+    .prepare(
+      `SELECT ${SEQ_SELECT}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.manager_id = ? ORDER BY m.date`,
+    )
+    .all(id) as SequenceMatch[];
 }
 
 // ---------------------------------------------------------------- opponent trails
@@ -520,10 +614,14 @@ export function opponentCupRecord(id: string): Record_ & { first: string | null;
     .get(id) as Record_ & { first: string | null; last: string | null };
 }
 
-export function opponentResultSequence(id: string): { date: string; result: string }[] {
+export function opponentResultSequence(id: string): SequenceMatch[] {
   return getDb()
-    .prepare("SELECT date, result FROM matches WHERE opponent_id = ? ORDER BY date")
-    .all(id) as { date: string; result: string }[];
+    .prepare(
+      `SELECT ${SEQ_SELECT}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.opponent_id = ? ORDER BY m.date`,
+    )
+    .all(id) as SequenceMatch[];
 }
 
 // ---------------------------------------------------------------- homepage evidence

@@ -142,13 +142,13 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | --- | --- |
 | `/match/[id]` | ✅ refreshed (composition principles came from here) |
 | `/questions` | ✅ refreshed (story-driven, per-question visuals) |
-| `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map) |
+| `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map; matches section reworked — `HaulCards` + `ContributionSpine` + full grouped appearances archive) |
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
 | `/` (home) | ⬜ |
 | `/matches` | ⬜ |
 | `/seasons`, `/seasons/[season]` | ⬜ |
 | `/players` | ⬜ |
-| `/manager/[id]`, `/opponent/[id]` (detail) | 🟡 `IdentityPlate` + `RunCallouts`; splits stay plain diverging `WdlBar`s (deviation framing tried and rejected); per-module coverage still to do |
+| `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
 | `/managers`, `/opponents` (index structure) | ⬜ |
 | `/analytics` | ⬜ |
 | `/data` | ⬜ |
@@ -165,6 +165,22 @@ dominant goals figure + `CareerArc` span), the goal-minute histogram reused
 lean (the favourite-victim and best-run facets earned the row instead), and the
 curated-Tableau lane stayed clearly bordered. The durable lesson carried forward:
 *render only the facets the data can fill* — applied next to the head-to-head pages.
+
+**Matches-section rework (later pass, after the head-to-head vocabulary matured).** The
+detail-page-list thinking flowed *back* to the player page, but the club objects don't
+transfer literally — a player's matches carry *United's* W/D/L, not his, so neither the
+`ResultSpine` skyline nor margin-based `NotableMatches` apply. Three player-flavoured moves
+instead: (a) the bespoke "hauls" list became **`HaulCards`** — `NotableMatches` chrome, but
+*his goals* are the hero (a hat-trick, a brace) with the scoreline in support; shown as a
+capped highlight reel (top 6), not the whole multi-goal list. (b) **`ContributionSpine`** — a
+*one-sided* cousin of `ResultSpine`: every scoring match a bar, height the goals that game,
+gold caps + pips on the hat-tricks; it never diverges because a player has no "down", and it
+draws scoring games only (blanks/droughts aren't evidenced, so they aren't drawn). (c) the
+appearances list — **silently capped at 30 most-recent, a real coverage bug** — became the
+full season-grouped record (apps/started per season, not W-D-L) with an `ArchiveJumpRail`
+(`idPrefix` distinguishes the `scored-` and `apps-` season anchors that would otherwise
+collide). Lesson: *generalise the pattern, not the component — the same intent (answer →
+shape → evidence) wants a different object when the subject's unit of meaning changes.*
 
 ### 2. `/manager/[id]` and `/opponent/[id]` — tenure / head-to-head detail (in progress)
 Structurally a twin pair: an identity header + a record + splits + a fixture trail.
@@ -183,7 +199,40 @@ Now sharper, given the player pass:
   unbeaten / winless in the fixture (down a column); manager gets longest winning /
   unbeaten run under the tenure (a band under the plate). Each card appears only when the
   run is real, and the manager's unbeaten card drops when it would just restate the
-  winning one. Biggest-win is still un-built — left for the splits pass.
+  winning one.
+- ✅ **Standout matches — `NotableMatches` (shared, promoted).** The diagnosis that closed the
+  match-list question: the reverse-chron paginated list answers "all matches, newest first" — a
+  question nobody asks. Readers arrive with four intents (verify the record, see the *notable* ones,
+  *locate* a remembered match, feel the *shape* over time); flat pagination serves only a sliver of
+  the first and third. So the section now **leads with a curated answer-object and keeps the archive
+  as the auditable appendix**. `NotableMatches` is a row of cards whose *eyebrow carries the why*
+  — `Biggest win`, `Heaviest defeat`, `Ended a 33-match unbeaten run` — with the scoreline writ
+  large and a result-coloured edge. Crucially **notability is computed only from signals the page
+  already owns**: margin extremes (one pass over the date-ordered sequence) and the *ender* of each
+  run `RunCallouts` already draws (the row after the run's last date — an ongoing run has no ender,
+  so the card drops). The sequence helpers were enriched once to carry match identity so both the
+  streaks and the cards read off the same array; no new round-trips. Per-card coverage gating
+  throughout (no win → no biggest-win card) plus a volume gate (<15 matches → the whole object
+  suppresses, since extremes off a handful of games are noise). This is the generalisation of the
+  player page's "hauls" move — the player surface is the goals-flavoured instance of the same idea,
+  left bespoke. *Filters were explicitly rejected as the answer: they make the reader discover what's
+  notable; the page already knows.* Lesson for the principles: **a detail-page list should resolve
+  into the reader's intent, leading with a computed answer, not present a raw ledger ordered by recency.**
+- ✅ **The shape — `ResultSpine` (shared, promoted).** Between the cards and the archive sits the whole
+  record as one diverging skyline: every match a bar in date order, wins spiking up / losses down, bar
+  height the goal margin, draws a neutral tick on the line. Streaks read as ridges of colour and slumps
+  as red valleys — the *shape* intent (#4) that no list can serve. The `NotableMatches` are flagged as
+  gold pips, so the header cards and the spine are visibly the same matches. The x-axis is non-uniformly
+  scaled (sub-pixel bars on a 1,497-match tenure blend into bands), so the pips ride an HTML overlay to
+  stay circular; gated at ≥20 matches. Answer → shape → evidence, top to bottom, is the composed
+  Matches-section pattern now shared across both detail pages.
+- ✅ **The archive — full season-grouped `MatchGroups` + `ArchiveJumpRail` (jump/search).** The raw
+  paginated `MatchList` (50/page) became the *complete* record grouped by season — which fixes a real
+  honesty bug: a season split across pages can't tally its own W-D-L, but a whole-season group can.
+  Navigation is an `ArchiveJumpRail` (season chips for short histories, decade chips for century-long
+  fixtures, anchoring to `season-…` ids) plus a "filter these in the match browser →" link; the latter
+  needed a small `manager` filter added to `MatchFilter` (opponent already worked). The spine gives the
+  overview, so the archive is free to be long — it's the last section and buries nothing.
 - ✅ **Splits stay plain `WdlBar`s — both fancier framings tried and rejected.** Two dead ends,
   worth recording so we don't re-walk them:
   1. The plan's *two-sided* (`AssistPartnerships`) layout encodes *direction* (set-up vs

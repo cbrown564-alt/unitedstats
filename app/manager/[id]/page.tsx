@@ -1,15 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { managerById, managerTenures } from "@/lib/queries";
-import { longestStreak, managerFirstMatches, managerResultSequence, managerSplits } from "@/lib/trails";
+import { managerById, managerMatches, managerTenures } from "@/lib/queries";
+import {
+  longestStreak, managerFirstMatches, managerResultSequence, managerSplits, notableMatches,
+} from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
+import { MatchGroups } from "@/components/MatchGroups";
+import { ArchiveJumpRail } from "@/components/ArchiveJumpRail";
+import { ResultSpine } from "@/components/charts/ResultSpine";
+import { NotableMatches } from "@/components/NotableMatches";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
 import { ProportionalWdlBar, WdlColumns, WdlRecord } from "@/components/WdlBar";
 import { IdentityPlate, type SpanSegment } from "@/components/IdentityPlate";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
-import { Pager } from "@/components/Pager";
+import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 
@@ -24,27 +30,17 @@ const dnum = (date: string | null | undefined) => {
 };
 
 export default async function ManagerPage({
-  params, searchParams,
+  params,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ page?: string }>;
 }) {
   const { id } = await params;
-  const { page: pageStr } = await searchParams;
   const m = managerById(id);
   if (!m) notFound();
   const tenures = managerTenures(id);
-  const page = Math.max(1, parseInt(pageStr ?? "1", 10) || 1);
-  const PAGE = 50;
 
   const total = m.p;
-  const rows = getDb()
-    .prepare(
-      `SELECT m.*, c.name AS competition_name, NULL AS stadium_name, NULL AS manager_name
-       FROM matches m JOIN competitions c ON c.id = m.competition_id
-       WHERE m.manager_id = ? ORDER BY m.date DESC LIMIT ? OFFSET ?`,
-    )
-    .all(id, PAGE, (page - 1) * PAGE) as Parameters<typeof MatchList>[0]["matches"];
+  const allMatches = managerMatches(id);
 
   const comps = getDb()
     .prepare(
@@ -54,7 +50,6 @@ export default async function ManagerPage({
     )
     .all(id) as { name: string; p: number; w: number; d: number; l: number }[];
 
-  const pages = Math.ceil(total / PAGE);
   const first10 = m.p >= 10 ? managerFirstMatches(id, 10) : [];
   const splits = managerSplits(id);
   const first10W = tallyWdl(first10).w;
@@ -89,6 +84,10 @@ export default async function ManagerPage({
     runs.push({ n: winning.length, label: "wins in a row", tone: "text-win", from: winning.from, to: winning.to });
   if (unbeaten && unbeaten.length >= 3 && (!winning || unbeaten.length > winning.length))
     runs.push({ n: unbeaten.length, label: "unbeaten", tone: "text-win", from: unbeaten.from, to: unbeaten.to });
+
+  // Standout matches: biggest win / heaviest defeat under the tenure, plus the
+  // match that ended the longest unbeaten run (placed next to the run callout).
+  const notable = notableMatches(sequence, [{ streak: unbeaten, noun: "unbeaten run" }]);
 
   // The tenure(s) as bands on the plate rail. Bounds run from the earliest spell
   // (or first match) to the latest end (or last match); an open spell runs to the end.
@@ -205,11 +204,28 @@ export default async function ManagerPage({
 
       <section>
         <SectionHead title="Matches" aside={`${fmtNum(total)} managed`} />
-        <MatchList matches={rows} showSeason />
-        <Pager page={page} pages={pages} hrefFor={(p) => `/manager/${id}?page=${p}`} className="mt-3" />
+        {notable.length > 0 && <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />}
+        {sequence.length >= 20 && (
+          <div className="mb-4 rounded-xl border border-line bg-panel p-4 sm:p-5">
+            <ResultSpine
+              matches={sequence}
+              markers={notable.map((m) => ({ id: m.id, label: m.reason }))}
+              subject={m.name}
+            />
+            <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+              Every match in order — wins above the line, losses below, bar height the goal margin.
+              Gold pips mark the standout matches above.
+            </p>
+          </div>
+        )}
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <ArchiveJumpRail matches={allMatches} />
+          <EvidenceLink href={`/matches?manager=${id}`} label="Filter these in the match browser →" />
+        </div>
+        <MatchGroups matches={allMatches} accentResult />
         <CoverageNote
           slice="every competitive match under this manager, all competitions"
-          coverage={`${fmtNum(total)} matches; caretaker and interim spells are attributed to whoever picked the team on the day.`}
+          coverage={`${fmtNum(total)} matches, season by season; caretaker and interim spells are attributed to whoever picked the team on the day.`}
         />
       </section>
     </div>
