@@ -474,7 +474,9 @@ competition existed, so a column scans straight down ("how far in Europe each ye
 gold/silver in both places), fed by a new `seasonCupLastResults` query that reads each campaign's
 deciding-match outcome without loading every match. (b) The league finish is drawn as **the league table
 itself** (`FinishLadder`): a per-row track from 1st (left) to last (right), gold top edge, red relegation
-zone, a marker pinned at the finish, the placing split into the position (left) and "N teams" (right).
+zone, a marker pinned at the finish, the placing split into the position (left) and "N teams" (right). The
+row resolves into four aligned columns — Season · Finish (the ladder) · Record (`WdlColumns` over the bar) ·
+the cup lanes — with a one-time `1st ▸ last` axis legend in the header so the ladder is taught once.
 
 The instructive part was a **dead end**: first attempt drew the league as a *connected path* — a thread
 joining each season's finish node down a left rail, the per-row SVG segments meeting at shared midpoints into
