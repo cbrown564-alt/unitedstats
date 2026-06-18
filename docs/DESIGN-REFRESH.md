@@ -146,7 +146,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
 | `/` (home) | ⬜ |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
-| `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; index flags title seasons in gold |
+| `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), graded `FinishPill` rows |
 | `/players` | ⬜ |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
 | `/managers`, `/opponents` (index structure) | ⬜ |
@@ -434,6 +434,37 @@ Three decisions worth recording:
 `CupRun` stays **bespoke** (a one-off object carrying the cup-run fact cleanly — the `MatchList`/`ResultSpine`
 vocabulary doesn't transfer, since a run is round-structured, not date-ordered or diverging). Nothing reached
 `DESIGN.md`; the extraction was a shared icon set, not a new composition principle.
+
+**Follow-up: the index gets its own bold object (`FinishTimeline`).** The detail page was the elevated
+one; the *index* was still a decade-grouped table that didn't earn its place next to it. The fix is a hero
+that does what no alphabetised list can — show the **shape of the eras**: every league season since United
+joined the Football League (1892) plotted as a finishing position, champions hard against the top, the
+relegation zone sinking toward a divider, and the **two exiles to the Second Division dropping into a lower
+band** so they read as the literal valleys they were. Built on the `ResultSpine` hybrid (a stretch-to-fit
+SVG carries the connecting line; round dots and crisp labels ride a percentage-positioned HTML overlay), and
+every point links to its season. Three things worth recording:
+
+1. **A continuous "pyramid depth" axis is the honest way to mix divisions.** Plotting raw `position` would
+   put a 2nd-Division 1st level with a top-flight 1st — a lie. So the second tier opens *below* the foot of
+   the top flight (depth `SECOND_TOP + within`), making promotion a climb and relegation a fall. Winning the
+   Second Division is a **hollow gold ring**, never the solid gold of a league title — the encoding states
+   the rank difference colour carries, not prose. *Same instinct as `CupRun`: when rows live in a structure
+   (here, a division ladder), read meaning from the structure, not the bare number.*
+2. **The honesty fix the table was hiding: 20 league titles, not 22.** The old header counted every
+   `position === 1` as a "league title", silently promoting the 1935-36 and 1974-75 *Second Division* titles
+   to championships. The ribbon now reckons the 20 top-flight titles and lets the timeline mark the two
+   second-tier wins apart. A data-honesty bug surfaced by drawing the data honestly — the recurring pattern.
+3. **Relegation is read from the sequence, not guessed from a per-row threshold.** The dot turns red only
+   when a top-flight season is *followed* by a second-tier one (a real relegation), so the marker never
+   over-claims; the row pills use a softer "bottom of the table" ratio for in-list grading, which asserts
+   nothing about going down. The breaks in the line are the war years (no league ran), shaded and labelled
+   WWI / WWII rather than left as ambiguous missing data.
+
+`FinishTimeline` stays **bespoke** — it's position-over-seasons across two divisions, not the diverging
+date-ordered skyline `ResultSpine` draws, so the object doesn't transfer even though the *render technique*
+(stretch SVG + HTML overlay) was reused. The decade ledger below kept its compact list rhythm (it's the
+auditable evidence) but now echoes the hero: graded `FinishPill` verdicts and gold/red left borders so the
+peaks and troughs scan straight down the scroll. Nothing reached `DESIGN.md`.
 
 ### 5. `/analytics` — next
 Already tiered into chapters with the question rail. The refresh question is whether
