@@ -828,21 +828,42 @@ if (fs.existsSync(positionsFile)) {
   for (const p of positions) updPos.run(p.position, p.teams, p.season, p.competition);
 }
 
-// furthest cup round reached per season (ordinal mapping)
-const roundOrder: Record<string, number> = {
-  "Preliminary": 0, "Qualifying": 1, "Round 1": 10, "Round 2": 11, "Round 3": 12,
-  "Round 4": 13, "Round 5": 14, "Group": 15, "League Phase": 15, "Round of 16": 16,
-  "Quarter-final": 20, "Semi-final": 30, "Third place": 35, "Final": 40,
-};
-// Two-legged European ties store the leg in the round ("Quarter-final First leg")
-// and the group stage stores its label ("Group A"); both must collapse to the bare
-// round, or the ordinal lookup misses and every leg ties at the default — which used
-// to leave the *group* match as a season's "furthest round" despite a knockout run.
-const canonRound = (round: string): string =>
-  round
-    .replace(/\s+(?:First|Second) leg$/i, "")
-    .replace(/^Group\b.*$/i, "Group")
+// Furthest cup round reached per season. The sources spell the same round a dozen
+// ways — two-legged ties carry the leg ("Quarter-final First leg"), the group stage
+// is lettered ("Group A"), replays repeat a round ("Round 3 Replay"), and the same
+// stage shows up as "Round 5" / "Fifth Round", "Semi-final" / "Semi Final", or the
+// European-era "First knockout round". {@link roundRank} canonicalises all of them
+// onto one ladder, so the genuinely deepest round of a campaign wins the comparison
+// (it used to tie at a default and leave, say, the group stage as a quarter-final
+// run's "furthest round"). Decimals slot the European-only rounds between integers.
+const WORD_NUM: Record<string, number> = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6 };
+function roundRank(raw: string): { name: string; ord: number } {
+  const r = raw
+    .replace(/\s+(?:first|second) leg$/i, "")
+    .replace(/\s+(?:(?:second|2nd) )?replay$/i, "")
     .trim();
+  const lc = r.toLowerCase();
+
+  if (lc === "final") return { name: "Final", ord: 40 };
+  if (lc.includes("third place")) return { name: "Third place", ord: 35 };
+  if (/semi[-\s]?final/.test(lc)) return { name: "Semi-final", ord: 30 };
+  if (/quarter[-\s]?final/.test(lc)) return { name: "Quarter-final", ord: 20 };
+  if (/round of 16|first knockout round/.test(lc)) return { name: "Round of 16", ord: 16 };
+  if (/round of 32/.test(lc)) return { name: "Round of 32", ord: 15.5 };
+  if (/play-?off/.test(lc)) return { name: "Play-off round", ord: 15.2 };
+  if (/group|league phase/.test(lc)) return { name: "Group stage", ord: 15 };
+
+  const num = lc.match(/round (\d+)/) ?? lc.match(/(\d+)(?:st|nd|rd|th) round/);
+  const word = lc.match(/(first|second|third|fourth|fifth|sixth) round/);
+  const n = num ? Number(num[1]) : word ? WORD_NUM[word[1]] : null;
+  if (n != null) return { name: `Round ${n}`, ord: 9 + n };
+
+  if (/qualifying|preliminary/.test(lc)) {
+    const q = lc.match(/(first|second|third|fourth)/);
+    return { name: r, ord: 1 + (q ? WORD_NUM[q[1]] : 0) / 10 };
+  }
+  return { name: r, ord: 5 };
+}
 // Only knockout/cup competitions have a meaningful "furthest round"; a league's
 // rounds are matchdays, and ranking those leaves a noise value the UI never reads.
 const cupRows = db.prepare(`
@@ -852,8 +873,7 @@ const cupRows = db.prepare(`
 `).all() as { season: string; competition_id: string; round: string }[];
 const furthest = new Map<string, { round: string; ord: number }>();
 for (const r of cupRows) {
-  const round = canonRound(r.round);
-  const ord = roundOrder[round] ?? 5;
+  const { name: round, ord } = roundRank(r.round);
   const key = `${r.season}|${r.competition_id}`;
   const cur = furthest.get(key);
   if (!cur || ord > cur.ord) furthest.set(key, { round, ord });

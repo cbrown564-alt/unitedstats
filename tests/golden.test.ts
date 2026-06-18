@@ -121,24 +121,32 @@ test("1985-86 Screen Sport Super Cup is not filed as the UEFA Super Cup", () => 
   assert.equal(wrong, 0);
 });
 
-test("furthest_round is the canonical cup round reached, not a leg or group label", () => {
+test("furthest_round is the canonical deepest cup round, across naming variants", () => {
   const db = getDb();
-  // 2013-14: a Champions League quarter-final run must not read as the group stage
-  // (the two-legged knockout rounds store the leg, which used to lose the ranking).
-  const cl = db
-    .prepare(
-      "SELECT furthest_round FROM season_summaries WHERE season = ? AND competition_id = ?",
-    )
-    .get("2013-14", "champions-league") as { furthest_round: string };
-  assert.equal(cl.furthest_round, "Quarter-final");
+  const fr = (season: string, comp: string) =>
+    (db
+      .prepare("SELECT furthest_round f FROM season_summaries WHERE season = ? AND competition_id = ?")
+      .get(season, comp) as { f: string } | undefined)?.f;
+
+  // The sources spell rounds many ways; the deepest must win regardless. Each of
+  // these used to record an earlier round than the campaign actually reached:
+  //  - two-legged knockout ties tied at the default and lost to the group match;
+  //  - "First/Second round" word-ordinals and "Fifth Round" never ranked at all;
+  //  - a qualifying round outranked the European knockout round it preceded.
+  assert.equal(fr("2013-14", "champions-league"), "Quarter-final"); // not "Group A"
+  assert.equal(fr("1998-99", "league-cup"), "Round 5"); // not "Third Round"
+  assert.equal(fr("1991-92", "cup-winners-cup"), "Round 2"); // not "First round"
+  assert.equal(fr("2004-05", "champions-league"), "Round of 16"); // not the qualifier
+  assert.equal(fr("1998-99", "champions-league"), "Final"); // the treble, unchanged
 
   // The stored value is always a canonical round — never a leg suffix, a lettered
-  // group, or a league matchday.
+  // group, a replay, a plural ("Quarter-finals"), or a league matchday.
   const dirty = db
     .prepare(
       `SELECT COUNT(*) n FROM season_summaries
        WHERE furthest_round LIKE '% leg' OR furthest_round LIKE 'Group _'
-          OR furthest_round LIKE '%Matchday'`,
+          OR furthest_round LIKE '%Matchday' OR furthest_round LIKE '%Replay%'
+          OR furthest_round LIKE '%finals'`,
     )
     .get() as { n: number };
   assert.equal(dirty.n, 0);
