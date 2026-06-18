@@ -182,7 +182,7 @@ full season-grouped record (apps/started per season, not W-D-L) with an `Archive
 collide). Lesson: *generalise the pattern, not the component — the same intent (answer →
 shape → evidence) wants a different object when the subject's unit of meaning changes.*
 
-### 2. `/manager/[id]` and `/opponent/[id]` — tenure / head-to-head detail (in progress)
+### 2. `/manager/[id]` and `/opponent/[id]` — tenure / head-to-head detail ✅ done
 Structurally a twin pair: an identity header + a record + splits + a fixture trail.
 Now sharper, given the player pass:
 
@@ -267,14 +267,28 @@ Now sharper, given the player pass:
   cup ties →`) folded into its evidence slot. Principle 7's trust contract now reads
   identically at the foot of every object on both pages, not just the archive.
 
-Both pages live on one branch (they share queries and the plate decision). `IdentityPlate`
-and `RunCallouts` were promoted to **shared**; no bespoke splits object survived (see above).
+Both pages live on one branch (they share queries and the plate decision). The pass is
+complete — every item above shipped, and four objects were promoted to **shared**:
+`IdentityPlate`, `RunCallouts`, `NotableMatches`, and `ResultSpine`. No bespoke splits
+object survived (see above), and the coverage footers now match the archive's full
+`CoverageNote`. Nothing reached `DESIGN.md` this pass — the promotions are shared
+components, not new composition principles.
 
-### 3. `/matches` — the record's spine
+### 3. `/matches` — the record's spine (next up)
 Mostly already systematized (filter grid, decade rail, summary band). Refresh is
 lighter: make the summary band a proper stat-hero answer to the *current filter*
 ("this slice: 412 games, 58% won"), and make sure `CompetitionDot`/`WdlBar` rhythm
 reads as scannable as the questions ladders. Resist turning a dense list into cards.
+
+Sharpened by the h2h pass: this is the one surface where **filters *are* the answer**,
+the exact opposite of the detail-page diagnosis. The manager/opponent archives now
+*delegate* here — every "filter these in the match browser →" link lands on `/matches`
+carrying a filter (the `manager` filter was added for exactly this) — so the refresh must
+keep `/matches` the canonical, auditable filter target, not pull a curated answer-object
+over it. The detail pages own "what's notable / what's the shape"; `/matches` owns "show
+me precisely this slice". The stat-hero summary band is the right move *because* it
+answers the filter the reader already chose, rather than choosing one for them. Consider
+borrowing `ResultSpine` only if it can read the active slice honestly at any length.
 
 ### 4. `/seasons/[season]` and `/seasons`
 Per-season: lead with the season's shape (final position, W-D-L, the season brief)
