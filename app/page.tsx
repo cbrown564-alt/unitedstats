@@ -1,23 +1,31 @@
 import Link from "next/link";
 import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
-  eloSeries, topScorers,
+  eloSeries, topScorers, seasonAggregates, championSeasons,
 } from "@/lib/queries";
-import { fullestMatchSheets } from "@/lib/trails";
-import { fmtNum, pct, fmtDate, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { clubRecords, goalMinuteRidge, lateGoalShareByDecade } from "@/lib/trails";
+import {
+  fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
+} from "@/lib/format";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { SearchCommand } from "@/components/SearchCommand";
+import { SectionHead } from "@/components/SectionHead";
+import { RecordCards, type RecordCard } from "@/components/RecordCards";
+import { MinuteRidge } from "@/components/charts/MinuteRidge";
+import { HistorySkyline } from "@/components/charts/HistorySkyline";
 
 export const dynamic = "force-dynamic";
 
+// The other myths, listed as compact prompts beside the demonstrated one. Late
+// goals is pulled out as the featured question (it owns the MinuteRidge below),
+// so the homepage *shows* one question's visual rather than only linking out.
 const MYTHS: [question: string, hook: string, href: string][] = [
-  ["Do United really score late?", "Late-goal share by decade — is Fergie time an era or a habit?", "/questions#late-goals"],
-  ["Which sides are the real bogey teams?", "Lowest win rates across 20+ meetings, home and away.", "/questions#bogey-sides"],
-  ["Is the new-manager bounce real?", "Every manager's first ten matches against the ten before they arrived.", "/questions#manager-bounce"],
-  ["How much of a fortress is Old Trafford?", "Home win rate by decade and the longest unbeaten run.", "/questions#fortress"],
-  ["Who saved their goals for cup nights?", "Scorers whose goals lean hardest toward cup competition.", "/questions#cup-specialists"],
+  ["Which sides are the real bogey teams?", "Lowest win rates across 20+ meetings.", "/questions#bogey-sides"],
+  ["Is the new-manager bounce real?", "Each manager's first ten against the ten before.", "/questions#manager-bounce"],
+  ["How much of a fortress is Old Trafford?", "Home win rate by decade and the longest run.", "/questions#fortress"],
+  ["Who saved their goals for cup nights?", "Scorers who lean hardest toward the cups.", "/questions#cup-specialists"],
 ];
 
 const ROUTES: [label: string, href: string, hint: string][] = [
@@ -26,7 +34,7 @@ const ROUTES: [label: string, href: string, hint: string][] = [
   ["Players", "/players", "every recorded scorer"],
   ["Managers", "/managers", "Mangnall to now"],
   ["Opponents", "/opponents", "every head-to-head"],
-  ["Analytics", "/analytics", "Elo, eras, records"],
+  ["Data", "/data", "coverage ledger & sources"],
 ];
 
 export default function Home() {
@@ -36,77 +44,153 @@ export default function Home() {
   const recent = recentMatches(8);
   const elo = eloSeries();
   const scorers = topScorers(8);
-  const fullest = fullestMatchSheets(4);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
+  const years = new Date().getFullYear() - Number(firstYear);
   const lastDate = meta.last_match ?? "";
 
+  // The hero object: the whole record as one breathing skyline — every season a
+  // bar of matches played, stacked W/D/L, championship years gold-capped.
+  const skyline = seasonAggregates().filter((s) => s.p > 0);
+  const champs = new Set(championSeasons());
+
+  // The trail the homepage leads with: three all-time peaks as answer-objects,
+  // each a clickable figure-with-a-fixture rather than a metric tile. Built only
+  // from records that exist, with three distinct units (a scoreline, a crowd, a
+  // goal tally) so the teaser shows the family's range.
+  const cr = clubRecords();
+  const teaser: RecordCard[] = [];
+  if (cr.biggestWin) {
+    const m = cr.biggestWin;
+    teaser.push({
+      eyebrow: "Biggest win", figure: scoreline(m.gf, m.ga), tone: "win",
+      detail: `${venuePrefix(m.venue)} ${m.opponent_name}`,
+      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
+    });
+  }
+  if (cr.recordCrowd?.attendance != null) {
+    const m = cr.recordCrowd;
+    teaser.push({
+      eyebrow: "Record crowd", figure: fmtNum(m.attendance), tone: "gold",
+      detail: `${venuePrefix(m.venue)} ${m.opponent_name} · ${scoreline(m.gf, m.ga)}`,
+      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
+    });
+  }
+  if (cr.longestUnbeaten) {
+    const r = cr.longestUnbeaten;
+    teaser.push({
+      eyebrow: "Longest unbeaten run", figure: String(r.length), unit: "matches", tone: "devil",
+      detail: `${fmtMonthYear(r.from)} – ${fmtMonthYear(r.to)}`,
+      meta: "wins and draws, official matches", href: `/matches?from=${r.from}&to=${r.to}`,
+    });
+  }
+
+  // Featured myth: the late-goals window. Reuses the questions MinuteRidge so the
+  // homepage demonstrates the surface, and leads with the one finding number.
+  const ridge = goalMinuteRidge();
+  const lateAgg = lateGoalShareByDecade().reduce(
+    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
+    { timed: 0, late: 0 },
+  );
+
   return (
-    <div className="space-y-12">
-      {/* hero: the curiosity launchpad */}
-      <section className="hero-grid -mx-4 sm:-mx-6 px-4 sm:px-6 py-12 border-b border-line">
-        <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
-          From Newton Heath to today
-        </p>
-        <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
-          Every match Manchester United ever played
-        </h1>
-        <p className="mt-4 text-ink-dim max-w-xl text-sm sm:text-base">
-          {fmtNum(rec.p)} matches across {new Date().getFullYear() - Number(firstYear)} years of league,
-          cup, and European football — start with a question, a name, or a season.
-        </p>
-        <div className="mt-6">
-          <SearchCommand autoFocusKey={false} />
-          <p className="text-xs text-ink-faint mt-1.5">
-            Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search — names, seasons,
-            or shaped questions like &ldquo;record away at Arsenal&rdquo;.
+    <div className="space-y-12 sm:space-y-14">
+      {/* 1. The invitation — a floodlit plate that *shows* the whole record:
+          the headline and search sit over a skyline of every season ever played. */}
+      <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
+        <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+        <div
+          className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur-3xl"
+          style={{ backgroundColor: "var(--color-devil)" }}
+          aria-hidden
+        />
+        <div className="relative p-5 sm:p-7">
+          <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
+            From Newton Heath to today
           </p>
-        </div>
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-2xl">
-          {[
-            ["Matches", fmtNum(rec.p)],
-            ["Wins", fmtNum(rec.w)],
-            ["Goals scored", fmtNum(rec.gf)],
-            ["Win rate", pct(rec.w, rec.p)],
-          ].map(([label, value]) => (
-            <div key={label} className="bg-panel px-4 py-3">
-              <div className="stat-num text-2xl font-semibold">{value}</div>
-              <div className="text-xs text-ink-faint uppercase tracking-wider mt-0.5">{label}</div>
-            </div>
-          ))}
+          <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
+            Every match Manchester United ever played
+          </h1>
+          <p className="mt-4 text-ink-dim max-w-xl text-sm sm:text-base">
+            {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
+            start with a question, a name, or a season.
+          </p>
+          <div className="mt-6 max-w-2xl">
+            <SearchCommand autoFocusKey={false} />
+            <p className="text-xs text-ink-faint mt-1.5">
+              Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search — names, seasons,
+              or shaped questions like &ldquo;record away at Arsenal&rdquo;.
+            </p>
+          </div>
+
+          <div className="mt-8">
+            <HistorySkyline seasons={skyline} champions={champs} />
+          </div>
         </div>
       </section>
 
-      {/* myth-testing prompts */}
+      {/* 2. The trail above the fold — records as clickable answer-objects. */}
+      {teaser.length > 0 && (
+        <section>
+          <SectionHead
+            title="Records that pull you in"
+            aside={<Link href="/analytics" className="text-devil-bright hover:underline">All records →</Link>}
+          />
+          <RecordCards records={teaser} />
+          <p className="text-xs text-ink-faint mt-2">
+            All-time peaks across official competitions — each card opens the match or run that holds it.
+          </p>
+        </section>
+      )}
+
+      {/* 3. Test a myth — one question shown with its real visual, the rest as prompts. */}
       <section>
-        <div className="flex items-baseline justify-between mb-3">
-          <h2 className="display text-xl">Test a myth</h2>
-          <Link href="/questions" className="text-xs text-devil-bright hover:underline">
-            All questions →
+        <SectionHead
+          title="Test a myth"
+          aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
+        />
+        <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
+          <Link
+            href="/questions#late-goals"
+            className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60"
+          >
+            <div className="flex items-baseline justify-between gap-3">
+              <h3 className="display text-xl group-hover:text-devil-bright">Do United really score late?</h3>
+              <span className="stat-num shrink-0 text-2xl font-semibold text-devil-bright">
+                {pct(lateAgg.late, lateAgg.timed)}
+              </span>
+            </div>
+            <p className="mt-1 text-sm text-ink-dim">
+              of timed United goals come after the 85th minute — roughly double an even spread across the 90.
+            </p>
+            <div className="mt-4">
+              <MinuteRidge bins={ridge} lateFrom={85} height={170} />
+            </div>
+            <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
+              See the late-goals breakdown →
+            </p>
           </Link>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-          {MYTHS.map(([question, hook, href]) => (
-            <Link
-              key={href}
-              href={href}
-              className="border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
-            >
-              <div className="font-medium text-sm">{question}</div>
-              <div className="text-xs text-ink-faint mt-1">{hook}</div>
-            </Link>
-          ))}
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+            {MYTHS.map(([question, hook, href]) => (
+              <Link
+                key={href}
+                href={href}
+                className="flex flex-col justify-center rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
+              >
+                <div className="text-sm font-medium">{question}</div>
+                <div className="mt-1 text-xs text-ink-faint">{hook}</div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* recent + record by competition */}
+      {/* 4. Recent evidence + the archive's scope, side by side. */}
       <section className="grid lg:grid-cols-[1fr_20rem] gap-10">
         <div>
-          <div className="flex items-baseline justify-between mb-3">
-            <h2 className="display text-xl">Latest results</h2>
-            <Link href="/matches" className="text-xs text-devil-bright hover:underline">
-              All matches →
-            </Link>
-          </div>
+          <SectionHead
+            title="Latest results"
+            aside={<Link href="/matches" className="text-devil-bright hover:underline">All matches →</Link>}
+          />
           <MatchList matches={recent} showSeason />
         </div>
         <div className="space-y-6">
@@ -135,63 +219,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* routes into the record + deepest evidence */}
-      <section className="grid lg:grid-cols-2 gap-10">
-        <div>
-          <h2 className="display text-xl mb-3">Routes into the record</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {ROUTES.map(([label, href, hint]) => (
-              <Link
-                key={href}
-                href={href}
-                className="border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
-              >
-                <div className="font-medium text-sm">{label}</div>
-                <div className="text-xs text-ink-faint mt-0.5">{hint}</div>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div>
-          <div className="flex items-baseline justify-between mb-3">
-            <h2 className="display text-xl">Fullest match sheets</h2>
-            <Link href="/data" className="text-xs text-devil-bright hover:underline">
-              Coverage ledger →
-            </Link>
-          </div>
-          <div className="grid gap-2 text-sm">
-            {fullest.map((m) => (
-              <Link
-                key={m.id}
-                href={`/match/${m.id}`}
-                className="border border-line rounded-lg bg-panel px-4 py-2.5 hover:border-devil/60 transition-colors"
-              >
-                <div className="flex justify-between gap-3">
-                  <span className="font-medium truncate">
-                    {m.venue === "A" ? "@" : "v"} {m.opponent_name}
-                  </span>
-                  <span className="stat-num text-ink-faint">{m.gf}–{m.ga}</span>
-                </div>
-                <div className="text-xs text-ink-faint mt-0.5">
-                  {fmtDate(m.date)} · {m.competition_name} · scorers, lineups, subs, cards
-                </div>
-              </Link>
-            ))}
-          </div>
-          <p className="text-xs text-ink-faint mt-2">
-            The most fully evidenced matches in the record — every facet sourced and trailed.
-          </p>
-        </div>
-      </section>
-
-      {/* Elo */}
+      {/* 5. The long arc — strength over the whole record. */}
       <section>
-        <div className="flex items-baseline justify-between mb-3">
-          <h2 className="display text-xl">Strength over {new Date().getFullYear() - Number(firstYear)} years</h2>
-          <Link href="/analytics" className="text-xs text-devil-bright hover:underline">
-            Analytics →
-          </Link>
-        </div>
+        <SectionHead
+          title={`Strength over ${years} years`}
+          aside={<Link href="/analytics" className="text-devil-bright hover:underline">Analytics →</Link>}
+        />
         <div className="border border-line rounded-lg bg-panel p-4">
           <EloRatingChart points={elo} />
           <p className="text-xs text-ink-faint mt-2">
@@ -201,15 +234,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* scorers teaser */}
+      {/* 6. Browse — the scorers teaser and the routes into the rest of the record. */}
       {scorers.length > 0 && (
         <section>
-          <div className="flex items-baseline justify-between mb-3">
-            <h2 className="display text-xl">Most goals</h2>
-            <Link href="/players" className="text-xs text-devil-bright hover:underline">
-              All players →
-            </Link>
-          </div>
+          <SectionHead
+            title="Most goals"
+            aside={<Link href="/players" className="text-devil-bright hover:underline">All players →</Link>}
+          />
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
             {scorers.map((p, i) => (
               <Link key={p.player_id} href={`/player/${p.player_id}`} className="bg-panel px-4 py-3 hover:bg-panel-2 transition-colors">
@@ -224,6 +255,22 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <section>
+        <h2 className="display text-xl mb-3">Routes into the record</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {ROUTES.map(([label, href, hint]) => (
+            <Link
+              key={href}
+              href={href}
+              className="border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
+            >
+              <div className="font-medium text-sm">{label}</div>
+              <div className="text-xs text-ink-faint mt-0.5">{hint}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

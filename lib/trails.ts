@@ -699,22 +699,3 @@ export function clubRecords(): ClubRecords {
     longestWinning: longestStreak(seq, "winning"),
   };
 }
-
-// ---------------------------------------------------------------- homepage evidence
-
-/** Matches with the fullest recorded sheets — scorers, opposition goals, lineups. */
-export function fullestMatchSheets(limit = 6): (MatchRow & { facets: number })[] {
-  return getDb()
-    .prepare(
-      `${MATCH_SELECT.replace("FROM matches m", `, (
-          m.events_complete
-          + (m.has_lineup = 1)
-          + EXISTS (SELECT 1 FROM match_events e WHERE e.match_id = m.id AND e.type IN ('opp-goal','own-goal-against'))
-          + EXISTS (SELECT 1 FROM match_events e WHERE e.match_id = m.id AND (e.assist_player_id IS NOT NULL OR e.assist_name IS NOT NULL))
-          + EXISTS (SELECT 1 FROM match_events e WHERE e.match_id = m.id AND e.type IN ('card-yellow','card-red'))
-        ) facets
-        FROM matches m`)}
-       ORDER BY facets DESC, m.date DESC LIMIT ?`,
-    )
-    .all(limit) as (MatchRow & { facets: number })[];
-}
