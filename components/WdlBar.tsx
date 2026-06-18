@@ -85,6 +85,63 @@ export function WdlBar({
   );
 }
 
+/**
+ * A diverging W/D/L bar whose *length* encodes games played. Every game is the same
+ * width — `scale` is the % of track per game, derived by the caller across a whole
+ * group of bars — so a 1000-game league record draws a long bar and a 60-game
+ * European record a short one, both pivoting on the same centre fulcrum (losses
+ * left, wins right, draws straddling). Unlike {@link WdlBar}, which normalises every
+ * record to a constant 50%-of-track width, this keeps sample size visible.
+ *
+ * Pair the caller's scale as `50 / max(l + d/2, w + d/2)` over the group, so the
+ * heaviest side of the biggest record just reaches an edge. See /manager/[id].
+ */
+export function ProportionalWdlBar({
+  w,
+  d,
+  l,
+  scale,
+  size = "sm",
+}: {
+  w: number;
+  d: number;
+  l: number;
+  /** Percent of track width per game; shared across the sibling bars. */
+  scale: number;
+  size?: WdlSize;
+}) {
+  const left = 50 - (l + d / 2) * scale; // left edge of the loss block
+  const lw = l * scale;
+  const dw = d * scale;
+  const ww = w * scale;
+  const winRate = Math.round((100 * w) / (w + d + l || 1));
+  return (
+    <div
+      className={`relative ${HEIGHTS[size]} w-full`}
+      role="img"
+      aria-label={`${w} wins, ${d} draws, ${l} losses`}
+      title={`W${w} D${d} L${l} · ${winRate}% win`}
+    >
+      <div className="absolute inset-0 wdl-reveal-center">
+        {lw > 0 && (
+          <div className="absolute inset-y-0 rounded-l-full bg-loss" style={{ left: `${left}%`, width: `${lw}%` }} />
+        )}
+        {dw > 0 && (
+          <div className="absolute inset-y-0 bg-draw/70" style={{ left: `${left + lw}%`, width: `${dw}%` }} />
+        )}
+        {ww > 0 && (
+          <div
+            className="absolute inset-y-0 rounded-r-full bg-win"
+            style={{ left: `${left + lw + dw}%`, width: `${ww}%` }}
+          />
+        )}
+        {/* centre fulcrum — the neutral axis the bars pivot around */}
+        <div className="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-pitch/70" />
+      </div>
+    </div>
+  );
+}
+
 function DivergingSegments({ wPct, dPct, lPct }: { wPct: number; dPct: number; lPct: number }) {
   // Each side is scaled to half the track, so the centre line is the neutral
   // axis: losses extend left, wins extend right, draws straddle the middle.

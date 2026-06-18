@@ -7,7 +7,7 @@
 > not just ticked off. Treat the principles section as the durable part and the
 > per-surface section as a sketch to react against.
 
-Last updated: 2026-06-17.
+Last updated: 2026-06-18.
 
 ## What the last refresh actually did
 
@@ -148,8 +148,8 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/matches` | ⬜ |
 | `/seasons`, `/seasons/[season]` | ⬜ |
 | `/players` | ⬜ |
-| `/manager/[id]`, `/managers` (structure) | ⬜ ← **next** |
-| `/opponent/[id]`, `/opponents` (structure) | ⬜ ← **next** |
+| `/manager/[id]`, `/opponent/[id]` (detail) | 🟡 `IdentityPlate` + `RunCallouts`; splits stay plain diverging `WdlBar`s (deviation framing tried and rejected); per-module coverage still to do |
+| `/managers`, `/opponents` (index structure) | ⬜ |
 | `/analytics` | ⬜ |
 | `/data` | ⬜ |
 
@@ -166,29 +166,57 @@ lean (the favourite-victim and best-run facets earned the row instead), and the
 curated-Tableau lane stayed clearly bordered. The durable lesson carried forward:
 *render only the facets the data can fill* — applied next to the head-to-head pages.
 
-### 2. `/manager/[id]` and `/opponent/[id]` — tenure / head-to-head detail (next)
+### 2. `/manager/[id]` and `/opponent/[id]` — tenure / head-to-head detail (in progress)
 Structurally a twin pair: an identity header + a record + splits + a fixture trail.
 Now sharper, given the player pass:
 
-- **Reuse the plate pattern, don't rebuild it.** A `PlayerPlate`-style composed
-  header — portrait (manager) or `ClubBadge` (opponent), the headline record as the
-  dominant figure, and a tenure/rivalry *span* track (first meeting → latest, the
-  signal result marked) in place of `CareerArc`. Worth checking whether `PlayerPlate`
-  generalises into a shared `IdentityPlate` or stays two bespoke plates — decide once
-  both are drawn, per the "promote only when genuinely reusable" rule.
-- **Record as the answer-object.** Lead with `WdlBar` writ large (or a diverging
-  win/loss fulcrum) + the W-D-L numbers, one sentence, *then* evidence.
-- **Splits via the two-sided layout.** Home / away / neutral and league / cup map
-  naturally onto the `AssistPartnerships` two-column treatment — position carries
-  the split, bars scaled to a shared max. Render only the lanes with games in them.
-- **Streak / run callouts.** Longest unbeaten, worst run, biggest win — stat-hero
-  facets that appear only when the run exists. Good place to prototype streak
-  detection (Phase 9 overlap).
-- **Coverage footer per module**, non-negotiable. Opponent name-merges and pre-data
-  eras are real gaps — say so in the slice line.
+- ✅ **Reuse the plate pattern, don't rebuild it.** Shipped as a shared `IdentityPlate`
+  — portrait (manager) or `ClubBadge` (opponent), the win-rate % as the dominant
+  figure, a hairline goals-for/against ribbon, the `WdlColumns`+`WdlBar` beneath, and
+  a `SpanTrack` where tenure spells render as discrete bands and a fixture history fills
+  the whole rail. It *did* generalise: `PlayerPlate` stays bespoke (kit number, goals-led),
+  `IdentityPlate` is the shared answer-object plate. The "does this generalise" deliverable
+  came out yes.
+- ✅ **Record as the answer-object.** The plate leads with win-rate writ large + the
+  W-D-L columns over a diverging `WdlBar`, one sentence ("from N matches"), then evidence.
+- ✅ **Streak / run callouts.** Now a shared `RunCallouts` object: opponent gets longest
+  unbeaten / winless in the fixture (down a column); manager gets longest winning /
+  unbeaten run under the tenure (a band under the plate). Each card appears only when the
+  run is real, and the manager's unbeaten card drops when it would just restate the
+  winning one. Biggest-win is still un-built — left for the splits pass.
+- ✅ **Splits stay plain `WdlBar`s — both fancier framings tried and rejected.** Two dead ends,
+  worth recording so we don't re-walk them:
+  1. The plan's *two-sided* (`AssistPartnerships`) layout encodes *direction* (set-up vs
+     scored-from); home / away / league / cup are *categorical partitions*, not opposites, so
+     left/right would assert a contrast that isn't there.
+  2. A *baseline-deviation dumbbell* (built as `SplitBends`, then removed) drew the manager's
+     overall win rate as a line and hung each split off it. It looked sharp but was **dishonest**:
+     home > away and league ≈ overall are league-wide physics true of *every* manager, so
+     deviation-from-his-own-average can only ever draw the same shape — it dresses a structural
+     constant as a per-manager finding.
 
-Do the two on one branch (they share queries and the plate decision), but treat
-"does this generalise" as the explicit deliverable, not an afterthought.
+  The real insight: the only baseline that *means* anything for a split is **break-even (50%):
+  does he win more than he loses in this split?** — and the diverging `WdlBar` already draws
+  exactly that as its centre fulcrum (some managers have a winning home but a losing away record).
+  So no invented baseline; the splits are an honest **reference breakdown** ("Split five ways",
+  grouped into a venue pair — Home / Away — and a competition trio — League / Domestic cup /
+  European cup — since those are two different cuts of the same matches), win-rate + `WdlColumns`
+  + a diverging bar,
+  the centre fulcrum carrying the one true baseline. The bar is a `ProportionalWdlBar`: its
+  *length* tracks games played (one pixels-per-game scale shared across the five rows), so League
+  reads as the long bar and the cups as short ones rather than every record drawing a constant
+  50%-width — sample size becomes visible without a second chart. The cup buckets split the
+  'super-cup' edge by id (UEFA Super Cup → European; shields → domestic); friendlies and the
+  intercontinental finals ('world') sit outside all buckets. Same plain treatment on the
+  opponent's "Home and away". *Lesson for the
+  principles: a visual that can only ever draw the same shape regardless of the subject is
+  decoration, not analysis — kill it even when it's pretty.*
+- 🟡 **Coverage footer per module.** The match list carries a full `CoverageNote`; the
+  split / run / cup modules carry a one-line footnote. Tighten toward a real `Slice:` line
+  per module when the splits are reworked.
+
+Both pages live on one branch (they share queries and the plate decision). `IdentityPlate`
+and `RunCallouts` were promoted to **shared**; no bespoke splits object survived (see above).
 
 ### 3. `/matches` — the record's spine
 Mostly already systematized (filter grid, decade rail, summary band). Refresh is

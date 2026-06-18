@@ -458,8 +458,16 @@ export interface ManagerSplits {
   home: Record_;
   away: Record_;
   league: Record_;
-  cup: Record_;
+  domesticCup: Record_;
+  europeanCup: Record_;
 }
+
+// Competition-type buckets. The two 'super-cup' edges are split by id — the UEFA
+// Super Cup is European, the Charity/Community Shield and Screen Sport Super Cup are
+// domestic. Friendlies/wartime ('unofficial') and the intercontinental finals
+// ('world': Intercontinental Cup, Club World Cup) sit outside all buckets.
+const DOMESTIC_CUP = "(c.type IN ('domestic-cup','league-cup','playoff') OR (c.type = 'super-cup' AND c.id <> 'uefa-super-cup'))";
+const EUROPEAN_CUP = "(c.type = 'european' OR c.id = 'uefa-super-cup')";
 
 export function managerSplits(id: string): ManagerSplits {
   const db = getDb();
@@ -476,8 +484,16 @@ export function managerSplits(id: string): ManagerSplits {
     home: rec("m.venue = 'H'"),
     away: rec("m.venue = 'A'"),
     league: rec("c.type = 'league'"),
-    cup: rec("c.type NOT IN ('league','unofficial')"),
+    domesticCup: rec(DOMESTIC_CUP),
+    europeanCup: rec(EUROPEAN_CUP),
   };
+}
+
+/** Every match under this manager in date order — feeds {@link longestStreak}. */
+export function managerResultSequence(id: string): { date: string; result: string }[] {
+  return getDb()
+    .prepare("SELECT date, result FROM matches WHERE manager_id = ? ORDER BY date")
+    .all(id) as { date: string; result: string }[];
 }
 
 // ---------------------------------------------------------------- opponent trails
