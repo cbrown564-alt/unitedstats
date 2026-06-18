@@ -4,7 +4,10 @@ import { seasonMatches, allSeasons, seasonsIndex, type MatchRow, type SeasonSumm
 import { matchesSequence } from "@/lib/trails";
 import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
-import { CompetitionDot } from "@/components/CompetitionChip";
+import { CompetitionBadge } from "@/components/CompetitionBadge";
+import { CupRun } from "@/components/CupRun";
+import { TrophyIcon, MedalIcon } from "@/components/CampaignIcons";
+import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
 import { SectionHead } from "@/components/SectionHead";
@@ -24,32 +27,59 @@ const CHEVRON =
   "h-3.5 w-3.5 shrink-0 text-ink-faint transition-transform duration-200 group-open:rotate-90";
 
 /**
- * How far a competition campaign got — the line that turns a flat match list into
- * a season-within-the-season. League uses the final table position; a cup states
- * the trophy (won/lost final) or the furthest round reached. Gold marks silverware.
+ * The verdict of a competition campaign — the line that turns a flat match list
+ * into a season-within-the-season. League uses the final table position; a cup
+ * states the trophy (won/lost final) or the furthest round reached.
+ *
+ * `tier` grades the achievement so the lane can render it at the right weight:
+ * `silverware` (a trophy — title or cup won) and `final-loss` (runners-up) are
+ * the critical outcomes that earn a medal + an accented lane; everything else is
+ * a `neutral` placing stated quietly.
  */
+type CampaignTier = "silverware" | "final-loss" | "neutral";
+
 function campaignOutcome(
   summary: SeasonSummary | undefined,
   list: MatchRow[],
-): { label: string; tone: string } | null {
+): { label: string; tier: CampaignTier } | null {
   if (summary?.type === "league") {
     if (summary.position == null) return null;
     return summary.position === 1
-      ? { label: "Champions", tone: "text-gold" }
+      ? { label: "Champions", tier: "silverware" }
       : {
           label: `${ordinal(summary.position)}${summary.league_size ? ` of ${summary.league_size}` : ""}`,
-          tone: "text-ink-dim",
+          tier: "neutral",
         };
   }
   const isFinal = (r: string | null) => !!r && /final/i.test(r) && !/(semi|quarter)/i.test(r);
   const final = list.find((m) => isFinal(m.round));
   if (final) {
-    return final.result === "W"
-      ? { label: "Winners", tone: "text-gold" }
-      : { label: "Runners-up", tone: "text-ink-dim" };
+    // Use `outcome`, not `result`: a final settled on penalties is a draw in
+    // `result` (0–0) but a win in `outcome` — the trophy hangs on the shootout.
+    return final.outcome === "W"
+      ? { label: "Winners", tier: "silverware" }
+      : { label: "Runners-up", tier: "final-loss" };
   }
   const round = summary?.furthest_round ?? list[list.length - 1]?.round ?? null;
-  return round ? { label: fmtRound(round), tone: "text-ink-dim" } : null;
+  return round ? { label: fmtRound(round), tier: "neutral" } : null;
+}
+
+/** The campaign verdict rendered at a weight that matches its achievement tier. */
+function CampaignVerdict({ label, tier }: { label: string; tier: CampaignTier }) {
+  if (tier === "neutral") {
+    return <span className="stat-num shrink-0 text-xs text-ink-dim">{label}</span>;
+  }
+  const silver = tier === "final-loss";
+  return (
+    <span
+      className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold leading-none ${
+        silver ? "border-silver/45 bg-silver/10 text-silver" : "border-gold/55 bg-gold/15 text-gold"
+      }`}
+    >
+      {silver ? <MedalIcon className="h-3 w-3" /> : <TrophyIcon className="h-3.5 w-3.5" />}
+      {label}
+    </span>
+  );
 }
 
 export default async function SeasonPage({ params }: { params: Promise<{ season: string }> }) {
@@ -80,6 +110,11 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
   const summaryByName = new Map(compSummaries.map((s) => [s.competition_name, s]));
   const league = compSummaries.find((s) => s.type === "league");
   const champions = league?.position === 1;
+
+  // Silverware won this season — drives the section header's honours line.
+  const trophies = [...byComp.entries()].filter(
+    ([comp, list]) => campaignOutcome(summaryByName.get(comp), list)?.tier === "silverware",
+  ).length;
 
   const narrative = seasonNarrative(season);
   // The spine reads the whole season in date order; it earns its space once there
@@ -193,33 +228,59 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
       )}
 
       <section>
-        <SectionHead title="Competitions" aside={`${byComp.size} entered`} />
+        <SectionHead
+          title="Competitions"
+          aside={trophies > 0 ? `${byComp.size} entered · ${trophies} won` : `${byComp.size} entered`}
+        />
         <div className="space-y-2">
           {[...byComp.entries()].map(([comp, list]) => {
             const { w, d, l } = tallyWdl(list);
             const outcome = campaignOutcome(summaryByName.get(comp), list);
+            // Knockout campaigns resolve into United's run; the bracket carries
+            // the round-by-round scores the flat list would otherwise repeat, so
+            // it replaces the list once there are ≥2 stages to ladder. Leagues and
+            // one-off ties keep the chronological MatchList.
+            const run = list[0].competition_type !== "league" ? buildCupRun(list) : null;
+            const bracket = run && run.stages.length >= 2 ? run.stages : null;
+            // Silverware and runners-up get an accented lane so the season's
+            // critical achievements scan straight down the column.
+            const accent =
+              outcome?.tier === "silverware"
+                ? "border-l-2 border-l-gold/70"
+                : outcome?.tier === "final-loss"
+                  ? "border-l-2 border-l-silver/55"
+                  : "";
             return (
-              <details key={comp} className="group overflow-hidden rounded-lg border border-line bg-panel">
-                <summary className="flex cursor-pointer list-none items-center gap-2.5 px-3 py-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:gap-3 sm:px-4 [&::-webkit-details-marker]:hidden">
+              <details key={comp} className={`group overflow-hidden rounded-lg border border-line bg-panel ${accent}`}>
+                <summary
+                  className={`flex cursor-pointer list-none items-center gap-2.5 py-2.5 pr-3 pl-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:gap-3 sm:pr-4 sm:pl-3 [&::-webkit-details-marker]:hidden ${
+                    outcome?.tier === "silverware" ? "bg-gold/[0.04]" : ""
+                  }`}
+                >
                   <svg className={CHEVRON} viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <CompetitionDot type={list[0].competition_type} className="h-2 w-2 shrink-0" />
-                  <h3 className="display truncate text-base leading-none">{comp}</h3>
-                  {outcome && (
-                    <span className={`stat-num shrink-0 text-xs font-semibold ${outcome.tone}`}>{outcome.label}</span>
-                  )}
-                  <span className="stat-num hidden shrink-0 text-xs text-ink-faint sm:inline">
+                  <CompetitionBadge
+                    id={list[0].competition_id}
+                    name={comp}
+                    type={list[0].competition_type}
+                    size="md"
+                  />
+                  <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
+                    <h3 className="display truncate text-base leading-none">{comp}</h3>
+                    {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
+                  </div>
+                  {/* Right cluster: match total, then the L·D·W columns over the diverging bar. */}
+                  <span className="stat-num hidden w-20 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
                     {list.length} {list.length === 1 ? "match" : "matches"}
                   </span>
-                  {/* Top-right summary: the L·D·W columns over the diverging bar. */}
-                  <div className="ml-auto w-24 shrink-0 space-y-1 sm:w-32">
+                  <div className="w-24 shrink-0 space-y-1 sm:w-32">
                     <WdlColumns w={w} d={d} l={l} compact />
                     <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} />
                   </div>
                 </summary>
                 <div className="border-t border-line p-2 sm:p-3">
-                  <MatchList matches={list} />
+                  {bracket ? <CupRun stages={bracket} /> : <MatchList matches={list} />}
                 </div>
               </details>
             );
