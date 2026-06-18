@@ -3,12 +3,13 @@ import { clubColor, clubMonogram } from "@/lib/clubColors";
 interface ClubBadgeProps {
   id: string;
   name: string;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
 }
 
 const SIZES = {
   sm: { box: "h-7 w-7 text-[10px]", radius: "rounded-md" },
   md: { box: "h-10 w-10 text-xs", radius: "rounded-lg" },
+  lg: { box: "h-28 w-28 text-4xl sm:h-32 sm:w-32 sm:text-5xl", radius: "rounded-2xl" },
 };
 
 /**

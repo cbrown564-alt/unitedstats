@@ -5,11 +5,16 @@ import {
   longestStreak, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
 } from "@/lib/trails";
 import { oddsFor } from "@/lib/predict";
+import { clubColor } from "@/lib/clubColors";
+import { ClubBadge } from "@/components/ClubBadge";
+import { IdentityPlate } from "@/components/IdentityPlate";
 import { MatchList } from "@/components/MatchList";
 import { Pager } from "@/components/Pager";
-import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
+import { TrailLink } from "@/components/PageHeader";
 import { WdlBar, WdlRecord } from "@/components/WdlBar";
+import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
+import { SectionHead } from "@/components/SectionHead";
 import { fmtDate, fmtNum, pct, venueLabel } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -42,100 +47,109 @@ export default async function OpponentPage({
           { label: "Away", odds: oddsAway },
         ]
       : [];
+  const accent = clubColor(id, o.name).bg;
+  const runs = [
+    unbeaten && unbeaten.length >= 3
+      ? { n: unbeaten.length, label: "unbeaten", tone: "text-win", from: unbeaten.from, to: unbeaten.to }
+      : null,
+    winless && winless.length >= 3
+      ? { n: winless.length, label: "without a win", tone: "text-loss", from: winless.from, to: winless.to }
+      : null,
+  ].filter(Boolean) as { n: number; label: string; tone: string; from: string; to: string }[];
 
   return (
     <div className="space-y-8">
-      <PageHeader
+      <IdentityPlate
         eyebrow="Head to head"
+        leading={<ClubBadge id={id} name={o.name} size="lg" />}
         title={`United v ${o.name}`}
-        aside={
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
-            <StatTile label="Played" value={fmtNum(o.p)} tone="red" />
-            <StatTile label="Record" value={<WdlRecord w={o.w} d={o.d} l={o.l} />} />
-            <StatTile label="Win rate" value={pct(o.w, o.p)} tone="green" />
-            <StatTile label="Goals" value={`${fmtNum(o.gf)}–${fmtNum(o.ga)}`} />
-          </div>
+        subtitle={
+          <>
+            {o.country && <span>{o.country}</span>}
+            {o.country && <span aria-hidden className="text-ink-faint">·</span>}
+            <span>first met {o.first?.slice(0, 4)}</span>
+          </>
         }
-      >
-        <span className="stat-num">First met {o.first} · last met {o.last}</span>
-      </PageHeader>
-      <WdlBar w={o.w} d={o.d} l={o.l} size="md" className="max-w-2xl" />
+        record={o}
+        accent={accent}
+        span={{
+          leftLabel: "First met",
+          left: <span className="stat-num text-ink">{o.first?.slice(0, 4)}</span>,
+          rightLabel: "Last met",
+          right: <span className="stat-num text-ink">{o.last?.slice(0, 4)}</span>,
+          caption: `Every meeting between the sides, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}.`,
+        }}
+      />
 
-      <section className="grid lg:grid-cols-3 gap-8">
-        <div>
-          <h2 className="display text-xl mb-3">Home and away</h2>
-          <div className="space-y-3">
+      <section className="grid lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-1">
+          <SectionHead title="Home and away" aside="all competitions" />
+          <div className="space-y-3 rounded-xl border border-line bg-panel p-4 sm:p-5">
             {venues.map((v) => (
               <div key={v.venue}>
-                <div className="flex justify-between text-sm mb-1">
+                <div className="flex justify-between text-sm mb-1.5">
                   <span className="text-ink-dim">{venueLabel(v.venue)}</span>
                   <span className="stat-num text-xs text-ink-faint">
-                    {v.p} P · {pct(v.w, v.p)} W
+                    {fmtNum(v.p)} P · <span className="text-ink">{pct(v.w, v.p)}</span> W
                   </span>
                 </div>
                 <WdlBar w={v.w} d={v.d} l={v.l} />
               </div>
             ))}
-          </div>
-          <div className="mt-3">
             <EvidenceLink href={`/matches?opponent=${id}&venue=A`} label="Away meetings only →" />
           </div>
         </div>
-        <div>
-          <h2 className="display text-xl mb-3">Cup meetings</h2>
+
+        <div className="lg:col-span-1">
+          <SectionHead title="Cup meetings" aside="knockouts only" />
           {cup.p > 0 ? (
-            <>
-              <div className="border border-line rounded-lg bg-panel px-4 py-3">
-                <div className="text-2xl font-semibold">
-                  <WdlRecord w={cup.w} d={cup.d} l={cup.l} />
-                </div>
-                <div className="text-xs text-ink-faint mt-1">
-                  {cup.p} cup ties · {pct(cup.w, cup.p)} won
-                  {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
-                </div>
+            <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
+              <div className="flex items-baseline gap-2">
+                <span className="stat-num text-3xl font-semibold text-devil-bright">{pct(cup.w, cup.p)}</span>
+                <span className="text-sm text-ink-dim">won</span>
               </div>
+              <p className="stat-num mt-1.5 text-xs text-ink-faint">
+                <WdlRecord w={cup.w} d={cup.d} l={cup.l} /> from {fmtNum(cup.p)} cup tie{cup.p === 1 ? "" : "s"}
+                {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
+              </p>
               <div className="mt-3">
                 <EvidenceLink href={`/matches?opponent=${id}&type=cup`} label="Show the cup ties →" />
               </div>
-            </>
+            </div>
           ) : (
-            <p className="text-sm text-ink-faint">League meetings only — no cup tie on record.</p>
+            <p className="rounded-xl border border-line bg-panel px-4 py-5 text-sm text-ink-faint">
+              League meetings only — no cup tie on record.
+            </p>
           )}
         </div>
-        <div>
-          <h2 className="display text-xl mb-3">Longest runs</h2>
-          <div className="space-y-2 text-sm">
-            {unbeaten && unbeaten.length >= 3 && (
-              <div className="border border-line rounded-lg bg-panel px-4 py-3">
-                <span className="stat-num text-win text-lg font-semibold">{unbeaten.length}</span>
-                <span className="text-ink-dim"> unbeaten</span>
-                <div className="text-xs text-ink-faint mt-0.5 stat-num">
-                  {fmtDate(unbeaten.from)} – {fmtDate(unbeaten.to)}
+
+        <div className="lg:col-span-1">
+          <SectionHead title="Longest runs" aside="this fixture" />
+          <div className="space-y-2.5">
+            {runs.map((r) => (
+              <div key={r.label} className="rounded-xl border border-line bg-panel px-4 py-3">
+                <span className={`stat-num text-2xl font-semibold ${r.tone}`}>{r.n}</span>
+                <span className="ml-1.5 text-sm text-ink-dim">{r.label}</span>
+                <div className="stat-num mt-0.5 text-xs text-ink-faint">
+                  {fmtDate(r.from)} – {fmtDate(r.to)}
                 </div>
               </div>
-            )}
-            {winless && winless.length >= 3 && (
-              <div className="border border-line rounded-lg bg-panel px-4 py-3">
-                <span className="stat-num text-loss text-lg font-semibold">{winless.length}</span>
-                <span className="text-ink-dim"> without a win</span>
-                <div className="text-xs text-ink-faint mt-0.5 stat-num">
-                  {fmtDate(winless.from)} – {fmtDate(winless.to)}
-                </div>
-              </div>
-            )}
-            {(!unbeaten || unbeaten.length < 3) && (!winless || winless.length < 3) && (
-              <p className="text-sm text-ink-faint">No run of 3+ meetings either way.</p>
+            ))}
+            {runs.length === 0 && (
+              <p className="rounded-xl border border-line bg-panel px-4 py-5 text-sm text-ink-faint">
+                No run of 3+ meetings either way.
+              </p>
             )}
           </div>
-          <p className="text-xs text-ink-faint mt-2">
-            Consecutive meetings in this fixture, all competitions.
+          <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+            Consecutive meetings in this fixture, all competitions — a gap of any other result breaks the run.
           </p>
         </div>
       </section>
 
       {oddsPanels.length > 0 && (
         <section>
-          <h2 className="display text-xl mb-3">If they met tomorrow</h2>
+          <SectionHead title="If they met tomorrow" aside="closed-universe Elo" />
           <div className="grid sm:grid-cols-2 gap-3 max-w-2xl">
             {oddsPanels.map(({ label, odds }) => (
               <div key={label} className="border border-line rounded-lg bg-panel px-4 py-3">
@@ -162,13 +176,17 @@ export default async function OpponentPage({
       )}
 
       <section>
-        <h2 className="display text-xl mb-3">All meetings</h2>
+        <SectionHead title="All meetings" aside={`${fmtNum(total)} on record`} />
         <MatchList matches={rows} showSeason />
         <Pager page={page} pages={pages} hrefFor={(p) => `/opponent/${id}?page=${p}`} className="mt-3" />
+        <CoverageNote
+          slice="every recorded United v opponent fixture, all competitions"
+          coverage={`${fmtNum(total)} meetings, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}; pre-merge name changes are folded into one opponent where known.`}
+        />
       </section>
 
       <section>
-        <h2 className="display mb-3 text-xl">Keep exploring</h2>
+        <SectionHead title="Keep exploring" />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <TrailLink href={`/matches?opponent=${id}&venue=A`} title="Away record">
             Every meeting at their ground, where bogey records usually live.
