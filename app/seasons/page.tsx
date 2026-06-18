@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { seasonsIndex, type SeasonSummary } from "@/lib/queries";
+import { seasonsIndex, seasonCupLastResults, type SeasonSummary } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
-import { CompetitionChip } from "@/components/CompetitionChip";
 import { PageHeader } from "@/components/PageHeader";
-import { WdlBar, WdlRecord } from "@/components/WdlBar";
+import { WdlBar, WdlColumns } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
 import { TrophyIcon } from "@/components/CampaignIcons";
+import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
 import { CoverageNote } from "@/components/CoverageNote";
 import { clubName, fmtNum } from "@/lib/format";
 
@@ -60,39 +60,194 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
 }
 
 /**
- * A season's league finish as a graded tag — the row's lead verdict, coloured to
- * echo the timeline above: gold for champions, a hollow gold ring for a Second
- * Division title, red for a bottom-of-the-table finish, quiet ink otherwise.
+ * A season's league finish as the league table itself: a track running 1st (left)
+ * to last (right), the relegation zone shaded red and the top edge gold, with a
+ * marker pinned where United finished. Self-contained per row — the ends carry
+ * the axis, so the placing reads as a *position* without any cross-row scaffolding.
+ * The Second Division is the same shape, muted and tagged, since winning it is a
+ * promotion, not the gold of a league title.
  */
-function FinishPill({ league }: { league: SeasonSummary }) {
+function FinishLadder({ league }: { league: SeasonSummary }) {
   if (league.position == null) {
     return <span className="stat-num text-xs text-ink-faint">No league finish</span>;
   }
   const top = isTopFlight(league);
-  const champ = league.position === 1;
-  const ratio = league.league_size ? (league.position - 1) / (league.league_size - 1) : 0;
-  const danger = top && !champ && ratio >= 0.8;
-  const tone = champ
+  const size = league.league_size ?? 0;
+  const pos = league.position;
+  const frac = size > 1 ? (pos - 1) / (size - 1) : 0;
+  const champ = pos === 1;
+  const danger = top && !champ && frac >= 0.8;
+  const relZone = size > 1 ? Math.min(22, (3 / size) * 100) : 16; // ~bottom three places
+
+  const marker = champ
     ? top
-      ? "border-gold/55 bg-gold/15 text-gold"
-      : "border-gold/40 bg-gold/[0.06] text-gold/90"
+      ? "bg-gold border-pitch"
+      : "bg-pitch border-gold" // Div 2 title — hollow gold, a promotion not a crown
     : danger
-      ? "border-loss/40 bg-loss/10 text-loss"
+      ? "bg-loss border-pitch"
       : top
-        ? "border-line bg-panel-2/70 text-ink-dim"
-        : "border-line/70 bg-transparent text-ink-faint";
-  const label = champ
+        ? "bg-ink border-pitch"
+        : "bg-ink-faint border-pitch";
+  const placingTone = champ
     ? top
-      ? "Champions"
-      : "Div 2 winners"
-    : `${ordinal(league.position)}${league.league_size ? ` of ${league.league_size}` : ""}`;
+      ? "text-gold"
+      : "text-gold/85"
+    : danger
+      ? "text-loss"
+      : "text-ink-dim";
+  const placingLabel = champ ? (top ? "Champions" : "Winners") : ordinal(pos);
+
   return (
-    <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold leading-none ${tone}`}
-    >
-      {champ && <TrophyIcon className="h-3 w-3" />}
-      {label}
-    </span>
+    <div className="min-w-0">
+      <div className="relative">
+        <div className="h-2 w-full overflow-hidden rounded-full bg-panel-2/70 ring-1 ring-inset ring-line/60">
+          {top ? (
+            <>
+              <div className="absolute inset-y-0 left-0 w-[7%] bg-gold/30" />
+              <div className="absolute inset-y-0 right-0 bg-loss/25" style={{ width: `${relZone}%` }} />
+            </>
+          ) : (
+            <div className="absolute inset-y-0 left-0 w-[12%] bg-ink/12" />
+          )}
+        </div>
+        <span
+          className={`absolute top-1 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 shadow-[0_1px_2px_rgb(0_0_0/0.5)] ${marker}`}
+          style={{ left: `${frac * 100}%` }}
+        />
+      </div>
+      <div className="mt-1.5 flex items-center justify-between gap-2 text-[11px] leading-none">
+        <span className={`flex items-center gap-1 font-semibold ${placingTone}`}>
+          {champ && top && <TrophyIcon className="h-3 w-3" />}
+          {!top && (
+            <span className="rounded bg-panel-2 px-1 py-px text-[9px] font-bold uppercase tracking-wide text-ink-faint">
+              Div 2
+            </span>
+          )}
+          {placingLabel}
+        </span>
+        {size > 0 && <span className="stat-num shrink-0 text-ink-faint">{size} teams</span>}
+      </div>
+    </div>
+  );
+}
+
+// ---- Fixed competition lanes ------------------------------------------------
+// Every cup the club enters maps to one of four fixed lanes, in a stable order,
+// so a decade's table can be scanned straight down a column ("how far in Europe
+// each year?"). The lane a competition lives in is its type, collapsed.
+
+type Lane = "fa-cup" | "league-cup" | "europe" | "other";
+const LANE_ORDER: Lane[] = ["fa-cup", "league-cup", "europe", "other"];
+const LANE_LABEL: Record<Lane, string> = {
+  "fa-cup": "FA Cup",
+  "league-cup": "League Cup",
+  europe: "Europe",
+  other: "Other",
+};
+// Column-header tone mirrors the detail page's competition colour-coding: the
+// cup nights gold-warm, the European nights blue. The header carries the
+// competition colour; the cells below it carry only the outcome (so gold/silver
+// stay reserved for silverware/runners-up, never a mid-round exit).
+const LANE_HEAD_TONE: Record<Lane, string> = {
+  "fa-cup": "text-gold/75",
+  "league-cup": "text-gold/75",
+  europe: "text-europe",
+  other: "text-ink-dim",
+};
+function laneOf(type: string): Lane | null {
+  switch (type) {
+    case "domestic-cup":
+      return "fa-cup";
+    case "league-cup":
+      return "league-cup";
+    case "european":
+      return "europe";
+    case "super-cup":
+    case "world":
+    case "playoff":
+      return "other";
+    default:
+      return null; // league — not a cup lane
+  }
+}
+
+const CUP_SHORT: Record<string, string> = {
+  "charity-shield": "Shield",
+  "uefa-super-cup": "Super Cup",
+  "screen-sport-super-cup": "S.S. Cup",
+  "fifa-club-world-cup": "Club World",
+  "intercontinental-cup": "Interc.",
+  "test-match": "Test",
+};
+
+/** A round name shortened to a scannable token for a narrow lane cell. */
+function shortRound(round: string | null): string {
+  if (!round) return "";
+  const r = round.toLowerCase();
+  if (r.includes("semi")) return "SF";
+  if (r.includes("quarter")) return "QF";
+  if (r.includes("round of 16")) return "R16";
+  if (r.includes("group")) return "Group";
+  if (r.includes("play-off") || r.includes("playoff")) return "Play-off";
+  if (r.includes("qualifying")) return "Qual.";
+  const m = round.match(/round\s*(\d+)/i);
+  if (m) return `R${m[1]}`;
+  if (r.includes("final")) return "Final";
+  return round;
+}
+
+/**
+ * A cup campaign's verdict from index-level data alone — the furthest round from
+ * the summary, plus the deciding match's outcome to tell a won final from a lost
+ * one. Mirrors the season detail's {@link campaignOutcome}: a reached final won
+ * is silverware, lost is runners-up; anything shallower is the round, stated
+ * quietly. The promotion/relegation Test Match is a result, never a trophy.
+ */
+function cupVerdict(s: SeasonSummary, lastOutcome: string | undefined): { label: string; tier: CampaignTier } {
+  if (s.type === "playoff") {
+    return { label: lastOutcome === "W" ? "Won" : "Lost", tier: "neutral" };
+  }
+  const oneOff = s.type === "super-cup" || s.type === "world";
+  const fr = s.furthest_round ?? "";
+  const reachedFinal = oneOff || (/final/i.test(fr) && !/(semi|quarter)/i.test(fr));
+  if (reachedFinal && lastOutcome) {
+    return lastOutcome === "W" ? { label: "Won", tier: "silverware" } : { label: "Final", tier: "final-loss" };
+  }
+  return { label: shortRound(s.furthest_round), tier: "neutral" };
+}
+
+/** One fixed lane's cell for a season: the campaign verdict(s), or an em dash if
+ *  the club didn't contest that competition that year. */
+function CupCell({
+  lane,
+  comps,
+  results,
+}: {
+  lane: Lane;
+  comps: SeasonSummary[];
+  results: Map<string, string>;
+}) {
+  if (comps.length === 0) {
+    return <span className="text-ink-faint/55" aria-hidden>–</span>;
+  }
+  return (
+    <div className="flex flex-col items-start gap-1">
+      {comps.map((c) => {
+        const v = cupVerdict(c, results.get(`${c.season}:${c.competition_id}`));
+        return (
+          <span key={c.competition_id} className="inline-flex items-center gap-1.5">
+            {lane === "other" && (
+              <span className="text-[10px] leading-none text-ink-faint">{CUP_SHORT[c.competition_id] ?? ""}</span>
+            )}
+            {v.tier === "neutral" ? (
+              <span className="stat-num text-xs text-ink-dim">{v.label || "—"}</span>
+            ) : (
+              <CampaignVerdict label={v.label} tier={v.tier} />
+            )}
+          </span>
+        );
+      })}
+    </div>
   );
 }
 
@@ -112,6 +267,11 @@ export default function SeasonsPage() {
     byDecade.set(decade, list);
   }
   const briefs = decadeBriefs();
+  // Deciding-match outcome per season+competition, so each cup lane can tell a
+  // won final from a lost one without loading every match.
+  const cupResults = new Map(
+    seasonCupLastResults().map((r) => [`${r.season}:${r.competition_id}`, r.last_outcome]),
+  );
 
   // The finish timeline reads only the league campaigns; the second tier is its
   // own band, so the two relegations show as the valleys they were.
@@ -189,6 +349,26 @@ export default function SeasonsPage() {
           const lg = comps.find((c) => c.type === "league");
           return lg && isTopFlight(lg) && lg.position === 1;
         }).length;
+
+        const rows = seasons.map(([season, comps]) => ({
+          season,
+          comps,
+          league: comps.find((c) => c.type === "league"),
+          totalP: comps.reduce((a, c) => a + c.p, 0),
+        }));
+
+        // Only the cup lanes this decade actually used, in their fixed order —
+        // no League Cup column before 1960, no Europe column before 1956.
+        const laneSet = new Set<Lane>();
+        for (const r of rows) for (const c of r.comps) {
+          const ln = laneOf(c.type);
+          if (ln) laneSet.add(ln);
+        }
+        const lanes = LANE_ORDER.filter((l) => laneSet.has(l));
+        const template = `4.5rem minmax(8.5rem,1.1fr) minmax(6.5rem,0.85fr) ${lanes
+          .map(() => "minmax(4.5rem,6rem)")
+          .join(" ")}`;
+
         return (
           <section key={decade}>
             <div className="mb-3 flex flex-col gap-2 border-b border-line pb-3 sm:flex-row sm:items-end sm:justify-between">
@@ -198,67 +378,72 @@ export default function SeasonsPage() {
                 {brief && <p className="text-sm leading-5 text-ink-dim">{decadeTail(brief)}</p>}
               </div>
             </div>
-            <ul className="overflow-hidden rounded-lg border border-line bg-pitch/35">
-              {seasons.map(([season, comps]) => {
-                const league = comps.find((c) => c.type === "league");
-                const cups = comps.filter((c) => c.type !== "league");
-                const totalP = comps.reduce((a, c) => a + c.p, 0);
-                const champions = league?.position === 1 && league && isTopFlight(league);
-                const danger =
-                  league?.position != null &&
-                  league.league_size &&
-                  isTopFlight(league) &&
-                  (league.position - 1) / (league.league_size - 1) >= 0.8;
-                const accent = champions
-                  ? "border-l-gold/70"
-                  : danger
-                    ? "border-l-loss/45"
-                    : "border-l-transparent";
-                return (
-                  <li key={season} className={`border-b border-l-2 border-line last:border-b-0 ${accent}`}>
-                    <Link
-                      href={`/seasons/${season}`}
-                      className="grid gap-x-4 gap-y-2.5 px-4 py-3 transition-colors hover:bg-panel-2/70 sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-center"
-                    >
-                      <div>
-                        <span className="display text-lg">{season}</span>
-                        <span className="stat-num mt-0.5 block text-xs text-ink-faint">{totalP} matches</span>
-                      </div>
-                      {league ? (
-                        <div className="min-w-0 space-y-1.5">
-                          <div className="flex items-baseline justify-between gap-3">
-                            <span className="truncate text-xs text-ink-dim">{league.competition_name}</span>
-                            <WdlRecord w={league.w} d={league.d} l={league.l} className="shrink-0 text-xs" />
-                          </div>
-                          <WdlBar w={league.w} d={league.d} l={league.l} tooltip={false} />
+
+            <div className="overflow-x-auto">
+              <div className="min-w-max overflow-hidden rounded-lg border border-line bg-pitch/35">
+                {/* column headers — the fixed lanes, labelled and tone-coded */}
+                <div
+                  className="grid items-center gap-x-3 border-b border-line bg-panel/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-faint"
+                  style={{ gridTemplateColumns: template }}
+                >
+                  <span>Season</span>
+                  <span className="flex items-center gap-1.5">
+                    Finish
+                    {/* axis legend: 1st (gold) left, last (red) right */}
+                    <span className="hidden items-center gap-1 normal-case tracking-normal text-ink-faint/80 lg:inline-flex">
+                      <span className="text-[8px]">1st</span>
+                      <span className="h-1 w-6 rounded-full bg-gradient-to-r from-gold/45 via-line to-loss/45" />
+                      <span className="text-[8px]">last</span>
+                    </span>
+                  </span>
+                  <span>Record</span>
+                  {lanes.map((l) => (
+                    <span key={l} className={LANE_HEAD_TONE[l]}>{LANE_LABEL[l]}</span>
+                  ))}
+                </div>
+
+                <ul>
+                  {rows.map((r) => (
+                    <li key={r.season} className="border-b border-line last:border-b-0">
+                      <Link
+                        href={`/seasons/${r.season}`}
+                        className="grid items-center gap-x-3 px-4 py-2.5 transition-colors hover:bg-panel-2/60"
+                        style={{ gridTemplateColumns: template }}
+                      >
+                        <div className="min-w-0">
+                          <span className="display text-base leading-tight">{r.season}</span>
+                          <span className="stat-num block text-[11px] text-ink-faint">{r.totalP}</span>
                         </div>
-                      ) : (
-                        <span className="self-center text-xs text-ink-faint">Cup competitions only</span>
-                      )}
-                      <div className="flex flex-col items-start gap-1.5 sm:items-end">
-                        {league ? (
-                          <FinishPill league={league} />
+
+                        {r.league ? (
+                          <FinishLadder league={r.league} />
                         ) : (
-                          <span className="stat-num text-xs text-ink-faint">No league finish</span>
+                          <span className="text-xs text-ink-faint">Cup competitions only</span>
                         )}
-                        {cups.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 sm:justify-end">
-                            {cups.map((c) => (
-                              <CompetitionChip
-                                key={c.competition_id}
-                                type={c.type}
-                                name={c.competition_name.replace("UEFA ", "").replace("FA Charity/Community Shield", "Shield")}
-                                round={c.furthest_round}
-                              />
-                            ))}
+
+                        {r.league ? (
+                          <div className="space-y-1">
+                            <WdlColumns w={r.league.w} d={r.league.d} l={r.league.l} compact />
+                            <WdlBar w={r.league.w} d={r.league.d} l={r.league.l} size="xs" tooltip={false} />
                           </div>
+                        ) : (
+                          <span aria-hidden />
                         )}
-                      </div>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+
+                        {lanes.map((l) => (
+                          <CupCell
+                            key={l}
+                            lane={l}
+                            comps={r.comps.filter((c) => laneOf(c.type) === l)}
+                            results={cupResults}
+                          />
+                        ))}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </section>
         );
       })}

@@ -185,6 +185,34 @@ export function seasonsIndex(): SeasonSummary[] {
     .all() as SeasonSummary[];
 }
 
+export interface SeasonCupResult {
+  season: string;
+  competition_id: string;
+  /** 'W' | 'D' | 'L' — outcome of the deciding (last-dated) match. */
+  last_outcome: string;
+}
+
+/**
+ * The outcome of the *last* match each non-league competition reached per season.
+ * The seasons index reads a cup verdict from this (won the final vs runners-up)
+ * without loading every match; it mirrors the cups-won detection in
+ * {@link decadeBriefs} and the season detail — the deciding match is the
+ * latest-dated one of that competition that season.
+ */
+export function seasonCupLastResults(): SeasonCupResult[] {
+  return getDb()
+    .prepare(
+      `SELECT m.season, m.competition_id, m.outcome AS last_outcome
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type <> 'league'
+         AND m.date = (
+           SELECT MAX(m2.date) FROM matches m2
+           WHERE m2.season = m.season AND m2.competition_id = m.competition_id
+         )`,
+    )
+    .all() as SeasonCupResult[];
+}
+
 export function seasonMatches(season: string): MatchRow[] {
   return getDb()
     .prepare(`${MATCH_SELECT} WHERE m.season = ? ORDER BY m.date`)
