@@ -31,7 +31,7 @@ export function MatchGroups({
       {groups.map((g) => {
         const { w, d, l } = tallyWdl(g.rows);
         return (
-          <section key={`${g.season}-${g.rows[0].id}`} id={`season-${g.season}`} className="scroll-mt-24">
+          <section key={`${g.season}-${g.rows[0].id}`} id={`season-${g.season}`} className="scroll-mt-28">
             <div className="mb-2 flex items-center gap-3">
               <h2 className="display text-lg leading-none">{g.season}</h2>
               <span className="stat-num text-xs text-ink-faint">
