@@ -146,7 +146,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
 | `/` (home) | ⬜ |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
-| `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), graded `FinishPill` rows |
+| `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), and a per-decade **fixed-lane scoreboard** — the league finish drawn as the table itself (`FinishLadder`), fixed cup lanes sharing a promoted `CampaignVerdict` |
 | `/players` | ⬜ |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
 | `/managers`, `/opponents` (index structure) | ⬜ |
@@ -465,6 +465,27 @@ date-ordered skyline `ResultSpine` draws, so the object doesn't transfer even th
 (stretch SVG + HTML overlay) was reused. The decade ledger below kept its compact list rhythm (it's the
 auditable evidence) but now echoes the hero: graded `FinishPill` verdicts and gold/red left borders so the
 peaks and troughs scan straight down the scroll. Nothing reached `DESIGN.md`.
+
+**Follow-up: the rows become a fixed-lane scoreboard.** The decade list still read as a list; the rows
+deserved the same lift as the hero. Two moves. (a) **Fixed competition lanes** — each decade is a table with
+`FA Cup · League Cup · Europe · Other` columns (a competition's `type`, collapsed), present only once that
+competition existed, so a column scans straight down ("how far in Europe each year?"). Cup verdicts reuse a
+**promoted, shared `CampaignVerdict`** (extracted from the detail page so the same season shows the same
+gold/silver in both places), fed by a new `seasonCupLastResults` query that reads each campaign's
+deciding-match outcome without loading every match. (b) The league finish is drawn as **the league table
+itself** (`FinishLadder`): a per-row track from 1st (left) to last (right), gold top edge, red relegation
+zone, a marker pinned at the finish, the placing split into the position (left) and "N teams" (right).
+
+The instructive part was a **dead end**: first attempt drew the league as a *connected path* — a thread
+joining each season's finish node down a left rail, the per-row SVG segments meeting at shared midpoints into
+one continuous line. It was rejected twice: it read as "a line floating in space with little context"
+(the horizontal position encoded finish but nothing showed the axis), and it leaned on fragile cross-row
+geometry (full-height absolute overlays, z-layering, neighbour-connectivity math). The ladder is the
+opposite instinct and the right one: **make each row carry its own axis** — the track's ends *are* 1st and
+last — so the finish reads as a position with built-in context and zero cross-row scaffolding. *Lesson: when
+a "shape over time" visual needs an axis the layout can't supply, give each unit its own self-contained scale
+rather than threading meaning across units.* `FinishLadder` stays bespoke; the shared promotion was
+`CampaignVerdict`. Nothing reached `DESIGN.md`.
 
 ### 5. `/analytics` — next
 Already tiered into chapters with the question rail. The refresh question is whether
