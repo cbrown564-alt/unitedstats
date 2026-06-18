@@ -233,11 +233,14 @@ export function WdlColumns({
   w,
   d,
   l,
+  compact = false,
   className = "",
 }: {
   w: number;
   d: number;
   l: number;
+  /** Tighter gap and smaller figures, for dense rows like a season subheader. */
+  compact?: boolean;
   className?: string;
 }) {
   const cells: [string, number, string][] = [
@@ -246,11 +249,15 @@ export function WdlColumns({
     ["W", w, "text-win"],
   ];
   return (
-    <div className={`flex justify-center gap-5 ${className}`}>
+    <div className={`flex justify-center ${compact ? "gap-3.5" : "gap-5"} ${className}`}>
       {cells.map(([label, n, tone]) => (
         <div key={label} className="flex flex-col items-center gap-0.5 leading-none">
-          <span className={`text-[10px] font-semibold uppercase tracking-wider opacity-70 ${tone}`}>{label}</span>
-          <span className={`stat-num text-sm font-semibold ${tone}`}>{n}</span>
+          <span
+            className={`font-semibold uppercase tracking-wider opacity-70 ${compact ? "text-[9px]" : "text-[10px]"} ${tone}`}
+          >
+            {label}
+          </span>
+          <span className={`stat-num font-semibold ${compact ? "text-xs" : "text-sm"} ${tone}`}>{n}</span>
         </div>
       ))}
     </div>

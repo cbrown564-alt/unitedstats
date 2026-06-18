@@ -145,7 +145,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map; matches section reworked — `HaulCards` + `ContributionSpine` + full grouped appearances archive) |
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
 | `/` (home) | ⬜ |
-| `/matches` | ⬜ |
+| `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
 | `/seasons`, `/seasons/[season]` | ⬜ |
 | `/players` | ⬜ |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
@@ -297,21 +297,68 @@ the principles: when a list grows past readable, reach for the content decision 
 this page render?) before the navigation patch (how do you jump around the wall?) — and let
 the base component scale its own grain to the data rather than cliff-edging between two modes.*
 
-### 3. `/matches` — the record's spine (next up)
-Mostly already systematized (filter grid, decade rail, summary band). Refresh is
-lighter: make the summary band a proper stat-hero answer to the *current filter*
-("this slice: 412 games, 58% won"), and make sure `CompetitionDot`/`WdlBar` rhythm
-reads as scannable as the questions ladders. Resist turning a dense list into cards.
+### 3. `/matches` — the record's spine ✅ done
+Lighter than the detail passes, exactly as planned — the page was already systematized
+(quick views, filter grid, decade rail, sort, list, pager), and all of that stayed. The
+refresh spent its boldness in one place, the summary band, and borrowed one shared object.
 
-Sharpened by the h2h pass: this is the one surface where **filters *are* the answer**,
-the exact opposite of the detail-page diagnosis. The manager/opponent archives now
-*delegate* here — every "filter these in the match browser →" link lands on `/matches`
-carrying a filter (the `manager` filter was added for exactly this) — so the refresh must
-keep `/matches` the canonical, auditable filter target, not pull a curated answer-object
-over it. The detail pages own "what's notable / what's the shape"; `/matches` owns "show
-me precisely this slice". The stat-hero summary band is the right move *because* it
-answers the filter the reader already chose, rather than choosing one for them. Consider
-borrowing `ResultSpine` only if it can read the active slice honestly at any length.
+- ✅ **Summary band → filter-answering stat-hero, echoing the detail-page plate.** The flat
+  five-`StatTile` grid (where win rate was buried as one of five equal cells) became the
+  `IdentityPlate` hero treatment: the win rate writ large in devil-bright with `from N
+  matches` beneath, and a `GoalDiff` readout beside it (see below). The
+  figure **adapts to the slice** — win-rate % when the result is open, but the **count**
+  ("1,628 defeats", result-coloured) when the reader has *pinned* a result, because then
+  win-rate would only ever read 100%/0% (the subline drops then, since the count *is* the
+  match total). This is the doc's thesis made literal: the hero answers the filter the
+  reader already chose. The prose breakdown sentence and the avg-home-crowd stat were both
+  cut — once the `WdlColumns` + `WdlBar` carry the W-D-L (see below), "Won 2,981, drawn
+  1,418…" only restated them. The bar/columns header drops entirely when a result is pinned
+  (a single-colour bar carries no information).
+- ✅ **Borrowed `ResultSpine`, reading the *whole* slice.** The shared spine now sits between
+  the band and the list, drawing the entire filtered set (never the 50-row page) in date
+  order — the *shape over time* intent that no paginated list can serve, now available for
+  any slice the reader builds. Always chronological regardless of the list's sort (it's a
+  different view, labelled "Result by match over time"); gated at ≥24 matches; **no
+  notable-pips** — on `/matches` the spine is pure shape, never a curated answer-object, which
+  keeps the page the auditable filter target the h2h archives delegate to. Needed one
+  lightweight `matchesSequence(f)` query (shared `matchWhere`, so the list, summary, and spine
+  read the same slice) and exporting `matchWhere`.
+- ✅ **`ResultSpine` grew an embedded record header (`showRecord`).** The W-D-L the skyline
+  already plots is now summarised above it as a `WdlColumns` caption over a diverging
+  `WdlBar` — totals and proportion, then their timing, as one object. `/matches` turns it on
+  (the spine *is* the band's record now; below the ≥24 gate a non-pinned slice falls back to
+  the same columns+bar header on its own). Off by default, so the detail pages — which lead
+  with the record in their `IdentityPlate` — stay unchanged. The same `WdlColumns`-over-bar
+  header also replaced the inline `WdlRecord` in every `MatchGroups` season subheader (a new
+  `compact` `WdlColumns` variant), so the record reads identically at the top of the slice
+  and at the top of each season below.
+- ✅ **`GoalDiff` — goals as their actual meaning, shared across the headers.** The aggregate
+  `1,234–987` read like a scoreline and forced the reader to subtract. A new shared `GoalDiff`
+  leads with the signed, colour-coded goal difference (`+3,130` green ahead, `−34` red behind)
+  with `X scored · Y conceded` named in support — the verdict is preattentive (sign + colour),
+  the exact margin is the number itself. A subtle `per game / total` toggle switches the whole
+  readout's unit and **defaults to per-game** (it compares honestly across a 40-game season and
+  a 1,141-game tenure); the block variant is a client leaf for that state. It replaced the for/against readout in the match band,
+  the `IdentityPlate` ribbon (manager + opponent), and the season grid (an `inline` variant —
+  just the tinted figure — since that fixed tile supplies its own label). Picked over a
+  diverging "goals bar" (which would have put a second red/green diverging bar next to the
+  W-D-L one); per-game averages weren't a rival framing but came back *inside* this one as the
+  toggle's default unit. *Lesson: when a two-number readout isn't scanning, the fix is usually
+  to compute the relationship the reader was deriving by hand and show **that** as the object.*
+- ✅ **Subtracted the redundant header aside.** The old `StatTile` total + page-size tiles in
+  the `PageHeader` were dropped — the band now owns the count (one element per fact).
+
+Nothing reached `DESIGN.md`, but the pass touched the shared layer more than "lighter"
+implied: `ResultSpine` was reused (its third surface) *and* grew an optional record header;
+`WdlColumns` gained a `compact` variant; and **one new shared component, `GoalDiff`, was
+created** and threaded back through the detail and season headers. The work spilled outward
+because the goals readout and the W-D-L header live on every record surface, so fixing them
+once — as shared objects — was cleaner than patching the band alone. *Lessons carried forward:
+(1) the same shared shape-object reads honestly on a filter-driven surface as long as it stays
+decoration-free — no curated markers — so it describes the slice rather than editorialising it;
+(2) the adaptive headline (answer-the-filter, don't choose one for the reader) is the reusable
+idea, even though it stayed inline; (3) when a header readout that appears on several surfaces
+isn't scanning, fix it once as a shared object and let the improvement propagate.*
 
 ### 4. `/seasons/[season]` and `/seasons`
 Per-season: lead with the season's shape (final position, W-D-L, the season brief)

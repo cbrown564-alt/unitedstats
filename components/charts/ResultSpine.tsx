@@ -1,5 +1,6 @@
 import { fmtDate, venuePrefix } from "@/lib/format";
 import type { SequenceMatch } from "@/lib/trails";
+import { WdlBar, WdlColumns } from "@/components/WdlBar";
 
 /**
  * A whole tenure or head-to-head as one diverging skyline: every match is a bar
@@ -12,6 +13,11 @@ import type { SequenceMatch } from "@/lib/trails";
  * the header cards and this spine are visibly the same matches. Server-rendered
  * SVG that stretches to its container; the x-axis is non-uniformly scaled, so the
  * pips ride an HTML overlay to stay circular.
+ *
+ * With `showRecord`, the same W/D/L the skyline plots is summarised above it as a
+ * `WdlColumns` caption over a diverging `WdlBar` — the totals and proportion, then
+ * their timing. Off by default: surfaces that already lead with the record (the
+ * detail-page `IdentityPlate`) leave it off to avoid restating it.
  */
 const PAD_T = 12; // headroom for the pips
 const PAD_B = 16; // room for the year axis
@@ -21,6 +27,7 @@ export function ResultSpine({
   markers = [],
   height = 88,
   subject = "United",
+  showRecord = false,
 }: {
   /** Date-ordered match sequence. */
   matches: SequenceMatch[];
@@ -28,6 +35,8 @@ export function ResultSpine({
   markers?: { id: string; label?: string }[];
   height?: number;
   subject?: string;
+  /** Render a WdlColumns + WdlBar record summary above the skyline. */
+  showRecord?: boolean;
 }) {
   const n = matches.length;
   if (n === 0) return null;
@@ -64,6 +73,12 @@ export function ResultSpine({
 
   return (
     <div>
+      {showRecord && (
+        <div className="mb-3 space-y-2">
+          <WdlColumns w={w} d={d} l={l} />
+          <WdlBar w={w} d={d} l={l} size="md" />
+        </div>
+      )}
       <div className="relative" style={{ height }}>
         <svg
           viewBox={`0 0 ${W} ${height}`}
