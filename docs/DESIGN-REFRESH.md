@@ -226,13 +226,19 @@ Now sharper, given the player pass:
   scaled (sub-pixel bars on a 1,497-match tenure blend into bands), so the pips ride an HTML overlay to
   stay circular; gated at ≥20 matches. Answer → shape → evidence, top to bottom, is the composed
   Matches-section pattern now shared across both detail pages.
-- ✅ **The archive — full season-grouped `MatchGroups` + `ArchiveJumpRail` (jump/search).** The raw
+- ✅ **The archive — volume-adaptive `MatchArchive` + sticky `ArchiveJumpRail`.** The raw
   paginated `MatchList` (50/page) became the *complete* record grouped by season — which fixes a real
   honesty bug: a season split across pages can't tally its own W-D-L, but a whole-season group can.
-  Navigation is an `ArchiveJumpRail` (season chips for short histories, decade chips for century-long
-  fixtures, anchoring to `season-…` ids) plus a "filter these in the match browser →" link; the latter
-  needed a small `manager` filter added to `MatchFilter` (opponent already worked). The spine gives the
-  overview, so the archive is free to be long — it's the last section and buries nothing.
+  But the complete record is a wall for the giants (Busby 1,141, Ferguson ~1,500, the oldest rivalries):
+  `MatchArchive` keeps the full `MatchGroups` stream below ~150 matches and **collapses to one expandable
+  season-summary row each** (native `<details>`, zero JS) above it — same `season-…` anchors either way,
+  so the rail works identically. Navigation is the `ArchiveJumpRail`, now a base component: grain steps
+  only as coarse as it must to stay under ~14 chips (season → five-year period → decade), killing the old
+  cliff where a 16–25-season span dropped to 2–4 useless decade chips; and it pins under the header while
+  the archive scrolls, with an `IntersectionObserver` scrollspy lighting the season you're reading. Plus a
+  "filter these in the match browser →" link (needed a small `manager` filter on `MatchFilter`; opponent
+  already worked). The spine gives the overview, so the archive is free to be long — it's the last section
+  and buries nothing.
 - ✅ **Splits stay plain `WdlBar`s — both fancier framings tried and rejected.** Two dead ends,
   worth recording so we don't re-walk them:
   1. The plan's *two-sided* (`AssistPartnerships`) layout encodes *direction* (set-up vs
@@ -273,6 +279,23 @@ complete — every item above shipped, and four objects were promoted to **share
 object survived (see above), and the coverage footers now match the archive's full
 `CoverageNote`. Nothing reached `DESIGN.md` this pass — the promotions are shared
 components, not new composition principles.
+
+**Follow-up: the archive at scale (`MatchArchive`).** A later pass returned to the one part
+that still buried the page — the archive for the giants (Busby's 1,141 matches, Ferguson's
+~1,500). The full season-grouped stream is honest but unreadable at that length, and the
+`ArchiveJumpRail` was patching a *content* problem with *navigation*: in decade mode it gave
+four chips over a 1,141-row wall. Two moves. (a) **`MatchArchive`** makes the section
+volume-adaptive — the full `MatchGroups` stream below ~150 matches, and above it one
+expandable season-summary row each (native `<details>`, zero JS) so a 1,141-match tenure
+reads as ~25 scannable rows that open on demand; the complete match-by-match data stays one
+click away in the match browser. (b) **`ArchiveJumpRail` became a base component** — its grain
+now steps only as coarse as it must to stay under ~14 chips (season → five-year period →
+decade), killing the cliff where a 16–25-season span collapsed to 2–4 useless decade chips,
+and it pins under the header with an `IntersectionObserver` scrollspy. Both anchor the same
+`season-…` ids, so the rail works identically over the stream or the summaries. *Lesson for
+the principles: when a list grows past readable, reach for the content decision (what does
+this page render?) before the navigation patch (how do you jump around the wall?) — and let
+the base component scale its own grain to the data rather than cliff-edging between two modes.*
 
 ### 3. `/matches` — the record's spine (next up)
 Mostly already systematized (filter grid, decade rail, summary band). Refresh is
