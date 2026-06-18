@@ -150,7 +150,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/players` | ⬜ |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
 | `/managers`, `/opponents` (index structure) | ⬜ |
-| `/analytics` | ⬜ |
+| `/analytics` | ✅ restructured from a flat ~10-section stack into **three acts + a trails appendix** (signal → projection → production): a floodlit `EloHero`, a bespoke `ReliabilityCurve` replacing the calibration table, six all-time-peak `RecordCards`, an upgraded assist ladder; grounds grid cut (and its query), coverage links merged |
 | `/data` | ⬜ |
 
 ## Rough per-surface plan (initial ideas — expect these to change)
@@ -489,20 +489,89 @@ a "shape over time" visual needs an axis the layout can't supply, give each unit
 rather than threading meaning across units.* `FinishLadder` stays bespoke; the shared promotion was
 `CampaignVerdict`. Nothing reached `DESIGN.md`.
 
-### 5. `/analytics` — next
-Already tiered into chapters with the question rail. The refresh question is whether
-each chapter chart now feels generic next to the questions page — likely candidates
-to give bespoke treatment are the Elo timeline (already era-shaded) and the records
-chapter. Risk: this page is large; subtract before adding.
+### 5. `/analytics` — done
+Shipped narrowly, exactly as "subtract before adding" demanded — the Elo hero, the odds
+widget, the calibration table, and the trend charts were left alone (they already earn
+their place), and the boldness was spent in the one chapter the seasons pass had flagged.
 
-Sharpened by the seasons pass: the **records chapter** is the obvious place to spend
-boldness — "biggest win", "longest unbeaten run", "most goals in a season" are exactly
-the *answer-object* shape (one big figure + the fixture/season it came from + a link to
-evidence) that `NotableMatches` and the season competition-lanes already speak. Before
-building anything here, check whether the record can be expressed as an existing object
-(an `IdentityPlate`-family hero, a `ResultSpine`, a `NotableMatches` card) rather than a
-fresh chart. The Elo timeline is the one genuine chart that earns bespoke era-shading;
-most of the rest of this page should *subtract toward* the shared vocabulary, not add to it.
+- ✅ **Records chapter → answer-objects (`RecordCards`).** The three `TrailLink`s that only
+  re-sorted the match browser (`?sort=margin/defeat/attendance`) became a grid of six real
+  records, each leading with the record *figure* and routing to its proof: **biggest win**
+  (10–0 v Anderlecht, the scoreline is the record), **heaviest defeat** (0–7 at Blackburn),
+  **record crowd** (135,000 at the Bernabéu — gold figure, the attendance *is* the record),
+  **most goals in a season** (143 in 1956-57 → the season), and the **longest unbeaten /
+  winning runs** (33 and 14 → the run's slice of the browser). This is the seasons-pass
+  instruction made literal: a detail/records list should *lead with the computed answer*, not
+  link to a sort the reader has to perform. Backed by one new query, `clubRecords()`, which
+  computes every peak over **official matches only** (friendlies and wartime excluded, so a
+  friendly rout or a wartime goal-glut can't pose as a record) and reuses `longestStreak` for
+  the runs. A `CoverageNote` keeps the full rankings one click away, so the `/matches`
+  delegation (the auditable ledger) survives — the cards are the answer, the browser the appendix.
+- ✅ **`RecordCards` stayed bespoke — the hero figure isn't always a scoreline.** The obvious
+  reuse was `NotableMatches`, but it assumes scoreline-as-hero and a match-only link; the crowd
+  record's figure is an *attendance*, the season's is a *goal tally*, the runs' is a *count* with
+  a season/slice link. Forcing all six through `NotableMatches` would misrepresent four of them, so
+  this is the answer-object *family* rendered as a card grid (each card's figure is its record's own
+  unit, coloured by meaning — result tones for scorelines, gold for the crowd, red for goals), not a
+  promotion. Same call the player page made for `HaulCards`: *generalise the intent (answer → figure →
+  evidence), not the component, when the subject's unit of meaning changes.*
+- ✅ **Subtracted the duplicated Elo tiles (one element per fact).** The header aside repeated
+  Current Elo + Peak Elo, which the Elo section's own current/peak/low strip restates immediately
+  below; both tiles dropped, leaving Matches + Scorer-rows as the scope aside. The same move
+  `/matches` made on its header — the object that owns the fact keeps it.
+
+The Elo timeline, odds widget, and trend charts were deliberately *not* touched: they're the genuine
+charts that earn their bespoke treatment, and the page is large enough that re-skinning a working
+chart would be motion without value. Nothing reached `DESIGN.md`; the one new object (`RecordCards`)
+is bespoke and the subtraction was an existing principle applied, not a new one. *Lesson carried
+forward: a "records" surface is answer-object territory, not chart territory — the record is a figure
+with a fixture behind it, so it wants the `IdentityPlate`/`NotableMatches` vocabulary, and when the
+figure's unit varies across records, a bespoke card that lets each show its true unit beats a shared
+card that flattens them all to a scoreline.*
+
+**Follow-up: the records pass didn't go far enough — the whole page got restructured.** The records
+chapter was a local upgrade inside a page that was still the "competent ledger" the refresh exists to
+kill: a flat `space-y-12` stack of ~10 equal-weight sections under thin `<Band>` labels, no hero, no
+spine, a junk-drawer bottom third (grounds → records → coverage → assists). A full critique against
+visual quality / pacing / simplicity / novelty drove a restructure into **three acts plus a trails
+appendix**, the page's real narrative made explicit:
+
+- ✅ **Act I — the signal: a floodlit `EloHero`.** The Elo chart led flat, in the same thin panel as
+  everything else. It now opens as a plate sharing the `IdentityPlate` atmosphere (the `hero-grid`
+  pitch-line texture, a single red floodlight wash, the deep shadow), with the current rating promoted
+  to a `text-5xl/6xl` headline and peak/low as a hairline ribbon beside it, over a full-width,
+  taller (300px) era-shaded timeline. This is the analytics answer to the seasons `FinishTimeline`
+  opening — the strength signal as the thing you see before you read. The plate *atmosphere* is now a
+  reusable motif (third surface after the manager/opponent/season plates), even though `EloHero` itself
+  stays bespoke.
+- ✅ **Act II — projection: `ReliabilityCurve` replaces the calibration table.** The driest object on
+  the page (a 6-row W/D/L-by-expectancy `DataTable`) became a bespoke calibration plot: each expectancy
+  decile a point at (expected, observed) against a dashed **perfect-forecast diagonal**, the red
+  points-share dots hugging the line (the ratings land where they aim — the data tracks y=x almost
+  exactly), the green win-rate dots bowing below, and the tinted band between them *is* the draws,
+  fattest in the evenly-matched middle. This is principle 3 ("encode the baseline into the geometry")
+  made literal, and it does what the table couldn't: makes "the ratings are calibrated" *visible*, which
+  earns the odds widget's trust. The proof (curve) and the application (odds widget) now sit side by
+  side as one movement; the sim is the third beat. Static SVG, no inspection layer — the diagonal and
+  the bow carry the reading.
+- ✅ **Subtracted hard.** The grounds grid (encyclopedic stadium list, the flattest object on the page)
+  was cut outright along with its `stadiumsWithRecords` query; the two near-identical `/data` `TrailLink`s
+  merged into one; the calibration table deleted. The marooned assist list was *resolved by upgrade*,
+  not cut (it's the canonical home of the global supply-duo cut, which lives nowhere else): a ranked
+  ladder with bars scaled to the top pairing, moved under Act III as "Supply lines". The limp "want a
+  specific cut?" closing line became a real "Where next" trio of trails (data / browser / questions).
+- ✅ **Pacing via acts, not bands.** A new `Act` header (a ghosted devil numeral + kicker + title + a
+  one-line dek) replaces the thin `<Band>` rule for the three movements; within an act the modules sit
+  tight (`space-y-6/8`), between acts they breathe (`space-y-14`), and the appendix closes under a quiet
+  divider. The eye now registers importance changes the uniform metronome hid.
+
+Two new components (`EloHero`, `ReliabilityCurve`), both **bespoke**; nothing reached `DESIGN.md`
+(the curve is a fresh *instance* of an existing principle, and the act structure is a pacing device,
+not a composition rule). *Lesson for the working method: an "upgrade one chapter" pass can leave the
+page's real problem — no spine, flat pacing — untouched. When a surface reads as a flat equal-weight
+stack, the fix is structural (find the narrative, give it acts, subtract the tangents) before it is
+per-module; a hero, a novel proof-object, and aggressive subtraction did more for the page than six
+good cards did.*
 
 ### 6. `/` (home)
 The launchpad. Per `DESIGN.md`, lead with a trail not a hero-metric. Candidate:
@@ -510,6 +579,14 @@ pull one live question module (or a teaser of one) above the fold so the homepag
 demonstrates the questions surface rather than just linking to it; keep search and
 recent-evidence prominent. Probably do this *last*, once the per-question visual
 vocabulary is settled, so the homepage can quote the best of it.
+
+Sharpened by the analytics pass: the homepage now has *two* answer-object families it
+can quote rather than re-skin — the questions visuals **and** the new `RecordCards`. A
+teaser row of two or three records (biggest win, longest unbeaten run) is a strong
+above-the-fold trail that's already built and already evidence-linked, on-thesis ("a
+record is a figure with a fixture behind it"), and it costs nothing new to render. Resist
+inventing a homepage hero-metric block when the records cards and a question teaser
+already *are* the trail the homepage wants.
 
 ### 7. Index pages `/players`, `/managers`, `/opponents`
 Lower priority — these are scan-and-drill surfaces and should stay compact. Refresh

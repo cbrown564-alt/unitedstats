@@ -1012,20 +1012,6 @@ export function ownGoalScorers(): OwnGoalScorer[] {
   return [...map.values()].sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.name.localeCompare(b.name));
 }
 
-export function stadiumsWithRecords(): {
-  id: string; name: string; city: string | null; lat: number | null; lng: number | null;
-  p: number; w: number; first: string; last: string;
-}[] {
-  return getDb()
-    .prepare(
-      `SELECT s.id, s.name, s.city, s.lat, s.lng, COUNT(*) p, SUM(m.result='W') w,
-              MIN(m.date) first, MAX(m.date) last
-       FROM matches m JOIN stadiums s ON s.id = m.stadium_id
-       GROUP BY s.id ORDER BY p DESC`,
-    )
-    .all() as ReturnType<typeof stadiumsWithRecords>;
-}
-
 export function eventCoverage(): { decade: string; matches: number; withEvents: number }[] {
   return getDb()
     .prepare(
