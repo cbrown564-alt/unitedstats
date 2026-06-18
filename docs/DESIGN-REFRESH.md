@@ -146,7 +146,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
 | `/` (home) | ⬜ |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
-| `/seasons`, `/seasons/[season]` | ⬜ |
+| `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; index flags title seasons in gold |
 | `/players` | ⬜ |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
 | `/managers`, `/opponents` (index structure) | ⬜ |
@@ -360,17 +360,62 @@ decoration-free — no curated markers — so it describes the slice rather than
 idea, even though it stayed inline; (3) when a header readout that appears on several surfaces
 isn't scanning, fix it once as a shared object and let the improvement propagate.*
 
-### 4. `/seasons/[season]` and `/seasons`
-Per-season: lead with the season's shape (final position, W-D-L, the season brief)
-as one object, competition runs as positioned lanes, and the match list below.
-Index: the decade grouping is fine; consider a compact per-season WdlBar sparkline
-so the index itself shows the shape of each year.
+### 4. `/seasons/[season]` and `/seasons` ✅ done
+Shipped close to the hypothesis, with the headline sharpened on the way in.
 
-### 5. `/analytics`
+- ✅ **Detail leads with the *finish*, not the win rate — via a generalised `IdentityPlate`.**
+  The flat five-`StatTile` grid (Played / W–D–L / Goal diff / Win rate / Avg home crowd), the
+  prose breakdown sentence, and the standalone `WdlColumns`+`WdlBar` collapsed into the shared
+  plate. The key decision: a season's *verdict* is **where it finished**, so the plate's dominant
+  figure is the league position (`1st` gold for champions, `7th` ink otherwise) with the
+  competition + "of N" as its sub-line, win rate demoted to a secondary readout beside the
+  built-in `GoalDiff` ribbon. This is the player-page lesson again — *generalise the pattern, not
+  the component* — but here it generalised *into* `IdentityPlate` rather than away from it: the
+  plate grew an optional `headline` override (default stays win-rate "won", so manager/opponent are
+  byte-identical) and an optional `leading` (a season has no portrait, so it renders single-column).
+  `PlayerPlate` still stays bespoke; `IdentityPlate` is now the shared answer-object plate for
+  *three* record surfaces (manager, opponent, season). Avg-home-crowd was cut exactly as on
+  `/matches` — it never earned a top-line cell.
+- ✅ **Season brief as the supporting sentence.** Kept as a distinct prose block immediately under
+  the plate (principle 2: answer-object first, sentence second), with its "written by the data"
+  caveat intact. Not folded *into* the plate — the brief wants a readable measure, and the plate's
+  ribbon was already dense.
+- ✅ **`ResultSpine` for the season's shape.** The shared spine (its fourth surface) drawing the
+  whole season in date order, gated ≥24 matches, `matchesSequence({ season })` reusing the
+  `/matches` query path verbatim. Pure shape — no record header (the plate leads with it) and no
+  notable-pips (a season's standouts live in the competition lanes below, not as curated cards).
+- ✅ **Competition runs as outcome-carrying lanes.** Each competition section's header now states
+  the *campaign* outcome — `Champions` / `7th of 20` for the league, `Winners` / `Runners-up` /
+  furthest round for cups (gold for silverware) — beside that competition's W–D–L, turning each
+  flat `MatchList` into a season-within-the-season. Outcome is computed from signals the page owns
+  (the league summary's position; a won/lost final detected in the comp's own matches; else the
+  summary's furthest round). `CoverageNote` at the foot.
+- ✅ **Index flags the peaks.** Light touch as planned: title-winning seasons get a gold left
+  border and a gold `Champions` verdict (the rest read `Nth of N`), so the decade scroll itself
+  shows where the silverware landed — the left-border-flag idiom from the bogey-sides ladder. The
+  per-season league `WdlBar` already carried the "shape of each year" the sketch wanted, so no
+  sparkline was added.
+
+*Lesson for the principles: the "answer-object plate" is now clearly a **family** — the dominant
+figure is whatever the subject's unit of meaning is (win rate for a relationship, goals for a
+player, league finish for a season). Generalising via an optional headline override kept one shared
+component instead of a third bespoke plate, the opposite call from the player page and the right one
+because everything **below** the headline (GoalDiff ribbon, W–D–L bar) was already identical.*
+
+### 5. `/analytics` — next
 Already tiered into chapters with the question rail. The refresh question is whether
 each chapter chart now feels generic next to the questions page — likely candidates
 to give bespoke treatment are the Elo timeline (already era-shaded) and the records
 chapter. Risk: this page is large; subtract before adding.
+
+Sharpened by the seasons pass: the **records chapter** is the obvious place to spend
+boldness — "biggest win", "longest unbeaten run", "most goals in a season" are exactly
+the *answer-object* shape (one big figure + the fixture/season it came from + a link to
+evidence) that `NotableMatches` and the season competition-lanes already speak. Before
+building anything here, check whether the record can be expressed as an existing object
+(an `IdentityPlate`-family hero, a `ResultSpine`, a `NotableMatches` card) rather than a
+fresh chart. The Elo timeline is the one genuine chart that earns bespoke era-shading;
+most of the rest of this page should *subtract toward* the shared vocabulary, not add to it.
 
 ### 6. `/` (home)
 The launchpad. Per `DESIGN.md`, lead with a trail not a hero-metric. Candidate:

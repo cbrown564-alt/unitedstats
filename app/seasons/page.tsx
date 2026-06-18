@@ -80,8 +80,14 @@ export default function SeasonsPage() {
           const league = comps.find((c) => c.type === "league");
           const cups = comps.filter((c) => c.type !== "league");
           const totalP = comps.reduce((a, c) => a + c.p, 0);
+          const champions = league?.position === 1;
           return (
-            <li key={season} className="border-b border-line last:border-b-0">
+            <li
+              key={season}
+              className={`border-b border-l-2 border-line last:border-b-0 ${
+                champions ? "border-l-gold/70" : "border-l-transparent"
+              }`}
+            >
               <Link
                 href={`/seasons/${season}`}
                 className="grid gap-3 px-4 py-3 transition-colors hover:bg-panel sm:grid-cols-[8rem_1fr_14rem] sm:items-center"
@@ -99,8 +105,13 @@ export default function SeasonsPage() {
                 )}
                 <div className="sm:text-right">
                   <span className="stat-num text-xs text-ink-dim">
-                    {league?.position ? `${ordinal(league.position)} league` : "No league finish"}
-                    {league?.position === 1 ? " · title" : ""}
+                    {champions ? (
+                      <span className="font-semibold text-gold">Champions</span>
+                    ) : league?.position ? (
+                      `${ordinal(league.position)}${league.league_size ? ` of ${league.league_size}` : ""}`
+                    ) : (
+                      "No league finish"
+                    )}
                   </span>
                   {cups.length > 0 && (
                     <div className="mt-1 flex flex-wrap gap-1.5 sm:justify-end">

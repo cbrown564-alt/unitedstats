@@ -9,6 +9,21 @@ interface Readout {
   tone?: string;
 }
 
+/**
+ * The dominant figure — the answer the plate leads with. Defaults to win rate
+ * ("63% won, from N matches") for the head-to-head / tenure pages; a season
+ * overrides it with its league finish, since *that* is the season's verdict.
+ */
+export interface PlateHeadline {
+  value: React.ReactNode;
+  /** Short uppercase qualifier after the figure ("won", "league finish"). */
+  label: string;
+  /** Context line beneath ("from N matches", "Champions of the …"). */
+  sub?: React.ReactNode;
+  /** Figure colour class; defaults to devil-bright. */
+  tone?: string;
+}
+
 /** One band on the span track: positions are 0..1 along the rail. */
 export interface SpanSegment {
   from: number;
@@ -28,13 +43,15 @@ interface SpanProps {
 
 interface IdentityPlateProps {
   eyebrow: string;
-  /** A `ClubBadge` or `PlayerPortrait`, already sized `lg`. */
-  leading: React.ReactNode;
+  /** A `ClubBadge` or `PlayerPortrait`, already sized `lg`. Omit for a season (no portrait). */
+  leading?: React.ReactNode;
   /** Optional caption under the leading visual (e.g. an attribution link). */
   leadingNote?: React.ReactNode;
   title: string;
   subtitle?: React.ReactNode;
   record: { w: number; d: number; l: number; p: number; gf: number; ga: number };
+  /** Overrides the default win-rate headline; see {@link PlateHeadline}. */
+  headline?: PlateHeadline;
   /** Extra readouts in the hairline ribbon; goals for/against are always shown. */
   secondary?: Readout[];
   /** Floodlight wash colour — the club's colour for an opponent, else devil red. */
@@ -53,10 +70,16 @@ interface IdentityPlateProps {
  * season); the two share the floodlit-plate look but answer different questions.
  */
 export function IdentityPlate({
-  eyebrow, leading, leadingNote, title, subtitle, record, secondary = [], accent, span,
+  eyebrow, leading, leadingNote, title, subtitle, record, headline, secondary = [], accent, span,
 }: IdentityPlateProps) {
   const { w, d, l, p, gf, ga } = record;
   const wash = accent ?? "var(--color-devil)";
+  const head: PlateHeadline = headline ?? {
+    value: pct(w, p),
+    label: "won",
+    sub: <>from {fmtNum(p)} {p === 1 ? "match" : "matches"}</>,
+    tone: "text-devil-bright",
+  };
 
   return (
     <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
@@ -68,11 +91,13 @@ export function IdentityPlate({
         aria-hidden
       />
 
-      <div className="relative grid gap-6 p-5 sm:p-6 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-8">
-        <div className="flex flex-col items-start gap-2">
-          {leading}
-          {leadingNote}
-        </div>
+      <div className={`relative grid gap-6 p-5 sm:p-6 ${leading ? "lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-8" : ""}`}>
+        {leading && (
+          <div className="flex flex-col items-start gap-2">
+            {leading}
+            {leadingNote}
+          </div>
+        )}
 
         <div className="flex min-w-0 flex-col">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">{eyebrow}</p>
@@ -83,16 +108,16 @@ export function IdentityPlate({
             </p>
           )}
 
-          {/* Win rate is the answer; goals and any extra readouts sit beside it as a ribbon. */}
+          {/* The headline figure is the answer; goals and any extra readouts sit beside it as a ribbon. */}
           <div className="mt-5 flex flex-wrap items-end gap-x-7 gap-y-4 sm:mt-6">
             <div className="leading-none">
               <div className="flex items-baseline gap-2">
-                <span className="stat-num text-5xl font-semibold text-devil-bright sm:text-6xl">{pct(w, p)}</span>
-                <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">won</span>
+                <span className={`stat-num text-5xl font-semibold sm:text-6xl ${head.tone ?? "text-devil-bright"}`}>
+                  {head.value}
+                </span>
+                <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">{head.label}</span>
               </div>
-              <p className="stat-num mt-2 text-xs text-ink-faint">
-                from {fmtNum(p)} {p === 1 ? "match" : "matches"}
-              </p>
+              {head.sub && <p className="stat-num mt-2 text-xs text-ink-faint">{head.sub}</p>}
             </div>
             <div className="flex flex-wrap items-end gap-x-7 gap-y-3.5 border-l border-line pl-6">
               <GoalDiff gf={gf} ga={ga} played={p} />
