@@ -834,16 +834,29 @@ const roundOrder: Record<string, number> = {
   "Round 4": 13, "Round 5": 14, "Group": 15, "League Phase": 15, "Round of 16": 16,
   "Quarter-final": 20, "Semi-final": 30, "Third place": 35, "Final": 40,
 };
+// Two-legged European ties store the leg in the round ("Quarter-final First leg")
+// and the group stage stores its label ("Group A"); both must collapse to the bare
+// round, or the ordinal lookup misses and every leg ties at the default — which used
+// to leave the *group* match as a season's "furthest round" despite a knockout run.
+const canonRound = (round: string): string =>
+  round
+    .replace(/\s+(?:First|Second) leg$/i, "")
+    .replace(/^Group\b.*$/i, "Group")
+    .trim();
+// Only knockout/cup competitions have a meaningful "furthest round"; a league's
+// rounds are matchdays, and ranking those leaves a noise value the UI never reads.
 const cupRows = db.prepare(`
-  SELECT season, competition_id, round FROM matches
-  WHERE round IS NOT NULL
+  SELECT m.season, m.competition_id, m.round FROM matches m
+  JOIN competitions c ON c.id = m.competition_id
+  WHERE m.round IS NOT NULL AND c.type != 'league'
 `).all() as { season: string; competition_id: string; round: string }[];
 const furthest = new Map<string, { round: string; ord: number }>();
 for (const r of cupRows) {
-  const ord = roundOrder[r.round] ?? 5;
+  const round = canonRound(r.round);
+  const ord = roundOrder[round] ?? 5;
   const key = `${r.season}|${r.competition_id}`;
   const cur = furthest.get(key);
-  if (!cur || ord > cur.ord) furthest.set(key, { round: r.round, ord });
+  if (!cur || ord > cur.ord) furthest.set(key, { round, ord });
 }
 const updFurthest = db.prepare(
   "UPDATE season_summaries SET furthest_round=? WHERE season=? AND competition_id=?",
