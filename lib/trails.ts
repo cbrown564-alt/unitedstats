@@ -633,6 +633,73 @@ export function matchesSequence(f: MatchFilter): SequenceMatch[] {
     .all(params) as SequenceMatch[];
 }
 
+// ---------------------------------------------------------------- club records
+
+/** A record-holding match, carrying attendance so the crowd record can lead with it. */
+interface RecordMatch extends SequenceMatch {
+  attendance: number | null;
+}
+
+export interface ClubRecords {
+  biggestWin: RecordMatch | null;
+  heaviestDefeat: RecordMatch | null;
+  recordCrowd: RecordMatch | null;
+  mostGoalsInSeason: { season: string; gf: number; p: number } | null;
+  longestUnbeaten: Streak | null;
+  longestWinning: Streak | null;
+}
+
+const REC_SELECT = `m.id, m.date, m.season, m.venue, m.result, m.gf, m.ga, m.aet,
+  m.pen_gf, m.pen_ga, m.opponent_name, m.attendance, c.name AS competition_name`;
+
+/**
+ * The club's all-time peaks — biggest win, heaviest defeat, record crowd,
+ * highest-scoring season, and the longest unbeaten / winning runs — each an
+ * answer-object the records chapter leads with rather than a link to a sort.
+ *
+ * Everything is computed over *official* matches only (friendlies and wartime
+ * excluded), so a friendly thrashing or a wartime-league goal glut can't pose as
+ * a club record; the runs read off the same date-ordered official sequence. Nulls
+ * drop rather than printing a blank card.
+ */
+export function clubRecords(): ClubRecords {
+  const db = getDb();
+  const official = "c.type != 'unofficial'";
+  const recMatch = (cond: string, order: string) =>
+    (db
+      .prepare(
+        `SELECT ${REC_SELECT} FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE ${official} AND ${cond} ORDER BY ${order} LIMIT 1`,
+      )
+      .get() as RecordMatch | undefined) ?? null;
+
+  const mostGoalsInSeason =
+    (db
+      .prepare(
+        `SELECT m.season, SUM(m.gf) gf, COUNT(*) p
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE ${official}
+         GROUP BY m.season ORDER BY gf DESC, m.season LIMIT 1`,
+      )
+      .get() as { season: string; gf: number; p: number } | undefined) ?? null;
+
+  const seq = db
+    .prepare(
+      `SELECT m.date, m.result FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE ${official} ORDER BY m.date`,
+    )
+    .all() as { date: string; result: string }[];
+
+  return {
+    biggestWin: recMatch("m.result = 'W'", "(m.gf - m.ga) DESC, m.gf DESC, m.date ASC"),
+    heaviestDefeat: recMatch("m.result = 'L'", "(m.gf - m.ga) ASC, m.ga DESC, m.date ASC"),
+    recordCrowd: recMatch("m.attendance IS NOT NULL", "m.attendance DESC, m.date ASC"),
+    mostGoalsInSeason,
+    longestUnbeaten: longestStreak(seq, "unbeaten"),
+    longestWinning: longestStreak(seq, "winning"),
+  };
+}
+
 // ---------------------------------------------------------------- homepage evidence
 
 /** Matches with the fullest recorded sheets — scorers, opposition goals, lineups. */
