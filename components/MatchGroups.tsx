@@ -1,7 +1,7 @@
 import type { MatchRow } from "@/lib/queries";
 import { tallyWdl } from "@/lib/format";
 import { MatchList } from "./MatchList";
-import { WdlBar, WdlRecord } from "./WdlBar";
+import { WdlBar, WdlColumns } from "./WdlBar";
 
 /**
  * Season-segmented view of a fixture list. Rows arrive date-ordered, so seasons
@@ -32,12 +32,15 @@ export function MatchGroups({
         const { w, d, l } = tallyWdl(g.rows);
         return (
           <section key={`${g.season}-${g.rows[0].id}`} id={`season-${g.season}`} className="scroll-mt-28">
-            <div className="mb-2 flex items-center gap-3">
+            <div className="mb-2 flex items-end gap-3">
               <h2 className="display text-lg leading-none">{g.season}</h2>
-              <span className="stat-num text-xs text-ink-faint">
-                {g.rows.length} {g.rows.length === 1 ? "match" : "matches"} · <WdlRecord w={w} d={d} l={l} />
+              <span className="stat-num text-xs leading-none text-ink-faint">
+                {g.rows.length} {g.rows.length === 1 ? "match" : "matches"}
               </span>
-              <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} className="ml-auto max-w-[8rem]" />
+              <div className="ml-auto w-32 space-y-1">
+                <WdlColumns w={w} d={d} l={l} compact />
+                <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} />
+              </div>
             </div>
             <MatchList matches={g.rows} showAttendance={showAttendance} accentResult={accentResult} />
           </section>
