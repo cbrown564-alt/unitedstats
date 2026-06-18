@@ -260,9 +260,12 @@ Now sharper, given the player pass:
   opponent's "Home and away". *Lesson for the
   principles: a visual that can only ever draw the same shape regardless of the subject is
   decoration, not analysis — kill it even when it's pretty.*
-- 🟡 **Coverage footer per module.** The match list carries a full `CoverageNote`; the
-  split / run / cup modules carry a one-line footnote. Tighten toward a real `Slice:` line
-  per module when the splits are reworked.
+- ✅ **Coverage footer per module.** The split / run / cup modules' ad-hoc one-line
+  footnotes were promoted to real `CoverageNote`s — a bold `Slice:` line matching the match
+  list, with the reading-how-to prose (bar pivots on its centre, a gap breaks the run) kept
+  as the note's `children` and the per-module nav links (`Away meetings only →`, `Show the
+  cup ties →`) folded into its evidence slot. Principle 7's trust contract now reads
+  identically at the foot of every object on both pages, not just the archive.
 
 Both pages live on one branch (they share queries and the plate decision). `IdentityPlate`
 and `RunCallouts` were promoted to **shared**; no bespoke splits object survived (see above).

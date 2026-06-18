@@ -102,7 +102,11 @@ export default async function OpponentPage({
                 <WdlBar w={v.w} d={v.d} l={v.l} />
               </div>
             ))}
-            <EvidenceLink href={`/matches?opponent=${id}&venue=A`} label="Away meetings only →" />
+            <CoverageNote
+              slice="every meeting in this fixture, split by venue; all competitions."
+              evidenceHref={`/matches?opponent=${id}&venue=A`}
+              evidenceLabel="Away meetings only →"
+            />
           </div>
         </div>
 
@@ -118,9 +122,11 @@ export default async function OpponentPage({
                 <WdlRecord w={cup.w} d={cup.d} l={cup.l} /> from {fmtNum(cup.p)} cup tie{cup.p === 1 ? "" : "s"}
                 {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
               </p>
-              <div className="mt-3">
-                <EvidenceLink href={`/matches?opponent=${id}&type=cup`} label="Show the cup ties →" />
-              </div>
+              <CoverageNote
+                slice="knockout ties only — domestic & European cups."
+                evidenceHref={`/matches?opponent=${id}&type=cup`}
+                evidenceLabel="Show the cup ties →"
+              />
             </div>
           ) : (
             <p className="rounded-xl border border-line bg-panel px-4 py-5 text-sm text-ink-faint">
@@ -132,9 +138,9 @@ export default async function OpponentPage({
         <div className="lg:col-span-1">
           <SectionHead title="Longest runs" aside="this fixture" />
           <RunCallouts runs={runs} empty="No run of 3+ meetings either way." />
-          <p className="mt-2 text-[11px] leading-4 text-ink-faint">
-            Consecutive meetings in this fixture, all competitions — a gap of any other result breaks the run.
-          </p>
+          <CoverageNote slice="consecutive meetings in this fixture, all competitions.">
+            A gap of any other result breaks the run.
+          </CoverageNote>
         </div>
       </section>
 
