@@ -1,33 +1,39 @@
 import Link from "next/link";
 import {
-  eloSeries, seasonAggregates, stadiumsWithRecords, getMeta,
+  eloSeries, seasonAggregates, getMeta,
   topAssistPartnerships, coverageOverview, managersIndex,
 } from "@/lib/queries";
+import { clubRecords } from "@/lib/trails";
 import { calibration, oddsFor, ratedOpponents, simulateLeagueSeason, HOME_ADVANTAGE } from "@/lib/predict";
 import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
-import { DataTable } from "@/components/DataTable";
-import { EloRatingChart } from "@/components/charts/EloRatingChart";
+import { EloHero } from "@/components/EloHero";
+import { ReliabilityCurve } from "@/components/charts/ReliabilityCurve";
 import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
-import { fmtNum, pct, venueLabel } from "@/lib/format";
+import { RecordCards, type RecordCard } from "@/components/RecordCards";
+import { fmtDate, fmtMonthYear, fmtNum, pct, scoreline, venueLabel, venuePrefix } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Analytics" };
 
-/** Quiet chapter divider that groups the chart panels into readable bands. */
-function Band({ label }: { label: string }) {
+/**
+ * Act header — the page's three movements (the signal, what it projects, what it
+ * produced). Bolder than a plain divider: a ghosted act numeral, a kicker, a
+ * title, and a one-line dek, so the eye registers a real change of chapter.
+ */
+function Act({ n, kicker, title, children }: { n: string; kicker: string; title: string; children?: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">{label}</span>
-      <span aria-hidden className="h-px flex-1 bg-line" />
-    </div>
+    <header className="flex items-baseline gap-4 border-b border-line/70 pb-3">
+      <span aria-hidden className="display text-4xl leading-none text-devil-bright/25 sm:text-5xl">{n}</span>
+      <div className="min-w-0">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">{kicker}</p>
+        <h2 className="display text-2xl">{title}</h2>
+        {children && <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-dim">{children}</p>}
+      </div>
+    </header>
   );
-}
-
-function Pct({ value }: { value: number }) {
-  return <span className="stat-num">{(100 * value).toFixed(0)}%</span>;
 }
 
 export default async function AnalyticsPage({
@@ -38,8 +44,7 @@ export default async function AnalyticsPage({
   const sp = await searchParams;
   const elo = eloSeries();
   const seasons = seasonAggregates();
-  const grounds = stadiumsWithRecords();
-  const partnerships = topAssistPartnerships(12);
+  const partnerships = topAssistPartnerships(10);
   const meta = getMeta();
   const overview = coverageOverview();
 
@@ -50,7 +55,6 @@ export default async function AnalyticsPage({
   const odds = oddsFor(opponentId, venue);
   const sim = simulateLeagueSeason();
   const buckets = calibration();
-  const totalRated = buckets.reduce((a, b) => a + b.p, 0);
 
   const currentElo = elo.length ? Math.round(elo[elo.length - 1].elo) : 1500;
   const peak = elo.reduce((a, b) => (b.elo > a.elo ? b : a), elo[0]);
@@ -67,142 +71,193 @@ export default async function AnalyticsPage({
     label: m.p >= 250 ? m.name.split(" ").pop() : undefined,
   }));
 
+  // Records chapter: the all-time peaks as answer-objects, each leading with the
+  // record figure and routing to its proof. Built only from records that exist.
+  const rec = clubRecords();
+  const recordCards: RecordCard[] = [];
+  if (rec.biggestWin) {
+    const m = rec.biggestWin;
+    recordCards.push({
+      eyebrow: "Biggest win", figure: scoreline(m.gf, m.ga), tone: "win",
+      detail: `${venuePrefix(m.venue)} ${m.opponent_name}`,
+      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
+    });
+  }
+  if (rec.heaviestDefeat) {
+    const m = rec.heaviestDefeat;
+    recordCards.push({
+      eyebrow: "Heaviest defeat", figure: scoreline(m.gf, m.ga), tone: "loss",
+      detail: `${venuePrefix(m.venue)} ${m.opponent_name}`,
+      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
+    });
+  }
+  if (rec.recordCrowd?.attendance != null) {
+    const m = rec.recordCrowd;
+    recordCards.push({
+      eyebrow: "Record crowd", figure: fmtNum(m.attendance), tone: "gold",
+      detail: `${venuePrefix(m.venue)} ${m.opponent_name} · ${scoreline(m.gf, m.ga)}`,
+      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
+    });
+  }
+  if (rec.mostGoalsInSeason) {
+    const s = rec.mostGoalsInSeason;
+    recordCards.push({
+      eyebrow: "Most goals in a season", figure: fmtNum(s.gf), unit: "goals", tone: "devil",
+      detail: s.season, meta: `${fmtNum(s.p)} matches · all competitions`,
+      href: `/seasons/${s.season}`,
+    });
+  }
+  if (rec.longestUnbeaten) {
+    const r = rec.longestUnbeaten;
+    recordCards.push({
+      eyebrow: "Longest unbeaten run", figure: String(r.length), unit: "matches", tone: "win",
+      detail: `${fmtMonthYear(r.from)} – ${fmtMonthYear(r.to)}`,
+      meta: "wins and draws, official matches", href: `/matches?from=${r.from}&to=${r.to}`,
+    });
+  }
+  if (rec.longestWinning) {
+    const r = rec.longestWinning;
+    recordCards.push({
+      eyebrow: "Longest winning run", figure: String(r.length), unit: "wins", tone: "win",
+      detail: `${fmtMonthYear(r.from)} – ${fmtMonthYear(r.to)}`,
+      meta: "consecutive victories", href: `/matches?from=${r.from}&to=${r.to}`,
+    });
+  }
+
+  const maxAssist = partnerships[0]?.goals ?? 1;
+
   return (
-    <div className="space-y-12">
+    <div className="space-y-14">
       <PageHeader
         eyebrow="Strength layer"
         title="Analytics"
         aside={
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-80">
             <StatTile label="Matches" value={fmtNum(Number(meta.matches))} tone="red" />
-            <StatTile label="Current Elo" value={currentElo} />
-            <StatTile label="Peak Elo" value={Math.round(peak.elo)} tone="green" />
             <StatTile label="Scorer rows" value={fmtNum(overview.completeScorers)} />
           </div>
         }
       >
-        The strength layer: the Elo record behind United, what it projects forward, and the long-run
-        trends. Records and coverage live in the match browser and the data ledger — they link out
-        from here rather than being restated.
+        The strength layer: one Elo rating behind United, read three ways — the signal itself, what it
+        projects onto the next match, and the long arc of records and form it has left behind.
       </PageHeader>
 
-      {/* Elo — the canonical home of the strength signal */}
-      <section>
-        <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
+      {/* ───────────────── Act I — the signal ───────────────── */}
+      <div className="space-y-6">
+        <Act n="01" kicker="The signal" title="United’s strength, measured">
+          A single rating, updated match by match for over a century. It rises when United beat sides
+          they shouldn’t and sinks when they don’t.
+        </Act>
+        <EloHero
+          points={elo}
+          eras={managerEras}
+          current={currentElo}
+          peak={peak}
+          trough={trough}
+          firstYear={meta.first_match?.slice(0, 4)}
+        />
+      </div>
+
+      {/* ───────────────── Act II — what it projects ───────────────── */}
+      <div className="space-y-8">
+        <Act n="02" kicker="What it projects" title="From a rating to the odds">
+          The rating folds a result into one number, so win, draw, and loss come from history: how
+          sides at this strength gap have actually fared. First the proof, then the forecast.
+        </Act>
+
+        <section className="grid items-start gap-8 lg:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">Rating signal</p>
-            <h2 className="display text-xl">Elo rating, {meta.first_match?.slice(0, 4)}-today</h2>
-          </div>
-          <Link href="/matches" className="text-sm text-devil-bright hover:underline">Open match browser</Link>
-        </div>
-        <div className="border border-line rounded-lg bg-panel p-4">
-          <EloRatingChart points={elo} height={260} eras={managerEras} />
-          <div className="grid grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden mt-4 text-sm max-w-xl">
-            <div className="bg-panel-2 px-3 py-2">
-              <div className="stat-num text-lg font-semibold">{currentElo}</div>
-              <div className="text-[11px] text-ink-faint uppercase tracking-wider">Current</div>
+            <div className="mb-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">The proof</p>
+              <h3 className="display text-xl">Does the expectancy come true?</h3>
             </div>
-            <div className="bg-panel-2 px-3 py-2">
-              <div className="stat-num text-lg font-semibold text-win">{Math.round(peak.elo)}</div>
-              <div className="text-[11px] text-ink-faint uppercase tracking-wider">Peak · {peak.date.slice(0, 7)}</div>
-            </div>
-            <div className="bg-panel-2 px-3 py-2">
-              <div className="stat-num text-lg font-semibold text-loss">{Math.round(trough.elo)}</div>
-              <div className="text-[11px] text-ink-faint uppercase tracking-wider">Low · {trough.date.slice(0, 7)}</div>
-            </div>
-          </div>
-          <p className="text-xs text-ink-faint mt-3 max-w-2xl">
-            <span className="text-ink-dim">Slice:</span> every competitive match, closed-universe Elo —
-            opponents are rated only on their matches against United, K varies by competition and goal
-            margin, home advantage worth 60 points. Shaded bands mark managerial eras, with the
-            longest-serving managers labelled, so rises and falls can be read against who was in charge.
-            Pre-match win expectancy from this rating drives the favourites line on every match page; open
-            any match from the{" "}
-            <Link href="/matches" className="text-devil-bright hover:underline">browser</Link> to see the
-            rating move.
-          </p>
-        </div>
-      </section>
-
-      {/* Prospective half: the same Elo projected forward. */}
-      <section>
-        <div className="mb-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">What the ratings project</p>
-          <h2 className="display text-xl">A hypothetical next meeting</h2>
-        </div>
-        <div className="border border-line rounded-lg bg-panel p-4">
-          <form method="GET" action="/analytics" className="flex flex-wrap items-end gap-3 text-sm">
-            <label className="flex flex-col gap-1">
-              <span className="text-xs text-ink-faint uppercase tracking-wider">Opponent</span>
-              <select name="opponent" defaultValue={opponentId} className="control">
-                {opponents.map((o) => (
-                  <option key={o.id} value={o.id}>{o.name}</option>
-                ))}
-              </select>
-            </label>
-            <label className="flex flex-col gap-1">
-              <span className="text-xs text-ink-faint uppercase tracking-wider">Venue</span>
-              <select name="venue" defaultValue={venue} className="control">
-                <option value="H">Home</option>
-                <option value="A">Away</option>
-                <option value="N">Neutral</option>
-              </select>
-            </label>
-            <button
-              type="submit"
-              className="min-h-[2.375rem] rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring"
-            >
-              Work it out
-            </button>
-          </form>
-
-          {odds && (
-            <div className="mt-5">
-              <p className="text-sm text-ink-dim mb-3">
-                United v <span className="text-ink font-medium">{odds.opponentName}</span>,{" "}
-                {venueLabel(venue).toLowerCase()}, at today&apos;s ratings:
-              </p>
-              <div className="grid grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden max-w-xl text-center">
-                <div className="bg-panel-2 px-3 py-3">
-                  <div className="stat-num text-2xl font-semibold text-win">{(100 * odds.pW).toFixed(0)}%</div>
-                  <div className="text-[11px] text-ink-faint uppercase tracking-wider">United win</div>
-                </div>
-                <div className="bg-panel-2 px-3 py-3">
-                  <div className="stat-num text-2xl font-semibold text-draw">{(100 * odds.pD).toFixed(0)}%</div>
-                  <div className="text-[11px] text-ink-faint uppercase tracking-wider">Draw</div>
-                </div>
-                <div className="bg-panel-2 px-3 py-3">
-                  <div className="stat-num text-2xl font-semibold text-loss">{(100 * odds.pL).toFixed(0)}%</div>
-                  <div className="text-[11px] text-ink-faint uppercase tracking-wider">{odds.opponentName} win</div>
-                </div>
-              </div>
-              <CoverageNote
-                slice={`United ${Math.round(odds.unitedElo)} v ${odds.opponentName} ${Math.round(odds.opponentElo)} (closed-universe Elo, ${venueLabel(venue).toLowerCase()} worth ${venue === "N" ? 0 : HOME_ADVANTAGE} points), expectancy ${(100 * odds.expected).toFixed(0)}%, split using the ${fmtNum(odds.sample)} historical matches in that expectancy band.`}
-                evidenceHref={`/matches?opponent=${opponentId}`}
-                evidenceLabel={`All ${fmtNum(odds.meetings)} rated meetings →`}
-              >
-                {odds.opponentName}&apos;s rating moves only when they play United; it was last
-                updated {odds.lastMet}. Treat long-dormant opponents accordingly.
+            <div className="rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
+              <ReliabilityCurve buckets={buckets} />
+              <CoverageNote slice={`all ${fmtNum(buckets.reduce((a, b) => a + b.p, 0))} rated matches since 1886, grouped into deciles by the Elo win expectancy United carried into them.`}>
+                The red points track expected against actual points share; sitting on the diagonal means
+                the ratings land where they aim. The win-rate dots fall below because Elo folds draws in —
+                the gap up to the line is the draw, widest in the evenly-matched middle.
               </CoverageNote>
             </div>
-          )}
-        </div>
-      </section>
+          </div>
 
-      {sim && (
-        <section>
+          <div>
+            <div className="mb-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">The forecast</p>
+              <h3 className="display text-xl">A hypothetical next meeting</h3>
+            </div>
+            <div className="rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
+              <form method="GET" action="/analytics" className="flex flex-wrap items-end gap-3 text-sm">
+                <label className="flex flex-col gap-1">
+                  <span className="text-xs uppercase tracking-wider text-ink-faint">Opponent</span>
+                  <select name="opponent" defaultValue={opponentId} className="control">
+                    {opponents.map((o) => (
+                      <option key={o.id} value={o.id}>{o.name}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex flex-col gap-1">
+                  <span className="text-xs uppercase tracking-wider text-ink-faint">Venue</span>
+                  <select name="venue" defaultValue={venue} className="control">
+                    <option value="H">Home</option>
+                    <option value="A">Away</option>
+                    <option value="N">Neutral</option>
+                  </select>
+                </label>
+                <button
+                  type="submit"
+                  className="min-h-[2.375rem] rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring"
+                >
+                  Work it out
+                </button>
+              </form>
+
+              {odds && (
+                <div className="mt-5">
+                  <p className="mb-3 text-sm text-ink-dim">
+                    United v <span className="font-medium text-ink">{odds.opponentName}</span>,{" "}
+                    {venueLabel(venue).toLowerCase()}, at today&apos;s ratings:
+                  </p>
+                  <div className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line text-center">
+                    <div className="bg-panel-2 px-3 py-3">
+                      <div className="stat-num text-2xl font-semibold text-win">{(100 * odds.pW).toFixed(0)}%</div>
+                      <div className="text-[11px] uppercase tracking-wider text-ink-faint">United win</div>
+                    </div>
+                    <div className="bg-panel-2 px-3 py-3">
+                      <div className="stat-num text-2xl font-semibold text-draw">{(100 * odds.pD).toFixed(0)}%</div>
+                      <div className="text-[11px] uppercase tracking-wider text-ink-faint">Draw</div>
+                    </div>
+                    <div className="bg-panel-2 px-3 py-3">
+                      <div className="stat-num text-2xl font-semibold text-loss">{(100 * odds.pL).toFixed(0)}%</div>
+                      <div className="text-[11px] uppercase tracking-wider text-ink-faint">{odds.opponentName} win</div>
+                    </div>
+                  </div>
+                  <CoverageNote
+                    slice={`United ${Math.round(odds.unitedElo)} v ${odds.opponentName} ${Math.round(odds.opponentElo)} (closed-universe Elo, ${venueLabel(venue).toLowerCase()} worth ${venue === "N" ? 0 : HOME_ADVANTAGE} points), expectancy ${(100 * odds.expected).toFixed(0)}%, split using the ${fmtNum(odds.sample)} historical matches in that expectancy band.`}
+                    evidenceHref={`/matches?opponent=${opponentId}`}
+                    evidenceLabel={`All ${fmtNum(odds.meetings)} rated meetings →`}
+                  >
+                    {odds.opponentName}&apos;s rating moves only when they play United; it was last
+                    updated {odds.lastMet}. Treat long-dormant opponents accordingly.
+                  </CoverageNote>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {sim && (
           <ChartPanel
             title={`Replaying ${sim.season} from the ratings`}
+            kicker="A season as the ratings saw it"
             slice={`each of the ${sim.matches} ${sim.competitionName} matches redrawn ${fmtNum(sim.runs)} times from its pre-match win expectancy, 3 points for a win. This describes points totals, not table positions.`}
             note={
               <>
                 The ratings expected about {sim.meanPoints.toFixed(0)} points (90% of replays
                 landed between {sim.p5} and {sim.p95}); the real side took{" "}
-                <span className="text-gold stat-num">{sim.actualPoints}</span>, a total only{" "}
+                <span className="stat-num text-gold">{sim.actualPoints}</span>, a total only{" "}
                 {pct(Math.round(sim.shareAbove * sim.runs), sim.runs)} of replays beat. Open the{" "}
-                <Link href={`/seasons/${sim.season}`} className="text-devil-bright hover:underline">
-                  season
-                </Link>{" "}
+                <Link href={`/seasons/${sim.season}`} className="text-devil-bright hover:underline">season</Link>{" "}
                 to see which results did it.
               </>
             }
@@ -221,67 +276,85 @@ export default async function AnalyticsPage({
               yTickSuffix="%"
             />
           </ChartPanel>
+        )}
+      </div>
+
+      {/* ───────────────── Act III — what it produced ───────────────── */}
+      <div className="space-y-8">
+        <Act n="03" kicker="What it produced" title="The peaks and the long arc">
+          A century of that strength leaves a record: the outright peaks first, then the season-by-season
+          shape they sit inside.
+        </Act>
+
+        <section>
+          <RecordCards records={recordCards} />
+          <CoverageNote slice="all-time peaks across official competitions — friendlies and wartime excluded, so a friendly rout or a wartime goal glut can't pose as a record. Each card opens its match or season.">
+            Ranked in full in the browser:{" "}
+            <Link href="/matches?sort=margin" className="text-devil-bright hover:underline">biggest wins</Link>,{" "}
+            <Link href="/matches?sort=defeat" className="text-devil-bright hover:underline">heaviest defeats</Link>,{" "}
+            <Link href="/matches?sort=attendance" className="text-devil-bright hover:underline">biggest crowds</Link>.
+          </CoverageNote>
         </section>
-      )}
 
-      <section>
-        <h2 className="display text-xl mb-3">Where the probabilities come from</h2>
-        <DataTable
-          columns={[
-            { label: "Pre-match expectancy", render: (b: (typeof buckets)[number]) => `${(100 * b.lo).toFixed(0)}–${(100 * b.hi).toFixed(0)}%` },
-            { label: "Matches", numeric: true, render: (b) => fmtNum(b.p) },
-            { label: "Won", numeric: true, render: (b) => <Pct value={b.w / b.p} /> },
-            { label: "Drawn", numeric: true, render: (b) => <Pct value={b.d / b.p} /> },
-            { label: "Lost", numeric: true, render: (b) => <Pct value={b.l / b.p} /> },
-          ]}
-          rows={buckets}
-          rowKey={(b) => String(b.lo)}
-        />
-        <CoverageNote
-          slice={`all ${fmtNum(totalRated)} rated matches since 1886, grouped by the Elo win expectancy United carried into them.`}
-        >
-          Elo folds draws into one number, so the W/D/L split is read straight from history: when
-          the ratings said 60–70%, United actually won half and drew a quarter. That observed split
-          is what the widget above applies. The expectancy itself is on every match page.
-        </CoverageNote>
-      </section>
+        <section className="grid gap-8 lg:grid-cols-2">
+          <ChartPanel
+            title="Win rate by season"
+            note={
+              <>
+                <span className="text-ink-dim">Slice:</span> all competitions per season; the dashed line is
+                50%. Troughs mark the relegation seasons and the early 1930s; the plateau is the Ferguson era.{" "}
+                <Link href="/seasons" className="text-devil-bright hover:underline">Season by season →</Link>
+              </>
+            }
+          >
+            <InspectableTimeSeriesChart
+              data={seasons.map((s) => ({
+                x: Number(s.season.slice(0, 4)),
+                y: s.win_pct,
+                label: s.season,
+                valueLabel: `${s.win_pct.toFixed(1)}% won`,
+                meta: `${fmtNum(s.p)} matches, ${s.w} wins`,
+              }))}
+              baseline={50}
+              height={200}
+              stroke="var(--color-win)"
+              fill="rgb(62 207 106 / 0.10)"
+              baselineLabel="50%"
+              chartLabel="Manchester United win rate by season"
+              valueLabel="Win rate"
+              xTicks={yearTicks}
+              yTickSuffix="%"
+              yDomain={[0, 100]}
+            />
+          </ChartPanel>
+          <ChartPanel
+            title="Goals scored per season"
+            note={
+              <>
+                <span className="text-ink-dim">Slice:</span> goals scored, all competitions — taller wartime-adjacent
+                seasons partly reflect longer cup runs.{" "}
+                <Link href="/seasons" className="text-devil-bright hover:underline">Season detail →</Link>
+              </>
+            }
+          >
+            <InspectableBarChart
+              data={seasons.map((s) => ({
+                label: s.season.slice(0, 4),
+                value: s.gf,
+                valueLabel: `${fmtNum(s.gf)} goals`,
+                meta: `${s.season}, ${fmtNum(s.p)} matches`,
+                href: `/seasons/${s.season}`,
+              }))}
+              labelEvery={20}
+              height={200}
+              chartLabel="Manchester United goals scored per season"
+            />
+          </ChartPanel>
+        </section>
 
-      <Band label="Trends over time" />
-
-      {/* season trends */}
-      <section className="grid lg:grid-cols-2 gap-8">
-        <ChartPanel
-          title="Win rate by season"
-          note={
-            <>
-              <span className="text-ink-dim">Slice:</span> all competitions per season; the dashed line is
-              50%. Troughs mark the relegation seasons and the early 1930s; the plateau is the Ferguson era.{" "}
-              <Link href="/seasons" className="text-devil-bright hover:underline">Season by season →</Link>
-            </>
-          }
-        >
-          <InspectableTimeSeriesChart
-            data={seasons.map((s) => ({
-              x: Number(s.season.slice(0, 4)),
-              y: s.win_pct,
-              label: s.season,
-              valueLabel: `${s.win_pct.toFixed(1)}% won`,
-              meta: `${fmtNum(s.p)} matches, ${s.w} wins`,
-            }))}
-            baseline={50}
-            height={200}
-            stroke="var(--color-win)"
-            fill="rgb(62 207 106 / 0.10)"
-            baselineLabel="50%"
-            chartLabel="Manchester United win rate by season"
-            valueLabel="Win rate"
-            xTicks={yearTicks}
-            yTickSuffix="%"
-            yDomain={[0, 100]}
-          />
-        </ChartPanel>
         <ChartPanel
           title="Average home attendance"
+          kicker="The crowd, century-long"
           note={
             <>
               <span className="text-ink-dim">Slice:</span> mean of recorded home attendances per season.
@@ -298,7 +371,7 @@ export default async function AnalyticsPage({
               valueLabel: `${fmtNum(s.avg_att!)} average`,
               meta: `${fmtNum(s.p)} matches in all competitions`,
             }))}
-            height={200}
+            height={170}
             stroke="var(--color-gold)"
             fill="rgb(245 197 24 / 0.08)"
             chartLabel="Manchester United average home attendance by season"
@@ -306,117 +379,70 @@ export default async function AnalyticsPage({
             xTicks={yearTicks}
           />
         </ChartPanel>
-      </section>
 
-      {/* goals per season */}
-      <section>
-        <ChartPanel
-          title="Goals scored per season"
-          note={
-            <>
-              <span className="text-ink-dim">Slice:</span> goals scored, all competitions — taller wartime-adjacent
-              seasons partly reflect longer cup runs. Pull any decade&apos;s matches with the year filters in the{" "}
-              <Link href="/matches" className="text-devil-bright hover:underline">match browser</Link>.{" "}
-              <Link href="/seasons" className="text-devil-bright hover:underline">Season detail →</Link>
-            </>
-          }
-        >
-          <InspectableBarChart
-            data={seasons.map((s) => ({
-              label: s.season.slice(0, 4),
-              value: s.gf,
-              valueLabel: `${fmtNum(s.gf)} goals`,
-              meta: `${s.season}, ${fmtNum(s.p)} matches`,
-              href: `/seasons/${s.season}`,
-            }))}
-            labelEvery={20}
-            height={200}
-            chartLabel="Manchester United goals scored per season"
-          />
-        </ChartPanel>
-      </section>
-
-      <Band label="Grounds" />
-
-      <section>
-        <h2 className="display text-xl mb-3">Grounds United have called home (and the big neutral stages)</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
-          {grounds.map((g) => (
-            <div key={g.id} className="border border-line rounded-lg bg-panel px-4 py-3">
-              <div className="font-medium">{g.name}</div>
-              <div className="text-xs text-ink-faint">{g.city}</div>
-              <div className="stat-num text-xs text-ink-dim mt-1.5">
-                {fmtNum(g.p)} matches · {pct(g.w, g.p)} won · {g.first.slice(0, 4)}–{g.last.slice(0, 4)}
+        {/* Assist partnerships — the canonical home of the assist-link cut, as a
+            ranked supply ladder rather than a flat list. */}
+        <section>
+          <div className="mb-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">Supply lines</p>
+            <h3 className="display text-xl">The partnerships that built the goals</h3>
+          </div>
+          <div className="rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
+            {partnerships.length > 0 ? (
+              <div className="space-y-1.5 text-sm">
+                {partnerships.map((row) => (
+                  <div
+                    key={`${row.assister_id}-${row.scorer_id}`}
+                    className="grid grid-cols-[minmax(0,1fr)_7rem_1.5rem] items-center gap-3"
+                  >
+                    <div className="min-w-0 truncate">
+                      <Link href={`/player/${row.assister_id}`} className="font-medium hover:text-devil-bright">
+                        {row.assister_name}
+                      </Link>
+                      <span className="mx-1.5 text-ink-faint">→</span>
+                      <Link href={`/player/${row.scorer_id}`} className="font-medium hover:text-devil-bright">
+                        {row.scorer_name}
+                      </Link>
+                    </div>
+                    <div className="h-1.5 overflow-hidden rounded-full bg-panel-2" aria-hidden>
+                      <div className="h-full rounded-full bg-devil" style={{ width: `${(row.goals / maxAssist) * 100}%` }} />
+                    </div>
+                    <span className="stat-num text-right text-devil-bright">{row.goals}</span>
+                  </div>
+                ))}
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ) : (
+              <p className="text-sm text-ink-dim">
+                Assist fields are wired through the data and player pages; no current source in the
+                checked-in dataset records assists for these matches.
+              </p>
+            )}
+            <CoverageNote coverage="assist events exist only from 2012-13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission.">
+              Bars scale to the top pairing.
+            </CoverageNote>
+          </div>
+        </section>
+      </div>
 
-      <Band label="Records" />
-
-      {/* Records are sorts of The Record — link into the browser, never restate it. */}
-      <section className="grid gap-3 sm:grid-cols-3">
-        <TrailLink href="/matches?sort=margin" title="Biggest wins">
-          United&apos;s record victories, ranked by goal margin in the match browser.
-        </TrailLink>
-        <TrailLink href="/matches?sort=defeat" title="Heaviest defeats">
-          The worst results on record, ranked by losing margin.
-        </TrailLink>
-        <TrailLink href="/matches?sort=attendance" title="Biggest crowds">
-          The best-attended matches, ranked by recorded attendance.
-        </TrailLink>
-      </section>
-
-      <Band label="Data coverage" />
-
-      {/* Coverage is owned by /data — link out rather than re-render the ledger. */}
-      <section className="grid gap-3 sm:grid-cols-2">
-        <TrailLink href="/data" title="Scorer & lineup ledger">
-          Results are complete for every decade; scorer depth reaches{" "}
-          {fmtNum(overview.completeScorers)} of {fmtNum(overview.matches)} matches and grows continuously.
-          See coverage by decade and how to fill the gaps.
-        </TrailLink>
-        <TrailLink href="/data" title="Lineup coverage">
-          {fmtNum(Number(meta.matches_with_lineups ?? 0))} matches carry full United lineups, covering{" "}
-          {fmtNum(Number(meta.lineup_entries ?? 0))} player appearances. Track depth and corrections.
-        </TrailLink>
-      </section>
-
-      {/* Assist partnerships — canonical home of the assist-link cut. */}
-      <section>
-        <ChartPanel
-          title="Assist partnerships"
-          note="Built from goal events that record an assist. Assist data exists only from 2012-13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission."
-        >
-          {partnerships.length > 0 ? (
-            <div className="space-y-2 text-sm">
-              {partnerships.map((row) => (
-                <div key={`${row.assister_id}-${row.scorer_id}`} className="flex items-center gap-2">
-                  <Link href={`/player/${row.assister_id}`} className="font-medium hover:text-devil-bright">
-                    {row.assister_name}
-                  </Link>
-                  <span className="text-ink-faint">→</span>
-                  <Link href={`/player/${row.scorer_id}`} className="font-medium hover:text-devil-bright flex-1">
-                    {row.scorer_name}
-                  </Link>
-                  <span className="stat-num text-devil-bright">{row.goals}</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm text-ink-dim">
-              Assist fields are wired through the canonical data, database, and player pages; no current
-              source in the checked-in dataset records assists for these matches.
-            </p>
-          )}
-        </ChartPanel>
-      </section>
-
-      <p className="text-sm text-ink-dim">
-        Want a specific cut? Every match is filterable in the{" "}
-        <Link href="/matches" className="text-devil-bright hover:underline">match browser</Link>.
-      </p>
+      {/* ───────────────── Appendix — provenance & trails ───────────────── */}
+      <div className="space-y-4 border-t border-line/70 pt-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">Where next</p>
+        <section className="grid gap-3 sm:grid-cols-3">
+          <TrailLink href="/data" title="Data & coverage">
+            Results are complete for every decade; scorer depth reaches {fmtNum(overview.completeScorers)} of{" "}
+            {fmtNum(overview.matches)} matches and {fmtNum(Number(meta.matches_with_lineups ?? 0))} carry full
+            lineups. See the ledger and how the gaps get filled.
+          </TrailLink>
+          <TrailLink href="/matches" title="Match browser">
+            Every match, filterable by competition, opponent, season, venue, and result — the auditable
+            spine these summaries read from.
+          </TrailLink>
+          <TrailLink href="/questions" title="Questions">
+            The myth-testing trails: late goals, bogey sides, the manager bounce, and the Old Trafford
+            fortress, each with its own evidence.
+          </TrailLink>
+        </section>
+      </div>
     </div>
   );
 }
