@@ -121,6 +121,38 @@ test("1985-86 Screen Sport Super Cup is not filed as the UEFA Super Cup", () => 
   assert.equal(wrong, 0);
 });
 
+test("furthest_round is the canonical cup round reached, not a leg or group label", () => {
+  const db = getDb();
+  // 2013-14: a Champions League quarter-final run must not read as the group stage
+  // (the two-legged knockout rounds store the leg, which used to lose the ranking).
+  const cl = db
+    .prepare(
+      "SELECT furthest_round FROM season_summaries WHERE season = ? AND competition_id = ?",
+    )
+    .get("2013-14", "champions-league") as { furthest_round: string };
+  assert.equal(cl.furthest_round, "Quarter-final");
+
+  // The stored value is always a canonical round — never a leg suffix, a lettered
+  // group, or a league matchday.
+  const dirty = db
+    .prepare(
+      `SELECT COUNT(*) n FROM season_summaries
+       WHERE furthest_round LIKE '% leg' OR furthest_round LIKE 'Group _'
+          OR furthest_round LIKE '%Matchday'`,
+    )
+    .get() as { n: number };
+  assert.equal(dirty.n, 0);
+
+  // "Furthest round" only applies to knockout/cup competitions; leagues use position.
+  const leagueRounds = db
+    .prepare(
+      `SELECT COUNT(*) n FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+       WHERE c.type = 'league' AND ss.furthest_round IS NOT NULL`,
+    )
+    .get() as { n: number };
+  assert.equal(leagueRounds.n, 0);
+});
+
 // ----------------------------------------------------------- self-consistency
 
 test("all-time record is internally consistent and covers every match", () => {
