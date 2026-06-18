@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { managerById, managerTenures } from "@/lib/queries";
-import { managerFirstMatches, managerSplits } from "@/lib/trails";
+import { longestStreak, managerFirstMatches, managerResultSequence, managerSplits } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
-import { WdlBar, WdlRecord } from "@/components/WdlBar";
+import { RunCallouts, type Run } from "@/components/RunCallouts";
+import { ProportionalWdlBar, WdlColumns, WdlRecord } from "@/components/WdlBar";
 import { IdentityPlate, type SpanSegment } from "@/components/IdentityPlate";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
@@ -61,8 +62,33 @@ export default async function ManagerPage({
     ["Home", splits.home],
     ["Away", splits.away],
     ["League", splits.league],
-    ["Cups", splits.cup],
+    ["Domestic cup", splits.domesticCup],
+    ["European cup", splits.europeanCup],
   ];
+  // One pixels-per-game scale shared across *all* the split bars, so their lengths
+  // stay comparable across both groups: the heaviest side (wins or losses, plus half
+  // the draws) of the biggest split just reaches an edge. Bars then grow with games.
+  const liveSplits = bendRows.filter(([, r]) => r.p > 0);
+  const splitScale =
+    50 / Math.max(1, ...liveSplits.flatMap(([, r]) => [r.l + r.d / 2, r.w + r.d / 2]));
+  // Venue and competition are two different cuts of the same matches; group them so
+  // that reads clearly rather than as one flat list of five.
+  const splitGroups: [label: string, rows: typeof bendRows][] = [
+    ["Home & away", bendRows.slice(0, 2)],
+    ["By competition", bendRows.slice(2)],
+  ];
+
+  // Best streaks under this manager — a winning run and the longer unbeaten run
+  // it sits inside. Both appear only when real, and the unbeaten card is dropped
+  // when it would just restate the winning one (same length = the same streak).
+  const sequence = managerResultSequence(id);
+  const winning = longestStreak(sequence, "winning");
+  const unbeaten = longestStreak(sequence, "unbeaten");
+  const runs: Run[] = [];
+  if (winning && winning.length >= 3)
+    runs.push({ n: winning.length, label: "wins in a row", tone: "text-win", from: winning.from, to: winning.to });
+  if (unbeaten && unbeaten.length >= 3 && (!winning || unbeaten.length > winning.length))
+    runs.push({ n: unbeaten.length, label: "unbeaten", tone: "text-win", from: unbeaten.from, to: unbeaten.to });
 
   // The tenure(s) as bands on the plate rail. Bounds run from the earliest spell
   // (or first match) to the latest end (or last match); an open spell runs to the end.
@@ -106,25 +132,46 @@ export default async function ManagerPage({
         }}
       />
 
+      {runs.length > 0 && (
+        <section>
+          <SectionHead title="Longest runs" aside="under this manager" />
+          <RunCallouts runs={runs} empty="" className="flex flex-wrap gap-3" />
+          <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+            Consecutive competitive matches under this manager — any other result breaks the run.
+          </p>
+        </section>
+      )}
+
       <section className="grid lg:grid-cols-2 gap-8">
         <div>
-          <SectionHead title="Where the record bends" aside="venue · competition" />
-          <div className="space-y-3 rounded-xl border border-line bg-panel p-4 sm:p-5">
-            {bendRows
-              .filter(([, r]) => r.p > 0)
-              .map(([label, r]) => (
-                <div key={label}>
-                  <div className="flex justify-between text-sm mb-1.5">
-                    <span className="text-ink-dim">{label}</span>
-                    <span className="stat-num text-xs text-ink-faint">
-                      {fmtNum(r.p)} P · <span className="text-ink">{pct(r.w, r.p)}</span> W
-                    </span>
-                  </div>
-                  <WdlBar w={r.w} d={r.d} l={r.l} />
+          <SectionHead title="Split five ways" aside="venue · competition" />
+          <div className="space-y-5 rounded-xl border border-line bg-panel p-4 sm:p-5">
+            {splitGroups.map(([groupLabel, rows], gi) => {
+              const live = rows.filter(([, r]) => r.p > 0);
+              if (live.length === 0) return null;
+              return (
+                <div key={groupLabel} className={gi > 0 ? "space-y-3 border-t border-line/60 pt-4" : "space-y-3"}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
+                    {groupLabel}
+                  </p>
+                  {live.map(([label, r]) => (
+                    <div key={label}>
+                      <div className="mb-1.5 flex justify-between text-sm">
+                        <span className="text-ink-dim">{label}</span>
+                        <span className="stat-num text-xs text-ink-faint">
+                          {fmtNum(r.p)} P · <span className="text-ink">{pct(r.w, r.p)}</span> W
+                        </span>
+                      </div>
+                      <WdlColumns w={r.w} d={r.d} l={r.l} className="mb-1.5" />
+                      <ProportionalWdlBar w={r.w} d={r.d} l={r.l} scale={splitScale} />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              );
+            })}
             <p className="text-[11px] leading-4 text-ink-faint">
-              All matches managed, split by venue and by league v cup competition.
+              Every match managed, cut by venue and by competition. Bar length tracks games
+              played; each pivots on its centre, so past halfway is a winning record.
             </p>
           </div>
         </div>
@@ -143,7 +190,7 @@ export default async function ManagerPage({
       </section>
 
       <section>
-        <SectionHead title="By competition" aside={`${fmtNum(comps.length)} competitions`} />
+        <SectionHead title="Every competition" aside={`${fmtNum(comps.length)} competitions`} />
         <div className="grid sm:grid-cols-2 gap-2 max-w-3xl text-sm">
           {comps.map((c) => (
             <div key={c.name} className="flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-4 py-2.5">

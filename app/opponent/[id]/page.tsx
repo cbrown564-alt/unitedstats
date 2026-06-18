@@ -8,6 +8,7 @@ import { oddsFor } from "@/lib/predict";
 import { clubColor } from "@/lib/clubColors";
 import { ClubBadge } from "@/components/ClubBadge";
 import { IdentityPlate } from "@/components/IdentityPlate";
+import { RunCallouts, type Run } from "@/components/RunCallouts";
 import { MatchList } from "@/components/MatchList";
 import { Pager } from "@/components/Pager";
 import { TrailLink } from "@/components/PageHeader";
@@ -15,7 +16,7 @@ import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { SectionHead } from "@/components/SectionHead";
-import { fmtDate, fmtNum, pct, venueLabel } from "@/lib/format";
+import { fmtNum, pct, venueLabel } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -55,7 +56,7 @@ export default async function OpponentPage({
     winless && winless.length >= 3
       ? { n: winless.length, label: "without a win", tone: "text-loss", from: winless.from, to: winless.to }
       : null,
-  ].filter(Boolean) as { n: number; label: string; tone: string; from: string; to: string }[];
+  ].filter(Boolean) as Run[];
 
   return (
     <div className="space-y-8">
@@ -125,22 +126,7 @@ export default async function OpponentPage({
 
         <div className="lg:col-span-1">
           <SectionHead title="Longest runs" aside="this fixture" />
-          <div className="space-y-2.5">
-            {runs.map((r) => (
-              <div key={r.label} className="rounded-xl border border-line bg-panel px-4 py-3">
-                <span className={`stat-num text-2xl font-semibold ${r.tone}`}>{r.n}</span>
-                <span className="ml-1.5 text-sm text-ink-dim">{r.label}</span>
-                <div className="stat-num mt-0.5 text-xs text-ink-faint">
-                  {fmtDate(r.from)} – {fmtDate(r.to)}
-                </div>
-              </div>
-            ))}
-            {runs.length === 0 && (
-              <p className="rounded-xl border border-line bg-panel px-4 py-5 text-sm text-ink-faint">
-                No run of 3+ meetings either way.
-              </p>
-            )}
-          </div>
+          <RunCallouts runs={runs} empty="No run of 3+ meetings either way." />
           <p className="mt-2 text-[11px] leading-4 text-ink-faint">
             Consecutive meetings in this fixture, all competitions — a gap of any other result breaks the run.
           </p>
