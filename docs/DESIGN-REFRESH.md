@@ -49,6 +49,50 @@ across questions, `/managers`, `/opponents`, and `/player/[id]`. Plus the data
 backfill underneath it (MUFCInfo goal minutes + own-goal scorers) that makes the
 half-time and minute cuts possible.
 
+## What this pass did — `/player/[id]`
+
+The player detail page, surface #1 in the plan below. Taken from "header + tile
+grid + chart stack" to a composed career object with a small set of bespoke,
+coverage-aware modules.
+
+- **`PlayerPlate` hero.** Header, stat tiles, and the two endpoint cards collapse
+  into a single floodlit plate: portrait with the kit number patched onto its
+  corner, one dominant `goals` figure beside a hairline ribbon of supporting
+  readouts, and a `CareerArc` track where the recorded span reads as *position* —
+  first match left, latest right, peak season marked in gold. Kit history folds
+  into the footer band next to the trust caveat.
+- **"The shape of his scoring."** Reuses `MinuteRidge` (from the questions late-goals
+  module) for goal-minute distribution with the closing 15 shaded, then a row of
+  `SplitBar` / stat facets — league-vs-cup, favourite victim, best scoring run.
+- **`SeasonContributionChart`** — stacked goals+assists per season, gold for assists
+  to match the chart-wide assist colour, feeding the sortable season `DataTable`
+  below it.
+- **`GoalBodyMap`** — a custom striker pictogram for curated goal-types (header,
+  left/right foot, etc.); parked once as too-clever, then redrawn clean. Sits in
+  the clearly-bordered curated-Tableau lane.
+- **`AssistPartnerships`** — a two-sided supply map: goals he *set up* (gold) on one
+  side, goals he *scored from* a team-mate (red) on the other, bars scaled to the
+  strongest pairing across both sides. Direction lives in the layout, not in an
+  "A assisted B" sentence list.
+- **Reading-load discipline.** For prolific scorers the flat match list is huge, so
+  the page leads with the hauls (braces + hat-tricks) and tucks the complete
+  season-grouped record behind a disclosure. Same move on lineup appearances.
+
+These four player components stayed **bespoke** (each carries one player-specific
+fact cleanly); `MinuteRidge` was the genuinely reused object, pulled in from the
+questions work. Nothing was promoted to `DESIGN.md` this pass.
+
+### Principle this pass sharpened
+
+**Let coverage shape the layout — render only the facets the data can fill.** The
+plate's secondary readouts, the scoring-profile facet columns, and the assist
+lanes all appear *only* when their number means something (`facetCount`,
+direction-split lanes, no "—" filler tiles). An honest page about partial data
+should grow and shrink with the evidence, not present a fixed grid of mostly-empty
+cells. This is the slice/coverage contract expressed in the layout itself, and it
+pairs with the existing "subtract a module if it doesn't earn its place" rule —
+here applied per-facet, not just per-module.
+
 ## Principles distilled from the refresh
 
 These extend the Composition Principles in `DESIGN.md` — read both together. The
@@ -98,14 +142,14 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | --- | --- |
 | `/match/[id]` | ✅ refreshed (composition principles came from here) |
 | `/questions` | ✅ refreshed (story-driven, per-question visuals) |
-| `/managers`, `/opponents`, `/player/[id]` | 🟡 media layer only (portraits/badges); structure not yet reworked |
+| `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map) |
+| `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
 | `/` (home) | ⬜ |
 | `/matches` | ⬜ |
 | `/seasons`, `/seasons/[season]` | ⬜ |
 | `/players` | ⬜ |
-| `/player/[id]` (structure) | ⬜ |
-| `/manager/[id]`, `/managers` (structure) | ⬜ |
-| `/opponent/[id]`, `/opponents` (structure) | ⬜ |
+| `/manager/[id]`, `/managers` (structure) | ⬜ ← **next** |
+| `/opponent/[id]`, `/opponents` (structure) | ⬜ ← **next** |
 | `/analytics` | ⬜ |
 | `/data` | ⬜ |
 
@@ -114,18 +158,37 @@ ones below are the patterns that recurred specifically across the *questions* wo
 Suggested sequence is roughly highest-leverage first. Each entry is a *hypothesis*
 to test when we open the surface, not a commitment.
 
-### 1. `/player/[id]` — detail (do early; highest emotional payoff)
-The page where portraits already landed. Candidate moves: a hero that leads with
-the player as an object (portrait + career W-D-L + the headline goal/app numbers),
-the goal-minute histogram reusing `MinuteRidge`, competition splits as a
-shared-axis lean rather than a table, and the curated-Tableau lane clearly bordered
-as its own thing. Carry the slice/coverage footer per module.
+### 1. `/player/[id]` — detail ✅ done
+Shipped — see "What this pass did" above. The hero became `PlayerPlate` (portrait +
+dominant goals figure + `CareerArc` span), the goal-minute histogram reused
+`MinuteRidge`, league/cup landed as a `SplitBar` facet rather than a shared-axis
+lean (the favourite-victim and best-run facets earned the row instead), and the
+curated-Tableau lane stayed clearly bordered. The durable lesson carried forward:
+*render only the facets the data can fill* — applied next to the head-to-head pages.
 
-### 2. `/opponent/[id]` and `/manager/[id]` — head-to-head / tenure detail
-These are structurally similar (a record + splits + a fixture trail). Candidate:
-a stat-hero record (`WdlBar` writ large, or the diverging fulcrum bar), home/away/
-cup as positioned splits, longest-run / streak callouts, and badge/portrait
-identity in the header. Good place to prototype streak detection (Phase 9 overlap).
+### 2. `/manager/[id]` and `/opponent/[id]` — tenure / head-to-head detail (next)
+Structurally a twin pair: an identity header + a record + splits + a fixture trail.
+Now sharper, given the player pass:
+
+- **Reuse the plate pattern, don't rebuild it.** A `PlayerPlate`-style composed
+  header — portrait (manager) or `ClubBadge` (opponent), the headline record as the
+  dominant figure, and a tenure/rivalry *span* track (first meeting → latest, the
+  signal result marked) in place of `CareerArc`. Worth checking whether `PlayerPlate`
+  generalises into a shared `IdentityPlate` or stays two bespoke plates — decide once
+  both are drawn, per the "promote only when genuinely reusable" rule.
+- **Record as the answer-object.** Lead with `WdlBar` writ large (or a diverging
+  win/loss fulcrum) + the W-D-L numbers, one sentence, *then* evidence.
+- **Splits via the two-sided layout.** Home / away / neutral and league / cup map
+  naturally onto the `AssistPartnerships` two-column treatment — position carries
+  the split, bars scaled to a shared max. Render only the lanes with games in them.
+- **Streak / run callouts.** Longest unbeaten, worst run, biggest win — stat-hero
+  facets that appear only when the run exists. Good place to prototype streak
+  detection (Phase 9 overlap).
+- **Coverage footer per module**, non-negotiable. Opponent name-merges and pre-data
+  eras are real gaps — say so in the slice line.
+
+Do the two on one branch (they share queries and the plate decision), but treat
+"does this generalise" as the explicit deliverable, not an afterthought.
 
 ### 3. `/matches` — the record's spine
 Mostly already systematized (filter grid, decade rail, summary band). Refresh is
