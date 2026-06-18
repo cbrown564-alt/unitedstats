@@ -7,7 +7,7 @@
 > not just ticked off. Treat the principles section as the durable part and the
 > per-surface section as a sketch to react against.
 
-Last updated: 2026-06-18.
+Last updated: 2026-06-19.
 
 ## What the last refresh actually did
 
@@ -144,7 +144,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/questions` | ✅ refreshed (story-driven, per-question visuals) |
 | `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map; matches section reworked — `HaulCards` + `ContributionSpine` + full grouped appearances archive) |
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
-| `/` (home) | ⬜ |
+| `/` (home) | ✅ refreshed — search-led launchpad: dropped the 4-tile hero-metric block, led with a **records teaser** (3 `RecordCards`) as the above-the-fold trail, made "Test a myth" *demonstrate* the questions surface with a live `MinuteRidge`, kept latest-results + scope + routes; cut the redundant "fullest match sheets" grid (and its `fullestMatchSheets` query) |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
 | `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), and a per-decade **fixed-lane scoreboard** — the league finish drawn as the table itself (`FinishLadder`), fixed cup lanes sharing a promoted `CampaignVerdict` |
 | `/players` | ⬜ |
@@ -573,20 +573,44 @@ stack, the fix is structural (find the narrative, give it acts, subtract the tan
 per-module; a hero, a novel proof-object, and aggressive subtraction did more for the page than six
 good cards did.*
 
-### 6. `/` (home)
-The launchpad. Per `DESIGN.md`, lead with a trail not a hero-metric. Candidate:
-pull one live question module (or a teaser of one) above the fold so the homepage
-demonstrates the questions surface rather than just linking to it; keep search and
-recent-evidence prominent. Probably do this *last*, once the per-question visual
-vocabulary is settled, so the homepage can quote the best of it.
+### 6. `/` (home) — done
+Shipped exactly as the sharpened brief demanded: the homepage *quotes* the now-settled
+answer-object vocabulary rather than re-skinning, and the boldness went into the lead and the
+subtraction, not a new object. Nothing new was built and nothing reached `DESIGN.md` — every
+component here (`RecordCards`, `MinuteRidge`, `SectionHead`, `MatchList`, `WdlBar`,
+`EloRatingChart`) already existed; the pass was composition only, which is what a launchpad that
+"quotes the best of it" should be.
 
-Sharpened by the analytics pass: the homepage now has *two* answer-object families it
-can quote rather than re-skin — the questions visuals **and** the new `RecordCards`. A
-teaser row of two or three records (biggest win, longest unbeaten run) is a strong
-above-the-fold trail that's already built and already evidence-linked, on-thesis ("a
-record is a figure with a fixture behind it"), and it costs nothing new to render. Resist
-inventing a homepage hero-metric block when the records cards and a question teaser
-already *are* the trail the homepage wants.
+- ✅ **Killed the hero-metric block — the doc's one hard rule for this surface.** The hero's
+  4-tile grid (Matches / Wins / Goals / Win rate) was the generic metric block `DESIGN.md`'s
+  Homepage Direction explicitly forbids ("the first interaction should be a trail"). It's gone; the
+  hero is now a clean *invitation* — identity headline, one scope sentence, and the `SearchCommand`
+  as the first interaction, on the floodlit `hero-grid` plate.
+- ✅ **Led with a records trail above the fold.** The first thing under search is a `SectionHead`
+  + three `RecordCards` (biggest win `10–0`, record crowd `135,000` gold, longest unbeaten run) —
+  clickable figure-with-a-fixture answer-objects, three distinct units so the teaser shows the
+  family's range, each routing straight to its match or slice. "All records →" links to the
+  analytics Act III they're quoted from. This is the doc's literal instruction made real: a trail,
+  not a metric grid, as the first payoff.
+- ✅ **"Test a myth" now *demonstrates* the questions surface.** The five text-only prompt cards
+  became a featured late-goals panel that leads with the one finding number (`9.0%` after the 85th)
+  and renders the actual `MinuteRidge` from `/questions#late-goals`, with the other four myths as
+  compact prompts beside it. The homepage now *shows* a question visual instead of only linking to
+  one — the "pull one live question module above the fold" candidate, picked because late goals is
+  the signature myth and the ridge is the most legible quote.
+- ✅ **Kept recent-evidence + scope, subtracted the tangent.** Latest results, the all-time record
+  by competition, the Elo arc, and the scorers/routes grids stayed (the doc wants recent evidence
+  and scope prominent). The "Fullest match sheets" grid was **cut** — a third card-grid of match
+  links between records (peaks) and latest (recency) was repetition, not a distinct intent — and its
+  homepage-only `fullestMatchSheets` query deleted with it so `knip` stays green. `/data` moved into
+  the routes grid so the coverage trail survives. Same "subtract a whole module" move the analytics
+  pass made on the grounds grid.
+
+*Lesson for the working method: a launchpad's refresh is mostly a **casting** problem, not a
+building one — once the per-surface answer-objects exist, the homepage's job is to pick the two or
+three that best advertise the archive (a punchy record, a live question visual) and lead with them,
+deleting whatever metric block or redundant grid was holding the slot. The boldness is in what you
+put first and what you cut, not in a new component.*
 
 ### 7. Index pages `/players`, `/managers`, `/opponents`
 Lower priority — these are scan-and-drill surfaces and should stay compact. Refresh
