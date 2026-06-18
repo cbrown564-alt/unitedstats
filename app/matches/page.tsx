@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById } from "@/lib/queries";
+import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { Pager } from "@/components/Pager";
-import { PageHeader, StatTile } from "@/components/PageHeader";
-import { WdlBar } from "@/components/WdlBar";
-import { fmtNum, fmtDate, pct, venueLabel, resultLabel, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { PageHeader } from "@/components/PageHeader";
+import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { GoalDiff } from "@/components/GoalDiff";
+import { ResultSpine } from "@/components/charts/ResultSpine";
+import { fmtNum, fmtDate, pct, venueLabel, resultLabel, resultTone, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
@@ -65,6 +68,9 @@ export default async function MatchesPage({
   };
   const { rows, total } = findMatches(filter);
   const summary = matchesSummary(filter);
+  // The spine reads the whole slice (never paginated) and only earns its space once
+  // there are enough matches for a shape to emerge; below that the list shows them all.
+  const sequence = summary.p >= 24 ? matchesSequence(filter) : [];
   const comps = competitionsList();
   const seasons = allSeasons();
   const decades = matchDecades();
@@ -92,6 +98,17 @@ export default async function MatchesPage({
     Object.keys(params).length ===
       Object.keys(sp).filter((k) => k !== "page" && k !== "sort" && sp[k]).length;
 
+  // The summary band leads with the answer to the slice the reader chose. When a result
+  // is pinned, the count of that result *is* the answer (win-rate would just read 100/0);
+  // otherwise the win rate is the headline and the W–D–L breakdown is the sentence.
+  const RESULT_NOUN: Record<string, string> = { W: "wins", D: "draws", L: "defeats" };
+  const pinnedResult = sp.result && RESULT_NOUN[sp.result] ? sp.result : undefined;
+  const heroValue = pinnedResult ? fmtNum(summary.p) : pct(summary.w, summary.p);
+  const heroLabel = pinnedResult ? RESULT_NOUN[pinnedResult] : "won";
+  const heroTone = pinnedResult ? resultTone(pinnedResult) : "text-devil-bright";
+  // The count is its own "from N matches", so the subline only adds something when open.
+  const heroSub = pinnedResult ? null : `from ${fmtNum(summary.p)} ${summary.p === 1 ? "match" : "matches"}`;
+
   // Active filters, rendered as individually removable chips.
   const chips: { key: string; label: string }[] = [];
   if (sp.q) chips.push({ key: "q", label: `Opponent: ${sp.q}` });
@@ -107,16 +124,7 @@ export default async function MatchesPage({
 
   return (
     <div className="space-y-7">
-      <PageHeader
-        eyebrow="Fixture record"
-        title="Matches"
-        aside={
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-72">
-            <StatTile label={hasFilters ? "Filtered" : "On record"} value={fmtNum(total)} tone="red" />
-            <StatTile label="Page size" value={PAGE_SIZE} />
-          </div>
-        }
-      >
+      <PageHeader eyebrow="Fixture record" title="Matches">
         The match browser is the archive spine: every aggregate should be able to come back here as evidence.
         Filter by era, competition, venue, result, or opponent trail.
       </PageHeader>
@@ -257,14 +265,37 @@ export default async function MatchesPage({
 
         {summary.p > 0 ? (
           <>
-            <div className="mt-3 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-5">
-              <StatTile label="Played" value={fmtNum(summary.p)} />
-              <StatTile label="W–D–L" value={`${summary.w}–${summary.d}–${summary.l}`} />
-              <StatTile label="Goals" value={`${fmtNum(summary.gf)}–${fmtNum(summary.ga)}`} />
-              <StatTile label="Win rate" value={pct(summary.w, summary.p)} />
-              <StatTile label="Avg home crowd" value={summary.avg_home_att ? fmtNum(summary.avg_home_att) : "—"} />
+            {/* The answer to this slice: the win rate (or pinned-result count) writ large,
+                with goals for/against beside it as a ribbon — echoing the detail-page plate. */}
+            <div className="mt-4 flex flex-wrap items-end gap-x-7 gap-y-4">
+              <div className="leading-none">
+                <div className="flex items-baseline gap-2">
+                  <span className={`stat-num text-5xl font-semibold sm:text-6xl ${heroTone}`}>{heroValue}</span>
+                  <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">{heroLabel}</span>
+                </div>
+                {heroSub && <p className="stat-num mt-2 text-xs text-ink-faint">{heroSub}</p>}
+              </div>
+              <GoalDiff gf={summary.gf} ga={summary.ga} played={summary.p} size="lg" className="border-l border-line pl-6 sm:pl-7" />
             </div>
-            <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" className="mt-3" />
+
+            {/* The record — W-D-L columns over the diverging bar — then its shape over time.
+                The spine carries the columns+bar header when it draws; below the spine
+                threshold a non-pinned slice still gets the record header on its own. */}
+            {sequence.length >= 24 ? (
+              <div className="mt-4 border-t border-line/70 pt-3">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
+                  Result by match over time
+                </p>
+                <ResultSpine matches={sequence} showRecord={!pinnedResult} />
+              </div>
+            ) : (
+              !pinnedResult && (
+                <div className="mt-4 space-y-2 border-t border-line/70 pt-3">
+                  <WdlColumns w={summary.w} d={summary.d} l={summary.l} />
+                  <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" />
+                </div>
+              )
+            )}
           </>
         ) : (
           <p className="mt-2 text-sm text-ink-dim">No matches fit this filter. Loosen a control or clear the slice.</p>

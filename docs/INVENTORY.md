@@ -19,7 +19,9 @@ The real win is the module/duplication reduction, not the route count.
   routes into the record. Bespoke hero (intentionally not `PageHeader`).
 - `/matches` — The Record (canonical home of match data). Filters, quick views,
   decade rail, sorts (recent/oldest/biggest win/**heaviest defeat**/best
-  attended), season-grouped rows, slice summary. `PageHeader` + `StatTile` + `Pager`.
+  attended), season-grouped rows. Slice summary is a **filter-answering stat-hero**
+  (adaptive headline: win-rate %, or result count when a result is pinned) over a
+  slice-wide `ResultSpine` (`matchesSequence`, gated ≥24). `PageHeader` + `Pager`.
 - `/seasons`, `/seasons/[season]` — decade-grouped index; per-season record,
   brief, table.
 - `/players`, `/player/[id]` — searchable index; profile with progressive
@@ -57,7 +59,8 @@ Removed this pass: `/analytics/odds` (folded into `/analytics`) and
 | `PageHeader` / `StatTile` / `TrailLink` | page identity + numeric tiles + trail cards | index pages, analytics, player/opponent/manager detail |
 | `MatchList` / `MatchGroups` | canonical compact match row / season-grouped rows | every match-bearing surface |
 | `MatchArchive` / `ArchiveJumpRail` | volume-adaptive footer archive (full stream <150 matches, else expandable season summaries) + sticky scrollspy jump rail (season→period→decade chips) | manager/opponent detail; rail alone on player detail |
-| `WdlBar` / `WdlRecord` | diverging W/D/L record glyph | indexes, detail records, slices |
+| `WdlBar` / `WdlColumns` / `WdlRecord` | diverging W/D/L record glyph; `WdlColumns` is the L·D·W labelled caption above a bar (`compact` for season rows) | indexes, detail records, slices |
+| `GoalDiff` | aggregate goals as signed, colour-coded goal difference + scored/conceded support, with a per-game/total toggle (defaults per-game); `inline` is a static total figure for fixed tiles | match band, `IdentityPlate`, season header |
 | `ResultBadge` | single-match state chip | match form trails |
 | `CompetitionChip` / `CompetitionDot` | league/cup/Europe identity cue | match rows, headers, season chips |
 | `CoverageNote` / `ChartPanel` | slice/coverage footer + framed chart; coverage is **graded** — pass `count` and the note renders only when the facet is incomplete, silent when whole | analytics, charts, trust points |

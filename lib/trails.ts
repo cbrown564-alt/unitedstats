@@ -1,6 +1,6 @@
 import { getDb } from "./db";
 import { tallyWdl } from "./format";
-import { MATCH_SELECT, type MatchRow, type Record_ } from "./queries";
+import { MATCH_SELECT, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
 
 const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
@@ -614,6 +614,23 @@ export function opponentResultSequence(id: string): SequenceMatch[] {
        WHERE m.opponent_id = ? ORDER BY m.date`,
     )
     .all(id) as SequenceMatch[];
+}
+
+/**
+ * Every match in a filtered slice, date-ordered, for the `/matches` ResultSpine.
+ * Reads the same filter the list and summary do (via {@link matchWhere}), but is
+ * never paginated and always chronological — the spine shows the *shape* of the
+ * slice over time regardless of how the list below is sorted.
+ */
+export function matchesSequence(f: MatchFilter): SequenceMatch[] {
+  const { cond, params } = matchWhere(f);
+  return getDb()
+    .prepare(
+      `SELECT ${SEQ_SELECT}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}
+       ORDER BY m.date`,
+    )
+    .all(params) as SequenceMatch[];
 }
 
 // ---------------------------------------------------------------- homepage evidence
