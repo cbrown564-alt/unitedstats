@@ -402,6 +402,39 @@ player, league finish for a season). Generalising via an optional headline overr
 component instead of a third bespoke plate, the opposite call from the player page and the right one
 because everything **below** the headline (GoalDiff ribbon, W–D–L bar) was already identical.*
 
+**Follow-up: cup lanes resolve into a bracket (`CupRun`).** The competition lanes opened to a flat
+chronological `MatchList` — fine for the league grind, but a cup is a *run*, and the list buried the
+round-by-round story (which legs, what aggregate, how far) under date order. The expanded lane for a
+knockout competition now renders **`CupRun`** instead: a vertical "road to the final" ladder where a
+green winning-spine climbs through each rung — a tie (one match, a two-legged aggregate, or a replay)
+or the group stage — and terminates in the verdict node: a gold trophy for a win, a silver medal for
+runners-up, a red stop where the run was knocked out. *Position down the ladder is round depth; the
+spine colour and the terminal node are the result* — neither needs a legend (principle 4). It replaces
+the `MatchList` only once there are ≥2 stages to ladder; leagues and one-off ties keep the flat list.
+
+Three decisions worth recording:
+1. **It's a *path*, not a two-sided bracket — because that's all the data honestly supports.** We hold
+   only United's side of every tie, so a real bracket tree would be mostly empty opponent slots. The
+   single-spine "run" is the honest object (the same instinct as "render only the facets the data can
+   fill"): a memorable bracket-flavoured image that asserts nothing we don't have.
+2. **Advancement is read from *depth*, not the leg scores.** A two-legged tie levelled on aggregate
+   (won on away goals or penalties) can't be settled from the displayed score — 1968-69 vs Anderlecht
+   reads `agg 4-3` only because they lost the second leg 1-3, yet they went through. So `CupRun` derives
+   "advanced" from *a deeper stage existing*, and reserves a real outcome only for the deepest stage
+   (Final → won/lost; else knocked out). The scores are shown; the progression is computed from the
+   shape of the run, which is the one signal that's always right. *Lesson: when a per-row result can't
+   be trusted from the row's own number, read it from the structure the rows sit in.*
+3. **Round canonicalisation is mirrored from the data build, not re-invented.** `lib/cupRun.ts`'s
+   `roundRank` is a verbatim copy of `scripts/build-db.ts`'s, so the deepest rung drawn here agrees
+   with the stored `furthest_round` and the lane's `CampaignVerdict` — the sources spell a round a dozen
+   ways and both places must canonicalise identically or the bracket and the header would disagree. The
+   trophy/medal glyphs were extracted to a shared `CampaignIcons` so the lane verdict and the bracket's
+   final node show the *same* trophy for the same season.
+
+`CupRun` stays **bespoke** (a one-off object carrying the cup-run fact cleanly — the `MatchList`/`ResultSpine`
+vocabulary doesn't transfer, since a run is round-structured, not date-ordered or diverging). Nothing reached
+`DESIGN.md`; the extraction was a shared icon set, not a new composition principle.
+
 ### 5. `/analytics` — next
 Already tiered into chapters with the question rail. The refresh question is whether
 each chapter chart now feels generic next to the questions page — likely candidates
