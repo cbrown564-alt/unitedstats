@@ -9,7 +9,7 @@ import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
-import { WdlRecord } from "@/components/WdlBar";
+import { WdlBar, WdlColumns } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +19,9 @@ function ordinal(n: number): string {
   const v = n % 100;
   return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);
 }
+
+const CHEVRON =
+  "h-3.5 w-3.5 shrink-0 text-ink-faint transition-transform duration-200 group-open:rotate-90";
 
 /**
  * How far a competition campaign got — the line that turns a flat match list into
@@ -106,10 +109,45 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
 
   return (
     <div className="space-y-8">
-      <nav className="flex items-center gap-3 text-sm text-ink-faint">
-        {older && <Link href={`/seasons/${older}`} className="hover:text-ink">← {older}</Link>}
-        <Link href="/seasons" className="hover:text-ink">All seasons</Link>
-        {newer && <Link href={`/seasons/${newer}`} className="hover:text-ink">{newer} →</Link>}
+      {/* Older ← All seasons → Newer. A 3-column grid keeps "All seasons" centred
+          even at the timeline's ends, where one neighbour is missing. */}
+      <nav className="grid grid-cols-[1fr_auto_1fr] items-stretch gap-2 text-sm">
+        {older ? (
+          <Link
+            href={`/seasons/${older}`}
+            className="group flex w-fit items-center gap-2.5 justify-self-start rounded-lg border border-line bg-panel px-3 py-2 transition-colors hover:border-devil/50 hover:bg-panel-2 focus-ring"
+          >
+            <span className="text-base leading-none text-ink-faint transition-colors group-hover:text-devil-bright" aria-hidden>←</span>
+            <span className="leading-tight">
+              <span className="block text-[10px] uppercase tracking-[0.14em] text-ink-faint">Previous</span>
+              <span className="stat-num text-ink transition-colors group-hover:text-devil-bright">{older}</span>
+            </span>
+          </Link>
+        ) : (
+          <span aria-hidden />
+        )}
+
+        <Link
+          href="/seasons"
+          className="flex items-center justify-center rounded-lg border border-line bg-panel px-4 text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
+        >
+          All seasons
+        </Link>
+
+        {newer ? (
+          <Link
+            href={`/seasons/${newer}`}
+            className="group flex w-fit items-center gap-2.5 justify-self-end rounded-lg border border-line bg-panel px-3 py-2 text-right transition-colors hover:border-devil/50 hover:bg-panel-2 focus-ring"
+          >
+            <span className="leading-tight">
+              <span className="block text-[10px] uppercase tracking-[0.14em] text-ink-faint">Next</span>
+              <span className="stat-num text-ink transition-colors group-hover:text-devil-bright">{newer}</span>
+            </span>
+            <span className="text-base leading-none text-ink-faint transition-colors group-hover:text-devil-bright" aria-hidden>→</span>
+          </Link>
+        ) : (
+          <span aria-hidden />
+        )}
       </nav>
 
       <IdentityPlate
@@ -156,25 +194,34 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
 
       <section>
         <SectionHead title="Competitions" aside={`${byComp.size} entered`} />
-        <div className="space-y-7">
+        <div className="space-y-2">
           {[...byComp.entries()].map(([comp, list]) => {
-            const rec = tallyWdl(list);
+            const { w, d, l } = tallyWdl(list);
             const outcome = campaignOutcome(summaryByName.get(comp), list);
             return (
-              <div key={comp}>
-                <div className="mb-2.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-line pb-2">
-                  <h3 className="display flex items-center gap-2 text-lg">
-                    <CompetitionDot type={list[0].competition_type} className="h-2 w-2" />
-                    {comp}
-                    <span className="stat-num text-sm font-normal text-ink-faint">({list.length})</span>
-                  </h3>
-                  <div className="stat-num flex items-center gap-3 text-xs">
-                    {outcome && <span className={`font-semibold ${outcome.tone}`}>{outcome.label}</span>}
-                    <WdlRecord w={rec.w} d={rec.d} l={rec.l} className="text-ink-faint" />
+              <details key={comp} className="group overflow-hidden rounded-lg border border-line bg-panel">
+                <summary className="flex cursor-pointer list-none items-center gap-2.5 px-3 py-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:gap-3 sm:px-4 [&::-webkit-details-marker]:hidden">
+                  <svg className={CHEVRON} viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <CompetitionDot type={list[0].competition_type} className="h-2 w-2 shrink-0" />
+                  <h3 className="display truncate text-base leading-none">{comp}</h3>
+                  {outcome && (
+                    <span className={`stat-num shrink-0 text-xs font-semibold ${outcome.tone}`}>{outcome.label}</span>
+                  )}
+                  <span className="stat-num hidden shrink-0 text-xs text-ink-faint sm:inline">
+                    {list.length} {list.length === 1 ? "match" : "matches"}
+                  </span>
+                  {/* Top-right summary: the L·D·W columns over the diverging bar. */}
+                  <div className="ml-auto w-24 shrink-0 space-y-1 sm:w-32">
+                    <WdlColumns w={w} d={d} l={l} compact />
+                    <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} />
                   </div>
+                </summary>
+                <div className="border-t border-line p-2 sm:p-3">
+                  <MatchList matches={list} />
                 </div>
-                <MatchList matches={list} />
-              </div>
+              </details>
             );
           })}
         </div>
