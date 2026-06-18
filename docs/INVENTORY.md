@@ -56,6 +56,7 @@ Removed this pass: `/analytics/odds` (folded into `/analytics`) and
 | --- | --- | --- |
 | `PageHeader` / `StatTile` / `TrailLink` | page identity + numeric tiles + trail cards | index pages, analytics, player/opponent/manager detail |
 | `MatchList` / `MatchGroups` | canonical compact match row / season-grouped rows | every match-bearing surface |
+| `MatchArchive` / `ArchiveJumpRail` | volume-adaptive footer archive (full stream <150 matches, else expandable season summaries) + sticky scrollspy jump rail (season→period→decade chips) | manager/opponent detail; rail alone on player detail |
 | `WdlBar` / `WdlRecord` | diverging W/D/L record glyph | indexes, detail records, slices |
 | `ResultBadge` | single-match state chip | match form trails |
 | `CompetitionChip` / `CompetitionDot` | league/cup/Europe identity cue | match rows, headers, season chips |
