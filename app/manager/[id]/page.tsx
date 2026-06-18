@@ -5,8 +5,7 @@ import {
   longestStreak, managerFirstMatches, managerResultSequence, managerSplits, notableMatches,
 } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
-import { MatchGroups } from "@/components/MatchGroups";
-import { ArchiveJumpRail } from "@/components/ArchiveJumpRail";
+import { MatchArchive } from "@/components/MatchArchive";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { NotableMatches } from "@/components/NotableMatches";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
@@ -218,11 +217,10 @@ export default async function ManagerPage({
             </p>
           </div>
         )}
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-          <ArchiveJumpRail matches={allMatches} />
+        <div className="mb-3 flex justify-end">
           <EvidenceLink href={`/matches?manager=${id}`} label="Filter these in the match browser →" />
         </div>
-        <MatchGroups matches={allMatches} accentResult />
+        <MatchArchive matches={allMatches} accentResult />
         <CoverageNote
           slice="every competitive match under this manager, all competitions"
           coverage={`${fmtNum(total)} matches, season by season; caretaker and interim spells are attributed to whoever picked the team on the day.`}

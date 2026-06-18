@@ -9,8 +9,7 @@ import { clubColor } from "@/lib/clubColors";
 import { ClubBadge } from "@/components/ClubBadge";
 import { IdentityPlate } from "@/components/IdentityPlate";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
-import { MatchGroups } from "@/components/MatchGroups";
-import { ArchiveJumpRail } from "@/components/ArchiveJumpRail";
+import { MatchArchive } from "@/components/MatchArchive";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { NotableMatches } from "@/components/NotableMatches";
 import { TrailLink } from "@/components/PageHeader";
@@ -188,11 +187,10 @@ export default async function OpponentPage({
             </p>
           </div>
         )}
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-          <ArchiveJumpRail matches={allMatches} />
+        <div className="mb-3 flex justify-end">
           <EvidenceLink href={`/matches?opponent=${id}`} label="Filter these in the match browser →" />
         </div>
-        <MatchGroups matches={allMatches} accentResult />
+        <MatchArchive matches={allMatches} accentResult />
         <CoverageNote
           slice="every recorded United v opponent fixture, all competitions"
           coverage={`${fmtNum(total)} meetings, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}, season by season; pre-merge name changes are folded into one opponent where known.`}
