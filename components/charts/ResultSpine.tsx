@@ -1,0 +1,130 @@
+import { fmtDate, venuePrefix } from "@/lib/format";
+import type { SequenceMatch } from "@/lib/trails";
+
+/**
+ * A whole tenure or head-to-head as one diverging skyline: every match is a bar
+ * in date order, wins spiking up (green), losses down (red), draws a neutral tick
+ * on the line. Bar height tracks the goal margin, so a 9–0 towers and a 1–0 barely
+ * lifts — the eye reads runs of form as ridges of colour and bad patches as red
+ * valleys, the *shape* of a record that a reverse-chron list can never show.
+ *
+ * The matches flagged by `markers` (the page's NotableMatches) get a gold pip, so
+ * the header cards and this spine are visibly the same matches. Server-rendered
+ * SVG that stretches to its container; the x-axis is non-uniformly scaled, so the
+ * pips ride an HTML overlay to stay circular.
+ */
+const PAD_T = 12; // headroom for the pips
+const PAD_B = 16; // room for the year axis
+
+export function ResultSpine({
+  matches,
+  markers = [],
+  height = 88,
+  subject = "United",
+}: {
+  /** Date-ordered match sequence. */
+  matches: SequenceMatch[];
+  /** Matches to flag above the spine, with the reason for the hover label. */
+  markers?: { id: string; label?: string }[];
+  height?: number;
+  subject?: string;
+}) {
+  const n = matches.length;
+  if (n === 0) return null;
+
+  const W = n; // one virtual unit per match; the SVG stretches to its container
+  const plotH = height - PAD_T - PAD_B;
+  const mid = PAD_T + plotH / 2;
+  const half = plotH / 2;
+  // sqrt keeps a lone rout from dwarfing every 1–0; +1 floor guards an all-draws run.
+  const maxMargin = Math.max(1, ...matches.map((m) => Math.abs(m.gf - m.ga)));
+  const scale = half / Math.sqrt(maxMargin);
+  const MIN = 1.5; // a decisive result always shows, even a 1–0 or a shoot-out
+  // Sparse records get a hairline gap between bars for legibility; dense ones tile
+  // seamlessly so sub-pixel bars blend into bands rather than aliasing into gaps.
+  const barW = n > 150 ? 1 : 0.82;
+  const xOff = (1 - barW) / 2;
+
+  const w = matches.filter((m) => m.result === "W").length;
+  const d = matches.filter((m) => m.result === "D").length;
+  const l = matches.length - w - d;
+
+  const labelById = new Map(markers.map((mk) => [mk.id, mk.label]));
+  const pips = matches
+    .map((m, i) => ({ m, i }))
+    .filter(({ m }) => labelById.has(m.id))
+    .map(({ m, i }) => ({ id: m.id, left: ((i + 0.5) / n) * 100, label: labelById.get(m.id) }));
+
+  // A handful of year anchors across the span; ends are edge-aligned so they fit.
+  const anchorCount = Math.min(6, n);
+  const anchors = Array.from({ length: anchorCount }, (_, k) => {
+    const i = Math.round((k / Math.max(1, anchorCount - 1)) * (n - 1));
+    return { i, year: matches[i].date.slice(0, 4), first: k === 0, last: k === anchorCount - 1 };
+  });
+
+  return (
+    <div>
+      <div className="relative" style={{ height }}>
+        <svg
+          viewBox={`0 0 ${W} ${height}`}
+          preserveAspectRatio="none"
+          className="block w-full"
+          style={{ height }}
+          role="img"
+          aria-label={`${subject} result by match over time — ${w} wins, ${d} draws, ${l} losses; wins above the line, losses below, bar height the goal margin`}
+        >
+          {matches.map((m, i) => {
+            const a = Math.abs(m.gf - m.ga);
+            if (m.result === "D") {
+              return (
+                <rect key={m.id} x={i + xOff} y={mid - 1} width={barW} height={2} fill="var(--color-draw)" opacity={0.65}>
+                  <title>{`${fmtDate(m.date)} ${venuePrefix(m.venue)} ${m.opponent_name}: ${m.gf}–${m.ga}`}</title>
+                </rect>
+              );
+            }
+            const h = Math.max(MIN, scale * Math.sqrt(a));
+            const up = m.result === "W";
+            return (
+              <rect
+                key={m.id}
+                x={i + xOff}
+                y={up ? mid - h : mid}
+                width={barW}
+                height={h}
+                fill={up ? "var(--color-win)" : "var(--color-loss)"}
+              >
+                <title>{`${fmtDate(m.date)} ${venuePrefix(m.venue)} ${m.opponent_name}: ${m.gf}–${m.ga}`}</title>
+              </rect>
+            );
+          })}
+          {/* baseline drawn last so it sits over the bars; non-scaling keeps it 1px */}
+          <line x1={0} x2={W} y1={mid} y2={mid} stroke="var(--color-line)" strokeWidth={1} vectorEffect="non-scaling-stroke" />
+        </svg>
+
+        {pips.map((p) => (
+          <div
+            key={p.id}
+            className="group pointer-events-none absolute inset-y-0"
+            style={{ left: `${p.left}%` }}
+            title={p.label}
+          >
+            <div className="absolute inset-y-0 w-px -translate-x-1/2 bg-gold/35" />
+            <div className="absolute top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-gold" />
+          </div>
+        ))}
+      </div>
+
+      <div className="relative mt-1.5 h-3">
+        {anchors.map((a) => (
+          <span
+            key={a.i}
+            className={`stat-num absolute text-[10px] text-ink-faint ${a.first ? "left-0" : a.last ? "right-0" : "-translate-x-1/2"}`}
+            style={a.first || a.last ? undefined : { left: `${((a.i + 0.5) / n) * 100}%` }}
+          >
+            {a.year}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}

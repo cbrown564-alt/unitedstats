@@ -204,6 +204,7 @@ export function allSeasons(): string[] {
 export interface MatchFilter {
   competition?: string;
   opponent?: string;
+  manager?: string;
   season?: string;
   venue?: string;
   result?: string;
@@ -235,6 +236,7 @@ function matchWhere(f: MatchFilter): { cond: string; params: Record<string, stri
   const params: Record<string, string | number> = {};
   if (f.competition) { where.push("m.competition_id = @competition"); params.competition = f.competition; }
   if (f.opponent) { where.push("m.opponent_id = @opponent"); params.opponent = f.opponent; }
+  if (f.manager) { where.push("m.manager_id = @manager"); params.manager = f.manager; }
   if (f.season) { where.push("m.season = @season"); params.season = f.season; }
   if (f.venue) { where.push("m.venue = @venue"); params.venue = f.venue; }
   if (f.result) { where.push("m.result = @result"); params.result = f.result; }
@@ -338,6 +340,13 @@ export function opponentById(id: string): OpponentRecord | undefined {
     .get(id) as OpponentRecord | undefined;
 }
 
+/** Every recorded meeting with this opponent, newest first — the full grouped archive. */
+export function opponentMatches(id: string): MatchRow[] {
+  return getDb()
+    .prepare(`${MATCH_SELECT} WHERE m.opponent_id = ? ORDER BY m.date DESC`)
+    .all(id) as MatchRow[];
+}
+
 // ---------------------------------------------------------------- managers
 
 export interface ManagerRecord extends Record_ {
@@ -374,6 +383,13 @@ export function managerTenures(id: string): { date_from: string; date_to: string
   return getDb()
     .prepare("SELECT date_from, date_to, note FROM manager_tenures WHERE manager_id = ? ORDER BY date_from")
     .all(id) as { date_from: string; date_to: string | null; note: string | null }[];
+}
+
+/** Every competitive match under this manager, newest first — the full grouped archive. */
+export function managerMatches(id: string): MatchRow[] {
+  return getDb()
+    .prepare(`${MATCH_SELECT} WHERE m.manager_id = ? ORDER BY m.date DESC`)
+    .all(id) as MatchRow[];
 }
 
 // ---------------------------------------------------------------- players

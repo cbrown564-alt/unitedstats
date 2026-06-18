@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { findMatches, matchesSummary, matchDecades, competitionsList, allSeasons } from "@/lib/queries";
+import { findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById } from "@/lib/queries";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { Pager } from "@/components/Pager";
@@ -51,6 +51,7 @@ export default async function MatchesPage({
   const filter = {
     competition: sp.competition || undefined,
     opponent: sp.opponent || undefined,
+    manager: sp.manager || undefined,
     season: sp.season || undefined,
     venue: sp.venue || undefined,
     result: sp.result || undefined,
@@ -69,7 +70,7 @@ export default async function MatchesPage({
   const decades = matchDecades();
   const pages = Math.ceil(total / PAGE_SIZE);
   const hasFilters = Boolean(
-    sp.q || sp.competition || sp.opponent || sp.season || sp.venue || sp.result || sp.type || sp.from || sp.to,
+    sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type || sp.from || sp.to,
   );
   const refineActive = Boolean(sp.venue || sp.result || sp.type || sp.from || sp.to);
 
@@ -96,6 +97,7 @@ export default async function MatchesPage({
   if (sp.q) chips.push({ key: "q", label: `Opponent: ${sp.q}` });
   if (sp.competition)
     chips.push({ key: "competition", label: comps.find((c) => c.id === sp.competition)?.name ?? sp.competition });
+  if (sp.manager) chips.push({ key: "manager", label: managerById(sp.manager)?.name ?? "Manager" });
   if (sp.season) chips.push({ key: "season", label: `Season ${sp.season}` });
   if (sp.venue) chips.push({ key: "venue", label: venueLabel(sp.venue) });
   if (sp.result) chips.push({ key: "result", label: resultLabel(sp.result) });

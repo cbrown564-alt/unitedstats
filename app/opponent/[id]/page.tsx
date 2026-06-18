@@ -1,16 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { opponentById, findMatches } from "@/lib/queries";
+import { opponentById, opponentMatches } from "@/lib/queries";
 import {
-  longestStreak, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
+  longestStreak, notableMatches, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
 } from "@/lib/trails";
 import { oddsFor } from "@/lib/predict";
 import { clubColor } from "@/lib/clubColors";
 import { ClubBadge } from "@/components/ClubBadge";
 import { IdentityPlate } from "@/components/IdentityPlate";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
-import { MatchList } from "@/components/MatchList";
-import { Pager } from "@/components/Pager";
+import { MatchGroups } from "@/components/MatchGroups";
+import { ArchiveJumpRail } from "@/components/ArchiveJumpRail";
+import { ResultSpine } from "@/components/charts/ResultSpine";
+import { NotableMatches } from "@/components/NotableMatches";
 import { TrailLink } from "@/components/PageHeader";
 import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -21,19 +23,15 @@ import { fmtNum, pct, venueLabel } from "@/lib/format";
 export const dynamic = "force-dynamic";
 
 export default async function OpponentPage({
-  params, searchParams,
+  params,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ page?: string }>;
 }) {
   const { id } = await params;
-  const { page: pageStr } = await searchParams;
   const o = opponentById(id);
   if (!o) notFound();
-  const page = Math.max(1, parseInt(pageStr ?? "1", 10) || 1);
-  const PAGE = 50;
-  const { rows, total } = findMatches({ opponent: id, limit: PAGE, offset: (page - 1) * PAGE });
-  const pages = Math.ceil(total / PAGE);
+  const total = o.p;
+  const allMatches = opponentMatches(id);
   const venues = opponentVenueSplits(id);
   const cup = opponentCupRecord(id);
   const sequence = opponentResultSequence(id);
@@ -57,6 +55,13 @@ export default async function OpponentPage({
       ? { n: winless.length, label: "without a win", tone: "text-loss", from: winless.from, to: winless.to }
       : null,
   ].filter(Boolean) as Run[];
+
+  // Standout matches: United's biggest win and heaviest defeat in the fixture,
+  // plus the matches that ended the longest unbeaten and winless runs either way.
+  const notable = notableMatches(sequence, [
+    { streak: unbeaten, noun: "unbeaten run" },
+    { streak: winless, noun: "run without a win" },
+  ]);
 
   return (
     <div className="space-y-8">
@@ -163,11 +168,28 @@ export default async function OpponentPage({
 
       <section>
         <SectionHead title="All meetings" aside={`${fmtNum(total)} on record`} />
-        <MatchList matches={rows} showSeason />
-        <Pager page={page} pages={pages} hrefFor={(p) => `/opponent/${id}?page=${p}`} className="mt-3" />
+        {notable.length > 0 && <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />}
+        {sequence.length >= 20 && (
+          <div className="mb-4 rounded-xl border border-line bg-panel p-4 sm:p-5">
+            <ResultSpine
+              matches={sequence}
+              markers={notable.map((m) => ({ id: m.id, label: m.reason }))}
+              subject={`United v ${o.name}`}
+            />
+            <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+              Every meeting in order — United wins above the line, defeats below, bar height the goal margin.
+              Gold pips mark the standout matches above.
+            </p>
+          </div>
+        )}
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <ArchiveJumpRail matches={allMatches} />
+          <EvidenceLink href={`/matches?opponent=${id}`} label="Filter these in the match browser →" />
+        </div>
+        <MatchGroups matches={allMatches} accentResult />
         <CoverageNote
           slice="every recorded United v opponent fixture, all competitions"
-          coverage={`${fmtNum(total)} meetings, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}; pre-merge name changes are folded into one opponent where known.`}
+          coverage={`${fmtNum(total)} meetings, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}, season by season; pre-merge name changes are folded into one opponent where known.`}
         />
       </section>
 
