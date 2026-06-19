@@ -51,8 +51,10 @@
       "tenures": [{ "from": "2016-05-27", "to": "2018-12-18", "note": "Europa League + League Cup 2017" }] },
     { "id": "ole-gunnar-solskjaer", "name": "Ole Gunnar Solskjær", "nationality": "Norway", "role": "Manager",
       "tenures": [{ "from": "2018-12-19", "to": "2021-11-21", "note": "Caretaker, then permanent from March 2019" }] },
-    { "id": "michael-carrick", "name": "Michael Carrick", "nationality": "England", "role": "Caretaker",
-      "tenures": [{ "from": "2021-11-22", "to": "2021-12-02", "note": "Caretaker, 3 matches" }] },
+    { "id": "michael-carrick", "name": "Michael Carrick", "nationality": "England", "role": "Manager",
+      "tenures": [
+        { "from": "2021-11-22", "to": "2021-12-02", "note": "Caretaker, 3 matches" },
+        { "from": "2026-01-13", "to": null, "note": "Interim after Amorim, then permanent from 22 May 2026 (contract to 2028)" }] },
     { "id": "ralf-rangnick", "name": "Ralf Rangnick", "nationality": "Germany", "role": "Interim manager",
       "tenures": [{ "from": "2021-12-03", "to": "2022-05-22", "note": null }] },
     { "id": "erik-ten-hag", "name": "Erik ten Hag", "nationality": "Netherlands", "role": "Manager",
@@ -60,6 +62,8 @@
     { "id": "ruud-van-nistelrooy", "name": "Ruud van Nistelrooy", "nationality": "Netherlands", "role": "Interim manager",
       "tenures": [{ "from": "2024-10-29", "to": "2024-11-10", "note": "Interim, 4 matches" }] },
     { "id": "ruben-amorim", "name": "Rúben Amorim", "nationality": "Portugal", "role": "Manager",
-      "tenures": [{ "from": "2024-11-11", "to": null, "note": "Current manager" }] }
+      "tenures": [{ "from": "2024-11-11", "to": "2026-01-05", "note": "Sacked January 2026" }] },
+    { "id": "darren-fletcher", "name": "Darren Fletcher", "nationality": "Scotland", "role": "Caretaker",
+      "tenures": [{ "from": "2026-01-06", "to": "2026-01-12", "note": "Caretaker between Amorim and Carrick, 2 matches" }] }
   ]
 }

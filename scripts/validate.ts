@@ -28,9 +28,25 @@ if (fs.existsSync(playerRecordsFile)) {
 const sources = new Set(
   readJson<{ sources: Ref[] }>(path.join(CANONICAL, "sources.json")).sources.map((s) => s.id),
 );
+const opponents = new Set(
+  readJson<{ opponents: Ref[] }>(path.join(CANONICAL, "opponents.json")).opponents.map((o) => o.id),
+);
 const managerData = readJson<{
   managers: { id: string; tenures: { from: string; to: string | null }[] }[];
 }>(path.join(CANONICAL, "managers.json")).managers;
+
+/** Manager ids whose tenure window contains `date` (mirrors build-db's managerFor). */
+function managersCovering(date: string): string[] {
+  return managerData
+    .filter((m) => m.tenures.some((t) => date >= t.from && (t.to === null || date <= t.to)))
+    .map((m) => m.id);
+}
+// Earliest recorded tenure. Before this, the side was run by committee and a null
+// manager is correct; on or after it, every match must map to a manager — a hole
+// means a stale or mis-dated tenure (e.g. a succession that was never recorded).
+const earliestTenureFrom = managerData
+  .flatMap((m) => m.tenures.map((t) => t.from))
+  .reduce((a, b) => (a < b ? a : b));
 const playerShirtsFile = path.join(CANONICAL, "player-shirts.json");
 
 const errors: string[] = [];
@@ -62,8 +78,19 @@ for (const file of listSeasonFiles()) {
     if (m.date < prevDate) errors.push(`${ctx}: not date-ordered`);
     prevDate = m.date;
     if (!competitions.has(m.competition)) errors.push(`${ctx}: unknown competition "${m.competition}"`);
+    // opponents.json is supplementary metadata (country + coordinates for travel
+    // maps), not a hard FK — build-db derives the opponents table from matches and
+    // fills the rest with null coords. So a missing entry only degrades the travel
+    // map; warn rather than fail.
+    if (!opponents.has(m.opponentId)) warnings.push(`${ctx}: opponent "${m.opponentId}" not in opponents.json (no coords/country)`);
     if (!["H", "A", "N"].includes(m.venue)) errors.push(`${ctx}: bad venue`);
     if (m.stadium && !stadiums.has(m.stadium)) errors.push(`${ctx}: unknown stadium "${m.stadium}"`);
+    // Every match in the managerial era must map to a manager, or build-db credits
+    // it to none (manager_id = null). Overlaps are reported separately below, so
+    // here only an uncovered date within the era is fatal.
+    if (m.date >= earliestTenureFrom && managersCovering(m.date).length === 0) {
+      errors.push(`${ctx}: no manager tenure covers ${m.date}`);
+    }
     if (!Array.isArray(m.sources) || m.sources.length === 0) {
       errors.push(`${ctx}: missing sources`);
     } else {
