@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { opponentsIndex } from "@/lib/queries";
 import { PageHeader, StatTile } from "@/components/PageHeader";
-import { WdlBar } from "@/components/WdlBar";
 import { ClubBadge } from "@/components/ClubBadge";
+import { IndexRow } from "@/components/IndexRow";
+import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -54,29 +54,26 @@ export default async function OpponentsPage({
       </form>
 
       <ul className="overflow-hidden rounded-lg border border-line bg-pitch/35">
-        {opponents.map((o) => (
+        {opponents.map((o, i) => (
           <li key={o.id} className="border-b border-line last:border-b-0">
-            <Link
+            <IndexRow
               href={`/opponent/${o.id}`}
-              className="grid min-h-16 grid-cols-[1fr_auto] items-center gap-x-6 gap-y-1.5 px-4 py-3 transition-colors hover:bg-panel sm:grid-cols-[16rem_1fr_auto]"
-            >
-              <span className="flex min-w-0 items-center gap-3">
-                <ClubBadge id={o.id} name={o.name} size="md" />
-                <span className="min-w-0">
-                  <span className="block truncate font-medium">{o.name}</span>
-                  <span className="block text-xs text-ink-dim stat-num">
-                    {o.first.slice(0, 4)}-{o.last.slice(0, 4)}
-                  </span>
-                </span>
-              </span>
-              <WdlBar w={o.w} d={o.d} l={o.l} tooltip={false} className="hidden sm:block" />
-              <span className="stat-num text-right text-xs text-ink-dim whitespace-nowrap">
-                {fmtNum(o.p)} P · {pct(o.w, o.p)} W
-              </span>
-            </Link>
+              rank={q ? undefined : i + 1}
+              leading={<ClubBadge id={o.id} name={o.name} size="md" />}
+              name={o.name}
+              sub={`${o.first.slice(0, 4)}–${o.last.slice(0, 4)}`}
+              w={o.w}
+              d={o.d}
+              l={o.l}
+            />
           </li>
         ))}
       </ul>
+
+      <CoverageNote slice="every recorded meeting, league and cup, since 1886">
+        Ranked by matches played, so the great rivalries sit at the top. The bar pivots on its centre,
+        wins right, losses left; each row opens the meetings behind the record.
+      </CoverageNote>
     </div>
   );
 }

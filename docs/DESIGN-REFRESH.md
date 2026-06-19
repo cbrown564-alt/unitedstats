@@ -143,13 +143,13 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/match/[id]` | ✅ refreshed (composition principles came from here) |
 | `/questions` | ✅ refreshed (story-driven, per-question visuals) |
 | `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map; matches section reworked — `HaulCards` + `ContributionSpine` + full grouped appearances archive) |
-| `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
+| `/managers`, `/opponents` | ✅ index structure reworked (see below) |
 | `/` (home) | ✅ refreshed — **bespoke `HistorySkyline` hero**: a floodlit plate where the headline and search sit over every season since 1886-87 drawn as one breathing wall (bar height = matches played, stacked W/D/L, the honest 20 top-flight titles gold-capped). Below it the body is paced into three movements (start a trail → the living record → explore) with the redundant Elo chart and "fullest match sheets" grid cut. First pass (records teaser + live `MinuteRidge` + dropped 4-tile metric block) was the foundation; the hero + restructure is what made it land |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
 | `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), and a per-decade **fixed-lane scoreboard** — the league finish drawn as the table itself (`FinishLadder`), fixed cup lanes sharing a promoted `CampaignVerdict` |
-| `/players` | ⬜ |
+| `/players` | ✅ left as-is — already refreshed (sortable `DataTable` + portraits + search + trust block); a player has no W/D/L, so the shared row didn't apply and re-skinning a working tool would be motion without value |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
-| `/managers`, `/opponents` (index structure) | ⬜ |
+| `/managers`, `/opponents` (index structure) | ✅ shared `IndexRow` rhythm across both; managers grouped into bespoke **era bands** (data-anchored on the two 1,000-match tenures), opponents stay ranked-by-meetings with an explicit rank index; `CoverageNote` footer on both |
 | `/analytics` | ✅ restructured from a flat ~10-section stack into **three acts + a trails appendix** (signal → projection → production): a floodlit `EloHero`, a bespoke `ReliabilityCurve` replacing the calibration table, six all-time-peak `RecordCards`, an upgraded assist ladder; grounds grid cut (and its query), coverage links merged |
 | `/data` | ⬜ |
 
@@ -684,11 +684,45 @@ fixes after living with the page, each a small but instructive lesson:
 Nothing reached `DESIGN.md` (the `heightPx` prop and the hybrid render are extensions of existing
 shared components/patterns, not new composition rules).
 
-### 7. Index pages `/players`, `/managers`, `/opponents`
-Lower priority — these are scan-and-drill surfaces and should stay compact. Refresh
-is mostly: portraits/badges already added, so tighten row rhythm, confirm `WdlBar`
-consistency, and consider the deferred segmented grouping (by era / alphabet) noted
-in `INVENTORY.md`.
+### 7. Index pages `/players`, `/managers`, `/opponents` ✅ done
+Shipped exactly on the "stay compact" brief, with the boldness spent in one place — the
+segmentation that's *true to each subject*, rather than forcing all three into one mould.
+
+- ✅ **One shared row, two surfaces — `IndexRow`.** The three pages carried three different
+  row markups; managers and opponents are structurally identical (leading identity → name +
+  quiet sub-line → diverging `WdlBar` → played/win-rate readout), so they now share one row.
+  This *is* the "tighten row rhythm / confirm `WdlBar` consistency" deliverable, delivered by
+  construction rather than by re-checking two hand-written lists. An optional `rank` reinforces
+  a ranked list and is omitted by a chronological one.
+- ✅ **Managers → bespoke era bands (the bold move).** A manager list is a *succession*, so the
+  flat chronological `<ul>` (no search, no aside, no footer — the least-developed of the three)
+  became era-grouped: **The secretary-managers → The Busby era → Between Busby and Ferguson →
+  The Ferguson era → After Ferguson**. The honesty hinge: the eras are **data-anchored, not
+  editorial** — bounded by the only two tenures past a thousand matches (Busby 1,141, Ferguson
+  1,497), with each man placed by the year of his first match (`lib/managerEras.ts`). Each band
+  header carries the era's span, manager count, and **aggregate** `WdlColumns`+bar, so the
+  Busby/Ferguson eras read green and the wilderness between them reads red — *density carrying
+  the finding* (the eras' relative success) without a word of prose. A `CoverageNote` states how
+  the eras are drawn. Search was **deliberately not added** to managers (28 rows don't need it —
+  an honest "subtract") even though the other two have it; consistency is the *row*, not the chrome.
+- ✅ **Opponents → stay ranked, made explicit.** Ranked-by-meetings already floats the great
+  rivalries to the top (the answer-object), so grouping would have buried it. Instead the ranking
+  was made *legible*: an explicit rank index (1 = Arsenal, 2 = Liverpool …, dropped when a search
+  filters the list), the shared row, and a `CoverageNote` footer. Position-as-category (#4) stated
+  in the layout.
+- ✅ **Players → left alone, on purpose.** Already the most-refreshed of the three (sortable
+  `DataTable` + portraits + search + trust block). A player has no personal W/D/L, so the shared
+  `IndexRow`/`WdlBar` rhythm doesn't apply, and the table is a genuine *tool* that earns its place
+  on a scan-and-drill surface. Re-skinning it would be motion without value — the working method's
+  own warning. The cluster touching players least is the honest outcome, not an omission.
+
+Two shared objects, one bespoke model, nothing promoted to `DESIGN.md`: `IndexRow` is a shared row
+(consistency plumbing, not a composition rule) and the era bands are a bespoke reading-aid. *Lesson
+for the principles, reinforcing the seasons/player passes: "make the three consistent" does **not**
+mean "make the three the same" — the durable consistency is the shared **row**, while the **grouping**
+is whatever the subject's structure honestly is (a succession for managers, a ranking for opponents,
+a sortable tool for players). And era labels can stay honest if their **boundaries** are data-derived
+(the two 1,000-match tenures) even when the names read as history.*
 
 ### 8. `/data`
 The trust surface. Refresh is about legibility of the coverage ledger, not
