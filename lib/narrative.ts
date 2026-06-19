@@ -1,4 +1,5 @@
 import { getDb } from "./db";
+import { CUP_WON_PREDICATE } from "./queries";
 
 /**
  * Auto-written season and era briefs, generated deterministically from the
@@ -196,13 +197,7 @@ export function decadeBriefs(): Map<string, DecadeBrief> {
     .prepare(
       `SELECT substr(m.season,1,3) || '0s' decade, COUNT(*) cupsWon
        FROM matches m JOIN competitions c ON c.id = m.competition_id
-       WHERE c.type NOT IN ('league','unofficial')
-         AND m.round LIKE '%final%' AND m.round NOT LIKE '%semi%' AND m.round NOT LIKE '%quarter%'
-         AND m.outcome = 'W'
-         AND m.date = (
-           SELECT MAX(m2.date) FROM matches m2
-           WHERE m2.season = m.season AND m2.competition_id = m.competition_id
-         )
+       WHERE ${CUP_WON_PREDICATE}
        GROUP BY 1`,
     )
     .all() as { decade: string; cupsWon: number }[];
