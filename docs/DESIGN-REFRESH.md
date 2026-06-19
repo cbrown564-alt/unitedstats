@@ -7,7 +7,7 @@
 > not just ticked off. Treat the principles section as the durable part and the
 > per-surface section as a sketch to react against.
 
-Last updated: 2026-06-18.
+Last updated: 2026-06-19.
 
 ## What the last refresh actually did
 
@@ -144,7 +144,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/questions` | ✅ refreshed (story-driven, per-question visuals) |
 | `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map; matches section reworked — `HaulCards` + `ContributionSpine` + full grouped appearances archive) |
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
-| `/` (home) | ⬜ |
+| `/` (home) | ✅ refreshed — **bespoke `HistorySkyline` hero**: a floodlit plate where the headline and search sit over every season since 1886-87 drawn as one breathing wall (bar height = matches played, stacked W/D/L, the honest 20 top-flight titles gold-capped). Below it the body is paced into three movements (start a trail → the living record → explore) with the redundant Elo chart and "fullest match sheets" grid cut. First pass (records teaser + live `MinuteRidge` + dropped 4-tile metric block) was the foundation; the hero + restructure is what made it land |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
 | `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), and a per-decade **fixed-lane scoreboard** — the league finish drawn as the table itself (`FinishLadder`), fixed cup lanes sharing a promoted `CampaignVerdict` |
 | `/players` | ⬜ |
@@ -573,20 +573,116 @@ stack, the fix is structural (find the narrative, give it acts, subtract the tan
 per-module; a hero, a novel proof-object, and aggressive subtraction did more for the page than six
 good cards did.*
 
-### 6. `/` (home)
-The launchpad. Per `DESIGN.md`, lead with a trail not a hero-metric. Candidate:
-pull one live question module (or a teaser of one) above the fold so the homepage
-demonstrates the questions surface rather than just linking to it; keep search and
-recent-evidence prominent. Probably do this *last*, once the per-question visual
-vocabulary is settled, so the homepage can quote the best of it.
+### 6. `/` (home) — done
+Shipped exactly as the sharpened brief demanded: the homepage *quotes* the now-settled
+answer-object vocabulary rather than re-skinning, and the boldness went into the lead and the
+subtraction, not a new object. Nothing new was built and nothing reached `DESIGN.md` — every
+component here (`RecordCards`, `MinuteRidge`, `SectionHead`, `MatchList`, `WdlBar`,
+`EloRatingChart`) already existed; the pass was composition only, which is what a launchpad that
+"quotes the best of it" should be.
 
-Sharpened by the analytics pass: the homepage now has *two* answer-object families it
-can quote rather than re-skin — the questions visuals **and** the new `RecordCards`. A
-teaser row of two or three records (biggest win, longest unbeaten run) is a strong
-above-the-fold trail that's already built and already evidence-linked, on-thesis ("a
-record is a figure with a fixture behind it"), and it costs nothing new to render. Resist
-inventing a homepage hero-metric block when the records cards and a question teaser
-already *are* the trail the homepage wants.
+- ✅ **Killed the hero-metric block — the doc's one hard rule for this surface.** The hero's
+  4-tile grid (Matches / Wins / Goals / Win rate) was the generic metric block `DESIGN.md`'s
+  Homepage Direction explicitly forbids ("the first interaction should be a trail"). It's gone; the
+  hero is now a clean *invitation* — identity headline, one scope sentence, and the `SearchCommand`
+  as the first interaction, on the floodlit `hero-grid` plate.
+- ✅ **Led with a records trail above the fold.** The first thing under search is a `SectionHead`
+  + three `RecordCards` (biggest win `10–0`, record crowd `135,000` gold, longest unbeaten run) —
+  clickable figure-with-a-fixture answer-objects, three distinct units so the teaser shows the
+  family's range, each routing straight to its match or slice. "All records →" links to the
+  analytics Act III they're quoted from. This is the doc's literal instruction made real: a trail,
+  not a metric grid, as the first payoff.
+- ✅ **"Test a myth" now *demonstrates* the questions surface.** The five text-only prompt cards
+  became a featured late-goals panel that leads with the one finding number (`9.0%` after the 85th)
+  and renders the actual `MinuteRidge` from `/questions#late-goals`, with the other four myths as
+  compact prompts beside it. The homepage now *shows* a question visual instead of only linking to
+  one — the "pull one live question module above the fold" candidate, picked because late goals is
+  the signature myth and the ridge is the most legible quote.
+- ✅ **Kept recent-evidence + scope, subtracted the tangent.** Latest results, the all-time record
+  by competition, the Elo arc, and the scorers/routes grids stayed (the doc wants recent evidence
+  and scope prominent). The "Fullest match sheets" grid was **cut** — a third card-grid of match
+  links between records (peaks) and latest (recency) was repetition, not a distinct intent — and its
+  homepage-only `fullestMatchSheets` query deleted with it so `knip` stays green. `/data` moved into
+  the routes grid so the coverage trail survives. Same "subtract a whole module" move the analytics
+  pass made on the grounds grid.
+
+*Lesson for the working method: a launchpad's refresh is mostly a **casting** problem, not a
+building one — once the per-surface answer-objects exist, the homepage's job is to pick the two or
+three that best advertise the archive (a punchy record, a live question visual) and lead with them,
+deleting whatever metric block or redundant grid was holding the slot. The boldness is in what you
+put first and what you cut, not in a new component.*
+
+**Follow-up: that wasn't far enough — the homepage needed its own bespoke hero after all.** The
+"casting only" pass left the page a flat equal-weight stack with the *least* atmospheric lead on the
+site: the front door — the one surface that most wants an unforgettable object — was leading with a
+search box where seasons leads with `FinishTimeline` and analytics with `EloHero`. A critique against
+visual quality / pacing / simplicity / novelty drove a second pass:
+
+- ✅ **`HistorySkyline` — the signature hero the page was missing.** A new bespoke object: every
+  season since 1886-87 as one bar, height = matches played, stacked won (green foundation) → drawn →
+  lost (red roofline), the wall *breathing* from short Victorian seasons to the modern European-night
+  swell. Its total inked area is, literally, every match United have played — the headline's promise
+  made visible. The honest 20 top-flight titles are gold-capped (new `championSeasons()` query
+  excludes the two Second Division titles, the same call `FinishTimeline` made), and every bar links
+  to its season. It wraps in the `IdentityPlate`/`EloHero` floodlit plate (its fourth surface) with
+  the headline and search sitting *over* it, so the front door finally carries the atmosphere the
+  rest of the site has. Pure CSS/flex — distinct from `FinishTimeline` (finish position) and
+  `EloHero` (rating line); this is the one object that shows the *whole record at once*.
+- ✅ **Paced into three movements, not a flat metronome.** Start a trail (records + the live
+  question, clustered tight) → the living record (latest + all-time record, coverage one click away)
+  → explore (scorers + routes, under a quiet divider). Bigger gaps between movements, tighter within.
+- ✅ **Cut the redundant Elo chart.** With the skyline as the homepage's historical signature, the
+  full-width "Strength over N years" Elo timeline was a *second* big history chart competing for the
+  same role — the junk-drawer the analytics pass diagnosed. Subtracted (it lives as the `EloHero` on
+  analytics); strength-curiosity routes there via "All records →" and the restored Analytics route.
+
+`HistorySkyline` stays **bespoke**; nothing reached `DESIGN.md` (the plate atmosphere was already a
+noted motif, and the movement pacing is the analytics device reapplied, not a new rule). *Lesson,
+corrected: the "casting not building" instinct was wrong for the **home page specifically** — the
+launchpad is the one surface where the bold bespoke object is non-negotiable, because it's the first
+thing anyone sees and it has to do what no quoted component can: depict the whole archive at once.
+Quote the answer-objects in the body, yes, but author the hero.* Tooling note: Playwright +
+`scripts/shot.mjs` were added this pass — the skyline's flex/sub-pixel bugs built and typechecked
+clean and were only visible in a screenshot.
+
+**Follow-up: a polish pass on the body objects (record bars, scorers, the late-goals ridge).** Three
+fixes after living with the page, each a small but instructive lesson:
+
+- ✅ **All-time record → weighted bars, not proportional-length.** The first attempt reused the
+  manager-page `ProportionalWdlBar` (bar *length* = games played). It failed: competition volumes span
+  two orders of magnitude here (League ~4,900 vs the cups in the hundreds), so League pinned the scale
+  and flattened every other row to a sliver. The fix puts volume on a *different channel* — each row is
+  now a full-proportion diverging `WdlBar` (so the win/draw/loss shape stays readable and comparable)
+  whose **thickness** encodes matches played on a sqrt scale (`max(6, round(28·√(p/pMax)))`): League is a
+  chunky slab, the cups thin ribbons, with `WdlColumns` carrying the exact figures above. The shields,
+  super cups, world finals and old test matches were dropped — only the four major competitions earn a
+  homepage slot. `WdlBar` gained an optional `heightPx` so its diverging render (fulcrum + reveal) could
+  be reused at a continuous data-driven thickness instead of the four fixed size buckets — the only
+  shared-layer change. *Lesson for the principles: when a second variable spans orders of magnitude,
+  encode it as thickness/weight, not length; reserve proportional length for variables of comparable
+  scale (which is exactly why it works for the manager splits and not here).*
+- ✅ **"Top goalscorers" (renamed from "Most goals") with portraits.** Each card now leads with the
+  player's `PlayerPortrait` thumbnail beside the goals figure — the people-are-anchors principle (#5),
+  the same `player_thumb_url ?? player_image_url` source the `/players` index uses, initials fallback for
+  the imageless (e.g. "OG" for Own Goal).
+- ✅ **`MinuteRidge` migrated to the hybrid render — its fourth surface.** The late-goals ridge looked
+  rough at the homepage's narrow width because it drew *everything*, text included, inside an SVG whose
+  `viewBox` width (1000) scaled down to a ~560px container — so every `fontSize="9/10"` label rendered at
+  ~5px ("barely visible") and the right-anchored FERGIE TIME / count / even-spread cluster collided in
+  the thin closing strip. Rebuilt on the `HistorySkyline`/`FinishTimeline` pattern: the SVG draws *shape
+  only* (ridge, wash, dividers, hover targets), stretching to fill a fixed-height box
+  (`preserveAspectRatio="none"` + `vectorEffect="non-scaling-stroke"` so the outline stays a crisp 1.5px
+  at any width), while **every label is real HTML positioned by percentage** — legible at true rem sizes
+  whatever the container. The collisions resolved in the process: FERGIE TIME + count stack cleanly
+  top-right, "even spread" moved to the left edge away from the busy late zone, the minute axis became
+  its own HTML row, and the faint `ink-faint` text went to `ink-dim`. Same API; verified across all three
+  call sites (homepage, `/questions`, `/player/[id]`). *Lesson, now a clear rule: an SVG chart with a
+  wide `viewBox` shrinks its own text into illegibility at narrow widths — draw the shape in SVG and the
+  labels in HTML. This is the fourth chart to land on the pattern, so it's the default for any labelled
+  chart now, not a per-surface trick.*
+
+Nothing reached `DESIGN.md` (the `heightPx` prop and the hybrid render are extensions of existing
+shared components/patterns, not new composition rules).
 
 ### 7. Index pages `/players`, `/managers`, `/opponents`
 Lower priority — these are scan-and-drill surfaces and should stay compact. Refresh

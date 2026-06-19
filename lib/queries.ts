@@ -902,6 +902,26 @@ export function seasonAggregates(): {
     .all() as ReturnType<typeof seasonAggregates>;
 }
 
+/**
+ * The seasons United won the *top-flight* title — First Division or Premier
+ * League only. Deliberately excludes the two Second Division titles (1935-36,
+ * 1974-75): winning the second tier is not a league championship, the same
+ * honesty the seasons hero draws (a hollow ring, not solid gold). Used to gold-
+ * cap the championship seasons on the homepage history skyline.
+ */
+export function championSeasons(): string[] {
+  return getDb()
+    .prepare(
+      `SELECT ss.season
+       FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+       WHERE c.type = 'league' AND ss.position = 1
+         AND c.name IN ('First Division','Premier League')
+       ORDER BY ss.season`,
+    )
+    .all()
+    .map((r) => (r as { season: string }).season);
+}
+
 export function topScorers(limit = 25): PlayerTotals[] {
   return playersIndex().slice(0, limit);
 }
