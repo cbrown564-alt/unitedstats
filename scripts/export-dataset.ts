@@ -145,12 +145,15 @@ const counts: Record<string, number> = {
             pm.thumb_url player_thumb_url,
             pm.page_url player_image_page_url,
             pm.license player_image_license,
+            pp.bucket position_bucket,
+            pp.position_label position_label,
             COALESCE(pt.first_date, CASE WHEN pr.first_year IS NOT NULL THEN printf('%04d-01-01', pr.first_year) END) first_date,
             COALESCE(pt.last_date, CASE WHEN pr.last_year IS NOT NULL THEN printf('%04d-12-31', pr.last_year) END) last_date
      FROM players p
      LEFT JOIN player_totals pt ON pt.player_id = p.id AND pt.scope = 'all'
      LEFT JOIN player_records pr ON pr.player_id = p.id
      LEFT JOIN player_media pm ON pm.player_id = p.id
+     LEFT JOIN player_positions pp ON pp.player_id = p.id
      LEFT JOIN primary_shirts ps ON ps.player_id = p.id
      WHERE pr.player_id IS NOT NULL
      ORDER BY goals DESC, apps DESC`,
@@ -178,6 +181,14 @@ const counts: Record<string, number> = {
      FROM og_scorer_media
      ORDER BY name`,
   ),
+  "player_positions.csv": exportCsv(
+    "player_positions.csv",
+    `SELECT pp.player_id, p.name, pp.bucket, pp.position_label, pp.position_qid,
+            pp.wikidata_id, pp.source_id, pp.retrieved_at
+     FROM player_positions pp
+     JOIN players p ON p.id = pp.player_id
+     ORDER BY p.name`,
+  ),
 };
 
 const meta = Object.fromEntries(
@@ -195,7 +206,7 @@ fs.writeFileSync(
       first_match: meta.first_match,
       last_match: meta.last_match,
       files: counts,
-      attribution: "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons.",
+      attribution: "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections).",
       docs: "/data#downloads",
     },
     null,

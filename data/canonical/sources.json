@@ -41,6 +41,14 @@
       "notes": "Preferred image source because Commons exposes license and attribution metadata. Wikipedia pageimages may be used as a fallback only when Commons imageinfo is available. Do not replace with club or agency images unless explicit reuse permission is captured."
     },
     {
+      "id": "wikidata-positions",
+      "label": "Wikidata (position played on team)",
+      "kind": "reference",
+      "url": "https://www.wikidata.org/wiki/Property:P413",
+      "coverage": "Primary playing position per player from Wikidata property P413, resolved via the enwiki sitelink stored on each player record and collapsed to GK/DEF/MID/FWD buckets.",
+      "notes": "Structured and complete for the substantive register (~100% of the top cohorts), tapering on obscure pre-war players; a player with no P413 carries no position and is omitted rather than guessed. Primary position is Wikidata's preferred-ranked claim, else the first listed."
+    },
+    {
       "id": "curated",
       "label": "Curated project correction",
       "kind": "curation",
