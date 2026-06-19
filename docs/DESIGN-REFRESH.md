@@ -151,7 +151,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
 | `/managers`, `/opponents` (index structure) | ✅ bespoke heroes — `ManagerTimeline` (succession as a match-proportional bar, two cathedrals) and `OpponentRivalryMap` (meetings × win-rate scatter, the nemesis low-right) — over a shared `IndexRow` detail layer (era bands / ranked ledger); `CoverageNote` footer on both |
 | `/analytics` | ✅ restructured from a flat ~10-section stack into **three acts + a trails appendix** (signal → projection → production): a floodlit `EloHero`, a bespoke `ReliabilityCurve` replacing the calibration table, six all-time-peak `RecordCards`, an upgraded assist ladder; grounds grid cut (and its query), coverage links merged |
-| `/data` | ⬜ |
+| `/data` | ✅ refreshed — bespoke **`CoverageMatrix`** hero (every detail layer × every decade as a shaded grid: result spine solid, facets fading into the Victorian past), the page restructured into **three acts + an appendix** (the record → the competition-type cut → provenance & corrections → use the data), the two single-facet decade bar charts subsumed into the matrix, and the G-05 faint-text contrast items fixed |
 
 ## Rough per-surface plan (initial ideas — expect these to change)
 
@@ -906,10 +906,61 @@ honours went in and longest-run stayed out; (3) the same shared-axis sparkline p
 sibling index pages even when each renders a different fact — the durable thing is the **timeline grammar**, not
 the component.*
 
-### 8. `/data`
-The trust surface. Refresh is about legibility of the coverage ledger, not
-atmosphere. Carry forward the remaining faint-text spots flagged in
-`VISUAL-AUDIT.md`. Lowest visual priority, but don't skip the contrast items.
+### 8. `/data` ✅ done
+The trust surface. The sketch called it "legibility, not atmosphere — lowest visual priority," but
+the trajectory the home and index passes set held here too: *a front-door surface wants a bold
+bespoke object that depicts its whole subject, then the auditable ledger as appendix.* The subject of
+`/data` is **coverage**, so the object that depicts it is a coverage map — and crucially that object is
+itself the *legibility* win the brief asked for, not decoration competing with it.
+
+- ✅ **`CoverageMatrix` — the whole trust story as one object.** Every detail layer (rows: Result,
+  United scorers, Opposition goals, Starting XI, Cards, Attendance, Assists) against every decade
+  United have played (columns), each cell shaded by the share of that decade's matches carrying that
+  layer. The result spine is a solid red foundation across the top — every match has a known result —
+  and the richer facets fade into the Victorian past, so "the record is complete; the detail fills in
+  toward the present" reads off the *gradient* before a number is parsed. It does what no table could:
+  makes the shape of coverage-over-time visible. Sits on the floodlit plate (its now-standard motif),
+  the headline beside it (`6,027` official matches, every result known) with complete-scorer / XI /
+  attendance shares as the ribbon. Backed by one new `coverageByDecade()` query reusing the shared
+  `COVERAGE_FACETS` block so the matrix, the per-type table, and the overview can't drift.
+- ✅ **It carries both shape *and* number — because it's the trust surface.** Unlike the pure-shape
+  heroes elsewhere (`HistorySkyline`, `FinishTimeline`), every cell prints its exact integer percent in
+  mono *and* shades the background, and each cell's title holds the raw covered/total. On a page whose
+  job is trust, hiding the number behind a hover would have been the wrong call — the gradient leads the
+  eye, the number lets you audit. Pure positioned HTML/CSS (the `CareerSparkline` lineage), sticky
+  row-label column so the layers stay legible when the grid scrolls on mobile.
+- ✅ **Subtracted the two single-facet decade bar charts.** The old page drew *scorer coverage by
+  decade* and *lineup coverage by decade* as two separate `InspectableBarChart`s — two of eight facets,
+  in two panels. The matrix shows all seven meaningful facets across all decades in one grid, so both
+  charts (and the `eventCoverage()`/`lineupCoverage()` queries behind them) were cut. Fewer, denser,
+  better — the recurring "subtract a whole module" move, here because the new object strictly dominates
+  the old ones.
+- ✅ **Restructured into three acts + an appendix** (the `/analytics` device): Act I the record (plate +
+  matrix), Act II the competition-type cut (the kept `DataTable`, reframed as *the other cut of the same
+  coverage* — by competition rather than by decade, the manager-splits "two cuts of the same matches"
+  idea again), Act III provenance (source lineage + correction contract + the high-value-gaps queue,
+  framed as *where the faint cells turn into work*), and an appendix for the API + dataset downloads.
+  The flat `space-y-12` equal-weight stack became a paced narrative.
+- ✅ **G-05 contrast pass.** The faint-text items the audit flagged at the trust surface — table
+  coverage percentages, source facet lines, gap-row metadata, the correction-contract code spans — moved
+  from `text-ink-faint` to `text-ink-dim`/`text-ink`, raising contrast exactly where the reader is meant
+  to act. The brief's one non-negotiable, done.
+
+**Honesty fix surfaced by drawing the data, once more.** The plate first read "N official matches · M
+more wartime & friendly" off `coverageOverview().unofficialMatches` — but that count is **0**: the
+dataset classifies competitions as league/cup/european/… with no `unofficial` type, so the framing
+asserted a wartime/friendly layer that doesn't exist in the checked-in DB. Verified against the DB
+(6,027 official, 0 unofficial) and corrected to "every result known, back to 1886"; the matrix slice
+dropped its "(official and non-official)" parenthetical for the same reason. The recurring pattern: a
+headline drawn from a field surfaces that the field is empty.
+
+`CoverageMatrix` stays **bespoke** (a facet × decade coverage heatmap — no shared object captures it,
+and it reuses the *positioned-HTML render technique*, not a component). Nothing reached `DESIGN.md`: the
+plate atmosphere was already a noted motif, the act structure is the analytics pacing device reapplied,
+and the matrix is a fresh object, not a new composition rule. *Lesson, now confirmed on the last and
+"least visual" surface: the "bold bespoke hero on a front door" instinct held even here — and the
+sharpest version of it is when the bold object **is** the legibility the surface was asking for, so
+there's no tension between atmosphere and trust at all.*
 
 ## Working method
 

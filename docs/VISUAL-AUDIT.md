@@ -116,12 +116,14 @@ and the maps need clearer legends explaining dot size and colour.
 
 ### `/data`
 
-Severity: medium-high
+Severity: resolved (2026-06-19 design-refresh pass)
 
-Not touched. Coverage and correction content compete in one dense grid;
-coverage percentages are low-contrast (see G-05). Splitting coverage and
-correction into full-width sections and turning API/download blocks into
-clearer endpoint lists would help.
+Rebuilt around the bespoke `CoverageMatrix` hero (facet × decade coverage grid)
+and restructured into three acts + an appendix, so coverage, the
+competition-type cut, provenance/corrections, and API/downloads no longer
+compete in one dense stack. The low-contrast coverage percentages flagged under
+G-05 moved from `text-ink-faint` to `text-ink-dim`/`text-ink` across the table,
+source lineage, and gaps queue. See `docs/DESIGN-REFRESH.md` §8.
 
 ### `/match/[id]`
 

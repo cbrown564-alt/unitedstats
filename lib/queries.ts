@@ -1162,26 +1162,6 @@ export function ownGoalScorers(): OwnGoalScorer[] {
   return [...map.values()].sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.name.localeCompare(b.name));
 }
 
-export function eventCoverage(): { decade: string; matches: number; withEvents: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT substr(date,1,3) || '0s' decade, COUNT(*) matches,
-              SUM(CASE WHEN EXISTS (SELECT 1 FROM match_events e WHERE e.match_id = m.id) THEN 1 ELSE 0 END) withEvents
-       FROM matches m GROUP BY 1 ORDER BY 1`,
-    )
-    .all() as { decade: string; matches: number; withEvents: number }[];
-}
-
-export function lineupCoverage(): { decade: string; matches: number; withLineups: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT substr(date,1,3) || '0s' decade, COUNT(*) matches,
-              SUM(CASE WHEN has_lineup = 1 THEN 1 ELSE 0 END) withLineups
-       FROM matches m GROUP BY 1 ORDER BY 1`,
-    )
-    .all() as { decade: string; matches: number; withLineups: number }[];
-}
-
 // ---------------------------------------------------------------- data/provenance
 
 export interface SourceRecord {
@@ -1313,6 +1293,36 @@ export function coverageByCompetitionType(): {
        ORDER BY matches DESC`,
     )
     .all() as ReturnType<typeof coverageByCompetitionType>;
+}
+
+/**
+ * Same facet booleans as {@link coverageOverview}, cut by decade — the time
+ * axis of the coverage matrix. Every decade since United started playing carries
+ * a row; the result spine is implicit (every match has one), so callers add it.
+ */
+export function coverageByDecade(): {
+  decade: string;
+  matches: number;
+  withScorers: number;
+  completeScorers: number;
+  withOppositionGoals: number;
+  withAssists: number;
+  withStartingLineups: number;
+  withUsedSubstitutes: number;
+  withBenches: number;
+  withCards: number;
+  withAttendance: number;
+}[] {
+  return getDb()
+    .prepare(
+      `SELECT substr(m.date,1,3) || '0s' decade,
+              COUNT(*) matches,
+              ${COVERAGE_FACETS}
+       FROM matches m
+       GROUP BY 1
+       ORDER BY 1`,
+    )
+    .all() as ReturnType<typeof coverageByDecade>;
 }
 
 export function sourceUsage(): (SourceRecord & { matches: number; facets: string })[] {
