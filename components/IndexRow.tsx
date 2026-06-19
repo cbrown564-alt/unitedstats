@@ -2,6 +2,9 @@ import Link from "next/link";
 import { WdlBar } from "./WdlBar";
 import { fmtNum, pct } from "@/lib/format";
 
+const gdSign = (n: number) => (n > 0 ? "+" : n < 0 ? "−" : ""); // U+2212 minus
+const gdTone = (n: number) => (n > 0 ? "text-win" : n < 0 ? "text-loss" : "text-ink-dim");
+
 /**
  * The shared scan-and-drill row for the record index pages (`/managers`,
  * `/opponents`): a leading identity (portrait or badge), a name with a quiet
@@ -15,26 +18,36 @@ export function IndexRow({
   rank,
   leading,
   name,
+  badge,
   sub,
   w,
   d,
   l,
+  gf,
+  ga,
   chart,
 }: {
   href: string;
   rank?: number;
   leading: React.ReactNode;
   name: string;
+  /** Small marker shown immediately after the name (e.g. a gold honours count). */
+  badge?: React.ReactNode;
   sub: React.ReactNode;
   w: number;
   d: number;
   l: number;
+  /** Goals for/against over the slice — surfaces a signed, per-game goal
+   *  difference in the readout (dominance at a glance). Omitted → played + win%. */
+  gf?: number;
+  ga?: number;
   /** Replace the default diverging W/D/L bar in the middle slot with a richer
    *  per-row visual (e.g. the manager tenure sparkbar on a shared timeline).
    *  Omitted → the diverging `WdlBar` (opponents). */
   chart?: React.ReactNode;
 }) {
   const p = w + d + l;
+  const gdPerGame = gf != null && ga != null && p > 0 ? (gf - ga) / p : null;
   return (
     <Link
       href={href}
@@ -46,7 +59,10 @@ export function IndexRow({
         )}
         {leading}
         <span className="min-w-0">
-          <span className="block truncate font-medium">{name}</span>
+          <span className="flex items-center gap-1.5">
+            <span className="truncate font-medium">{name}</span>
+            {badge}
+          </span>
           <span className="stat-num block text-xs text-ink-faint">{sub}</span>
         </span>
       </span>
@@ -55,8 +71,17 @@ export function IndexRow({
       ) : (
         <WdlBar w={w} d={d} l={l} size="sm" tooltip={false} className="hidden sm:block" />
       )}
-      <span className="stat-num whitespace-nowrap text-right text-xs text-ink-dim">
-        {fmtNum(p)} P · <span className="text-ink">{pct(w, p)}</span> W
+      <span className="stat-num whitespace-nowrap text-right leading-tight">
+        <span className="block text-sm font-semibold text-ink">
+          {pct(w, p)} <span className="text-[10px] font-normal text-ink-faint">win</span>
+        </span>
+        {gdPerGame != null && (
+          <span className={`block text-xs font-medium ${gdTone(gdPerGame)}`}>
+            {gdSign(gdPerGame)}
+            {Math.abs(gdPerGame).toFixed(2)} <span className="text-ink-faint">gd/game</span>
+          </span>
+        )}
+        <span className="block text-[11px] text-ink-faint">{fmtNum(p)} played</span>
       </span>
     </Link>
   );

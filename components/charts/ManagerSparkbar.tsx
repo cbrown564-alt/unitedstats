@@ -26,6 +26,7 @@ export function ManagerSparkbar({
   axisStart,
   axisEnd,
   maxScale,
+  trophySeasons,
 }: {
   seasons: ManagerSparkSeason[];
   /** First year on the shared axis (same for every row). */
@@ -34,6 +35,9 @@ export function ManagerSparkbar({
   axisEnd: number;
   /** Global max of matches-in-a-season across all rows — the height scale. */
   maxScale: number;
+  /** Seasons (start-year "1998-99" form) this manager won a trophy — gold pips
+   *  over those bars, so the timeline shows *when* the silverware came. */
+  trophySeasons?: Set<string>;
 }) {
   const rows = seasons.filter((s) => s.w + s.d + s.l > 0);
   if (rows.length === 0) return null;
@@ -86,6 +90,27 @@ export function ManagerSparkbar({
           </div>
         );
       })}
+
+      {/* gold trophy pips — a dot riding just above each trophy-winning season's
+          bar, so a decorated reign glows gold along its top edge while the barren
+          tenures stay dark. The gold-marks-the-peak idiom (CareerSparkline, the
+          season heroes), here marking silverware. */}
+      {trophySeasons &&
+        rows
+          .filter((s) => trophySeasons.has(s.season))
+          .map((s) => {
+            const g = s.w + s.d + s.l;
+            const left = ((startYear(s.season) - axisStart) / span) * 100;
+            const heightPct = Math.max((g / maxScale) * 100, 12);
+            return (
+              <span
+                key={s.season}
+                className="absolute z-10 h-1 w-1 -translate-x-1/2 translate-y-1/2 rounded-full bg-gold shadow-[0_0_0_1px_var(--color-panel)]"
+                style={{ left: `${left}%`, bottom: `${heightPct}%` }}
+                aria-hidden
+              />
+            );
+          })}
     </div>
   );
 }
