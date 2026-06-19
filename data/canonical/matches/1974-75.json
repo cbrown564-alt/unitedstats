@@ -384,6 +384,15 @@
           "type": "goal",
           "player": "sammy-mcilroy",
           "minute": 80
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ronald Tudor Davies",
+          "playerSide": "opponent",
+          "minute": 87,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -731,6 +740,24 @@
           "type": "goal",
           "player": "sammy-mcilroy",
           "minute": 79
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ian Bowyer",
+          "playerSide": "opponent",
+          "minute": 39,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "John Cottam",
+          "playerSide": "opponent",
+          "minute": 51,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -927,11 +954,21 @@
           "detail": "Richie Bowman (og)",
           "playerName": "Richie Bowman",
           "playerSide": "opponent"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter Hunt",
+          "playerSide": "opponent",
+          "minute": 1,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1107,6 +1144,15 @@
           "type": "goal",
           "player": "stuart-pearson",
           "minute": 32
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Merrick",
+          "playerSide": "opponent",
+          "minute": 6,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1816,7 +1862,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1963,6 +2010,26 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ted MacDougall",
+          "playerSide": "opponent",
+          "minute": 24,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ted MacDougall",
+          "playerSide": "opponent",
+          "minute": 58,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -1997,6 +2064,15 @@
           "type": "goal",
           "player": "stuart-pearson",
           "minute": 76
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Viv Busby",
+          "playerSide": "opponent",
+          "minute": 86,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2688,23 +2764,24 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "alex-forsyth",
-          "minute": null
+          "minute": 22
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": null
+          "minute": 60
         },
         {
           "type": "goal",
           "player": "jim-mccalliog",
-          "minute": null,
+          "minute": 72,
           "detail": null,
           "playerName": "Jim McCalliog",
           "playerSide": "united"
@@ -3246,7 +3323,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3393,6 +3471,17 @@
           "on": 45,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "John Emanuel",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -3428,6 +3517,24 @@
           "type": "goal",
           "player": "willie-morgan",
           "minute": 49
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter Noble",
+          "playerSide": "opponent",
+          "minute": 20,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Roy Hankin",
+          "playerSide": "opponent",
+          "minute": 31,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
@@ -3601,13 +3708,23 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "pen-goal",
           "player": "gerry-daly",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ian Hamilton",
+          "playerSide": "opponent",
+          "minute": 12,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": false,
@@ -3777,7 +3894,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3912,6 +4030,26 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alf Wood",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ken Wagstaff",
+          "playerSide": "opponent",
+          "minute": 84,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -3951,6 +4089,24 @@
           "type": "goal",
           "player": "sammy-mcilroy",
           "minute": 61
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bill Hughes",
+          "playerSide": "opponent",
+          "minute": 12,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bill Hughes",
+          "playerSide": "opponent",
+          "minute": 14,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4311,6 +4467,42 @@
           "type": "goal",
           "player": "stuart-pearson",
           "minute": 63
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "David Sunley",
+          "playerSide": "opponent",
+          "minute": 19,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "David Sunley",
+          "playerSide": "opponent",
+          "minute": 69,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bernard Shaw",
+          "playerSide": "opponent",
+          "minute": 24,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Colin Harvey",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5025,6 +5217,15 @@
           "type": "pen-goal",
           "player": "gerry-daly",
           "minute": 63
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Len Cantello",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5182,7 +5383,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5328,6 +5530,17 @@
           "bench": false,
           "on": 68,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Maurice Whittle",
+          "playerSide": "opponent",
+          "minute": 69,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -5534,6 +5747,33 @@
           "type": "goal",
           "player": "sammy-mcilroy",
           "minute": 114
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bernie Wright",
+          "playerSide": "opponent",
+          "minute": 21,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Buckley",
+          "playerSide": "opponent",
+          "minute": 109,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Buckley",
+          "playerSide": "opponent",
+          "minute": 113,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5891,6 +6131,24 @@
           "type": "goal",
           "player": "lou-macari",
           "minute": 71
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tony Powell",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ted MacDougall",
+          "playerSide": "opponent",
+          "minute": 88,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
@@ -6220,7 +6478,8 @@
       },
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6367,6 +6626,17 @@
           "on": 68,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Colin Suggett",
+          "playerSide": "opponent",
+          "minute": 54,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -6388,7 +6658,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6535,6 +6806,17 @@
           "on": 18,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Don Gilles",
+          "playerSide": "opponent",
+          "minute": 89,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -6556,7 +6838,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6702,6 +6985,17 @@
           "bench": false,
           "on": 70,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Derek Clarke",
+          "playerSide": "opponent",
+          "minute": 33,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -6906,7 +7200,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -7052,6 +7347,26 @@
           "bench": false,
           "on": 64,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ray Graydon",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Charlie Aitken",
+          "playerSide": "opponent",
+          "minute": 25,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -7451,6 +7766,15 @@
           "type": "goal",
           "player": "stuart-pearson",
           "minute": 50
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ted MacDougall",
+          "playerSide": "opponent",
+          "minute": 68,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7793,6 +8117,15 @@
           "type": "goal",
           "player": "lou-macari",
           "minute": 35
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bruce Bannister",
+          "playerSide": "opponent",
+          "minute": 90,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7975,6 +8308,15 @@
           "type": "goal",
           "player": "lou-macari",
           "minute": 86
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Seal",
+          "playerSide": "opponent",
+          "minute": 88,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -8150,6 +8492,24 @@
           "type": "goal",
           "player": "steve-coppell",
           "minute": 75
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ian Robins",
+          "playerSide": "opponent",
+          "minute": 48,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alex Young",
+          "playerSide": "opponent",
+          "minute": 76,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -8674,6 +9034,24 @@
           "type": "goal",
           "player": "brian-greenhoff",
           "minute": 40
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Eric Probert",
+          "playerSide": "opponent",
+          "minute": 49,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Kevin Randall",
+          "playerSide": "opponent",
+          "minute": 63,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,

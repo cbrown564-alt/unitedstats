@@ -35,6 +35,24 @@
           "type": "goal",
           "player": "billy-wrigglesworth",
           "minute": 32
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Maurice Conroy",
+          "playerSide": "opponent",
+          "minute": 60,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Walter Keeley",
+          "playerSide": "opponent",
+          "minute": 87,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -193,7 +211,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup leg2",
       "events": [
@@ -223,6 +242,15 @@
           "minute": null,
           "detail": "own goal (og)",
           "playerSide": "opponent"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Walter Keeley",
+          "playerSide": "opponent",
+          "minute": 22,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -557,6 +585,33 @@
           "type": "goal",
           "player": "jimmy-hanlon",
           "minute": 71
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bill Shankly",
+          "playerSide": "opponent",
+          "minute": 12,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Livesey",
+          "playerSide": "opponent",
+          "minute": 51,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy McIntosh",
+          "playerSide": "opponent",
+          "minute": 120,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,

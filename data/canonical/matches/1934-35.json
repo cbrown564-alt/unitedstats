@@ -203,6 +203,33 @@
           "type": "goal",
           "player": "tom-manley",
           "minute": 1
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "William Boyd",
+          "playerSide": "opponent",
+          "minute": 6,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "William Boyd",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Pickering",
+          "playerSide": "opponent",
+          "minute": 58,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -360,7 +387,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -369,6 +397,33 @@
           "minute": null,
           "detail": "own goal (og)",
           "playerSide": "opponent"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Milsom",
+          "playerSide": "opponent",
+          "minute": 6,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Atkinson",
+          "playerSide": "opponent",
+          "minute": 28,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "own-goal-against",
+          "player": null,
+          "playerName": "George Vose",
+          "playerSide": "opponent",
+          "minute": 67,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -549,6 +604,15 @@
           "type": "goal",
           "player": "tom-manley",
           "minute": 50
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dick Spence",
+          "playerSide": "opponent",
+          "minute": 7,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -862,7 +926,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -874,6 +939,33 @@
           "type": "goal",
           "player": "george-mutch",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "John Friar",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "John Friar",
+          "playerSide": "opponent",
+          "minute": 53,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Wilf Nolan",
+          "playerSide": "opponent",
+          "minute": 73,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1233,6 +1325,15 @@
           "type": "goal",
           "player": "george-mutch",
           "minute": 44
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Walter Bussey",
+          "playerSide": "opponent",
+          "minute": 36,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1403,6 +1504,15 @@
           "type": "goal",
           "player": "tom-manley",
           "minute": 70
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Brown",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1923,6 +2033,15 @@
           "type": "goal",
           "player": "bill-mckay",
           "minute": 63
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Hugh Mills",
+          "playerSide": "opponent",
+          "minute": 4,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2080,7 +2199,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2092,6 +2212,15 @@
           "type": "goal",
           "player": "bill-mckay",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Hampson",
+          "playerSide": "opponent",
+          "minute": 50,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2584,7 +2713,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2601,6 +2731,24 @@
           "type": "goal",
           "player": "ernie-hine",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Arthur Masters",
+          "playerSide": "opponent",
+          "minute": 19,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Johnny Dent",
+          "playerSide": "opponent",
+          "minute": 76,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3101,6 +3249,15 @@
           "type": "goal",
           "player": "george-mutch",
           "minute": 30
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Robertson",
+          "playerSide": "opponent",
+          "minute": 65,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3258,7 +3415,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -3275,6 +3433,15 @@
           "type": "goal",
           "player": "harry-rowley",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Sammy Black",
+          "playerSide": "opponent",
+          "minute": 18,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3432,7 +3599,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -3444,6 +3612,15 @@
           "type": "goal",
           "player": "harry-rowley",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ernie Steele",
+          "playerSide": "opponent",
+          "minute": 89,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3601,7 +3778,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3736,6 +3914,17 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Stabb",
+          "playerSide": "opponent",
+          "minute": 26,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -3757,7 +3946,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3891,6 +4081,26 @@
           "bench": false,
           "on": null,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Spud Murphy",
+          "playerSide": "opponent",
+          "minute": 49,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Harry Adamson",
+          "playerSide": "opponent",
+          "minute": 80,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -4088,7 +4298,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -4105,6 +4316,33 @@
           "type": "goal",
           "player": "harry-rowley",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "William Boyd",
+          "playerSide": "opponent",
+          "minute": 16,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "William Boyd",
+          "playerSide": "opponent",
+          "minute": 87,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Pickering",
+          "playerSide": "opponent",
+          "minute": 85,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4282,6 +4520,15 @@
           "type": "goal",
           "player": "george-mutch",
           "minute": 54
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George McNestry",
+          "playerSide": "opponent",
+          "minute": 25,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4767,7 +5014,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "lineup": [
@@ -4903,6 +5151,35 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Joe Mawson",
+          "playerSide": "opponent",
+          "minute": 3,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Arthur Masters",
+          "playerSide": "opponent",
+          "minute": 43,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Henry Race",
+          "playerSide": "opponent",
+          "minute": 70,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -4937,6 +5214,33 @@
           "type": "goal",
           "player": "harry-rowley",
           "minute": 25
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Cecil Russell",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Kack Vinall",
+          "playerSide": "opponent",
+          "minute": 9,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alf Kirchen",
+          "playerSide": "opponent",
+          "minute": 66,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5094,7 +5398,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -5106,6 +5411,15 @@
           "type": "goal",
           "player": "harry-rowley",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "William Rhodes",
+          "playerSide": "opponent",
+          "minute": 6,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5263,7 +5577,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5398,6 +5713,17 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ted Martin",
+          "playerSide": "opponent",
+          "minute": 40,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -5427,6 +5753,33 @@
           "type": "goal",
           "player": "george-mutch",
           "minute": 67
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom Reid",
+          "playerSide": "opponent",
+          "minute": 4,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom Reid",
+          "playerSide": "opponent",
+          "minute": 77,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Robson",
+          "playerSide": "opponent",
+          "minute": 62,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5584,7 +5937,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5718,6 +6072,17 @@
           "bench": false,
           "on": null,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Thomas Pearson",
+          "playerSide": "opponent",
+          "minute": 7,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -5914,6 +6279,24 @@
           "type": "goal",
           "player": "harry-rowley",
           "minute": 24
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter Doherty",
+          "playerSide": "opponent",
+          "minute": 42,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter Doherty",
+          "playerSide": "opponent",
+          "minute": 50,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6254,6 +6637,42 @@
           "type": "goal",
           "player": "walter-mcmillen",
           "minute": 77
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Brown",
+          "playerSide": "opponent",
+          "minute": 51,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Brown",
+          "playerSide": "opponent",
+          "minute": 59,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ron Hornby",
+          "playerSide": "opponent",
+          "minute": 74,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Frank Rayner",
+          "playerSide": "opponent",
+          "minute": 80,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6586,7 +7005,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -6598,6 +7018,24 @@
           "type": "goal",
           "player": "billy-bryant",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom Peacock",
+          "playerSide": "opponent",
+          "minute": 14,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom Peacock",
+          "playerSide": "opponent",
+          "minute": 40,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6919,6 +7357,33 @@
           "type": "goal",
           "player": "tommy-bamford",
           "minute": 2
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Eddie Perry",
+          "playerSide": "opponent",
+          "minute": 27,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Arthur Warburton",
+          "playerSide": "opponent",
+          "minute": 43,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Herbert Hammond",
+          "playerSide": "opponent",
+          "minute": 67,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7076,7 +7541,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -7210,6 +7676,17 @@
           "bench": false,
           "on": null,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Johnny McIllwane",
+          "playerSide": "opponent",
+          "minute": 12,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },

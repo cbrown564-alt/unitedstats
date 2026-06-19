@@ -521,13 +521,23 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "frank-mcpherson",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Trotter",
+          "playerSide": "opponent",
+          "minute": 39,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -693,6 +703,69 @@
           "type": "pen-goal",
           "player": "joe-spence",
           "minute": 48
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Stan Seymour",
+          "playerSide": "opponent",
+          "minute": 18,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Stan Seymour",
+          "playerSide": "opponent",
+          "minute": 85,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom McDonald",
+          "playerSide": "opponent",
+          "minute": 40,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Hugh Gallacher",
+          "playerSide": "opponent",
+          "minute": 55,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom Urwin",
+          "playerSide": "opponent",
+          "minute": 58,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Neil Harris",
+          "playerSide": "opponent",
+          "minute": 61,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Robert McKay",
+          "playerSide": "opponent",
+          "minute": 73,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -863,6 +936,42 @@
           "type": "goal",
           "player": "joe-spence",
           "minute": 86
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Brown",
+          "playerSide": "opponent",
+          "minute": 6,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Brown",
+          "playerSide": "opponent",
+          "minute": 40,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Brown",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Johnny Dent",
+          "playerSide": "opponent",
+          "minute": 57,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1020,7 +1129,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1154,6 +1264,35 @@
           "bench": false,
           "on": null,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Syd Puddlefoot",
+          "playerSide": "opponent",
+          "minute": 12,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Syd Puddlefoot",
+          "playerSide": "opponent",
+          "minute": 44,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ted Harper",
+          "playerSide": "opponent",
+          "minute": 37,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -1351,7 +1490,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1486,6 +1626,17 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Hugh Adcock",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -1507,7 +1658,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -1519,6 +1671,51 @@
           "type": "pen-goal",
           "player": "joe-spence",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dixie Dean",
+          "playerSide": "opponent",
+          "minute": 1,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dixie Dean",
+          "playerSide": "opponent",
+          "minute": 8,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dixie Dean",
+          "playerSide": "opponent",
+          "minute": 29,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dixie Dean",
+          "playerSide": "opponent",
+          "minute": 44,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dixie Dean",
+          "playerSide": "opponent",
+          "minute": 65,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1689,6 +1886,24 @@
           "type": "goal",
           "player": "eric-sweeney",
           "minute": 10
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Billy Thirlaway",
+          "playerSide": "opponent",
+          "minute": 15,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ernie Curtis",
+          "playerSide": "opponent",
+          "minute": 77,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2030,7 +2245,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2044,6 +2260,15 @@
           "minute": null,
           "detail": "own goal (og)",
           "playerSide": "opponent"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Victor Watson",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2380,6 +2605,42 @@
           "type": "pen-goal",
           "player": "joe-spence",
           "minute": 41
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dave Halliday",
+          "playerSide": "opponent",
+          "minute": 16,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dave Halliday",
+          "playerSide": "opponent",
+          "minute": 23,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dave Halliday",
+          "playerSide": "opponent",
+          "minute": 66,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bobby Marshall",
+          "playerSide": "opponent",
+          "minute": 63,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2721,7 +2982,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -2856,6 +3118,44 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Beel",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Beel",
+          "playerSide": "opponent",
+          "minute": 52,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Hill",
+          "playerSide": "opponent",
+          "minute": 15,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Joe Devine",
+          "playerSide": "opponent",
+          "minute": 48,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -2877,7 +3177,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3012,6 +3313,17 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Norman Bullock",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -3041,6 +3353,24 @@
           "type": "pen-goal",
           "player": "joe-spence",
           "minute": 49
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Albert Partridge",
+          "playerSide": "opponent",
+          "minute": 27,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Fred Tunstall",
+          "playerSide": "opponent",
+          "minute": 58,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3198,7 +3528,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -3220,6 +3551,15 @@
           "type": "pen-goal",
           "player": "joe-spence",
           "minute": null
+        },
+        {
+          "type": "own-goal-against",
+          "player": null,
+          "playerName": "Jack Wilson",
+          "playerSide": "opponent",
+          "minute": 38,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3377,7 +3717,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3512,6 +3853,26 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom Scott",
+          "playerSide": "opponent",
+          "minute": 60,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Harry Chambers",
+          "playerSide": "opponent",
+          "minute": 88,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -3541,6 +3902,15 @@
           "type": "pen-goal",
           "player": "joe-spence",
           "minute": 52
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Arthur Rigby",
+          "playerSide": "opponent",
+          "minute": 27,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3711,6 +4081,15 @@
           "type": "goal",
           "player": "billy-johnston",
           "minute": 3
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jim McClelland",
+          "playerSide": "opponent",
+          "minute": 52,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3876,6 +4255,15 @@
           "type": "goal",
           "player": "jimmy-hanson",
           "minute": 49
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Briggs",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4034,7 +4422,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
@@ -4072,6 +4461,15 @@
           "type": "pen-goal",
           "player": "joe-spence",
           "minute": null
+        },
+        {
+          "type": "own-goal-against",
+          "player": null,
+          "playerName": "Thomas Jones",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4237,6 +4635,42 @@
           "type": "goal",
           "player": "teddy-partridge",
           "minute": 12
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Stan Seymour",
+          "playerSide": "opponent",
+          "minute": 7,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jonathan Wilkinson",
+          "playerSide": "opponent",
+          "minute": 25,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jonathan Wilkinson",
+          "playerSide": "opponent",
+          "minute": 41,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Robert McKay",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4404,6 +4838,15 @@
           "type": "goal",
           "player": "billy-johnston",
           "minute": 78
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Wally Amos",
+          "playerSide": "opponent",
+          "minute": 46,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4736,6 +5179,42 @@
           "type": "goal",
           "player": "billy-johnston",
           "minute": 47
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Armstrong",
+          "playerSide": "opponent",
+          "minute": 23,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Armstrong",
+          "playerSide": "opponent",
+          "minute": 80,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Taffy O'Callaghan",
+          "playerSide": "opponent",
+          "minute": 41,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Dimmock",
+          "playerSide": "opponent",
+          "minute": 46,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4921,6 +5400,24 @@
           "type": "goal",
           "player": "jimmy-hanson",
           "minute": 18
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Arthur Chandler",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Johnny Duncan",
+          "playerSide": "opponent",
+          "minute": 80,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5245,7 +5742,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5380,6 +5878,26 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Len Davies",
+          "playerSide": "opponent",
+          "minute": 20,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Hugh Ferguson",
+          "playerSide": "opponent",
+          "minute": 41,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -5402,7 +5920,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "lineup": [
@@ -5537,6 +6056,26 @@
           "bench": false,
           "on": null,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Syd Puddlefoot",
+          "playerSide": "opponent",
+          "minute": 77,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Syd Puddlefoot",
+          "playerSide": "opponent",
+          "minute": 80,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -5723,6 +6262,15 @@
           "type": "goal",
           "player": "billy-johnston",
           "minute": 88
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Stanley Earle",
+          "playerSide": "opponent",
+          "minute": 15,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6045,7 +6593,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6180,6 +6729,17 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Weddle",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -6201,7 +6761,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6336,6 +6897,53 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Whitehouse",
+          "playerSide": "opponent",
+          "minute": 16,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Harry Bedford",
+          "playerSide": "opponent",
+          "minute": 53,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Harry Bedford",
+          "playerSide": "opponent",
+          "minute": 84,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Stephenson",
+          "playerSide": "opponent",
+          "minute": 55,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Stephenson",
+          "playerSide": "opponent",
+          "minute": 88,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -6365,6 +6973,33 @@
           "type": "goal",
           "player": "bill-rawlings",
           "minute": 49
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Thomas Smart",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Thomas Waring",
+          "playerSide": "opponent",
+          "minute": 47,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Cook",
+          "playerSide": "opponent",
+          "minute": 67,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6535,6 +7170,33 @@
           "type": "goal",
           "player": "harry-thomas",
           "minute": 34
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ted Vizard",
+          "playerSide": "opponent",
+          "minute": 12,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Round",
+          "playerSide": "opponent",
+          "minute": 50,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "James McClelland",
+          "playerSide": "opponent",
+          "minute": 80,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6715,6 +7377,33 @@
           "type": "goal",
           "player": "rees-williams",
           "minute": 90
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Beel",
+          "playerSide": "opponent",
+          "minute": 19,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Beel",
+          "playerSide": "opponent",
+          "minute": 30,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Bruton",
+          "playerSide": "opponent",
+          "minute": 55,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6885,6 +7574,15 @@
           "type": "goal",
           "player": "bill-rawlings",
           "minute": 31
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "James McClelland",
+          "playerSide": "opponent",
+          "minute": 28,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7042,7 +7740,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -7059,6 +7758,42 @@
           "type": "goal",
           "player": "rees-williams",
           "minute": null
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Ball",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "John.R.Smith",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "own-goal-against",
+          "player": null,
+          "playerName": "Frank Mann",
+          "playerSide": "opponent",
+          "minute": 67,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Norman Bullock",
+          "playerSide": "opponent",
+          "minute": 80,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7229,6 +7964,33 @@
           "type": "goal",
           "player": "harry-thomas",
           "minute": 51
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Fred Tunstall",
+          "playerSide": "opponent",
+          "minute": 65,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Fred Tunstall",
+          "playerSide": "opponent",
+          "minute": 73,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Albert Partridge",
+          "playerSide": "opponent",
+          "minute": 75,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7399,6 +8161,15 @@
           "type": "goal",
           "player": "billy-johnston",
           "minute": 65
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dave Halliday",
+          "playerSide": "opponent",
+          "minute": 44,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7754,6 +8525,15 @@
           "type": "goal",
           "player": "jimmy-hanson",
           "minute": 74
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Gordon Hodgson",
+          "playerSide": "opponent",
+          "minute": 38,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,

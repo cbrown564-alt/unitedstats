@@ -1101,7 +1101,8 @@
       },
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1271,6 +1272,44 @@
           "bench": false,
           "on": 57,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Will Grigg",
+          "playerSide": "opponent",
+          "minute": 25,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Will Grigg",
+          "playerSide": "opponent",
+          "minute": 63,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Benik Afobe",
+          "playerSide": "opponent",
+          "minute": 70,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Benik Afobe",
+          "playerSide": "opponent",
+          "minute": 84,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -4630,7 +4669,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -4760,7 +4800,8 @@
           "minute": 90,
           "providerEventId": "57b4333c44209a55924b467e4431f235",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 3. Goal of the Season"
+          "detail": ", Left-footed shot, 3. Goal of the Season",
+          "addedTime": 4
         },
         {
           "type": "card-red",
@@ -6287,7 +6328,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -6355,7 +6397,8 @@
           "minute": 90,
           "providerEventId": "44af53167d1143ce0a88fbac91acf376",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 2. Goal of the Season Assist: , 1. Assist of the Season"
+          "detail": ", Left-footed shot, 2. Goal of the Season Assist: , 1. Assist of the Season",
+          "addedTime": 5
         },
         {
           "type": "card-yellow",
@@ -12189,7 +12232,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -12275,7 +12319,8 @@
           "minute": 90,
           "providerEventId": "efa512d29ef5fac88913bac7c0edf91e",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Goal of the Season"
+          "detail": ", Right-footed shot, 1. Goal of the Season",
+          "addedTime": 4
         }
       ],
       "eventsComplete": true,
@@ -14263,7 +14308,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -14349,7 +14395,8 @@
           "minute": 90,
           "providerEventId": "1b3cf442ff893bfbb987e0513ab14127",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 2. Goal of the Season"
+          "detail": ", Left-footed shot, 2. Goal of the Season",
+          "addedTime": 2
         },
         {
           "type": "card-red",
@@ -19279,7 +19326,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -19351,7 +19399,8 @@
           "minute": 90,
           "providerEventId": "f880bea8657b047d50c6c141bf858c98",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 5. Goal of the Season Assist: , 4. Assist of the Season"
+          "detail": ", Right-footed shot, 5. Goal of the Season Assist: , 4. Assist of the Season",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,

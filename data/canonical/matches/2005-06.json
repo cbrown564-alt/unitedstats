@@ -845,7 +845,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -856,7 +857,8 @@
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
-          "minute": 90
+          "minute": 90,
+          "addedTime": 1
         }
       ],
       "eventsComplete": true,
@@ -1038,13 +1040,23 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 45
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Joey Barton",
+          "playerSide": "opponent",
+          "minute": 76,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1622,13 +1634,32 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 67
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Morten Gamst Pedersen",
+          "playerSide": "opponent",
+          "minute": 33,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Morten Gamst Pedersen",
+          "playerSide": "opponent",
+          "minute": 81,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1831,11 +1862,21 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 85
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Simao",
+          "playerSide": "opponent",
+          "minute": 59,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -1991,7 +2032,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2008,6 +2050,24 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 17
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Collins John",
+          "playerSide": "opponent",
+          "minute": 2,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Claus Jensen",
+          "playerSide": "opponent",
+          "minute": 27,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2201,7 +2261,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2218,6 +2279,15 @@
           "type": "goal",
           "player": "giuseppe-rossi",
           "minute": 87
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Stephen Elliott",
+          "playerSide": "opponent",
+          "minute": 82,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2579,13 +2649,23 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "mikael-silvestre",
           "minute": 7
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jermaine Jenas",
+          "playerSide": "opponent",
+          "minute": 72,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2786,11 +2866,21 @@
           "type": "goal",
           "player": "sylvan-ebanks-blake",
           "minute": 89
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dean Sinclair",
+          "playerSide": "opponent",
+          "minute": 74,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -2958,13 +3048,52 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "cristiano-ronaldo",
-          "minute": 90
+          "minute": 90,
+          "addedTime": 4
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Gaizka Mendieta",
+          "playerSide": "opponent",
+          "minute": 2,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Gaizka Mendieta",
+          "playerSide": "opponent",
+          "minute": 76,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Floyd Hasselbaink",
+          "playerSide": "opponent",
+          "minute": 25,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ayegbeni Yakubu",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": "pen",
+          "sourceConfidence": "supporting",
+          "addedTime": 5
         }
       ],
       "eventsComplete": true,
@@ -3158,7 +3287,8 @@
       },
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3316,6 +3446,17 @@
           "bench": false,
           "on": 89,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Milenko Acimovic",
+          "playerSide": "opponent",
+          "minute": 38,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -3514,7 +3655,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -3531,6 +3673,15 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 85
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Darren Ambrose",
+          "playerSide": "opponent",
+          "minute": 65,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3916,7 +4067,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -3928,6 +4080,15 @@
           "type": "goal",
           "player": "john-o-shea",
           "minute": 56
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Marlon Harewood",
+          "playerSide": "opponent",
+          "minute": 1,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4123,11 +4284,21 @@
           "type": "goal",
           "player": "john-o-shea",
           "minute": 56
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Nathan Ellington",
+          "playerSide": "opponent",
+          "minute": 77,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -4533,11 +4704,30 @@
           "type": "goal",
           "player": "paul-scholes",
           "minute": 6
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Marcio Geovanni",
+          "playerSide": "opponent",
+          "minute": 16,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Gilberto Galdino Beto",
+          "playerSide": "opponent",
+          "minute": 34,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -4729,13 +4919,23 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ryan-giggs",
           "minute": 15
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "James McFadden",
+          "playerSide": "opponent",
+          "minute": 7,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5339,11 +5539,21 @@
           "type": "goal",
           "player": "park-ji-sung",
           "minute": 50
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jiri Jarosik",
+          "playerSide": "opponent",
+          "minute": 74,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5745,7 +5955,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -5757,6 +5968,24 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 53
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jamie Clapham",
+          "playerSide": "opponent",
+          "minute": 18,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Walter Pandiani",
+          "playerSide": "opponent",
+          "minute": 77,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5950,7 +6179,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -5975,6 +6205,15 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 90
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Gary Speed",
+          "playerSide": "opponent",
+          "minute": 33,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6522,11 +6761,21 @@
           "type": "goal",
           "player": "louis-saha",
           "minute": 30
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Morten Gamst Pedersen",
+          "playerSide": "opponent",
+          "minute": 36,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6706,13 +6955,42 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 76
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Trevor Sinclair",
+          "playerSide": "opponent",
+          "minute": 32,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Darius Vassell",
+          "playerSide": "opponent",
+          "minute": 39,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Robbie Fowler",
+          "playerSide": "opponent",
+          "minute": 90,
+          "detail": null,
+          "sourceConfidence": "supporting",
+          "addedTime": 3
         }
       ],
       "eventsComplete": true,
@@ -6907,7 +7185,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "events": [
@@ -6924,7 +7203,8 @@
         {
           "type": "goal",
           "player": "giuseppe-rossi",
-          "minute": 90
+          "minute": 90,
+          "addedTime": 1
         },
         {
           "type": "goal",
@@ -7313,11 +7593,21 @@
           "type": "goal",
           "player": "louis-saha",
           "minute": 51
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Steven Reid",
+          "playerSide": "opponent",
+          "minute": 32,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -7721,7 +8011,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -7738,6 +8029,43 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 65
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "David Bentley",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "David Bentley",
+          "playerSide": "opponent",
+          "minute": 41,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "David Bentley",
+          "playerSide": "opponent",
+          "minute": 56,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Lucas Neill",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": "pen",
+          "sourceConfidence": "supporting",
+          "addedTime": 3
         }
       ],
       "eventsComplete": true,
@@ -7931,7 +8259,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -7956,6 +8285,24 @@
           "type": "goal",
           "player": "louis-saha",
           "minute": 23
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Brian McBride",
+          "playerSide": "opponent",
+          "minute": 22,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Heidar Helguson",
+          "playerSide": "opponent",
+          "minute": 37,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -8149,7 +8496,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -8166,6 +8514,15 @@
           "type": "goal",
           "player": "cristiano-ronaldo",
           "minute": 45
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Matthew Taylor",
+          "playerSide": "opponent",
+          "minute": 87,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -8360,7 +8717,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "lineup": [
@@ -8531,6 +8889,17 @@
           "bench": false,
           "on": 89,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter Crouch",
+          "playerSide": "opponent",
+          "minute": 19,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -8711,7 +9080,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -8726,6 +9096,15 @@
           "detail": "Pascal Chimbonda (og)",
           "playerName": "Pascal Chimbonda",
           "playerSide": "opponent"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Matt Scharner",
+          "playerSide": "opponent",
+          "minute": 60,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -9100,7 +9479,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -9112,6 +9492,15 @@
           "type": "goal",
           "player": "louis-saha",
           "minute": 64
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Nathan Ellington",
+          "playerSide": "opponent",
+          "minute": 78,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -9691,7 +10080,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -9703,6 +10093,15 @@
           "type": "goal",
           "player": "ruud-van-nistelrooy",
           "minute": 79
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Kevin Davies",
+          "playerSide": "opponent",
+          "minute": 26,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -10257,7 +10656,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -10269,6 +10669,15 @@
           "type": "goal",
           "player": "wayne-rooney",
           "minute": 36
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jermaine Jenas",
+          "playerSide": "opponent",
+          "minute": 53,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -10438,7 +10847,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -10608,6 +11018,35 @@
           "bench": false,
           "on": 82,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "William Gallas",
+          "playerSide": "opponent",
+          "minute": 4,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Joe Cole",
+          "playerSide": "opponent",
+          "minute": 61,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ricardo Carvalho",
+          "playerSide": "opponent",
+          "minute": 73,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },

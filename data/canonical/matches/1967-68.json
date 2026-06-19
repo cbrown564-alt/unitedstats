@@ -179,6 +179,33 @@
           "type": "goal",
           "player": "bobby-charlton",
           "minute": 86
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Ball",
+          "playerSide": "opponent",
+          "minute": 13,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Ball",
+          "playerSide": "opponent",
+          "minute": 66,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alex Young",
+          "playerSide": "opponent",
+          "minute": 68,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -521,6 +548,15 @@
           "type": "goal",
           "player": "bill-foulkes",
           "minute": 63
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Mike Stringfellow",
+          "playerSide": "opponent",
+          "minute": 54,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -696,6 +732,15 @@
           "type": "goal",
           "player": "david-sadler",
           "minute": 59
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Martin Peters",
+          "playerSide": "opponent",
+          "minute": 79,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -861,6 +906,15 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 5
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Colin Suggett",
+          "playerSide": "opponent",
+          "minute": 6,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1043,6 +1097,24 @@
           "type": "goal",
           "player": "paddy-crerand",
           "minute": 90
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Andy Lochhead",
+          "playerSide": "opponent",
+          "minute": 44,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Andy Lochhead",
+          "playerSide": "opponent",
+          "minute": 61,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1220,6 +1292,15 @@
           "type": "goal",
           "player": "george-best",
           "minute": 75
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Brian Usher",
+          "playerSide": "opponent",
+          "minute": 32,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1575,6 +1656,15 @@
           "type": "goal",
           "player": "denis-law",
           "minute": 85
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Gilzean",
+          "playerSide": "opponent",
+          "minute": 1,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -1901,6 +1991,15 @@
           "type": "goal",
           "player": "bobby-charlton",
           "minute": 35
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Colin Bell",
+          "playerSide": "opponent",
+          "minute": 5,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2610,6 +2709,33 @@
           "type": "goal",
           "player": "george-best",
           "minute": 71
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Joe Baker",
+          "playerSide": "opponent",
+          "minute": 26,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Joe Baker",
+          "playerSide": "opponent",
+          "minute": 40,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Frank Wignall",
+          "playerSide": "opponent",
+          "minute": 59,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -2932,7 +3058,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3079,6 +3206,17 @@
           "on": 70,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Greenhoff",
+          "playerSide": "opponent",
+          "minute": 25,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -3113,6 +3251,15 @@
           "type": "goal",
           "player": "george-best",
           "minute": 40
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Roger Hunt",
+          "playerSide": "opponent",
+          "minute": 83,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3444,6 +3591,24 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 26
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ron Tudor Davies",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Martin Chivers",
+          "playerSide": "opponent",
+          "minute": 57,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3609,6 +3774,15 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 35
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tommy Baldwin",
+          "playerSide": "opponent",
+          "minute": 21,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -3775,6 +3949,15 @@
           "type": "goal",
           "player": "george-best",
           "minute": 63
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Salih Delalic",
+          "playerSide": "opponent",
+          "minute": 87,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
@@ -3949,6 +4132,15 @@
           "type": "goal",
           "player": "george-best",
           "minute": 26
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "John Kaye",
+          "playerSide": "opponent",
+          "minute": 75,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4119,6 +4311,24 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 82
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "James Iley",
+          "playerSide": "opponent",
+          "minute": 47,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Thomas Robson",
+          "playerSide": "opponent",
+          "minute": 57,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4294,6 +4504,15 @@
           "type": "goal",
           "player": "david-sadler",
           "minute": 3
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alex Young",
+          "playerSide": "opponent",
+          "minute": 75,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4464,6 +4683,24 @@
           "type": "goal",
           "player": "denis-law",
           "minute": 69
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "John Sjoberg",
+          "playerSide": "opponent",
+          "minute": 52,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alan Tewley",
+          "playerSide": "opponent",
+          "minute": 87,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4819,6 +5056,24 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 60
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Pat Buckley",
+          "playerSide": "opponent",
+          "minute": 1,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Mike Bailey",
+          "playerSide": "opponent",
+          "minute": 67,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -4994,6 +5249,15 @@
           "type": "goal",
           "player": "bobby-charlton",
           "minute": 11
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Trevor Brooking",
+          "playerSide": "opponent",
+          "minute": 22,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5174,6 +5438,24 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 67
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Whitham",
+          "playerSide": "opponent",
+          "minute": 77,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Whitham",
+          "playerSide": "opponent",
+          "minute": 88,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5346,6 +5628,24 @@
           "type": "goal",
           "player": "bobby-charlton",
           "minute": 73
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Martin Chivers",
+          "playerSide": "opponent",
+          "minute": 2,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Martin Chivers",
+          "playerSide": "opponent",
+          "minute": 89,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5503,7 +5803,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "FA Cup replay",
       "lineup": [
@@ -5639,6 +5940,17 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jimmy Robertson",
+          "playerSide": "opponent",
+          "minute": 104,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -5673,6 +5985,15 @@
           "type": "goal",
           "player": "bobby-charlton",
           "minute": 88
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Martin Chivers",
+          "playerSide": "opponent",
+          "minute": 2,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -5838,6 +6159,24 @@
           "type": "goal",
           "player": "george-best",
           "minute": 8
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Brian O'Neill",
+          "playerSide": "opponent",
+          "minute": 61,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Martin Dobson",
+          "playerSide": "opponent",
+          "minute": 68,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6349,6 +6688,33 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 52
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bobby Tambling",
+          "playerSide": "opponent",
+          "minute": 16,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tommy Baldwin",
+          "playerSide": "opponent",
+          "minute": 59,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter Osgood",
+          "playerSide": "opponent",
+          "minute": 79,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -6506,7 +6872,8 @@
       },
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6641,6 +7008,17 @@
           "on": null,
           "off": null
         }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Wlodzimierz Lubanski",
+          "playerSide": "opponent",
+          "minute": 72,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
       ]
     },
     {
@@ -6662,7 +7040,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6808,6 +7187,26 @@
           "bench": false,
           "on": 61,
           "off": null
+        }
+      ],
+      "events": [
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ernie Machin",
+          "playerSide": "opponent",
+          "minute": 34,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Maurice Setters",
+          "playerSide": "opponent",
+          "minute": 52,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ]
     },
@@ -7013,6 +7412,33 @@
           "type": "goal",
           "player": "george-best",
           "minute": 1
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Colin Bell",
+          "playerSide": "opponent",
+          "minute": 18,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Heslop",
+          "playerSide": "opponent",
+          "minute": 57,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Francis Lee",
+          "playerSide": "opponent",
+          "minute": 82,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7205,6 +7631,24 @@
           "type": "goal",
           "player": "jimmy-ryan",
           "minute": 78
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Eastham",
+          "playerSide": "opponent",
+          "minute": 9,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Peter Dobing",
+          "playerSide": "opponent",
+          "minute": 37,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7382,6 +7826,24 @@
           "type": "goal",
           "player": "george-best",
           "minute": 2
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ron Yeats",
+          "playerSide": "opponent",
+          "minute": 9,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Roger Hunt",
+          "playerSide": "opponent",
+          "minute": 17,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -7732,6 +8194,24 @@
           "type": "goal",
           "player": "bobby-charlton",
           "minute": 42
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Terry Paine",
+          "playerSide": "opponent",
+          "minute": 13,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ron Tudor Davies",
+          "playerSide": "opponent",
+          "minute": 34,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -8412,6 +8892,60 @@
           "type": "goal",
           "player": "brian-kidd",
           "minute": 88
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jeff Astle",
+          "playerSide": "opponent",
+          "minute": 10,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jeff Astle",
+          "playerSide": "opponent",
+          "minute": 59,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jeff Astle",
+          "playerSide": "opponent",
+          "minute": 75,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ronnie Rees",
+          "playerSide": "opponent",
+          "minute": 39,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tony Brown",
+          "playerSide": "opponent",
+          "minute": 58,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Asa Hartford",
+          "playerSide": "opponent",
+          "minute": 70,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -8767,6 +9301,24 @@
           "type": "goal",
           "player": "george-best",
           "minute": 44
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Colin Suggett",
+          "playerSide": "opponent",
+          "minute": 14,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "George Mulhall",
+          "playerSide": "opponent",
+          "minute": 32,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -8953,6 +9505,33 @@
           "detail": "Ignacio Zoco (og)",
           "playerName": "Ignacio Zoco",
           "playerSide": "opponent"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Pirri",
+          "playerSide": "opponent",
+          "minute": 32,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Francisco Gento",
+          "playerSide": "opponent",
+          "minute": 41,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Amancio Amaro",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [

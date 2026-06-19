@@ -89,6 +89,7 @@ export interface EventRow {
   player_side: "united" | "opponent";
   player_provider_id: string | null;
   minute: number | null;
+  added_time: number | null;
   assist_player_id: string | null;
   assist_name: string | null;
   assist_display_name: string | null;
@@ -102,7 +103,7 @@ export function eventsForMatch(matchId: string): EventRow[] {
     .prepare(
       `SELECT e.seq, e.type, e.player_id, p.name AS player_name,
               COALESCE(p.name, e.player_name, e.detail) AS player_display_name,
-              e.player_side, e.player_provider_id, e.minute,
+              e.player_side, e.player_provider_id, e.minute, e.added_time,
               e.assist_player_id, ap.name AS assist_name,
               COALESCE(ap.name, e.assist_name) AS assist_display_name,
               e.assist_side, e.assist_provider_id, e.detail

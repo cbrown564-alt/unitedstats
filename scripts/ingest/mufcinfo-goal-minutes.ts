@@ -12,8 +12,11 @@
  *
  * This lane is deliberately additive and non-destructive, mirroring the assist
  * backfill (scripts/ingest/mufcinfo-events.ts):
- *   - it only STAMPS a minute onto an EXISTING goal event that currently has none,
- *   - never creating, removing, re-scoring, or re-typing an event,
+ *   - it STAMPS a minute onto a goal event that has none, and adds stoppage time
+ *     ("90'+6" -> addedTime 6) onto a goal whose base minute already agrees with
+ *     MUFCInfo; it never creates, removes, re-scores, or re-types an event,
+ *   - a base minute that DISAGREES with MUFCInfo is left alone unless --overwrite
+ *     is passed (then it is corrected toward MUFCInfo, the dedicated minute source),
  *   - and only when the parsed scorers reconcile 1:1 with the recorded goals for
  *     that side (so a missing or extra scorer skips the match rather than
  *     guessing). Both the United and the opposition tallies are gated
@@ -71,7 +74,7 @@ const OPP_GOAL_TYPES = new Set<MatchEvent["type"]>(["opp-goal", "own-goal-agains
 interface ParsedScorer {
   name: string;
   slug: string;
-  minutes: number[];
+  entries: { minute: number; added: number | null }[];
 }
 
 interface MatchJob {
@@ -139,8 +142,9 @@ async function matchHtml(date: string): Promise<string> {
 // One scoreboard scorer line, e.g. "Lou Macari 5' 22', 83', Gordon Hill 75'".
 // A run of minute markers belongs to the most recent name; a fresh name (any
 // alphabetic chunk) opens a new scorer. Parenthetical tags like "(pen)" and
-// "(o.g.)" are stripped so they don't masquerade as names.
-const SCORER_TOKEN = /([^\d]*?)(\d{1,3})\s*(?:'|’|&#039;|&rsquo;)/g;
+// "(o.g.)" are stripped so they don't masquerade as names. Stoppage time is
+// written after the apostrophe ("90'+6") and captured into `added`.
+const SCORER_TOKEN = /([^\d]*?)(\d{1,3})\s*(?:'|’|&#039;|&rsquo;)\s*(?:\+\s*(\d{1,2}))?/g;
 
 function cleanScorerName(raw: string): string {
   return displayName(raw.replace(/\([^)]*\)/g, " ").replace(/[,;]/g, " ")).trim();
@@ -155,13 +159,14 @@ function parseScorerLine(line: string): ParsedScorer[] {
   while ((m = SCORER_TOKEN.exec(text)) !== null) {
     const name = cleanScorerName(m[1]);
     const minute = Number(m[2]);
+    const added = m[3] ? Number(m[3]) : null;
     if (name && /[a-z]/i.test(name)) {
-      current = { name, slug: normalizedSlug(name), minutes: [] };
+      current = { name, slug: normalizedSlug(name), entries: [] };
       scorers.push(current);
     }
-    if (current) current.minutes.push(minute);
+    if (current) current.entries.push({ minute, added });
   }
-  return scorers.filter((s) => s.minutes.length > 0);
+  return scorers.filter((s) => s.entries.length > 0);
 }
 
 interface Scoreboard {
@@ -189,7 +194,7 @@ function parseScoreboard(html: string): Scoreboard {
 }
 
 function countGoals(scorers: ParsedScorer[]): number {
-  return scorers.reduce((a, s) => a + s.minutes.length, 0);
+  return scorers.reduce((a, s) => a + s.entries.length, 0);
 }
 
 /** Surname-aware slug comparison, matching the lineup lane's matchesOffName. */
@@ -202,8 +207,8 @@ function slugMatches(a: string, b: string): boolean {
 }
 
 interface SideResult {
-  /** event index -> minute to stamp */
-  assignments: Map<number, number>;
+  /** event index -> minute (and stoppage time) to stamp */
+  assignments: Map<number, { minute: number; added: number | null }>;
   reason: string | null; // non-null = could not reconcile, side skipped
 }
 
@@ -231,7 +236,7 @@ function reconcileSide(
   const byKey = new Map<string, { event: MatchEvent; index: number }[]>();
   for (const e of events) (byKey.get(keyOf(e.event)) ?? byKey.set(keyOf(e.event), []).get(keyOf(e.event))!).push(e);
 
-  const assignments = new Map<number, number>();
+  const assignments = new Map<number, { minute: number; added: number | null }>();
   const used = new Set<string>();
   for (const scorer of scorers) {
     // Find the event-group whose player matches this parsed scorer.
@@ -249,13 +254,13 @@ function reconcileSide(
     }
     if (key == null) return { assignments: new Map(), reason: `no event for ${scorer.name}` };
     const group = byKey.get(key)!;
-    if (group.length !== scorer.minutes.length) {
-      return { assignments: new Map(), reason: `${scorer.name} ${scorer.minutes.length}≠${group.length} goals` };
+    if (group.length !== scorer.entries.length) {
+      return { assignments: new Map(), reason: `${scorer.name} ${scorer.entries.length}≠${group.length} goals` };
     }
     used.add(key);
-    const minutes = [...scorer.minutes].sort((a, b) => a - b);
+    const entries = [...scorer.entries].sort((a, b) => a.minute - b.minute);
     group.sort((a, b) => (a.event.minute ?? 999) - (b.event.minute ?? 999) || a.index - b.index);
-    group.forEach((g, i) => assignments.set(g.index, minutes[i]));
+    group.forEach((g, i) => assignments.set(g.index, entries[i]));
   }
   return { assignments, reason: null };
 }
@@ -278,7 +283,9 @@ function inspect(date: string, html: string): void {
   for (const [side, scorers] of [["united", board.united], ["opponent", board.opponent]] as const) {
     if (!scorers) { console.log(`  ${side}: (no scoreboard block found)`); continue; }
     console.log(`  ${side} (${countGoals(scorers)} goals):`);
-    for (const s of scorers) console.log(`    ${s.name}  ${s.minutes.map((x) => `${x}'`).join(" ")}`);
+    for (const s of scorers) {
+      console.log(`    ${s.name}  ${s.entries.map((e) => `${e.minute}'${e.added ? `+${e.added}` : ""}`).join(" ")}`);
+    }
   }
 }
 
@@ -321,8 +328,12 @@ async function main() {
       const match = job.match;
       stats.checked++;
 
-      const united = unitedGoalEvents(match).filter((e) => OVERWRITE || e.event.minute == null);
-      const opp = oppGoalEvents(match).filter((e) => OVERWRITE || e.event.minute == null);
+      // Reconcile against ALL of a side's goals (not just minute-less ones) so the
+      // parsed-vs-recorded count gate holds and added time can land on goals that
+      // already carry a base minute. What actually gets written is decided per
+      // event below.
+      const united = unitedGoalEvents(match);
+      const opp = oppGoalEvents(match);
       if (united.length === 0 && opp.length === 0) { stats.noGoals++; continue; }
 
       try {
@@ -350,11 +361,23 @@ async function main() {
           }
           if (label === "united") stats.unitedFilled++; else stats.oppFilled++;
           for (const { event, index } of events) {
-            const minute = assignments.get(index);
-            if (minute == null || event.minute === minute) continue;
+            const a = assignments.get(index);
+            if (a == null) continue;
+            // Default: fill a missing minute, or add stoppage time onto a goal whose
+            // base minute already agrees with MUFCInfo. An existing base minute that
+            // DISAGREES is only rewritten under --overwrite, so the lane never churns
+            // a recorded minute toward MUFCInfo unless asked.
+            const fillsMinute = event.minute == null;
+            const addsStoppage =
+              !fillsMinute && event.minute === a.minute && a.added != null && event.addedTime !== a.added;
+            const correctsMinute = !fillsMinute && event.minute !== a.minute && OVERWRITE;
+            if (!fillsMinute && !addsStoppage && !correctsMinute) continue;
             stats.minutesStamped++;
             matchTouched = true;
-            if (WRITE) event.minute = minute;
+            if (WRITE) {
+              event.minute = a.minute;
+              if (a.added != null) event.addedTime = a.added;
+            }
           }
         };
 
@@ -364,7 +387,7 @@ async function main() {
         if (matchTouched) {
           stats.touchedMatches++;
           const scorerLine = [...(board.united ?? [])]
-            .map((s) => `${s.name} ${s.minutes.map((x) => `${x}'`).join(" ")}`)
+            .map((s) => `${s.name} ${s.entries.map((e) => `${e.minute}'${e.added ? `+${e.added}` : ""}`).join(" ")}`)
             .join(", ");
           console.log(`${WRITE ? "write" : "dry"} ${match.id}: ${scorerLine}`);
           if (WRITE) {

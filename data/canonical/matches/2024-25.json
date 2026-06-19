@@ -1159,7 +1159,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -1238,7 +1239,8 @@
           "minute": 90,
           "providerEventId": "f8ef76513a335c7dfdc2a076d632414a",
           "sourceConfidence": "complete",
-          "detail": ", Header, 1. Goal of the Season Assist: , Pass, 1. Assist of the Season"
+          "detail": ", Header, 1. Goal of the Season Assist: , Pass, 1. Assist of the Season",
+          "addedTime": 5
         }
       ],
       "eventsComplete": true,
@@ -2351,7 +2353,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2463,7 +2466,8 @@
           "minute": 90,
           "providerEventId": "48ea13649c96255093383ff645f4b1fc",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Goal of the Season Assist: , Pass, 1. Assist of the Season"
+          "detail": ", Right-footed shot, 1. Goal of the Season Assist: , Pass, 1. Assist of the Season",
+          "addedTime": 6
         }
       ],
       "eventsComplete": true,
@@ -5203,12 +5207,14 @@
           "minute": 90,
           "providerEventId": "a62d7240c66bb03733d48b28fa072870",
           "sourceConfidence": "complete",
-          "detail": ", Header, 1. Tournament Goal Assist: , Corner, 2. Tournament Assist"
+          "detail": ", Header, 1. Tournament Goal Assist: , Corner, 2. Tournament Assist",
+          "addedTime": 1
         }
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6345,7 +6351,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -6372,7 +6379,8 @@
           "minute": 45,
           "providerEventId": "f8fa5769b562468a2962b3518e7b7684",
           "sourceConfidence": "complete",
-          "detail": ", Header, 2. Goal of the Season Assist: , Corner, 3. Assist of the Season"
+          "detail": ", Header, 2. Goal of the Season Assist: , Corner, 3. Assist of the Season",
+          "addedTime": 5
         },
         {
           "type": "goal",
@@ -7547,7 +7555,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -7659,7 +7668,8 @@
           "minute": 90,
           "providerEventId": "399e12d3e500e80e11c5fa3c2aa17ac5",
           "sourceConfidence": "complete",
-          "detail": ", Penalty, 3. Goal of the Season Assist: , Penalty: Fouled player"
+          "detail": ", Penalty, 3. Goal of the Season Assist: , Penalty: Fouled player",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,
@@ -8170,7 +8180,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -8197,6 +8208,25 @@
           "type": "goal",
           "player": "bruno-fernandes",
           "minute": 59
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Bilal El Khannouss",
+          "playerSide": "opponent",
+          "minute": 33,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Conor Coady",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": null,
+          "sourceConfidence": "supporting",
+          "addedTime": 3
         }
       ],
       "eventsComplete": true,
@@ -14463,7 +14493,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -14479,7 +14510,44 @@
         {
           "type": "goal",
           "player": "jonny-evans",
-          "minute": 94
+          "minute": 90,
+          "addedTime": 4
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dominic Solanke",
+          "playerSide": "opponent",
+          "minute": 15,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dominic Solanke",
+          "playerSide": "opponent",
+          "minute": 54,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Dejan Kulusevski",
+          "playerSide": "opponent",
+          "minute": 46,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Son Heung-min",
+          "playerSide": "opponent",
+          "minute": 88,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -17722,7 +17790,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -17827,7 +17896,8 @@
           "minute": 90,
           "providerEventId": "86d5cb13fc2bf7519590f219bc72341b",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 6. Goal of the Season Assist: Without assist"
+          "detail": ", Right-footed shot, 6. Goal of the Season Assist: Without assist",
+          "addedTime": 4
         }
       ],
       "eventsComplete": true,
@@ -21277,7 +21347,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -21334,7 +21405,8 @@
           "minute": 90,
           "providerEventId": "589423b9f76c8040e9dfd5bfb5ab8358",
           "sourceConfidence": "complete",
-          "detail": ", Header, 1. Tournament Goal Assist: , Cross, 1. Tournament Assist"
+          "detail": ", Header, 1. Tournament Goal Assist: , Cross, 1. Tournament Assist",
+          "addedTime": 3
         }
       ],
       "eventsComplete": true,
@@ -23006,7 +23078,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -23111,7 +23184,8 @@
           "minute": 45,
           "providerEventId": "5d633e10c70c7c8c28687df6f62f292c",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 2. Goal of the Season Assist: , Pass, 1. Assist of the Season"
+          "detail": ", Left-footed shot, 2. Goal of the Season Assist: , Pass, 1. Assist of the Season",
+          "addedTime": 2
         },
         {
           "type": "goal",
@@ -23684,7 +23758,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -23722,7 +23797,8 @@
           "minute": 45,
           "providerEventId": "65ccbb38d2f9efe5bab0d0ff1855bd4a",
           "sourceConfidence": "complete",
-          "detail": ", Header, 1. Tournament Goal Assist: , 1. Tournament Assist"
+          "detail": ", Header, 1. Tournament Goal Assist: , 1. Tournament Assist",
+          "addedTime": 1
         },
         {
           "type": "goal",
@@ -24801,7 +24877,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -24828,7 +24905,8 @@
           "minute": 45,
           "providerEventId": "b0cefc946188f87d61bd87f150c23acb",
           "sourceConfidence": "complete",
-          "detail": ", Direct free kick, 7. Goal of the Season"
+          "detail": ", Direct free kick, 7. Goal of the Season",
+          "addedTime": 2
         },
         {
           "type": "opp-goal",
@@ -25510,7 +25588,8 @@
           "minute": 90,
           "providerEventId": "47bda17cafdef749bb38425fdeae5401",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 2. Tournament Goal Assist: , Pass, 3. Tournament Assist"
+          "detail": ", Right-footed shot, 2. Tournament Goal Assist: , Pass, 3. Tournament Assist",
+          "addedTime": 1
         },
         {
           "type": "card-yellow",
@@ -25537,7 +25616,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -27830,7 +27910,8 @@
           "minute": 45,
           "providerEventId": "3136f725e7f66ec91d8c757e3183050c",
           "sourceConfidence": "complete",
-          "detail": ", Header, 1. Tournament Goal Assist: , Shot on goal, 2. Tournament Assist"
+          "detail": ", Header, 1. Tournament Goal Assist: , Shot on goal, 2. Tournament Assist",
+          "addedTime": 5
         },
         {
           "type": "card-yellow",
@@ -27893,7 +27974,8 @@
           "minute": 90,
           "providerEventId": "f35006338e44687efa5f34d7e34bc213",
           "sourceConfidence": "complete",
-          "detail": ", Tap-in, 3. Tournament Goal Assist: , Shot on goal, 5. Tournament Assist"
+          "detail": ", Tap-in, 3. Tournament Goal Assist: , Shot on goal, 5. Tournament Assist",
+          "addedTime": 5
         },
         {
           "type": "card-yellow",
@@ -27909,7 +27991,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -29139,7 +29222,8 @@
           "minute": 45,
           "providerEventId": "84e679529f26ea27f7d427633772a68b",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 3. Tournament Goal Assist: , Pass, 1. Tournament Assist"
+          "detail": ", Right-footed shot, 3. Tournament Goal Assist: , Pass, 1. Tournament Assist",
+          "addedTime": 1
         },
         {
           "type": "card-yellow",
@@ -29284,7 +29368,8 @@
           "minute": 120,
           "providerEventId": "c3c9e6e25fa4f5d9254ead80292f959c",
           "sourceConfidence": "complete",
-          "detail": ", Header, 2. Tournament Goal Assist: , Pass, 3. Tournament Assist"
+          "detail": ", Header, 2. Tournament Goal Assist: , Pass, 3. Tournament Assist",
+          "addedTime": 1
         },
         {
           "type": "card-yellow",
@@ -29315,7 +29400,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -30432,7 +30518,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -30540,7 +30627,8 @@
           "minute": 90,
           "providerEventId": "89fb82488b592b9fe832925fee99b81e",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 4. Goal of the Season Assist: , 1. Assist of the Season"
+          "detail": ", Right-footed shot, 4. Goal of the Season Assist: , 1. Assist of the Season",
+          "addedTime": 6
         }
       ],
       "eventsComplete": true,
@@ -31747,7 +31835,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -31875,7 +31964,8 @@
           "minute": 90,
           "providerEventId": "62bccb3fe66a196d5ef5f7b65dcce8b1",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 7. Goal of the Season Assist: , Pass, 2. Assist of the Season"
+          "detail": ", Left-footed shot, 7. Goal of the Season Assist: , Pass, 2. Assist of the Season",
+          "addedTime": 5
         }
       ],
       "eventsComplete": true,
@@ -32520,7 +32610,8 @@
           "minute": 90,
           "providerEventId": "d7e3ca059127f97c27b065cdefa2bf8b",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 2. Tournament Goal"
+          "detail": ", Left-footed shot, 2. Tournament Goal",
+          "addedTime": 1
         },
         {
           "type": "card-yellow",
@@ -32536,7 +32627,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {

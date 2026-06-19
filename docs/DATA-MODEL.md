@@ -30,10 +30,13 @@ result level (most of 1892–1945 today).
           "assist": "ryan-giggs", "detail": null },
         { "type": "opp-goal", "playerName": "Mario Basler", "playerSide": "opponent",
           "minute": 6, "playerProviderId": "football-data:12345" },
-        { "type": "goal", "player": "ole-gunnar-solskjaer", "minute": 92,
-          "assist": "teddy-sheringham", "detail": null }
+        { "type": "goal", "player": "ole-gunnar-solskjaer", "minute": 90,
+          "addedTime": 3, "assist": "teddy-sheringham", "detail": null }
         // types: goal | own-goal-for | own-goal-against | pen-goal |
         //        opp-goal | card-yellow | card-red | sub-on/off
+        // minute always normalises to the period boundary (45/90/105/120);
+        // stoppage time lives in addedTime, so a 90+3 goal is minute 90 +
+        // addedTime 3, never minute 93.
       ],
       "lineup": [                            // optional, grows over time
         { "player": "peter-schmeichel", "shirt": 1, "role": "GK", "start": true },
@@ -95,7 +98,7 @@ matches(
 
 match_sources(match_id FK, source_id FK, facet, confidence, note)
 match_events(match_id FK, seq, type, player_id FK, player_name, player_side,
-             player_provider_id, minute, assist_player_id FK, assist_name,
+             player_provider_id, minute, added_time, assist_player_id FK, assist_name,
              assist_side, assist_provider_id, provider_event_id, source_confidence, detail)
 match_lineups(match_id FK, seq, player_id FK, player_name, player_side,
               provider_id, shirt, role, started, bench, sub_on, sub_off)
