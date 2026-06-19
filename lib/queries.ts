@@ -728,6 +728,33 @@ export function playerCareerSparks(): PlayerCareerSpark[] {
     .all() as PlayerCareerSpark[];
 }
 
+export interface ManagerCareerSpark {
+  manager_id: string;
+  season: string;
+  w: number;
+  d: number;
+  l: number;
+}
+
+/**
+ * Per-manager, per-season W/D/L for *every* manager in one grouped scan — the raw
+ * material for the index's tenure sparkbars. Every competitive match is dated and
+ * season-stamped, so a season bar means exactly "matches we hold under this man that
+ * year"; managers with no season-stamped matches simply return no rows.
+ */
+export function managerCareerSparks(): ManagerCareerSpark[] {
+  return getDb()
+    .prepare(
+      `SELECT manager_id, season,
+              COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d,
+              COALESCE(SUM(result='L'),0) l
+       FROM matches
+       WHERE manager_id IS NOT NULL AND season IS NOT NULL
+       GROUP BY manager_id, season`,
+    )
+    .all() as ManagerCareerSpark[];
+}
+
 export function playerLineupMatches(id: string): (MatchRow & {
   started: number;
   sub_on: number | null;

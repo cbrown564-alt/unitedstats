@@ -1,8 +1,9 @@
-import { managersIndex } from "@/lib/queries";
+import { managersIndex, managerCareerSparks } from "@/lib/queries";
 import { groupManagersByEra } from "@/lib/managerEras";
 import { WdlBar, WdlColumns } from "@/components/WdlBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ManagerTimeline } from "@/components/charts/ManagerTimeline";
+import { ManagerSparkbar, type ManagerSparkSeason } from "@/components/charts/ManagerSparkbar";
 import { IndexRow } from "@/components/IndexRow";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct } from "@/lib/format";
@@ -21,6 +22,22 @@ export default function ManagersPage() {
     .sort((a, b) => (a.first ?? "").localeCompare(b.first ?? ""))
     .map((g) => g.name.replace(/^Sir /, "").split(" ").pop())
     .join(" and ");
+
+  // Each row's tenure drawn as a season-by-season W/D/L sparkbar on a timeline
+  // *shared* by every row — so the column builds into the succession as you scan
+  // down, each man's block landing at his real years. Scale (axis span + tallest
+  // season) is global, computed once here and handed to every row.
+  const sparks = managerCareerSparks();
+  const byManager = new Map<string, ManagerSparkSeason[]>();
+  for (const s of sparks) {
+    const arr = byManager.get(s.manager_id);
+    if (arr) arr.push(s);
+    else byManager.set(s.manager_id, [s]);
+  }
+  const sparkYears = sparks.map((s) => Number(s.season.slice(0, 4)));
+  const axisStart = sparkYears.length ? Math.min(...sparkYears) : 1892;
+  const axisEnd = (sparkYears.length ? Math.max(...sparkYears) : 2026) + 1;
+  const maxSeason = sparks.reduce((mx, s) => Math.max(mx, s.w + s.d + s.l), 1);
 
   return (
     <div className="space-y-10">
@@ -70,38 +87,98 @@ export default function ManagersPage() {
         </div>
       </section>
 
-      {/* The detail layer: read each man, grouped into the eras the hero shades. */}
-      <div className="space-y-8">
-        {eras.map((g) => (
-          <section key={g.era.key} className="space-y-2">
-            <div className="flex items-end gap-3 border-b border-line/60 pb-1.5">
-              <h2 className="display text-lg leading-none">{g.era.label}</h2>
-              <span className="stat-num text-xs leading-none text-ink-faint">
-                {g.from?.slice(0, 4)}–{g.to?.slice(0, 4)} · {g.managers.length}{" "}
-                {g.managers.length === 1 ? "manager" : "managers"}
-              </span>
-              <div className="ml-auto w-32 space-y-1">
-                <WdlColumns w={g.w} d={g.d} l={g.l} compact />
-                <WdlBar w={g.w} d={g.d} l={g.l} size="xs" tooltip={false} />
-              </div>
-            </div>
-            <ul className="overflow-hidden rounded-lg border border-line bg-pitch/35">
-              {g.managers.map((m) => (
-                <li key={m.id} className="border-b border-line last:border-b-0">
-                  <IndexRow
-                    href={`/manager/${m.id}`}
-                    leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="sm" />}
-                    name={m.name}
-                    sub={`${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${m.role}`}
-                    w={m.w}
-                    d={m.d}
-                    l={m.l}
+      {/* The detail layer: read each man, grouped into the eras the hero shades.
+          The two cathedrals (Busby, Ferguson) get a floodlit gold verdict plate;
+          the scaffolding eras between and around them stay quiet and compressed,
+          so the body's pacing rises and falls with the hero's story. */}
+      <div>
+        {eras.map((g, i) => {
+          const isCathedral = (k: string) => k === "busby" || k === "ferguson";
+          const cathedral = isCathedral(g.era.key);
+          // Breathe wider around a monument (on either side); tighter elsewhere.
+          const prevCathedral = i > 0 && isCathedral(eras[i - 1].era.key);
+          const gap = i === 0 ? "" : cathedral || prevCathedral ? "mt-14" : "mt-10";
+          const span = `${g.from?.slice(0, 4)}–${g.to?.slice(0, 4)}`;
+          const count = `${g.managers.length} ${g.managers.length === 1 ? "manager" : "managers"}`;
+          return (
+            <section key={g.era.key} className={`${gap} ${cathedral ? "space-y-3" : "space-y-2"}`}>
+              {cathedral ? (
+                <div className="relative overflow-hidden rounded-xl border border-gold/25 bg-panel shadow-[0_16px_32px_rgb(0_0_0_/0.2)]">
+                  <div className="hero-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+                  <div
+                    className="pointer-events-none absolute -right-16 -top-20 h-56 w-1/2 rounded-full opacity-[0.10] blur-3xl"
+                    style={{ backgroundColor: "var(--color-gold)" }}
+                    aria-hidden
                   />
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+                  <div className="relative flex flex-wrap items-end justify-between gap-x-6 gap-y-3 p-4 sm:p-5">
+                    <div>
+                      <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold/80">
+                        The dominant reign
+                      </p>
+                      <h2 className="display text-2xl leading-none sm:text-3xl">{g.era.label}</h2>
+                      <p className="stat-num mt-2 text-xs text-ink-faint">
+                        {span} · {count} · {fmtNum(g.p)} matches
+                      </p>
+                    </div>
+                    <div className="flex items-end gap-5">
+                      <div className="text-right">
+                        <div className="stat-num text-3xl font-semibold leading-none text-gold sm:text-4xl">
+                          {pct(g.w, g.p)}
+                        </div>
+                        <div className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-ink-faint">win rate</div>
+                      </div>
+                      <div className="w-36 space-y-1.5 pb-1">
+                        <WdlColumns w={g.w} d={g.d} l={g.l} compact />
+                        <WdlBar w={g.w} d={g.d} l={g.l} size="sm" tooltip={false} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap items-end gap-x-3 gap-y-1 border-b border-line/40 pb-1.5">
+                  <h2 className="display text-base leading-none text-ink-dim">{g.era.label}</h2>
+                  <span className="stat-num text-[11px] leading-none text-ink-faint">
+                    {span} · {count}
+                  </span>
+                  <div className="ml-auto flex items-end gap-3">
+                    <span className="stat-num text-xs leading-none text-ink-dim">{pct(g.w, g.p)} W</span>
+                    <div className="w-28 space-y-1">
+                      <WdlColumns w={g.w} d={g.d} l={g.l} compact />
+                      <WdlBar w={g.w} d={g.d} l={g.l} size="xs" tooltip={false} />
+                    </div>
+                  </div>
+                </div>
+              )}
+              <ul
+                className={`overflow-hidden rounded-lg border bg-pitch/35 ${
+                  cathedral ? "border-gold/20" : "border-line"
+                }`}
+              >
+                {g.managers.map((m) => (
+                  <li key={m.id} className="border-b border-line last:border-b-0">
+                    <IndexRow
+                      href={`/manager/${m.id}`}
+                      leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="sm" />}
+                      name={m.name}
+                      sub={`${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${m.role}`}
+                      w={m.w}
+                      d={m.d}
+                      l={m.l}
+                      chart={
+                        <ManagerSparkbar
+                          seasons={byManager.get(m.id) ?? []}
+                          axisStart={axisStart}
+                          axisEnd={axisEnd}
+                          maxScale={maxSeason}
+                        />
+                      }
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
       </div>
 
       <CoverageNote slice="every match under each man, league and cup, since 1892">
