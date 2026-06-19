@@ -842,6 +842,70 @@ design does* — "we can't do this honestly" is contingent on the data in hand, 
 feed appears. Nothing reached `DESIGN.md`; `CareerSparkline`/`PositionGlyph` are bespoke, and the cross-row-
 comparability rule is a sharpening of the existing slice/coverage contract, not a new composition principle.
 
+**Follow-up: the managers *body* — from flat ledger to a scannable succession.** The `ManagerTimeline` hero
+made the front door unforgettable, but the body below it was still the "competent ledger" the refresh exists to
+kill: ~29 near-identical `IndexRow`s in five era bands, every row the same diverging bar + grey `P · W%` readout.
+The same diagnosis the players body got — *a bold hero doesn't excuse a flat body* — so four moves, each pulling
+the now-settled detail-page vocabulary onto the index.
+
+- ✅ **`ManagerSparkbar` — each tenure as a small multiple on a shared timeline.** The row's middle slot swapped
+  the diverging `WdlBar` for one bar per season (height = matches that year on a global scale, stacked won →
+  drawn → lost), positioned by *real calendar year* on an axis shared by every row. Scanning the column now
+  builds the whole succession — the secretaries bunched left, Busby's solid block mid-track, Ferguson's far
+  right — anchored by the faint quarter-century guides lifted straight from `CareerSparkline`. The unity that
+  fell out: **each row is the `ManagerTimeline` hero zoomed to a single man** and re-pinned from match-proportional
+  width to calendar time — same green-foundation/red-roof encoding, two scales. Backed by one batched
+  `managerCareerSparks()` scan.
+- ⚠️ **Rejected first attempt: volume as bar *thickness*.** The opening idea encoded matches-managed as the
+  `WdlBar`'s `heightPx` on a global sqrt scale (the home-page all-time-record move). It typechecked and was
+  *honest*, but it was **ugly at row scale and did no work for 27 of 29 rows** — sqrt of a three-order-of-magnitude
+  range (a 2-game caretaker → Ferguson's 1,497) spends all its dynamic span on the two giants, bunching everyone
+  else into a 6–11px band. *Lesson: orders-of-magnitude volume on a **scan row** wants a timeline small-multiple,
+  not a thickness channel — thickness worked on the home page because four competition rows are comparable-ish
+  and few; across 29 managers it's noise. Same encoding, wrong surface.*
+- ✅ **Monument vs scaffolding era bands.** Busby and Ferguson — the two cathedrals the hero makes monumental —
+  get floodlit gold **"The dominant reign"** verdict plates (win rate writ large + aggregate `WdlColumns`/bar,
+  the `IdentityPlate` atmosphere in gold instead of devil-red); the secretary / between / after eras collapse to
+  quiet dim headers, tight within and breathing between. This fixed an *inversion*: before, the cathedral eras
+  were the **shortest, quietest** sections in the list, so the body deflated exactly where the hero peaked. Now
+  the body's pacing rises and falls with the hero's story.
+- ✅ **The row as a scan scorecard.** The grey `P · W%` became a mini-scorecard quoting the detail plate's ribbon:
+  **win % / signed colour-coded `gd/game` / matches played**. `gd/game` is the dominance cut the `IdentityPlate`
+  leads with, era-robust (Busby's caretaker spell reads −0.86, Ferguson +0.94), and orthogonal to win rate —
+  which is the test for a scan signal earning its slot. Longest-run and the splits were *deliberately left on the
+  detail page* (the sparkbar already shows hot streaks; splits would re-clutter the row we just cleaned).
+- ✅ **Trophies — the verdict win% hides — as gold pips + an honours count.** `managerHonours()` attributes every
+  top-flight title and cup final won to the manager of the *decisive* match (the season's last league game for a
+  title, the winning final for a cup), rendered as **gold pips over the winning seasons of each sparkbar** (a
+  decorated reign glows gold along its top edge, the journeymen stay dark — the gold-marks-the-peak idiom marking
+  silverware) plus a `TrophyIcon` count beside the name. Win% says how dominant a side was; the pips say what it
+  yielded, and the two disagreeing (a tidy win% with no gold = a nearly-man or a caretaker) is the bigger picture.
+
+`IndexRow` grew three optional slots — `chart` (middle-slot visual override), `gf`/`ga` (the `gd/game` readout),
+and `badge` (a name-adjacent marker) — so the consistency-via-shared-row contract held while managers diverged;
+opponents keep the diverging `WdlBar` untouched.
+
+**The honesty hinge, recurring once more: drawing the data honestly exposed a latent miscount.** Computing a
+*career* trophy total forced the cup-won rule to be right, and the existing decade `cupsWon` tally was **not** —
+its round-name-only filter silently dropped single-match finals stored with a `null` round (the Charity/Community
+Shield, UEFA Super Cup, the world-club finals) and counted promotion play-offs, so it read 26 cups for Ferguson,
+not the canonical 38. The fix was promoted to a shared **`CUP_WON_PREDICATE`** (catches the null-round finals via
+a type allowlist, still gates out group/knockout exits so a final-day group win can't pose as a trophy) used by
+*both* `managerHonours()` and the seasons decade tally — which **reconciled** the decade count (27 → 45 cups
+total) rather than leaving two definitions to drift. The recurring pattern, now on its Nth surface: an
+answer-object drawn honestly surfaces a data rule that was quietly wrong in a flat aggregate.
+
+`ManagerSparkbar` stays **bespoke** (W/D/L-over-time on a shared axis — it reuses `CareerSparkline`'s *render
+technique and guides*, not the component, since the subject's unit is W/D/L, not apps/goals — the
+*generalise-the-pattern-not-the-component* call again). The shared promotions were a **data rule**
+(`CUP_WON_PREDICATE`) and the `IndexRow` slots, not composition principles; nothing reached `DESIGN.md`. *Lessons
+carried forward: (1) the index **body** owes the reader the same answer-objects the detail pages do — the
+scorecard and the trophy pips are to a manager row what `NotableMatches` is to a fixture list; (2) a scan signal
+earns its slot only if it's **orthogonal** to what's already shown (trophies ⟂ win rate), which is why gd/game and
+honours went in and longest-run stayed out; (3) the same shared-axis sparkline pattern reads honestly across
+sibling index pages even when each renders a different fact — the durable thing is the **timeline grammar**, not
+the component.*
+
 ### 8. `/data`
 The trust surface. Refresh is about legibility of the coverage ledger, not
 atmosphere. Carry forward the remaining faint-text spots flagged in
