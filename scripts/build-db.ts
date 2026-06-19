@@ -113,6 +113,17 @@ interface PlayerShirts {
     sourceId: string;
   }[];
 }
+interface PlayerPositions {
+  records: {
+    playerId: string;
+    wikidataId?: string | null;
+    positionQid?: string | null;
+    positionLabel?: string | null;
+    bucket: string;
+    sourceId: string;
+    retrievedAt?: string | null;
+  }[];
+}
 interface TableauGoalAssistRow {
   playerId: string | null;
   playerLabel: string;
@@ -171,6 +182,10 @@ const ogScorerMedia = fs.existsSync(ogScorerMediaFile)
 const playerShirtsFile = path.join(CANONICAL, "player-shirts.json");
 const playerShirts = fs.existsSync(playerShirtsFile)
   ? readJson<PlayerShirts>(playerShirtsFile).records
+  : [];
+const playerPositionsFile = path.join(CANONICAL, "player-positions.json");
+const playerPositions = fs.existsSync(playerPositionsFile)
+  ? readJson<PlayerPositions>(playerPositionsFile).records
   : [];
 const tableauGoalsAssistsFile = path.join(CANONICAL, "tableau-goals-assists.json");
 const tableauGoalsAssists = fs.existsSync(tableauGoalsAssistsFile)
@@ -445,6 +460,17 @@ CREATE TABLE player_shirts (
 CREATE INDEX idx_player_shirts_player ON player_shirts(player_id);
 CREATE INDEX idx_player_shirts_source ON player_shirts(source_id);
 
+CREATE TABLE player_positions (
+  player_id TEXT PRIMARY KEY REFERENCES players(id),
+  wikidata_id TEXT,
+  position_qid TEXT,
+  position_label TEXT,
+  bucket TEXT NOT NULL,
+  source_id TEXT NOT NULL REFERENCES sources(id),
+  retrieved_at TEXT
+);
+CREATE INDEX idx_player_positions_bucket ON player_positions(bucket);
+
 -- curated season-level scorer/assist + goal-type aggregates (Tableau lane).
 -- Not match-attributed (no dates/minutes); kept separate from match_events.
 CREATE TABLE tableau_goals_assists (
@@ -518,6 +544,7 @@ const sourceIdsFromCanonical = new Set([
   ...managerMedia.map((r) => r.sourceId),
   ...ogScorerMedia.map((r) => r.sourceId),
   ...playerShirts.map((r) => r.sourceId),
+  ...playerPositions.map((r) => r.sourceId),
   ...(tableauGoalsAssists ? [tableauGoalsAssists.sourceId] : []),
   ...(tableauGoalTypes ? [tableauGoalTypes.sourceId] : []),
 ]);
@@ -594,6 +621,20 @@ for (const s of playerShirts) {
     s.firstDate,
     s.lastDate,
     s.sourceId,
+  );
+}
+
+const insPlayerPosition = db.prepare("INSERT OR REPLACE INTO player_positions VALUES (?,?,?,?,?,?,?)");
+for (const pos of playerPositions) {
+  if (!playerById.has(pos.playerId)) continue;
+  insPlayerPosition.run(
+    pos.playerId,
+    pos.wikidataId ?? null,
+    pos.positionQid ?? null,
+    pos.positionLabel ?? null,
+    pos.bucket,
+    pos.sourceId,
+    pos.retrievedAt ?? null,
   );
 }
 
