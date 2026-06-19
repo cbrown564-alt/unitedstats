@@ -323,6 +323,7 @@ CREATE TABLE match_events (
   player_side TEXT NOT NULL DEFAULT 'united' CHECK (player_side IN ('united','opponent')),
   player_provider_id TEXT,
   minute INTEGER,
+  added_time INTEGER,
   assist_player_id TEXT REFERENCES players(id),
   assist_name TEXT,
   assist_side TEXT CHECK (assist_side IN ('united','opponent')),
@@ -643,7 +644,7 @@ const insMatch = db.prepare(`INSERT INTO matches VALUES
   (@id,@season,@date,@competition_id,@round,@opponent_id,@opponent_name,@venue,@stadium_id,
    @attendance,@gf,@ga,@ht_gf,@ht_ga,@aet,@pen_gf,@pen_ga,@result,@outcome,@manager_id,
    @events_complete,@has_lineup,@notes,@sources)`);
-const insEvent = db.prepare("INSERT INTO match_events VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+const insEvent = db.prepare("INSERT INTO match_events VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 const insLineup = db.prepare("INSERT INTO match_lineups VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 const insMatchSource = db.prepare("INSERT OR IGNORE INTO match_sources VALUES (?,?,?,?,?)");
 
@@ -739,6 +740,7 @@ const insertAll = db.transaction(() => {
           e.playerSide ?? (e.type === "opp-goal" ? "opponent" : "united"),
           e.playerProviderId != null ? String(e.playerProviderId) : null,
           e.minute ?? null,
+          e.addedTime ?? null,
           e.assist ?? null,
           e.assistName ?? null,
           e.assistSide ?? (e.assist ? "united" : null),

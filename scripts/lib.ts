@@ -23,6 +23,10 @@ export interface MatchEvent {
   playerSide?: "united" | "opponent" | null;
   playerProviderId?: string | number | null;
   minute: number | null;
+  // Stoppage time beyond a period boundary, kept separate so the clock always
+  // normalises to the boundary: a 90+6 goal is `minute: 90, addedTime: 6`, never
+  // `minute: 96`. Boundaries are 45/90/105/120; null when unknown or not stoppage.
+  addedTime?: number | null;
   assist?: string | null; // United player id when the assister is known in players.json
   assistName?: string | null;
   assistSide?: "united" | "opponent" | null;

@@ -84,6 +84,15 @@ for (const file of listSeasonFiles()) {
       if (e.minute != null && (e.minute < 0 || e.minute > 125)) {
         errors.push(`${ctx}: bad minute ${e.minute}`);
       }
+      if (e.addedTime != null) {
+        if (!Number.isInteger(e.addedTime) || e.addedTime < 1 || e.addedTime > 30) {
+          errors.push(`${ctx}: bad added time ${e.addedTime}`);
+        }
+        if (e.minute == null) errors.push(`${ctx}: added time without a minute`);
+        else if (![45, 90, 105, 120].includes(e.minute)) {
+          errors.push(`${ctx}: added time on minute ${e.minute} (not a period boundary)`);
+        }
+      }
       if (e.player && !players.has(e.player)) errors.push(`${ctx}: unknown player "${e.player}"`);
       if (e.assist && !players.has(e.assist)) errors.push(`${ctx}: unknown assist player "${e.assist}"`);
       if (e.playerSide && !["united", "opponent"].includes(e.playerSide)) errors.push(`${ctx}: bad event player side "${e.playerSide}"`);

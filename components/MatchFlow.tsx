@@ -18,9 +18,15 @@ function surname(name: string | null | undefined): string {
   return parts[parts.length - 1] || name;
 }
 
+/** Clock label that keeps stoppage time as "90+6", regulation as "64". */
+function clock(minute: number, added: number | null): string {
+  return added ? `${minute}+${added}` : `${minute}`;
+}
+
 type GoalMark = {
   key: string;
   minute: number;
+  added: number | null;
   side: "united" | "opponent";
   delta: 1 | -1;
   scorer: string;
@@ -54,27 +60,29 @@ export function MatchFlow({
     ...unitedGoals.filter(timed).map((e) => ({
       key: `u${e.seq}`,
       minute: e.minute as number,
+      added: e.added_time,
       side: "united" as const,
       delta: 1 as const,
       scorer: surname(e.player_display_name),
       playerId: e.player_id,
       tag: e.type === "pen-goal" ? ("P" as const) : e.type === "own-goal-for" ? ("OG" as const) : null,
       title:
-        `${e.minute}' ${e.player_display_name ?? "Goal"}` +
+        `${clock(e.minute as number, e.added_time)}' ${e.player_display_name ?? "Goal"}` +
         (e.type === "pen-goal" ? " (penalty)" : e.type === "own-goal-for" ? " (own goal)" : "") +
         (e.assist_display_name ? `, assist ${e.assist_display_name}` : ""),
     })),
     ...opponentGoals.filter(timed).map((e) => ({
       key: `o${e.seq}`,
       minute: e.minute as number,
+      added: e.added_time,
       side: "opponent" as const,
       delta: -1 as const,
       scorer: surname(e.player_display_name),
       playerId: null,
-      tag: e.type === "own-goal-against" ? ("OG" as const) : null,
+      tag: e.type === "own-goal-against" ? ("OG" as const) : e.detail === "pen" ? ("P" as const) : null,
       title:
-        `${e.minute}' ${e.player_display_name ?? "Goal"}` +
-        (e.type === "own-goal-against" ? " (own goal)" : ""),
+        `${clock(e.minute as number, e.added_time)}' ${e.player_display_name ?? "Goal"}` +
+        (e.type === "own-goal-against" ? " (own goal)" : e.detail === "pen" ? " (penalty)" : ""),
     })),
   ];
 
@@ -156,7 +164,7 @@ export function MatchFlow({
               title={g.title}
             >
               <span className="flex items-center gap-1 whitespace-nowrap text-[11px] leading-none">
-                <span className="stat-num font-semibold text-devil-bright">{g.minute}&prime;</span>
+                <span className="stat-num font-semibold text-devil-bright">{clock(g.minute, g.added)}&prime;</span>
                 {g.playerId ? (
                   <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
                     {g.scorer}
@@ -204,9 +212,9 @@ export function MatchFlow({
               <span className="relative z-10 -mt-1 h-2.5 w-2.5 rounded-full bg-ink ring-2 ring-pitch" />
               <span className="mb-1 w-px flex-1 bg-line" />
               <span className="flex items-center gap-1 whitespace-nowrap text-[11px] leading-none">
-                <span className="stat-num font-semibold text-ink-dim">{g.minute}&prime;</span>
+                <span className="stat-num font-semibold text-ink-dim">{clock(g.minute, g.added)}&prime;</span>
                 <span className="text-ink">{g.scorer}</span>
-                {g.tag && <span className="text-ink-faint">(OG)</span>}
+                {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
               </span>
             </div>
           );
