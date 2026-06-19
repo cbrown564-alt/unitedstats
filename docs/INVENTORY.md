@@ -148,6 +148,7 @@ Done since the simplification pass:
 Flagged, not yet done (carry into Phase 9 / parked):
 - The odds opponent picker is a long native `<select>`; a searchable combobox
   (reuse the `SearchCommand` pattern) is a feature, not a consolidation.
-- Segmented grouping on `/managers` and `/opponents` (by era / alphabet) is
-  Phase 9 discovery work, not consolidation.
+- ~~Segmented grouping on `/managers` and `/opponents`~~ — done in the index-pages
+  refresh: managers grouped into data-anchored era bands, opponents kept ranked-by-
+  meetings with an explicit rank index, both on a shared `IndexRow`.
 - See `docs/VISUAL-AUDIT.md` for the remaining visual-hierarchy items.
