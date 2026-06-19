@@ -755,6 +755,56 @@ export function managerCareerSparks(): ManagerCareerSpark[] {
     .all() as ManagerCareerSpark[];
 }
 
+export interface ManagerHonourSeason {
+  manager_id: string;
+  season: string;
+  /** Trophies won that season (a season can yield several — a double, a treble). */
+  n: number;
+}
+
+/**
+ * Trophy-winning seasons per manager: top-flight league titles plus knockout cups
+ * won (the deciding final won), each attributed to whoever managed the decisive
+ * match — the season's last league game for a title, the winning final for a cup.
+ * Drives the index sparkbar's gold trophy pips and each row's honours count.
+ *
+ * Cup detection extends the decade `cupsWon` rule (a won, latest-dated final) to
+ * also catch single-match finals stored with a null round — the Charity/Community
+ * Shield, UEFA Super Cup, and the world-club finals — which the round-name filter
+ * alone silently drops (so Ferguson's count lands at the canonical 38, not 26).
+ * Group-stage and knockout exits are excluded, so a final-day group win can never
+ * pose as a trophy; league, wartime/friendly, and promotion play-offs are never
+ * trophies. (A fuller count than narrative.ts's decade tally, which still has the
+ * null-round-shield gap — worth reconciling there in a later pass.)
+ */
+export function managerHonours(): ManagerHonourSeason[] {
+  return getDb()
+    .prepare(
+      `WITH honours AS (
+         SELECT (SELECT m.manager_id FROM matches m JOIN competitions lc ON lc.id = m.competition_id
+                 WHERE lc.type = 'league' AND m.season = ss.season ORDER BY m.date DESC LIMIT 1) manager_id,
+                ss.season
+         FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+         WHERE c.type = 'league' AND ss.position = 1 AND c.name IN ('First Division','Premier League')
+         UNION ALL
+         SELECT m.manager_id, m.season
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type IN ('domestic-cup','league-cup','european','super-cup','world')
+           AND m.outcome = 'W'
+           AND m.date = (
+             SELECT MAX(m2.date) FROM matches m2
+             WHERE m2.season = m.season AND m2.competition_id = m.competition_id
+           )
+           AND ( (m.round LIKE '%final%' AND m.round NOT LIKE '%semi%' AND m.round NOT LIKE '%quarter%')
+                 OR (c.type IN ('super-cup','world') AND m.round IS NULL) )
+       )
+       SELECT manager_id, season, COUNT(*) n
+       FROM honours WHERE manager_id IS NOT NULL
+       GROUP BY manager_id, season`,
+    )
+    .all() as ManagerHonourSeason[];
+}
+
 export function playerLineupMatches(id: string): (MatchRow & {
   started: number;
   sub_on: number | null;

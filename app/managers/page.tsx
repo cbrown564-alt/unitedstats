@@ -1,10 +1,11 @@
-import { managersIndex, managerCareerSparks } from "@/lib/queries";
+import { managersIndex, managerCareerSparks, managerHonours } from "@/lib/queries";
 import { groupManagersByEra } from "@/lib/managerEras";
 import { WdlBar, WdlColumns } from "@/components/WdlBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ManagerTimeline } from "@/components/charts/ManagerTimeline";
 import { ManagerSparkbar, type ManagerSparkSeason } from "@/components/charts/ManagerSparkbar";
 import { IndexRow } from "@/components/IndexRow";
+import { TrophyIcon } from "@/components/CampaignIcons";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct } from "@/lib/format";
 
@@ -38,6 +39,19 @@ export default function ManagersPage() {
   const axisStart = sparkYears.length ? Math.min(...sparkYears) : 1892;
   const axisEnd = (sparkYears.length ? Math.max(...sparkYears) : 2026) + 1;
   const maxSeason = sparks.reduce((mx, s) => Math.max(mx, s.w + s.d + s.l), 1);
+
+  // Trophies, attributed to the manager of the decisive match — gold pips on the
+  // winning seasons of each sparkbar and an honours count beside the name, so the
+  // decorated reigns glow gold and the verdict that win-rate hides reads at a glance.
+  const honours = managerHonours();
+  const trophySeasonsBy = new Map<string, Set<string>>();
+  const trophyCount = new Map<string, number>();
+  for (const h of honours) {
+    (trophySeasonsBy.get(h.manager_id) ?? trophySeasonsBy.set(h.manager_id, new Set()).get(h.manager_id)!).add(
+      h.season,
+    );
+    trophyCount.set(h.manager_id, (trophyCount.get(h.manager_id) ?? 0) + h.n);
+  }
 
   return (
     <div className="space-y-10">
@@ -160,16 +174,32 @@ export default function ManagersPage() {
                       href={`/manager/${m.id}`}
                       leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="sm" />}
                       name={m.name}
+                      badge={
+                        (trophyCount.get(m.id) ?? 0) > 0 ? (
+                          <span
+                            className="inline-flex shrink-0 items-center gap-0.5 text-gold"
+                            title={`${trophyCount.get(m.id)} trophies won`}
+                          >
+                            <TrophyIcon className="h-3 w-3" />
+                            <span className="stat-num text-[11px] font-semibold leading-none">
+                              {trophyCount.get(m.id)}
+                            </span>
+                          </span>
+                        ) : undefined
+                      }
                       sub={`${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${m.role}`}
                       w={m.w}
                       d={m.d}
                       l={m.l}
+                      gf={m.gf}
+                      ga={m.ga}
                       chart={
                         <ManagerSparkbar
                           seasons={byManager.get(m.id) ?? []}
                           axisStart={axisStart}
                           axisEnd={axisEnd}
                           maxScale={maxSeason}
+                          trophySeasons={trophySeasonsBy.get(m.id)}
                         />
                       }
                     />
