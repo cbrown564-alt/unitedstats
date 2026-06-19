@@ -542,7 +542,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -662,7 +663,8 @@
           "minute": 90,
           "providerEventId": "47797ef9d7fa507fcbecb21e4591fc97",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 2. Goal of the Season Assist: , Pass, 2. Assist of the Season"
+          "detail": ", Right-footed shot, 2. Goal of the Season Assist: , Pass, 2. Assist of the Season",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,
@@ -2141,7 +2143,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -2179,7 +2182,8 @@
           "minute": 45,
           "providerEventId": "9d70ed5bd55136bd7ecfb92ef5a8cdab",
           "sourceConfidence": "complete",
-          "detail": ", Penalty, 3. Goal of the Season Assist: , Fouled player"
+          "detail": ", Penalty, 3. Goal of the Season Assist: , Fouled player",
+          "addedTime": 1
         },
         {
           "type": "card-yellow",
@@ -7376,7 +7380,8 @@
         {
           "type": "goal",
           "player": "fabio-pereira-da-silva",
-          "minute": 95
+          "minute": 90,
+          "addedTime": 5
         }
       ],
       "sources": [
@@ -15939,11 +15944,30 @@
           "type": "goal",
           "player": "nemanja-vidic",
           "minute": 51
+        },
+        {
+          "type": "own-goal-against",
+          "player": null,
+          "playerName": "Ryan Giggs",
+          "playerSide": "opponent",
+          "minute": 45,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Fabio Borini",
+          "playerSide": "opponent",
+          "minute": 64,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -17232,11 +17256,21 @@
           "type": "goal",
           "player": "javier-hernandez",
           "minute": 121
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Phil Bardsley",
+          "playerSide": "opponent",
+          "minute": 119,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -18476,7 +18510,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -18537,7 +18572,8 @@
           "minute": 90,
           "providerEventId": "d9a078212ee18d912424e1eea1772104",
           "sourceConfidence": "complete",
-          "detail": ", Header, 3. Goal of the Season Assist: , Shot on goal, 2. Assist of the Season"
+          "detail": ", Header, 3. Goal of the Season Assist: , Shot on goal, 2. Assist of the Season",
+          "addedTime": 4
         }
       ],
       "eventsComplete": true,

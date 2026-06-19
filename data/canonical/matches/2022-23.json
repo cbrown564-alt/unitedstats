@@ -6793,7 +6793,8 @@
           "minute": 90,
           "providerEventId": "b52b5dc9d21d7b069cf634ecb1a792c8",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Tournament Goal"
+          "detail": ", Right-footed shot, 1. Tournament Goal",
+          "addedTime": 3
         },
         {
           "type": "card-yellow",
@@ -6809,7 +6810,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -8484,7 +8486,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -8537,7 +8540,8 @@
           "minute": 90,
           "providerEventId": "8267846b24cde6793e7701d6af17dd79",
           "sourceConfidence": "complete",
-          "detail": ", Header, 1. Goal of the Season Assist: , Cross, 1. Assist of the Season"
+          "detail": ", Header, 1. Goal of the Season Assist: , Cross, 1. Assist of the Season",
+          "addedTime": 4
         },
         {
           "type": "card-yellow",
@@ -11560,7 +11564,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -11581,7 +11586,26 @@
         {
           "type": "goal",
           "player": "scott-mctominay",
-          "minute": 91
+          "minute": 90,
+          "addedTime": 1
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ollie Watkins",
+          "playerSide": "opponent",
+          "minute": 48,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "own-goal-against",
+          "player": null,
+          "playerName": "Diogo Dalot",
+          "playerSide": "opponent",
+          "minute": 61,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "eventsComplete": true,
@@ -11804,7 +11828,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -11872,7 +11897,8 @@
           "minute": 90,
           "providerEventId": "628c674abe0f807a01d4498163080132",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 1. Goal of the Season Assist: , Pass, 4. Assist of the Season"
+          "detail": ", Left-footed shot, 1. Goal of the Season Assist: , Pass, 4. Assist of the Season",
+          "addedTime": 3
         }
       ],
       "eventsComplete": true,
@@ -14999,7 +15025,8 @@
         {
           "type": "goal",
           "player": "marcus-rashford",
-          "minute": 94
+          "minute": 90,
+          "addedTime": 4
         }
       ],
       "eventsComplete": true,
@@ -15812,7 +15839,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -15876,7 +15904,8 @@
           "minute": 90,
           "providerEventId": "bebbe6527ba1e1695f02a086b964603a",
           "sourceConfidence": "complete",
-          "detail": ", Direct free kick, 2. Goal of the Season"
+          "detail": ", Direct free kick, 2. Goal of the Season",
+          "addedTime": 1
         }
       ],
       "eventsComplete": true,
@@ -25066,7 +25095,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -25182,7 +25212,8 @@
           "minute": 90,
           "providerEventId": "694deda42678893ae67db53204cad53a",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 2. Tournament Goal Assist: , Pass, 2. Tournament Assist"
+          "detail": ", Right-footed shot, 2. Tournament Goal Assist: , Pass, 2. Tournament Assist",
+          "addedTime": 6
         }
       ],
       "eventsComplete": true,
@@ -27500,12 +27531,14 @@
           "minute": 90,
           "providerEventId": "4df817a7fbe57c51d4ce7b6b176df022",
           "sourceConfidence": "complete",
-          "detail": ", Own-goal"
+          "detail": ", Own-goal",
+          "addedTime": 2
         }
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -30982,7 +31015,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -31086,7 +31120,8 @@
           "minute": 90,
           "providerEventId": "2d23db24e9a5e1e64e95c0c191d0383c",
           "sourceConfidence": "complete",
-          "detail": ", Penalty, 9. Goal of the Season"
+          "detail": ", Penalty, 9. Goal of the Season",
+          "addedTime": 9
         }
       ],
       "eventsComplete": true,
@@ -32146,7 +32181,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -32232,7 +32268,8 @@
           "minute": 90,
           "providerEventId": "50927f1d2dd2ffcdf363c6c273f0433a",
           "sourceConfidence": "complete",
-          "detail": ", Counter attack goal, 3. Goal of the Season Assist: , Pass, 8. Assist of the Season"
+          "detail": ", Counter attack goal, 3. Goal of the Season Assist: , Pass, 8. Assist of the Season",
+          "addedTime": 4
         }
       ],
       "eventsComplete": true,
@@ -33281,7 +33318,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -33312,7 +33350,8 @@
           "minute": 45,
           "providerEventId": "f0d761b01f4994849a4c95462c936f85",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 6. Goal of the Season Assist: , Pass, 3. Assist of the Season"
+          "detail": ", Left-footed shot, 6. Goal of the Season Assist: , Pass, 3. Assist of the Season",
+          "addedTime": 6
         },
         {
           "type": "pen-goal",

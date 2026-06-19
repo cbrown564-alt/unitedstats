@@ -20,7 +20,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -99,7 +100,8 @@
           "minute": 90,
           "providerEventId": "402756c47eb2590533252b18476a26d2",
           "sourceConfidence": "complete",
-          "detail": ", Header, 1. Goal of the Season"
+          "detail": ", Header, 1. Goal of the Season",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,
@@ -3835,11 +3837,30 @@
           "type": "goal",
           "player": "marouane-fellaini",
           "minute": 95
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Harry Wilson",
+          "playerSide": "opponent",
+          "minute": 59,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jack Marriott",
+          "playerSide": "opponent",
+          "minute": 85,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -5675,7 +5696,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -5802,7 +5824,8 @@
           "minute": 90,
           "providerEventId": "97105309a4753b82b6229f6cd9fc10e2",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 2. Goal of the Season"
+          "detail": ", Right-footed shot, 2. Goal of the Season",
+          "addedTime": 6
         },
         {
           "type": "card-yellow",
@@ -7315,7 +7338,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -7438,7 +7462,8 @@
           "minute": 90,
           "providerEventId": "210c703a27b75d3d5eb62a4910a376cc",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 2. Goal of the Season"
+          "detail": ", Left-footed shot, 2. Goal of the Season",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,
@@ -9545,12 +9570,14 @@
           "minute": 90,
           "providerEventId": "4f68e151cb292e13a51be85b7a8b8a28",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Tournament Goal Assist: , Header, 1. Tournament Assist"
+          "detail": ", Right-footed shot, 1. Tournament Goal Assist: , Header, 1. Tournament Assist",
+          "addedTime": 1
         }
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -13988,7 +14015,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -14045,7 +14073,8 @@
           "minute": 45,
           "providerEventId": "c5a00a41c9d3547c12f71ed8f9a1f30f",
           "sourceConfidence": "complete",
-          "detail": ", Header, 2. Goal of the Season Assist: , Cross, 2. Assist of the Season"
+          "detail": ", Header, 2. Goal of the Season Assist: , Cross, 2. Assist of the Season",
+          "addedTime": 2
         },
         {
           "type": "goal",
@@ -15078,7 +15107,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
@@ -15121,7 +15151,8 @@
           "minute": 45,
           "providerEventId": "0cef189283e6b5b2bbd09ac610823e0e",
           "sourceConfidence": "complete",
-          "detail": ", Left-footed shot, 1. Tournament Goal Assist: , Pass, 1. Tournament Assist"
+          "detail": ", Left-footed shot, 1. Tournament Goal Assist: , Pass, 1. Tournament Assist",
+          "addedTime": 4
         },
         {
           "type": "card-yellow",
@@ -17199,7 +17230,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -17304,7 +17336,8 @@
           "minute": 90,
           "providerEventId": "062fc9ff2b5413c320a21f32a69facb4",
           "sourceConfidence": "complete",
-          "detail": ", 1. Goal of the Season"
+          "detail": ", 1. Goal of the Season",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,
@@ -21752,12 +21785,14 @@
           "minute": 90,
           "providerEventId": "9f6efd2589301022b9fed47dac4a00a6",
           "sourceConfidence": "complete",
-          "detail": ", Penalty, 2. Tournament Goal Assist: Handball by"
+          "detail": ", Penalty, 2. Tournament Goal Assist: Handball by",
+          "addedTime": 4
         }
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -22747,7 +22782,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "notes": "Venue: Molineux",
       "events": [
@@ -22871,7 +22907,8 @@
           "minute": 90,
           "providerEventId": "6745431256c8c6ab05fee1cb505743ad",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Tournament Goal Assist: , Cross, 1. Tournament Assist"
+          "detail": ", Right-footed shot, 1. Tournament Goal Assist: , Cross, 1. Tournament Assist",
+          "addedTime": 5
         },
         {
           "type": "card-yellow",
