@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
-  eloSeries, topScorers, seasonAggregates, championSeasons,
+  topScorers, seasonAggregates, championSeasons,
 } from "@/lib/queries";
 import { clubRecords, goalMinuteRidge, lateGoalShareByDecade } from "@/lib/trails";
 import {
@@ -9,7 +9,6 @@ import {
 } from "@/lib/format";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
-import { EloRatingChart } from "@/components/charts/EloRatingChart";
 import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
@@ -34,7 +33,7 @@ const ROUTES: [label: string, href: string, hint: string][] = [
   ["Players", "/players", "every recorded scorer"],
   ["Managers", "/managers", "Mangnall to now"],
   ["Opponents", "/opponents", "every head-to-head"],
-  ["Data", "/data", "coverage ledger & sources"],
+  ["Analytics", "/analytics", "Elo, eras, records"],
 ];
 
 export default function Home() {
@@ -42,7 +41,6 @@ export default function Home() {
   const rec = allTimeRecord();
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
-  const elo = eloSeries();
   const scorers = topScorers(8);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -93,7 +91,7 @@ export default function Home() {
   );
 
   return (
-    <div className="space-y-12 sm:space-y-14">
+    <div className="space-y-14 sm:space-y-16">
       {/* 1. The invitation — a floodlit plate that *shows* the whole record:
           the headline and search sit over a skyline of every season ever played. */}
       <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
@@ -128,63 +126,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. The trail above the fold — records as clickable answer-objects. */}
-      {teaser.length > 0 && (
+      {/* ── Movement: start a trail. The wow-records and the live question,
+          clustered tight so they read as one "click into something" beat. ── */}
+      <div className="space-y-10">
+        {teaser.length > 0 && (
+          <section>
+            <SectionHead
+              title="Records that pull you in"
+              aside={<Link href="/analytics" className="text-devil-bright hover:underline">All records →</Link>}
+            />
+            <RecordCards records={teaser} />
+            <p className="text-xs text-ink-faint mt-2">
+              All-time peaks across official competitions, each card opening the match or run that holds it.
+            </p>
+          </section>
+        )}
+
         <section>
           <SectionHead
-            title="Records that pull you in"
-            aside={<Link href="/analytics" className="text-devil-bright hover:underline">All records →</Link>}
+            title="Test a myth"
+            aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
           />
-          <RecordCards records={teaser} />
-          <p className="text-xs text-ink-faint mt-2">
-            All-time peaks across official competitions — each card opens the match or run that holds it.
-          </p>
-        </section>
-      )}
-
-      {/* 3. Test a myth — one question shown with its real visual, the rest as prompts. */}
-      <section>
-        <SectionHead
-          title="Test a myth"
-          aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
-        />
-        <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
-          <Link
-            href="/questions#late-goals"
-            className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60"
-          >
-            <div className="flex items-baseline justify-between gap-3">
-              <h3 className="display text-xl group-hover:text-devil-bright">Do United really score late?</h3>
-              <span className="stat-num shrink-0 text-2xl font-semibold text-devil-bright">
-                {pct(lateAgg.late, lateAgg.timed)}
-              </span>
+          <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
+            <Link
+              href="/questions#late-goals"
+              className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="display text-xl group-hover:text-devil-bright">Do United really score late?</h3>
+                <span className="stat-num shrink-0 text-2xl font-semibold text-devil-bright">
+                  {pct(lateAgg.late, lateAgg.timed)}
+                </span>
+              </div>
+              <p className="mt-1 text-sm text-ink-dim">
+                of timed United goals come after the 85th minute, roughly double an even spread across the 90.
+              </p>
+              <div className="mt-4">
+                <MinuteRidge bins={ridge} lateFrom={85} height={170} />
+              </div>
+              <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
+                See the late-goals breakdown →
+              </p>
+            </Link>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+              {MYTHS.map(([question, hook, href]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="flex flex-col justify-center rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
+                >
+                  <div className="text-sm font-medium">{question}</div>
+                  <div className="mt-1 text-xs text-ink-faint">{hook}</div>
+                </Link>
+              ))}
             </div>
-            <p className="mt-1 text-sm text-ink-dim">
-              of timed United goals come after the 85th minute — roughly double an even spread across the 90.
-            </p>
-            <div className="mt-4">
-              <MinuteRidge bins={ridge} lateFrom={85} height={170} />
-            </div>
-            <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
-              See the late-goals breakdown →
-            </p>
-          </Link>
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
-            {MYTHS.map(([question, hook, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="flex flex-col justify-center rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
-              >
-                <div className="text-sm font-medium">{question}</div>
-                <div className="mt-1 text-xs text-ink-faint">{hook}</div>
-              </Link>
-            ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {/* 4. Recent evidence + the archive's scope, side by side. */}
+      {/* ── Movement: the living record. What just happened, beside the all-time
+          shape of it, with the coverage ledger one click away. ── */}
       <section className="grid lg:grid-cols-[1fr_20rem] gap-10">
         <div>
           <SectionHead
@@ -212,65 +213,55 @@ export default function Home() {
                 </div>
               ))}
           </div>
-          <div className="text-xs text-ink-faint">
-            Data through <span className="stat-num">{lastDate}</span> — updated automatically after every match.
-            Each row links to its matches.
-          </div>
-        </div>
-      </section>
-
-      {/* 5. The long arc — strength over the whole record. */}
-      <section>
-        <SectionHead
-          title={`Strength over ${years} years`}
-          aside={<Link href="/analytics" className="text-devil-bright hover:underline">Analytics →</Link>}
-        />
-        <div className="border border-line rounded-lg bg-panel p-4">
-          <EloRatingChart points={elo} />
-          <p className="text-xs text-ink-faint mt-2">
-            Club Elo rating after every competitive match since {firstYear}. The dashed line is the 1500 starting
-            baseline. Every match page carries its pre-match win expectancy.
+          <p className="text-xs text-ink-faint">
+            Through <span className="stat-num">{lastDate}</span>, updated after every match. Each row links to its
+            matches; the{" "}
+            <Link href="/data" className="text-devil-bright hover:underline">coverage ledger</Link> shows what is
+            sourced and what is still growing.
           </p>
         </div>
       </section>
 
-      {/* 6. Browse — the scorers teaser and the routes into the rest of the record. */}
-      {scorers.length > 0 && (
+      {/* ── Movement: explore. The quiet browse close, set off by a divider so the
+          eye registers the shift from "look at this" to "go find your own". ── */}
+      <div className="space-y-8 border-t border-line/60 pt-10">
+        {scorers.length > 0 && (
+          <section>
+            <SectionHead
+              title="Most goals"
+              aside={<Link href="/players" className="text-devil-bright hover:underline">All players →</Link>}
+            />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
+              {scorers.map((p, i) => (
+                <Link key={p.player_id} href={`/player/${p.player_id}`} className="bg-panel px-4 py-3 hover:bg-panel-2 transition-colors">
+                  <div className="stat-num text-2xl font-semibold text-devil-bright">{p.goals}</div>
+                  <div className="text-sm truncate">{p.name}</div>
+                  <div className="text-xs text-ink-faint stat-num">
+                    #{i + 1}
+                    {p.first_date ? ` · ${p.first_date.slice(0, 4)}–${p.last_date?.slice(0, 4)}` : ""}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section>
-          <SectionHead
-            title="Most goals"
-            aside={<Link href="/players" className="text-devil-bright hover:underline">All players →</Link>}
-          />
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
-            {scorers.map((p, i) => (
-              <Link key={p.player_id} href={`/player/${p.player_id}`} className="bg-panel px-4 py-3 hover:bg-panel-2 transition-colors">
-                <div className="stat-num text-2xl font-semibold text-devil-bright">{p.goals}</div>
-                <div className="text-sm truncate">{p.name}</div>
-                <div className="text-xs text-ink-faint stat-num">
-                  #{i + 1}
-                  {p.first_date ? ` · ${p.first_date.slice(0, 4)}–${p.last_date?.slice(0, 4)}` : ""}
-                </div>
+          <h2 className="display text-xl mb-3">Routes into the record</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {ROUTES.map(([label, href, hint]) => (
+              <Link
+                key={href}
+                href={href}
+                className="border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
+              >
+                <div className="font-medium text-sm">{label}</div>
+                <div className="text-xs text-ink-faint mt-0.5">{hint}</div>
               </Link>
             ))}
           </div>
         </section>
-      )}
-
-      <section>
-        <h2 className="display text-xl mb-3">Routes into the record</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          {ROUTES.map(([label, href, hint]) => (
-            <Link
-              key={href}
-              href={href}
-              className="border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
-            >
-              <div className="font-medium text-sm">{label}</div>
-              <div className="text-xs text-ink-faint mt-0.5">{hint}</div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

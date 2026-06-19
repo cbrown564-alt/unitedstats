@@ -144,7 +144,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/questions` | ✅ refreshed (story-driven, per-question visuals) |
 | `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map; matches section reworked — `HaulCards` + `ContributionSpine` + full grouped appearances archive) |
 | `/managers`, `/opponents` | 🟡 media layer only (portraits/badges); structure not yet reworked |
-| `/` (home) | ✅ refreshed — search-led launchpad: dropped the 4-tile hero-metric block, led with a **records teaser** (3 `RecordCards`) as the above-the-fold trail, made "Test a myth" *demonstrate* the questions surface with a live `MinuteRidge`, kept latest-results + scope + routes; cut the redundant "fullest match sheets" grid (and its `fullestMatchSheets` query) |
+| `/` (home) | ✅ refreshed — **bespoke `HistorySkyline` hero**: a floodlit plate where the headline and search sit over every season since 1886-87 drawn as one breathing wall (bar height = matches played, stacked W/D/L, the honest 20 top-flight titles gold-capped). Below it the body is paced into three movements (start a trail → the living record → explore) with the redundant Elo chart and "fullest match sheets" grid cut. First pass (records teaser + live `MinuteRidge` + dropped 4-tile metric block) was the foundation; the hero + restructure is what made it land |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
 | `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), and a per-decade **fixed-lane scoreboard** — the league finish drawn as the table itself (`FinishLadder`), fixed cup lanes sharing a promoted `CampaignVerdict` |
 | `/players` | ⬜ |
@@ -611,6 +611,39 @@ building one — once the per-surface answer-objects exist, the homepage's job i
 three that best advertise the archive (a punchy record, a live question visual) and lead with them,
 deleting whatever metric block or redundant grid was holding the slot. The boldness is in what you
 put first and what you cut, not in a new component.*
+
+**Follow-up: that wasn't far enough — the homepage needed its own bespoke hero after all.** The
+"casting only" pass left the page a flat equal-weight stack with the *least* atmospheric lead on the
+site: the front door — the one surface that most wants an unforgettable object — was leading with a
+search box where seasons leads with `FinishTimeline` and analytics with `EloHero`. A critique against
+visual quality / pacing / simplicity / novelty drove a second pass:
+
+- ✅ **`HistorySkyline` — the signature hero the page was missing.** A new bespoke object: every
+  season since 1886-87 as one bar, height = matches played, stacked won (green foundation) → drawn →
+  lost (red roofline), the wall *breathing* from short Victorian seasons to the modern European-night
+  swell. Its total inked area is, literally, every match United have played — the headline's promise
+  made visible. The honest 20 top-flight titles are gold-capped (new `championSeasons()` query
+  excludes the two Second Division titles, the same call `FinishTimeline` made), and every bar links
+  to its season. It wraps in the `IdentityPlate`/`EloHero` floodlit plate (its fourth surface) with
+  the headline and search sitting *over* it, so the front door finally carries the atmosphere the
+  rest of the site has. Pure CSS/flex — distinct from `FinishTimeline` (finish position) and
+  `EloHero` (rating line); this is the one object that shows the *whole record at once*.
+- ✅ **Paced into three movements, not a flat metronome.** Start a trail (records + the live
+  question, clustered tight) → the living record (latest + all-time record, coverage one click away)
+  → explore (scorers + routes, under a quiet divider). Bigger gaps between movements, tighter within.
+- ✅ **Cut the redundant Elo chart.** With the skyline as the homepage's historical signature, the
+  full-width "Strength over N years" Elo timeline was a *second* big history chart competing for the
+  same role — the junk-drawer the analytics pass diagnosed. Subtracted (it lives as the `EloHero` on
+  analytics); strength-curiosity routes there via "All records →" and the restored Analytics route.
+
+`HistorySkyline` stays **bespoke**; nothing reached `DESIGN.md` (the plate atmosphere was already a
+noted motif, and the movement pacing is the analytics device reapplied, not a new rule). *Lesson,
+corrected: the "casting not building" instinct was wrong for the **home page specifically** — the
+launchpad is the one surface where the bold bespoke object is non-negotiable, because it's the first
+thing anyone sees and it has to do what no quoted component can: depict the whole archive at once.
+Quote the answer-objects in the body, yes, but author the hero.* Tooling note: Playwright +
+`scripts/shot.mjs` were added this pass — the skyline's flex/sub-pixel bugs built and typechecked
+clean and were only visible in a screenshot.
 
 ### 7. Index pages `/players`, `/managers`, `/opponents`
 Lower priority — these are scan-and-drill surfaces and should stay compact. Refresh
