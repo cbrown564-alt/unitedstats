@@ -307,6 +307,7 @@ export default async function PlayerPage({
           license: p.player_image_license,
         }}
         primaryShirt={p.primary_shirt}
+        position={p.position_label ? p.position_label.charAt(0).toUpperCase() + p.position_label.slice(1) : null}
         careerYears={careerYears}
         rank={ranks}
         stats={{

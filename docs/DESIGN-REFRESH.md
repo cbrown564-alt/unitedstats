@@ -792,15 +792,55 @@ anti-pattern the h2h pass named. Reworked into two movements behind the hero:
   ranking **5th in "Top scorers"** — it is not a player, so it's now filtered from the whole directory (hero,
   leaderboards, register, and the count, an honester 984). The recurring pattern: an answer-object drawn
   honestly exposes a data entry that was hiding in a flat list.
-- ✅ **Position deliberately *not* used.** `players.positions` is empty and lineup-derived roles cover only
-  ~360 of ~3,400 players and don't even resolve the pre-1990 legends (Charlton/Law/Best) — so grouping by
-  position would be dishonest and exclude the greats. Ruled out on the slice/coverage contract, recorded so it
-  isn't re-attempted.
+- ⚠️ **Position deliberately *not* used — later reversed when the source changed (see the small-multiples
+  follow-up below).** At the time: `players.positions` was empty and lineup-derived roles covered only ~360 of
+  ~3,400 players and didn't resolve the pre-1990 legends (Charlton/Law/Best), so grouping by position would have
+  been dishonest. That ruling held *for the data we then had*; it was reopened — not overturned — once a better
+  source (Wikidata P413) made an honest per-row position possible.
 
 One new shared component (`Leaderboard`, a ranked answer-object — a candidate for promotion if a third surface
 wants it); nothing reached `DESIGN.md`. *Lesson: a hero fixes the front door, but the **body** of an index still
 owes the reader computed answers before a raw table — the leaderboard is to a directory what `NotableMatches`
 is to a fixture list.*
+
+**Follow-up: the register row became a scannable career object (`CareerSparkline`, refined hierarchy,
+`PositionGlyph`).** The body pass left the register an honest but flat numbers grid. Three moves turned each row
+into something you can read *across* for pattern-building, not just look up.
+
+- ✅ **`CareerSparkline` — every career on one shared timeline.** The dry "Span" text column (`1956-1973`) became
+  a bespoke small-multiple: one thin bar per season on a **single 1886→now axis shared by every row** (so the
+  column scans as eras sliding left→right — Victorians bunched left, the modern lot right), bar height = apps that
+  season on one global scale, goals burning devil-bright up from the baseline, a gold pip on the peak season. The
+  decisive refinement was **faint quarter-century guides aligned down every cell**: without them each career
+  floated in an unanchored void and the "watch the eras line up" promise was asserted, not visible — the guides
+  turn 50 clusters into one legible timeline grid. Pure positioned HTML (the `HistorySkyline`/`FinishTimeline`
+  lineage); fed by one batched `playerCareerSparks()` scan (apps+goals per player-season, match-attributed, which
+  reconstructs the giants near-exactly because lineup/event coverage is broad). Record-only fringe players with no
+  attributed seasons fall back to the span text.
+- ✅ **Refined the row's hierarchy on one principle: a visual channel demands cross-row comparability.** The four
+  equal numeric columns (Apps/Starts/Goals/Assists) gained an order: **Goals** leads (a goals-led club reads
+  goals-first) with **goals/game** beneath it (the one fair cross-era output rate, previously buried in a
+  leaderboard); **Starts folded into Apps** as a quiet "started %" (a whole column retired); **Assists stayed a
+  number but dimmed** — *deliberately not a glyph*, because it's recorded for ~190 players weighted to recent eras,
+  so a comparative bar would paint Charlton and Best as non-creators. The durable rule: *encode a fact in a visual
+  channel only if it's measured comparably across all rows; coverage-compromised facts stay auditable numbers.*
+- ✅ **`PositionGlyph` — a position mark, on a better source (the reversed §7 ruling above).** A faint vertical
+  pitch-lane with a dash at the player's line (keeper low → forward high), monochrome so it never competes with
+  goals-red or peak-gold, absent (not guessed) where unknown. The earlier "position not used" call was reopened
+  *because the source changed*: a new `wikidata-player-positions` ingest reads Wikidata **P413** off the enwiki
+  sitelink we already store, resolving **937/984 (95%)** vs the 33% lineup roles, and resolving the legends. New
+  `player_positions` table, query join, dataset export (`player_positions.csv` + columns on `players.csv`), and a
+  readable label threaded onto `PlayerPlate`'s identity line.
+
+Two data lessons worth keeping: **(1)** a single Wikidata code can be *conflated* — `Q8025128` ("wing half") is
+applied to genuine half-backs *and* wingers of every era (Best, Meredith, Ronaldo). The fix wasn't one mapping but
+a layered one: **demote** the ambiguous code so a clearer co-listed position wins (Ronaldo→forward), keep the
+conservative central claim (MID) for solo cases, then a small **curated override** (`source: curated`, 19 players)
+lifts the famous solo-wing-half wingers to FWD — confidence is the bar, so unknowns stay on Wikidata or blank
+rather than guessed. **(2)** *A rejected design decision can reopen when the **source** changes, not just when the
+design does* — "we can't do this honestly" is contingent on the data in hand, and worth re-testing when a better
+feed appears. Nothing reached `DESIGN.md`; `CareerSparkline`/`PositionGlyph` are bespoke, and the cross-row-
+comparability rule is a sharpening of the existing slice/coverage contract, not a new composition principle.
 
 ### 8. `/data`
 The trust surface. Refresh is about legibility of the coverage ledger, not

@@ -455,6 +455,8 @@ export interface PlayerTotals {
   player_image_license: string | null;
   first_date: string | null;
   last_date: string | null;
+  position_bucket: string | null;
+  position_label: string | null;
 }
 
 // ---- canonical "assists" definition -------------------------------------
@@ -565,6 +567,8 @@ const PLAYER_TOTALS_SELECT = `
          pm.thumb_url player_thumb_url,
          pm.page_url player_image_page_url,
          pm.license player_image_license,
+         pp.bucket position_bucket,
+         pp.position_label position_label,
          COALESCE(
            pt.first_date,
            (SELECT MIN(m.date) FROM match_events e JOIN matches m ON m.id=e.match_id WHERE e.player_id = p.id AND e.player_side = 'united'),
@@ -580,6 +584,7 @@ const PLAYER_TOTALS_SELECT = `
   LEFT JOIN player_records pr ON pr.player_id = p.id
   LEFT JOIN primary_shirts ps ON ps.player_id = p.id
   LEFT JOIN player_media pm ON pm.player_id = p.id
+  LEFT JOIN player_positions pp ON pp.player_id = p.id
 `;
 
 export function playersIndex(): PlayerTotals[] {
@@ -680,6 +685,47 @@ export function playerSplitsBySeason(id: string): {
       goals: number;
       assists: number;
     }[];
+}
+
+export interface PlayerCareerSpark {
+  player_id: string;
+  season: string;
+  apps: number;
+  goals: number;
+}
+
+/**
+ * One batched, match-attributed apps+goals-per-season row for *every* player, in a
+ * single grouped scan — the raw material for the index's career sparklines. Drawn
+ * only from lineups (apps) and match events (goals), both of which are match-dated,
+ * so a season bar means "we have the matches", not "we trust a career total". This
+ * reconstructs the giants near-exactly (Charlton 757/758 apps, 249/249 goals) because
+ * lineup/event coverage is broad across every decade; record-only fringe players with
+ * no attributed matches simply return no rows and fall back to their span text.
+ */
+export function playerCareerSparks(): PlayerCareerSpark[] {
+  return getDb()
+    .prepare(
+      `WITH apps AS (
+         SELECT l.player_id pid, m.season season, COUNT(*) apps
+         FROM match_lineups l JOIN matches m ON m.id = l.match_id
+         WHERE l.player_side = 'united' AND l.bench = 0
+         GROUP BY l.player_id, m.season
+       ),
+       goals AS (
+         SELECT e.player_id pid, m.season season, COUNT(*) goals
+         FROM match_events e JOIN matches m ON m.id = e.match_id
+         WHERE e.player_side = 'united' AND e.type IN ('goal','pen-goal')
+         GROUP BY e.player_id, m.season
+       )
+       SELECT COALESCE(a.pid, g.pid) player_id,
+              COALESCE(a.season, g.season) season,
+              COALESCE(a.apps, 0) apps,
+              COALESCE(g.goals, 0) goals
+       FROM apps a
+       FULL OUTER JOIN goals g ON a.pid = g.pid AND a.season = g.season`,
+    )
+    .all() as PlayerCareerSpark[];
 }
 
 export function playerLineupMatches(id: string): (MatchRow & {
