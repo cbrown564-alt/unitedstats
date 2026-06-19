@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { coverageOverview, getMeta, playersIndex, type PlayerTotals } from "@/lib/queries";
 import { DataTable, type SortDirection } from "@/components/DataTable";
-import { PageHeader, StatTile } from "@/components/PageHeader";
+import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { fmtNum, pct } from "@/lib/format";
@@ -96,7 +96,7 @@ export default async function PlayersPage({
   const players = [...filteredPlayers].sort((a, b) => comparePlayers(a, b, sortKey, sortDirection));
   const meta = getMeta();
   const coverage = coverageOverview();
-  const topScorer = allPlayers[0];
+  const topScorer = [...allPlayers].sort((a, b) => b.goals - a.goals)[0];
   const mostApps = [...allPlayers].sort((a, b) => (b.apps || 0) - (a.apps || 0))[0];
   const verifiedRecords = allPlayers.filter((p) => p.record_apps != null).length;
   const activeFilters = Boolean(q);
@@ -110,32 +110,57 @@ export default async function PlayersPage({
   }
 
   return (
-    <div className="space-y-7">
-      <PageHeader
-        eyebrow="People"
-        title="Players"
-        aside={
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-96">
-            <StatTile label={activeFilters ? "Shown" : "Players"} value={fmtNum(players.length)} tone="red" />
-            <StatTile
-              label="Top scorer"
-              value={topScorer ? fmtNum(topScorer.goals) : "0"}
-              detail={topScorer?.name}
-              tone="gold"
-            />
-            <StatTile
-              label="Most apps"
-              value={mostApps ? fmtNum(mostApps.apps || 0) : "0"}
-              detail={mostApps?.name}
-            />
-            <StatTile label="Lineup rows" value={fmtNum(Number(meta.lineup_entries ?? 0))} />
+    <div className="space-y-8">
+      {/* The whole playing history as one object: the squad cloud, the servants
+          along the foot, the scorers climbing, the immortals top-right. */}
+      <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
+        <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+        <div
+          className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur-3xl"
+          style={{ backgroundColor: "var(--color-devil)" }}
+          aria-hidden
+        />
+        <div className="relative p-5 sm:p-7">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
+            People · the frontier
+          </p>
+          <h1 className="display max-w-3xl text-4xl leading-[0.95] sm:text-5xl">
+            {fmtNum(allPlayers.length)} players, a handful immortal
+          </h1>
+          <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
+            Everyone to pull on the shirt, placed by how long they stayed and how much they scored. Most
+            cluster near the start — a cup tie, a cameo — while a few stretch out to the frontier:{" "}
+            {topScorer && <span className="font-semibold text-ink">{topScorer.name}</span>} up the goals
+            axis, {mostApps && <span className="font-semibold text-ink">{mostApps.name}</span>} far along
+            the appearances.
+          </p>
+
+          <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
+            <div>
+              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Players</dt>
+              <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allPlayers.length)}</dd>
+            </div>
+            <div>
+              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Top scorer</dt>
+              <dd className="stat-num text-lg font-semibold text-gold">
+                {topScorer ? fmtNum(topScorer.goals) : "0"}{" "}
+                <span className="text-sm font-normal text-ink-dim">{topScorer?.name}</span>
+              </dd>
+            </div>
+            <div>
+              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Most appearances</dt>
+              <dd className="stat-num text-lg font-semibold text-devil-bright">
+                {mostApps ? fmtNum(mostApps.apps || 0) : "0"}{" "}
+                <span className="text-sm font-normal text-ink-dim">{mostApps?.name}</span>
+              </dd>
+            </div>
+          </dl>
+
+          <div className="mt-7">
+            <PlayerGreatnessMap players={allPlayers} />
           </div>
-        }
-      >
-        Player pages are emotional entry points into the archive. Totals are paired with coverage context,
-        because scorer and lineup depth changes by era.
-        <Link href="/data" className="ml-1 text-devil-bright hover:underline">Coverage details</Link>
-      </PageHeader>
+        </div>
+      </section>
 
       <section className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <form action="/players" className="rounded-lg border border-line bg-panel p-3">

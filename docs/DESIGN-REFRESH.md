@@ -143,13 +143,13 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/match/[id]` | ✅ refreshed (composition principles came from here) |
 | `/questions` | ✅ refreshed (story-driven, per-question visuals) |
 | `/player/[id]` | ✅ refreshed (`PlayerPlate` + scoring shape + two-sided assist map; matches section reworked — `HaulCards` + `ContributionSpine` + full grouped appearances archive) |
-| `/managers`, `/opponents` | ✅ index structure reworked (see below) |
+| `/managers`, `/opponents` | ✅ bespoke heroes + reworked structure (see below) |
 | `/` (home) | ✅ refreshed — **bespoke `HistorySkyline` hero**: a floodlit plate where the headline and search sit over every season since 1886-87 drawn as one breathing wall (bar height = matches played, stacked W/D/L, the honest 20 top-flight titles gold-capped). Below it the body is paced into three movements (start a trail → the living record → explore) with the redundant Elo chart and "fullest match sheets" grid cut. First pass (records teaser + live `MinuteRidge` + dropped 4-tile metric block) was the foundation; the hero + restructure is what made it land |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
 | `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), and a per-decade **fixed-lane scoreboard** — the league finish drawn as the table itself (`FinishLadder`), fixed cup lanes sharing a promoted `CampaignVerdict` |
-| `/players` | ✅ left as-is — already refreshed (sortable `DataTable` + portraits + search + trust block); a player has no W/D/L, so the shared row didn't apply and re-skinning a working tool would be motion without value |
+| `/players` | ✅ bespoke `PlayerGreatnessMap` hero (appearances × goals frontier, portraits on the immortals) over the retained sortable `DataTable` detail |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
-| `/managers`, `/opponents` (index structure) | ✅ shared `IndexRow` rhythm across both; managers grouped into bespoke **era bands** (data-anchored on the two 1,000-match tenures), opponents stay ranked-by-meetings with an explicit rank index; `CoverageNote` footer on both |
+| `/managers`, `/opponents` (index structure) | ✅ bespoke heroes — `ManagerTimeline` (succession as a match-proportional bar, two cathedrals) and `OpponentRivalryMap` (meetings × win-rate scatter, the nemesis low-right) — over a shared `IndexRow` detail layer (era bands / ranked ledger); `CoverageNote` footer on both |
 | `/analytics` | ✅ restructured from a flat ~10-section stack into **three acts + a trails appendix** (signal → projection → production): a floodlit `EloHero`, a bespoke `ReliabilityCurve` replacing the calibration table, six all-time-peak `RecordCards`, an upgraded assist ladder; grounds grid cut (and its query), coverage links merged |
 | `/data` | ⬜ |
 
@@ -723,6 +723,50 @@ mean "make the three the same" — the durable consistency is the shared **row**
 is whatever the subject's structure honestly is (a succession for managers, a ranking for opponents,
 a sortable tool for players). And era labels can stay honest if their **boundaries** are data-derived
 (the two 1,000-match tenures) even when the names read as history.*
+
+**Follow-up: the reorganisation wasn't far enough — each index page earned its own bespoke hero.** The
+pass above was structurally right but visually timid: reorganising sections while the other surfaces all
+lead with an unforgettable object (`HistorySkyline`, `FinishTimeline`, `EloHero`). The correction, the same
+one the home page taught: *an index page is still a front door, and the front door wants the bold bespoke
+object that depicts the whole of its subject at once.* Three new bespoke heroes, each on the floodlit plate
+(its now-standard motif), with the reorganised list/bands demoted to the supporting detail beneath — exactly
+the `HistorySkyline`→body relationship.
+
+- ✅ **Managers → `ManagerTimeline`.** The whole succession as one match-proportional bar: every manager a
+  segment in chronological order, *width* = his share of all matches managed, filled bottom-up with his
+  W/D/L. Two segments dwarf the rest — Busby and Ferguson took charge of ~44% of every match the club has
+  played — so "two cathedrals and a lot of scaffolding" is the literal shape, and the green-topped giants
+  vs the red-heavy scaffolding read the eras' fortunes wordlessly. **Width encodes matches, not calendar
+  years, on purpose**: the bar then tiles edge-to-edge with no gaps and no overlaps, so a mid-reign caretaker
+  (Murphy '58, Giggs '14) is an honest sliver, never a split through a giant's reign. The era bands became
+  the detail layer below.
+- ✅ **Opponents → `OpponentRivalryMap`.** The fixture landscape as a scatter: meetings (x) × win rate (y),
+  with break-even drawn through the geometry (#3 — the one honest head-to-head baseline). Dots tint by side
+  of the line and fade with rarity; the most-played rivalries carry their crest. The finding falls out of
+  position: the comet-tail of rare opponents collapses toward break-even as meetings grow, leaving Liverpool
+  (most played, least beaten) lowest of the giants and Villa highest. The ranked ledger stays beneath as the
+  auditable filter target.
+- ✅ **Players → `PlayerGreatnessMap`.** The playing history as a scatter: appearances (x) × goals (y). The
+  cameo cloud jams the origin; two frontiers stretch out — the loyal servants along the foot (Giggs's 963
+  games, the goalkeepers on nil) and the scorers climbing the side — with the immortals (Charlton, Rooney,
+  Law) out top-right wearing their portraits. The sortable `DataTable` stays beneath as the tool. *This
+  reversed the earlier "leave players alone" call: the table still earns its place as the detail, but the
+  page still wanted a hero on top.*
+
+Three decisions worth recording across the heroes: **(1)** all three are **pure positioned HTML, not SVG** —
+the two scatters need round dots and crisp portraits/crests, which a non-uniformly-scaled SVG squashes into
+ellipses; this is the hybrid-render lesson taken to its end (when the chart is dots-and-labels, drop the SVG
+entirely). **(2)** Both scatters place their labels by a **greedy de-collision pass** (skip any crest/portrait
+landing within a min-distance of an already-placed one) — data-driven, no DOM measurement, so labels never
+pile up where the data clusters (Chelsea ≈ City; the cameo cloud); the explicit rejection of the fragile
+cross-row geometry the seasons pass warned against. **(3)** The **encoding is chosen to dodge the data's
+pathology**: a calendar-time manager bar would be carved up by caretakers, so width = matches instead; a √
+opponents axis crushed the rivalries together, so linear + inset spread them. All three stay **bespoke**
+(each depicts a whole that no shared object captures) and nothing reached `DESIGN.md` — the floodlit plate was
+already a noted motif and de-collision is a technique, not a composition rule. *Lesson, now thrice-confirmed
+(home, then all three index pages): the "casting not building" instinct is wrong for any **front-door** surface
+— a page someone lands on wants an authored hero that shows its whole subject at once, and only the body below
+should quote the existing vocabulary.*
 
 ### 8. `/data`
 The trust surface. Refresh is about legibility of the coverage ledger, not
