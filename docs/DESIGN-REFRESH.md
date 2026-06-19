@@ -645,6 +645,45 @@ Quote the answer-objects in the body, yes, but author the hero.* Tooling note: P
 `scripts/shot.mjs` were added this pass — the skyline's flex/sub-pixel bugs built and typechecked
 clean and were only visible in a screenshot.
 
+**Follow-up: a polish pass on the body objects (record bars, scorers, the late-goals ridge).** Three
+fixes after living with the page, each a small but instructive lesson:
+
+- ✅ **All-time record → weighted bars, not proportional-length.** The first attempt reused the
+  manager-page `ProportionalWdlBar` (bar *length* = games played). It failed: competition volumes span
+  two orders of magnitude here (League ~4,900 vs the cups in the hundreds), so League pinned the scale
+  and flattened every other row to a sliver. The fix puts volume on a *different channel* — each row is
+  now a full-proportion diverging `WdlBar` (so the win/draw/loss shape stays readable and comparable)
+  whose **thickness** encodes matches played on a sqrt scale (`max(6, round(28·√(p/pMax)))`): League is a
+  chunky slab, the cups thin ribbons, with `WdlColumns` carrying the exact figures above. The shields,
+  super cups, world finals and old test matches were dropped — only the four major competitions earn a
+  homepage slot. `WdlBar` gained an optional `heightPx` so its diverging render (fulcrum + reveal) could
+  be reused at a continuous data-driven thickness instead of the four fixed size buckets — the only
+  shared-layer change. *Lesson for the principles: when a second variable spans orders of magnitude,
+  encode it as thickness/weight, not length; reserve proportional length for variables of comparable
+  scale (which is exactly why it works for the manager splits and not here).*
+- ✅ **"Top goalscorers" (renamed from "Most goals") with portraits.** Each card now leads with the
+  player's `PlayerPortrait` thumbnail beside the goals figure — the people-are-anchors principle (#5),
+  the same `player_thumb_url ?? player_image_url` source the `/players` index uses, initials fallback for
+  the imageless (e.g. "OG" for Own Goal).
+- ✅ **`MinuteRidge` migrated to the hybrid render — its fourth surface.** The late-goals ridge looked
+  rough at the homepage's narrow width because it drew *everything*, text included, inside an SVG whose
+  `viewBox` width (1000) scaled down to a ~560px container — so every `fontSize="9/10"` label rendered at
+  ~5px ("barely visible") and the right-anchored FERGIE TIME / count / even-spread cluster collided in
+  the thin closing strip. Rebuilt on the `HistorySkyline`/`FinishTimeline` pattern: the SVG draws *shape
+  only* (ridge, wash, dividers, hover targets), stretching to fill a fixed-height box
+  (`preserveAspectRatio="none"` + `vectorEffect="non-scaling-stroke"` so the outline stays a crisp 1.5px
+  at any width), while **every label is real HTML positioned by percentage** — legible at true rem sizes
+  whatever the container. The collisions resolved in the process: FERGIE TIME + count stack cleanly
+  top-right, "even spread" moved to the left edge away from the busy late zone, the minute axis became
+  its own HTML row, and the faint `ink-faint` text went to `ink-dim`. Same API; verified across all three
+  call sites (homepage, `/questions`, `/player/[id]`). *Lesson, now a clear rule: an SVG chart with a
+  wide `viewBox` shrinks its own text into illegibility at narrow widths — draw the shape in SVG and the
+  labels in HTML. This is the fourth chart to land on the pattern, so it's the default for any labelled
+  chart now, not a per-surface trick.*
+
+Nothing reached `DESIGN.md` (the `heightPx` prop and the hybrid render are extensions of existing
+shared components/patterns, not new composition rules).
+
 ### 7. Index pages `/players`, `/managers`, `/opponents`
 Lower priority — these are scan-and-drill surfaces and should stay compact. Refresh
 is mostly: portraits/badges already added, so tighten row rhythm, confirm `WdlBar`

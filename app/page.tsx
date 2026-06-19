@@ -8,9 +8,10 @@ import {
   fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
 } from "@/lib/format";
 import { MatchList } from "@/components/MatchList";
-import { WdlBar } from "@/components/WdlBar";
+import { WdlBar, WdlColumns } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
@@ -89,6 +90,18 @@ export default function Home() {
     (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
     { timed: 0, late: 0 },
   );
+
+  // All-time record by competition, drawn as full-width diverging bars (so each
+  // record's *shape* stays readable and comparable) whose *thickness* encodes games
+  // played. Volume spans two orders of magnitude here (League ~5,000 vs the cups in
+  // the hundreds), so length would let League pin the scale and flatten the rest —
+  // thickness on a sqrt scale keeps League the obvious bulk without erasing the cups.
+  // Only the four major competitions earn a place on the homepage; the shields,
+  // super cups, world finals and old test matches are dropped.
+  const RECORD_TYPES = new Set(["league", "domestic-cup", "league-cup", "european"]);
+  const recordRows = byType.filter((t) => RECORD_TYPES.has(t.type));
+  const recordPMax = Math.max(1, ...recordRows.map((t) => t.p));
+  const recordHeight = (p: number) => Math.max(6, Math.round(28 * Math.sqrt(p / recordPMax)));
 
   return (
     <div className="space-y-14 sm:space-y-16">
@@ -197,25 +210,25 @@ export default function Home() {
         <div className="space-y-6">
           <h2 className="display text-xl">All-time record</h2>
           <div className="space-y-4">
-            {byType
-              .filter((t) => t.type !== "unofficial")
-              .map((t) => (
-                <div key={t.type}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <Link href={`/matches?type=${t.type}`} className="text-ink-dim hover:text-ink">
-                      {COMPETITION_TYPE_LABELS[t.type] ?? t.type}
-                    </Link>
-                    <span className="stat-num text-xs text-ink-faint">
-                      {fmtNum(t.p)} P · {pct(t.w, t.p)} W
-                    </span>
-                  </div>
-                  <WdlBar w={t.w} d={t.d} l={t.l} />
+            {recordRows.map((t) => (
+              <div key={t.type}>
+                <div className="flex justify-between text-sm mb-1.5">
+                  <Link href={`/matches?type=${t.type}`} className="text-ink-dim hover:text-ink">
+                    {COMPETITION_TYPE_LABELS[t.type] ?? t.type}
+                  </Link>
+                  <span className="stat-num text-xs text-ink-faint">
+                    {fmtNum(t.p)} P · <span className="text-ink">{pct(t.w, t.p)}</span> W
+                  </span>
                 </div>
-              ))}
+                <WdlColumns w={t.w} d={t.d} l={t.l} className="mb-1.5" />
+                <WdlBar w={t.w} d={t.d} l={t.l} heightPx={recordHeight(t.p)} />
+              </div>
+            ))}
           </div>
           <p className="text-xs text-ink-faint">
-            Through <span className="stat-num">{lastDate}</span>, updated after every match. Each row links to its
-            matches; the{" "}
+            Bar thickness tracks matches played and each pivots on its centre, so past the line is a
+            winning record. Through <span className="stat-num">{lastDate}</span>, updated after every match — each
+            row links to its matches, and the{" "}
             <Link href="/data" className="text-devil-bright hover:underline">coverage ledger</Link> shows what is
             sourced and what is still growing.
           </p>
@@ -228,15 +241,20 @@ export default function Home() {
         {scorers.length > 0 && (
           <section>
             <SectionHead
-              title="Most goals"
+              title="Top goalscorers"
               aside={<Link href="/players" className="text-devil-bright hover:underline">All players →</Link>}
             />
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
               {scorers.map((p, i) => (
                 <Link key={p.player_id} href={`/player/${p.player_id}`} className="bg-panel px-4 py-3 hover:bg-panel-2 transition-colors">
-                  <div className="stat-num text-2xl font-semibold text-devil-bright">{p.goals}</div>
-                  <div className="text-sm truncate">{p.name}</div>
-                  <div className="text-xs text-ink-faint stat-num">
+                  <div className="flex items-center gap-3">
+                    <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
+                    <div className="min-w-0">
+                      <div className="stat-num text-2xl font-semibold leading-none text-devil-bright">{p.goals}</div>
+                      <div className="mt-1 truncate text-sm">{p.name}</div>
+                    </div>
+                  </div>
+                  <div className="mt-2 text-xs text-ink-faint stat-num">
                     #{i + 1}
                     {p.first_date ? ` · ${p.first_date.slice(0, 4)}–${p.last_date?.slice(0, 4)}` : ""}
                   </div>
