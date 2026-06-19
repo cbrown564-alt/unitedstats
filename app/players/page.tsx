@@ -100,6 +100,14 @@ export default async function PlayersPage({
   const allPlayers = playersIndex().filter((p) => p.player_id !== "own-goal");
   const filteredPlayers = q ? allPlayers.filter((p) => p.name.toLowerCase().includes(q)) : allPlayers;
   const players = [...filteredPlayers].sort((a, b) => comparePlayers(a, b, sortKey, sortDirection));
+  // Progressive disclosure: render the top slice of the active sort by default
+  // (≈95% fewer portrait images than the full ~984-row register), expanding to
+  // the whole list on an explicit server round-trip. Search and the leaderboards
+  // are the real access paths; this keeps the default page light without a pager.
+  const REGISTER_LIMIT = 50;
+  const showAll = sp.all === "1";
+  const visiblePlayers = showAll ? players : players.slice(0, REGISTER_LIMIT);
+  const truncated = players.length > visiblePlayers.length;
   const meta = getMeta();
   const coverage = coverageOverview();
   const topScorer = [...allPlayers].sort((a, b) => b.goals - a.goals)[0];
@@ -147,6 +155,17 @@ export default async function PlayersPage({
     if (rawQuery) params.set("q", rawQuery);
     params.set("sort", nextSortKey);
     params.set("dir", nextDirection);
+    return `/players?${params.toString()}`;
+  }
+
+  // Toggle the register between its top slice and the full list, keeping the
+  // current search and sort. (Changing sort via a chip resets to the slice.)
+  function disclosureHref(all: boolean) {
+    const params = new URLSearchParams();
+    if (rawQuery) params.set("q", rawQuery);
+    params.set("sort", sortKey);
+    params.set("dir", sortDirection);
+    if (all) params.set("all", "1");
     return `/players?${params.toString()}`;
   }
 
@@ -267,14 +286,16 @@ export default async function PlayersPage({
         </div>
 
       <DataTable
-        rows={players}
+        rows={visiblePlayers}
         rowKey={(p) => p.player_id}
         caption="Manchester United player totals"
         summary={
           <>
             <span>
-              <span className="stat-num text-ink">{fmtNum(players.length)}</span>{" "}
-              {activeFilters ? `of ${fmtNum(allPlayers.length)} players shown` : "players"}
+              <span className="stat-num text-ink">{fmtNum(visiblePlayers.length)}</span> shown{" "}
+              {activeFilters
+                ? `of ${fmtNum(players.length)} matching`
+                : `of ${fmtNum(allPlayers.length)} players`}
             </span>
             <span>
               Sorted by <span className="font-semibold text-ink">{PLAYER_SORT_LABELS[sortKey]}</span>,{" "}
@@ -381,6 +402,30 @@ export default async function PlayersPage({
           },
         ]}
       />
+
+        {(truncated || showAll) && (
+          <div className="flex justify-center">
+            {truncated ? (
+              <Link
+                href={disclosureHref(true)}
+                prefetch={false}
+                scroll={false}
+                className="rounded-md border border-line bg-panel px-4 py-2 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:bg-panel-2 hover:text-ink focus-ring"
+              >
+                Show all {fmtNum(players.length)} {activeFilters ? "matches" : "players"} →
+              </Link>
+            ) : (
+              <Link
+                href={disclosureHref(false)}
+                prefetch={false}
+                scroll={false}
+                className="rounded-md border border-line bg-panel px-4 py-2 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:bg-panel-2 hover:text-ink focus-ring"
+              >
+                Show top {REGISTER_LIMIT}
+              </Link>
+            )}
+          </div>
+        )}
 
         <CoverageNote
           slice="all competitive appearances and goals, league and cup"

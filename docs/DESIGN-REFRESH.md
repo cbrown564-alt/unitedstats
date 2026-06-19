@@ -781,7 +781,13 @@ anti-pattern the h2h pass named. Reworked into two movements behind the hero:
 - ✅ **"The full register" — the table as the auditable lookup tool**, now with plain-language **quick-view sort
   chips** (the sorts were buried in column headers) and an honest `CoverageNote` replacing the grey trust box
   (assists are partial — recorded for ~190 players, weighted to recent eras — so an absence is *unrecorded, not
-  zero*).
+  zero*). **Progressive disclosure, not a pager:** the register renders the **top 50 of the active sort** by
+  default and expands to all 984 on an explicit `?all=1` server round-trip (no client JS, the `MatchArchive`
+  native-disclosure precedent). A numbered pager was rejected for the same reason reverse-chron lists were —
+  nobody navigates to "players ranked 301–350 by goals"; the leaderboards answer "top of each measure" and
+  search answers "find this person," so the cap just keeps the default light. The real win is **performance**:
+  the name column renders a `next/image` portrait per row, so capping to 50 cuts ~984 portraits to ~50 (default
+  page now references ~53 distinct players vs 986 expanded) while "the full register" stays one click away.
 - ✅ **Honesty fix surfaced by drawing the data: "Own Goal" excluded.** The pseudo-scorer (202, 0 apps) was
   ranking **5th in "Top scorers"** — it is not a player, so it's now filtered from the whole directory (hero,
   leaderboards, register, and the count, an honester 984). The recurring pattern: an answer-object drawn
