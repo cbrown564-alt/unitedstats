@@ -547,7 +547,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -634,7 +635,8 @@
           "minute": 90,
           "providerEventId": "cdd142ae45eac3c6b8e4e4bc72dc2077",
           "sourceConfidence": "complete",
-          "detail": ", Header, 4. Goal of the Season Assist: , Corner, 1. Assist of the Season"
+          "detail": ", Header, 4. Goal of the Season Assist: , Corner, 1. Assist of the Season",
+          "addedTime": 1
         }
       ],
       "eventsComplete": true,
@@ -1677,11 +1679,21 @@
           "type": "goal",
           "player": "tom-cleverley",
           "minute": 58
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Papiss Cisse",
+          "playerSide": "opponent",
+          "minute": 62,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -3646,11 +3658,57 @@
           "type": "goal",
           "player": "nani",
           "minute": 59
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "David Luiz",
+          "playerSide": "opponent",
+          "minute": 31,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Gary Cahill",
+          "playerSide": "opponent",
+          "minute": 52,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Eden Hazard",
+          "playerSide": "opponent",
+          "minute": 90,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Daniel Sturridge",
+          "playerSide": "opponent",
+          "minute": 97,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ramires",
+          "playerSide": "opponent",
+          "minute": 116,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6297,7 +6355,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -6439,7 +6498,8 @@
           "minute": 90,
           "providerEventId": "18cd9242a051de37a3599e6d71f30d22",
           "sourceConfidence": "complete",
-          "detail": ", Direct free kick, 11. Goal of the Season"
+          "detail": ", Direct free kick, 11. Goal of the Season",
+          "addedTime": 2
         },
         {
           "type": "card-yellow",
@@ -8052,7 +8112,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "notes": null,
       "events": [
@@ -8147,7 +8208,8 @@
           "minute": 90,
           "providerEventId": "35f4d4242fbf3ee8e595791ec5ac1cd3",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Tournament Goal Assist: , Pass, 1. Tournament Assist"
+          "detail": ", Right-footed shot, 1. Tournament Goal Assist: , Pass, 1. Tournament Assist",
+          "addedTime": 1
         }
       ],
       "eventsComplete": true,
@@ -8872,7 +8934,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -8958,7 +9021,8 @@
           "minute": 90,
           "providerEventId": "8f685459e81a4291e3f9e7b90100a45b",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 5. Goal of the Season Assist: , Pass, 7. Assist of the Season"
+          "detail": ", Right-footed shot, 5. Goal of the Season Assist: , Pass, 7. Assist of the Season",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,
@@ -10896,7 +10960,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -10923,7 +10988,8 @@
           "minute": 45,
           "providerEventId": "833ff4abad351214bbd3417d78bf0d9c",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 3. Goal of the Season Assist: , Pass, 12. Assist of the Season"
+          "detail": ", Right-footed shot, 3. Goal of the Season Assist: , Pass, 12. Assist of the Season",
+          "addedTime": 1
         },
         {
           "type": "card-yellow",

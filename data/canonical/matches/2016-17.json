@@ -1587,7 +1587,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -1658,7 +1659,8 @@
           "minute": 90,
           "providerEventId": "ec787f1c1b265307fb4c0fb21a317869",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Goal of the Season Assist: , Pass, 2. Assist of the Season"
+          "detail": ", Right-footed shot, 1. Goal of the Season Assist: , Pass, 2. Assist of the Season",
+          "addedTime": 2
         }
       ],
       "eventsComplete": true,
@@ -3159,7 +3161,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -3297,7 +3300,8 @@
           "minute": 90,
           "providerEventId": "6b115b130220b982d6a362d0c06df185",
           "sourceConfidence": "complete",
-          "detail": ", Penalty, 2. Goal of the Season"
+          "detail": ", Penalty, 2. Goal of the Season",
+          "addedTime": 5
         }
       ],
       "eventsComplete": true,
@@ -3769,11 +3773,21 @@
           "type": "goal",
           "player": "marcus-rashford",
           "minute": 75
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Alex Revell",
+          "playerSide": "opponent",
+          "minute": 42,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -6096,7 +6110,8 @@
           "minute": 45,
           "providerEventId": "880324b4839e8770b9a0d92de8eb4c13",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 2. Tournament Goal Assist: , 1. Tournament Assist"
+          "detail": ", Right-footed shot, 2. Tournament Goal Assist: , 1. Tournament Assist",
+          "addedTime": 1
         },
         {
           "type": "goal",
@@ -6131,7 +6146,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -10610,7 +10626,8 @@
         {
           "type": "goal",
           "player": "zlatan-ibrahimovic",
-          "minute": 93
+          "minute": 90,
+          "addedTime": 3
         },
         {
           "type": "goal",
@@ -10621,11 +10638,21 @@
           "type": "goal",
           "player": "anthony-martial",
           "minute": 62
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Ashley Fletcher",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -12412,7 +12439,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -12450,7 +12478,8 @@
           "minute": 45,
           "providerEventId": "b6bd47c15b6e945d88bd1cd88e1169e3",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 3. Goal of the Season"
+          "detail": ", Right-footed shot, 3. Goal of the Season",
+          "addedTime": 2
         },
         {
           "type": "opp-goal",
@@ -13526,7 +13555,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -13620,7 +13650,8 @@
           "minute": 90,
           "providerEventId": "8d2e8d6a21be591fc36119d0389325b3",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Goal of the Season"
+          "detail": ", Right-footed shot, 1. Goal of the Season",
+          "addedTime": 1
         }
       ],
       "eventsComplete": true,
@@ -16418,7 +16449,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -16482,7 +16514,8 @@
           "minute": 90,
           "providerEventId": "e4d3ca424f7bae0dd084459be8d45aa9",
           "sourceConfidence": "complete",
-          "detail": ", Direct free kick, 2. Goal of the Season"
+          "detail": ", Direct free kick, 2. Goal of the Season",
+          "addedTime": 4
         },
         {
           "type": "card-yellow",
@@ -16958,11 +16991,30 @@
           "detail": null,
           "playerName": "Paul Pogba",
           "playerSide": "united"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tom Huddlestone",
+          "playerSide": "opponent",
+          "minute": 35,
+          "detail": "pen",
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Oumar Niasse",
+          "playerSide": "opponent",
+          "minute": 85,
+          "detail": null,
+          "sourceConfidence": "supporting"
         }
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-goal-minutes"
       ],
       "lineup": [
         {
@@ -23108,7 +23160,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -23191,7 +23244,8 @@
           "minute": 90,
           "providerEventId": "3777161cc136390c437a8066c687c38e",
           "sourceConfidence": "complete",
-          "detail": ", Right-footed shot, 1. Goal of the Season"
+          "detail": ", Right-footed shot, 1. Goal of the Season",
+          "addedTime": 3
         }
       ],
       "eventsComplete": true,
@@ -24174,7 +24228,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -24249,7 +24304,8 @@
           "minute": 90,
           "providerEventId": "72b4655f2d23845cea544b0223c5ca50",
           "sourceConfidence": "complete",
-          "detail": ", Penalty, 16. Goal of the Season Assist: Handball by"
+          "detail": ", Penalty, 16. Goal of the Season Assist: Handball by",
+          "addedTime": 4
         },
         {
           "type": "card-red",
@@ -27927,7 +27983,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-goal-minutes"
       ],
       "events": [
         {
@@ -27976,7 +28033,8 @@
           "minute": 45,
           "providerEventId": "9bcae92897148df44f06d0cdf15b9245",
           "sourceConfidence": "complete",
-          "detail": ", Penalty, 4. Goal of the Season Assist: , Penalty: Fouled player"
+          "detail": ", Penalty, 4. Goal of the Season Assist: , Penalty: Fouled player",
+          "addedTime": 3
         },
         {
           "type": "opp-goal",

@@ -64,6 +64,7 @@ interface ParsedGoal {
   name: string;
   slug: string;
   minute: number;
+  added: number | null;
   og: boolean;
 }
 
@@ -125,8 +126,10 @@ async function matchHtml(date: string): Promise<string> {
 // One scoreboard scorer line into a flat, ordered list of goals. A name (any
 // alphabetic chunk) opens a scorer that subsequent bare minutes carry; the
 // trailing "(o.g.)" / "(pen)" tag annotates the minute it follows. Stoppage time
-// ("90'+7") collapses to the regulation minute.
-const GOAL_TOKEN = /([A-Za-z][^\d()]*?)?\s*(\d{1,3})(?:\+\d+)?\s*(?:'|’)\s*(\([^)]*\))?/g;
+// is written after the apostrophe ("90'+7"): the boundary minute (90) and the
+// added amount (7) are kept separately.
+const GOAL_TOKEN =
+  /([A-Za-z][^\d()]*?)?\s*(\d{1,3})\s*(?:'|’)\s*(?:\+\s*(\d{1,2}))?\s*(\([^)]*\))?/g;
 
 function parseUnitedGoals(line: string): ParsedGoal[] {
   const text = htmlDecode(line);
@@ -138,11 +141,12 @@ function parseUnitedGoals(line: string): ParsedGoal[] {
     const rawName = m[1] ? displayName(m[1].trim()) : "";
     if (rawName && /[a-z]/i.test(rawName)) currentName = rawName;
     if (!currentName) continue;
-    const annotation = (m[3] ?? "").toLowerCase();
+    const annotation = (m[4] ?? "").toLowerCase();
     goals.push({
       name: currentName,
       slug: normalizedSlug(currentName),
       minute: Number(m[2]),
+      added: m[3] ? Number(m[3]) : null,
       og: annotation.includes("o.g") || annotation.includes("og"),
     });
   }
@@ -189,7 +193,9 @@ function inspect(date: string, html: string): void {
   console.log(`\n=== MUFCInfo page ${date} ===`);
   const goals = parseUnitedScoreboard(html);
   if (!goals) { console.log("  (no United scoreboard block found)"); return; }
-  for (const g of goals) console.log(`  ${g.minute}' ${g.name}${g.og ? "  (o.g.)" : ""}`);
+  for (const g of goals) {
+    console.log(`  ${g.minute}'${g.added ? `+${g.added}` : ""} ${g.name}${g.og ? "  (o.g.)" : ""}`);
+  }
 }
 
 function plannedJobs(seasons: string[]): { jobs: MatchJob[]; seasonFiles: Map<string, SeasonFile> } {
@@ -252,7 +258,10 @@ async function main() {
           if (event.minute == null) {
             stats.minuteStamped++;
             touched = true;
-            if (WRITE) event.minute = hit.minute;
+            if (WRITE) {
+              event.minute = hit.minute;
+              if (hit.added != null) event.addedTime = hit.added;
+            }
           }
         }
 
@@ -267,14 +276,16 @@ async function main() {
             stats.eventsCreated++;
             touched = true;
             if (WRITE) {
-              (match.events ??= []).push({
+              const ev: MatchEvent = {
                 type: "own-goal-for",
                 player: null,
                 playerName: g.name,
                 playerSide: "opponent",
                 minute: g.minute,
                 sourceConfidence: "supporting",
-              });
+              };
+              if (g.added != null) ev.addedTime = g.added;
+              (match.events ??= []).push(ev);
             }
           }
         } else if (shortfall > 0 && unclaimed.length > 0) {
