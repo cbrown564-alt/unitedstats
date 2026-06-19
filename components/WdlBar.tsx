@@ -29,6 +29,7 @@ export function WdlBar({
   l,
   className = "",
   size = "sm",
+  heightPx,
   variant = "diverging",
   showLabels = false,
   tooltip = true,
@@ -38,6 +39,9 @@ export function WdlBar({
   l: number;
   className?: string;
   size?: WdlSize;
+  /** Explicit track height in px, overriding `size`. Lets a caller encode a second
+   *  variable (e.g. games played) as bar thickness on a continuous scale. */
+  heightPx?: number;
   variant?: WdlVariant;
   /** Render counts inside segments wide enough to hold them (stacked, md/lg only). */
   showLabels?: boolean;
@@ -50,7 +54,7 @@ export function WdlBar({
   const lPct = (100 * l) / total;
   const winRate = Math.round((100 * w) / total);
   const aria = `${w} wins, ${d} draws, ${l} losses`;
-  const height = HEIGHTS[size];
+  const height = heightPx != null ? "" : HEIGHTS[size];
   const diverging = variant === "diverging";
   const canLabel = showLabels && (size === "md" || size === "lg");
 
@@ -61,6 +65,7 @@ export function WdlBar({
           ? `relative ${height} w-full`
           : `relative ${height} w-full overflow-hidden rounded-full bg-panel-2`
       }
+      style={heightPx != null ? { height: `${heightPx}px` } : undefined}
       role="img"
       aria-label={aria}
       {...(tooltip ? {} : { title: `W${w} D${d} L${l} · ${winRate}% win` })}
