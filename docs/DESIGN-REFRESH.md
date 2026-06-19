@@ -147,7 +147,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/` (home) | ✅ refreshed — **bespoke `HistorySkyline` hero**: a floodlit plate where the headline and search sit over every season since 1886-87 drawn as one breathing wall (bar height = matches played, stacked W/D/L, the honest 20 top-flight titles gold-capped). Below it the body is paced into three movements (start a trail → the living record → explore) with the redundant Elo chart and "fullest match sheets" grid cut. First pass (records teaser + live `MinuteRidge` + dropped 4-tile metric block) was the foundation; the hero + restructure is what made it land |
 | `/matches` | ✅ refreshed (filter-answering stat-hero band + slice-wide `ResultSpine`; new shared `GoalDiff` + `ResultSpine` record header threaded back through the detail/season headers; archive spine kept as the canonical, auditable filter target) |
 | `/seasons`, `/seasons/[season]` | ✅ detail leads with the league finish as an `IdentityPlate` (generalised with a `headline` override) → season brief → `ResultSpine` → competition lanes carrying each campaign's outcome; **index rebuilt around a bespoke `FinishTimeline` hero** (135 years of finishing position as one two-tier rise-and-fall), honest title count (20, not 22), and a per-decade **fixed-lane scoreboard** — the league finish drawn as the table itself (`FinishLadder`), fixed cup lanes sharing a promoted `CampaignVerdict` |
-| `/players` | ✅ bespoke `PlayerGreatnessMap` hero (appearances × goals frontier, portraits on the immortals) over the retained sortable `DataTable` detail |
+| `/players` | ✅ bespoke `PlayerGreatnessMap` hero → "The leaders" answer-objects (`Leaderboard` ×4, incl. goals-per-game) → "The full register" (quick-views + sortable `DataTable` + `CoverageNote`); "Own Goal" pseudo-scorer excluded |
 | `/manager/[id]`, `/opponent/[id]` (detail) | ✅ `IdentityPlate` + `RunCallouts` + composed Matches section (`NotableMatches` cards → `ResultSpine` → full season-grouped `MatchGroups` archive with `ArchiveJumpRail` + match-browser link); splits stay plain diverging `WdlBar`s (deviation framing tried and rejected) |
 | `/managers`, `/opponents` (index structure) | ✅ bespoke heroes — `ManagerTimeline` (succession as a match-proportional bar, two cathedrals) and `OpponentRivalryMap` (meetings × win-rate scatter, the nemesis low-right) — over a shared `IndexRow` detail layer (era bands / ranked ledger); `CoverageNote` footer on both |
 | `/analytics` | ✅ restructured from a flat ~10-section stack into **three acts + a trails appendix** (signal → projection → production): a floodlit `EloHero`, a bespoke `ReliabilityCurve` replacing the calibration table, six all-time-peak `RecordCards`, an upgraded assist ladder; grounds grid cut (and its query), coverage links merged |
@@ -767,6 +767,34 @@ already a noted motif and de-collision is a technique, not a composition rule. *
 (home, then all three index pages): the "casting not building" instinct is wrong for any **front-door** surface
 — a page someone lands on wants an authored hero that shows its whole subject at once, and only the body below
 should quote the existing vocabulary.*
+
+**Follow-up: the players *body* — from raw ledger to answers.** With the hero settled, the page's body was
+still the "competent ledger" the refresh exists to kill: after the frontier scatter, a search box, a dry grey
+trust paragraph, and a 985-row table sorted by goals — making the reader *sort* to find anything, the exact
+anti-pattern the h2h pass named. Reworked into two movements behind the hero:
+
+- ✅ **"The leaders" — answer-objects by every measure.** Four compact ranked `Leaderboard` cards (new shared
+  component): **Top scorers**, **Most appearances**, **Goals per game** (min. 150 apps), **Most assists**
+  (coverage-noted). This resolves the "who are the greats" intent without sorting, and the per-game board is
+  the payoff — it surfaces **Tommy Taylor (a Busby Babe lost at Munich) and van Nistelrooy above Rooney**, which
+  the goals-total sort buries. The answer-first / ledger-as-appendix pattern, applied to the people directory.
+- ✅ **"The full register" — the table as the auditable lookup tool**, now with plain-language **quick-view sort
+  chips** (the sorts were buried in column headers) and an honest `CoverageNote` replacing the grey trust box
+  (assists are partial — recorded for ~190 players, weighted to recent eras — so an absence is *unrecorded, not
+  zero*).
+- ✅ **Honesty fix surfaced by drawing the data: "Own Goal" excluded.** The pseudo-scorer (202, 0 apps) was
+  ranking **5th in "Top scorers"** — it is not a player, so it's now filtered from the whole directory (hero,
+  leaderboards, register, and the count, an honester 984). The recurring pattern: an answer-object drawn
+  honestly exposes a data entry that was hiding in a flat list.
+- ✅ **Position deliberately *not* used.** `players.positions` is empty and lineup-derived roles cover only
+  ~360 of ~3,400 players and don't even resolve the pre-1990 legends (Charlton/Law/Best) — so grouping by
+  position would be dishonest and exclude the greats. Ruled out on the slice/coverage contract, recorded so it
+  isn't re-attempted.
+
+One new shared component (`Leaderboard`, a ranked answer-object — a candidate for promotion if a third surface
+wants it); nothing reached `DESIGN.md`. *Lesson: a hero fixes the front door, but the **body** of an index still
+owes the reader computed answers before a raw table — the leaderboard is to a directory what `NotableMatches`
+is to a fixture list.*
 
 ### 8. `/data`
 The trust surface. Refresh is about legibility of the coverage ledger, not

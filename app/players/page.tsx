@@ -4,6 +4,9 @@ import { DataTable, type SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
+import { SectionHead } from "@/components/SectionHead";
+import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
+import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -91,7 +94,10 @@ export default async function PlayersPage({
   const sortKey = parsePlayerSort(sp.sort);
   const sortDirection: SortDirection =
     sp.dir === "asc" || sp.dir === "desc" ? sp.dir : PLAYER_SORT_DEFAULTS[sortKey];
-  const allPlayers = playersIndex();
+  // "Own Goal" is a pseudo-scorer (own goals aggregated for the /questions cut and
+  // its own page); it is not a player, so it never belongs in this directory's
+  // leaderboards, scatter, register, or count.
+  const allPlayers = playersIndex().filter((p) => p.player_id !== "own-goal");
   const filteredPlayers = q ? allPlayers.filter((p) => p.name.toLowerCase().includes(q)) : allPlayers;
   const players = [...filteredPlayers].sort((a, b) => comparePlayers(a, b, sortKey, sortDirection));
   const meta = getMeta();
@@ -99,7 +105,42 @@ export default async function PlayersPage({
   const topScorer = [...allPlayers].sort((a, b) => b.goals - a.goals)[0];
   const mostApps = [...allPlayers].sort((a, b) => (b.apps || 0) - (a.apps || 0))[0];
   const verifiedRecords = allPlayers.filter((p) => p.record_apps != null).length;
+  const assistsCovered = allPlayers.filter((p) => (p.assists || 0) > 0).length;
   const activeFilters = Boolean(q);
+
+  // Leaderboards — the answers a reader would otherwise have to sort the 985-row
+  // table for, by every meaningful measure. Computed from the same index.
+  const portrait = (p: PlayerTotals) => p.player_thumb_url ?? p.player_image_url;
+  const toItem = (p: PlayerTotals, figure: string, sub: string): LeaderboardItem => ({
+    id: p.player_id, name: p.name, src: portrait(p), figure, sub,
+  });
+  const PROLIFIC_MIN = 150;
+  const topGoals = [...allPlayers]
+    .sort((a, b) => b.goals - a.goals)
+    .slice(0, 6)
+    .map((p) => toItem(p, fmtNum(p.goals), spanForPlayer(p)));
+  const topAppsBoard = [...allPlayers]
+    .sort((a, b) => (b.apps || 0) - (a.apps || 0))
+    .slice(0, 6)
+    .map((p) => toItem(p, fmtNum(p.apps || 0), spanForPlayer(p)));
+  const prolific = [...allPlayers]
+    .filter((p) => (p.apps || 0) >= PROLIFIC_MIN && p.goals > 0)
+    .sort((a, b) => b.goals / (b.apps || 1) - a.goals / (a.apps || 1))
+    .slice(0, 6)
+    .map((p) => toItem(p, (p.goals / (p.apps || 1)).toFixed(2), `${fmtNum(p.goals)} in ${fmtNum(p.apps || 0)}`));
+  const topAssists = [...allPlayers]
+    .filter((p) => (p.assists || 0) > 0)
+    .sort((a, b) => (b.assists || 0) - (a.assists || 0))
+    .slice(0, 6)
+    .map((p) => toItem(p, fmtNum(p.assists || 0), spanForPlayer(p)));
+
+  const quickViews: { label: string; key: PlayerSortKey }[] = [
+    { label: "Goals", key: "goals" },
+    { label: "Appearances", key: "apps" },
+    { label: "Assists", key: "assists" },
+    { label: "Career span", key: "span" },
+    { label: "A–Z", key: "name" },
+  ];
 
   function sortHref(nextSortKey: string, nextDirection: SortDirection) {
     const params = new URLSearchParams();
@@ -162,27 +203,68 @@ export default async function PlayersPage({
         </div>
       </section>
 
-      <section className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_18rem]">
-        <form action="/players" className="rounded-lg border border-line bg-panel p-3">
-          <label>
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Find a player</span>
-            <input
-              type="search"
-              name="q"
-              defaultValue={sp.q ?? ""}
-              placeholder="Rooney, Best, Charlton"
-              className="control w-full"
-            />
-          </label>
-        </form>
-        <div className="rounded-lg border border-line bg-panel p-3 text-xs leading-5 text-ink-dim">
-        <span className="font-semibold text-ink">Trust context:</span> complete scorer rows cover{" "}
-        <span className="stat-num text-ink">{fmtNum(coverage.completeScorers)}</span> matches
-        {" "}({pct(coverage.completeScorers, coverage.matches)}); verified player records cover{" "}
-        <span className="stat-num text-ink">{fmtNum(verifiedRecords)}</span> players; lineup data covers{" "}
-        <span className="stat-num text-ink">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
+      {/* Movement 1 — the leaders: the answer to "who are the greats", by every
+          measure at once, so nobody has to sort the register to find it. */}
+      <section className="space-y-3">
+        <SectionHead title="The leaders" aside="by every measure" />
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <Leaderboard title="Top scorers" unit="goals" items={topGoals} figureTone="text-devil-bright" />
+          <Leaderboard title="Most appearances" unit="games" items={topAppsBoard} />
+          <Leaderboard
+            title="Goals per game"
+            unit={`min. ${PROLIFIC_MIN} apps`}
+            items={prolific}
+            figureTone="text-devil-bright"
+          />
+          <Leaderboard
+            title="Most assists"
+            unit="assists"
+            items={topAssists}
+            figureTone="text-gold"
+            note={`recorded for ${fmtNum(assistsCovered)} of ${fmtNum(allPlayers.length)} players and weighted to recent eras — an absence is unrecorded, not zero.`}
+          />
         </div>
       </section>
+
+      {/* Movement 2 — the full register: the auditable lookup tool, every player
+          who appears in the archive, sortable and searchable. */}
+      <section className="space-y-3">
+        <SectionHead title="The full register" aside={`${fmtNum(allPlayers.length)} players`} />
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <form action="/players" className="lg:w-72">
+            <label>
+              <span className="sr-only">Find a player</span>
+              <input
+                type="search"
+                name="q"
+                defaultValue={sp.q ?? ""}
+                placeholder="Find a player — Rooney, Best, Charlton"
+                className="control w-full"
+              />
+            </label>
+          </form>
+          <nav aria-label="Quick views" className="flex flex-wrap items-center gap-1.5">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Sort</span>
+            {quickViews.map((v) => {
+              const active = !activeFilters && sortKey === v.key;
+              return (
+                <Link
+                  key={v.key}
+                  href={sortHref(v.key, PLAYER_SORT_DEFAULTS[v.key])}
+                  prefetch={false}
+                  scroll={false}
+                  className={`rounded-md border px-2.5 py-1 text-xs transition-colors focus-ring ${
+                    active
+                      ? "border-devil bg-devil/15 text-ink"
+                      : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
+                  }`}
+                >
+                  {v.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
 
       <DataTable
         rows={players}
@@ -299,6 +381,21 @@ export default async function PlayersPage({
           },
         ]}
       />
+
+        <CoverageNote
+          slice="all competitive appearances and goals, league and cup"
+          evidenceHref="/data"
+          evidenceLabel="Coverage details"
+        >
+          Complete scorer rows cover{" "}
+          <span className="stat-num text-ink">{fmtNum(coverage.completeScorers)}</span> matches (
+          {pct(coverage.completeScorers, coverage.matches)}); verified club records cover{" "}
+          <span className="stat-num text-ink">{fmtNum(verifiedRecords)}</span> players; lineup data covers{" "}
+          <span className="stat-num text-ink">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
+          Assists are recorded for{" "}
+          <span className="stat-num text-ink">{fmtNum(assistsCovered)}</span> players and weighted to recent eras.{" "}
+        </CoverageNote>
+      </section>
     </div>
   );
 }
