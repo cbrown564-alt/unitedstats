@@ -19,6 +19,7 @@ export function IndexRow({
   w,
   d,
   l,
+  chart,
 }: {
   href: string;
   rank?: number;
@@ -28,6 +29,10 @@ export function IndexRow({
   w: number;
   d: number;
   l: number;
+  /** Replace the default diverging W/D/L bar in the middle slot with a richer
+   *  per-row visual (e.g. the manager tenure sparkbar on a shared timeline).
+   *  Omitted → the diverging `WdlBar` (opponents). */
+  chart?: React.ReactNode;
 }) {
   const p = w + d + l;
   return (
@@ -45,7 +50,11 @@ export function IndexRow({
           <span className="stat-num block text-xs text-ink-faint">{sub}</span>
         </span>
       </span>
-      <WdlBar w={w} d={d} l={l} size="sm" tooltip={false} className="hidden sm:block" />
+      {chart ? (
+        <div className="hidden sm:block">{chart}</div>
+      ) : (
+        <WdlBar w={w} d={d} l={l} size="sm" tooltip={false} className="hidden sm:block" />
+      )}
       <span className="stat-num whitespace-nowrap text-right text-xs text-ink-dim">
         {fmtNum(p)} P · <span className="text-ink">{pct(w, p)}</span> W
       </span>
