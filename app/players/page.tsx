@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { coverageOverview, getMeta, playersIndex, type PlayerTotals } from "@/lib/queries";
+import { coverageOverview, getMeta, playerCareerSparks, playersIndex, type PlayerTotals } from "@/lib/queries";
 import { DataTable, type SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
+import { CareerSparkline, type CareerSparkSeason } from "@/components/charts/CareerSparkline";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { PositionGlyph } from "@/components/PositionGlyph";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { SectionHead } from "@/components/SectionHead";
 import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
@@ -110,10 +112,32 @@ export default async function PlayersPage({
   const truncated = players.length > visiblePlayers.length;
   const meta = getMeta();
   const coverage = coverageOverview();
+
+  // Per-season apps+goals for the career sparklines, batched once and grouped by
+  // player. The sparks share one timeline axis and one height scale across every
+  // row, so scanning the column reads as eras sliding left→right and bar heights
+  // stay comparable between players.
+  const sparkRows = playerCareerSparks();
+  const sparksByPlayer = new Map<string, CareerSparkSeason[]>();
+  let sparkAxisStart = Infinity;
+  let sparkAxisEnd = -Infinity;
+  let sparkMaxScale = 1;
+  for (const r of sparkRows) {
+    const list = sparksByPlayer.get(r.player_id);
+    const season: CareerSparkSeason = { season: r.season, apps: r.apps, goals: r.goals };
+    if (list) list.push(season);
+    else sparksByPlayer.set(r.player_id, [season]);
+    const year = Number(r.season.slice(0, 4));
+    if (year < sparkAxisStart) sparkAxisStart = year;
+    if (year > sparkAxisEnd) sparkAxisEnd = year;
+    sparkMaxScale = Math.max(sparkMaxScale, r.apps, r.goals);
+  }
+  for (const list of sparksByPlayer.values()) list.sort((a, b) => a.season.localeCompare(b.season));
   const topScorer = [...allPlayers].sort((a, b) => b.goals - a.goals)[0];
   const mostApps = [...allPlayers].sort((a, b) => (b.apps || 0) - (a.apps || 0))[0];
   const verifiedRecords = allPlayers.filter((p) => p.record_apps != null).length;
   const assistsCovered = allPlayers.filter((p) => (p.assists || 0) > 0).length;
+  const positionsCovered = allPlayers.filter((p) => p.position_bucket).length;
   const activeFilters = Boolean(q);
 
   // Leaderboards — the answers a reader would otherwise have to sort the 985-row
@@ -285,6 +309,28 @@ export default async function PlayersPage({
           </nav>
         </div>
 
+        {/* Teach the Career column once: it's a shared 1886→now timeline, so the bars
+            sit where the years fall — sort by Career to watch the eras march across. */}
+        <p className="hidden items-center justify-end gap-x-3 gap-y-1 text-[11px] text-ink-faint lg:flex">
+          <span className="text-ink-dim">Career</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-1 rounded-sm bg-ink-dim/40" aria-hidden />
+            bar height = apps that season
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-1 rounded-sm bg-devil-bright" aria-hidden />
+            red = goals
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
+            best season
+          </span>
+          <span>
+            on one shared <span className="stat-num">{sparkAxisStart}–{String(sparkAxisEnd).slice(2)}</span> timeline,
+            guides every 25 years
+          </span>
+        </p>
+
       <DataTable
         rows={visiblePlayers}
         rowKey={(p) => p.player_id}
@@ -345,38 +391,53 @@ export default async function PlayersPage({
             sortKey: "name",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.name,
             render: (p) => (
-              <Link href={`/player/${p.player_id}`} className="flex items-center gap-3 font-medium hover:text-devil-bright">
-                <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
-                <span>{p.name}</span>
-              </Link>
+              <div className="flex items-center gap-2.5">
+                <PositionGlyph bucket={p.position_bucket} title={p.position_label} />
+                <Link href={`/player/${p.player_id}`} className="flex items-center gap-3 font-medium hover:text-devil-bright">
+                  <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
+                  <span>{p.name}</span>
+                </Link>
+              </div>
             ),
           },
           {
-            label: "Apps",
-            key: "apps",
-            numeric: true,
-            sortKey: "apps",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.apps,
-            render: (p) => p.apps || "0",
-          },
-          {
-            label: "Starts",
-            key: "starts",
-            numeric: true,
-            hideBelow: "hidden sm:table-cell",
-            sortKey: "starts",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.starts,
-            render: (p) => p.starts || "0",
-          },
-          {
+            // The dominant figure — a goals-led club's history reads goals-first —
+            // with goals-per-game (the one fair cross-era output rate) in support.
             label: "Goals",
             key: "goals",
             numeric: true,
             sortKey: "goals",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.goals,
-            render: (p) => <span className="font-semibold text-devil-bright">{p.goals}</span>,
+            render: (p) => (
+              <div className="flex flex-col items-end leading-tight">
+                <span className="text-sm font-semibold text-devil-bright">{p.goals}</span>
+                {p.goals > 0 && (p.apps || 0) > 0 && (
+                  <span className="text-[10px] font-normal text-ink-faint">{(p.goals / p.apps).toFixed(2)}/g</span>
+                )}
+              </div>
+            ),
           },
           {
+            // Starts folds in as a quiet "started %", retiring its own column: it
+            // separates nailed-on starters from impact subs without a fourth number.
+            label: "Apps",
+            key: "apps",
+            numeric: true,
+            sortKey: "apps",
+            sortDefaultDirection: PLAYER_SORT_DEFAULTS.apps,
+            render: (p) => (
+              <div className="flex flex-col items-end leading-tight">
+                <span className="text-sm">{p.apps || "0"}</span>
+                {(p.apps || 0) > 0 && (
+                  <span className="text-[10px] text-ink-faint">{Math.round((p.starts / p.apps) * 100)}% st</span>
+                )}
+              </div>
+            ),
+          },
+          {
+            // Secondary, and deliberately dimmed: assists are partial and recent-
+            // weighted (see CoverageNote), so they stay an auditable number, never a
+            // glyph the eye would compare across eras.
             label: "Assists",
             key: "assists",
             numeric: true,
@@ -384,20 +445,27 @@ export default async function PlayersPage({
             sortKey: "assists",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
             sortLabel: "assists",
-            render: (p) => p.assists || "0",
+            render: (p) => <span className="text-ink-dim">{p.assists || "0"}</span>,
           },
           {
-            label: "Span",
+            label: "Career",
             key: "span",
-            numeric: true,
             hideBelow: "hidden lg:table-cell",
+            headerClassName: "text-right",
+            className: "text-right",
             sortKey: "span",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
             sortLabel: "career span",
             render: (p) => (
-              <span className="text-ink-dim">
-                {spanForPlayer(p)}
-              </span>
+              <div className="flex justify-end">
+                <CareerSparkline
+                  seasons={sparksByPlayer.get(p.player_id) ?? []}
+                  axisStart={sparkAxisStart}
+                  axisEnd={sparkAxisEnd}
+                  maxScale={sparkMaxScale}
+                  fallback={<span className="text-ink-dim">{spanForPlayer(p)}</span>}
+                />
+              </div>
             ),
           },
         ]}
@@ -438,7 +506,11 @@ export default async function PlayersPage({
           <span className="stat-num text-ink">{fmtNum(verifiedRecords)}</span> players; lineup data covers{" "}
           <span className="stat-num text-ink">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
           Assists are recorded for{" "}
-          <span className="stat-num text-ink">{fmtNum(assistsCovered)}</span> players and weighted to recent eras.{" "}
+          <span className="stat-num text-ink">{fmtNum(assistsCovered)}</span> players and weighted to recent eras.
+          The position mark beside each name — a line on a vertical pitch, keeper low to forward high — is the
+          player&rsquo;s primary position from Wikidata, known for{" "}
+          <span className="stat-num text-ink">{fmtNum(positionsCovered)}</span> players ({pct(positionsCovered, allPlayers.length)});
+          where it is unknown the mark is omitted, never guessed.{" "}
         </CoverageNote>
       </section>
     </div>

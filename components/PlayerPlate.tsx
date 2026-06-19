@@ -25,6 +25,8 @@ interface PlayerPlateProps {
   name: string;
   portrait: { src?: string | null; pageUrl?: string | null; license?: string | null };
   primaryShirt?: number | null;
+  /** Readable primary position, e.g. "Forward" or "Centre-back"; omitted when unknown. */
+  position?: string | null;
   careerYears?: string | null;
   rank?: { goalRank: number; total: number } | null;
   stats: {
@@ -57,7 +59,7 @@ const yearOf = (m: { season?: string; date?: string }) =>
  * recorded career resolves into a single span with the peak season marked on it.
  */
 export function PlayerPlate({
-  name, portrait, primaryShirt, careerYears, rank, stats, span, shirts, caveat,
+  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveat,
 }: PlayerPlateProps) {
   // Tint the corner kit to the era the player wore that number most.
   const primaryDecade =
@@ -119,6 +121,12 @@ export function PlayerPlate({
               <>
                 <span aria-hidden className="text-ink-faint">·</span>
                 <span>#{primaryShirt}</span>
+              </>
+            )}
+            {position && (
+              <>
+                <span aria-hidden className="text-ink-faint">·</span>
+                <span>{position}</span>
               </>
             )}
           </p>
