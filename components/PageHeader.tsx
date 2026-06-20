@@ -36,12 +36,11 @@ export function StatTile({
   label: string;
   value: React.ReactNode;
   detail?: React.ReactNode;
-  tone?: "default" | "red" | "gold" | "green";
+  tone?: "default" | "red" | "gold";
 }) {
   const toneClass =
     tone === "red" ? "text-devil-bright"
     : tone === "gold" ? "text-gold"
-    : tone === "green" ? "text-win"
     : "text-ink";
 
   return (

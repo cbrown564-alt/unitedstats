@@ -2,8 +2,8 @@
  * The fortress rule, drawn as a wall. One dot per Old Trafford home league game
  * United led at half-time, in chronological order. The grid is filled COLUMN by
  * column, top to bottom, so reading left → right tracks time — the same axis as
- * the year labels beneath it. Wins are solid green; draws are hollow gold — the
- * games where the lead slipped but the record held; a defeat would be a devil-red
+ * the year labels beneath it. Wins are solid red; draws are hollow gold — the
+ * games where the lead slipped but the record held; a defeat would be a slate
  * breach, and the point of the picture is that there isn't one. A handful of
  * "closest call" games carry a numbered halo that ties them to the list below.
  *

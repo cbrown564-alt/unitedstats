@@ -5,9 +5,11 @@ import type { CalibrationBucket } from "@/lib/predict";
  * win expectancy actually come true? Each expectancy decile is a point at
  * (expected, observed) against the dashed **perfect-forecast diagonal** — the
  * baseline encoded into the geometry rather than asserted in prose. The red
- * points-share dots hug the line when the ratings are honest; the green win-rate
- * dots sit lower, and the band between them is exactly where draws live (it
- * fattens in the middle, where evenly-matched games draw most).
+ * points-share dots hug the line when the ratings are honest; the gold win-rate
+ * dots sit lower, and the grey band between them is exactly where draws live (it
+ * fattens in the middle, where evenly-matched games draw most). Win-rate is gold,
+ * not the win token: here colour distinguishes two forecast series, so it must
+ * read apart from the devil-red points-share rather than carry result-state.
  *
  * Bespoke: it's the one object that makes "the ratings are calibrated" *visible*,
  * which a W/D/L table can only state. Static SVG, no inspection layer needed —
@@ -74,13 +76,13 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
           perfect forecast
         </text>
 
-        {/* the draw band: gap between points-share and win-rate */}
-        <path d={band} fill="var(--color-win)" opacity={0.08} />
+        {/* the draw band: gap between points-share and win-rate, the draws live here */}
+        <path d={band} fill="var(--color-draw)" opacity={0.12} />
 
-        {/* win rate — hollow green, sits below the line; the gap is draws */}
-        <polyline points={poly(winC)} fill="none" stroke="var(--color-win)" strokeWidth={1} opacity={0.45} />
+        {/* win rate — hollow gold, sits below the line; the gap is draws */}
+        <polyline points={poly(winC)} fill="none" stroke="var(--color-gold)" strokeWidth={1} opacity={0.5} />
         {winC.map((c, i) => (
-          <circle key={i} cx={c[0]} cy={c[1]} r={3} fill="var(--color-pitch)" stroke="var(--color-win)" strokeWidth={1.3} />
+          <circle key={i} cx={c[0]} cy={c[1]} r={3} fill="var(--color-pitch)" stroke="var(--color-gold)" strokeWidth={1.3} />
         ))}
 
         {/* points share — solid red, hugs the diagonal when calibrated */}
@@ -106,7 +108,7 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
           <span aria-hidden className="h-2 w-2 rounded-full bg-devil-bright" /> Points share — on the diagonal means the ratings land where they aim
         </span>
         <span className="flex items-center gap-1.5">
-          <span aria-hidden className="h-2 w-2 rounded-full border border-win bg-pitch" /> Win rate — the gap up to the line is where draws live
+          <span aria-hidden className="h-2 w-2 rounded-full border border-gold bg-pitch" /> Win rate — the gap up to the line is where draws live
         </span>
       </figcaption>
     </figure>

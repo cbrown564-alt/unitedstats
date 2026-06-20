@@ -2,12 +2,12 @@ import Link from "next/link";
 
 /**
  * The club's entire life as one object: every season a vertical bar whose height
- * is the matches played that year, stacked won (green, the foundation) → drawn
- * (neutral) → lost (red, the roofline). So the wall *breathes* — short bars in the
+ * is the matches played that year, stacked won (red, the foundation) → drawn
+ * (neutral) → lost (slate-blue, the roofline). So the wall *breathes* — short bars in the
  * Victorian league, the post-war swell, the modern era thick with European nights —
- * and its total inked area is, literally, every match United have played. The green
- * lower band rising and falling traces the eras; a relegation year wears a heavy red
- * cap. Championship seasons carry a gold marker, the one sparing accent.
+ * and its total inked area is, literally, every match United have played. The red
+ * lower band rising and falling traces the eras; a relegation year wears a heavy slate
+ * roofline. Championship seasons carry a gold marker, the one sparing accent.
  *
  * Pure CSS/flex, server-rendered: each season is a flex column growing from the
  * baseline, so the bars stay crisp at any width with no SVG scaling. Every bar is a

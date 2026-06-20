@@ -5,7 +5,7 @@
  * man's block as wide as his tenure was long. Within his window, one thin bar per
  * season: height is matches played that year on one global scale (a full modern
  * campaign towers over a wartime sliver), stacked won → drawn → lost up from the
- * baseline — the same green-foundation / red-roof encoding as the {@link
+ * baseline — the same red-foundation / slate-roof encoding as the {@link
  * ManagerTimeline} hero. Each row is that hero zoomed to a single man and re-pinned
  * from match-proportional width to real calendar time.
  *

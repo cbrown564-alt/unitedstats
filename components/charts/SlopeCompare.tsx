@@ -1,7 +1,7 @@
 /**
  * A horizontal dumbbell: a hollow origin dot (the "before") joined to a solid
- * outcome dot (the "after") by a connector tinted green when the value rose and
- * red when it fell. The shift left-or-right *is* the story — a manager's bounce,
+ * outcome dot (the "after") by a connector tinted red when the value rose and
+ * slate when it fell. The shift left-or-right *is* the story — a manager's bounce,
  * or the cost of a European week — read at a glance across a shared scale.
  *
  * HTML/CSS (not SVG) so value labels stay crisp at any width. Reused for the
