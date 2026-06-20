@@ -9,6 +9,7 @@ import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict
 import { CoverageNote } from "@/components/CoverageNote";
 import { JumpRail, type JumpChip } from "@/components/JumpRail";
 import { clubName, fmtNum } from "@/lib/format";
+import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Seasons" };
@@ -252,7 +253,16 @@ function CupCell({
   );
 }
 
-export default function SeasonsPage() {
+export default async function SeasonsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
+  const sp = await searchParams;
+  // Chronological by default — the ledger reads as a story from 1892 forward,
+  // matching the decade order. Descending flips both the decades and the
+  // seasons within each one, so the whole ledger reverses as a unit.
+  const order = sp.order === "desc" ? "desc" : "asc";
   const summaries = seasonsIndex();
   const bySeason = new Map<string, typeof summaries>();
   for (const s of summaries) {
@@ -306,18 +316,24 @@ export default function SeasonsPage() {
   // jump-rail and the act/era emphasis below. `titles` (top-flight championships
   // that decade) is what separates a glory decade from a barren one; computed
   // once here so the rail, the header weight, and the breathing room all agree.
+  const desc = order === "desc";
   const decades = [...byDecade.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0]))
+    .sort((a, b) => (desc ? b[0].localeCompare(a[0]) : a[0].localeCompare(b[0])))
     .map(([decade, seasons]) => {
-      const titles = seasons.filter(([, comps]) => {
+      // `seasonsIndex` returns season-descending, so sort each decade's seasons
+      // to match the decade order — chronological by default, reversed for desc.
+      const ordered = [...seasons].sort((a, b) =>
+        desc ? b[0].localeCompare(a[0]) : a[0].localeCompare(b[0]),
+      );
+      const titles = ordered.filter(([, comps]) => {
         const lg = comps.find((c) => c.type === "league");
         return lg && isTopFlight(lg) && lg.position === 1;
       }).length;
-      const matches = seasons.reduce(
+      const matches = ordered.reduce(
         (sum, [, comps]) => sum + comps.reduce((a, c) => a + c.p, 0),
         0,
       );
-      return { decade, seasons, titles, matches };
+      return { decade, seasons: ordered, titles, matches };
     });
 
   // Decade chips for the sticky rail: one chip per decade `section`, anchored to
@@ -377,6 +393,34 @@ export default function SeasonsPage() {
           the site. Reuses the archive rail's scrollspy, lighting the decade you're
           reading and jumping to its `decade-…` section. */}
       <JumpRail chips={decadeChips} label="Jump to a decade" idPrefix="decade" sticky />
+
+      {/* Order toggle: the ledger runs chronologically by default; flip it to read
+          the latest decades first. Both the decades and the seasons within each
+          reverse together, so the ordering stays consistent top to bottom. */}
+      <div className="flex items-center justify-end gap-2 text-xs">
+        <span className="uppercase tracking-[0.12em] text-ink-faint">Order</span>
+        <div className="inline-flex rounded-md border border-line bg-panel p-0.5">
+          {([
+            { key: "asc", label: "Oldest first" },
+            { key: "desc", label: "Newest first" },
+          ] as const).map((o) => {
+            const active = order === o.key;
+            return (
+              <Link
+                key={o.key}
+                href={`/seasons${queryString({ ...sp, order: o.key === "asc" ? undefined : o.key })}`}
+                aria-current={active ? "true" : undefined}
+                scroll={false}
+                className={`rounded px-2.5 py-1 transition-colors focus-ring ${
+                  active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
+                }`}
+              >
+                {o.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
 
       {/* The ledger, paced into eras: title-winning decades carry a gold-edged
           header and extra air above; barren decades stay compressed and quiet, so
