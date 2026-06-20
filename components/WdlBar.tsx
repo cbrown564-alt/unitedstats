@@ -7,8 +7,11 @@
  *                  shared record glyph across the app. Supports inline count
  *                  labels (showLabels, e.g. "199 W") on md/lg sizes.
  *  - "diverging" — losses grow left, wins grow right from a shared centre axis,
- *                  seated on a track with squared ends. Reserved for special cases
- *                  where sample size is encoded as length (see {@link ProportionalWdlBar}).
+ *                  seated on a track with squared ends — an alternative centre-pivot
+ *                  rendering for "good vs bad?" at a glance.
+ *
+ * Pass `volume` to hang a thin √-scaled rule beneath the bar that runs to the games
+ * played (labelled at its end), so sample size reads without distorting the bar.
  */
 
 type WdlSize = "xs" | "sm" | "md" | "lg";
@@ -39,6 +42,7 @@ export function WdlBar({
   variant = "stacked",
   showLabels = false,
   tooltip = true,
+  volume,
 }: {
   w: number;
   d: number;
@@ -53,6 +57,9 @@ export function WdlBar({
   showLabels?: boolean;
   /** Styled hover tooltip. Disable inside `overflow-hidden` rows; falls back to a native title. */
   tooltip?: boolean;
+  /** Hang a √-scaled "volume lane" under the bar: a rule of width `fraction` (0–1,
+   *  shared across a sibling group) with `games` labelled at its end. */
+  volume?: { fraction: number; games: number };
 }) {
   const total = w + d + l || 1;
   const wPct = (100 * w) / total;
@@ -84,68 +91,35 @@ export function WdlBar({
     </div>
   );
 
+  const lane =
+    volume != null ? (
+      <div className="mt-1.5 flex items-center gap-2">
+        <div className="relative h-[3px] flex-1" aria-hidden>
+          <div
+            className="absolute inset-y-0 left-0 rounded-full bg-ink-dim/55"
+            style={{ width: `${Math.max(0, Math.min(1, volume.fraction)) * 100}%` }}
+          />
+        </div>
+        <span className="shrink-0 whitespace-nowrap text-[10px] leading-none text-ink-faint">
+          <span className="stat-num">{volume.games.toLocaleString("en-US")}</span> games
+        </span>
+      </div>
+    ) : null;
+
   if (!tooltip) {
-    return <div className={`w-full ${className}`}>{track}</div>;
+    return (
+      <div className={`w-full ${className}`}>
+        {track}
+        {lane}
+      </div>
+    );
   }
 
   return (
     <div className={`group/wdl relative w-full ${className}`}>
       {track}
+      {lane}
       <WdlTooltip w={w} d={d} l={l} total={total} winRate={winRate} />
-    </div>
-  );
-}
-
-/**
- * A diverging W/D/L bar whose *length* encodes games played. Every game is the same
- * width — `scale` is the % of track per game, derived by the caller across a whole
- * group of bars — so a 1000-game league record draws a long bar and a 60-game
- * European record a short one, both pivoting on the same centre fulcrum (losses
- * left, wins right, draws straddling). Unlike {@link WdlBar}, which normalises every
- * record to a constant 50%-of-track width, this keeps sample size visible.
- *
- * Pair the caller's scale as `50 / max(l + d/2, w + d/2)` over the group, so the
- * heaviest side of the biggest record just reaches an edge. See /manager/[id].
- */
-export function ProportionalWdlBar({
-  w,
-  d,
-  l,
-  scale,
-  size = "sm",
-  showLabels = false,
-}: {
-  w: number;
-  d: number;
-  l: number;
-  /** Percent of track width per game; shared across the sibling bars. */
-  scale: number;
-  size?: WdlSize;
-  /** Render counts inside segments wide enough to hold them (md/lg only). Because
-   *  length encodes games, short bars hide their labels — the count is then only
-   *  in the row's own readout. */
-  showLabels?: boolean;
-}) {
-  const left = 50 - (l + d / 2) * scale; // left edge of the loss block
-  const lw = l * scale;
-  const dw = d * scale;
-  const ww = w * scale;
-  const winRate = Math.round((100 * w) / (w + d + l || 1));
-  const canLabel = showLabels && (size === "md" || size === "lg");
-  return (
-    <div
-      className={`relative ${HEIGHTS[size]} w-full overflow-hidden rounded-[2px] bg-panel-2`}
-      role="img"
-      aria-label={`${w} wins, ${d} draws, ${l} losses`}
-      title={`W${w} D${d} L${l} · ${winRate}% win`}
-    >
-      <div className="absolute inset-0 wdl-reveal-center">
-        <PropSegment left={left} width={lw} color="bg-loss" rounded="rounded-l-[2px]" label={canLabel ? l : null} letter="L" text="text-ink" />
-        <PropSegment left={left + lw} width={dw} color="bg-draw/70" rounded="" label={canLabel ? d : null} letter="D" text="text-pitch/85" />
-        <PropSegment left={left + lw + dw} width={ww} color="bg-win" rounded="rounded-r-[2px]" label={canLabel ? w : null} letter="W" text="text-pitch/85" />
-        {/* centre fulcrum — the neutral axis the bars pivot around */}
-        <div className="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-ink-faint/50" />
-      </div>
     </div>
   );
 }
@@ -224,42 +198,6 @@ function Segment({
   return (
     <div className={`relative h-full overflow-hidden ${color}`} style={{ width: `${pct}%` }}>
       {label != null && (
-        <span
-          className={`absolute inset-0 flex items-center justify-center gap-0.5 text-[10px] font-semibold leading-none tabular-nums ${text}`}
-        >
-          {label}
-          <span className="text-[9px] font-bold opacity-75">{letter}</span>
-        </span>
-      )}
-    </div>
-  );
-}
-
-/** An absolutely-positioned diverging segment with an optional centred count label. */
-function PropSegment({
-  left,
-  width,
-  color,
-  rounded,
-  label,
-  letter,
-  text,
-}: {
-  left: number;
-  width: number;
-  color: string;
-  rounded: string;
-  label: number | null;
-  letter: string;
-  text: string;
-}) {
-  if (width <= 0) return null;
-  return (
-    <div
-      className={`absolute inset-y-0 overflow-hidden ${rounded} ${color}`}
-      style={{ left: `${left}%`, width: `${width}%` }}
-    >
-      {label != null && labelFits(width, label) && (
         <span
           className={`absolute inset-0 flex items-center justify-center gap-0.5 text-[10px] font-semibold leading-none tabular-nums ${text}`}
         >

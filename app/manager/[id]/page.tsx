@@ -9,7 +9,7 @@ import { MatchArchive } from "@/components/MatchArchive";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { NotableMatches } from "@/components/NotableMatches";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
-import { ProportionalWdlBar, WdlRecord } from "@/components/WdlBar";
+import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { IdentityPlate, type SpanSegment } from "@/components/IdentityPlate";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
@@ -59,12 +59,11 @@ export default async function ManagerPage({
     ["Domestic cup", splits.domesticCup],
     ["European cup", splits.europeanCup],
   ];
-  // One pixels-per-game scale shared across *all* the split bars, so their lengths
-  // stay comparable across both groups: the heaviest side (wins or losses, plus half
-  // the draws) of the biggest split just reaches an edge. Bars then grow with games.
+  // Most-played split, shared across *all* the split bars so their volume lanes are
+  // comparable across both groups: the √-scaled rule under each bar runs to its games
+  // played, the busiest split reaching the lane's end.
   const liveSplits = bendRows.filter(([, r]) => r.p > 0);
-  const splitScale =
-    50 / Math.max(1, ...liveSplits.flatMap(([, r]) => [r.l + r.d / 2, r.w + r.d / 2]));
+  const splitPMax = Math.max(1, ...liveSplits.map(([, r]) => r.p));
   // Venue and competition are two different cuts of the same matches; group them so
   // that reads clearly rather than as one flat list of five.
   const splitGroups: [label: string, rows: typeof bendRows][] = [
@@ -157,18 +156,25 @@ export default async function ManagerPage({
                       <div className="mb-1.5 flex justify-between text-sm">
                         <span className="text-ink-dim">{label}</span>
                         <span className="stat-num text-xs text-ink-faint">
-                          {fmtNum(r.p)} P · <span className="text-ink">{pct(r.w, r.p)}</span> W
+                          <span className="text-ink">{pct(r.w, r.p)}</span> W
                         </span>
                       </div>
-                      <ProportionalWdlBar w={r.w} d={r.d} l={r.l} scale={splitScale} size="md" showLabels />
+                      <WdlBar
+                        w={r.w}
+                        d={r.d}
+                        l={r.l}
+                        size="md"
+                        showLabels
+                        volume={{ fraction: Math.sqrt(r.p / splitPMax), games: r.p }}
+                      />
                     </div>
                   ))}
                 </div>
               );
             })}
             <CoverageNote slice="every match managed, cut by venue and by competition.">
-              Bar length tracks games played; each pivots on its centre, so past halfway is a
-              winning record.
+              Each bar is the win/draw/loss share; the rule beneath runs to the matches played in
+              that split.
             </CoverageNote>
           </div>
         </div>
