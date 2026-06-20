@@ -32,20 +32,28 @@ export function PlayerGreatnessMap({ players }: { players: PlayerTotals[] }) {
   const topServants = [...rows].sort((a, b) => (b.apps ?? 0) - (a.apps ?? 0)).slice(0, 8);
   const pool = [...topScorers, ...topServants.filter((p) => !topScorers.includes(p))];
 
-  const MIN_DIST = 9;
+  // Each label is a portrait with a surname underneath, so its footprint is
+  // taller than it is wide. A radial test let the high-scorer cluster (Charlton,
+  // Law, Best, Van Nistelrooy) pile up on a phone; a bounding-box test with a
+  // taller vertical gap skips the overlappers while keeping the immortals (the
+  // pool is sorted by goals, so they're placed first). Gaps are % of the box.
+  const X_GAP = 11; // ~portrait width
+  const Y_GAP = 17; // portrait + surname label
   const named: PlayerTotals[] = [];
   const placed: { x: number; y: number }[] = [];
   for (const p of pool) {
     if (named.length >= 12) break;
     const x = xOf(p.apps ?? 0);
     const y = yOf(p.goals);
-    if (placed.some((q) => Math.hypot(q.x - x, q.y - y) < MIN_DIST)) continue;
+    if (placed.some((q) => Math.abs(q.x - x) < X_GAP && Math.abs(q.y - y) < Y_GAP)) continue;
     named.push(p);
     placed.push({ x, y });
   }
   const namedIds = new Set(named.map((p) => p.player_id));
 
-  const xTicks = [200, 400, 600, 800].filter((n) => n <= maxApps);
+  // Drop ticks that land under the pinned "appearances →" caption at the right
+  // edge (position test, so it holds at any width / max-apps value).
+  const xTicks = [200, 400, 600, 800].filter((n) => n <= maxApps && xOf(n) < 72);
   const yTicks = [50, 100, 150, 200, 250].filter((n) => n <= maxGoals);
 
   return (
