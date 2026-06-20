@@ -1,15 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": [
-    "scripts/fix-final-lineup-bleed.ts",
-    "scripts/fix-opponents.ts",
-    "scripts/fix-own-goal-mislabels.ts",
-    "scripts/normalize-own-goals.ts",
-    "scripts/normalize-added-time.ts",
-    "scripts/ingest/mufcinfo-goal-minutes.ts",
-    "scripts/ingest/mufcinfo-opposition-goals.ts",
-    "scripts/ingest/mufcinfo-own-goals.ts",
-    "scripts/stats-check.ts",
-    "scripts/shot.mjs"
+    "scripts/**/*.{ts,mjs}"
   ]
 }

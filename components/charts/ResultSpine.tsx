@@ -4,9 +4,9 @@ import { WdlBar, WdlColumns } from "@/components/WdlBar";
 
 /**
  * A whole tenure or head-to-head as one diverging skyline: every match is a bar
- * in date order, wins spiking up (green), losses down (red), draws a neutral tick
+ * in date order, wins spiking up (red), losses down (slate), draws a neutral tick
  * on the line. Bar height tracks the goal margin, so a 9–0 towers and a 1–0 barely
- * lifts — the eye reads runs of form as ridges of colour and bad patches as red
+ * lifts — the eye reads runs of form as ridges of colour and bad patches as slate
  * valleys, the *shape* of a record that a reverse-chron list can never show.
  *
  * The matches flagged by `markers` (the page's NotableMatches) get a gold pip, so

@@ -4,7 +4,7 @@ import type { NotableMatch } from "@/lib/trails";
 
 // Result-coloured left edge, matching the MatchList accent idiom so colour is a
 // supplementary cue, never the only one. Tone follows the *match* result, so a
-// winless-run ender (United finally winning) reads green even though the run was bad.
+// winless-run ender (United finally winning) reads red (a win) even though the run was bad.
 const EDGE: Record<string, string> = {
   W: "border-l-win/60",
   L: "border-l-loss/60",

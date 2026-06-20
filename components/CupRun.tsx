@@ -7,10 +7,10 @@ import { scoreline, venuePrefix } from "@/lib/format";
 /**
  * United's run through a cup, drawn as a single "road to the final" spine. We
  * only hold United's side of each tie, so this is honestly a *path*, not a
- * two-sided bracket: a green winning line climbs from entry to exit, each rung a
+ * two-sided bracket: a red winning line climbs from entry to exit, each rung a
  * tie (one match, a two-legged aggregate, or a replay) or the group stage. The
  * line terminates in the verdict — a gold trophy node for a win, a silver medal
- * for runners-up, a red stop where the run was knocked out. Position down the
+ * for runners-up, a slate stop where the run was knocked out. Position down the
  * ladder *is* round depth; the spine colour *is* the result, so neither needs a
  * legend. See {@link file://lib/cupRun.ts} for the stage model.
  */
@@ -156,7 +156,7 @@ export function CupRun({ stages }: { stages: CupStage[] }) {
       <ol className="relative">
         {stages.map((stage, i) => (
           <li key={stage.kind === "group" ? `group-${stage.ord}` : `${stage.round}-${stage.opponentId}`} className="flex gap-3 sm:gap-4">
-            {/* The winning spine: a green line climbing through the rungs, the node
+            {/* The winning spine: a red line climbing through the rungs, the node
                 grading each stage, the colour stopping at the verdict. */}
             <div className="relative flex w-3 shrink-0 flex-col items-center">
               <span className={`w-0.5 ${i > 0 ? "h-[1.15rem] bg-win/40" : "h-[1.15rem] bg-transparent"}`} />

@@ -24,7 +24,9 @@ The UI should feel like a serious tool that happens to have a strong sense of pl
 
 Restrained identity palette.
 
-Use tinted near-black and warm charcoal surfaces, with United red as the primary accent. Gold is a secondary historical or attention color, used sparingly. Green/draw/red result colors should remain semantic and should not be the only way to understand a result.
+Use tinted near-black and warm charcoal surfaces, with United red as the primary accent. Gold is a secondary historical or attention color, used sparingly. Result colors are semantic and must never be the only way to understand a result.
+
+Red carries a single, consistent meaning: **United advantage** — wins, goals scored, a positive goal difference, the identity accent, the current selection. The opposite pole — losses, goals conceded, a negative difference — is a cold, recessive **slate-blue**, with draws a neutral grey. This deliberately retires the old win-green/loss-red pairing for two reasons: red was overloaded (it meant both "scored/identity" and "lost"), and green/red is the canonical colorblindness failure (a deuteranope could not tell wins from losses on the history hero). The replacement separates the poles by **both hue and lightness**, so it survives every colorblindness type and reads correctly in greyscale.
 
 Current implementation palette:
 
@@ -39,9 +41,9 @@ Current implementation palette:
 --color-devil: #d8210d;
 --color-devil-bright: #ff3b1f;
 --color-gold: #f5c518;
---color-win: #3ecf6a;
---color-draw: #b9aa9f;
---color-loss: #e34234;
+--color-win: #f4452a;   /* United advantage: wins, goals-for, positive figures (the bright identity red) */
+--color-draw: #9a8d83;  /* neutral mid-grey */
+--color-loss: #34527a;  /* the opposite pole: losses, goals-against — cold, recessive, darker in greyscale */
 ```
 
 Future palette work should translate these into OKLCH tokens, keeping the same relationships:
@@ -53,7 +55,8 @@ Future palette work should translate these into OKLCH tokens, keeping the same r
 - Ink: warm off-white, never pure white.
 - Red: primary action, current selection, important link, United identity.
 - Gold: rare highlight for attendance, historic note, or selected secondary chart.
-- Win/draw/loss: semantic state, always paired with text, position, or shape.
+- Win/draw/loss: semantic state, always paired with text, position, or shape. Win shares the identity red (United advantage); loss is the cold slate-blue; draw is neutral grey. Separated by hue *and* lightness so the encoding survives colorblindness and greyscale.
+- A two-series chart must not borrow the win token for mere series-distinction — it would collide with the identity red. Reach for gold/silver/europe-blue instead (see `ReliabilityCurve`, where win-rate is gold against the devil-red points-share).
 
 ## Identity Rules
 
@@ -120,9 +123,20 @@ The fixture record is the spine, so layouts should make evidence trails obvious.
 Patterns:
 
 - Page header: identity, scope, key summary, then routes into evidence.
-- Detail page: primary fact first, then context, then pattern trails.
+- Detail page: lead with the computed answer as an object, then context, then the auditable record as appendix.
 - Analytics page: one question per module, with chart, interpretation, coverage, and link to underlying matches where possible.
-- Index pages: compact lists or tables with enough metadata to choose the next drill-down.
+- Index pages: an authored hero that depicts the whole subject, over a compact list or table with enough metadata to choose the next drill-down.
+
+Front-door surfaces want an authored hero. The home page, the section indexes (players,
+managers, opponents, seasons), and the analytics and data landings each lead with a single
+bold, bespoke object that depicts the whole of their subject at once — the entire match
+history as a breathing wall (`HistorySkyline`), 135 years of league finishes
+(`FinishTimeline`), the succession as one match-proportional bar (`ManagerTimeline`),
+coverage as a facet × decade heatmap (`CoverageMatrix`). The body below then *quotes* the
+existing answer-object vocabulary; the hero is the part you author. This is the one place a
+generic metric grid is most tempting and most wrong — a front door is the surface that most
+needs an object no quoted component can provide. The older "index pages are compact lists"
+guidance still holds for the list, now demoted to the supporting detail beneath the hero.
 
 Cards:
 
@@ -173,6 +187,38 @@ preserved in the tooltip.
 removed two whole components and a "late goals that season" section outright. Fewer, denser
 objects beat more, thinner ones.
 
+The principles above came from the match-detail redesign; the four below were distilled from
+the page-by-page refresh that carried it across every surface (mid-2026). See
+`docs/DESIGN-REFRESH.md` for the per-surface working.
+
+**Lead with the computed answer; keep the raw ledger as an auditable appendix.** A detail or
+index list should resolve into the reader's intent, not present a ledger ordered by recency.
+Readers arrive to verify a record, see the notable cases, locate a remembered item, or feel
+the shape over time — reverse-chron pagination serves almost none of these. So the strongest
+surfaces lead with a curated answer-object computed from signals the page already owns
+(`NotableMatches`, `HaulCards`, `RecordCards`, `Leaderboard`), put the shape next
+(`ResultSpine`, `ContributionSpine`), and keep the complete record as the last, auditable
+section (`MatchArchive`, the sortable register). Filters are not the answer: they make the
+reader discover what is notable when the page already knows.
+
+**Render only the facets the data can fill.** Let coverage shape the layout. A module's
+secondary readouts, facet columns, and sub-lanes should appear only when their number means
+something — no "—" filler cells, no fixed grid of mostly-empty tiles. An honest page about
+partial data grows and shrinks with the evidence (per-card gating on `RunCallouts` and
+`NotableMatches`, the single-spine `CupRun` that asserts only United's side, volume gates on
+every spine). This is the slice/coverage contract expressed in the layout itself — "Subtract
+aggressively" applied per-facet, not just per-module.
+
+**Encode the baseline into the geometry.** When the finding is "X beats the normal rate",
+draw the normal rate *as a line through the visual* so clearing it is literally visible
+rather than asserted in prose: the perfect-forecast diagonal in `ReliabilityCurve`, the
+break-even line through `OpponentRivalryMap`, the centre fulcrum of a diverging `WdlBar`. The
+corollary, learned the hard way: the only honest baseline for a split is break-even (does it
+win more than it loses?), because a subject's deviation from its *own* average can only ever
+redraw the same shape — home > away is league-wide physics, true of every manager. A visual
+that draws the same shape regardless of subject is decoration, not analysis; kill it even
+when it is pretty.
+
 ## Charts And Data Visualization
 
 Charts should make patterns readable before they look impressive.
@@ -197,6 +243,7 @@ Use:
 - Small multiples only when labels and scale remain clear.
 - Coverage notes near any chart whose interpretation depends on partial data.
 - Inspection interactions for dense or meaningful charts where exact values matter.
+- Hybrid render for any labelled chart: shape in SVG, labels in HTML (see below).
 
 Avoid:
 
@@ -204,6 +251,18 @@ Avoid:
 - Color-only encoding.
 - Overloaded dashboards where every chart competes equally.
 - Unlabeled axes or unlabeled time ranges when the reader must compare eras.
+
+**Draw the shape in SVG, the labels in HTML.** A chart whose SVG has a wide `viewBox`
+shrinks its own text into illegibility at narrow container widths — a `fontSize="10"` label
+on a 1000-unit viewBox renders at roughly 5px in a 560px column. So a labelled chart should
+draw *shape only* in the SVG (ridges, bars, lines, hover targets), stretching to fill a fixed
+box (`preserveAspectRatio="none"` with `vectorEffect="non-scaling-stroke"` so strokes stay
+crisp at any width), while every label is real HTML positioned by percentage and rendered at
+true rem sizes. When the chart is purely dots-and-labels (scatters, heatmaps), drop the SVG
+entirely and position everything in HTML — a non-uniformly scaled SVG squashes round dots and
+portraits into ellipses. This is already the render for `MinuteRidge`, `HistorySkyline`,
+`FinishTimeline`, `CoverageMatrix`, the index scatters, and the career sparklines; it is the
+default for any new labelled chart, not a per-surface trick.
 
 Research rationale: NN/g recommends length and 2D position for quick quantitative interpretation, and treats color as a supporting cue rather than a primary magnitude encoding: https://www.nngroup.com/articles/dashboards-preattentive/
 
@@ -219,6 +278,7 @@ Core components should feel consistent across pages:
 - Tables: dense, sortable when needed, numeric columns right-aligned.
 - Coverage note: short, low-noise, placed at interpretation points.
 - Pattern prompt: a linked question or trail, not a marketing tile.
+- Floodlit plate: the shared hero atmosphere — the `hero-grid` pitch-line texture, a single red floodlight wash, deep shadow — worn by the `IdentityPlate` family and every front-door hero (`HistorySkyline`, `EloHero`, the index heroes, `CoverageMatrix`). A reusable motif, defined in `app/globals.css`, not a one-off.
 
 Every interactive control should have visible hover and focus states. Links should remain visibly links through color, underline on hover, or placement conventions.
 
@@ -272,7 +332,7 @@ Priority order:
 - A few high-signal summaries that explain the archive's scope.
 - Routes into matches, seasons, players, managers, opponents, analytics.
 
-Avoid leading with a generic hero-metric block. A scope statement is useful, but the first interaction should be a trail.
+Avoid leading with a generic hero-metric block (Matches / Wins / Goals tiles). A scope statement is useful, but the first interaction should be a trail — and the hero itself should be an authored, bespoke object that depicts the whole archive (see Layout Principles, front-door surfaces), not a metric grid. The `HistorySkyline` plate is the canonical example: it carries the atmosphere a search box alone could not, and the body below quotes the answer-objects.
 
 ## Navigation
 
@@ -358,6 +418,14 @@ Current code already establishes useful conventions:
 - Player and match pages already include coverage caveats in the flow.
 
 Future UI work should formalize these conventions into reusable components before inventing new one-off surfaces.
+
+But generalise the *pattern*, not the component. Share an object only when the subject's unit
+of meaning is identical — win rate for a manager, an opponent, and a season all flow through
+one `IdentityPlate` via a `headline` override — and keep it bespoke when that unit changes: a
+player's goals-led `PlayerPlate`, a record card whose figure is an attendance or a goal tally
+(`RecordCards`), `ManagerSparkbar` versus `CareerSparkline`. Forcing a shared component to
+almost-fit a different unit of meaning is worse than an honest one-off. The durable thing is
+usually the intent — answer → figure → evidence — not the markup.
 
 Chart System implementation should keep `components/charts.tsx` as the shared primitive/type layer and static fallback home, add Recharts-based client-side inspection components beside it, and evolve `components/ChartPanel.tsx` as the reusable server-compatible frame for legends, value callouts, coverage, and evidence links. The first inspection target should be the Elo rating chart on `/analytics`, followed by homepage Elo and season trend charts after the API settles. See `docs/adr/0001-use-recharts-for-interactive-chart-inspection.md` for the dependency decision.
 
