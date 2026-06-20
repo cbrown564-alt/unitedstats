@@ -37,18 +37,20 @@ export function HistorySkyline({
   // 20-year ticks, like the seasons FinishTimeline, so the axis stays uncrowded
   // under ~135 bars. Index-positioned (not year-positioned) to line up with the
   // flex bars, which are evenly spaced by season, not by calendar year.
-  // 20-year ticks, but skipped within a decade of either endpoint so they never
-  // collide with the explicit first/last-year labels at the axis edges.
+  // Ticks within 12% of either edge are dropped so they never collide with the
+  // pinned first/last-year labels — a position test, so it holds at phone widths
+  // where a year-count buffer (e.g. 1900 vs 1886) still overlaps.
   const ticks: { year: number; label: string; left: number }[] = [];
   rows.forEach((s, i) => {
     const year = Number(s.season.slice(0, 4));
-    if (year % 20 === 0 && year - firstYear >= 10 && lastYear - year >= 10) {
-      ticks.push({
-        year,
-        label: year % 100 === 0 ? String(year) : `’${String(year).slice(2)}`,
-        left: ((i + 0.5) / rows.length) * 100,
-      });
-    }
+    if (year % 20 !== 0) return;
+    const left = ((i + 0.5) / rows.length) * 100;
+    if (left < 12 || left > 88) return;
+    ticks.push({
+      year,
+      label: year % 100 === 0 ? String(year) : `’${String(year).slice(2)}`,
+      left,
+    });
   });
 
   return (

@@ -58,12 +58,16 @@ export function SeasonContributionChart({
           <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.64} vertical={false} />
           <XAxis
             dataKey="label"
-            interval={labelEvery <= 1 ? 0 : labelEvery - 1}
+            // labelEvery<=1 means "label every season" — but on a narrow phone the
+            // four-digit years collide, so let Recharts thin by width (dropping
+            // overlapping ticks, always keeping first/last). Explicit thinning only
+            // kicks in for long series that opt into a fixed stride.
+            interval={labelEvery <= 1 ? "preserveStartEnd" : labelEvery - 1}
             tickFormatter={(label) => data.find((datum) => datum.label === label)?.tickLabel ?? String(label)}
             axisLine={false}
             tickLine={false}
             tickMargin={8}
-            minTickGap={8}
+            minTickGap={14}
             stroke="var(--color-ink-faint)"
             fontSize={11}
           />
