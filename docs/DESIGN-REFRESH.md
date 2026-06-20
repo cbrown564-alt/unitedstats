@@ -489,6 +489,30 @@ a "shape over time" visual needs an axis the layout can't supply, give each unit
 rather than threading meaning across units.* `FinishLadder` stays bespoke; the shared promotion was
 `CampaignVerdict`. Nothing reached `DESIGN.md`.
 
+**Follow-up: pacing and wayfinding for the body.** After all the above the *hero* was elevated but the
+ledger underneath was still the one front door without either thing the long archives got — it was 14 decade
+scoreboards rendered as a continuous, uniform map: no jump-rail, no scrollspy, and every decade given
+identical weight whether it won three titles or none. The same **"flat equal-weight stack"** diagnosis applied
+to old `/analytics` and `/data`, just never carried back to `/seasons`. Two moves, both *reusing* existing
+patterns rather than adding machinery:
+
+1. **A sticky decade rail (`JumpRail`, reused).** The interactive half of `ArchiveJumpRail` was already a
+   clean client component the manager/opponent archives lean on; the seasons index now hands it one chip per
+   decade (`idPrefix="decade"`), and each decade `<section>` carries a `decade-…` id with `scroll-mt-28`. So
+   the *same* IntersectionObserver scrollspy lights the decade you're reading, the rail pins under the header,
+   and an anchor jump lands cleanly below it — zero new nav code, just the right chips and ids. *Lesson
+   re-confirmed: the rail was built generic enough that the index's decade grain is just another chip set.*
+2. **Act/era emphasis, graded by titles.** Mirrors the managers body's cathedral-vs-scaffolding two-tier.
+   A **title-winning decade** gets a gold left-tick, a larger label, a `TITLE ERA` eyebrow, prominent gold
+   honours chips, a gold-edged scoreboard, and extra air above (`mt-14`); a **barren decade** stays
+   compressed and quiet (smaller `ink-dim` label, fainter prose, `mt-9`). The scroll now physically rises
+   into the glory eras instead of metronoming through 14 identical scoreboards. The per-decade title count
+   was deduped into one `decades` view-model feeding the rail, the header weight, and the spacing, so the
+   three can't drift.
+
+No new component and nothing reached `DESIGN.md` — this was the existing managers/archive playbook applied
+to the surface that had been missed, exactly the "apply the diagnosis back where it hasn't landed yet" move.
+
 ### 5. `/analytics` — done
 Shipped narrowly, exactly as "subtract before adding" demanded — the Elo hero, the odds
 widget, the calibration table, and the trend charts were left alone (they already earn
@@ -972,3 +996,34 @@ there's no tension between atmosphere and trust at all.*
 - After each surface, revisit this doc: mark what shipped, and rewrite the *next*
   surface's idea with sharper taste. The plan is meant to degrade gracefully into
   reality.
+
+## Promotion audit (2026-06-20)
+
+Each pass above correctly stayed bespoke and noted "nothing reached `DESIGN.md`" — a single
+pass produces an *object*, not a principle. But once every surface had shipped, a cross-pass
+audit found patterns that had recurred 4–9 times and were durable principles in their own
+right (no single pass could see them). Those were promoted into `DESIGN.md`; so the per-pass
+"nothing reached `DESIGN.md`" lines are true as written and superseded as a whole by this
+audit. Promoted:
+
+- **Front-door surfaces want an authored hero** (Layout Principles) — home, all three
+  indexes, seasons, analytics, data; this also corrected the stale "index pages are compact
+  lists" guidance and reconciled the Homepage Direction.
+- **Lead with the computed answer; keep the raw ledger as an auditable appendix**
+  (Composition) — the refresh's central thesis, on h2h / player / analytics / home / players /
+  managers.
+- **Render only the facets the data can fill** (Composition) — folded in as a per-facet
+  sharpening of "Subtract aggressively".
+- **Encode the baseline into the geometry**, with break-even the only honest split baseline
+  and "same shape regardless of subject = decoration" as its corollary (Composition / Charts).
+- **Draw the shape in SVG, the labels in HTML** (Charts) — the hybrid render, now the default
+  for any labelled chart.
+- **The floodlit plate as a named motif** (Components) — the `hero-grid` atmosphere shared
+  across the `IdentityPlate` family and every hero.
+- **Generalise the pattern, not the component** (Implementation Alignment) — the share-vs-
+  bespoke rule the passes kept re-deriving.
+
+Held back as not-yet-earned (one or two surfaces only): the shared-axis sparkline grammar
+(`CareerSparkline` + `ManagerSparkbar`), thickness-not-length for order-of-magnitude
+variables (one positive, one rejected), and the orthogonal-scan-signal rule. Revisit each if
+a third surface wants it.

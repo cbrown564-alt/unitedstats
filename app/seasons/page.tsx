@@ -7,6 +7,7 @@ import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTime
 import { TrophyIcon } from "@/components/CampaignIcons";
 import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
 import { CoverageNote } from "@/components/CoverageNote";
+import { JumpRail, type JumpChip } from "@/components/JumpRail";
 import { clubName, fmtNum } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -301,6 +302,35 @@ export default function SeasonsPage() {
     { value: fmtNum(totalMatches), label: "Matches" },
   ];
 
+  // The ledger as ordered decade view-models — the spine for both the sticky
+  // jump-rail and the act/era emphasis below. `titles` (top-flight championships
+  // that decade) is what separates a glory decade from a barren one; computed
+  // once here so the rail, the header weight, and the breathing room all agree.
+  const decades = [...byDecade.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([decade, seasons]) => {
+      const titles = seasons.filter(([, comps]) => {
+        const lg = comps.find((c) => c.type === "league");
+        return lg && isTopFlight(lg) && lg.position === 1;
+      }).length;
+      const matches = seasons.reduce(
+        (sum, [, comps]) => sum + comps.reduce((a, c) => a + c.p, 0),
+        0,
+      );
+      return { decade, seasons, titles, matches };
+    });
+
+  // Decade chips for the sticky rail: one chip per decade `section`, anchored to
+  // its `decade-…` id so the shared {@link JumpRail} scrollspy lights the decade
+  // you're reading. Each chip "covers" only its own decade (seasons: [decade]).
+  const decadeChips: JumpChip[] = decades.map((d) => ({
+    key: d.decade,
+    label: d.decade,
+    anchor: d.decade,
+    n: d.matches,
+    seasons: [d.decade],
+  }));
+
   return (
     <div className="space-y-10">
       <PageHeader eyebrow="Campaign ledger" title="Seasons">
@@ -343,12 +373,20 @@ export default function SeasonsPage() {
         </div>
       </section>
 
-      {[...byDecade.entries()].map(([decade, seasons]) => {
+      {/* Wayfinding: a sticky decade rail over the ledger — the longest scroll on
+          the site. Reuses the archive rail's scrollspy, lighting the decade you're
+          reading and jumping to its `decade-…` section. */}
+      <JumpRail chips={decadeChips} label="Jump to a decade" idPrefix="decade" sticky />
+
+      {/* The ledger, paced into eras: title-winning decades carry a gold-edged
+          header and extra air above; barren decades stay compressed and quiet, so
+          the scroll rises into the glory eras instead of every decade reading flat. */}
+      <div>
+      {decades.map(({ decade, seasons, titles }, di) => {
         const brief = briefs.get(decade);
-        const titles = seasons.filter(([, comps]) => {
-          const lg = comps.find((c) => c.type === "league");
-          return lg && isTopFlight(lg) && lg.position === 1;
-        }).length;
+        const glory = titles > 0;
+        // Breathe wider into a title decade; tighter through the barren stretches.
+        const gap = di === 0 ? "" : glory ? "mt-14" : "mt-9";
 
         const rows = seasons.map(([season, comps]) => ({
           season,
@@ -370,17 +408,37 @@ export default function SeasonsPage() {
           .join(" ")}`;
 
         return (
-          <section key={decade}>
-            <div className="mb-3 flex flex-col gap-2 border-b border-line pb-3 sm:flex-row sm:items-end sm:justify-between">
-              <h2 className="display shrink-0 text-2xl">{decade}</h2>
-              <div className="flex flex-col gap-1.5 sm:items-end">
-                <DecadeHonours titles={titles} cups={brief?.cupsWon ?? 0} />
-                {brief && <p className="text-sm leading-5 text-ink-dim">{decadeTail(brief)}</p>}
+          <section key={decade} id={`decade-${decade}`} className={`scroll-mt-28 ${gap}`}>
+            {glory ? (
+              <div className="mb-3 flex flex-col gap-2 border-b border-gold/30 pb-3 sm:flex-row sm:items-end sm:justify-between">
+                <div className="flex items-baseline gap-2.5">
+                  <span className="h-5 w-1 shrink-0 rounded-full bg-gold/80" aria-hidden />
+                  <h2 className="display shrink-0 text-2xl leading-none sm:text-[1.75rem]">{decade}</h2>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold/80">
+                    Title era
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1.5 sm:items-end">
+                  <DecadeHonours titles={titles} cups={brief?.cupsWon ?? 0} />
+                  {brief && <p className="text-sm leading-5 text-ink-dim">{decadeTail(brief)}</p>}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="mb-2.5 flex flex-col gap-1.5 border-b border-line/55 pb-2.5 sm:flex-row sm:items-end sm:justify-between">
+                <h2 className="display shrink-0 text-xl leading-none text-ink-dim">{decade}</h2>
+                <div className="flex flex-col gap-1 sm:items-end">
+                  <DecadeHonours titles={0} cups={brief?.cupsWon ?? 0} />
+                  {brief && <p className="text-[13px] leading-5 text-ink-faint">{decadeTail(brief)}</p>}
+                </div>
+              </div>
+            )}
 
             <div className="overflow-x-auto">
-              <div className="min-w-max overflow-hidden rounded-lg border border-line bg-pitch/35">
+              <div
+                className={`min-w-max overflow-hidden rounded-lg border bg-pitch/35 ${
+                  glory ? "border-gold/25" : "border-line"
+                }`}
+              >
                 {/* column headers — the fixed lanes, labelled and tone-coded */}
                 <div
                   className="grid items-center gap-x-3 border-b border-line bg-panel/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-faint"
@@ -447,6 +505,7 @@ export default function SeasonsPage() {
           </section>
         );
       })}
+      </div>
     </div>
   );
 }
