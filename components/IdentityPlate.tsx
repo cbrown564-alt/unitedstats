@@ -1,4 +1,4 @@
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { GoalDiff } from "@/components/GoalDiff";
 import { fmtNum, pct } from "@/lib/format";
 
@@ -137,11 +137,10 @@ export function IdentityPlate({
             </div>
           </div>
 
-          {/* W-D-L counts sit directly above the diverging bar (L · D · W echoes the
-              bar's losses-left / wins-right axis), as on the season pages. */}
-          <div className="mt-5 space-y-2">
-            <WdlColumns w={w} d={d} l={l} />
-            <WdlBar w={w} d={d} l={l} size="lg" />
+          {/* The record as one edge-to-edge stacked bar — win | draw | loss with the
+              counts seated inside each segment, so it states itself without a caption. */}
+          <div className="mt-5">
+            <WdlBar w={w} d={d} l={l} size="lg" variant="stacked" showLabels />
           </div>
 
           {span && <SpanTrack {...span} accent={wash} />}

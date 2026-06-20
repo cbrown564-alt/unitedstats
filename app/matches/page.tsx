@@ -5,7 +5,7 @@ import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { GoalDiff } from "@/components/GoalDiff";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { fmtNum, fmtDate, pct, venueLabel, resultLabel, resultTone, COMPETITION_TYPE_LABELS } from "@/lib/format";
@@ -290,9 +290,8 @@ export default async function MatchesPage({
               </div>
             ) : (
               !pinnedResult && (
-                <div className="mt-4 space-y-2 border-t border-line/70 pt-3">
-                  <WdlColumns w={summary.w} d={summary.d} l={summary.l} />
-                  <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" />
+                <div className="mt-4 border-t border-line/70 pt-3">
+                  <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" variant="stacked" showLabels />
                 </div>
               )
             )}

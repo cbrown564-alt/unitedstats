@@ -2,7 +2,7 @@ import Link from "next/link";
 import { seasonsIndex, seasonCupLastResults, type SeasonSummary } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
 import { PageHeader } from "@/components/PageHeader";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
 import { TrophyIcon } from "@/components/CampaignIcons";
 import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
@@ -480,10 +480,7 @@ export default function SeasonsPage() {
                         )}
 
                         {r.league ? (
-                          <div className="space-y-1">
-                            <WdlColumns w={r.league.w} d={r.league.d} l={r.league.l} compact />
-                            <WdlBar w={r.league.w} d={r.league.d} l={r.league.l} size="xs" tooltip={false} />
-                          </div>
+                          <WdlBar w={r.league.w} d={r.league.d} l={r.league.l} size="md" showLabels tooltip={false} />
                         ) : (
                           <span aria-hidden />
                         )}

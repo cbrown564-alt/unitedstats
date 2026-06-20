@@ -1,6 +1,6 @@
 import { managersIndex, managerCareerSparks, managerHonours } from "@/lib/queries";
 import { groupManagersByEra } from "@/lib/managerEras";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ManagerTimeline } from "@/components/charts/ManagerTimeline";
 import { ManagerSparkbar, type ManagerSparkSeason } from "@/components/charts/ManagerSparkbar";
@@ -141,9 +141,8 @@ export default function ManagersPage() {
                         </div>
                         <div className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-ink-faint">win rate</div>
                       </div>
-                      <div className="w-36 space-y-1.5 pb-1">
-                        <WdlColumns w={g.w} d={g.d} l={g.l} compact />
-                        <WdlBar w={g.w} d={g.d} l={g.l} size="sm" tooltip={false} />
+                      <div className="w-44 pb-1">
+                        <WdlBar w={g.w} d={g.d} l={g.l} size="md" showLabels tooltip={false} />
                       </div>
                     </div>
                   </div>
@@ -156,9 +155,8 @@ export default function ManagersPage() {
                   </span>
                   <div className="ml-auto flex items-end gap-3">
                     <span className="stat-num text-xs leading-none text-ink-dim">{pct(g.w, g.p)} W</span>
-                    <div className="w-28 space-y-1">
-                      <WdlColumns w={g.w} d={g.d} l={g.l} compact />
-                      <WdlBar w={g.w} d={g.d} l={g.l} size="xs" tooltip={false} />
+                    <div className="w-36">
+                      <WdlBar w={g.w} d={g.d} l={g.l} size="md" showLabels tooltip={false} />
                     </div>
                   </div>
                 </div>

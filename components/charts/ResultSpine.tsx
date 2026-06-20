@@ -1,6 +1,6 @@
 import { fmtDate, venuePrefix } from "@/lib/format";
 import type { SequenceMatch } from "@/lib/trails";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 
 /**
  * A whole tenure or head-to-head as one diverging skyline: every match is a bar
@@ -74,9 +74,8 @@ export function ResultSpine({
   return (
     <div>
       {showRecord && (
-        <div className="mb-3 space-y-2">
-          <WdlColumns w={w} d={d} l={l} />
-          <WdlBar w={w} d={d} l={l} size="md" />
+        <div className="mb-3">
+          <WdlBar w={w} d={d} l={l} size="md" variant="stacked" showLabels />
         </div>
       )}
       <div className="relative" style={{ height }}>

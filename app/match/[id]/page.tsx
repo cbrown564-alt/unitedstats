@@ -12,7 +12,7 @@ import { CompetitionChip } from "@/components/CompetitionChip";
 import { MatchList } from "@/components/MatchList";
 import { MatchFlow } from "@/components/MatchFlow";
 import { EloWinBar } from "@/components/EloWinBar";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { FormationPitch, Bench, roleBand, type MatchMarks } from "@/components/FormationPitch";
 
 export const dynamic = "force-dynamic";
@@ -399,8 +399,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 <h3 className="display text-lg mb-3">Head-to-head before</h3>
                 {h2h.p > 0 ? (
                   <div className="space-y-3">
-                    <WdlColumns w={h2h.w} d={h2h.d} l={h2h.l} />
-                    <WdlBar w={h2h.w} d={h2h.d} l={h2h.l} size="md" />
+                    <WdlBar w={h2h.w} d={h2h.d} l={h2h.l} size="md" variant="stacked" showLabels />
                     <p className="text-xs text-ink-faint">
                       {h2h.p} previous meeting{h2h.p === 1 ? "" : "s"} with {m.opponent_name} ·{" "}
                       {pct(h2h.w, h2h.p)} win rate

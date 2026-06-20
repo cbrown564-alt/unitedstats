@@ -3,11 +3,12 @@
  * always render this next to the textual record, never instead of it.
  *
  * Variants:
- *  - "diverging" (default) — losses grow left, wins grow right from a centre
- *                  fulcrum; "good vs bad record?" reads at a glance. No track
- *                  chrome — the coloured segments are the bar.
- *  - "stacked"   — left-anchored proportions on a muted track. Supports inline
- *                  count labels (showLabels) on md/lg sizes.
+ *  - "stacked" (default) — left-anchored W|D|L proportions on a muted track; the
+ *                  shared record glyph across the app. Supports inline count
+ *                  labels (showLabels, e.g. "199 W") on md/lg sizes.
+ *  - "diverging" — losses grow left, wins grow right from a shared centre axis,
+ *                  seated on a track with squared ends. Reserved for special cases
+ *                  where sample size is encoded as length (see {@link ProportionalWdlBar}).
  */
 
 type WdlSize = "xs" | "sm" | "md" | "lg";
@@ -20,8 +21,13 @@ const HEIGHTS: Record<WdlSize, string> = {
   lg: "h-5", // 20px
 };
 
-// Label visibility threshold (segment must own at least this % of the bar).
-const LABEL_MIN_PCT = 14;
+// Whether a segment owning `pct`% of the bar can hold its count plus the W/D/L tag.
+// Server-side we can't measure pixels, so approximate from the glyph count and *hide*
+// (never clip) when it won't fit — a lone draw in a 30-game record stays blank.
+function labelFits(pct: number, value: number): boolean {
+  const glyphs = String(value).length + 1; // digits + the trailing W/D/L letter
+  return pct >= 3.2 * glyphs + 3;
+}
 
 export function WdlBar({
   w,
@@ -30,7 +36,7 @@ export function WdlBar({
   className = "",
   size = "sm",
   heightPx,
-  variant = "diverging",
+  variant = "stacked",
   showLabels = false,
   tooltip = true,
 }: {
@@ -62,8 +68,8 @@ export function WdlBar({
     <div
       className={
         diverging
-          ? `relative ${height} w-full`
-          : `relative ${height} w-full overflow-hidden rounded-full bg-panel-2`
+          ? `relative ${height} w-full overflow-hidden rounded-[2px] bg-panel-2`
+          : `relative ${height} w-full overflow-hidden rounded-[3px] bg-panel-2`
       }
       style={heightPx != null ? { height: `${heightPx}px` } : undefined}
       role="img"
@@ -107,6 +113,7 @@ export function ProportionalWdlBar({
   l,
   scale,
   size = "sm",
+  showLabels = false,
 }: {
   w: number;
   d: number;
@@ -114,34 +121,30 @@ export function ProportionalWdlBar({
   /** Percent of track width per game; shared across the sibling bars. */
   scale: number;
   size?: WdlSize;
+  /** Render counts inside segments wide enough to hold them (md/lg only). Because
+   *  length encodes games, short bars hide their labels — the count is then only
+   *  in the row's own readout. */
+  showLabels?: boolean;
 }) {
   const left = 50 - (l + d / 2) * scale; // left edge of the loss block
   const lw = l * scale;
   const dw = d * scale;
   const ww = w * scale;
   const winRate = Math.round((100 * w) / (w + d + l || 1));
+  const canLabel = showLabels && (size === "md" || size === "lg");
   return (
     <div
-      className={`relative ${HEIGHTS[size]} w-full`}
+      className={`relative ${HEIGHTS[size]} w-full overflow-hidden rounded-[2px] bg-panel-2`}
       role="img"
       aria-label={`${w} wins, ${d} draws, ${l} losses`}
       title={`W${w} D${d} L${l} · ${winRate}% win`}
     >
       <div className="absolute inset-0 wdl-reveal-center">
-        {lw > 0 && (
-          <div className="absolute inset-y-0 rounded-l-full bg-loss" style={{ left: `${left}%`, width: `${lw}%` }} />
-        )}
-        {dw > 0 && (
-          <div className="absolute inset-y-0 bg-draw/70" style={{ left: `${left + lw}%`, width: `${dw}%` }} />
-        )}
-        {ww > 0 && (
-          <div
-            className="absolute inset-y-0 rounded-r-full bg-win"
-            style={{ left: `${left + lw + dw}%`, width: `${ww}%` }}
-          />
-        )}
+        <PropSegment left={left} width={lw} color="bg-loss" rounded="rounded-l-[2px]" label={canLabel ? l : null} letter="L" text="text-ink" />
+        <PropSegment left={left + lw} width={dw} color="bg-draw/70" rounded="" label={canLabel ? d : null} letter="D" text="text-pitch/85" />
+        <PropSegment left={left + lw + dw} width={ww} color="bg-win" rounded="rounded-r-[2px]" label={canLabel ? w : null} letter="W" text="text-pitch/85" />
         {/* centre fulcrum — the neutral axis the bars pivot around */}
-        <div className="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-pitch/70" />
+        <div className="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-ink-faint/50" />
       </div>
     </div>
   );
@@ -155,7 +158,7 @@ function DivergingSegments({ wPct, dPct, lPct }: { wPct: number; dPct: number; l
     <div className="absolute inset-0 wdl-reveal-center">
       {lPct > 0 && (
         <div
-          className="absolute inset-y-0 rounded-l-full bg-loss"
+          className="absolute inset-y-0 rounded-l-[2px] bg-loss"
           style={{ left: `${50 - dHalf - lPct / 2}%`, width: `${lPct / 2}%` }}
         />
       )}
@@ -167,12 +170,12 @@ function DivergingSegments({ wPct, dPct, lPct }: { wPct: number; dPct: number; l
       )}
       {wPct > 0 && (
         <div
-          className="absolute inset-y-0 rounded-r-full bg-win"
+          className="absolute inset-y-0 rounded-r-[2px] bg-win"
           style={{ left: `${50 + dHalf}%`, width: `${wPct / 2}%` }}
         />
       )}
       {/* centre fulcrum — the neutral axis the bar pivots around */}
-      <div className="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-pitch/70" />
+      <div className="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-ink-faint/50" />
     </div>
   );
 }
@@ -196,9 +199,9 @@ function StackedSegments({
 }) {
   return (
     <div className="absolute inset-0 flex gap-px wdl-reveal">
-      <Segment color="bg-win" pct={wPct} label={canLabel && wPct >= LABEL_MIN_PCT ? w : null} text="text-pitch/85" />
-      <Segment color="bg-draw/60" pct={dPct} label={canLabel && dPct >= LABEL_MIN_PCT ? d : null} text="text-pitch/85" />
-      <Segment color="bg-loss" pct={lPct} label={canLabel && lPct >= LABEL_MIN_PCT ? l : null} text="text-ink" />
+      <Segment color="bg-win" pct={wPct} label={canLabel && labelFits(wPct, w) ? w : null} letter="W" text="text-pitch/85" />
+      <Segment color="bg-draw/60" pct={dPct} label={canLabel && labelFits(dPct, d) ? d : null} letter="D" text="text-pitch/85" />
+      <Segment color="bg-loss" pct={lPct} label={canLabel && labelFits(lPct, l) ? l : null} letter="L" text="text-ink" />
     </div>
   );
 }
@@ -207,64 +210,63 @@ function Segment({
   color,
   pct,
   label,
+  letter,
   text,
 }: {
   color: string;
   pct: number;
   label: number | null;
+  /** Short W/D/L tag rendered after the count, for clarity. */
+  letter: string;
   text: string;
 }) {
   if (pct <= 0) return null;
   return (
-    <div className={`relative h-full ${color}`} style={{ width: `${pct}%` }}>
+    <div className={`relative h-full overflow-hidden ${color}`} style={{ width: `${pct}%` }}>
       {label != null && (
         <span
-          className={`absolute inset-0 flex items-center justify-center text-[10px] font-semibold leading-none tabular-nums ${text}`}
+          className={`absolute inset-0 flex items-center justify-center gap-0.5 text-[10px] font-semibold leading-none tabular-nums ${text}`}
         >
           {label}
+          <span className="text-[9px] font-bold opacity-75">{letter}</span>
         </span>
       )}
     </div>
   );
 }
 
-/**
- * W/D/L record as three small labelled columns — the tinted letter sits
- * directly above its figure. Ordered L · D · W to echo a diverging WdlBar
- * (losses left, wins right); kept tight and centred so it reads as a caption
- * for the bar rather than a headline stat.
- */
-export function WdlColumns({
-  w,
-  d,
-  l,
-  compact = false,
-  className = "",
+/** An absolutely-positioned diverging segment with an optional centred count label. */
+function PropSegment({
+  left,
+  width,
+  color,
+  rounded,
+  label,
+  letter,
+  text,
 }: {
-  w: number;
-  d: number;
-  l: number;
-  /** Tighter gap and smaller figures, for dense rows like a season subheader. */
-  compact?: boolean;
-  className?: string;
+  left: number;
+  width: number;
+  color: string;
+  rounded: string;
+  label: number | null;
+  letter: string;
+  text: string;
 }) {
-  const cells: [string, number, string][] = [
-    ["L", l, "text-loss"],
-    ["D", d, "text-draw"],
-    ["W", w, "text-win"],
-  ];
+  if (width <= 0) return null;
   return (
-    <div className={`flex justify-center ${compact ? "gap-3.5" : "gap-5"} ${className}`}>
-      {cells.map(([label, n, tone]) => (
-        <div key={label} className="flex flex-col items-center gap-0.5 leading-none">
-          <span
-            className={`font-semibold uppercase tracking-wider opacity-70 ${compact ? "text-[9px]" : "text-[10px]"} ${tone}`}
-          >
-            {label}
-          </span>
-          <span className={`stat-num font-semibold ${compact ? "text-xs" : "text-sm"} ${tone}`}>{n}</span>
-        </div>
-      ))}
+    <div
+      className={`absolute inset-y-0 overflow-hidden ${rounded} ${color}`}
+      style={{ left: `${left}%`, width: `${width}%` }}
+    >
+      {label != null && labelFits(width, label) && (
+        <span
+          className={`absolute inset-0 flex items-center justify-center gap-0.5 text-[10px] font-semibold leading-none tabular-nums ${text}`}
+        >
+          {label}
+          <span className="text-[9px] font-bold opacity-75">{letter}</span>
+        </span>
+      )}
     </div>
   );
 }
