@@ -91,12 +91,13 @@ export default function Home() {
     { timed: 0, late: 0 },
   );
 
-  // All-time record by competition as stacked W/D/L bars; matches played is carried
-  // by the textual "P" readout beside each. Only the four major competitions earn a
-  // place on the homepage; the shields, super cups, world finals and old test
-  // matches are dropped.
+  // All-time record by competition as stacked W/D/L bars; matches played rides a
+  // √-scaled volume lane under each (so League dwarfs the cups without distorting the
+  // bar). Only the four major competitions earn a place on the homepage; the shields,
+  // super cups, world finals and old test matches are dropped.
   const RECORD_TYPES = new Set(["league", "domestic-cup", "league-cup", "european"]);
   const recordRows = byType.filter((t) => RECORD_TYPES.has(t.type));
+  const recordPMax = Math.max(1, ...recordRows.map((t) => t.p));
 
   return (
     <div className="space-y-14 sm:space-y-16">
@@ -215,15 +216,23 @@ export default function Home() {
                     {COMPETITION_TYPE_LABELS[t.type] ?? t.type}
                   </Link>
                   <span className="stat-num text-xs text-ink-faint">
-                    {fmtNum(t.p)} P · <span className="text-ink">{pct(t.w, t.p)}</span> W
+                    <span className="text-ink">{pct(t.w, t.p)}</span> W
                   </span>
                 </div>
-                <WdlBar w={t.w} d={t.d} l={t.l} size="md" showLabels />
+                <WdlBar
+                  w={t.w}
+                  d={t.d}
+                  l={t.l}
+                  size="md"
+                  showLabels
+                  volume={{ fraction: Math.sqrt(t.p / recordPMax), games: t.p }}
+                />
               </div>
             ))}
           </div>
           <p className="text-xs text-ink-faint">
-            The win, draw and loss share of every match in each competition. Through{" "}
+            The win, draw and loss share of every match in each competition; the rule under each
+            bar runs to its matches played, so League dwarfs the cups. Through{" "}
             <span className="stat-num">{lastDate}</span>, updated after every match — each
             row links to its matches, and the{" "}
             <Link href="/data" className="text-devil-bright hover:underline">coverage ledger</Link> shows what is
