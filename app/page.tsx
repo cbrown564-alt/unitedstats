@@ -128,8 +128,11 @@ export default function Home() {
           <div className="mt-6 max-w-2xl">
             <SearchCommand autoFocusKey={false} />
             <p className="text-xs text-ink-faint mt-1.5">
-              Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search — names, seasons,
-              or shaped questions like &ldquo;record away at Arsenal&rdquo;.
+              <span className="sm:hidden">Search</span>
+              <span className="hidden sm:inline">
+                Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
+              </span>
+              {" "}— names, seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo;.
             </p>
           </div>
 

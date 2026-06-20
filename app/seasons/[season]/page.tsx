@@ -247,7 +247,7 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
                     size="md"
                   />
                   <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
-                    <h3 className="display truncate text-base leading-none">{comp}</h3>
+                    <h3 className="display line-clamp-2 text-base leading-tight sm:truncate sm:leading-none">{comp}</h3>
                     {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
                   </div>
                   {/* Right cluster: match total, then the L·D·W columns over the diverging bar. */}

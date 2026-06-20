@@ -60,7 +60,7 @@ export function IndexRow({
         {leading}
         <span className="min-w-0">
           <span className="flex items-center gap-1.5">
-            <span className="truncate font-medium">{name}</span>
+            <span className="line-clamp-2 font-medium leading-tight sm:truncate">{name}</span>
             {badge}
           </span>
           <span className="stat-num block text-xs text-ink-faint">{sub}</span>
