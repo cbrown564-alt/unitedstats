@@ -512,6 +512,18 @@ CREATE TABLE season_summaries (
   PRIMARY KEY (season, competition_id)
 );
 
+CREATE TABLE league_standings (
+  season TEXT NOT NULL,
+  competition_id TEXT NOT NULL,
+  position INTEGER NOT NULL,
+  team TEXT NOT NULL,
+  p INTEGER NOT NULL, w INTEGER NOT NULL, d INTEGER NOT NULL, l INTEGER NOT NULL,
+  gf INTEGER NOT NULL, ga INTEGER NOT NULL, pts INTEGER NOT NULL,
+  is_united INTEGER NOT NULL DEFAULT 0,
+  opponent_id TEXT,
+  PRIMARY KEY (season, competition_id, position)
+);
+
 CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 `);
 
@@ -869,6 +881,64 @@ if (fs.existsSync(positionsFile)) {
     "UPDATE season_summaries SET position=?, league_size=? WHERE season=? AND competition_id=?",
   );
   for (const p of positions) updPos.run(p.position, p.teams, p.season, p.competition);
+}
+
+// Full final tables (every club) for the division United played in, so the season
+// page can render the classic table. Derived from the same engsoccerdata
+// computation as the positions above, keyed by the same competition slug.
+const tablesFile = path.join(CANONICAL, "league-tables.json");
+if (fs.existsSync(tablesFile)) {
+  const { tables } = readJson<{
+    tables: {
+      season: string;
+      competition: string;
+      rows: { position: number; team: string; p: number; w: number; d: number; l: number; gf: number; ga: number; pts: number }[];
+    }[];
+  }>(tablesFile);
+  const insStanding = db.prepare(
+    "INSERT INTO league_standings (season, competition_id, position, team, p, w, d, l, gf, ga, pts, is_united) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+  );
+  for (const t of tables) {
+    for (const r of t.rows) {
+      insStanding.run(
+        t.season, t.competition, r.position, r.team,
+        r.p, r.w, r.d, r.l, r.gf, r.ga, r.pts,
+        r.team === "Manchester United" ? 1 : 0,
+      );
+    }
+  }
+
+  // Link each rival row to its opponent id, so the season table can click through
+  // to the head-to-head page. Every club in a division United played is a club
+  // United faced that season, so the strongest resolver is United's own matches:
+  // their `opponent_name → opponent_id` pairs already came through the alias
+  // pipeline with engsoccerdata-derived names — the same names the standings carry.
+  // Curated opponent display names and the historical-name alias map fill any gaps.
+  const oppNorm = (s: string): string =>
+    s.toLowerCase().replace(/\s+(?:f\.?c\.?|a\.?f\.?c\.?)$/i, "").replace(/[^a-z0-9]/g, "");
+  const nameToOppId = new Map<string, string>();
+  for (const { m } of allMatches) if (m.opponentId) nameToOppId.set(oppNorm(m.opponent), m.opponentId);
+  for (const [id, name] of oppNames) if (!nameToOppId.has(oppNorm(name))) nameToOppId.set(oppNorm(name), id);
+  const aliasFile = path.join(CANONICAL, "opponent-aliases.json");
+  if (fs.existsSync(aliasFile)) {
+    const { aliases } = readJson<{ aliases: Record<string, string> }>(aliasFile);
+    for (const [alias, id] of Object.entries(aliases))
+      if (!nameToOppId.has(oppNorm(alias))) nameToOppId.set(oppNorm(alias), id);
+  }
+  const standingRows = db
+    .prepare("SELECT rowid AS rid, team FROM league_standings WHERE is_united = 0")
+    .all() as { rid: number; team: string }[];
+  const updStandingOpp = db.prepare("UPDATE league_standings SET opponent_id = ? WHERE rowid = ?");
+  const unresolved = new Set<string>();
+  for (const s of standingRows) {
+    const id = nameToOppId.get(oppNorm(s.team));
+    if (id) updStandingOpp.run(id, s.rid);
+    else unresolved.add(s.team);
+  }
+  console.log(
+    `league_standings: linked ${standingRows.length - unresolved.size}/${standingRows.length} rival rows to opponents` +
+      (unresolved.size ? ` (${unresolved.size} unmatched: ${[...unresolved].slice(0, 10).join(", ")}${unresolved.size > 10 ? "…" : ""})` : ""),
+  );
 }
 
 // Furthest cup round reached per season. The sources spell the same round a dozen

@@ -2,7 +2,13 @@
  * Compute Manchester United's final league position for every season from the
  * full engsoccerdata league results (all clubs), plus openfootball for seasons
  * engsoccerdata lacks (2022-23, 2025-26). Writes
- * data/canonical/league-positions.json.
+ * data/canonical/league-positions.json (United's row) and
+ * data/canonical/league-tables.json (the full final table — every club — for the
+ * division United played in, so the season page can render the classic table).
+ *
+ * The full table and United's position come from the *same* computation, so the
+ * two files can never disagree: United's stored position is just the rank of its
+ * row in the table written alongside it.
  *
  * Era rules:
  *  - points: 2 per win through 1980-81, 3 per win from 1981-82
@@ -51,9 +57,45 @@ interface PositionEntry {
   note?: string;
 }
 
+/** A single club's row in a final table, ranked by `position` (1 = champions). */
+interface TableRow {
+  position: number;
+  team: string;
+  p: number;
+  w: number;
+  d: number;
+  l: number;
+  gf: number;
+  ga: number;
+  pts: number;
+}
+
+/** The full final table of the division United played in, for one season. */
+interface SeasonTable {
+  season: string;
+  competition: string;
+  teams: number;
+  rows: TableRow[];
+}
+
 const MU = "Manchester United";
 
-function fromEngsoccerdata(): PositionEntry[] {
+/** Rank a computed (already-sorted) table into positioned rows, 1 = champions. */
+function rankRows(sorted: ReturnType<typeof table>): TableRow[] {
+  return sorted.map((r, i) => ({
+    position: i + 1,
+    team: r.team,
+    p: r.p,
+    w: r.w,
+    d: r.d,
+    l: r.l,
+    gf: r.gf,
+    ga: r.ga,
+    pts: r.pts,
+  }));
+}
+
+function fromEngsoccerdata(): { positions: PositionEntry[]; tables: SeasonTable[] } {
   const rows = parseCsv(fs.readFileSync(path.join(RAW, "england.csv"), "utf8"));
   // group by season+tier, but only tiers United played in
   const grouped = new Map<string, { home: string; away: string; hg: number; ag: number }[]>();
@@ -65,25 +107,26 @@ function fromEngsoccerdata(): PositionEntry[] {
     list.push({ home: r.home, away: r.visitor, hg: parseInt(r.hgoal, 10), ag: parseInt(r.vgoal, 10) });
     if (r.home === MU || r.visitor === MU) muTier.set(r.Season, parseInt(r.tier, 10));
   }
-  const out: PositionEntry[] = [];
+  const positions: PositionEntry[] = [];
+  const tables: SeasonTable[] = [];
   for (const [seasonStr, tier] of muTier) {
     const startYear = parseInt(seasonStr, 10);
     const rowsFor = grouped.get(`${seasonStr}|${tier}`)!;
     const t = table(rowsFor, startYear);
     const pos = t.findIndex((r) => r.team === MU) + 1;
     if (pos === 0) continue;
-    out.push({
-      season: seasonKey(startYear),
-      competition: tier === 2 ? "second-division" : startYear >= 1992 ? "premier-league" : "first-division",
-      position: pos,
-      teams: t.length,
-      pts: t[pos - 1].pts,
-    });
+    const season = seasonKey(startYear);
+    const competition =
+      tier === 2 ? "second-division" : startYear >= 1992 ? "premier-league" : "first-division";
+    positions.push({ season, competition, position: pos, teams: t.length, pts: t[pos - 1].pts });
+    tables.push({ season, competition, teams: t.length, rows: rankRows(t) });
   }
-  return out;
+  return { positions, tables };
 }
 
-async function fromOpenfootball(season: string): Promise<PositionEntry | null> {
+async function fromOpenfootball(
+  season: string,
+): Promise<{ position: PositionEntry; table: SeasonTable } | null> {
   const url = `https://raw.githubusercontent.com/openfootball/england/master/${season}/1-premierleague.txt`;
   const res = await fetch(url, { headers: { "user-agent": "unitedstats-pipeline" } });
   if (!res.ok) return null;
@@ -102,27 +145,34 @@ async function fromOpenfootball(season: string): Promise<PositionEntry | null> {
   const pos = t.findIndex((r) => r.team === MU) + 1;
   if (pos === 0) return null;
   return {
-    season,
-    competition: "premier-league",
-    position: pos,
-    teams: t.length,
-    pts: t[pos - 1].pts,
-    note: "computed from openfootball",
+    position: {
+      season,
+      competition: "premier-league",
+      position: pos,
+      teams: t.length,
+      pts: t[pos - 1].pts,
+      note: "computed from openfootball",
+    },
+    table: { season, competition: "premier-league", teams: t.length, rows: rankRows(t) },
   };
 }
 
 async function main() {
-  const entries = fromEngsoccerdata();
+  const { positions: entries, tables } = fromEngsoccerdata();
   const have = new Set(entries.map((e) => e.season));
   for (const season of ["2022-23", "2025-26"]) {
     if (have.has(season)) continue;
     const e = await fromOpenfootball(season);
-    if (e) entries.push(e);
-    else console.warn(`WARN: could not compute position for ${season}`);
+    if (e) {
+      entries.push(e.position);
+      tables.push(e.table);
+    } else console.warn(`WARN: could not compute position for ${season}`);
   }
   entries.sort((a, b) => a.season.localeCompare(b.season));
+  tables.sort((a, b) => a.season.localeCompare(b.season));
   writeJson(path.join(CANONICAL, "league-positions.json"), { positions: entries });
-  console.log(`league-positions: ${entries.length} seasons written`);
+  writeJson(path.join(CANONICAL, "league-tables.json"), { tables });
+  console.log(`league-positions: ${entries.length} seasons; league-tables: ${tables.length} tables written`);
 }
 
 main();

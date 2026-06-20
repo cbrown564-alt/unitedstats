@@ -513,6 +513,42 @@ patterns rather than adding machinery:
 No new component and nothing reached `DESIGN.md` — this was the existing managers/archive playbook applied
 to the surface that had been missed, exactly the "apply the diagnosis back where it hasn't landed yet" move.
 
+**Follow-up: the classic league table as season context (`LeagueTable`).** The detail page led with the
+*finish* (`1st`, `7th of 20`) but never showed the table that finish sits in — the most familiar object in
+football was missing from the page about a league season. The first instinct was the `CupRun` ruling: the DB
+holds **only United's row** (`season_summaries` is P/W/D/L/GF/GA + position + size), so a full 20-club table
+looked like the "mostly-empty opponent slots" we refused to draw for a bracket — render only the facets the
+data can fill. The reopening was the *"a rejected decision reopens when the source changes"* rule, sharpened:
+the source was already **in-house**, and more than that, the full table was already being **computed and thrown
+away**. `scripts/ingest/league-positions.ts` aggregates the complete engsoccerdata results (every club's every
+league match) into a final table purely to read off United's rank — so teaching it to *keep* the table (era
+points rules and goal-average/goal-difference tiebreak already correct, since United's stored position is just
+its rank in that table) yielded the genuine standings for all 123 league seasons, no scrape, no new source.
+
+- ✅ **`LeagueTable` — the real table, United-centred.** Classic `Pos · Club · P · W · D · L · GF · GA · GD ·
+  Pts`, United's row lit devil-red (**gold when champions**), the champions gold-capped with a trophy, GD
+  colour-coded. The only *firm* encodings are the two facts the data states exactly — "champions" and "where
+  United finished"; the relegation foot / promotion head carry a faint, explicitly *indicative* zone tint
+  (relegation counts varied by era), and a second-tier season is labelled "The Second Division table" so a
+  division win is never mistaken for a top-flight title — the same honesty hinge the `FinishTimeline`'s
+  hollow-gold ring drew. `CoverageNote` credits engsoccerdata and names the era rules.
+- ✅ **Neighbourhood default + `?table=full` disclosure.** A 20-row table is a wall, and the *answer* is United's
+  neighbourhood, so it opens as champions + the clubs either side of United + the foot, the skipped runs collapsed
+  into `+N clubs` links that expand the table via a server round-trip — the no-JS progressive-disclosure contract
+  the players register and `MatchArchive` already use. Small early divisions render whole.
+- ✅ **Rival rows click through — canonicalisation by reusing the pipeline's truth, not a new matcher.** Every
+  club in a division United played is a club United *faced* that season, so the strongest name→`opponent_id`
+  resolver is United's own match rows (engsoccerdata-derived names, already alias-resolved upstream), with the
+  curated opponent names and the historical-name alias map as fallbacks. That resolved **2,430/2,430 rival rows
+  (100%)** at build time, period names included ("Woolwich Arsenal" → `arsenal`) — so the table threads into the
+  head-to-head pages with zero dead text and no bespoke fuzzy-matching to maintain.
+
+`LeagueTable` stays **bespoke** (a classic standings grid — no shared object captures it) and nothing reached
+`DESIGN.md`: the progressive-disclosure and floodlit-honesty patterns are existing, and the table is a fresh
+instance, not a new rule. *Lesson, sharpening the "reopen when the source changes" rule: before deciding the
+data can't fill a facet, check whether the pipeline is already **computing and discarding** it — the honest
+full object was one `writeJson` away, hidden inside a query that only kept one row.*
+
 ### 5. `/analytics` — done
 Shipped narrowly, exactly as "subtract before adding" demanded — the Elo hero, the odds
 widget, the calibration table, and the trend charts were left alone (they already earn

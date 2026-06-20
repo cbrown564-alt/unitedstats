@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { seasonMatches, allSeasons, seasonsIndex, type MatchRow, type SeasonSummary } from "@/lib/queries";
+import { seasonMatches, allSeasons, seasonsIndex, seasonLeagueTable, type MatchRow, type SeasonSummary } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
 import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
@@ -12,6 +12,7 @@ import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
+import { LeagueTable } from "@/components/LeagueTable";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 
@@ -62,10 +63,21 @@ function campaignOutcome(
   return round ? { label: fmtRound(round), tier: "neutral" } : null;
 }
 
-export default async function SeasonPage({ params }: { params: Promise<{ season: string }> }) {
+export default async function SeasonPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ season: string }>;
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
   const { season } = await params;
+  const sp = await searchParams;
   const matches = seasonMatches(season);
   if (matches.length === 0) notFound();
+
+  // The full final table United played in that season (every club) — rendered as
+  // context below the plate. Null for cup-only seasons or the rare source gap.
+  const leagueTable = seasonLeagueTable(season);
 
   const seasons = allSeasons(); // desc
   const idx = seasons.indexOf(season);
@@ -193,6 +205,15 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
             claims state their coverage.
           </p>
         </div>
+      )}
+
+      {leagueTable && (
+        <LeagueTable
+          table={leagueTable}
+          season={season}
+          expanded={sp.table === "full"}
+          searchParams={sp}
+        />
       )}
 
       {sequence.length >= 24 && (

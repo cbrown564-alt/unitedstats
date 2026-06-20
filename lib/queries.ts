@@ -186,6 +186,48 @@ export function seasonsIndex(): SeasonSummary[] {
     .all() as SeasonSummary[];
 }
 
+export interface LeagueStanding {
+  position: number;
+  team: string;
+  p: number; w: number; d: number; l: number; gf: number; ga: number; pts: number;
+  is_united: number;
+  /** The club's head-to-head id, where it resolves to one United has faced. */
+  opponent_id: string | null;
+}
+
+export interface SeasonLeagueTable {
+  competition_id: string;
+  competition_name: string;
+  rows: LeagueStanding[];
+}
+
+/**
+ * The full final league table United played in that season — every club, ranked
+ * 1st to last — computed from the complete engsoccerdata results (see
+ * {@link file://scripts/ingest/league-positions.ts}). Returns null for seasons
+ * with no stored standings (a cup-only season, or the rare gap the sources lack).
+ * The two-tier seasons (1893-94 Test Matches aside) only ever sat in one division,
+ * so a season maps to a single league table.
+ */
+export function seasonLeagueTable(season: string): SeasonLeagueTable | null {
+  const db = getDb();
+  const rows = db
+    .prepare(
+      `SELECT position, team, p, w, d, l, gf, ga, pts, is_united, opponent_id
+       FROM league_standings WHERE season = ? ORDER BY position`,
+    )
+    .all(season) as LeagueStanding[];
+  if (rows.length === 0) return null;
+  const comp = db
+    .prepare(
+      `SELECT ls.competition_id, c.name AS competition_name
+       FROM league_standings ls JOIN competitions c ON c.id = ls.competition_id
+       WHERE ls.season = ? LIMIT 1`,
+    )
+    .get(season) as { competition_id: string; competition_name: string };
+  return { competition_id: comp.competition_id, competition_name: comp.competition_name, rows };
+}
+
 export interface SeasonCupResult {
   season: string;
   competition_id: string;
