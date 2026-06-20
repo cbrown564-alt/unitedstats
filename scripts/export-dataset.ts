@@ -77,6 +77,13 @@ const counts: Record<string, number> = {
      FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
      ORDER BY ss.season, ss.competition_id`,
   ),
+  "league_standings.csv": exportCsv(
+    "league_standings.csv",
+    `SELECT ls.season, ls.competition_id, c.name competition, ls.position, ls.team,
+            ls.p, ls.w, ls.d, ls.l, ls.gf, ls.ga, ls.pts, ls.is_united, ls.opponent_id
+     FROM league_standings ls JOIN competitions c ON c.id = ls.competition_id
+     ORDER BY ls.season, ls.position`,
+  ),
   "players.csv": exportCsv(
     "players.csv",
     `WITH local_shirt_decade_counts AS (
