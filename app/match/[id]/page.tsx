@@ -117,81 +117,57 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   ].filter(Boolean) as string[];
 
   return (
-    <div className="space-y-10">
-      <header className="space-y-4">
-        <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
-          <Link href={`/seasons/${m.season}`} className="hover:text-ink">{m.season}</Link>
-          <span aria-hidden>·</span>
-          <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} />
-        </nav>
-        <div className="space-y-2 border-y border-line py-5 text-center">
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
-              {fmtDateLong(m.date)}
-            </p>
-            <span aria-hidden className="text-ink-faint">·</span>
-            <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${tone}`}>
-              {word}
-            </span>
-          </div>
-          <h1 className="display grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 text-4xl leading-tight sm:gap-x-5 lg:text-5xl">
-            {m.venue === "A" ? (
-              <>
-                <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
-                <span className={`stat-num whitespace-nowrap ${tone}`}>{m.ga}–{m.gf}</span>
-                <TeamName names={clubN} align="left" />
-              </>
-            ) : (
-              <>
-                <TeamName names={clubN} align="right" />
-                <span className={`stat-num whitespace-nowrap ${tone}`}>{m.gf}–{m.ga}</span>
-                <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
-              </>
+    <div className="space-y-8">
+      {/* Result, then how the goals came — one tight lead unit, no hollow black. */}
+      <div className="space-y-5">
+        <header className="space-y-4">
+          <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
+            <Link href={`/seasons/${m.season}`} className="hover:text-ink">{m.season}</Link>
+            <span aria-hidden>·</span>
+            <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} />
+          </nav>
+          <div className="space-y-2 border-y border-line py-5 text-center">
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
+                {fmtDateLong(m.date)}
+              </p>
+              <span aria-hidden className="text-ink-faint">·</span>
+              <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${tone}`}>
+                {word}
+              </span>
+            </div>
+            <h1 className="display grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 text-4xl leading-tight sm:gap-x-5 lg:text-5xl">
+              {m.venue === "A" ? (
+                <>
+                  <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
+                  <span className={`stat-num whitespace-nowrap ${tone}`}>{m.ga}–{m.gf}</span>
+                  <TeamName names={clubN} align="left" />
+                </>
+              ) : (
+                <>
+                  <TeamName names={clubN} align="right" />
+                  <span className={`stat-num whitespace-nowrap ${tone}`}>{m.gf}–{m.ga}</span>
+                  <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
+                </>
+              )}
+            </h1>
+            {(m.aet || m.pen_gf != null) && (
+              <p className="text-sm text-ink-dim">
+                {m.aet ? "After extra time. " : ""}
+                {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
+              </p>
             )}
-          </h1>
-          {(m.aet || m.pen_gf != null) && (
-            <p className="text-sm text-ink-dim">
-              {m.aet ? "After extra time. " : ""}
-              {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
-            </p>
-          )}
-        </div>
-      </header>
-
-      {hasTimedGoals && (
-        <section className="space-y-2">
-          <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
-          {!m.events_complete && (
-            <p className="text-xs text-ink-faint">Scorer data for this match may be incomplete.</p>
-          )}
-        </section>
-      )}
-
-      <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden text-sm">
-        {[
-          ["Venue", m.stadium_name ?? venueLabel(m.venue)],
-          ["Attendance", m.attendance ? fmtNum(m.attendance) : "—"],
-          ["Manager", m.manager_name ?? "—"],
-          ["Competition", m.competition_name],
-        ].map(([k, v]) => (
-          <div key={k} className="bg-panel px-3 py-2.5">
-            <dt className="text-[11px] text-ink-faint uppercase tracking-wider">{k}</dt>
-            <dd className="mt-0.5 truncate" title={String(v)}>{v}</dd>
           </div>
-        ))}
-      </dl>
-      {m.notes && <p className="max-w-3xl text-sm text-ink-dim italic">{m.notes}</p>}
+        </header>
 
-      {elo && (
-        <EloWinBar
-          club={club}
-          opponentName={m.opponent_name}
-          eloPre={elo.elo_pre}
-          oppEloPre={elo.opp_elo_pre}
-          expected={elo.expected}
-          eloPost={elo.elo_post}
-        />
-      )}
+        {hasTimedGoals && (
+          <section className="space-y-2">
+            <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
+            {!m.events_complete && (
+              <p className="text-xs text-ink-faint">Scorer data for this match may be incomplete.</p>
+            )}
+          </section>
+        )}
 
       {/* Untimed scorers: events exist but no minutes — keep a plain list. */}
       {!hasTimedGoals && (goals.length > 0 || opponentGoals.length > 0) && (
@@ -264,20 +240,18 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </Link>
         </section>
       )}
+      </div>
 
+      {/* Teamsheet — the reason to visit a match: inline, expanded, the lead's payoff. */}
       {hasTeamsheet && (
-        <section>
-          <details className="group">
-            <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
-              <h2 className="display text-xl">Teamsheet</h2>
-              <span className="stat-num text-xs text-ink-faint">
-                {teamsheetParts.join(" · ")}
-                {teamsheetParts.length > 0 ? " · " : ""}
-                <span className="text-devil-bright group-open:hidden">show</span>
-                <span className="hidden text-devil-bright group-open:inline">hide</span>
-              </span>
-            </summary>
-            <div className="space-y-6">
+        <section className="space-y-5">
+          <div className="flex items-baseline justify-between gap-3">
+            <h2 className="display text-xl">Teamsheet</h2>
+            {teamsheetParts.length > 0 && (
+              <span className="stat-num text-xs text-ink-faint">{teamsheetParts.join(" · ")}</span>
+            )}
+          </div>
+          <div className="space-y-6">
               {canPitch ? (
                 <>
                   {usedSubs.length > 0 || bench.length > 0 ? (
@@ -379,8 +353,34 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 </>
               )}
             </div>
-          </details>
         </section>
+      )}
+
+      {/* Match facts + pre-match expectancy — supporting context, below the payoff. */}
+      <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden text-sm">
+        {[
+          ["Venue", m.stadium_name ?? venueLabel(m.venue)],
+          ["Attendance", m.attendance ? fmtNum(m.attendance) : "—"],
+          ["Manager", m.manager_name ?? "—"],
+          ["Competition", m.competition_name],
+        ].map(([k, v]) => (
+          <div key={k} className="bg-panel px-3 py-2.5">
+            <dt className="text-[11px] text-ink-faint uppercase tracking-wider">{k}</dt>
+            <dd className="mt-0.5 truncate" title={String(v)}>{v}</dd>
+          </div>
+        ))}
+      </dl>
+      {m.notes && <p className="max-w-3xl text-sm text-ink-dim italic">{m.notes}</p>}
+
+      {elo && (
+        <EloWinBar
+          club={club}
+          opponentName={m.opponent_name}
+          eloPre={elo.elo_pre}
+          oppEloPre={elo.opp_elo_pre}
+          expected={elo.expected}
+          eloPost={elo.elo_post}
+        />
       )}
 
       <section>
