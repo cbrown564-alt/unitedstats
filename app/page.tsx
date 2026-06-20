@@ -8,7 +8,7 @@ import {
   fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
 } from "@/lib/format";
 import { MatchList } from "@/components/MatchList";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -91,17 +91,12 @@ export default function Home() {
     { timed: 0, late: 0 },
   );
 
-  // All-time record by competition, drawn as full-width diverging bars (so each
-  // record's *shape* stays readable and comparable) whose *thickness* encodes games
-  // played. Volume spans two orders of magnitude here (League ~5,000 vs the cups in
-  // the hundreds), so length would let League pin the scale and flatten the rest —
-  // thickness on a sqrt scale keeps League the obvious bulk without erasing the cups.
-  // Only the four major competitions earn a place on the homepage; the shields,
-  // super cups, world finals and old test matches are dropped.
+  // All-time record by competition as stacked W/D/L bars; matches played is carried
+  // by the textual "P" readout beside each. Only the four major competitions earn a
+  // place on the homepage; the shields, super cups, world finals and old test
+  // matches are dropped.
   const RECORD_TYPES = new Set(["league", "domestic-cup", "league-cup", "european"]);
   const recordRows = byType.filter((t) => RECORD_TYPES.has(t.type));
-  const recordPMax = Math.max(1, ...recordRows.map((t) => t.p));
-  const recordHeight = (p: number) => Math.max(6, Math.round(28 * Math.sqrt(p / recordPMax)));
 
   return (
     <div className="space-y-14 sm:space-y-16">
@@ -223,14 +218,13 @@ export default function Home() {
                     {fmtNum(t.p)} P · <span className="text-ink">{pct(t.w, t.p)}</span> W
                   </span>
                 </div>
-                <WdlColumns w={t.w} d={t.d} l={t.l} className="mb-1.5" />
-                <WdlBar w={t.w} d={t.d} l={t.l} heightPx={recordHeight(t.p)} />
+                <WdlBar w={t.w} d={t.d} l={t.l} size="md" showLabels />
               </div>
             ))}
           </div>
           <p className="text-xs text-ink-faint">
-            Bar thickness tracks matches played and each pivots on its centre, so past the line is a
-            winning record. Through <span className="stat-num">{lastDate}</span>, updated after every match — each
+            The win, draw and loss share of every match in each competition. Through{" "}
+            <span className="stat-num">{lastDate}</span>, updated after every match — each
             row links to its matches, and the{" "}
             <Link href="/data" className="text-devil-bright hover:underline">coverage ledger</Link> shows what is
             sourced and what is still growing.

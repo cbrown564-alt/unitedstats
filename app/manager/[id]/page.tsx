@@ -9,7 +9,7 @@ import { MatchArchive } from "@/components/MatchArchive";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { NotableMatches } from "@/components/NotableMatches";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
-import { ProportionalWdlBar, WdlColumns, WdlRecord } from "@/components/WdlBar";
+import { ProportionalWdlBar, WdlRecord } from "@/components/WdlBar";
 import { IdentityPlate, type SpanSegment } from "@/components/IdentityPlate";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
@@ -160,8 +160,7 @@ export default async function ManagerPage({
                           {fmtNum(r.p)} P · <span className="text-ink">{pct(r.w, r.p)}</span> W
                         </span>
                       </div>
-                      <WdlColumns w={r.w} d={r.d} l={r.l} className="mb-1.5" />
-                      <ProportionalWdlBar w={r.w} d={r.d} l={r.l} scale={splitScale} />
+                      <ProportionalWdlBar w={r.w} d={r.d} l={r.l} scale={splitScale} size="md" showLabels />
                     </div>
                   ))}
                 </div>

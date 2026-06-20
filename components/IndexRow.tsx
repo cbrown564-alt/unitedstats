@@ -69,7 +69,7 @@ export function IndexRow({
       {chart ? (
         <div className="hidden sm:block">{chart}</div>
       ) : (
-        <WdlBar w={w} d={d} l={l} size="sm" tooltip={false} className="hidden sm:block" />
+        <WdlBar w={w} d={d} l={l} size="sm" tooltip={false} className="mx-auto hidden w-full max-w-[13rem] sm:block" />
       )}
       <span className="stat-num whitespace-nowrap text-right leading-tight">
         <span className="block text-sm font-semibold text-ink">

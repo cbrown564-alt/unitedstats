@@ -1,7 +1,7 @@
 import type { MatchRow } from "@/lib/queries";
 import { tallyWdl } from "@/lib/format";
 import { MatchList } from "./MatchList";
-import { WdlBar, WdlColumns } from "./WdlBar";
+import { WdlBar } from "./WdlBar";
 
 /**
  * Season-segmented view of a fixture list. Rows arrive date-ordered, so seasons
@@ -37,9 +37,8 @@ export function MatchGroups({
               <span className="stat-num text-xs leading-none text-ink-faint">
                 {g.rows.length} {g.rows.length === 1 ? "match" : "matches"}
               </span>
-              <div className="ml-auto w-32 space-y-1">
-                <WdlColumns w={w} d={d} l={l} compact />
-                <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} />
+              <div className="ml-auto w-40">
+                <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
               </div>
             </div>
             <MatchList matches={g.rows} showAttendance={showAttendance} accentResult={accentResult} />

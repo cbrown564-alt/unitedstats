@@ -12,7 +12,7 @@ import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
-import { WdlBar, WdlColumns } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -250,13 +250,12 @@ export default async function SeasonPage({ params }: { params: Promise<{ season:
                     <h3 className="display line-clamp-2 text-base leading-tight sm:truncate sm:leading-none">{comp}</h3>
                     {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
                   </div>
-                  {/* Right cluster: match total, then the L·D·W columns over the diverging bar. */}
+                  {/* Right cluster: match total, then the stacked W/D/L record bar. */}
                   <span className="stat-num hidden w-20 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
                     {list.length} {list.length === 1 ? "match" : "matches"}
                   </span>
-                  <div className="w-24 shrink-0 space-y-1 sm:w-32">
-                    <WdlColumns w={w} d={d} l={l} compact />
-                    <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} />
+                  <div className="w-28 shrink-0 sm:w-40">
+                    <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
                   </div>
                 </summary>
                 <div className="border-t border-line p-2 sm:p-3">
