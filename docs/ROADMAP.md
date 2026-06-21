@@ -323,14 +323,43 @@ Discovery work:
       record per group — every row's link reproducing exactly the matches it
       counts.
 
-Phase 9 is complete as a discovery capability: the question-led premise now has
-real comparison and exploration tools. `/compare` puts two players, managers, or
-eras side by side on coverage-aware metrics; `/questions` gained comeback and
-longest-run modules (nine in all); `lib/streaks.ts` makes runs first-class and
-evidence-linked; and `/explore` turns the filter+aggregate layer into a
-group-by explorer. New comparison metrics, question cuts, run kinds, and
-explorer dimensions continue as normal product work on `lib/compare.ts`,
-`lib/trails.ts`, `lib/streaks.ts`, and `lib/explore.ts`.
+Phase 9 is complete as a discovery *capability*: the question-led premise now has
+real comparison and exploration tools. `/questions` gained comeback and
+longest-run modules (nine in all) and `lib/streaks.ts` makes runs first-class and
+evidence-linked — these two landed at the design bar and are keepers. `/compare`
+puts two players, managers, or eras side by side on coverage-aware metrics, and
+`/explore` turns the filter+aggregate layer into a group-by explorer — these two
+ship the capability but **not** the design bar yet, and carry follow-up debt (see
+below). New comparison metrics, question cuts, run kinds, and explorer dimensions
+continue as normal product work on `lib/compare.ts`, `lib/trails.ts`,
+`lib/streaks.ts`, and `lib/explore.ts`.
+
+### Phase 9 follow-up — navigation IA and the discovery surfaces' design
+
+Two issues surfaced once Phase 9 shipped, recorded here for a deliberate pass
+before any further surface is added:
+
+- **The primary nav has outgrown a single rail.** With eleven top-level tabs it
+      no longer fits even on a wide screen and leans on horizontal scroll (with
+      edge fades) as a stopgap. This needs an information-architecture fix, not
+      just reordering: e.g. cluster the discovery tools (Questions / Compare /
+      Explore) behind one entry or a grouped menu, fold lower-traffic routes
+      (Transfers, Data) into an overflow / "More" menu, or split into a
+      primary/secondary nav. Decide what earns a top-level slot before adding any
+      new route. As an interim measure, Compare and Explore were moved to the tail
+      of the nav (just before Data).
+- **Compare and Explore are half-baked and must justify their place.** Both ship
+      the capability but read as utilities, not the floodlit-ledger, answer-first
+      surfaces the north star calls for: `/compare` is a plain versus table and
+      `/explore` is a filter form over a dense table. They need a dramatic design
+      lift before they earn a better nav slot — lead with the answer, give the
+      comparison and the breakdown a genuine visual identity (not just a table),
+      rethink the pickers (the long player/era selects especially), and make each
+      feel like a place to *explore* rather than a form to submit. If that lift
+      can't be justified, demote them out of the top nav entirely — reachable from
+      `/questions`, the homepage, and search — or reconsider whether both surfaces
+      should exist. Their current tail placement and the `MainNav` comment mark
+      this as provisional.
 
 ## Parked pathways (open questions)
 

@@ -6,8 +6,6 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 
 const NAV = [
   ["Questions", "/questions"],
-  ["Compare", "/compare"],
-  ["Explore", "/explore"],
   ["Matches", "/matches"],
   ["Seasons", "/seasons"],
   ["Players", "/players"],
@@ -15,6 +13,11 @@ const NAV = [
   ["Managers", "/managers"],
   ["Opponents", "/opponents"],
   ["Analytics", "/analytics"],
+  // Provisional placement: Compare and Explore are functional but not yet at the
+  // design bar, so they sit at the tail (just before Data) until they earn a
+  // higher slot. See the Phase 9 follow-up in docs/ROADMAP.md (nav IA + redesign).
+  ["Compare", "/compare"],
+  ["Explore", "/explore"],
   ["Data", "/data"],
 ] as const;
 
