@@ -10,10 +10,14 @@ const ATTRIBUTION = {
   note: "Read-only. Result data: engsoccerdata, openfootball, Wikipedia. Coverage varies by facet; see /api/v1/meta.",
 };
 
+// The dataset is immutable between deploys, and every deploy is a fresh build
+// (a new cache key), so the CDN can hold responses hard: 5 min in the browser,
+// a day at the edge, served stale for a week while it revalidates. This keeps
+// runtime SQLite hits rare even though the search/list endpoints stay dynamic.
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Cache-Control": "public, max-age=300",
+  "Cache-Control": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800",
 };
 
 export function apiJson(data: unknown, extra?: Record<string, unknown>): Response {
