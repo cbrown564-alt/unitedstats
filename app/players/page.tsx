@@ -4,7 +4,7 @@ import { DataTable, type SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
 import { CareerSparkline, type CareerSparkSeason } from "@/components/charts/CareerSparkline";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
-import { PositionGlyph } from "@/components/PositionGlyph";
+import { PositionTag } from "@/components/PositionTag";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { SectionHead } from "@/components/SectionHead";
 import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
@@ -332,6 +332,7 @@ export default async function PlayersPage({
         </p>
 
       <DataTable
+        className="data-table-fit"
         rows={visiblePlayers}
         rowKey={(p) => p.player_id}
         caption="Manchester United player totals"
@@ -392,10 +393,10 @@ export default async function PlayersPage({
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.name,
             render: (p) => (
               <div className="flex items-center gap-2.5">
-                <PositionGlyph bucket={p.position_bucket} title={p.position_label} />
-                <Link href={`/player/${p.player_id}`} className="flex items-center gap-3 font-medium hover:text-devil-bright">
+                <PositionTag bucket={p.position_bucket} title={p.position_label} />
+                <Link href={`/player/${p.player_id}`} className="flex min-w-0 items-center gap-3 font-medium hover:text-devil-bright">
                   <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
-                  <span>{p.name}</span>
+                  <span className="block max-w-[27vw] truncate sm:max-w-none">{p.name}</span>
                 </Link>
               </div>
             ),
@@ -423,6 +424,7 @@ export default async function PlayersPage({
             label: "Apps",
             key: "apps",
             numeric: true,
+            hideBelow: "hidden sm:table-cell",
             sortKey: "apps",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.apps,
             render: (p) => (
@@ -507,10 +509,10 @@ export default async function PlayersPage({
           <span className="stat-num text-ink">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
           Assists are recorded for{" "}
           <span className="stat-num text-ink">{fmtNum(assistsCovered)}</span> players and weighted to recent eras.
-          The position mark beside each name — a line on a vertical pitch, keeper low to forward high — is the
+          The position tag beside each name — GK, DF, MF or FW — is the
           player&rsquo;s primary position from Wikidata, known for{" "}
           <span className="stat-num text-ink">{fmtNum(positionsCovered)}</span> players ({pct(positionsCovered, allPlayers.length)});
-          where it is unknown the mark is omitted, never guessed.{" "}
+          where it is unknown the tag is omitted, never guessed.{" "}
         </CoverageNote>
       </section>
     </div>
