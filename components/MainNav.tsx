@@ -7,6 +7,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 const NAV = [
   ["Questions", "/questions"],
   ["Compare", "/compare"],
+  ["Explore", "/explore"],
   ["Matches", "/matches"],
   ["Seasons", "/seasons"],
   ["Players", "/players"],
