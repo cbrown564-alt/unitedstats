@@ -7,9 +7,9 @@ import {
 import { getMeta, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
-import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
-import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
+import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { DataTable } from "@/components/DataTable";

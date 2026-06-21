@@ -12,7 +12,7 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { PlayerSeasonTable, type SeasonSplit } from "@/components/PlayerSeasonTable";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
-import { SeasonContributionChart } from "@/components/charts/SeasonContributionChart";
+import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
 import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";

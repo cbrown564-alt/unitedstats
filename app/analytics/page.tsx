@@ -9,8 +9,10 @@ import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EloHero } from "@/components/EloHero";
 import { ReliabilityCurve } from "@/components/charts/ReliabilityCurve";
-import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
-import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
+import {
+  InspectableBarChartLazy as InspectableBarChart,
+  InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart,
+} from "@/components/charts/lazy";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { OddsPredictor } from "@/components/OddsPredictor";
