@@ -34,9 +34,19 @@ The real win is the module/duplication reduction, not the route count.
   reference Primary-Answer template the other detail pages inherit.
 
 ### Interpretation
-- `/questions` — seven myth-testing modules (late goals, bogey sides, European
-  weeks, manager bounce, fortress OT, cup specialists, **away days** — the
-  former travel surface, folded in with the away map as evidence) + sticky rail.
+- `/questions` — nine myth-testing modules (late goals, **comebacks**, **great
+  runs**, bogey sides, manager bounce, fortress OT, cup specialists, own goals,
+  away days) + sticky rail. Comebacks replays minute-stamped goals to count
+  recoveries from behind (`trails.comebacks`); great runs ladders the longest
+  consecutive-official-match streaks of four kinds (`lib/streaks.ts`,
+  `StreakBoard`).
+- `/compare` — player/manager/era comparison (Phase 9). One `Comparison` shape
+  (`lib/compare.ts`) for all three modes, rendered by `CompareTable` as a
+  mirrored-bar versus with the leader tinted and per-metric coverage caveats;
+  every side links to its matches. Shaped player-vs-player search lands here.
+- `/explore` — build-your-own-cut group-by explorer (Phase 9), the aggregate
+  companion to `/matches`. `lib/explore.ts` groups the shared `matchWhere`
+  filter by a chosen dimension; each row's link reproduces exactly its matches.
 - `/analytics` — the strength surface: Elo retrospective (timeline) **+
   prospective (odds widget, season replay, calibration — folded in from the
   former `/analytics/odds`)** + season trends + grounds + assist partnerships.
@@ -64,7 +74,9 @@ Removed this pass: `/analytics/odds` (folded into `/analytics`) and
 | `ResultBadge` | single-match state chip | match form trails |
 | `CompetitionChip` / `CompetitionDot` | league/cup/Europe identity cue | match rows, headers, season chips |
 | `CoverageNote` / `ChartPanel` | slice/coverage footer + framed chart; coverage is **graded** — pass `count` and the note renders only when the facet is incomplete, silent when whole | analytics, charts, trust points |
-| `DataTable` | sortable dense table | analytics, calibration, indexes |
+| `DataTable` | sortable dense table | analytics, calibration, indexes, `/explore` |
+| `CompareTable` | mirrored-bar versus layout over shared metrics, leader tinted | `/compare` |
+| `StreakBoard` | per-kind run ladder, each run evidence-linked | `/questions#runs` |
 | `Pager` | Newer / page / Older pagination | `/matches`, `/manager/[id]` |
 | `HeaderSearch` / `SearchCommand` / `MainNav` | global header search + nav | layout |
 | charts: `InspectableTimeSeriesChart`, `InspectableBarChart`, `EloRatingChart` | Recharts-backed inspection layer | analytics, home, player, odds |
@@ -145,10 +157,18 @@ Done since the simplification pass:
   that were only used inside their own module; registered the standalone manual
   scripts (`fix-*`, `stats-check`) as knip entries. `knip.json` holds the config.
 
-Flagged, not yet done (carry into Phase 9 / parked):
+Added in Phase 9 (discovery and comparison):
+- **Comparison surface.** `/compare` (players / managers / eras) over
+  `lib/compare.ts` + `CompareTable`; the deferred "comparison modes" bet, now
+  built coverage-aware with every side linking to its matches.
+- **Group-by explorer.** `/explore` over `lib/explore.ts`; the aggregate
+  companion to `/matches`, reusing `matchWhere` so the slice vocabulary agrees.
+- **Run detection + comebacks.** `lib/streaks.ts` (+ `StreakBoard`) and
+  `trails.comebacks` add two evidence-linked `/questions` modules (nine total).
+
+Flagged, not yet done (parked):
 - The odds opponent picker is a long native `<select>`; a searchable combobox
-  (reuse the `SearchCommand` pattern) is a feature, not a consolidation.
-- ~~Segmented grouping on `/managers` and `/opponents`~~ — done in the index-pages
-  refresh: managers grouped into data-anchored era bands, opponents kept ranked-by-
-  meetings with an explicit rank index, both on a shared `IndexRow`.
+  (reuse the `SearchCommand` pattern) is a feature, not a consolidation. The
+  `/compare` player picker uses text inputs resolved by the shared entity
+  resolver to sidestep the same long-select problem.
 - See `docs/VISUAL-AUDIT.md` for the remaining visual-hierarchy items.
