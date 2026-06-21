@@ -152,6 +152,7 @@ ones below are the patterns that recurred specifically across the *questions* wo
 | `/managers`, `/opponents` (index structure) | ✅ bespoke heroes — `ManagerTimeline` (succession as a match-proportional bar, two cathedrals) and `OpponentRivalryMap` (meetings × win-rate scatter, the nemesis low-right) — over a shared `IndexRow` detail layer (era bands / ranked ledger); `CoverageNote` footer on both |
 | `/analytics` | ✅ restructured from a flat ~10-section stack into **three acts + a trails appendix** (signal → projection → production): a floodlit `EloHero`, a bespoke `ReliabilityCurve` replacing the calibration table, six all-time-peak `RecordCards`, an upgraded assist ladder; grounds grid cut (and its query), coverage links merged |
 | `/data` | ✅ refreshed — bespoke **`CoverageMatrix`** hero (every detail layer × every decade as a shaded grid: result spine solid, facets fading into the Victorian past), the page restructured into **three acts + an appendix** (the record → the competition-type cut → provenance & corrections → use the data), the two single-facet decade bar charts subsumed into the matrix, and the G-05 faint-text contrast items fixed |
+| `/transfers` | ✅ refreshed — bespoke **`SpendTide`** hero (the whole money record as one diverging tide: every year a column, spend up devil-red / receipts down gold on one shared £ scale, the peak spend/sales years pipped in their own bar colour at the tallest bars' crests, the pre-1970s era shaded "fees largely undisclosed", a century pinned flat to the £0 line then the modern explosion), with a thin **people-flow strip** beneath carrying the raw count of moves per year so the pre-fee century reads as busy-but-undisclosed not blank; net is the headline figure with the two gross sides colour-keyed beside it. Body tightened from a text `<dl>` + four flat movements to hero → record deals → who spent it (top 10 by net) → a **`TransferArchive`** (the record season by season — every window since 1980-81 a collapsed `<details>` opening to its full list, the fee-less pre-1980 era folded into one summary row), **cutting the redundant decade `SpendBars`** (the tide subsumes it) and its `netSpendByDecade` query |
 
 ## Rough per-surface plan (initial ideas — expect these to change)
 
@@ -1021,6 +1022,69 @@ and the matrix is a fresh object, not a new composition rule. *Lesson, now confi
 "least visual" surface: the "bold bespoke hero on a front door" instinct held even here — and the
 sharpest version of it is when the bold object **is** the legibility the surface was asking for, so
 there's no tension between atmosphere and trust at all.*
+
+### 9. `/transfers` ✅ done
+The newest surface, built after the refresh and still carrying its tells: a floodlit plate that led with
+a **text headline + a flat four-cell `<dl>`** (gross spend / received / net / biggest spender) — the most
+timid lead on the site, every other front door already opening on an authored object — over four
+equal-weight `space-y-8` movements. The same "competent ledger, no hero" diagnosis the home and index
+passes kept making, applied to the one page that had missed the whole exercise.
+
+- ✅ **`SpendTide` — the whole money record as one diverging tide.** Every year a column on a single shared
+  £ scale: spend rising devil-red above the £0 line, receipts falling gold below, so the *shape* is the
+  story — nearly a century pinned flat to the line, then the modern explosion swelling up the right with
+  gold sale-years (Ronaldo '09, Beckham '03, Ince/Kanchelskis '95) notching down through it. The hero
+  foregrounds the **aggregate peaks** — the years United spent (£237m, 2025) and banked (£84m, 2009) the
+  most — as pips in their own bar colour (red for spend, gold for sales) at the tallest bars' crests, since
+  those *are* the tide's climax; the individual
+  record deals (Pogba, Ronaldo) live in the "record deals" leaderboards below rather than as pips whose
+  bars sit lower. (First pass marked the single record deals; foregrounding the peak years read truer to
+  the wall the eye lands on.) Built on the
+  `HistorySkyline`/`FinishTimeline` lineage — an honest linear time axis, absolutely-positioned bars (a
+  missing year is a real gap), pure positioned HTML — and wrapped in the standard floodlit plate (its
+  next surface). Net is the headline figure with the two gross sides **colour-keyed to the tide** (red
+  spend / gold receipts) beside it.
+- ✅ **The pathology this surface had to dodge: fees are a *modern* phenomenon.** Nominal transfer fees span
+  five orders of magnitude over 140 years — £0 recorded until 1972, £237m in a single 2025 window — so a
+  pure-money wall would be ~90 years of dead flatline (≈60% of the width) then a hockey-stick. Two honest
+  moves rather than hide it: **(1)** the flat pre-fee century is *shaded and labelled* ("fees largely
+  undisclosed before the 1970s") so the flatline reads as a coverage fact, not absence — the
+  `FinishTimeline` war-shading idiom. **(2)** a thin neutral **people-flow strip** beneath the tide draws
+  the raw count of moves per year (recorded right back to Newton Heath), so the pre-fee century reads as
+  *busy with unpublished business*, not empty. Two units, two clearly-separated registers, one timeline —
+  the "encode the second variable on a different channel" instinct, here a different *panel* because the
+  count and the money want different baselines.
+- ✅ **Subtracted the decade `SpendBars` (and its `netSpendByDecade` query).** "The long arc, by decade"
+  was the by-time cut of the same money the tide now draws by year, only coarser — the new hero strictly
+  dominates it, so it went, exactly the recurring "subtract a whole module the hero subsumes" move
+  (analytics' grounds grid, `/data`'s decade bar charts, home's Elo chart). The body tightened to
+  hero → record deals → who spent it (the same money cut by *person*, which the tide doesn't show, so it
+  stays) → the season-by-season archive.
+- ✅ **`TransferArchive` — the record season by season** (the `MatchArchive` collapse pattern, carrying money
+  not W-D-L). The "recent business" latest-12 list answered a question nobody asks (the newest dozen moves);
+  it became the *whole* record as collapsed `<details>` rows — every window since 1980-81 a summary line
+  (season · in/out count · net spend, red for spend / green for a net sale), the **latest season open by
+  default**, opening to a structured detail: separate **↓ Incoming** / **↑ Outgoing** sub-sections each
+  ranked by fee descending (stacked with a horizontal divider on mobile, side-by-side from `lg` up), each
+  behind a coloured left rail (devil-red in / gold out, echoing the tide and the leaderboards) so direction
+  reads instantly — the per-row pill is dropped there as redundant. The fee-less pre-1980 era folds into one summary row expanding to a compact per-season count
+  grid (fees almost never published then, so it's summarised by volume, never shown as £0). Native
+  disclosure, zero JS — the same answer-first-then-auditable-archive move the h2h match lists made.
+- ✅ **"Who spent it" capped to the top 10 by net.** Below the ten biggest net spenders every manager sits at
+  ~£0, an artefact of undisclosed historical fees rather than a real spend, which flattened the shared bar
+  scale; the long tail was cut with the reason stated in the `CoverageNote`.
+- ✅ **The text `<dl>` became a figure-led ribbon.** Net writ large as the answer; gross spend and gross
+  received demoted to a hairline ribbon whose colours *are* the chart's; "biggest spender" dropped from the
+  hero (it lives in "Who spent it"). One element per fact, the `EloHero`/`IdentityPlate` ribbon pattern.
+
+`SpendTide` stays **bespoke** — a diverging money-over-time tide with a companion count strip; no shared
+object captures it, and it reuses the positioned-HTML *technique*, not a component. Nothing reached
+`DESIGN.md` (the plate atmosphere and the honest-time-axis render are both established; the tide is a fresh
+instance). *Lesson, now confirmed on the genuinely last surface: a page built *after* the refresh inherits
+the pre-refresh defaults by gravity — a competent ledger with a polite text hero — and wants the same two
+moves every front door got: author the bold object that shows the whole subject at once, then let the
+encoding dodge the data's pathology (here, that the subject barely existed in money terms for a century)
+rather than letting the pathology flatten the object.*
 
 ## Working method
 

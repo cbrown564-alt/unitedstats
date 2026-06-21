@@ -27,12 +27,12 @@ const MYTHS: [question: string, hook: string, href: string][] = [
 ];
 
 const ROUTES: [label: string, href: string, hint: string][] = [
-  ["Matches", "/matches", "filter 6,000+ fixtures"],
+  ["Matches", "/matches", "the fixture spine"],
   ["Seasons", "/seasons", "1886–87 to today"],
   ["Players", "/players", "every recorded scorer"],
   ["Managers", "/managers", "Mangnall to now"],
   ["Opponents", "/opponents", "every head-to-head"],
-  ["Analytics", "/analytics", "Elo, eras, records"],
+  ["Analytics", "/analytics", "Elo and the long arc"],
 ];
 
 export default function Home() {
@@ -115,7 +115,7 @@ export default function Home() {
           <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
             Every match Manchester United ever played
           </h1>
-          <p className="mt-4 text-ink-dim max-w-xl text-sm sm:text-base">
+          <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
             start with a question, a name, or a season.
           </p>

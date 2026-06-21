@@ -19,7 +19,7 @@ export function PageHeader({
             </p>
           )}
           <h1 className="display text-3xl">{title}</h1>
-          {children && <div className="mt-2 max-w-3xl text-sm leading-6 text-ink-dim">{children}</div>}
+          {children && <div className="mt-2 max-w-2xl text-sm leading-6 text-ink-dim">{children}</div>}
         </div>
         {aside}
       </div>
