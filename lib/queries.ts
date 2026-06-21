@@ -286,6 +286,10 @@ export interface MatchFilter {
   result?: string;
   /** Competition type; "cup" matches every official cup competition. */
   type?: string;
+  /** A specific ground (stadiums.id), e.g. from a search result. */
+  stadium?: string;
+  /** A city — every ground in it (stadiums.city), e.g. "Madrid", "London". */
+  city?: string;
   /** Inclusive ISO date bounds, so era/decade aggregates can link to their matches. */
   from?: string;
   to?: string;
@@ -322,10 +326,19 @@ export function matchWhere(f: MatchFilter): { cond: string; params: Record<strin
     where.push("c.type = @type");
     params.type = f.type;
   }
+  if (f.stadium) { where.push("m.stadium_id = @stadium"); params.stadium = f.stadium; }
+  if (f.city) { where.push("m.stadium_id IN (SELECT id FROM stadiums WHERE city = @city)"); params.city = f.city; }
   if (f.from) { where.push("m.date >= @from"); params.from = f.from; }
   if (f.to) { where.push("m.date <= @to"); params.to = f.to; }
   if (f.q) { where.push("m.opponent_name LIKE @q"); params.q = `%${f.q}%`; }
   return { cond: where.length ? `WHERE ${where.join(" AND ")}` : "", params };
+}
+
+/** Name + city of a single ground, for labelling a stadium-filtered slice. */
+export function stadiumById(id: string): { id: string; name: string; city: string | null } | undefined {
+  return getDb()
+    .prepare("SELECT id, name, city FROM stadiums WHERE id = ?")
+    .get(id) as { id: string; name: string; city: string | null } | undefined;
 }
 
 export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number } {
