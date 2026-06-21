@@ -67,6 +67,25 @@ export function PlayerPlate({
       ? [...shirts].filter((s) => s.shirt === primaryShirt).sort((a, b) => b.apps - a.apps)[0]?.decade ?? null
       : null;
 
+  // Kit strip: one badge per number, not per number-per-decade. Apps sum across
+  // decades, the badge is tinted to the era the player wore that number most, and
+  // a long career is capped at its three most-worn numbers so the strip stays tidy.
+  const kit = Object.values(
+    shirts.reduce<Record<number, Shirt & { topApps: number }>>((acc, s) => {
+      const cur = acc[s.shirt] ?? { ...s, apps: 0, starts: 0, topApps: -1 };
+      cur.apps += s.apps;
+      cur.starts += s.starts;
+      if (s.apps > cur.topApps) {
+        cur.topApps = s.apps;
+        cur.decade = s.decade;
+      }
+      acc[s.shirt] = cur;
+      return acc;
+    }, {}),
+  )
+    .sort((a, b) => b.apps - a.apps)
+    .slice(0, 3);
+
   // Secondary readouts, built only where the number means something — no "—" filler.
   const secondary: { value: string; label: string; detail?: string; tone?: string }[] = [
     { value: stats.apps ? fmtNum(stats.apps) : "—", label: "apps", detail: stats.subs ? `${fmtNum(stats.subs)} sub` : undefined },
@@ -165,12 +184,12 @@ export function PlayerPlate({
 
       {/* Footer band: kit history folded into a compact strip, with the trust caveat. */}
       <div className="relative flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line bg-pitch/40 px-5 py-3 sm:px-6">
-        {shirts.length > 0 && (
+        {kit.length > 0 && (
           <div className="flex items-center gap-2">
             <span className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Kit</span>
             <span className="flex items-center gap-1.5">
-              {shirts.map((s) => (
-                <ShirtBadge key={`${s.decade}-${s.shirt}`} number={s.shirt} decade={s.decade} apps={s.apps} compact />
+              {kit.map((s) => (
+                <ShirtBadge key={s.shirt} number={s.shirt} decade={s.decade} apps={s.apps} compact />
               ))}
             </span>
           </div>
