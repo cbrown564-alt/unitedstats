@@ -13,9 +13,9 @@ import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
-import { fmtDate, fmtMonthYear, fmtNum, pct, scoreline, venueLabel, venuePrefix } from "@/lib/format";
+import { OddsPredictor } from "@/components/OddsPredictor";
+import { fmtDate, fmtMonthYear, fmtNum, pct, scoreline, venuePrefix } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
 export const metadata = { title: "Analytics" };
 
 /**
@@ -36,12 +36,7 @@ function Act({ n, kicker, title, children }: { n: string; kicker: string; title:
   );
 }
 
-export default async function AnalyticsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ opponent?: string; venue?: string }>;
-}) {
-  const sp = await searchParams;
+export default function AnalyticsPage() {
   const elo = eloSeries();
   const seasons = seasonAggregates();
   const partnerships = topAssistPartnerships(10);
@@ -50,9 +45,19 @@ export default async function AnalyticsPage({
 
   // Prospective half of the strength signal: what the same Elo projects forward.
   const opponents = ratedOpponents();
-  const opponentId = sp.opponent && opponents.some((o) => o.id === sp.opponent) ? sp.opponent : "liverpool";
-  const venue = sp.venue === "A" || sp.venue === "N" ? sp.venue : "H";
-  const odds = oddsFor(opponentId, venue);
+  // Precompute odds for every rated opponent at each venue so the forecast widget
+  // runs entirely client-side and this page can be statically prerendered.
+  type OddsResult = NonNullable<ReturnType<typeof oddsFor>>;
+  const oddsByOpponent: Record<string, Partial<Record<"H" | "A" | "N", OddsResult>>> = {};
+  for (const o of opponents) {
+    const entry: Partial<Record<"H" | "A" | "N", OddsResult>> = {};
+    for (const v of ["H", "A", "N"] as const) {
+      const r = oddsFor(o.id, v);
+      if (r) entry[v] = r;
+    }
+    oddsByOpponent[o.id] = entry;
+  }
+  const defaultOpponent = opponents.some((o) => o.id === "liverpool") ? "liverpool" : opponents[0]?.id ?? "";
   const sim = simulateLeagueSeason();
   const buckets = calibration();
 
@@ -186,63 +191,12 @@ export default async function AnalyticsPage({
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">The forecast</p>
               <h3 className="display text-xl">A hypothetical next meeting</h3>
             </div>
-            <div className="rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
-              <form method="GET" action="/analytics" className="flex flex-wrap items-end gap-3 text-sm">
-                <label className="flex flex-col gap-1">
-                  <span className="text-xs uppercase tracking-wider text-ink-faint">Opponent</span>
-                  <select name="opponent" defaultValue={opponentId} className="control">
-                    {opponents.map((o) => (
-                      <option key={o.id} value={o.id}>{o.name}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1">
-                  <span className="text-xs uppercase tracking-wider text-ink-faint">Venue</span>
-                  <select name="venue" defaultValue={venue} className="control">
-                    <option value="H">Home</option>
-                    <option value="A">Away</option>
-                    <option value="N">Neutral</option>
-                  </select>
-                </label>
-                <button
-                  type="submit"
-                  className="min-h-[2.375rem] rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring"
-                >
-                  Work it out
-                </button>
-              </form>
-
-              {odds && (
-                <div className="mt-5">
-                  <p className="mb-3 text-sm text-ink-dim">
-                    United v <span className="font-medium text-ink">{odds.opponentName}</span>,{" "}
-                    {venueLabel(venue).toLowerCase()}, at today&apos;s ratings:
-                  </p>
-                  <div className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line text-center">
-                    <div className="bg-panel-2 px-3 py-3">
-                      <div className="stat-num text-2xl font-semibold text-win">{(100 * odds.pW).toFixed(0)}%</div>
-                      <div className="text-[11px] uppercase tracking-wider text-ink-faint">United win</div>
-                    </div>
-                    <div className="bg-panel-2 px-3 py-3">
-                      <div className="stat-num text-2xl font-semibold text-draw">{(100 * odds.pD).toFixed(0)}%</div>
-                      <div className="text-[11px] uppercase tracking-wider text-ink-faint">Draw</div>
-                    </div>
-                    <div className="bg-panel-2 px-3 py-3">
-                      <div className="stat-num text-2xl font-semibold text-loss">{(100 * odds.pL).toFixed(0)}%</div>
-                      <div className="text-[11px] uppercase tracking-wider text-ink-faint">{odds.opponentName} win</div>
-                    </div>
-                  </div>
-                  <CoverageNote
-                    slice={`United ${Math.round(odds.unitedElo)} v ${odds.opponentName} ${Math.round(odds.opponentElo)} (closed-universe Elo, ${venueLabel(venue).toLowerCase()} worth ${venue === "N" ? 0 : HOME_ADVANTAGE} points), expectancy ${(100 * odds.expected).toFixed(0)}%, split using the ${fmtNum(odds.sample)} historical matches in that expectancy band.`}
-                    evidenceHref={`/matches?opponent=${opponentId}`}
-                    evidenceLabel={`All ${fmtNum(odds.meetings)} rated meetings →`}
-                  >
-                    {odds.opponentName}&apos;s rating moves only when they play United; it was last
-                    updated {odds.lastMet}. Treat long-dormant opponents accordingly.
-                  </CoverageNote>
-                </div>
-              )}
-            </div>
+            <OddsPredictor
+              opponents={opponents}
+              oddsByOpponent={oddsByOpponent}
+              defaultOpponent={defaultOpponent}
+              homeAdvantage={HOME_ADVANTAGE}
+            />
           </div>
         </section>
 
