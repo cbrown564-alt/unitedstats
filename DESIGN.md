@@ -26,7 +26,35 @@ Restrained identity palette.
 
 Use tinted near-black and warm charcoal surfaces, with United red as the primary accent. Gold is a secondary historical or attention color, used sparingly. Result colors are semantic and must never be the only way to understand a result.
 
-Red carries a single, consistent meaning: **United advantage** — wins, goals scored, a positive goal difference, the identity accent, the current selection. The opposite pole — losses, goals conceded, a negative difference — is a cold, recessive **slate-blue**, with draws a neutral grey. This deliberately retires the old win-green/loss-red pairing for two reasons: red was overloaded (it meant both "scored/identity" and "lost"), and green/red is the canonical colorblindness failure (a deuteranope could not tell wins from losses on the history hero). The replacement separates the poles by **both hue and lightness**, so it survives every colorblindness type and reads correctly in greyscale.
+> **Result-palette experiment (branch `experiment/gold-win-red-loss`).** The
+> rules below describe a trial encoding — **win = United yellow, loss = United
+> red** — that replaces the shipped red-win / slate-loss pairing (git `fecc1c7`,
+> still the rationale on `master`). It exists to test the feedback that an
+> all-red record "looks like terrible form", by spending United's *two* identity
+> colours on the result poles and re-using gold/yellow for success as the app
+> already does for trophies. It is not yet the canonical decision.
+
+United's two identity colours carry the two result poles, separated from their
+neighbours by **lightness** (the channel that survives greyscale and every
+colourblindness type): wins are **yellow**, losses are **red**, draws a neutral
+grey. The two unavoidable tensions this creates — and how each is compensated:
+
+- **Win-yellow vs honours-gold.** Gold already means trophy / champion / "the
+  peak", and that accent constantly shares a surface with win bars. So win is a
+  *brighter, lighter* yellow than the deeper honours gold: a win reads yellow,
+  silverware the richer gold — a **win → trophy hierarchy**, not a collision.
+- **Loss-red vs identity-red.** Red is United's pervasive brand accent (links,
+  eyebrows, buttons, selection) and also encodes goals-for in some charts. So
+  loss is a *deeper, heavier* red than the hot identity `devil-bright`: bright
+  red stays "United / positive / goals / identity", the heavy red reads
+  "defeat". Loss must therefore always appear as a bar, badge or shape paired
+  with an "L"/label — never as bare red text that could be mistaken for a link.
+
+The shipped slate-loss palette retired the older win-green / loss-red pairing
+because green/red is the canonical colourblindness failure and red was
+overloaded; this experiment keeps the colourblindness-safe lightness separation
+while accepting red's overload as a deliberate, compensated trade for the
+two-colour identity story.
 
 Current implementation palette:
 
@@ -41,9 +69,9 @@ Current implementation palette:
 --color-devil: #d8210d;
 --color-devil-bright: #ff3b1f;
 --color-gold: #f5c518;
---color-win: #f4452a;   /* United advantage: wins, goals-for, positive figures (the bright identity red) */
+--color-win: #ffd94a;   /* United yellow: wins (lighter than honours gold, so the two don't merge) */
 --color-draw: #9a8d83;  /* neutral mid-grey */
---color-loss: #34527a;  /* the opposite pole: losses, goals-against — cold, recessive, darker in greyscale */
+--color-loss: #a52218;  /* deep brick red: losses (darker than identity devil-bright, greyscale-separable) */
 ```
 
 Future palette work should translate these into OKLCH tokens, keeping the same relationships:
@@ -54,9 +82,9 @@ Future palette work should translate these into OKLCH tokens, keeping the same r
 - Line: visible enough for dense tables on dark surfaces.
 - Ink: warm off-white, never pure white.
 - Red: primary action, current selection, important link, United identity.
-- Gold: rare highlight for attendance, historic note, or selected secondary chart.
-- Win/draw/loss: semantic state, always paired with text, position, or shape. Win shares the identity red (United advantage); loss is the cold slate-blue; draw is neutral grey. Separated by hue *and* lightness so the encoding survives colorblindness and greyscale.
-- A two-series chart must not borrow the win token for mere series-distinction — it would collide with the identity red. Reach for gold/silver/europe-blue instead (see `ReliabilityCurve`, where win-rate is gold against the devil-red points-share).
+- Gold: rare highlight for attendance, historic note, selected secondary chart, and the trophy/champion accent — kept *deeper* than win-yellow so honours never read as a mere win.
+- Win/draw/loss: semantic state, always paired with text, position, or shape. Win is the bright United yellow; loss is the deep United red; draw is neutral grey. Separated from their identity neighbours (honours-gold, identity-red) by *lightness* so the encoding survives colourblindness and greyscale. Loss in particular must stay a bar/badge/shape with an "L"/label, never bare red text.
+- A two-series chart must not borrow the win token for mere series-distinction. Reach for gold/silver/europe-blue instead (see `ReliabilityCurve`, where win-rate is gold against the devil-red points-share).
 
 ## Identity Rules
 
