@@ -1,0 +1,35 @@
+{
+  "note": "Search-only synonyms to improve recall. Keyed by canonical entity id. These never affect display or the canonical record — they are folded and indexed into search_index.aliases by scripts/build-db.ts. Historical opponent names already come from opponent-aliases.json and are merged in automatically.",
+  "players": {
+    "david-beckham": ["becks"],
+    "cristiano-ronaldo": ["cr7", "ronaldo"],
+    "wayne-rooney": ["wazza"],
+    "ryan-giggs": ["giggsy"],
+    "paul-scholes": ["scholesy"],
+    "eric-cantona": ["king eric"],
+    "ole-gunnar-solskj-r": ["ole", "solskjaer", "supersub"],
+    "peter-schmeichel": ["schmikes", "great dane"],
+    "ruud-van-nistelrooy": ["ruud", "van the man"],
+    "dimitar-berbatov": ["berba"],
+    "rio-ferdinand": ["rio"],
+    "bobby-charlton": ["sir bobby"],
+    "denis-law": ["the king", "lawman"],
+    "george-best": ["bestie", "el beatle"],
+    "roy-keane": ["keano"]
+  },
+  "opponents": {
+    "tottenham-hotspur": ["spurs"],
+    "manchester-city": ["man city", "city", "citizens"],
+    "west-bromwich-albion": ["west brom", "wba", "baggies"],
+    "wolverhampton-wanderers": ["wolves"],
+    "newcastle-united": ["newcastle", "magpies"],
+    "sheffield-wednesday": ["sheff wed", "owls"],
+    "queens-park-rangers": ["qpr"],
+    "brighton-and-hove-albion": ["brighton", "seagulls"],
+    "leeds-united": ["leeds"],
+    "liverpool": ["pool", "lfc"],
+    "arsenal": ["gunners", "afc"],
+    "chelsea": ["blues", "cfc"],
+    "everton": ["toffees"]
+  }
+}

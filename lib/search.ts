@@ -152,90 +152,95 @@ function shapedAnswers(q: string): ShapedAnswer[] {
   return out;
 }
 
-function entityResults(q: string, limit = 5): SearchEntity[] {
+/**
+ * Fold a string to a matchable form: strip diacritics, lowercase, reduce to
+ * space-separated alphanumeric tokens. Mirrors the `fold()` used by
+ * scripts/build-db.ts so "solskjaer" matches the indexed "Solskjær".
+ */
+function fold(s: string): string {
+  return s
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+/** Trigram set of a folded string (space-padded so prefixes/suffixes count). */
+function trigrams(s: string): Set<string> {
+  const p = `  ${s} `;
+  const out = new Set<string>();
+  for (let i = 0; i < p.length - 2; i++) out.add(p.slice(i, i + 3));
+  return out;
+}
+
+/** Jaccard overlap of two trigram sets, 0..1. */
+function triSim(a: Set<string>, b: Set<string>): number {
+  if (!a.size || !b.size) return 0;
+  let inter = 0;
+  for (const g of a) if (b.has(g)) inter++;
+  return inter / (a.size + b.size - inter);
+}
+
+interface IndexRow {
+  kind: string;
+  label: string;
+  detail: string;
+  href: string;
+  name_norm: string;
+  aliases: string | null;
+  prominence: number;
+}
+
+// The whole index is small (~1.4k rows); cache it for the trigram fallback so a
+// typo doesn't cost a table scan + per-row work on a cold prepare each keystroke.
+let indexCache: IndexRow[] | null = null;
+function allRows(): IndexRow[] {
+  if (!indexCache) {
+    indexCache = getDb()
+      .prepare("SELECT kind, label, detail, href, name_norm, aliases, prominence FROM search_index")
+      .all() as IndexRow[];
+  }
+  return indexCache;
+}
+
+/**
+ * Typo-tolerant fallback: rank by trigram similarity against name + aliases when
+ * prefix-FTS finds nothing, so "roony" still surfaces Rooney. Similarity carries
+ * the order, nudged by prominence to break near-ties toward the prominent entity.
+ */
+function fuzzyResults(folded: string, limit: number): SearchEntity[] {
+  const qg = trigrams(folded);
+  const scored: { row: IndexRow; score: number }[] = [];
+  for (const row of allRows()) {
+    // Compare against the whole name and each token/alias, taking the best — so a
+    // misspelt surname ("roony") isn't diluted by the rest of the name ("wayne …").
+    let sim = triSim(qg, trigrams(row.name_norm));
+    const fields = [...row.name_norm.split(" "), ...(row.aliases?.split(" ") ?? [])].filter(Boolean);
+    for (const f of fields) sim = Math.max(sim, triSim(qg, trigrams(f)));
+    if (row.name_norm.includes(folded)) sim = Math.max(sim, 0.7); // substring still strong
+    if (sim >= 0.4) scored.push({ row, score: sim + 0.05 * row.prominence });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map(({ row }) => ({
+    kind: row.kind as SearchEntity["kind"],
+    label: row.label,
+    detail: row.detail,
+    href: row.href,
+  }));
+}
+
+/**
+ * Rank entities from the FTS5 `search_index` (built in scripts/build-db.ts):
+ * bm25 relevance, blended with a per-kind `prominence` prior and an exact-prefix
+ * boost so a prominent prefix hit beats an incidental mid-string one. Falls back
+ * to a folded substring scan when FTS finds nothing, so partials/typos still land.
+ */
+function entityResults(q: string, limit = 12): SearchEntity[] {
   const db = getDb();
-  const like = `%${q}%`;
   const out: SearchEntity[] = [];
 
-  const players = db
-    .prepare(
-      `SELECT p.id, p.name,
-              COALESCE(pr.goals, pt.goals, 0) goals,
-              COALESCE(pr.apps, pt.apps, 0) apps
-       FROM players p
-       LEFT JOIN player_records pr ON pr.player_id = p.id
-       LEFT JOIN player_totals pt ON pt.player_id = p.id AND pt.scope = 'all'
-       WHERE p.name LIKE ?
-         AND pr.player_id IS NOT NULL
-       ORDER BY goals DESC, apps DESC LIMIT ?`,
-    )
-    .all(like, limit) as { id: string; name: string; goals: number; apps: number }[];
-  for (const p of players) {
-    out.push({
-      kind: "player",
-      label: p.name,
-      detail: `${p.goals} goals${p.apps ? ` · ${p.apps} apps` : ""}`,
-      href: `/player/${p.id}`,
-    });
-  }
-
-  const managers = db
-    .prepare(
-      `SELECT mg.id, mg.name, COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w
-       FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
-       WHERE mg.name LIKE ? GROUP BY mg.id ORDER BY p DESC LIMIT ?`,
-    )
-    .all(like, limit) as { id: string; name: string; p: number; w: number }[];
-  for (const m of managers) {
-    out.push({
-      kind: "manager",
-      label: m.name,
-      detail: m.p ? `${m.p} matches · ${((100 * m.w) / m.p).toFixed(0)}% won` : "manager",
-      href: `/manager/${m.id}`,
-    });
-  }
-
-  const opponents = db
-    .prepare(
-      `SELECT o.id, o.name, COUNT(*) p FROM matches m JOIN opponents o ON o.id = m.opponent_id
-       WHERE o.name LIKE ? GROUP BY o.id ORDER BY p DESC LIMIT ?`,
-    )
-    .all(like, limit) as { id: string; name: string; p: number }[];
-  for (const o of opponents) {
-    out.push({
-      kind: "opponent",
-      label: o.name,
-      detail: `${o.p} meetings`,
-      href: `/opponent/${o.id}`,
-    });
-  }
-
-  const competitions = db
-    .prepare(
-      `SELECT c.id, c.name, COUNT(m.id) n FROM competitions c JOIN matches m ON m.competition_id = c.id
-       WHERE c.name LIKE ? GROUP BY c.id ORDER BY n DESC LIMIT 3`,
-    )
-    .all(like) as { id: string; name: string; n: number }[];
-  for (const c of competitions) {
-    out.push({
-      kind: "competition",
-      label: c.name,
-      detail: `${c.n} matches`,
-      href: `/matches?competition=${c.id}`,
-    });
-  }
-
-  // season tokens like "1999" or "1998-99"
-  if (/^\d{4}/.test(q.trim())) {
-    const seasons = db
-      .prepare("SELECT DISTINCT season FROM matches WHERE season LIKE ? ORDER BY season DESC LIMIT 3")
-      .all(`${q.trim().slice(0, 4)}%`) as { season: string }[];
-    for (const s of seasons) {
-      out.push({ kind: "season", label: s.season, detail: "season", href: `/seasons/${s.season}` });
-    }
-  }
-
-  // exact date → match
+  // exact date → match (matches aren't in the entity index; lead with it)
   if (/^\d{4}-\d{2}-\d{2}$/.test(q.trim())) {
     const matches = db
       .prepare("SELECT id, date, opponent_name, gf, ga FROM matches WHERE date = ? LIMIT 3")
@@ -250,6 +255,31 @@ function entityResults(q: string, limit = 5): SearchEntity[] {
     }
   }
 
+  const folded = fold(q);
+  if (!folded) return out;
+  const matchExpr = folded
+    .split(" ")
+    .filter(Boolean)
+    .map((t) => `${t}*`)
+    .join(" ");
+
+  let rows = db
+    .prepare(
+      `SELECT s.kind, s.label, s.detail, s.href
+       FROM search_fts JOIN search_index s ON s.rowid = search_fts.rowid
+       WHERE search_fts MATCH ?
+       ORDER BY (
+         bm25(search_fts) - 1.5 * s.prominence
+         - CASE WHEN s.name_norm LIKE ? THEN 2 ELSE 0 END
+       )
+       LIMIT ?`,
+    )
+    .all(matchExpr, `${folded}%`, limit) as SearchEntity[];
+
+  // Typo-tolerant fallback (trigram similarity) when prefix-FTS is empty.
+  if (rows.length === 0) rows = fuzzyResults(folded, limit);
+
+  out.push(...rows);
   return out;
 }
 
