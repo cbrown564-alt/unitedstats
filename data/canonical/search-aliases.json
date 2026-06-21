@@ -31,5 +31,21 @@
     "arsenal": ["gunners", "afc"],
     "chelsea": ["blues", "cfc"],
     "everton": ["toffees"]
+  },
+  "competitions": {
+    "premier-league": ["epl", "pl", "prem"],
+    "first-division": ["div 1", "division one", "old first division"],
+    "second-division": ["div 2", "division two"],
+    "fa-cup": ["fac"],
+    "league-cup": ["efl cup", "carabao cup", "capital one cup", "worthington cup", "rumbelows cup", "coca cola cup", "milk cup"],
+    "charity-shield": ["community shield", "charity shield", "shield"],
+    "champions-league": ["european cup", "ucl", "cl", "ec", "big cup"],
+    "european-cup": ["champions league", "ucl", "cl", "ec", "big cup"],
+    "europa-league": ["uefa cup", "uel", "el"],
+    "uefa-cup": ["europa league", "uel", "el"],
+    "cup-winners-cup": ["cwc", "ecwc", "cup winners"],
+    "uefa-super-cup": ["super cup"],
+    "intercontinental-cup": ["intercontinental"],
+    "fifa-club-world-cup": ["club world cup"]
   }
 }

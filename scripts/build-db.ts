@@ -1121,11 +1121,13 @@ if (fs.existsSync(oppAliasFile)) {
 }
 const searchAliasFile = path.join(CANONICAL, "search-aliases.json");
 if (fs.existsSync(searchAliasFile)) {
-  const { players: pa = {}, opponents: oa = {} } = readJson<{
+  const { players: pa = {}, opponents: oa = {}, competitions: ca = {} } = readJson<{
     players?: Record<string, string[]>; opponents?: Record<string, string[]>;
+    competitions?: Record<string, string[]>;
   }>(searchAliasFile);
   for (const [id, vals] of Object.entries(pa)) addAlias(id, ...vals);
   for (const [id, vals] of Object.entries(oa)) addAlias(id, ...vals);
+  for (const [id, vals] of Object.entries(ca)) addAlias(id, ...vals);
 }
 const aliasFor = (id: string): string | null => {
   const set = aliasById.get(id);
@@ -1189,6 +1191,17 @@ for (const c of competitionRows) {
 
 const seasonRows = db.prepare("SELECT DISTINCT season FROM matches ORDER BY season").all() as { season: string }[];
 for (const s of seasonRows) {
+  // Shorthand year forms so "98" / "98/99" / "9899" reach the 1998-99 season — not
+  // just the seasons whose *end* year is literally 98. The label "1998-99" tokenizes
+  // to a 4-digit start + 2-digit end ("1998","99"); add the 2-digit start, the full
+  // end year, and compact/spaced forms to cover how people actually type seasons.
+  const ym = /^(\d{4})-(\d{2})$/.exec(s.season);
+  if (ym) {
+    const [, start, end2] = ym;
+    const start2 = start.slice(2);
+    const endFull = String(Number(start) + 1);
+    addAlias(s.season, start2, endFull, `${start2}${end2}`, `${start2} ${end2}`);
+  }
   seeds.push({
     kind: "season", entity_id: s.season, label: s.season,
     detail: "season", href: `/seasons/${s.season}`, raw: Number(s.season.slice(0, 4)) || 0,
