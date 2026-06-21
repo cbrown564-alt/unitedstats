@@ -203,13 +203,11 @@ function comparison(norm: string): ShapedAnswer | null {
   const a = resolveEntity(m[1], "player");
   const b = resolveEntity(m[2], "player");
   if (!a || !b || a.entity_id === b.entity_id) return null;
-  const goals = (d: string): number => parseInt(d, 10) || 0;
-  const leader = goals(a.detail) >= goals(b.detail) ? a : b;
   return {
     title: `${a.label} vs ${b.label}`,
     summary: `${a.label}: ${a.detail}  —  ${b.label}: ${b.detail}`,
-    href: leader.href,
-    hrefLabel: `${leader.label} →`,
+    href: `/compare?mode=players&a=${a.entity_id}&b=${b.entity_id}`,
+    hrefLabel: "Compare side by side →",
   };
 }
 

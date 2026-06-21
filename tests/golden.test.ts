@@ -24,6 +24,7 @@ import {
 } from "../lib/queries";
 import { comebacks } from "../lib/trails";
 import { clubStreaks, topRuns } from "../lib/streaks";
+import { compareEras, compareManagers, comparePlayers } from "../lib/compare";
 import { runSearch } from "../lib/search";
 import { getDb } from "../lib/db";
 
@@ -367,4 +368,30 @@ test("comeback detection is internally consistent and finds the 2001 Spurs fight
   assert.ok(spurs, "expected the 5-3 at Spurs among the deepest comebacks");
   assert.equal(spurs.deficit, 3);
   assert.equal(spurs.result, "W");
+});
+
+test("compare builders reproduce the official record across the three modes", () => {
+  // Players: the comparison reads the official scorer/appearance record.
+  const players = comparePlayers("wayne-rooney", "bobby-charlton");
+  assert.ok(players, "expected a player comparison");
+  const byLabel = (c: NonNullable<typeof players>, label: string) =>
+    c.metrics.find((m) => m.label === label)!;
+  assert.deepEqual([byLabel(players, "Goals").a, byLabel(players, "Goals").b], [253, 249]);
+  assert.deepEqual([byLabel(players, "Appearances").a, byLabel(players, "Appearances").b], [559, 758]);
+
+  // Managers: Ferguson's trophy count is the canonical 38; Busby's reign is closed.
+  const mgrs = compareManagers("alex-ferguson", "matt-busby");
+  assert.ok(mgrs, "expected a manager comparison");
+  assert.deepEqual([byLabel(mgrs, "Trophies").a, byLabel(mgrs, "Trophies").b], [38, 11]);
+  assert.deepEqual([byLabel(mgrs, "Matches in charge").a, byLabel(mgrs, "Matches in charge").b], [1497, 1141]);
+
+  // Eras: a closed-vs-closed era comparison resolves with sane win rates.
+  const eras = compareEras("busby", "ferguson");
+  assert.ok(eras, "expected an era comparison");
+  const ferWin = byLabel(eras, "Win rate").b;
+  assert.ok(ferWin != null && ferWin > 55 && ferWin < 62, `Ferguson-era win rate ${ferWin} out of range`);
+
+  // Same entity on both sides is not a comparison.
+  assert.equal(comparePlayers("wayne-rooney", "wayne-rooney"), null);
+  assert.equal(compareEras("busby", "busby"), null);
 });

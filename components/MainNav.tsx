@@ -6,6 +6,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 
 const NAV = [
   ["Questions", "/questions"],
+  ["Compare", "/compare"],
   ["Matches", "/matches"],
   ["Seasons", "/seasons"],
   ["Players", "/players"],
