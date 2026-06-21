@@ -31,7 +31,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { CANONICAL, RAW, readJson, seasonOfDate, slugify, userAgent, writeJson } from "../lib";
+import { CANONICAL, RAW, readJson, slugify, transferSeasonOfDate, userAgent, writeJson } from "../lib";
 import {
   createPlayerResolver, displayName, htmlDecode, normalizedSlug,
   type PlayerRecord, type PlayersFile,
@@ -202,6 +202,29 @@ function parseFee(text: string, type: TransferType): Fee {
   return { gbp: null, raw, kind: "unknown" };
 }
 
+/**
+ * Corrections for known-wrong source rows. mufcinfo occasionally publishes a
+ * premature or mis-keyed date; rather than silently trusting it we patch the one
+ * row here — keyed by player slug, direction and the raw date string as published
+ * — and the season is recomputed from the corrected date downstream.
+ *
+ *  - Casemiro / Malacia: both listed "Released from contract, 30/06/2025", but each
+ *    played on through 2025-26 and left a year later, on 30 Jun 2026. The 2025 date
+ *    placed the exit a season early and contradicted the 2025-26 appearances — the
+ *    impossibility the "left then played" check in scripts/validate.ts guards against.
+ *  - Paul Scholes: his 2012 comeback from retirement is in the archive but undated,
+ *    so the check couldn't see he'd returned after the 2011 retirement. Stamp it with
+ *    his first game back, 8 Jan 2012 (FA Cup vs Manchester City).
+ */
+const DATE_CORRECTIONS: Record<
+  string,
+  { date: string; dateRaw: string; precision?: "day" | "month" | "year" }
+> = {
+  "casemiro|out|30/06/2025": { date: "2026-06-30", dateRaw: "30/06/2026" },
+  "tyrell-malacia|out|30/06/2025": { date: "2026-06-30", dateRaw: "30/06/2026" },
+  "paul-scholes|in|": { date: "2012-01-08", dateRaw: "08/01/2012", precision: "day" },
+};
+
 function classifyType(text: string): TransferType {
   if (/Signed\s+(?:Trainee|Professional)|\bTrainee\b/i.test(text)) return "youth";
   if (/Retired/i.test(text)) return "retired";
@@ -252,7 +275,14 @@ function parseDecade(
     const text = details ?? "";
 
     const type = classifyType(text);
-    const { iso, precision, raw: dateRaw } = parseDate(text);
+    const parsed = parseDate(text);
+    let { iso, raw: dateRaw, precision } = parsed;
+    const correction = DATE_CORRECTIONS[`${normalizedSlug(name)}|${direction}|${dateRaw ?? ""}`];
+    if (correction) {
+      iso = correction.date;
+      dateRaw = correction.dateRaw;
+      if (correction.precision) precision = correction.precision;
+    }
     const fee = parseFee(text, type);
     const club = parseClub(text);
     const year = iso ? parseInt(iso.slice(0, 4), 10) : 0;
@@ -276,7 +306,7 @@ function parseDecade(
       date: iso,
       datePrecision: precision,
       dateRaw,
-      season: iso ? seasonOfDate(iso) : null,
+      season: iso ? transferSeasonOfDate(iso) : null,
       club,
       clubId: club ? slugify(club) : null,
       fee,

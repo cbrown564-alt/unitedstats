@@ -23,7 +23,9 @@ const MYTHS: [question: string, hook: string, href: string][] = [
   ["Are United really the comeback kings?", "Recoveries from behind, replayed minute by minute.", "/questions#comebacks"],
   ["How long are United's longest runs?", "Unbeaten, winning, scoring and clean-sheet streaks.", "/questions#runs"],
   ["Which sides are the real bogey teams?", "Lowest win rates across 20+ meetings.", "/questions#bogey-sides"],
+  ["Is the new-manager bounce real?", "Each manager's first ten against the ten before.", "/questions#manager-bounce"],
   ["How much of a fortress is Old Trafford?", "Home win rate by decade and the longest run.", "/questions#fortress"],
+  ["Who saved their goals for cup nights?", "Scorers who lean hardest toward the cups.", "/questions#cup-specialists"],
 ];
 
 const ROUTES: [label: string, href: string, hint: string][] = [
@@ -34,7 +36,7 @@ const ROUTES: [label: string, href: string, hint: string][] = [
   ["Players", "/players", "every recorded scorer"],
   ["Managers", "/managers", "Mangnall to now"],
   ["Opponents", "/opponents", "every head-to-head"],
-  ["Analytics", "/analytics", "Elo, eras, records"],
+  ["Analytics", "/analytics", "Elo and the long arc"],
 ];
 
 export default function Home() {
@@ -117,7 +119,7 @@ export default function Home() {
           <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
             Every match Manchester United ever played
           </h1>
-          <p className="mt-4 text-ink-dim max-w-xl text-sm sm:text-base">
+          <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
             start with a question, a name, or a season.
           </p>

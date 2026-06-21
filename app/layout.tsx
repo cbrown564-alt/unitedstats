@@ -46,11 +46,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main className="flex-1 w-full mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">{children}</main>
         <footer className="border-t border-line mt-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 text-xs text-ink-faint space-y-1">
-            <p>
+            <p className="max-w-xl">
               UnitedStats — the open history of Manchester United, from Newton Heath (1886) to today.
               Result data: engsoccerdata, openfootball, Wikipedia. Not affiliated with Manchester United FC.
             </p>
-            <p>
+            <p className="max-w-xl">
               Data is plain JSON in the repository — corrections welcome by pull request.
             </p>
           </div>

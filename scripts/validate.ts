@@ -6,7 +6,7 @@ import path from "node:path";
 import fs from "node:fs";
 import {
   CANONICAL, MATCHES_DIR, SeasonFile,
-  listSeasonFiles, readJson, seasonOfDate,
+  listSeasonFiles, readJson, seasonOfDate, transferSeasonOfDate,
 } from "./lib";
 
 interface Ref { id: string }
@@ -53,6 +53,9 @@ const errors: string[] = [];
 const warnings: string[] = [];
 const seenIds = new Set<string>();
 let matchCount = 0;
+// Latest date each United player actually featured (started or came on), used to
+// catch departures dated before a player who was demonstrably still playing.
+const lastAppearance = new Map<string, string>();
 
 for (const file of listSeasonFiles()) {
   const sf = readJson<SeasonFile>(path.join(MATCHES_DIR, file));
@@ -143,6 +146,10 @@ for (const file of listSeasonFiles()) {
       if (side === "united") {
         if (!l.player) errors.push(`${ctx}: United lineup row missing player id`);
         else if (!players.has(l.player)) errors.push(`${ctx}: unknown lineup player "${l.player}"`);
+        else if (l.start || l.on != null) {
+          const prev = lastAppearance.get(l.player);
+          if (!prev || m.date > prev) lastAppearance.set(l.player, m.date);
+        }
       }
       const lineupKey = `${side}|${l.player ?? l.providerId ?? l.playerName ?? ""}`;
       if (lineupPlayers.has(lineupKey)) errors.push(`${ctx}: duplicate lineup player "${lineupKey}"`);
@@ -242,11 +249,58 @@ if (fs.existsSync(transfersFile)) {
     if (t.fee.kind !== "fee" && t.fee.gbp != null) errors.push(`${ctx}: ${t.fee.kind} fee carries an amount`);
     if (t.date !== null) {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(t.date)) errors.push(`${ctx}: bad date "${t.date}"`);
-      else if (t.season && seasonOfDate(t.date) !== t.season) {
-        errors.push(`${ctx}: season "${t.season}" != ${seasonOfDate(t.date)} for ${t.date}`);
+      else if (t.season && transferSeasonOfDate(t.date) !== t.season) {
+        errors.push(`${ctx}: season "${t.season}" != ${transferSeasonOfDate(t.date)} for ${t.date}`);
       }
     }
     for (const s of t.sources) if (!sources.has(s)) errors.push(`${ctx}: unknown source "${s}"`);
+  }
+
+  // A permanent exit can't be followed by appearances for United. For each player,
+  // take their last permanent departure (loans return, so they don't count) and,
+  // unless a later "in" re-signed them, no later match may feature them. Catches a
+  // departure dated a season early — a contract end logged a year before the player
+  // actually left, while he was demonstrably still in the team (e.g. Casemiro).
+  //
+  // Precision matters: a day-precise exit is checked against the exact match date,
+  // but month/year-only dates are padded (to -01 / -07-01) and aren't real days, so
+  // an appearance later in the *same* season is just date fuzz, not a contradiction.
+  // For those we only flag an appearance in a strictly later season.
+  // Known legacy name-collisions: two distinct players share one slug because the
+  // resolver can't tell same-named men decades apart (e.g. an 1899 signing and a
+  // 1920s namesake). Their merged appearances span an impossible range; that's an
+  // identity-disambiguation problem tracked separately, not a transfer-date error,
+  // so it's exempt from this check rather than masking the real recent cases.
+  const COLLISION_EXEMPT = new Set(["james-bain", "john-scott"]);
+  const PERMANENT_EXIT = new Set(["permanent", "released", "retired"]);
+  const startYear = (season: string | null) => (season ? parseInt(season.slice(0, 4), 10) : NaN);
+  const lastExit = new Map<string, { date: string; precision: string | null; season: string | null; name: string }>();
+  const lastReturn = new Map<string, string>();
+  for (const t of transfers) {
+    if (!t.player || !t.date) continue;
+    if (t.direction === "out" && PERMANENT_EXIT.has(t.type)) {
+      const prev = lastExit.get(t.player);
+      if (!prev || t.date > prev.date) {
+        lastExit.set(t.player, { date: t.date, precision: t.datePrecision, season: t.season, name: t.playerName });
+      }
+    } else if (t.direction === "in") {
+      const prev = lastReturn.get(t.player);
+      if (!prev || t.date > prev) lastReturn.set(t.player, t.date);
+    }
+  }
+  for (const [player, exit] of lastExit) {
+    if (COLLISION_EXEMPT.has(player)) continue;
+    const returned = lastReturn.get(player);
+    if (returned && returned > exit.date) continue; // re-signed after leaving
+    const seen = lastAppearance.get(player);
+    if (!seen) continue;
+    if (exit.precision === "day") {
+      if (seen > exit.date) {
+        errors.push(`transfer: ${exit.name} left on ${exit.date} but features in a lineup on ${seen}`);
+      }
+    } else if (startYear(seasonOfDate(seen)) > startYear(exit.season)) {
+      errors.push(`transfer: ${exit.name} left in ${exit.season} but features in a lineup on ${seen}`);
+    }
   }
 }
 
