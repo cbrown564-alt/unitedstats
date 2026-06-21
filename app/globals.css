@@ -13,9 +13,17 @@
   --color-gold: #f5c518;
   --color-silver: #c2c7cf;
   --color-europe: #6f9fe0;
-  --color-win: #f4452a;
-  --color-draw: #9a8d83;
-  --color-loss: #34527a;
+  /* EXPERIMENT (branch experiment/gold-win-red-loss): trial of an alternative
+     result encoding — win = United gold/yellow (success, as with trophies),
+     loss = United red, draw unchanged. Replaces the shipped red-win/slate-loss
+     pairing. Every chart, bar and badge resolves win/draw/loss through these
+     three variables (Tailwind bg-win/text-loss utilities and inline
+     var(--color-*) alike), so swapping the tokens cascades site-wide with no
+     per-component edits. See git log fecc1c7 for the palette being trialled
+     against, and DESIGN.md for the decision rationale. */
+  --color-win: #f5c518;  /* United gold/yellow: wins, goals-for, positive figures */
+  --color-draw: #9a8d83; /* neutral mid-grey, unchanged */
+  --color-loss: #d8210d; /* United red: losses, goals-against */
 
   --font-display: var(--font-archivo), system-ui, sans-serif;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
