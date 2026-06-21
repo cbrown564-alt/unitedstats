@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    // Player/manager portraits are immutable, so let the optimizer hold each
+    // optimized variant for a year. Wikimedia (which rate-limits / 429s) is then
+    // hit at most once per image, not on every cache expiry.
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: "https",

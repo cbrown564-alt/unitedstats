@@ -72,6 +72,21 @@ with height-reserved skeletons, so the 985 `/player/[id]` pages and `/questions`
 defer it past hydration with no layout shift. `/analytics` keeps it eager — its
 Elo hero chart is above the fold.
 
+## M5 — images and fonts
+
+- **Fonts** are already optimal: `next/font/google` (Archivo + IBM Plex Mono)
+  self-hosts the files, subsets to latin, and applies `font-display: swap` — no
+  external font request, no FOIT.
+- **CLS:** portraits render through `next/image` with explicit width/height in a
+  fixed-size container, and club crests are pure CSS — no layout shift.
+- **LCP:** the hero portrait on `/player/[id]` now sets `priority` (+ `sizes`),
+  so the page's largest image isn't lazy-loaded.
+- **Wikimedia 429s:** portraits are immutable, so the optimizer holds each
+  variant for a year (`images.minimumCacheTTL`). Wikimedia is hit at most once
+  per image rather than on every cache expiry. (A build-time download into
+  `public/` would remove the runtime dependency entirely — noted as optional
+  further hardening; not needed for the perf budget.)
+
 ## M6 — regression guard
 
 `scripts/check-static-render.mjs` (run as `npm run check:static`, wired into CI
