@@ -97,7 +97,7 @@ export function PlayerPlate({
         {/* Portrait, with the kit number patched onto the corner. */}
         <div className="flex flex-col items-start gap-2">
           <div className="relative">
-            <PlayerPortrait name={name} src={portrait.src} size="lg" />
+            <PlayerPortrait name={name} src={portrait.src} size="lg" priority />
             {primaryShirt != null && (
               <span className="absolute -bottom-2.5 -left-2.5 rounded-md bg-pitch p-1 shadow-lg shadow-black/50 ring-1 ring-line">
                 <ShirtBadge number={primaryShirt} decade={primaryDecade} compact />

@@ -4,6 +4,8 @@ interface PlayerPortraitProps {
   name: string;
   src?: string | null;
   size?: "xs" | "sm" | "lg";
+  /** Set on the one above-the-fold portrait per page (the hero plate) for LCP. */
+  priority?: boolean;
 }
 
 const SIZES = {
@@ -17,7 +19,7 @@ function initialsFor(name: string): string {
   return parts.slice(0, 2).map((part) => part[0]?.toUpperCase()).join("");
 }
 
-export function PlayerPortrait({ name, src, size = "sm" }: PlayerPortraitProps) {
+export function PlayerPortrait({ name, src, size = "sm", priority = false }: PlayerPortraitProps) {
   const config = SIZES[size];
 
   return (
@@ -30,6 +32,8 @@ export function PlayerPortrait({ name, src, size = "sm" }: PlayerPortraitProps) 
           alt={`Portrait of ${name}`}
           width={config.pixels}
           height={config.pixels}
+          priority={priority}
+          sizes={`${config.pixels}px`}
           className="h-full w-full object-cover"
         />
       ) : (
