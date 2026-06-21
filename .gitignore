@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# search telemetry (append-only, runtime — see lib/search/log.ts)
+/output/search-log.jsonl
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
