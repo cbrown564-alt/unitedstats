@@ -1,289 +1,218 @@
 import { getDb } from "./db";
-import type { Record_ } from "./queries";
+import { fold, trigrams } from "./search/fold";
+import { allIndexRows, type IndexRow } from "./search/resolve";
+import { shapedAnswers, headToHead, type ShapedAnswer } from "./search/intent";
 
-interface SearchEntity {
-  kind: "player" | "manager" | "opponent" | "season" | "competition" | "match";
+export interface SearchEntity {
+  kind: "player" | "manager" | "opponent" | "season" | "competition" | "stadium" | "city" | "match";
   label: string;
   detail: string;
   href: string;
-}
-
-interface ShapedAnswer {
-  title: string;
-  summary: string;
-  href: string;
-  hrefLabel: string;
 }
 
 export interface SearchResponse {
   shaped: ShapedAnswer[];
   entities: SearchEntity[];
+  /** Total entity matches available (entities is the capped slice; this is the full count). */
+  total: number;
 }
 
-function rec(cond: string, params: (string | number)[]): Record_ {
-  return getDb()
-    .prepare(
-      `SELECT COUNT(*) p, COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d,
-              COALESCE(SUM(result='L'),0) l, COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga
-       FROM matches m WHERE ${cond}`,
-    )
-    .get(...params) as Record_;
-}
+export type { ShapedAnswer };
 
-function recText(r: Record_): string {
-  if (!r.p) return "no matches on record";
-  const winPct = ((100 * r.w) / r.p).toFixed(1);
-  return `P${r.p} W${r.w} D${r.d} L${r.l} · ${winPct}% won · GF ${r.gf} GA ${r.ga}`;
-}
-
-function findOpponent(name: string): { id: string; name: string } | undefined {
-  return getDb()
-    .prepare("SELECT id, name FROM opponents WHERE name LIKE ? ORDER BY length(name) LIMIT 1")
-    .get(`%${name}%`) as { id: string; name: string } | undefined;
-}
-
-function findManager(name: string): { id: string; name: string } | undefined {
-  return getDb()
-    .prepare("SELECT id, name FROM managers WHERE name LIKE ? ORDER BY length(name) LIMIT 1")
-    .get(`%${name}%`) as { id: string; name: string } | undefined;
-}
-
-/**
- * Shaped templates: a handful of question forms that get a computed answer with
- * an evidence link, ahead of plain entity lookup. Recognised shapes:
- *   - "record [home|away] [at|against|vs|v] <opponent>"
- *   - "<opponent> away" / "<opponent> at home"
- *   - "record under <manager>" / "<anything> under <manager>"
- *   - "late goals under <manager>"
- *   - "record in <season>"
- */
-function shapedAnswers(q: string): ShapedAnswer[] {
-  const out: ShapedAnswer[] = [];
-  const norm = q.trim().toLowerCase().replace(/\s+/g, " ");
-
-  // late goals under <manager>
-  const late = norm.match(/^late goals under (.+)$/);
-  if (late) {
-    const mg = findManager(late[1]);
-    if (mg) {
-      const row = getDb()
-        .prepare(
-          `SELECT COUNT(*) n, SUM(e.minute >= 76) late
-           FROM match_events e JOIN matches m ON m.id = e.match_id
-           WHERE m.manager_id = ? AND e.type IN ('goal','pen-goal','own-goal-for')
-             AND e.minute IS NOT NULL AND e.minute <= 90`,
-        )
-        .get(mg.id) as { n: number; late: number };
-      if (row.n > 0) {
-        out.push({
-          title: `Late goals under ${mg.name}`,
-          summary: `${row.late} of ${row.n} timed goals (${((100 * row.late) / row.n).toFixed(1)}%) came in the final 15 minutes`,
-          href: `/manager/${mg.id}`,
-          hrefLabel: `${mg.name} →`,
-        });
-      }
-    }
-  }
-
-  // record under <manager>
-  const under = norm.match(/^(?:record |results )?under (.+)$/);
-  if (under && !late) {
-    const mg = findManager(under[1]);
-    if (mg) {
-      out.push({
-        title: `Record under ${mg.name}`,
-        summary: recText(rec("manager_id = ?", [mg.id])),
-        href: `/manager/${mg.id}`,
-        hrefLabel: `${mg.name} →`,
-      });
-    }
-  }
-
-  // record [home|away] at/against <opponent>
-  const vs = norm.match(/^record\s+(home\s+|away\s+)?(?:at|against|vs\.?|v)\s+(.+)$/);
-  if (vs) {
-    const venue = vs[1]?.trim() === "away" || norm.startsWith("record away") ? "A"
-      : vs[1]?.trim() === "home" ? "H" : null;
-    const opp = findOpponent(vs[2]);
-    if (opp) {
-      const cond = venue ? "opponent_id = ? AND venue = ?" : "opponent_id = ?";
-      const params = venue ? [opp.id, venue] : [opp.id];
-      const where = venue === "A" ? "away at" : venue === "H" ? "at home to" : "against";
-      out.push({
-        title: `Record ${where} ${opp.name}`,
-        summary: recText(rec(cond, params)),
-        href: `/matches?opponent=${opp.id}${venue ? `&venue=${venue}` : ""}`,
-        hrefLabel: "Show the matches →",
-      });
-    }
-  }
-
-  // "<opponent> away" / "<opponent> at home"
-  const oppVenue = norm.match(/^(.+?)\s+(away|at home|home)$/);
-  if (oppVenue && !vs) {
-    const opp = findOpponent(oppVenue[1]);
-    if (opp) {
-      const venue = oppVenue[2] === "away" ? "A" : "H";
-      out.push({
-        title: `Record ${venue === "A" ? "away at" : "at home to"} ${opp.name}`,
-        summary: recText(rec("opponent_id = ? AND venue = ?", [opp.id, venue])),
-        href: `/matches?opponent=${opp.id}&venue=${venue}`,
-        hrefLabel: "Show the matches →",
-      });
-    }
-  }
-
-  // record in <season>  (also bare "1998/99", "1998-99")
-  const seasonToken = norm.match(/^(?:record in |results in )?(\d{4})\s*[/–-]\s*(\d{2,4})$/);
-  if (seasonToken) {
-    const start = seasonToken[1];
-    const season = `${start}-${(Number(start) + 1).toString().slice(2)}`;
-    const exists = getDb().prepare("SELECT 1 FROM matches WHERE season = ? LIMIT 1").get(season);
-    if (exists) {
-      out.push({
-        title: `${season} season`,
-        summary: recText(rec("season = ?", [season])),
-        href: `/seasons/${season}`,
-        hrefLabel: "Season page →",
-      });
-    }
-  }
-
-  return out;
-}
-
-/**
- * Fold a string to a matchable form: strip diacritics, lowercase, reduce to
- * space-separated alphanumeric tokens. Mirrors the `fold()` used by
- * scripts/build-db.ts so "solskjaer" matches the indexed "Solskjær".
- */
-function fold(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
-}
-
-/** Trigram set of a folded string (space-padded so prefixes/suffixes count). */
-function trigrams(s: string): Set<string> {
-  const p = `  ${s} `;
-  const out = new Set<string>();
-  for (let i = 0; i < p.length - 2; i++) out.add(p.slice(i, i + 3));
-  return out;
-}
-
-/** Jaccard overlap of two trigram sets, 0..1. */
-function triSim(a: Set<string>, b: Set<string>): number {
-  if (!a.size || !b.size) return 0;
-  let inter = 0;
-  for (const g of a) if (b.has(g)) inter++;
-  return inter / (a.size + b.size - inter);
-}
-
-interface IndexRow {
-  kind: string;
-  label: string;
-  detail: string;
-  href: string;
-  name_norm: string;
-  aliases: string | null;
-  prominence: number;
-}
-
-// The whole index is small (~1.4k rows); cache it for the trigram fallback so a
-// typo doesn't cost a table scan + per-row work on a cold prepare each keystroke.
-let indexCache: IndexRow[] | null = null;
-function allRows(): IndexRow[] {
-  if (!indexCache) {
-    indexCache = getDb()
-      .prepare("SELECT kind, label, detail, href, name_norm, aliases, prominence FROM search_index")
-      .all() as IndexRow[];
-  }
-  return indexCache;
-}
+const KINDS = ["player", "manager", "opponent", "season", "competition", "stadium", "city"] as const;
 
 /**
  * Typo-tolerant fallback: rank by trigram similarity against name + aliases when
  * prefix-FTS finds nothing, so "roony" still surfaces Rooney. Similarity carries
  * the order, nudged by prominence to break near-ties toward the prominent entity.
  */
-function fuzzyResults(folded: string, limit: number): SearchEntity[] {
+function fuzzyResults(folded: string, kind: string | undefined, limit: number): IndexRow[] {
   const qg = trigrams(folded);
   const scored: { row: IndexRow; score: number }[] = [];
-  for (const row of allRows()) {
-    // Compare against the whole name and each token/alias, taking the best — so a
-    // misspelt surname ("roony") isn't diluted by the rest of the name ("wayne …").
-    let sim = triSim(qg, trigrams(row.name_norm));
-    const fields = [...row.name_norm.split(" "), ...(row.aliases?.split(" ") ?? [])].filter(Boolean);
-    for (const f of fields) sim = Math.max(sim, triSim(qg, trigrams(f)));
+  for (const row of allIndexRows()) {
+    if (kind && row.kind !== kind) continue;
+    let sim = 0;
+    const fields = [row.name_norm, ...row.name_norm.split(" "), ...(row.aliases?.split(" ") ?? [])].filter(Boolean);
+    for (const f of fields) sim = Math.max(sim, jaccard(qg, f));
     if (row.name_norm.includes(folded)) sim = Math.max(sim, 0.7); // substring still strong
     if (sim >= 0.4) scored.push({ row, score: sim + 0.05 * row.prominence });
   }
   scored.sort((a, b) => b.score - a.score);
-  return scored.slice(0, limit).map(({ row }) => ({
-    kind: row.kind as SearchEntity["kind"],
-    label: row.label,
-    detail: row.detail,
-    href: row.href,
-  }));
+  return scored.slice(0, limit).map(({ row }) => row);
 }
+
+function jaccard(qg: Set<string>, field: string): number {
+  const fg = trigrams(field);
+  if (!qg.size || !fg.size) return 0;
+  let inter = 0;
+  for (const g of qg) if (fg.has(g)) inter++;
+  return inter / (qg.size + fg.size - inter);
+}
+
+const toEntity = (r: Pick<IndexRow, "kind" | "label" | "detail" | "href">): SearchEntity => ({
+  kind: r.kind as SearchEntity["kind"],
+  label: r.label,
+  detail: r.detail,
+  href: r.href,
+});
 
 /**
  * Rank entities from the FTS5 `search_index` (built in scripts/build-db.ts):
  * bm25 relevance, blended with a per-kind `prominence` prior and an exact-prefix
  * boost so a prominent prefix hit beats an incidental mid-string one. Falls back
- * to a folded substring scan when FTS finds nothing, so partials/typos still land.
+ * to a folded substring/trigram scan when FTS finds nothing, so partials/typos
+ * still land. Returns the capped slice plus the full match count.
  */
-function entityResults(q: string, limit = 12): SearchEntity[] {
+export function entityResults(
+  q: string,
+  opts: { kind?: string; limit?: number; offset?: number } = {},
+): { entities: SearchEntity[]; total: number } {
   const db = getDb();
+  const { kind, limit = 12, offset = 0 } = opts;
   const out: SearchEntity[] = [];
 
   // exact date → match (matches aren't in the entity index; lead with it)
-  if (/^\d{4}-\d{2}-\d{2}$/.test(q.trim())) {
+  if (!kind && offset === 0 && /^\d{4}-\d{2}-\d{2}$/.test(q.trim())) {
     const matches = db
       .prepare("SELECT id, date, opponent_name, gf, ga FROM matches WHERE date = ? LIMIT 3")
       .all(q.trim()) as { id: string; date: string; opponent_name: string; gf: number; ga: number }[];
     for (const m of matches) {
-      out.push({
-        kind: "match",
-        label: `v ${m.opponent_name} ${m.gf}–${m.ga}`,
-        detail: m.date,
-        href: `/match/${m.id}`,
-      });
+      out.push({ kind: "match", label: `v ${m.opponent_name} ${m.gf}–${m.ga}`, detail: m.date, href: `/match/${m.id}` });
     }
   }
 
   const folded = fold(q);
-  if (!folded) return out;
+  if (!folded) return { entities: out, total: out.length };
   const matchExpr = folded
     .split(" ")
     .filter(Boolean)
     .map((t) => `${t}*`)
     .join(" ");
 
+  const kindCond = kind ? "AND s.kind = ?" : "";
+
+  const total = (
+    db
+      .prepare(
+        `SELECT COUNT(*) n FROM search_fts JOIN search_index s ON s.rowid = search_fts.rowid
+         WHERE search_fts MATCH ? ${kindCond}`,
+      )
+      .get(...(kind ? [matchExpr, kind] : [matchExpr])) as { n: number }
+  ).n;
+
   let rows = db
     .prepare(
       `SELECT s.kind, s.label, s.detail, s.href
        FROM search_fts JOIN search_index s ON s.rowid = search_fts.rowid
-       WHERE search_fts MATCH ?
+       WHERE search_fts MATCH ? ${kindCond}
        ORDER BY (
          bm25(search_fts) - 1.5 * s.prominence
          - CASE WHEN s.name_norm LIKE ? THEN 2 ELSE 0 END
        )
-       LIMIT ?`,
+       LIMIT ? OFFSET ?`,
     )
-    .all(matchExpr, `${folded}%`, limit) as SearchEntity[];
+    .all(matchExpr, ...(kind ? [kind] : []), `${folded}%`, limit, offset) as Pick<
+    IndexRow,
+    "kind" | "label" | "detail" | "href"
+  >[];
 
   // Typo-tolerant fallback (trigram similarity) when prefix-FTS is empty.
-  if (rows.length === 0) rows = fuzzyResults(folded, limit);
+  if (rows.length === 0 && offset === 0) {
+    rows = fuzzyResults(folded, kind, limit);
+    out.push(...rows.map(toEntity));
+    return { entities: out, total: out.length };
+  }
 
-  out.push(...rows);
-  return out;
+  out.push(...rows.map(toEntity));
+  return { entities: out, total: Math.max(total, out.length) };
 }
 
-export function runSearch(q: string): SearchResponse {
-  if (!q || q.trim().length < 2) return { shaped: [], entities: [] };
-  return { shaped: shapedAnswers(q), entities: entityResults(q) };
+/** A leading `kind:` / `vs:` scoping operator, parsed off the raw query. */
+function parseOperator(q: string): { op: string; rest: string } | null {
+  const m = /^\s*([a-z]+)\s*:\s*(.+)$/i.exec(q);
+  if (!m) return null;
+  const op = m[1].toLowerCase();
+  if (op !== "vs" && !KINDS.includes(op as (typeof KINDS)[number])) return null;
+  return { op, rest: m[2].trim() };
+}
+
+export function runSearch(q: string, limit = 12): SearchResponse {
+  if (!q || q.trim().length < 2) return { shaped: [], entities: [], total: 0 };
+
+  const operator = parseOperator(q);
+  if (operator) {
+    if (operator.op === "vs") {
+      const h2h = headToHead(operator.rest);
+      const { entities, total } = entityResults(operator.rest, { kind: "opponent", limit });
+      return { shaped: h2h ? [h2h] : [], entities, total };
+    }
+    const { entities, total } = entityResults(operator.rest, { kind: operator.op, limit });
+    return { shaped: [], entities, total };
+  }
+
+  const { entities, total } = entityResults(q, { limit });
+  return { shaped: shapedAnswers(q), entities, total };
+}
+
+/** Prefix-FTS match expression for a folded query ("ole gun" → "ole* gun*"). */
+function ftsExpr(q: string): string {
+  return fold(q)
+    .split(" ")
+    .filter(Boolean)
+    .map((t) => `${t}*`)
+    .join(" ");
+}
+
+/** Per-kind match counts for a query — the facet tallies on the results page. */
+function searchKindCounts(q: string): { kind: string; n: number }[] {
+  const expr = ftsExpr(q);
+  if (!expr) return [];
+  return getDb()
+    .prepare(
+      `SELECT s.kind, COUNT(*) n
+       FROM search_fts JOIN search_index s ON s.rowid = search_fts.rowid
+       WHERE search_fts MATCH ?
+       GROUP BY s.kind`,
+    )
+    .all(expr) as { kind: string; n: number }[];
+}
+
+export interface SearchPage {
+  shaped: ShapedAnswer[];
+  /** When a kind facet is active: that kind's paginated slice. Otherwise: top of each kind. */
+  groups: { kind: string; entities: SearchEntity[]; total: number }[];
+  counts: { kind: string; n: number }[];
+  total: number;
+  page: number;
+  pages: number;
+}
+
+/** Results-page model: shaped answers, faceted entity groups, and pagination. */
+export function searchPage(
+  q: string,
+  opts: { kind?: string; page?: number; pageSize?: number; perGroup?: number } = {},
+): SearchPage {
+  const { kind, pageSize = 25, perGroup = 6 } = opts;
+  const page = Math.max(1, opts.page ?? 1);
+  const counts = searchKindCounts(q).sort((a, b) => b.n - a.n);
+  const total = counts.reduce((acc, c) => acc + c.n, 0);
+  const shaped = kind ? [] : shapedAnswers(q);
+
+  if (kind) {
+    const n = counts.find((c) => c.kind === kind)?.n ?? 0;
+    const { entities } = entityResults(q, { kind, limit: pageSize, offset: (page - 1) * pageSize });
+    return {
+      shaped,
+      groups: entities.length ? [{ kind, entities, total: n }] : [],
+      counts,
+      total,
+      page,
+      pages: Math.max(1, Math.ceil(n / pageSize)),
+    };
+  }
+
+  const groups = counts
+    .map((c) => ({ kind: c.kind, total: c.n, entities: entityResults(q, { kind: c.kind, limit: perGroup }).entities }))
+    .filter((g) => g.entities.length > 0);
+  return { shaped, groups, counts, total, page: 1, pages: 1 };
 }

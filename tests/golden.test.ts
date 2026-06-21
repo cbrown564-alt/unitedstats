@@ -273,6 +273,50 @@ test("entity search: giggs resolves as player and manager", () => {
 });
 
 test("search ignores short or empty queries", () => {
-  assert.deepEqual(runSearch(""), { shaped: [], entities: [] });
-  assert.deepEqual(runSearch("a"), { shaped: [], entities: [] });
+  assert.deepEqual(runSearch(""), { shaped: [], entities: [], total: 0 });
+  assert.deepEqual(runSearch("a"), { shaped: [], entities: [], total: 0 });
+});
+
+// ------------------------------------------------ phase 2: query understanding
+
+test("head-to-head resolves from a bare opponent phrase ('Arsenal away record')", () => {
+  const { shaped } = runSearch("arsenal away record");
+  const hit = shaped.find((s) => s.title === "Record away at Arsenal");
+  assert.ok(hit, "expected a venue-aware head-to-head for 'arsenal away record'");
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won · GF \d+ GA \d+$/);
+  assert.equal(hit.href, "/matches?opponent=arsenal&venue=A");
+});
+
+test("superlative: biggest win in a decade resolves to the single extreme match", () => {
+  const { shaped } = runSearch("biggest win in the 90s");
+  const hit = shaped.find((s) => s.title.startsWith("Biggest win"));
+  assert.ok(hit, "expected a superlative answer");
+  // a comfortable United win, scoped to the 1990s, with a browse link carrying the sort
+  assert.match(hit.summary, /^\d+–\d+.* v .+ · \d{1,2} \w{3} 19\d\d/);
+  assert.match(hit.href, /sort=margin/);
+  assert.match(hit.href, /from=1990/);
+});
+
+test("comparison: two players resolve to a side-by-side, never a head-to-head", () => {
+  const { shaped } = runSearch("rooney vs charlton");
+  const hit = shaped.find((s) => s.title === "Wayne Rooney vs Bobby Charlton");
+  assert.ok(hit, "expected a player-vs-player comparison");
+  assert.match(hit.summary, /Wayne Rooney: .*goals/);
+  assert.match(hit.summary, /Bobby Charlton: .*goals/);
+});
+
+test("era/competition scope: 'United in Europe' gives a computed record", () => {
+  const { shaped } = runSearch("united in europe");
+  const hit = shaped.find((s) => s.title === "United in Europe");
+  assert.ok(hit, "expected an era/competition-scoped record");
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+/);
+  assert.equal(hit.href, "/matches?type=european");
+});
+
+test("scoping operators: 'player:' constrains kind, 'vs:' yields a head-to-head", () => {
+  const players = runSearch("player:giggs").entities;
+  assert.ok(players.length > 0 && players.every((e) => e.kind === "player"), "player: should return only players");
+
+  const { shaped } = runSearch("vs:liverpool");
+  assert.ok(shaped.some((s) => /Record against Liverpool/.test(s.title)), "vs: should return a head-to-head");
 });
