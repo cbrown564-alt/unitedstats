@@ -32,14 +32,34 @@ invalidation (`revalidateTag`) is required.
 | First Load JS (per route) | < 150 KB; chart-heavy routes < 200 KB |
 | Runtime DB access | none from page routes (build-time only) |
 
-## Route disposition
+## Route disposition (achieved)
 
-- **Static (no request input):** `/`, `/managers`, `/transfers`, `/questions`, `/data`
-- **SSG via `generateStaticParams` + `dynamicParams=false`:** `/match/[id]`,
-  `/manager/[id]`, `/opponent/[id]`
-- **Static shell + client-side filtering** (read `searchParams` today):
-  `/analytics`, `/matches`, `/players`, `/opponents`, `/search`, `/seasons`,
-  `/player/[id]`, `/seasons/[season]`
-- **Remains dynamic (genuine request input), HTTP-cached:** `/api/v1/matches`,
-  `/api/v1/players`, `/api/search` and other searchParams API routes; `[id]` API
-  routes become SSG.
+`next build` after M2/M3 — **7,416 pages prerender** (was: 5):
+
+- **Static `○`:** `/`, `/managers`, `/transfers`, `/questions`, `/data`,
+  `/opponents`, `/analytics`
+  - `/opponents` filters client-side (`FilterableList`); `/analytics` runs its
+    forecast client-side (`OddsPredictor`) over build-precomputed odds.
+- **SSG `●` (`generateStaticParams` + `dynamicParams=false`):** `/match/[id]`
+  (6,027), `/player/[id]` (985), `/seasons/[season]` (~128), `/opponent/[id]`
+  (237), `/manager/[id]` (29). Sort/expand interactions are client islands
+  (`PlayerSeasonTable`, `LeagueTable`).
+- **Dynamic `ƒ` by design:** `/matches` and `/players` (filter/sort over large
+  datasets with per-row visuals — too heavy to ship to the client), `/seasons`
+  index (a cosmetic order flip over a richly-spaced ledger), `/search` (genuine
+  search; the instant header/⌘K search is already client-side). These read the
+  DB at runtime but are not SEO/Web-Vitals-critical landing pages.
+
+## M3 — SQLite out of the request path
+
+All 7,416 prerendered routes touch SQLite **only at build**. The four dynamic
+page routes above plus the `/api/v1/*` and `/api/search` handlers are the only
+runtime DB consumers.
+
+The public API stays dynamic rather than statically generating ~7k `[id]`
+endpoints (which would roughly double build output for a secondary feature).
+Instead it leans on the CDN: because the dataset is immutable between deploys
+and every deploy is a fresh cache key, `lib/api.ts` sets
+`Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`,
+so edge hits serve cached JSON and runtime DB queries are rare. Same runtime
+profile as SSG, without the build cost.
