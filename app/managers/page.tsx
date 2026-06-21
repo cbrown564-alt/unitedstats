@@ -9,7 +9,6 @@ import { TrophyIcon } from "@/components/CampaignIcons";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
 export const metadata = { title: "Managers" };
 
 export default function ManagersPage() {

@@ -11,7 +11,6 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { DataTable } from "@/components/DataTable";
 import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
 export const metadata = { title: "Data & corrections" };
 
 /**

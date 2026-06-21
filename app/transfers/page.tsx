@@ -10,7 +10,6 @@ import { TransferList } from "@/components/TransferList";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtFee, fmtNum } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
 export const metadata = { title: "Transfers" };
 
 export default async function TransfersPage() {

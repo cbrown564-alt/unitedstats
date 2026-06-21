@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { opponentById, opponentMatches } from "@/lib/queries";
+import { opponentById, opponentMatches, opponentsIndex } from "@/lib/queries";
 import {
   longestStreak, notableMatches, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
 } from "@/lib/trails";
@@ -19,7 +19,11 @@ import { EvidenceLink } from "@/components/EvidenceLink";
 import { SectionHead } from "@/components/SectionHead";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return opponentsIndex().map((o) => ({ id: o.id }));
+}
 
 export default async function OpponentPage({
   params,

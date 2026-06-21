@@ -16,8 +16,6 @@ import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 
-export const dynamic = "force-dynamic";
-
 // The other myths, listed as compact prompts beside the demonstrated one. Late
 // goals is pulled out as the featured question (it owns the MinuteRidge below),
 // so the homepage *shows* one question's visual rather than only linking out.

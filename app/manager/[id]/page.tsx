@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { managerById, managerMatches, managerTenures, managerTransferSummary } from "@/lib/queries";
+import { managerById, managerMatches, managerTenures, managerTransferSummary, managersIndex } from "@/lib/queries";
 import {
   longestStreak, managerFirstMatches, managerResultSequence, managerSplits, notableMatches,
 } from "@/lib/trails";
@@ -19,7 +19,11 @@ import { StatTile } from "@/components/PageHeader";
 import { fmtDate, fmtFee, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return managersIndex().map((m) => ({ id: m.id }));
+}
 
 /** Date → a fractional year ("1999-08-01" → 1999.58) for placing span bands. */
 const dnum = (date: string | null | undefined) => {
