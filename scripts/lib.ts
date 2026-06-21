@@ -99,6 +99,19 @@ export function seasonOfDate(date: string): string {
   return seasonKey(m >= 7 ? y : y - 1);
 }
 
+/**
+ * Season a *transfer* belongs to. Windows don't follow the Jul 1 match boundary:
+ * the summer window opens in June and feeds the season about to start, so any move
+ * from March onward counts towards the season beginning that calendar year, while
+ * Jan/Feb deals are the winter window of the season already under way. (So Cunha,
+ * 9 Jun 2025, lands in 2025-26 alongside the Jul 2025 summer signings — not the
+ * 2024-25 the Jul 1 boundary would give.)
+ */
+export function transferSeasonOfDate(date: string): string {
+  const [y, m] = date.split("-").map(Number);
+  return seasonKey(m >= 3 ? y : y - 1);
+}
+
 export function matchId(date: string, opponentId: string, venue: Venue): string {
   return `${date}-${opponentId}-${venue.toLowerCase()}`;
 }
