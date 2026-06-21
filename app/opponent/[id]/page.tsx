@@ -114,7 +114,7 @@ export default async function OpponentPage({
           {cup.p > 0 ? (
             <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
               <div className="flex items-baseline gap-2">
-                <span className="stat-num text-3xl font-semibold text-devil-bright">{pct(cup.w, cup.p)}</span>
+                <span className="stat-num text-3xl font-semibold text-win">{pct(cup.w, cup.p)}</span>
                 <span className="text-sm text-ink-dim">won</span>
               </div>
               <p className="stat-num mt-1.5 text-xs text-ink-faint">

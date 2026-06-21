@@ -136,7 +136,7 @@ export default function ManagersPage() {
                     </div>
                     <div className="flex items-end gap-5">
                       <div className="text-right">
-                        <div className="stat-num text-3xl font-semibold leading-none text-gold sm:text-4xl">
+                        <div className="stat-num text-3xl font-semibold leading-none text-win sm:text-4xl">
                           {pct(g.w, g.p)}
                         </div>
                         <div className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-ink-faint">win rate</div>
