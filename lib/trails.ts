@@ -402,6 +402,105 @@ export function leadHeldAtHome(): LeadHeldSummary {
   };
 }
 
+// ---------------------------------------------------------------- comebacks
+
+export interface ComebackMatch {
+  id: string;
+  date: string;
+  season: string;
+  venue: string;
+  result: string;
+  gf: number;
+  ga: number;
+  opponent_name: string;
+  competition_name: string;
+  /** Deepest deficit United climbed out of (positive: goals once behind by). */
+  deficit: number;
+}
+
+export interface ComebackSummary {
+  /** Official matches whose goals all carry a minute, so a comeback can be verified. */
+  replayable: number;
+  fellBehind: number;
+  /** Trailed at some point but did not lose (won or drew). */
+  recovered: number;
+  wonFromBehind: number;
+  fellTwoPlus: number;
+  /** Trailed by two or more and still avoided defeat. */
+  twoPlusRecovered: number;
+}
+
+/**
+ * United's recoveries from a losing position, reconstructed by replaying every
+ * minute-stamped goal in the official record. A match "fell behind" if United's
+ * running margin ever went negative; it is a comeback win if they then won, a
+ * rescue if they avoided defeat. Restricted to matches whose goals all carry a
+ * minute (`events_complete`), so this is the verifiable part of the record — the
+ * same contract the fortress module uses — and the deepest comebacks are the
+ * matches won after trailing furthest.
+ */
+export function comebacks(limit = 6): { summary: ComebackSummary; deepest: ComebackMatch[] } {
+  const db = getDb();
+  const matches = db
+    .prepare(
+      `SELECT m.id, m.date, m.season, m.venue, m.result, m.gf, m.ga,
+              m.opponent_name, c.name AS competition_name
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type != 'unofficial' AND m.events_complete = 1
+       ORDER BY m.date`,
+    )
+    .all() as Omit<ComebackMatch, "deficit">[];
+
+  const ids = matches.map((m) => m.id);
+  const byMatch = new Map<string, { type: string; minute: number }[]>();
+  // Pull goals in chunks so the IN-list never blows past SQLite's parameter cap.
+  for (let i = 0; i < ids.length; i += 800) {
+    const chunk = ids.slice(i, i + 800);
+    const rows = db
+      .prepare(
+        `SELECT match_id, type, minute FROM match_events
+         WHERE match_id IN (${chunk.map(() => "?").join(",")})
+           AND (type IN ${UNITED_GOAL} OR type IN ${OPP_GOAL})
+         ORDER BY match_id, (minute IS NULL), minute, seq`,
+      )
+      .all(...chunk) as { match_id: string; type: string; minute: number }[];
+    for (const r of rows) (byMatch.get(r.match_id) ?? byMatch.set(r.match_id, []).get(r.match_id)!).push(r);
+  }
+
+  const summary: ComebackSummary = {
+    replayable: matches.length,
+    fellBehind: 0,
+    recovered: 0,
+    wonFromBehind: 0,
+    fellTwoPlus: 0,
+    twoPlusRecovered: 0,
+  };
+  const deepest: ComebackMatch[] = [];
+  for (const m of matches) {
+    let u = 0;
+    let o = 0;
+    let worst = 0;
+    for (const e of byMatch.get(m.id) ?? []) {
+      if (UNITED_GOAL_SET.has(e.type)) u++;
+      else o++;
+      if (u - o < worst) worst = u - o;
+    }
+    if (worst >= 0) continue; // never trailed
+    const deficit = -worst;
+    summary.fellBehind++;
+    if (m.result !== "L") summary.recovered++;
+    if (m.result === "W") summary.wonFromBehind++;
+    if (deficit >= 2) {
+      summary.fellTwoPlus++;
+      if (m.result !== "L") summary.twoPlusRecovered++;
+    }
+    if (m.result === "W" && deficit >= 2) deepest.push({ ...m, deficit });
+  }
+
+  deepest.sort((a, b) => b.deficit - a.deficit || b.date.localeCompare(a.date));
+  return { summary, deepest: deepest.slice(0, limit) };
+}
+
 // ---------------------------------------------------------------- cup specialists
 
 export interface CupSpecialist {

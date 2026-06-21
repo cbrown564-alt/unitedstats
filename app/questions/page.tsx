@@ -1,9 +1,11 @@
 import Link from "next/link";
 import {
-  bogeyOpponents, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
+  bogeyOpponents, comebacks, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
 } from "@/lib/trails";
+import { clubStreaks } from "@/lib/streaks";
+import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
 import { getMeta, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
@@ -20,7 +22,7 @@ import { WdlBar } from "@/components/WdlBar";
 import { ClubBadge } from "@/components/ClubBadge";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { EvidenceLink } from "@/components/EvidenceLink";
-import { fmtDate, fmtNum, pct } from "@/lib/format";
+import { fmtDate, fmtMonthYear, fmtNum, pct, venuePrefix } from "@/lib/format";
 
 const BRITAIN: [number, number, number, number] = [49.8, 56.3, -7.6, 2.3];
 const EUROPE: [number, number, number, number] = [34, 61.5, -11, 36];
@@ -29,6 +31,8 @@ export const metadata = { title: "Questions" };
 
 const QUESTION_NAV: [id: string, label: string][] = [
   ["late-goals", "Late goals"],
+  ["comebacks", "Comebacks"],
+  ["runs", "Great runs"],
   ["bogey-sides", "Bogey teams"],
   ["manager-bounce", "Manager bounce"],
   ["fortress", "Fortress OT"],
@@ -84,6 +88,22 @@ export default function QuestionsPage() {
   const specialists = cupSpecialists(25, 10);
   const cupBaseline = cupGoalShareBaseline();
   const topCupLean = specialists[0];
+
+  // Comebacks — recoveries from a losing position, replayed from minute-stamped goals.
+  const cb = comebacks(6);
+
+  // The great runs — longest consecutive official-match streaks of each kind.
+  const streaks = clubStreaks(5);
+  const streakGroups: StreakGroup[] = [
+    { kind: "unbeaten", title: "Unbeaten", figureNoun: "without defeat", tone: "win", runs: streaks.unbeaten },
+    { kind: "winning", title: "Winning", figureNoun: "wins in a row", tone: "gold", runs: streaks.winning },
+    { kind: "scoring", title: "Scoring", figureNoun: "matches scoring", tone: "gold", runs: streaks.scoring },
+    { kind: "cleansheet", title: "Clean sheets", figureNoun: "without conceding", tone: "win", runs: streaks.cleansheet },
+  ];
+  const longestUnbeaten = streaks.unbeaten[0];
+  const longestWinning = streaks.winning[0];
+  const longestScoring = streaks.scoring[0];
+  const longestClean = streaks.cleansheet[0];
 
   // Fortress, stated as a rule: lead at half-time at Old Trafford and you don't lose.
   const leadHeld = leadHeldAtHome();
@@ -205,6 +225,72 @@ export default function QuestionsPage() {
           </div>
         </div>
         <EvidenceLink href="/matches" label="Browse every match →" />
+      </Module>
+
+      <Module
+        id="comebacks"
+        question="Are United really the comeback kings?"
+        finding={`Of ${fmtNum(cb.summary.replayable)} matches the record lets us replay minute by minute, United fell behind in ${fmtNum(cb.summary.fellBehind)} — and still avoided defeat in ${fmtNum(cb.summary.recovered)} of them, ${fmtNum(cb.summary.wonFromBehind)} turned all the way around into wins. ${fmtNum(cb.summary.twoPlusRecovered)} times they trailed by two or more and did not lose.`}
+        slice="Official matches whose goals all carry a minute; a match counts as 'behind' whenever United's running score fell below the opponent's. The deepest comebacks are wins after trailing by two goals or more."
+        coverage={`${fmtNum(cb.summary.replayable)} of ${fmtNum(Number(meta.matches))} matches have minute-complete goals, so a fightback can be verified; minute data thins before the 1990s, so older recoveries are under-counted.`}
+      >
+        <div className="grid items-stretch gap-3 sm:grid-cols-3">
+          <div className="rounded-lg border border-line bg-panel-2 px-5 py-4 text-center">
+            <div className="stat-num text-4xl font-semibold leading-none text-win">{fmtNum(cb.summary.recovered)}</div>
+            <div className="mx-auto mt-1.5 max-w-36 text-[11px] uppercase tracking-wider text-ink-faint">
+              rescued after falling behind
+            </div>
+          </div>
+          <div className="rounded-lg border border-line bg-panel-2 px-5 py-4 text-center">
+            <div className="stat-num text-4xl font-semibold leading-none text-gold">{fmtNum(cb.summary.wonFromBehind)}</div>
+            <div className="mx-auto mt-1.5 max-w-36 text-[11px] uppercase tracking-wider text-ink-faint">
+              turned right around into wins
+            </div>
+          </div>
+          <div className="rounded-lg border border-line bg-panel-2 px-5 py-4 text-center">
+            <div className="stat-num text-4xl font-semibold leading-none text-devil-bright">{fmtNum(cb.summary.twoPlusRecovered)}</div>
+            <div className="mx-auto mt-1.5 max-w-36 text-[11px] uppercase tracking-wider text-ink-faint">
+              saved from two or more down
+            </div>
+          </div>
+        </div>
+        {cb.deepest.length > 0 && (
+          <div>
+            <h3 className="mb-2 text-sm font-medium text-ink-dim">The deepest fightbacks — won after trailing by two or more</h3>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {cb.deepest.map((g) => (
+                <Link
+                  key={g.id}
+                  href={`/match/${g.id}`}
+                  className="group rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
+                >
+                  <div className="mb-1 flex items-center justify-between">
+                    <span className="text-[10px] uppercase tracking-wide text-devil-bright">
+                      {g.deficit} goals down
+                    </span>
+                    <span className="text-[10px] uppercase tracking-wide text-win">won</span>
+                  </div>
+                  <div className="truncate font-medium group-hover:text-devil-bright">
+                    <span className="text-ink-faint">{venuePrefix(g.venue)}</span> {g.opponent_name}
+                  </div>
+                  <div className="stat-num mt-0.5 text-xs text-ink-dim">Recovered to win {g.gf}–{g.ga}</div>
+                  <div className="stat-num mt-0.5 text-[11px] text-ink-faint">{fmtDate(g.date)} · {g.season}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        <EvidenceLink href="/matches" label="Browse every match →" />
+      </Module>
+
+      <Module
+        id="runs"
+        question="How long are United's longest runs?"
+        finding={`The longest United have ever gone unbeaten in official football is ${fmtNum(longestUnbeaten?.length ?? 0)} matches (${longestUnbeaten ? `${fmtMonthYear(longestUnbeaten.from)} – ${fmtMonthYear(longestUnbeaten.to)}` : "—"}); the longest run of straight wins is ${fmtNum(longestWinning?.length ?? 0)}. They have scored in as many as ${fmtNum(longestScoring?.length ?? 0)} consecutive matches and kept ${fmtNum(longestClean?.length ?? 0)} clean sheets in a row.`}
+        slice="Consecutive official matches (friendlies and wartime excluded), in date order. 'Unbeaten' counts wins and draws; 'scoring' counts any match United scored in; 'clean sheet' counts matches without conceding. Each run links to the matches behind it."
+      >
+        <StreakBoard groups={streakGroups} />
+        <EvidenceLink href="/matches?sort=oldest" label="Browse the record in order →" />
       </Module>
 
       <Module

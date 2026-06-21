@@ -22,6 +22,8 @@ import {
   recordByCompetitionType,
   topScorers,
 } from "../lib/queries";
+import { comebacks } from "../lib/trails";
+import { clubStreaks, topRuns } from "../lib/streaks";
 import { runSearch } from "../lib/search";
 import { getDb } from "../lib/db";
 
@@ -319,4 +321,50 @@ test("scoping operators: 'player:' constrains kind, 'vs:' yields a head-to-head"
 
   const { shaped } = runSearch("vs:liverpool");
   assert.ok(shaped.some((s) => /Record against Liverpool/.test(s.title)), "vs: should return a head-to-head");
+});
+
+// ------------------------------------------------ phase 9: runs and comebacks
+
+test("run detection is ordered, bounded, and reaches a deep unbeaten run", () => {
+  const runs = topRuns("unbeaten", 5);
+  assert.ok(runs.length > 0, "expected at least one unbeaten run");
+  // Longest first, then chronological — never increasing in length down the list.
+  for (let i = 1; i < runs.length; i++) {
+    assert.ok(runs[i].length <= runs[i - 1].length, "runs must be ordered longest-first");
+  }
+  // Each run is a real, forward span; an ended run names the match that broke it.
+  for (const r of runs) {
+    assert.ok(r.from <= r.to, `run span ${r.from}..${r.to} must run forwards`);
+    assert.equal(r.ongoing, r.ender === null, "a run is ongoing iff it has no ender");
+  }
+  // The all-time unbeaten record is the 1998-99 treble run; it can only grow, so
+  // this is a floor, not an exact pin.
+  assert.ok(runs[0].length >= 33, `longest unbeaten run ${runs[0].length} below the known 33`);
+
+  // Every kind produces a record run, and clubStreaks agrees with topRuns.
+  const s = clubStreaks(5);
+  assert.equal(s.unbeaten[0].length, runs[0].length);
+  for (const kind of ["winning", "scoring", "cleansheet"] as const) {
+    assert.ok(s[kind][0]?.length >= 3, `expected a ${kind} run of 3+`);
+  }
+});
+
+test("comeback detection is internally consistent and finds the 2001 Spurs fightback", () => {
+  const { summary, deepest } = comebacks(50);
+  // The funnel only narrows: wins ⊆ recoveries ⊆ fell-behind ⊆ replayable.
+  assert.ok(summary.wonFromBehind <= summary.recovered);
+  assert.ok(summary.recovered <= summary.fellBehind);
+  assert.ok(summary.fellBehind <= summary.replayable);
+  assert.ok(summary.twoPlusRecovered <= summary.recovered);
+  assert.equal(summary.replayable, Number(getMeta().matches_events_complete));
+  // Floors that only grow as more matches are minute-stamped.
+  assert.ok(summary.recovered >= 1000, `recoveries ${summary.recovered} below floor`);
+  assert.ok(summary.wonFromBehind >= 490, `comeback wins ${summary.wonFromBehind} below floor`);
+
+  // United trailed 3-0 at White Hart Lane in 2001 and won 5-3 — the canonical
+  // comeback, detected from minute-stamped goals with a deficit of 3.
+  const spurs = deepest.find((m) => m.id === "2001-09-29-tottenham-hotspur-a");
+  assert.ok(spurs, "expected the 5-3 at Spurs among the deepest comebacks");
+  assert.equal(spurs.deficit, 3);
+  assert.equal(spurs.result, "W");
 });
