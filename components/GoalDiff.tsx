@@ -8,7 +8,7 @@ const toneOf = (n: number) => (n > 0 ? "text-win" : n < 0 ? "text-loss" : "text-
 
 /**
  * Aggregate goals shown as the one thing they actually mean: goal difference,
- * signed and colour-coded (red ahead, slate behind), with the scored/conceded
+ * signed and colour-coded (yellow ahead, red behind — the win/loss poles), with the scored/conceded
  * split named in support beneath. Replaces the ambiguous "1,234–987" that read
  * like a scoreline and forced the reader to subtract.
  *
