@@ -82,7 +82,7 @@ export default async function TransfersPage() {
             <SpendTide years={tide} />
           </div>
 
-          <p className="mt-4 max-w-2xl text-xs text-ink-faint">
+          <p className="mt-4 max-w-xl text-xs text-ink-faint">
             <span className="text-ink-dim">Slice:</span> every recorded arrival and departure, Newton Heath to now.
             Spend and receipts count only the{" "}
             <span className="stat-num text-ink-dim">{fmtNum(totals.spend_rows + totals.received_rows)}</span> deals with a

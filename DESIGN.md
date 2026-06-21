@@ -90,6 +90,12 @@ Rules:
 - Avoid fluid type scales in product surfaces.
 - Body and explanatory copy should stay comfortable, roughly 65-75 characters when prose-like.
 
+Prose measure (one convention, two tiers):
+
+- **Lead prose** — hero subtitles, `PageHeader` subtitles, page/section intros, body explanation, match notes — wraps at `max-w-2xl`.
+- **Fine print** — slice/coverage notes (`CoverageNote`), footnotes, the site footer — wraps at `max-w-xl`.
+- These are the only two measures for running prose. Do not introduce `max-w-xl`/`max-w-3xl`/full-width one-offs for a paragraph; reach for the matching tier. Page *titles* (`h1`/`.display`) keep their own `max-w-3xl` and are not prose. `max-w-2xl`/`max-w-3xl` on grids and cards are layout, not prose, and are unaffected.
+
 Current caution:
 
 The `.display` class uses negative letter spacing and all-caps. It creates character, but can become noisy in dense panels. Future work should consider a less compressed variant for secondary headings and table-adjacent labels.
