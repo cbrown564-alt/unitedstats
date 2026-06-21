@@ -1195,6 +1195,36 @@ for (const s of seasonRows) {
   });
 }
 
+// Stadiums + cities: only grounds that actually staged a match (so a result has a
+// destination — the /matches?stadium=/?city= facets). Deferred from Phase 1 until
+// the facet existed; indexed here so "Wembley" / "Madrid" reach the fixtures.
+const stadiumRows = db.prepare(`
+  SELECT s.id, s.name, s.city, COUNT(*) n
+  FROM matches m JOIN stadiums s ON s.id = m.stadium_id
+  GROUP BY s.id
+`).all() as { id: string; name: string; city: string | null; n: number }[];
+for (const s of stadiumRows) {
+  seeds.push({
+    kind: "stadium", entity_id: s.id, label: s.name,
+    detail: `${s.city ? `${s.city} · ` : ""}${s.n} ${s.n === 1 ? "match" : "matches"}`,
+    href: `/matches?stadium=${s.id}`, raw: s.n,
+  });
+}
+
+const cityRows = db.prepare(`
+  SELECT s.city, COUNT(*) n, COUNT(DISTINCT s.id) venues
+  FROM matches m JOIN stadiums s ON s.id = m.stadium_id
+  WHERE s.city IS NOT NULL AND s.city <> ''
+  GROUP BY s.city
+`).all() as { city: string; n: number; venues: number }[];
+for (const c of cityRows) {
+  seeds.push({
+    kind: "city", entity_id: c.city, label: c.city,
+    detail: `${c.n} ${c.n === 1 ? "match" : "matches"}${c.venues > 1 ? ` · ${c.venues} grounds` : ""}`,
+    href: `/matches?city=${encodeURIComponent(c.city)}`, raw: c.n,
+  });
+}
+
 // normalise prominence within each kind so a top player and a top opponent both ~1
 const maxByKind = new Map<string, number>();
 for (const s of seeds) maxByKind.set(s.kind, Math.max(maxByKind.get(s.kind) ?? 0, s.raw));

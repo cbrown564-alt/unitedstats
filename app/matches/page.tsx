@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById } from "@/lib/queries";
+import { findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById, stadiumById } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
@@ -59,6 +59,8 @@ export default async function MatchesPage({
     venue: sp.venue || undefined,
     result: sp.result || undefined,
     type: sp.type || undefined,
+    stadium: sp.stadium || undefined,
+    city: sp.city || undefined,
     from: year(sp.from, "from"),
     to: year(sp.to, "to"),
     q: sp.q || undefined,
@@ -76,8 +78,10 @@ export default async function MatchesPage({
   const decades = matchDecades();
   const pages = Math.ceil(total / PAGE_SIZE);
   const hasFilters = Boolean(
-    sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type || sp.from || sp.to,
+    sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type ||
+    sp.stadium || sp.city || sp.from || sp.to,
   );
+  const stadium = sp.stadium ? stadiumById(sp.stadium) : undefined;
   const refineActive = Boolean(sp.venue || sp.result || sp.type || sp.from || sp.to);
 
   const qs = (overrides: Record<string, string | undefined>) => queryString({ ...sp, ...overrides });
@@ -119,6 +123,8 @@ export default async function MatchesPage({
   if (sp.venue) chips.push({ key: "venue", label: venueLabel(sp.venue) });
   if (sp.result) chips.push({ key: "result", label: resultLabel(sp.result) });
   if (sp.type) chips.push({ key: "type", label: COMPETITION_TYPE_LABELS[sp.type] ?? sp.type });
+  if (sp.stadium) chips.push({ key: "stadium", label: stadium?.name ?? "Ground" });
+  if (sp.city) chips.push({ key: "city", label: sp.city });
   if (sp.from) chips.push({ key: "from", label: `From ${sp.from}` });
   if (sp.to) chips.push({ key: "to", label: `To ${sp.to}` });
 
