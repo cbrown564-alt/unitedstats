@@ -135,8 +135,9 @@ export default async function TransfersPage() {
           evidenceLabel="Coverage details"
         >
           Each season opens to its full list of moves; net spend counts only the deals with a known fee.
-          Before 1980 fees were almost never published, so that era is summarised by the volume of business,
-          never shown as £0.
+          Academy promotions, releases and retirements carry no fee and no market, so they sit out of the
+          two money columns — use the toggle to fold them into a quiet lane beneath each season. Before 1980
+          fees were almost never published, so that era is summarised by the volume of business, never shown as £0.
         </CoverageNote>
       </section>
     </div>
