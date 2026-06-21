@@ -379,7 +379,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </div>
         ))}
       </dl>
-      {m.notes && <p className="max-w-3xl text-sm text-ink-dim italic">{m.notes}</p>}
+      {m.notes && <p className="max-w-2xl text-sm text-ink-dim italic">{m.notes}</p>}
 
       {elo && (
         <EloWinBar

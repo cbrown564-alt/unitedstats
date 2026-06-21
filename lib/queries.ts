@@ -1534,11 +1534,11 @@ export function topTransfersByFee(direction: "in" | "out", limit: number): Trans
     .all(direction, limit) as TransferRow[];
 }
 
-/** Most recent dated transfers, either direction. */
-export function recentTransfers(limit: number): TransferRow[] {
+/** Every dated transfer, newest first — the source for the season-by-season archive. */
+export function datedTransfers(): TransferRow[] {
   return getDb()
-    .prepare(`${TRANSFER_SELECT} WHERE t.date IS NOT NULL ORDER BY t.date DESC, t.direction LIMIT ?`)
-    .all(limit) as TransferRow[];
+    .prepare(`${TRANSFER_SELECT} WHERE t.date IS NOT NULL ORDER BY t.date DESC, t.direction`)
+    .all() as TransferRow[];
 }
 
 export interface TransferTotals {
@@ -1570,6 +1570,37 @@ export function transferTotals(): TransferTotals {
     .get() as TransferTotals;
 }
 
+export interface SpendYear {
+  year: number;
+  spend: number;
+  received: number;
+  signings: number;
+  departures: number;
+}
+
+/**
+ * Known-fee spend and receipts plus the raw signing/departure counts, one row per
+ * calendar year of the transfer date. Feeds the `SpendTide` hero: the fees draw
+ * the modern money explosion, while the counts (recorded right back to Newton
+ * Heath, long before any fee was published) carry the people-flow across the whole
+ * timeline so the pre-fee century is busy, not blank.
+ */
+export function spendTideByYear(): SpendYear[] {
+  return getDb()
+    .prepare(
+      `SELECT CAST(substr(date, 1, 4) AS INTEGER) year,
+              COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp END), 0) spend,
+              COALESCE(SUM(CASE WHEN direction = 'out' AND fee_kind = 'fee' THEN fee_gbp END), 0) received,
+              SUM(direction = 'in') signings,
+              SUM(direction = 'out') departures
+       FROM transfers
+       WHERE date IS NOT NULL
+       GROUP BY year
+       ORDER BY year`,
+    )
+    .all() as SpendYear[];
+}
+
 export interface NetSpendBucket {
   bucket: string;
   bucket_id: string;
@@ -1578,26 +1609,6 @@ export interface NetSpendBucket {
   net: number;
   signings: number;
   departures: number;
-}
-
-/** Known-fee spend, receipts and net by decade of the transfer date. */
-export function netSpendByDecade(): NetSpendBucket[] {
-  return getDb()
-    .prepare(
-      `SELECT (substr(date, 1, 3) || '0s') bucket,
-              (substr(date, 1, 3) || '0s') bucket_id,
-              COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp END), 0) spend,
-              COALESCE(SUM(CASE WHEN direction = 'out' AND fee_kind = 'fee' THEN fee_gbp END), 0) received,
-              COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp
-                                WHEN direction = 'out' AND fee_kind = 'fee' THEN -fee_gbp END), 0) net,
-              SUM(direction = 'in') signings,
-              SUM(direction = 'out') departures
-       FROM transfers
-       WHERE date IS NOT NULL
-       GROUP BY bucket
-       ORDER BY bucket`,
-    )
-    .all() as NetSpendBucket[];
 }
 
 /**

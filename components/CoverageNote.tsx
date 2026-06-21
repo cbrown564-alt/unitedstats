@@ -41,25 +41,38 @@ export function CoverageNote({
   // Nothing to say (e.g. a complete facet with no slice) renders nothing at all.
   if (!slice && !coverageText && !children && !evidenceHref) return null;
 
+  // Each labelled field and the free-text elaboration become their own line, so
+  // "Slice: …" and "Coverage: …" stack as a tidy footnote rather than running
+  // together into one paragraph that wraps mid-sentence. The evidence link
+  // trails the last line, keeping a source next to the data it cites.
+  const lines: React.ReactNode[] = [];
+  if (slice) {
+    lines.push(
+      <>
+        <span className="font-medium text-ink">Slice:</span> {slice}
+      </>,
+    );
+  }
+  if (coverageText) {
+    lines.push(
+      <>
+        <span className="font-medium text-ink">Coverage:</span> {coverageText}
+      </>,
+    );
+  }
+  if (children) lines.push(children);
+
+  const evidence = evidenceHref ? <EvidenceLink href={evidenceHref} label={evidenceLabel} /> : null;
+
   return (
-    <p className={`text-xs text-ink-dim mt-2 max-w-2xl ${className}`}>
-      {slice && (
-        <>
-          <span className="font-medium text-ink">Slice:</span> {slice}{" "}
-        </>
-      )}
-      {coverageText && (
-        <>
-          <span className="font-medium text-ink">Coverage:</span> {coverageText}{" "}
-        </>
-      )}
-      {children}
-      {evidenceHref && (
-        <>
-          {" "}
-          <EvidenceLink href={evidenceHref} label={evidenceLabel} />
-        </>
-      )}
-    </p>
+    <div className={`text-xs text-ink-dim mt-2 max-w-xl space-y-1 ${className}`}>
+      {lines.map((line, i) => (
+        <p key={i}>
+          {line}
+          {evidence && i === lines.length - 1 && <> {evidence}</>}
+        </p>
+      ))}
+      {evidence && lines.length === 0 && <p>{evidence}</p>}
+    </div>
   );
 }

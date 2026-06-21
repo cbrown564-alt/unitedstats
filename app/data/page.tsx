@@ -42,7 +42,7 @@ export default function DataPage() {
       <header>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">Canonical record</p>
         <h1 className="display text-3xl">Data &amp; corrections</h1>
-        <p className="mt-2 max-w-3xl text-sm text-ink-dim">
+        <p className="mt-2 max-w-2xl text-sm text-ink-dim">
           UnitedStats is built from plain JSON in <span className="stat-num">data/canonical</span>. The result of every
           match is the spine; United scorers, opposition goals, lineups, cards, attendance, and assists are layered on
           top with cited sources, so partial coverage can be shown honestly rather than hidden.
@@ -95,7 +95,7 @@ export default function DataPage() {
             </div>
 
             <CoverageNote
-              className="mt-4 max-w-3xl"
+              className="mt-4"
               slice={`all ${fmtNum(overview.matches)} matches in the database, grouped by decade. The result row is the spine — every match carries one.`}
             >
               Intensity and the cell value are the share of each decade&apos;s matches that carry the layer. The
@@ -278,7 +278,7 @@ export default function DataPage() {
         <section id="api" className="scroll-mt-24 grid gap-6 lg:grid-cols-[1fr_21rem]">
           <div>
             <h3 className="display text-lg mb-3">Public read-only API</h3>
-            <p className="mb-4 max-w-3xl text-sm text-ink-dim">
+            <p className="mb-4 max-w-2xl text-sm text-ink-dim">
               The API serves the same read-only record used by the app. Responses are plain JSON with permissive CORS,
               pagination on the large lists, and an attribution block that points back to this coverage ledger.
             </p>
@@ -314,7 +314,7 @@ export default function DataPage() {
 
         <section id="downloads" className="scroll-mt-24">
           <h3 className="display text-lg mb-3">Dataset downloads</h3>
-          <p className="mb-4 max-w-3xl text-sm text-ink-dim">
+          <p className="mb-4 max-w-2xl text-sm text-ink-dim">
             Each production build exports flat files from the compiled SQLite database, so the downloadable release
             matches the app and API. Use the manifest first to see file counts and build metadata.
           </p>
