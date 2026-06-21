@@ -281,7 +281,7 @@ than left implicit. The bigger interface bets that are genuinely *additions*
 deferred to Phase 9 where they belong, so this phase pruned and tightened rather
 than expanded.
 
-## Phase 9 — Discovery and comparison ⏳ (next)
+## Phase 9 — Discovery and comparison ✅ (complete)
 
 With the surface simplified, expand the core premise — question-led pattern
 discovery — by adding the comparison and exploration tools it is currently
@@ -300,14 +300,37 @@ Groundwork (done):
 
 Discovery work:
 
-- [ ] Comparison views: player vs player, era vs era, and manager vs manager on
-      shared, coverage-aware metrics.
-- [ ] Expand the question/trail catalogue with new myth-testing cuts beyond the
-      current six modules.
-- [ ] Streak and run detection (unbeaten runs, scoring streaks, clean-sheet
-      runs) as first-class, evidence-linked modules.
-- [ ] A guided "build your own cut" explorer over the existing filter and
-      aggregate layer.
+- [x] Comparison views: player vs player, era vs era, and manager vs manager on
+      shared, coverage-aware metrics. `/compare` (`lib/compare.ts`) builds one
+      `Comparison` shape for all three modes, rendered by `CompareTable` as a
+      mirrored-bar "versus" with the leader tinted; each metric carries its own
+      caveat (the assist lane, three-points-for-a-win, era handover years) and
+      links back to its matches. Shaped player-vs-player search lands here.
+- [x] Expand the question/trail catalogue with new myth-testing cuts beyond the
+      current modules: "Are United really the comeback kings?" (recoveries from
+      behind, replayed from minute-stamped goals, graded coverage) and "How long
+      are United's longest runs?" (the streak board below), taking `/questions`
+      to nine modules.
+- [x] Streak and run detection (unbeaten runs, scoring streaks, clean-sheet
+      runs) as first-class, evidence-linked modules. `lib/streaks.ts` enumerates
+      the top-N consecutive-official-match runs of four kinds over one
+      date-ordered sequence, each carrying the match that ended it; the
+      `StreakBoard` ladders them and every run links to its `/matches` window.
+- [x] A guided "build your own cut" explorer over the existing filter and
+      aggregate layer. `/explore` (`lib/explore.ts`) is the aggregate companion
+      to `/matches`: pick a dimension (decade, season, competition, type, venue,
+      result, opponent, manager), narrow with the shared filters, and read the
+      record per group — every row's link reproducing exactly the matches it
+      counts.
+
+Phase 9 is complete as a discovery capability: the question-led premise now has
+real comparison and exploration tools. `/compare` puts two players, managers, or
+eras side by side on coverage-aware metrics; `/questions` gained comeback and
+longest-run modules (nine in all); `lib/streaks.ts` makes runs first-class and
+evidence-linked; and `/explore` turns the filter+aggregate layer into a
+group-by explorer. New comparison metrics, question cuts, run kinds, and
+explorer dimensions continue as normal product work on `lib/compare.ts`,
+`lib/trails.ts`, `lib/streaks.ts`, and `lib/explore.ts`.
 
 ## Parked pathways (open questions)
 
