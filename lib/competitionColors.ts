@@ -21,10 +21,10 @@ export interface CompetitionMark {
 
 // Keyed by competition id (see public/dataset/season_summaries.csv).
 const CURATED: Record<string, CompetitionMark> = {
-  "premier-league": { abbr: "PL", bg: "#3d2a63" },
+  "premier-league": { abbr: "PL", bg: "#37003c" },
   "first-division": { abbr: "D1", bg: "#4a423d", fg: "#ece6df" },
   "second-division": { abbr: "D2", bg: "#3a332e", fg: "#d8d1c9" },
-  "champions-league": { abbr: "UCL", bg: "#0b2a6b" },
+  "champions-league": { abbr: "UCL", bg: "#0a1a52" },
   "european-cup": { abbr: "EC", bg: "#11357f" },
   "europa-league": { abbr: "UEL", bg: "#c2410c" },
   "uefa-cup": { abbr: "UC", bg: "#b3500f" },
