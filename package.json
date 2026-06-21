@@ -27,6 +27,7 @@
     "ingest:positions": "tsx scripts/ingest/league-positions.ts",
     "ingest:player-positions": "tsx scripts/ingest/wikidata-player-positions.ts",
     "ingest:tableau-goals-assists": "tsx scripts/ingest/tableau-goals-assists.ts",
+    "check:static": "node scripts/check-static-render.mjs",
     "build:db": "tsx scripts/build-db.ts",
     "export:dataset": "tsx scripts/export-dataset.ts",
     "validate": "tsx scripts/validate.ts",

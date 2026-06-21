@@ -63,3 +63,19 @@ and every deploy is a fresh cache key, `lib/api.ts` sets
 `Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`,
 so edge hits serve cached JSON and runtime DB queries are rare. Same runtime
 profile as SSG, without the build cost.
+
+## M4 — bundle
+
+recharts (~348 KB) was already route-split (the home page never loads it). Its
+three charts now load behind `ssr: false` wrappers (`components/charts/lazy.tsx`)
+with height-reserved skeletons, so the 985 `/player/[id]` pages and `/questions`
+defer it past hydration with no layout shift. `/analytics` keeps it eager — its
+Elo hero chart is above the fold.
+
+## M6 — regression guard
+
+`scripts/check-static-render.mjs` (run as `npm run check:static`, wired into CI
+after `npm run build`) reads `.next/prerender-manifest.json` and fails if any
+expected static page or SSG route has regressed to dynamic, or if the
+prerendered-path count collapses. A stray `searchParams`/`cookies()` read or a
+dropped `generateStaticParams` will fail the build instead of silently shipping.
