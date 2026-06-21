@@ -109,7 +109,9 @@ export default async function MatchesPage({
   const pinnedResult = sp.result && RESULT_NOUN[sp.result] ? sp.result : undefined;
   const heroValue = pinnedResult ? fmtNum(summary.p) : pct(summary.w, summary.p);
   const heroLabel = pinnedResult ? RESULT_NOUN[pinnedResult] : "won";
-  const heroTone = pinnedResult ? resultTone(pinnedResult) : "text-devil-bright";
+  // Default headline is the win rate, so it wears the win colour — never brand red,
+  // which now reads as the loss pole. A pinned result uses its own result tone.
+  const heroTone = pinnedResult ? resultTone(pinnedResult) : "text-win";
   // The count is its own "from N matches", so the subline only adds something when open.
   const heroSub = pinnedResult ? null : `from ${fmtNum(summary.p)} ${summary.p === 1 ? "match" : "matches"}`;
 

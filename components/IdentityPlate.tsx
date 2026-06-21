@@ -78,7 +78,9 @@ export function IdentityPlate({
     value: pct(w, p),
     label: "won",
     sub: <>from {fmtNum(p)} {p === 1 ? "match" : "matches"}</>,
-    tone: "text-devil-bright",
+    // The default headline is the win rate, so it wears the win colour, not brand
+    // red (which now reads as the loss pole). Overrides set their own tone.
+    tone: "text-win",
   };
 
   return (
