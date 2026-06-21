@@ -2,27 +2,39 @@ import { opponentsIndex } from "@/lib/queries";
 import { ClubBadge } from "@/components/ClubBadge";
 import { OpponentRivalryMap } from "@/components/charts/OpponentRivalryMap";
 import { IndexRow } from "@/components/IndexRow";
+import { FilterableList } from "@/components/FilterableList";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
 export const metadata = { title: "Opponents" };
 
-export default async function OpponentsPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | undefined>>;
-}) {
-  const sp = await searchParams;
-  const q = (sp.q ?? "").trim().toLowerCase();
+export default function OpponentsPage() {
   const allOpponents = opponentsIndex();
-  const opponents = q ? allOpponents.filter((o) => o.name.toLowerCase().includes(q)) : allOpponents;
 
   const mostPlayed = allOpponents[0];
   // The finding lives among the most-played rivalries: who we master, who we fear.
   const regulars = allOpponents.filter((o) => o.p >= 100);
   const dominated = [...regulars].sort((a, b) => b.w / b.p - a.w / a.p)[0];
   const nemesis = [...regulars].sort((a, b) => a.w / a.p - b.w / b.p)[0];
+
+  // Rows are built on the server so IndexRow/ClubBadge/WdlBar stay off the client
+  // bundle; the FilterableList island only chooses which pre-rendered rows to show.
+  const rows = allOpponents.map((o, i) => ({
+    key: o.id,
+    text: o.name.toLowerCase(),
+    node: (
+      <IndexRow
+        href={`/opponent/${o.id}`}
+        rank={i + 1}
+        leading={<ClubBadge id={o.id} name={o.name} size="md" />}
+        name={o.name}
+        sub={`${o.first.slice(0, 4)}–${o.last.slice(0, 4)}`}
+        w={o.w}
+        d={o.d}
+        l={o.l}
+      />
+    ),
+  }));
 
   return (
     <div className="space-y-10">
@@ -85,37 +97,12 @@ export default async function OpponentsPage({
 
       {/* The detail layer: the full ranked ledger, the auditable filter target. */}
       <div className="space-y-3">
-        <form action="/opponents" className="rounded-lg border border-line bg-panel p-3">
-          <label>
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
-              Find an opponent
-            </span>
-            <input
-              type="search"
-              name="q"
-              defaultValue={sp.q ?? ""}
-              placeholder="Liverpool, Leeds, Bayern"
-              className="control w-full"
-            />
-          </label>
-        </form>
-
-        <ul className="overflow-hidden rounded-lg border border-line bg-pitch/35">
-          {opponents.map((o, i) => (
-            <li key={o.id} className="border-b border-line last:border-b-0">
-              <IndexRow
-                href={`/opponent/${o.id}`}
-                rank={q ? undefined : i + 1}
-                leading={<ClubBadge id={o.id} name={o.name} size="md" />}
-                name={o.name}
-                sub={`${o.first.slice(0, 4)}–${o.last.slice(0, 4)}`}
-                w={o.w}
-                d={o.d}
-                l={o.l}
-              />
-            </li>
-          ))}
-        </ul>
+        <FilterableList
+          items={rows}
+          label="Find an opponent"
+          placeholder="Liverpool, Leeds, Bayern"
+          emptyText="No opponent matches that name."
+        />
 
         <CoverageNote slice="every recorded meeting, league and cup, since 1886">
           Ranked by matches played, so the great rivalries sit at the top. The bar pivots on its centre,

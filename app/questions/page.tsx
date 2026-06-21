@@ -25,7 +25,6 @@ import { fmtDate, fmtNum, pct } from "@/lib/format";
 const BRITAIN: [number, number, number, number] = [49.8, 56.3, -7.6, 2.3];
 const EUROPE: [number, number, number, number] = [34, 61.5, -11, 36];
 
-export const dynamic = "force-dynamic";
 export const metadata = { title: "Questions" };
 
 const QUESTION_NAV: [id: string, label: string][] = [

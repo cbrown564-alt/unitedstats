@@ -80,6 +80,11 @@ export function matchById(id: string): MatchRow | undefined {
   return getDb().prepare(`${MATCH_SELECT} WHERE m.id = ?`).get(id) as MatchRow | undefined;
 }
 
+/** Every match id, for build-time static generation of /match/[id]. */
+export function allMatchIds(): string[] {
+  return (getDb().prepare("SELECT id FROM matches").all() as { id: string }[]).map((r) => r.id);
+}
+
 export interface EventRow {
   seq: number;
   type: string;
