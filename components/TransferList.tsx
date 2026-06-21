@@ -44,9 +44,12 @@ function transferDate(t: TransferRow): string {
 export function TransferList({
   transfers,
   showPlayer = false,
+  showDirection = true,
 }: {
   transfers: TransferRow[];
   showPlayer?: boolean;
+  /** Hide the per-row In/Out pill when the surrounding section already states direction. */
+  showDirection?: boolean;
 }) {
   return (
     <ul className="divide-y divide-line/60 overflow-hidden rounded-xl border border-line bg-panel">
@@ -56,7 +59,7 @@ export function TransferList({
         const preposition = t.direction === "in" ? "from" : "to";
         return (
           <li key={t.id} className="flex items-center gap-3 px-3.5 py-2.5 sm:px-4">
-            <DirectionPill direction={t.direction} />
+            {showDirection && <DirectionPill direction={t.direction} />}
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline gap-2">
                 {showPlayer &&
