@@ -159,6 +159,24 @@ interface Sources {
     coverage?: string | null; notes?: string | null;
   }[];
 }
+interface Transfers {
+  transfers: {
+    id: string;
+    player: string | null;
+    playerName: string;
+    direction: "in" | "out";
+    date: string | null;
+    datePrecision: "day" | "month" | "year" | null;
+    dateRaw: string | null;
+    season: string | null;
+    club: string | null;
+    clubId: string | null;
+    fee: { gbp: number | null; raw: string | null; kind: string };
+    marketValueEur?: number | null;
+    type: string;
+    sources: string[];
+  }[];
+}
 
 const managers = readJson<Managers>(path.join(CANONICAL, "managers.json")).managers;
 const stadiums = readJson<Stadiums>(path.join(CANONICAL, "stadiums.json")).stadiums;
@@ -205,6 +223,8 @@ for (const r of playerRecords) {
 const players = [...playerById.values()].sort((a, b) => a.id.localeCompare(b.id));
 const sourcesFile = path.join(CANONICAL, "sources.json");
 const sources = fs.existsSync(sourcesFile) ? readJson<Sources>(sourcesFile).sources : [];
+const transfersFile = path.join(CANONICAL, "transfers.json");
+const transfers = fs.existsSync(transfersFile) ? readJson<Transfers>(transfersFile).transfers : [];
 const opponentsFile = path.join(CANONICAL, "opponents.json");
 const curatedOpponents = fs.existsSync(opponentsFile)
   ? readJson<Opponents>(opponentsFile).opponents ?? []
@@ -524,6 +544,29 @@ CREATE TABLE league_standings (
   PRIMARY KEY (season, competition_id, position)
 );
 
+CREATE TABLE transfers (
+  id TEXT PRIMARY KEY,
+  player_id TEXT REFERENCES players(id),
+  player_name TEXT NOT NULL,
+  direction TEXT NOT NULL CHECK (direction IN ('in','out')),
+  date TEXT,
+  date_precision TEXT CHECK (date_precision IN ('day','month','year')),
+  date_raw TEXT,
+  season TEXT,
+  club TEXT,
+  club_id TEXT,
+  fee_gbp INTEGER,
+  fee_raw TEXT,
+  fee_kind TEXT NOT NULL CHECK (fee_kind IN ('fee','free','undisclosed','unknown','none')),
+  market_value_eur INTEGER,
+  type TEXT NOT NULL CHECK (type IN ('permanent','loan','youth','released','retired')),
+  sources TEXT
+);
+CREATE INDEX idx_transfers_player ON transfers(player_id);
+CREATE INDEX idx_transfers_date ON transfers(date);
+CREATE INDEX idx_transfers_direction ON transfers(direction);
+CREATE INDEX idx_transfers_season ON transfers(season);
+
 CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 `);
 
@@ -559,6 +602,7 @@ const sourceIdsFromCanonical = new Set([
   ...playerPositions.map((r) => r.sourceId),
   ...(tableauGoalsAssists ? [tableauGoalsAssists.sourceId] : []),
   ...(tableauGoalTypes ? [tableauGoalTypes.sourceId] : []),
+  ...transfers.flatMap((t) => t.sources),
 ]);
 for (const id of sourceIdsFromCanonical) {
   if (!knownSourceIds.has(id)) {
@@ -1062,6 +1106,32 @@ const benchN = (
   db.prepare("SELECT COUNT(*) n FROM match_lineups WHERE bench = 1").get() as { n: number }
 ).n;
 const playerShirtsN = (db.prepare("SELECT COUNT(*) n FROM player_shirts").get() as { n: number }).n;
+
+const insTransfer = db.prepare(
+  "INSERT INTO transfers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+);
+for (const t of transfers) {
+  insTransfer.run(
+    t.id,
+    t.player ?? null,
+    t.playerName,
+    t.direction,
+    t.date ?? null,
+    t.datePrecision ?? null,
+    t.dateRaw ?? null,
+    t.season ?? null,
+    t.club ?? null,
+    t.clubId ?? null,
+    t.fee.gbp ?? null,
+    t.fee.raw ?? null,
+    t.fee.kind,
+    t.marketValueEur ?? null,
+    t.type,
+    JSON.stringify(t.sources),
+  );
+}
+const transfersN = (db.prepare("SELECT COUNT(*) n FROM transfers").get() as { n: number }).n;
+
 const insMeta = db.prepare("INSERT INTO meta VALUES (?,?)");
 insMeta.run("built_at", new Date().toISOString());
 insMeta.run("matches", String(counts.n));
@@ -1076,6 +1146,7 @@ insMeta.run("assists", String(assistsN));
 insMeta.run("opposition_goals", String(oppositionGoalsN));
 insMeta.run("bench_entries", String(benchN));
 insMeta.run("player_shirt_rows", String(playerShirtsN));
+insMeta.run("transfers", String(transfersN));
 insMeta.run("sources", String(knownSourceIds.size));
 
 db.close();

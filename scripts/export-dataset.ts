@@ -70,6 +70,15 @@ const counts: Record<string, number> = {
             ROUND(opp_elo_pre, 2) opp_elo_pre, ROUND(expected, 4) expected
      FROM elo_history ORDER BY date, match_id`,
   ),
+  "transfers.csv": exportCsv(
+    "transfers.csv",
+    `SELECT t.id, t.player_id, COALESCE(p.name, t.player_name) player, t.direction,
+            t.date, t.date_precision, t.season, t.club, t.club_id,
+            t.fee_gbp, t.fee_raw, t.fee_kind, t.market_value_eur, t.type
+     FROM transfers t
+     LEFT JOIN players p ON p.id = t.player_id
+     ORDER BY t.date IS NULL, t.date, t.id`,
+  ),
   "season_summaries.csv": exportCsv(
     "season_summaries.csv",
     `SELECT ss.season, ss.competition_id, c.name competition, c.type competition_type,
@@ -213,7 +222,7 @@ fs.writeFileSync(
       first_match: meta.first_match,
       last_match: meta.last_match,
       files: counts,
-      attribution: "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections).",
+      attribution: "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
       docs: "/data#downloads",
     },
     null,

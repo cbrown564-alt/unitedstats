@@ -1421,3 +1421,175 @@ export function dataGaps(limit = 12): {
     )
     .all(limit) as ReturnType<typeof dataGaps>;
 }
+
+// ================================================================= Transfers
+//
+// The transfer archive (mufcinfo-transfers) is the in/out spine, 1883–present.
+// Fee aggregates count only rows whose fee is a known amount (fee_kind = 'fee');
+// the many historical "undisclosed"/"unknown" fees are real records but carry no
+// figure, so spend totals are always a documented floor, never a guess.
+
+export interface TransferRow {
+  id: string;
+  player_id: string | null;
+  player_name: string;
+  direction: "in" | "out";
+  date: string | null;
+  date_precision: "day" | "month" | "year" | null;
+  season: string | null;
+  club: string | null;
+  club_id: string | null;
+  fee_gbp: number | null;
+  fee_kind: string;
+  market_value_eur: number | null;
+  type: string;
+  thumb_url: string | null;
+}
+
+const TRANSFER_SELECT = `
+  SELECT t.id, t.player_id, COALESCE(p.name, t.player_name) player_name,
+         t.direction, t.date, t.date_precision, t.season, t.club, t.club_id,
+         t.fee_gbp, t.fee_kind, t.market_value_eur, t.type,
+         pm.thumb_url
+  FROM transfers t
+  LEFT JOIN players p ON p.id = t.player_id
+  LEFT JOIN player_media pm ON pm.player_id = t.player_id
+`;
+
+/**
+ * Every transfer for one player, most recent first. Archival rows that carry no
+ * date, no club and no real fee say nothing on a profile, so they are hidden here
+ * (they stay in the canonical record and the dataset export).
+ */
+export function playerTransfers(playerId: string): TransferRow[] {
+  return getDb()
+    .prepare(
+      `${TRANSFER_SELECT}
+       WHERE t.player_id = ?
+         AND NOT (t.date IS NULL AND t.club IS NULL AND t.fee_kind IN ('unknown', 'none'))
+       ORDER BY t.date IS NULL, t.date DESC`,
+    )
+    .all(playerId) as TransferRow[];
+}
+
+/** The biggest known-fee transfers in a direction. */
+export function topTransfersByFee(direction: "in" | "out", limit: number): TransferRow[] {
+  return getDb()
+    .prepare(
+      `${TRANSFER_SELECT}
+       WHERE t.direction = ? AND t.fee_kind = 'fee' AND t.fee_gbp IS NOT NULL
+       ORDER BY t.fee_gbp DESC LIMIT ?`,
+    )
+    .all(direction, limit) as TransferRow[];
+}
+
+/** Most recent dated transfers, either direction. */
+export function recentTransfers(limit: number): TransferRow[] {
+  return getDb()
+    .prepare(`${TRANSFER_SELECT} WHERE t.date IS NOT NULL ORDER BY t.date DESC, t.direction LIMIT ?`)
+    .all(limit) as TransferRow[];
+}
+
+export interface TransferTotals {
+  signings: number;
+  departures: number;
+  free_in: number;
+  youth: number;
+  gross_spend: number;
+  gross_received: number;
+  spend_rows: number;
+  received_rows: number;
+}
+
+/** Headline aggregates across the whole archive. */
+export function transferTotals(): TransferTotals {
+  return getDb()
+    .prepare(
+      `SELECT
+         SUM(direction = 'in') signings,
+         SUM(direction = 'out') departures,
+         SUM(direction = 'in' AND fee_kind = 'free') free_in,
+         SUM(type = 'youth') youth,
+         COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp END), 0) gross_spend,
+         COALESCE(SUM(CASE WHEN direction = 'out' AND fee_kind = 'fee' THEN fee_gbp END), 0) gross_received,
+         SUM(direction = 'in' AND fee_kind = 'fee') spend_rows,
+         SUM(direction = 'out' AND fee_kind = 'fee') received_rows
+       FROM transfers`,
+    )
+    .get() as TransferTotals;
+}
+
+export interface NetSpendBucket {
+  bucket: string;
+  bucket_id: string;
+  spend: number;
+  received: number;
+  net: number;
+  signings: number;
+  departures: number;
+}
+
+/** Known-fee spend, receipts and net by decade of the transfer date. */
+export function netSpendByDecade(): NetSpendBucket[] {
+  return getDb()
+    .prepare(
+      `SELECT (substr(date, 1, 3) || '0s') bucket,
+              (substr(date, 1, 3) || '0s') bucket_id,
+              COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp END), 0) spend,
+              COALESCE(SUM(CASE WHEN direction = 'out' AND fee_kind = 'fee' THEN fee_gbp END), 0) received,
+              COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp
+                                WHEN direction = 'out' AND fee_kind = 'fee' THEN -fee_gbp END), 0) net,
+              SUM(direction = 'in') signings,
+              SUM(direction = 'out') departures
+       FROM transfers
+       WHERE date IS NOT NULL
+       GROUP BY bucket
+       ORDER BY bucket`,
+    )
+    .all() as NetSpendBucket[];
+}
+
+/**
+ * Known-fee spend, receipts and net by the manager in charge on the transfer
+ * date (joined through manager_tenures, mirroring how matches map to managers).
+ */
+export function netSpendByManager(): NetSpendBucket[] {
+  return getDb()
+    .prepare(
+      `SELECT mg.name bucket, mg.id bucket_id,
+              COALESCE(SUM(CASE WHEN t.direction = 'in' AND t.fee_kind = 'fee' THEN t.fee_gbp END), 0) spend,
+              COALESCE(SUM(CASE WHEN t.direction = 'out' AND t.fee_kind = 'fee' THEN t.fee_gbp END), 0) received,
+              COALESCE(SUM(CASE WHEN t.direction = 'in' AND t.fee_kind = 'fee' THEN t.fee_gbp
+                                WHEN t.direction = 'out' AND t.fee_kind = 'fee' THEN -t.fee_gbp END), 0) net,
+              SUM(t.direction = 'in') signings,
+              SUM(t.direction = 'out') departures
+       FROM transfers t
+       JOIN manager_tenures mt ON t.date >= mt.date_from AND (mt.date_to IS NULL OR t.date <= mt.date_to)
+       JOIN managers mg ON mg.id = mt.manager_id
+       WHERE t.date IS NOT NULL
+       GROUP BY mg.id
+       HAVING spend > 0 OR received > 0
+       ORDER BY net DESC`,
+    )
+    .all() as NetSpendBucket[];
+}
+
+/** Net spend and signing/departure counts during one manager's tenure. */
+export function managerTransferSummary(managerId: string): NetSpendBucket | undefined {
+  return getDb()
+    .prepare(
+      `SELECT mg.name bucket, mg.id bucket_id,
+              COALESCE(SUM(CASE WHEN t.direction = 'in' AND t.fee_kind = 'fee' THEN t.fee_gbp END), 0) spend,
+              COALESCE(SUM(CASE WHEN t.direction = 'out' AND t.fee_kind = 'fee' THEN t.fee_gbp END), 0) received,
+              COALESCE(SUM(CASE WHEN t.direction = 'in' AND t.fee_kind = 'fee' THEN t.fee_gbp
+                                WHEN t.direction = 'out' AND t.fee_kind = 'fee' THEN -t.fee_gbp END), 0) net,
+              SUM(t.direction = 'in') signings,
+              SUM(t.direction = 'out') departures
+       FROM transfers t
+       JOIN manager_tenures mt ON t.date >= mt.date_from AND (mt.date_to IS NULL OR t.date <= mt.date_to)
+       JOIN managers mg ON mg.id = mt.manager_id
+       WHERE mg.id = ? AND t.date IS NOT NULL
+       GROUP BY mg.id`,
+    )
+    .get(managerId) as NetSpendBucket | undefined;
+}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { managerById, managerMatches, managerTenures } from "@/lib/queries";
+import { managerById, managerMatches, managerTenures, managerTransferSummary } from "@/lib/queries";
 import {
   longestStreak, managerFirstMatches, managerResultSequence, managerSplits, notableMatches,
 } from "@/lib/trails";
@@ -15,7 +15,8 @@ import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
-import { fmtDate, fmtNum, pct, tallyWdl } from "@/lib/format";
+import { StatTile } from "@/components/PageHeader";
+import { fmtDate, fmtFee, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -40,6 +41,7 @@ export default async function ManagerPage({
 
   const total = m.p;
   const allMatches = managerMatches(id);
+  const market = managerTransferSummary(id);
 
   const comps = getDb()
     .prepare(
@@ -136,6 +138,29 @@ export default async function ManagerPage({
           <CoverageNote slice="consecutive competitive matches under this manager.">
             Any other result breaks the run.
           </CoverageNote>
+        </section>
+      )}
+
+      {market && (market.signings > 0 || market.departures > 0) && (
+        <section>
+          <SectionHead title="In the market" aside="known fees, during the tenure" />
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <StatTile
+              label="Net spend"
+              value={market.net >= 0 ? fmtFee(market.net) : `+${fmtFee(-market.net)}`}
+              detail={market.net >= 0 ? undefined : "net gain"}
+              tone={market.net >= 0 ? "red" : "default"}
+            />
+            <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} in`} tone="red" />
+            <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} out`} tone="gold" />
+            <StatTile label="Dealings" value={fmtNum(market.signings + market.departures)} detail="in + out" />
+          </div>
+          <p className="mt-2 text-xs text-ink-faint">
+            Fees for arrivals and departures dated within the tenure, known fees only.{" "}
+            <Link href="/transfers" className="text-devil-bright hover:underline">
+              All transfers →
+            </Link>
+          </p>
         </section>
       )}
 

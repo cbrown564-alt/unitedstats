@@ -205,6 +205,51 @@ if (fs.existsSync(playerShirtsFile)) {
   }
 }
 
+const transfersFile = path.join(CANONICAL, "transfers.json");
+if (fs.existsSync(transfersFile)) {
+  const transfers = readJson<{
+    transfers: {
+      id: string;
+      player: string | null;
+      playerName: string;
+      direction: string;
+      date: string | null;
+      datePrecision: string | null;
+      season: string | null;
+      fee: { gbp: number | null; kind: string };
+      type: string;
+      sources: string[];
+    }[];
+  }>(transfersFile).transfers;
+  const seenTransferIds = new Set<string>();
+  for (const t of transfers) {
+    const ctx = `transfer ${t.id}`;
+    if (seenTransferIds.has(t.id)) errors.push(`${ctx}: duplicate id`);
+    seenTransferIds.add(t.id);
+    if (!t.playerName) errors.push(`${ctx}: missing player name`);
+    if (t.player && !players.has(t.player)) errors.push(`${ctx}: unknown player "${t.player}"`);
+    if (!["in", "out"].includes(t.direction)) errors.push(`${ctx}: bad direction "${t.direction}"`);
+    if (!["permanent", "loan", "youth", "released", "retired"].includes(t.type)) {
+      errors.push(`${ctx}: bad type "${t.type}"`);
+    }
+    if (!["fee", "free", "undisclosed", "unknown", "none"].includes(t.fee.kind)) {
+      errors.push(`${ctx}: bad fee kind "${t.fee.kind}"`);
+    }
+    // A fee value only makes sense for a "fee" kind, and never as zero/negative.
+    if (t.fee.kind === "fee" && (t.fee.gbp == null || t.fee.gbp <= 0)) {
+      errors.push(`${ctx}: fee kind without a positive amount`);
+    }
+    if (t.fee.kind !== "fee" && t.fee.gbp != null) errors.push(`${ctx}: ${t.fee.kind} fee carries an amount`);
+    if (t.date !== null) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(t.date)) errors.push(`${ctx}: bad date "${t.date}"`);
+      else if (t.season && seasonOfDate(t.date) !== t.season) {
+        errors.push(`${ctx}: season "${t.season}" != ${seasonOfDate(t.date)} for ${t.date}`);
+      }
+    }
+    for (const s of t.sources) if (!sources.has(s)) errors.push(`${ctx}: unknown source "${s}"`);
+  }
+}
+
 if (warnings.length) {
   console.warn(`${warnings.length} warning(s):`);
   for (const w of warnings.slice(0, 20)) console.warn("  ~ " + w);

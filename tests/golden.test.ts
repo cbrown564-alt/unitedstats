@@ -191,6 +191,61 @@ test("every match has exactly one Elo history row, ratings in sane range", () =>
   assert.ok(eloSeries().length > 0);
 });
 
+// ----------------------------------------------------------------- transfers
+
+test("record signing and record sale are the documented club anchors", () => {
+  const topIn = getDb()
+    .prepare(
+      "SELECT player_name, fee_gbp FROM transfers WHERE direction='in' AND fee_kind='fee' ORDER BY fee_gbp DESC LIMIT 1",
+    )
+    .get() as { player_name: string; fee_gbp: number };
+  assert.equal(topIn.player_name, "Paul Pogba");
+  assert.ok(topIn.fee_gbp >= 89_000_000, `record signing fee ${topIn.fee_gbp} below £89m`);
+
+  // Cristiano Ronaldo's £80m move to Real Madrid (2009) is the record sale; later
+  // departures must not eclipse it as the dataset grows.
+  const topOut = getDb()
+    .prepare(
+      "SELECT player_name, fee_gbp FROM transfers WHERE direction='out' AND fee_kind='fee' ORDER BY fee_gbp DESC LIMIT 1",
+    )
+    .get() as { player_name: string; fee_gbp: number };
+  assert.equal(topOut.player_name, "Cristiano Ronaldo");
+  assert.equal(topOut.fee_gbp, 80_000_000);
+});
+
+test("transfers span the archive and never carry a zero fee", () => {
+  const span = getDb()
+    .prepare("SELECT COUNT(*) n, MIN(date) lo, MAX(date) hi FROM transfers WHERE date IS NOT NULL")
+    .get() as { n: number; lo: string; hi: number };
+  assert.ok(span.n > 1500, `expected a deep transfer archive, got ${span.n}`);
+  assert.ok(span.lo < "1900-01-01", `earliest transfer ${span.lo} should reach the Newton Heath era`);
+
+  // A "fee" kind always means a real positive amount; everything else stores no
+  // number, so a fee is never silently rendered as £0.
+  const badFee = (getDb()
+    .prepare(
+      "SELECT COUNT(*) n FROM transfers WHERE (fee_kind='fee') != (fee_gbp IS NOT NULL AND fee_gbp > 0)",
+    )
+    .get() as { n: number }).n;
+  assert.equal(badFee, 0);
+});
+
+test("modern transfers carry a Transfermarkt market value, fee left intact", () => {
+  // The valuation enrichment is additive: it fills market_value_eur on the
+  // lineup-covered modern era without disturbing the mufcinfo GBP fee spine.
+  const withValue = (getDb()
+    .prepare("SELECT COUNT(*) n FROM transfers WHERE market_value_eur IS NOT NULL")
+    .get() as { n: number }).n;
+  assert.ok(withValue > 100, `expected market values on the modern era, got ${withValue}`);
+
+  const pogbaIn = getDb()
+    .prepare("SELECT fee_gbp, fee_kind, market_value_eur FROM transfers WHERE id = '2016-08-09-paul-pogba-in'")
+    .get() as { fee_gbp: number; fee_kind: string; market_value_eur: number | null };
+  assert.equal(pogbaIn.fee_kind, "fee");
+  assert.ok(pogbaIn.fee_gbp >= 89_000_000, "record fee must survive enrichment");
+  assert.ok(pogbaIn.market_value_eur != null && pogbaIn.market_value_eur > 0, "record signing should carry a market value");
+});
+
 // -------------------------------------------------------------------- search
 
 test("shaped search: record away at Arsenal", () => {
