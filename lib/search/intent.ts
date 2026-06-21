@@ -1,0 +1,303 @@
+import { getDb } from "../db";
+import { findMatches, matchWhere, type MatchFilter, type Record_ } from "../queries";
+import { queryString } from "../url";
+import { scoreline, fmtDate } from "../format";
+import { resolveEntity } from "./resolve";
+
+export interface ShapedAnswer {
+  title: string;
+  summary: string;
+  href: string;
+  hrefLabel: string;
+}
+
+// ---------------------------------------------------------------- record helpers
+
+/** W/D/L/goals record for any matches slice, expressed through the shared filter
+ * compiler so a shaped answer reads the exact rows the matches browser would. */
+function recordFor(f: MatchFilter): Record_ {
+  const { cond, params } = matchWhere(f);
+  return getDb()
+    .prepare(
+      `SELECT COUNT(*) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
+              COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga
+       FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`,
+    )
+    .get(params) as Record_;
+}
+
+function recText(r: Record_): string {
+  if (!r.p) return "no matches on record";
+  const winPct = ((100 * r.w) / r.p).toFixed(1);
+  return `P${r.p} W${r.w} D${r.d} L${r.l} · ${winPct}% won · GF ${r.gf} GA ${r.ga}`;
+}
+
+/** /matches link from a filter — years stay bare so the page's `from`/`to` accept them. */
+function matchesHref(p: Record<string, string | number | undefined>): string {
+  return `/matches${queryString(p)}`;
+}
+
+// ---------------------------------------------------------------- scope parser
+
+interface Scope {
+  /** Query filter with ISO date bounds, ready for {@link recordFor}/{@link findMatches}. */
+  filter: MatchFilter;
+  /** Link params for /matches (years left bare). */
+  link: Record<string, string | undefined>;
+  venue?: "H" | "A";
+  venueWord?: string;
+  decadeLabel?: string;
+  seasonLabel?: string;
+  managerName?: string;
+  scopeLabel?: string;
+  /** Whether any head-to-head/record trigger word was present. */
+  triggered: boolean;
+  /** Residual phrase after every recognised fragment is stripped. */
+  rest: string;
+}
+
+const decadeBase = (d: string): number =>
+  d.length === 4 ? Number(d) : Number(d) >= 30 ? 1900 + Number(d) : 2000 + Number(d);
+
+/**
+ * Pull every recognised modifier out of a normalised query — venue, decade,
+ * season, manager, and a small set of competition scopes — leaving a residual
+ * phrase for entity resolution. Decoupling phrasing (here) from computation (the
+ * templates) is what lets many spellings reach the same answer.
+ */
+function parseScope(norm: string): Scope {
+  let rest = ` ${norm} `;
+  const filter: MatchFilter = {};
+  const link: Record<string, string | undefined> = {};
+  const scope: Partial<Scope> = {};
+  let triggered = false;
+
+  const strip = (re: RegExp): RegExpExecArray | null => {
+    const m = re.exec(rest);
+    if (m) rest = `${rest.slice(0, m.index)} ${rest.slice(m.index + m[0].length)}`.replace(/\s+/g, " ");
+    return m;
+  };
+
+  // venue — "at home" before bare "home" so the longer phrase wins
+  if (strip(/\b(?:away|on the road)\b/)) {
+    filter.venue = "A"; link.venue = "A"; scope.venue = "A"; scope.venueWord = "away";
+  } else if (strip(/\bat home\b/) || strip(/\bhome\b/)) {
+    filter.venue = "H"; link.venue = "H"; scope.venue = "H"; scope.venueWord = "at home";
+  }
+
+  // explicit season "1998-99" / "1998/99"
+  const season = strip(/\b(\d{4})\s*[/–-]\s*(\d{2,4})\b/);
+  if (season) {
+    const s = `${season[1]}-${(Number(season[1]) + 1).toString().slice(2)}`;
+    filter.season = s; link.season = s; scope.seasonLabel = s;
+  }
+
+  // decade "90s" / "1990s" / "in the 90s"
+  const decade = strip(/\b(?:in\s+)?(?:the\s+)?((?:19|20)\d{2}|\d{2})s\b/);
+  if (decade && !season) {
+    const base = decadeBase(decade[1]);
+    filter.from = `${base}-01-01`; filter.to = `${base + 9}-12-31`;
+    link.from = String(base); link.to = String(base + 9);
+    scope.decadeLabel = `${base}s`;
+  }
+
+  // manager "under X" (not the late-goals special case, handled by its own trigger)
+  const under = /\bunder\s+(.+?)\s*$/.exec(rest);
+  if (under) {
+    const mg = resolveEntity(under[1], "manager");
+    if (mg) {
+      filter.manager = mg.entity_id; scope.managerName = mg.label; triggered = true;
+      rest = rest.slice(0, under.index).replace(/\s+/g, " ");
+    }
+  }
+
+  // a small, high-traffic set of competition scopes
+  if (strip(/\bin europe\b/) || strip(/\beurope(?:an)?\b/)) {
+    filter.type = "european"; link.type = "european"; scope.scopeLabel = "in Europe";
+  } else if (strip(/\bfa cup\b/)) {
+    filter.type = "domestic-cup"; link.type = "domestic-cup"; scope.scopeLabel = "in the FA Cup";
+  } else if (strip(/\bleague cup\b/)) {
+    filter.type = "league-cup"; link.type = "league-cup"; scope.scopeLabel = "in the League Cup";
+  } else if (strip(/\bin (?:the )?cups?\b/)) {
+    filter.type = "cup"; link.type = "cup"; scope.scopeLabel = "in the cups";
+  } else if (strip(/\bin (?:the )?league\b/)) {
+    filter.type = "league"; link.type = "league"; scope.scopeLabel = "in the league";
+  }
+
+  // head-to-head / record trigger words (stripped so the residual is a clean name)
+  if (/\b(record|records|results?|vs|versus|v|against|h2h|head to head)\b/.test(rest)) triggered = true;
+  rest = rest.replace(/\b(record|records|results?|vs|versus|v|against|h2h|head to head|at|to|the)\b/g, " ");
+  rest = rest.replace(/\s+/g, " ").trim();
+
+  return { filter, link, triggered, rest, ...scope };
+}
+
+// ---------------------------------------------------------------- templates
+
+const UNITED_WORDS = new Set(["", "united", "man utd", "man united", "manchester united", "mufc", "us", "we"]);
+
+/** A head-to-head record vs a named opponent, venue/era-aware. Exposed so the
+ * `vs:` scoping operator can call it directly. */
+export function headToHead(opponentText: string, extra?: MatchFilter, label?: string): ShapedAnswer | null {
+  const opp = resolveEntity(opponentText, "opponent");
+  if (!opp) return null;
+  const venue = extra?.venue;
+  const where = venue === "A" ? "away at" : venue === "H" ? "at home to" : "against";
+  const filter: MatchFilter = { ...extra, opponent: opp.entity_id };
+  const link: Record<string, string | undefined> = {
+    opponent: opp.entity_id, venue, type: extra?.type,
+    from: extra?.from ? extra.from.slice(0, 4) : undefined,
+    to: extra?.to ? extra.to.slice(0, 4) : undefined,
+  };
+  return {
+    title: `Record ${where} ${opp.label}${label ? ` ${label}` : ""}`,
+    summary: recText(recordFor(filter)),
+    href: matchesHref(link),
+    hrefLabel: "Show the matches →",
+  };
+}
+
+/** Biggest win / heaviest defeat / best attended — the single extreme match in
+ * the current scope, with a browse-the-slice link. */
+function superlative(norm: string, scope: Scope): ShapedAnswer | null {
+  let sort: MatchFilter["sort"] | undefined;
+  let noun = "";
+  if (/\b(biggest|best|record|heaviest)\s+(win|victory|wins|victories)\b/.test(norm)) {
+    sort = "margin"; noun = "Biggest win";
+  } else if (/\b(heaviest|worst|biggest)\s+(defeat|loss|defeats|losses)\b/.test(norm)) {
+    sort = "defeat"; noun = "Heaviest defeat";
+  } else if (/\b(best attended|highest attendance|record attendance|biggest crowd|best attendance)\b/.test(norm)) {
+    sort = "attendance"; noun = "Best attended";
+  }
+  if (!sort) return null;
+
+  // The residual after scope-stripping may name an opponent to scope the extreme to.
+  const oppFilter: MatchFilter = {};
+  let oppLabel = "";
+  if (scope.rest && !UNITED_WORDS.has(scope.rest)) {
+    const opp = resolveEntity(scope.rest, "opponent");
+    if (opp) { oppFilter.opponent = opp.entity_id; oppLabel = ` v ${opp.label}`; }
+  }
+
+  const filter: MatchFilter = { ...scope.filter, ...oppFilter, sort, limit: 1 };
+  const { rows } = findMatches(filter);
+  const top = rows[0];
+  if (!top) return null;
+
+  const scopeBits = [oppLabel.trim(), scope.scopeLabel, scope.decadeLabel ? `in the ${scope.decadeLabel}` : ""]
+    .filter(Boolean)
+    .join(" ");
+  const title = `${noun}${scopeBits ? ` ${scopeBits}` : ""}`;
+  const att = sort === "attendance" && top.attendance ? ` · ${top.attendance.toLocaleString("en-GB")}` : "";
+  const summary = `${scoreline(top.gf, top.ga, [top.pen_gf, top.pen_ga], !!top.aet)} v ${top.opponent_name} · ${fmtDate(top.date)}${att}`;
+  const link: Record<string, string | undefined> = {
+    ...scope.link, opponent: oppFilter.opponent, sort,
+  };
+  return { title, summary, href: matchesHref(link), hrefLabel: "Browse the slice →" };
+}
+
+/** Player-vs-player comparison: both sides must resolve to players. */
+function comparison(norm: string): ShapedAnswer | null {
+  const m = /^(.+?)\s+(?:vs\.?|versus|v|compared to|compared with)\s+(.+?)$/.exec(norm);
+  if (!m) return null;
+  const a = resolveEntity(m[1], "player");
+  const b = resolveEntity(m[2], "player");
+  if (!a || !b || a.entity_id === b.entity_id) return null;
+  const goals = (d: string): number => parseInt(d, 10) || 0;
+  const leader = goals(a.detail) >= goals(b.detail) ? a : b;
+  return {
+    title: `${a.label} vs ${b.label}`,
+    summary: `${a.label}: ${a.detail}  —  ${b.label}: ${b.detail}`,
+    href: leader.href,
+    hrefLabel: `${leader.label} →`,
+  };
+}
+
+/** Late goals under a manager — kept verbatim from the original template set. */
+function lateGoals(norm: string): ShapedAnswer | null {
+  const late = /^late goals under (.+)$/.exec(norm);
+  if (!late) return null;
+  const mg = resolveEntity(late[1], "manager");
+  if (!mg) return null;
+  const row = getDb()
+    .prepare(
+      `SELECT COUNT(*) n, SUM(e.minute >= 76) late
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE m.manager_id = ? AND e.type IN ('goal','pen-goal','own-goal-for')
+         AND e.minute IS NOT NULL AND e.minute <= 90`,
+    )
+    .get(mg.entity_id) as { n: number; late: number };
+  if (!row.n) return null;
+  return {
+    title: `Late goals under ${mg.label}`,
+    summary: `${row.late} of ${row.n} timed goals (${((100 * row.late) / row.n).toFixed(1)}%) came in the final 15 minutes`,
+    href: `/manager/${mg.entity_id}`,
+    hrefLabel: `${mg.label} →`,
+  };
+}
+
+/**
+ * Turn a free-text question into computed answers with evidence links. A handful
+ * of template families — comparison, superlative, head-to-head, record-under-
+ * manager, era/competition-scoped, and a season record — each fed by the shared
+ * scope parser and entity resolver, so phrasing is decoupled from computation.
+ */
+export function shapedAnswers(q: string): ShapedAnswer[] {
+  const out: ShapedAnswer[] = [];
+  const norm = q.trim().toLowerCase().replace(/\s+/g, " ");
+  if (!norm) return out;
+
+  const push = (a: ShapedAnswer | null) => { if (a && !out.some((o) => o.title === a.title)) out.push(a); };
+
+  // 1. fixed-shape specials
+  push(lateGoals(norm));
+  push(comparison(norm));
+  if (out.length) return out;
+
+  // 2. scoped templates
+  const scope = parseScope(norm);
+
+  push(superlative(norm, scope));
+
+  // head-to-head when the residual names an opponent and a trigger/venue is present
+  if ((scope.triggered || scope.venue) && scope.rest && !UNITED_WORDS.has(scope.rest)) {
+    push(headToHead(scope.rest, scope.filter));
+  }
+
+  // record under a manager
+  if (scope.managerName && UNITED_WORDS.has(scope.rest)) {
+    push({
+      title: `Record under ${scope.managerName}`,
+      summary: recText(recordFor(scope.filter)),
+      href: `/manager/${scope.filter.manager}`,
+      hrefLabel: `${scope.managerName} →`,
+    });
+  }
+
+  // era / competition-scoped overall record ("United in Europe", "record in the 90s")
+  const scoped = scope.scopeLabel || scope.decadeLabel;
+  if (scoped && UNITED_WORDS.has(scope.rest) && !scope.managerName) {
+    const where = scope.scopeLabel ?? `in the ${scope.decadeLabel}`;
+    push({
+      title: `United ${where}`,
+      summary: recText(recordFor(scope.filter)),
+      href: matchesHref(scope.link),
+      hrefLabel: "Show the matches →",
+    });
+  }
+
+  // bare season record ("1998-99")
+  if (scope.seasonLabel && UNITED_WORDS.has(scope.rest) && !scoped && !scope.managerName) {
+    const exists = getDb().prepare("SELECT 1 FROM matches WHERE season = ? LIMIT 1").get(scope.seasonLabel);
+    if (exists) {
+      push({
+        title: `${scope.seasonLabel} season`,
+        summary: recText(recordFor({ season: scope.seasonLabel })),
+        href: `/seasons/${scope.seasonLabel}`,
+        hrefLabel: "Season page →",
+      });
+    }
+  }
+
+  return out;
+}
