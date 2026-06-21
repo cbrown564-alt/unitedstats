@@ -29,12 +29,12 @@ const MYTHS: [question: string, hook: string, href: string][] = [
 ];
 
 const ROUTES: [label: string, href: string, hint: string][] = [
-  ["Matches", "/matches", "filter 6,000+ fixtures"],
+  ["Matches", "/matches", "the fixture spine"],
   ["Seasons", "/seasons", "1886–87 to today"],
   ["Players", "/players", "every recorded scorer"],
   ["Managers", "/managers", "Mangnall to now"],
   ["Opponents", "/opponents", "every head-to-head"],
-  ["Analytics", "/analytics", "Elo, eras, records"],
+  ["Analytics", "/analytics", "Elo and the long arc"],
 ];
 
 export default function Home() {
