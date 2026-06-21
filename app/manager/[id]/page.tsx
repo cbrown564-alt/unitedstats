@@ -18,6 +18,7 @@ import { EvidenceLink } from "@/components/EvidenceLink";
 import { StatTile } from "@/components/PageHeader";
 import { fmtDate, fmtFee, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
+import { queryString } from "@/lib/url";
 
 export const dynamicParams = false;
 
@@ -254,7 +255,11 @@ export default async function ManagerPage({
         <div className="mb-3 flex justify-end">
           <EvidenceLink href={`/matches?manager=${id}`} label="Filter these in the match browser →" />
         </div>
-        <MatchArchive matches={allMatches} accentResult />
+        <MatchArchive
+          matches={allMatches}
+          accentResult
+          hrefForSeason={(season) => `/matches${queryString({ manager: id, season })}`}
+        />
         <CoverageNote
           slice="every competitive match under this manager, all competitions"
           coverage={`${fmtNum(total)} matches, season by season; caretaker and interim spells are attributed to whoever picked the team on the day.`}

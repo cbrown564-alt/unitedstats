@@ -112,6 +112,11 @@ select {
   display: none;
 }
 
+.match-list-item {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 3.5rem;
+}
+
 .control {
   border: 1px solid var(--color-line);
   background: var(--color-panel);
@@ -341,5 +346,4 @@ select {
   text-align: center;
   color: var(--color-ink-dim);
 }
-
 

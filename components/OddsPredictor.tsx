@@ -32,9 +32,15 @@ export function OddsPredictor({
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     const o = sp.get("opponent");
-    if (o && oddsByOpponent[o]) setOpponentId(o);
     const v = sp.get("venue");
-    if (v === "A" || v === "N" || v === "H") setVenue(v);
+    const nextOpponent = o && oddsByOpponent[o] ? o : null;
+    const nextVenue = v === "A" || v === "N" || v === "H" ? v : null;
+    if (!nextOpponent && !nextVenue) return;
+    const frame = window.requestAnimationFrame(() => {
+      if (nextOpponent) setOpponentId(nextOpponent);
+      if (nextVenue) setVenue(nextVenue);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [oddsByOpponent]);
 
   function sync(nextOpp: string, nextVenue: Venue) {

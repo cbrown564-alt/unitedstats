@@ -1,8 +1,8 @@
+import Link from "next/link";
 import type { MatchRow } from "@/lib/queries";
 import { tallyWdl, pct } from "@/lib/format";
 import { ArchiveJumpRail } from "./ArchiveJumpRail";
 import { MatchGroups } from "./MatchGroups";
-import { MatchList } from "./MatchList";
 import { WdlBar, WdlRecord } from "./WdlBar";
 
 /**
@@ -25,10 +25,12 @@ export function MatchArchive({
   matches,
   accentResult = false,
   idPrefix = "season",
+  hrefForSeason,
 }: {
   matches: MatchRow[];
   accentResult?: boolean;
   idPrefix?: string;
+  hrefForSeason?: (season: string) => string;
 }) {
   const collapsed = matches.length > STREAM_MAX;
   return (
@@ -36,7 +38,7 @@ export function MatchArchive({
       <ArchiveJumpRail matches={matches} idPrefix={idPrefix} sticky />
       <div className="mt-4">
         {collapsed ? (
-          <SeasonSummaries matches={matches} idPrefix={idPrefix} accentResult={accentResult} />
+          <SeasonSummaries matches={matches} idPrefix={idPrefix} hrefForSeason={hrefForSeason} />
         ) : (
           <MatchGroups matches={matches} accentResult={accentResult} />
         )}
@@ -45,17 +47,14 @@ export function MatchArchive({
   );
 }
 
-const chevron =
-  "h-3.5 w-3.5 shrink-0 text-ink-faint transition-transform duration-200 group-open:rotate-90";
-
 function SeasonSummaries({
   matches,
   idPrefix,
-  accentResult,
+  hrefForSeason,
 }: {
   matches: MatchRow[];
   idPrefix: string;
-  accentResult: boolean;
+  hrefForSeason?: (season: string) => string;
 }) {
   // Rows arrive date-ordered, so seasons group consecutively.
   const groups: { season: string; rows: MatchRow[] }[] = [];
@@ -70,15 +69,12 @@ function SeasonSummaries({
       {groups.map((g) => {
         const { w, d, l } = tallyWdl(g.rows);
         return (
-          <details
+          <section
             key={`${g.season}-${g.rows[0].id}`}
             id={`${idPrefix}-${g.season}`}
-            className="group scroll-mt-28 overflow-hidden rounded-lg border border-line bg-panel"
+            className="scroll-mt-28 rounded-lg border border-line bg-panel px-3 py-2.5 sm:px-4"
           >
-            <summary className="flex cursor-pointer list-none items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:px-4 [&::-webkit-details-marker]:hidden">
-              <svg className={chevron} viewBox="0 0 16 16" fill="none" aria-hidden>
-                <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+            <div className="flex items-center gap-3">
               <h3 className="display w-[5.25rem] shrink-0 text-base leading-none">{g.season}</h3>
               <span className="stat-num hidden w-24 shrink-0 text-xs text-ink-faint sm:inline">
                 {g.rows.length} {g.rows.length === 1 ? "match" : "matches"}
@@ -87,11 +83,14 @@ function SeasonSummaries({
                 <WdlRecord w={w} d={d} l={l} /> <span className="text-ink-faint">· {pct(w, g.rows.length)} W</span>
               </span>
               <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} className="ml-auto max-w-[7rem] sm:max-w-[10rem]" />
-            </summary>
-            <div className="border-t border-line p-2 sm:p-3">
-              <MatchList matches={g.rows} accentResult={accentResult} />
+              <Link
+                href={hrefForSeason?.(g.season) ?? `/matches?season=${encodeURIComponent(g.season)}`}
+                className="hidden shrink-0 rounded-md border border-line bg-panel-2 px-2.5 py-1 text-xs text-devil-bright transition-colors hover:border-devil/60 hover:bg-devil/10 sm:inline-block"
+              >
+                Open
+              </Link>
             </div>
-          </details>
+          </section>
         );
       })}
     </div>

@@ -64,9 +64,13 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
     const k = params.get("sort");
     if (k && Object.hasOwn(SEASON_SORT_DEFAULTS, k)) {
       const key = k as SeasonSortKey;
-      setSortKey(key);
       const d = params.get("dir");
-      setSortDir(d === "asc" || d === "desc" ? d : SEASON_SORT_DEFAULTS[key]);
+      const dir = d === "asc" || d === "desc" ? d : SEASON_SORT_DEFAULTS[key];
+      const frame = window.requestAnimationFrame(() => {
+        setSortKey(key);
+        setSortDir(dir);
+      });
+      return () => window.cancelAnimationFrame(frame);
     }
   }, []);
 

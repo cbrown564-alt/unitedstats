@@ -295,6 +295,10 @@ export interface MatchFilter {
   stadium?: string;
   /** A city — every ground in it (stadiums.city), e.g. "Madrid", "London". */
   city?: string;
+  /** Matches where this United player scored. */
+  scorer?: string;
+  /** Matches where this United player appears in the lineup coverage. */
+  player?: string;
   /** Inclusive ISO date bounds, so era/decade aggregates can link to their matches. */
   from?: string;
   to?: string;
@@ -333,6 +337,30 @@ export function matchWhere(f: MatchFilter): { cond: string; params: Record<strin
   }
   if (f.stadium) { where.push("m.stadium_id = @stadium"); params.stadium = f.stadium; }
   if (f.city) { where.push("m.stadium_id IN (SELECT id FROM stadiums WHERE city = @city)"); params.city = f.city; }
+  if (f.scorer) {
+    where.push(
+      `EXISTS (
+        SELECT 1 FROM match_events e
+        WHERE e.match_id = m.id
+          AND e.player_id = @scorer
+          AND e.player_side = 'united'
+          AND e.type IN ('goal','pen-goal')
+      )`,
+    );
+    params.scorer = f.scorer;
+  }
+  if (f.player) {
+    where.push(
+      `EXISTS (
+        SELECT 1 FROM match_lineups l
+        WHERE l.match_id = m.id
+          AND l.player_id = @player
+          AND l.player_side = 'united'
+          AND l.bench = 0
+      )`,
+    );
+    params.player = f.player;
+  }
   if (f.from) { where.push("m.date >= @from"); params.from = f.from; }
   if (f.to) { where.push("m.date <= @to"); params.to = f.to; }
   if (f.q) { where.push("m.opponent_name LIKE @q"); params.q = `%${f.q}%`; }
