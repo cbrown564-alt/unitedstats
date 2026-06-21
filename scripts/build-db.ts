@@ -1081,6 +1081,137 @@ WHERE l.player_side = 'united' AND l.bench = 0
 GROUP BY p.id, c.type;
 `);
 
+// ---------- search index ----------
+// One FTS5-backed row per searchable entity. `name_norm`/`aliases` are folded
+// (diacritics stripped, lowercased, alphanumeric) so "solskjaer" finds "Solskjær"
+// and "spurs" finds Tottenham. `prominence` is a 0..1 ranking prior, normalised
+// within each kind. lib/search.ts ranks with bm25() blended against these.
+db.exec(`
+CREATE TABLE search_index (
+  rowid       INTEGER PRIMARY KEY,
+  kind        TEXT NOT NULL,
+  entity_id   TEXT NOT NULL,
+  label       TEXT NOT NULL,
+  detail      TEXT,
+  href        TEXT NOT NULL,
+  name_norm   TEXT NOT NULL,
+  aliases     TEXT,
+  prominence  REAL NOT NULL DEFAULT 0
+);
+CREATE VIRTUAL TABLE search_fts USING fts5(
+  name_norm, aliases, content='search_index', content_rowid='rowid', tokenize='unicode61'
+);
+`);
+
+const fold = (s: string): string =>
+  s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+// id -> extra alias strings. Historical opponent names (display-preserving rollup
+// map) plus the curated search-only synonyms (nicknames, broadcast short names).
+const aliasById = new Map<string, Set<string>>();
+const addAlias = (id: string, ...vals: string[]) => {
+  const set = aliasById.get(id) ?? new Set<string>();
+  for (const v of vals) { const f = fold(v); if (f) set.add(f); }
+  aliasById.set(id, set);
+};
+const oppAliasFile = path.join(CANONICAL, "opponent-aliases.json");
+if (fs.existsSync(oppAliasFile)) {
+  const { aliases } = readJson<{ aliases: Record<string, string> }>(oppAliasFile);
+  for (const [name, id] of Object.entries(aliases)) addAlias(id, name);
+}
+const searchAliasFile = path.join(CANONICAL, "search-aliases.json");
+if (fs.existsSync(searchAliasFile)) {
+  const { players: pa = {}, opponents: oa = {} } = readJson<{
+    players?: Record<string, string[]>; opponents?: Record<string, string[]>;
+  }>(searchAliasFile);
+  for (const [id, vals] of Object.entries(pa)) addAlias(id, ...vals);
+  for (const [id, vals] of Object.entries(oa)) addAlias(id, ...vals);
+}
+const aliasFor = (id: string): string | null => {
+  const set = aliasById.get(id);
+  return set && set.size ? [...set].join(" ") : null;
+};
+
+interface SeedRow { kind: string; entity_id: string; label: string; detail: string; href: string; raw: number }
+const seeds: SeedRow[] = [];
+
+const playerRows = db.prepare(`
+  SELECT p.id, p.name,
+    COALESCE(pr.goals, pt.goals, 0) AS goals,
+    COALESCE(pr.apps,  pt.apps,  0) AS apps,
+    (pr.player_id IS NOT NULL) AS has_record
+  FROM players p
+  LEFT JOIN player_records pr ON pr.player_id = p.id
+  LEFT JOIN player_totals  pt ON pt.player_id = p.id AND pt.scope = 'all'
+`).all() as { id: string; name: string; goals: number; apps: number; has_record: number }[];
+for (const p of playerRows) {
+  if (!p.has_record && p.goals + p.apps === 0) continue; // skip players with no footprint
+  seeds.push({
+    kind: "player", entity_id: p.id, label: p.name,
+    detail: `${p.goals} goals${p.apps ? ` · ${p.apps} apps` : ""}`,
+    href: `/player/${p.id}`, raw: p.goals + p.apps / 3,
+  });
+}
+
+const managerRows = db.prepare(`
+  SELECT mg.id, mg.name, COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w
+  FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id GROUP BY mg.id
+`).all() as { id: string; name: string; p: number; w: number }[];
+for (const m of managerRows) {
+  seeds.push({
+    kind: "manager", entity_id: m.id, label: m.name,
+    detail: m.p ? `${m.p} matches · ${Math.round((100 * m.w) / m.p)}% won` : "manager",
+    href: `/manager/${m.id}`, raw: m.p,
+  });
+}
+
+const opponentRows = db.prepare(`
+  SELECT o.id, o.name, COUNT(*) p FROM matches m JOIN opponents o ON o.id = m.opponent_id
+  GROUP BY o.id
+`).all() as { id: string; name: string; p: number }[];
+for (const o of opponentRows) {
+  seeds.push({
+    kind: "opponent", entity_id: o.id, label: o.name,
+    detail: `${o.p} meetings`, href: `/opponent/${o.id}`, raw: o.p,
+  });
+}
+
+const competitionRows = db.prepare(`
+  SELECT c.id, c.name, COUNT(m.id) n FROM competitions c JOIN matches m ON m.competition_id = c.id
+  GROUP BY c.id
+`).all() as { id: string; name: string; n: number }[];
+for (const c of competitionRows) {
+  seeds.push({
+    kind: "competition", entity_id: c.id, label: c.name,
+    detail: `${c.n} matches`, href: `/matches?competition=${c.id}`, raw: c.n,
+  });
+}
+
+const seasonRows = db.prepare("SELECT DISTINCT season FROM matches ORDER BY season").all() as { season: string }[];
+for (const s of seasonRows) {
+  seeds.push({
+    kind: "season", entity_id: s.season, label: s.season,
+    detail: "season", href: `/seasons/${s.season}`, raw: Number(s.season.slice(0, 4)) || 0,
+  });
+}
+
+// normalise prominence within each kind so a top player and a top opponent both ~1
+const maxByKind = new Map<string, number>();
+for (const s of seeds) maxByKind.set(s.kind, Math.max(maxByKind.get(s.kind) ?? 0, s.raw));
+const insSearch = db.prepare(
+  "INSERT INTO search_index (kind, entity_id, label, detail, href, name_norm, aliases, prominence) VALUES (?,?,?,?,?,?,?,?)",
+);
+const searchTx = db.transaction(() => {
+  for (const s of seeds) {
+    const max = maxByKind.get(s.kind) || 1;
+    insSearch.run(s.kind, s.entity_id, s.label, s.detail, s.href, fold(s.label), aliasFor(s.entity_id), s.raw / max);
+  }
+});
+searchTx();
+db.exec("INSERT INTO search_fts(rowid, name_norm, aliases) SELECT rowid, name_norm, COALESCE(aliases,'') FROM search_index;");
+const searchN = (db.prepare("SELECT COUNT(*) n FROM search_index").get() as { n: number }).n;
+console.log(`search_index: ${searchN} entities (${seeds.filter((s) => s.kind === "player").length} players)`);
+
 // ---------- meta ----------
 const counts = db.prepare(
   `SELECT COUNT(*) n, MIN(date) min_d, MAX(date) max_d FROM matches`,
