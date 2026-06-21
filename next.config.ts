@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  distDir: process.env.NEXT_VERIFY_DIST ?? ".next",
   turbopack: {
     root: process.cwd(),
   },

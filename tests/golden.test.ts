@@ -25,6 +25,7 @@ import {
 import { comebacks } from "../lib/trails";
 import { clubStreaks, topRuns } from "../lib/streaks";
 import { compareEras, compareManagers, comparePlayers } from "../lib/compare";
+import { exploreGroups } from "../lib/explore";
 import { runSearch } from "../lib/search";
 import { getDb } from "../lib/db";
 
@@ -394,4 +395,25 @@ test("compare builders reproduce the official record across the three modes", ()
   // Same entity on both sides is not a comparison.
   assert.equal(comparePlayers("wayne-rooney", "wayne-rooney"), null);
   assert.equal(compareEras("busby", "busby"), null);
+});
+
+test("explore group-by partitions the record without losing or double-counting matches", () => {
+  const all = allTimeRecord();
+  // Venue is a complete partition (every match is H/A/N) within the row cap, so the
+  // groups must re-sum to the all-time record exactly.
+  const venue = exploreGroups("venue", {}, undefined);
+  const sum = venue.rows.reduce(
+    (a, r) => ({ p: a.p + r.p, w: a.w + r.w, d: a.d + r.d, l: a.l + r.l }),
+    { p: 0, w: 0, d: 0, l: 0 },
+  );
+  assert.deepEqual(sum, { p: all.p, w: all.w, d: all.d, l: all.l });
+
+  // A filtered breakdown carries the filter into every row's evidence link, and
+  // chronological dims sort by group with no caller-supplied sort.
+  const decade = exploreGroups("decade", { venue: "H", type: "league" }, undefined);
+  assert.equal(decade.defaultSort, "label");
+  assert.ok(decade.rows.every((r) => r.href.includes("venue=H") && r.href.includes("type=league")));
+  for (let i = 1; i < decade.rows.length; i++) {
+    assert.ok(decade.rows[i].label > decade.rows[i - 1].label, "decade rows should read chronologically");
+  }
 });

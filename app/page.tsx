@@ -20,13 +20,15 @@ import { HistorySkyline } from "@/components/charts/HistorySkyline";
 // goals is pulled out as the featured question (it owns the MinuteRidge below),
 // so the homepage *shows* one question's visual rather than only linking out.
 const MYTHS: [question: string, hook: string, href: string][] = [
+  ["Are United really the comeback kings?", "Recoveries from behind, replayed minute by minute.", "/questions#comebacks"],
+  ["How long are United's longest runs?", "Unbeaten, winning, scoring and clean-sheet streaks.", "/questions#runs"],
   ["Which sides are the real bogey teams?", "Lowest win rates across 20+ meetings.", "/questions#bogey-sides"],
-  ["Is the new-manager bounce real?", "Each manager's first ten against the ten before.", "/questions#manager-bounce"],
   ["How much of a fortress is Old Trafford?", "Home win rate by decade and the longest run.", "/questions#fortress"],
-  ["Who saved their goals for cup nights?", "Scorers who lean hardest toward the cups.", "/questions#cup-specialists"],
 ];
 
 const ROUTES: [label: string, href: string, hint: string][] = [
+  ["Compare", "/compare", "players, managers, eras"],
+  ["Explore", "/explore", "build your own cut"],
   ["Matches", "/matches", "filter 6,000+ fixtures"],
   ["Seasons", "/seasons", "1886–87 to today"],
   ["Players", "/players", "every recorded scorer"],
