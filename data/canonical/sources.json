@@ -97,6 +97,14 @@
       "notes": "Used by scripts/ingest/mufcinfo-goal-minutes.ts to stamp minutes onto existing goal events only when the parsed scorers reconcile 1:1 with the recorded goals for that side. Never creates or re-scores events. Raw pages are cached under data/raw/mufcinfo and are not redistributed."
     },
     {
+      "id": "mufcinfo-transfers",
+      "label": "MUFCInfo transfer archive",
+      "kind": "reference",
+      "url": "https://www.mufcinfo.com/manupag/transfers/transfers.htm",
+      "coverage": "Manchester United and Newton Heath player transfers (arrivals and departures) from 1883 to the present, by decade: direction, other club, date, and GBP fee where known. Historical fees are frequently unrecorded and are kept as a fee kind, never as a zero.",
+      "notes": "Used by scripts/ingest/mufcinfo-transfers.ts to build data/canonical/transfers.json. The decade pages are cached under data/raw/mufcinfo/transfers and are not redistributed."
+    },
+    {
       "id": "tableau-goals-assists",
       "label": "Manchester United Games (Tableau Public, conor.brown)",
       "kind": "curation",

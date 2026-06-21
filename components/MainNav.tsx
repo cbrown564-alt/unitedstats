@@ -9,6 +9,7 @@ const NAV = [
   ["Matches", "/matches"],
   ["Seasons", "/seasons"],
   ["Players", "/players"],
+  ["Transfers", "/transfers"],
   ["Managers", "/managers"],
   ["Opponents", "/opponents"],
   ["Analytics", "/analytics"],

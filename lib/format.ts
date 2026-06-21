@@ -34,6 +34,46 @@ export function pct(part: number, whole: number): string {
   return `${((100 * part) / whole).toFixed(1)}%`;
 }
 
+/**
+ * Compact GBP transfer fee: £92.3m, £40m, £575k, £900, £1.24bn. Null-safe.
+ * Whole millions drop the decimal; aggregates roll up to billions.
+ */
+export function fmtFee(gbp: number | null | undefined): string {
+  if (gbp == null) return "—";
+  const sign = gbp < 0 ? "−" : "";
+  const n = Math.abs(gbp);
+  if (n >= 1_000_000_000) return `${sign}£${(n / 1e9).toFixed(2)}bn`;
+  if (n >= 1_000_000) {
+    const m = n / 1e6;
+    return `${sign}£${m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)}m`;
+  }
+  if (n >= 1_000) return `${sign}£${Math.round(n / 1e3)}k`;
+  return `${sign}£${n}`;
+}
+
+/** Compact EUR market value: €70m, €4.5m, €750k. Null-safe. */
+export function fmtEur(eur: number | null | undefined): string {
+  if (eur == null) return "—";
+  if (eur >= 1_000_000_000) return `€${(eur / 1e9).toFixed(2)}bn`;
+  if (eur >= 1_000_000) {
+    const m = eur / 1e6;
+    return `€${m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)}m`;
+  }
+  if (eur >= 1_000) return `€${Math.round(eur / 1e3)}k`;
+  return `€${eur}`;
+}
+
+/**
+ * Display label for a transfer fee, honouring its kind. A real fee shows the
+ * amount; everything else names why there is no figure rather than implying £0.
+ */
+export function feeLabel(kind: string, gbp: number | null | undefined): string {
+  if (kind === "fee" && gbp != null) return fmtFee(gbp);
+  if (kind === "free") return "Free";
+  if (kind === "undisclosed") return "Undisclosed";
+  return "—"; // unknown fee, or "none" (academy / released / retired)
+}
+
 export function venueLabel(v: string): string {
   return v === "H" ? "Home" : v === "A" ? "Away" : "Neutral";
 }

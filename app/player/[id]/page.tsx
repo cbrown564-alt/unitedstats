@@ -4,7 +4,7 @@ import {
   playerAssistPartnerships, playerById, playerClubRanks,
   playerCuratedGoalTypes, playerCuratedTotals,
   playerGoalMatches, playerGoalMinutes, playerGoalsByOpponent, playerLineupMatches,
-  playerShirtNumbersByDecade, playerSplitsBySeason,
+  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
 import { ChartPanel } from "@/components/ChartPanel";
@@ -22,6 +22,8 @@ import { HaulCards } from "@/components/HaulCards";
 import { ArchiveJumpRail } from "@/components/ArchiveJumpRail";
 import { ContributionSpine } from "@/components/charts/ContributionSpine";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
+import { SectionHead } from "@/components/SectionHead";
+import { TransferList } from "@/components/TransferList";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
@@ -100,6 +102,7 @@ export default async function PlayerPage({
   const opponentGoals = playerGoalsByOpponent(id, 8);
   const ranks = playerClubRanks(id);
   const bestRun = p.goals >= 5 ? playerBestScoringRun(id) : null;
+  const transfers = playerTransfers(id);
 
   // Curated Tableau lane: season-level goals/assists and goal-type breakdown,
   // 1987-88..2014-15. Not match-attributed, so it stays in its own labelled section.
@@ -325,6 +328,13 @@ export default async function PlayerPage({
         shirts={shirts}
         caveat="Goals, apps, and starts use verified competitive player records where available. Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from recorded match coverage — the part of a career we can evidence, not a career total."
       />
+
+      {transfers.length > 0 && (
+        <section>
+          <SectionHead title="Comings and goings" aside={`${fmtNum(transfers.length)} recorded`} />
+          <TransferList transfers={transfers} />
+        </section>
+      )}
 
       {(minutes.length > 3 || facetCount > 0) && (
         <section className="space-y-3">
