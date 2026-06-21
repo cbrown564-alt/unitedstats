@@ -37,7 +37,10 @@ export function DataTable<T>({
   sort?: {
     key: string;
     direction: SortDirection;
-    hrefFor: (key: string, direction: SortDirection) => string;
+    /** Server mode: sortable headers are links to the next sort URL. */
+    hrefFor?: (key: string, direction: SortDirection) => string;
+    /** Client mode: sortable headers are buttons calling back with the next sort. */
+    onSort?: (key: string, direction: SortDirection) => void;
   };
   density?: "comfortable" | "compact";
   className?: string;
@@ -64,23 +67,43 @@ export function DataTable<T>({
                   className={`${c.numeric ? "data-table__numeric" : ""} ${c.hideBelow ?? ""} ${c.headerClassName ?? ""}`}
                 >
                   {c.sortKey && sort ? (
-                    <Link
-                      href={sort.hrefFor(
-                        c.sortKey,
-                        sort.key === c.sortKey
-                          ? sort.direction === "asc" ? "desc" : "asc"
-                          : c.sortDefaultDirection ?? (c.numeric ? "desc" : "asc"),
-                      )}
-                      prefetch={false}
-                      scroll={false}
-                      className={`data-table-sort ${sort.key === c.sortKey ? "data-table-sort--active" : ""}`}
-                      title={`Sort by ${c.sortLabel ?? c.label}`}
-                    >
-                      <span>{c.label}</span>
-                      <span className="data-table-sort__mark" aria-hidden="true">
-                        {sort.key === c.sortKey ? (sort.direction === "asc" ? "↑" : "↓") : "↕"}
-                      </span>
-                    </Link>
+                    (() => {
+                      const active = sort.key === c.sortKey;
+                      const nextDir: SortDirection = active
+                        ? sort.direction === "asc" ? "desc" : "asc"
+                        : c.sortDefaultDirection ?? (c.numeric ? "desc" : "asc");
+                      const cls = `data-table-sort ${active ? "data-table-sort--active" : ""}`;
+                      const title = `Sort by ${c.sortLabel ?? c.label}`;
+                      const inner = (
+                        <>
+                          <span>{c.label}</span>
+                          <span className="data-table-sort__mark" aria-hidden="true">
+                            {active ? (sort.direction === "asc" ? "↑" : "↓") : "↕"}
+                          </span>
+                        </>
+                      );
+                      // Client mode (onSort) renders a button; server mode links to the next URL.
+                      return sort.onSort ? (
+                        <button
+                          type="button"
+                          onClick={() => sort.onSort!(c.sortKey!, nextDir)}
+                          className={`${cls} cursor-pointer appearance-none border-0 bg-transparent p-0`}
+                          title={title}
+                        >
+                          {inner}
+                        </button>
+                      ) : (
+                        <Link
+                          href={sort.hrefFor!(c.sortKey!, nextDir)}
+                          prefetch={false}
+                          scroll={false}
+                          className={cls}
+                          title={title}
+                        >
+                          {inner}
+                        </Link>
+                      );
+                    })()
                   ) : (
                     c.label
                   )}
