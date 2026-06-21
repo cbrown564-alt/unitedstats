@@ -377,7 +377,11 @@ Avoid:
 
 ## Copy Voice
 
-Curious guide, not pundit.
+Curious guide, not pundit. The finalized copy direction is **Floodlit Guide**: refine the
+existing voice rather than pivot — precise about the record, romantic only about its reach,
+and silent where a number speaks for itself. The full working — the per-surface register map,
+worked rewrites, and the process for the copy pass — lives in `docs/COPY-VOICE.md`. This
+section is the canonical short form.
 
 Voice traits:
 
@@ -385,6 +389,22 @@ Voice traits:
 - A little romantic about football history.
 - Transparent about coverage.
 - Confident in structure, cautious in claims.
+
+One voice is wrong; assign a register per surface (full map in `docs/COPY-VOICE.md`):
+
+- **Authored heroes** — Floodlit Guide: one true, evocative line, earned from place and span,
+  never hype. ("A century and a half of business, in and out"; "managers, two cathedrals".)
+- **Questions / myths** — Knowing Companion: dry wit allowed, a point of view about the
+  *question* but never the *answer*. ("Do United really score late?")
+- **Records** — Opta framing: scope, reach, and comparison do the work; no adjectives.
+- **Result reporting** (scorelines, W-D-L, tables) — Instrument: neutral labels; the objects
+  carry the meaning.
+- **Coverage / slices / labels / hints** — Archivist: clinical, exact, no romance, no filler.
+  Absence of voice *is* the trust signal.
+
+**Wit is quarantined.** Personality and any point of view appear only on heroes and
+questions/myths. They never touch a scoreline, a record, a win-rate, or a coverage note —
+our credibility is that the numbers are not spun.
 
 Good:
 
@@ -394,10 +414,17 @@ Good:
 
 Avoid:
 
-- "Ultimate", "definitive", "insane", "unbelievable".
-- Restating headings in body copy.
+- "Ultimate", "definitive", "insane", "unbelievable", and the rest of the hype lexicon.
+- Restating headings or visible figures in body copy.
 - Verdict-heavy claims where coverage is partial.
-- Em dashes in product copy.
+- Wit or adjectives anywhere near a result, record, or coverage note.
+- List-shaped or instruction-shaped hints ("Elo, eras, records") where a specific,
+  record-anchored line would say what the reader will actually find.
+
+Punctuation convention: the **spaced em dash** ` — ` is the house connective break and is
+load-bearing in the best sentences — use it, sparingly. Ranges take an **unspaced en dash**
+(`1886–87`, `2022–24`). Never an unspaced em dash mid-word. (This supersedes the earlier
+"avoid em dashes" guidance, which contradicted the live copy.)
 
 ## Accessibility And Readability
 
