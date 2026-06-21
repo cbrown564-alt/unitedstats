@@ -26,13 +26,12 @@ Restrained identity palette.
 
 Use tinted near-black and warm charcoal surfaces, with United red as the primary accent. Gold is a secondary historical or attention color, used sparingly. Result colors are semantic and must never be the only way to understand a result.
 
-> **Result-palette experiment (branch `experiment/gold-win-red-loss`).** The
-> rules below describe a trial encoding — **win = United yellow, loss = United
-> red** — that replaces the shipped red-win / slate-loss pairing (git `fecc1c7`,
-> still the rationale on `master`). It exists to test the feedback that an
-> all-red record "looks like terrible form", by spending United's *two* identity
-> colours on the result poles and re-using gold/yellow for success as the app
-> already does for trophies. It is not yet the canonical decision.
+> **Result palette: win = United yellow, loss = United red.** This is the current
+> encoding. It replaced the earlier red-win / slate-loss pairing (git `fecc1c7`)
+> in response to feedback that an all-red record "looks like terrible form": the
+> fix spends United's *two* identity colours on the result poles and re-uses
+> gold/yellow for success as the app already does for trophies. The change to the
+> opposite, slate-blue loss is recorded below for the rationale it carried.
 
 United's two identity colours carry the two result poles, separated from their
 neighbours by **lightness** (the channel that survives greyscale and every
@@ -50,9 +49,9 @@ grey. The two unavoidable tensions this creates — and how each is compensated:
   "defeat". Loss must therefore always appear as a bar, badge or shape paired
   with an "L"/label — never as bare red text that could be mistaken for a link.
 
-The shipped slate-loss palette retired the older win-green / loss-red pairing
+The interim slate-loss palette retired the older win-green / loss-red pairing
 because green/red is the canonical colourblindness failure and red was
-overloaded; this experiment keeps the colourblindness-safe lightness separation
+overloaded; this palette keeps that colourblindness-safe lightness separation
 while accepting red's overload as a deliberate, compensated trade for the
 two-colour identity story.
 
