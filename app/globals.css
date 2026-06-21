@@ -192,6 +192,25 @@ select {
   font-size: 0.875rem;
 }
 
+/* Opt a table out of the shared 44rem floor so it fits the mobile viewport
+   instead of forcing a horizontal scroll. Paired with a truncating name column,
+   this keeps the key figures (e.g. goals) visible alongside the name on phones;
+   on wider screens width:100% still fills the container as before. */
+.data-table-fit .data-table {
+  min-width: 0;
+}
+
+/* On phones, tighten the fit table's horizontal cell padding so the truncated
+   name column keeps enough room to stay readable while the key figures remain
+   on screen. Reverts to the shared padding at sm and up. */
+@media (max-width: 639px) {
+  .data-table-fit .data-table th,
+  .data-table-fit .data-table td {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
 .data-table th {
   border-bottom: 1px solid color-mix(in oklab, var(--color-line), var(--color-ink) 5%);
   background: color-mix(in oklab, var(--color-panel-2), var(--color-pitch) 10%);
@@ -322,3 +341,5 @@ select {
   text-align: center;
   color: var(--color-ink-dim);
 }
+
+
