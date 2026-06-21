@@ -4,12 +4,12 @@ import {
   playerAssistPartnerships, playerById, playerClubRanks,
   playerCuratedGoalTypes, playerCuratedTotals,
   playerGoalMatches, playerGoalMinutes, playerGoalsByOpponent, playerLineupMatches,
-  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers,
+  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
 import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
-import { Column, DataTable, type SortDirection } from "@/components/DataTable";
+import { PlayerSeasonTable, type SeasonSplit } from "@/components/PlayerSeasonTable";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SeasonContributionChart } from "@/components/charts/SeasonContributionChart";
@@ -25,65 +25,19 @@ import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
 import { TransferList } from "@/components/TransferList";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
-import { queryString } from "@/lib/url";
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
 
-type SeasonSplit = {
-  season: string;
-  apps: number;
-  starts: number;
-  goals: number;
-  assists: number;
-};
-
-type SeasonSortKey = "season" | "apps" | "starts" | "goals" | "assists" | "ga";
-
-const SEASON_SORT_DEFAULTS: Record<SeasonSortKey, SortDirection> = {
-  season: "asc",
-  apps: "desc",
-  starts: "desc",
-  goals: "desc",
-  assists: "desc",
-  ga: "desc",
-};
-
-const SEASON_SORT_LABELS: Record<SeasonSortKey, string> = {
-  season: "Season",
-  apps: "Apps",
-  starts: "Starts",
-  goals: "Goals",
-  assists: "Assists",
-  ga: "goals + assists",
-};
-
-function parseSeasonSort(value: string | undefined): SeasonSortKey {
-  return value && Object.hasOwn(SEASON_SORT_DEFAULTS, value) ? (value as SeasonSortKey) : "season";
-}
-
-function compareSeasons(a: SeasonSplit, b: SeasonSplit, key: SeasonSortKey, dir: SortDirection): number {
-  const n = (x: number, y: number) => (dir === "asc" ? x - y : y - x);
-  const ga = (s: SeasonSplit) => s.goals + s.assists;
-  const primary =
-    key === "season" ? (dir === "asc" ? a.season.localeCompare(b.season) : b.season.localeCompare(a.season))
-    : key === "apps" ? n(a.apps, b.apps)
-    : key === "starts" ? n(a.starts, b.starts)
-    : key === "goals" ? n(a.goals, b.goals)
-    : key === "assists" ? n(a.assists, b.assists)
-    : n(ga(a), ga(b));
-  // Stable, readable tiebreak: oldest season first.
-  return primary || a.season.localeCompare(b.season);
+export async function generateStaticParams() {
+  return playersIndex().map((p) => ({ id: p.player_id }));
 }
 
 export default async function PlayerPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ sort?: string; dir?: string }>;
 }) {
   const { id } = await params;
-  const sp = await searchParams;
 
   // "Own Goal" is a synthetic scorer, not a person: its page shows the opposition
   // players behind the tally rather than a career.
@@ -223,76 +177,8 @@ export default async function PlayerPage({
     </span>
   );
 
-  // Season table sort.
-  const seasonSortKey = parseSeasonSort(sp.sort);
-  const seasonSortDir: SortDirection =
-    sp.dir === "asc" || sp.dir === "desc" ? sp.dir : SEASON_SORT_DEFAULTS[seasonSortKey];
-  const sortedSeasons = [...bySeason].sort((a, b) => compareSeasons(a, b, seasonSortKey, seasonSortDir));
-
-  function seasonSortHref(nextKey: string, nextDir: SortDirection) {
-    return `/player/${id}${queryString({ sort: nextKey, dir: nextDir })}#seasons`;
-  }
-
-  const seasonColumns: Column<SeasonSplit>[] = [
-    {
-      label: "Season",
-      key: "season",
-      sortKey: "season",
-      sortDefaultDirection: SEASON_SORT_DEFAULTS.season,
-      render: (s) => (
-        <Link href={`/seasons/${s.season}`} className="font-medium text-ink hover:text-devil-bright">
-          {s.season}
-        </Link>
-      ),
-    },
-    {
-      label: "Apps",
-      key: "apps",
-      numeric: true,
-      sortKey: "apps",
-      sortDefaultDirection: SEASON_SORT_DEFAULTS.apps,
-      render: (s) => (s.apps ? fmtNum(s.apps) : "—"),
-    },
-    {
-      label: "Starts",
-      key: "starts",
-      numeric: true,
-      hideBelow: "hidden sm:table-cell",
-      sortKey: "starts",
-      sortDefaultDirection: SEASON_SORT_DEFAULTS.starts,
-      render: (s) => (s.starts ? fmtNum(s.starts) : "—"),
-    },
-    {
-      label: "Goals",
-      key: "goals",
-      numeric: true,
-      sortKey: "goals",
-      sortDefaultDirection: SEASON_SORT_DEFAULTS.goals,
-      render: (s) => (
-        <span className={s.goals > 0 ? "text-devil-bright" : "text-ink-faint"}>{s.goals || "—"}</span>
-      ),
-    },
-    {
-      label: "Assists",
-      key: "assists",
-      numeric: true,
-      hideBelow: "hidden sm:table-cell",
-      sortKey: "assists",
-      sortDefaultDirection: SEASON_SORT_DEFAULTS.assists,
-      render: (s) => (
-        <span className={s.assists > 0 ? "text-gold" : "text-ink-faint"}>{s.assists || "—"}</span>
-      ),
-    },
-    {
-      label: "G+A",
-      key: "ga",
-      numeric: true,
-      sortKey: "ga",
-      sortDefaultDirection: SEASON_SORT_DEFAULTS.ga,
-      sortLabel: "goals plus assists",
-      render: (s) => (s.goals + s.assists > 0 ? fmtNum(s.goals + s.assists) : "—"),
-    },
-  ];
+  // The season-by-season table is rendered by the PlayerSeasonTable client island
+  // below, which owns its sort so this page can be statically prerendered.
 
   // The scoring-profile panel shows only the facets we can fill, so its column
   // count tracks what is present rather than leaving empty cells.
@@ -515,24 +401,7 @@ export default async function PlayerPage({
               <span className="stat-num text-xs text-ink-faint hidden group-open:inline">hide</span>
             </summary>
             <div className="mt-3">
-              <DataTable
-                columns={seasonColumns}
-                rows={sortedSeasons}
-                rowKey={(s) => s.season}
-                density="compact"
-                caption={`${p.name} season-by-season apps, goals, and assists`}
-                sort={{ key: seasonSortKey, direction: seasonSortDir, hrefFor: seasonSortHref }}
-                summary={
-                  <>
-                    <span>{fmtNum(bySeason.length)} recorded seasons</span>
-                    <span>
-                      Sorted by{" "}
-                      <span className="font-semibold text-ink">{SEASON_SORT_LABELS[seasonSortKey]}</span>,{" "}
-                      {seasonSortDir === "asc" ? "ascending" : "descending"}
-                    </span>
-                  </>
-                }
-              />
+              <PlayerSeasonTable seasons={bySeason} playerName={p.name} />
               <CoverageNote
                 slice="all competitions, per season"
                 count={{

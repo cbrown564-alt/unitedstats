@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { TrophyIcon } from "@/components/CampaignIcons";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -57,15 +60,28 @@ function HeadCell({ children, className = "" }: { children: React.ReactNode; cla
 export function LeagueTable({
   table,
   season,
-  expanded,
-  searchParams = {},
 }: {
   table: SeasonLeagueTable;
   season: string;
-  expanded: boolean;
-  /** Current query params, so the expand/collapse link preserves the rest. */
-  searchParams?: Record<string, string | undefined>;
 }) {
+  // The page is statically prerendered, so the expand/collapse state lives here,
+  // hydrated from `?table=full` for deep links and reflected back without a
+  // server round-trip (the previous behaviour was an anchor link round-trip).
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("table") === "full") setExpanded(true);
+  }, []);
+
+  function toggle(next: boolean) {
+    setExpanded(next);
+    const url = new URL(window.location.href);
+    if (next) url.searchParams.set("table", "full");
+    else url.searchParams.delete("table");
+    url.hash = ANCHOR;
+    window.history.replaceState(null, "", url);
+  }
+
   const { rows, competition_name, competition_id } = table;
   const n = rows.length;
   const topFlight = competition_id === "first-division" || competition_id === "premier-league";
@@ -94,12 +110,6 @@ export function LeagueTable({
     for (const row of rows) list.push({ kind: "row", row });
   }
 
-  // Toggle link — drop `table` to collapse, set `table=full` to expand; keep the
-  // anchor so the page lands back on this section after the round-trip.
-  const params = new URLSearchParams();
-  for (const [k, v] of Object.entries(searchParams)) if (v && k !== "table") params.set(k, v);
-  if (!expanded) params.set("table", "full");
-  const toggleHref = `/seasons/${season}${params.toString() ? `?${params}` : ""}#${ANCHOR}`;
   const num = "px-2 py-1.5 text-right stat-num tabular-nums";
 
   return (
@@ -113,12 +123,13 @@ export function LeagueTable({
           </p>
         </div>
         {unitedPos != null && n > 13 && (
-          <Link
-            href={toggleHref}
+          <button
+            type="button"
+            onClick={() => toggle(!expanded)}
             className="rounded-md border border-line bg-panel px-2.5 py-1 text-xs text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
           >
             {expanded ? "Collapse around United" : "Show the full table"}
-          </Link>
+          </button>
         )}
       </div>
 
@@ -144,12 +155,13 @@ export function LeagueTable({
                 return (
                   <tr key={`gap-${item.from}`} className="border-b border-line/60">
                     <td colSpan={10} className="px-2 py-1.5 text-center">
-                      <Link
-                        href={toggleHref}
+                      <button
+                        type="button"
+                        onClick={() => toggle(true)}
                         className="text-[11px] text-ink-faint transition-colors hover:text-devil-bright focus-ring"
                       >
                         + {item.count} {item.count === 1 ? "club" : "clubs"}
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 );

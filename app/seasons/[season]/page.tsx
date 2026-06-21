@@ -16,7 +16,11 @@ import { LeagueTable } from "@/components/LeagueTable";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return allSeasons().map((season) => ({ season }));
+}
 
 function ordinal(n: number): string {
   const s = ["th", "st", "nd", "rd"];
@@ -65,13 +69,10 @@ function campaignOutcome(
 
 export default async function SeasonPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ season: string }>;
-  searchParams: Promise<Record<string, string | undefined>>;
 }) {
   const { season } = await params;
-  const sp = await searchParams;
   const matches = seasonMatches(season);
   if (matches.length === 0) notFound();
 
@@ -208,12 +209,7 @@ export default async function SeasonPage({
       )}
 
       {leagueTable && (
-        <LeagueTable
-          table={leagueTable}
-          season={season}
-          expanded={sp.table === "full"}
-          searchParams={sp}
-        />
+        <LeagueTable table={leagueTable} season={season} />
       )}
 
       {sequence.length >= 24 && (
