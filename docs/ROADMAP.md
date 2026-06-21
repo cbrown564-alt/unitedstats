@@ -339,15 +339,17 @@ continue as normal product work on `lib/compare.ts`, `lib/trails.ts`,
 Two issues surfaced once Phase 9 shipped, recorded here for a deliberate pass
 before any further surface is added:
 
-- **The primary nav has outgrown a single rail.** With eleven top-level tabs it
-      no longer fits even on a wide screen and leans on horizontal scroll (with
-      edge fades) as a stopgap. This needs an information-architecture fix, not
-      just reordering: e.g. cluster the discovery tools (Questions / Compare /
-      Explore) behind one entry or a grouped menu, fold lower-traffic routes
-      (Transfers, Data) into an overflow / "More" menu, or split into a
-      primary/secondary nav. Decide what earns a top-level slot before adding any
-      new route. As an interim measure, Compare and Explore were moved to the tail
-      of the nav (just before Data).
+- ✅ **The primary nav has outgrown a single rail. (resolved)** The eleven-tab
+      horizontal-scroll rail (with edge fades) is replaced by a flat rail of the
+      five routes that earn a one-click slot — Questions, Matches, Seasons,
+      Players, Managers — plus a "More" overflow menu holding the rest (Opponents,
+      Analytics, Compare, Explore, Transfers, Data). `MainNav` is split into a
+      `PrimaryRail` (still a fade-cued scroller, now a graceful narrow-screen
+      fallback rather than the desktop default) and a `MoreMenu` disclosure that
+      closes on outside-click, Escape, and route change, and shows the active
+      styling when an overflow route is current. The "decide what earns a
+      top-level slot before adding any new route" rule still stands for future
+      surfaces.
 - **Compare and Explore are half-baked and must justify their place.** Both ship
       the capability but read as utilities, not the floodlit-ledger, answer-first
       surfaces the north star calls for: `/compare` is a plain versus table and
@@ -358,8 +360,8 @@ before any further surface is added:
       feel like a place to *explore* rather than a form to submit. If that lift
       can't be justified, demote them out of the top nav entirely — reachable from
       `/questions`, the homepage, and search — or reconsider whether both surfaces
-      should exist. Their current tail placement and the `MainNav` comment mark
-      this as provisional.
+      should exist. Their placement in the "More" overflow menu (and the `MainNav`
+      `OVERFLOW` comment) marks this as still provisional.
 
 ## Parked pathways (open questions)
 
