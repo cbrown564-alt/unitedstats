@@ -35,7 +35,7 @@ export type MatchMarks = {
 };
 
 /** Map a positional label to one of four bands; null if it cannot be placed. */
-export function roleBand(role: string | null | undefined): Band | null {
+function roleBand(role: string | null | undefined): Band | null {
   if (!role) return null;
   const r = role.trim().toLowerCase();
   if (/goalkeep|^gk$/.test(r)) return "GK";
@@ -117,7 +117,7 @@ type Placement = { band: Band; lat: number; via: "role" | "shirt" | "career" };
  * Resolve a starter's pitch placement through the three evidence layers. `year`
  * (the match's calendar year) gates the shirt-number layer to the numbering era.
  */
-export function placement(
+function placement(
   p: { role: string | null; shirt: number | null; career_band?: string | null },
   year: number | null,
 ): Placement | null {
