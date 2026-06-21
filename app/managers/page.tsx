@@ -88,7 +88,10 @@ export default function ManagersPage() {
             </div>
             <div>
               <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Longest reign</dt>
-              <dd className="stat-num text-lg font-semibold text-gold">
+              {/* Red, not gold: win rate now wears the win-yellow, so the second hero
+                  figure takes the identity red — matching the record-holder figures on
+                  the other index heroes (most played, most appearances). */}
+              <dd className="stat-num text-lg font-semibold text-devil-bright">
                 {fmtNum(giants[0]?.p ?? 0)}{" "}
                 <span className="text-sm font-normal text-ink-dim">{giants[0]?.name.split(" ").pop()}</span>
               </dd>
