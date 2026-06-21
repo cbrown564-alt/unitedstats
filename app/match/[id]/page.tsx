@@ -13,7 +13,7 @@ import { MatchList } from "@/components/MatchList";
 import { MatchFlow } from "@/components/MatchFlow";
 import { EloWinBar } from "@/components/EloWinBar";
 import { WdlBar } from "@/components/WdlBar";
-import { FormationPitch, Bench, roleBand, type MatchMarks } from "@/components/FormationPitch";
+import { FormationPitch, Bench, placeBand, type MatchMarks } from "@/components/FormationPitch";
 
 export const dynamic = "force-dynamic";
 
@@ -68,8 +68,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const usedSubs = lineup.filter((p) => p.player_side === "united" && !p.started && !p.bench);
   const bench = lineup.filter((p) => p.player_side === "united" && p.bench);
   const hasTimedGoals = goals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
-  // Pitch needs a role for every starter (role data is per-match all-or-nothing).
-  const canPitch = starters.length >= 7 && starters.every((p) => roleBand(p.role) !== null);
+  // Pitch needs enough starters we can place — by recorded role, by shirt number
+  // in the rigid 1–11 numbering era, or by career band. Players we still can't
+  // place appear in a "position unknown" strip; we only fall back to the flat
+  // list when too few can be placed for a shape to read.
+  const matchYear = Number(m.date.slice(0, 4));
+  const placeableStarters = starters.filter((p) => placeBand(p, matchYear) !== null).length;
+  const canPitch = starters.length >= 7 && placeableStarters >= 7;
 
   // Per-player goals/bookings, drawn onto shirts on the pitch and bench. Goals
   // key off player id (own goals carry no United player id, so they drop out);
