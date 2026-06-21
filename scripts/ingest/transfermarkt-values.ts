@@ -28,7 +28,7 @@ import readline from "node:readline";
 import { Readable } from "node:stream";
 import zlib from "node:zlib";
 import {
-  CANONICAL, RAW, listSeasonFiles, loadSeasonFile, parseCsvLine, readJson, userAgent, writeJson,
+  CANONICAL, LineupEntry, RAW, listSeasonFiles, loadSeasonFile, parseCsvLine, readJson, userAgent, writeJson,
 } from "../lib";
 
 const BASE_URL = "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data";
@@ -69,19 +69,20 @@ interface Valuation {
  * canonical player id → Transfermarkt numeric id, learned from the providerId the
  * lineup lane stamped on United players. The most-stamped numeric id per player
  * wins (a player only ever has one TM id; this just ignores any stray value).
+ *
+ * `providerId` is `string | number` (football-data stamps numeric ids, mufcinfo
+ * string ones), so it is coerced to string before the digit test and tally —
+ * the regression that once broke type-check at build time.
  */
-function buildProviderIdMap(): Map<string, string> {
+export function resolveProviderIds(entries: LineupEntry[]): Map<string, string> {
   const tally = new Map<string, Map<string, number>>();
-  for (const file of listSeasonFiles()) {
-    const sf = loadSeasonFile(file.replace(".json", ""));
-    for (const match of sf.matches) {
-      for (const entry of match.lineup ?? []) {
-        if (entry.playerSide && entry.playerSide !== "united") continue;
-        if (!entry.player || !entry.providerId || !/^\d+$/.test(entry.providerId)) continue;
-        const counts = tally.get(entry.player) ?? tally.set(entry.player, new Map()).get(entry.player)!;
-        counts.set(entry.providerId, (counts.get(entry.providerId) ?? 0) + 1);
-      }
-    }
+  for (const entry of entries) {
+    if (entry.playerSide && entry.playerSide !== "united") continue;
+    if (!entry.player || entry.providerId == null) continue;
+    const providerId = String(entry.providerId);
+    if (!/^\d+$/.test(providerId)) continue;
+    const counts = tally.get(entry.player) ?? tally.set(entry.player, new Map()).get(entry.player)!;
+    counts.set(providerId, (counts.get(providerId) ?? 0) + 1);
   }
   const map = new Map<string, string>();
   for (const [player, counts] of tally) {
@@ -89,6 +90,18 @@ function buildProviderIdMap(): Map<string, string> {
     if (best) map.set(player, best[0]);
   }
   return map;
+}
+
+/** Every United lineup entry from the canonical season files, resolved to TM ids. */
+function buildProviderIdMap(): Map<string, string> {
+  const entries: LineupEntry[] = [];
+  for (const file of listSeasonFiles()) {
+    const sf = loadSeasonFile(file.replace(".json", ""));
+    for (const match of sf.matches) {
+      for (const entry of match.lineup ?? []) entries.push(entry);
+    }
+  }
+  return resolveProviderIds(entries);
 }
 
 async function ensureCached(): Promise<string> {
@@ -134,12 +147,12 @@ async function loadValuations(file: string, wanted: Set<string>): Promise<Map<st
   return byId;
 }
 
-function daysBetween(a: string, b: string): number {
+export function daysBetween(a: string, b: string): number {
   return Math.abs((Date.parse(a) - Date.parse(b)) / 86_400_000);
 }
 
 /** The valuation closest to `date`, or null if the nearest is outside the window. */
-function nearestValuation(series: Valuation[], date: string): number | null {
+export function nearestValuation(series: Valuation[], date: string): number | null {
   let best: Valuation | null = null;
   let bestGap = Infinity;
   for (const v of series) {
