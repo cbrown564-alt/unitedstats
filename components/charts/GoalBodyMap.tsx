@@ -14,16 +14,16 @@ const ZONE_OF: Record<string, Zone> = {
   "Right Foot": "rightFoot",
 };
 
-// Badge anchor points over the silhouette (viewBox 200 x 380). Left/right read
-// from the viewer's side so the labels in the breakdown match what they see.
-// Anchors over the striker silhouette (viewBox 260 x 300). The kicking boot is
-// the Right Foot — the dominant badge lands there, beside the ball.
+// Badge anchor points over the striker silhouette (viewBox 470 x 600). The figure
+// faces the viewer, so the player's anatomical left/right are mirrored on screen:
+// the boot beside the ball (viewer's right) is the player's Left Foot, and the
+// trailing boot to the far left is his Right Foot. The dominant badge glows gold.
 const POS: Record<Zone, { x: number; y: number }> = {
-  head: { x: 92, y: 40 },
-  chest: { x: 104, y: 114 },
-  knee: { x: 168, y: 188 },
-  rightFoot: { x: 224, y: 236 },
-  leftFoot: { x: 111, y: 261 },
+  head: { x: 312, y: 58 },
+  chest: { x: 298, y: 198 },
+  knee: { x: 386, y: 430 },
+  rightFoot: { x: 52, y: 392 },
+  leftFoot: { x: 398, y: 548 },
 };
 
 /**
@@ -56,36 +56,30 @@ export function GoalBodyMap({
     <div className="grid items-center gap-6 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
       {/* The figure: counts land on the body part that scored them. */}
       <svg
-        viewBox="0 0 260 300"
+        viewBox="0 0 470 600"
         className="mx-auto h-auto w-48 max-w-full sm:w-full"
         role="img"
         aria-label={`Goals by body part: ${zones.map((z) => `${z} ${zoneCounts[z]}`).join(", ")}`}
       >
-        {/* A striker pictogram on the follow-through, built from round-capped
-            strokes so the joints read clean: trailing arm up for balance,
-            leading arm forward, planted leg down, kicking leg swung to the ball. */}
+        {/* A striker on the follow-through, mid-strike toward the ball: trailing
+            arm up for balance, leading leg planted, kicking boot swung down to
+            the ball at his right foot. */}
         <defs>
           <linearGradient id="bodymap-fill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#4a413b" />
             <stop offset="1" stopColor="#241e1c" />
           </linearGradient>
         </defs>
-        <circle cx="92" cy="40" r="16" fill="url(#bodymap-fill)" />
-        <g fill="none" stroke="url(#bodymap-fill)" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M96 66 Q104 116 112 166" strokeWidth="19" />
-          <path d="M96 70 L72 58 L50 40" strokeWidth="13" />
-          <path d="M98 72 L126 92 L152 118" strokeWidth="13" />
-          <path d="M108 164 L103 214 L100 258" strokeWidth="18" />
-          <path d="M100 258 L122 264" strokeWidth="18" />
-          <path d="M118 164 L170 190 L210 230" strokeWidth="18" />
-          <path d="M210 230 L234 240" strokeWidth="18" />
-        </g>
+        <path
+          fill="url(#bodymap-fill)"
+          d="M 280 1 L 277 3 L 277 7 L 272 15 L 273 16 L 268 31 L 268 41 L 265 45 L 266 64 L 272 69 L 272 79 L 270 83 L 265 86 L 263 85 L 260 88 L 260 84 L 258 86 L 259 87 L 255 90 L 257 88 L 259 90 L 256 93 L 254 92 L 252 97 L 249 93 L 251 97 L 240 99 L 245 99 L 217 119 L 216 117 L 217 120 L 213 123 L 213 120 L 209 120 L 211 121 L 209 124 L 211 122 L 213 123 L 209 128 L 208 127 L 209 129 L 205 133 L 198 152 L 190 162 L 188 169 L 185 169 L 187 170 L 185 176 L 182 176 L 183 177 L 181 179 L 179 176 L 181 180 L 179 182 L 178 180 L 179 184 L 178 185 L 177 183 L 177 193 L 176 194 L 174 192 L 176 195 L 164 209 L 159 209 L 160 210 L 162 208 L 163 210 L 160 213 L 159 212 L 160 213 L 150 226 L 148 226 L 148 224 L 146 225 L 148 227 L 151 225 L 151 228 L 146 230 L 144 233 L 136 233 L 132 245 L 132 253 L 139 262 L 138 263 L 140 262 L 140 264 L 141 263 L 146 266 L 164 268 L 167 264 L 165 264 L 163 260 L 158 257 L 160 255 L 166 254 L 174 244 L 176 245 L 174 247 L 178 245 L 175 244 L 182 238 L 183 239 L 182 237 L 184 237 L 184 234 L 187 234 L 186 235 L 185 233 L 190 223 L 205 207 L 206 209 L 206 206 L 215 205 L 220 199 L 222 199 L 221 197 L 223 193 L 226 197 L 225 225 L 214 252 L 216 257 L 222 261 L 218 265 L 215 264 L 217 265 L 206 273 L 204 272 L 205 274 L 199 281 L 200 283 L 192 300 L 189 303 L 188 302 L 190 299 L 189 296 L 190 299 L 187 302 L 189 303 L 183 308 L 183 305 L 180 309 L 182 307 L 183 309 L 172 332 L 158 351 L 156 351 L 158 347 L 154 352 L 156 355 L 153 361 L 151 361 L 152 362 L 145 373 L 145 376 L 143 376 L 144 377 L 139 384 L 138 382 L 139 384 L 137 387 L 136 385 L 137 388 L 134 394 L 132 395 L 127 391 L 126 388 L 114 381 L 118 380 L 110 381 L 96 377 L 82 376 L 81 374 L 84 370 L 84 363 L 82 358 L 83 354 L 80 349 L 81 348 L 79 349 L 69 344 L 65 344 L 54 348 L 52 350 L 54 348 L 56 349 L 53 352 L 34 362 L 30 360 L 33 362 L 32 363 L 27 360 L 23 360 L 24 361 L 17 365 L 16 364 L 18 362 L 15 364 L 17 365 L 10 370 L 0 387 L 0 396 L 2 400 L 8 404 L 21 399 L 31 399 L 35 404 L 33 405 L 48 405 L 51 401 L 60 402 L 82 422 L 80 424 L 83 422 L 84 425 L 87 424 L 94 429 L 92 430 L 96 429 L 99 431 L 98 433 L 100 431 L 104 435 L 102 436 L 103 437 L 104 435 L 112 446 L 117 447 L 120 452 L 119 451 L 121 450 L 126 453 L 141 452 L 141 454 L 139 454 L 143 453 L 143 451 L 146 449 L 150 449 L 154 446 L 157 447 L 158 446 L 155 446 L 167 435 L 169 436 L 172 433 L 171 431 L 175 427 L 176 428 L 178 424 L 180 426 L 182 421 L 184 421 L 184 418 L 186 416 L 186 419 L 188 417 L 186 416 L 188 414 L 190 416 L 192 413 L 190 415 L 188 413 L 199 404 L 206 411 L 211 412 L 216 410 L 217 411 L 215 413 L 218 411 L 216 410 L 218 408 L 220 409 L 220 407 L 223 408 L 223 406 L 228 404 L 229 406 L 227 407 L 230 406 L 228 404 L 244 388 L 246 388 L 251 383 L 254 383 L 253 382 L 256 379 L 255 378 L 257 376 L 258 378 L 260 375 L 258 377 L 257 375 L 261 373 L 264 375 L 264 378 L 266 377 L 284 391 L 281 394 L 283 396 L 285 395 L 283 393 L 284 391 L 291 398 L 288 398 L 288 400 L 292 398 L 294 400 L 293 404 L 295 401 L 320 423 L 320 428 L 321 426 L 324 429 L 329 429 L 335 426 L 339 427 L 341 425 L 339 427 L 337 426 L 340 423 L 344 423 L 344 426 L 347 429 L 344 426 L 345 425 L 352 429 L 349 431 L 352 429 L 358 434 L 352 438 L 355 435 L 357 436 L 354 446 L 355 448 L 353 454 L 351 481 L 353 490 L 360 504 L 360 512 L 364 529 L 363 535 L 365 537 L 367 564 L 362 577 L 362 585 L 366 593 L 370 596 L 380 598 L 378 597 L 382 595 L 384 596 L 383 597 L 385 594 L 407 595 L 438 593 L 439 595 L 444 595 L 452 588 L 460 588 L 462 586 L 462 590 L 462 583 L 469 576 L 469 565 L 467 562 L 432 558 L 424 550 L 410 544 L 407 547 L 402 543 L 400 538 L 403 512 L 402 451 L 403 445 L 407 441 L 405 436 L 407 436 L 407 432 L 409 430 L 410 431 L 408 428 L 409 419 L 405 409 L 400 405 L 399 401 L 399 404 L 391 394 L 392 393 L 391 394 L 389 392 L 388 386 L 382 376 L 381 365 L 374 360 L 369 352 L 361 347 L 364 346 L 365 347 L 359 346 L 351 337 L 352 336 L 350 337 L 342 329 L 343 327 L 342 329 L 340 327 L 343 324 L 342 315 L 332 307 L 333 263 L 338 249 L 337 224 L 340 199 L 342 196 L 343 165 L 345 162 L 343 159 L 340 137 L 341 136 L 342 139 L 343 135 L 342 136 L 341 134 L 351 126 L 354 126 L 357 123 L 359 125 L 358 122 L 366 110 L 367 113 L 363 119 L 366 116 L 367 118 L 366 108 L 368 104 L 371 102 L 372 103 L 371 101 L 380 87 L 380 92 L 383 85 L 381 88 L 380 86 L 389 73 L 390 75 L 390 70 L 396 62 L 400 51 L 403 48 L 404 51 L 405 49 L 403 47 L 405 45 L 406 47 L 407 45 L 405 45 L 406 31 L 404 27 L 398 23 L 399 21 L 400 22 L 398 19 L 402 17 L 399 13 L 392 11 L 386 11 L 383 13 L 380 12 L 382 13 L 382 17 L 379 24 L 376 24 L 377 25 L 374 27 L 373 32 L 375 35 L 373 37 L 372 34 L 374 41 L 373 47 L 374 45 L 377 50 L 376 53 L 377 54 L 377 51 L 380 56 L 376 59 L 374 58 L 376 59 L 354 78 L 340 86 L 338 89 L 336 88 L 337 90 L 333 94 L 332 92 L 331 94 L 332 93 L 333 95 L 330 100 L 319 91 L 323 86 L 325 76 L 328 75 L 327 76 L 326 74 L 330 71 L 331 64 L 334 63 L 332 63 L 335 46 L 341 37 L 342 39 L 337 19 L 329 10 L 312 1 L 289 0 L 281 3 L 279 2 Z"
+        />
         {/* the ball being struck */}
-        <circle cx="236" cy="256" r="13" fill="var(--color-panel)" stroke="var(--color-ink-faint)" strokeWidth="2" />
+        <circle cx="325" cy="558.2" r="42.2" fill="var(--color-panel)" stroke="var(--color-ink-faint)" strokeWidth="3" />
 
         {zones.map((z) => {
           const n = zoneCounts[z];
-          const r = 11 + 10 * (n / maxZone);
+          const r = 22 + 18 * (n / maxZone);
           const top = z === topZone;
           const { x, y } = POS[z];
           return (
@@ -97,14 +91,14 @@ export function GoalBodyMap({
                 fill={top ? "var(--color-gold)" : "var(--color-devil)"}
                 fillOpacity={top ? 1 : 0.9}
                 stroke="var(--color-pitch)"
-                strokeWidth="2"
+                strokeWidth="3"
               />
               <text
                 x={x}
                 y={y}
                 dy="0.34em"
                 textAnchor="middle"
-                fontSize="13"
+                fontSize="24"
                 fontWeight="700"
                 fill={top ? "var(--color-pitch)" : "var(--color-ink)"}
                 style={{ fontFamily: "var(--font-mono)" }}
