@@ -77,9 +77,11 @@ function buildProviderIdMap(): Map<string, string> {
     for (const match of sf.matches) {
       for (const entry of match.lineup ?? []) {
         if (entry.playerSide && entry.playerSide !== "united") continue;
-        if (!entry.player || !entry.providerId || !/^\d+$/.test(entry.providerId)) continue;
+        if (!entry.player || !entry.providerId) continue;
+        const providerId = String(entry.providerId);
+        if (!/^\d+$/.test(providerId)) continue;
         const counts = tally.get(entry.player) ?? tally.set(entry.player, new Map()).get(entry.player)!;
-        counts.set(entry.providerId, (counts.get(entry.providerId) ?? 0) + 1);
+        counts.set(providerId, (counts.get(providerId) ?? 0) + 1);
       }
     }
   }
