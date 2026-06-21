@@ -70,7 +70,9 @@ export function LeagueTable({
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("table") === "full") setExpanded(true);
+    if (new URLSearchParams(window.location.search).get("table") !== "full") return;
+    const frame = window.requestAnimationFrame(() => setExpanded(true));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   function toggle(next: boolean) {

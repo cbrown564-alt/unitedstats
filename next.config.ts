@@ -1,4 +1,9 @@
 import type { NextConfig } from "next";
+import { IMMUTABLE_DATA_CACHE_CONTROL } from "./lib/cache";
+
+const immutablePageCacheHeader = [
+  { key: "Cache-Control", value: IMMUTABLE_DATA_CACHE_CONTROL },
+];
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_VERIFY_DIST ?? ".next",
@@ -12,6 +17,12 @@ const nextConfig: NextConfig = {
       { source: "/analytics/odds", destination: "/analytics", permanent: true },
       { source: "/analytics/travel", destination: "/questions#away-days", permanent: true },
     ];
+  },
+  async headers() {
+    return ["/matches", "/players", "/seasons", "/search", "/compare", "/explore"].map((source) => ({
+      source,
+      headers: immutablePageCacheHeader,
+    }));
   },
   images: {
     // Player/manager portraits are immutable, so let the optimizer hold each

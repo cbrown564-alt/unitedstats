@@ -24,9 +24,14 @@ import { ContributionSpine } from "@/components/charts/ContributionSpine";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
 import { TransferList } from "@/components/TransferList";
+import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
+import { queryString } from "@/lib/url";
 
 export const dynamicParams = false;
+
+const SCORING_ARCHIVE_INLINE_MAX = 25;
+const APPEARANCE_ARCHIVE_INLINE_MAX = 60;
 
 export async function generateStaticParams() {
   return playersIndex().map((p) => ({ id: p.player_id }));
@@ -113,7 +118,7 @@ export default async function PlayerPage({
   // The haul cards are a highlight reel, not the full multi-goal list — biggest
   // nights first, capped, with the complete record carried by the archive below.
   const topHauls = hauls.slice(0, 6);
-  const longScoredList = matches.length > 25;
+  const longScoredList = matches.length > SCORING_ARCHIVE_INLINE_MAX;
   const scoredBySeason: [string, typeof matches][] = [];
   const seasonIndex = new Map<string, number>();
   for (const m of matches) {
@@ -144,6 +149,7 @@ export default async function PlayerPage({
     }
     appsBySeason[i][1].push(m);
   }
+  const longAppearanceList = appearances.length > APPEARANCE_ARCHIVE_INLINE_MAX;
 
   // Goal-count badge with the recorded minutes, reused across the scored lists.
   const goalExtra = (m: { goals: number; minutes?: string | null }) => {
@@ -473,37 +479,31 @@ export default async function PlayerPage({
                   </div>
                 )}
 
-                <details className="group">
-                  <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
-                    <h3 className="text-sm font-medium text-ink-dim">Every scoring match, season by season</h3>
-                    <span className="stat-num text-xs text-devil-bright">
-                      <span className="group-open:hidden">show all {fmtNum(matches.length)}</span>
-                      <span className="hidden group-open:inline">hide</span>
-                    </span>
-                  </summary>
-                  <div className="mt-3">
-                    <ArchiveJumpRail matches={matches} idPrefix="scored" />
+                <div>
+                  <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
+                    <h3 className="text-sm font-medium text-ink-dim">Scoring seasons</h3>
+                    <EvidenceLink
+                      href={`/matches${queryString({ scorer: id })}`}
+                      label={`Open all ${fmtNum(matches.length)} in the match browser →`}
+                    />
                   </div>
-                  <div className="mt-3 space-y-6">
+                  <ArchiveJumpRail matches={matches} idPrefix="scored" />
+                  <div className="mt-3 space-y-2">
                     {scoredBySeason.map(([season, ms]) => {
                       const seasonGoals = ms.reduce((a, m) => a + m.goals, 0);
                       return (
-                        <div key={season} id={`scored-${season}`} className="scroll-mt-24">
-                          <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
-                            <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright">
-                              {season}
-                            </Link>
-                            <span className="stat-num text-xs text-ink-faint">
-                              <span className="text-devil-bright">{fmtNum(seasonGoals)}</span> goal{seasonGoals === 1 ? "" : "s"}
-                              {" · "}{fmtNum(ms.length)} match{ms.length === 1 ? "" : "es"}
-                            </span>
-                          </div>
-                          <MatchList matches={ms} renderExtra={goalExtra} />
-                        </div>
+                        <SeasonEvidenceRow
+                          key={season}
+                          id={`scored-${season}`}
+                          season={season}
+                          href={`/matches${queryString({ scorer: id, season })}`}
+                          primary={`${fmtNum(seasonGoals)} goal${seasonGoals === 1 ? "" : "s"}`}
+                          secondary={`${fmtNum(ms.length)} scoring match${ms.length === 1 ? "" : "es"}`}
+                        />
                       );
                     })}
                   </div>
-                </details>
+                </div>
               </>
             )}
           </>
@@ -545,41 +545,73 @@ export default async function PlayerPage({
             );
           })()}
 
-          <details className="group">
-            <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
-              <h3 className="text-sm font-medium text-ink-dim">The matches, season by season</h3>
-              <span className="stat-num text-xs text-devil-bright">
-                <span className="group-open:hidden">show all {fmtNum(appearances.length)}</span>
-                <span className="hidden group-open:inline">hide</span>
-              </span>
-            </summary>
-            <div className="mt-3">
+          {longAppearanceList ? (
+            <div>
+              <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="text-sm font-medium text-ink-dim">Appearance seasons</h3>
+                <EvidenceLink
+                  href={`/matches${queryString({ player: id })}`}
+                  label={`Open all ${fmtNum(appearances.length)} in the match browser →`}
+                />
+              </div>
               <ArchiveJumpRail matches={appearances} idPrefix="apps" />
+              <div className="mt-3 space-y-2">
+                {appsBySeason.map(([season, ms]) => {
+                  const starts = ms.filter((x) => x.started).length;
+                  return (
+                    <SeasonEvidenceRow
+                      key={season}
+                      id={`apps-${season}`}
+                      season={season}
+                      href={`/matches${queryString({ player: id, season })}`}
+                      primary={`${fmtNum(ms.length)} app${ms.length === 1 ? "" : "s"}`}
+                      secondary={`${fmtNum(starts)} start${starts === 1 ? "" : "s"}`}
+                    />
+                  );
+                })}
+              </div>
+              <CoverageNote
+                slice="lineup appearances, all competitions"
+                coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
+              />
             </div>
-            <div className="mt-3 space-y-6">
-              {appsBySeason.map(([season, ms]) => {
-                const starts = ms.filter((x) => x.started).length;
-                return (
-                  <div key={season} id={`apps-${season}`} className="scroll-mt-24">
-                    <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
-                      <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright">
-                        {season}
-                      </Link>
-                      <span className="stat-num text-xs text-ink-faint">
-                        {fmtNum(ms.length)} app{ms.length === 1 ? "" : "s"}
-                        {" · "}<span className="text-devil-bright">{fmtNum(starts)}</span> started
-                      </span>
+          ) : (
+            <details className="group">
+              <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
+                <h3 className="text-sm font-medium text-ink-dim">The matches, season by season</h3>
+                <span className="stat-num text-xs text-devil-bright">
+                  <span className="group-open:hidden">show all {fmtNum(appearances.length)}</span>
+                  <span className="hidden group-open:inline">hide</span>
+                </span>
+              </summary>
+              <div className="mt-3">
+                <ArchiveJumpRail matches={appearances} idPrefix="apps" />
+              </div>
+              <div className="mt-3 space-y-6">
+                {appsBySeason.map(([season, ms]) => {
+                  const starts = ms.filter((x) => x.started).length;
+                  return (
+                    <div key={season} id={`apps-${season}`} className="scroll-mt-24">
+                      <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
+                        <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright">
+                          {season}
+                        </Link>
+                        <span className="stat-num text-xs text-ink-faint">
+                          {fmtNum(ms.length)} app{ms.length === 1 ? "" : "s"}
+                          {" · "}<span className="text-devil-bright">{fmtNum(starts)}</span> started
+                        </span>
+                      </div>
+                      <MatchList matches={ms} renderExtra={appsExtra} />
                     </div>
-                    <MatchList matches={ms} renderExtra={appsExtra} />
-                  </div>
-                );
-              })}
-            </div>
-            <CoverageNote
-              slice="lineup appearances, all competitions"
-              coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
-            />
-          </details>
+                  );
+                })}
+              </div>
+              <CoverageNote
+                slice="lineup appearances, all competitions"
+                coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
+              />
+            </details>
+          )}
         </section>
       )}
 
@@ -614,5 +646,39 @@ export default async function PlayerPage({
         <Link href="/players" className="text-devil-bright hover:underline">← All players</Link>
       </p>
     </div>
+  );
+}
+
+function SeasonEvidenceRow({
+  id,
+  season,
+  href,
+  primary,
+  secondary,
+}: {
+  id: string;
+  season: string;
+  href: string;
+  primary: string;
+  secondary: string;
+}) {
+  return (
+    <section id={id} className="scroll-mt-24 rounded-lg border border-line bg-panel px-3 py-2.5 sm:px-4">
+      <div className="flex items-center gap-3">
+        <Link href={`/seasons/${season}`} className="display w-[5.25rem] shrink-0 text-base leading-none hover:text-devil-bright">
+          {season}
+        </Link>
+        <span className="stat-num text-xs text-ink">
+          <span className="text-devil-bright">{primary}</span>
+          <span className="text-ink-faint"> · {secondary}</span>
+        </span>
+        <Link
+          href={href}
+          className="ml-auto shrink-0 rounded-md border border-line bg-panel-2 px-2.5 py-1 text-xs text-devil-bright transition-colors hover:border-devil/60 hover:bg-devil/10"
+        >
+          Open
+        </Link>
+      </div>
+    </section>
   );
 }

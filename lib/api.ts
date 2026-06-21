@@ -3,6 +3,7 @@
  * with permissive CORS so the dataset can be used from anywhere; every
  * payload carries its attribution and a pointer to the docs on /data.
  */
+import { immutableDataHeaders } from "./cache";
 
 const ATTRIBUTION = {
   source: "UnitedStats, the open Manchester United match history",
@@ -17,7 +18,7 @@ const ATTRIBUTION = {
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Cache-Control": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800",
+  ...immutableDataHeaders,
 };
 
 export function apiJson(data: unknown, extra?: Record<string, unknown>): Response {

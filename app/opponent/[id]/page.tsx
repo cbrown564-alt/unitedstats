@@ -18,6 +18,7 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { SectionHead } from "@/components/SectionHead";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
+import { queryString } from "@/lib/url";
 
 export const dynamicParams = false;
 
@@ -194,7 +195,11 @@ export default async function OpponentPage({
         <div className="mb-3 flex justify-end">
           <EvidenceLink href={`/matches?opponent=${id}`} label="Filter these in the match browser →" />
         </div>
-        <MatchArchive matches={allMatches} accentResult />
+        <MatchArchive
+          matches={allMatches}
+          accentResult
+          hrefForSeason={(season) => `/matches${queryString({ opponent: id, season })}`}
+        />
         <CoverageNote
           slice="every recorded United v opponent fixture, all competitions"
           coverage={`${fmtNum(total)} meetings, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}, season by season; pre-merge name changes are folded into one opponent where known.`}

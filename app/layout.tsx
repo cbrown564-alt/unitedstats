@@ -3,7 +3,8 @@ import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
 import { MainNav } from "@/components/MainNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
-import { CommandPalette } from "@/components/CommandPalette";
+import { CommandPaletteLoader } from "@/components/CommandPaletteLoader";
+import { WebVitals } from "@/components/WebVitals";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -40,7 +41,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <HeaderSearch />
           </div>
         </header>
-        <CommandPalette />
+        <CommandPaletteLoader />
+        <WebVitals />
         <main className="flex-1 w-full mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">{children}</main>
         <footer className="border-t border-line mt-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 text-xs text-ink-faint space-y-1">

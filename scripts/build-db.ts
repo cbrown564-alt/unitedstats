@@ -293,7 +293,9 @@ db.pragma("synchronous = OFF");
 
 db.exec(`
 CREATE TABLE competitions (id TEXT PRIMARY KEY, name TEXT NOT NULL, type TEXT NOT NULL, tier INTEGER);
+CREATE INDEX idx_competitions_type ON competitions(type);
 CREATE TABLE stadiums (id TEXT PRIMARY KEY, name TEXT NOT NULL, city TEXT, country TEXT, lat REAL, lng REAL, note TEXT);
+CREATE INDEX idx_stadiums_city ON stadiums(city);
 CREATE TABLE managers (id TEXT PRIMARY KEY, name TEXT NOT NULL, nationality TEXT, role TEXT);
 CREATE TABLE manager_tenures (manager_id TEXT NOT NULL REFERENCES managers(id), date_from TEXT NOT NULL, date_to TEXT, note TEXT);
 CREATE TABLE players (id TEXT PRIMARY KEY, name TEXT NOT NULL, positions TEXT, nationality TEXT, born TEXT);
@@ -334,6 +336,13 @@ CREATE INDEX idx_matches_date ON matches(date);
 CREATE INDEX idx_matches_season ON matches(season);
 CREATE INDEX idx_matches_opponent ON matches(opponent_id);
 CREATE INDEX idx_matches_competition ON matches(competition_id);
+CREATE INDEX idx_matches_season_date ON matches(season, date);
+CREATE INDEX idx_matches_opponent_date ON matches(opponent_id, date);
+CREATE INDEX idx_matches_competition_date ON matches(competition_id, date);
+CREATE INDEX idx_matches_manager_date ON matches(manager_id, date);
+CREATE INDEX idx_matches_venue_date ON matches(venue, date);
+CREATE INDEX idx_matches_result_date ON matches(result, date);
+CREATE INDEX idx_matches_stadium_date ON matches(stadium_id, date);
 
 CREATE TABLE match_sources (
   match_id TEXT NOT NULL REFERENCES matches(id),
@@ -370,6 +379,7 @@ CREATE TABLE match_events (
 );
 CREATE INDEX idx_events_player ON match_events(player_id);
 CREATE INDEX idx_events_assist_player ON match_events(assist_player_id);
+CREATE INDEX idx_events_match_player_goal ON match_events(match_id, player_id, player_side, type);
 
 CREATE TABLE match_lineups (
   match_id TEXT NOT NULL REFERENCES matches(id),
@@ -386,6 +396,7 @@ CREATE TABLE match_lineups (
 );
 CREATE INDEX idx_lineups_player ON match_lineups(player_id);
 CREATE INDEX idx_lineups_match_side ON match_lineups(match_id, player_side);
+CREATE INDEX idx_lineups_match_player ON match_lineups(match_id, player_id, player_side, bench);
 
 CREATE TABLE elo_history (
   match_id TEXT PRIMARY KEY REFERENCES matches(id),

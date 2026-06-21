@@ -94,3 +94,46 @@ after `npm run build`) reads `.next/prerender-manifest.json` and fails if any
 expected static page or SSG route has regressed to dynamic, or if the
 prerendered-path count collapses. A stray `searchParams`/`cookies()` read or a
 dropped `generateStaticParams` will fail the build instead of silently shipping.
+
+## M7 — payload budgets and long archives
+
+`scripts/check-perf-budgets.mjs` (run as `npm run check:perf` after
+`npm run build`) fails on built-artifact regressions:
+
+- max gzipped HTML: 180 KB
+- max gzipped RSC: 120 KB
+- max gzipped JS chunk: 120 KB
+- max production `.next` output: 2 GB (local `.next/dev` output is ignored)
+
+The largest long-tail archives no longer prerender full match lists inside
+collapsed disclosures. Manager/opponent archives switch to season summary rows
+with filtered match-browser links once the archive crosses the long-list
+threshold. Player scoring and lineup archives do the same for prolific/long-career
+players, backed by `/matches?scorer=…` and `/matches?player=…` filters.
+
+Measured after M7 (Node 22.16.0, Next 16.2.9):
+
+- `.next` output: 1.94 GB, down from ~2.7 GB.
+- `manager/alex-ferguson.html`: 81.6 KB gzip, down from ~246 KB.
+- `player/ryan-giggs.html`: 37.0 KB gzip, down from ~164 KB.
+- largest HTML: `questions.html`, 158.9 KB gzip.
+- largest RSC: `questions.rsc`, 86.7 KB gzip.
+
+## M8 — dynamic route cache and indexes
+
+The remaining dynamic pages are URL-state tools over deploy-immutable data:
+`/matches`, `/players`, `/seasons`, `/search`, `/compare`, and `/explore`.
+They now receive the same read-only cache policy as the public API:
+`Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`.
+This keeps first hits correct while letting repeat filter/sort URLs be served at
+the edge until the next deploy naturally refreshes the cache.
+
+`/api/search` now sets a shorter browser cache (`max-age=60`, same one-day edge
+TTL) and moves query logging into `after()`, so telemetry file writes no longer
+block the JSON response.
+
+The SQLite build adds composite indexes for the dynamic match-browser/explorer
+predicates that remain after cache misses: season/opponent/competition/manager/
+venue/result/stadium paired with `date`, plus city lookup and player/scorer
+existence checks. These target the links introduced by the payload work, such as
+`/matches?scorer=…` and `/matches?player=…`, without changing page semantics.

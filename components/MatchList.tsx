@@ -42,7 +42,7 @@ export function MatchList<T extends MatchRow>({
   return (
     <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
       {matches.map((m) => (
-        <li key={m.id}>
+        <li key={m.id} className="match-list-item">
           <Link
             href={`/match/${m.id}`}
             className={`grid min-h-14 ${cols} items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:px-4 ${accentResult ? accentClass(m.result) : ""}`}

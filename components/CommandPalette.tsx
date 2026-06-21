@@ -14,8 +14,8 @@ import { logSearchClick } from "@/lib/search/clientLog";
  * header dropdown uses, so power users get a focus-trapping, full-keyboard search
  * from anywhere. Mounted once in the root layout.
  */
-export function CommandPalette() {
-  const [open, setOpen] = useState(false);
+export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [q, setQ] = useState("");
   const [active, setActive] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);

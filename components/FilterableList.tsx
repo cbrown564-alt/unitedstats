@@ -35,7 +35,9 @@ export function FilterableList({
 
   useEffect(() => {
     const initial = new URLSearchParams(window.location.search).get(paramKey) ?? "";
-    if (initial) setQ(initial);
+    if (!initial) return;
+    const frame = window.requestAnimationFrame(() => setQ(initial));
+    return () => window.cancelAnimationFrame(frame);
   }, [paramKey]);
 
   useEffect(() => {
