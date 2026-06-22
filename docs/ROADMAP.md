@@ -354,12 +354,19 @@ before any further surface is added:
       (resolved — design lift)** Both read as utilities before: `/compare` was a
       plain versus table, `/explore` a filter form over a dense table. They were
       given a dramatic, subject-grounded lift drawn from football's own artifacts:
-      - **Compare → a match scoreboard.** `CompareTable` now leads with a floodlit
-        versus hero — a "leads N–N" tally of measures won, each side's score
-        tinted, plus a plain-language verdict — over the mirrored per-metric bars.
-        The empty state leads with curated *great debates* (fixtures to pick); the
-        build-your-own picker is demoted beneath them, the era select is grouped,
-        and player inputs gain native `<datalist>` autocomplete.
+      - **Compare → a match scoreboard + mode-specific signatures.** First pass: a
+        scoreboard hero ("leads N–N" tally + verdict) over mirrored per-metric bars.
+        That bar stack still read as bland (every self-normalised bar ~the same
+        length), so a second pass replaced it with the one artifact that carries
+        each mode's story — players → a **career-arc duel** (overlaid goal-per-season
+        curves: peak, longevity, trajectory); managers → a **trophy cabinet** (the
+        silverware as gold glyphs by competition + a win-rate gauge); eras → a
+        **league-finish skyline** (season-by-season top-flight finishes, gold for
+        titles). The verdict leads with the biggest gap as a ratio ("3.5× the
+        silverware"); the shared metrics stay as a compact numeric strip beneath.
+        The empty state leads with curated *great debates*; the build-your-own picker
+        is demoted beneath them, the era select is grouped, and player inputs gain
+        native `<datalist>` autocomplete. See `components/CompareSignatures.tsx`.
       - **Explore → a league ladder.** The page leads with the cut's headline
         finding (the standout group for the active sort), makes the dimension a
         dial of instant re-cut links (filters demoted to a refine bar), and renders
