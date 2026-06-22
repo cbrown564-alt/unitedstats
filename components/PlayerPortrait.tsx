@@ -3,7 +3,7 @@ import Image from "next/image";
 interface PlayerPortraitProps {
   name: string;
   src?: string | null;
-  size?: "xs" | "sm" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   /** Set on the one above-the-fold portrait per page (the hero plate) for LCP. */
   priority?: boolean;
 }
@@ -11,6 +11,7 @@ interface PlayerPortraitProps {
 const SIZES = {
   xs: { box: "h-7 w-7", pixels: 28, text: "text-[9px]" },
   sm: { box: "h-10 w-10", pixels: 40, text: "text-xs" },
+  md: { box: "h-14 w-14 sm:h-16 sm:w-16", pixels: 64, text: "text-lg" },
   lg: { box: "h-40 w-40 sm:h-44 sm:w-44", pixels: 176, text: "text-3xl" },
 };
 
