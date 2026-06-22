@@ -30,7 +30,6 @@ const MYTHS: [question: string, hook: string, href: string][] = [
 
 const ROUTES: [label: string, href: string, hint: string][] = [
   ["Compare", "/compare", "players, managers, eras"],
-  ["Explore", "/explore", "build your own cut"],
   ["Matches", "/matches", "filter 6,000+ fixtures"],
   ["Seasons", "/seasons", "1886–87 to today"],
   ["Players", "/players", "every recorded scorer"],

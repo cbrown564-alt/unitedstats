@@ -53,12 +53,6 @@ The real win is the module/duplication reduction, not the route count.
   `season_summaries`). The empty state leads with curated *great debates*; the
   build-your-own picker is demoted below them (player inputs gain a `<datalist>`).
   Shaped player-vs-player search lands here.
-- `/explore` — build-your-own-cut group-by explorer (Phase 9; redesigned as a
-  league ladder, Phase 9 follow-up), the aggregate companion to `/matches`.
-  `lib/explore.ts` groups the shared `matchWhere` filter by a chosen dimension;
-  the page leads with the cut's headline finding, makes the dimension a dial of
-  instant re-cut links (filters demoted to a refine bar), and renders the groups
-  as an `ExploreBoard` ranked ladder. Each row's link reproduces exactly its matches.
 - `/analytics` — the strength surface: Elo retrospective (timeline) **+
   prospective (odds widget, season replay, calibration — folded in from the
   former `/analytics/odds`)** + season trends + grounds + assist partnerships.
@@ -89,7 +83,6 @@ Removed this pass: `/analytics/odds` (folded into `/analytics`) and
 | `DataTable` | sortable dense table | analytics, calibration, indexes |
 | `CompareTable` | match-scoreboard versus: leads-tally + plain-language verdict hero, the mode's `CompareSignature`, then a compact numeric measures strip | `/compare` |
 | `CompareSignatures` | the per-mode hero artifact: `CareerArcDuel` (players, overlaid goal curves), `TrophyCabinet` (managers, silverware wall + win gauge), `EraSkyline` (eras, league-finish skyline) | `CompareTable` |
-| `ExploreBoard` | ranked ladder: one row per group, W/D/L form bar + played/win-rate/GD figures, whole row an evidence link | `/explore` |
 | `StreakBoard` | per-kind run ladder, each run evidence-linked | `/questions#runs` |
 | `Pager` | Newer / page / Older pagination | `/matches`, `/manager/[id]` |
 | `HeaderSearch` / `SearchCommand` / `MainNav` | global header search + nav | layout |
@@ -175,8 +168,10 @@ Added in Phase 9 (discovery and comparison):
 - **Comparison surface.** `/compare` (players / managers / eras) over
   `lib/compare.ts` + `CompareTable`; the deferred "comparison modes" bet, now
   built coverage-aware with every side linking to its matches.
-- **Group-by explorer.** `/explore` over `lib/explore.ts`; the aggregate
-  companion to `/matches`, reusing `matchWhere` so the slice vocabulary agrees.
+- **Group-by explorer.** ~~`/explore` over `lib/explore.ts`~~ — removed 2026-06.
+  The build-your-own-cut explorer never fit the answer-first house voice (it led
+  with controls, not findings) and overlapped `/questions`; deleted rather than
+  redesigned again.
 - **Run detection + comebacks.** `lib/streaks.ts` (+ `StreakBoard`) and
   `trails.comebacks` add two evidence-linked `/questions` modules (nine total).
 

@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
-    return ["/matches", "/players", "/seasons", "/search", "/compare", "/explore"].map((source) => ({
+    return ["/matches", "/players", "/seasons", "/search", "/compare"].map((source) => ({
       source,
       headers: immutablePageCacheHeader,
     }));
