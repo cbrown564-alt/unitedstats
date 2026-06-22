@@ -40,13 +40,18 @@ The real win is the module/duplication reduction, not the route count.
   recoveries from behind (`trails.comebacks`); great runs ladders the longest
   consecutive-official-match streaks of four kinds (`lib/streaks.ts`,
   `StreakBoard`).
-- `/compare` — player/manager/era comparison (Phase 9; redesigned as a match
-  scoreboard, Phase 9 follow-up). One `Comparison` shape (`lib/compare.ts`) for
-  all three modes, rendered by `CompareTable` as a floodlit versus board: a hero
-  that tallies measures-led ("leads N–N") with a plain verdict, over mirrored
-  per-metric bars with the leader tinted and per-metric coverage caveats; every
-  side links to its matches. The empty state leads with curated *great debates*;
-  the build-your-own picker is demoted below them (player inputs gain a `<datalist>`).
+- `/compare` — player/manager/era comparison (Phase 9; twice-redesigned in the
+  Phase 9 follow-up — first a scoreboard, then mode-specific *signatures* after the
+  bar-stack read as bland). One `Comparison` shape (`lib/compare.ts`) for all three
+  modes, rendered by `CompareTable`: a scoreboard hero (measures-led tally + a
+  plain-language verdict leading with the biggest gap as a ratio), then the mode's
+  `CompareSignature` — the one artifact that carries its story — then a compact
+  numeric measures strip. Signatures: players → career-arc duel (overlaid
+  goal-per-season curves, from `playerSplitsBySeason`); managers → trophy cabinet
+  (silverware by competition + win gauge, from a per-manager honours query); eras →
+  league-finish skyline (season-by-season top-flight finishes, from
+  `season_summaries`). The empty state leads with curated *great debates*; the
+  build-your-own picker is demoted below them (player inputs gain a `<datalist>`).
   Shaped player-vs-player search lands here.
 - `/explore` — build-your-own-cut group-by explorer (Phase 9; redesigned as a
   league ladder, Phase 9 follow-up), the aggregate companion to `/matches`.
@@ -82,7 +87,8 @@ Removed this pass: `/analytics/odds` (folded into `/analytics`) and
 | `CompetitionChip` / `CompetitionDot` | league/cup/Europe identity cue | match rows, headers, season chips |
 | `CoverageNote` / `ChartPanel` | slice/coverage footer + framed chart; coverage is **graded** — pass `count` and the note renders only when the facet is incomplete, silent when whole | analytics, charts, trust points |
 | `DataTable` | sortable dense table | analytics, calibration, indexes |
-| `CompareTable` | match-scoreboard versus: leads-tally + verdict hero over mirrored per-metric bars, leader tinted | `/compare` |
+| `CompareTable` | match-scoreboard versus: leads-tally + plain-language verdict hero, the mode's `CompareSignature`, then a compact numeric measures strip | `/compare` |
+| `CompareSignatures` | the per-mode hero artifact: `CareerArcDuel` (players, overlaid goal curves), `TrophyCabinet` (managers, silverware wall + win gauge), `EraSkyline` (eras, league-finish skyline) | `CompareTable` |
 | `ExploreBoard` | ranked ladder: one row per group, W/D/L form bar + played/win-rate/GD figures, whole row an evidence link | `/explore` |
 | `StreakBoard` | per-kind run ladder, each run evidence-linked | `/questions#runs` |
 | `Pager` | Newer / page / Older pagination | `/matches`, `/manager/[id]` |
