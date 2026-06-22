@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   comparePlayers, compareManagers, compareEras, ERA_CATALOGUE, type CompareMode, type Comparison,
 } from "@/lib/compare";
-import { managersIndex, playerById, playersIndex } from "@/lib/queries";
+import { managerById, managersIndex, playerById, playersIndex, type ManagerRecord } from "@/lib/queries";
 import { resolveEntity } from "@/lib/search/resolve";
 import { PageHeader } from "@/components/PageHeader";
 import { CompareTable } from "@/components/CompareTable";
@@ -40,17 +40,41 @@ const SUGGESTIONS: Record<CompareMode, { label: string; a: string; b: string; ho
   ],
 };
 
-const PLAYER_LIST_ID = "compare-player-names";
-
-/** Resolve a picker value to a player id: an exact id first, then a fuzzy name match. */
+// Every picker is the same text input + <datalist> autocomplete, so the three
+// modes look identical (no native-select chrome). The raw value can be a friendly
+// name typed/picked from the list, or a canonical id/key from a suggestion link;
+// these resolvers accept either, and the display helpers turn an id/key back into
+// the friendly name for the box.
 function resolvePlayerId(raw: string | undefined): string | undefined {
   if (!raw) return undefined;
   if (playerById(raw)) return raw;
   return resolveEntity(raw, "player")?.entity_id;
 }
+function resolveManagerId(raw: string | undefined, managers: ManagerRecord[]): string | undefined {
+  if (!raw) return undefined;
+  if (managerById(raw)) return raw;
+  const lc = raw.toLowerCase();
+  return (managers.find((m) => m.name.toLowerCase() === lc) ?? managers.find((m) => m.name.toLowerCase().includes(lc)))?.id;
+}
+function resolveEraKey(raw: string | undefined): string | undefined {
+  if (!raw) return undefined;
+  const lc = raw.toLowerCase();
+  return (
+    ERA_CATALOGUE.find((e) => e.key === raw) ??
+    ERA_CATALOGUE.find((e) => e.label.toLowerCase() === lc) ??
+    ERA_CATALOGUE.find((e) => e.label.toLowerCase().includes(lc))
+  )?.key;
+}
 
 const labelClass = "mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint";
 const sectionHead = "text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright";
+
+interface PickerConfig {
+  listId: string;
+  options: string[];
+  noun: string;
+  placeholders: [string, string];
+}
 
 export default async function ComparePage({
   searchParams,
@@ -62,35 +86,53 @@ export default async function ComparePage({
   const rawA = sp.a;
   const rawB = sp.b;
 
+  const managers = mode === "managers" ? [...managersIndex()].sort((a, b) => b.p - a.p) : [];
+
   // Resolve the chosen pair for the active mode and build the comparison.
   let comparison: Comparison | null = null;
   let unresolved: string | null = null;
+  let displayA = "";
+  let displayB = "";
+  let cfg: PickerConfig;
+
   if (mode === "players") {
     const idA = resolvePlayerId(rawA);
     const idB = resolvePlayerId(rawB);
     if (rawA && !idA) unresolved = rawA;
     else if (rawB && !idB) unresolved = rawB;
     else if (idA && idB) comparison = comparePlayers(idA, idB);
+    displayA = rawA ? playerById(rawA)?.name ?? rawA : "";
+    displayB = rawB ? playerById(rawB)?.name ?? rawB : "";
+    // Notable record set by appearances — keeps the markup lean; anyone outside it
+    // still resolves by free text.
+    const names = [...playersIndex()]
+      .filter((p) => p.player_id !== "own-goal")
+      .sort((a, b) => b.apps - a.apps)
+      .slice(0, 300)
+      .map((p) => p.name);
+    cfg = { listId: "compare-players", options: names, noun: "player", placeholders: ["Rooney", "Charlton"] };
   } else if (mode === "managers") {
-    if (rawA && rawB) comparison = compareManagers(rawA, rawB);
-  } else if (rawA && rawB) {
-    comparison = compareEras(rawA, rawB);
+    const idA = resolveManagerId(rawA, managers);
+    const idB = resolveManagerId(rawB, managers);
+    if (rawA && !idA) unresolved = rawA;
+    else if (rawB && !idB) unresolved = rawB;
+    else if (idA && idB) comparison = compareManagers(idA, idB);
+    displayA = rawA ? managers.find((m) => m.id === rawA)?.name ?? rawA : "";
+    displayB = rawB ? managers.find((m) => m.id === rawB)?.name ?? rawB : "";
+    cfg = { listId: "compare-managers", options: managers.map((m) => m.name), noun: "manager", placeholders: ["Ferguson", "Busby"] };
+  } else {
+    const keyA = resolveEraKey(rawA);
+    const keyB = resolveEraKey(rawB);
+    if (rawA && !keyA) unresolved = rawA;
+    else if (rawB && !keyB) unresolved = rawB;
+    else if (keyA && keyB) comparison = compareEras(keyA, keyB);
+    displayA = rawA ? ERA_CATALOGUE.find((e) => e.key === rawA)?.label ?? rawA : "";
+    displayB = rawB ? ERA_CATALOGUE.find((e) => e.key === rawB)?.label ?? rawB : "";
+    cfg = { listId: "compare-eras", options: ERA_CATALOGUE.map((e) => e.label), noun: "era", placeholders: ["Ferguson era", "1990s"] };
   }
 
-  const managers = mode === "managers" ? [...managersIndex()].sort((a, b) => b.p - a.p) : [];
-  // Native autocomplete for the player pickers: the notable record set by
-  // appearances, so typing a surname suggests the canonical name the resolver
-  // expects. Capped to keep the markup lean; anyone outside it still resolves
-  // by free text.
-  const playerNames =
-    mode === "players"
-      ? [...playersIndex()]
-          .filter((p) => p.player_id !== "own-goal")
-          .sort((a, b) => b.apps - a.apps)
-          .slice(0, 300)
-          .map((p) => p.name)
-      : [];
   const suggestions = SUGGESTIONS[mode];
+  const picker = <Picker mode={mode} displayA={displayA} displayB={displayB} cfg={cfg} />;
 
   return (
     <div className="space-y-7">
@@ -107,9 +149,7 @@ export default async function ComparePage({
           <CompareTable comparison={comparison} />
           <section>
             <h2 className={sectionHead}>Compare another</h2>
-            <div className="mt-3">
-              <Picker mode={mode} rawA={rawA} rawB={rawB} managers={managers} playerNames={playerNames} />
-            </div>
+            <div className="mt-3">{picker}</div>
             <Suggestions mode={mode} suggestions={suggestions} compact />
           </section>
         </>
@@ -127,12 +167,10 @@ export default async function ComparePage({
             <h2 className={sectionHead}>Or build your own</h2>
             {unresolved && (
               <p className="mt-2 text-sm text-ink-dim">
-                Couldn&apos;t find a player matching &ldquo;{unresolved}&rdquo;. Try a surname, or pick a debate above.
+                Couldn&apos;t find a {cfg.noun} matching &ldquo;{unresolved}&rdquo;. Try a name, or pick a debate above.
               </p>
             )}
-            <div className="mt-3">
-              <Picker mode={mode} rawA={rawA} rawB={rawB} managers={managers} playerNames={playerNames} />
-            </div>
+            <div className="mt-3">{picker}</div>
           </section>
         </div>
       )}
@@ -212,99 +250,43 @@ function Suggestions({
   );
 }
 
-/** The build-your-own picker — a server-rendered GET form, secondary to the debates. */
+/**
+ * The build-your-own picker — two text inputs with native `<datalist>`
+ * autocomplete, identical across all three modes. The submitted value can be a
+ * friendly name or a canonical id; the page resolves either.
+ */
 function Picker({
   mode,
-  rawA,
-  rawB,
-  managers,
-  playerNames,
+  displayA,
+  displayB,
+  cfg,
 }: {
   mode: CompareMode;
-  rawA: string | undefined;
-  rawB: string | undefined;
-  managers: { id: string; name: string }[];
-  playerNames: string[];
+  displayA: string;
+  displayB: string;
+  cfg: PickerConfig;
 }) {
-  const control = "control w-full";
   return (
     <form className="rounded-lg border border-line bg-panel p-3 text-sm" method="get" action="/compare">
       <input type="hidden" name="mode" value={mode} />
       <div className="grid items-end gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
-        {mode === "players" ? (
-          <>
-            <label>
-              <span className={labelClass}>First player</span>
-              <input type="search" name="a" defaultValue={rawA ?? ""} placeholder="Rooney" list={PLAYER_LIST_ID} className={control} />
-            </label>
-            <label>
-              <span className={labelClass}>Second player</span>
-              <input type="search" name="b" defaultValue={rawB ?? ""} placeholder="Charlton" list={PLAYER_LIST_ID} className={control} />
-            </label>
-            <datalist id={PLAYER_LIST_ID}>
-              {playerNames.map((n) => (
-                <option key={n} value={n} />
-              ))}
-            </datalist>
-          </>
-        ) : mode === "managers" ? (
-          <>
-            <label>
-              <span className={labelClass}>First manager</span>
-              <select name="a" defaultValue={rawA ?? ""} className={control}>
-                <option value="">Choose a manager</option>
-                {managers.map((m) => (
-                  <option key={m.id} value={m.id}>{m.name}</option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <span className={labelClass}>Second manager</span>
-              <select name="b" defaultValue={rawB ?? ""} className={control}>
-                <option value="">Choose a manager</option>
-                {managers.map((m) => (
-                  <option key={m.id} value={m.id}>{m.name}</option>
-                ))}
-              </select>
-            </label>
-          </>
-        ) : (
-          <>
-            <label>
-              <span className={labelClass}>First era</span>
-              <EraSelect name="a" value={rawA} />
-            </label>
-            <label>
-              <span className={labelClass}>Second era</span>
-              <EraSelect name="b" value={rawB} />
-            </label>
-          </>
-        )}
+        <label>
+          <span className={labelClass}>First {cfg.noun}</span>
+          <input type="search" name="a" defaultValue={displayA} placeholder={cfg.placeholders[0]} list={cfg.listId} className="control w-full" />
+        </label>
+        <label>
+          <span className={labelClass}>Second {cfg.noun}</span>
+          <input type="search" name="b" defaultValue={displayB} placeholder={cfg.placeholders[1]} list={cfg.listId} className="control w-full" />
+        </label>
+        <datalist id={cfg.listId}>
+          {cfg.options.map((o, i) => (
+            <option key={`${o}-${i}`} value={o} />
+          ))}
+        </datalist>
         <button className="min-h-[2.375rem] rounded-md bg-devil px-5 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
           Compare
         </button>
       </div>
     </form>
-  );
-}
-
-/** Era picker, grouped into named eras and decades so the long list scans. */
-function EraSelect({ name, value }: { name: string; value: string | undefined }) {
-  const named = ERA_CATALOGUE.filter((e) => !/^\d{4}s$/.test(e.key));
-  const decades = ERA_CATALOGUE.filter((e) => /^\d{4}s$/.test(e.key));
-  return (
-    <select name={name} defaultValue={value ?? ""} className="control w-full">
-      <option value="">Choose an era</option>
-      <optgroup label="Eras">
-        {named.map((e) => (
-          <option key={e.key} value={e.key}>{e.label}</option>
-        ))}
-      </optgroup>
-      <optgroup label="Decades">
-        {decades.map((e) => (
-          <option key={e.key} value={e.key}>{e.label}</option>
-        ))}
-      </optgroup>
-    </select>
   );
 }
