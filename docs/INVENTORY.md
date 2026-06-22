@@ -40,13 +40,20 @@ The real win is the module/duplication reduction, not the route count.
   recoveries from behind (`trails.comebacks`); great runs ladders the longest
   consecutive-official-match streaks of four kinds (`lib/streaks.ts`,
   `StreakBoard`).
-- `/compare` — player/manager/era comparison (Phase 9). One `Comparison` shape
-  (`lib/compare.ts`) for all three modes, rendered by `CompareTable` as a
-  mirrored-bar versus with the leader tinted and per-metric coverage caveats;
-  every side links to its matches. Shaped player-vs-player search lands here.
-- `/explore` — build-your-own-cut group-by explorer (Phase 9), the aggregate
-  companion to `/matches`. `lib/explore.ts` groups the shared `matchWhere`
-  filter by a chosen dimension; each row's link reproduces exactly its matches.
+- `/compare` — player/manager/era comparison (Phase 9; redesigned as a match
+  scoreboard, Phase 9 follow-up). One `Comparison` shape (`lib/compare.ts`) for
+  all three modes, rendered by `CompareTable` as a floodlit versus board: a hero
+  that tallies measures-led ("leads N–N") with a plain verdict, over mirrored
+  per-metric bars with the leader tinted and per-metric coverage caveats; every
+  side links to its matches. The empty state leads with curated *great debates*;
+  the build-your-own picker is demoted below them (player inputs gain a `<datalist>`).
+  Shaped player-vs-player search lands here.
+- `/explore` — build-your-own-cut group-by explorer (Phase 9; redesigned as a
+  league ladder, Phase 9 follow-up), the aggregate companion to `/matches`.
+  `lib/explore.ts` groups the shared `matchWhere` filter by a chosen dimension;
+  the page leads with the cut's headline finding, makes the dimension a dial of
+  instant re-cut links (filters demoted to a refine bar), and renders the groups
+  as an `ExploreBoard` ranked ladder. Each row's link reproduces exactly its matches.
 - `/analytics` — the strength surface: Elo retrospective (timeline) **+
   prospective (odds widget, season replay, calibration — folded in from the
   former `/analytics/odds`)** + season trends + grounds + assist partnerships.
@@ -74,8 +81,9 @@ Removed this pass: `/analytics/odds` (folded into `/analytics`) and
 | `ResultBadge` | single-match state chip | match form trails |
 | `CompetitionChip` / `CompetitionDot` | league/cup/Europe identity cue | match rows, headers, season chips |
 | `CoverageNote` / `ChartPanel` | slice/coverage footer + framed chart; coverage is **graded** — pass `count` and the note renders only when the facet is incomplete, silent when whole | analytics, charts, trust points |
-| `DataTable` | sortable dense table | analytics, calibration, indexes, `/explore` |
-| `CompareTable` | mirrored-bar versus layout over shared metrics, leader tinted | `/compare` |
+| `DataTable` | sortable dense table | analytics, calibration, indexes |
+| `CompareTable` | match-scoreboard versus: leads-tally + verdict hero over mirrored per-metric bars, leader tinted | `/compare` |
+| `ExploreBoard` | ranked ladder: one row per group, W/D/L form bar + played/win-rate/GD figures, whole row an evidence link | `/explore` |
 | `StreakBoard` | per-kind run ladder, each run evidence-linked | `/questions#runs` |
 | `Pager` | Newer / page / Older pagination | `/matches`, `/manager/[id]` |
 | `HeaderSearch` / `SearchCommand` / `MainNav` | global header search + nav | layout |

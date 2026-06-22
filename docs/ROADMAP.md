@@ -350,18 +350,24 @@ before any further surface is added:
       styling when an overflow route is current. The "decide what earns a
       top-level slot before adding any new route" rule still stands for future
       surfaces.
-- **Compare and Explore are half-baked and must justify their place.** Both ship
-      the capability but read as utilities, not the floodlit-ledger, answer-first
-      surfaces the north star calls for: `/compare` is a plain versus table and
-      `/explore` is a filter form over a dense table. They need a dramatic design
-      lift before they earn a better nav slot — lead with the answer, give the
-      comparison and the breakdown a genuine visual identity (not just a table),
-      rethink the pickers (the long player/era selects especially), and make each
-      feel like a place to *explore* rather than a form to submit. If that lift
-      can't be justified, demote them out of the top nav entirely — reachable from
-      `/questions`, the homepage, and search — or reconsider whether both surfaces
-      should exist. Their placement in the "More" overflow menu (and the `MainNav`
-      `OVERFLOW` comment) marks this as still provisional.
+- ✅ **Compare and Explore are half-baked and must justify their place.
+      (resolved — design lift)** Both read as utilities before: `/compare` was a
+      plain versus table, `/explore` a filter form over a dense table. They were
+      given a dramatic, subject-grounded lift drawn from football's own artifacts:
+      - **Compare → a match scoreboard.** `CompareTable` now leads with a floodlit
+        versus hero — a "leads N–N" tally of measures won, each side's score
+        tinted, plus a plain-language verdict — over the mirrored per-metric bars.
+        The empty state leads with curated *great debates* (fixtures to pick); the
+        build-your-own picker is demoted beneath them, the era select is grouped,
+        and player inputs gain native `<datalist>` autocomplete.
+      - **Explore → a league ladder.** The page leads with the cut's headline
+        finding (the standout group for the active sort), makes the dimension a
+        dial of instant re-cut links (filters demoted to a refine bar), and renders
+        the groups as an `ExploreBoard` ranked ladder — each row a W/D/L form bar
+        with played/win-rate/GD figures, the whole row an evidence link.
+      Both keep every figure linking to its matches and their coverage notes
+      intact. They still sit in the "More" overflow for now; whether the lift earns
+      them a higher nav slot is a future call, but they are no longer half-baked.
 
 ## Parked pathways (open questions)
 
