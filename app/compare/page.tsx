@@ -105,7 +105,7 @@ export default async function ComparePage({
       {comparison ? (
         <>
           <CompareTable comparison={comparison} />
-          <section className="rounded-lg border border-line bg-panel/60 p-4">
+          <section>
             <h2 className={sectionHead}>Compare another</h2>
             <div className="mt-3">
               <Picker mode={mode} rawA={rawA} rawB={rawB} managers={managers} playerNames={playerNames} />
