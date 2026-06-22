@@ -375,6 +375,14 @@ before any further surface is added:
       Both keep every figure linking to its matches and their coverage notes
       intact. They still sit in the "More" overflow for now; whether the lift earns
       them a higher nav slot is a future call, but they are no longer half-baked.
+- ❌ **Explore removed (2026-06).** The design lift above bought `/explore` time
+      but not a reason to exist. Even answer-first, it stayed a query builder you
+      had to *operate* before it said anything — the only form-first surface in an
+      answer-first site — and it overlapped `/questions`, which hands the same
+      findings pre-baked. No obviously better variant justified keeping it, so
+      `/explore`, `lib/explore.ts`, and `ExploreBoard` were deleted rather than
+      redesigned a third time. Its job (twist a curated cut yourself) belongs
+      downstream of `/questions`, not as a standalone destination.
 
 ## Parked pathways (open questions)
 

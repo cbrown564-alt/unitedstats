@@ -122,7 +122,7 @@ Measured after M7 (Node 22.16.0, Next 16.2.9):
 ## M8 — dynamic route cache and indexes
 
 The remaining dynamic pages are URL-state tools over deploy-immutable data:
-`/matches`, `/players`, `/seasons`, `/search`, `/compare`, and `/explore`.
+`/matches`, `/players`, `/seasons`, `/search`, and `/compare`.
 They now receive the same read-only cache policy as the public API:
 `Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`.
 This keeps first hits correct while letting repeat filter/sort URLs be served at
@@ -132,7 +132,7 @@ the edge until the next deploy naturally refreshes the cache.
 TTL) and moves query logging into `after()`, so telemetry file writes no longer
 block the JSON response.
 
-The SQLite build adds composite indexes for the dynamic match-browser/explorer
+The SQLite build adds composite indexes for the dynamic match-browser
 predicates that remain after cache misses: season/opponent/competition/manager/
 venue/result/stadium paired with `date`, plus city lookup and player/scorer
 existence checks. These target the links introduced by the payload work, such as
