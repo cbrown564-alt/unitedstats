@@ -170,7 +170,7 @@ export default function Home() {
         <section>
           <SectionHead
             title="One answer, in full"
-            aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
+            aside={<Link href="/explore" className="text-devil-bright hover:underline">All questions →</Link>}
           />
           <Link
             href="/questions/late-goals"

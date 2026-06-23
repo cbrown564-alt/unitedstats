@@ -5,23 +5,22 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 
 // Primary rail: the spine (Matches/Seasons), the headline discovery surface
-// (Questions), and the top people entries (Players/Managers). These earn a
+// (Explore — the three-strip discovery home that subsumes the old Questions index,
+// Phase 11.5), and the top people entries (Players/Managers). These earn a
 // one-click slot. Everything else lives behind "More" — see the Phase 9
 // follow-up in docs/ROADMAP.md (nav IA).
 const PRIMARY = [
-  ["Questions", "/questions"],
+  ["Explore", "/explore"],
   ["Matches", "/matches"],
   ["Seasons", "/seasons"],
   ["Players", "/players"],
   ["Managers", "/managers"],
 ] as const;
 
-// Overflow: lower-traffic and provisional surfaces. Explore is the answer-first
-// discovery home (Phase 11) and Compare a discovery utility — both sit here until
-// they earn a higher slot; Opponents, Analytics, Transfers, and Data are reachable
-// but secondary.
+// Overflow: lower-traffic and provisional surfaces. Compare is a discovery utility
+// (and the future Asking strip) that sits here until it earns a higher slot;
+// Opponents, Analytics, Transfers, and Data are reachable but secondary.
 const OVERFLOW = [
-  ["Explore", "/explore"],
   ["Opponents", "/opponents"],
   ["Analytics", "/analytics"],
   ["Compare", "/compare"],
