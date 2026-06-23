@@ -7,26 +7,16 @@ import { clubRecords, goalMinuteRidge, lateGoalShareByDecade } from "@/lib/trail
 import {
   fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
 } from "@/lib/format";
+import { QUESTIONS } from "@/lib/questions";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
+import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
-
-// The other myths, listed as compact prompts beside the demonstrated one. Late
-// goals is pulled out as the featured question (it owns the MinuteRidge below),
-// so the homepage *shows* one question's visual rather than only linking out.
-const MYTHS: [question: string, hook: string, href: string][] = [
-  ["Are United really the comeback kings?", "Recoveries from behind, replayed minute by minute.", "/questions#comebacks"],
-  ["How long are United's longest runs?", "Unbeaten, winning, scoring and clean-sheet streaks.", "/questions#runs"],
-  ["Which sides are the real bogey teams?", "Lowest win rates across 20+ meetings.", "/questions#bogey-sides"],
-  ["Is the new-manager bounce real?", "Each manager's first ten against the ten before.", "/questions#manager-bounce"],
-  ["How much of a fortress is Old Trafford?", "Home win rate by decade and the longest run.", "/questions#fortress"],
-  ["Who saved their goals for cup nights?", "Scorers who lean hardest toward the cups.", "/questions#cup-specialists"],
-];
 
 const ROUTES: [label: string, href: string, hint: string][] = [
   ["Compare", "/compare", "players, managers, eras"],
@@ -92,6 +82,16 @@ export default function Home() {
     { timed: 0, late: 0 },
   );
 
+  // The curated-cut launcher: the nine myth-tested questions as a peek-carousel,
+  // each card opening its full answer page (Phase 10 per-question routes). This is
+  // the answer-first front door — it launches findings, it does not reproduce them.
+  const questionCards: CarouselCard[] = QUESTIONS.map((q) => ({
+    href: `/questions/${q.slug}`,
+    eyebrow: q.label,
+    title: q.question,
+    blurb: q.summary,
+  }));
+
   // All-time record by competition as stacked W/D/L bars; matches played rides a
   // √-scaled volume lane under each (so League dwarfs the cups without distorting the
   // bar). Only the four major competitions earn a place on the homepage; the shields,
@@ -139,9 +139,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Movement: start a trail. The wow-records and the live question,
-          clustered tight so they read as one "click into something" beat. ── */}
+      {/* ── Movement: start a trail. The curated-cut launcher leads (answer
+          first), then the wow-records and the live demonstrated question. ── */}
       <div className="space-y-10">
+        <section>
+          <SectionHead
+            title="Start with a question"
+            aside={<Link href="/explore" className="text-devil-bright hover:underline">Explore all →</Link>}
+          />
+          <CuratedCarousel cards={questionCards} label="Curated questions" />
+          <p className="mt-2 text-xs text-ink-faint">
+            Myths fans repeat, each tested against the record — open one for its finding, the slice it
+            is drawn from, the coverage behind it, and the matches that produced it.
+          </p>
+        </section>
+
         {teaser.length > 0 && (
           <section>
             <SectionHead
@@ -157,43 +169,29 @@ export default function Home() {
 
         <section>
           <SectionHead
-            title="Test a myth"
+            title="One answer, in full"
             aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
           />
-          <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
-            <Link
-              href="/questions#late-goals"
-              className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="display text-xl group-hover:text-devil-bright">Do United really score late?</h3>
-                <span className="stat-num shrink-0 text-2xl font-semibold text-devil-bright">
-                  {pct(lateAgg.late, lateAgg.timed)}
-                </span>
-              </div>
-              <p className="mt-1 text-sm text-ink-dim">
-                of timed United goals come after the 85th minute, roughly double an even spread across the 90.
-              </p>
-              <div className="mt-4">
-                <MinuteRidge bins={ridge} lateFrom={85} height={170} />
-              </div>
-              <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
-                See the late-goals breakdown →
-              </p>
-            </Link>
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
-              {MYTHS.map(([question, hook, href]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="flex flex-col justify-center rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
-                >
-                  <div className="text-sm font-medium">{question}</div>
-                  <div className="mt-1 text-xs text-ink-faint">{hook}</div>
-                </Link>
-              ))}
+          <Link
+            href="/questions/late-goals"
+            className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60"
+          >
+            <div className="flex items-baseline justify-between gap-3">
+              <h3 className="display text-xl group-hover:text-devil-bright">Do United really score late?</h3>
+              <span className="stat-num shrink-0 text-2xl font-semibold text-devil-bright">
+                {pct(lateAgg.late, lateAgg.timed)}
+              </span>
             </div>
-          </div>
+            <p className="mt-1 text-sm text-ink-dim">
+              of timed United goals come after the 85th minute, roughly double an even spread across the 90.
+            </p>
+            <div className="mt-4">
+              <MinuteRidge bins={ridge} lateFrom={85} height={170} />
+            </div>
+            <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
+              See the late-goals breakdown →
+            </p>
+          </Link>
         </section>
       </div>
 

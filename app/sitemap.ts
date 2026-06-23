@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: url("/"), changeFrequency: "daily", priority: 1, lastModified: lastMatch },
     { url: url("/questions"), changeFrequency: "weekly", priority: 0.9, lastModified: built },
+    { url: url("/explore"), changeFrequency: "weekly", priority: 0.8, lastModified: built },
     { url: url("/matches"), changeFrequency: "daily", priority: 0.7, lastModified: lastMatch },
     { url: url("/seasons"), changeFrequency: "weekly", priority: 0.6, lastModified: lastMatch },
     { url: url("/players"), changeFrequency: "weekly", priority: 0.6, lastModified: built },

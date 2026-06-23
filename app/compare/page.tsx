@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
-  comparePlayers, compareManagers, compareEras, ERA_CATALOGUE, type CompareMode, type Comparison,
+  comparePlayers, compareManagers, compareEras, ERA_CATALOGUE, CURATED_DEBATES,
+  type CompareMode, type Comparison, type CuratedDebate,
 } from "@/lib/compare";
 import { managerById, managersIndex, playerById, playersIndex, type ManagerRecord } from "@/lib/queries";
 import { resolveEntity } from "@/lib/search/resolve";
@@ -17,28 +18,8 @@ const MODES: { key: CompareMode; label: string; blurb: string }[] = [
   { key: "eras", label: "Eras", blurb: "two stretches of the club's history side by side" },
 ];
 
-// Curated head-to-heads per mode — the empty state leads with these rather than a
-// blank form, so the page opens as an invitation to pick a fixture. Ids/keys
-// resolve exactly (players by canonical id, eras by ERA_CATALOGUE key), so a
-// suggestion is never a dead end. Each carries a one-line hook.
-const SUGGESTIONS: Record<CompareMode, { label: string; a: string; b: string; hook: string }[]> = {
-  players: [
-    { label: "Rooney vs Charlton", a: "wayne-rooney", b: "bobby-charlton", hook: "The two men at the top of the all-time scoring charts." },
-    { label: "Ronaldo vs Best", a: "cristiano-ronaldo", b: "george-best", hook: "Two No. 7s, two icons — a generation apart." },
-    { label: "Giggs vs Scholes", a: "ryan-giggs", b: "paul-scholes", hook: "The academy spine that ran through every Ferguson side." },
-    { label: "Cantona vs Van Persie", a: "eric-cantona", b: "robin-van-persie", hook: "Two imports who arrived and tilted a title race." },
-  ],
-  managers: [
-    { label: "Ferguson vs Busby", a: "alex-ferguson", b: "matt-busby", hook: "The two architects, a quarter-century each in charge." },
-    { label: "Ferguson vs Mourinho", a: "alex-ferguson", b: "jose-mourinho", hook: "A 27-year reign against a stormy three." },
-    { label: "Busby vs Mangnall", a: "matt-busby", b: "ernest-mangnall", hook: "The club's first two dynasty-builders." },
-  ],
-  eras: [
-    { label: "Busby era vs Ferguson era", a: "busby", b: "ferguson", hook: "The two golden ages, side by side." },
-    { label: "1990s vs 2010s", a: "1990s", b: "2010s", hook: "The title machine against the post-Ferguson rebuild." },
-    { label: "1950s vs 2000s", a: "1950s", b: "2000s", hook: "The Busby Babes against the Ronaldo-era champions." },
-  ],
-};
+// Curated head-to-heads live in lib/compare.ts (CURATED_DEBATES) so /compare and
+// the /explore discovery home draw from one list and never drift.
 
 // Every picker is the same text input + <datalist> autocomplete, so the three
 // modes look identical (no native-select chrome). The raw value can be a friendly
@@ -131,7 +112,7 @@ export default async function ComparePage({
     cfg = { listId: "compare-eras", options: ERA_CATALOGUE.map((e) => e.label), noun: "era", placeholders: ["Ferguson era", "1990s"] };
   }
 
-  const suggestions = SUGGESTIONS[mode];
+  const suggestions = CURATED_DEBATES[mode];
   const picker = <Picker mode={mode} displayA={displayA} displayB={displayB} cfg={cfg} />;
 
   return (
@@ -210,7 +191,7 @@ function Suggestions({
   compact = false,
 }: {
   mode: CompareMode;
-  suggestions: (typeof SUGGESTIONS)[CompareMode];
+  suggestions: CuratedDebate[];
   compact?: boolean;
 }) {
   const href = (s: { a: string; b: string }) => `/compare${queryString({ mode, a: s.a, b: s.b })}`;

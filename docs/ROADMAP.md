@@ -463,26 +463,41 @@ page rather than rankable URLs.
 - [ ] **Guardrail** — cards and pages stay build-time or edge-rendered; no user
       database is introduced.
 
-## Phase 11 — Answer-first front door and discovery IA
+## Phase 11 — Answer-first front door and discovery IA ✅ (complete)
 
 The positioning shift made concrete (report §10.3).
 
-- [ ] **Reconcile the north star** — edit `PRODUCT.md` so the answer is
-      explicitly the front door and exploration the follow-on, so the two
-      documents agree rather than quietly diverge.
-- [ ] **Rebuild `/explore`, answer-first** — the discovery home opens with a
-      horizontal carousel of the curated question Cuts (a launcher that links to
-      the full per-question pages from Phase 10; it does not reproduce their
-      depth), then **Compare** and **Group** sections beneath as the exploratory
-      follow-on. This is the job the deleted `/explore` was meant to do, finally
-      downstream of an answer.
-- [ ] **Answer-first homepage** — lead with the question field, the curated-cut
-      launcher, and the trust strip; demote portal-style navigation beneath.
-      Subsumes the long-standing "curiosity launchpad" intent with a sharper,
-      answer-led hierarchy.
-- [ ] **Mobile and desktop** — the carousel is native to mobile horizontal
-      scroll; the desktop treatment (peek-carousel vs. grid) is a design call to
-      record before building, not after.
+- [x] **Reconcile the north star** — `PRODUCT.md`'s Core Promise and Homepage Role
+      now state plainly that the answer is the front door and exploration the
+      follow-on, framed as a sharpening of the question-led model rather than a
+      break from it, so the two documents agree.
+- [x] **Rebuild `/explore`, answer-first** — the new `/explore` discovery home
+      opens with the question field and a one-line trust strip, then a peek-carousel
+      of the nine curated question Cuts (a launcher to the Phase 10 per-question
+      pages — it does not reproduce their depth), then **Compare** (one flagship
+      debate per mode, drawn from the now-shared `CURATED_DEBATES`) and **Group**
+      (honest launchers into the existing aggregate surfaces: by season, opponent,
+      manager, the long arc) beneath as the exploratory follow-on. The general
+      group-by-anything builder stays Phase 12's Cut/fork work; this section points
+      at the grouped views we already ship rather than reviving a half-baked builder.
+- [x] **Answer-first homepage** — the homepage now leads (after the floodlit hero,
+      which already carries the question field and skyline) with the curated-cut
+      launcher carousel, demotes the demonstrated-question block to a single
+      "one answer, in full" showcase, and keeps the portal-style "Routes into the
+      record" grid demoted beneath a divider. All question links moved from
+      in-page `#anchors` to the Phase 10 `/questions/[slug]` routes.
+- [x] **Mobile and desktop** — **decision: one peek-carousel at every breakpoint,
+      not a grid on desktop.** Rationale recorded here per the "decide before
+      building" rule: a 3×3 grid of question cards would read as a portal and
+      flatten the answer-first hierarchy, and reproducing all nine at full size
+      competes with `/questions` itself (which the launcher must not do). A
+      peek-carousel reads as "there's more, swipe on", keeps each card large enough
+      to lead with its question, is one component with no media-query divergence,
+      and is pure CSS scroll-snap (`snap-x snap-mandatory`, `scrollbar-none`) so it
+      stays a server component and adds no client JS — fitting the static/zero-cost
+      guardrail. A static right-edge fade plus the partial peek of the next card cue
+      that the strip scrolls. Lives in `components/CuratedCarousel.tsx`, shared by
+      the homepage and `/explore`.
 
 ## Phase 12 — The Cut engine and fork
 

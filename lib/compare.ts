@@ -17,6 +17,41 @@ import {
 
 export type CompareMode = "players" | "managers" | "eras";
 
+/** A curated head-to-head: a labelled fixture between two resolvable subjects. */
+export interface CuratedDebate {
+  label: string;
+  /** Subject ids/keys that resolve exactly: player ids, manager ids, era keys. */
+  a: string;
+  b: string;
+  hook: string;
+}
+
+/**
+ * Curated head-to-heads per mode — the "great debates". The /compare empty state
+ * leads with these rather than a blank form, and the /explore discovery home pulls
+ * its Compare launcher from the same list, so the two surfaces never drift. Every
+ * id/key resolves exactly (players by canonical id, managers by id, eras by
+ * ERA_CATALOGUE key), so a suggestion is never a dead end.
+ */
+export const CURATED_DEBATES: Record<CompareMode, CuratedDebate[]> = {
+  players: [
+    { label: "Rooney vs Charlton", a: "wayne-rooney", b: "bobby-charlton", hook: "The two men at the top of the all-time scoring charts." },
+    { label: "Ronaldo vs Best", a: "cristiano-ronaldo", b: "george-best", hook: "Two No. 7s, two icons — a generation apart." },
+    { label: "Giggs vs Scholes", a: "ryan-giggs", b: "paul-scholes", hook: "The academy spine that ran through every Ferguson side." },
+    { label: "Cantona vs Van Persie", a: "eric-cantona", b: "robin-van-persie", hook: "Two imports who arrived and tilted a title race." },
+  ],
+  managers: [
+    { label: "Ferguson vs Busby", a: "alex-ferguson", b: "matt-busby", hook: "The two architects, a quarter-century each in charge." },
+    { label: "Ferguson vs Mourinho", a: "alex-ferguson", b: "jose-mourinho", hook: "A 27-year reign against a stormy three." },
+    { label: "Busby vs Mangnall", a: "matt-busby", b: "ernest-mangnall", hook: "The club's first two dynasty-builders." },
+  ],
+  eras: [
+    { label: "Busby era vs Ferguson era", a: "busby", b: "ferguson", hook: "The two golden ages, side by side." },
+    { label: "1990s vs 2010s", a: "1990s", b: "2010s", hook: "The title machine against the post-Ferguson rebuild." },
+    { label: "1950s vs 2000s", a: "1950s", b: "2000s", hook: "The Busby Babes against the Ronaldo-era champions." },
+  ],
+};
+
 export interface CompareSide {
   id: string;
   label: string;
