@@ -28,7 +28,18 @@ Secondary audiences:
 
 Help fans explore United history and notice meaningful patterns, without losing confidence in the data underneath.
 
-UnitedStats should answer direct questions, but its main success mode is deeper exploration: a user follows a trail from one stat to a match, from that match to an era, from that era to a myth, and leaves with a sharper view than they expected.
+**The answer is the front door; exploration is the follow-on.** A user arrives with
+a question — late goals, bogey sides, the longest run — and the product's first job
+is to answer it directly, with the slice, the coverage grade, and the matches behind
+it. From that answer the trail opens: a user follows it from one stat to a match,
+from that match to an era, from that era to a myth, and leaves with a sharper view
+than they expected. Exploration is what an answer earns, not the first move it asks
+of the reader.
+
+This is a clarification of the model, not a break from it: the discovery layer was
+always question-led. The shift is one of hierarchy — the homepage and discovery IA
+lead with the answer rather than with the trail, so a casual arrival gets a finding
+before it is asked to browse.
 
 ## Product Model
 
@@ -94,9 +105,16 @@ Avoid framing like:
 
 ## Homepage Role
 
-Start exploration immediately.
+Lead with the answer, then open the trail.
 
-The homepage should be a curiosity launchpad, not a brochure and not only a status dashboard. It should still communicate scope and trust, but the first screen should pull users into explorable trails: myth prompts, recent changes, notable patterns, search, and clear routes into matches, seasons, players, opponents, managers, and analytics.
+The homepage is an answer-first front door, not a brochure, not only a status
+dashboard, and no longer a flat portal of routes. The first screen leads with the
+question field, a launcher of curated question Cuts (each opening its full answer
+page), and a trust strip that communicates scope and provenance. Recent changes,
+notable patterns, and the routes into matches, seasons, players, opponents,
+managers, and analytics still belong on the page — but demoted beneath the answer
+layer rather than competing with it. The goal is unchanged (pull users into the
+record); the hierarchy is sharper (a finding first, browsing second).
 
 ## Search Direction
 

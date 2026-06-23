@@ -16,10 +16,12 @@ const PRIMARY = [
   ["Managers", "/managers"],
 ] as const;
 
-// Overflow: lower-traffic and provisional surfaces. Compare is still below the
-// design bar (Phase 9 follow-up) and sits here until it earns a higher slot;
-// Opponents, Analytics, Transfers, and Data are reachable but secondary.
+// Overflow: lower-traffic and provisional surfaces. Explore is the answer-first
+// discovery home (Phase 11) and Compare a discovery utility — both sit here until
+// they earn a higher slot; Opponents, Analytics, Transfers, and Data are reachable
+// but secondary.
 const OVERFLOW = [
+  ["Explore", "/explore"],
   ["Opponents", "/opponents"],
   ["Analytics", "/analytics"],
   ["Compare", "/compare"],
