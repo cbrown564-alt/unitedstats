@@ -72,7 +72,11 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         <span className="text-ink-dim">Cut</span>
       </nav>
 
-      <PageHeader eyebrow={cut.curated ? "Curated cut" : "Your cut"} title={cutTitle(cut)}>
+      <PageHeader
+        eyebrow={cut.curated ? "Curated cut" : "Your cut"}
+        title={cutTitle(cut)}
+        aside={headline && coverage.grade !== "empty" ? <SaveToCollection href={cutHref(cut)} /> : undefined}
+      >
         The whole record as a standings ladder — every row links to the matches behind it. Change the
         dimension or the lens to fork your own.
       </PageHeader>
@@ -148,8 +152,6 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
           </div>
         </section>
       )}
-
-      {headline && coverage.grade !== "empty" && <SaveToCollection href={cutHref(cut)} />}
 
       <CutControls cut={cut} competitions={competitions} seasons={seasons} />
 
