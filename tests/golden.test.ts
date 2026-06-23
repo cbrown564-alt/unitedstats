@@ -25,6 +25,9 @@ import {
 import { comebacks } from "../lib/trails";
 import { clubStreaks, topRuns } from "../lib/streaks";
 import { compareEras, compareManagers, comparePlayers } from "../lib/compare";
+import {
+  CURATED_CUTS, cutFromParams, cutHref, curatedCut, isCurated, runCut,
+} from "../lib/cut";
 import { runSearch } from "../lib/search";
 import { getDb } from "../lib/db";
 
@@ -394,4 +397,66 @@ test("compare builders reproduce the official record across the three modes", ()
   // Same entity on both sides is not a comparison.
   assert.equal(comparePlayers("wayne-rooney", "wayne-rooney"), null);
   assert.equal(compareEras("busby", "busby"), null);
+});
+
+// ------------------------------------------------------------------ the Cut
+
+test("Cut params round-trip through the URL without loss", () => {
+  const cut = cutFromParams({ by: "manager", metric: "ppg", season: "1998-99", venue: "H" });
+  assert.equal(cut.dimension, "manager");
+  assert.equal(cut.metric, "ppg");
+  assert.equal(cut.filters.season, "1998-99");
+  assert.equal(cut.filters.venue, "H");
+
+  // Serialize, re-parse from the resulting query string: the cut is stable.
+  const sp = Object.fromEntries(new URL(`https://x${cutHref(cut)}`).searchParams);
+  const back = cutFromParams(sp);
+  assert.deepEqual(back.filters, cut.filters);
+  assert.equal(back.dimension, cut.dimension);
+  assert.equal(back.metric, cut.metric);
+
+  // Unknown dimension/metric fall back to the safe defaults rather than throwing.
+  const bad = cutFromParams({ by: "nonsense", metric: "vibes" });
+  assert.equal(bad.dimension, "decade");
+  assert.equal(bad.metric, "winrate");
+});
+
+test("only registered cuts are curated (the SEO guardrail)", () => {
+  // Every registry entry recognises itself.
+  for (const c of CURATED_CUTS) assert.equal(isCurated(curatedCut(c)), true, `curated ${c.slug}`);
+  // A registered combination, parsed from a bare URL, is curated.
+  assert.equal(cutFromParams({ by: "decade", metric: "winrate" }).curated, true);
+  // The same dimension on a different lens is a fork — noindex.
+  assert.equal(cutFromParams({ by: "decade", metric: "gd" }).curated, false);
+  // Any added filter turns a curated cut into a fork.
+  assert.equal(cutFromParams({ by: "decade", metric: "winrate", venue: "H" }).curated, false);
+});
+
+test("runCut aggregates the record and degrades honestly", () => {
+  // Decades cover every match (every fixture has a date), so the grouped sum is
+  // the all-time total and the engine matches the canonical record.
+  const decades = runCut(cutFromParams({ by: "decade", metric: "winrate" }));
+  assert.equal(decades.played, allTimeRecord().p);
+  assert.ok(decades.groups.length >= 13, `expected 13+ decades, got ${decades.groups.length}`);
+  assert.equal(decades.coverage.grade, "complete");
+  assert.ok(decades.headline, "expected a standout decade");
+  for (const g of decades.groups) assert.equal(g.w + g.d + g.l, g.p, `W+D+L=P for ${g.label}`);
+
+  // Cross-check one group against a direct query: home matches in calendar 1990.
+  const venue90 = runCut(cutFromParams({ by: "venue", metric: "winrate", from: "1990", to: "1990" }));
+  const home = venue90.groups.find((g) => g.key === "H");
+  assert.ok(home, "expected a Home group in 1990");
+  const direct = rec("venue='H' AND date>='1990-01-01' AND date<='1990-12-31'");
+  assert.deepEqual(
+    { p: home.p, w: home.w, d: home.d, l: home.l, gf: home.gf, ga: home.ga },
+    { p: direct.p, w: direct.w, d: direct.d, l: direct.l, gf: direct.gf, ga: direct.ga },
+  );
+
+  // A fork whose filters intersect to nothing degrades to an empty state rather
+  // than a clean total over a hole — no headline, the coverage grade says empty.
+  const empty = runCut(cutFromParams({ by: "decade", metric: "winrate", season: "3000-3001" }));
+  assert.equal(empty.played, 0);
+  assert.equal(empty.groups.length, 0);
+  assert.equal(empty.headline, null);
+  assert.equal(empty.coverage.grade, "empty");
 });
