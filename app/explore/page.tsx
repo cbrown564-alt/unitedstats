@@ -106,7 +106,9 @@ export default function ExplorePage() {
                       carry its own links (player names, opponent badges), so only
                       the text column is the jump link — nesting anchors is invalid. */}
                   <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-colors hover:border-devil/60">
-                    <div className="grid flex-1 gap-6 p-5 sm:p-7 lg:min-h-[17rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
+                    {/* Extra horizontal padding on lg clears the desktop edge arrows
+                        (~48px in from each side) so they never sit over the content. */}
+                    <div className="grid flex-1 gap-6 p-5 sm:p-7 lg:min-h-[17rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:px-16">
                       <Link
                         href={`/questions/${q.slug}`}
                         aria-label={`${q.question} — see the full finding`}
