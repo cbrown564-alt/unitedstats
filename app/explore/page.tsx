@@ -3,15 +3,19 @@ import type { Metadata } from "next";
 import { getMeta, allTimeRecord } from "@/lib/queries";
 import { QUESTIONS } from "@/lib/questions";
 import { questionHeadlines } from "@/lib/questionHeadlines";
-import { CURATED_DEBATES, type CompareMode } from "@/lib/compare";
+import {
+  CURATED_DEBATES, comparePlayers, compareManagers, compareEras,
+  type CompareMode, type Comparison,
+} from "@/lib/compare";
 import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { PageHeader } from "@/components/PageHeader";
 import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
-import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { QuestionSignature } from "@/components/explore/QuestionSignature";
-import { AnswerCarousel } from "@/components/explore/AnswerCarousel";
+import { FeatureCarousel } from "@/components/explore/FeatureCarousel";
+import { FeatureSlide } from "@/components/explore/FeatureSlide";
+import { ComparisonHero } from "@/components/explore/ComparisonHero";
 
 const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
   devil: "text-devil-bright",
@@ -25,14 +29,6 @@ export const metadata: Metadata = {
     "Start with an answer: the curated questions tested against United's record, then compare two careers or eras and group the whole record your own way.",
   alternates: { canonical: "/explore" },
 };
-
-// One flagship debate per compare mode, so the Compare launcher shows the range
-// (a player duel, a manager duel, an era duel) rather than three of one kind.
-const COMPARE_PICKS: { mode: CompareMode; eyebrow: string }[] = [
-  { mode: "players", eyebrow: "Player vs player" },
-  { mode: "managers", eyebrow: "Manager vs manager" },
-  { mode: "eras", eyebrow: "Era vs era" },
-];
 
 // "Group the record" — honest launchers into the aggregate surfaces that already
 // exist, framed as dimensions you can slice the whole record by. (The general
@@ -53,16 +49,19 @@ export default function ExplorePage() {
 
   const headlines = questionHeadlines();
 
-  const compareCards: CarouselCard[] = COMPARE_PICKS.map(({ mode, eyebrow }) => {
-    const d = CURATED_DEBATES[mode][0];
-    return {
-      href: `/compare${queryString({ mode, a: d.a, b: d.b })}`,
-      eyebrow,
-      title: d.label,
-      blurb: d.hook,
-      cta: "Open the comparison →",
-    };
-  });
+  // Every curated debate, built through the same engine /compare uses, flattened
+  // across modes so the Asking strip shows the range of "who was better at X".
+  const comparisons = (["players", "managers", "eras"] as CompareMode[]).flatMap((mode) =>
+    CURATED_DEBATES[mode].flatMap((d) => {
+      const c: Comparison | null =
+        mode === "players" ? comparePlayers(d.a, d.b)
+        : mode === "managers" ? compareManagers(d.a, d.b)
+        : compareEras(d.a, d.b);
+      return c
+        ? [{ c, label: d.label, hook: d.hook, href: `/compare${queryString({ mode, a: d.a, b: d.b })}` }]
+        : [];
+    }),
+  );
 
   return (
     <div className="space-y-12">
@@ -94,53 +93,37 @@ export default function ExplorePage() {
           aside={<span className="text-ink-faint">Answering · {QUESTIONS.length} curated</span>}
         />
 
-        <AnswerCarousel label="Curated questions — swipe across the answers">
+        <FeatureCarousel label="Curated questions — swipe across the answers">
           {QUESTIONS.map((q) => {
-              const h = headlines[q.slug];
-              return (
-                <li
-                  key={q.slug}
-                  className="w-[calc(100%-1.5rem)] shrink-0 snap-start sm:w-[calc(100%-4rem)]"
-                >
-                  {/* The hero is an <article>, not one big anchor: a signature may
-                      carry its own links (player names, opponent badges), so only
-                      the text column is the jump link — nesting anchors is invalid. */}
-                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-colors hover:border-devil/60">
-                    {/* Extra horizontal padding on lg clears the desktop edge arrows
-                        (~48px in from each side) so they never sit over the content. */}
-                    <div className="grid flex-1 gap-6 p-5 sm:p-7 lg:min-h-[17rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:px-16">
-                      <Link
-                        href={`/questions/${q.slug}`}
-                        aria-label={`${q.question} — see the full finding`}
-                        className="block rounded-lg focus-ring"
-                      >
-                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
-                          {q.label}
-                        </span>
-                        <h3 className="display mt-1.5 text-balance text-2xl leading-tight text-ink group-hover:text-devil-bright sm:text-3xl">
-                          {q.question}
-                        </h3>
-                        {h && (
-                          <p className="mt-4 max-w-sm text-pretty text-sm leading-6 text-ink-dim">
-                            <span className={`stat-num mr-2 align-baseline text-4xl font-semibold ${STAT_TONE[h.tone]}`}>
-                              {h.stat}
-                            </span>
-                            {h.gloss}
-                          </p>
-                        )}
-                        <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
-                          See the full finding →
-                        </span>
-                      </Link>
-                      <div className="min-w-0">
-                        <QuestionSignature slug={q.slug} />
-                      </div>
-                    </div>
-                  </article>
-                </li>
-              );
-            })}
-        </AnswerCarousel>
+            const h = headlines[q.slug];
+            return (
+              <FeatureSlide
+                key={q.slug}
+                href={`/questions/${q.slug}`}
+                ariaLabel={`${q.question} — see the full finding`}
+                visual={<QuestionSignature slug={q.slug} />}
+              >
+                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
+                  {q.label}
+                </span>
+                <h3 className="display mt-1.5 text-balance text-2xl leading-tight text-ink group-hover:text-devil-bright sm:text-3xl">
+                  {q.question}
+                </h3>
+                {h && (
+                  <p className="mt-4 max-w-sm text-pretty text-sm leading-6 text-ink-dim">
+                    <span className={`stat-num mr-2 align-baseline text-4xl font-semibold ${STAT_TONE[h.tone]}`}>
+                      {h.stat}
+                    </span>
+                    {h.gloss}
+                  </p>
+                )}
+                <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
+                  See the full finding →
+                </span>
+              </FeatureSlide>
+            );
+          })}
+        </FeatureCarousel>
 
         {/* The summary rail — every question at a glance, so you can jump straight
             in without swiping the strip. */}
@@ -166,14 +149,39 @@ export default function ExplorePage() {
         </ul>
       </section>
 
-      {/* Exploratory follow-on 1: compare. */}
-      <section>
+      {/* The Asking strip — the extensible "who was better than who at X?". Same
+          feature-carousel + summary-rail shape as Answering, a touch lighter (the
+          curation gradient): each debate's verdict and signature visual, jumping to
+          the full /compare scoreboard, where any pairing can be built. */}
+      <section className="space-y-4">
         <SectionHead
-          title="Compare two of anything"
-          aside={<Link href="/compare" className="text-devil-bright hover:underline">All debates →</Link>}
+          title="Who was better?"
+          aside={<span className="text-ink-faint">Asking · {comparisons.length} debates</span>}
         />
-        <CuratedCarousel cards={compareCards} label="Great debates" />
-        <p className="mt-2 text-xs text-ink-faint">
+
+        <FeatureCarousel label="Curated debates — swipe across the duels">
+          {comparisons.map((cmp) => (
+            <ComparisonHero key={cmp.href} c={cmp.c} href={cmp.href} title={cmp.label} />
+          ))}
+        </FeatureCarousel>
+
+        <ul aria-label="All curated debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {comparisons.map((cmp) => (
+            <li key={cmp.href}>
+              <Link
+                href={cmp.href}
+                className="group flex items-baseline gap-2 truncate rounded-lg border border-line bg-panel px-3 py-2.5 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
+              >
+                <span className="truncate text-sm text-ink-dim group-hover:text-ink">
+                  <span className="font-medium text-ink">{cmp.label}</span>
+                  <span className="text-ink-faint"> — {cmp.hook}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <p className="text-xs text-ink-faint">
           Players, managers, and eras side by side on shared, coverage-aware metrics — or build your
           own pairing in <Link href="/compare" className="text-devil-bright hover:underline">Compare</Link>.
         </p>
