@@ -55,10 +55,10 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
           <g key={g}>
             <line x1={x(g)} y1={y(0)} x2={x(g)} y2={y(1)} stroke="var(--color-line)" strokeWidth={0.5} opacity={0.5} />
             <line x1={x(0)} y1={y(g)} x2={x(1)} y2={y(g)} stroke="var(--color-line)" strokeWidth={0.5} opacity={0.5} />
-            <text x={x(g)} y={y(0) + 12} textAnchor="middle" fontSize={8.5} fill="var(--color-ink-faint)" className="stat-num">
+            <text x={x(g)} y={y(0) + 12} textAnchor="middle" fontSize={10} fill="var(--color-ink-faint)" className="stat-num">
               {g * 100}
             </text>
-            <text x={x(0) - 6} y={y(g) + 3} textAnchor="end" fontSize={8.5} fill="var(--color-ink-faint)" className="stat-num">
+            <text x={x(0) - 6} y={y(g) + 3} textAnchor="end" fontSize={10} fill="var(--color-ink-faint)" className="stat-num">
               {g * 100}
             </text>
           </g>
@@ -70,7 +70,7 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
           stroke="var(--color-ink-faint)" strokeWidth={1} strokeDasharray="3 3"
         />
         <text
-          x={x(0.78)} y={y(0.78) - 5} fontSize={8} fill="var(--color-ink-faint)"
+          x={x(0.78)} y={y(0.78) - 5} fontSize={9} fill="var(--color-ink-faint)"
           transform={`rotate(-45 ${x(0.78)} ${y(0.78) - 5})`}
         >
           perfect forecast
@@ -92,11 +92,11 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
         ))}
 
         {/* axis titles */}
-        <text x={padL + plot / 2} y={H - 4} textAnchor="middle" fontSize={9} fill="var(--color-ink-dim)">
+        <text x={padL + plot / 2} y={H - 4} textAnchor="middle" fontSize={10} fill="var(--color-ink-dim)">
           Pre-match win expectancy (%)
         </text>
         <text
-          x={12} y={padT + plot / 2} textAnchor="middle" fontSize={9} fill="var(--color-ink-dim)"
+          x={12} y={padT + plot / 2} textAnchor="middle" fontSize={10} fill="var(--color-ink-dim)"
           transform={`rotate(-90 12 ${padT + plot / 2})`}
         >
           Observed rate (%)

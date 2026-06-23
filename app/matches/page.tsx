@@ -153,7 +153,7 @@ export default async function MatchesPage({
                 key={v.label}
                 href={presetHref(v.params)}
                 aria-current={active ? "true" : undefined}
-                className={`rounded-full border px-3 py-1.5 text-sm transition-colors focus-ring ${pillTone(active)}`}
+                className={`tap-target rounded-full border px-3 py-1.5 text-sm transition-colors focus-ring ${pillTone(active)}`}
               >
                 {v.label}
               </Link>
@@ -331,7 +331,7 @@ export default async function MatchesPage({
                 key={dec.decade}
                 href={`/matches${qs({ from: String(dec.from), to: String(dec.to), page: undefined })}`}
                 aria-current={active ? "true" : undefined}
-                className={`shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring ${pillTone(active)}`}
+                className={`tap-target shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring ${pillTone(active)}`}
               >
                 <span className="stat-num block text-xs font-semibold leading-tight">{dec.decade}</span>
                 <span className="stat-num block text-[10px] leading-tight text-ink-faint">{fmtNum(dec.n)}</span>
@@ -350,7 +350,7 @@ export default async function MatchesPage({
               key={s.key}
               href={`/matches${qs({ sort: s.key === "recent" ? undefined : s.key, page: undefined })}`}
               aria-current={active ? "true" : undefined}
-              className={`rounded-md px-2 py-1 transition-colors focus-ring ${
+              className={`tap-target rounded-md px-2 py-1 transition-colors focus-ring ${
                 active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
               }`}
             >

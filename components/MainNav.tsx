@@ -33,7 +33,7 @@ function isActive(pathname: string, href: string) {
 
 const tabClass = (active: boolean) =>
   [
-    "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring",
+    "tap-target rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring",
     active
       ? "bg-panel-2 text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
       : "text-ink-dim hover:bg-panel-2/75 hover:text-ink",
@@ -191,7 +191,7 @@ function MoreMenu({ pathname }: { pathname: string }) {
                 aria-current={active ? "page" : undefined}
                 onClick={() => setOpen(false)}
                 className={[
-                  "block rounded px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring",
+                  "tap-target block rounded px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring",
                   active
                     ? "bg-panel-2 text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
                     : "text-ink-dim hover:bg-panel-2 hover:text-ink",
