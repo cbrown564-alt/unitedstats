@@ -627,41 +627,64 @@ positive and negative golden cases. Reviewed under
 
 Turn the AI threat into a referral channel.
 
-- [ ] **Structured data** — JSON-LD / schema.org on answer and entity pages so
+- [x] **Structured data** — JSON-LD / schema.org on answer and entity pages so
       search and assistants can parse the claim and its provenance.
-- [ ] **Machine-facing answers** — an `llms.txt` and a documented answer-shaped
+- [x] **Machine-facing answers** — an `llms.txt` and a documented answer-shaped
       surface over the existing `/api/v1`, with stable citable IDs per cut and
       answer.
-- [ ] **Goal** — search and LLM referrals that cite UnitedStats as the verifiable
+- [x] **Goal** — search and LLM referrals that cite UnitedStats as the verifiable
       source rather than reproducing the number unattributed.
+
+Phase 14 is complete as a machine-readable distribution capability: selected
+match entity pages now emit `SportsEvent` JSON-LD, history-changed answer pages
+emit `CreativeWork` JSON-LD, `/llms.txt` exposes the source/citation contract,
+and `/api/v1/answers/*` provides stable answer-shaped payloads for curated Cuts
+and history digests. The robots policy now allows read-only `/api/v1/` while
+keeping click logging disallowed, and the implementation was reviewed under
+`docs/process/reviews/003-phase14-source-not-casualty.md`.
 
 ## Phase 15 — Correction as a product
 
 Promotes the parked trust-and-contribution loop; report §10.7. Converts the
 weakest moat component into a strength.
 
-- [ ] **"Suggest a correction"** on matches, players, and events: affected field,
+- [x] **"Suggest a correction"** on matches, players, and events: affected field,
       proposed value, source, explanation, optional attachment or archive
       reference.
-- [ ] **Structured output** — produce a GitHub issue or pull request, run
+- [x] **Structured output** — produce a GitHub issue or pull request, run
       canonical-JSON validation, preview the diff, and show status publicly.
-- [ ] **Static-friendly** — a prefilled issue link or a single serverless
+- [x] **Static-friendly** — a prefilled issue link or a single serverless
       endpoint; no standing backend. Fits the canonical-JSON-in-Git model
       exactly.
-- [ ] **Effect** — a durable contribution model that does not depend on one
+- [x] **Effect** — a durable contribution model that does not depend on one
       maintainer, seeded as a first-class workflow rather than a footer
       invitation.
+
+Phase 15 is complete as a backendless correction workflow: match, player, and
+event surfaces prefill a static `/corrections` builder; the client previews a
+field-level diff and opens a deterministic GitHub issue; public status is the
+filtered correction issue queue; and maintainer workflow docs keep canonical
+changes behind source verification, PR review, and `npm run validate`. The
+repair loop passed under
+`docs/process/reviews/005-phase15-corrections-repair.md`.
 
 ## Phase 16 — Habit and creator tail (later)
 
 Reach and retention, once the engine and its distribution are proven.
 
-- [ ] **On-this-day** — a lightweight daily historical module for the casual and
+- [x] **On-this-day** — a lightweight daily historical module for the casual and
       nostalgic audience.
-- [ ] **Saved collections** — URL-encoded, static-friendly collections of Cuts,
+- [x] **Saved collections** — URL-encoded, static-friendly collections of Cuts,
       without accounts.
-- [ ] **Embeds** — embeddable cards and charts (iframe or image) so creators turn
+- [x] **Embeds** — embeddable cards and charts (iframe or image) so creators turn
       the dataset into public discovery.
+
+Phase 16 is complete as a static-friendly habit and creator layer:
+`/on-this-day/[monthDay]` builds all 366 UTC month/day pages, `/collection?c=...`
+round-trips capped accountless Cut collections with coverage/evidence links,
+and `/embed/cut/[slug]` serves noindex curated Cut embeds with explicit
+cache/framing headers. Reviewed under
+`docs/process/reviews/006-phase16-habit-creator.md`.
 
 ## Parked pathways (open questions)
 

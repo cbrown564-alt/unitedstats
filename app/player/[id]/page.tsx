@@ -27,6 +27,8 @@ import { TransferList } from "@/components/TransferList";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { fmtDate, fmtNum, pct } from "@/lib/format";
 import { queryString } from "@/lib/url";
+import { entityRef } from "@/lib/citations";
+import { correctionPrefillHref } from "@/lib/corrections";
 
 export const dynamicParams = false;
 
@@ -50,6 +52,15 @@ export default async function PlayerPage({
 
   const p = playerById(id);
   if (!p) notFound();
+  const playerCorrectionHref = correctionPrefillHref({
+    targetKind: "player",
+    targetId: id,
+    targetLabel: p.name,
+    fieldPath: `players[id=${id}].name`,
+    currentValue: p.name,
+    pagePath: `/player/${id}`,
+    citableId: entityRef("player", id).id,
+  });
 
   const bySeason = playerSplitsBySeason(id);
   const matches = playerGoalMatches(id);
@@ -221,6 +232,9 @@ export default async function PlayerPage({
         shirts={shirts}
         caveat="Goals, apps, and starts use verified competitive player records where available. Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from recorded match coverage — the part of a career we can evidence, not a career total."
       />
+      <Link href={playerCorrectionHref} className="inline-block text-xs font-semibold text-devil-bright hover:underline">
+        Suggest player correction
+      </Link>
 
       {transfers.length > 0 && (
         <section>

@@ -10,6 +10,7 @@ import { CoverageMatrix } from "@/components/charts/CoverageMatrix";
 import { CoverageNote } from "@/components/CoverageNote";
 import { DataTable } from "@/components/DataTable";
 import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { CORRECTION_STATUS_URL } from "@/lib/corrections";
 
 export const metadata = { title: "Data & corrections" };
 
@@ -240,6 +241,14 @@ export default function DataPage() {
               <span className="stat-num text-ink"> wartime</span> or <span className="stat-num text-ink"> friendly</span> competition
               ids. They stay out of official records by default.
             </p>
+            <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold">
+              <Link href="/corrections" className="text-devil-bright hover:underline">
+                Correction builder
+              </Link>
+              <a href={CORRECTION_STATUS_URL} className="text-devil-bright hover:underline">
+                Correction status
+              </a>
+            </div>
           </aside>
         </section>
 

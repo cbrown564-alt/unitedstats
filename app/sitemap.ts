@@ -3,6 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import { questionSlugs } from "@/lib/questions";
 import { CURATED_CUTS, cutHref, curatedCut } from "@/lib/cut";
 import { historyDigestIds } from "@/lib/historyDigests";
+import { monthDayKeys } from "@/lib/onThisDay";
 import {
   allMatchIds, allSeasons, getMeta, managersIndex, opponentsIndex, playersIndex,
 } from "@/lib/queries";
@@ -34,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: url("/transfers"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
     { url: url("/search"), changeFrequency: "monthly", priority: 0.3, lastModified: built },
     { url: url("/data"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
+    { url: url("/corrections"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
   ];
 
   const questions: MetadataRoute.Sitemap = questionSlugs().map((slug) => ({
@@ -90,8 +92,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: lastMatch,
   }));
 
+  const onThisDay: MetadataRoute.Sitemap = monthDayKeys().map((monthDay) => ({
+    url: url(`/on-this-day/${monthDay}`),
+    changeFrequency: "yearly",
+    priority: 0.3,
+    lastModified: lastMatch,
+  }));
+
   return [
     ...staticPages, ...questions, ...cuts, ...seasons,
-    ...players, ...managers, ...opponents, ...matches, ...historyDigests,
+    ...players, ...managers, ...opponents, ...matches, ...historyDigests, ...onThisDay,
   ];
 }

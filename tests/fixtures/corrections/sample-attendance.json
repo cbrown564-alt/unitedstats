@@ -1,0 +1,17 @@
+{
+  "target": {
+    "kind": "match",
+    "id": "1999-05-26-bayern-munich-n",
+    "label": "Manchester United 2-1 FC Bayern Munich"
+  },
+  "fieldPath": "matches[id=1999-05-26-bayern-munich-n].attendance",
+  "currentValue": "90245",
+  "proposedValue": "90246",
+  "pagePath": "/match/1999-05-26-bayern-munich-n",
+  "citableId": "us:match:1999-05-26-bayern-munich-n",
+  "sourceUrl": "https://www.uefa.com/uefachampionsleague/match/56379--man-united-vs-bayern/",
+  "archiveRef": "",
+  "explanation": "Fixture used to exercise the maintainer correction workflow against a plausible attendance edit.",
+  "attachmentNote": "",
+  "reporterContact": ""
+}
