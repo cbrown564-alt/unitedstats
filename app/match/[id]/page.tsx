@@ -16,6 +16,8 @@ import { WdlBar } from "@/components/WdlBar";
 import { FormationPitch, Bench, placeBand, type MatchMarks } from "@/components/FormationPitch";
 import { ShareCite } from "@/components/ShareCite";
 import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
+import { matchRef } from "@/lib/citations";
+import { correctionPrefillHref } from "@/lib/corrections";
 
 export const dynamicParams = false;
 
@@ -63,6 +65,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const clubN = clubNames(m.date);
   const oppN = opponentNames(m.opponent_id, m.opponent_name);
   const similar = similarMatches(m, 6);
+  const pagePath = `/match/${id}`;
+  const matchCite = matchRef(id);
+  const matchLabel = `${club} ${m.gf}-${m.ga} ${m.opponent_name}`;
 
   const tone = resultTone(m.outcome);
   const word = resultLabel(m.outcome);
@@ -70,7 +75,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   const goals = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type));
   const opponentGoals = events.filter((e) => ["opp-goal", "own-goal-against"].includes(e.type));
+  const firstScoringEvent = goals[0] ?? opponentGoals[0] ?? null;
   const cards = events.filter((e) => e.type === "card-yellow" || e.type === "card-red");
+  const eventIndex = new Map(events.map((event, index) => [event.seq, index]));
   const starters = lineup.filter((p) => p.player_side === "united" && p.started && !p.bench);
   const usedSubs = lineup.filter((p) => p.player_side === "united" && !p.started && !p.bench);
   const bench = lineup.filter((p) => p.player_side === "united" && p.bench);
@@ -102,6 +109,30 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     else if (!cur) cardByPlayer.set(c.player_id, "yellow");
   }
   const marks: MatchMarks = { goals: goalCount, assists: assistCount, cards: cardByPlayer };
+  const correctionForMatchField = (field: string, currentValue: string | number | null | undefined) =>
+    correctionPrefillHref({
+      targetKind: "match",
+      targetId: id,
+      targetLabel: matchLabel,
+      fieldPath: `matches[id=${id}].${field}`,
+      currentValue,
+      pagePath,
+      citableId: matchCite.id,
+    });
+  const correctionForEvent = (event: (typeof events)[number]) => {
+    const index = eventIndex.get(event.seq) ?? 0;
+    const field = event.minute != null ? "minute" : event.player_display_name ? "playerName" : "detail";
+    const currentValue = field === "minute" ? event.minute : event.player_display_name ?? event.detail ?? "";
+    return correctionPrefillHref({
+      targetKind: "event",
+      targetId: `${id}:events[${index}]`,
+      targetLabel: `${matchLabel} event ${index + 1}`,
+      fieldPath: `matches[id=${id}].events[${index}].${field}`,
+      currentValue,
+      pagePath,
+      citableId: matchCite.id,
+    });
+  };
   const sourceSummary = sources.reduce((acc, source) => {
     const cur = acc.get(source.id) ?? {
       label: source.label,
@@ -180,6 +211,11 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         {hasTimedGoals && (
           <section className="space-y-2">
             <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
+            {firstScoringEvent && (
+              <Link href={correctionForEvent(firstScoringEvent)} className="text-xs font-semibold text-devil-bright hover:underline">
+                Suggest event correction
+              </Link>
+            )}
             {!m.events_complete && (
               <p className="text-xs text-ink-faint">Scorer data for this match may be incomplete.</p>
             )}
@@ -209,6 +245,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                       {e.assist_display_name && (
                         <span className="text-xs text-ink-faint ml-1.5">assist {e.assist_display_name}</span>
                       )}
+                      <Link href={correctionForEvent(e)} className="ml-2 text-xs font-semibold text-devil-bright hover:underline">
+                        Correct
+                      </Link>
                     </span>
                   </li>
                 ))}
@@ -224,6 +263,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     <span className="stat-num text-loss font-semibold w-6">•</span>
                     <span className="flex-1 font-medium">{e.player_display_name ?? "Goal"}</span>
                     {e.type === "own-goal-against" && <span className="text-xs text-ink-faint">og</span>}
+                    <Link href={correctionForEvent(e)} className="text-xs font-semibold text-devil-bright hover:underline">
+                      Correct
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -387,6 +429,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </div>
         ))}
       </dl>
+      <Link href={correctionForMatchField("attendance", m.attendance)} className="inline-block text-xs font-semibold text-devil-bright hover:underline">
+        Suggest match correction
+      </Link>
       {m.notes && <p className="max-w-2xl text-sm text-ink-dim italic">{m.notes}</p>}
 
       {elo && (

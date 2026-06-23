@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { IMMUTABLE_DATA_CACHE_CONTROL } from "./lib/cache";
+import { EMBED_FRAME_HEADERS } from "./lib/embeds";
 
 const immutablePageCacheHeader = [
   { key: "Cache-Control", value: IMMUTABLE_DATA_CACHE_CONTROL },
@@ -22,10 +23,13 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
-    return ["/matches", "/players", "/seasons", "/search", "/compare"].map((source) => ({
-      source,
-      headers: immutablePageCacheHeader,
-    }));
+    return [
+      ...["/matches", "/players", "/seasons", "/search", "/compare"].map((source) => ({
+        source,
+        headers: immutablePageCacheHeader,
+      })),
+      { source: "/embed/:path*", headers: EMBED_FRAME_HEADERS },
+    ];
   },
   images: {
     // Player/manager portraits are immutable, so let the optimizer hold each
