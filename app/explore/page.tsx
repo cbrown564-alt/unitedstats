@@ -11,6 +11,7 @@ import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { QuestionSignature } from "@/components/explore/QuestionSignature";
+import { AnswerCarousel } from "@/components/explore/AnswerCarousel";
 
 const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
   devil: "text-devil-bright",
@@ -93,12 +94,8 @@ export default function ExplorePage() {
           aside={<span className="text-ink-faint">Answering · {QUESTIONS.length} curated</span>}
         />
 
-        <div className="relative -mx-4 sm:-mx-6">
-          <ul
-            aria-label="Curated questions — swipe across the answers"
-            className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:px-6"
-          >
-            {QUESTIONS.map((q) => {
+        <AnswerCarousel label="Curated questions — swipe across the answers">
+          {QUESTIONS.map((q) => {
               const h = headlines[q.slug];
               return (
                 <li
@@ -141,12 +138,7 @@ export default function ExplorePage() {
                 </li>
               );
             })}
-          </ul>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 hidden w-12 bg-gradient-to-l from-pitch to-transparent sm:block"
-          />
-        </div>
+        </AnswerCarousel>
 
         {/* The summary rail — every question at a glance, so you can jump straight
             in without swiping the strip. */}
