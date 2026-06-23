@@ -713,14 +713,6 @@ export interface CuratedCut {
  */
 export const CURATED_CUTS: CuratedCut[] = [
   {
-    slug: "decades-by-win-rate",
-    eyebrow: "By decade",
-    title: "Every decade by win rate",
-    blurb: "United's win rate across each ten-year span, 1880s to today.",
-    dimension: "decade",
-    metric: "winrate",
-  },
-  {
     slug: "opponents-by-win-rate",
     eyebrow: "By opponent",
     title: "Every opponent, by how often United beat them",
@@ -735,22 +727,6 @@ export const CURATED_CUTS: CuratedCut[] = [
     blurb: "Each reign restated in three-points-for-a-win terms, Mangnall to now.",
     dimension: "manager",
     metric: "ppg",
-  },
-  {
-    slug: "competition-types-by-goal-difference",
-    eyebrow: "By competition type",
-    title: "League, cup, and Europe by goal difference",
-    blurb: "Where United's goal difference runs deepest, by type of football.",
-    dimension: "type",
-    metric: "gd",
-  },
-  {
-    slug: "venues-by-win-rate",
-    eyebrow: "By venue",
-    title: "Home, away, and neutral by win rate",
-    blurb: "How much of United's record is built at Old Trafford and on the road.",
-    dimension: "venue",
-    metric: "winrate",
   },
   {
     slug: "seasons-by-points",
