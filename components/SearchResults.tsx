@@ -42,7 +42,7 @@ export function SearchResults({
             href={s.href}
             onClick={() => onSelect(s.href)}
             onMouseEnter={() => onHover?.(i)}
-            className={`block px-4 py-2.5 border-b border-line ${active === i ? "bg-panel-2" : "hover:bg-panel-2"}`}
+            className={`tap-target block px-4 py-2.5 border-b border-line ${active === i ? "bg-panel-2" : "hover:bg-panel-2"}`}
           >
             <div className="flex justify-between gap-3 text-sm">
               <span className="font-medium">{s.title}</span>
@@ -60,12 +60,12 @@ export function SearchResults({
               href={r.href}
               onClick={() => onSelect(r.href)}
               onMouseEnter={() => onHover?.(idx)}
-              className={`flex items-center justify-between gap-3 px-4 py-2 text-sm ${
+              className={`tap-target flex items-center justify-between gap-3 px-4 py-2.5 text-sm sm:py-2 ${
                 active === idx ? "bg-panel-2" : "hover:bg-panel-2"
               }`}
             >
               <span className="truncate">
-                <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2 inline-block w-20">
+                <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2 inline-block w-16 sm:w-20">
                   {KIND_LABELS[r.kind] ?? r.kind}
                 </span>
                 <span className="font-medium">{highlight(r.label, query)}</span>
