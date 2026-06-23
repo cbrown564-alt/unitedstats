@@ -47,20 +47,31 @@ export interface Cut {
 
 // ---- dimensions ----------------------------------------------------------
 
-export const DIMENSIONS: { key: CutDimension; label: string; short: string }[] = [
-  { key: "decade", label: "By decade", short: "Decade" },
-  { key: "season", label: "By season", short: "Season" },
-  { key: "type", label: "By competition type", short: "Type" },
-  { key: "competition", label: "By competition", short: "Competition" },
-  { key: "venue", label: "By venue", short: "Venue" },
-  { key: "result", label: "By result", short: "Result" },
-  { key: "opponent", label: "By opponent", short: "Opponent" },
-  { key: "manager", label: "By manager", short: "Manager" },
+export const DIMENSIONS: { key: CutDimension; label: string; short: string; noun: string }[] = [
+  { key: "decade", label: "By decade", short: "Decade", noun: "decades" },
+  { key: "season", label: "By season", short: "Season", noun: "seasons" },
+  { key: "type", label: "By competition type", short: "Type", noun: "competition types" },
+  { key: "competition", label: "By competition", short: "Competition", noun: "competitions" },
+  { key: "venue", label: "By venue", short: "Venue", noun: "venues" },
+  { key: "result", label: "By result", short: "Result", noun: "results" },
+  { key: "opponent", label: "By opponent", short: "Opponent", noun: "opponents" },
+  { key: "manager", label: "By manager", short: "Manager", noun: "managers" },
 ];
 
 const DIM_KEYS = new Set(DIMENSIONS.map((d) => d.key));
 export function dimensionLabel(dim: CutDimension): string {
   return DIMENSIONS.find((d) => d.key === dim)?.short ?? dim;
+}
+
+/** Plural noun for a dimension's groups ("opponents"), singularised for a count of one. */
+function dimensionNoun(dim: CutDimension, n: number): string {
+  const plural = DIMENSIONS.find((d) => d.key === dim)?.noun ?? "groups";
+  return n === 1 ? plural.replace(/s$/, "") : plural;
+}
+
+/** Chronological dimensions (decade, season) read in time order, not metric rank. */
+export function isChronological(dim: CutDimension): boolean {
+  return DIMS[dim].naturalOrder === "label";
 }
 
 interface DimConfig {
@@ -154,6 +165,9 @@ const METRIC_KEYS = new Set(METRICS.map((m) => m.key));
 export function metricLabel(metric: CutMetric): string {
   return METRICS.find((m) => m.key === metric)?.label ?? metric;
 }
+export function metricShort(metric: CutMetric): string {
+  return METRICS.find((m) => m.key === metric)?.short ?? metric;
+}
 
 /** The metric's value for one group's record, or null when undefined (rate over 0). */
 function metricValue(r: Record_, metric: CutMetric): number | null {
@@ -184,10 +198,11 @@ export function metricFmt(value: number | null, metric: CutMetric): string {
   }
 }
 
-/** Rate metrics mislead on tiny groups; below this many matches a group is "thin". */
-const THIN_SAMPLE = 10;
-/** A headline figure on a rate metric needs at least this many matches behind it. */
-const HEADLINE_SAMPLE = 20;
+/** Rate metrics mislead on tiny groups (a 100% win rate over two games tops nothing
+ *  meaningful). Below this many matches a rate figure is "thin": it is flagged, sunk
+ *  to the bottom of the ladder, and never eligible to headline — matching the
+ *  "met at least twenty times" convention the bogey-sides question already uses. */
+const MIN_RATE_SAMPLE = 20;
 const RATE_METRICS = new Set<CutMetric>(["winrate", "ppg"]);
 
 // ---- the engine ----------------------------------------------------------
@@ -212,6 +227,8 @@ interface CutCoverage {
 }
 
 interface CutHeadline {
+  /** The standout group's key — lets the ladder accent the row it refers to. */
+  key: string;
   /** The standout group's label. */
   subject: string;
   /** Its metric figure, formatted. */
@@ -274,7 +291,7 @@ export function runCut(cut: Cut, cap = 60): CutResult {
     href: `/matches${queryString({ ...base, ...cfg.groupParam(r.gkey, cut.filters) })}`,
     p: r.p, w: r.w, d: r.d, l: r.l, gf: r.gf, ga: r.ga,
     value: metricValue(r, cut.metric),
-    thin: RATE_METRICS.has(cut.metric) && r.p < THIN_SAMPLE,
+    thin: RATE_METRICS.has(cut.metric) && r.p < MIN_RATE_SAMPLE,
   }));
 
   rankGroups(groups, cut.dimension, cut.metric);
@@ -284,35 +301,36 @@ export function runCut(cut: Cut, cap = 60): CutResult {
     groups: groups.slice(0, cap),
     total: groups.length,
     played,
-    headline: buildHeadline(groups, cut.metric),
+    headline: buildHeadline(groups, cut.metric, cut.dimension),
     coverage: gradeCoverage(cut, played),
   };
 }
 
 /** Sort in place: a chronological dimension reads in key order; everything else by
- *  the lens (desc), tie-broken by sample size then label so order is deterministic. */
+ *  the lens (desc). For a rate metric, thin samples sink below every solid group, so
+ *  the ladder leads with figures that mean something and stays coherent with the
+ *  headline; ties break by sample size then label so order is deterministic. */
 function rankGroups(groups: CutGroup[], dim: CutDimension, metric: CutMetric): void {
   if (DIMS[dim].naturalOrder === "label") {
     groups.sort((a, b) => a.label.localeCompare(b.label));
     return;
   }
+  const rate = RATE_METRICS.has(metric);
   groups.sort((a, b) => {
+    if (rate && a.thin !== b.thin) return a.thin ? 1 : -1;
     const av = a.value ?? -Infinity;
     const bv = b.value ?? -Infinity;
     if (av !== bv) return bv - av;
     if (a.p !== b.p) return b.p - a.p;
     return a.label.localeCompare(b.label);
   });
-  void metric;
 }
 
 /** The headline finding: the standout group for the metric. Rate metrics ignore
  *  thin samples so a 100% win rate over two games never leads the cut. */
-function buildHeadline(groups: CutGroup[], metric: CutMetric): CutHeadline | null {
+function buildHeadline(groups: CutGroup[], metric: CutMetric, dim: CutDimension): CutHeadline | null {
   if (groups.length === 0) return null;
-  const eligible = RATE_METRICS.has(metric)
-    ? groups.filter((g) => g.p >= HEADLINE_SAMPLE)
-    : groups;
+  const eligible = RATE_METRICS.has(metric) ? groups.filter((g) => !g.thin) : groups;
   const ranked = [...(eligible.length ? eligible : groups)].sort((a, b) => {
     const av = a.value ?? -Infinity;
     const bv = b.value ?? -Infinity;
@@ -321,24 +339,20 @@ function buildHeadline(groups: CutGroup[], metric: CutMetric): CutHeadline | nul
   const top = ranked[0];
   if (!top || top.value === null) return null;
 
-  const n = groups.length;
-  const noun = dimNoun(n);
+  const noun = dimensionNoun(dim, groups.length);
   const gloss =
     metric === "matches"
-      ? `the most of ${fmtNum(n)} ${noun}`
-      : `the strongest of ${fmtNum(n)} ${noun}, from ${fmtNum(top.p)} ${top.p === 1 ? "match" : "matches"}`;
+      ? `the most of ${fmtNum(groups.length)} ${noun}`
+      : `the strongest of ${fmtNum(groups.length)} ${noun}, from ${fmtNum(top.p)} ${top.p === 1 ? "match" : "matches"}`;
 
   return {
+    key: top.key,
     subject: top.label,
     figure: metricFmt(top.value, metric),
     metric: metricLabel(metric).toLowerCase(),
     gloss,
     href: top.href,
   };
-}
-
-function dimNoun(n: number): string {
-  return n === 1 ? "group" : "groups";
 }
 
 /** Grade the cut's coverage. The group engine ranks the *result* record, which is
@@ -356,7 +370,7 @@ function gradeCoverage(cut: Cut, played: number): CutCoverage {
   return {
     grade: "complete",
     basis: rate
-      ? `Result-level record — complete for every official match in this slice. ${metricLabel(cut.metric)} over fewer than ${THIN_SAMPLE} matches is flagged as a thin sample.`
+      ? `Result-level record — complete for every official match in this slice. ${metricLabel(cut.metric)} over fewer than ${MIN_RATE_SAMPLE} matches is flagged thin and sorted below the solid groups, so a tiny sample never tops the ladder.`
       : "Result-level record — complete for every official match in this slice.",
   };
 }

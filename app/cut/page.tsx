@@ -4,7 +4,7 @@ import {
   competitionsList, allSeasons, managerById, opponentsIndex,
 } from "@/lib/queries";
 import {
-  cutFromParams, runCut, cutHref, curatedFor, dimensionLabel, metricLabel,
+  cutFromParams, runCut, cutHref, curatedFor, dimensionLabel, metricLabel, isChronological,
   type Cut,
 } from "@/lib/cut";
 import { COMPETITION_TYPE_LABELS, fmtNum, resultLabel, venueLabel } from "@/lib/format";
@@ -71,9 +71,8 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
       </nav>
 
       <PageHeader eyebrow={cut.curated ? "Curated cut" : "Your cut"} title={cutTitle(cut)}>
-        Group the whole record your own way, then rank it by the lens that answers your question. Every
-        row reproduces exactly the matches it counts; change the dimension or the metric to fork a new,
-        shareable cut.
+        The whole record as a standings ladder — every row links to the matches behind it. Change the
+        dimension or the lens to fork your own.
       </PageHeader>
 
       {/* Active slice, as removable chips — each links to the same cut minus that filter. */}
@@ -99,32 +98,35 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         </div>
       )}
 
-      {/* The answer first: the standout group for the active lens, writ large. Over an
-          empty slice (a fork whose filters intersect to nothing) the cut degrades to
-          its own unsupported state rather than showing a clean total over a hole. */}
+      {/* The answer first: the standout group for the active lens as a single
+          confident band (not a near-empty card). Over an empty slice — a fork whose
+          filters intersect to nothing — the cut degrades to its own unsupported state
+          rather than showing a clean total over a hole. */}
       {coverage.grade === "empty" || !headline ? (
-        <section className="rounded-lg border border-line bg-panel p-6">
+        <section className="rounded-xl border border-line bg-panel px-5 py-6">
           <p className="text-sm text-ink-dim">{coverage.basis}</p>
         </section>
       ) : (
-        <section className="rounded-lg border border-line bg-panel p-5 sm:p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
-            Standout {dimLabel.toLowerCase()}
-          </p>
-          <div className="mt-2 flex flex-wrap items-end gap-x-5 gap-y-2">
-            <span className="stat-num text-5xl font-semibold leading-none text-gold sm:text-6xl">{headline.figure}</span>
-            <div className="leading-tight">
-              <p className="display text-2xl text-ink">{headline.subject}</p>
-              <p className="mt-1 text-sm text-ink-dim">
-                {headline.metric} — {headline.gloss}.
-              </p>
-            </div>
+        <section className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-line bg-panel px-5 py-4 sm:py-5">
+          <span className="stat-num text-4xl font-semibold leading-none text-gold sm:text-5xl">
+            {headline.figure}
+          </span>
+          <div className="min-w-0 leading-tight">
+            <p className="flex items-baseline gap-2">
+              <span className="display text-xl text-ink sm:text-2xl">{headline.subject}</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
+                top {dimLabel.toLowerCase()}
+              </span>
+            </p>
+            <p className="mt-0.5 text-sm text-ink-dim">
+              {headline.metric} — {headline.gloss}.
+            </p>
           </div>
           <Link
             href={headline.href}
-            className="mt-4 inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring"
+            className="text-xs font-semibold text-devil-bright hover:underline focus-ring sm:ml-auto"
           >
-            See the matches behind {headline.subject} →
+            See the matches →
           </Link>
         </section>
       )}
@@ -154,13 +156,15 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         <section className="space-y-3">
           <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
-              {dimLabel} · ranked by {metricLabel(cut.metric).toLowerCase()}
+              {dimLabel} ·{" "}
+              {isChronological(cut.dimension) ? "over time, by" : "ranked by"}{" "}
+              {metricLabel(cut.metric).toLowerCase()}
             </h2>
             <span className="stat-num text-xs text-ink-faint">
               {total > groups.length ? `top ${fmtNum(groups.length)} of ${fmtNum(total)}` : `${fmtNum(total)} groups`}
             </span>
           </div>
-          <CutBoard groups={groups} metric={cut.metric} dimLabel={dimLabel} />
+          <CutBoard groups={groups} metric={cut.metric} dimLabel={dimLabel} standoutKey={headline?.key} />
           <CoverageNote slice={`${dimLabel} groups across ${fmtNum(played)} matches`} coverage={coverage.basis} />
         </section>
       )}
