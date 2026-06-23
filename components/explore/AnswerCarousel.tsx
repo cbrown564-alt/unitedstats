@@ -90,7 +90,7 @@ function EdgeArrow({
       className={[
         "absolute top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full",
         "border border-line bg-panel/70 text-ink-dim backdrop-blur transition-all",
-        "hover:bg-panel hover:text-ink focus-ring sm:flex",
+        "hover:bg-panel hover:text-ink focus-ring lg:flex",
         left ? "left-2" : "right-2",
         // Translucent until the strip is hovered, then revealed; gone at the edge.
         hidden ? "pointer-events-none opacity-0" : "opacity-40 group-hover:opacity-100",
