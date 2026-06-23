@@ -162,7 +162,7 @@ export default async function MatchesPage({
         </div>
       </div>
 
-      <form className="rounded-lg border border-line bg-panel p-3 text-sm shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]" method="get" action="/matches">
+      <form id="match-filters" className="scroll-mt-20 rounded-lg border border-line bg-panel p-3 text-sm shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]" method="get" action="/matches">
         {sort !== "recent" && <input type="hidden" name="sort" value={sort} />}
         {sp.manager && <input type="hidden" name="manager" value={sp.manager} />}
         {sp.opponent && <input type="hidden" name="opponent" value={sp.opponent} />}
@@ -358,6 +358,35 @@ export default async function MatchesPage({
             </Link>
           );
         })}
+      </div>
+
+      {/* Mobile: a slim bar that pins under the header once the list starts to
+          scroll, so the filter is one tap away deep in a 50-row page instead of
+          a long scroll back to the form. Pure sticky — no JS, no extra fetch. */}
+      <div className="sticky top-14 z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:hidden">
+        <div className="flex items-center justify-between gap-3">
+          <span className="stat-num text-xs text-ink-dim">
+            {hasFilters
+              ? `${chips.length} filter${chips.length === 1 ? "" : "s"} · ${fmtNum(total)} match${total === 1 ? "" : "es"}`
+              : `${fmtNum(total)} matches`}
+          </span>
+          <div className="flex items-center gap-1">
+            {hasFilters && (
+              <Link
+                href="/matches"
+                className="tap-target px-2 py-1 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
+              >
+                Clear
+              </Link>
+            )}
+            <a
+              href="#match-filters"
+              className="tap-target rounded-md border border-line bg-panel px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
+            >
+              Filters
+            </a>
+          </div>
+        </div>
       </div>
 
       {chronological ? (
