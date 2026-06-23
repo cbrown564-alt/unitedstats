@@ -3,7 +3,6 @@ import {
   InspectableBarChartLazy,
   InspectableTimeSeriesChartLazy,
 } from "@/components/charts/lazy";
-import { fmtNum } from "@/lib/format";
 import {
   isChronological,
   metricFmt,
@@ -31,20 +30,26 @@ export function CutChart({
   groups,
   metric,
   dimension,
+  baseline,
+  standoutKey,
 }: {
   groups: CutGroup[];
   metric: CutMetric;
   dimension: CutDimension;
+  /** Slice-wide average for the lens, from the engine; null where no line fits. */
+  baseline?: number | null;
+  /** The headline group's key — drawn in gold. */
+  standoutKey?: string;
 }) {
   // Decades are discrete spans → columns. Seasons read as a line, given enough
   // distinct points to draw one. Everything else is a ranked bar chart.
   if (dimension === "decade") {
-    return <CutColumns groups={groups} metric={metric} />;
+    return <CutColumns groups={groups} metric={metric} baseline={baseline} standoutKey={standoutKey} />;
   }
   if (isChronological(dimension) && distinctYears(groups) >= 2) {
-    return <CutTimeSeries groups={groups} metric={metric} />;
+    return <CutTimeSeries groups={groups} metric={metric} baseline={baseline} />;
   }
-  return <CutRankedBars groups={groups} metric={metric} />;
+  return <CutRankedBars groups={groups} metric={metric} standoutKey={standoutKey} />;
 }
 
 /** The muted fill for non-standout bars — recedes so the gold winner dominates. */
@@ -57,9 +62,21 @@ const TS_STYLE: Record<CutMetric, { stroke: string; suffix: string }> = {
   ppg: { stroke: "var(--color-devil-bright)", suffix: "" },
   gd: { stroke: "var(--color-devil-bright)", suffix: "" },
   matches: { stroke: "var(--color-silver)", suffix: "" },
+  goals: { stroke: "var(--color-win)", suffix: "" },
+  apps: { stroke: "var(--color-silver)", suffix: "" },
+  starts: { stroke: "var(--color-silver)", suffix: "" },
+  goalsperapp: { stroke: "var(--color-win)", suffix: "" },
 };
 
-function CutTimeSeries({ groups, metric }: { groups: CutGroup[]; metric: CutMetric }) {
+function CutTimeSeries({
+  groups,
+  metric,
+  baseline,
+}: {
+  groups: CutGroup[];
+  metric: CutMetric;
+  baseline?: number | null;
+}) {
   // Time order, oldest → newest: the x-axis carries the ranking, not the row order.
   const data = groups
     .map((g) => ({
@@ -67,16 +84,14 @@ function CutTimeSeries({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
       y: g.value ?? 0,
       label: g.label,
       valueLabel: valuePhrase(g.value, metric),
-      meta: `${fmtNum(g.p)} matches · ${g.w}W ${g.d}D ${g.l}L`,
+      meta: g.meta,
     }))
     .sort((a, b) => a.x - b.x);
 
-  const avg = sliceAverage(groups, metric);
   const style = TS_STYLE[metric];
-  const baseline =
-    metric === "gd" ? 0 : metric === "matches" ? undefined : avg ?? undefined;
+  const baseVal = baseline ?? undefined;
   const baselineLabel =
-    baseline === undefined ? undefined : metric === "gd" ? "even" : metricFmt(baseline, metric);
+    baseVal === undefined ? undefined : metric === "gd" ? "even" : metricFmt(baseVal, metric);
 
   return (
     <InspectableTimeSeriesChartLazy
@@ -85,7 +100,7 @@ function CutTimeSeries({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
       stroke={style.stroke}
       yTickSuffix={style.suffix}
       yDomain={yDomain(metric)}
-      baseline={baseline}
+      baseline={baseVal}
       baselineLabel={baselineLabel}
       xTicks={yearTicks(data.map((d) => d.x))}
       valueLabel={valueNoun(metric)}
@@ -96,17 +111,26 @@ function CutTimeSeries({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
 
 // ── decade: discrete columns over time ────────────────────────────────────
 
-function CutColumns({ groups, metric }: { groups: CutGroup[]; metric: CutMetric }) {
+function CutColumns({
+  groups,
+  metric,
+  baseline,
+  standoutKey,
+}: {
+  groups: CutGroup[];
+  metric: CutMetric;
+  baseline?: number | null;
+  standoutKey?: string;
+}) {
   // groups already arrive in chronological order (1880s → today); keep it so the
   // columns read left-to-right as a timeline, with the peak picked out in gold.
-  const standout = groups.find((g) => g.key === pickStandout(groups, metric));
-  const avg = sliceAverage(groups, metric);
-  const baseline =
+  const standout = groups.find((g) => g.key === standoutKey);
+  const baselineRef =
     metric === "gd"
       ? { value: 0, label: "even" }
-      : metric === "matches" || avg === null
+      : baseline == null
         ? undefined
-        : { value: avg, label: metricFmt(avg, metric) };
+        : { value: baseline, label: metricFmt(baseline, metric) };
 
   return (
     <InspectableBarChartLazy
@@ -114,13 +138,13 @@ function CutColumns({ groups, metric }: { groups: CutGroup[]; metric: CutMetric 
         label: g.label,
         value: g.value ?? 0,
         valueLabel: valuePhrase(g.value, metric),
-        meta: `${fmtNum(g.p)} matches · ${g.w}W ${g.d}D ${g.l}L`,
+        meta: g.meta,
         href: g.href,
       }))}
       height={300}
       color={BAR_MUTED}
       highlightLabel={standout?.label}
-      baseline={baseline}
+      baseline={baselineRef}
       yTickSuffix={metric === "winrate" ? "%" : ""}
       chartLabel={`United ${valueNoun(metric)} by decade`}
     />
@@ -129,7 +153,15 @@ function CutColumns({ groups, metric }: { groups: CutGroup[]; metric: CutMetric 
 
 // ── categorical: horizontal ranked bars ───────────────────────────────────
 
-function CutRankedBars({ groups, metric }: { groups: CutGroup[]; metric: CutMetric }) {
+function CutRankedBars({
+  groups,
+  metric,
+  standoutKey,
+}: {
+  groups: CutGroup[];
+  metric: CutMetric;
+  standoutKey?: string;
+}) {
   const diverging = metric === "gd";
   // Scale: rate metrics on their own absolute domain so a 90% bar reads nearly full;
   // counts and goal difference scale to the largest bar in the slice.
@@ -141,8 +173,6 @@ function CutRankedBars({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
         : diverging
           ? Math.max(1, ...groups.map((g) => Math.abs(g.value ?? 0)))
           : Math.max(1, ...groups.map((g) => g.value ?? 0));
-  // The standout the headline names: best solid value for the lens.
-  const standoutKey = pickStandout(groups, metric);
 
   // Flexbox + standard width utilities only — a closely-stacked horizontal bar
   // chart: a fixed label gutter (the y-axis), bars all starting at one left edge,
@@ -157,7 +187,7 @@ function CutRankedBars({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
           <li key={g.key}>
             <Link
               href={g.href}
-              title={`${g.label} — ${valuePhrase(g.value, metric)} from ${fmtNum(g.p)} matches (${g.w}W ${g.d}D ${g.l}L)`}
+              title={`${g.label} — ${valuePhrase(g.value, metric)} · ${g.meta}`}
               className="group flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-panel-2/60 focus-ring sm:gap-3"
             >
               <span
@@ -248,29 +278,6 @@ function distinctYears(groups: CutGroup[]): number {
   return new Set(groups.map((g) => yearOf(g.key))).size;
 }
 
-/** Slice-wide average for the lens — the contextual baseline drawn behind a chart. */
-function sliceAverage(groups: CutGroup[], metric: CutMetric): number | null {
-  let w = 0;
-  let d = 0;
-  let p = 0;
-  for (const g of groups) {
-    w += g.w;
-    d += g.d;
-    p += g.p;
-  }
-  if (p === 0) return null;
-  switch (metric) {
-    case "winrate":
-      return (100 * w) / p;
-    case "ppg":
-      return (3 * w + d) / p;
-    case "gd":
-      return 0;
-    case "matches":
-      return p / groups.length;
-  }
-}
-
 function yDomain(metric: CutMetric): [number | "dataMin", number | "dataMax"] {
   switch (metric) {
     case "winrate":
@@ -280,6 +287,10 @@ function yDomain(metric: CutMetric): [number | "dataMin", number | "dataMax"] {
     case "gd":
       return ["dataMin", "dataMax"];
     case "matches":
+    case "goals":
+    case "apps":
+    case "starts":
+    case "goalsperapp":
       return [0, "dataMax"];
   }
 }
@@ -299,23 +310,7 @@ function yearTicks(years: number[]): { x: number; label: string }[] {
   return ticks;
 }
 
-/** The standout group for the lens — best solid value, ignoring thin rate samples. */
-function pickStandout(groups: CutGroup[], metric: CutMetric): string | undefined {
-  const eligible = groups.filter((g) => g.value !== null && !(metricIsRate(metric) && g.thin));
-  const pool = eligible.length ? eligible : groups;
-  let best: CutGroup | undefined;
-  for (const g of pool) {
-    if (g.value === null) continue;
-    if (!best || (g.value ?? -Infinity) > (best.value ?? -Infinity)) best = g;
-  }
-  return best?.key;
-}
-
-function metricIsRate(metric: CutMetric): boolean {
-  return metric === "winrate" || metric === "ppg";
-}
-
-/** A spoken value: "58.2% win rate", "+212 goal difference", "1,184 matches". */
+/** A spoken value: "58.2% win rate", "+212 goal difference", "253 goals". */
 function valuePhrase(value: number | null, metric: CutMetric): string {
   return `${metricFmt(value, metric)} ${valueNoun(metric)}`;
 }
@@ -330,5 +325,13 @@ function valueNoun(metric: CutMetric): string {
       return "goal difference";
     case "matches":
       return "matches";
+    case "goals":
+      return "goals";
+    case "apps":
+      return "appearances";
+    case "starts":
+      return "starts";
+    case "goalsperapp":
+      return "goals per app";
   }
 }

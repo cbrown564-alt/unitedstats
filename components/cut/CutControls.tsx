@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { fmtNum, COMPETITION_TYPE_LABELS, resultLabel } from "@/lib/format";
-import { DIMENSIONS, METRICS, cutHref, type Cut } from "@/lib/cut";
+import { SUBJECTS, dimensionsFor, metricsFor, cutHref, type Cut, type CutSubject } from "@/lib/cut";
 
 const TYPE_FILTER_KEYS = ["league", "cup", "domestic-cup", "league-cup", "european", "unofficial"];
 const RESULT_FILTER_KEYS = ["W", "D", "L"];
@@ -34,7 +34,17 @@ export function CutControls({
   competitions: { id: string; name: string; n: number }[];
   seasons: string[];
 }) {
-  const { dimension, metric, filters } = cut;
+  const { subject, dimension, metric, filters } = cut;
+
+  // Switching subject keeps the dimension when it is shared (e.g. Season), else
+  // drops to the new subject's default; the metric always resets (the two metric
+  // sets are disjoint). Filters carry across — they narrow the matches either way.
+  const subjectHref = (s: CutSubject) => {
+    const dims = dimensionsFor(s);
+    const nextDim = dims.some((d) => d.key === dimension) ? dimension : dims[0].key;
+    return cutHref({ subject: s, dimension: nextDim, metric: metricsFor(s)[0].key, filters });
+  };
+
   return (
     <section
       id="cut-controls"
@@ -43,20 +53,29 @@ export function CutControls({
     >
       <div className="space-y-2.5 p-3.5 sm:p-4">
         <Dial
+          legend="Subject"
+          options={SUBJECTS.map((s) => ({
+            key: s.key,
+            label: s.label,
+            href: subjectHref(s.key),
+            active: s.key === subject,
+          }))}
+        />
+        <Dial
           legend="Group by"
-          options={DIMENSIONS.map((d) => ({
+          options={dimensionsFor(subject).map((d) => ({
             key: d.key,
             label: d.short,
-            href: cutHref({ dimension: d.key, metric, filters }),
+            href: cutHref({ subject, dimension: d.key, metric, filters }),
             active: d.key === dimension,
           }))}
         />
         <Dial
           legend="Rank by"
-          options={METRICS.map((m) => ({
+          options={metricsFor(subject).map((m) => ({
             key: m.key,
             label: m.label,
-            href: cutHref({ dimension, metric: m.key, filters }),
+            href: cutHref({ subject, dimension, metric: m.key, filters }),
             active: m.key === metric,
           }))}
         />
@@ -69,6 +88,7 @@ export function CutControls({
         {/* GET to /cut, carrying the active dimension and metric so a filtered
             submit keeps the same answer shape — only the slice changes. */}
         <form className="mt-3 grid gap-3 md:grid-cols-12" method="get" action="/cut">
+          {subject === "player" && <input type="hidden" name="subject" value="player" />}
           <input type="hidden" name="by" value={dimension} />
           <input type="hidden" name="metric" value={metric} />
           <label className="md:col-span-4">
