@@ -498,11 +498,51 @@ The positioning shift made concrete (report §10.3).
       guardrail. A static right-edge fade plus the partial peek of the next card cue
       that the strip scrolls. Lives in `components/CuratedCarousel.tsx`, shared by
       the homepage and `/explore`.
+- [ ] **Superseded by Phase 11.5.** This decision turned on "the launcher must
+      not compete with `/questions`." Once `/questions`' index is subsumed into
+      `/explore` (Phase 11.5), that constraint inverts: the Answering strip *should*
+      carry rich, near-full-view previews. The peek-carousel and `CuratedCarousel`
+      stay on the homepage as a count-free tease; `/explore` moves to the
+      full-bleed-feature + summary-rail pattern below. The interim answer grid on
+      `/explore` (commit superseding Phase 11) is the summary rail without its
+      carousel — a stepping stone, not the target.
+
+## Phase 11.5 — Explore as the discovery surface (three-strip framework)
+
+The reframe that reorganizes Phases 10–12 into one surface (PRODUCT.md →
+"Discovery Surface"). `/explore` becomes the single jumping-off point: three
+strips built from one framework — **exploring · asking · answering questions** —
+ordered along a curation gradient, most curated (most visually sophisticated) at
+the top to least curated (plainest) at the bottom. Each strip is the same shape:
+a full-bleed feature view moved across horizontally, a summary-card rail beneath
+so the set is skimmable without swiping, and from either a jump to the canonical
+full page. `/explore` previews and routes; depth lives one click away.
+
+- [ ] **Strip 1 — Answering (Questions), buildable now.** Builds on the Phase 10
+      `/questions/[slug]` depth pages. Subsume the standalone `/questions` index
+      into this strip (redirect the index; keep the `[slug]` routes as the jump
+      target). **Design decision (decide-before-building): a purpose-built "answer
+      hero" per question fills each full-view slide** — a big finding, one signature
+      visual, and a jump link — *not* the full `QuestionModule` reproduced full-bleed
+      (that would re-make the depth page and read as duplication rather than a
+      preview). The existing answer grid becomes the summary rail beneath the
+      carousel.
+- [ ] **Strip 2 — Asking (Comparisons).** Reframe the compare surface around the
+      one endlessly extensible question — *who was better than who at X?* — and give
+      it the same feature-view + summary-rail preview on `/explore`. Builds on the
+      existing `CURATED_DEBATES` and `/compare` engine.
+- [ ] **Strip 3 — Exploring (the Cut).** The blank canvas — this *is* Phase 12
+      below. The least-curated strip; plainest by design.
+- [ ] **Extract the shared strip framework only after two strips exist.** Don't
+      abstract the common "feature carousel + summary rail + jump" component up
+      front; let Strips 1 and 2 show its real shape first — the same discipline
+      Phase 12 applies to the Cut engine.
 
 ## Phase 12 — The Cut engine and fork
 
-The keystone generalised — the plan's largest architectural bet, deliberately
-sequenced after concrete cuts exist.
+The keystone generalised, and **Strip 3 (Exploring) of the Phase 11.5
+framework** — the blank-canvas end of the curation gradient. The plan's largest
+architectural bet, deliberately sequenced after concrete cuts exist.
 
 - [ ] **Define the `Cut`** — a serializable
       `{ dimension, filters, metric/lens, coverage, curated }`, URL-encodable,
