@@ -7,7 +7,7 @@ import {
   CURATED_DEBATES, comparePlayers, compareManagers, compareEras,
   type CompareMode, type Comparison,
 } from "@/lib/compare";
-import { CURATED_CUTS, cutHref, curatedCut } from "@/lib/cut";
+import { CURATED_CUTS, cutHref, curatedCut, runCut, isChronological } from "@/lib/cut";
 import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { PageHeader } from "@/components/PageHeader";
@@ -17,6 +17,7 @@ import { QuestionSignature } from "@/components/explore/QuestionSignature";
 import { FeatureCarousel } from "@/components/explore/FeatureCarousel";
 import { FeatureSlide } from "@/components/explore/FeatureSlide";
 import { ComparisonHero } from "@/components/explore/ComparisonHero";
+import { CutHero } from "@/components/explore/CutHero";
 
 const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
   devil: "text-devil-bright",
@@ -54,6 +55,18 @@ export default function ExplorePage() {
       : mode === "managers" ? compareManagers(d.a, d.b)
       : compareEras(d.a, d.b);
     return c ? [{ c, label: d.label, hook: d.hook, href: debateHref(mode, d) }] : [];
+  });
+
+  // The Exploring strip previews each curated cut as the same CutChart the /cut
+  // page draws. Categorical ladders cap to a tidy top set; chronological cuts
+  // (decade columns, a season line) keep their whole arc.
+  const cutPreviews = CURATED_CUTS.map((c) => {
+    const spec = curatedCut(c);
+    return {
+      c,
+      href: cutHref(spec),
+      result: runCut(spec, isChronological(spec.dimension) ? 200 : 8),
+    };
   });
 
   return (
@@ -180,28 +193,41 @@ export default function ExplorePage() {
         </p>
       </section>
 
-      {/* The Exploring strip (Strip 3 — the least curated, plainest by design). The
+      {/* The Exploring strip (Strip 3 — the least curated, freest by design). The
           curated cuts launch the Cut engine: group the whole record by a dimension,
-          rank it by a lens, then fork any parameter into a new shareable cut. No
-          carousel here — the curation gradient runs plainer as the freedom rises. */}
+          rank it by a lens, then fork any parameter into a new shareable cut. Same
+          carousel + summary-rail shape as the two strips above, each slide
+          previewing a cut with the very chart the /cut page draws. */}
       <section className="space-y-4">
         <SectionHead
           title="Explore the record"
           aside={<span className="text-ink-faint">Exploring · group it your own way</span>}
         />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {CURATED_CUTS.map((c) => (
-            <Link
-              key={c.slug}
-              href={cutHref(curatedCut(c))}
-              className="group flex flex-col rounded-xl border border-line bg-panel p-4 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
-            >
-              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">{c.eyebrow}</span>
-              <span className="display mt-1 text-balance text-lg leading-tight text-ink group-hover:text-devil-bright">{c.title}</span>
-              <span className="mt-1.5 text-pretty text-sm text-ink-dim">{c.blurb}</span>
-            </Link>
+
+        <FeatureCarousel label="Curated cuts — swipe across the ways in">
+          {cutPreviews.map(({ c, result, href }) => (
+            <CutHero key={c.slug} cut={c} result={result} href={href} />
           ))}
-        </div>
+        </FeatureCarousel>
+
+        <ul aria-label="All curated cuts" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {cutPreviews.map(({ c, result, href }) => (
+            <li key={c.slug}>
+              <Link
+                href={href}
+                className="group flex items-baseline gap-3 rounded-lg border border-line bg-panel px-3 py-2.5 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
+              >
+                {result.headline && (
+                  <span className="stat-num shrink-0 text-base font-semibold leading-none text-gold">
+                    {result.headline.figure}
+                  </span>
+                )}
+                <span className="min-w-0 text-sm text-ink-dim group-hover:text-ink">{c.title}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
         <p className="text-xs text-ink-faint">
           Open any cut, then change the dimension or the lens to fork your own — every group links to the
           matches behind it, with the coverage grade where the record is still growing.
