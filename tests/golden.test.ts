@@ -459,4 +459,18 @@ test("runCut aggregates the record and degrades honestly", () => {
   assert.equal(empty.groups.length, 0);
   assert.equal(empty.headline, null);
   assert.equal(empty.coverage.grade, "empty");
+
+  // Thin samples never top a rate ladder: the opponent win-rate cut leads with a
+  // solid-sample group that matches the headline, and every thin group sorts below
+  // every solid one (so a 100%-from-two-games club can't pose as the best record).
+  const opp = runCut(cutFromParams({ by: "opponent", metric: "winrate" }));
+  assert.equal(opp.groups[0].thin, false, "ladder must not open on a thin sample");
+  assert.equal(opp.groups[0].key, opp.headline?.key, "ladder #1 must be the headline");
+  const firstThin = opp.groups.findIndex((g) => g.thin);
+  if (firstThin !== -1) {
+    assert.ok(
+      opp.groups.slice(firstThin).every((g) => g.thin),
+      "no solid group may sort below a thin one",
+    );
+  }
 });

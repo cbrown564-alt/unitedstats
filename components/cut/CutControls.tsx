@@ -36,27 +36,33 @@ export function CutControls({
 }) {
   const { dimension, metric, filters } = cut;
   return (
-    <section id="cut-controls" aria-label="Re-cut the record" className="scroll-mt-20 space-y-4">
-      <Dial
-        legend="Group by"
-        options={DIMENSIONS.map((d) => ({
-          key: d.key,
-          label: d.short,
-          href: cutHref({ dimension: d.key, metric, filters }),
-          active: d.key === dimension,
-        }))}
-      />
-      <Dial
-        legend="Rank by"
-        options={METRICS.map((m) => ({
-          key: m.key,
-          label: m.label,
-          href: cutHref({ dimension, metric: m.key, filters }),
-          active: m.key === metric,
-        }))}
-      />
+    <section
+      id="cut-controls"
+      aria-label="Re-cut the record"
+      className="scroll-mt-20 overflow-hidden rounded-xl border border-line bg-panel"
+    >
+      <div className="space-y-2.5 p-3.5 sm:p-4">
+        <Dial
+          legend="Group by"
+          options={DIMENSIONS.map((d) => ({
+            key: d.key,
+            label: d.short,
+            href: cutHref({ dimension: d.key, metric, filters }),
+            active: d.key === dimension,
+          }))}
+        />
+        <Dial
+          legend="Rank by"
+          options={METRICS.map((m) => ({
+            key: m.key,
+            label: m.label,
+            href: cutHref({ dimension, metric: m.key, filters }),
+            active: m.key === metric,
+          }))}
+        />
+      </div>
 
-      <details className="rounded-lg border border-line bg-panel p-3" open={hasRefinement(filters)}>
+      <details className="border-t border-line bg-panel-2/30 px-3.5 py-3 sm:px-4" open={hasRefinement(filters)}>
         <summary className="cursor-pointer select-none list-none text-xs font-semibold uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
           <span className="text-devil-bright" aria-hidden>▸ </span>Narrow the slice
         </summary>
@@ -147,15 +153,17 @@ function Dial({
   options: { key: string; label: string; href: string; active: boolean }[];
 }) {
   return (
-    <div>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">{legend}</p>
-      <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint sm:w-16">
+        {legend}
+      </span>
+      <div className="flex flex-wrap gap-1.5">
         {options.map((o) => (
           <Link
             key={o.key}
             href={o.href}
             aria-current={o.active ? "true" : undefined}
-            className={`tap-target rounded-full border px-3 py-1.5 text-sm transition-colors focus-ring ${chipTone(o.active)}`}
+            className={`tap-target rounded-full border px-2.5 py-1 text-[13px] transition-colors focus-ring ${chipTone(o.active)}`}
           >
             {o.label}
           </Link>
