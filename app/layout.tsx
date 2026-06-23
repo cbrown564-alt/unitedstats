@@ -27,7 +27,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
+    {/* suppressHydrationWarning: browser extensions inject data-* attributes onto
+        <html> before React hydrates (e.g. content filters), which the server HTML
+        can't match. Scoped to this element's own attributes only — real mismatches
+        inside the app still surface. */}
+    <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <header className="sticky top-0 z-50 border-b border-line bg-pitch/95 backdrop-blur">
           <div className="relative mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:gap-6 sm:px-6">
