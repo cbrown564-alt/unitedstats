@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 /**
- * The full-bleed Answering-strip carousel. The slides are server-rendered (they
+ * The full-bleed Explore feature-strip carousel (Answering and Asking). The slides are server-rendered (they
  * carry DB-backed signature visuals) and passed straight through as `children`;
  * this client wrapper only adds the scroll mechanics — desktop prev/next arrows
  * and edge fades that appear once there is more strip in that direction.
@@ -12,7 +12,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
  * trackpad still work with JS off; the arrows are a progressive enhancement for a
  * mouse, translucent and revealed on hover so they never sit on top of the answer.
  */
-export function AnswerCarousel({ children, label }: { children: ReactNode; label: string }) {
+export function FeatureCarousel({ children, label }: { children: ReactNode; label: string }) {
   const ref = useRef<HTMLUListElement>(null);
   const [edges, setEdges] = useState({ atStart: true, atEnd: false });
 

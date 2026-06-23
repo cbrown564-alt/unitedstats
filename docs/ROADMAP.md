@@ -507,7 +507,7 @@ The positioning shift made concrete (report §10.3).
       `/explore` (commit superseding Phase 11) is the summary rail without its
       carousel — a stepping stone, not the target.
 
-## Phase 11.5 — Explore as the discovery surface (three-strip framework)
+## Phase 11.5 — Explore as the discovery surface (three-strip framework) 🚧 (Strips 1–2 complete; Strip 3 = Phase 12)
 
 The reframe that reorganizes Phases 10–12 into one surface (PRODUCT.md →
 "Discovery Surface"). `/explore` becomes the single jumping-off point: three
@@ -518,25 +518,27 @@ a full-bleed feature view moved across horizontally, a summary-card rail beneath
 so the set is skimmable without swiping, and from either a jump to the canonical
 full page. `/explore` previews and routes; depth lives one click away.
 
-- [ ] **Strip 1 — Answering (Questions), buildable now.** Builds on the Phase 10
-      `/questions/[slug]` depth pages. Subsume the standalone `/questions` index
-      into this strip (redirect the index; keep the `[slug]` routes as the jump
-      target). **Design decision (decide-before-building): a purpose-built "answer
-      hero" per question fills each full-view slide** — a big finding, one signature
-      visual, and a jump link — *not* the full `QuestionModule` reproduced full-bleed
-      (that would re-make the depth page and read as duplication rather than a
-      preview). The existing answer grid becomes the summary rail beneath the
-      carousel.
-- [ ] **Strip 2 — Asking (Comparisons).** Reframe the compare surface around the
-      one endlessly extensible question — *who was better than who at X?* — and give
-      it the same feature-view + summary-rail preview on `/explore`. Builds on the
-      existing `CURATED_DEBATES` and `/compare` engine.
+- [x] **Strip 1 — Answering (Questions).** Built on the Phase 10
+      `/questions/[slug]` depth pages. The standalone `/questions` index is subsumed
+      (308-redirect; the `[slug]` routes stay the jump target). Each full-view slide
+      is a purpose-built "answer hero" — a big finding, one signature visual
+      (`components/explore/QuestionSignature.tsx`), and a jump link — *not* the full
+      `QuestionModule` reproduced. A summary rail of all nine sits beneath; desktop
+      gets translucent edge arrows.
+- [x] **Strip 2 — Asking (Comparisons).** The compare surface reframed as the
+      extensible *who was better than who at X?* — every `CURATED_DEBATES` entry as a
+      feature slide (verdict + the mode's signature, via
+      `components/explore/ComparisonHero.tsx`), built through the same engine
+      `/compare` uses, jumping to the full scoreboard. Lighter than `/compare` by
+      design (the curation gradient): verdict and signature only, no measures table.
+- [x] **Shared strip framework extracted (after two strips existed, per the
+      discipline below).** `FeatureCarousel` (the client scroll/arrows shell) and
+      `FeatureSlide` (the article + text-link + signature shell) in
+      `components/explore/`, now shared by Answering and Asking. The visual sits
+      outside the slide's link so a signature's own links never nest anchors.
 - [ ] **Strip 3 — Exploring (the Cut).** The blank canvas — this *is* Phase 12
-      below. The least-curated strip; plainest by design.
-- [ ] **Extract the shared strip framework only after two strips exist.** Don't
-      abstract the common "feature carousel + summary rail + jump" component up
-      front; let Strips 1 and 2 show its real shape first — the same discipline
-      Phase 12 applies to the Cut engine.
+      below. The least-curated strip; plainest by design. Until then the "Group the
+      record" grid stands in as honest launchers into the existing aggregate views.
 
 ## Phase 12 — The Cut engine and fork
 
