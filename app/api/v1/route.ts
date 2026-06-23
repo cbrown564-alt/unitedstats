@@ -17,6 +17,9 @@ export async function GET() {
       "/api/v1/managers": "Managers with overall records and tenures.",
       "/api/v1/opponents": "All opponents with head-to-head records.",
       "/api/v1/competitions": "Competitions with type and match counts.",
+      "/api/v1/answers": "Machine-facing answer index with stable citable answer IDs and cache policy.",
+      "/api/v1/answers/cuts/{slug}": "Answer-shaped payload for a curated Cut.",
+      "/api/v1/answers/history-digests/{id}": "Answer-shaped payload for a history-changed digest.",
     },
     downloads: "/data#downloads",
   });
