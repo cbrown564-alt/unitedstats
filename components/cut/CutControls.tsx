@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { fmtNum, COMPETITION_TYPE_LABELS, resultLabel } from "@/lib/format";
 import { SUBJECTS, dimensionsFor, metricsFor, cutHref, type Cut, type CutSubject } from "@/lib/cut";
@@ -5,11 +6,12 @@ import { SUBJECTS, dimensionsFor, metricsFor, cutHref, type Cut, type CutSubject
 const TYPE_FILTER_KEYS = ["league", "cup", "domestic-cup", "league-cup", "european", "unofficial"];
 const RESULT_FILTER_KEYS = ["W", "D", "L"];
 
-// Selected/idle treatment for a dial chip, shared with the /matches filter pills.
+// Pill treatment: a solid, filled active state (tactile, reads as "pressed") over a
+// quiet ghost idle — a clear lift from the old translucent-border selection.
 const chipTone = (active: boolean) =>
   active
-    ? "border-devil/60 bg-devil/15 text-devil-bright"
-    : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink";
+    ? "border-devil bg-devil font-semibold text-ink shadow-[0_1px_2px_rgb(0_0_0_/_0.4)]"
+    : "border-line bg-panel-2/40 text-ink-dim hover:border-ink-faint/60 hover:bg-panel-2 hover:text-ink";
 
 const fieldLabel = "mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint";
 
@@ -36,49 +38,56 @@ export function CutControls({
 }) {
   const { subject, dimension, metric, filters } = cut;
 
-  // Switching subject keeps the dimension when it is shared (e.g. Season), else
-  // drops to the new subject's default; the metric always resets (the two metric
-  // sets are disjoint). Filters carry across — they narrow the matches either way.
+  // The player subject has no Group-by control — you always rank players — so it
+  // locks the dimension to "player". Team keeps the current dimension when it is
+  // shared, else drops to its default. The metric always resets (the two sets are
+  // disjoint); filters carry across, narrowing the matches either way.
   const subjectHref = (s: CutSubject) => {
     const dims = dimensionsFor(s);
-    const nextDim = dims.some((d) => d.key === dimension) ? dimension : dims[0].key;
+    const nextDim =
+      s === "player" ? "player" : dims.some((d) => d.key === dimension) ? dimension : dims[0].key;
     return cutHref({ subject: s, dimension: nextDim, metric: metricsFor(s)[0].key, filters });
   };
+
+  const subjectOptions = SUBJECTS.map((s) => ({
+    key: s.key,
+    label: s.label,
+    href: subjectHref(s.key),
+    active: s.key === subject,
+  }));
 
   return (
     <section
       id="cut-controls"
       aria-label="Re-cut the record"
-      className="scroll-mt-20 overflow-hidden rounded-xl border border-line bg-panel"
+      className="scroll-mt-20 overflow-hidden rounded-xl border border-line bg-panel shadow-[inset_0_1px_0_rgb(255_255_255_/_0.045),0_18px_36px_-20px_rgb(0_0_0_/_0.7)]"
     >
-      <div className="space-y-2.5 p-3.5 sm:p-4">
-        <Dial
-          legend="Subject"
-          options={SUBJECTS.map((s) => ({
-            key: s.key,
-            label: s.label,
-            href: subjectHref(s.key),
-            active: s.key === subject,
-          }))}
-        />
-        <Dial
-          legend="Group by"
-          options={dimensionsFor(subject).map((d) => ({
-            key: d.key,
-            label: d.short,
-            href: cutHref({ subject, dimension: d.key, metric, filters }),
-            active: d.key === dimension,
-          }))}
-        />
-        <Dial
-          legend="Rank by"
-          options={metricsFor(subject).map((m) => ({
-            key: m.key,
-            label: m.label,
-            href: cutHref({ subject, dimension, metric: m.key, filters }),
-            active: m.key === metric,
-          }))}
-        />
+      <div className="space-y-3.5 p-4 sm:p-5">
+        <Rail legend="Subject">
+          <SubjectToggle options={subjectOptions} />
+        </Rail>
+        {subject === "team" && (
+          <Rail legend="Group by">
+            <Pills
+              options={dimensionsFor(subject).map((d) => ({
+                key: d.key,
+                label: d.short,
+                href: cutHref({ subject, dimension: d.key, metric, filters }),
+                active: d.key === dimension,
+              }))}
+            />
+          </Rail>
+        )}
+        <Rail legend="Rank by">
+          <Pills
+            options={metricsFor(subject).map((m) => ({
+              key: m.key,
+              label: m.label,
+              href: cutHref({ subject, dimension, metric: m.key, filters }),
+              active: m.key === metric,
+            }))}
+          />
+        </Rail>
       </div>
 
       <details className="border-t border-line bg-panel-2/30 px-3.5 py-3 sm:px-4" open={hasRefinement(filters)}>
@@ -165,30 +174,57 @@ export function CutControls({
   );
 }
 
-function Dial({
-  legend,
-  options,
-}: {
-  legend: string;
-  options: { key: string; label: string; href: string; active: boolean }[];
-}) {
+interface Option { key: string; label: string; href: string; active: boolean }
+
+const legendCls =
+  "shrink-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-faint sm:w-[3.75rem] sm:pt-1.5";
+
+/** A labelled control row in the deck: small-caps legend, control to its right. */
+function Rail({ legend, children }: { legend: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint sm:w-16">
-        {legend}
-      </span>
-      <div className="flex flex-wrap gap-1.5">
-        {options.map((o) => (
-          <Link
-            key={o.key}
-            href={o.href}
-            aria-current={o.active ? "true" : undefined}
-            className={`tap-target rounded-full border px-2.5 py-1 text-[13px] transition-colors focus-ring ${chipTone(o.active)}`}
-          >
-            {o.label}
-          </Link>
-        ))}
-      </div>
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3.5">
+      <span className={legendCls}>{legend}</span>
+      <div className="min-w-0 flex-1">{children}</div>
+    </div>
+  );
+}
+
+/** Pill group for the Group-by / Rank-by rails. */
+function Pills({ options }: { options: Option[] }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {options.map((o) => (
+        <Link
+          key={o.key}
+          href={o.href}
+          aria-current={o.active ? "true" : undefined}
+          className={`tap-target rounded-full border px-3 py-1.5 text-[13px] transition-all focus-ring ${chipTone(o.active)}`}
+        >
+          {o.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+/** The Team/Players switch: a true segmented control with a filled active segment. */
+function SubjectToggle({ options }: { options: Option[] }) {
+  return (
+    <div className="inline-flex rounded-lg bg-pitch/60 p-0.5 ring-1 ring-line">
+      {options.map((o) => (
+        <Link
+          key={o.key}
+          href={o.href}
+          aria-current={o.active ? "true" : undefined}
+          className={`tap-target rounded-[0.4rem] px-4 py-1.5 text-sm font-semibold transition-colors focus-ring ${
+            o.active
+              ? "bg-devil text-ink shadow-[0_1px_2px_rgb(0_0_0_/_0.45)]"
+              : "text-ink-dim hover:text-ink"
+          }`}
+        >
+          {o.label}
+        </Link>
+      ))}
     </div>
   );
 }
