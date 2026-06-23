@@ -17,13 +17,12 @@ const PRIMARY = [
   ["Managers", "/managers"],
 ] as const;
 
-// Overflow: lower-traffic and provisional surfaces. Compare is a discovery utility
-// (and the future Asking strip) that sits here until it earns a higher slot;
-// Opponents, Analytics, Transfers, and Data are reachable but secondary.
+// Overflow: lower-traffic and provisional surfaces. Compare now lives inside the
+// /explore Asking strip rather than as its own nav entry; Opponents, Analytics,
+// Transfers, and Data are reachable but secondary.
 const OVERFLOW = [
   ["Opponents", "/opponents"],
   ["Analytics", "/analytics"],
-  ["Compare", "/compare"],
   ["Transfers", "/transfers"],
   ["Data", "/data"],
 ] as const;
