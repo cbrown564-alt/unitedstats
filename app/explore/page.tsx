@@ -49,18 +49,25 @@ export default function ExplorePage() {
 
   const headlines = questionHeadlines();
 
-  // Every curated debate, built through the same engine /compare uses, flattened
-  // across modes so the Asking strip shows the range of "who was better at X".
-  const comparisons = (["players", "managers", "eras"] as CompareMode[]).flatMap((mode) =>
-    CURATED_DEBATES[mode].flatMap((d) => {
-      const c: Comparison | null =
-        mode === "players" ? comparePlayers(d.a, d.b)
-        : mode === "managers" ? compareManagers(d.a, d.b)
-        : compareEras(d.a, d.b);
-      return c
-        ? [{ c, label: d.label, hook: d.hook, href: `/compare${queryString({ mode, a: d.a, b: d.b })}` }]
-        : [];
-    }),
+  const COMPARE_MODES: CompareMode[] = ["players", "managers", "eras"];
+  const debateHref = (mode: CompareMode, d: { a: string; b: string }) =>
+    `/compare${queryString({ mode, a: d.a, b: d.b })}`;
+
+  // The carousel features one flagship duel per mode — a player, a manager, an era —
+  // for flavour, not the whole set. Built through the same engine /compare uses.
+  const flagships = COMPARE_MODES.flatMap((mode) => {
+    const d = CURATED_DEBATES[mode][0];
+    const c: Comparison | null =
+      mode === "players" ? comparePlayers(d.a, d.b)
+      : mode === "managers" ? compareManagers(d.a, d.b)
+      : compareEras(d.a, d.b);
+    return c ? [{ c, label: d.label, href: debateHref(mode, d) }] : [];
+  });
+
+  // The rail carries the full curated set, so debates the carousel doesn't feature
+  // are still one click away (no comparison computed — labels and links only).
+  const allDebates = COMPARE_MODES.flatMap((mode) =>
+    CURATED_DEBATES[mode].map((d) => ({ label: d.label, hook: d.hook, href: debateHref(mode, d) })),
   );
 
   return (
@@ -156,17 +163,17 @@ export default function ExplorePage() {
       <section className="space-y-4">
         <SectionHead
           title="Who was better?"
-          aside={<span className="text-ink-faint">Asking · {comparisons.length} debates</span>}
+          aside={<span className="text-ink-faint">Asking · player, manager &amp; era</span>}
         />
 
-        <FeatureCarousel label="Curated debates — swipe across the duels">
-          {comparisons.map((cmp) => (
+        <FeatureCarousel label="Flagship debates — a player, a manager, an era">
+          {flagships.map((cmp) => (
             <ComparisonHero key={cmp.href} c={cmp.c} href={cmp.href} title={cmp.label} />
           ))}
         </FeatureCarousel>
 
         <ul aria-label="All curated debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {comparisons.map((cmp) => (
+          {allDebates.map((cmp) => (
             <li key={cmp.href}>
               <Link
                 href={cmp.href}
