@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getMeta, allTimeRecord } from "@/lib/queries";
 import { QUESTIONS } from "@/lib/questions";
+import { questionHeadlines } from "@/lib/questionHeadlines";
 import { CURATED_DEBATES, type CompareMode } from "@/lib/compare";
 import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
@@ -9,6 +10,12 @@ import { PageHeader } from "@/components/PageHeader";
 import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
+
+const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
+  devil: "text-devil-bright",
+  gold: "text-gold",
+  win: "text-win",
+};
 
 export const metadata: Metadata = {
   title: "Explore",
@@ -42,12 +49,7 @@ export default function ExplorePage() {
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
 
-  const questionCards: CarouselCard[] = QUESTIONS.map((q) => ({
-    href: `/questions/${q.slug}`,
-    eyebrow: q.label,
-    title: q.question,
-    blurb: q.summary,
-  }));
+  const headlines = questionHeadlines();
 
   const compareCards: CarouselCard[] = COMPARE_PICKS.map(({ mode, eyebrow }) => {
     const d = CURATED_DEBATES[mode][0];
@@ -79,13 +81,43 @@ export default function ExplorePage() {
         </p>
       </section>
 
-      {/* Answer layer: the curated question cuts as a launcher carousel. */}
+      {/* Answer layer: every curated question with its live finding up front. The
+          full set as a grid (this is the questions hub, not a homepage tease), each
+          card leading with the figure that answers it and linking to the full page. */}
       <section>
         <SectionHead
           title="Questions, answered"
           aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
         />
-        <CuratedCarousel cards={questionCards} label="Curated questions" />
+        <ul aria-label="Curated questions, answered" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {QUESTIONS.map((q) => {
+            const h = headlines[q.slug];
+            return (
+              <li key={q.slug}>
+                <Link
+                  href={`/questions/${q.slug}`}
+                  className="group flex h-full flex-col rounded-xl border border-line bg-panel p-4 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
+                >
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
+                    {q.label}
+                  </span>
+                  <span className="display mt-1 text-balance text-base leading-tight text-ink group-hover:text-devil-bright">
+                    {q.question}
+                  </span>
+                  {h && (
+                    <span className={`stat-num mt-3 text-3xl font-semibold leading-none ${STAT_TONE[h.tone]}`}>
+                      {h.stat}
+                    </span>
+                  )}
+                  <span className="mt-1.5 text-pretty text-sm text-ink-dim">{h ? h.gloss : q.summary}</span>
+                  <span className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+                    See the full finding →
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
       {/* Exploratory follow-on 1: compare. */}
