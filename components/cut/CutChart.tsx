@@ -144,8 +144,11 @@ function CutRankedBars({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
   // The standout the headline names: best solid value for the lens.
   const standoutKey = pickStandout(groups, metric);
 
+  // Flexbox + standard width utilities only — a closely-stacked horizontal bar
+  // chart: a fixed label gutter (the y-axis), bars all starting at one left edge,
+  // values trailing. No arbitrary grid template (those proved fragile under dev HMR).
   return (
-    <ol className="space-y-px">
+    <ol className="space-y-0.5">
       {groups.map((g) => {
         const v = g.value ?? 0;
         const standout = g.key === standoutKey;
@@ -155,24 +158,26 @@ function CutRankedBars({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
             <Link
               href={g.href}
               title={`${g.label} — ${valuePhrase(g.value, metric)} from ${fmtNum(g.p)} matches (${g.w}W ${g.d}D ${g.l}L)`}
-              className="group grid grid-cols-[minmax(5.5rem,10rem)_minmax(0,1fr)_auto] items-center gap-3 rounded-md px-2 py-[0.3rem] transition-colors hover:bg-panel-2/60 focus-ring sm:gap-4"
+              className="group flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-panel-2/60 focus-ring sm:gap-3"
             >
               <span
-                className={`truncate text-[13px] leading-tight ${
+                className={`w-24 shrink-0 truncate text-[13px] leading-tight sm:w-40 ${
                   standout ? "font-semibold text-gold" : "text-ink-dim group-hover:text-ink"
                 }`}
               >
                 {g.label}
               </span>
 
-              {diverging ? (
-                <DivergingBar pct={pct} positive={v >= 0} standout={standout} thin={g.thin} />
-              ) : (
-                <LinearBar pct={pct} standout={standout} thin={g.thin} />
-              )}
+              <span className="min-w-0 flex-1">
+                {diverging ? (
+                  <DivergingBar pct={pct} positive={v >= 0} standout={standout} thin={g.thin} />
+                ) : (
+                  <LinearBar pct={pct} standout={standout} thin={g.thin} />
+                )}
+              </span>
 
               <span
-                className={`stat-num w-[3.75rem] shrink-0 text-right text-[13px] tabular-nums sm:w-[4.5rem] ${
+                className={`stat-num w-12 shrink-0 text-right text-[13px] tabular-nums sm:w-16 ${
                   standout ? "font-semibold text-gold" : g.thin ? "text-ink-faint" : "text-ink"
                 }`}
               >
@@ -189,7 +194,7 @@ function CutRankedBars({ groups, metric }: { groups: CutGroup[]; metric: CutMetr
 /** Left-anchored bar: rate metrics and counts. */
 function LinearBar({ pct, standout, thin }: { pct: number; standout: boolean; thin: boolean }) {
   return (
-    <span className="relative h-2.5 w-full overflow-hidden rounded-full bg-panel-2">
+    <span className="relative block h-2.5 w-full overflow-hidden rounded-full bg-panel-2">
       <span
         className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-300"
         style={{
@@ -217,7 +222,7 @@ function DivergingBar({
 }) {
   const half = pct / 2;
   return (
-    <span className="relative h-2.5 w-full rounded-full bg-panel-2">
+    <span className="relative block h-2.5 w-full rounded-full bg-panel-2">
       <span className="absolute inset-y-[-2px] left-1/2 w-px -translate-x-1/2 bg-line" aria-hidden />
       <span
         className="absolute inset-y-0 rounded-full transition-[width] duration-300"
