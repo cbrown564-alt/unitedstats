@@ -425,11 +425,11 @@ test("only registered cuts are curated (the SEO guardrail)", () => {
   // Every registry entry recognises itself.
   for (const c of CURATED_CUTS) assert.equal(isCurated(curatedCut(c)), true, `curated ${c.slug}`);
   // A registered combination, parsed from a bare URL, is curated.
-  assert.equal(cutFromParams({ by: "decade", metric: "winrate" }).curated, true);
+  assert.equal(cutFromParams({ by: "manager", metric: "ppg" }).curated, true);
   // The same dimension on a different lens is a fork — noindex.
-  assert.equal(cutFromParams({ by: "decade", metric: "gd" }).curated, false);
+  assert.equal(cutFromParams({ by: "manager", metric: "winrate" }).curated, false);
   // Any added filter turns a curated cut into a fork.
-  assert.equal(cutFromParams({ by: "decade", metric: "winrate", venue: "H" }).curated, false);
+  assert.equal(cutFromParams({ by: "manager", metric: "ppg", venue: "H" }).curated, false);
 });
 
 test("runCut aggregates the record and degrades honestly", () => {
