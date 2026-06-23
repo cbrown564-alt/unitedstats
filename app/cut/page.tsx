@@ -11,7 +11,7 @@ import { COMPETITION_TYPE_LABELS, fmtNum, resultLabel, venueLabel } from "@/lib/
 import { PageHeader } from "@/components/PageHeader";
 import { CoverageNote } from "@/components/CoverageNote";
 import { CutControls } from "@/components/cut/CutControls";
-import { CutBoard } from "@/components/cut/CutBoard";
+import { CutChart } from "@/components/cut/CutChart";
 
 export const dynamic = "force-dynamic";
 
@@ -164,7 +164,9 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
               {total > groups.length ? `top ${fmtNum(groups.length)} of ${fmtNum(total)}` : `${fmtNum(total)} groups`}
             </span>
           </div>
-          <CutBoard groups={groups} metric={cut.metric} dimLabel={dimLabel} standoutKey={headline?.key} />
+          <div className="rounded-xl border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset] sm:p-5">
+            <CutChart groups={groups} metric={cut.metric} dimension={cut.dimension} />
+          </div>
           <CoverageNote slice={`${dimLabel} groups across ${fmtNum(played)} matches`} coverage={coverage.basis} />
         </section>
       )}

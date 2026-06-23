@@ -165,9 +165,6 @@ const METRIC_KEYS = new Set(METRICS.map((m) => m.key));
 export function metricLabel(metric: CutMetric): string {
   return METRICS.find((m) => m.key === metric)?.label ?? metric;
 }
-export function metricShort(metric: CutMetric): string {
-  return METRICS.find((m) => m.key === metric)?.short ?? metric;
-}
 
 /** The metric's value for one group's record, or null when undefined (rate over 0). */
 function metricValue(r: Record_, metric: CutMetric): number | null {
