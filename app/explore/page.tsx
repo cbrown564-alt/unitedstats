@@ -53,22 +53,18 @@ export default function ExplorePage() {
   const debateHref = (mode: CompareMode, d: { a: string; b: string }) =>
     `/compare${queryString({ mode, a: d.a, b: d.b })}`;
 
-  // The carousel features one flagship duel per mode — a player, a manager, an era —
-  // for flavour, not the whole set. Built through the same engine /compare uses.
+  // The Asking strip features one flagship duel per mode — a player, a manager, an
+  // era — for flavour, not the whole set. Both the carousel and its rail show just
+  // these three, keeping the middle lane lighter than the top (the curation
+  // gradient); the full curated set lives one click away in /compare.
   const flagships = COMPARE_MODES.flatMap((mode) => {
     const d = CURATED_DEBATES[mode][0];
     const c: Comparison | null =
       mode === "players" ? comparePlayers(d.a, d.b)
       : mode === "managers" ? compareManagers(d.a, d.b)
       : compareEras(d.a, d.b);
-    return c ? [{ c, label: d.label, href: debateHref(mode, d) }] : [];
+    return c ? [{ c, label: d.label, hook: d.hook, href: debateHref(mode, d) }] : [];
   });
-
-  // The rail carries the full curated set, so debates the carousel doesn't feature
-  // are still one click away (no comparison computed — labels and links only).
-  const allDebates = COMPARE_MODES.flatMap((mode) =>
-    CURATED_DEBATES[mode].map((d) => ({ label: d.label, hook: d.hook, href: debateHref(mode, d) })),
-  );
 
   return (
     <div className="space-y-12">
@@ -172,8 +168,8 @@ export default function ExplorePage() {
           ))}
         </FeatureCarousel>
 
-        <ul aria-label="All curated debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {allDebates.map((cmp) => (
+        <ul aria-label="Flagship debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {flagships.map((cmp) => (
             <li key={cmp.href}>
               <Link
                 href={cmp.href}
