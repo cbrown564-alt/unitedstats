@@ -116,6 +116,29 @@ managers, and analytics still belong on the page — but demoted beneath the ans
 layer rather than competing with it. The goal is unchanged (pull users into the
 record); the hierarchy is sharper (a finding first, browsing second).
 
+## Discovery Surface (Explore)
+
+One surface, three strips, a single framework: **exploring, asking, and answering
+questions.** `/explore` is the jumping-off point for all three — a set of curated
+previews, not a portal of links — ordered along a curation gradient, most curated
+at the top to least at the bottom, so the visual sophistication falls as the
+freedom rises.
+
+- **Answering — Questions.** A curated set of meaningful questions, each a quick
+  answer and a piece of inspiration. The richest, most finished strip.
+- **Asking — Comparisons.** The same pattern narrowed to the one endlessly
+  extensible question — *who was better than who at X?* Semi-curated.
+- **Exploring — the Cut.** A blank canvas: group dimensions, measures, and filters
+  freely and choose your own adventure. Least curated, plainest.
+
+Each strip is the same shape: a full-bleed feature view the reader moves across
+horizontally, a rail of summary cards beneath so the set can be skimmed without
+swiping, and from either, a jump to the canonical full page. The dedicated depth
+always lives one click away (`/questions/[slug]`, `/compare`, the Cut builder);
+`/explore` previews and routes into it rather than reproducing it. The standalone
+`/questions` index is folded into the Answering strip — the curated set is surfaced
+once, as previews, not maintained as a parallel page.
+
 ## Search Direction
 
 Hybrid command search.
