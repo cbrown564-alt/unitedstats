@@ -384,6 +384,186 @@ before any further surface is added:
       redesigned a third time. Its job (twist a curated cut yourself) belongs
       downstream of `/questions`, not as a standalone destination.
 
+## The expansion — strategic frame
+
+Phases 1–9 built the engine: a complete, versioned, evidence-linked record with
+question-led discovery, comparison, and a public API. The next arc is not more
+surface — it is **reach and trust**: turning that record into answers that
+travel, and a community that improves them. An independent product review
+(`docs/UnitedStats_Market_and_Product_Strategy_Report.pdf`) confirmed the
+diagnosis — the moat is the compound system, not the raw rows — and surfaced the
+work below.
+
+Four anchors hold the expansion together:
+
+- **Positioning — answer-first.** The answer is the front door; exploration is
+      the follow-on. This is a clarification of, not a break from, the north
+      star: `/questions` is already answer-first, but the homepage and discovery
+      IA are still trail-first. (`PRODUCT.md`'s exploration-first framing is
+      reconciled in Phase 11.)
+- **Defensibility — the compound moat.** Corpus, identity resolution,
+      provenance, definitions, evidence UX, and the query layer are built and
+      hard to reproduce; the two weak components are **distribution**
+      (Phases 10, 13–14) and **correction** (Phase 15).
+- **Growth — the answer engine's last mile.** The engine generates
+      evidence-graded answers; nothing yet lets them leave the building.
+      Sitemaps, canonical answer pages, share/cite, and embeds are the cheapest,
+      highest-leverage work in the plan (Phase 10).
+- **Source, not casualty.** A fan can ask a chatbot the same question and get a
+      fluent, unverifiable answer in seconds. The structural reply already lives
+      in the data model — every number links to its exact reproducible match set
+      with a coverage grade. The move is to make UnitedStats the source such
+      systems *cite* rather than replace (Phase 14).
+
+**Keystone — the Cut.** The discovery layer converges on one serializable
+object: a **Cut** = `{ dimension, filters, metric/lens, coverage, curated }`,
+encodable to a URL. A question is a curated Cut with prose; a comparison is a Cut
+with two subjects; a group is a Cut grouped by a dimension. Rendering everything
+from one model is what makes *fork — change a parameter, get a new shareable
+Cut* possible, and what finally gives the deleted `/explore` its proper home:
+downstream of an answer, never a form-first front door. Build concrete cuts
+first (Phases 10–11); extract the model only once their real shape is visible
+(Phase 12) — earn the right to abstract, per Phase 8.
+
+Cross-cutting guardrails for the whole expansion:
+
+- **Stay static and zero-cost.** No server-side user database. Saved state is
+      the URL plus `localStorage`. This deliberately rules out accounts,
+      server-saved questions, and push alerts; they are not worth abandoning the
+      static model for.
+- **SEO discipline on forks.** Only `curated` Cuts get indexable canonical
+      pages. Arbitrary user forks are `noindex` — otherwise Phase 12 spawns
+      infinite thin-content pages and undoes the SEO that Phase 10 builds. The
+      `curated` flag exists from the Cut model's first commit.
+- **Do not dilute `/questions`.** It is the strongest surface. Carousels and
+      launchers only *launch*; depth always lives in the full cut page.
+
+## Phase 10 — Distribution foundations (make answers leave the building)
+
+The growth engine's last mile. The corpus is addressable but invisible: detail
+pages are statically generated, but there is no sitemap, no share affordance, no
+card when a link is pasted, and the nine question modules are `#anchors` on one
+page rather than rankable URLs.
+
+- [ ] **Per-question canonical routes** — promote the nine `/questions` modules
+      from in-page anchors to real routes (`/questions/late-goals`, …) with their
+      own `generateMetadata`. The content already exists; this unlocks both SEO
+      and per-question sharing in one move.
+- [ ] **`app/sitemap.ts` and `app/robots.ts`** — make the full corpus (matches,
+      seasons, players, managers, opponents, question cuts) crawlable as a set
+      rather than only reachable by internal links.
+- [ ] **Evidence-card `opengraph-image`** — an `opengraph-image.tsx` per
+      answer/entity route that renders the card the report calls for: the answer
+      plus the trust strip (matches · coverage grade · source). Every pasted link
+      becomes an ad that carries its own provenance.
+- [ ] **Share and cite** — on every answer module and detail page: copy-link,
+      copy-citation (metric definition, coverage grade, retrieval date), and
+      copy-image. This is the report's "creator mode" in its minimum viable form
+      and the first edge of the distribution graph.
+- [ ] **Guardrail** — cards and pages stay build-time or edge-rendered; no user
+      database is introduced.
+
+## Phase 11 — Answer-first front door and discovery IA
+
+The positioning shift made concrete (report §10.3).
+
+- [ ] **Reconcile the north star** — edit `PRODUCT.md` so the answer is
+      explicitly the front door and exploration the follow-on, so the two
+      documents agree rather than quietly diverge.
+- [ ] **Rebuild `/explore`, answer-first** — the discovery home opens with a
+      horizontal carousel of the curated question Cuts (a launcher that links to
+      the full per-question pages from Phase 10; it does not reproduce their
+      depth), then **Compare** and **Group** sections beneath as the exploratory
+      follow-on. This is the job the deleted `/explore` was meant to do, finally
+      downstream of an answer.
+- [ ] **Answer-first homepage** — lead with the question field, the curated-cut
+      launcher, and the trust strip; demote portal-style navigation beneath.
+      Subsumes the long-standing "curiosity launchpad" intent with a sharper,
+      answer-led hierarchy.
+- [ ] **Mobile and desktop** — the carousel is native to mobile horizontal
+      scroll; the desktop treatment (peek-carousel vs. grid) is a design call to
+      record before building, not after.
+
+## Phase 12 — The Cut engine and fork
+
+The keystone generalised — the plan's largest architectural bet, deliberately
+sequenced after concrete cuts exist.
+
+- [ ] **Define the `Cut`** — a serializable
+      `{ dimension, filters, metric/lens, coverage, curated }`, URL-encodable,
+      with `curated` present from the first commit.
+- [ ] **Render questions, compare, and group from one model** — extract the
+      shared engine only once Phases 10–11 have shown its real shape across the
+      nine cuts, rather than designing the abstraction up front.
+- [ ] **Fork** — every cut page offers "fork this": adjust a parameter, get a new
+      Cut at a new URL. The reborn explorer — twist a curated cut yourself,
+      downstream of an answer.
+- [ ] **Forks degrade honestly** — a forked Cut whose filters hit a coverage gap
+      renders its own unsupported/partial state via the existing coverage
+      grading; it never shows a clean total over a hole.
+- [ ] **SEO guardrail** — only `curated` Cuts are indexable; arbitrary forks are
+      `noindex`.
+- [ ] **Mobile interaction model** — parameter controls as a bottom-sheet of
+      dials, not inline form fields; prototype before committing.
+
+## Phase 13 — The "history changed" engine
+
+Report §10.5 / Gap 5 — the freshness loop, the habit loop, and the answer-first
+counter to both live-score apps and generic AI, on infrastructure that already
+exists.
+
+- [ ] **Deterministic post-match digest** — after each cron update, generate
+      "what this match changed in the all-time record": records entered or
+      extended, streaks started or ended, rank changes, manager and opponent
+      milestones, Elo movement and historical percentile, unusual scoreline or
+      venue facts.
+- [ ] **No new infrastructure** — a build-time generator inside the existing
+      GitHub Actions pipeline.
+- [ ] **Reuse the distribution surface** — each digest is a shareable card
+      (Phase 10 OG/share) and a canonical page (Phase 10 routing). "What did
+      tonight mean in 140 years of United?" is the question a live-score app will
+      not answer and a chatbot cannot.
+
+## Phase 14 — Source, not casualty
+
+Turn the AI threat into a referral channel.
+
+- [ ] **Structured data** — JSON-LD / schema.org on answer and entity pages so
+      search and assistants can parse the claim and its provenance.
+- [ ] **Machine-facing answers** — an `llms.txt` and a documented answer-shaped
+      surface over the existing `/api/v1`, with stable citable IDs per cut and
+      answer.
+- [ ] **Goal** — search and LLM referrals that cite UnitedStats as the verifiable
+      source rather than reproducing the number unattributed.
+
+## Phase 15 — Correction as a product
+
+Promotes the parked trust-and-contribution loop; report §10.7. Converts the
+weakest moat component into a strength.
+
+- [ ] **"Suggest a correction"** on matches, players, and events: affected field,
+      proposed value, source, explanation, optional attachment or archive
+      reference.
+- [ ] **Structured output** — produce a GitHub issue or pull request, run
+      canonical-JSON validation, preview the diff, and show status publicly.
+- [ ] **Static-friendly** — a prefilled issue link or a single serverless
+      endpoint; no standing backend. Fits the canonical-JSON-in-Git model
+      exactly.
+- [ ] **Effect** — a durable contribution model that does not depend on one
+      maintainer, seeded as a first-class workflow rather than a footer
+      invitation.
+
+## Phase 16 — Habit and creator tail (later)
+
+Reach and retention, once the engine and its distribution are proven.
+
+- [ ] **On-this-day** — a lightweight daily historical module for the casual and
+      nostalgic audience.
+- [ ] **Saved collections** — URL-encoded, static-friendly collections of Cuts,
+      without accounts.
+- [ ] **Embeds** — embeddable cards and charts (iframe or image) so creators turn
+      the dataset into public discovery.
+
 ## Parked pathways (open questions)
 
 Real directions, deliberately not the immediate focus. Recorded so they are not
@@ -395,14 +575,16 @@ forgotten and can be promoted when the timing or evidence is right.
       by open, redistributable source availability and the scraper/rate-limit
       realities already documented; advances opportunistically through curated
       PRs and new ingesters rather than on a fixed schedule.
-- **Engagement and distribution.** "On this day", shareable evidence cards,
-      saved questions, and growing the public API / dataset releases. Serves
-      reach over depth; worth revisiting once the discovery layer is strong
-      enough to justify an audience push.
-- **Trust and contribution loop.** Turn the correction-friendly `/data` surface
-      into an active workflow: correction templates, canonical-JSON validation
-      CI, and diff previews so others can improve data quality at scale.
-      Compelling once there is contributor demand to support.
+- **Engagement and distribution.** ✅ promoted — the discovery layer is now
+      strong enough to justify the audience push, so this is the spine of the
+      expansion: shareable evidence cards and canonical pages (Phase 10), the
+      "history changed" digest in place of a raw "on this day" (Phase 13), and
+      embeds (Phase 16). Note "saved questions" is reshaped into URL-encoded
+      saved collections under the static guardrail rather than server state.
+- **Trust and contribution loop.** ✅ promoted to Phase 15 — correction
+      templates, canonical-JSON validation, and diff previews become a
+      first-class "suggest a correction" workflow rather than a `/data` footer
+      invitation.
 - **Polish the tricky custom graphics.** A few bespoke SVG figures don't yet
       reach the design bar and are parked for a deliberate pass. The clearest is
       the player page's goal "body map" (`components/charts/GoalBodyMap.tsx`): the
