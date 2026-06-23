@@ -105,13 +105,16 @@ export default function ExplorePage() {
                   key={q.slug}
                   className="w-[calc(100%-1.5rem)] shrink-0 snap-start sm:w-[calc(100%-4rem)]"
                 >
-                  <Link
-                    href={`/questions/${q.slug}`}
-                    aria-label={`${q.question} — see the full finding`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-colors hover:border-devil/60 focus-ring"
-                  >
+                  {/* The hero is an <article>, not one big anchor: a signature may
+                      carry its own links (player names, opponent badges), so only
+                      the text column is the jump link — nesting anchors is invalid. */}
+                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-colors hover:border-devil/60">
                     <div className="grid flex-1 gap-6 p-5 sm:p-7 lg:min-h-[17rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
-                      <div>
+                      <Link
+                        href={`/questions/${q.slug}`}
+                        aria-label={`${q.question} — see the full finding`}
+                        className="block rounded-lg focus-ring"
+                      >
                         <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
                           {q.label}
                         </span>
@@ -129,12 +132,12 @@ export default function ExplorePage() {
                         <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
                           See the full finding →
                         </span>
-                      </div>
+                      </Link>
                       <div className="min-w-0">
                         <QuestionSignature slug={q.slug} />
                       </div>
                     </div>
-                  </Link>
+                  </article>
                 </li>
               );
             })}
