@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, type ReactNode } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, type ReactNode } from "react";
 import {
   CORRECTION_STATUS_URL,
   correctionIssueBody,
   correctionIssueTitle,
   correctionIssueUrl,
-  correctionPayloadFromSearchParams,
+  correctionPayloadFromPrefill,
   validateCorrectionPayload,
   type CorrectionPayload,
 } from "@/lib/corrections";
+import type { CorrectionInventory } from "@/lib/correctionInventory";
 
 const TARGET_NOUN: Record<CorrectionPayload["target"]["kind"], string> = {
   match: "match",
@@ -35,15 +35,15 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
   );
 }
 
-/** No prefill: a correction is always about a specific claim, so guide the user back to one. */
+/** No prefill and no inventory: a correction is always about a specific claim. */
 function EmptyState() {
   return (
     <div className="space-y-4 border border-line bg-panel p-5">
       <p className="text-sm leading-6 text-ink-dim">
         A correction is always about one specific claim — a score, a date, an attendance, a name, a goal minute. Start
         from the page that shows the value you want to fix and use its{" "}
-        <span className="font-semibold text-ink">Suggest a correction</span> link; it returns here with the field and
-        its current value already filled in, so all you add is the new value and your source.
+        <span className="font-semibold text-ink">Suggest a correction</span> link; it brings you here with that match
+        or player&apos;s facts laid out to choose from.
       </p>
       <div className="flex flex-wrap gap-2 text-sm font-semibold">
         <Link href="/matches" className="control inline-flex items-center hover:text-devil-bright focus-ring">
@@ -64,19 +64,71 @@ function EmptyState() {
   );
 }
 
-export function CorrectionBuilder() {
-  const searchParams = useSearchParams();
-  const initial = useMemo(() => correctionPayloadFromSearchParams(searchParams), [searchParams]);
-  const [payload, setPayload] = useState<CorrectionPayload>(initial);
+/** Step 1 — pick the exact fact that is wrong from the match's inventory. */
+function Picker({ inventory, onPick }: { inventory: CorrectionInventory; onPick: (payload: CorrectionPayload) => void }) {
+  return (
+    <div className="space-y-5">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">What needs correcting?</p>
+        <p className="mt-1 text-sm text-ink-dim">
+          Pick the exact fact on{" "}
+          <Link href={inventory.pagePath} className="font-semibold text-ink hover:text-devil-bright focus-ring">
+            {inventory.label}
+          </Link>{" "}
+          that is wrong — you will make the case on the next step.
+        </p>
+      </div>
 
-  const hasTarget = payload.target.id.trim() !== "" && payload.fieldPath.trim() !== "";
-  if (!hasTarget) return <EmptyState />;
+      {inventory.groups.map((group, groupIndex) => (
+        <details key={group.name} open={groupIndex === 0} className="group border border-line bg-panel">
+          <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-semibold text-ink hover:bg-panel-2 focus-ring">
+            <span>
+              {group.name} <span className="text-ink-faint">· {group.fields.length}</span>
+            </span>
+            <span aria-hidden className="text-ink-faint transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <ul className="divide-y divide-line/60 border-t border-line">
+            {group.fields.map((field, fieldIndex) => (
+              <li key={`${field.prefill.fieldPath}-${fieldIndex}`}>
+                <button
+                  type="button"
+                  onClick={() => onPick(correctionPayloadFromPrefill(field.prefill))}
+                  className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-panel-2 focus-ring"
+                >
+                  <span className="flex min-w-0 flex-1 items-center gap-2">
+                    <span className="truncate text-sm text-ink">{field.label}</span>
+                    {field.field && (
+                      <span className="shrink-0 rounded bg-black/30 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
+                        {field.field}
+                      </span>
+                    )}
+                  </span>
+                  <span className="shrink-0 stat-num text-xs text-ink-faint">{field.current}</span>
+                  <span aria-hidden className="shrink-0 text-devil-bright">→</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </div>
+  );
+}
 
+/** Step 2 — make the claim for the chosen field. */
+function ClaimFlow({
+  payload,
+  setPayload,
+  onBack,
+}: {
+  payload: CorrectionPayload;
+  setPayload: (next: CorrectionPayload) => void;
+  onBack?: () => void;
+}) {
   const needsProposed = !payload.proposedValue.trim();
   const needsSource = !payload.sourceUrl?.trim() && !payload.archiveRef?.trim();
   const needsExplanation = payload.explanation.trim().length < 10;
   const errors = validateCorrectionPayload(payload);
-  // Covered by the friendly checklist below; anything left is a real format error worth surfacing raw.
   const otherErrors = errors.filter(
     (error) =>
       !error.includes("proposedValue is required") &&
@@ -98,6 +150,12 @@ export function CorrectionBuilder() {
 
   return (
     <div className="space-y-6">
+      {onBack && (
+        <button type="button" onClick={onBack} className="text-sm font-semibold text-ink-dim hover:text-ink focus-ring">
+          ← Change what you are correcting
+        </button>
+      )}
+
       {/* What you're correcting — static context + a live diff. Never an input box. */}
       <section className="border border-line bg-panel p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">You are correcting</p>
@@ -248,4 +306,26 @@ export function CorrectionBuilder() {
       </section>
     </div>
   );
+}
+
+export function CorrectionBuilder({
+  initialPayload,
+  inventory,
+}: {
+  initialPayload: CorrectionPayload | null;
+  inventory: CorrectionInventory | null;
+}) {
+  const [payload, setPayload] = useState<CorrectionPayload | null>(initialPayload);
+
+  if (payload) {
+    return (
+      <ClaimFlow
+        payload={payload}
+        setPayload={setPayload}
+        onBack={inventory ? () => setPayload(null) : undefined}
+      />
+    );
+  }
+  if (inventory) return <Picker inventory={inventory} onPick={setPayload} />;
+  return <EmptyState />;
 }

@@ -93,6 +93,23 @@ export function correctionPrefillHref(prefill: CorrectionPrefill): string {
   })}`;
 }
 
+/** Build an empty-but-targeted payload from a prefill (the picker's chosen field). */
+export function correctionPayloadFromPrefill(prefill: CorrectionPrefill): CorrectionPayload {
+  return {
+    target: { kind: prefill.targetKind, id: prefill.targetId, label: prefill.targetLabel },
+    fieldPath: prefill.fieldPath,
+    currentValue: stringifyFieldValue(prefill.currentValue),
+    proposedValue: "",
+    pagePath: prefill.pagePath,
+    citableId: prefill.citableId,
+    sourceUrl: "",
+    archiveRef: "",
+    explanation: "",
+    attachmentNote: "",
+    reporterContact: "",
+  };
+}
+
 export function correctionPayloadFromSearchParams(params: URLSearchParams): CorrectionPayload {
   return {
     target: {
