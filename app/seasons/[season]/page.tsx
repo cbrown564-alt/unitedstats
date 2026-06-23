@@ -180,6 +180,7 @@ export default async function SeasonPage({
 
       <IdentityPlate
         eyebrow="Season"
+        share={{ path: `/seasons/${season}`, title: `Manchester United ${season} season` }}
         title={season}
         subtitle={
           <>

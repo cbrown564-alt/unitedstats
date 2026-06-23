@@ -71,6 +71,7 @@ export default async function OpponentPage({
     <div className="space-y-8">
       <IdentityPlate
         eyebrow="Head to head"
+        share={{ path: `/opponent/${id}`, title: `Manchester United v ${o.name} — head-to-head record` }}
         leading={<ClubBadge id={id} name={o.name} size="lg" />}
         title={`United v ${o.name}`}
         subtitle={

@@ -116,6 +116,7 @@ export default async function ManagerPage({
     <div className="space-y-8">
       <IdentityPlate
         eyebrow={m.role ?? "Manager"}
+        share={{ path: `/manager/${m.id}`, title: `${m.name} — Manchester United record` }}
         leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="lg" />}
         title={m.name}
         subtitle={

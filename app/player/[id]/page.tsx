@@ -196,6 +196,7 @@ export default async function PlayerPage({
     <div className="space-y-10">
       <PlayerPlate
         name={p.name}
+        share={{ path: `/player/${id}`, title: `${p.name} — Manchester United record` }}
         portrait={{
           src: p.player_thumb_url ?? p.player_image_url,
           pageUrl: p.player_image_page_url,

@@ -14,6 +14,7 @@ import { MatchFlow } from "@/components/MatchFlow";
 import { EloWinBar } from "@/components/EloWinBar";
 import { WdlBar } from "@/components/WdlBar";
 import { FormationPitch, Bench, placeBand, type MatchMarks } from "@/components/FormationPitch";
+import { ShareCite } from "@/components/ShareCite";
 
 export const dynamicParams = false;
 
@@ -168,6 +169,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             )}
           </div>
         </header>
+
+        <div className="flex justify-center">
+          <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
+        </div>
 
         {hasTimedGoals && (
           <section className="space-y-2">
