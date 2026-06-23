@@ -16,12 +16,14 @@ import {
   correctionIssueBody,
   correctionIssueTitle,
   correctionIssueUrl,
+  correctionPayloadFromPrefill,
   correctionPayloadFromSearchParams,
   correctionPrefillHref,
   fieldPatch,
   validateCorrectionPayload,
   type CorrectionPayload,
 } from "../lib/corrections";
+import { matchCorrectionInventory } from "../lib/correctionInventory";
 import { correctionRef } from "../lib/citations";
 import sample from "./fixtures/corrections/sample-attendance.json";
 import malformed from "./fixtures/corrections/malformed-missing-source.json";
@@ -29,19 +31,56 @@ import malformed from "./fixtures/corrections/malformed-missing-source.json";
 const samplePayload = sample as CorrectionPayload;
 const malformedPayload = malformed as CorrectionPayload;
 
-test("correction prefill links carry match, player, and event citable context", async () => {
+test("match page links to the correction picker; player page carries prefill context", async () => {
   const matchHtml = renderToStaticMarkup(
     (await MatchPage({ params: Promise.resolve({ id: "1999-05-26-bayern-munich-n" }) })) as React.ReactElement,
   );
-  assert.match(matchHtml, /href="\/corrections\?[^"]*kind=match[^"]*field=matches%5Bid%3D1999-05-26-bayern-munich-n%5D\.attendance/);
-  assert.match(matchHtml, /href="\/corrections\?[^"]*kind=event[^"]*field=matches%5Bid%3D1999-05-26-bayern-munich-n%5D\.events%5B\d+%5D\.minute/);
-  assert.match(matchHtml, /cite=us%3Amatch%3A1999-05-26-bayern-munich-n/);
+  // One entry into the "what's wrong?" picker — no hard-wired field/event.
+  assert.match(matchHtml, /href="\/corrections\?match=1999-05-26-bayern-munich-n"/);
 
   const playerHtml = renderToStaticMarkup(
     (await PlayerPage({ params: Promise.resolve({ id: "a-longton" }) })) as React.ReactElement,
   );
   assert.match(playerHtml, /href="\/corrections\?[^"]*kind=player[^"]*field=players%5Bid%3Da-longton%5D\.name/);
   assert.match(playerHtml, /cite=us%3Aentity%3Aplayer%253Aa-longton/);
+});
+
+test("match correction inventory exposes every fact, each yielding a valid correction", () => {
+  const inv = matchCorrectionInventory("1999-05-26-bayern-munich-n");
+  assert.ok(inv, "expected an inventory for a known match");
+  assert.equal(inv.label, "Manchester United 2-1 FC Bayern Munich");
+
+  const groupNames = inv.groups.map((g) => g.name);
+  assert.ok(groupNames.includes("This match"));
+  assert.ok(groupNames.includes("Goals"));
+  assert.ok(groupNames.includes("Team sheet"));
+
+  const matchGroup = inv.groups.find((g) => g.name === "This match")!;
+  assert.ok(matchGroup.fields.some((f) => f.label === "Attendance"));
+
+  const goals = inv.groups.find((g) => g.name === "Goals")!;
+  // Several goals, each correctable on more than one field — not just the first.
+  assert.ok(goals.fields.length >= 4, `expected multiple goal fields, got ${goals.fields.length}`);
+  assert.ok(goals.fields.some((f) => f.field === "scorer"));
+  assert.ok(goals.fields.some((f) => f.field === "minute"));
+
+  const sheet = inv.groups.find((g) => g.name === "Team sheet")!;
+  assert.ok(sheet.fields.some((f) => f.field === "shirt"));
+
+  // Every leaf seeds a payload that validates and generates an issue once a
+  // claim + source are supplied.
+  for (const group of inv.groups) {
+    for (const field of group.fields) {
+      const payload: CorrectionPayload = {
+        ...correctionPayloadFromPrefill(field.prefill),
+        proposedValue: "corrected",
+        sourceUrl: "https://example.org/source",
+        explanation: "The cited source shows the corrected value.",
+      };
+      assert.deepEqual(validateCorrectionPayload(payload), [], field.prefill.fieldPath);
+      assert.doesNotThrow(() => correctionIssueUrl(payload));
+    }
+  }
 });
 
 test("correction payload schema accepts complete payloads and rejects malformed fixtures before issue generation", () => {
