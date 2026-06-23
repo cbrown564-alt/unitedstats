@@ -5,6 +5,7 @@ import { MainNav } from "@/components/MainNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { CommandPaletteLoader } from "@/components/CommandPaletteLoader";
 import { WebVitals } from "@/components/WebVitals";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -20,17 +21,18 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: { default: "UnitedStats — every Manchester United match since 1886", template: "%s · UnitedStats" },
   description:
     "The exhaustive history of Manchester United: every match, every competition, every goal — from Newton Heath to today.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  // suppressHydrationWarning: browser extensions inject data-* attributes onto
+  // <html> before React hydrates (e.g. content filters), which the server HTML
+  // can't match. Scoped to this element's own attributes only — real mismatches
+  // inside the app still surface.
   return (
-    {/* suppressHydrationWarning: browser extensions inject data-* attributes onto
-        <html> before React hydrates (e.g. content filters), which the server HTML
-        can't match. Scoped to this element's own attributes only — real mismatches
-        inside the app still surface. */}
     <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <header className="sticky top-0 z-50 border-b border-line bg-pitch/95 backdrop-blur">

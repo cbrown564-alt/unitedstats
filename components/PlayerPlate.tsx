@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
+import { ShareCite } from "@/components/ShareCite";
 import { fmtDate, fmtNum, scoreline, venuePrefix } from "@/lib/format";
 
 /** A recorded match we can pin a player to — debut, latest, or any endpoint. */
@@ -47,6 +48,8 @@ interface PlayerPlateProps {
   };
   shirts: Shirt[];
   caveat: React.ReactNode;
+  /** Copy-link / cite affordance, rendered top-right of the plate. */
+  share?: { path: string; title: string };
 }
 
 const yearOf = (m: { season?: string; date?: string }) =>
@@ -59,7 +62,7 @@ const yearOf = (m: { season?: string; date?: string }) =>
  * recorded career resolves into a single span with the peak season marked on it.
  */
 export function PlayerPlate({
-  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveat,
+  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveat, share,
 }: PlayerPlateProps) {
   // Tint the corner kit to the era the player wore that number most.
   const primaryDecade =
@@ -111,6 +114,12 @@ export function PlayerPlate({
         className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full bg-devil/12 blur-3xl"
         aria-hidden
       />
+
+      {share && (
+        <div className="absolute right-4 top-4 z-10">
+          <ShareCite path={share.path} title={share.title} />
+        </div>
+      )}
 
       <div className="relative grid gap-6 p-5 sm:p-6 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-8">
         {/* Portrait, with the kit number patched onto the corner. */}
