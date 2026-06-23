@@ -7,6 +7,7 @@ import { managerById, managersIndex, playerById, playersIndex, type ManagerRecor
 import { resolveEntity } from "@/lib/search/resolve";
 import { PageHeader } from "@/components/PageHeader";
 import { CompareTable } from "@/components/CompareTable";
+import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
@@ -128,6 +129,7 @@ export default async function ComparePage({
       {comparison ? (
         <>
           <CompareTable comparison={comparison} />
+          <CutLinks comparison={comparison} />
           <section>
             <h2 className={sectionHead}>Compare another</h2>
             <div className="mt-3">{picker}</div>
@@ -156,6 +158,54 @@ export default async function ComparePage({
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * Downstream of the comparison answer: a fork into the Cut engine, where the
+ * comparison maps to a real grouped match-filter. Eras map to a date-range cut and
+ * managers to a manager-filtered one (both grouped season by season); players have
+ * no single grouped cut, so the section is absent for them. This is "a comparison
+ * is a Cut" made tangible — the reader leaves the answer and twists it themselves.
+ */
+function sideCut(mode: CompareMode, side: { id: string; label: string }): { label: string; href: string } | null {
+  if (mode === "managers") {
+    return { label: side.label, href: cutHref({ dimension: "season", metric: "ppg", filters: { manager: side.id } }) };
+  }
+  if (mode === "eras") {
+    const era = ERA_CATALOGUE.find((e) => e.key === side.id);
+    if (!era) return null;
+    return {
+      label: side.label,
+      href: cutHref({ dimension: "season", metric: "ppg", filters: { from: String(era.from), to: String(era.to - 1) } }),
+    };
+  }
+  return null;
+}
+
+function CutLinks({ comparison }: { comparison: Comparison }) {
+  const links = [sideCut(comparison.mode, comparison.a), sideCut(comparison.mode, comparison.b)].filter(
+    (l): l is { label: string; href: string } => l !== null,
+  );
+  if (links.length === 0) return null;
+  return (
+    <section>
+      <h2 className={sectionHead}>Explore as a cut</h2>
+      <p className="mt-1 mb-3 text-sm text-ink-dim">
+        Group either side&apos;s record season by season, then fork the dimension or lens into your own cut.
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {links.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            className="rounded-full border border-line bg-panel px-3.5 py-1.5 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:bg-panel-2 hover:text-ink focus-ring"
+          >
+            {l.label}, season by season →
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
 

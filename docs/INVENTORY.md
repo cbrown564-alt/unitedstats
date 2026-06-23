@@ -53,6 +53,14 @@ The real win is the module/duplication reduction, not the route count.
   `season_summaries`). The empty state leads with curated *great debates*; the
   build-your-own picker is demoted below them (player inputs gain a `<datalist>`).
   Shaped player-vs-player search lands here.
+- `/cut` — the Cut engine (Phase 12; the reborn group-by explorer, now the
+  keystone). One serializable `{ dimension, filters, metric/lens, coverage, curated }`
+  (`lib/cut.ts`), URL-encoded; `runCut` aggregates the record by any dimension and
+  ranks it by any lens (`CutBoard` ladder), leading with the standout-group answer.
+  The fork is two dial rows (`CutControls`) — change a parameter, get a new shareable
+  Cut. Only the six `CURATED_CUTS` are indexable (sitemap + canonical); every other
+  fork is `noindex`. Forks degrade honestly (empty/thin states). Launched from the
+  `/explore` Exploring strip and from `/compare` (era/manager → cut).
 - `/analytics` — the strength surface: Elo retrospective (timeline) **+
   prospective (odds widget, season replay, calibration — folded in from the
   former `/analytics/odds`)** + season trends + grounds + assist partnerships.
@@ -168,10 +176,12 @@ Added in Phase 9 (discovery and comparison):
 - **Comparison surface.** `/compare` (players / managers / eras) over
   `lib/compare.ts` + `CompareTable`; the deferred "comparison modes" bet, now
   built coverage-aware with every side linking to its matches.
-- **Group-by explorer.** ~~`/explore` over `lib/explore.ts`~~ — removed 2026-06.
-  The build-your-own-cut explorer never fit the answer-first house voice (it led
-  with controls, not findings) and overlapped `/questions`; deleted rather than
-  redesigned again.
+- **Group-by explorer.** ~~`/explore` over `lib/explore.ts`~~ — removed 2026-06,
+  then **reborn as `/cut` (Phase 12)**. The original led with controls, not findings,
+  and overlapped `/questions`; the Cut engine fixes both — it leads with the
+  standout-group answer, is reached downstream of a curated cut or a comparison
+  (never a form-first front door), and the dials are a fork of that answer rather
+  than a blank query builder. See the `/cut` entry under Interpretation.
 - **Run detection + comebacks.** `lib/streaks.ts` (+ `StreakBoard`) and
   `trails.comebacks` add two evidence-linked `/questions` modules (nine total).
 

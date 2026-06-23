@@ -507,7 +507,7 @@ The positioning shift made concrete (report §10.3).
       `/explore` (commit superseding Phase 11) is the summary rail without its
       carousel — a stepping stone, not the target.
 
-## Phase 11.5 — Explore as the discovery surface (three-strip framework) 🚧 (Strips 1–2 complete; Strip 3 = Phase 12)
+## Phase 11.5 — Explore as the discovery surface (three-strip framework) ✅ (complete)
 
 The reframe that reorganizes Phases 10–12 into one surface (PRODUCT.md →
 "Discovery Surface"). `/explore` becomes the single jumping-off point: three
@@ -536,32 +536,64 @@ full page. `/explore` previews and routes; depth lives one click away.
       `FeatureSlide` (the article + text-link + signature shell) in
       `components/explore/`, now shared by Answering and Asking. The visual sits
       outside the slide's link so a signature's own links never nest anchors.
-- [ ] **Strip 3 — Exploring (the Cut).** The blank canvas — this *is* Phase 12
-      below. The least-curated strip; plainest by design. Until then the "Group the
-      record" grid stands in as honest launchers into the existing aggregate views.
+- [x] **Strip 3 — Exploring (the Cut).** The blank canvas — Phase 12 below. The
+      least-curated strip; plainest by design (a grid of curated-cut launchers, no
+      carousel — the curation gradient runs plainer as the freedom rises). The "Group
+      the record" stand-in is replaced by real launchers into the `/cut` engine.
 
-## Phase 12 — The Cut engine and fork
+## Phase 12 — The Cut engine and fork ✅ (complete)
 
 The keystone generalised, and **Strip 3 (Exploring) of the Phase 11.5
 framework** — the blank-canvas end of the curation gradient. The plan's largest
 architectural bet, deliberately sequenced after concrete cuts exist.
 
-- [ ] **Define the `Cut`** — a serializable
-      `{ dimension, filters, metric/lens, coverage, curated }`, URL-encodable,
-      with `curated` present from the first commit.
-- [ ] **Render questions, compare, and group from one model** — extract the
-      shared engine only once Phases 10–11 have shown its real shape across the
-      nine cuts, rather than designing the abstraction up front.
-- [ ] **Fork** — every cut page offers "fork this": adjust a parameter, get a new
-      Cut at a new URL. The reborn explorer — twist a curated cut yourself,
-      downstream of an answer.
-- [ ] **Forks degrade honestly** — a forked Cut whose filters hit a coverage gap
-      renders its own unsupported/partial state via the existing coverage
-      grading; it never shows a clean total over a hole.
-- [ ] **SEO guardrail** — only `curated` Cuts are indexable; arbitrary forks are
-      `noindex`.
-- [ ] **Mobile interaction model** — parameter controls as a bottom-sheet of
-      dials, not inline form fields; prototype before committing.
+- [x] **Define the `Cut`** — `lib/cut.ts` defines a serializable
+      `{ dimension, filters, metric/lens, coverage, curated }`, encoded to and from
+      the `/cut` query string (`cutFromParams`/`cutHref`). `curated` is present from
+      the first commit and is *derived*, not trusted from the URL: a cut is curated
+      only when its `{ dimension, metric, filters }` matches a registered
+      `CURATED_CUTS` entry. `coverage` is likewise derived by `runCut` from the
+      filters and metric, so a forked link can never lie about its own completeness.
+- [x] **Render questions, compare, and group from one model** — the *group* cut is
+      the one that needs a generic renderer (a fork produces an arbitrary group), so
+      `runCut` + `/cut` render it from the model; questions stay curated Cuts with
+      prose and comparisons stay Cuts with two subjects (their bespoke renderers
+      unchanged, per "earn the right to abstract"). The model is the shared spine:
+      `/compare` now forks era and manager comparisons straight into `/cut` ("a
+      comparison is a Cut"), and the curated registry replaces the old "Group the
+      record" stand-in.
+- [x] **Fork** — the `/cut` page leads with the standout-group answer, then offers
+      the fork as two dials (group-by dimension, rank-by metric/lens) plus a demoted
+      refine form. Changing any parameter is a new shareable Cut at a new URL — the
+      reborn explorer, reached downstream of a curated-cut answer or a comparison.
+- [x] **Forks degrade honestly** — a Cut whose filters intersect to nothing renders
+      its own empty state (no headline, an `empty` coverage grade) rather than a
+      clean total over a hole; rate metrics over small groups are flagged as thin
+      samples instead of presented as solid. Pinned by a golden test.
+- [x] **SEO guardrail** — only `curated` Cuts get an indexable canonical page and a
+      sitemap entry; every forked parameter combination is `noindex, follow` (set in
+      `/cut`'s `generateMetadata`), so forking is unbounded without spawning
+      thin-content pages.
+- [x] **Mobile interaction model** — **decision: dials, not a JS bottom-sheet
+      modal.** The primary controls (dimension, metric) are big tappable chip-links —
+      "dials a reader picks, not boxes they fill" — visible at every breakpoint, and a
+      sticky mobile "Re-cut" bar anchors to them so they are one tap away deep in a
+      long ladder (the proven `/matches` sticky-filter pattern). The narrower slice
+      filters stay a demoted GET form. This keeps the surface a zero-JS server
+      component, fitting the static/zero-cost guardrail, rather than introducing a
+      client modal; recorded here per "prototype/decide before committing".
+
+Phase 12 is complete as the discovery layer's keystone: `lib/cut.ts` is the one
+serializable, URL-encodable Cut model, `runCut` the engine that aggregates the
+record by any dimension and ranks it by any lens with derived coverage grading,
+and `/cut` the generic, forkable renderer — the reborn explorer, now downstream of
+an answer rather than a form-first front door. Six curated cuts are the indexable,
+sitemap-listed set (the Exploring strip on `/explore`); every other fork is a real
+shareable but `noindex` URL. `/compare` forks era and manager comparisons into the
+same engine. Golden tests pin serialization round-trip, the curated/fork (SEO)
+boundary, the aggregation against the canonical record, and honest empty-slice
+degradation. New dimensions, metrics, and curated cuts continue as normal product
+work on `lib/cut.ts`.
 
 ## Phase 13 — The "history changed" engine
 

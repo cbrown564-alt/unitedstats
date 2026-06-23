@@ -7,6 +7,7 @@ import {
   CURATED_DEBATES, comparePlayers, compareManagers, compareEras,
   type CompareMode, type Comparison,
 } from "@/lib/compare";
+import { CURATED_CUTS, cutHref, curatedCut } from "@/lib/cut";
 import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { PageHeader } from "@/components/PageHeader";
@@ -29,17 +30,6 @@ export const metadata: Metadata = {
     "Start with an answer: the curated questions tested against United's record, then compare two careers or eras and group the whole record your own way.",
   alternates: { canonical: "/explore" },
 };
-
-// "Group the record" — honest launchers into the aggregate surfaces that already
-// exist, framed as dimensions you can slice the whole record by. (The general
-// group-by-anything engine is Phase 12's Cut/fork work; this section points at the
-// real grouped views we already ship rather than shipping a half-baked builder.)
-const GROUPINGS: [eyebrow: string, title: string, blurb: string, href: string][] = [
-  ["By season", "Every season, 1886 to today", "The record laid out chronologically — played, won, finished, champions gold-capped.", "/seasons"],
-  ["By opponent", "Head-to-head with every club", "Each opponent's all-time record against United, home, away, and by competition.", "/opponents"],
-  ["By manager", "Mangnall to now", "Every reign on win rate, points, and silverware, from the first secretary-manager on.", "/managers"],
-  ["By the long arc", "Analytics & the all-time records", "Elo across 140 years, win rate, attendance, goal timing, and the records that hold.", "/analytics"],
-];
 
 export default function ExplorePage() {
   const meta = getMeta();
@@ -190,22 +180,32 @@ export default function ExplorePage() {
         </p>
       </section>
 
-      {/* Exploratory follow-on 2: group. */}
-      <section>
-        <SectionHead title="Group the record" />
-        <div className="grid gap-3 sm:grid-cols-2">
-          {GROUPINGS.map(([eyebrow, title, blurb, href]) => (
+      {/* The Exploring strip (Strip 3 — the least curated, plainest by design). The
+          curated cuts launch the Cut engine: group the whole record by a dimension,
+          rank it by a lens, then fork any parameter into a new shareable cut. No
+          carousel here — the curation gradient runs plainer as the freedom rises. */}
+      <section className="space-y-4">
+        <SectionHead
+          title="Explore the record"
+          aside={<span className="text-ink-faint">Exploring · group it your own way</span>}
+        />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {CURATED_CUTS.map((c) => (
             <Link
-              key={href}
-              href={href}
+              key={c.slug}
+              href={cutHref(curatedCut(c))}
               className="group flex flex-col rounded-xl border border-line bg-panel p-4 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
             >
-              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">{eyebrow}</span>
-              <span className="display mt-1 text-balance text-lg leading-tight text-ink group-hover:text-devil-bright">{title}</span>
-              <span className="mt-1.5 text-pretty text-sm text-ink-dim">{blurb}</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">{c.eyebrow}</span>
+              <span className="display mt-1 text-balance text-lg leading-tight text-ink group-hover:text-devil-bright">{c.title}</span>
+              <span className="mt-1.5 text-pretty text-sm text-ink-dim">{c.blurb}</span>
             </Link>
           ))}
         </div>
+        <p className="text-xs text-ink-faint">
+          Open any cut, then change the dimension or the lens to fork your own — every group links to the
+          matches behind it, with the coverage grade where the record is still growing.
+        </p>
       </section>
     </div>
   );

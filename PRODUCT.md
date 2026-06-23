@@ -134,7 +134,7 @@ freedom rises.
 Each strip is the same shape: a full-bleed feature view the reader moves across
 horizontally, a rail of summary cards beneath so the set can be skimmed without
 swiping, and from either, a jump to the canonical full page. The dedicated depth
-always lives one click away (`/questions/[slug]`, `/compare`, the Cut builder);
+always lives one click away (`/questions/[slug]`, `/compare`, the `/cut` engine);
 `/explore` previews and routes into it rather than reproducing it. The standalone
 `/questions` index is folded into the Answering strip — the curated set is surfaced
 once, as previews, not maintained as a parallel page.
