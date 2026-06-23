@@ -15,7 +15,10 @@ const nextConfig: NextConfig = {
       // Odds folded into /analytics as the strength layer's prospective half;
       // travel folded into /questions as the away-days question (ADR 0002).
       { source: "/analytics/odds", destination: "/analytics", permanent: true },
-      { source: "/analytics/travel", destination: "/questions#away-days", permanent: true },
+      { source: "/analytics/travel", destination: "/questions/away-days", permanent: true },
+      // The /questions index is subsumed into the Explore Answering strip (Phase
+      // 11.5); the per-question /questions/[slug] depth pages remain the jump target.
+      { source: "/questions", destination: "/explore", permanent: true },
     ];
   },
   async headers() {

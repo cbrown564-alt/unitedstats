@@ -215,7 +215,7 @@ export default async function ManagerPage({
             <MatchList matches={first10} showSeason />
             <p className="mt-2 text-xs text-ink-faint">
               {first10W} of the first 10 won.{" "}
-              <Link href="/questions#manager-bounce" className="text-devil-bright hover:underline">
+              <Link href="/questions/manager-bounce" className="text-devil-bright hover:underline">
                 Is the new-manager bounce real? →
               </Link>
             </p>

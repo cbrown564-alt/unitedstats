@@ -10,6 +10,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
+import { QuestionSignature } from "@/components/explore/QuestionSignature";
 
 const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
   devil: "text-devil-bright",
@@ -81,38 +82,86 @@ export default function ExplorePage() {
         </p>
       </section>
 
-      {/* Answer layer: every curated question with its live finding up front. The
-          full set as a grid (this is the questions hub, not a homepage tease), each
-          card leading with the figure that answers it and linking to the full page. */}
-      <section>
+      {/* The Answering strip (the most curated of the three). A full-bleed feature
+          carousel — one near-full-view answer hero per question, each leading with
+          its live finding and a signature visual — over a summary rail so the set is
+          skimmable without swiping. Both jump to the full page at /questions/[slug];
+          the strip previews, it does not reproduce the depth. */}
+      <section className="space-y-4">
         <SectionHead
           title="Questions, answered"
-          aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
+          aside={<span className="text-ink-faint">Answering · {QUESTIONS.length} curated</span>}
         />
-        <ul aria-label="Curated questions, answered" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+        <div className="relative -mx-4 sm:-mx-6">
+          <ul
+            aria-label="Curated questions — swipe across the answers"
+            className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:px-6"
+          >
+            {QUESTIONS.map((q) => {
+              const h = headlines[q.slug];
+              return (
+                <li
+                  key={q.slug}
+                  className="w-[calc(100%-1.5rem)] shrink-0 snap-start sm:w-[calc(100%-4rem)]"
+                >
+                  <Link
+                    href={`/questions/${q.slug}`}
+                    aria-label={`${q.question} — see the full finding`}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-colors hover:border-devil/60 focus-ring"
+                  >
+                    <div className="grid flex-1 gap-6 p-5 sm:p-7 lg:min-h-[17rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
+                          {q.label}
+                        </span>
+                        <h3 className="display mt-1.5 text-balance text-2xl leading-tight text-ink group-hover:text-devil-bright sm:text-3xl">
+                          {q.question}
+                        </h3>
+                        {h && (
+                          <p className="mt-4 max-w-sm text-pretty text-sm leading-6 text-ink-dim">
+                            <span className={`stat-num mr-2 align-baseline text-4xl font-semibold ${STAT_TONE[h.tone]}`}>
+                              {h.stat}
+                            </span>
+                            {h.gloss}
+                          </p>
+                        )}
+                        <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
+                          See the full finding →
+                        </span>
+                      </div>
+                      <div className="min-w-0">
+                        <QuestionSignature slug={q.slug} />
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 right-0 hidden w-12 bg-gradient-to-l from-pitch to-transparent sm:block"
+          />
+        </div>
+
+        {/* The summary rail — every question at a glance, so you can jump straight
+            in without swiping the strip. */}
+        <ul aria-label="All curated questions" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {QUESTIONS.map((q) => {
             const h = headlines[q.slug];
             return (
               <li key={q.slug}>
                 <Link
                   href={`/questions/${q.slug}`}
-                  className="group flex h-full flex-col rounded-xl border border-line bg-panel p-4 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
+                  className="group flex items-baseline gap-3 rounded-lg border border-line bg-panel px-3 py-2.5 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
-                    {q.label}
-                  </span>
-                  <span className="display mt-1 text-balance text-base leading-tight text-ink group-hover:text-devil-bright">
-                    {q.question}
-                  </span>
                   {h && (
-                    <span className={`stat-num mt-3 text-3xl font-semibold leading-none ${STAT_TONE[h.tone]}`}>
+                    <span className={`stat-num shrink-0 text-base font-semibold leading-none ${STAT_TONE[h.tone]}`}>
                       {h.stat}
                     </span>
                   )}
-                  <span className="mt-1.5 text-pretty text-sm text-ink-dim">{h ? h.gloss : q.summary}</span>
-                  <span className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-                    See the full finding →
-                  </span>
+                  <span className="min-w-0 text-sm text-ink-dim group-hover:text-ink">{q.question}</span>
                 </Link>
               </li>
             );
