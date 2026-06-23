@@ -5,7 +5,7 @@
  */
 import { immutableDataHeaders } from "./cache";
 
-const ATTRIBUTION = {
+export const API_ATTRIBUTION = {
   source: "UnitedStats, the open Manchester United match history",
   docs: "/data#api",
   note: "Read-only. Result data: engsoccerdata, openfootball, Wikipedia. Coverage varies by facet; see /api/v1/meta.",
@@ -22,11 +22,11 @@ const CORS_HEADERS = {
 };
 
 export function apiJson(data: unknown, extra?: Record<string, unknown>): Response {
-  return Response.json({ ...extra, data, attribution: ATTRIBUTION }, { headers: CORS_HEADERS });
+  return Response.json({ ...extra, data, attribution: API_ATTRIBUTION }, { headers: CORS_HEADERS });
 }
 
 export function apiError(status: number, message: string): Response {
-  return Response.json({ error: message, attribution: ATTRIBUTION }, { status, headers: CORS_HEADERS });
+  return Response.json({ error: message, attribution: API_ATTRIBUTION }, { status, headers: CORS_HEADERS });
 }
 
 /** Clamp user-supplied pagination to sane bounds. */

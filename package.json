@@ -30,6 +30,7 @@
     "check:static": "node scripts/check-static-render.mjs",
     "check:perf": "node scripts/check-perf-budgets.mjs",
     "build:db": "tsx scripts/build-db.ts",
+    "generate:history-digests": "tsx scripts/generate-history-digests.ts",
     "export:dataset": "tsx scripts/export-dataset.ts",
     "validate": "tsx scripts/validate.ts",
     "update": "tsx pipeline/update.ts"

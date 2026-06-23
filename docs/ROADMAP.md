@@ -601,17 +601,27 @@ Report §10.5 / Gap 5 — the freshness loop, the habit loop, and the answer-fir
 counter to both live-score apps and generic AI, on infrastructure that already
 exists.
 
-- [ ] **Deterministic post-match digest** — after each cron update, generate
+- [x] **Deterministic post-match digest** — after each cron update, generate
       "what this match changed in the all-time record": records entered or
       extended, streaks started or ended, rank changes, manager and opponent
       milestones, Elo movement and historical percentile, unusual scoreline or
       venue facts.
-- [ ] **No new infrastructure** — a build-time generator inside the existing
+- [x] **No new infrastructure** — a build-time generator inside the existing
       GitHub Actions pipeline.
-- [ ] **Reuse the distribution surface** — each digest is a shareable card
+- [x] **Reuse the distribution surface** — each digest is a shareable card
       (Phase 10 OG/share) and a canonical page (Phase 10 routing). "What did
       tonight mean in 140 years of United?" is the question a live-score app will
       not answer and a chatbot cannot.
+
+Phase 13 is complete as a freshness-loop capability: `npm run
+generate:history-digests` creates deterministic, Phase-0-citable digest
+artifacts from the local SQLite record; the update workflow runs it after
+validation and DB rebuild for each batch of new matches; `/history-changed/[id]`
+renders canonical digest pages with OG cards and sitemap entries; and the
+detector suite covers records, streaks, rank changes, manager/opponent
+milestones, scoreline/venue facts, Elo movement, and historical percentiles with
+positive and negative golden cases. Reviewed under
+`docs/process/reviews/002-phase13-history-digests.md`.
 
 ## Phase 14 — Source, not casualty
 

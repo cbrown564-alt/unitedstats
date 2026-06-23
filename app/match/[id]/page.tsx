@@ -15,6 +15,7 @@ import { EloWinBar } from "@/components/EloWinBar";
 import { WdlBar } from "@/components/WdlBar";
 import { FormationPitch, Bench, placeBand, type MatchMarks } from "@/components/FormationPitch";
 import { ShareCite } from "@/components/ShareCite";
+import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
 
 export const dynamicParams = false;
 
@@ -65,6 +66,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   const tone = resultTone(m.outcome);
   const word = resultLabel(m.outcome);
+  const jsonLd = matchJsonLd(m, sources);
 
   const goals = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type));
   const opponentGoals = events.filter((e) => ["opp-goal", "own-goal-against"].includes(e.type));
@@ -128,6 +130,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   return (
     <div className="space-y-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       {/* Result, then how the goals came — one tight lead unit, no hollow black. */}
       <div className="space-y-5">
         <header className="space-y-4">
