@@ -25,17 +25,20 @@ export function trustStrip(): string[] {
 }
 
 /**
- * The shared evidence card: brand mark, the answer's question, its one-line
- * summary, and the trust strip. Used for the site default and for every
- * question's social card so a pasted link arrives carrying its own provenance.
+ * The shared card frame: brand mark + eyebrow, a dominant title, a one-line
+ * subtitle, and the trust strip — so a pasted link always arrives carrying its
+ * own provenance. `headers` is forwarded to the response for the on-demand
+ * entity cards (the static question/default cards leave it unset).
  */
-export function evidenceCard({
-  question, summary, strip,
-}: {
-  question: string;
-  summary: string;
-  strip: string[];
-}) {
+function renderCard(
+  { eyebrow, title, subtitle, strip }: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    strip: string[];
+  },
+  headers?: Record<string, string>,
+) {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK }}>
@@ -51,14 +54,14 @@ export function evidenceCard({
         >
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
             <span style={{ color: DEVIL, fontWeight: 700 }}>UNITEDSTATS</span>
-            <span style={{ color: INK_DIM, marginLeft: 18 }}>MANCHESTER UNITED HISTORY</span>
+            <span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 66, fontWeight: 800, lineHeight: 1.05, letterSpacing: -1.5 }}>
-              {question}
+              {title}
             </div>
             <div style={{ fontSize: 28, color: INK_DIM, lineHeight: 1.35, marginTop: 28, maxWidth: 920 }}>
-              {summary}
+              {subtitle}
             </div>
           </div>
           <div style={{ display: "flex" }}>
@@ -84,6 +87,25 @@ export function evidenceCard({
         </div>
       </div>
     ),
-    { ...OG_SIZE },
+    { ...OG_SIZE, ...(headers ? { headers } : {}) },
   );
+}
+
+/** A question's social card: the headline question over its one-line summary. */
+export function evidenceCard({
+  question, summary, strip,
+}: {
+  question: string;
+  summary: string;
+  strip: string[];
+}) {
+  return renderCard({ eyebrow: "MANCHESTER UNITED HISTORY", title: question, subtitle: summary, strip });
+}
+
+/** An entity's social card (match, player, manager, opponent, season). */
+export function entityCard(
+  props: { eyebrow: string; title: string; subtitle: string; strip: string[] },
+  headers?: Record<string, string>,
+) {
+  return renderCard(props, headers);
 }
