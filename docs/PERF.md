@@ -36,7 +36,7 @@ invalidation (`revalidateTag`) is required.
 
 `next build` after M2/M3 — **7,416 pages prerender** (was: 5):
 
-- **Static `○`:** `/`, `/managers`, `/transfers`, `/questions`, `/data`,
+- **Static `○`:** `/`, `/managers`, `/transfers`, `/explore`, `/data`,
   `/opponents`, `/analytics`
   - `/opponents` filters client-side (`FilterableList`); `/analytics` runs its
     forecast client-side (`OddsPredictor`) over build-precomputed odds.
