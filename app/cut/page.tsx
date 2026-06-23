@@ -108,27 +108,43 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
           <p className="text-sm text-ink-dim">{coverage.basis}</p>
         </section>
       ) : (
-        <section className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-line bg-panel px-5 py-4 sm:py-5">
-          <span className="stat-num text-4xl font-semibold leading-none text-gold sm:text-5xl">
-            {headline.figure}
-          </span>
-          <div className="min-w-0 leading-tight">
-            <p className="flex items-baseline gap-2">
-              <span className="display text-xl text-ink sm:text-2xl">{headline.subject}</span>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
-                top {dimLabel.toLowerCase()}
-              </span>
-            </p>
-            <p className="mt-0.5 text-sm text-ink-dim">
-              {headline.metric} — {headline.gloss}.
-            </p>
+        <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/_0.22)]">
+          <div className="hero-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+          <div
+            className="pointer-events-none absolute -right-20 -top-24 h-64 w-2/3 rounded-full opacity-[0.10] blur-3xl"
+            style={{ backgroundColor: "var(--color-gold)" }}
+            aria-hidden
+          />
+          <div className="relative p-5 sm:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
+                Top {dimLabel.toLowerCase()}
+              </p>
+              <Link
+                href={headline.href}
+                className="text-sm font-semibold text-devil-bright hover:underline focus-ring"
+              >
+                See the matches →
+              </Link>
+            </div>
+
+            <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+              <div className="min-w-0">
+                <h2 className="display text-2xl leading-tight text-ink sm:text-3xl">{headline.subject}</h2>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-ink-dim">
+                  {headline.gloss.charAt(0).toUpperCase() + headline.gloss.slice(1)}.
+                </p>
+              </div>
+              <div className="shrink-0 leading-none sm:text-right">
+                <span className="stat-num text-5xl font-semibold text-gold sm:text-6xl">
+                  {headline.figure}
+                </span>
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
+                  {headline.metric}
+                </p>
+              </div>
+            </div>
           </div>
-          <Link
-            href={headline.href}
-            className="text-xs font-semibold text-devil-bright hover:underline focus-ring sm:ml-auto"
-          >
-            See the matches →
-          </Link>
         </section>
       )}
 
