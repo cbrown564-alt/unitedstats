@@ -1,8 +1,8 @@
 import { collectionRef } from "./citations";
+import { MAX_COLLECTION_CHARS, MAX_COLLECTION_CUTS, encodeCollectionHrefs } from "./collectionShare";
 import { cutFromParams, cutHref, runCut, type Cut, type CutResult } from "./cut";
 
-export const MAX_COLLECTION_CUTS = 12;
-export const MAX_COLLECTION_CHARS = 1800;
+export { MAX_COLLECTION_CHARS, MAX_COLLECTION_CUTS };
 
 interface CollectionPayload {
   v: 1;
@@ -19,10 +19,6 @@ export type CollectionDecodeResult =
   | { ok: true; collection: SavedCollection }
   | { ok: false; error: string };
 
-function encodeBase64Url(value: string): string {
-  return Buffer.from(value, "utf8").toString("base64url");
-}
-
 function decodeBase64Url(value: string): string {
   return Buffer.from(value, "base64url").toString("utf8");
 }
@@ -30,8 +26,7 @@ function decodeBase64Url(value: string): string {
 export function encodeCollection(cuts: Cut[]): string {
   if (cuts.length === 0) throw new Error("collection requires at least one Cut");
   if (cuts.length > MAX_COLLECTION_CUTS) throw new Error(`collection exceeds ${MAX_COLLECTION_CUTS} Cuts`);
-  const payload: CollectionPayload = { v: 1, cuts: cuts.map((cut) => cutHref(cut)) };
-  const encoded = encodeBase64Url(JSON.stringify(payload));
+  const encoded = encodeCollectionHrefs(cuts.map((cut) => cutHref(cut)));
   if (encoded.length > MAX_COLLECTION_CHARS) throw new Error(`collection exceeds ${MAX_COLLECTION_CHARS} URL characters`);
   return encoded;
 }

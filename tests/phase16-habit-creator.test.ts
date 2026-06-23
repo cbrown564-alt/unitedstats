@@ -7,8 +7,9 @@ import OnThisDayPage, { generateStaticParams as onThisDayParams } from "../app/o
 import CollectionPage, { generateMetadata as collectionMetadata } from "../app/collection/page";
 import CutEmbedPage, { generateMetadata as embedMetadata, generateStaticParams as embedParams } from "../app/embed/cut/[slug]/page";
 import nextConfig from "../next.config";
-import { CURATED_CUTS, curatedCut } from "../lib/cut";
+import { CURATED_CUTS, curatedCut, cutHref } from "../lib/cut";
 import { decodeCollection, encodeCollection, MAX_COLLECTION_CHARS, MAX_COLLECTION_CUTS } from "../lib/collections";
+import { collectionShareHref, encodeCollectionHrefs } from "../lib/collectionShare";
 import { cutEmbed, EMBED_FRAME_HEADERS } from "../lib/embeds";
 import { monthDayKeys, onThisDay } from "../lib/onThisDay";
 
@@ -73,6 +74,29 @@ test("saved collections round-trip one, many, and max-size Cut sets", async () =
   );
   assert.match(html, /Saved Cuts/);
   assert.match(html, /Evidence/);
+});
+
+test("the client save widget encodes a working set the server decodes identically", () => {
+  const hrefs = CURATED_CUTS.slice(0, 3).map((c) => cutHref(curatedCut(c)));
+
+  // The browser-side encoder (collectionShare) matches the server encoder byte-for-byte.
+  assert.equal(encodeCollectionHrefs(hrefs), encodeCollection(CURATED_CUTS.slice(0, 3).map(curatedCut)));
+
+  const share = collectionShareHref(hrefs);
+  assert.ok(share.startsWith("/collection?c="));
+  const param = new URL(share, "https://unitedstats.test").searchParams.get("c") ?? "";
+  const decoded = decodeCollection(param);
+  assert.equal(decoded.ok, true);
+  if (decoded.ok) {
+    assert.equal(decoded.collection.cuts.length, 3);
+    assert.equal(decoded.collection.cuts[0].href, hrefs[0]);
+  }
+
+  // Removing an item re-encodes to a smaller, still-valid collection URL.
+  const removed = collectionShareHref(hrefs.filter((_, i) => i !== 1));
+  const removedDecoded = decodeCollection(new URL(removed, "https://unitedstats.test").searchParams.get("c") ?? "");
+  assert.equal(removedDecoded.ok, true);
+  if (removedDecoded.ok) assert.equal(removedDecoded.collection.cuts.length, 2);
 });
 
 test("saved collections reject over-cap inputs without truncating state and are noindex", async () => {

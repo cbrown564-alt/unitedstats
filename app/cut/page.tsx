@@ -12,6 +12,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { CoverageNote } from "@/components/CoverageNote";
 import { CutControls } from "@/components/cut/CutControls";
 import { CutChart } from "@/components/cut/CutChart";
+import { SaveToCollection } from "@/components/cut/SaveToCollection";
 
 export const dynamic = "force-dynamic";
 
@@ -147,6 +148,8 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
           </div>
         </section>
       )}
+
+      {headline && coverage.grade !== "empty" && <SaveToCollection href={cutHref(cut)} />}
 
       <CutControls cut={cut} competitions={competitions} seasons={seasons} />
 
