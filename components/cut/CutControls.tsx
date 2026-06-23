@@ -6,26 +6,25 @@ import { SUBJECTS, dimensionsFor, metricsFor, cutHref, type Cut, type CutSubject
 const TYPE_FILTER_KEYS = ["league", "cup", "domestic-cup", "league-cup", "european", "unofficial"];
 const RESULT_FILTER_KEYS = ["W", "D", "L"];
 
-// Pill treatment: a solid, filled active state (tactile, reads as "pressed") over a
-// quiet ghost idle — a clear lift from the old translucent-border selection.
-const chipTone = (active: boolean) =>
+// A pill: solid filled active (reads as "pressed"), quiet idle. Both states carry a
+// border so the box never shifts size between them — the source of the old jitter.
+const PILL_BASE =
+  "tap-target inline-flex h-9 items-center rounded-full border px-3.5 text-[13px] leading-none transition-colors focus-ring";
+const pillTone = (active: boolean) =>
   active
     ? "border-devil bg-devil font-semibold text-ink shadow-[0_1px_2px_rgb(0_0_0_/_0.4)]"
     : "border-line bg-panel-2/40 text-ink-dim hover:border-ink-faint/60 hover:bg-panel-2 hover:text-ink";
 
-const fieldLabel = "mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint";
+const legendCls =
+  "shrink-0 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-faint sm:w-[4.5rem]";
+const fieldLabel = "mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-faint";
 
 /**
- * The fork controls: re-cut the record without a form. The two parameters that
- * change the *answer* — what to group by (the dimension) and what to rank by (the
- * metric/lens) — are tappable dials, each chip a link to a new Cut URL that keeps
- * the current filters. Changing either is a fork: a new shareable Cut. The narrower
- * filters that change the *slice* stay a demoted GET form beneath, carrying the
- * active dimension and metric so submitting never drops the lens.
- *
- * Dials over inline form fields is the Phase 12 mobile decision: the primary
- * controls are big tap targets a reader picks, not boxes they fill; the sticky
- * mobile bar (on /cut) anchors here so they are one tap away deep in a long ladder.
+ * The fork controls as one tactile deck. The parameters that change the *answer* —
+ * the subject (team or players), what to group by, and what to rank by — are pill
+ * rails, each chip a link to a new Cut URL that keeps the current filters. The
+ * narrower filters that change the *slice* stay a demoted GET form beneath, carrying
+ * the active subject/dimension/metric so submitting never drops the lens.
  */
 export function CutControls({
   cut,
@@ -60,9 +59,9 @@ export function CutControls({
     <section
       id="cut-controls"
       aria-label="Re-cut the record"
-      className="scroll-mt-20 overflow-hidden rounded-xl border border-line bg-panel shadow-[inset_0_1px_0_rgb(255_255_255_/_0.045),0_18px_36px_-20px_rgb(0_0_0_/_0.7)]"
+      className="scroll-mt-20 overflow-hidden rounded-xl border border-line bg-panel shadow-[inset_0_1px_0_rgb(255_255_255_/_0.04),0_18px_36px_-22px_rgb(0_0_0_/_0.75)]"
     >
-      <div className="space-y-3.5 p-4 sm:p-5">
+      <div className="space-y-3 p-4 sm:p-5">
         <Rail legend="Subject">
           <SubjectToggle options={subjectOptions} />
         </Rail>
@@ -90,81 +89,60 @@ export function CutControls({
         </Rail>
       </div>
 
-      <details className="border-t border-line bg-panel-2/30 px-3.5 py-3 sm:px-4" open={hasRefinement(filters)}>
-        <summary className="cursor-pointer select-none list-none text-xs font-semibold uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
-          <span className="text-devil-bright" aria-hidden>▸ </span>Narrow the slice
+      <details className="group/slice border-t border-line bg-panel-2/25 px-4 py-3.5 sm:px-5" open={hasRefinement(filters)}>
+        <summary className="flex cursor-pointer select-none list-none items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-dim transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
+          <Chevron className="h-3 w-3 -rotate-90 text-devil-bright transition-transform duration-200 group-open/slice:rotate-0" />
+          Narrow the slice
         </summary>
-        {/* GET to /cut, carrying the active dimension and metric so a filtered
+        {/* GET to /cut, carrying the active subject/dimension/metric so a filtered
             submit keeps the same answer shape — only the slice changes. */}
-        <form className="mt-3 grid gap-3 md:grid-cols-12" method="get" action="/cut">
+        <form className="mt-4 grid gap-x-3 gap-y-3.5 md:grid-cols-12" method="get" action="/cut">
           {subject === "player" && <input type="hidden" name="subject" value="player" />}
           <input type="hidden" name="by" value={dimension} />
           <input type="hidden" name="metric" value={metric} />
-          <label className="md:col-span-4">
-            <span className={fieldLabel}>Opponent</span>
-            <input
-              type="search"
-              name="q"
-              defaultValue={filters.q ?? ""}
-              placeholder="Arsenal, Liverpool, Leeds"
-              className="control w-full"
-            />
-          </label>
-          <label className="md:col-span-4">
-            <span className={fieldLabel}>Competition</span>
-            <select name="competition" defaultValue={filters.competition ?? ""} className="control w-full">
-              <option value="">All competitions</option>
-              {competitions.map((c) => (
-                <option key={c.id} value={c.id}>{c.name} ({fmtNum(c.n)})</option>
-              ))}
-            </select>
-          </label>
-          <label className="md:col-span-2">
-            <span className={fieldLabel}>Season</span>
-            <select name="season" defaultValue={filters.season ?? ""} className="control w-full">
-              <option value="">All seasons</option>
-              {seasons.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-          </label>
-          <label className="md:col-span-2">
-            <span className={fieldLabel}>Match type</span>
-            <select name="type" defaultValue={filters.type ?? ""} className="control w-full">
-              <option value="">Any type</option>
-              {TYPE_FILTER_KEYS.map((t) => (
-                <option key={t} value={t}>{COMPETITION_TYPE_LABELS[t]}</option>
-              ))}
-            </select>
-          </label>
-          <label className="md:col-span-2">
-            <span className={fieldLabel}>Venue</span>
-            <select name="venue" defaultValue={filters.venue ?? ""} className="control w-full">
-              <option value="">Any venue</option>
-              <option value="H">Home</option>
-              <option value="A">Away</option>
-              <option value="N">Neutral</option>
-            </select>
-          </label>
-          <label className="md:col-span-2">
-            <span className={fieldLabel}>Result</span>
-            <select name="result" defaultValue={filters.result ?? ""} className="control w-full">
-              <option value="">Any result</option>
-              {RESULT_FILTER_KEYS.map((r) => (
-                <option key={r} value={r}>{resultLabel(r)}</option>
-              ))}
-            </select>
-          </label>
-          <label className="md:col-span-2">
-            <span className={fieldLabel}>From</span>
-            <input type="text" name="from" defaultValue={filters.from ?? ""} placeholder="1886" className="control w-full" />
-          </label>
-          <label className="md:col-span-2">
-            <span className={fieldLabel}>To</span>
-            <input type="text" name="to" defaultValue={filters.to ?? ""} placeholder="2026" className="control w-full" />
-          </label>
-          <div className="flex items-end gap-2 md:col-span-2">
-            <button className="min-h-[2.375rem] flex-1 rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
+
+          <TextField
+            className="md:col-span-4"
+            label="Opponent"
+            name="q"
+            type="search"
+            defaultValue={filters.q ?? ""}
+            placeholder="Arsenal, Liverpool, Leeds"
+          />
+          <SelectField className="md:col-span-4" label="Competition" name="competition" defaultValue={filters.competition ?? ""}>
+            <option value="">All competitions</option>
+            {competitions.map((c) => (
+              <option key={c.id} value={c.id}>{c.name} ({fmtNum(c.n)})</option>
+            ))}
+          </SelectField>
+          <SelectField className="md:col-span-2" label="Season" name="season" defaultValue={filters.season ?? ""}>
+            <option value="">All seasons</option>
+            {seasons.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </SelectField>
+          <SelectField className="md:col-span-2" label="Match type" name="type" defaultValue={filters.type ?? ""}>
+            <option value="">Any type</option>
+            {TYPE_FILTER_KEYS.map((t) => (
+              <option key={t} value={t}>{COMPETITION_TYPE_LABELS[t]}</option>
+            ))}
+          </SelectField>
+          <SelectField className="md:col-span-2" label="Venue" name="venue" defaultValue={filters.venue ?? ""}>
+            <option value="">Any venue</option>
+            <option value="H">Home</option>
+            <option value="A">Away</option>
+            <option value="N">Neutral</option>
+          </SelectField>
+          <SelectField className="md:col-span-2" label="Result" name="result" defaultValue={filters.result ?? ""}>
+            <option value="">Any result</option>
+            {RESULT_FILTER_KEYS.map((r) => (
+              <option key={r} value={r}>{resultLabel(r)}</option>
+            ))}
+          </SelectField>
+          <TextField className="md:col-span-2" label="From" name="from" defaultValue={filters.from ?? ""} placeholder="1886" />
+          <TextField className="md:col-span-2" label="To" name="to" defaultValue={filters.to ?? ""} placeholder="2026" />
+          <div className="flex items-end md:col-span-2">
+            <button className="h-[2.375rem] w-full rounded-md bg-devil px-4 text-sm font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
               Apply
             </button>
           </div>
@@ -176,13 +154,10 @@ export function CutControls({
 
 interface Option { key: string; label: string; href: string; active: boolean }
 
-const legendCls =
-  "shrink-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-faint sm:w-[3.75rem] sm:pt-1.5";
-
-/** A labelled control row in the deck: small-caps legend, control to its right. */
+/** A labelled control row in the deck: small-caps legend, control centred beside it. */
 function Rail({ legend, children }: { legend: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3.5">
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
       <span className={legendCls}>{legend}</span>
       <div className="min-w-0 flex-1">{children}</div>
     </div>
@@ -198,7 +173,7 @@ function Pills({ options }: { options: Option[] }) {
           key={o.key}
           href={o.href}
           aria-current={o.active ? "true" : undefined}
-          className={`tap-target rounded-full border px-3 py-1.5 text-[13px] transition-all focus-ring ${chipTone(o.active)}`}
+          className={`${PILL_BASE} ${pillTone(o.active)}`}
         >
           {o.label}
         </Link>
@@ -207,25 +182,84 @@ function Pills({ options }: { options: Option[] }) {
   );
 }
 
-/** The Team/Players switch: a true segmented control with a filled active segment. */
+/** The Team/Players switch: a segmented control sharing the pills' height and radius,
+ *  the active segment filled — one cohesive family with the rails below. */
 function SubjectToggle({ options }: { options: Option[] }) {
   return (
-    <div className="inline-flex rounded-lg bg-pitch/60 p-0.5 ring-1 ring-line">
+    <div className="inline-flex h-9 items-center gap-0.5 rounded-full bg-pitch/70 p-1 ring-1 ring-inset ring-line">
       {options.map((o) => (
         <Link
           key={o.key}
           href={o.href}
           aria-current={o.active ? "true" : undefined}
-          className={`tap-target rounded-[0.4rem] px-4 py-1.5 text-sm font-semibold transition-colors focus-ring ${
-            o.active
-              ? "bg-devil text-ink shadow-[0_1px_2px_rgb(0_0_0_/_0.45)]"
-              : "text-ink-dim hover:text-ink"
+          className={`tap-target inline-flex h-7 items-center rounded-full px-4 text-[13px] font-semibold leading-none transition-colors focus-ring ${
+            o.active ? "bg-devil text-ink shadow-[0_1px_2px_rgb(0_0_0_/_0.45)]" : "text-ink-dim hover:text-ink"
           }`}
         >
           {o.label}
         </Link>
       ))}
     </div>
+  );
+}
+
+/** A labelled text/search input in the slice form. */
+function TextField({
+  className,
+  label,
+  name,
+  defaultValue,
+  placeholder,
+  type = "text",
+}: {
+  className?: string;
+  label: string;
+  name: string;
+  defaultValue: string;
+  placeholder?: string;
+  type?: string;
+}) {
+  return (
+    <label className={className}>
+      <span className={fieldLabel}>{label}</span>
+      <input type={type} name={name} defaultValue={defaultValue} placeholder={placeholder} className="control w-full" />
+    </label>
+  );
+}
+
+/** A labelled select with a custom chevron (the native one reads cheap on dark). */
+function SelectField({
+  className,
+  label,
+  name,
+  defaultValue,
+  children,
+}: {
+  className?: string;
+  label: string;
+  name: string;
+  defaultValue: string;
+  children: ReactNode;
+}) {
+  return (
+    <label className={className}>
+      <span className={fieldLabel}>{label}</span>
+      <div className="relative">
+        <select name={name} defaultValue={defaultValue} className="control w-full appearance-none pr-9">
+          {children}
+        </select>
+        <Chevron className="pointer-events-none absolute right-3 top-1/2 h-3 w-3 -translate-y-1/2 text-ink-faint" />
+      </div>
+    </label>
+  );
+}
+
+/** A down chevron ("v"); callers rotate it for the disclosure caret. */
+function Chevron({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 12 12" aria-hidden className={className}>
+      <path d="m2.5 4.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
