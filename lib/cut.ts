@@ -25,19 +25,34 @@ import { queryString } from "./url";
  * own completeness. It is the spec's coverage field, attached to the result.
  */
 
+/** What a Cut counts: the team's match record, or players' output. The subject
+ *  gates which dimensions and metrics are valid and which fact source is queried;
+ *  everything downstream (ranking, the chart, coverage, the fork URL) is shared. */
+export type CutSubject = "team" | "player";
+
 export type CutDimension =
-  | "decade" | "season" | "type" | "competition" | "venue" | "result" | "opponent" | "manager";
+  // shared (match-based): valid for both subjects
+  | "season" | "decade" | "type" | "competition" | "venue" | "opponent"
+  // team-only
+  | "result" | "manager"
+  // player-only
+  | "player";
 
 /** The lens — the measure that ranks the ladder and supplies the headline figure. */
-export type CutMetric = "winrate" | "ppg" | "gd" | "matches";
+export type CutMetric =
+  // team
+  | "winrate" | "ppg" | "gd" | "matches"
+  // player
+  | "goals" | "apps" | "starts" | "goalsperapp";
 
 /** The cut's slice — the subset of {@link MatchFilter} that round-trips through the URL. */
 export type CutFilters = Pick<
   MatchFilter,
-  "competition" | "opponent" | "manager" | "season" | "venue" | "result" | "type" | "from" | "to" | "q"
+  "competition" | "opponent" | "manager" | "season" | "venue" | "result" | "type" | "from" | "to" | "q" | "player"
 >;
 
 export interface Cut {
+  subject: CutSubject;
   dimension: CutDimension;
   filters: CutFilters;
   metric: CutMetric;
@@ -45,33 +60,51 @@ export interface Cut {
   curated: boolean;
 }
 
-// ---- dimensions ----------------------------------------------------------
-
-export const DIMENSIONS: { key: CutDimension; label: string; short: string; noun: string }[] = [
-  { key: "decade", label: "By decade", short: "Decade", noun: "decades" },
-  { key: "season", label: "By season", short: "Season", noun: "seasons" },
-  { key: "type", label: "By competition type", short: "Type", noun: "competition types" },
-  { key: "competition", label: "By competition", short: "Competition", noun: "competitions" },
-  { key: "venue", label: "By venue", short: "Venue", noun: "venues" },
-  { key: "result", label: "By result", short: "Result", noun: "results" },
-  { key: "opponent", label: "By opponent", short: "Opponent", noun: "opponents" },
-  { key: "manager", label: "By manager", short: "Manager", noun: "managers" },
+export const SUBJECTS: { key: CutSubject; label: string }[] = [
+  { key: "team", label: "Team" },
+  { key: "player", label: "Players" },
 ];
 
-const DIM_KEYS = new Set(DIMENSIONS.map((d) => d.key));
+// ---- dimensions ----------------------------------------------------------
+
+interface DimMeta { key: CutDimension; label: string; short: string; noun: string }
+
+const DIM_META: Record<CutDimension, DimMeta> = {
+  season: { key: "season", label: "By season", short: "Season", noun: "seasons" },
+  decade: { key: "decade", label: "By decade", short: "Decade", noun: "decades" },
+  type: { key: "type", label: "By competition type", short: "Type", noun: "competition types" },
+  competition: { key: "competition", label: "By competition", short: "Competition", noun: "competitions" },
+  venue: { key: "venue", label: "By venue", short: "Venue", noun: "venues" },
+  result: { key: "result", label: "By result", short: "Result", noun: "results" },
+  opponent: { key: "opponent", label: "By opponent", short: "Opponent", noun: "opponents" },
+  manager: { key: "manager", label: "By manager", short: "Manager", noun: "managers" },
+  player: { key: "player", label: "By player", short: "Player", noun: "players" },
+};
+
+const DIM_ORDER: Record<CutSubject, CutDimension[]> = {
+  team: ["decade", "season", "type", "competition", "venue", "result", "opponent", "manager"],
+  player: ["player", "season", "decade", "competition", "type", "opponent", "venue"],
+};
+
+/** The dimensions a reader can group by within a subject (ordered for the rail). */
+export function dimensionsFor(subject: CutSubject): DimMeta[] {
+  return DIM_ORDER[subject].map((k) => DIM_META[k]);
+}
+
 export function dimensionLabel(dim: CutDimension): string {
-  return DIMENSIONS.find((d) => d.key === dim)?.short ?? dim;
+  return DIM_META[dim]?.short ?? dim;
 }
 
 /** Plural noun for a dimension's groups ("opponents"), singularised for a count of one. */
 function dimensionNoun(dim: CutDimension, n: number): string {
-  const plural = DIMENSIONS.find((d) => d.key === dim)?.noun ?? "groups";
+  const plural = DIM_META[dim]?.noun ?? "groups";
   return n === 1 ? plural.replace(/s$/, "") : plural;
 }
 
 /** Chronological dimensions (decade, season) read in time order, not metric rank. */
+const CHRONO_DIMS = new Set<CutDimension>(["decade", "season"]);
 export function isChronological(dim: CutDimension): boolean {
-  return DIMS[dim].naturalOrder === "label";
+  return CHRONO_DIMS.has(dim);
 }
 
 interface DimConfig {
@@ -88,7 +121,7 @@ interface DimConfig {
   naturalOrder: "label" | "metric";
 }
 
-const DIMS: Record<CutDimension, DimConfig> = {
+const DIMS: Record<Exclude<CutDimension, "player">, DimConfig> = {
   decade: {
     groupExpr: "substr(m.date,1,3) || '0s'",
     labelExpr: "substr(m.date,1,3) || '0s'",
@@ -154,19 +187,34 @@ const DIMS: Record<CutDimension, DimConfig> = {
 
 // ---- metrics (the lens) --------------------------------------------------
 
-export const METRICS: { key: CutMetric; label: string; short: string }[] = [
-  { key: "winrate", label: "Win rate", short: "Win %" },
-  { key: "ppg", label: "Points per game", short: "PPG" },
-  { key: "gd", label: "Goal difference", short: "GD" },
-  { key: "matches", label: "Matches played", short: "Played" },
-];
+interface MetricMeta { key: CutMetric; label: string; short: string }
 
-const METRIC_KEYS = new Set(METRICS.map((m) => m.key));
-export function metricLabel(metric: CutMetric): string {
-  return METRICS.find((m) => m.key === metric)?.label ?? metric;
+const METRIC_META: Record<CutMetric, MetricMeta> = {
+  winrate: { key: "winrate", label: "Win rate", short: "Win %" },
+  ppg: { key: "ppg", label: "Points per game", short: "PPG" },
+  gd: { key: "gd", label: "Goal difference", short: "GD" },
+  matches: { key: "matches", label: "Matches played", short: "Played" },
+  goals: { key: "goals", label: "Goals", short: "Goals" },
+  apps: { key: "apps", label: "Appearances", short: "Apps" },
+  starts: { key: "starts", label: "Starts", short: "Starts" },
+  goalsperapp: { key: "goalsperapp", label: "Goals per app", short: "G/app" },
+};
+
+const METRIC_ORDER: Record<CutSubject, CutMetric[]> = {
+  team: ["winrate", "ppg", "gd", "matches"],
+  player: ["goals", "apps", "starts", "goalsperapp"],
+};
+
+/** The metrics a reader can rank by within a subject (ordered for the rail). */
+export function metricsFor(subject: CutSubject): MetricMeta[] {
+  return METRIC_ORDER[subject].map((k) => METRIC_META[k]);
 }
 
-/** The metric's value for one group's record, or null when undefined (rate over 0). */
+export function metricLabel(metric: CutMetric): string {
+  return METRIC_META[metric]?.label ?? metric;
+}
+
+/** The metric's value for one team group's record, or null when undefined (rate over 0). */
 function metricValue(r: Record_, metric: CutMetric): number | null {
   switch (metric) {
     case "winrate":
@@ -177,6 +225,8 @@ function metricValue(r: Record_, metric: CutMetric): number | null {
       return r.gf - r.ga;
     case "matches":
       return r.p;
+    default:
+      return null; // player metrics are computed in runPlayerCut
   }
 }
 
@@ -187,32 +237,49 @@ export function metricFmt(value: number | null, metric: CutMetric): string {
     case "winrate":
       return `${value.toFixed(1)}%`;
     case "ppg":
+    case "goalsperapp":
       return value.toFixed(2);
     case "gd":
       return value > 0 ? `+${fmtNum(value)}` : fmtNum(value);
     case "matches":
+    case "goals":
+    case "apps":
+    case "starts":
       return fmtNum(value);
   }
 }
 
 /** Rate metrics mislead on tiny groups (a 100% win rate over two games tops nothing
- *  meaningful). Below this many matches a rate figure is "thin": it is flagged, sunk
- *  to the bottom of the ladder, and never eligible to headline — matching the
- *  "met at least twenty times" convention the bogey-sides question already uses. */
+ *  meaningful). Below this many matches/appearances a rate figure is "thin": it is
+ *  flagged, sunk to the bottom of the ladder, and never eligible to headline —
+ *  matching the "met at least twenty times" convention the questions already use. */
 const MIN_RATE_SAMPLE = 20;
-const RATE_METRICS = new Set<CutMetric>(["winrate", "ppg"]);
+const RATE_METRICS = new Set<CutMetric>(["winrate", "ppg", "goalsperapp"]);
+/** Count metrics headline as "the most of N", not "the strongest". */
+const COUNT_METRICS = new Set<CutMetric>(["matches", "goals", "apps", "starts"]);
 
 // ---- the engine ----------------------------------------------------------
 
-export interface CutGroup extends Record_ {
+export interface CutGroup {
   key: string;
   label: string;
-  /** /matches link reproducing exactly this group's matches within the base filter. */
+  /** Evidence link reproducing exactly this group within the base filter. */
   href: string;
   /** The active-metric value, already computed. */
   value: number | null;
   /** A rate figure standing on a small sample — flagged, not hidden. */
   thin: boolean;
+  /** Primary volume for the group: matches (team) or appearances (player). */
+  p: number;
+  /** Pre-built context line for tooltips, e.g. "1,184 matches · 600W 300D 284L"
+   *  (team) or "559 apps · 253 goals" (player) — keeps the chart subject-agnostic. */
+  meta: string;
+  // Team record fields (zero for player groups); drive the form-bar baselines.
+  w: number;
+  d: number;
+  l: number;
+  gf: number;
+  ga: number;
 }
 
 type CutGrade = "complete" | "partial" | "empty";
@@ -243,8 +310,11 @@ export interface CutResult {
   groups: CutGroup[];
   /** Group count before the display cap. */
   total: number;
-  /** Matches across the whole slice (every group summed). */
+  /** Volume across the whole slice: matches (team) or appearances (player). */
   played: number;
+  /** Slice-wide average for the lens — a contextual baseline drawn behind the chart;
+   *  null for count metrics (matches, goals, apps, starts) where no line is meaningful. */
+  baseline: number | null;
   /** The standout group for the active metric, or null over an empty slice. */
   headline: CutHeadline | null;
   coverage: CutCoverage;
@@ -254,7 +324,7 @@ export interface CutResult {
 function baseParams(f: CutFilters): Record<string, string | undefined> {
   return {
     competition: f.competition, opponent: f.opponent, manager: f.manager, season: f.season,
-    venue: f.venue, result: f.result, type: f.type, from: f.from, to: f.to, q: f.q,
+    venue: f.venue, result: f.result, type: f.type, from: f.from, to: f.to, q: f.q, player: f.player,
   };
 }
 
@@ -265,7 +335,12 @@ function baseParams(f: CutFilters): Record<string, string | undefined> {
  * high-cardinality cut (every opponent) stays readable, with the true count kept.
  */
 export function runCut(cut: Cut, cap = 60): CutResult {
-  const cfg = DIMS[cut.dimension];
+  return cut.subject === "player" ? runPlayerCut(cut, cap) : runTeamCut(cut, cap);
+}
+
+/** The team record, grouped by a match dimension and measured by a result metric. */
+function runTeamCut(cut: Cut, cap: number): CutResult {
+  const cfg = DIMS[cut.dimension as Exclude<CutDimension, "player">];
   const { cond, params } = matchWhere(cut.filters);
   const rows = getDb()
     .prepare(
@@ -280,7 +355,10 @@ export function runCut(cut: Cut, cap = 60): CutResult {
     .all(params) as (Record_ & { gkey: string; glabel: string })[];
 
   const base = baseParams(cut.filters);
-  const played = rows.reduce((s, r) => s + r.p, 0);
+  const t = rows.reduce(
+    (a, r) => ({ p: a.p + r.p, w: a.w + r.w, d: a.d + r.d, gf: a.gf + r.gf, ga: a.ga + r.ga }),
+    { p: 0, w: 0, d: 0, gf: 0, ga: 0 },
+  );
 
   const groups: CutGroup[] = rows.map((r) => ({
     key: r.gkey,
@@ -289,6 +367,7 @@ export function runCut(cut: Cut, cap = 60): CutResult {
     p: r.p, w: r.w, d: r.d, l: r.l, gf: r.gf, ga: r.ga,
     value: metricValue(r, cut.metric),
     thin: RATE_METRICS.has(cut.metric) && r.p < MIN_RATE_SAMPLE,
+    meta: `${fmtNum(r.p)} matches · ${r.w}W ${r.d}D ${r.l}L`,
   }));
 
   rankGroups(groups, cut.dimension, cut.metric);
@@ -297,10 +376,164 @@ export function runCut(cut: Cut, cap = 60): CutResult {
     cut,
     groups: groups.slice(0, cap),
     total: groups.length,
-    played,
-    headline: buildHeadline(groups, cut.metric, cut.dimension),
-    coverage: gradeCoverage(cut, played),
+    played: t.p,
+    baseline: teamBaseline(cut.metric, t),
+    headline: buildHeadline(groups, cut.metric, cut.dimension, cut.subject),
+    coverage: gradeCoverage(cut, t.p),
   };
+}
+
+/** Slice-wide average for a team lens: the contextual baseline behind the chart. */
+function teamBaseline(metric: CutMetric, t: { p: number; w: number; d: number }): number | null {
+  if (t.p === 0) return null;
+  switch (metric) {
+    case "winrate":
+      return (100 * t.w) / t.p;
+    case "ppg":
+      return (3 * t.w + t.d) / t.p;
+    case "gd":
+      return 0;
+    default:
+      return null;
+  }
+}
+
+// ---- the player engine ---------------------------------------------------
+
+/** A player group's tally, merged from the two fact sources. */
+interface PlayerAcc { glabel: string; apps: number; starts: number; goals: number }
+
+/** Player output, grouped by a dimension and measured by goals/apps/starts/rate.
+ *
+ *  Two complete-history sources are merged per group: appearances and starts from
+ *  `match_lineups` (a player appeared if he started or came on), goals from
+ *  `match_events`. A `player` filter is applied at the *attribution* level (count
+ *  this player's output) rather than as a match filter, so "X's goals by season"
+ *  counts X's goals — not every goal in the matches X played. Every other filter
+ *  narrows the matches the output is drawn from. */
+function runPlayerCut(cut: Cut, cap: number): CutResult {
+  const dim = cut.dimension;
+  const matchFilters: CutFilters = { ...cut.filters };
+  const playerId = matchFilters.player;
+  delete matchFilters.player;
+  const { cond, params } = matchWhere(matchFilters);
+  const extra = cond ? cond.replace(/^WHERE /, " AND ") : "";
+  const bind = playerId ? { ...params, cutPlayer: playerId } : params;
+  const pClause = (col: string) => (playerId ? ` AND ${col} = @cutPlayer` : "");
+
+  const appsCols = playerDimSelect(dim, "l.player_id");
+  const appsRows = getDb()
+    .prepare(
+      `SELECT ${appsCols.group} AS gkey, ${appsCols.label} AS glabel,
+              COUNT(*) AS apps, COALESCE(SUM(l.started=1),0) AS starts
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       JOIN competitions c ON c.id = m.competition_id
+       ${appsCols.joins}
+       WHERE l.player_side='united' AND (l.started=1 OR l.sub_on IS NOT NULL)${pClause("l.player_id")}${extra}
+       GROUP BY gkey HAVING gkey IS NOT NULL`,
+    )
+    .all(bind) as { gkey: string; glabel: string; apps: number; starts: number }[];
+
+  const goalsCols = playerDimSelect(dim, "e.player_id");
+  const goalsRows = getDb()
+    .prepare(
+      `SELECT ${goalsCols.group} AS gkey, ${goalsCols.label} AS glabel, COUNT(*) AS goals
+       FROM match_events e
+       JOIN matches m ON m.id = e.match_id
+       JOIN competitions c ON c.id = m.competition_id
+       ${goalsCols.joins}
+       WHERE e.player_side='united' AND e.type IN ('goal','pen-goal')${pClause("e.player_id")}${extra}
+       GROUP BY gkey HAVING gkey IS NOT NULL`,
+    )
+    .all(bind) as { gkey: string; glabel: string; goals: number }[];
+
+  const merged = new Map<string, PlayerAcc>();
+  for (const r of appsRows) {
+    merged.set(String(r.gkey), { glabel: r.glabel, apps: r.apps, starts: r.starts, goals: 0 });
+  }
+  for (const r of goalsRows) {
+    const k = String(r.gkey);
+    const cur = merged.get(k);
+    if (cur) cur.goals = r.goals;
+    else merged.set(k, { glabel: r.glabel, apps: 0, starts: 0, goals: r.goals });
+  }
+
+  const base = baseParams(cut.filters);
+  const fmtLabel = dim === "player" ? undefined : DIMS[dim as Exclude<CutDimension, "player">].fmtLabel;
+
+  let totalApps = 0;
+  let totalGoals = 0;
+  const groups: CutGroup[] = [];
+  for (const [gkey, a] of merged) {
+    totalApps += a.apps;
+    totalGoals += a.goals;
+    groups.push({
+      key: gkey,
+      label: fmtLabel ? fmtLabel(gkey) : a.glabel,
+      href: playerHref(dim, gkey, base, cut.filters),
+      value: playerValue(cut.metric, a),
+      thin: RATE_METRICS.has(cut.metric) && a.apps < MIN_RATE_SAMPLE,
+      p: a.apps,
+      meta: `${fmtNum(a.apps)} apps · ${fmtNum(a.starts)} starts · ${fmtNum(a.goals)} goals`,
+      w: 0, d: 0, l: 0, gf: 0, ga: 0,
+    });
+  }
+
+  rankGroups(groups, dim, cut.metric);
+  const baseline = cut.metric === "goalsperapp" && totalApps > 0 ? totalGoals / totalApps : null;
+
+  return {
+    cut,
+    groups: groups.slice(0, cap),
+    total: groups.length,
+    played: totalApps,
+    baseline,
+    headline: buildHeadline(groups, cut.metric, dim, cut.subject),
+    coverage: gradeCoverage(cut, totalApps),
+  };
+}
+
+function playerValue(metric: CutMetric, a: PlayerAcc): number | null {
+  switch (metric) {
+    case "goals":
+      return a.goals;
+    case "apps":
+      return a.apps;
+    case "starts":
+      return a.starts;
+    case "goalsperapp":
+      return a.apps > 0 ? a.goals / a.apps : null;
+    default:
+      return null;
+  }
+}
+
+/** Group/label/joins for a player dimension, parameterised by the base table's
+ *  player-id column (`l.player_id` for lineups, `e.player_id` for events). Match
+ *  dimensions reuse the team SQL (it reads `m`/`c`, joined in both queries). */
+function playerDimSelect(
+  dim: CutDimension,
+  pidCol: string,
+): { group: string; label: string; joins: string } {
+  if (dim === "player") {
+    return { group: pidCol, label: "pl.name", joins: `JOIN players pl ON pl.id = ${pidCol}` };
+  }
+  const cfg = DIMS[dim as Exclude<CutDimension, "player">];
+  return { group: cfg.groupExpr, label: cfg.labelExpr, joins: cfg.join ?? "" };
+}
+
+/** Evidence link for a player group: the player's page for a by-player row, else
+ *  the matches behind the slice (carrying any player filter) via /matches. */
+function playerHref(
+  dim: CutDimension,
+  gkey: string,
+  base: Record<string, string | undefined>,
+  filters: CutFilters,
+): string {
+  if (dim === "player") return `/player/${gkey}`;
+  const cfg = DIMS[dim as Exclude<CutDimension, "player">];
+  return `/matches${queryString({ ...base, ...cfg.groupParam(gkey, filters) })}`;
 }
 
 /** Sort in place: a chronological dimension reads in key order; everything else by
@@ -308,7 +541,7 @@ export function runCut(cut: Cut, cap = 60): CutResult {
  *  the ladder leads with figures that mean something and stays coherent with the
  *  headline; ties break by sample size then label so order is deterministic. */
 function rankGroups(groups: CutGroup[], dim: CutDimension, metric: CutMetric): void {
-  if (DIMS[dim].naturalOrder === "label") {
+  if (isChronological(dim)) {
     groups.sort((a, b) => a.label.localeCompare(b.label));
     return;
   }
@@ -325,7 +558,12 @@ function rankGroups(groups: CutGroup[], dim: CutDimension, metric: CutMetric): v
 
 /** The headline finding: the standout group for the metric. Rate metrics ignore
  *  thin samples so a 100% win rate over two games never leads the cut. */
-function buildHeadline(groups: CutGroup[], metric: CutMetric, dim: CutDimension): CutHeadline | null {
+function buildHeadline(
+  groups: CutGroup[],
+  metric: CutMetric,
+  dim: CutDimension,
+  subject: CutSubject,
+): CutHeadline | null {
   if (groups.length === 0) return null;
   const eligible = RATE_METRICS.has(metric) ? groups.filter((g) => !g.thin) : groups;
   const ranked = [...(eligible.length ? eligible : groups)].sort((a, b) => {
@@ -337,10 +575,13 @@ function buildHeadline(groups: CutGroup[], metric: CutMetric, dim: CutDimension)
   if (!top || top.value === null) return null;
 
   const noun = dimensionNoun(dim, groups.length);
-  const gloss =
-    metric === "matches"
-      ? `the most of ${fmtNum(groups.length)} ${noun}`
-      : `the strongest of ${fmtNum(groups.length)} ${noun}, from ${fmtNum(top.p)} ${top.p === 1 ? "match" : "matches"}`;
+  const volNoun =
+    subject === "player"
+      ? top.p === 1 ? "appearance" : "appearances"
+      : top.p === 1 ? "match" : "matches";
+  const gloss = COUNT_METRICS.has(metric)
+    ? `the most of ${fmtNum(groups.length)} ${noun}`
+    : `the strongest of ${fmtNum(groups.length)} ${noun}, from ${fmtNum(top.p)} ${volNoun}`;
 
   return {
     key: top.key,
@@ -360,10 +601,21 @@ function gradeCoverage(cut: Cut, played: number): CutCoverage {
   if (played === 0) {
     return {
       grade: "empty",
-      basis: "No matches fit this cut — loosen a filter or change the slice.",
+      basis:
+        cut.subject === "player"
+          ? "No appearances fit this cut — loosen a filter or change the slice."
+          : "No matches fit this cut — loosen a filter or change the slice.",
     };
   }
   const rate = RATE_METRICS.has(cut.metric);
+  if (cut.subject === "player") {
+    let basis =
+      "Appearances and goals from the match-by-match record — lineups cover all but a handful of the 6,000+ matches and goalscorers span the full history. Assists are not yet a player lens.";
+    if (rate) {
+      basis += ` ${metricLabel(cut.metric)} over fewer than ${MIN_RATE_SAMPLE} appearances is flagged thin and sorted below the solid groups, so a tiny sample never tops the ladder.`;
+    }
+    return { grade: "complete", basis };
+  }
   return {
     grade: "complete",
     basis: rate
@@ -375,7 +627,7 @@ function gradeCoverage(cut: Cut, played: number): CutCoverage {
 // ---- serialization -------------------------------------------------------
 
 const FILTER_KEYS: (keyof CutFilters)[] = [
-  "competition", "opponent", "manager", "season", "venue", "result", "type", "from", "to", "q",
+  "competition", "opponent", "manager", "season", "venue", "result", "type", "from", "to", "q", "player",
 ];
 
 /** A bare year (1999) expands to that year's edge; a full ISO date passes through,
@@ -385,14 +637,19 @@ function normalizeDateBound(v: string | undefined, edge: "from" | "to"): string 
   return /^\d{4}$/.test(v) ? `${v}-${edge === "from" ? "01-01" : "12-31"}` : v;
 }
 
-/** Read a Cut from URL search params (the /cut route's query string). */
+/** Read a Cut from URL search params (the /cut route's query string). The subject
+ *  gates the valid dimensions and metrics; anything out of range falls back to that
+ *  subject's default, so a stale or cross-subject URL never lands on an invalid cut. */
 export function cutFromParams(sp: Record<string, string | undefined>): Cut {
-  const dimension: CutDimension = DIM_KEYS.has(sp.by as CutDimension)
+  const subject: CutSubject = sp.subject === "player" ? "player" : "team";
+  const dims = DIM_ORDER[subject];
+  const metrics = METRIC_ORDER[subject];
+  const dimension: CutDimension = dims.includes(sp.by as CutDimension)
     ? (sp.by as CutDimension)
-    : "decade";
-  const metric: CutMetric = METRIC_KEYS.has(sp.metric as CutMetric)
+    : dims[0];
+  const metric: CutMetric = metrics.includes(sp.metric as CutMetric)
     ? (sp.metric as CutMetric)
-    : "winrate";
+    : metrics[0];
   const filters: CutFilters = {};
   for (const k of FILTER_KEYS) {
     const v = sp[k];
@@ -400,23 +657,39 @@ export function cutFromParams(sp: Record<string, string | undefined>): Cut {
   }
   filters.from = normalizeDateBound(filters.from, "from");
   filters.to = normalizeDateBound(filters.to, "to");
-  const cut: Cut = { dimension, metric, filters, curated: false };
+  const cut: Cut = { subject, dimension, metric, filters, curated: false };
   cut.curated = isCurated(cut);
   return cut;
 }
 
-/** The /cut URL that encodes this Cut. */
-export function cutHref(cut: { dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): string {
-  return `/cut${queryString({ by: cut.dimension, metric: cut.metric, ...(cut.filters ?? {}) })}`;
+/** The /cut URL that encodes this Cut. Team is the default subject, so team URLs
+ *  stay clean (no subject param) and curated canonical links are unchanged. */
+export function cutHref(cut: {
+  subject?: CutSubject;
+  dimension: CutDimension;
+  metric: CutMetric;
+  filters?: CutFilters;
+}): string {
+  return `/cut${queryString({
+    subject: cut.subject === "player" ? "player" : undefined,
+    by: cut.dimension,
+    metric: cut.metric,
+    ...(cut.filters ?? {}),
+  })}`;
 }
 
 /** A stable identity string for a cut's parameters, used to match the curated set. */
-function canonicalKey(cut: { dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): string {
+function canonicalKey(cut: {
+  subject?: CutSubject;
+  dimension: CutDimension;
+  metric: CutMetric;
+  filters?: CutFilters;
+}): string {
   const f = cut.filters ?? {};
   const filterPart = FILTER_KEYS.filter((k) => f[k])
     .map((k) => `${k}=${f[k]}`)
     .join("&");
-  return `${cut.dimension}|${cut.metric}|${filterPart}`;
+  return `${cut.subject ?? "team"}|${cut.dimension}|${cut.metric}|${filterPart}`;
 }
 
 // ---- the curated registry ------------------------------------------------
@@ -492,16 +765,16 @@ export const CURATED_CUTS: CuratedCut[] = [
 const CURATED_BY_KEY = new Map(CURATED_CUTS.map((c) => [canonicalKey(c), c]));
 
 /** Does this cut exactly match a registered curated cut? (Drives indexability.) */
-export function isCurated(cut: { dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): boolean {
+export function isCurated(cut: { subject?: CutSubject; dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): boolean {
   return CURATED_BY_KEY.has(canonicalKey(cut));
 }
 
 /** The curated entry a cut matches, if any — its prose, title, and slug. */
-export function curatedFor(cut: { dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): CuratedCut | undefined {
+export function curatedFor(cut: { subject?: CutSubject; dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): CuratedCut | undefined {
   return CURATED_BY_KEY.get(canonicalKey(cut));
 }
 
-/** The Cut a curated entry describes. */
+/** The Cut a curated entry describes. (All curated cuts are team cuts for now.) */
 export function curatedCut(c: CuratedCut): Cut {
-  return { dimension: c.dimension, metric: c.metric, filters: c.filters ?? {}, curated: true };
+  return { subject: "team", dimension: c.dimension, metric: c.metric, filters: c.filters ?? {}, curated: true };
 }

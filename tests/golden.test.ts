@@ -474,3 +474,59 @@ test("runCut aggregates the record and degrades honestly", () => {
     );
   }
 });
+
+test("player Cut ranks the squad and slices one player, from complete-history sources", () => {
+  // By-player goals reproduce the canonical all-time top scorer and headline him as
+  // the most of all players (a count metric — "the most", never "the strongest").
+  const scorers = runCut(cutFromParams({ subject: "player", by: "player", metric: "goals" }));
+  assert.equal(scorers.cut.subject, "player");
+  const top = scorers.groups[0];
+  assert.equal(top.key, "wayne-rooney");
+  assert.equal(top.value, 253);
+  assert.equal(scorers.headline?.key, "wayne-rooney");
+  assert.ok(scorers.headline, "expected a top-scorer headline");
+  assert.match(scorers.headline.gloss, /the most of [\d,]+ players/);
+  // A by-player row's evidence is the player's page; player cuts are forks (noindex).
+  assert.equal(top.href, "/player/wayne-rooney");
+  assert.equal(scorers.cut.curated, false);
+
+  // Single-player slice: grouping by season under a player filter counts THAT
+  // player's goals (attribution), not every goal in matches he played. The grouped
+  // total equals his recorded event goals, and his peak season matches a direct query.
+  const rooney = runCut(
+    cutFromParams({ subject: "player", by: "season", metric: "goals", player: "wayne-rooney" }),
+  );
+  const grouped = rooney.groups.reduce((s, g) => s + (g.value ?? 0), 0);
+  const directTotal = (
+    getDb()
+      .prepare(
+        "SELECT COUNT(*) n FROM match_events WHERE player_side='united' AND type IN ('goal','pen-goal') AND player_id='wayne-rooney'",
+      )
+      .get() as { n: number }
+  ).n;
+  assert.equal(grouped, directTotal);
+  const peak = getDb()
+    .prepare(
+      `SELECT m.season s, COUNT(*) n FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.player_side='united' AND e.type IN ('goal','pen-goal') AND e.player_id='wayne-rooney'
+       GROUP BY m.season ORDER BY n DESC, s LIMIT 1`,
+    )
+    .get() as { s: string; n: number };
+  const peakGroup = rooney.groups.find((g) => g.key === peak.s);
+  assert.ok(peakGroup && peakGroup.value === peak.n, "peak season goals match a direct query");
+
+  // A stale or cross-subject URL (a team dimension/metric under the player subject)
+  // falls back to the player defaults rather than producing an invalid cut.
+  const coerced = cutFromParams({ subject: "player", by: "manager", metric: "winrate" });
+  assert.equal(coerced.dimension, "player");
+  assert.equal(coerced.metric, "goals");
+
+  // subject survives the URL round-trip; team stays the clean default (no param).
+  const back = cutFromParams(Object.fromEntries(new URL(`https://x${cutHref(scorers.cut)}`).searchParams));
+  assert.equal(back.subject, "player");
+  assert.ok(!cutHref(cutFromParams({ by: "decade", metric: "winrate" })).includes("subject"));
+
+  // A rate lens (goals per app) never opens on a thin sample.
+  const gpa = runCut(cutFromParams({ subject: "player", by: "player", metric: "goalsperapp" }));
+  assert.equal(gpa.groups[0].thin, false, "rate ladder must not open on a thin sample");
+});

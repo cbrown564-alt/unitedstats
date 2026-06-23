@@ -55,12 +55,13 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
   const sp = await searchParams;
   const cut = cutFromParams(sp);
   const result = runCut(cut);
-  const { groups, headline, coverage, total, played } = result;
+  const { groups, headline, coverage, total, played, baseline } = result;
 
   const competitions = competitionsList();
   const seasons = allSeasons();
   const chips = filterChips(cut);
   const dimLabel = dimensionLabel(cut.dimension);
+  const volNoun = cut.subject === "player" ? "appearances" : "matches";
 
   return (
     <div className="space-y-7">
@@ -140,7 +141,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         <div className="sticky top-14 z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:hidden">
           <div className="flex items-center justify-between gap-3">
             <span className="stat-num text-xs text-ink-dim">
-              {fmtNum(total)} {dimLabel.toLowerCase()} groups · {fmtNum(played)} matches
+              {fmtNum(total)} {dimLabel.toLowerCase()} groups · {fmtNum(played)} {volNoun}
             </span>
             <a
               href="#cut-controls"
@@ -165,9 +166,15 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
             </span>
           </div>
           <div className="rounded-xl border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset] sm:p-5">
-            <CutChart groups={groups} metric={cut.metric} dimension={cut.dimension} />
+            <CutChart
+              groups={groups}
+              metric={cut.metric}
+              dimension={cut.dimension}
+              baseline={baseline}
+              standoutKey={headline?.key}
+            />
           </div>
-          <CoverageNote slice={`${dimLabel} groups across ${fmtNum(played)} matches`} coverage={coverage.basis} />
+          <CoverageNote slice={`${dimLabel} groups across ${fmtNum(played)} ${volNoun}`} coverage={coverage.basis} />
         </section>
       )}
     </div>
