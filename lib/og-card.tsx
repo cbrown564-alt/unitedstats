@@ -17,6 +17,7 @@ const DEVIL = "#ff3b1f";
 const GOLD = "#f5c518";
 const WIN = "#ffd94a";
 const DRAW = "#9a8d83";
+const LOSS = "#a52218";
 
 /** The trust strip every card carries: scale, coverage honesty, openness. */
 export function trustStrip(): string[] {
@@ -97,14 +98,15 @@ function renderCard(
 }
 
 /** A question's social card: the headline question over its one-line summary. */
-export function evidenceCard({
-  question, summary, strip,
-}: {
-  question: string;
-  summary: string;
-  strip: string[];
-}) {
-  return renderCard({ eyebrow: "MANCHESTER UNITED HISTORY", title: question, subtitle: summary, strip });
+export function evidenceCard(
+  { question, summary, strip }: {
+    question: string;
+    summary: string;
+    strip: string[];
+  },
+  headers?: Record<string, string>,
+) {
+  return renderCard({ eyebrow: "MANCHESTER UNITED HISTORY", title: question, subtitle: summary, strip }, headers);
 }
 
 /** An entity's social card (match, player, manager, opponent, season). */
@@ -196,6 +198,164 @@ export function digestCard(
                 ))}
               </div>
             )}
+          </div>
+
+          <div style={{ display: "flex" }}>
+            {strip.map((chip) => (
+              <div
+                key={chip}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  border: `1px solid ${LINE}`,
+                  background: PANEL,
+                  borderRadius: 10,
+                  padding: "12px 22px",
+                  marginRight: 16,
+                  fontSize: 24,
+                  color: INK,
+                }}
+              >
+                {chip}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+    { ...OG_SIZE, ...(headers ? { headers } : {}) },
+  );
+}
+
+// --- Question cards: a tested question, its verdict, and the answer drawn -----
+// The content width inside the spine + 72px padding.
+const Q_WIDTH = 1040;
+
+/** The per-question answer visual. `columns` for a distribution (late-goal share
+ *  by decade), `rows` for a ranked comparison (bogey sides, cup leans, the own-
+ *  goal leaderboard), `wdl` for a single conviction bar (the Old Trafford record). */
+export type QuestionVisual =
+  | { kind: "columns"; bars: { label: string; value: number; highlight?: boolean }[] }
+  | { kind: "rows"; bars: { label: string; value: number; valueText: string; highlight?: boolean }[] }
+  | { kind: "wdl"; w: number; d: number; l: number };
+
+function vizColumns(bars: { label: string; value: number; highlight?: boolean }[], acc: string, muted: string) {
+  const gap = 10;
+  const colW = Math.floor((Q_WIDTH - (bars.length - 1) * gap) / bars.length);
+  const h = 156;
+  const max = Math.max(...bars.map((b) => b.value), 1);
+  return (
+    <div style={{ display: "flex", alignItems: "flex-end", gap }}>
+      {bars.map((b, i) => (
+        <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: colW }}>
+          <div style={{ display: "flex", alignItems: "flex-end", height: h }}>
+            <div style={{ width: colW, height: Math.max(6, Math.round((b.value / max) * h)), background: b.highlight ? acc : muted, borderRadius: "5px 5px 0 0" }} />
+          </div>
+          <span style={{ fontSize: 18, marginTop: 10, color: b.highlight ? INK : INK_FAINT }}>{b.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function vizRows(bars: { label: string; value: number; valueText: string; highlight?: boolean }[], acc: string, muted: string) {
+  const labelW = 300, valueW = 80, gap = 16;
+  const trackW = Q_WIDTH - labelW - valueW - gap * 2;
+  const max = Math.max(...bars.map((b) => b.value), 1);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", width: Q_WIDTH, gap: 12 }}>
+      {bars.map((b, i) => (
+        <div key={i} style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", width: labelW, overflow: "hidden" }}>
+            <span style={{ fontSize: 23, fontWeight: b.highlight ? 700 : 400, color: b.highlight ? INK : INK_DIM, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {b.label}
+            </span>
+          </div>
+          <div style={{ display: "flex", width: trackW, marginLeft: gap, alignItems: "center" }}>
+            <div style={{ height: 24, width: Math.max(8, Math.round((b.value / max) * trackW)), background: b.highlight ? acc : muted, borderRadius: 5 }} />
+          </div>
+          <span style={{ width: valueW, marginLeft: gap, textAlign: "right", fontSize: 23, fontWeight: 700, color: b.highlight ? acc : INK_DIM }}>
+            {b.valueText}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function vizWdl(w: number, d: number, l: number) {
+  const total = Math.max(w + d + l, 1);
+  const seg = (n: number) => Math.round((n / total) * Q_WIDTH);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", width: Q_WIDTH }}>
+      <div style={{ display: "flex", width: Q_WIDTH, height: 46, borderRadius: 8, overflow: "hidden" }}>
+        {w > 0 && <div style={{ width: seg(w), height: 46, background: WIN }} />}
+        {d > 0 && <div style={{ width: seg(d), height: 46, background: DRAW }} />}
+        {l > 0 && <div style={{ width: seg(l), height: 46, background: LOSS }} />}
+      </div>
+      <div style={{ display: "flex", marginTop: 14, fontSize: 24 }}>
+        <span style={{ color: WIN, fontWeight: 700 }}>Won {w}</span>
+        <span style={{ color: INK_FAINT, margin: "0 14px" }}>·</span>
+        <span style={{ color: DRAW, fontWeight: 700 }}>Drew {d}</span>
+        <span style={{ color: INK_FAINT, margin: "0 14px" }}>·</span>
+        <span style={{ color: l > 0 ? LOSS : INK_FAINT, fontWeight: 700 }}>Lost {l}</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * A tested-question card: the question as the headline, a one-figure verdict, and
+ * the answer drawn as a small chart — bars, a ranked ladder, or a conviction bar —
+ * so the pasted link carries the finding, not just the question. `accent` tints
+ * the figure and the standout mark (gold for a positive read, red for a negative).
+ */
+export function questionCard(
+  {
+    question, figure, gloss, visual, strip, accent = "gold",
+  }: {
+    question: string;
+    figure: string;
+    gloss: string;
+    visual: QuestionVisual;
+    strip: string[];
+    accent?: "gold" | "devil";
+  },
+  headers?: Record<string, string>,
+) {
+  const acc = accent === "devil" ? DEVIL : GOLD;
+  const muted = accent === "devil" ? "rgba(255,59,31,0.30)" : "rgba(245,197,24,0.30)";
+  const body =
+    visual.kind === "columns" ? vizColumns(visual.bars, acc, muted)
+    : visual.kind === "rows" ? vizRows(visual.bars, acc, muted)
+    : vizWdl(visual.w, visual.d, visual.l);
+  return new ImageResponse(
+    (
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK }}>
+        <div style={{ width: 16, height: "100%", background: DEVIL }} />
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: "54px 72px",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
+            <span style={{ color: DEVIL, fontWeight: 700 }}>UNITEDSTATS</span>
+            <span style={{ color: INK_DIM, marginLeft: 18 }}>TESTED AGAINST THE RECORD</span>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.05, letterSpacing: -1, maxWidth: Q_WIDTH }}>
+              {question}
+            </div>
+            <div style={{ display: "flex", alignItems: "baseline", marginTop: 16 }}>
+              <span style={{ fontSize: 64, fontWeight: 800, letterSpacing: -2, color: acc }}>{figure}</span>
+              <span style={{ fontSize: 26, color: INK_DIM, marginLeft: 20, lineHeight: 1.3, maxWidth: 760 }}>{gloss}</span>
+            </div>
+            <div style={{ display: "flex", marginTop: 30 }}>{body}</div>
           </div>
 
           <div style={{ display: "flex" }}>
