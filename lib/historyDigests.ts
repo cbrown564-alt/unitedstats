@@ -414,12 +414,42 @@ function ordinal(n: number): string {
   }
 }
 
+/** Editorial weight by claim kind: all-time records and runs are the strongest
+ *  "history changed" stories; Elo movement and ledger position the weakest. */
+const KIND_RANK: Record<HistoryDigestClaimKind, number> = {
+  record: 0,
+  "streak-ended": 1,
+  "streak-started": 1,
+  "manager-milestone": 2,
+  "opponent-milestone": 2,
+  "historical-percentile": 3,
+  "rank-change": 4,
+  "unusual-scoreline": 5,
+  "elo-movement": 6,
+  "venue-fact": 7,
+  "ledger-entry": 8,
+};
+
+function claimMagnitude(claim: HistoryDigestClaim): number {
+  return typeof claim.value === "number" ? Math.abs(claim.value) : 0;
+}
+
+/** Claims most-significant first, so the page (and summary) lead with the change
+ *  that mattered most rather than whatever the detectors emitted first. Ties within
+ *  a kind break by magnitude (a 24-match run leads a 3-match one). */
+export function rankedClaims(claims: HistoryDigestClaim[]): HistoryDigestClaim[] {
+  return [...claims].sort((a, b) => {
+    if (KIND_RANK[a.kind] !== KIND_RANK[b.kind]) return KIND_RANK[a.kind] - KIND_RANK[b.kind];
+    return claimMagnitude(b) - claimMagnitude(a);
+  });
+}
+
 export function digestTitle(digest: HistoryDigest): string {
   return `What ${fmtDateLong(digest.match.date)} changed`;
 }
 
 export function digestSummary(digest: HistoryDigest): string {
-  const first = digest.claims[0];
+  const first = rankedClaims(digest.claims)[0];
   return first
     ? `${digest.match.score} v ${digest.match.opponent}: ${first.text}`
     : `${digest.match.score} v ${digest.match.opponent}, added to the UnitedStats record.`;

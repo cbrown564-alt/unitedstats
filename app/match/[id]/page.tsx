@@ -15,6 +15,7 @@ import { EloWinBar } from "@/components/EloWinBar";
 import { WdlBar } from "@/components/WdlBar";
 import { FormationPitch, Bench, placeBand, type MatchMarks } from "@/components/FormationPitch";
 import { ShareCite } from "@/components/ShareCite";
+import { historyDigestIds } from "@/lib/historyDigests";
 import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
 
 export const dynamicParams = false;
@@ -53,6 +54,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const { id } = await params;
   const m = matchById(id);
   if (!m) notFound();
+  const hasDigest = historyDigestIds().includes(id);
   const events = eventsForMatch(id);
   const lineup = lineupForMatch(id);
   const elo = eloForMatch(id);
@@ -176,6 +178,17 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         <div className="flex justify-center">
           <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
         </div>
+
+        {hasDigest && (
+          <div className="flex justify-center">
+            <Link
+              href={`/history-changed/${id}`}
+              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-panel px-3.5 py-1.5 text-xs font-semibold text-ink-dim transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
+            >
+              What this result changed in the all-time record →
+            </Link>
+          </div>
+        )}
 
         {hasTimedGoals && (
           <section className="space-y-2">

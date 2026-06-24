@@ -8,10 +8,27 @@ import {
   digestSummary,
   digestTitle,
   historyDigestIds,
+  rankedClaims,
   readHistoryDigest,
+  type HistoryDigestClaimKind,
 } from "@/lib/historyDigests";
 import { fmtDateLong } from "@/lib/format";
 import { historyDigestJsonLd, jsonLdHtml } from "@/lib/structuredData";
+
+/** Human labels for the detector kinds — the raw kind strings read like plumbing. */
+const KIND_LABEL: Record<HistoryDigestClaimKind, string> = {
+  "ledger-entry": "Ledger",
+  record: "All-time record",
+  "streak-started": "Run started",
+  "streak-ended": "Run ended",
+  "rank-change": "All-time rank",
+  "manager-milestone": "Manager milestone",
+  "opponent-milestone": "Head-to-head milestone",
+  "unusual-scoreline": "Scoreline",
+  "venue-fact": "Venue",
+  "elo-movement": "Elo swing",
+  "historical-percentile": "Elo percentile",
+};
 
 export const dynamicParams = false;
 
@@ -44,6 +61,9 @@ export default async function HistoryChangedPage({ params }: { params: Promise<{
   const digest = readHistoryDigest(id);
   if (!digest) notFound();
   const jsonLd = historyDigestJsonLd(digest);
+  const ranked = rankedClaims(digest.claims);
+  const lead = ranked[0];
+  const supporting = ranked.slice(1);
 
   return (
     <div className="space-y-8">
@@ -61,22 +81,48 @@ export default async function HistoryChangedPage({ params }: { params: Promise<{
         title={digestTitle(digest)}
         aside={<ShareCite path={digest.ref.path} title={digestTitle(digest)} />}
       >
-        United {digest.match.score} {digest.match.opponent}, {fmtDateLong(digest.match.date)}. The notes below
-        are generated from the canonical record and keep links back to the match evidence.
+        United {digest.match.score} {digest.match.opponent}, {fmtDateLong(digest.match.date)}. Every result nudges the
+        all-time record — here is what this one moved, read straight from the canonical data.
       </PageHeader>
 
-      <section className="grid gap-3 md:grid-cols-2">
-        {digest.claims.map((claim, index) => (
-          <article key={claim.id} className="border border-line bg-panel p-4">
-            <p className="stat-num text-xs text-ink-faint">#{index + 1} · {claim.kind}</p>
-            <h2 className="mt-2 text-lg font-semibold text-ink">{claim.title}</h2>
-            <p className="mt-2 text-sm leading-6 text-ink-dim">{claim.text}</p>
-            <Link href={claim.evidencePath} className="mt-3 inline-block text-sm font-semibold text-devil-bright hover:underline focus-ring">
-              Match evidence →
-            </Link>
-          </article>
-        ))}
-      </section>
+      {/* The single change that mattered most, then the rest. */}
+      {lead && (
+        <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0/0.22)]">
+          <div className="hero-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+          <div
+            className="pointer-events-none absolute -right-20 -top-24 h-64 w-2/3 rounded-full opacity-[0.10] blur-3xl"
+            style={{ backgroundColor: "var(--color-gold)" }}
+            aria-hidden
+          />
+          <div className="relative space-y-3 p-5 sm:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
+                The biggest change · {KIND_LABEL[lead.kind]}
+              </p>
+              <Link href={lead.evidencePath} className="text-sm font-semibold text-devil-bright hover:underline focus-ring">
+                See the match →
+              </Link>
+            </div>
+            <h2 className="display text-2xl leading-tight sm:text-3xl">{lead.title}</h2>
+            <p className="max-w-2xl text-sm leading-6 text-ink-dim">{lead.text}</p>
+          </div>
+        </section>
+      )}
+
+      {supporting.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Also shifted</h2>
+          <div className="grid gap-3 md:grid-cols-2">
+            {supporting.map((claim) => (
+              <article key={claim.id} className="border border-line bg-panel p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">{KIND_LABEL[claim.kind]}</p>
+                <h3 className="mt-1.5 font-semibold text-ink">{claim.title}</h3>
+                <p className="mt-1.5 text-sm leading-6 text-ink-dim">{claim.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="border border-line bg-panel p-4">
         <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-faint">Evidence trail</h2>
