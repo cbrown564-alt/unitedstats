@@ -2,10 +2,11 @@
 
 ## Product north star
 
-UnitedStats is a pattern-discovery product for stats-heavy Manchester United
-fans with researcher-grade trust expectations. The fixture record is the spine;
-question-led analysis is the discovery layer; people are the emotional entry
-points.
+Red Thread (the public brand; UnitedStats is now the repository-era name — see
+Phase 17 and `docs/BRANDING.md`) is a pattern-discovery product for stats-heavy
+Manchester United fans with researcher-grade trust expectations. The fixture
+record is the spine; question-led analysis is the discovery layer; people are the
+emotional entry points.
 
 The design target is a floodlit match-night ledger: dark, precise,
 atmospheric, and built for exploration. The UI should be United-coded, not
@@ -715,6 +716,61 @@ round-trips capped accountless Cut collections with coverage/evidence links,
 and `/embed/cut/[slug]` serves noindex curated Cut embeds with explicit
 cache/framing headers. Reviewed under
 `docs/process/reviews/006-phase16-habit-creator.md`.
+
+## Phase 17 — Red Thread: the brand and the answer as a thread
+
+The product takes a public identity — **Red Thread** — and makes the brand's
+central metaphor real in the interface: the evidence trail from a question to the
+matches behind it becomes the literal structure of an answer page, not chrome
+beside it. The identity system is documented in `docs/BRANDING.md`; the working
+name UnitedStats is now the repository-era/internal name, preserved only where a
+stable technical contract requires it.
+
+Brand identity:
+
+- [x] **Public rename to Red Thread** across every user-facing and
+      public-attribution surface — header/footer, page metadata, OG cards, share
+      citations, `/api/v1` and `llms.txt` attribution, and the downloadable dataset
+      manifest — while the repository name, deployed domain, `localStorage` keys,
+      env vars, ingest user-agents, and the `us:` citable-ID prefix are
+      deliberately left unchanged as technical contracts.
+- [x] **Threadline mark and app icons** — the `components/Brand.tsx` wordmark and
+      compact mark, plus `app/icon.svg`, `app/favicon.ico`, and `app/apple-icon.png`
+      generated from the mark by `scripts/gen-icons.mjs` (re-runnable if the mark
+      changes).
+
+The answer as a thread:
+
+- [x] **The canonical answer page rebuilt as a thread spine** — `/questions/[slug]`
+      now runs the argument down a continuous red `AnswerThread` spine through five
+      stations: answer · evidence · the matches behind it · definition · coverage.
+      Each station gets real vertical room so the scroll genuinely travels the
+      stages, and the spine fills red to the station nearest the top — making
+      "follow the red thread to every match behind the answer" the page's actual
+      structure rather than chrome. The first attempt (a sticky sidebar rail over
+      the existing dense panel) proved the lesson that the rail only works once the
+      *page* flows: definition and coverage were promoted from sub-12px footnotes to
+      readable sections (where the trust lives) and the matches link from a footnote
+      to a destination CTA. Each station keeps a stable `${slug}-*` id so an
+      answer's stages stay deep-linkable and citable; the catalogue (`variant=
+      "index"`) keeps its compact panel.
+- [ ] **The thread as a system, continued** — carry the same motif into the
+      selected-nav underline, timeline annotations, and source/provenance
+      connectors, and add a mobile treatment for the spine (the answer reads
+      linearly on mobile for now).
+
+Open brand follow-ups, recorded for a deliberate call rather than folded into the
+visual rename: whether the homepage headline shifts toward "Ask United's history"
+and whether top-level "Explore" becomes "Discover" are IA/SEO decisions on their
+own merits; any domain migration is planned separately.
+
+Phase 17 ships Red Thread as the public identity and lands its first structural
+expression: the rename is complete across user-facing surfaces, and the answer
+page now reads as the evidence trail it describes rather than a dense panel with
+the trust buried in footnotes. The thread-as-system work (nav, timelines,
+provenance, the mobile spine) continues as normal product work. Per the discipline
+elsewhere in this plan, the brand is invested where the motif does real work —
+comprehension and trust — with a deliberate stop before brand theater.
 
 ## Parked pathways (open questions)
 
