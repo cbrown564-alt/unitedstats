@@ -91,6 +91,24 @@ const METRIC_LEXICON: [MetricKey, RegExp][] = [
   ["record", /\b(records?|results?)\b/g],
 ];
 
+/** A minute window narrows the goals metric ("late goals", "first-half goals").
+ *  `lo` is inclusive; an absent `hi` runs to the end (so "late" includes stoppage).
+ *  "Late" matches the canonical product definition — after the 85th minute — used by
+ *  the homepage late-goals question and `lib/trails.ts`, not the looser "final 15". */
+interface GoalWindow {
+  lo: number;
+  hi?: number;
+  /** Short word for a title ("late goals"). */
+  name: string;
+  /** Full phrase for a summary ("came after the 85th minute"). */
+  label: string;
+}
+const GOAL_WINDOWS: [RegExp, GoalWindow][] = [
+  [/\bfirst[- ]half\b/, { lo: 1, hi: 45, name: "first-half", label: "in the first half" }],
+  [/\bsecond[- ]half\b/, { lo: 46, name: "second-half", label: "in the second half" }],
+  [/\blate\b/, { lo: 86, name: "late", label: "after the 85th minute" }],
+];
+
 // Verbs that signal a head-to-head intent in natural phrasing ("beat barcelona",
 // "lost to liverpool"). Deliberately excludes bare win/won/lost so a superlative
 // ("biggest win in the 90s") is never mistaken for an opponent cut.
@@ -126,6 +144,8 @@ interface ParsedIntent {
   subject?: IndexRow;
   metric?: MetricKey;
   metricExplicit: boolean;
+  /** A minute window on the goals metric ("late goals" → after the 85th minute). */
+  goalWindow?: GoalWindow;
   /** Opponent resolved from an explicit connector ("vs liverpool"). */
   opponent?: IndexRow;
   /** A no-connector residual that might be an opponent for a team head-to-head —
@@ -188,6 +208,17 @@ function parseIntent(norm: string): ParsedIntent {
     }
   }
   const metricExplicit = metric !== undefined;
+
+  // 1b. goal time-window qualifier ("late goals", "first-half goals").
+  let goalWindow: GoalWindow | undefined;
+  for (const [re, win] of GOAL_WINDOWS) {
+    const next = s.replace(re, " ");
+    if (next !== s) {
+      goalWindow = win;
+      s = next.replace(/\s+/g, " ");
+      break;
+    }
+  }
 
   // 2. venue — "at home" before bare "home" so the longer phrase wins.
   if (strip(/\b(?:away|on the road)\b/)) {
@@ -275,19 +306,21 @@ function parseIntent(norm: string): ParsedIntent {
   }
 
   return {
-    subjectKind, subject, metric, metricExplicit, opponent, opponentCandidate,
+    subjectKind, subject, metric, metricExplicit, goalWindow, opponent, opponentCandidate,
     filter, link, labels, triggered, question, teamLeftoverClean,
   };
 }
 
-/** Strip head-to-head verbs and question words off a fragment, reporting which were
- *  present so the caller can set the trigger/question flags. */
+/** Strip head-to-head verbs, question words, and the scorer marker ("goals *by*
+ *  Cantona") off a fragment, reporting which verbs/questions were present so the
+ *  caller can set the trigger/question flags. */
 function cleanSubject(s: string): { text: string; verb: boolean; question: boolean } {
   const afterVerb = s.replace(H2H_VERBS, " ");
   const verb = afterVerb !== s;
   const afterQ = afterVerb.replace(QUESTION_WORDS, " ");
   const question = afterQ !== afterVerb;
-  return { text: afterQ.replace(/\s+/g, " ").trim(), verb, question };
+  const afterBy = afterQ.replace(/\b(?:scored\s+)?(?:by|from)\b/g, " ");
+  return { text: afterBy.replace(/\s+/g, " ").trim(), verb, question };
 }
 
 // =============================================================== the cut builders
@@ -402,6 +435,45 @@ function teamGoals(intent: ParsedIntent, label: string): ShapedAnswer {
     href: matchesHref(scopeLink(intent, {})),
     hrefLabel: "Show the matches →",
     coverage: RESULT_COVERAGE,
+  };
+}
+
+/** Goals narrowed to a minute window ("late goals by Cantona", "late goals against
+ *  Bayern", "late goals under Ferguson") — a rate over the same scope, framed "N of M
+ *  recorded goals (X%) came ‹window›". Event-derived, so always `partial`. For a
+ *  player it counts his own goals; for the team it counts every United goal (open
+ *  play, penalty, and own-goals-for), per the canonical late-goals definition. */
+function goalWindowCut(intent: ParsedIntent, win: GoalWindow, player?: IndexRow): ShapedAnswer {
+  const oppId = intent.opponent?.entity_id;
+  const { sql, params } = scopeExtra(scopeFilter(intent, oppId));
+  const subject = player
+    ? "e.player_id = @pid AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')"
+    : "e.type IN ('goal','pen-goal','own-goal-for')";
+  const inWindow = `e.minute >= @lo${win.hi ? " AND e.minute <= @hi" : ""}`;
+  const bind: Record<string, string | number> = { lo: win.lo, ...(win.hi ? { hi: win.hi } : {}), ...params };
+  if (player) bind.pid = player.entity_id;
+
+  const r = getDb()
+    .prepare(
+      `SELECT COUNT(*) total, COALESCE(SUM(CASE WHEN ${inWindow} THEN 1 ELSE 0 END), 0) win
+       FROM match_events e JOIN matches m ON m.id = e.match_id JOIN competitions c ON c.id = m.competition_id
+       WHERE ${subject} AND e.minute IS NOT NULL ${sql}`,
+    )
+    .get(bind) as { total: number; win: number };
+
+  const who = player ? player.label : "United";
+  const scopeBit = intent.opponent
+    ? ` ${oppPhrase(intent.opponent, intent.filter.venue)}`
+    : scopePhrase(intent) ? ` ${scopePhrase(intent)}` : "";
+  const pct = r.total ? ((100 * r.win) / r.total).toFixed(1) : "0";
+  return {
+    title: `${who} ${win.name} goals${scopeBit}`,
+    summary: r.total
+      ? `${r.win} of ${r.total} recorded ${plural(r.total, "goal")} (${pct}%) came ${win.label}`
+      : `No recorded goals${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
+    href: matchesHref(scopeLink(intent, player ? { scorer: player.entity_id } : {})),
+    hrefLabel: "Show the matches →",
+    coverage: { grade: "partial", label: "timed-goal data" },
   };
 }
 
@@ -582,37 +654,14 @@ function comparison(norm: string): ShapedAnswer | null {
   };
 }
 
-/** Late goals under a manager — a fixed-shape rate that isn't a plain subject cut. */
-function lateGoals(norm: string): ShapedAnswer | null {
-  const late = /^late goals under (.+)$/.exec(norm);
-  if (!late) return null;
-  const mg = resolveEntity(late[1], "manager");
-  if (!mg) return null;
-  const row = getDb()
-    .prepare(
-      `SELECT COUNT(*) n, SUM(e.minute >= 76) late
-       FROM match_events e JOIN matches m ON m.id = e.match_id
-       WHERE m.manager_id = ? AND e.type IN ('goal','pen-goal','own-goal-for')
-         AND e.minute IS NOT NULL AND e.minute <= 90`,
-    )
-    .get(mg.entity_id) as { n: number; late: number };
-  if (!row.n) return null;
-  return {
-    title: `Late goals under ${mg.label}`,
-    summary: `${row.late} of ${row.n} timed goals (${((100 * row.late) / row.n).toFixed(1)}%) came in the final 15 minutes`,
-    href: `/manager/${mg.entity_id}`,
-    hrefLabel: `${mg.label} →`,
-    coverage: { grade: "partial", label: "timed-goal data" },
-  };
-}
-
 // =================================================================== dispatch
 
 /**
- * Turn a free-text question into computed answers with evidence links. Two fixed
- * shapes (comparison, late-goals) and the extreme-match superlative keep bespoke
- * renderers; everything else is one subject×metric×scope grammar dispatched below,
- * so adding a metric or a scope is additive rather than another template.
+ * Turn a free-text question into computed answers with evidence links. Comparison
+ * (two subjects) and the extreme-match superlative keep bespoke renderers;
+ * everything else is one subject×metric×scope grammar — including the goals metric
+ * narrowed to a minute window ("late goals") — so adding a metric, a scope, or a
+ * window is additive rather than another template.
  */
 export function shapedAnswers(q: string): ShapedAnswer[] {
   const out: ShapedAnswer[] = [];
@@ -621,8 +670,7 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
 
   const push = (a: ShapedAnswer | null) => { if (a && !out.some((o) => o.title === a.title)) out.push(a); };
 
-  // Fixed shapes that win outright when they resolve.
-  push(lateGoals(norm));
+  // Comparison wins outright when both sides resolve to players.
   push(comparison(norm));
   if (out.length) return out;
 
@@ -632,25 +680,33 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
   push(superlative(norm, intent));
 
   const metric = intent.metric;
+  // The window only narrows the goals metric; ignore it on appearances/record.
+  const window = intent.goalWindow;
 
   if (intent.subjectKind === "player" && intent.subject) {
     // A bare name stays entity-first; only a metric or an opponent earns a verdict.
     if (intent.metricExplicit || intent.opponent) {
-      push(playerCut(intent.subject, metric ?? "goals", intent));
+      const m = metric ?? "goals";
+      push(window && m === "goals"
+        ? goalWindowCut(intent, window, intent.subject)
+        : playerCut(intent.subject, m, intent));
     }
   } else if (intent.subjectKind === "manager" && intent.subject) {
     if (intent.metricExplicit || intent.opponent) {
       if (metric === "goals") {
         // The manager is the subject, so fold it into the scope as a filter and read
-        // United's goals under him (a complete, result-table count).
+        // United's goals under him.
         const mId = intent.subject.entity_id;
         const scoped: ParsedIntent = {
           ...intent,
           filter: { ...intent.filter, manager: mId },
           link: { ...intent.link, manager: mId },
+          labels: { ...intent.labels, managerName: intent.subject.label },
         };
         const oppBit = intent.opponent ? ` ${oppPhrase(intent.opponent, intent.filter.venue)}` : "";
-        push(teamGoals(scoped, `under ${intent.subject.label}${oppBit}`));
+        push(window
+          ? goalWindowCut(scoped, window)
+          : teamGoals(scoped, `under ${intent.subject.label}${oppBit}`));
       } else {
         push(managerCut(intent.subject, intent));
       }
@@ -664,19 +720,21 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
     if (opp) {
       const assert = intent.triggered || intent.metricExplicit || !!intent.filter.venue;
       if (assert) {
-        push(metric === "goals"
-          ? teamGoals({ ...intent, opponent: opp }, `${oppPhrase(opp, intent.filter.venue)}`)
-          : teamRecordVs(opp, scopeFilter(intent)));
+        if (metric === "goals") {
+          const scoped = { ...intent, opponent: opp };
+          push(window ? goalWindowCut(scoped, window) : teamGoals(scoped, oppPhrase(opp, intent.filter.venue)));
+        } else {
+          push(teamRecordVs(opp, scopeFilter(intent)));
+        }
       } else if (intent.question) {
         // Tentative best guess: question-shape + one strong opponent, no trigger.
         push({ ...teamRecordVs(opp, scopeFilter(intent)), tentative: true });
       }
     } else if (intent.teamLeftoverClean) {
       // No opponent: an aggregate over the scope.
-      if (metric === "goals") {
-        const phrase = scopePhrase(intent);
-        if (intent.metricExplicit) push(teamGoals(intent, phrase));
-      } else {
+      if (metric === "goals" && intent.metricExplicit) {
+        push(window ? goalWindowCut(intent, window) : teamGoals(intent, scopePhrase(intent)));
+      } else if (metric !== "goals") {
         push(teamScopedRecord(intent));
       }
     }

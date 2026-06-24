@@ -448,6 +448,30 @@ test("grammar: United's own goals over a scope is a complete count", () => {
   assert.equal(hit.href, "/matches?venue=H&from=1990&to=1999");
 });
 
+test("grammar: 'late' is a window on the goals metric, applied for any subject", () => {
+  // "late goals by Cantona" used to return nothing (the "by player" + "late"
+  // shape); "late goals against Bayern" silently dropped "late" and returned all
+  // goals. The window is now a slot: a rate over the same scope, partial coverage.
+  const byPlayer = runSearch("late goals by cantona").shaped.find((s) => /Cantona late goals/.test(s.title));
+  assert.ok(byPlayer, "expected a player late-goals rate");
+  assert.match(byPlayer.summary, /^\d+ of \d+ recorded goals? \(\d+\.\d%\) came after the 85th minute$/);
+  assert.equal(byPlayer.coverage?.label, "timed-goal data", "minute-derived → partial");
+
+  const vsOpp = runSearch("late goals against bayern").shaped.find((s) => /late goals v /.test(s.title));
+  assert.ok(vsOpp, "expected a team late-goals rate vs the opponent");
+  assert.match(vsOpp.summary, /came after the 85th minute$/);
+  assert.ok(!/scored, \d+ conceded/.test(vsOpp.summary), "'late' must not collapse to a plain goal total");
+});
+
+test("grammar: 'late' uses the canonical after-the-85th-minute definition", () => {
+  // One definition across the product (the homepage late-goals question and
+  // lib/trails.ts), not the search box's old looser "final 15 minutes".
+  const hit = runSearch("late goals under ferguson").shaped.find((s) => /late goals under/i.test(s.title));
+  assert.ok(hit, "expected a manager-scoped late-goals rate");
+  assert.match(hit.summary, /came after the 85th minute$/);
+  assert.equal(hit.coverage?.grade, "partial");
+});
+
 test("grammar: a bare player or manager name stays entity-first (no metric, no fire)", () => {
   // Symmetry with the bare-opponent rule: only a metric or an opponent earns a
   // shaped verdict, so typing a name still lands on its entity row.

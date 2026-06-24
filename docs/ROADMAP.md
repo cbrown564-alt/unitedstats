@@ -951,6 +951,21 @@ per the recorded stance.
 > symmetric twin of the bare-opponent rule. Still Tier 0, still deterministic, still
 > golden-tested (now 100 tests). Per DISCOVERY §5, this raises Tier 0's ceiling
 > rather than reaching for a model.
+>
+> **Same day, the next misses pushed two more dimensions into the same grammar.**
+> "late goals by Cantona" returned nothing and "late goals against Bayern" silently
+> dropped "late" and gave all goals — because the goals metric had no *qualifier*
+> slot and "by <player>" wasn't a recognised subject marker. Added: (1) a **goal
+> time-window** on the goals metric — `late` (canonical, *after the 85th minute*),
+> `first-half`, `second-half` — rendered as an honest rate ("N of M recorded goals
+> (X%) came after the 85th minute"), event-derived so always `partial`, working for
+> any subject/scope; and (2) a **"by/from <player>"** scorer marker so "goals by
+> Cantona" resolves the player. This also **unified the definition of "late"**: the
+> old `lateGoals` search special used *final 15 minutes* (≥76) while the homepage
+> question and `lib/trails.ts` use *after the 85th minute* (≥86); the special was
+> deleted (the grammar subsumes it) and everything now uses the ≥86 canonical — so
+> the Ferguson late-goals figure shifted slightly and is now consistent across the
+> product. 102 golden tests.
 
 ### 18.3 — Serendipity and guided wandering
 
