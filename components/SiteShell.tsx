@@ -21,7 +21,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-line bg-pitch/95 backdrop-blur">
+      <header className="site-header sticky top-0 z-50 border-b border-line bg-pitch/95 backdrop-blur">
         <div className="relative mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:gap-6 sm:px-6">
           <Link
             href="/"
