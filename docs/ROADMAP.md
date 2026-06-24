@@ -759,10 +759,28 @@ The answer as a thread:
       connectors, and add a mobile treatment for the spine (the answer reads
       linearly on mobile for now).
 
-Open brand follow-ups, recorded for a deliberate call rather than folded into the
-visual rename: whether the homepage headline shifts toward "Ask United's history"
-and whether top-level "Explore" becomes "Discover" are IA/SEO decisions on their
-own merits; any domain migration is planned separately.
+Open brand follow-ups, decided 2026-06-24 after a deliberate walk-through rather
+than folded into the visual rename:
+
+- **Homepage headline → answer-first.** "Every match Manchester United ever
+      played" (a corpus boast) becomes **"Follow the thread through Manchester
+      United's history"** — an invitation that activates the Red Thread metaphor
+      and leads with discovery rather than scale. "Ask United's history" was
+      rejected: "Ask" overpromises natural-language Q&A the search does not do.
+      The corpus proof (match count, year span) stays in the subhead as the
+      credential, and the subhead keeps its honest "a question, a name, or a
+      season" entry-mode hedge.
+- **Top-level "Explore" → "Discover".** Renamed at the **label** level only
+      (nav, page title/`<h1>`, breadcrumbs, and links that point *at* the
+      surface); the `/explore` **route** is kept as a technical contract, the
+      same public-name-vs-repo-name split this phase used for the rename itself.
+      This also de-collides the surface name from its own "Exploring" strip and
+      sorts the vocabulary: *Discover* is the answer-first surface; *explore*
+      stays the verb for the freeform act (the Cut strip, the skyline). The
+      surface eyebrow moves from "Discovery" (now redundant with the title) to
+      "Answering · asking · exploring", naming the three strips.
+
+Any domain migration is still planned separately.
 
 Phase 17 ships Red Thread as the public identity and lands its first structural
 expression: the rename is complete across user-facing surfaces, and the answer

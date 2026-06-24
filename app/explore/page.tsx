@@ -29,7 +29,7 @@ const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
 };
 
 export const metadata: Metadata = {
-  title: "Explore",
+  title: "Discover",
   description:
     "Start with an answer: the curated questions tested against United's record, then compare two careers or eras and group the whole record your own way.",
   alternates: { canonical: "/explore" },
@@ -75,7 +75,7 @@ export default function ExplorePage() {
 
   return (
     <div className="space-y-12">
-      <PageHeader eyebrow="Discovery" title="Explore">
+      <PageHeader eyebrow="Answering · asking · exploring" title="Discover">
         Start with an answer. The questions below are tested against the canonical record — each
         opens its full finding, the slice it&apos;s drawn from, the coverage behind it, and the
         matches that produced it. Compare and grouping follow once you have a thread to pull.

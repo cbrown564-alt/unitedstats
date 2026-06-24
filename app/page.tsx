@@ -120,7 +120,7 @@ export default function Home() {
             From Newton Heath to today
           </p>
           <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
-            Every match Manchester United ever played
+            Follow the thread through Manchester United&apos;s history
           </h1>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
@@ -149,7 +149,7 @@ export default function Home() {
         <section>
           <SectionHead
             title="Start with a question"
-            aside={<Link href="/explore" className="text-devil-bright hover:underline">Explore all →</Link>}
+            aside={<Link href="/explore" className="text-devil-bright hover:underline">Discover all →</Link>}
           />
           <CuratedCarousel cards={questionCards} label="Curated questions" />
           <p className="mt-2 text-xs text-ink-faint">

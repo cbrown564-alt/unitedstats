@@ -46,7 +46,7 @@ export default async function QuestionPage({
   return (
     <div className="space-y-8">
       <nav className="text-xs text-ink-faint" aria-label="Breadcrumb">
-        <Link href="/explore" className="hover:text-devil-bright">Explore</Link>
+        <Link href="/explore" className="hover:text-devil-bright">Discover</Link>
         <span className="mx-1.5">/</span>
         <span className="text-ink-dim">{q.label}</span>
       </nav>

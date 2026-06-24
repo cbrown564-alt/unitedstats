@@ -393,7 +393,7 @@ export default function AnalyticsPage() {
             Every match, filterable by competition, opponent, season, venue, and result — the auditable
             spine these summaries read from.
           </TrailLink>
-          <TrailLink href="/explore" title="Explore">
+          <TrailLink href="/explore" title="Discover">
             The myth-testing trails: late goals, bogey sides, the manager bounce, and the Old Trafford
             fortress, each with its own evidence.
           </TrailLink>

@@ -70,7 +70,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
   return (
     <div className="space-y-7">
       <nav className="text-xs text-ink-faint" aria-label="Breadcrumb">
-        <Link href="/explore" className="hover:text-devil-bright">Explore</Link>
+        <Link href="/explore" className="hover:text-devil-bright">Discover</Link>
         <span className="mx-1.5">/</span>
         <span className="text-ink-dim">Cut</span>
       </nav>
