@@ -160,14 +160,15 @@ Technically complete:
 
 Taste-ready:
 
-- History changed: promising, raw
-- Corrections: not yet; fix interaction and flow
-- On this day: not yet; too thin
-- Embeds: not yet; needs design pass
+- History changed: ✅ done (2026-06-24, round two). Always-on result claim leads
+  ordinary matches with the actual outcome; rank-change reduced to genuinely
+  notable all-time standings; detector copy sharpened and era-correct; editorial
+  weight reordered; latest ten regenerated; a Recently-changed strip now leads
+  /explore and the homepage. See the ROADMAP Phase 13 follow-up note.
+- Corrections: ✅ done — field-picker fixed (commit `d3f79dd`).
+- On this day: ✅ done — lead fact, date rhythm, day nav, today door (`882b290`).
+- Embeds: ✅ done — chrome-free creator card with brand/source (`3c52409`).
 
-Recommended next session objective:
-
-> Turn the technically complete Phase 15-16 primitives into product-quality
-> surfaces, starting with the broken correction builder interaction, then
-> redesigning on-this-day and embeds to feel like UnitedStats rather than proof
-> objects.
+All four taste-pass surfaces are now product-quality. The remaining history-changed
+caveat is structural, not taste: claim *text* is baked into the JSON artifacts, so
+future wording changes still need a regeneration pass.

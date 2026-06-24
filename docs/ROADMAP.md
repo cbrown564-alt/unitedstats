@@ -438,30 +438,44 @@ Cross-cutting guardrails for the whole expansion:
 - **Do not dilute `/questions`.** It is the strongest surface. Carousels and
       launchers only *launch*; depth always lives in the full cut page.
 
-## Phase 10 — Distribution foundations (make answers leave the building)
+## Phase 10 — Distribution foundations (make answers leave the building) ✅ (complete)
 
 The growth engine's last mile. The corpus is addressable but invisible: detail
 pages are statically generated, but there is no sitemap, no share affordance, no
 card when a link is pasted, and the nine question modules are `#anchors` on one
 page rather than rankable URLs.
 
-- [ ] **Per-question canonical routes** — promote the nine `/questions` modules
+- [x] **Per-question canonical routes** — promote the nine `/questions` modules
       from in-page anchors to real routes (`/questions/late-goals`, …) with their
       own `generateMetadata`. The content already exists; this unlocks both SEO
       and per-question sharing in one move.
-- [ ] **`app/sitemap.ts` and `app/robots.ts`** — make the full corpus (matches,
+- [x] **`app/sitemap.ts` and `app/robots.ts`** — make the full corpus (matches,
       seasons, players, managers, opponents, question cuts) crawlable as a set
       rather than only reachable by internal links.
-- [ ] **Evidence-card `opengraph-image`** — an `opengraph-image.tsx` per
+- [x] **Evidence-card `opengraph-image`** — an `opengraph-image.tsx` per
       answer/entity route that renders the card the report calls for: the answer
       plus the trust strip (matches · coverage grade · source). Every pasted link
       becomes an ad that carries its own provenance.
-- [ ] **Share and cite** — on every answer module and detail page: copy-link,
+- [x] **Share and cite** — on every answer module and detail page: copy-link,
       copy-citation (metric definition, coverage grade, retrieval date), and
       copy-image. This is the report's "creator mode" in its minimum viable form
       and the first edge of the distribution graph.
-- [ ] **Guardrail** — cards and pages stay build-time or edge-rendered; no user
+- [x] **Guardrail** — cards and pages stay build-time or edge-rendered; no user
       database is introduced.
+
+Phase 10 is complete as a distribution capability, delivered incrementally
+across the phases that depend on it: `app/sitemap.ts` lists the whole ~13k-URL
+corpus (matches, seasons, players, managers, opponents, curated cuts, question
+slugs, history digests, on-this-day keys) and `app/robots.ts` points crawlers at
+it while disallowing only the click-tracking endpoint; the nine `/questions`
+modules are real `/questions/[slug]` routes with their own metadata (the
+standalone index 308-redirects into `/explore`, per Phase 11.5); eight routes
+carry an `opengraph-image.tsx` evidence card (home, match, season, player,
+manager, opponent, question, history-changed); and `components/ShareCite.tsx`
+provides copy-link / copy-citation / copy-image on match, history-changed,
+player, identity, and question surfaces. Everything stays build-time or
+edge-rendered with no user database. (The checkboxes lagged the code — the
+deliverables shipped through Phases 11–16; this paragraph reconciles the record.)
 
 ## Phase 11 — Answer-first front door and discovery IA ✅ (complete)
 
@@ -623,15 +637,21 @@ milestones, scoreline/venue facts, Elo movement, and historical percentiles with
 positive and negative golden cases. Reviewed under
 `docs/process/reviews/002-phase13-history-digests.md`.
 
-> **Follow-up note (2026-06-24): not fully satisfied, but left as is.** A taste
-> pass (commit `f44e62a`) ranked claims by editorial weight so the page leads
-> with the change that mattered, grouped the rest under "Also shifted",
-> humanised the detector labels, and added a match-page door. It is better, but
-> still not where it should be: the digests are thin/Elo-heavy for ordinary
-> recent matches, and the individual claim *text* is baked into the JSON
-> artifacts so sharper detector wording would need a regeneration pass. Parked
-> deliberately — revisit when there's appetite to rework the detector copy and
-> consider a recently-changed strip on explore/home.
+> **Follow-up note (2026-06-24): the taste pass landed in two rounds.** Round one
+> (commit `f44e62a`) ranked claims by editorial weight, grouped the rest under
+> "Also shifted", humanised the labels, and added a match-page door — better, but
+> the digests stayed thin/Elo-heavy for ordinary recent matches, leading a 3-2 win
+> with "Elo rose from historical rank 2728 to 2601". Round two (this pass) fixed
+> the substance: an always-on **result** claim makes every digest lead with what
+> actually happened on the pitch; **rank-change** now fires only inside United's
+> hundred best-ever ratings (or a new peak), so the meaningless absolute rank is
+> gone from ordinary matches; the detector copy was sharpened and made era-correct
+> (Newton Heath pre-1902); editorial weight was reordered so scoreline/streaks lead
+> and Elo movement sinks; the latest ten matches were regenerated; and a
+> **Recently changed** strip now leads `/explore` and the homepage's living-record
+> movement, so the surface is discovered rather than orphaned. Detector copy still
+> lives in the JSON artifacts, so future wording changes need a regeneration pass —
+> but the surface now reads like UnitedStats, not a proof object.
 
 ## Phase 14 — Source, not casualty
 
