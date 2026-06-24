@@ -54,11 +54,62 @@ export function MainNav() {
       <div className="hidden min-w-0 flex-1 lg:block">
         <SectionRail pathname={pathname} />
       </div>
-      {/* Below lg, a menu button opening a sheet of every section. Remount on
-          route change so it resets to closed after a followed link without a
-          setState-in-effect. */}
-      <MobileMenu key={pathname} pathname={pathname} />
+      {/* Below lg: a couple of pinned quick tabs plus a menu button opening a
+          sheet of every section. Remount on route change so the menu resets to
+          closed after a followed link without a setState-in-effect. */}
+      <div className="flex min-w-0 flex-1 items-center gap-1 lg:hidden">
+        <MobileQuickTabs pathname={pathname} />
+        <MobileMenu key={pathname} pathname={pathname} />
+      </div>
     </div>
+  );
+}
+
+// Always-visible mobile entries. Discover and Matches are pinned — the front
+// door and the spine — so the two most-used surfaces stay one tap away without
+// opening the menu. When you're somewhere else, that section rides along as a
+// third "rotating" tab so the rail reflects where you are (and gives a one-tap
+// way back to it). Everything else lives in the menu sheet.
+const MOBILE_PINNED = SECTIONS.slice(0, 2);
+
+// Slightly tighter padding than the desktop rail so three tabs plus the two icon
+// buttons clear the chrome on a ~400px phone.
+const quickTabClass = (active: boolean) =>
+  [
+    "tap-target rounded-md px-2 py-1.5 whitespace-nowrap transition-colors focus-ring",
+    active
+      ? "bg-panel-2 text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
+      : "text-ink-dim hover:bg-panel-2/75 hover:text-ink",
+  ].join(" ");
+
+function MobileQuickTabs({ pathname }: { pathname: string }) {
+  const active = SECTIONS.find(([, href]) => isActive(pathname, href));
+  const rotating = active && !MOBILE_PINNED.some(([, href]) => href === active[1]) ? active : null;
+
+  return (
+    <nav aria-label="Quick navigation" className="flex min-w-0 items-center gap-1 text-sm">
+      {MOBILE_PINNED.map(([label, href]) => {
+        const active = isActive(pathname, href);
+        return (
+          <Link key={href} href={href} aria-current={active ? "page" : undefined} className={quickTabClass(active)}>
+            {label}
+          </Link>
+        );
+      })}
+      {/* The rotating tab is always in the DOM (so SSR and the client agree) but
+          hidden below ~400px, where a third tab would collide with the icons.
+          Narrower phones fall back to the two pinned tabs; the active section is
+          still in the menu sheet, highlighted. */}
+      {rotating && (
+        <Link
+          href={rotating[1]}
+          aria-current="page"
+          className={[quickTabClass(true), "hidden min-[400px]:block"].join(" ")}
+        >
+          {rotating[0]}
+        </Link>
+      )}
+    </nav>
   );
 }
 
