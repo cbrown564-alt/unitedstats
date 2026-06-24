@@ -1,5 +1,7 @@
+/// <reference types="react/canary" />
 "use client";
 
+import { ViewTransition } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MainNav } from "@/components/MainNav";
@@ -33,7 +35,12 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </header>
       <CommandPaletteLoader />
       <WebVitals />
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">{children}</main>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
+        {/* Cross-fade the content area on navigation. Unnamed so only a change to
+            this subtree (a route change) animates it — not unrelated transitions
+            elsewhere on the page. The header is anchored in CSS so it stays put. */}
+        <ViewTransition>{children}</ViewTransition>
+      </main>
       <footer className="mt-16 border-t border-line">
         <div className="mx-auto max-w-6xl space-y-1 px-4 py-8 text-xs text-ink-faint sm:px-6">
           <p className="max-w-xl">

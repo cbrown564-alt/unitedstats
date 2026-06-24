@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  // Wrap client navigations in the View Transitions API so route changes
+  // cross-fade instead of hard-cutting. The animation is styled in globals.css
+  // (a fast fade, fully disabled under prefers-reduced-motion).
+  experimental: {
+    viewTransition: true,
+  },
   async redirects() {
     return [
       // Odds folded into /analytics as the strength layer's prospective half;

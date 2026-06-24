@@ -74,10 +74,49 @@ body {
 .wdl-reveal-center {
   animation: wdl-reveal-center 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+/* Cross-page continuity: a quick, gentle fade between routes (opacity only —
+   no positional movement, which is the main motion-sensitivity trigger). The
+   sticky header is lifted out of the snapshot so it stays put as content fades. */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+header {
+  view-transition-name: site-header;
+}
+::view-transition-group(site-header) {
+  animation: none;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Honour an explicit OS request to minimise motion: neutralise keyframe
+   animations and view transitions, and collapse transition durations so
+   movement (transforms) resolves instantly. Colour/opacity still settle, just
+   without travel. */
 @media (prefers-reduced-motion: reduce) {
   .wdl-reveal,
   .wdl-reveal-center {
     animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
   }
 }
 
