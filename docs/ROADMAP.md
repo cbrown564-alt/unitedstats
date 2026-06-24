@@ -860,15 +860,32 @@ flows.
 - *The newcomer* — "What can I even ask here?" Needs orientation to the range
       without the site collapsing into a portal/directory feel.
 
-### 18.1 — User stories and flow prototypes (the exploration)
+### 18.1 — User stories and flow prototypes (the exploration) ✅ (complete)
 
-- [ ] Write the user stories above into real personas with entry context
+- [x] Write the user stories above into real personas with entry context
       (channel, intent, device) and name the one "first delightful moment" each
       should hit.
-- [ ] Map the current cold-start flows for each persona end to end; mark where
+- [x] Map the current cold-start flows for each persona end to end; mark where
       they stall, dead-end, or demand prior knowledge.
-- [ ] Prototype 2–3 candidate discovery flows (not full builds) and decide
+- [x] Prototype 2–3 candidate discovery flows (not full builds) and decide
       before committing, per the "decide before building" rule.
+
+Phase 18.1 is complete as the exploration deliverable, captured in
+`docs/DISCOVERY.md`: the five seed personas written up with entry context and a
+named first-delightful-moment; each persona's cold-start flow mapped against the
+real surfaces (homepage, `/explore`, `SearchCommand`/`HeaderSearch`, the shaped
+parser, `/search`, on-this-day, detail trails) with stalls and dead-ends marked;
+and three candidate discovery flows sketched — **A** answer-box/search-led, **B**
+living-entry/serendipity-led, **C** subject-led orientation. **Decision:** lead
+with **A** (the answer box, = 18.2) as the spine — it fixes the one surface every
+persona touches and de-risks the others without adding any object above the
+answer-first hero — then keep the roadmap order, folding B's content into 18.3 as
+a *demoted* living strip + answer-foot related-rail (not a hero object) and C into
+18.4's subject entry. Rejected as the lead: a feed-first hero (Phase 11
+regression risk), a personalised/behavioural feed (guardrail), and fuzzy
+describe-the-match memory search (parked; the nostalgic is served by cheap jogs).
+The build sub-phases below inherit the carry-forward checklist in
+`docs/DISCOVERY.md` §5.
 
 ### 18.2 — Search as the front door
 
