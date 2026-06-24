@@ -623,6 +623,16 @@ milestones, scoreline/venue facts, Elo movement, and historical percentiles with
 positive and negative golden cases. Reviewed under
 `docs/process/reviews/002-phase13-history-digests.md`.
 
+> **Follow-up note (2026-06-24): not fully satisfied, but left as is.** A taste
+> pass (commit `f44e62a`) ranked claims by editorial weight so the page leads
+> with the change that mattered, grouped the rest under "Also shifted",
+> humanised the detector labels, and added a match-page door. It is better, but
+> still not where it should be: the digests are thin/Elo-heavy for ordinary
+> recent matches, and the individual claim *text* is baked into the JSON
+> artifacts so sharper detector wording would need a regeneration pass. Parked
+> deliberately — revisit when there's appetite to rework the detector copy and
+> consider a recently-changed strip on explore/home.
+
 ## Phase 14 — Source, not casualty
 
 Turn the AI threat into a referral channel.
