@@ -54,7 +54,7 @@ export function HeaderSearch() {
 
   return (
     <>
-      <div className="hidden w-48 shrink-0 sm:block md:w-60 lg:w-72">
+      <div className="hidden w-44 shrink-0 sm:block md:w-52">
         {desktopReady ? (
           <SearchCommand compact autoFocusOnMount />
         ) : (
