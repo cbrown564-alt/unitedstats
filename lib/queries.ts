@@ -955,6 +955,37 @@ export function playerGoalMinutes(id: string): number[] {
   ).map((r) => r.minute);
 }
 
+/**
+ * A player's goals by 5-minute regulation window, with stoppage-time goals (90+)
+ * held out as a separate `stoppage` count — the per-player mirror of
+ * {@link import("./trails").goalMinuteRidge}, so the player "shape of his scoring"
+ * column chart stacks added-time goals on the final bar exactly like the
+ * club-wide late-goals chart instead of folding them into a fat 86–90 bar.
+ */
+export function playerGoalMinuteBins(id: string): { bins: { lo: number; hi: number; n: number }[]; stoppage: number } {
+  const db = getDb();
+  const notStoppage = `NOT (e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0))`;
+  const rows = db
+    .prepare(
+      `SELECT MIN((e.minute - 1) / 5, 17) AS bin, COUNT(*) n
+       FROM match_events e
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
+         AND e.minute IS NOT NULL AND e.minute >= 1 AND ${notStoppage}
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all(id) as { bin: number; n: number }[];
+  const bins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
+  for (const r of rows) if (bins[r.bin]) bins[r.bin].n = r.n;
+  const { stoppage } = db
+    .prepare(
+      `SELECT COUNT(*) stoppage FROM match_events e
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
+         AND e.minute IS NOT NULL AND NOT (${notStoppage})`,
+    )
+    .get(id) as { stoppage: number };
+  return { bins, stoppage };
+}
+
 export interface PlayerOpponentGoals {
   opponent_id: string;
   opponent_name: string;
