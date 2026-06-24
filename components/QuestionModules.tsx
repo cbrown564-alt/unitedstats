@@ -10,6 +10,7 @@ import { getMeta, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queri
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
+import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
@@ -102,24 +103,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
     >
       <div>
         <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals land</h3>
-        <InspectableBarChart
-          data={ridge.bins.map((b, i) => {
-            const last = i === ridge.bins.length - 1;
-            return {
-              label: String(b.lo),
-              tickLabel: [0, 15, 30, 45, 60, 75].includes(b.lo) ? `${b.lo}'` : last ? "85'" : "",
-              value: b.n,
-              value2: last ? ridge.stoppage : 0,
-              valueLabel: last ? `${fmtNum(b.n + ridge.stoppage)} goals` : `${fmtNum(b.n)} goals`,
-              meta: last ? `86–90′: ${fmtNum(b.n)} · stoppage: ${fmtNum(ridge.stoppage)}` : `${b.lo + 1}–${b.hi}′`,
-            };
-          })}
-          height={200}
-          color="var(--color-gold)"
-          stack={{ color: "var(--color-devil-bright)" }}
-          chartLabel="Manchester United goals by 5-minute window, with stoppage time stacked on the final bar"
-          baseline={{ value: Math.round(ridge.bins.reduce((a, b) => a + b.n, 0) / ridge.bins.length), label: "even spread" }}
-        />
+        <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={200} />
         <p className="text-xs text-ink-faint mt-1">
           <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
           {" · "}
