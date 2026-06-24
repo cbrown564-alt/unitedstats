@@ -928,6 +928,30 @@ boundary, the no-false-positive on bare names, the subject-strip safety, honest
 grading, and the miss classifier); Tier 1/2 stay deferred and Tier 3 rejected,
 per the recorded stance.
 
+> **Follow-up (2026-06-24): the parser became one grammar, not a pile of
+> templates.** Two screenshot misses — "how many times did Rooney score against
+> Arsenal", then "Rooney appearances vs Liverpool" — exposed the real shape of the
+> problem: `intent.ts` was a flat list of templates each hard-coding a
+> *(subject × metric × scope)* triple, so adjacent cells of the grid (player goals
+> vs an opponent, but not player *appearances* vs the same opponent) were
+> arbitrarily empty. The first fix added a player-goals template; the second proved
+> that was whack-a-mole. The parser was rewritten as **one subject×metric×scope
+> grammar** (the metric slot the DISCOVERY §5 stance already named): `parseIntent`
+> pulls the three slots once — subject ∈ {team, player, manager}, metric ∈ {record,
+> goals, appearances, assists}, scope ∈ {opponent, venue, competition, era, season,
+> manager} — and a dispatcher computes the cut, so adding a metric or a scope is now
+> additive and combinations come for free ("Ronaldo goals in Europe", "United goals
+> at home in the 90s", "Ferguson record vs Arsenal"). Comparison (two subjects) and
+> the superlative (one extreme match) keep bespoke renderers — they aren't
+> subject×metric×scope shapes. Every cut links to its *exact* reproducible matches
+> via the existing `/matches` `scorer`/`player`/`manager`/`opponent` filters (so the
+> count and the linked slice always agree), and each metric carries an honest grade
+> (record and United's own goals-for are `complete`; player goals/appearances/
+> assists are `partial`). A bare player or manager name stays entity-first, the
+> symmetric twin of the bare-opponent rule. Still Tier 0, still deterministic, still
+> golden-tested (now 100 tests). Per DISCOVERY §5, this raises Tier 0's ceiling
+> rather than reaching for a model.
+
 ### 18.3 — Serendipity and guided wandering
 
 - [ ] A "surprise me" / random-but-good route that only ever lands on a real,

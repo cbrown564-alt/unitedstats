@@ -2,16 +2,17 @@ import { getDb } from "../db";
 import { findMatches, matchWhere, type MatchFilter, type Record_ } from "../queries";
 import { queryString } from "../url";
 import { scoreline, fmtDate } from "../format";
-import { resolveEntity } from "./resolve";
+import { resolveEntity, type IndexRow } from "./resolve";
 
 /** Coverage grade carried beside a shaped verdict so the trust signal travels with
  *  the answer into the typeahead — the gap DISCOVERY §6 names. Derived, never
- *  invented: the result-level W/D/L record is complete for every official match, so
- *  record cuts grade `complete`; an event-derived answer (minute-stamped goals)
- *  grades `partial`. */
+ *  invented: the result-level W/D/L record (and United's own goals-for, both read
+ *  straight off `matches`) is complete for every official match, so those cuts grade
+ *  `complete`; an event/lineup-derived answer (a player's goals, appearances, or
+ *  assists) grades `partial`. */
 export interface AnswerCoverage {
   grade: "complete" | "partial";
-  /** Short label for the chip ("complete" / "timed-goal data"). */
+  /** Short label for the chip ("complete" / "goal data" / "lineup data"). */
   label: string;
 }
 
@@ -27,8 +28,12 @@ export interface ShapedAnswer {
 }
 
 /** The result-level record (W/D/L from `matches`) is complete for every official
- *  match, so every record cut shares one honest grade. */
+ * match, so every record cut shares one honest grade. United's goals-for is in the
+ * same table, so a team goal count is complete too. */
 const RESULT_COVERAGE: AnswerCoverage = { grade: "complete", label: "complete" };
+const GOAL_COVERAGE: AnswerCoverage = { grade: "partial", label: "goal data" };
+const LINEUP_COVERAGE: AnswerCoverage = { grade: "partial", label: "lineup data" };
+const ASSIST_COVERAGE: AnswerCoverage = { grade: "partial", label: "assist data" };
 
 // ---------------------------------------------------------------- record helpers
 
@@ -56,34 +61,39 @@ function matchesHref(p: Record<string, string | number | undefined>): string {
   return `/matches${queryString(p)}`;
 }
 
-// ---------------------------------------------------------------- scope parser
+const plural = (n: number, one: string, many = `${one}s`) => (n === 1 ? one : many);
 
-interface Scope {
-  /** Query filter with ISO date bounds, ready for {@link recordFor}/{@link findMatches}. */
-  filter: MatchFilter;
-  /** Link params for /matches (years left bare). */
-  link: Record<string, string | undefined>;
-  venue?: "H" | "A";
-  venueWord?: string;
-  decadeLabel?: string;
-  seasonLabel?: string;
-  managerName?: string;
-  scopeLabel?: string;
-  /** Whether any head-to-head/record trigger word or verb was present (a confident
-   *  signal to compute a head-to-head). */
-  triggered: boolean;
-  /** Whether the query has interrogative shape ("did/have/ever/how many times…").
-   *  Question-shape plus a single strong opponent yields a *tentative* best guess
-   *  even with no trigger word — the DISCOVERY §5 fallback. */
-  question: boolean;
-  /** Residual phrase after every recognised fragment is stripped. */
-  rest: string;
-}
+const decadeBase = (d: string): number =>
+  d.length === 4 ? Number(d) : Number(d) >= 30 ? 1900 + Number(d) : 2000 + Number(d);
+
+// ============================================================ the intent grammar
+//
+// Every aggregate question is one shape: a SUBJECT (the team, a player, or a
+// manager) measured by a METRIC (record, goals, appearances, assists) within a
+// SCOPE (opponent, venue, competition, era, season, manager). The old parser
+// hard-coded all three into a flat list of templates, so adjacent cells of the
+// grid ("Rooney goals vs X" but not "Rooney appearances vs X") were arbitrarily
+// empty. This parses the three slots once and dispatches; adding a metric or a
+// scope is now additive, and combinations come for free. Comparison (two
+// subjects) and superlative (pick one extreme match) keep bespoke renderers —
+// they aren't subject×metric×scope shapes.
+
+type MetricKey = "record" | "goals" | "appearances" | "assists";
+
+/** Metric keyword → key. Order matters: the specific player nouns win over the
+ *  generic "record" fallback, and every occurrence of the chosen family is stripped
+ *  so a residual like "score" can't leak into the subject ("how many goals did
+ *  rooney *score*"). */
+const METRIC_LEXICON: [MetricKey, RegExp][] = [
+  ["appearances", /\b(appearances?|apps?|caps|games?)\b/g],
+  ["assists", /\b(assists?|assisted)\b/g],
+  ["goals", /\b(goals?|scor(?:e|ed|es|ing)|netted|nets)\b/g],
+  ["record", /\b(records?|results?)\b/g],
+];
 
 // Verbs that signal a head-to-head intent in natural phrasing ("beat barcelona",
-// "lost to liverpool", "better than city"). Deliberately excludes bare win/won/lost
-// so a superlative ("biggest win in the 90s") is never mistaken for an opponent cut.
-// Global so every occurrence is stripped, leaving a clean residual to resolve.
+// "lost to liverpool"). Deliberately excludes bare win/won/lost so a superlative
+// ("biggest win in the 90s") is never mistaken for an opponent cut.
 const H2H_VERBS =
   /\b(beat|beaten|beating|beats|thrash(?:ed|ing|es)?|hammer(?:ed|ing|s)?|lost to|lose to|losing to|drew with|draw with|drawn with|faced?|met|play(?:ed|ing)? against|win against|won against|better than|worse than)\b/g;
 
@@ -91,129 +101,279 @@ const H2H_VERBS =
 const QUESTION_WORDS =
   /\b(have|has|had|did|do|does|when|ever|are|is|was|were|how many times|how often|how many)\b/g;
 
-/** Strip every match of `re` from `s`, reporting whether anything was removed — so a
- *  global regex stays confined to `.replace` and never carries `lastIndex` state into
- *  a separate `.test` call. */
-function stripAll(s: string, re: RegExp): { out: string; hit: boolean } {
-  const out = s.replace(re, " ");
-  return { out, hit: out !== s };
+// An explicit opponent connector splits "‹subject› ‹connector› ‹opponent›". Venue
+// words ("away", "at home") are stripped first, so a surviving "at"/"to" is the
+// "away at Arsenal" / "lost to Leeds" form rather than a venue.
+const OPP_CONNECTOR = /\b(?:against|versus|vs\.?|away to|at home to|to|at|v)\b/;
+
+const UNITED_WORDS = new Set(["", "united", "man utd", "man united", "manchester united", "mufc", "us", "we"]);
+
+/** Strip the United subject so the residual is a clean name — but never a trailing
+ *  club name like "Leeds United"/"Sheffield United": bare "united"/"utd" goes only at
+ *  the start or right after a question/aux word. */
+function stripUnitedSubject(s: string): string {
+  return ` ${s} `
+    .replace(/\b(?:man(?:chester)?\s+(?:united|utd)|mufc)\b/g, " ")
+    .replace(/(^|\s(?:have|has|had|did|do|does|when|ever|are|is|was|were)\s)(?:united|utd)\b/g, "$1")
+    .replace(/^\s*(?:united|utd|we|us)\b/, " ")
+    .replace(/\b(?:we|us)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-const decadeBase = (d: string): number =>
-  d.length === 4 ? Number(d) : Number(d) >= 30 ? 1900 + Number(d) : 2000 + Number(d);
+interface ParsedIntent {
+  subjectKind: "team" | "player" | "manager";
+  subject?: IndexRow;
+  metric?: MetricKey;
+  metricExplicit: boolean;
+  /** Opponent resolved from an explicit connector ("vs liverpool"). */
+  opponent?: IndexRow;
+  /** A no-connector residual that might be an opponent for a team head-to-head —
+   *  resolved (and gated) at dispatch so a bare name never auto-fires. */
+  opponentCandidate?: string;
+  /** Scope filter: venue/type/from/to/season/manager — opponent is added per cut. */
+  filter: MatchFilter;
+  /** /matches link params for the scope (years bare). */
+  link: Record<string, string | undefined>;
+  labels: {
+    venueWord?: string;
+    scopeLabel?: string;
+    decadeLabel?: string;
+    seasonLabel?: string;
+    managerName?: string;
+  };
+  /** A confident head-to-head signal (verb, record metric, or a connector). */
+  triggered: boolean;
+  /** Interrogative shape — drives the tentative best guess. */
+  question: boolean;
+  /** True when the leftover names nothing of its own — so a team aggregate is safe. */
+  teamLeftoverClean: boolean;
+}
+
+function resolvePerson(text: string, metric?: MetricKey): IndexRow | undefined {
+  // Appearances and assists only make sense for a player; goals/record could be a
+  // manager, so resolve against both and let prominence rank ("ferguson" → manager).
+  const kind: string | string[] =
+    metric === "appearances" || metric === "assists" ? "player" : ["player", "manager"];
+  return resolveEntity(text, kind, { strong: true });
+}
 
 /**
- * Pull every recognised modifier out of a normalised query — venue, decade,
- * season, manager, and a small set of competition scopes — leaving a residual
- * phrase for entity resolution. Decoupling phrasing (here) from computation (the
- * templates) is what lets many spellings reach the same answer.
+ * Pull the three slots out of a normalised query. Phrasing (here) is decoupled from
+ * computation (the cut builders), so many spellings reach the same answer.
  */
-function parseScope(norm: string): Scope {
-  let rest = ` ${norm} `;
+function parseIntent(norm: string): ParsedIntent {
+  let s = ` ${norm} `;
   const filter: MatchFilter = {};
   const link: Record<string, string | undefined> = {};
-  const scope: Partial<Scope> = {};
+  const labels: ParsedIntent["labels"] = {};
   let triggered = false;
   let question = false;
 
   const strip = (re: RegExp): RegExpExecArray | null => {
-    const m = re.exec(rest);
-    if (m) rest = `${rest.slice(0, m.index)} ${rest.slice(m.index + m[0].length)}`.replace(/\s+/g, " ");
+    const m = re.exec(s);
+    if (m) s = `${s.slice(0, m.index)} ${s.slice(m.index + m[0].length)}`.replace(/\s+/g, " ");
     return m;
   };
 
-  // venue — "at home" before bare "home" so the longer phrase wins
+  // 1. metric — strip the whole family so no verb/noun leaks into the subject.
+  let metric: MetricKey | undefined;
+  for (const [key, re] of METRIC_LEXICON) {
+    const next = s.replace(re, " ");
+    if (next !== s) {
+      metric = key;
+      s = next.replace(/\s+/g, " ");
+      if (key === "record") triggered = true;
+      break;
+    }
+  }
+  const metricExplicit = metric !== undefined;
+
+  // 2. venue — "at home" before bare "home" so the longer phrase wins.
   if (strip(/\b(?:away|on the road)\b/)) {
-    filter.venue = "A"; link.venue = "A"; scope.venue = "A"; scope.venueWord = "away";
+    filter.venue = "A"; link.venue = "A"; labels.venueWord = "away";
   } else if (strip(/\bat home\b/) || strip(/\bhome\b/)) {
-    filter.venue = "H"; link.venue = "H"; scope.venue = "H"; scope.venueWord = "at home";
+    filter.venue = "H"; link.venue = "H"; labels.venueWord = "at home";
   }
 
-  // explicit season "1998-99" / "1998/99"
+  // 3. explicit season "1998-99" / "1998/99"
   const season = strip(/\b(\d{4})\s*[/–-]\s*(\d{2,4})\b/);
   if (season) {
-    const s = `${season[1]}-${(Number(season[1]) + 1).toString().slice(2)}`;
-    filter.season = s; link.season = s; scope.seasonLabel = s;
+    const sLabel = `${season[1]}-${(Number(season[1]) + 1).toString().slice(2)}`;
+    filter.season = sLabel; link.season = sLabel; labels.seasonLabel = sLabel;
   }
 
-  // decade "90s" / "1990s" / "in the 90s"
+  // 4. decade "90s" / "1990s" / "in the 90s"
   const decade = strip(/\b(?:in\s+)?(?:the\s+)?((?:19|20)\d{2}|\d{2})s\b/);
   if (decade && !season) {
     const base = decadeBase(decade[1]);
     filter.from = `${base}-01-01`; filter.to = `${base + 9}-12-31`;
     link.from = String(base); link.to = String(base + 9);
-    scope.decadeLabel = `${base}s`;
+    labels.decadeLabel = `${base}s`;
   }
 
-  // manager "under X" (not the late-goals special case, handled by its own trigger)
-  const under = /\bunder\s+(.+?)\s*$/.exec(rest);
+  // 5. competition scopes
+  if (strip(/\bin europe\b/) || strip(/\beurope(?:an)?\b/)) {
+    filter.type = "european"; link.type = "european"; labels.scopeLabel = "in Europe";
+  } else if (strip(/\bfa cup\b/)) {
+    filter.type = "domestic-cup"; link.type = "domestic-cup"; labels.scopeLabel = "in the FA Cup";
+  } else if (strip(/\bleague cup\b/)) {
+    filter.type = "league-cup"; link.type = "league-cup"; labels.scopeLabel = "in the League Cup";
+  } else if (strip(/\bin (?:the )?cups?\b/)) {
+    filter.type = "cup"; link.type = "cup"; labels.scopeLabel = "in the cups";
+  } else if (strip(/\bin (?:the )?league\b/)) {
+    filter.type = "league"; link.type = "league"; labels.scopeLabel = "in the league";
+  }
+
+  // 6. manager scope "under X" (distinct from a manager *subject* — this narrows)
+  const under = /\bunder\s+(.+?)\s*$/.exec(s);
   if (under) {
     const mg = resolveEntity(under[1], "manager");
     if (mg) {
-      filter.manager = mg.entity_id; scope.managerName = mg.label; triggered = true;
-      rest = rest.slice(0, under.index).replace(/\s+/g, " ");
+      filter.manager = mg.entity_id; link.manager = mg.entity_id; labels.managerName = mg.label; triggered = true;
+      s = `${s.slice(0, under.index)} `.replace(/\s+/g, " ");
     }
   }
 
-  // a small, high-traffic set of competition scopes
-  if (strip(/\bin europe\b/) || strip(/\beurope(?:an)?\b/)) {
-    filter.type = "european"; link.type = "european"; scope.scopeLabel = "in Europe";
-  } else if (strip(/\bfa cup\b/)) {
-    filter.type = "domestic-cup"; link.type = "domestic-cup"; scope.scopeLabel = "in the FA Cup";
-  } else if (strip(/\bleague cup\b/)) {
-    filter.type = "league-cup"; link.type = "league-cup"; scope.scopeLabel = "in the League Cup";
-  } else if (strip(/\bin (?:the )?cups?\b/)) {
-    filter.type = "cup"; link.type = "cup"; scope.scopeLabel = "in the cups";
-  } else if (strip(/\bin (?:the )?league\b/)) {
-    filter.type = "league"; link.type = "league"; scope.scopeLabel = "in the league";
+  // 7. opponent connector — split "‹subject› ‹conn› ‹opponent›".
+  let opponent: IndexRow | undefined;
+  let opponentCandidate: string | undefined;
+  let subjectText: string;
+  const conn = OPP_CONNECTOR.exec(s);
+  if (conn) {
+    triggered = true;
+    const right = stripUnitedSubject(cleanSubject(s.slice(conn.index + conn[0].length)).text);
+    opponent = right ? resolveEntity(right, "opponent") : undefined;
+    subjectText = s.slice(0, conn.index);
+  } else {
+    subjectText = s;
   }
 
-  // head-to-head verbs in natural phrasing ("beat barcelona", "lost to liverpool")
-  const verbs = stripAll(rest, H2H_VERBS);
-  if (verbs.hit) { triggered = true; rest = verbs.out; }
+  // 8. subject — clean off verbs/questions, then resolve the leading name.
+  const cleaned = cleanSubject(subjectText);
+  if (cleaned.verb) triggered = true;
+  if (cleaned.question) question = true;
+  const subj = stripUnitedSubject(cleaned.text);
 
-  // interrogative shape — a softer signal that drives the tentative best guess
-  const qwords = stripAll(rest, QUESTION_WORDS);
-  if (qwords.hit) { question = true; rest = qwords.out; }
+  let subjectKind: ParsedIntent["subjectKind"] = "team";
+  let subject: IndexRow | undefined;
+  let teamLeftoverClean = true;
+  if (subj && !UNITED_WORDS.has(subj)) {
+    const person = resolvePerson(subj, metric);
+    if (person) {
+      subjectKind = person.kind === "manager" ? "manager" : "player";
+      subject = person;
+    } else if (!opponent) {
+      // No connector matched a club, and the residual isn't a person — it's an
+      // opponent candidate for a team head-to-head (gated at dispatch).
+      opponentCandidate = subj;
+      teamLeftoverClean = false;
+    } else {
+      // Junk to the left of a real connector — ignore it, the team is the subject.
+      teamLeftoverClean = false;
+    }
+  }
 
-  // explicit head-to-head / record trigger words
-  if (/\b(record|records|results?|vs|versus|v|against|h2h|head to head)\b/.test(rest)) triggered = true;
-  rest = rest.replace(/\b(record|records|results?|vs|versus|v|against|h2h|head to head|at|to|the)\b/g, " ");
-
-  // strip the United subject so the residual is a clean opponent name — but never a
-  // trailing club name like "Leeds United"/"Sheffield United": bare "united"/"utd"
-  // goes only at the start or right after a question/aux word.
-  rest = rest.replace(/\b(?:man(?:chester)?\s+(?:united|utd)|mufc)\b/g, " ");
-  rest = rest.replace(/(^|\s(?:have|has|had|did|do|does|when|ever|are|is|was|were)\s)(?:united|utd)\b/g, "$1");
-  rest = rest.replace(/^\s*(?:united|utd|we|us)\b/, " ");
-  rest = rest.replace(/\b(?:we|us)\b/g, " ");
-  rest = rest.replace(/\s+/g, " ").trim();
-
-  return { filter, link, triggered, question, rest, ...scope };
+  return {
+    subjectKind, subject, metric, metricExplicit, opponent, opponentCandidate,
+    filter, link, labels, triggered, question, teamLeftoverClean,
+  };
 }
 
-// ---------------------------------------------------------------- templates
+/** Strip head-to-head verbs and question words off a fragment, reporting which were
+ *  present so the caller can set the trigger/question flags. */
+function cleanSubject(s: string): { text: string; verb: boolean; question: boolean } {
+  const afterVerb = s.replace(H2H_VERBS, " ");
+  const verb = afterVerb !== s;
+  const afterQ = afterVerb.replace(QUESTION_WORDS, " ");
+  const question = afterQ !== afterVerb;
+  return { text: afterQ.replace(/\s+/g, " ").trim(), verb, question };
+}
 
-const UNITED_WORDS = new Set(["", "united", "man utd", "man united", "manchester united", "mufc", "us", "we"]);
+// =============================================================== the cut builders
 
-/** A head-to-head record vs a named opponent, venue/era-aware. Exposed so the
- * `vs:` scoping operator can call it directly. `strong` gates the opponent resolution
- * to a confident prefix hit only — the tentative best-guess path uses it. */
+/** SCOPE filter restricted to the dimensions a metric query can join on — opponent,
+ *  venue, competition type, era, season, manager — so event/lineup counts narrow the
+ *  same way the record does. */
+function scopeFilter(intent: ParsedIntent, opponentId?: string): MatchFilter {
+  return {
+    opponent: opponentId,
+    venue: intent.filter.venue,
+    type: intent.filter.type,
+    from: intent.filter.from,
+    to: intent.filter.to,
+    season: intent.filter.season,
+    manager: intent.filter.manager,
+  };
+}
+
+/** Extra `AND …` conditions (with params) for an events/lineups query, reusing the
+ *  shared filter compiler so the slice matches the record exactly. */
+function scopeExtra(f: MatchFilter): { sql: string; params: Record<string, string | number> } {
+  const { cond, params } = matchWhere(f);
+  return { sql: cond ? cond.replace(/^WHERE/, "AND") : "", params };
+}
+
+/** /matches link params for a scope (years bare), with an optional subject filter.
+ *  Scope params first, then `extra` — so a subject filter (scorer/player, or a
+ *  manager-as-subject) wins over an unset scope and the linked slice matches the
+ *  count exactly. */
+function scopeLink(intent: ParsedIntent, extra: Record<string, string | undefined>): Record<string, string | undefined> {
+  return {
+    opponent: intent.opponent?.entity_id,
+    venue: intent.filter.venue,
+    type: intent.filter.type,
+    manager: intent.filter.manager,
+    season: intent.filter.season,
+    from: intent.filter.from?.slice(0, 4),
+    to: intent.filter.to?.slice(0, 4),
+    ...extra,
+  };
+}
+
+/** Human scope phrase for a no-opponent title ("at home in the 1990s"). */
+function scopePhrase(intent: ParsedIntent): string {
+  const { venueWord, scopeLabel, decadeLabel, seasonLabel, managerName } = intent.labels;
+  return [
+    venueWord,
+    scopeLabel ?? (decadeLabel ? `in the ${decadeLabel}` : ""),
+    seasonLabel ? `in ${seasonLabel}` : "",
+    managerName ? `under ${managerName}` : "",
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+}
+
+/** "v Liverpool" / "away at Liverpool" / "at home to Liverpool". */
+function oppPhrase(opp: IndexRow, venue?: string): string {
+  const where = venue === "A" ? "away at" : venue === "H" ? "at home to" : "v";
+  return `${where} ${opp.label}`;
+}
+
+const lastBit = (date: string | null) => (date ? ` · last ${fmtDate(date)}` : "");
+
+/** A head-to-head record vs a named opponent, venue/era-aware. Exposed so the `vs:`
+ * scoping operator can call it directly. `strong` gates resolution to a confident
+ * prefix hit only — the tentative best-guess path uses it. */
 export function headToHead(
   opponentText: string,
-  extra?: MatchFilter,
+  extra: MatchFilter = {},
   label?: string,
   strong = false,
 ): ShapedAnswer | null {
   const opp = resolveEntity(opponentText, "opponent", { strong });
-  if (!opp) return null;
-  const venue = extra?.venue;
+  return opp ? teamRecordVs(opp, extra, label) : null;
+}
+
+function teamRecordVs(opp: IndexRow, extra: MatchFilter, label?: string): ShapedAnswer {
+  const venue = extra.venue;
   const where = venue === "A" ? "away at" : venue === "H" ? "at home to" : "against";
   const filter: MatchFilter = { ...extra, opponent: opp.entity_id };
   const link: Record<string, string | undefined> = {
-    opponent: opp.entity_id, venue, type: extra?.type,
-    from: extra?.from ? extra.from.slice(0, 4) : undefined,
-    to: extra?.to ? extra.to.slice(0, 4) : undefined,
+    opponent: opp.entity_id, venue, type: extra.type,
+    from: extra.from ? extra.from.slice(0, 4) : undefined,
+    to: extra.to ? extra.to.slice(0, 4) : undefined,
   };
   return {
     title: `Record ${where} ${opp.label}${label ? ` ${label}` : ""}`,
@@ -224,9 +384,159 @@ export function headToHead(
   };
 }
 
+/** United's own goals for/against over a scope ("United goals at home in the 90s"). */
+function teamGoals(intent: ParsedIntent, label: string): ShapedAnswer {
+  const f = scopeFilter(intent, intent.opponent?.entity_id);
+  const { cond, params } = matchWhere(f);
+  const row = getDb()
+    .prepare(
+      `SELECT COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga, COUNT(*) p
+       FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`,
+    )
+    .get(params) as { gf: number; ga: number; p: number };
+  return {
+    title: `United goals${label ? ` ${label}` : ""}`,
+    summary: row.p
+      ? `${row.gf.toLocaleString("en-GB")} scored, ${row.ga.toLocaleString("en-GB")} conceded in ${row.p} ${plural(row.p, "match", "matches")}`
+      : "no matches on record",
+    href: matchesHref(scopeLink(intent, {})),
+    hrefLabel: "Show the matches →",
+    coverage: RESULT_COVERAGE,
+  };
+}
+
+/** A player's goals / appearances / assists over a scope. */
+function playerCut(player: IndexRow, metric: MetricKey, intent: ParsedIntent): ShapedAnswer {
+  const db = getDb();
+  const oppId = intent.opponent?.entity_id;
+  const { sql, params } = scopeExtra(scopeFilter(intent, oppId));
+  const bind = { pid: player.entity_id, ...params };
+  const titleScope = intent.opponent ? oppPhrase(intent.opponent, intent.filter.venue) : scopePhrase(intent);
+
+  if (metric === "appearances") {
+    const r = db
+      .prepare(
+        `SELECT COUNT(*) apps, COALESCE(SUM(l.started),0) starts, MAX(m.date) last_date
+         FROM match_lineups l JOIN matches m ON m.id = l.match_id JOIN competitions c ON c.id = m.competition_id
+         WHERE l.player_id = @pid AND l.player_side = 'united' AND l.bench = 0 ${sql}`,
+      )
+      .get(bind) as { apps: number; starts: number; last_date: string | null };
+    return {
+      title: intent.opponent ? `${player.label} ${titleScope}` : `${player.label} — appearances${titleScope ? ` ${titleScope}` : ""}`,
+      summary: r.apps
+        ? `${r.apps} ${plural(r.apps, "appearance")} (${r.starts} ${plural(r.starts, "start")})${lastBit(r.last_date)}`
+        : `No recorded appearances${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
+      href: matchesHref(scopeLink(intent, { player: player.entity_id })),
+      hrefLabel: "Show the matches →",
+      coverage: LINEUP_COVERAGE,
+    };
+  }
+
+  if (metric === "assists") {
+    const r = db
+      .prepare(
+        `SELECT COUNT(*) n, COUNT(DISTINCT m.id) matches, MAX(m.date) last_date
+         FROM match_events e JOIN matches m ON m.id = e.match_id JOIN competitions c ON c.id = m.competition_id
+         WHERE e.assist_player_id = @pid AND e.assist_side = 'united' AND e.type IN ('goal','pen-goal') ${sql}`,
+      )
+      .get(bind) as { n: number; matches: number; last_date: string | null };
+    return {
+      title: intent.opponent ? `${player.label} ${titleScope}` : `${player.label} — assists${titleScope ? ` ${titleScope}` : ""}`,
+      summary: r.n
+        ? `${r.n} recorded ${plural(r.n, "assist")} in ${r.matches} ${plural(r.matches, "match", "matches")}${lastBit(r.last_date)}`
+        : `No recorded assists${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
+      href: player.href,
+      hrefLabel: `${player.label} →`,
+      coverage: ASSIST_COVERAGE,
+    };
+  }
+
+  // goals (default for a player subject)
+  const r = db
+    .prepare(
+      `SELECT COUNT(*) n, COUNT(DISTINCT m.id) matches, MAX(m.date) last_date
+       FROM match_events e JOIN matches m ON m.id = e.match_id JOIN competitions c ON c.id = m.competition_id
+       WHERE e.player_id = @pid AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') ${sql}`,
+    )
+    .get(bind) as { n: number; matches: number; last_date: string | null };
+  return {
+    title: intent.opponent ? `${player.label} ${titleScope}` : `${player.label} — goals${titleScope ? ` ${titleScope}` : ""}`,
+    summary: r.n
+      ? `${r.n} recorded ${plural(r.n, "goal")} in ${r.matches} ${plural(r.matches, "match", "matches")}${lastBit(r.last_date)}`
+      : `No recorded goals${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
+    href: matchesHref(scopeLink(intent, { scorer: player.entity_id })),
+    hrefLabel: "Show the matches →",
+    coverage: GOAL_COVERAGE,
+  };
+}
+
+/** A manager's record, optionally vs one opponent ("Ferguson record vs Arsenal"). */
+function managerCut(manager: IndexRow, intent: ParsedIntent): ShapedAnswer {
+  const filter: MatchFilter = { ...scopeFilter(intent, intent.opponent?.entity_id), manager: manager.entity_id };
+  if (intent.opponent) {
+    return {
+      title: `${manager.label} ${oppPhrase(intent.opponent, intent.filter.venue)}`,
+      summary: recText(recordFor(filter)),
+      href: matchesHref(scopeLink(intent, { manager: manager.entity_id })),
+      hrefLabel: "Show the matches →",
+      coverage: RESULT_COVERAGE,
+    };
+  }
+  return {
+    title: `Record under ${manager.label}`,
+    summary: recText(recordFor(filter)),
+    href: `/manager/${manager.entity_id}`,
+    hrefLabel: `${manager.label} →`,
+    coverage: RESULT_COVERAGE,
+  };
+}
+
+/** Team aggregate with no opponent: era/competition record, season record, or a
+ *  record under a manager named by an "under X" scope. */
+function teamScopedRecord(intent: ParsedIntent): ShapedAnswer | null {
+  const { scopeLabel, decadeLabel, seasonLabel, managerName } = intent.labels;
+
+  if (intent.filter.manager && managerName) {
+    return {
+      title: `Record under ${managerName}`,
+      summary: recText(recordFor(intent.filter)),
+      href: `/manager/${intent.filter.manager}`,
+      hrefLabel: `${managerName} →`,
+      coverage: RESULT_COVERAGE,
+    };
+  }
+
+  if (scopeLabel || decadeLabel) {
+    const where = scopeLabel ?? `in the ${decadeLabel}`;
+    return {
+      title: `United ${where}`,
+      summary: recText(recordFor(intent.filter)),
+      href: matchesHref(intent.link),
+      hrefLabel: "Show the matches →",
+      coverage: RESULT_COVERAGE,
+    };
+  }
+
+  if (seasonLabel) {
+    const exists = getDb().prepare("SELECT 1 FROM matches WHERE season = ? LIMIT 1").get(seasonLabel);
+    if (exists) {
+      return {
+        title: `${seasonLabel} season`,
+        summary: recText(recordFor({ season: seasonLabel })),
+        href: `/seasons/${seasonLabel}`,
+        hrefLabel: "Season page →",
+        coverage: RESULT_COVERAGE,
+      };
+    }
+  }
+  return null;
+}
+
+// =================================================================== specials
+
 /** Biggest win / heaviest defeat / best attended — the single extreme match in
  * the current scope, with a browse-the-slice link. */
-function superlative(norm: string, scope: Scope): ShapedAnswer | null {
+function superlative(norm: string, intent: ParsedIntent): ShapedAnswer | null {
   let sort: MatchFilter["sort"] | undefined;
   let noun = "";
   if (/\b(biggest|best|record|heaviest)\s+(win|victory|wins|victories)\b/.test(norm)) {
@@ -238,30 +548,20 @@ function superlative(norm: string, scope: Scope): ShapedAnswer | null {
   }
   if (!sort) return null;
 
-  // The residual after scope-stripping may name an opponent to scope the extreme to.
-  const oppFilter: MatchFilter = {};
-  let oppLabel = "";
-  if (scope.rest && !UNITED_WORDS.has(scope.rest)) {
-    const opp = resolveEntity(scope.rest, "opponent");
-    if (opp) { oppFilter.opponent = opp.entity_id; oppLabel = ` v ${opp.label}`; }
-  }
-
-  const filter: MatchFilter = { ...scope.filter, ...oppFilter, sort, limit: 1 };
+  const oppId = intent.opponent?.entity_id;
+  const oppLabel = intent.opponent ? ` v ${intent.opponent.label}` : "";
+  const filter: MatchFilter = { ...scopeFilter(intent, oppId), sort, limit: 1 };
   const { rows } = findMatches(filter);
   const top = rows[0];
   if (!top) return null;
 
-  const scopeBits = [oppLabel.trim(), scope.scopeLabel, scope.decadeLabel ? `in the ${scope.decadeLabel}` : ""]
+  const scopeBits = [oppLabel.trim(), intent.labels.scopeLabel, intent.labels.decadeLabel ? `in the ${intent.labels.decadeLabel}` : ""]
     .filter(Boolean)
     .join(" ");
   const title = `${noun}${scopeBits ? ` ${scopeBits}` : ""}`;
   const att = sort === "attendance" && top.attendance ? ` · ${top.attendance.toLocaleString("en-GB")}` : "";
   const summary = `${scoreline(top.gf, top.ga, [top.pen_gf, top.pen_ga], !!top.aet)} v ${top.opponent_name} · ${fmtDate(top.date)}${att}`;
-  const link: Record<string, string | undefined> = {
-    ...scope.link, opponent: oppFilter.opponent, sort,
-  };
-  // Margin/defeat extremes read straight off the complete result record; the
-  // attendance extreme is bounded by the partial attendance facet.
+  const link: Record<string, string | undefined> = { ...scopeLink(intent, {}), sort };
   const coverage: AnswerCoverage =
     sort === "attendance" ? { grade: "partial", label: "attendance data" } : RESULT_COVERAGE;
   return { title, summary, href: matchesHref(link), hrefLabel: "Browse the slice →", coverage };
@@ -282,7 +582,7 @@ function comparison(norm: string): ShapedAnswer | null {
   };
 }
 
-/** Late goals under a manager — kept verbatim from the original template set. */
+/** Late goals under a manager — a fixed-shape rate that isn't a plain subject cut. */
 function lateGoals(norm: string): ShapedAnswer | null {
   const late = /^late goals under (.+)$/.exec(norm);
   if (!late) return null;
@@ -306,65 +606,13 @@ function lateGoals(norm: string): ShapedAnswer | null {
   };
 }
 
-/**
- * A single player's recorded goals against one opponent — "how many times did
- * Rooney score against Arsenal". This is the shape the {@link headToHead} template
- * structurally can't reach: head-to-head scopes United's *team* record vs a club,
- * whereas this scopes one player. The query is split on the opponent connector
- * (against/vs/v); the player is resolved from the cleaned left side and the
- * opponent from the right, both `strong` so a verb-less near-miss never asserts a
- * wrong subject. A team-record phrasing like "record against arsenal" — whose left
- * side names no player — returns null here and falls through to {@link headToHead}.
- * Event-derived, so the verdict carries a `partial` goal-data grade.
- */
-function playerVsOpponent(norm: string): ShapedAnswer | null {
-  const split = /\b(?:against|versus|vs\.?|v)\b/.exec(norm);
-  if (!split) return null;
-  // The player side, stripped of interrogatives, the scoring verb/noun, and the
-  // United subject, so "how many times did rooney score" resolves to just "rooney".
-  const left = norm
-    .slice(0, split.index)
-    .replace(QUESTION_WORDS, " ")
-    .replace(/\b(scor(?:e|ed|es|ing)|goals?|nets?|netted|record|results?|times|many|often)\b/g, " ")
-    .replace(/\b(?:man(?:chester)?\s+(?:united|utd)|mufc|united|utd|we|us)\b/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  if (!left) return null;
-  const player = resolveEntity(left, "player", { strong: true });
-  if (!player) return null;
-  const opp = resolveEntity(norm.slice(split.index + split[0].length).trim(), "opponent", { strong: true });
-  if (!opp) return null;
-
-  const row = getDb()
-    .prepare(
-      `SELECT COUNT(*) goals, COUNT(DISTINCT m.id) matches, MAX(m.date) last_date
-       FROM match_events e JOIN matches m ON m.id = e.match_id
-       WHERE e.player_id = ? AND e.player_side = 'united'
-         AND e.type IN ('goal','pen-goal') AND m.opponent_id = ?`,
-    )
-    .get(player.entity_id, opp.entity_id) as { goals: number; matches: number; last_date: string | null };
-
-  const summary =
-    row.goals > 0
-      ? `${row.goals} recorded goal${row.goals === 1 ? "" : "s"} in ${row.matches} match${row.matches === 1 ? "" : "es"}${
-          row.last_date ? ` · last ${fmtDate(row.last_date)}` : ""
-        }`
-      : `No recorded goals against ${opp.label}`;
-  return {
-    title: `${player.label} v ${opp.label}`,
-    summary,
-    href: player.href,
-    hrefLabel: `${player.label} →`,
-    coverage: { grade: "partial", label: "goal data" },
-  };
-}
+// =================================================================== dispatch
 
 /**
- * Turn a free-text question into computed answers with evidence links. A handful
- * of template families — comparison, player-vs-opponent, superlative, head-to-head,
- * record-under-manager, era/competition-scoped, and a season record — each fed by
- * the shared scope parser and entity resolver, so phrasing is decoupled from
- * computation.
+ * Turn a free-text question into computed answers with evidence links. Two fixed
+ * shapes (comparison, late-goals) and the extreme-match superlative keep bespoke
+ * renderers; everything else is one subject×metric×scope grammar dispatched below,
+ * so adding a metric or a scope is additive rather than another template.
  */
 export function shapedAnswers(q: string): ShapedAnswer[] {
   const out: ShapedAnswer[] = [];
@@ -373,69 +621,64 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
 
   const push = (a: ShapedAnswer | null) => { if (a && !out.some((o) => o.title === a.title)) out.push(a); };
 
-  // 1. fixed-shape specials
+  // Fixed shapes that win outright when they resolve.
   push(lateGoals(norm));
   push(comparison(norm));
   if (out.length) return out;
 
-  // Player vs opponent runs only after the player-vs-player comparison has had its
-  // chance, so "rooney vs charlton" stays a two-player comparison rather than also
-  // yielding "Wayne Rooney v Charlton Athletic".
-  push(playerVsOpponent(norm));
-  if (out.length) return out;
+  const intent = parseIntent(norm);
 
-  // 2. scoped templates
-  const scope = parseScope(norm);
+  // The extreme-match selector sits alongside the grammar (it returns one match).
+  push(superlative(norm, intent));
 
-  push(superlative(norm, scope));
+  const metric = intent.metric;
 
-  // head-to-head when the residual names an opponent and a trigger/venue is present
-  const namesOpponent = scope.rest && !UNITED_WORDS.has(scope.rest);
-  if ((scope.triggered || scope.venue) && namesOpponent) {
-    push(headToHead(scope.rest, scope.filter));
-  } else if (scope.question && namesOpponent && out.length === 0) {
-    // Tentative best guess: question-shape + one strong opponent, no trigger word.
-    // "did united ever beat barcelona" → "Did you mean: Record against Barcelona?"
-    // Strong-only resolution so a fuzzy near-miss never asserts a wrong answer.
-    const guess = headToHead(scope.rest, scope.filter, undefined, true);
-    if (guess) push({ ...guess, tentative: true });
-  }
+  if (intent.subjectKind === "player" && intent.subject) {
+    // A bare name stays entity-first; only a metric or an opponent earns a verdict.
+    if (intent.metricExplicit || intent.opponent) {
+      push(playerCut(intent.subject, metric ?? "goals", intent));
+    }
+  } else if (intent.subjectKind === "manager" && intent.subject) {
+    if (intent.metricExplicit || intent.opponent) {
+      if (metric === "goals") {
+        // The manager is the subject, so fold it into the scope as a filter and read
+        // United's goals under him (a complete, result-table count).
+        const mId = intent.subject.entity_id;
+        const scoped: ParsedIntent = {
+          ...intent,
+          filter: { ...intent.filter, manager: mId },
+          link: { ...intent.link, manager: mId },
+        };
+        const oppBit = intent.opponent ? ` ${oppPhrase(intent.opponent, intent.filter.venue)}` : "";
+        push(teamGoals(scoped, `under ${intent.subject.label}${oppBit}`));
+      } else {
+        push(managerCut(intent.subject, intent));
+      }
+    }
+  } else {
+    // Team subject.
+    const opp = intent.opponent ?? (intent.opponentCandidate
+      ? resolveEntity(intent.opponentCandidate, "opponent", { strong: !intent.triggered })
+      : undefined);
 
-  // record under a manager
-  if (scope.managerName && UNITED_WORDS.has(scope.rest)) {
-    push({
-      title: `Record under ${scope.managerName}`,
-      summary: recText(recordFor(scope.filter)),
-      href: `/manager/${scope.filter.manager}`,
-      hrefLabel: `${scope.managerName} →`,
-      coverage: RESULT_COVERAGE,
-    });
-  }
-
-  // era / competition-scoped overall record ("United in Europe", "record in the 90s")
-  const scoped = scope.scopeLabel || scope.decadeLabel;
-  if (scoped && UNITED_WORDS.has(scope.rest) && !scope.managerName) {
-    const where = scope.scopeLabel ?? `in the ${scope.decadeLabel}`;
-    push({
-      title: `United ${where}`,
-      summary: recText(recordFor(scope.filter)),
-      href: matchesHref(scope.link),
-      hrefLabel: "Show the matches →",
-      coverage: RESULT_COVERAGE,
-    });
-  }
-
-  // bare season record ("1998-99")
-  if (scope.seasonLabel && UNITED_WORDS.has(scope.rest) && !scoped && !scope.managerName) {
-    const exists = getDb().prepare("SELECT 1 FROM matches WHERE season = ? LIMIT 1").get(scope.seasonLabel);
-    if (exists) {
-      push({
-        title: `${scope.seasonLabel} season`,
-        summary: recText(recordFor({ season: scope.seasonLabel })),
-        href: `/seasons/${scope.seasonLabel}`,
-        hrefLabel: "Season page →",
-        coverage: RESULT_COVERAGE,
-      });
+    if (opp) {
+      const assert = intent.triggered || intent.metricExplicit || !!intent.filter.venue;
+      if (assert) {
+        push(metric === "goals"
+          ? teamGoals({ ...intent, opponent: opp }, `${oppPhrase(opp, intent.filter.venue)}`)
+          : teamRecordVs(opp, scopeFilter(intent)));
+      } else if (intent.question) {
+        // Tentative best guess: question-shape + one strong opponent, no trigger.
+        push({ ...teamRecordVs(opp, scopeFilter(intent)), tentative: true });
+      }
+    } else if (intent.teamLeftoverClean) {
+      // No opponent: an aggregate over the scope.
+      if (metric === "goals") {
+        const phrase = scopePhrase(intent);
+        if (intent.metricExplicit) push(teamGoals(intent, phrase));
+      } else {
+        push(teamScopedRecord(intent));
+      }
     }
   }
 

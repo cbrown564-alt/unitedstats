@@ -387,7 +387,11 @@ test("player vs opponent: a player's goals against one club computes", () => {
   assert.ok(hit, "expected a player-vs-opponent answer");
   assert.match(hit.summary, /^\d+ recorded goals in \d+ matches/);
   assert.equal(hit.coverage?.grade, "partial", "goal events are partial coverage");
-  assert.equal(hit.href, "/player/wayne-rooney");
+  // The evidence link reproduces exactly the matches counted: this player's goals
+  // against this club, via the shared scorer+opponent /matches filter.
+  assert.match(hit.href, /^\/matches\?/);
+  assert.match(hit.href, /scorer=wayne-rooney/);
+  assert.match(hit.href, /opponent=arsenal/);
 });
 
 test("player-vs-opponent never steals a two-player comparison", () => {
@@ -410,6 +414,45 @@ test("18.2 miss classification: shaped = hit, entity-only = fell, nothing = zero
   assert.equal(classifyMiss(9, 1), undefined, "a shaped answer is never a miss");
   assert.equal(classifyMiss(9, 0), "fell", "entity rows but no answer is a fall-through");
   assert.equal(classifyMiss(0, 0), "zero", "nothing at all is a zero-result");
+});
+
+// ------------------------- the subject × metric × scope grammar (one engine)
+
+test("grammar: a player's metric varies by keyword (appearances, not just goals)", () => {
+  // The whack-a-mole fix: the metric is a slot, so the appearances cell — adjacent
+  // to the goals cell — computes instead of returning nothing.
+  const apps = runSearch("rooney appearances vs liverpool").shaped.find((s) => s.title === "Wayne Rooney v Liverpool");
+  assert.ok(apps, "expected a player-appearances answer");
+  assert.match(apps.summary, /^\d+ appearances? \(\d+ starts?\)/);
+  assert.equal(apps.coverage?.label, "lineup data", "appearances are lineup-derived");
+  assert.match(apps.href, /player=wayne-rooney/);
+  assert.match(apps.href, /opponent=liverpool/);
+});
+
+test("grammar: a manager is a subject — record scoped to him, link agrees with count", () => {
+  const hit = runSearch("ferguson record vs arsenal").shaped.find((s) => s.title === "Sir Alex Ferguson v Arsenal");
+  assert.ok(hit, "expected a manager-vs-opponent record");
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+/);
+  assert.equal(hit.coverage?.grade, "complete", "the result record is complete");
+  // The evidence link must carry the manager filter, or it would show every United
+  // v Arsenal match rather than Ferguson's — the count and the slice must match.
+  assert.match(hit.href, /manager=alex-ferguson/);
+  assert.match(hit.href, /opponent=arsenal/);
+});
+
+test("grammar: United's own goals over a scope is a complete count", () => {
+  const hit = runSearch("united goals at home in the 90s").shaped.find((s) => /^United goals/.test(s.title));
+  assert.ok(hit, "expected a team-goals aggregate");
+  assert.match(hit.summary, /^\d[\d,]* scored, \d[\d,]* conceded in \d+ matches$/);
+  assert.equal(hit.coverage?.grade, "complete", "goals-for is in the result table");
+  assert.equal(hit.href, "/matches?venue=H&from=1990&to=1999");
+});
+
+test("grammar: a bare player or manager name stays entity-first (no metric, no fire)", () => {
+  // Symmetry with the bare-opponent rule: only a metric or an opponent earns a
+  // shaped verdict, so typing a name still lands on its entity row.
+  assert.equal(runSearch("rooney").shaped.length, 0, "a bare player name shapes no answer");
+  assert.equal(runSearch("ferguson").shaped.length, 0, "a bare manager name shapes no answer");
 });
 
 // ------------------------------------------------ phase 9: runs and comebacks
