@@ -119,9 +119,11 @@ export default function Home() {
           <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
             From Newton Heath to today
           </p>
-          <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
-            Follow the thread through{" "}
-            <span className="text-devil-bright">Manchester United&apos;s</span> history
+          <h1 className="display text-4xl sm:text-5xl leading-[0.97] text-balance max-w-4xl">
+            <span className="block">Follow the thread through</span>
+            <span className="block">
+              <span className="text-devil-bright">Manchester United&apos;s</span> history
+            </span>
           </h1>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
