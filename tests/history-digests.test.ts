@@ -12,7 +12,7 @@ import {
   writeHistoryDigests,
   type HistoryDigestClaimKind,
 } from "../lib/historyDigests";
-import { claimVersion } from "../lib/citations";
+import { claimVersion, groupProvenanceBySource, type ClaimProvenance } from "../lib/citations";
 
 function withTempDir(fn: (dir: string) => void) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "unitedstats-digests-"));
@@ -136,6 +136,30 @@ test("history digest detectors have positive and negative golden cases", () => {
 
   assertHas("1999-05-26-bayern-munich-n", "historical-percentile", /99\.6th percentile/);
   assertLacks("1902-03-01-lincoln-city-h", "historical-percentile");
+});
+
+test("provenance groups by source, ordered by coverage, facets strongest first", () => {
+  const p = (sourceId: string, sourceName: string, facet: string, confidence: string): ClaimProvenance => ({
+    sourceId, sourceName, facet, confidence, evidencePath: "/match/x", evidenceUrl: "https://x/match/x",
+  });
+  const groups = groupProvenanceBySource([
+    p("openfootball", "openfootball", "attendance", "supporting"),
+    p("wikipedia", "Wikipedia", "result", "complete"),
+    p("openfootball", "openfootball", "result", "complete"),
+    p("wikipedia", "Wikipedia", "starting-lineup", "complete"),
+    p("wikipedia", "Wikipedia", "assists", "partial"),
+    p("wikipedia", "Wikipedia", "result", "complete"), // duplicate facet, collapsed
+  ]);
+
+  // Two sources, not six rows. Wikipedia leads on more complete facets.
+  assert.equal(groups.length, 2);
+  assert.deepEqual(groups.map((g) => g.sourceId), ["wikipedia", "openfootball"]);
+
+  const wiki = groups[0];
+  assert.equal(wiki.completeCount, 2);
+  // Strongest confidence first; the duplicate result facet appears once.
+  assert.deepEqual(wiki.facets.map((f) => f.facet), ["result", "starting-lineup", "assists"]);
+  assert.equal(wiki.facets.filter((f) => f.facet === "result").length, 1);
 });
 
 test("history digest claim versions stay stable for the same facts and change when content changes", () => {
