@@ -5,12 +5,12 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 
 // Primary rail: the spine (Matches/Seasons), the headline discovery surface
-// (Explore — the three-strip discovery home that subsumes the old Questions index,
-// Phase 11.5), and the top people entries (Players/Managers). These earn a
-// one-click slot. Everything else lives behind "More" — see the Phase 9
-// follow-up in docs/ROADMAP.md (nav IA).
+// (Discover — the three-strip discovery home that subsumes the old Questions index,
+// Phase 11.5; the /explore route is kept as a technical contract), and the top
+// people entries (Players/Managers). These earn a one-click slot. Everything else
+// lives behind "More" — see the Phase 9 follow-up in docs/ROADMAP.md (nav IA).
 const PRIMARY = [
-  ["Explore", "/explore"],
+  ["Discover", "/explore"],
   ["Matches", "/matches"],
   ["Seasons", "/seasons"],
   ["Players", "/players"],
