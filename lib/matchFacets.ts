@@ -4,7 +4,7 @@
 // menu, and the per-facet editors. Keep this pure data: no DB or server-only
 // imports, so it stays safe to pull into the client bundle.
 
-type FacetKind = "text" | "datalist" | "select" | "year" | "minute" | "toggle";
+type FacetKind = "datalist" | "select" | "year" | "minute" | "toggle";
 export type FacetGroup = "who" | "what" | "where" | "when";
 
 export interface FacetDef {
@@ -31,7 +31,7 @@ export const FACET_GROUPS: { key: FacetGroup; label: string }[] = [
 
 // Order within each group is the order shown in the add-filter menu.
 export const MATCH_FACETS: FacetDef[] = [
-  { key: "q", label: "Opponent", kind: "text", group: "who", placeholder: "Arsenal, Liverpool, Leeds" },
+  { key: "opponent", label: "Opponent", kind: "select", group: "who", optionsKey: "opponent" },
   { key: "manager", label: "Manager", kind: "select", group: "who", optionsKey: "manager" },
   { key: "player", label: "Player appeared", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney" },
   { key: "scorer", label: "Scorer", kind: "datalist", group: "who", optionsKey: "player", placeholder: "eric-cantona" },
@@ -60,3 +60,5 @@ export const FACET_BY_KEY: Record<string, FacetDef> = Object.fromEntries(
 
 export type FacetOption = { value: string; label: string };
 export type FacetOptions = Record<string, FacetOption[]>;
+/** Per-facet contextual option counts: facet key → option value → match count. */
+export type FacetCounts = Record<string, Record<string, number>>;

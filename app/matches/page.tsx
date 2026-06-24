@@ -2,12 +2,13 @@ import Link from "next/link";
 import {
   findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById, managersIndex,
   playerById, playersIndex, stadiumById, stadiumsList, matchCitiesList, matchEventBadges,
+  opponentsIndex, matchFacetCounts,
 } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { MatchFilterBar } from "@/components/MatchFilterBar";
-import type { FacetOptions } from "@/lib/matchFacets";
+import type { FacetOptions, FacetCounts } from "@/lib/matchFacets";
 import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
@@ -103,12 +104,15 @@ export default async function MatchesPage({
   const players = [...playersIndex()].sort((a, b) => a.name.localeCompare(b.name));
   const stadiums = stadiumsList();
   const cities = matchCitiesList();
+  const opponents = opponentsIndex();
   const decades = matchDecades();
   const pages = Math.ceil(total / PAGE_SIZE);
   // Option lists for the facet bar, keyed by facet `optionsKey`. Reuses the same
-  // data the classic form below renders from — no extra queries.
+  // data the classic form below renders from — no extra queries. Labels stay clean
+  // (no "(123)"): the combobox shows live, contextual counts from `facetCounts`.
   const facetOptions: FacetOptions = {
-    competition: comps.map((c) => ({ value: c.id, label: `${c.name} (${fmtNum(c.n)})` })),
+    opponent: opponents.map((o) => ({ value: o.id, label: o.name })),
+    competition: comps.map((c) => ({ value: c.id, label: c.name })),
     season: seasons.map((s) => ({ value: s, label: s })),
     venue: [
       { value: "H", label: "Home" },
@@ -118,11 +122,14 @@ export default async function MatchesPage({
     result: RESULT_FILTER_KEYS.map((r) => ({ value: r, label: resultLabel(r) })),
     type: TYPE_FILTER_KEYS.map((t) => ({ value: t, label: COMPETITION_TYPE_LABELS[t] })),
     manager: managers.map((m) => ({ value: m.id, label: m.name })),
-    stadium: stadiums.map((s) => ({ value: s.id, label: `${s.name}${s.city ? `, ${s.city}` : ""} (${fmtNum(s.n)})` })),
-    city: cities.map((c) => ({ value: c.city, label: `${c.city} (${fmtNum(c.n)})` })),
+    stadium: stadiums.map((s) => ({ value: s.id, label: `${s.name}${s.city ? `, ${s.city}` : ""}` })),
+    city: cities.map((c) => ({ value: c.city, label: c.city })),
     goalWindow: GOAL_WINDOW_FILTERS.map((w) => ({ value: w.key, label: w.label })),
     player: players.map((p) => ({ value: p.player_id, label: p.name })),
   };
+  // Contextual option counts — each facet counted with its own constraint dropped,
+  // so the bar can narrow options to the current slice (Bayern → no Premier League).
+  const facetCounts: FacetCounts = matchFacetCounts(filter);
   const hasFilters = Boolean(
     sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type ||
     sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
@@ -177,6 +184,7 @@ export default async function MatchesPage({
 
   // Active filters, rendered as individually removable chips.
   const chips: { key: string; label: string }[] = [];
+  if (sp.opponent) chips.push({ key: "opponent", label: opponents.find((o) => o.id === sp.opponent)?.name ?? "Opponent" });
   if (sp.q) chips.push({ key: "q", label: `Opponent: ${sp.q}` });
   if (sp.competition)
     chips.push({ key: "competition", label: comps.find((c) => c.id === sp.competition)?.name ?? sp.competition });
@@ -223,7 +231,7 @@ export default async function MatchesPage({
         </div>
       </div>
 
-      <MatchFilterBar params={sp} chips={chips} options={facetOptions} />
+      <MatchFilterBar params={sp} chips={chips} options={facetOptions} counts={facetCounts} />
 
       <details className="rounded-lg border border-line/70 bg-panel/50">
         <summary className="cursor-pointer select-none list-none px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">

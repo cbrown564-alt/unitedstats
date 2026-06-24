@@ -540,6 +540,49 @@ export function matchesSummary(f: MatchFilter): MatchesSummary {
     .get(params) as MatchesSummary;
 }
 
+/** One categorical facet's option→count map within a slice, as a GROUP BY. */
+function facetColumnCounts(col: string, f: MatchFilter, join = ""): Record<string, number> {
+  const { cond, params } = matchWhere(f);
+  const rows = getDb()
+    .prepare(
+      `SELECT ${col} v, COUNT(*) n FROM matches m
+       JOIN competitions c ON c.id = m.competition_id ${join} ${cond}
+       GROUP BY ${col}`,
+    )
+    .all(params) as { v: string | null; n: number }[];
+  const out: Record<string, number> = {};
+  for (const r of rows) if (r.v != null) out[String(r.v)] = r.n;
+  return out;
+}
+
+/**
+ * Contextual option counts for the categorical facets, so the filter UI can show
+ * how many matches each option still yields and hide the ones that lead nowhere.
+ * Each facet is counted with its *own* constraint removed (standard faceted
+ * semantics) — so picking an opponent narrows the competition options, but the
+ * opponent list still shows every opponent. Event/lineup facets (scorer,
+ * assister, goal timing, player) are omitted: they stay type-ahead, uncounted.
+ */
+export function matchFacetCounts(f: MatchFilter): Record<string, Record<string, number>> {
+  const without = (key: keyof MatchFilter): MatchFilter => ({ ...f, [key]: undefined });
+  const typeRaw = facetColumnCounts("c.type", without("type"));
+  // "cup" is an umbrella over every official cup type (see matchWhere).
+  const cupTotal = Object.entries(typeRaw)
+    .filter(([t]) => t !== "league" && t !== "unofficial")
+    .reduce((sum, [, n]) => sum + n, 0);
+  return {
+    opponent: facetColumnCounts("m.opponent_id", without("opponent")),
+    competition: facetColumnCounts("m.competition_id", without("competition")),
+    season: facetColumnCounts("m.season", without("season")),
+    venue: facetColumnCounts("m.venue", without("venue")),
+    result: facetColumnCounts("m.result", without("result")),
+    manager: facetColumnCounts("m.manager_id", without("manager")),
+    stadium: facetColumnCounts("m.stadium_id", without("stadium")),
+    city: facetColumnCounts("s.city", without("city"), "JOIN stadiums s ON s.id = m.stadium_id"),
+    type: cupTotal > 0 ? { ...typeRaw, cup: cupTotal } : typeRaw,
+  };
+}
+
 export function competitionsList(): { id: string; name: string; type: string; n: number }[] {
   return getDb()
     .prepare(

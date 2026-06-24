@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
+import { FacetCombobox } from "@/components/FacetCombobox";
 import {
-  MATCH_FACETS, FACET_BY_KEY, FACET_GROUPS, type FacetDef, type FacetOption, type FacetOptions,
+  MATCH_FACETS, FACET_BY_KEY, FACET_GROUPS,
+  type FacetDef, type FacetOption, type FacetOptions, type FacetCounts,
 } from "@/lib/matchFacets";
 
 /**
@@ -21,10 +23,12 @@ export function MatchFilterBar({
   params,
   chips,
   options,
+  counts,
 }: {
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
   options: FacetOptions;
+  counts: FacetCounts;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -106,6 +110,7 @@ export function MatchFilterBar({
                   facet={facet}
                   current={params[chip.key] ?? ""}
                   options={facet.optionsKey ? options[facet.optionsKey] ?? [] : []}
+                  counts={counts[chip.key]}
                   onApply={(v) => apply(chip.key, v)}
                 />
               )}
@@ -128,6 +133,7 @@ export function MatchFilterBar({
               facet={newFacet}
               current=""
               options={newFacet.optionsKey ? options[newFacet.optionsKey] ?? [] : []}
+              counts={counts[newFacet.key]}
               onApply={(v) => apply(newFacet.key, v)}
             />
           )}
@@ -188,60 +194,38 @@ function FacetEditor({
   facet,
   current,
   options,
+  counts,
   onApply,
 }: {
   facet: FacetDef;
   current: string;
   options: FacetOption[];
+  counts?: Record<string, number>;
   onApply: (value: string | undefined) => void;
 }) {
   const [val, setVal] = useState(current);
-  const wrap = "absolute left-0 top-full z-40 mt-1 rounded-lg border border-line bg-panel p-2 shadow-xl";
 
-  if (facet.kind === "select") {
-    return (
-      <div className={wrap}>
-        <select
-          autoFocus
-          defaultValue={current}
-          onChange={(e) => onApply(e.target.value || undefined)}
-          aria-label={facet.label}
-          className="control w-60"
-        >
-          <option value="">Any — {facet.label.toLowerCase()}</option>
-          {options.map((o) => (
-            <option key={o.value} value={o.value}>{o.label}</option>
-          ))}
-        </select>
-      </div>
-    );
+  // Every option-backed facet (select + datalist) gets the searchable listbox.
+  if (facet.optionsKey) {
+    return <FacetCombobox label={facet.label} options={options} current={current} counts={counts} onApply={onApply} />;
   }
 
-  const numeric = facet.kind === "year" || facet.kind === "minute";
-  const listId = facet.kind === "datalist" ? `facet-${facet.key}-list` : undefined;
+  // What remains is the numeric facets (year / minute): a small typed input.
   return (
     <form
-      className={`${wrap} flex items-center gap-2`}
+      className="absolute left-0 top-full z-40 mt-1 flex items-center gap-2 rounded-lg border border-line bg-panel p-2 shadow-xl"
       onSubmit={(e) => { e.preventDefault(); onApply(val || undefined); }}
     >
       <input
         autoFocus
-        type={numeric ? "text" : "search"}
-        inputMode={numeric ? "numeric" : undefined}
-        list={listId}
+        type="text"
+        inputMode="numeric"
         value={val}
         onChange={(e) => setVal(e.target.value)}
         placeholder={facet.placeholder}
         aria-label={facet.label}
         className="control w-44"
       />
-      {listId && (
-        <datalist id={listId}>
-          {options.map((o) => (
-            <option key={o.value} value={o.value}>{o.label}</option>
-          ))}
-        </datalist>
-      )}
       <button type="submit" className="min-h-[2.375rem] shrink-0 rounded-md bg-devil px-3 text-xs font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
         Apply
       </button>
