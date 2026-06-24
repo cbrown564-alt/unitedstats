@@ -390,7 +390,14 @@ function FortressModule({ variant }: ModuleProps) {
   const otDecades = oldTraffordByDecade();
   const otRecord = otDecades.reduce((a, d) => ({ p: a.p + d.p, w: a.w + d.w }), { p: 0, w: 0 });
   const leadDraws = leadHeld.games.filter((g) => g.result === "D");
-  const leadFellBehind = leadHeld.games.filter((g) => g.worst < 0).length; // led, trailed after the break, rescued
+  // The leads actually lost, and the unbeaten run since the last of them. Minute
+  // data now reaches back far enough to surface old defeats from a half-time lead,
+  // so the honest record is "unbeaten since 1984", not "never lost".
+  const leadLosses = leadHeld.games.filter((g) => g.result === "L");
+  const lastLoss = leadLosses[leadLosses.length - 1];
+  const unbeatenSince = lastLoss
+    ? { run: leadHeld.games.length - 1 - leadHeld.games.findIndex((g) => g.id === lastLoss.id), from: lastLoss.date }
+    : { run: leadHeld.games.length, from: leadHeld.from };
   // Closest calls — the surrendered leads, ranked by how near defeat came (deepest
   // second-half deficit, then biggest scoreline), shown chronologically.
   const closeCalls = [...leadDraws]
@@ -398,35 +405,41 @@ function FortressModule({ variant }: ModuleProps) {
     .slice(0, 5)
     .sort((a, b) => a.date.localeCompare(b.date));
   const closeCallRank = new Map(closeCalls.map((g, i) => [g.id, i + 1]));
-  const leadDots: LeadDot[] = leadHeld.games.map((g) => ({
-    result: g.result as LeadDot["result"],
-    surrendered: g.result === "D",
-    rank: closeCallRank.get(g.id),
-    title: `${fmtDate(g.date)} — ${g.result === "W" ? `won ${g.gf}–${g.ga}` : `drew ${g.gf}–${g.ga}`} v ${g.opponent_name}${
-      g.worst < 0 ? " (fell behind, rescued)" : g.result === "D" ? " (lead surrendered)" : ""
-    }`,
-  }));
+  const leadDots: LeadDot[] = leadHeld.games.map((g) => {
+    const outcome = g.result === "W" ? `won ${g.gf}–${g.ga}` : g.result === "L" ? `lost ${g.gf}–${g.ga}` : `drew ${g.gf}–${g.ga}`;
+    const note = g.result === "L" ? " (lead lost)" : g.worst < 0 ? " (fell behind, rescued)" : g.result === "D" ? " (lead surrendered)" : "";
+    return {
+      result: g.result as LeadDot["result"],
+      surrendered: g.result === "D",
+      rank: closeCallRank.get(g.id),
+      title: `${fmtDate(g.date)} — ${outcome} v ${g.opponent_name}${note}`,
+    };
+  });
   return (
     <Module
       slug="fortress"
       variant={variant}
-      finding={`Take a lead into half-time at Old Trafford and the record says you do not lose it. Across the ${fmtNum(leadHeld.games.length)} home league games we can place where United led at the break, ${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}, they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and lost none.`}
+      finding={
+        lastLoss
+          ? `Take a lead into half-time at Old Trafford and recent history says you keep it: United have not lost a home league game led at the break since ${fmtDate(lastLoss.date)} — ${fmtNum(unbeatenSince.run)} of them and counting. Across the full reconstructed record of ${fmtNum(leadHeld.games.length)} such games (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}) United won ${fmtNum(leadHeld.w)} and drew ${fmtNum(leadHeld.d)}; the lead was lost just ${fmtNum(leadLosses.length)} times.`
+          : `Take a lead into half-time at Old Trafford and the record says you keep it. Across the ${fmtNum(leadHeld.games.length)} home league games we can place where United led at the break, ${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}, they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and lost none.`
+      }
       slice="Old Trafford home league games where United led at half-time, the half-time score reconstructed from minute-stamped goal events. Restricted to matches whose goals all carry a minute, so it is the verifiable part of the record rather than a single continuous run."
       coverage={`Half-time scores only reconstruct where every goal has a recorded minute, so these ${fmtNum(leadHeld.games.length)} games are a sample, not a sequence. Opta, working from complete half-time data, puts the current unbeaten run at 400 home league games led at half-time — W365 D35 — back to August 1984.`}
     >
       <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
         <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
-          <div className="stat-num text-5xl font-semibold leading-none text-win">0</div>
-          <div className="mx-auto mt-1.5 max-w-28 text-[11px] uppercase tracking-wider text-ink-faint">
-            defeats in {fmtNum(leadHeld.games.length)} games led at the break
+          <div className="stat-num text-5xl font-semibold leading-none text-win">{fmtNum(unbeatenSince.run)}</div>
+          <div className="mx-auto mt-1.5 max-w-32 text-[11px] uppercase tracking-wider text-ink-faint">
+            led at the break and unbeaten since {unbeatenSince.from.slice(0, 4)}
           </div>
         </div>
         <div className="flex items-center text-sm text-ink-dim sm:px-2">
           <span>
-            <span className="text-ink">Won {fmtNum(leadHeld.w)}, drawn {fmtNum(leadHeld.d)}, lost none.</span>{" "}
-            The lead was let slip to a draw {fmtNum(leadHeld.d)} times, and only {leadFellBehind === 1 ? "once" : `${fmtNum(leadFellBehind)} times`} did
-            United actually fall behind after the interval and still rescue the game. Opta dates the run unbeaten to 400 such
-            games, back to August 1984.
+            <span className="text-ink">Won {fmtNum(leadHeld.w)}, drawn {fmtNum(leadHeld.d)}, lost {fmtNum(leadLosses.length)}</span>{" "}
+            across the {fmtNum(leadHeld.games.length)} home league games we can place where United led at the break.
+            {lastLoss ? ` The lead was last lost on ${fmtDate(lastLoss.date)} — and not once in the ${fmtNum(unbeatenSince.run)} such games since.` : ""}{" "}
+            Opta, working from complete half-time data, dates the unbeaten run to 400 such games, back to August 1984.
           </span>
         </div>
       </div>
@@ -441,7 +454,7 @@ function FortressModule({ variant }: ModuleProps) {
             <span className="inline-block h-2.5 w-2.5 rounded-full border-2 bg-pitch" style={{ borderColor: "var(--color-gold)" }} /> lead surrendered — drew
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-full opacity-30" style={{ background: "var(--color-loss)" }} /> a defeat would sit here — there are none
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "var(--color-loss)" }} /> lead lost — {fmtNum(leadLosses.length)} times, the last in {lastLoss ? lastLoss.date.slice(0, 4) : "—"}
           </span>
         </div>
         <LeadHeldDotplot dots={leadDots} fromLabel={leadHeld.from.slice(0, 4)} toLabel={leadHeld.to.slice(0, 4)} />

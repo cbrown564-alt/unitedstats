@@ -2,10 +2,10 @@
  * The fortress rule, drawn as a wall. One dot per Old Trafford home league game
  * United led at half-time, in chronological order. The grid is filled COLUMN by
  * column, top to bottom, so reading left → right tracks time — the same axis as
- * the year labels beneath it. Wins are solid red; draws are hollow gold — the
- * games where the lead slipped but the record held; a defeat would be a slate
- * breach, and the point of the picture is that there isn't one. A handful of
- * "closest call" games carry a numbered halo that ties them to the list below.
+ * the year labels beneath it. Wins are solid; draws are hollow gold — the games
+ * where the lead slipped but the record held; the rare brick-red dot is a lead
+ * actually lost, all of them long ago. A handful of "closest call" games carry a
+ * numbered halo that ties them to the list below.
  *
  * Server-rendered SVG: no client JS, scales to its container via viewBox.
  */
@@ -52,7 +52,7 @@ export function LeadHeldDotplot({
       viewBox={`0 0 ${width} ${height}`}
       className="h-auto w-full"
       role="img"
-      aria-label={`${dots.length} home league games leading at half-time, ${fromLabel} to ${toLabel}; every one unbeaten, ${dots.filter((d) => d.result === "D").length} drawn`}
+      aria-label={`${dots.length} home league games leading at half-time, ${fromLabel} to ${toLabel}; ${dots.filter((d) => d.result === "D").length} drawn and ${dots.filter((d) => d.result === "L").length} lost`}
     >
       {dots.map((d, i) => {
         const x = cx(i);

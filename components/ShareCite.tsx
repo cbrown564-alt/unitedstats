@@ -74,17 +74,22 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
   // preserved. A cancelled sheet (AbortError) is a no-op, not a failure.
   const share = async () => {
     const url = absolute();
+    // Build the card image first, in its own try — a fetch failure just means we
+    // share the link instead. Then call navigator.share exactly ONCE. Calling it
+    // a second time was the bug: dismissing the sheet rejects the share with an
+    // AbortError, and a fall-through second call simply re-opened the sheet.
+    let file: File | null = null;
     try {
-      const file = await fetchCardFile(cardUrl, cardFilename);
-      if (file && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title, text: title, url });
-        return;
-      }
+      file = await fetchCardFile(cardUrl, cardFilename);
     } catch {
-      /* image fetch or file share failed — fall through to a plain url share */
+      file = null;
     }
+    const data =
+      file && navigator.canShare?.({ files: [file] })
+        ? { files: [file], title, text: title, url }
+        : { title, text: title, url };
     try {
-      await navigator.share({ title, text: title, url });
+      await navigator.share(data);
     } catch {
       /* sheet dismissed or share rejected — nothing to recover */
     }
