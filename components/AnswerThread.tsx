@@ -72,12 +72,17 @@ export function AnswerThread({ stations }: { stations: ThreadStation[] }) {
                 } ${i === active ? "ring-4 ring-devil-bright/20" : ""}`}
               />
               {!isLast && (
+                // On phones the connector runs unbroken from the dot so the
+                // stations read as one continuous thread; the desktop keeps the
+                // small beaded gaps (sm:my-1.5) that suit the wider layout.
                 <span
-                  className={`my-1.5 w-px flex-1 transition-colors duration-500 ${passed ? "bg-devil-bright" : "bg-line"}`}
+                  className={`my-0 w-px flex-1 transition-colors duration-500 sm:my-1.5 ${passed ? "bg-devil-bright" : "bg-line"}`}
                 />
               )}
             </div>
-            <div className={`min-w-0 ${isLast ? "pb-1" : "pb-12"}`}>
+            {/* Tighter inter-station runs on mobile keep the thread from
+                stretching into long empty stops on a tall, narrow screen. */}
+            <div className={`min-w-0 ${isLast ? "pb-1" : "pb-8 sm:pb-12"}`}>
               <p
                 className={`mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors ${
                   i === active ? "text-ink" : reached ? "text-ink-dim" : "text-ink-faint"
