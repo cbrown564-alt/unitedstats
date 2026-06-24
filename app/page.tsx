@@ -120,7 +120,8 @@ export default function Home() {
             From Newton Heath to today
           </p>
           <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
-            Follow the thread through Manchester United&apos;s history
+            Follow the thread through{" "}
+            <span className="text-devil-bright">Manchester United&apos;s</span> history
           </h1>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
