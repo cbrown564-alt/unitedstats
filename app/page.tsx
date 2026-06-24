@@ -26,6 +26,7 @@ const ROUTES: [label: string, href: string, hint: string][] = [
   ["Managers", "/managers", "Mangnall to now"],
   ["Opponents", "/opponents", "every head-to-head"],
   ["Analytics", "/analytics", "Elo and the long arc"],
+  ["On this day", "/on-this-day", "today in United history"],
 ];
 
 export default function Home() {
