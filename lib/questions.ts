@@ -26,7 +26,7 @@ export const QUESTIONS: QuestionMeta[] = [
     label: "Late goals",
     question: "Do United really score late?",
     summary:
-      "How often United score after the 85th minute, tested decade by decade against an even spread.",
+      "How often United score after the 85th minute, split decade by decade into the last five regulation minutes and stoppage time.",
   },
   {
     slug: "comebacks",

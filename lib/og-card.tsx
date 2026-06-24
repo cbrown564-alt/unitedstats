@@ -235,25 +235,35 @@ const Q_WIDTH = 1040;
  *  by decade), `rows` for a ranked comparison (bogey sides, cup leans, the own-
  *  goal leaderboard), `wdl` for a single conviction bar (the Old Trafford record). */
 export type QuestionVisual =
-  | { kind: "columns"; bars: { label: string; value: number; highlight?: boolean }[] }
+  | { kind: "columns"; bars: { label: string; value: number; base?: number; highlight?: boolean }[] }
   | { kind: "rows"; bars: { label: string; value: number; valueText: string; highlight?: boolean }[] }
   | { kind: "wdl"; w: number; d: number; l: number };
 
-function vizColumns(bars: { label: string; value: number; highlight?: boolean }[], acc: string, muted: string) {
+/** Decade columns. When a bar carries `base`, it is drawn as two stacked segments —
+ *  a `base` floor in the accent and a `value - base` cap in devil-red — so a split
+ *  total (regulation minutes vs stoppage time) reads as a flat base with a growing
+ *  cap rather than one height. Plain bars (no `base`) keep the single-segment look. */
+function vizColumns(bars: { label: string; value: number; base?: number; highlight?: boolean }[], acc: string, muted: string) {
   const gap = 10;
   const colW = Math.floor((Q_WIDTH - (bars.length - 1) * gap) / bars.length);
   const h = 156;
   const max = Math.max(...bars.map((b) => b.value), 1);
   return (
     <div style={{ display: "flex", alignItems: "flex-end", gap }}>
-      {bars.map((b, i) => (
-        <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: colW }}>
-          <div style={{ display: "flex", alignItems: "flex-end", height: h }}>
-            <div style={{ width: colW, height: Math.max(6, Math.round((b.value / max) * h)), background: b.highlight ? acc : muted, borderRadius: "5px 5px 0 0" }} />
+      {bars.map((b, i) => {
+        const totalH = Math.max(6, Math.round((b.value / max) * h));
+        const baseH = b.base != null && b.value > 0 ? Math.round((Math.min(b.base, b.value) / b.value) * totalH) : totalH;
+        const capH = totalH - baseH;
+        return (
+          <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: colW }}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", height: h }}>
+              {capH > 0 && <div style={{ width: colW, height: capH, background: DEVIL, borderRadius: "5px 5px 0 0" }} />}
+              <div style={{ width: colW, height: baseH, background: b.base != null ? acc : b.highlight ? acc : muted, borderRadius: capH > 0 ? 0 : "5px 5px 0 0" }} />
+            </div>
+            <span style={{ fontSize: 18, marginTop: 10, color: b.highlight ? INK : INK_FAINT }}>{b.label}</span>
           </div>
-          <span style={{ fontSize: 18, marginTop: 10, color: b.highlight ? INK : INK_FAINT }}>{b.label}</span>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

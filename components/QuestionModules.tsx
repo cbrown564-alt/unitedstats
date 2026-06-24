@@ -88,47 +88,55 @@ function LateGoalsModule({ variant }: ModuleProps) {
   const timed = timedGoalCounts();
   const winners = iconicLateWinners();
   const overallLateShare = lateByDecade.reduce(
-    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
-    { timed: 0, late: 0 },
+    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late, reg: a.reg + d.reg, stoppage: a.stoppage + d.stoppage }),
+    { timed: 0, late: 0, reg: 0, stoppage: 0 },
   );
+  const latest = lateByDecade[lateByDecade.length - 1];
+  const round1 = (n: number) => Math.round(n * 10) / 10;
   return (
     <Module
       slug="late-goals"
       variant={variant}
-      finding={`Of ${fmtNum(overallLateShare.timed)} goals with a recorded minute, ${pct(overallLateShare.late, overallLateShare.timed)} came after the 85th minute — roughly double an even spread. The decade bars show whether "Fergie time" is an era or a habit.`}
-      slice="United goals (including penalties and own goals for) with a recorded minute, bucketed by decade; the late share counts goals from the 86th minute on, stoppage time included. Decades with fewer than 20 timed goals are hidden."
-      coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute; minute data is densest from the 1990s onward, so early decades lean on smaller samples.`}
+      finding={`Of ${fmtNum(overallLateShare.timed)} goals with a recorded minute, ${pct(overallLateShare.late, overallLateShare.timed)} came after the 85th — the stat behind "Fergie time". But the window splits in two, and the split is the story. The last five regulation minutes (86–90) account for ${pct(overallLateShare.reg, overallLateShare.timed)} of all goals and have held there in every era — barely above an even spread. The rise is almost entirely stoppage time: in the ${latest.decade} the regulation share is still ${pct(latest.reg, latest.timed)}, but a further ${pct(latest.stoppage, latest.timed)} now lands after the 90th — a window that has stretched from a minute or two mid-century to ten-plus today. United score later because the closing minutes last longer now, not because the shirt makes it so.`}
+      slice="United goals (penalties and own goals for included) with a recorded minute, by decade. Each bar splits the post-85th window into the last five regulation minutes (86–90) and stoppage time (90+, added time folded into the final minute); together they make the late share. Decades with fewer than 20 timed goals are hidden."
+      coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute; minute data is densest from the 1990s onward. Stoppage-time goals are only separable where a source gives the "90+" notation — largely a modern convention — so the stoppage segment reads near zero before the 1990s in part because it was not yet recorded, and no source captures each match's true added-time length to normalise against.`}
     >
       <div>
         <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals actually land</h3>
         <MinuteRidge bins={ridge} lateFrom={85} />
         <p className="text-xs text-ink-faint mt-1">
-          United goals by 5-minute window; the closing five minutes (plus stoppage, folded into the final bar) are
-          shaded red. The dashed line is an even spread across the match.
+          United goals by 5-minute window. The final bar is wider than it looks — it holds the 86th to 90th
+          <em> plus all stoppage time</em>, so it climbs above the even-spread line (dashed) partly because it covers
+          more of the match than any other.
         </p>
       </div>
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-stretch">
         <div className="flex flex-col">
-          <h3 className="text-sm font-medium mb-2 text-ink-dim">Is it an era, or a habit? Late share by decade</h3>
+          <h3 className="text-sm font-medium mb-2 text-ink-dim">Era or habit? The last five minutes vs stoppage time</h3>
           <div className="min-h-40 flex-1">
             <InspectableBarChart
               data={lateByDecade.map((d) => ({
                 label: d.decade,
                 tickLabel: d.decade.slice(2),
-                value: Math.round((1000 * d.late) / d.timed) / 10,
-                valueLabel: `${(Math.round((1000 * d.late) / d.timed) / 10).toFixed(1)}% late`,
-                meta: `${fmtNum(d.late)} of ${fmtNum(d.timed)} timed goals`,
+                value: round1((100 * d.reg) / d.timed),
+                value2: round1((100 * d.stoppage) / d.timed),
+                valueLabel: `${round1((100 * d.late) / d.timed).toFixed(1)}% after 85'`,
+                meta: `${round1((100 * d.reg) / d.timed).toFixed(1)}% last five minutes · ${round1((100 * d.stoppage) / d.timed).toFixed(1)}% stoppage`,
                 href: `/matches?from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
               }))}
               fill
               color="var(--color-gold)"
-              chartLabel="Manchester United late goal share by decade"
+              stack={{ color: "var(--color-devil-bright)" }}
+              chartLabel="Manchester United late goal share by decade, split into regulation and stoppage time"
               yTickSuffix="%"
               baseline={{ value: 100 / 18, label: "even spread 5.6%" }}
             />
           </div>
           <p className="text-xs text-ink-faint mt-1">
-            Percent of timed goals scored after the 85th minute, by decade. Dashed line is an even spread across the match.
+            <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> last 5 min (86–90)</span>
+            {" · "}
+            <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage (90+)</span>
+            . The gold base barely moves; the rising red cap is the lengthening of stoppage time.
           </p>
         </div>
         <div className="flex flex-col">
