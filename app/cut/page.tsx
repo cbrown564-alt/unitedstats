@@ -13,6 +13,8 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { CutControls } from "@/components/cut/CutControls";
 import { CutChart } from "@/components/cut/CutChart";
 import { SaveToCollection } from "@/components/cut/SaveToCollection";
+import { EmbedCut } from "@/components/cut/EmbedCut";
+import { EMBED_DIMENSIONS } from "@/lib/embeds";
 
 export const dynamic = "force-dynamic";
 
@@ -60,6 +62,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
 
   const competitions = competitionsList();
   const seasons = allSeasons();
+  const curatedEntry = curatedFor(cut);
   const chips = filterChips(cut);
   const dimLabel = dimensionLabel(cut.dimension);
   const volNoun = cut.subject === "player" ? "appearances" : "matches";
@@ -197,6 +200,10 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
           </div>
           <CoverageNote slice={`${dimLabel} groups across ${fmtNum(played)} ${volNoun}`} coverage={coverage.basis} />
         </section>
+      )}
+
+      {curatedEntry && (
+        <EmbedCut slug={curatedEntry.slug} width={EMBED_DIMENSIONS.width} height={EMBED_DIMENSIONS.height} />
       )}
     </div>
   );
