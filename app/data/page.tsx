@@ -44,7 +44,7 @@ export default function DataPage() {
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">Canonical record</p>
         <h1 className="display text-3xl">Data &amp; corrections</h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-dim">
-          UnitedStats is built from plain JSON in <span className="stat-num">data/canonical</span>. The result of every
+          Red Thread is built from plain JSON in <span className="stat-num">data/canonical</span>. The result of every
           match is the spine; United scorers, opposition goals, lineups, cards, attendance, and assists are layered on
           top with cited sources, so partial coverage can be shown honestly rather than hidden.
         </p>

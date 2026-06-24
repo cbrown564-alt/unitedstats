@@ -11,7 +11,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { title: "UnitedStats embed", robots: { index: false, follow: false } };
+  return { title: "Red Thread embed", robots: { index: false, follow: false } };
 }
 
 function capitalize(value: string): string {
@@ -29,7 +29,7 @@ export default async function CutEmbedPage({ params }: { params: Promise<{ slug:
 
   return (
     <main className="flex h-screen w-screen overflow-hidden bg-pitch text-ink">
-      {/* Devil spine — the brand mark every UnitedStats card carries (mirrors the OG card). */}
+      {/* Red thread spine — the brand mark every card carries (mirrors the OG card). */}
       <div className="w-2.5 shrink-0 bg-devil-bright" aria-hidden />
       <div className="relative flex flex-1 flex-col justify-between gap-3 p-5 sm:p-6">
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
@@ -69,7 +69,7 @@ export default async function CutEmbedPage({ params }: { params: Promise<{ slug:
         <div className="relative flex items-center justify-between gap-3 border-t border-line pt-2.5">
           <span className="truncate text-[11px] text-ink-faint">Open dataset · every figure links to its matches</span>
           <a href={canonical} target="_blank" rel="noopener" className="shrink-0 text-[11px] font-semibold text-devil-bright hover:underline">
-            View on UnitedStats →
+            View on Red Thread →
           </a>
         </div>
       </div>

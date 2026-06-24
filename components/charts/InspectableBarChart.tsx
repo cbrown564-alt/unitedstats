@@ -36,6 +36,13 @@ type InspectableBarChartProps = {
    * height of a sibling such as a match list.
    */
   fill?: boolean;
+  /**
+   * Draw each datum's `value2` as a second segment stacked above `value`, filled
+   * with `color`/`label`. Turns the bars into a two-part total so the parts can be
+   * read against each other (e.g. a flat regulation base with a growing stoppage
+   * cap), rather than collapsing them into one height.
+   */
+  stack?: { color: string; label?: string };
 };
 
 export function InspectableBarChart({
@@ -49,6 +56,7 @@ export function InspectableBarChart({
   yTickSuffix = "",
   baseline,
   fill = false,
+  stack,
 }: InspectableBarChartProps) {
   const router = useRouter();
 
@@ -96,17 +104,25 @@ export function InspectableBarChart({
               ifOverflow="extendDomain"
               label={
                 baseline.label
-                  ? {
-                      value: baseline.label,
-                      position: "insideTopRight",
-                      fill: "var(--color-ink-faint)",
-                      fontSize: 10,
-                    }
+                  ? // Draw the label a few px *above* the line, hard left — over the
+                    // short early bars where the background is dark, so light-grey
+                    // text stays legible (on the right it lands on the tall gold bars
+                    // and vanishes; named "inside" positions sit below the line).
+                    ({ viewBox }: { viewBox?: { x?: number; y?: number } }) => (
+                      <text x={(viewBox?.x ?? 0) + 6} y={(viewBox?.y ?? 0) - 5} fill="var(--color-ink-dim)" fontSize={10}>
+                        {baseline.label}
+                      </text>
+                    )
                   : undefined
               }
             />
           )}
-          <Bar dataKey="value" radius={[2, 2, 0, 0]} isAnimationActive={false}>
+          <Bar
+            dataKey="value"
+            stackId={stack ? "a" : undefined}
+            radius={stack ? [0, 0, 0, 0] : [2, 2, 0, 0]}
+            isAnimationActive={false}
+          >
             {data.map((datum, index) => (
               <Cell
                 key={`${datum.label}-${index}`}
@@ -119,6 +135,20 @@ export function InspectableBarChart({
               />
             ))}
           </Bar>
+          {stack && (
+            <Bar dataKey="value2" stackId="a" radius={[2, 2, 0, 0]} isAnimationActive={false}>
+              {data.map((datum, index) => (
+                <Cell
+                  key={`${datum.label}-cap-${index}`}
+                  className={datum.href ? "cursor-pointer" : undefined}
+                  fill={stack.color}
+                  onClick={() => {
+                    if (datum.href) router.push(datum.href);
+                  }}
+                />
+              ))}
+            </Bar>
+          )}
           {hasEvidenceLinks && <title>Click a bar to open its evidence</title>}
         </BarChart>
       </ResponsiveContainer>

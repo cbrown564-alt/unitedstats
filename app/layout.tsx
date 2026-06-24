@@ -19,9 +19,9 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "UnitedStats — every Manchester United match since 1886", template: "%s · UnitedStats" },
+  title: { default: "Red Thread — every Manchester United match since 1886", template: "%s · Red Thread" },
   description:
-    "The exhaustive history of Manchester United: every match, every competition, every goal — from Newton Heath to today.",
+    "Evidence-backed Manchester United history: every match, every competition, every goal — from Newton Heath to today.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

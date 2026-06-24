@@ -2,10 +2,11 @@
 
 ## Product north star
 
-UnitedStats is a pattern-discovery product for stats-heavy Manchester United
-fans with researcher-grade trust expectations. The fixture record is the spine;
-question-led analysis is the discovery layer; people are the emotional entry
-points.
+Red Thread (the public brand; UnitedStats is now the repository-era name — see
+Phase 17 and `docs/BRANDING.md`) is a pattern-discovery product for stats-heavy
+Manchester United fans with researcher-grade trust expectations. The fixture
+record is the spine; question-led analysis is the discovery layer; people are the
+emotional entry points.
 
 The design target is a floodlit match-night ledger: dark, precise,
 atmospheric, and built for exploration. The UI should be United-coded, not
@@ -715,6 +716,96 @@ round-trips capped accountless Cut collections with coverage/evidence links,
 and `/embed/cut/[slug]` serves noindex curated Cut embeds with explicit
 cache/framing headers. Reviewed under
 `docs/process/reviews/006-phase16-habit-creator.md`.
+
+## Phase 17 — Red Thread: the brand and the answer as a thread
+
+The product takes a public identity — **Red Thread** — and makes the brand's
+central metaphor real in the interface: the evidence trail from a question to the
+matches behind it becomes the literal structure of an answer page, not chrome
+beside it. The identity system is documented in `docs/BRANDING.md`; the working
+name UnitedStats is now the repository-era/internal name, preserved only where a
+stable technical contract requires it.
+
+Brand identity:
+
+- [x] **Public rename to Red Thread** across every user-facing and
+      public-attribution surface — header/footer, page metadata, OG cards, share
+      citations, `/api/v1` and `llms.txt` attribution, and the downloadable dataset
+      manifest — while the repository name, deployed domain, `localStorage` keys,
+      env vars, ingest user-agents, and the `us:` citable-ID prefix are
+      deliberately left unchanged as technical contracts.
+- [x] **Threadline mark and app icons** — the `components/Brand.tsx` wordmark and
+      compact mark, plus `app/icon.svg`, `app/favicon.ico`, and `app/apple-icon.png`
+      generated from the mark by `scripts/gen-icons.mjs` (re-runnable if the mark
+      changes).
+
+The answer as a thread:
+
+- [x] **The canonical answer page rebuilt as a thread spine** — `/questions/[slug]`
+      now runs the argument down a continuous red `AnswerThread` spine through five
+      stations: answer · evidence · the matches behind it · definition · coverage.
+      Each station gets real vertical room so the scroll genuinely travels the
+      stages, and the spine fills red to the station nearest the top — making
+      "follow the red thread to every match behind the answer" the page's actual
+      structure rather than chrome. The first attempt (a sticky sidebar rail over
+      the existing dense panel) proved the lesson that the rail only works once the
+      *page* flows: definition and coverage were promoted from sub-12px footnotes to
+      readable sections (where the trust lives) and the matches link from a footnote
+      to a destination CTA. Each station keeps a stable `${slug}-*` id so an
+      answer's stages stay deep-linkable and citable; the catalogue (`variant=
+      "index"`) keeps its compact panel.
+- [x] **The thread as a system, continued** — the motif now carries into
+      wayfinding and the mobile answer page, with a deliberate stop short of
+      decoration. The selected nav tab is marked by a red thread *underline*
+      rather than a filled chip (`components/MainNav.tsx`): the desktop rail and
+      the mobile quick-tabs fade a `devil-bright` underline in under the active
+      label, and the vertical mobile menu sheet uses the established inset-left
+      red spine edge (the `inset … devil-bright` motif already in
+      `globals.css`), so the thread arrives at the current section in the form
+      that suits each layout. The answer spine (`components/AnswerThread.tsx`) is
+      no longer a desktop rail that merely survives on phones: the connector now
+      runs unbroken from each dot on mobile (the desktop keeps its beaded
+      `sm:my-1.5` gaps) and the inter-station runs tighten (`pb-8 sm:pb-12`), so
+      the answer reads as one continuous thread on a narrow screen with the
+      content at near-full width rather than as a linear stack. **Deliberately
+      not done — parked as decoration, not capability:** thread connectors on
+      timeline annotations and on every source/provenance note. Threading those
+      surfaces would be brand theater (the principle this phase closes on); they
+      stay the clear, plain-typography notes they already are, and the motif is
+      reserved for the two places it does real wayfinding/comprehension work.
+
+Open brand follow-ups, decided 2026-06-24 after a deliberate walk-through rather
+than folded into the visual rename:
+
+- **Homepage headline → answer-first.** "Every match Manchester United ever
+      played" (a corpus boast) becomes **"Follow the thread through Manchester
+      United's history"** — an invitation that activates the Red Thread metaphor
+      and leads with discovery rather than scale. "Ask United's history" was
+      rejected: "Ask" overpromises natural-language Q&A the search does not do.
+      The corpus proof (match count, year span) stays in the subhead as the
+      credential, and the subhead keeps its honest "a question, a name, or a
+      season" entry-mode hedge.
+- **Top-level "Explore" → "Discover".** Renamed at the **label** level only
+      (nav, page title/`<h1>`, breadcrumbs, and links that point *at* the
+      surface); the `/explore` **route** is kept as a technical contract, the
+      same public-name-vs-repo-name split this phase used for the rename itself.
+      This also de-collides the surface name from its own "Exploring" strip and
+      sorts the vocabulary: *Discover* is the answer-first surface; *explore*
+      stays the verb for the freeform act (the Cut strip, the skyline). The
+      surface eyebrow moves from "Discovery" (now redundant with the title) to
+      "Answering · asking · exploring", naming the three strips.
+
+Any domain migration is still planned separately.
+
+Phase 17 is complete. It ships Red Thread as the public identity, lands its first
+structural expression — the answer page rebuilt as the evidence trail it describes
+rather than a dense panel with the trust buried in footnotes — and carries the
+motif into the system where it does real work: the selected-nav underline and a
+true mobile treatment for the answer spine. Per the discipline that runs through
+this plan, the brand is invested where the motif aids comprehension and
+wayfinding and stopped short of theater: thread connectors on timeline
+annotations and source/provenance notes were considered and deliberately not
+built, since they would decorate rather than clarify.
 
 ## Parked pathways (open questions)
 

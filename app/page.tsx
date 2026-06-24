@@ -17,7 +17,7 @@ import { SectionHead } from "@/components/SectionHead";
 import { RecentlyChanged } from "@/components/RecentlyChanged";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
-import { MinuteRidge } from "@/components/charts/MinuteRidge";
+import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 
 const ROUTES: [label: string, href: string, hint: string][] = [
@@ -78,12 +78,12 @@ export default function Home() {
     });
   }
 
-  // Featured myth: the late-goals window. Reuses the questions MinuteRidge so the
+  // Featured myth: the late-goals window. Reuses the questions MinuteColumns so the
   // homepage demonstrates the surface, and leads with the one finding number.
   const ridge = goalMinuteRidge();
   const lateAgg = lateGoalShareByDecade().reduce(
-    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
-    { timed: 0, late: 0 },
+    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late, reg: a.reg + d.reg }),
+    { timed: 0, late: 0, reg: 0 },
   );
 
   // The curated-cut launcher: the nine myth-tested questions as a peek-carousel,
@@ -119,8 +119,11 @@ export default function Home() {
           <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
             From Newton Heath to today
           </p>
-          <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
-            Every match Manchester United ever played
+          <h1 className="display text-4xl sm:text-5xl leading-[0.97] text-balance max-w-4xl">
+            <span className="block">Follow the thread through</span>
+            <span className="block">
+              <span className="text-devil-bright">Manchester United&apos;s</span> history
+            </span>
           </h1>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
@@ -149,7 +152,7 @@ export default function Home() {
         <section>
           <SectionHead
             title="Start with a question"
-            aside={<Link href="/explore" className="text-devil-bright hover:underline">Explore all →</Link>}
+            aside={<Link href="/explore" className="text-devil-bright hover:underline">Discover all →</Link>}
           />
           <CuratedCarousel cards={questionCards} label="Curated questions" />
           <p className="mt-2 text-xs text-ink-faint">
@@ -187,10 +190,11 @@ export default function Home() {
               </span>
             </div>
             <p className="mt-1 text-sm text-ink-dim">
-              of timed United goals come after the 85th minute, roughly double an even spread across the 90.
+              of timed United goals come after the 85th minute. Most is a genuine edge in the last five regulation minutes
+              ({pct(lateAgg.reg, lateAgg.timed)}); the modern surge on top is stoppage time, and it keeps growing.
             </p>
             <div className="mt-4">
-              <MinuteRidge bins={ridge} lateFrom={85} height={170} />
+              <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={170} />
             </div>
             <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
               See the late-goals breakdown →

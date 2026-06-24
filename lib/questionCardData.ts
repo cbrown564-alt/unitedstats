@@ -26,13 +26,20 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const data = lateGoalShareByDecade();
       if (data.length === 0) return null;
       const tot = data.reduce((a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }), { timed: 0, late: 0 });
-      const peak = Math.max(...data.map((d) => d.late / d.timed));
+      // Highlight the era with the most stoppage-time goals — the cap that grew —
+      // not the highest total, which is the same decade for the right reason.
+      const peakStoppage = Math.max(...data.map((d) => d.stoppage / d.timed));
       return {
         figure: pct(tot.late, tot.timed),
-        gloss: "of timed goals land after the 85th minute — about double an even spread",
+        gloss: "of timed goals land after the 85th — a real edge in the last five minutes, plus a growing stoppage-time window",
         visual: {
           kind: "columns",
-          bars: data.map((d) => ({ label: d.decade.slice(2), value: (d.late / d.timed) * 100, highlight: d.late / d.timed === peak })),
+          bars: data.map((d) => ({
+            label: d.decade.slice(2),
+            value: (d.late / d.timed) * 100,
+            base: (d.reg / d.timed) * 100,
+            highlight: d.stoppage / d.timed === peakStoppage,
+          })),
         },
       };
     }

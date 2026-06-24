@@ -14,6 +14,12 @@ export type ChartBarDatum = {
   label: string;
   tickLabel?: string;
   value: number;
+  /**
+   * Optional second segment stacked above `value`. When the chart is given a
+   * `stack` colour, `value` is drawn as the base and `value2` as the cap, so a
+   * bar can carry a two-part total (e.g. last-five-minutes vs stoppage time).
+   */
+  value2?: number;
   valueLabel: string;
   meta?: string;
   href?: string;

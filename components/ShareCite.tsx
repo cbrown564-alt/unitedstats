@@ -41,7 +41,7 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
     typeof window === "undefined" ? path : `${window.location.origin}${path}`;
 
   const cardUrl = `${path}/opengraph-image`;
-  const cardFilename = `unitedstats-${
+  const cardFilename = `red-thread-${
     title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "card"
   }.png`;
 
@@ -60,7 +60,7 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
       month: "long",
       year: "numeric",
     });
-    const citation = `${title} — UnitedStats, ${absolute()} (retrieved ${retrieved}).`;
+    const citation = `${title} — Red Thread, ${absolute()} (retrieved ${retrieved}).`;
     try {
       await navigator.clipboard.writeText(citation);
       flash("cite");

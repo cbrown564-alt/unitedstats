@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerClubRanks,
   playerCuratedGoalTypes, playerCuratedTotals,
-  playerGoalMatches, playerGoalMinutes, playerGoalsByOpponent, playerLineupMatches,
+  playerGoalMatches, playerGoalMinutes, playerGoalMinuteBins, playerGoalsByOpponent, playerLineupMatches,
   playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
@@ -11,8 +11,8 @@ import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PlayerSeasonTable, type SeasonSplit } from "@/components/PlayerSeasonTable";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
-import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
+import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
@@ -82,11 +82,10 @@ export default async function PlayerPage({
 
   const coveredSeasons = bySeason.filter((s) => s.apps > 0);
 
-  // Goal-minute distribution as a 5-minute ridge across the 90; minutes past 90
-  // fold into the closing bin. The final-15 share is called out for the late trail.
-  const ridgeBins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
-  for (const m of minutes) ridgeBins[Math.min(17, Math.floor((m - 1) / 5))].n++;
-  const lateGoals = minutes.filter((m) => m > 75).length;
+  // Goal-minute distribution as 5-minute columns across the 90, with stoppage-time
+  // goals (90+) held out so they stack on the final bar — the same encoding as the
+  // club-wide late-goals chart.
+  const minuteShape = playerGoalMinuteBins(id);
 
   // League vs cup split of recorded goals (unofficial excluded, matching the rest of the app).
   const leagueGoals = compSplits.filter((c) => c.type === "league").reduce((a, c) => a + c.goals, 0);
@@ -253,18 +252,17 @@ export default async function PlayerPage({
           <div className="overflow-hidden rounded-xl border border-line bg-panel">
             {minutes.length > 3 && (
               <div className="border-b border-line p-4 sm:p-5">
-                <div className="mb-2 flex items-baseline justify-between gap-3">
-                  <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">When in the match the goals come</p>
-                  {lateGoals > 0 && (
-                    <span className="stat-num text-xs text-ink-dim">
-                      <span className="text-devil-bright">{pct(lateGoals, minutes.length)}</span> in the final 15
-                    </span>
-                  )}
-                </div>
-                <MinuteRidge bins={ridgeBins} lateFrom={75} lateLabel={null} subject={p.name} height={170} />
+                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-faint">When in the match the goals come</p>
+                <MinuteColumns bins={minuteShape.bins} stoppage={minuteShape.stoppage} height={170} subject={p.name} />
                 <p className="mt-1 text-xs text-ink-faint">
-                  {fmtNum(minutes.length)} goals with a recorded minute, in 5-minute windows. The closing 15 are shaded;
-                  the dashed line is an even spread across the 90.
+                  <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
+                  {minuteShape.stoppage > 0 && (
+                    <>
+                      {" · "}
+                      <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage time</span>
+                    </>
+                  )}
+                  . {fmtNum(minutes.length)} goals with a recorded minute; the dashed line is an even spread across the 90.
                 </p>
               </div>
             )}

@@ -1,5 +1,5 @@
 {
-  "name": "UnitedStats dataset",
+  "name": "Red Thread dataset",
   "description": "Every Manchester United match since 1886 with goal events, lineups, Elo history, and season summaries. Coverage varies by facet; see the events_complete and has_lineup flags and the site's /data page.",
   "built_at": "2026-06-23T21:39:56.042Z",
   "first_match": "1886-10-30",
@@ -18,6 +18,6 @@
     "og_scorer_media.csv": 84,
     "player_positions.csv": 937
   },
-  "attribution": "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
+  "attribution": "Red Thread. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
   "docs": "/data#downloads"
 }

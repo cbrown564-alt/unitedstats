@@ -49,7 +49,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     title,
     description,
     alternates: { canonical: cutHref(cut) },
-    openGraph: { type: "article", title: `${title} · UnitedStats`, description, url: cutHref(cut) },
+    openGraph: { type: "article", title: `${title} · Red Thread`, description, url: cutHref(cut) },
     twitter: { card: "summary_large_image", title, description },
   };
 }
@@ -70,7 +70,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
   return (
     <div className="space-y-7">
       <nav className="text-xs text-ink-faint" aria-label="Breadcrumb">
-        <Link href="/explore" className="hover:text-devil-bright">Explore</Link>
+        <Link href="/explore" className="hover:text-devil-bright">Discover</Link>
         <span className="mx-1.5">/</span>
         <span className="text-ink-dim">Cut</span>
       </nav>

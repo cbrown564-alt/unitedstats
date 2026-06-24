@@ -20,6 +20,7 @@ import { FeatureCarousel } from "@/components/explore/FeatureCarousel";
 import { FeatureSlide } from "@/components/explore/FeatureSlide";
 import { ComparisonHero } from "@/components/explore/ComparisonHero";
 import { CutHero } from "@/components/explore/CutHero";
+import { RailCard } from "@/components/explore/RailCard";
 
 const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
   devil: "text-devil-bright",
@@ -28,7 +29,7 @@ const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
 };
 
 export const metadata: Metadata = {
-  title: "Explore",
+  title: "Discover",
   description:
     "Start with an answer: the curated questions tested against United's record, then compare two careers or eras and group the whole record your own way.",
   alternates: { canonical: "/explore" },
@@ -74,7 +75,7 @@ export default function ExplorePage() {
 
   return (
     <div className="space-y-12">
-      <PageHeader eyebrow="Discovery" title="Explore">
+      <PageHeader eyebrow="Answering · asking · exploring" title="Discover">
         Start with an answer. The questions below are tested against the canonical record — each
         opens its full finding, the slice it&apos;s drawn from, the coverage behind it, and the
         matches that produced it. Compare and grouping follow once you have a thread to pull.
@@ -90,27 +91,6 @@ export default function ExplorePage() {
           seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo;.
         </p>
       </section>
-
-      {/* Freshness lead-in: what the most recent matches changed in the all-time
-          record. Sits above the curated framework as the "what just happened" hook
-          and the door into the history-changed surface, so it isn't an orphan. */}
-      {recentChanges.length > 0 && (
-        <section className="space-y-4">
-          <SectionHead
-            title="Recently changed"
-            aside={
-              <Link href={recentChanges[0].path} className="text-devil-bright hover:underline">
-                Latest digest →
-              </Link>
-            }
-          />
-          <RecentlyChanged cards={recentChanges} />
-          <p className="text-xs text-ink-faint">
-            Every result nudges 140 years of record — each card opens what that match moved, read
-            straight from the canonical data.
-          </p>
-        </section>
-      )}
 
       {/* The Answering strip (the most curated of the three). A full-bleed feature
           carousel — one near-full-view answer hero per question, each leading with
@@ -156,23 +136,20 @@ export default function ExplorePage() {
         </FeatureCarousel>
 
         {/* The summary rail — every question at a glance, so you can jump straight
-            in without swiping the strip. */}
+            in without swiping the strip. Each card leads with the question, then
+            answers it with the figure and what that figure means. */}
         <ul aria-label="All curated questions" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {QUESTIONS.map((q) => {
             const h = headlines[q.slug];
             return (
               <li key={q.slug}>
-                <Link
+                <RailCard
                   href={`/questions/${q.slug}`}
-                  className="group flex items-baseline gap-3 rounded-lg border border-line bg-panel px-3 py-2.5 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
-                >
-                  {h && (
-                    <span className={`stat-num shrink-0 text-base font-semibold leading-none ${STAT_TONE[h.tone]}`}>
-                      {h.stat}
-                    </span>
-                  )}
-                  <span className="min-w-0 text-sm text-ink-dim group-hover:text-ink">{q.question}</span>
-                </Link>
+                  lead={q.question}
+                  stat={h?.stat}
+                  statTone={h ? STAT_TONE[h.tone] : undefined}
+                  detail={h?.gloss}
+                />
               </li>
             );
           })}
@@ -198,15 +175,7 @@ export default function ExplorePage() {
         <ul aria-label="Flagship debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {flagships.map((cmp) => (
             <li key={cmp.href}>
-              <Link
-                href={cmp.href}
-                className="group flex items-baseline gap-2 truncate rounded-lg border border-line bg-panel px-3 py-2.5 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
-              >
-                <span className="truncate text-sm text-ink-dim group-hover:text-ink">
-                  <span className="font-medium text-ink">{cmp.label}</span>
-                  <span className="text-ink-faint"> — {cmp.hook}</span>
-                </span>
-              </Link>
+              <RailCard href={cmp.href} lead={cmp.label} detail={cmp.hook} />
             </li>
           ))}
         </ul>
@@ -237,17 +206,19 @@ export default function ExplorePage() {
         <ul aria-label="All curated cuts" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {cutPreviews.map(({ c, result, href }) => (
             <li key={c.slug}>
-              <Link
+              <RailCard
                 href={href}
-                className="group flex items-baseline gap-3 rounded-lg border border-line bg-panel px-3 py-2.5 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
-              >
-                {result.headline && (
-                  <span className="stat-num shrink-0 text-base font-semibold leading-none text-gold">
-                    {result.headline.figure}
-                  </span>
-                )}
-                <span className="min-w-0 text-sm text-ink-dim group-hover:text-ink">{c.title}</span>
-              </Link>
+                lead={c.title}
+                stat={result.headline?.figure}
+                statTone="text-gold"
+                detail={
+                  result.headline && (
+                    <>
+                      <span className="font-medium text-ink-dim">{result.headline.subject}</span> — {result.headline.gloss}
+                    </>
+                  )
+                }
+              />
             </li>
           ))}
         </ul>
@@ -257,6 +228,27 @@ export default function ExplorePage() {
           matches behind it, with the coverage grade where the record is still growing.
         </p>
       </section>
+
+      {/* Freshness footer: what the most recent matches changed in the all-time
+          record, and the door into the history-changed surface. The least curated
+          of the strips, so it closes the page rather than leading it. */}
+      {recentChanges.length > 0 && (
+        <section className="space-y-4">
+          <SectionHead
+            title="Recently changed"
+            aside={
+              <Link href={recentChanges[0].path} className="text-devil-bright hover:underline">
+                Latest digest →
+              </Link>
+            }
+          />
+          <RecentlyChanged cards={recentChanges} />
+          <p className="text-xs text-ink-faint">
+            Every result nudges 140 years of record — each card opens what that match moved, read
+            straight from the canonical data.
+          </p>
+        </section>
+      )}
     </div>
   );
 }

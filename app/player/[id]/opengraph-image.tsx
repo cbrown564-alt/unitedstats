@@ -4,7 +4,7 @@ import { OG_CONTENT_TYPE, OG_SIZE, entityCard, trustStrip } from "@/lib/og-card"
 
 // On-demand + CDN-cached rather than ~1,000 images baked into every build.
 export const dynamic = "force-dynamic";
-export const alt = "Manchester United player — UnitedStats";
+export const alt = "Manchester United player — Red Thread";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
