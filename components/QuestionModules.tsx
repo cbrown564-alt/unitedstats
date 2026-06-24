@@ -22,6 +22,7 @@ import { WdlBar } from "@/components/WdlBar";
 import { ClubBadge } from "@/components/ClubBadge";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { EvidenceLink } from "@/components/EvidenceLink";
+import { AnswerThread, type ThreadStation } from "@/components/AnswerThread";
 import { ShareCite } from "@/components/ShareCite";
 import { questionBySlug } from "@/lib/questions";
 import { fmtDate, fmtMonthYear, fmtNum, pct, venuePrefix } from "@/lib/format";
@@ -33,34 +34,56 @@ const EUROPE: [number, number, number, number] = [34, 61.5, -11, 36];
 type ModuleVariant = "index" | "canonical";
 type ModuleProps = { variant?: ModuleVariant };
 
+/** The "follow the thread to every match" destination — the matches link
+ *  promoted from a footnote to an arrival, a proof dot beside a real button. */
+function MatchesCta({ href, label }: { href: string; label?: string }) {
+  return (
+    <Link
+      href={href}
+      className="group inline-flex items-center gap-2.5 rounded-lg border border-line bg-panel px-4 py-3 text-sm text-ink transition-colors hover:border-devil/60 hover:bg-panel-2 focus-ring"
+    >
+      <span className="h-2 w-2 shrink-0 rounded-full bg-devil-bright" aria-hidden />
+      <span className="group-hover:text-devil-bright">{label ?? "Show the matches behind this →"}</span>
+    </Link>
+  );
+}
+
 /**
- * Shared answer-page anatomy: a stated question, a finding, the evidence, then
- * the slice/coverage footnotes and a share/cite affordance. The heading is the
- * page `h1` on a module's canonical route and an `h2` within the catalogue,
- * where the page already owns the `h1`.
+ * Shared answer-page anatomy in two forms.
+ *
+ * The **catalogue** form (`variant="index"`) is a compact panel — question,
+ * finding, evidence, a matches link, and the slice/coverage footnotes — so many
+ * questions can stack and be skimmed.
+ *
+ * The **canonical** form is the answer rebuilt as a thread: the question is the
+ * page title, and the argument runs down a red {@link AnswerThread} spine through
+ * five stations — answer, evidence, the matches behind it, definition, coverage —
+ * each given real vertical room so the scroll genuinely travels the stages.
+ * Definition and coverage are promoted from footnotes to readable sections,
+ * which is where the trust lives. Each station keeps a stable `${slug}-*` id so
+ * an answer's stages stay deep-linkable and citable.
  */
 function Module({
-  slug, finding, slice, coverage, variant = "canonical", children,
+  slug, finding, slice, coverage, evidence, variant = "canonical", children,
 }: {
   slug: string;
   finding: string;
   slice: string;
   coverage?: string;
+  evidence?: { href: string; label?: string };
   variant?: ModuleVariant;
   children: React.ReactNode;
 }) {
   const question = questionBySlug(slug)?.question ?? slug;
-  const Heading = variant === "canonical" ? "h1" : "h2";
-  return (
-    <section id={slug} className="border border-line rounded-lg bg-panel p-5 sm:p-6 scroll-mt-28 space-y-5">
-      <header className="flex items-start justify-between gap-4">
-        <div>
-          <Heading className={`display text-balance ${variant === "canonical" ? "text-3xl" : "text-2xl"}`}>
-            {question}
-          </Heading>
-          <p className="text-sm text-ink-dim mt-1 text-pretty">{finding}</p>
-        </div>
-        {variant === "index" && (
+
+  if (variant === "index") {
+    return (
+      <section id={slug} className="border border-line rounded-lg bg-panel p-5 sm:p-6 scroll-mt-28 space-y-5">
+        <header className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="display text-balance text-2xl">{question}</h2>
+            <p className="text-sm text-ink-dim mt-1 text-pretty">{finding}</p>
+          </div>
           <Link
             href={`/questions/${slug}`}
             aria-label={`Open ${question} as its own page`}
@@ -68,17 +91,60 @@ function Module({
           >
             Open ↗
           </Link>
-        )}
-      </header>
-      <div className="space-y-5">{children}</div>
-      <footer className="border-t border-line pt-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-        <div className="text-xs text-ink-faint space-y-1 min-w-0">
-          <p><span className="text-ink-dim">Slice:</span> {slice}</p>
-          {coverage && <p><span className="text-ink-dim">Coverage:</span> {coverage}</p>}
+        </header>
+        <div className="space-y-5">
+          {children}
+          {evidence && <EvidenceLink href={evidence.href} label={evidence.label} />}
         </div>
+        <footer className="border-t border-line pt-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+          <div className="text-xs text-ink-faint space-y-1 min-w-0">
+            <p><span className="text-ink-dim">Slice:</span> {slice}</p>
+            {coverage && <p><span className="text-ink-dim">Coverage:</span> {coverage}</p>}
+          </div>
+          <ShareCite path={`/questions/${slug}`} title={question} />
+        </footer>
+      </section>
+    );
+  }
+
+  const stations: ThreadStation[] = [
+    {
+      id: `${slug}-answer`,
+      label: "Answer",
+      node: <p className="text-lg leading-relaxed text-ink text-pretty sm:text-xl">{finding}</p>,
+    },
+    {
+      id: `${slug}-evidence`,
+      label: "The evidence",
+      node: <div className="space-y-6">{children}</div>,
+    },
+    ...(evidence
+      ? [{ id: `${slug}-matches`, label: "The matches", node: <MatchesCta href={evidence.href} label={evidence.label} /> }]
+      : []),
+    {
+      id: `${slug}-definition`,
+      label: "Definition",
+      node: <p className="text-sm leading-6 text-ink-dim text-pretty">{slice}</p>,
+    },
+    ...(coverage
+      ? [{
+          id: `${slug}-coverage`,
+          label: "Coverage",
+          node: <p className="text-sm leading-6 text-ink-dim text-pretty">{coverage}</p>,
+        }]
+      : []),
+  ];
+
+  return (
+    <article id={slug} className="scroll-mt-24 rounded-lg border border-line bg-panel p-5 sm:p-7">
+      <header className="mb-8">
+        <h1 className="display text-3xl text-balance sm:text-4xl">{question}</h1>
+      </header>
+      <AnswerThread stations={stations} />
+      <div className="mt-6 flex justify-end border-t border-line pt-4">
         <ShareCite path={`/questions/${slug}`} title={question} />
-      </footer>
-    </section>
+      </div>
+    </article>
   );
 }
 
@@ -95,6 +161,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="late-goals"
+      evidence={{ href: "/matches", label: "Browse every match →" }}
       variant={variant}
       finding={`Yes — and the proof is in regulation, not stoppage time. The last five minutes before the whistle (86–90) hold ${pct(overallLateShare.reg, overallLateShare.timed)} of all United goals, comfortably above the ${pct(5, 90)} an even spread would give. United were scoring late long before anyone gave it a name.`}
       slice="United goals with a recorded minute — penalties and own goals for included — grouped by decade, the post-85th window split into the last five regulation minutes (86–90) and stoppage time (90+, with added time folded into the final minute). Decades with fewer than 20 timed goals are hidden."
@@ -148,7 +215,6 @@ function LateGoalsModule({ variant }: ModuleProps) {
           <MatchList matches={winners} showSeason />
         </div>
       </div>
-      <EvidenceLink href="/matches" label="Browse every match →" />
     </Module>
   );
 }
@@ -159,6 +225,7 @@ function ComebacksModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="comebacks"
+      evidence={{ href: "/matches", label: "Browse every match →" }}
       variant={variant}
       finding={`Of ${fmtNum(cb.summary.replayable)} matches the record lets us replay minute by minute, United fell behind in ${fmtNum(cb.summary.fellBehind)} — and still avoided defeat in ${fmtNum(cb.summary.recovered)} of them, ${fmtNum(cb.summary.wonFromBehind)} turned all the way around into wins. ${fmtNum(cb.summary.twoPlusRecovered)} times they trailed by two or more and did not lose.`}
       slice="Official matches whose goals all carry a minute; a match counts as 'behind' whenever United's running score fell below the opponent's. The deepest comebacks are wins after trailing by two goals or more."
@@ -210,7 +277,6 @@ function ComebacksModule({ variant }: ModuleProps) {
           </div>
         </div>
       )}
-      <EvidenceLink href="/matches" label="Browse every match →" />
     </Module>
   );
 }
@@ -230,12 +296,12 @@ function RunsModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="runs"
+      evidence={{ href: "/matches?sort=oldest", label: "Browse the record in order →" }}
       variant={variant}
       finding={`The longest United have ever gone unbeaten in official football is ${fmtNum(longestUnbeaten?.length ?? 0)} matches (${longestUnbeaten ? `${fmtMonthYear(longestUnbeaten.from)} – ${fmtMonthYear(longestUnbeaten.to)}` : "—"}); the longest run of straight wins is ${fmtNum(longestWinning?.length ?? 0)}. They have scored in as many as ${fmtNum(longestScoring?.length ?? 0)} consecutive matches and kept ${fmtNum(longestClean?.length ?? 0)} clean sheets in a row.`}
       slice="Consecutive official matches (friendlies and wartime excluded), in date order. 'Unbeaten' counts wins and draws; 'scoring' counts any match United scored in; 'clean sheet' counts matches without conceding. Each run links to the matches behind it."
     >
       <StreakBoard groups={streakGroups} />
-      <EvidenceLink href="/matches?sort=oldest" label="Browse the record in order →" />
     </Module>
   );
 }
@@ -245,6 +311,7 @@ function BogeySidesModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="bogey-sides"
+      evidence={{ href: "/opponents", label: "Every head-to-head record →" }}
       variant={variant}
       finding="The opponents United beat least often, among sides met at least 20 times in official competition. Low win rates against fellow giants are expected; the surprises are further down the table."
       slice="All official competitions, minimum 20 meetings, ranked by win rate ascending. Away columns show whether the problem travels."
@@ -281,7 +348,6 @@ function BogeySidesModule({ variant }: ModuleProps) {
           );
         })}
       </div>
-      <EvidenceLink href="/opponents" label="Every head-to-head record →" />
     </Module>
   );
 }
@@ -292,6 +358,7 @@ function ManagerBounceModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="manager-bounce"
+      evidence={{ href: "/managers", label: "Every manager's full record →" }}
       variant={variant}
       finding={`${bounceUp} of ${bounce.length} United managers won more of their first ten matches than the club managed in the ten before they arrived. Each line runs from the old form (hollow) to the new manager's start (solid) — the upward red lines are the real bounces.`}
       slice="Each manager's first 10 matches in charge versus the club's previous 10 matches (any manager), all competitions; managers with fewer than 10 matches, and the first manager on record, are excluded."
@@ -388,7 +455,6 @@ function ManagerBounceModule({ variant }: ModuleProps) {
           />
         </div>
       </details>
-      <EvidenceLink href="/managers" label="Every manager's full record →" />
     </Module>
   );
 }
@@ -426,6 +492,7 @@ function FortressModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="fortress"
+      evidence={{ href: "/matches?venue=H", label: "Every home match →" }}
       variant={variant}
       finding={
         lastLoss
@@ -521,7 +588,6 @@ function FortressModule({ variant }: ModuleProps) {
         />
         <p className="text-xs text-ink-faint mt-1">Percent of Old Trafford home matches won, by decade.</p>
       </div>
-      <EvidenceLink href="/matches?venue=H" label="Every home match →" />
     </Module>
   );
 }
@@ -534,6 +600,7 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="cup-specialists"
+      evidence={{ href: "/matches?type=cup", label: "Every cup match →" }}
       variant={variant}
       finding={`United score just ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups — FA Cup, League Cup, Europe, and the one-off finals. These ten scorers all more than double that, ${topCupLean.name} most of all at ${(cupBaseline.share ? (topCupLean.cup_goals / topCupLean.total) / cupBaseline.share : 0).toFixed(1)}× the club rate.`}
       slice="Goals (excluding own goals) per player split league v cup by competition type, minimum 25 recorded goals, ranked by cup share. The multiplier is each player's cup share over the club-wide cup share."
@@ -566,7 +633,6 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
         </div>
         <CupLeanBar rows={specialists} baseline={cupBaseline.share} />
       </div>
-      <EvidenceLink href="/matches?type=cup" label="Every cup match →" />
     </Module>
   );
 }
@@ -579,6 +645,7 @@ function OwnGoalsModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="own-goals"
+      evidence={{ href: "/player/own-goal", label: "Every own goal for United →" }}
       variant={variant}
       finding={`Treat every own goal an opponent has turned into United's net as one scorer and the answer is yes: ${fmtNum(ogSummary.total)} of them${ogRank ? `, the ${ogRank === 5 ? "fifth" : `#${ogRank}`}-most in the club's history` : ""} — and spread so thin across ${fmtNum(ogSummary.scorers)} different players that no one has done it more than ${ogRepeat[0]?.n ?? 1} times.`}
       slice="Own goals credited to United (an opponent scoring into his own net), all official competitions, gathered under the synthetic scorer 'Own Goal'. The leaderboard counts only own goals with a recorded scorer."
@@ -627,7 +694,6 @@ function OwnGoalsModule({ variant }: ModuleProps) {
           </div>
         </div>
       )}
-      <EvidenceLink href="/player/own-goal" label="Every own goal for United →" />
     </Module>
   );
 }
@@ -642,6 +708,7 @@ function AwayDaysModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="away-days"
+      evidence={{ href: "/matches?venue=A", label: "Every away match →" }}
       variant={variant}
       finding={`Across ${fmtNum(travelCov.covered)} mapped away matches, the trips run from short Lancashire hops to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Season travel steps up with the First Division's southern spread and European football from 1956.`}
       slice={`official away matches; one-way distance from Manchester to each opponent's home town, city level. Average trip per season, ${travelSeasons[0]?.season}–${travelSeasons[travelSeasons.length - 1]?.season}.`}
@@ -690,7 +757,6 @@ function AwayDaysModule({ variant }: ModuleProps) {
           xTicks={[1900, 1930, 1960, 1990, 2020].map((year) => ({ x: year, label: String(year) }))}
         />
       </div>
-      <EvidenceLink href="/matches?venue=A" label="Every away match →" />
     </Module>
   );
 }
