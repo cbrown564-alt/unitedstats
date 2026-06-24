@@ -17,7 +17,7 @@ import { SectionHead } from "@/components/SectionHead";
 import { RecentlyChanged } from "@/components/RecentlyChanged";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
-import { MinuteRidge } from "@/components/charts/MinuteRidge";
+import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 
 const ROUTES: [label: string, href: string, hint: string][] = [
@@ -78,7 +78,7 @@ export default function Home() {
     });
   }
 
-  // Featured myth: the late-goals window. Reuses the questions MinuteRidge so the
+  // Featured myth: the late-goals window. Reuses the questions MinuteColumns so the
   // homepage demonstrates the surface, and leads with the one finding number.
   const ridge = goalMinuteRidge();
   const lateAgg = lateGoalShareByDecade().reduce(
@@ -191,7 +191,7 @@ export default function Home() {
               ({pct(lateAgg.reg, lateAgg.timed)}); the modern surge on top is stoppage time, and it keeps growing.
             </p>
             <div className="mt-4">
-              <MinuteRidge bins={ridge.bins} lateFrom={85} height={170} />
+              <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={170} />
             </div>
             <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
               See the late-goals breakdown →

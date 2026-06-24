@@ -7,7 +7,7 @@ import { ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
 import { awayFootprint, MANCHESTER } from "@/lib/spatial";
 import { EUROPE_LAND } from "@/lib/geo/land";
 import { fmtNum, pct } from "@/lib/format";
-import { MinuteRidge } from "@/components/charts/MinuteRidge";
+import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { GeoScatter } from "@/components/GeoScatter";
 import { WdlBar } from "@/components/WdlBar";
 import { ClubBadge } from "@/components/ClubBadge";
@@ -69,7 +69,7 @@ export function QuestionSignature({ slug }: { slug: string }) {
   switch (slug) {
     case "late-goals": {
       const ridge = goalMinuteRidge();
-      return <MinuteRidge bins={ridge.bins} lateFrom={85} height={190} />;
+      return <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={190} />;
     }
 
     case "comebacks": {
