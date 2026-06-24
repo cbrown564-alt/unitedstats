@@ -10,7 +10,7 @@ import nextConfig from "../next.config";
 import { CURATED_CUTS, curatedCut, cutHref } from "../lib/cut";
 import { decodeCollection, encodeCollection, MAX_COLLECTION_CHARS, MAX_COLLECTION_CUTS } from "../lib/collections";
 import { collectionShareHref, encodeCollectionHrefs } from "../lib/collectionShare";
-import { cutEmbed, EMBED_FRAME_HEADERS } from "../lib/embeds";
+import { cutEmbed, EMBED_DIMENSIONS, EMBED_FRAME_HEADERS } from "../lib/embeds";
 import { monthDayKeys, onThisDay } from "../lib/onThisDay";
 
 test("on-this-day exposes all 366 UTC month/day keys", () => {
@@ -130,11 +130,15 @@ test("cut embeds are bounded to curated slugs, render content, and are noindex",
   assert.equal(embed.ref.id, "us:embed:cut-card%3Aopponents-by-win-rate");
   assert.equal(cutEmbed("arbitrary-fork"), null);
 
+  assert.deepEqual(EMBED_DIMENSIONS, { width: 640, height: 360 });
+
   const html = renderToStaticMarkup(
     (await CutEmbedPage({ params: Promise.resolve({ slug: "opponents-by-win-rate" }) })) as React.ReactElement,
   );
-  assert.match(html, /UnitedStats embed/);
+  // The card carries its headline figure, the cut title, and a link back to the source.
   assert.match(html, /Every opponent, by how often United beat them/);
+  assert.match(html, /95\.0%/);
+  assert.match(html, /View on UnitedStats/);
 
   const meta = await embedMetadata();
   assert.deepEqual(meta.robots, { index: false, follow: false });

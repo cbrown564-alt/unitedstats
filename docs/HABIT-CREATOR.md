@@ -39,3 +39,21 @@ query surface. `/embed/:path*` responses carry explicit cache/framing headers:
 
 - `Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`
 - `Content-Security-Policy: frame-ancestors *`
+
+### Card design and size
+
+The embed renders chrome-free (no site header/nav/footer — `SiteShell` drops
+them for `/embed/*`) as the live-HTML sibling of the OG card (`lib/og-card.tsx`):
+devil spine, `UnitedStats` mark, the cut's eyebrow, the gold headline figure with
+its subject and metric, the gloss, and a source strip linking back to the
+canonical `/cut` page and the headline's match evidence (both `target="_blank"`,
+absolute `SITE_URL` links, so a click leaves the iframe for the real site).
+
+The documented size is **640×360 (16:9)**, exported as `EMBED_DIMENSIONS` and used
+by the "Embed this cut" affordance on `/cut` (curated cuts only), which copies:
+
+```html
+<iframe src="https://<site>/embed/cut/<slug>" width="640" height="360" loading="lazy" style="border:0;border-radius:12px" title="UnitedStats cut"></iframe>
+```
+
+The card reads at this ratio; creators can scale it while keeping 16:9.
