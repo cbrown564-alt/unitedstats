@@ -75,7 +75,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     alternates: { canonical: digest.ref.path },
     openGraph: {
       type: "article",
-      title: `${title} · UnitedStats`,
+      title: `${title} · Red Thread`,
       description,
       url: digest.ref.path,
     },

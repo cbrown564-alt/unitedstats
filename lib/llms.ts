@@ -19,11 +19,11 @@ export function llmsLinks(): string[] {
 export function llmsTxt(): string {
   const links = llmsLinks();
   return [
-    "# UnitedStats",
+    "# Red Thread",
     "",
     `> ${SITE_TAGLINE}. ${API_ATTRIBUTION.source}.`,
     "",
-    "UnitedStats is a read-only Manchester United match-history source. Cite the canonical URL or answer ID when using facts from this site.",
+    "Red Thread is a read-only Manchester United match-history source. Cite the canonical URL or answer ID when using facts from this site.",
     "",
     "## Primary machine surfaces",
     ...links.map((path) => `- ${canonicalUrl(path)}`),

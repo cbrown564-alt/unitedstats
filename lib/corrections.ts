@@ -147,7 +147,7 @@ export function validateCorrectionPayload(payload: CorrectionPayload): string[] 
   if (!payload.target.label.trim()) errors.push("target.label is required");
   if (!payload.fieldPath.trim()) errors.push("fieldPath is required");
   if (!payload.pagePath.startsWith("/")) errors.push("pagePath must be a site-relative path");
-  if (!payload.citableId.startsWith("us:")) errors.push("citableId must be a UnitedStats citable ID");
+  if (!payload.citableId.startsWith("us:")) errors.push("citableId must be a Red Thread citable ID");
   if (!payload.proposedValue.trim()) errors.push("proposedValue is required");
   if (!payload.sourceUrl?.trim() && !payload.archiveRef?.trim()) {
     errors.push("sourceUrl or archiveRef is required");

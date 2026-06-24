@@ -6,7 +6,7 @@ import { OG_CONTENT_TYPE, OG_SIZE, evidenceCard, questionCard, trustStrip } from
 // On-demand + CDN-cached: the cards carry live counts read from the DB, so they
 // can't be baked at build time the way the evergreen text card was.
 export const dynamic = "force-dynamic";
-export const alt = "UnitedStats question — a sourced answer about Manchester United history";
+export const alt = "Red Thread question — a sourced answer about Manchester United history";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

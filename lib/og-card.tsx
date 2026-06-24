@@ -19,6 +19,15 @@ const WIN = "#ffd94a";
 const DRAW = "#9a8d83";
 const LOSS = "#a52218";
 
+function OgBrand() {
+  return (
+    <span style={{ display: "flex", fontWeight: 700 }}>
+      <span style={{ color: DEVIL }}>RED</span>
+      <span style={{ color: INK, marginLeft: 8 }}>THREAD</span>
+    </span>
+  );
+}
+
 /** The trust strip every card carries: scale, coverage honesty, openness. */
 export function trustStrip(): string[] {
   const meta = getMeta();
@@ -59,7 +68,7 @@ function renderCard(
           }}
         >
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
-            <span style={{ color: DEVIL, fontWeight: 700 }}>UNITEDSTATS</span>
+            <OgBrand />
             <span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
@@ -156,7 +165,7 @@ export function digestCard(
           }}
         >
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
-            <span style={{ color: DEVIL, fontWeight: 700 }}>UNITEDSTATS</span>
+            <OgBrand />
             <span style={{ color: INK_DIM, marginLeft: 18 }}>HISTORY CHANGED</span>
             <span style={{ color: INK_FAINT, marginLeft: "auto", letterSpacing: 0, fontSize: 24 }}>{date}</span>
           </div>
@@ -353,7 +362,7 @@ export function questionCard(
           }}
         >
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
-            <span style={{ color: DEVIL, fontWeight: 700 }}>UNITEDSTATS</span>
+            <OgBrand />
             <span style={{ color: INK_DIM, marginLeft: 18 }}>TESTED AGAINST THE RECORD</span>
           </div>
 
