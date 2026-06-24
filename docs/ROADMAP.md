@@ -884,8 +884,12 @@ a *demoted* living strip + answer-foot related-rail (not a hero object) and C in
 18.4's subject entry. Rejected as the lead: a feed-first hero (Phase 11
 regression risk), a personalised/behavioural feed (guardrail), and fuzzy
 describe-the-match memory search (parked; the nostalgic is served by cheap jogs).
-The build sub-phases below inherit the carry-forward checklist in
-`docs/DISCOVERY.md` §5.
+`docs/DISCOVERY.md` §5 records the NLP stance for the answer box — a tier ladder
+(deterministic → classical → LLM-as-parser → generative) with the decision that
+18.2 builds Tier 0 and instruments the misses, defers Tier 1/2, and rejects
+generative answers outright (NLP routes the question; the answer stays computed,
+grounded, and testable). The build sub-phases inherit the carry-forward checklist
+in `docs/DISCOVERY.md` §6.
 
 ### 18.2 — Search as the front door
 

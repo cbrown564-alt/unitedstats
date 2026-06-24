@@ -351,11 +351,96 @@ knowing exactly what they wanted.
 
 ---
 
-## 5. Carry-forward checklist for the build sub-phases
+## 5. NLP stance for 18.2 (the answer box)
 
-- **18.2** — parser breadth so natural phrasings shape an answer; verdict **and
-  coverage grade** in the typeahead preview; never-blank zero-result recovery;
-  self-teaching rotating prompts in the field.
+Candidate A widens the search funnel. The question that follows is *how
+sophisticated should the language understanding get* — and the answer is bounded
+hard by what makes Red Thread defensible. Recorded here so the build phase
+inherits a stance, not an open question.
+
+### Frame: NLP routes, it never answers
+
+18.2's job is **intent + slot routing**, not answering. Free text →
+`{ intent: head-to-head | superlative | comparison | record-scoped, slots:
+opponent/venue/era/manager/metric }` → the *existing* deterministic engine
+(`lib/queries.ts`) computes the verdict and its coverage grade from the canonical
+record. Two facts fall out and bound every choice below:
+
+- **The answer never needs a model.** The moat is that every number links to its
+  exact reproducible match set with a grade (Phase 14, "source, not casualty").
+  A generated answer forfeits exactly that. So no technique here touches the
+  *answer* — only the routing into it.
+- **Slot resolution is already deterministic and stays so.** "Barcelona" →
+  `entity_id` happens in `resolveEntity` against the FTS5/trigram index no matter
+  how clever the front end gets. A model can therefore only help with **intent
+  classification and loose slot identification**; the hard part (binding to the
+  canonical record) is already solved. That caps the upside, usefully.
+
+### The tier ladder
+
+- **Tier 0 — better deterministic parsing (no ML).** Expand the verb/trigger
+  lexicon (beat/beaten/lost to/thrashed/edge over), detect interrogatives
+  ("have/did/how many times…"), and add a fallback: *if exactly one strong entity
+  resolves and the query has question-shape, route to that entity's most likely
+  shaped answer even without a trigger word*, surfaced as "Did you mean: Record
+  vs Barcelona?" rather than asserted. **Buys** ~60–80% of the identified gap.
+  **Costs** engineering time only — stays deterministic, golden-testable, zero
+  new deps, zero new latency, every guardrail intact. All in `lib/search/intent.ts`.
+- **Tier 1 — classical NLP/IR, local.** Already partly shipped: FTS5 bm25 +
+  prominence prior, trigram-jaccard fuzzy fallback. Additions: stemming/synonym
+  tables, or a small *local* embedding model that semantically routes a query to
+  the nearest canonical template phrasing. **Buys** semantic recall without
+  sending data out. **Costs** for the embedding variant: a model artifact, cold
+  start, memory in a serverless function — real operational complexity, and it
+  still only does intent routing. Middling value-to-cost.
+- **Tier 2 — LLM as parser only (never answerer).** Query → schema-constrained
+  JSON via a cheap fast model (Haiku-class), then the deterministic engine
+  computes the answer. **Buys** the best phrasing recall by far — the long,
+  irreducibly varied tail rules can't enumerate — and *cannot hallucinate a stat*
+  because it only routes. **Costs** the genuine architectural bend: an API key
+  (a secret in a static deploy), per-query cost, a few hundred ms latency (fine
+  on a results-page navigation, **fatal in typeahead**), a runtime external
+  dependency (must degrade to rules when down), and a privacy posture change
+  (fan queries leave the building). A real break from "static and zero-cost,"
+  not a tweak.
+- **Tier 3 — generative / RAG answers.** The model writes the verdict.
+  **Rejected permanently** — it is the exact thing the product defines itself
+  against. It reintroduces hallucination, unverifiability, cost, and latency, and
+  trades the determinism the golden tests protect for fluency. (Prose summaries
+  of an *already-computed* result are already covered deterministically by
+  `lib/narrative.ts`; an LLM there would cost the trust contract for nothing.)
+
+### The constraints that decide it
+
+- **Latency forces a split.** Typeahead must feel instant (sub-~100ms, local
+  SQLite). Any model — embedding or LLM — blows that budget, so the live dropdown
+  stays deterministic; model work can only live on submit / the `/search` page.
+- **Degradation is non-negotiable.** A model can only ever be a *fallback after
+  the deterministic parser misses*, never the primary path.
+- **Measure before escalating.** `logSearchClick(q, href, total)` already fires;
+  log the misses (zero-result, or shaped-answer empty but fell through to entity
+  rows) so the parser's ceiling becomes a measured number. You only reach past
+  Tier 0 if the *tail* proves both large and irreducibly varied.
+
+### Decision
+
+**18.2 builds Tier 0 and instruments the misses. Tier 1/2 are deferred, not
+adopted; Tier 3 is rejected outright.** Tier 2 (LLM-as-parser) is the only
+"sophisticated" form compatible with the trust contract — because it routes and
+never answers — but it breaks the static/zero-cost posture, so it stays a
+documented, results-page-only, degrade-to-rules fallback to be revisited *only*
+once Tier 0's ceiling is hit and the logged miss distribution justifies it.
+Spend the cleverness on understanding the *question*; keep the *answer* dumb,
+grounded, and testable.
+
+---
+
+## 6. Carry-forward checklist for the build sub-phases
+
+- **18.2** — parser breadth so natural phrasings shape an answer (Tier 0, per
+  §5); verdict **and coverage grade** in the typeahead preview; never-blank
+  zero-result recovery; self-teaching rotating prompts in the field; instrument
+  the miss distribution before reaching for any model.
 - **18.3** — a static "surprise me" that only lands on curated-quality cuts; a
   demoted living "right now" strip (recently-changed + on-this-day + rotating
   cut); a deterministic related-answers rail at the foot of every answer; the
