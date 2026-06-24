@@ -754,10 +754,25 @@ The answer as a thread:
       to a destination CTA. Each station keeps a stable `${slug}-*` id so an
       answer's stages stay deep-linkable and citable; the catalogue (`variant=
       "index"`) keeps its compact panel.
-- [ ] **The thread as a system, continued** — carry the same motif into the
-      selected-nav underline, timeline annotations, and source/provenance
-      connectors, and add a mobile treatment for the spine (the answer reads
-      linearly on mobile for now).
+- [x] **The thread as a system, continued** — the motif now carries into
+      wayfinding and the mobile answer page, with a deliberate stop short of
+      decoration. The selected nav tab is marked by a red thread *underline*
+      rather than a filled chip (`components/MainNav.tsx`): the desktop rail and
+      the mobile quick-tabs fade a `devil-bright` underline in under the active
+      label, and the vertical mobile menu sheet uses the established inset-left
+      red spine edge (the `inset … devil-bright` motif already in
+      `globals.css`), so the thread arrives at the current section in the form
+      that suits each layout. The answer spine (`components/AnswerThread.tsx`) is
+      no longer a desktop rail that merely survives on phones: the connector now
+      runs unbroken from each dot on mobile (the desktop keeps its beaded
+      `sm:my-1.5` gaps) and the inter-station runs tighten (`pb-8 sm:pb-12`), so
+      the answer reads as one continuous thread on a narrow screen with the
+      content at near-full width rather than as a linear stack. **Deliberately
+      not done — parked as decoration, not capability:** thread connectors on
+      timeline annotations and on every source/provenance note. Threading those
+      surfaces would be brand theater (the principle this phase closes on); they
+      stay the clear, plain-typography notes they already are, and the motif is
+      reserved for the two places it does real wayfinding/comprehension work.
 
 Open brand follow-ups, decided 2026-06-24 after a deliberate walk-through rather
 than folded into the visual rename:
@@ -782,13 +797,15 @@ than folded into the visual rename:
 
 Any domain migration is still planned separately.
 
-Phase 17 ships Red Thread as the public identity and lands its first structural
-expression: the rename is complete across user-facing surfaces, and the answer
-page now reads as the evidence trail it describes rather than a dense panel with
-the trust buried in footnotes. The thread-as-system work (nav, timelines,
-provenance, the mobile spine) continues as normal product work. Per the discipline
-elsewhere in this plan, the brand is invested where the motif does real work —
-comprehension and trust — with a deliberate stop before brand theater.
+Phase 17 is complete. It ships Red Thread as the public identity, lands its first
+structural expression — the answer page rebuilt as the evidence trail it describes
+rather than a dense panel with the trust buried in footnotes — and carries the
+motif into the system where it does real work: the selected-nav underline and a
+true mobile treatment for the answer spine. Per the discipline that runs through
+this plan, the brand is invested where the motif aids comprehension and
+wayfinding and stopped short of theater: thread connectors on timeline
+annotations and source/provenance notes were considered and deliberately not
+built, since they would decorate rather than clarify.
 
 ## Parked pathways (open questions)
 

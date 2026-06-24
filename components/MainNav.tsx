@@ -32,12 +32,21 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+// The active tab is marked by a red thread underline rather than a filled chip:
+// the brand spine, carried into wayfinding. The underline is always in the DOM
+// and fades via opacity so it reads as the thread arriving at the current
+// section, echoing the answer spine's transition. (`relative` anchors the
+// `after` line; `left/right-2.5` insets it under the label, clear of the
+// rounded corners so it stays a flat segment.)
+const threadUnderline =
+  "after:pointer-events-none after:absolute after:bottom-[3px] after:h-[2px] after:rounded-full after:bg-devil-bright after:transition-opacity after:content-['']";
+
 const tabClass = (active: boolean) =>
   [
-    "tap-target rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring",
-    active
-      ? "bg-panel-2 text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
-      : "text-ink-dim hover:bg-panel-2/75 hover:text-ink",
+    "tap-target relative rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring",
+    threadUnderline,
+    "after:left-2.5 after:right-2.5",
+    active ? "text-ink after:opacity-100" : "text-ink-dim hover:bg-panel-2/75 hover:text-ink after:opacity-0",
   ].join(" ");
 
 // SSR has no layout box, so fall back to useEffect on the server to avoid the
@@ -76,10 +85,10 @@ const MOBILE_PINNED = SECTIONS.slice(0, 2);
 // buttons clear the chrome on a ~400px phone.
 const quickTabClass = (active: boolean) =>
   [
-    "tap-target rounded-md px-2 py-1.5 whitespace-nowrap transition-colors focus-ring",
-    active
-      ? "bg-panel-2 text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
-      : "text-ink-dim hover:bg-panel-2/75 hover:text-ink",
+    "tap-target relative rounded-md px-2 py-1.5 whitespace-nowrap transition-colors focus-ring",
+    threadUnderline,
+    "after:left-2 after:right-2",
+    active ? "text-ink after:opacity-100" : "text-ink-dim hover:bg-panel-2/75 hover:text-ink after:opacity-0",
   ].join(" ");
 
 function MobileQuickTabs({ pathname }: { pathname: string }) {
@@ -253,8 +262,10 @@ function MobileMenu({ pathname }: { pathname: string }) {
                   onClick={() => setOpen(false)}
                   className={[
                     "tap-target rounded-md border px-3 py-2.5 transition-colors focus-ring",
+                    // Vertical list: the thread reads as a left red edge (the
+                    // established inset-spine motif) rather than an underline.
                     active
-                      ? "border-line bg-panel-2 text-ink"
+                      ? "border-line bg-panel-2 text-ink shadow-[inset_3px_0_0_0_var(--color-devil-bright)]"
                       : "border-transparent text-ink-dim hover:bg-panel-2/75 hover:text-ink",
                   ].join(" ")}
                 >
