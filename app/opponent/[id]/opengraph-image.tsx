@@ -3,7 +3,7 @@ import { immutableDataHeaders } from "@/lib/cache";
 import { OG_CONTENT_TYPE, OG_SIZE, entityCard, trustStrip } from "@/lib/og-card";
 
 export const dynamic = "force-dynamic";
-export const alt = "Manchester United head-to-head record — UnitedStats";
+export const alt = "Manchester United head-to-head record — Red Thread";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

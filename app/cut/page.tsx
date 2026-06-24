@@ -49,7 +49,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     title,
     description,
     alternates: { canonical: cutHref(cut) },
-    openGraph: { type: "article", title: `${title} · UnitedStats`, description, url: cutHref(cut) },
+    openGraph: { type: "article", title: `${title} · Red Thread`, description, url: cutHref(cut) },
     twitter: { card: "summary_large_image", title, description },
   };
 }

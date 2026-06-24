@@ -25,7 +25,7 @@ export async function generateMetadata({
     alternates: { canonical: path },
     openGraph: {
       type: "article",
-      title: `${q.question} · UnitedStats`,
+      title: `${q.question} · Red Thread`,
       description: q.summary,
       url: path,
     },

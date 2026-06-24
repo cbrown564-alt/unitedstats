@@ -9,7 +9,7 @@ import { fmtDateLong, venueLabel } from "@/lib/format";
 import { OG_CONTENT_TYPE, OG_SIZE, type DigestTile, digestCard, entityCard, trustStrip } from "@/lib/og-card";
 
 export const dynamic = "force-dynamic";
-export const alt = "Manchester United history changed digest — UnitedStats";
+export const alt = "Manchester United history changed digest — Red Thread";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

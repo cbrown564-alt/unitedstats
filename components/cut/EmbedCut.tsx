@@ -7,7 +7,7 @@ import { SITE_URL } from "@/lib/site";
 export function EmbedCut({ slug, width, height }: { slug: string; width: number; height: number }) {
   const [copied, setCopied] = useState(false);
   const src = `${SITE_URL}/embed/cut/${slug}`;
-  const snippet = `<iframe src="${src}" width="${width}" height="${height}" loading="lazy" style="border:0;border-radius:12px" title="UnitedStats cut"></iframe>`;
+  const snippet = `<iframe src="${src}" width="${width}" height="${height}" loading="lazy" style="border:0;border-radius:12px" title="Red Thread cut"></iframe>`;
 
   const copy = async () => {
     try {

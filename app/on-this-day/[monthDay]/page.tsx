@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ monthDay:
   const description = entry.lead
     ? `${entry.lead.year}: ${entry.lead.scoreline}. ${entry.rhythm?.played ?? 0} United matches on ${entry.label} across the years.`
     : `No official United match is recorded on ${entry.label}.`;
-  return { title, description, openGraph: { title: `${title} · UnitedStats`, description } };
+  return { title, description, openGraph: { title: `${title} · Red Thread`, description } };
 }
 
 export default async function OnThisDayPage({ params }: { params: Promise<{ monthDay: string }> }) {

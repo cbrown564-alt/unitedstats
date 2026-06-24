@@ -529,7 +529,7 @@ export function digestTitle(digest: HistoryDigest): string {
 
 export function digestSummary(digest: HistoryDigest): string {
   const first = rankedClaims(digest.claims)[0];
-  if (!first) return `${digest.match.score} v ${digest.match.opponent}, added to the UnitedStats record.`;
+  if (!first) return `${digest.match.score} v ${digest.match.opponent}, added to the Red Thread record.`;
   // The result claim already names the score and opponent; anything else needs
   // that context prepended so the summary stands alone.
   return first.kind === "result" ? first.text : `${digest.match.score} v ${digest.match.opponent}: ${first.text}`;

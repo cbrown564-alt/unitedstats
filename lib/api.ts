@@ -6,7 +6,7 @@
 import { immutableDataHeaders } from "./cache";
 
 export const API_ATTRIBUTION = {
-  source: "UnitedStats, the open Manchester United match history",
+  source: "Red Thread, the open evidence base for Manchester United history",
   docs: "/data#api",
   note: "Read-only. Result data: engsoccerdata, openfootball, Wikipedia. Coverage varies by facet; see /api/v1/meta.",
 };
