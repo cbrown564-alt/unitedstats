@@ -22,14 +22,19 @@ test("on-this-day exposes all 366 UTC month/day keys", () => {
   assert.equal(onThisDayParams().length, 366);
 });
 
-test("on-this-day fixtures pin deterministic facts including February 29", async () => {
-  const leap = onThisDay("02-29");
-  assert.equal(leap.facts[0].id, "1896-02-29-burton-wanderers-h");
-  assert.equal(leap.facts[1].text, "Saturday 29 February 1908: United 1-0 Birmingham City.");
-  assert.equal(leap.facts[1].evidencePath, "/match/1908-02-29-birmingham-city-h");
-
+test("on-this-day leads with the standout match and computes the date's rhythm", async () => {
   const finalDay = onThisDay("05-26");
-  assert.ok(finalDay.facts.some((fact) => fact.id === "1999-05-26-bayern-munich-n" && fact.text.includes("2-1 FC Bayern Munich")));
+  // The 1999 European Cup final outranks the date's league games as the lead.
+  assert.equal(finalDay.lead?.id, "1999-05-26-bayern-munich-n");
+  assert.equal(finalDay.lead?.scoreline, "United 2-1 FC Bayern Munich");
+  assert.match(finalDay.lead?.round ?? "", /final/i);
+  assert.equal(finalDay.prev, "05-25");
+  assert.equal(finalDay.next, "05-27");
+  assert.ok(finalDay.rhythm && finalDay.rhythm.played >= 4);
+
+  const leap = onThisDay("02-29");
+  assert.equal(leap.rhythm?.firstYear, "1896");
+  assert.ok([leap.lead, ...leap.rest].some((m) => m?.id === "1908-02-29-birmingham-city-h"));
 
   const html = renderToStaticMarkup(
     (await OnThisDayPage({ params: Promise.resolve({ monthDay: "05-26" }) })) as React.ReactElement,
@@ -43,7 +48,12 @@ test("on-this-day all keys resolve without crashing and fallback is deterministi
     const entry = onThisDay(key);
     assert.equal(entry.monthDay, key);
     assert.equal(entry.ref.id, `us:on-this-day:${key}`);
-    if (entry.facts.length === 0) assert.equal(entry.fallback, `No official United match is recorded on ${key}.`);
+    if (entry.lead === null) {
+      assert.equal(entry.rest.length, 0);
+      assert.ok(entry.fallback?.startsWith("No official United match is recorded on"));
+    } else {
+      assert.ok(entry.rhythm && entry.rhythm.played >= 1);
+    }
   }
 });
 
