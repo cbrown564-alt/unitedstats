@@ -375,6 +375,37 @@ test("18.2 coverage grade rides on every shaped verdict, graded honestly", () =>
   assert.match(late.coverage.label, /timed-goal/);
 });
 
+// ------------------------ phase 18.2 cont.: the player-vs-opponent answer shape
+
+test("player vs opponent: a player's goals against one club computes", () => {
+  // The shape the team head-to-head structurally can't reach. Rooney is retired,
+  // so the recorded figure is a closed slice; pinned structurally (player, opponent,
+  // grade) rather than to an exact count so future event backfill can only grow it,
+  // while a broken join (0 goals → "No recorded goals…") still fails the regex.
+  const { shaped } = runSearch("how many times did rooney score against arsenal");
+  const hit = shaped.find((s) => s.title === "Wayne Rooney v Arsenal");
+  assert.ok(hit, "expected a player-vs-opponent answer");
+  assert.match(hit.summary, /^\d+ recorded goals in \d+ matches/);
+  assert.equal(hit.coverage?.grade, "partial", "goal events are partial coverage");
+  assert.equal(hit.href, "/player/wayne-rooney");
+});
+
+test("player-vs-opponent never steals a two-player comparison", () => {
+  // "rooney vs charlton" must stay Rooney-vs-Bobby-Charlton, not also surface
+  // "Wayne Rooney v Charlton Athletic" (a real opponent club).
+  const { shaped } = runSearch("rooney vs charlton");
+  assert.ok(shaped.some((s) => s.title === "Wayne Rooney vs Bobby Charlton"));
+  assert.ok(!shaped.some((s) => /Charlton Athletic/.test(s.title)), "the opponent read must not leak in");
+});
+
+test("a team-record phrasing still falls through to the head-to-head", () => {
+  // "record against arsenal" names no player on the left, so player-vs-opponent
+  // returns null and the team head-to-head answers instead.
+  const { shaped } = runSearch("record against arsenal");
+  assert.ok(shaped.some((s) => s.title === "Record against Arsenal"));
+  assert.ok(!shaped.some((s) => / v Arsenal$/.test(s.title)), "no spurious player answer");
+});
+
 test("18.2 miss classification: shaped = hit, entity-only = fell, nothing = zero", () => {
   assert.equal(classifyMiss(9, 1), undefined, "a shaped answer is never a miss");
   assert.equal(classifyMiss(9, 0), "fell", "entity rows but no answer is a fall-through");

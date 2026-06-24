@@ -307,10 +307,64 @@ function lateGoals(norm: string): ShapedAnswer | null {
 }
 
 /**
+ * A single player's recorded goals against one opponent — "how many times did
+ * Rooney score against Arsenal". This is the shape the {@link headToHead} template
+ * structurally can't reach: head-to-head scopes United's *team* record vs a club,
+ * whereas this scopes one player. The query is split on the opponent connector
+ * (against/vs/v); the player is resolved from the cleaned left side and the
+ * opponent from the right, both `strong` so a verb-less near-miss never asserts a
+ * wrong subject. A team-record phrasing like "record against arsenal" — whose left
+ * side names no player — returns null here and falls through to {@link headToHead}.
+ * Event-derived, so the verdict carries a `partial` goal-data grade.
+ */
+function playerVsOpponent(norm: string): ShapedAnswer | null {
+  const split = /\b(?:against|versus|vs\.?|v)\b/.exec(norm);
+  if (!split) return null;
+  // The player side, stripped of interrogatives, the scoring verb/noun, and the
+  // United subject, so "how many times did rooney score" resolves to just "rooney".
+  const left = norm
+    .slice(0, split.index)
+    .replace(QUESTION_WORDS, " ")
+    .replace(/\b(scor(?:e|ed|es|ing)|goals?|nets?|netted|record|results?|times|many|often)\b/g, " ")
+    .replace(/\b(?:man(?:chester)?\s+(?:united|utd)|mufc|united|utd|we|us)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!left) return null;
+  const player = resolveEntity(left, "player", { strong: true });
+  if (!player) return null;
+  const opp = resolveEntity(norm.slice(split.index + split[0].length).trim(), "opponent", { strong: true });
+  if (!opp) return null;
+
+  const row = getDb()
+    .prepare(
+      `SELECT COUNT(*) goals, COUNT(DISTINCT m.id) matches, MAX(m.date) last_date
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.player_id = ? AND e.player_side = 'united'
+         AND e.type IN ('goal','pen-goal') AND m.opponent_id = ?`,
+    )
+    .get(player.entity_id, opp.entity_id) as { goals: number; matches: number; last_date: string | null };
+
+  const summary =
+    row.goals > 0
+      ? `${row.goals} recorded goal${row.goals === 1 ? "" : "s"} in ${row.matches} match${row.matches === 1 ? "" : "es"}${
+          row.last_date ? ` · last ${fmtDate(row.last_date)}` : ""
+        }`
+      : `No recorded goals against ${opp.label}`;
+  return {
+    title: `${player.label} v ${opp.label}`,
+    summary,
+    href: player.href,
+    hrefLabel: `${player.label} →`,
+    coverage: { grade: "partial", label: "goal data" },
+  };
+}
+
+/**
  * Turn a free-text question into computed answers with evidence links. A handful
- * of template families — comparison, superlative, head-to-head, record-under-
- * manager, era/competition-scoped, and a season record — each fed by the shared
- * scope parser and entity resolver, so phrasing is decoupled from computation.
+ * of template families — comparison, player-vs-opponent, superlative, head-to-head,
+ * record-under-manager, era/competition-scoped, and a season record — each fed by
+ * the shared scope parser and entity resolver, so phrasing is decoupled from
+ * computation.
  */
 export function shapedAnswers(q: string): ShapedAnswer[] {
   const out: ShapedAnswer[] = [];
@@ -322,6 +376,12 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
   // 1. fixed-shape specials
   push(lateGoals(norm));
   push(comparison(norm));
+  if (out.length) return out;
+
+  // Player vs opponent runs only after the player-vs-player comparison has had its
+  // chance, so "rooney vs charlton" stays a two-player comparison rather than also
+  // yielding "Wayne Rooney v Charlton Athletic".
+  push(playerVsOpponent(norm));
   if (out.length) return out;
 
   // 2. scoped templates
