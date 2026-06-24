@@ -136,7 +136,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
             <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> last 5 min (86–90)</span>
             {" · "}
             <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage (90+)</span>
-            . Both at once: the gold base holds steady across every era — the habit — while the red cap takes off only from the 1990s, as stoppage time grew from two minutes to ten — the era.
+            . Fergie time came back with a bang in the 1990s — and the 2020s went a step beyond, with double the added time stacking the red cap as high as the gold base.
           </p>
         </div>
         <div className="flex flex-col">
