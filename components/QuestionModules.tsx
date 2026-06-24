@@ -112,7 +112,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
       </div>
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-stretch">
         <div className="flex flex-col">
-          <h3 className="text-sm font-medium mb-2 text-ink-dim">Era or habit? The last five minutes vs stoppage time</h3>
+          <h3 className="text-sm font-medium mb-2 text-ink-dim">The 1990s bang, the 2020s blow-up</h3>
           <div className="min-h-40 flex-1">
             <InspectableBarChart
               data={lateByDecade.map((d) => ({
