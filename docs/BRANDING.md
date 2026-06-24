@@ -258,12 +258,12 @@ Live implementation:
 - Brand lab: `app/logo-lab/page.tsx`
 - Metadata: `app/layout.tsx`
 - OG card brand text: `lib/og-card.tsx`
-- Public attribution: `lib/api.ts`, `lib/llms.ts`
+- Public attribution: `lib/api.ts`, `lib/llms.ts`, dataset manifest (`scripts/export-dataset.ts`)
+- App icons: `app/icon.svg` (vector), `app/favicon.ico` (legacy), `app/apple-icon.png` (iOS), regenerated from the Threadline mark by `scripts/gen-icons.mjs`
 
 ## Open Follow-Ups
 
 - Decide whether the homepage headline should shift from "Every match Manchester United ever played" toward "Ask United's history."
 - Consider renaming top-level "Explore" to "Discover" if the IA follows the strategy report.
-- Explore favicon/app icon variants based on Threadline.
 - Decide whether docs `PRODUCT.md` and `DESIGN.md` should be rewritten from UnitedStats to Red Thread or preserved as historical context.
 - Plan any domain migration separately; do not mix it with the visual rename.
