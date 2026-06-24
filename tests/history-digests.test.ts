@@ -96,6 +96,13 @@ test("history digest writer emits exactly one deterministic artifact per request
   });
 });
 
+test("every digest carries an always-on result claim that names the outcome", () => {
+  // The human floor: an ordinary match leads with what happened, not with Elo.
+  assertHas("2026-05-17-nottingham-forest-h", "result", /beat Nottingham Forest 3–2 at home/);
+  assertHas("2026-05-09-sunderland-a", "result", /drew 0–0 with Sunderland away/);
+  assertHas("1902-03-01-lincoln-city-h", "result", /Newton Heath/);
+});
+
 test("history digest detectors have positive and negative golden cases", () => {
   assertHas("1892-10-15-wolverhampton-wanderers-h", "record", /10 goals/);
   assertLacks("1902-03-01-lincoln-city-h", "record");
@@ -106,22 +113,25 @@ test("history digest detectors have positive and negative golden cases", () => {
   assertHas("1893-09-09-west-bromwich-albion-a", "streak-ended", /4-match unbeaten/);
   assertLacks("1902-03-01-lincoln-city-h", "streak-ended");
 
-  assertHas("1999-05-26-bayern-munich-n", "rank-change", /rank 27 to 20/);
+  // rank-change now fires only inside the all-time top 100 (or a new peak), so an
+  // ordinary modern mid-table match no longer emits a meaningless absolute rank.
+  assertHas("1999-05-26-bayern-munich-n", "rank-change", /20th-best rating/);
   assertLacks("1902-03-01-lincoln-city-h", "rank-change");
+  assertLacks("2026-05-24-brighton-and-hove-albion-a", "rank-change");
 
-  assertHas("1895-09-07-crewe-alexandra-h", "manager-milestone", /100 official matches/);
+  assertHas("1895-09-07-crewe-alexandra-h", "manager-milestone", /100th match/);
   assertLacks("1902-03-01-lincoln-city-h", "manager-milestone");
 
   assertHas("1886-10-30-fleetwood-rangers-a", "opponent-milestone", /1st time/);
   assertLacks("1902-03-01-lincoln-city-h", "opponent-milestone");
 
-  assertHas("1892-10-15-wolverhampton-wanderers-h", "unusual-scoreline", /extreme-margin/);
+  assertHas("1892-10-15-wolverhampton-wanderers-h", "unusual-scoreline", /9-goal gap/);
   assertLacks("1902-03-01-lincoln-city-h", "unusual-scoreline");
 
   assertHas("1893-04-22-birmingham-city-n", "venue-fact", /1st neutral match/);
   assertLacks("1902-03-01-lincoln-city-h", "venue-fact");
 
-  assertHas("1999-05-26-bayern-munich-n", "elo-movement", /gained 5\.6 Elo points/);
+  assertHas("1999-05-26-bayern-munich-n", "elo-movement", /\+5\.6/);
   assertLacks("1902-03-01-lincoln-city-h", "elo-movement");
 
   assertHas("1999-05-26-bayern-munich-n", "historical-percentile", /99\.6th percentile/);

@@ -17,6 +17,7 @@ import { historyDigestJsonLd, jsonLdHtml } from "@/lib/structuredData";
 
 /** Human labels for the detector kinds — the raw kind strings read like plumbing. */
 const KIND_LABEL: Record<HistoryDigestClaimKind, string> = {
+  result: "Result",
   "ledger-entry": "Ledger",
   record: "All-time record",
   "streak-started": "Run started",
@@ -97,7 +98,7 @@ export default async function HistoryChangedPage({ params }: { params: Promise<{
           <div className="relative space-y-3 p-5 sm:p-6">
             <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
-                The biggest change · {KIND_LABEL[lead.kind]}
+                {lead.kind === "result" ? "The match" : `The biggest change · ${KIND_LABEL[lead.kind]}`}
               </p>
               <Link href={lead.evidencePath} className="text-sm font-semibold text-devil-bright hover:underline focus-ring">
                 See the match →

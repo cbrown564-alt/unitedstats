@@ -4,6 +4,7 @@ import {
   topScorers, seasonAggregates, championSeasons,
 } from "@/lib/queries";
 import { clubRecords, goalMinuteRidge, lateGoalShareByDecade } from "@/lib/trails";
+import { recentHistoryDigests } from "@/lib/historyDigests";
 import {
   fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
 } from "@/lib/format";
@@ -13,6 +14,7 @@ import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
+import { RecentlyChanged } from "@/components/RecentlyChanged";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
@@ -34,6 +36,7 @@ export default function Home() {
   const rec = allTimeRecord();
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
+  const recentChanges = recentHistoryDigests(3);
   const scorers = topScorers(8);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -196,8 +199,22 @@ export default function Home() {
         </section>
       </div>
 
-      {/* ── Movement: the living record. What just happened, beside the all-time
-          shape of it, with the coverage ledger one click away. ── */}
+      {/* ── Movement: the living record. What the latest matches changed in 140
+          years, then what just happened beside the all-time shape of it. ── */}
+      {recentChanges.length > 0 && (
+        <section>
+          <SectionHead
+            title="What the record just gained"
+            aside={<Link href={recentChanges[0].path} className="text-devil-bright hover:underline">Latest digest →</Link>}
+          />
+          <RecentlyChanged cards={recentChanges} />
+          <p className="mt-2 text-xs text-ink-faint">
+            The freshest results, read for what they moved in the all-time record — the question a
+            live-score app never answers. Each card opens the full digest.
+          </p>
+        </section>
+      )}
+
       <section className="grid lg:grid-cols-[1fr_20rem] gap-10">
         <div>
           <SectionHead

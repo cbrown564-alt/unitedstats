@@ -44,10 +44,11 @@ no-change run writes nothing and exits successfully.
 
 | Detector | Trigger |
 | --- | --- |
+| Result | Always fires. States the outcome in plain football language (era-correct club name, venue, opponent) plus the running same-competition win count of the season when United won. It is the human floor, so an ordinary match leads with the game rather than with Elo. |
 | Record entered/extended | The match sets or joins a single-match United goals high, or extends the biggest winning margin. |
 | Streak started | With current canonical hindsight, the match is the first match of a run of at least three unbeaten, winning, scoring, or clean-sheet matches. |
 | Streak ended | The match breaks a run of at least three unbeaten, winning, scoring, or clean-sheet matches. |
-| Rank change | United's post-match Elo rank among historical post-match ratings changes versus the previous match. |
+| Rank change | The post-match Elo enters (or climbs within) United's hundred best-ever ratings to that date, or sets a brand-new all-time peak. An ordinary mid-table match — rated, say, 2,600th-best of all time — does not fire it; the absolute rank carries no meaning to a reader. |
 | Manager milestone | The manager reaches match 1, 10, 25, 50, 100, 250, 500, 1000, or 1500 in charge. |
 | Opponent milestone | The head-to-head reaches meeting 1, 10, 25, 50, 100, 250, 500, 1000, or 1500. |
 | Unusual scoreline | The match has a margin of at least five, at least seven total goals, or a new scoreline with at least five total goals. |
@@ -55,8 +56,11 @@ no-change run writes nothing and exits successfully.
 | Elo movement | The match moves United's Elo by at least five points. |
 | Historical percentile | The post-match Elo sits in the top or bottom five percent of United's history to that date. |
 
-If no detector fires, the digest keeps a neutral ledger-entry claim so the page
-still explains that the match was added to the record without inventing drama.
+Claims are ranked by editorial weight for display, not by emission order: all-time
+records and runs lead, the plain result is the floor that leads only when nothing
+bigger fired, and Elo movement sits at the bottom under "Also shifted". Because the
+result claim always fires, the older neutral ledger-entry fallback is no longer
+produced.
 
 ## Source And Scope
 
