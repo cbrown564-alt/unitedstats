@@ -47,22 +47,33 @@ export function lateGoalShareByDecade(): {
 
 /**
  * United goals by 5-minute bin across the match, for the late-goals ridge. Same
- * goal definition as {@link lateGoalShareByDecade}; stoppage time folds into the
- * final 86–90+ bin so the closing surge stays on the chart. Returns all 18 bins,
- * zero-filled, so the caller can render an unbroken timeline.
+ * goal definition as {@link lateGoalShareByDecade}, but stoppage time is kept
+ * *out* of the 86–90 bin and returned separately as `stoppage`, so the ridge can
+ * draw the genuine regulation late-spike (a real edge over an even spread) and the
+ * added-time goals as two distinct things rather than one fat, misleading bar.
+ * Returns all 18 regulation bins, zero-filled, for an unbroken timeline.
  */
-export function goalMinuteRidge(): { lo: number; hi: number; n: number }[] {
-  const rows = getDb()
+export function goalMinuteRidge(): { bins: { lo: number; hi: number; n: number }[]; stoppage: number } {
+  const db = getDb();
+  const notStoppage = `NOT (e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0))`;
+  const rows = db
     .prepare(
       `SELECT MIN((e.minute - 1) / 5, 17) AS bin, COUNT(*) n
        FROM match_events e
        WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL AND e.minute >= 1
+         AND ${notStoppage}
        GROUP BY 1 ORDER BY 1`,
     )
     .all() as { bin: number; n: number }[];
   const bins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
   for (const r of rows) if (bins[r.bin]) bins[r.bin].n = r.n;
-  return bins;
+  const { stoppage } = db
+    .prepare(
+      `SELECT COUNT(*) stoppage FROM match_events e
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL AND NOT (${notStoppage})`,
+    )
+    .get() as { stoppage: number };
+  return { bins, stoppage };
 }
 
 export function timedGoalCounts(): { timed: number; total: number } {

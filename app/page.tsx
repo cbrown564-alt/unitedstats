@@ -187,11 +187,11 @@ export default function Home() {
               </span>
             </div>
             <p className="mt-1 text-sm text-ink-dim">
-              of timed United goals come after the 85th minute — but only {pct(lateAgg.reg, lateAgg.timed)} in the last five
-              regulation minutes. The rest is stoppage time, and it is growing.
+              of timed United goals come after the 85th minute. Most is a genuine edge in the last five regulation minutes
+              ({pct(lateAgg.reg, lateAgg.timed)}); the modern surge on top is stoppage time, and it keeps growing.
             </p>
             <div className="mt-4">
-              <MinuteRidge bins={ridge} lateFrom={85} height={170} />
+              <MinuteRidge bins={ridge.bins} lateFrom={85} height={170} />
             </div>
             <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
               See the late-goals breakdown →

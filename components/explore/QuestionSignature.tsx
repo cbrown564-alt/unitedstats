@@ -67,8 +67,10 @@ function Figures({ items }: { items: Figure[] }) {
 
 export function QuestionSignature({ slug }: { slug: string }) {
   switch (slug) {
-    case "late-goals":
-      return <MinuteRidge bins={goalMinuteRidge()} lateFrom={85} height={190} />;
+    case "late-goals": {
+      const ridge = goalMinuteRidge();
+      return <MinuteRidge bins={ridge.bins} lateFrom={85} height={190} />;
+    }
 
     case "comebacks": {
       const s = comebacks().summary;

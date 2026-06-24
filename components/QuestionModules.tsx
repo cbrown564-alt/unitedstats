@@ -12,7 +12,6 @@ import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
-import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { DataTable } from "@/components/DataTable";
 import { GeoScatter } from "@/components/GeoScatter";
@@ -97,17 +96,35 @@ function LateGoalsModule({ variant }: ModuleProps) {
     <Module
       slug="late-goals"
       variant={variant}
-      finding={`Of ${fmtNum(overallLateShare.timed)} goals with a recorded minute, ${pct(overallLateShare.late, overallLateShare.timed)} came after the 85th — the stat behind "Fergie time". But the window splits in two, and the split is the story. The last five regulation minutes (86–90) account for ${pct(overallLateShare.reg, overallLateShare.timed)} of all goals and have held there in every era — barely above an even spread. The rise is almost entirely stoppage time: in the ${latest.decade} the regulation share is still ${pct(latest.reg, latest.timed)}, but a further ${pct(latest.stoppage, latest.timed)} now lands after the 90th — a window that has stretched from a minute or two mid-century to ten-plus today. United score later because the closing minutes last longer now, not because the shirt makes it so.`}
-      slice="United goals (penalties and own goals for included) with a recorded minute, by decade. Each bar splits the post-85th window into the last five regulation minutes (86–90) and stoppage time (90+, added time folded into the final minute); together they make the late share. Decades with fewer than 20 timed goals are hidden."
+      finding={`Of ${fmtNum(overallLateShare.timed)} goals with a recorded minute, ${pct(overallLateShare.late, overallLateShare.timed)} came after the 85th — the stat behind "Fergie time". It has two parts, and both are real. The last five regulation minutes (86–90) hold ${pct(overallLateShare.reg, overallLateShare.timed)} of all goals — a genuine, persistent edge over the 5.6% an even spread would give, and it shows up in every era: across ${fmtNum(overallLateShare.timed)} goals United really do score more in the closing five than the clock alone predicts. The second part is what has grown. Stoppage time has stretched from a minute or two mid-century to ten-plus today, and the goals followed: in the ${latest.decade} a steady ${pct(latest.reg, latest.timed)} still come in regulation, but a further ${pct(latest.stoppage, latest.timed)} now land after the 90th. So the surge is two things stacked — a real late-scoring habit, and a closing window that simply lasts far longer than it used to.`}
+      slice="United goals (penalties and own goals for included) with a recorded minute, by decade. Each bar splits the post-85th window into the last five regulation minutes (86–90) and stoppage time (90+, added time folded into the final minute): the gold base is the genuine late-scoring edge, the red cap is the lengthening of stoppage time. Decades with fewer than 20 timed goals are hidden."
       coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute; minute data is densest from the 1990s onward. Stoppage-time goals are only separable where a source gives the "90+" notation — largely a modern convention — so the stoppage segment reads near zero before the 1990s in part because it was not yet recorded, and no source captures each match's true added-time length to normalise against.`}
     >
       <div>
-        <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals actually land</h3>
-        <MinuteRidge bins={ridge} lateFrom={85} />
+        <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals land</h3>
+        <InspectableBarChart
+          data={ridge.bins.map((b, i) => {
+            const last = i === ridge.bins.length - 1;
+            return {
+              label: String(b.lo),
+              tickLabel: [0, 15, 30, 45, 60, 75].includes(b.lo) ? `${b.lo}'` : last ? "85'" : "",
+              value: b.n,
+              value2: last ? ridge.stoppage : 0,
+              valueLabel: last ? `${fmtNum(b.n + ridge.stoppage)} goals` : `${fmtNum(b.n)} goals`,
+              meta: last ? `86–90′: ${fmtNum(b.n)} · stoppage: ${fmtNum(ridge.stoppage)}` : `${b.lo + 1}–${b.hi}′`,
+            };
+          })}
+          height={200}
+          color="var(--color-gold)"
+          stack={{ color: "var(--color-devil-bright)" }}
+          chartLabel="Manchester United goals by 5-minute window, with stoppage time stacked on the final bar"
+          baseline={{ value: Math.round(ridge.bins.reduce((a, b) => a + b.n, 0) / ridge.bins.length), label: "even spread" }}
+        />
         <p className="text-xs text-ink-faint mt-1">
-          United goals by 5-minute window. The final bar is wider than it looks — it holds the 86th to 90th
-          <em> plus all stoppage time</em>, so it climbs above the even-spread line (dashed) partly because it covers
-          more of the match than any other.
+          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
+          {" · "}
+          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage time</span>
+          . The 86–90 bar already clears an even spread (dashed) — a real edge — and stoppage stacks more on top.
         </p>
       </div>
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-stretch">
@@ -129,7 +146,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
               stack={{ color: "var(--color-devil-bright)" }}
               chartLabel="Manchester United late goal share by decade, split into regulation and stoppage time"
               yTickSuffix="%"
-              baseline={{ value: 100 / 18, label: "even spread 5.6%" }}
+              baseline={{ value: 100 / 18 }}
             />
           </div>
           <p className="text-xs text-ink-faint mt-1">

@@ -43,8 +43,13 @@ export function SeasonContributionChartLazy(props: SeasonContributionProps) {
 }
 
 export function InspectableBarChartLazy(props: InspectableBarProps) {
+  // In `fill` mode the chart sizes to its parent via a height:100% chain, so the
+  // reservation div must carry a real height (h-full), not just a min-height —
+  // a bare min-height leaves the inner ResponsiveContainer with no definite
+  // parent height and it collapses to 0. Outside fill mode, reserve the fixed
+  // height up front so deferring the bundle costs no layout shift.
   return (
-    <div style={{ minHeight: props.height ?? 180 }}>
+    <div className={props.fill ? "h-full" : undefined} style={{ minHeight: props.fill ? 180 : props.height ?? 180 }}>
       <InspectableBarInner {...props} />
     </div>
   );

@@ -82,12 +82,13 @@ body {
   animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* Only the sticky site chrome is lifted out of the snapshot — scoped to the one
-   element, not every page-level <header>, since a view-transition-name must be
-   unique per document (duplicates abort the transition). */
-.site-header {
-  view-transition-name: site-header;
-}
+/* Only the sticky site chrome is lifted out of the snapshot so it stays put as
+   content fades. The `view-transition-name: site-header` is applied by React's
+   <ViewTransition name="site-header"> in SiteShell — not a raw CSS rule — so the
+   name is owned by exactly one live element across the old/new trees and cannot
+   collide with itself mid-navigation (a raw CSS name does, and the browser aborts
+   the transition with "multiple elements found"). These rules suppress its
+   animation by matching that same name. */
 ::view-transition-group(site-header) {
   animation: none;
 }
