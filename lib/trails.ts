@@ -8,21 +8,41 @@ const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
 /**
  * Share of United goals (with recorded minutes) scored after the 85th minute,
- * per decade. The whole late-goals module is pinned to this one window — minute
- * ≥ 86, stoppage time included — so the ridge, the decade bars, and the curated
- * match list all describe the same closing five minutes.
+ * per decade — split into the two parts that the headline figure quietly conflates:
+ *
+ *   - `reg`: the last five *regulation* minutes (86–90, no stoppage). A genuine,
+ *     fixed five-minute slot, so it is fair to compare against an even spread.
+ *   - `stoppage`: anything past the 90th (minute > 90, or the 90th carrying added
+ *     time). This is *not* a five-minute slot — it is however long the fourth
+ *     official adds, which has grown from a minute or two mid-century to ten-plus
+ *     today, and which our sources only began notating in the modern era.
+ *
+ * `late = reg + stoppage`. Keeping the two apart is the whole point of the module:
+ * the regulation share is flat across every era, while the modern "Fergie time"
+ * surge is almost entirely the stoppage column — a lengthening of the closing
+ * window, not a United trait. We cannot normalise by each match's true stoppage
+ * length (no source records it before the Opta era, ~2006, and never for the deep
+ * archive), so we show the split rather than claim a rate we can't measure.
  */
-export function lateGoalShareByDecade(): { decade: string; timed: number; late: number }[] {
+export function lateGoalShareByDecade(): {
+  decade: string;
+  timed: number;
+  late: number;
+  reg: number;
+  stoppage: number;
+}[] {
   return getDb()
     .prepare(
       `SELECT substr(m.date,1,3) || '0s' decade,
               COUNT(*) timed,
-              SUM(e.minute >= 86) late
+              SUM(e.minute >= 86) late,
+              SUM(e.minute BETWEEN 86 AND 90 AND COALESCE(e.added_time, 0) = 0) reg,
+              SUM(e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0)) stoppage
        FROM match_events e JOIN matches m ON m.id = e.match_id
        WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL
        GROUP BY 1 HAVING COUNT(*) >= 20 ORDER BY 1`,
     )
-    .all() as { decade: string; timed: number; late: number }[];
+    .all() as { decade: string; timed: number; late: number; reg: number; stoppage: number }[];
 }
 
 /**

@@ -63,7 +63,7 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   return {
     "late-goals": {
       stat: pct(late.late, late.timed),
-      gloss: "of timed goals come after the 85th minute — about double an even spread",
+      gloss: "of timed goals come after the 85th — but the last-five-minutes share is flat; the rise is stoppage time",
       tone: "gold",
     },
     comebacks: {

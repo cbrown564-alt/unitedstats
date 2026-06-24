@@ -82,8 +82,8 @@ export default function Home() {
   // homepage demonstrates the surface, and leads with the one finding number.
   const ridge = goalMinuteRidge();
   const lateAgg = lateGoalShareByDecade().reduce(
-    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
-    { timed: 0, late: 0 },
+    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late, reg: a.reg + d.reg }),
+    { timed: 0, late: 0, reg: 0 },
   );
 
   // The curated-cut launcher: the nine myth-tested questions as a peek-carousel,
@@ -187,7 +187,8 @@ export default function Home() {
               </span>
             </div>
             <p className="mt-1 text-sm text-ink-dim">
-              of timed United goals come after the 85th minute, roughly double an even spread across the 90.
+              of timed United goals come after the 85th minute — but only {pct(lateAgg.reg, lateAgg.timed)} in the last five
+              regulation minutes. The rest is stoppage time, and it is growing.
             </p>
             <div className="mt-4">
               <MinuteRidge bins={ridge} lateFrom={85} height={170} />
