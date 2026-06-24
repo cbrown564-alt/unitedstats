@@ -13,7 +13,34 @@ import {
   type HistoryDigestClaimKind,
 } from "@/lib/historyDigests";
 import { fmtDateLong } from "@/lib/format";
+import { groupProvenanceBySource } from "@/lib/citations";
 import { historyDigestJsonLd, jsonLdHtml } from "@/lib/structuredData";
+
+/** Human labels for the canonical match-source facet codes. */
+const FACET_LABEL: Record<string, string> = {
+  result: "result",
+  "united-scorers": "United scorers",
+  "opposition-goals": "opposition goals",
+  assists: "assists",
+  "starting-lineup": "starting lineup",
+  "used-substitutes": "substitutes used",
+  bench: "bench",
+  cards: "cards",
+  attendance: "attendance",
+};
+
+function facetLabel(facet: string): string {
+  return FACET_LABEL[facet] ?? facet.replace(/-/g, " ");
+}
+
+/** Confidence tiers, strongest first, with a colour cue that reinforces (not
+ *  replaces) the label — complete reads as solid, partial as provisional. */
+const CONFIDENCE_TIERS = [
+  { key: "complete", label: "Complete", tone: "text-win" },
+  { key: "supporting", label: "Supporting", tone: "text-ink-dim" },
+  { key: "partial", label: "Partial", tone: "text-draw" },
+  { key: "other", label: "Recorded", tone: "text-ink-faint" },
+] as const;
 
 /** Human labels for the detector kinds — the raw kind strings read like plumbing. */
 const KIND_LABEL: Record<HistoryDigestClaimKind, string> = {
@@ -65,6 +92,7 @@ export default async function HistoryChangedPage({ params }: { params: Promise<{
   const ranked = rankedClaims(digest.claims);
   const lead = ranked[0];
   const supporting = ranked.slice(1);
+  const sourceGroups = groupProvenanceBySource(digest.provenance);
 
   return (
     <div className="space-y-8">
@@ -144,15 +172,49 @@ export default async function HistoryChangedPage({ params }: { params: Promise<{
         />
       </section>
 
-      {digest.provenance.length > 0 && (
+      {sourceGroups.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-faint">Sources</h2>
-          <div className="grid gap-2">
-            {digest.provenance.map((p, i) => (
-              <div key={`${p.sourceId}-${p.facet}-${i}`} className="border border-line bg-panel px-3 py-2 text-sm text-ink-dim">
-                <span className="font-semibold text-ink">{p.sourceName}</span>
-                {p.facet && <span> · {p.facet}</span>}
-                {p.confidence && <span> · {p.confidence}</span>}
+          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-faint">
+            Sources for this match
+          </h2>
+          <p className="text-xs text-ink-faint">
+            What each source recorded for United {digest.match.score} {digest.match.opponent} — the data
+            these changes are read from.
+          </p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {sourceGroups.map((g) => (
+              <div key={g.sourceId} className="border border-line bg-panel p-3">
+                <div className="flex items-baseline justify-between gap-2">
+                  {g.sourceUrl ? (
+                    <a
+                      href={g.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-ink hover:text-devil-bright focus-ring"
+                    >
+                      {g.sourceName}
+                    </a>
+                  ) : (
+                    <span className="font-semibold text-ink">{g.sourceName}</span>
+                  )}
+                  <span className="shrink-0 text-[11px] text-ink-faint">
+                    {g.facets.length} {g.facets.length === 1 ? "facet" : "facets"}
+                  </span>
+                </div>
+                <dl className="mt-2 space-y-1">
+                  {CONFIDENCE_TIERS.map((tier) => {
+                    const facets = g.facets.filter((f) => (f.confidence ?? "other") === tier.key);
+                    if (facets.length === 0) return null;
+                    return (
+                      <div key={tier.key} className="flex gap-2 text-xs leading-5">
+                        <dt className={`shrink-0 font-semibold uppercase tracking-[0.1em] ${tier.tone}`}>
+                          {tier.label}
+                        </dt>
+                        <dd className="text-ink-dim">{facets.map((f) => facetLabel(f.facet)).join(", ")}</dd>
+                      </div>
+                    );
+                  })}
+                </dl>
               </div>
             ))}
           </div>
