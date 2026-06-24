@@ -34,16 +34,39 @@ const EUROPE: [number, number, number, number] = [34, 61.5, -11, 36];
 type ModuleVariant = "index" | "canonical";
 type ModuleProps = { variant?: ModuleVariant };
 
-/** The "follow the thread to every match" destination — the matches link
- *  promoted from a footnote to an arrival, a proof dot beside a real button. */
-function MatchesCta({ href, label }: { href: string; label?: string }) {
+/** The thread's destination: where "follow the red thread to every match behind
+ *  the answer" lands. Rendered as the final station — a full-width arrival panel
+ *  rather than a floating pill — stating the size of the record behind the answer
+ *  where we know it, so the page's most important node carries real weight. */
+function MatchesArrival({
+  href, label, count, countNoun,
+}: {
+  href: string;
+  label?: string;
+  count?: number;
+  countNoun?: string;
+}) {
+  // Labels carry their own trailing arrow; strip it so the animated chevron isn't doubled.
+  const action = (label ?? "Show the matches behind this").replace(/\s*→\s*$/, "");
   return (
     <Link
       href={href}
-      className="group inline-flex items-center gap-2.5 rounded-lg border border-line bg-panel px-4 py-3 text-sm text-ink transition-colors hover:border-devil/60 hover:bg-panel-2 focus-ring"
+      className="group flex items-center gap-4 rounded-lg border border-line bg-panel-2 px-5 py-4 transition-colors hover:border-devil/60 focus-ring"
     >
-      <span className="h-2 w-2 shrink-0 rounded-full bg-devil-bright" aria-hidden />
-      <span className="group-hover:text-devil-bright">{label ?? "Show the matches behind this →"}</span>
+      <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-devil-bright ring-4 ring-devil-bright/15" aria-hidden />
+      <span className="min-w-0 flex-1">
+        <span className="block text-base font-medium text-ink group-hover:text-devil-bright">{action}</span>
+        <span className="mt-0.5 block text-xs text-ink-faint">
+          {count != null ? (
+            <><span className="stat-num text-ink-dim">{fmtNum(count)}</span> {countNoun ?? "matches"} behind this answer</>
+          ) : (
+            "The full record behind this answer"
+          )}
+        </span>
+      </span>
+      <span className="shrink-0 text-ink-faint transition-transform group-hover:translate-x-0.5 group-hover:text-devil-bright" aria-hidden>
+        →
+      </span>
     </Link>
   );
 }
@@ -57,11 +80,13 @@ function MatchesCta({ href, label }: { href: string; label?: string }) {
  *
  * The **canonical** form is the answer rebuilt as a thread: the question is the
  * page title, and the argument runs down a red {@link AnswerThread} spine through
- * five stations — answer, evidence, the matches behind it, definition, coverage —
- * each given real vertical room so the scroll genuinely travels the stages.
- * Definition and coverage are promoted from footnotes to readable sections,
- * which is where the trust lives. Each station keeps a stable `${slug}-*` id so
- * an answer's stages stay deep-linkable and citable.
+ * its stations — answer, evidence, definition, coverage, and finally the matches
+ * the answer rests on — each given real vertical room so the scroll genuinely
+ * travels the stages. Definition and coverage are promoted from footnotes to
+ * readable sections, which is where the trust lives; the matches come last so the
+ * spine fills all the way down and literally terminates at "every match behind the
+ * answer", the brand promise made structural. Each station keeps a stable
+ * `${slug}-*` id so an answer's stages stay deep-linkable and citable.
  */
 function Module({
   slug, finding, slice, coverage, evidence, variant = "canonical", children,
@@ -70,7 +95,7 @@ function Module({
   finding: string;
   slice: string;
   coverage?: string;
-  evidence?: { href: string; label?: string };
+  evidence?: { href: string; label?: string; count?: number; countNoun?: string };
   variant?: ModuleVariant;
   children: React.ReactNode;
 }) {
@@ -118,9 +143,6 @@ function Module({
       label: "The evidence",
       node: <div className="space-y-6">{children}</div>,
     },
-    ...(evidence
-      ? [{ id: `${slug}-matches`, label: "The matches", node: <MatchesCta href={evidence.href} label={evidence.label} /> }]
-      : []),
     {
       id: `${slug}-definition`,
       label: "Definition",
@@ -131,6 +153,13 @@ function Module({
           id: `${slug}-coverage`,
           label: "Coverage",
           node: <p className="text-sm leading-6 text-ink-dim text-pretty">{coverage}</p>,
+        }]
+      : []),
+    ...(evidence
+      ? [{
+          id: `${slug}-matches`,
+          label: "The matches",
+          node: <MatchesArrival href={evidence.href} label={evidence.label} count={evidence.count} countNoun={evidence.countNoun} />,
         }]
       : []),
   ];
@@ -149,6 +178,7 @@ function Module({
 }
 
 function LateGoalsModule({ variant }: ModuleProps) {
+  const meta = getMeta();
   const lateByDecade = lateGoalShareByDecade();
   const ridge = goalMinuteRidge();
   const timed = timedGoalCounts();
@@ -161,7 +191,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="late-goals"
-      evidence={{ href: "/matches", label: "Browse every match →" }}
+      evidence={{ href: "/matches", label: "Browse every match →", count: Number(meta.matches), countNoun: "matches" }}
       variant={variant}
       finding={`Yes — and the proof is in regulation, not stoppage time. The last five minutes before the whistle (86–90) hold ${pct(overallLateShare.reg, overallLateShare.timed)} of all United goals, comfortably above the ${pct(5, 90)} an even spread would give. United were scoring late long before anyone gave it a name.`}
       slice="United goals with a recorded minute — penalties and own goals for included — grouped by decade, the post-85th window split into the last five regulation minutes (86–90) and stoppage time (90+, with added time folded into the final minute). Decades with fewer than 20 timed goals are hidden."
@@ -225,7 +255,7 @@ function ComebacksModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="comebacks"
-      evidence={{ href: "/matches", label: "Browse every match →" }}
+      evidence={{ href: "/matches", label: "Browse every match →", count: Number(meta.matches), countNoun: "matches" }}
       variant={variant}
       finding={`Of ${fmtNum(cb.summary.replayable)} matches the record lets us replay minute by minute, United fell behind in ${fmtNum(cb.summary.fellBehind)} — and still avoided defeat in ${fmtNum(cb.summary.recovered)} of them, ${fmtNum(cb.summary.wonFromBehind)} turned all the way around into wins. ${fmtNum(cb.summary.twoPlusRecovered)} times they trailed by two or more and did not lose.`}
       slice="Official matches whose goals all carry a minute; a match counts as 'behind' whenever United's running score fell below the opponent's. The deepest comebacks are wins after trailing by two goals or more."
@@ -282,6 +312,7 @@ function ComebacksModule({ variant }: ModuleProps) {
 }
 
 function RunsModule({ variant }: ModuleProps) {
+  const meta = getMeta();
   const streaks = clubStreaks(5);
   const streakGroups: StreakGroup[] = [
     { kind: "unbeaten", title: "Unbeaten", figureNoun: "without defeat", tone: "win", runs: streaks.unbeaten },
@@ -296,7 +327,7 @@ function RunsModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="runs"
-      evidence={{ href: "/matches?sort=oldest", label: "Browse the record in order →" }}
+      evidence={{ href: "/matches?sort=oldest", label: "Browse the record in order →", count: Number(meta.matches), countNoun: "matches" }}
       variant={variant}
       finding={`The longest United have ever gone unbeaten in official football is ${fmtNum(longestUnbeaten?.length ?? 0)} matches (${longestUnbeaten ? `${fmtMonthYear(longestUnbeaten.from)} – ${fmtMonthYear(longestUnbeaten.to)}` : "—"}); the longest run of straight wins is ${fmtNum(longestWinning?.length ?? 0)}. They have scored in as many as ${fmtNum(longestScoring?.length ?? 0)} consecutive matches and kept ${fmtNum(longestClean?.length ?? 0)} clean sheets in a row.`}
       slice="Consecutive official matches (friendlies and wartime excluded), in date order. 'Unbeaten' counts wins and draws; 'scoring' counts any match United scored in; 'clean sheet' counts matches without conceding. Each run links to the matches behind it."
@@ -645,7 +676,7 @@ function OwnGoalsModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="own-goals"
-      evidence={{ href: "/player/own-goal", label: "Every own goal for United →" }}
+      evidence={{ href: "/player/own-goal", label: "Every own goal for United →", count: ogSummary.total, countNoun: "own goals" }}
       variant={variant}
       finding={`Treat every own goal an opponent has turned into United's net as one scorer and the answer is yes: ${fmtNum(ogSummary.total)} of them${ogRank ? `, the ${ogRank === 5 ? "fifth" : `#${ogRank}`}-most in the club's history` : ""} — and spread so thin across ${fmtNum(ogSummary.scorers)} different players that no one has done it more than ${ogRepeat[0]?.n ?? 1} times.`}
       slice="Own goals credited to United (an opponent scoring into his own net), all official competitions, gathered under the synthetic scorer 'Own Goal'. The leaderboard counts only own goals with a recorded scorer."
@@ -708,7 +739,7 @@ function AwayDaysModule({ variant }: ModuleProps) {
   return (
     <Module
       slug="away-days"
-      evidence={{ href: "/matches?venue=A", label: "Every away match →" }}
+      evidence={{ href: "/matches?venue=A", label: "Every away match →", count: travelCov.total, countNoun: "away matches" }}
       variant={variant}
       finding={`Across ${fmtNum(travelCov.covered)} mapped away matches, the trips run from short Lancashire hops to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Season travel steps up with the First Division's southern spread and European football from 1956.`}
       slice={`official away matches; one-way distance from Manchester to each opponent's home town, city level. Average trip per season, ${travelSeasons[0]?.season}–${travelSeasons[travelSeasons.length - 1]?.season}.`}

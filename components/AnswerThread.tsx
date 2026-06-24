@@ -6,11 +6,11 @@ export type ThreadStation = { id: string; label: string; node: React.ReactNode }
 
 /**
  * The answer page as a thread: each stage of the argument — answer, evidence,
- * the matches behind it, definition, coverage — is a station on a continuous red
- * spine running down the left. The spine fills red to the station nearest the
- * top as you scroll, so the brand promise ("follow the red thread to every match
- * behind the answer") is the literal structure of the page, not chrome bolted
- * beside it.
+ * definition, coverage, and finally the matches behind it — is a station on a
+ * continuous red spine running down the left. The spine fills red to the station
+ * nearest the top as you scroll and terminates at the matches, so the brand
+ * promise ("follow the red thread to every match behind the answer") is the
+ * literal structure of the page, not chrome bolted beside it.
  *
  * The station content is server-rendered (charts, prose) and threaded through as
  * `node`; only the active-station tracking is client-side. Active = the last
