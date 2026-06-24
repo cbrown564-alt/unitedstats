@@ -6,6 +6,8 @@ import {
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
+import { MatchFilterBar } from "@/components/MatchFilterBar";
+import type { FacetOptions } from "@/lib/matchFacets";
 import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
@@ -103,6 +105,24 @@ export default async function MatchesPage({
   const cities = matchCitiesList();
   const decades = matchDecades();
   const pages = Math.ceil(total / PAGE_SIZE);
+  // Option lists for the facet bar, keyed by facet `optionsKey`. Reuses the same
+  // data the classic form below renders from — no extra queries.
+  const facetOptions: FacetOptions = {
+    competition: comps.map((c) => ({ value: c.id, label: `${c.name} (${fmtNum(c.n)})` })),
+    season: seasons.map((s) => ({ value: s, label: s })),
+    venue: [
+      { value: "H", label: "Home" },
+      { value: "A", label: "Away" },
+      { value: "N", label: "Neutral" },
+    ],
+    result: RESULT_FILTER_KEYS.map((r) => ({ value: r, label: resultLabel(r) })),
+    type: TYPE_FILTER_KEYS.map((t) => ({ value: t, label: COMPETITION_TYPE_LABELS[t] })),
+    manager: managers.map((m) => ({ value: m.id, label: m.name })),
+    stadium: stadiums.map((s) => ({ value: s.id, label: `${s.name}${s.city ? `, ${s.city}` : ""} (${fmtNum(s.n)})` })),
+    city: cities.map((c) => ({ value: c.city, label: `${c.city} (${fmtNum(c.n)})` })),
+    goalWindow: GOAL_WINDOW_FILTERS.map((w) => ({ value: w.key, label: w.label })),
+    player: players.map((p) => ({ value: p.player_id, label: p.name })),
+  };
   const hasFilters = Boolean(
     sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type ||
     sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
@@ -203,7 +223,13 @@ export default async function MatchesPage({
         </div>
       </div>
 
-      <form id="match-filters" className="scroll-mt-20 rounded-lg border border-line bg-panel p-3 text-sm shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]" method="get" action="/matches">
+      <MatchFilterBar params={sp} chips={chips} options={facetOptions} />
+
+      <details className="rounded-lg border border-line/70 bg-panel/50">
+        <summary className="cursor-pointer select-none list-none px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
+          <span className="text-ink-faint" aria-hidden>▸ </span>Classic filter form (for comparison)
+        </summary>
+        <form id="match-filters-classic" className="p-3 text-sm" method="get" action="/matches">
         {sort !== "recent" && <input type="hidden" name="sort" value={sort} />}
         {sp.opponent && <input type="hidden" name="opponent" value={sp.opponent} />}
         <div className="grid gap-3 md:grid-cols-12">
@@ -356,7 +382,8 @@ export default async function MatchesPage({
             </label>
           </div>
         </details>
-      </form>
+        </form>
+      </details>
 
       <section className="rounded-lg border border-line bg-panel p-4">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
