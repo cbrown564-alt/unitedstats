@@ -91,15 +91,14 @@ function LateGoalsModule({ variant }: ModuleProps) {
     (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late, reg: a.reg + d.reg, stoppage: a.stoppage + d.stoppage }),
     { timed: 0, late: 0, reg: 0, stoppage: 0 },
   );
-  const latest = lateByDecade[lateByDecade.length - 1];
   const round1 = (n: number) => Math.round(n * 10) / 10;
   return (
     <Module
       slug="late-goals"
       variant={variant}
-      finding={`Of ${fmtNum(overallLateShare.timed)} goals with a recorded minute, ${pct(overallLateShare.late, overallLateShare.timed)} came after the 85th — the stat behind "Fergie time". It has two parts, and both are real. The last five regulation minutes (86–90) hold ${pct(overallLateShare.reg, overallLateShare.timed)} of all goals — a genuine, persistent edge over the 5.6% an even spread would give, and it shows up in every era: across ${fmtNum(overallLateShare.timed)} goals United really do score more in the closing five than the clock alone predicts. The second part is what has grown. Stoppage time has stretched from a minute or two mid-century to ten-plus today, and the goals followed: in the ${latest.decade} a steady ${pct(latest.reg, latest.timed)} still come in regulation, but a further ${pct(latest.stoppage, latest.timed)} now land after the 90th. So the surge is two things stacked — a real late-scoring habit, and a closing window that simply lasts far longer than it used to.`}
-      slice="United goals (penalties and own goals for included) with a recorded minute, by decade. Each bar splits the post-85th window into the last five regulation minutes (86–90) and stoppage time (90+, added time folded into the final minute): the gold base is the genuine late-scoring edge, the red cap is the lengthening of stoppage time. Decades with fewer than 20 timed goals are hidden."
-      coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute; minute data is densest from the 1990s onward. Stoppage-time goals are only separable where a source gives the "90+" notation — largely a modern convention — so the stoppage segment reads near zero before the 1990s in part because it was not yet recorded, and no source captures each match's true added-time length to normalise against.`}
+      finding={`Yes — and the proof is in regulation, not stoppage time. The last five minutes before the whistle (86–90) hold ${pct(overallLateShare.reg, overallLateShare.timed)} of all United goals, comfortably above the ${pct(5, 90)} an even spread would give. United were scoring late long before anyone gave it a name.`}
+      slice="United goals with a recorded minute — penalties and own goals for included — grouped by decade, the post-85th window split into the last five regulation minutes (86–90) and stoppage time (90+, with added time folded into the final minute). Decades with fewer than 20 timed goals are hidden."
+      coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute, and that data thins quickly before the 1990s. Stoppage-time goals are only separable where a source marks them "90+" — largely a modern convention — so the stoppage segment reads near zero in the early decades partly because it went unrecorded, not only because added time was shorter.`}
     >
       <div>
         <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals land</h3>
@@ -137,7 +136,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
             <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> last 5 min (86–90)</span>
             {" · "}
             <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage (90+)</span>
-            . The gold base barely moves; the rising red cap is the lengthening of stoppage time.
+            . Both at once: the gold base holds steady across every era — the habit — while the red cap takes off only from the 1990s, as stoppage time grew from two minutes to ten — the era.
           </p>
         </div>
         <div className="flex flex-col">
