@@ -82,7 +82,10 @@ body {
   animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
-header {
+/* Only the sticky site chrome is lifted out of the snapshot — scoped to the one
+   element, not every page-level <header>, since a view-transition-name must be
+   unique per document (duplicates abort the transition). */
+.site-header {
   view-transition-name: site-header;
 }
 ::view-transition-group(site-header) {
