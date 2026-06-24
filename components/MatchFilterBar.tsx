@@ -4,9 +4,10 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
 import { FacetCombobox } from "@/components/FacetCombobox";
+import { FacetIcon } from "@/components/FacetIcon";
 import {
   MATCH_FACETS, FACET_BY_KEY, FACET_GROUPS,
-  type FacetDef, type FacetOption, type FacetOptions, type FacetCounts,
+  type FacetDef, type FacetGroup, type FacetOption, type FacetOptions, type FacetCounts,
 } from "@/lib/matchFacets";
 
 /**
@@ -127,7 +128,7 @@ export function MatchFilterBar({
           >
             <span aria-hidden>＋</span> Add filter
           </button>
-          {open === "add" && <AddMenu available={available} onPick={pick} />}
+          {open === "add" && <AddMenu available={available} counts={counts} onPick={pick} />}
           {newFacet && (
             <FacetEditor
               facet={newFacet}
@@ -159,32 +160,92 @@ export function MatchFilterBar({
   );
 }
 
-function AddMenu({ available, onPick }: { available: FacetDef[]; onPick: (f: FacetDef) => void }) {
+// Left column carries Who + What, right column Where + When — roughly balancing
+// the two halves so the menu is short and scannable rather than one tall list.
+const MENU_COLUMNS: FacetGroup[][] = [
+  ["who", "what"],
+  ["where", "when"],
+];
+
+function AddMenu({
+  available,
+  counts,
+  onPick,
+}: {
+  available: FacetDef[];
+  counts: FacetCounts;
+  onPick: (f: FacetDef) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const needle = query.trim().toLowerCase();
+  const matches = needle ? available.filter((f) => f.label.toLowerCase().includes(needle)) : null;
+
+  // A counted facet is "exhausted" when one option (or none) remains reachable in
+  // the rest of the slice — picking it can't narrow further, so it's dimmed.
+  const exhausted = (f: FacetDef) => {
+    const c = counts[f.key];
+    return c ? Object.values(c).filter((n) => n > 0).length <= 1 : false;
+  };
+
+  const item = (f: FacetDef) => {
+    const dim = exhausted(f);
+    return (
+      <button
+        key={f.key}
+        type="button"
+        role="menuitem"
+        onClick={() => onPick(f)}
+        title={dim ? "Only one option in this slice" : undefined}
+        className={`flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm transition-colors focus-ring ${
+          dim ? "text-ink-faint hover:bg-panel-2" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
+        }`}
+      >
+        <FacetIcon name={f.icon} className="shrink-0 text-ink-faint" />
+        <span className="truncate">{f.label}</span>
+      </button>
+    );
+  };
+
   return (
-    <div role="menu" className="absolute left-0 top-full z-40 mt-1 w-64 rounded-lg border border-line bg-panel p-1.5 shadow-xl">
-      {available.length === 0 ? (
-        <p className="px-2 py-1.5 text-sm text-ink-faint">Every filter is already in play.</p>
+    <div role="menu" className="pop-in absolute left-0 top-full z-40 mt-1 w-[30rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-line bg-panel shadow-xl">
+      <div className="border-b border-line p-2">
+        <input
+          autoFocus
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Find a filter…"
+          aria-label="Find a filter"
+          className="control w-full"
+        />
+      </div>
+
+      {matches ? (
+        <div className="max-h-80 overflow-y-auto p-1.5">
+          {matches.length > 0 ? matches.map(item) : (
+            <p className="px-2 py-2 text-sm text-ink-faint">No filter matches “{query}”.</p>
+          )}
+        </div>
+      ) : available.length === 0 ? (
+        <p className="px-3 py-3 text-sm text-ink-faint">Every filter is already in play.</p>
       ) : (
-        FACET_GROUPS.map((g) => {
-          const items = available.filter((f) => f.group === g.key);
-          if (items.length === 0) return null;
-          return (
-            <div key={g.key} className="px-0.5 py-1 first:pt-0.5">
-              <p className="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">{g.label}</p>
-              {items.map((f) => (
-                <button
-                  key={f.key}
-                  type="button"
-                  role="menuitem"
-                  onClick={() => onPick(f)}
-                  className="block w-full rounded px-1.5 py-1 text-left text-sm text-ink-dim transition-colors hover:bg-panel-2 hover:text-ink focus-ring"
-                >
-                  {f.label}
-                </button>
-              ))}
+        <div className="grid grid-cols-2 gap-x-2 p-1.5">
+          {MENU_COLUMNS.map((groups, col) => (
+            <div key={col} className="min-w-0">
+              {groups.map((g) => {
+                const items = available.filter((f) => f.group === g);
+                if (items.length === 0) return null;
+                const label = FACET_GROUPS.find((x) => x.key === g)?.label ?? g;
+                return (
+                  <div key={g} className="px-0.5 py-1 first:pt-0.5">
+                    <p className="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">{label}</p>
+                    {items.map(item)}
+                  </div>
+                );
+              })}
             </div>
-          );
-        })
+          ))}
+        </div>
       )}
     </div>
   );
@@ -213,7 +274,7 @@ function FacetEditor({
   // What remains is the numeric facets (year / minute): a small typed input.
   return (
     <form
-      className="absolute left-0 top-full z-40 mt-1 flex items-center gap-2 rounded-lg border border-line bg-panel p-2 shadow-xl"
+      className="pop-in absolute left-0 top-full z-40 mt-1 flex items-center gap-2 rounded-lg border border-line bg-panel p-2 shadow-xl"
       onSubmit={(e) => { e.preventDefault(); onApply(val || undefined); }}
     >
       <input

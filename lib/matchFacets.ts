@@ -20,6 +20,8 @@ export interface FacetDef {
   placeholder?: string;
   /** Value a toggle writes when switched on. */
   onValue?: string;
+  /** Glyph name resolved by <FacetIcon>. */
+  icon?: string;
 }
 
 export const FACET_GROUPS: { key: FacetGroup; label: string }[] = [
@@ -31,27 +33,27 @@ export const FACET_GROUPS: { key: FacetGroup; label: string }[] = [
 
 // Order within each group is the order shown in the add-filter menu.
 export const MATCH_FACETS: FacetDef[] = [
-  { key: "opponent", label: "Opponent", kind: "select", group: "who", optionsKey: "opponent" },
-  { key: "manager", label: "Manager", kind: "select", group: "who", optionsKey: "manager" },
-  { key: "player", label: "Player appeared", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney" },
-  { key: "scorer", label: "Scorer", kind: "datalist", group: "who", optionsKey: "player", placeholder: "eric-cantona" },
-  { key: "assister", label: "Assister", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney" },
+  { key: "opponent", label: "Opponent", kind: "select", group: "who", optionsKey: "opponent", icon: "shield" },
+  { key: "manager", label: "Manager", kind: "select", group: "who", optionsKey: "manager", icon: "clipboard" },
+  { key: "player", label: "Player appeared", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney", icon: "person" },
+  { key: "scorer", label: "Scorer", kind: "datalist", group: "who", optionsKey: "player", placeholder: "eric-cantona", icon: "target" },
+  { key: "assister", label: "Assister", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney", icon: "arrow" },
 
-  { key: "competition", label: "Competition", kind: "select", group: "what", optionsKey: "competition" },
-  { key: "type", label: "Match type", kind: "select", group: "what", optionsKey: "type" },
-  { key: "result", label: "Result", kind: "select", group: "what", optionsKey: "result" },
-  { key: "aet", label: "Went to extra time", kind: "toggle", group: "what", onValue: "1" },
+  { key: "competition", label: "Competition", kind: "select", group: "what", optionsKey: "competition", icon: "trophy" },
+  { key: "type", label: "Match type", kind: "select", group: "what", optionsKey: "type", icon: "tag" },
+  { key: "result", label: "Result", kind: "select", group: "what", optionsKey: "result", icon: "flag" },
+  { key: "aet", label: "Went to extra time", kind: "toggle", group: "what", onValue: "1", icon: "hourglass" },
 
-  { key: "venue", label: "Venue", kind: "select", group: "where", optionsKey: "venue" },
-  { key: "stadium", label: "Stadium", kind: "select", group: "where", optionsKey: "stadium" },
-  { key: "city", label: "City", kind: "select", group: "where", optionsKey: "city" },
+  { key: "venue", label: "Venue", kind: "select", group: "where", optionsKey: "venue", icon: "home" },
+  { key: "stadium", label: "Stadium", kind: "select", group: "where", optionsKey: "stadium", icon: "stadium" },
+  { key: "city", label: "City", kind: "select", group: "where", optionsKey: "city", icon: "pin" },
 
-  { key: "season", label: "Season", kind: "select", group: "when", optionsKey: "season" },
-  { key: "from", label: "From year", kind: "year", group: "when", placeholder: "1886" },
-  { key: "to", label: "To year", kind: "year", group: "when", placeholder: "2026" },
-  { key: "goalWindow", label: "Goal timing", kind: "select", group: "when", optionsKey: "goalWindow" },
-  { key: "goalFrom", label: "Goal from minute", kind: "minute", group: "when", placeholder: "86" },
-  { key: "goalTo", label: "Goal to minute", kind: "minute", group: "when", placeholder: "90" },
+  { key: "season", label: "Season", kind: "select", group: "when", optionsKey: "season", icon: "calendar" },
+  { key: "from", label: "From year", kind: "year", group: "when", placeholder: "1886", icon: "calendar" },
+  { key: "to", label: "To year", kind: "year", group: "when", placeholder: "2026", icon: "calendar" },
+  { key: "goalWindow", label: "Goal timing", kind: "select", group: "when", optionsKey: "goalWindow", icon: "stopwatch" },
+  { key: "goalFrom", label: "Goal from minute", kind: "minute", group: "when", placeholder: "86", icon: "stopwatch" },
+  { key: "goalTo", label: "Goal to minute", kind: "minute", group: "when", placeholder: "90", icon: "stopwatch" },
 ];
 
 export const FACET_BY_KEY: Record<string, FacetDef> = Object.fromEntries(

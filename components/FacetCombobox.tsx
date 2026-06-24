@@ -54,7 +54,7 @@ export function FacetCombobox({
   };
 
   return (
-    <div className="absolute left-0 top-full z-40 mt-1 w-72 overflow-hidden rounded-lg border border-line bg-panel shadow-xl">
+    <div className="pop-in absolute left-0 top-full z-40 mt-1 w-72 overflow-hidden rounded-lg border border-line bg-panel shadow-xl">
       {searchable && (
         <div className="border-b border-line p-2">
           <input
