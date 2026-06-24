@@ -807,6 +807,200 @@ wayfinding and stopped short of theater: thread connectors on timeline
 annotations and source/provenance notes were considered and deliberately not
 built, since they would decorate rather than clarify.
 
+## The experience arc — strategic frame
+
+Phases 1–17 built the engine and its distribution: a complete, evidence-linked
+record; answer-first discovery, comparison, and the Cut; a freshness loop;
+machine-readable provenance; a correction workflow; and a public brand. The
+capability is there. What remains is **craft** — turning that capability into an
+experience that anyone can enter and that rewards the people who stay. This arc
+adds little new surface; it makes the surface we already have *land*. Three
+moments structure it, in the order a user lives them:
+
+- **Discovery** — getting from a cold start to the thing you wanted, whether you
+      arrived with a precise question or only a vague itch.
+- **Sharing** — getting the answer you found out into the argument you're having,
+      as a near-frictionless habit.
+- **Mobile** — making all of it delightful on the device most casual fans will
+      actually use, which means deciding what to trim and what to transform,
+      not just shrinking the desktop.
+
+These are not green fields — Phase 5/9/11 worked discovery, Phase 10/16 built the
+sharing infrastructure, Phase 11/16/17 began the mobile rework. The arc is a
+*deliberate, deepened pass* on each: the plumbing exists, so the work is taste,
+flow, and friction, not capability. Guardrails carry forward unchanged: stay
+static and zero-cost (URL + `localStorage`, no user database, no behavioural
+personalisation or server-saved state); keep the answer first and the evidence
+trail intact; stay United-coded, not United-branded; and invest the Red Thread
+motif only where it does real work. Each phase opens an **exploration** — user
+stories and flow prototypes come before committed build, per "earn the right to
+abstract." Sequencing is deliberate: discovery first (you can't share or pocket
+what you can't find), sharing second (the answer travels), mobile last and
+largest (it touches every surface and depends on the first two being settled).
+
+## Phase 18 — Discovery: easy *and* delightful
+
+The hardest bar in the product: a stranger with a half-formed thought should reach
+a satisfying answer fast, and a regular should keep stumbling into things worth
+finding. The engine can answer almost anything; the gap is that you still largely
+have to *know to look*. This is a multi-phase exploration, not a single build —
+it starts with who we're serving and how they move, and only then commits to
+flows.
+
+**Who we're serving (seed user stories — to be validated and expanded in 18.1):**
+
+- *The settler* — "I'm mid-argument and need to win it." Arrives with a sharp
+      question, wants the verdict + the evidence grade in one screen, now.
+- *The wanderer* — "Show me something I didn't know." No query, wants
+      serendipity that still feels curated, not random noise.
+- *The nostalgic* — "I half-remember a match / a player / that season." Needs
+      memory-jog routes (an era, a name, an opponent) more than a search box.
+- *The researcher* — "Give me the complete record of X." Already served well;
+      must not be slowed down by newcomer scaffolding.
+- *The newcomer* — "What can I even ask here?" Needs orientation to the range
+      without the site collapsing into a portal/directory feel.
+
+### 18.1 — User stories and flow prototypes (the exploration)
+
+- [ ] Write the user stories above into real personas with entry context
+      (channel, intent, device) and name the one "first delightful moment" each
+      should hit.
+- [ ] Map the current cold-start flows for each persona end to end; mark where
+      they stall, dead-end, or demand prior knowledge.
+- [ ] Prototype 2–3 candidate discovery flows (not full builds) and decide
+      before committing, per the "decide before building" rule.
+
+### 18.2 — Search as the front door
+
+- [ ] Live typeahead that previews **answers**, not just entity links — a shaped
+      query should show its verdict-in-waiting as you type.
+- [ ] Zero-result and low-confidence recovery: never a blank — suggest the
+      nearest shaped cut or a reshape ("no exact match; try late goals under
+      Ferguson").
+- [ ] "Did you mean" and scope hints (player vs opponent vs season) so ambiguous
+      names resolve gracefully.
+- [ ] Surface what's askable from the field itself — rotating example prompts
+      that teach the query grammar without a manual.
+
+### 18.3 — Serendipity and guided wandering
+
+- [ ] A "surprise me" / random-but-good route that only ever lands on a real,
+      curated-quality cut.
+- [ ] Related-answers rail at the foot of every answer ("if this interested you
+      …") — deterministic and curated, never behavioural, to honour the static
+      guardrail.
+- [ ] Trails that lead one answer to the next, turning a single question into a
+      session.
+- [ ] A "what's interesting right now" feed weaving the existing
+      recently-changed strip, on-this-day, and a rotating curated cut into one
+      living entry point.
+
+### 18.4 — Orientation and personal entry points
+
+- [ ] Let people enter through what they care about — a favourite player, an
+      era, a rivalry — and branch outward, rather than starting from a blank
+      query.
+- [ ] Show the *range* of the product to a newcomer without a directory grid
+      (the lesson from the Phase 11 peek-carousel: tease breadth, don't enumerate
+      it).
+- [ ] A lightweight, dismissable orientation for first visits that never gets in
+      a returning user's way.
+
+## Phase 19 — Sharing: compelling, seamless, a habit
+
+Phase 10 built the plumbing — `ShareCite` (copy-link / citation / image), OG
+cards, embeds, collections. This phase makes sharing *irresistible at the moment
+of discovery* and turns it into a reflex. The core United-fan use case is sharing
+an answer to **win an argument**, mostly in a group chat, mostly on a phone — so
+the card has to be a mic-drop and the path to sending it has to be one tap.
+
+### 19.1 — The share moment
+
+- [ ] Make share the obvious next action the instant an answer lands — present
+      at the point of discovery, not hunted for in a footer.
+- [ ] Drive friction toward one tap: lean on the native share sheet on mobile,
+      with copy-link / copy-image / copy-citation as the desktop fallback.
+- [ ] Confirm the share fired (the small delight) without a heavy modal.
+
+### 19.2 — The card as mic-drop
+
+- [ ] Per-surface OG card design pass: every card must read at thumbnail size —
+      the **verdict**, the **coverage grade**, and the **source** legible before
+      anyone clicks.
+- [ ] Audit which surfaces still ship a generic card and give each its own answer
+      card (extends the Phase 10 set: history-changed, questions, entities — now
+      compare, cut, on-this-day).
+- [ ] Carry the Red Thread mark and provenance strip so a shared card is an ad
+      that cites itself (the Phase 14 "source, not casualty" flywheel).
+
+### 19.3 — Channel-native
+
+- [ ] Optimise the preview for where United fans actually argue — WhatsApp /
+      iMessage previews first (the dominant fan channel, especially on mobile),
+      then X and Reddit (r/reddevils).
+- [ ] Frame the affordance as "settle this" / "share the receipt", not a generic
+      "share" — speak to the argument-winning intent.
+- [ ] Make citations paste cleanly into a Reddit/forum reply (the verifiable
+      footnote a chatbot answer can't provide).
+
+### 19.4 — Habit loops
+
+- [ ] Turn the freshness surfaces into recurring shareable content — the
+      history-changed digest after a match, on-this-day each morning — so there's
+      a fresh, share-worthy thing without the user hunting.
+- [ ] Make embeds discoverable to creators (the capability exists from Phase 16;
+      the gap is that no one knows it's there).
+
+## Phase 20 — Mobile: trim, transform, delight
+
+The largest and last phase, touching every surface. Red Thread was designed
+desktop-first and the power-user base will stay there, but the majority of any
+audience is casual and on a phone. The goal is a mobile experience that is
+*delightful in its own right*, which requires hard editorial decisions — what to
+**cut**, what to **transform**, and what survives intact — rather than a
+responsive shrink of the desktop layout. Phases 16–17 began this (mobile nav,
+pinned tabs, the answer-thread spine on narrow screens); this phase finishes the
+job system-wide.
+
+### 20.1 — Audit and the mobile information diet
+
+- [ ] Surface-by-surface mobile audit (in the lineage of `INVENTORY.md` /
+      `VISUAL-AUDIT.md`): for each route, decide **keep / transform / cut on
+      mobile**, with the rationale recorded so the cuts are deliberate.
+- [ ] Make the hard calls explicitly — e.g. a dense analytics table may become a
+      mobile summary with "open the full table on desktop" rather than a
+      pinch-to-read grid. Decide per surface; don't default to showing everything.
+- [ ] Define the mobile information diet: what a casual phone user needs from
+      each surface vs. what is power-user depth that can be demoted or deferred.
+
+### 20.2 — Transform patterns
+
+- [ ] Establish reusable mobile transforms so surfaces converge instead of each
+      reinventing: dense table → card/list; mirrored "versus" bars (compare) →
+      stacked; wide chart (Elo timeline, league skyline, body map) →
+      scroll-or-simplify with an honest reduced view.
+- [ ] Apply the patterns to the heaviest offenders first — match browser, season
+      tables, `/compare`, the `/cut` ladder.
+
+### 20.3 — Touch ergonomics
+
+- [ ] Thumb-zone actions: the primary action on each surface (re-cut, filter,
+      share) reachable without a stretch, building on the proven `/matches`
+      sticky-filter and `/cut` "Re-cut" bar patterns.
+- [ ] Tap-target and spacing audit; kill anything that depends on hover.
+- [ ] Keep it zero-JS server components where possible (sticky bars, scroll-snap)
+      to hold the static/zero-cost line — the Phase 11/12 mobile decisions are the
+      template.
+
+### 20.4 — The answer surfaces on mobile
+
+- [ ] Extend the Phase 17 answer-thread treatment from `/questions/[slug]` to the
+      other answer surfaces (compare, cut, match) so the evidence trail reads as
+      one continuous thread on a narrow screen everywhere, not just on the
+      question page.
+- [ ] Verify the OG/share cards (Phase 19) and the answer pages feel native when
+      a link is opened from a chat on a phone — the most common real-world entry.
+
 ## Parked pathways (open questions)
 
 Real directions, deliberately not the immediate focus. Recorded so they are not
