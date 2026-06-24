@@ -215,14 +215,14 @@ fs.writeFileSync(
   path.join(OUT_DIR, "manifest.json"),
   JSON.stringify(
     {
-      name: "UnitedStats dataset",
+      name: "Red Thread dataset",
       description:
         "Every Manchester United match since 1886 with goal events, lineups, Elo history, and season summaries. Coverage varies by facet; see the events_complete and has_lineup flags and the site's /data page.",
       built_at: meta.built_at,
       first_match: meta.first_match,
       last_match: meta.last_match,
       files: counts,
-      attribution: "UnitedStats. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
+      attribution: "Red Thread. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
       docs: "/data#downloads",
     },
     null,
