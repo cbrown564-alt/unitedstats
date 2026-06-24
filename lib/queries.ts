@@ -297,8 +297,17 @@ export interface MatchFilter {
   city?: string;
   /** Matches where this United player scored. */
   scorer?: string;
+  /** Matches where this United player assisted a recorded goal. */
+  assister?: string;
   /** Matches where this United player appears in the lineup coverage. */
   player?: string;
+  /** Matches that went to extra time. */
+  aet?: boolean;
+  /** Named window for recorded United goal events. */
+  goalWindow?: "firstHalf" | "secondHalf" | "late" | "stoppage" | "extraTime";
+  /** Inclusive minute bounds for recorded United goal events. */
+  goalFrom?: number;
+  goalTo?: number;
   /** Inclusive ISO date bounds, so era/decade aggregates can link to their matches. */
   from?: string;
   to?: string;
@@ -319,6 +328,57 @@ const MATCH_ORDER: Record<NonNullable<MatchFilter["sort"]>, string> = {
   attendance: "(m.attendance IS NULL), m.attendance DESC, m.date DESC",
 };
 
+function hasGoalEventFilter(f: MatchFilter): boolean {
+  return Boolean(f.scorer || f.assister || f.goalWindow || f.goalFrom != null || f.goalTo != null);
+}
+
+function goalEventConditions(
+  f: MatchFilter,
+  params: Record<string, string | number>,
+  e = "e",
+  m = "m",
+): string[] {
+  const where: string[] = [];
+  if (f.scorer) {
+    where.push(`${e}.player_id = @scorer`);
+    where.push(`${e}.player_side = 'united'`);
+    where.push(`${e}.type IN ('goal','pen-goal')`);
+    params.scorer = f.scorer;
+  } else {
+    where.push(`${e}.type IN ('goal','pen-goal','own-goal-for')`);
+  }
+  if (f.assister) {
+    where.push(`${e}.assist_player_id = @assister`);
+    where.push(`${e}.assist_side = 'united'`);
+    where.push(`${e}.type IN ('goal','pen-goal')`);
+    params.assister = f.assister;
+  }
+  if (f.goalWindow || f.goalFrom != null || f.goalTo != null) {
+    where.push(`${e}.minute IS NOT NULL`);
+  }
+  if (f.goalWindow === "firstHalf") {
+    where.push(`${e}.minute BETWEEN 1 AND 45`);
+  } else if (f.goalWindow === "secondHalf") {
+    where.push(`${e}.minute >= 46`);
+  } else if (f.goalWindow === "late") {
+    where.push(`${e}.minute >= 86`);
+  } else if (f.goalWindow === "stoppage") {
+    where.push(`(COALESCE(${e}.added_time, 0) > 0 OR (${m}.aet = 0 AND ${e}.minute > 90))`);
+  } else if (f.goalWindow === "extraTime") {
+    where.push(`${m}.aet = 1`);
+    where.push(`${e}.minute > 90`);
+  }
+  if (f.goalFrom != null) {
+    where.push(`${e}.minute >= @goalFrom`);
+    params.goalFrom = f.goalFrom;
+  }
+  if (f.goalTo != null) {
+    where.push(`${e}.minute <= @goalTo`);
+    params.goalTo = f.goalTo;
+  }
+  return where;
+}
+
 /** Shared filter compilation so the list, its summary, and its spine read the same slice. */
 export function matchWhere(f: MatchFilter): { cond: string; params: Record<string, string | number> } {
   const where: string[] = [];
@@ -329,6 +389,7 @@ export function matchWhere(f: MatchFilter): { cond: string; params: Record<strin
   if (f.season) { where.push("m.season = @season"); params.season = f.season; }
   if (f.venue) { where.push("m.venue = @venue"); params.venue = f.venue; }
   if (f.result) { where.push("m.result = @result"); params.result = f.result; }
+  if (f.aet) { where.push("m.aet = 1"); }
   if (f.type === "cup") {
     where.push("c.type NOT IN ('league','unofficial')");
   } else if (f.type) {
@@ -337,17 +398,15 @@ export function matchWhere(f: MatchFilter): { cond: string; params: Record<strin
   }
   if (f.stadium) { where.push("m.stadium_id = @stadium"); params.stadium = f.stadium; }
   if (f.city) { where.push("m.stadium_id IN (SELECT id FROM stadiums WHERE city = @city)"); params.city = f.city; }
-  if (f.scorer) {
+  if (hasGoalEventFilter(f)) {
+    const eventWhere = goalEventConditions(f, params).join(" AND ");
     where.push(
       `EXISTS (
         SELECT 1 FROM match_events e
         WHERE e.match_id = m.id
-          AND e.player_id = @scorer
-          AND e.player_side = 'united'
-          AND e.type IN ('goal','pen-goal')
+          AND ${eventWhere}
       )`,
     );
-    params.scorer = f.scorer;
   }
   if (f.player) {
     where.push(
@@ -367,11 +426,74 @@ export function matchWhere(f: MatchFilter): { cond: string; params: Record<strin
   return { cond: where.length ? `WHERE ${where.join(" AND ")}` : "", params };
 }
 
+function minuteLabel(minute: number | null, added: number | null): string {
+  if (minute == null) return "?";
+  return added && added > 0 ? `${minute}+${added}` : String(minute);
+}
+
+export function matchEventBadges(
+  matchIds: string[],
+  f: Pick<MatchFilter, "scorer" | "assister" | "goalWindow" | "goalFrom" | "goalTo">,
+): Map<string, string> {
+  if (matchIds.length === 0 || !hasGoalEventFilter(f)) return new Map();
+  const params: Record<string, string | number> = {};
+  const ids = matchIds.map((_, i) => `@id${i}`);
+  matchIds.forEach((id, i) => { params[`id${i}`] = id; });
+  const eventWhere = goalEventConditions(f, params).join(" AND ");
+  const rows = getDb()
+    .prepare(
+      `SELECT e.match_id, e.minute, e.added_time, p.name scorer_name, ap.name assister_name
+       FROM match_events e
+       JOIN matches m ON m.id = e.match_id
+       LEFT JOIN players p ON p.id = e.player_id
+       LEFT JOIN players ap ON ap.id = e.assist_player_id
+       WHERE e.match_id IN (${ids.join(",")}) AND ${eventWhere}
+       ORDER BY e.match_id, COALESCE(e.minute, 999), e.seq`,
+    )
+    .all(params) as {
+      match_id: string;
+      minute: number | null;
+      added_time: number | null;
+      scorer_name: string | null;
+      assister_name: string | null;
+    }[];
+  const grouped = new Map<string, typeof rows>();
+  for (const row of rows) grouped.set(row.match_id, [...(grouped.get(row.match_id) ?? []), row]);
+  const labels = new Map<string, string>();
+  for (const [matchId, items] of grouped) {
+    const minutes = items.map((e) => minuteLabel(e.minute, e.added_time)).join(", ");
+    const noun = f.assister && !f.scorer ? "assist" : "goal";
+    labels.set(matchId, `${items.length} ${items.length === 1 ? noun : `${noun}s`} · ${minutes}`);
+  }
+  return labels;
+}
+
 /** Name + city of a single ground, for labelling a stadium-filtered slice. */
 export function stadiumById(id: string): { id: string; name: string; city: string | null } | undefined {
   return getDb()
     .prepare("SELECT id, name, city FROM stadiums WHERE id = ?")
     .get(id) as { id: string; name: string; city: string | null } | undefined;
+}
+
+export function stadiumsList(): { id: string; name: string; city: string | null; n: number }[] {
+  return getDb()
+    .prepare(
+      `SELECT s.id, s.name, s.city, COUNT(m.id) n
+       FROM stadiums s JOIN matches m ON m.stadium_id = s.id
+       GROUP BY s.id ORDER BY n DESC, s.name`,
+    )
+    .all() as { id: string; name: string; city: string | null; n: number }[];
+}
+
+export function matchCitiesList(): { city: string; n: number }[] {
+  return getDb()
+    .prepare(
+      `SELECT s.city, COUNT(m.id) n
+       FROM stadiums s JOIN matches m ON m.stadium_id = s.id
+       WHERE s.city IS NOT NULL AND s.city != ''
+       GROUP BY s.city ORDER BY n DESC, s.city`,
+    )
+    .all() as { city: string; n: number }[];
 }
 
 export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number } {

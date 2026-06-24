@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
-  findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById, playerById, stadiumById,
+  findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById, managersIndex,
+  playerById, playersIndex, stadiumById, stadiumsList, matchCitiesList, matchEventBadges,
 } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
@@ -21,6 +22,14 @@ const PAGE_SIZE = 50;
 // Curated subset of competition types offered in the filter, in display order.
 const TYPE_FILTER_KEYS = ["league", "cup", "domestic-cup", "league-cup", "european", "unofficial"];
 const RESULT_FILTER_KEYS = ["W", "D", "L"];
+const GOAL_WINDOW_FILTERS = [
+  { key: "firstHalf", label: "First half" },
+  { key: "secondHalf", label: "Second half" },
+  { key: "late", label: "Late" },
+  { key: "stoppage", label: "Stoppage time" },
+  { key: "extraTime", label: "Extra time" },
+] as const;
+const GOAL_WINDOW_LABELS: Record<string, string> = Object.fromEntries(GOAL_WINDOW_FILTERS.map((w) => [w.key, w.label]));
 
 const SORTS: { key: string; label: string }[] = [
   { key: "recent", label: "Most recent" },
@@ -53,6 +62,10 @@ export default async function MatchesPage({
   // `from`/`to` accept a bare year (evidence links from decade/era modules) or a full ISO date
   const year = (v: string | undefined, edge: "from" | "to") =>
     v ? (/^\d{4}$/.test(v) ? `${v}-${edge === "from" ? "01-01" : "12-31"}` : v) : undefined;
+  const minute = (v: string | undefined) => (v && /^\d{1,3}$/.test(v) ? Number(v) : undefined);
+  const goalWindow = GOAL_WINDOW_FILTERS.some((w) => w.key === sp.goalWindow)
+    ? sp.goalWindow as (typeof GOAL_WINDOW_FILTERS)[number]["key"]
+    : undefined;
   const filter = {
     competition: sp.competition || undefined,
     opponent: sp.opponent || undefined,
@@ -64,7 +77,12 @@ export default async function MatchesPage({
     stadium: sp.stadium || undefined,
     city: sp.city || undefined,
     scorer: sp.scorer || undefined,
+    assister: sp.assister || undefined,
     player: sp.player || undefined,
+    aet: sp.aet === "1",
+    goalWindow,
+    goalFrom: minute(sp.goalFrom),
+    goalTo: minute(sp.goalTo),
     from: year(sp.from, "from"),
     to: year(sp.to, "to"),
     q: sp.q || undefined,
@@ -79,14 +97,32 @@ export default async function MatchesPage({
   const sequence = summary.p >= 24 ? matchesSequence(filter) : [];
   const comps = competitionsList();
   const seasons = allSeasons();
+  const managers = managersIndex();
+  const players = [...playersIndex()].sort((a, b) => a.name.localeCompare(b.name));
+  const stadiums = stadiumsList();
+  const cities = matchCitiesList();
   const decades = matchDecades();
   const pages = Math.ceil(total / PAGE_SIZE);
   const hasFilters = Boolean(
     sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type ||
-    sp.stadium || sp.city || sp.scorer || sp.player || sp.from || sp.to,
+    sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
+    sp.goalFrom || sp.goalTo || sp.from || sp.to,
   );
   const stadium = sp.stadium ? stadiumById(sp.stadium) : undefined;
-  const refineActive = Boolean(sp.venue || sp.result || sp.type || sp.from || sp.to);
+  const refineActive = Boolean(
+    sp.venue || sp.result || sp.type || sp.from || sp.to || sp.manager || sp.player || sp.scorer ||
+    sp.assister || sp.stadium || sp.city || sp.aet || sp.goalWindow || sp.goalFrom || sp.goalTo,
+  );
+  const eventBadges = matchEventBadges(rows.map((m) => m.id), filter);
+  const renderEventBadge = (m: (typeof rows)[number]) => {
+    const label = eventBadges.get(m.id);
+    return label ? (
+      <span className="stat-num rounded border border-devil/35 bg-devil/10 px-2 py-1 text-[11px] font-semibold text-devil-bright">
+        {label}
+      </span>
+    ) : null;
+  };
+  const eventBadgeRenderer = eventBadges.size > 0 ? renderEventBadge : undefined;
 
   const qs = (overrides: Record<string, string | undefined>) => queryString({ ...sp, ...overrides });
 
@@ -132,7 +168,12 @@ export default async function MatchesPage({
   if (sp.stadium) chips.push({ key: "stadium", label: stadium?.name ?? "Ground" });
   if (sp.city) chips.push({ key: "city", label: sp.city });
   if (sp.scorer) chips.push({ key: "scorer", label: `Scorer: ${playerById(sp.scorer)?.name ?? sp.scorer}` });
+  if (sp.assister) chips.push({ key: "assister", label: `Assister: ${playerById(sp.assister)?.name ?? sp.assister}` });
   if (sp.player) chips.push({ key: "player", label: `Player: ${playerById(sp.player)?.name ?? sp.player}` });
+  if (sp.aet) chips.push({ key: "aet", label: "Went to extra time" });
+  if (sp.goalWindow) chips.push({ key: "goalWindow", label: `Goal timing: ${GOAL_WINDOW_LABELS[sp.goalWindow] ?? sp.goalWindow}` });
+  if (sp.goalFrom) chips.push({ key: "goalFrom", label: `Goals from ${sp.goalFrom}'` });
+  if (sp.goalTo) chips.push({ key: "goalTo", label: `Goals to ${sp.goalTo}'` });
   if (sp.from) chips.push({ key: "from", label: `From ${sp.from}` });
   if (sp.to) chips.push({ key: "to", label: `To ${sp.to}` });
 
@@ -164,12 +205,7 @@ export default async function MatchesPage({
 
       <form id="match-filters" className="scroll-mt-20 rounded-lg border border-line bg-panel p-3 text-sm shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]" method="get" action="/matches">
         {sort !== "recent" && <input type="hidden" name="sort" value={sort} />}
-        {sp.manager && <input type="hidden" name="manager" value={sp.manager} />}
         {sp.opponent && <input type="hidden" name="opponent" value={sp.opponent} />}
-        {sp.scorer && <input type="hidden" name="scorer" value={sp.scorer} />}
-        {sp.player && <input type="hidden" name="player" value={sp.player} />}
-        {sp.stadium && <input type="hidden" name="stadium" value={sp.stadium} />}
-        {sp.city && <input type="hidden" name="city" value={sp.city} />}
         <div className="grid gap-3 md:grid-cols-12">
           <label className="md:col-span-4">
             <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Opponent</span>
@@ -239,12 +275,84 @@ export default async function MatchesPage({
               </select>
             </label>
             <label className="md:col-span-2">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Extra time</span>
+              <select name="aet" defaultValue={sp.aet ?? ""} className="control w-full">
+                <option value="">Any</option>
+                <option value="1">Went to extra time</option>
+              </select>
+            </label>
+            <label className="md:col-span-2">
               <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">From</span>
               <input type="text" name="from" defaultValue={sp.from ?? ""} placeholder="1886" className="control w-full" />
             </label>
             <label className="md:col-span-2">
               <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">To</span>
               <input type="text" name="to" defaultValue={sp.to ?? ""} placeholder="2026" className="control w-full" />
+            </label>
+          </div>
+          <div className="mt-3 grid gap-3 border-t border-line/70 pt-3 md:grid-cols-12">
+            <label className="md:col-span-3">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Manager</span>
+              <select name="manager" defaultValue={sp.manager ?? ""} className="control w-full">
+                <option value="">Any manager</option>
+                {managers.map((m) => (
+                  <option key={m.id} value={m.id}>{m.name}</option>
+                ))}
+              </select>
+            </label>
+            <label className="md:col-span-3">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Player appeared</span>
+              <input list="match-player-options" name="player" defaultValue={sp.player ?? ""} placeholder="wayne-rooney" className="control w-full" />
+            </label>
+            <label className="md:col-span-3">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Scorer</span>
+              <input list="match-player-options" name="scorer" defaultValue={sp.scorer ?? ""} placeholder="eric-cantona" className="control w-full" />
+            </label>
+            <label className="md:col-span-3">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Assister</span>
+              <input list="match-player-options" name="assister" defaultValue={sp.assister ?? ""} placeholder="wayne-rooney" className="control w-full" />
+            </label>
+            <datalist id="match-player-options">
+              {players.map((p) => (
+                <option key={p.player_id} value={p.player_id}>{p.name}</option>
+              ))}
+            </datalist>
+          </div>
+          <div className="mt-3 grid gap-3 border-t border-line/70 pt-3 md:grid-cols-12">
+            <label className="md:col-span-3">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Stadium</span>
+              <select name="stadium" defaultValue={sp.stadium ?? ""} className="control w-full">
+                <option value="">Any ground</option>
+                {stadiums.map((s) => (
+                  <option key={s.id} value={s.id}>{s.name}{s.city ? `, ${s.city}` : ""} ({fmtNum(s.n)})</option>
+                ))}
+              </select>
+            </label>
+            <label className="md:col-span-3">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">City</span>
+              <select name="city" defaultValue={sp.city ?? ""} className="control w-full">
+                <option value="">Any city</option>
+                {cities.map((c) => (
+                  <option key={c.city} value={c.city}>{c.city} ({fmtNum(c.n)})</option>
+                ))}
+              </select>
+            </label>
+            <label className="md:col-span-2">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Goal timing</span>
+              <select name="goalWindow" defaultValue={sp.goalWindow ?? ""} className="control w-full">
+                <option value="">Any time</option>
+                {GOAL_WINDOW_FILTERS.map((w) => (
+                  <option key={w.key} value={w.key}>{w.label}</option>
+                ))}
+              </select>
+            </label>
+            <label className="md:col-span-2">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Goal from</span>
+              <input type="text" name="goalFrom" defaultValue={sp.goalFrom ?? ""} placeholder="86" className="control w-full" />
+            </label>
+            <label className="md:col-span-2">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Goal to</span>
+              <input type="text" name="goalTo" defaultValue={sp.goalTo ?? ""} placeholder="90" className="control w-full" />
             </label>
           </div>
         </details>
@@ -390,9 +498,9 @@ export default async function MatchesPage({
       </div>
 
       {chronological ? (
-        <MatchGroups matches={rows} showAttendance accentResult />
+        <MatchGroups matches={rows} showAttendance accentResult renderExtra={eventBadgeRenderer} />
       ) : (
-        <MatchList matches={rows} showSeason showAttendance accentResult />
+        <MatchList matches={rows} showSeason showAttendance accentResult renderExtra={eventBadgeRenderer} />
       )}
 
       <Pager page={page} pages={pages} hrefFor={(p) => `/matches${qs({ page: String(p) })}`} />

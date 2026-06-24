@@ -96,7 +96,8 @@ const METRIC_LEXICON: [MetricKey, RegExp][] = [
  *  "Late" matches the canonical product definition — after the 85th minute — used by
  *  the homepage late-goals question and `lib/trails.ts`, not the looser "final 15". */
 interface GoalWindow {
-  lo: number;
+  key: "firstHalf" | "secondHalf" | "late" | "stoppage" | "extraTime";
+  lo?: number;
   hi?: number;
   /** Short word for a title ("late goals"). */
   name: string;
@@ -104,9 +105,11 @@ interface GoalWindow {
   label: string;
 }
 const GOAL_WINDOWS: [RegExp, GoalWindow][] = [
-  [/\bfirst[- ]half\b/, { lo: 1, hi: 45, name: "first-half", label: "in the first half" }],
-  [/\bsecond[- ]half\b/, { lo: 46, name: "second-half", label: "in the second half" }],
-  [/\blate\b/, { lo: 86, name: "late", label: "after the 85th minute" }],
+  [/\bfirst[- ]half\b/, { key: "firstHalf", lo: 1, hi: 45, name: "first-half", label: "in the first half" }],
+  [/\bsecond[- ]half\b/, { key: "secondHalf", lo: 46, name: "second-half", label: "in the second half" }],
+  [/\bstoppage[- ]time\b/, { key: "stoppage", name: "stoppage-time", label: "in stoppage time" }],
+  [/\bextra[- ]time\b/, { key: "extraTime", name: "extra-time", label: "in extra time" }],
+  [/\blate\b/, { key: "late", lo: 86, name: "late", label: "after the 85th minute" }],
 ];
 
 // Verbs that signal a head-to-head intent in natural phrasing ("beat barcelona",
@@ -449,8 +452,13 @@ function goalWindowCut(intent: ParsedIntent, win: GoalWindow, player?: IndexRow)
   const subject = player
     ? "e.player_id = @pid AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')"
     : "e.type IN ('goal','pen-goal','own-goal-for')";
-  const inWindow = `e.minute >= @lo${win.hi ? " AND e.minute <= @hi" : ""}`;
-  const bind: Record<string, string | number> = { lo: win.lo, ...(win.hi ? { hi: win.hi } : {}), ...params };
+  const inWindow =
+    win.key === "stoppage"
+      ? "(COALESCE(e.added_time, 0) > 0 OR (m.aet = 0 AND e.minute > 90))"
+      : win.key === "extraTime"
+        ? "m.aet = 1 AND e.minute > 90"
+        : `e.minute >= @lo${win.hi ? " AND e.minute <= @hi" : ""}`;
+  const bind: Record<string, string | number> = { ...(win.lo ? { lo: win.lo } : {}), ...(win.hi ? { hi: win.hi } : {}), ...params };
   if (player) bind.pid = player.entity_id;
 
   const r = getDb()
@@ -471,7 +479,7 @@ function goalWindowCut(intent: ParsedIntent, win: GoalWindow, player?: IndexRow)
     summary: r.total
       ? `${r.win} of ${r.total} recorded ${plural(r.total, "goal")} (${pct}%) came ${win.label}`
       : `No recorded goals${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
-    href: matchesHref(scopeLink(intent, player ? { scorer: player.entity_id } : {})),
+    href: matchesHref(scopeLink(intent, { goalWindow: win.key, ...(player ? { scorer: player.entity_id } : {}) })),
     hrefLabel: "Show the matches →",
     coverage: { grade: "partial", label: "timed-goal data" },
   };
@@ -517,8 +525,8 @@ function playerCut(player: IndexRow, metric: MetricKey, intent: ParsedIntent): S
       summary: r.n
         ? `${r.n} recorded ${plural(r.n, "assist")} in ${r.matches} ${plural(r.matches, "match", "matches")}${lastBit(r.last_date)}`
         : `No recorded assists${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
-      href: player.href,
-      hrefLabel: `${player.label} →`,
+      href: matchesHref(scopeLink(intent, { assister: player.entity_id })),
+      hrefLabel: "Show the matches →",
       coverage: ASSIST_COVERAGE,
     };
   }

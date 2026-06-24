@@ -18,7 +18,9 @@ import test from "node:test";
 import {
   allTimeRecord,
   eloSeries,
+  findMatches,
   getMeta,
+  matchesSummary,
   recordByCompetitionType,
   topScorers,
 } from "../lib/queries";
@@ -460,6 +462,7 @@ test("grammar: 'late' is a window on the goals metric, applied for any subject",
   const vsOpp = runSearch("late goals against bayern").shaped.find((s) => /late goals v /.test(s.title));
   assert.ok(vsOpp, "expected a team late-goals rate vs the opponent");
   assert.match(vsOpp.summary, /came after the 85th minute$/);
+  assert.match(vsOpp.href, /goalWindow=late/);
   assert.ok(!/scored, \d+ conceded/.test(vsOpp.summary), "'late' must not collapse to a plain goal total");
 });
 
@@ -470,6 +473,23 @@ test("grammar: 'late' uses the canonical after-the-85th-minute definition", () =
   assert.ok(hit, "expected a manager-scoped late-goals rate");
   assert.match(hit.summary, /came after the 85th minute$/);
   assert.equal(hit.coverage?.grade, "partial");
+});
+
+test("matches parity: event filters reproduce late-goal and assist evidence slices", () => {
+  const late = runSearch("late goals by cantona").shaped.find((s) => /Cantona late goals/.test(s.title));
+  assert.ok(late, "expected a player late-goals answer");
+  const lateUrl = new URL(`https://example.test${late.href}`);
+  assert.equal(lateUrl.searchParams.get("scorer"), "eric-cantona");
+  assert.equal(lateUrl.searchParams.get("goalWindow"), "late");
+  const lateSummary = matchesSummary({ scorer: "eric-cantona", goalWindow: "late" });
+  assert.match(late.summary, new RegExp(`^${lateSummary.p} of \\d+ recorded goals?`));
+
+  const assists = runSearch("rooney assists vs arsenal").shaped.find((s) => s.title === "Wayne Rooney v Arsenal");
+  assert.ok(assists, "expected a player-assists answer");
+  assert.match(assists.href, /assister=wayne-rooney/);
+  assert.match(assists.href, /opponent=arsenal/);
+  const assistMatches = findMatches({ assister: "wayne-rooney", opponent: "arsenal", limit: 200 });
+  assert.match(assists.summary, new RegExp(`recorded assists? in ${assistMatches.total} matches?`));
 });
 
 test("grammar: a bare player or manager name stays entity-first (no metric, no fire)", () => {

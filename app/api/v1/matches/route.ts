@@ -8,6 +8,11 @@ const ISO_DATE = /^\d{4}(-\d{2}(-\d{2})?)?$/;
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const p = (k: string) => url.searchParams.get(k) ?? undefined;
+  const minute = (k: string) => {
+    const raw = p(k);
+    if (!raw || !/^\d{1,3}$/.test(raw)) return undefined;
+    return Number(raw);
+  };
   const from = p("from");
   const to = p("to");
   if ((from && !ISO_DATE.test(from)) || (to && !ISO_DATE.test(to))) {
@@ -17,10 +22,22 @@ export async function GET(request: Request) {
   const { rows, total } = findMatches({
     competition: p("competition"),
     opponent: p("opponent"),
+    manager: p("manager"),
     season: p("season"),
     venue: p("venue"),
     result: p("result"),
     type: p("type"),
+    stadium: p("stadium"),
+    city: p("city"),
+    scorer: p("scorer"),
+    assister: p("assister"),
+    player: p("player"),
+    aet: p("aet") === "1",
+    goalWindow: (["firstHalf", "secondHalf", "late", "stoppage", "extraTime"].includes(p("goalWindow") ?? "")
+      ? p("goalWindow")
+      : undefined) as "firstHalf" | "secondHalf" | "late" | "stoppage" | "extraTime" | undefined,
+    goalFrom: minute("goalFrom"),
+    goalTo: minute("goalTo"),
     from,
     to,
     q: p("q"),
