@@ -44,6 +44,11 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   const bounceUp = bounce.filter((b) => b.first10.w > b.prev10.w).length;
 
   const fortress = leadHeldAtHome();
+  // Honest fortress headline: the unbeaten run since the last lead actually lost,
+  // not a flat "0" (minute data has since surfaced old defeats — see FortressModule).
+  const fortressLastLoss = fortress.games.map((g) => g.result).lastIndexOf("L");
+  const fortressRun = fortress.games.length - 1 - fortressLastLoss;
+  const fortressSince = (fortress.games[fortressLastLoss]?.date ?? fortress.from).slice(0, 4);
 
   const cupBaseline = cupGoalShareBaseline();
   const topCupLean = cupSpecialists(25, 1)[0];
@@ -84,8 +89,8 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
       tone: "devil",
     },
     fortress: {
-      stat: "0",
-      gloss: `defeats in ${fmtNum(fortress.games.length)} home league games led at half-time`,
+      stat: fmtNum(fortressRun),
+      gloss: `home league games led at half-time, unbeaten since ${fortressSince}`,
       tone: "win",
     },
     "cup-specialists": {
