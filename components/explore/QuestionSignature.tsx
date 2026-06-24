@@ -149,11 +149,14 @@ export function QuestionSignature({ slug }: { slug: string }) {
 
     case "fortress": {
       const lh = leadHeldAtHome();
-      const dots: LeadDot[] = lh.games.map((g) => ({
-        result: g.result as LeadDot["result"],
-        surrendered: g.result === "D",
-        title: `${g.result === "W" ? `won ${g.gf}–${g.ga}` : `drew ${g.gf}–${g.ga}`} v ${g.opponent_name}`,
-      }));
+      const dots: LeadDot[] = lh.games.map((g) => {
+        const outcome = g.result === "W" ? `won ${g.gf}–${g.ga}` : g.result === "L" ? `lost ${g.gf}–${g.ga}` : `drew ${g.gf}–${g.ga}`;
+        return {
+          result: g.result as LeadDot["result"],
+          surrendered: g.result === "D",
+          title: `${outcome} v ${g.opponent_name}`,
+        };
+      });
       return <LeadHeldDotplot dots={dots} fromLabel={lh.from.slice(0, 4)} toLabel={lh.to.slice(0, 4)} />;
     }
 

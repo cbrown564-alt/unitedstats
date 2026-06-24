@@ -115,10 +115,18 @@ function questionAnswer(slug: string): Answer | null {
     }
     case "fortress": {
       const lh = leadHeldAtHome();
+      // The unbeaten run since the last lead actually lost — the page's headline.
+      const lastLoss = lh.games.map((g) => g.result).lastIndexOf("L");
+      const since = lh.games.slice(lastLoss + 1);
       return {
-        figure: pct(lh.w + lh.d, lh.games.length),
-        gloss: `of home league games led at half-time end without defeat — ${fmtNum(lh.w)} won, ${fmtNum(lh.d)} drawn`,
-        visual: { kind: "wdl", w: lh.w, d: lh.d, l: lh.l },
+        figure: fmtNum(since.length),
+        gloss: `home league games led at half-time, unbeaten since ${(lh.games[lastLoss]?.date ?? lh.from).slice(0, 4)}`,
+        visual: {
+          kind: "wdl",
+          w: since.filter((g) => g.result === "W").length,
+          d: since.filter((g) => g.result === "D").length,
+          l: 0,
+        },
       };
     }
     default:
