@@ -31,7 +31,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const peakStoppage = Math.max(...data.map((d) => d.stoppage / d.timed));
       return {
         figure: pct(tot.late, tot.timed),
-        gloss: "of timed goals land after the 85th — but the last-five-minutes share is steady; the rise is all stoppage time",
+        gloss: "of timed goals land after the 85th — a real edge in the last five minutes, plus a growing stoppage-time window",
         visual: {
           kind: "columns",
           bars: data.map((d) => ({

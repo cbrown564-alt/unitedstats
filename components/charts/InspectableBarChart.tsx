@@ -104,12 +104,15 @@ export function InspectableBarChart({
               ifOverflow="extendDomain"
               label={
                 baseline.label
-                  ? {
-                      value: baseline.label,
-                      position: "insideTopRight",
-                      fill: "var(--color-ink-faint)",
-                      fontSize: 10,
-                    }
+                  ? // Draw the label a few px *above* the line, hard left — over the
+                    // short early bars where the background is dark, so light-grey
+                    // text stays legible (on the right it lands on the tall gold bars
+                    // and vanishes; named "inside" positions sit below the line).
+                    ({ viewBox }: { viewBox?: { x?: number; y?: number } }) => (
+                      <text x={(viewBox?.x ?? 0) + 6} y={(viewBox?.y ?? 0) - 5} fill="var(--color-ink-dim)" fontSize={10}>
+                        {baseline.label}
+                      </text>
+                    )
                   : undefined
               }
             />
