@@ -17,7 +17,8 @@ test("history-changed page renders digest claims and evidence links", async () =
   assert.match(html, /Elo rating by \+16\.1/);
   assert.match(html, new RegExp(`href="/match/${DIGEST_ID}"`));
   assert.match(html, new RegExp(`href="/api/v1/matches/${DIGEST_ID}"`));
-  assert.match(html, /claim version cv1-/);
+  assert.match(html, /Claim version/);
+  assert.match(html, /cv1-/);
 });
 
 test("history-changed metadata and static params expose generated digests", async () => {

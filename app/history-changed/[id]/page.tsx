@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CoverageNote } from "@/components/CoverageNote";
 import { PageHeader } from "@/components/PageHeader";
 import { ShareCite } from "@/components/ShareCite";
 import {
@@ -12,7 +11,7 @@ import {
   readHistoryDigest,
   type HistoryDigestClaimKind,
 } from "@/lib/historyDigests";
-import { fmtDateLong } from "@/lib/format";
+import { fmtDateLong, venueLabel } from "@/lib/format";
 import { groupProvenanceBySource } from "@/lib/citations";
 import { historyDigestJsonLd, jsonLdHtml } from "@/lib/structuredData";
 
@@ -153,23 +152,35 @@ export default async function HistoryChangedPage({ params }: { params: Promise<{
         </section>
       )}
 
-      <section className="border border-line bg-panel p-4">
+      <section className="border border-line bg-panel p-4 sm:p-5">
         <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-faint">Evidence trail</h2>
-        <ul className="mt-3 space-y-2 text-sm">
+        <p className="mt-1 text-xs text-ink-faint">
+          Every claim is read straight from the canonical record — follow it to the source.
+        </p>
+
+        <div className="mt-4 grid gap-2 sm:grid-cols-2">
           {digest.evidenceLinks.map((link) => (
-            <li key={link.path}>
-              <Link href={link.path} className="font-semibold text-devil-bright hover:underline focus-ring">
-                {link.label}
-              </Link>
-            </li>
+            <Link
+              key={link.path}
+              href={link.path}
+              className="group flex items-center justify-between gap-3 rounded-lg border border-line bg-panel-2/40 px-3.5 py-2.5 transition-colors hover:border-devil/60 hover:bg-panel-2/70 focus-ring"
+            >
+              <span className="text-sm font-semibold text-ink group-hover:text-devil-bright">{link.label}</span>
+              <span className="text-devil-bright transition-transform group-hover:translate-x-0.5" aria-hidden>→</span>
+            </Link>
           ))}
-        </ul>
-        <CoverageNote
-          slice={`${digest.match.competition}; ${digest.match.venue} venue; ${digest.match.season}`}
-          coverage={`Digest ${digest.ref.id}; claim version ${digest.claimVersion}.`}
-          evidenceHref={`/api/v1/matches/${digest.matchId}`}
-          evidenceLabel="API evidence →"
-        />
+        </div>
+
+        <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 border-t border-line/60 pt-4 text-xs leading-5">
+          <dt className="font-medium text-ink-faint">Slice</dt>
+          <dd className="text-ink-dim">
+            {digest.match.competition} · {venueLabel(digest.match.venue)} · {digest.match.season}
+          </dd>
+          <dt className="font-medium text-ink-faint">Digest ID</dt>
+          <dd className="stat-num break-all text-ink-dim">{digest.ref.id}</dd>
+          <dt className="font-medium text-ink-faint">Claim version</dt>
+          <dd className="stat-num break-all text-ink-dim">{digest.claimVersion}</dd>
+        </dl>
       </section>
 
       {sourceGroups.length > 0 && (
