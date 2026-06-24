@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { SearchEntity, ShapedAnswer } from "@/lib/search";
 import { highlight } from "@/lib/search/highlight";
 import { KIND_LABELS } from "@/lib/search/examples";
+import { AnswerCoverageTag } from "./AnswerCoverageTag";
 
 /**
  * The shared, keyboard-driven results list rendered inside both the header
@@ -44,11 +45,17 @@ export function SearchResults({
             onMouseEnter={() => onHover?.(i)}
             className={`tap-target block px-4 py-2.5 border-b border-line ${active === i ? "bg-panel-2" : "hover:bg-panel-2"}`}
           >
+            {s.tentative && (
+              <div className="text-[10px] uppercase tracking-wider text-ink-faint">Did you mean</div>
+            )}
             <div className="flex justify-between gap-3 text-sm">
               <span className="font-medium">{s.title}</span>
               <span className="text-xs text-devil-bright whitespace-nowrap">{s.hrefLabel}</span>
             </div>
-            <div className="stat-num text-xs text-ink-dim mt-0.5">{s.summary}</div>
+            <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
+              {s.coverage && <AnswerCoverageTag coverage={s.coverage} />}
+            </div>
           </Link>
         </li>
       ))}

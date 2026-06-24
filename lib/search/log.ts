@@ -13,8 +13,21 @@ import path from "node:path";
 const LOG_PATH = process.env.SEARCH_LOG_PATH || path.join(process.cwd(), "output", "search-log.jsonl");
 const ENABLED = process.env.SEARCH_LOG !== "0";
 
+/**
+ * How a query fared, so the parser's ceiling is a *measured* number before anyone
+ * reaches past Tier 0 for a model (DISCOVERY §5). `zero` = nothing at all; `fell`
+ * = entity rows but no computed answer (the settler's drop to entity-lookup). A
+ * shaped answer — including a tentative best guess — is a hit, so neither fires.
+ */
+export type SearchMiss = "zero" | "fell";
+
+export function classifyMiss(resultCount: number, shaped: number): SearchMiss | undefined {
+  if (shaped > 0) return undefined;
+  return resultCount === 0 ? "zero" : "fell";
+}
+
 export type SearchLogEntry =
-  | { kind: "query"; q: string; resultCount: number; shaped: number }
+  | { kind: "query"; q: string; resultCount: number; shaped: number; miss?: SearchMiss }
   | { kind: "click"; q: string; href: string; resultCount: number };
 
 export function logSearch(entry: SearchLogEntry): void {

@@ -1,7 +1,7 @@
 import { getDb } from "./db";
 import { fold, trigrams } from "./search/fold";
 import { allIndexRows, type IndexRow } from "./search/resolve";
-import { shapedAnswers, headToHead, type ShapedAnswer } from "./search/intent";
+import { shapedAnswers, headToHead, type ShapedAnswer, type AnswerCoverage } from "./search/intent";
 
 export interface SearchEntity {
   kind: "player" | "manager" | "opponent" | "season" | "competition" | "stadium" | "city" | "match";
@@ -17,7 +17,7 @@ export interface SearchResponse {
   total: number;
 }
 
-export type { ShapedAnswer };
+export type { ShapedAnswer, AnswerCoverage };
 
 const KINDS = ["player", "manager", "opponent", "season", "competition", "stadium", "city"] as const;
 

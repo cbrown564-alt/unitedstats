@@ -4,12 +4,31 @@ import { queryString } from "../url";
 import { scoreline, fmtDate } from "../format";
 import { resolveEntity } from "./resolve";
 
+/** Coverage grade carried beside a shaped verdict so the trust signal travels with
+ *  the answer into the typeahead — the gap DISCOVERY §6 names. Derived, never
+ *  invented: the result-level W/D/L record is complete for every official match, so
+ *  record cuts grade `complete`; an event-derived answer (minute-stamped goals)
+ *  grades `partial`. */
+export interface AnswerCoverage {
+  grade: "complete" | "partial";
+  /** Short label for the chip ("complete" / "timed-goal data"). */
+  label: string;
+}
+
 export interface ShapedAnswer {
   title: string;
   summary: string;
   href: string;
   hrefLabel: string;
+  coverage?: AnswerCoverage;
+  /** A best guess from question-shape alone (no trigger word) — the renderer frames
+   *  it as "Did you mean…?" rather than asserting it. */
+  tentative?: boolean;
 }
+
+/** The result-level record (W/D/L from `matches`) is complete for every official
+ *  match, so every record cut shares one honest grade. */
+const RESULT_COVERAGE: AnswerCoverage = { grade: "complete", label: "complete" };
 
 // ---------------------------------------------------------------- record helpers
 
@@ -50,10 +69,34 @@ interface Scope {
   seasonLabel?: string;
   managerName?: string;
   scopeLabel?: string;
-  /** Whether any head-to-head/record trigger word was present. */
+  /** Whether any head-to-head/record trigger word or verb was present (a confident
+   *  signal to compute a head-to-head). */
   triggered: boolean;
+  /** Whether the query has interrogative shape ("did/have/ever/how many times…").
+   *  Question-shape plus a single strong opponent yields a *tentative* best guess
+   *  even with no trigger word — the DISCOVERY §5 fallback. */
+  question: boolean;
   /** Residual phrase after every recognised fragment is stripped. */
   rest: string;
+}
+
+// Verbs that signal a head-to-head intent in natural phrasing ("beat barcelona",
+// "lost to liverpool", "better than city"). Deliberately excludes bare win/won/lost
+// so a superlative ("biggest win in the 90s") is never mistaken for an opponent cut.
+// Global so every occurrence is stripped, leaving a clean residual to resolve.
+const H2H_VERBS =
+  /\b(beat|beaten|beating|beats|thrash(?:ed|ing|es)?|hammer(?:ed|ing|s)?|lost to|lose to|losing to|drew with|draw with|drawn with|faced?|met|play(?:ed|ing)? against|win against|won against|better than|worse than)\b/g;
+
+// Interrogative / question-shape markers ("did united ever…", "how many times…").
+const QUESTION_WORDS =
+  /\b(have|has|had|did|do|does|when|ever|are|is|was|were|how many times|how often|how many)\b/g;
+
+/** Strip every match of `re` from `s`, reporting whether anything was removed — so a
+ *  global regex stays confined to `.replace` and never carries `lastIndex` state into
+ *  a separate `.test` call. */
+function stripAll(s: string, re: RegExp): { out: string; hit: boolean } {
+  const out = s.replace(re, " ");
+  return { out, hit: out !== s };
 }
 
 const decadeBase = (d: string): number =>
@@ -71,6 +114,7 @@ function parseScope(norm: string): Scope {
   const link: Record<string, string | undefined> = {};
   const scope: Partial<Scope> = {};
   let triggered = false;
+  let question = false;
 
   const strip = (re: RegExp): RegExpExecArray | null => {
     const m = re.exec(rest);
@@ -124,12 +168,28 @@ function parseScope(norm: string): Scope {
     filter.type = "league"; link.type = "league"; scope.scopeLabel = "in the league";
   }
 
-  // head-to-head / record trigger words (stripped so the residual is a clean name)
+  // head-to-head verbs in natural phrasing ("beat barcelona", "lost to liverpool")
+  const verbs = stripAll(rest, H2H_VERBS);
+  if (verbs.hit) { triggered = true; rest = verbs.out; }
+
+  // interrogative shape — a softer signal that drives the tentative best guess
+  const qwords = stripAll(rest, QUESTION_WORDS);
+  if (qwords.hit) { question = true; rest = qwords.out; }
+
+  // explicit head-to-head / record trigger words
   if (/\b(record|records|results?|vs|versus|v|against|h2h|head to head)\b/.test(rest)) triggered = true;
   rest = rest.replace(/\b(record|records|results?|vs|versus|v|against|h2h|head to head|at|to|the)\b/g, " ");
+
+  // strip the United subject so the residual is a clean opponent name — but never a
+  // trailing club name like "Leeds United"/"Sheffield United": bare "united"/"utd"
+  // goes only at the start or right after a question/aux word.
+  rest = rest.replace(/\b(?:man(?:chester)?\s+(?:united|utd)|mufc)\b/g, " ");
+  rest = rest.replace(/(^|\s(?:have|has|had|did|do|does|when|ever|are|is|was|were)\s)(?:united|utd)\b/g, "$1");
+  rest = rest.replace(/^\s*(?:united|utd|we|us)\b/, " ");
+  rest = rest.replace(/\b(?:we|us)\b/g, " ");
   rest = rest.replace(/\s+/g, " ").trim();
 
-  return { filter, link, triggered, rest, ...scope };
+  return { filter, link, triggered, question, rest, ...scope };
 }
 
 // ---------------------------------------------------------------- templates
@@ -137,9 +197,15 @@ function parseScope(norm: string): Scope {
 const UNITED_WORDS = new Set(["", "united", "man utd", "man united", "manchester united", "mufc", "us", "we"]);
 
 /** A head-to-head record vs a named opponent, venue/era-aware. Exposed so the
- * `vs:` scoping operator can call it directly. */
-export function headToHead(opponentText: string, extra?: MatchFilter, label?: string): ShapedAnswer | null {
-  const opp = resolveEntity(opponentText, "opponent");
+ * `vs:` scoping operator can call it directly. `strong` gates the opponent resolution
+ * to a confident prefix hit only — the tentative best-guess path uses it. */
+export function headToHead(
+  opponentText: string,
+  extra?: MatchFilter,
+  label?: string,
+  strong = false,
+): ShapedAnswer | null {
+  const opp = resolveEntity(opponentText, "opponent", { strong });
   if (!opp) return null;
   const venue = extra?.venue;
   const where = venue === "A" ? "away at" : venue === "H" ? "at home to" : "against";
@@ -154,6 +220,7 @@ export function headToHead(opponentText: string, extra?: MatchFilter, label?: st
     summary: recText(recordFor(filter)),
     href: matchesHref(link),
     hrefLabel: "Show the matches →",
+    coverage: RESULT_COVERAGE,
   };
 }
 
@@ -193,7 +260,11 @@ function superlative(norm: string, scope: Scope): ShapedAnswer | null {
   const link: Record<string, string | undefined> = {
     ...scope.link, opponent: oppFilter.opponent, sort,
   };
-  return { title, summary, href: matchesHref(link), hrefLabel: "Browse the slice →" };
+  // Margin/defeat extremes read straight off the complete result record; the
+  // attendance extreme is bounded by the partial attendance facet.
+  const coverage: AnswerCoverage =
+    sort === "attendance" ? { grade: "partial", label: "attendance data" } : RESULT_COVERAGE;
+  return { title, summary, href: matchesHref(link), hrefLabel: "Browse the slice →", coverage };
 }
 
 /** Player-vs-player comparison: both sides must resolve to players. */
@@ -231,6 +302,7 @@ function lateGoals(norm: string): ShapedAnswer | null {
     summary: `${row.late} of ${row.n} timed goals (${((100 * row.late) / row.n).toFixed(1)}%) came in the final 15 minutes`,
     href: `/manager/${mg.entity_id}`,
     hrefLabel: `${mg.label} →`,
+    coverage: { grade: "partial", label: "timed-goal data" },
   };
 }
 
@@ -258,8 +330,15 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
   push(superlative(norm, scope));
 
   // head-to-head when the residual names an opponent and a trigger/venue is present
-  if ((scope.triggered || scope.venue) && scope.rest && !UNITED_WORDS.has(scope.rest)) {
+  const namesOpponent = scope.rest && !UNITED_WORDS.has(scope.rest);
+  if ((scope.triggered || scope.venue) && namesOpponent) {
     push(headToHead(scope.rest, scope.filter));
+  } else if (scope.question && namesOpponent && out.length === 0) {
+    // Tentative best guess: question-shape + one strong opponent, no trigger word.
+    // "did united ever beat barcelona" → "Did you mean: Record against Barcelona?"
+    // Strong-only resolution so a fuzzy near-miss never asserts a wrong answer.
+    const guess = headToHead(scope.rest, scope.filter, undefined, true);
+    if (guess) push({ ...guess, tentative: true });
   }
 
   // record under a manager
@@ -269,6 +348,7 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
       summary: recText(recordFor(scope.filter)),
       href: `/manager/${scope.filter.manager}`,
       hrefLabel: `${scope.managerName} →`,
+      coverage: RESULT_COVERAGE,
     });
   }
 
@@ -281,6 +361,7 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
       summary: recText(recordFor(scope.filter)),
       href: matchesHref(scope.link),
       hrefLabel: "Show the matches →",
+      coverage: RESULT_COVERAGE,
     });
   }
 
@@ -293,6 +374,7 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
         summary: recText(recordFor({ season: scope.seasonLabel })),
         href: `/seasons/${scope.seasonLabel}`,
         hrefLabel: "Season page →",
+        coverage: RESULT_COVERAGE,
       });
     }
   }

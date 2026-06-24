@@ -891,17 +891,42 @@ generative answers outright (NLP routes the question; the answer stays computed,
 grounded, and testable). The build sub-phases inherit the carry-forward checklist
 in `docs/DISCOVERY.md` §6.
 
-### 18.2 — Search as the front door
+### 18.2 — Search as the front door ✅ (complete)
 
-- [ ] Live typeahead that previews **answers**, not just entity links — a shaped
-      query should show its verdict-in-waiting as you type.
-- [ ] Zero-result and low-confidence recovery: never a blank — suggest the
-      nearest shaped cut or a reshape ("no exact match; try late goals under
-      Ferguson").
-- [ ] "Did you mean" and scope hints (player vs opponent vs season) so ambiguous
-      names resolve gracefully.
-- [ ] Surface what's askable from the field itself — rotating example prompts
-      that teach the query grammar without a manual.
+- [x] Live typeahead that previews **answers**, not just entity links — a shaped
+      query shows its verdict-in-waiting as you type, now with its **coverage
+      grade** riding beside the verdict (`AnswerCoverageTag`): the gap DISCOVERY §6
+      named, so the settler reads the answer *and* its trust signal in one screen.
+- [x] Zero-result and low-confidence recovery: never a blank — the bare "No
+      matches" line is replaced by `SearchReshape`, a clutch of shaped questions
+      the parser does answer (each filling the field), shared by the header
+      dropdown and ⌘K palette; `/search`'s dead end gained the same reshapes.
+- [x] "Did you mean" and scope hints — the §5 fallback: question-shape plus one
+      *strong* opponent (gated to a confident prefix hit) yields a **tentative**
+      best guess, framed "Did you mean…?" rather than asserted; ambiguous names
+      keep resolving through the existing kind-labelled entity rows.
+- [x] Surface what's askable from the field itself — a reduced-motion-aware
+      rotating placeholder (`useRotatingPlaceholder`) cycles real example queries
+      from one `EXAMPLE_QUERIES` source, and a natural-language example ("did
+      United ever beat Barcelona") now leads the empty-state set.
+
+Phase 18.2 is complete as the answer box's Tier-0 build (per DISCOVERY §5,
+deterministic only — no model). The brittle front door is fixed where it was
+worst: natural phrasings that used to return *nothing at all* ("did united ever
+beat barcelona" → ∅ shaped, ∅ entities) now compute a head-to-head, via an
+expanded verb/interrogative lexicon and safe United-subject stripping that never
+eats a trailing club name (Leeds/Sheffield/Newcastle United). A latent
+mis-ordering of the FTS bind params in `resolveEntity` — which had silently
+forced every kind-filtered lookup down the trigram fallback — was fixed in the
+process, so slot resolution now ranks the same way the dropdown does. Every
+shaped verdict carries a derived, honest coverage grade (result-level cuts
+`complete`; the event-derived late-goals answer `partial`), and the search log
+now classifies each query's outcome (`zero` / `fell` / hit via `classifyMiss`)
+so the parser's ceiling is a *measured* number before anyone reaches past Tier 0
+for a model. Pinned by six golden tests (natural phrasing, the tentative
+boundary, the no-false-positive on bare names, the subject-strip safety, honest
+grading, and the miss classifier); Tier 1/2 stay deferred and Tier 3 rejected,
+per the recorded stance.
 
 ### 18.3 — Serendipity and guided wandering
 

@@ -29,6 +29,7 @@ import {
   CURATED_CUTS, cutFromParams, cutHref, curatedCut, isCurated, runCut,
 } from "../lib/cut";
 import { runSearch } from "../lib/search";
+import { classifyMiss } from "../lib/search/log";
 import { getDb } from "../lib/db";
 
 const rec = (cond: string, ...params: unknown[]) =>
@@ -325,6 +326,59 @@ test("scoping operators: 'player:' constrains kind, 'vs:' yields a head-to-head"
 
   const { shaped } = runSearch("vs:liverpool");
   assert.ok(shaped.some((s) => /Record against Liverpool/.test(s.title)), "vs: should return a head-to-head");
+});
+
+// ------------------------------------------ phase 18.2: search as the front door
+
+test("18.2 natural phrasing: a verb-shaped question computes a head-to-head", () => {
+  // "did united ever beat barcelona" used to return nothing at all (no shaped, no
+  // entity). The expanded verb lexicon now recognises "beat" and routes it.
+  const { shaped } = runSearch("did united ever beat barcelona");
+  const hit = shaped.find((s) => /Record against FC Barcelona/.test(s.title));
+  assert.ok(hit, "expected a computed head-to-head for natural phrasing");
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won/);
+  assert.equal(hit.tentative, undefined, "a recognised verb is confident, not a guess");
+  assert.equal(hit.coverage?.grade, "complete", "the result record is complete");
+});
+
+test("18.2 tentative fallback: question-shape + one strong opponent, no trigger", () => {
+  // No verb, no trigger word — just question-shape and an opponent. The parser
+  // offers a *tentative* best guess ("Did you mean …?"), never an assertion.
+  const { shaped } = runSearch("how many times barcelona");
+  const guess = shaped.find((s) => /Record against FC Barcelona/.test(s.title));
+  assert.ok(guess, "expected a tentative head-to-head");
+  assert.equal(guess.tentative, true, "a verb-less guess must be flagged tentative");
+});
+
+test("18.2 no false positive: a bare opponent name stays entity-first", () => {
+  // A plain name must NOT auto-fire a head-to-head — the researcher may want the
+  // opponent page, and entity rows are the right answer.
+  const { shaped, entities } = runSearch("barcelona");
+  assert.equal(shaped.length, 0, "a bare name shapes no answer");
+  assert.ok(entities.some((e) => e.kind === "opponent" && /Barcelona/.test(e.label)));
+});
+
+test("18.2 subject-strip is safe for clubs whose name contains 'United'", () => {
+  // Stripping the United subject must never eat a trailing club name.
+  const bare = runSearch("leeds united");
+  assert.equal(bare.shaped.length, 0, "'leeds united' is an opponent lookup, not a cut");
+  const h2h = runSearch("did united lose to leeds").shaped;
+  assert.ok(h2h.some((s) => /Record against Leeds United/.test(s.title)), "verb-shaped vs Leeds resolves");
+});
+
+test("18.2 coverage grade rides on every shaped verdict, graded honestly", () => {
+  const h2h = runSearch("record away at arsenal").shaped.find((s) => /Arsenal/.test(s.title));
+  assert.equal(h2h?.coverage?.grade, "complete", "result record is complete");
+
+  const late = runSearch("late goals under ferguson").shaped[0];
+  assert.equal(late?.coverage?.grade, "partial", "an event-derived answer is partial");
+  assert.match(late.coverage.label, /timed-goal/);
+});
+
+test("18.2 miss classification: shaped = hit, entity-only = fell, nothing = zero", () => {
+  assert.equal(classifyMiss(9, 1), undefined, "a shaped answer is never a miss");
+  assert.equal(classifyMiss(9, 0), "fell", "entity rows but no answer is a fall-through");
+  assert.equal(classifyMiss(0, 0), "zero", "nothing at all is a zero-result");
 });
 
 // ------------------------------------------------ phase 9: runs and comebacks

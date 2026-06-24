@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSiteSearch } from "./useSiteSearch";
 import { SearchResults } from "./SearchResults";
 import { SearchEmptyState } from "./SearchEmptyState";
+import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
 
@@ -130,9 +131,16 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
             }
           />
         ) : ready ? (
-          <div className="px-4 py-4 text-sm text-ink-dim">
-            No matches. <Link href={seeAllHref} onClick={() => select(seeAllHref)} className="text-devil-bright hover:underline">Search the archive →</Link>
-          </div>
+          <SearchReshape
+            query={q}
+            seeAllHref={seeAllHref}
+            onPick={(query) => {
+              setQ(query);
+              setActive(-1);
+              inputRef.current?.focus();
+            }}
+            onSeeAll={() => select(seeAllHref)}
+          />
         ) : (
           <SearchEmptyState onPick={setQ} />
         )}

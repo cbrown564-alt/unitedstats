@@ -6,8 +6,10 @@ import Link from "next/link";
 import { useSiteSearch } from "./useSiteSearch";
 import { SearchResults } from "./SearchResults";
 import { SearchEmptyState } from "./SearchEmptyState";
+import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
+import { useRotatingPlaceholder } from "./useRotatingPlaceholder";
 
 export function SearchCommand({
   autoFocusKey = true,
@@ -40,6 +42,12 @@ export function SearchCommand({
   const rows: { href: string }[] = [...shaped, ...entities];
   const hasResults = rows.length > 0;
   const seeAllHref = `/search?q=${encodeURIComponent(q.trim())}`;
+
+  // The big hero/discover field teaches itself with a rotating example; the compact
+  // header search and any caller-supplied placeholder stay fixed.
+  const exampleQ = useRotatingPlaceholder(!placeholder && !compact && q === "");
+  const computedPlaceholder =
+    placeholder ?? (compact ? "Search…" : `Try “${exampleQ}” — or a name`);
 
   const onChange = (value: string) => {
     setQ(value);
@@ -112,12 +120,7 @@ export function SearchCommand({
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setOpen(true)}
         onKeyDown={onKeyDown}
-        placeholder={
-          placeholder ??
-          (compact
-            ? "Search…"
-            : 'Search — try "record away at Arsenal", "biggest win in the 90s", or a name…')
-        }
+        placeholder={computedPlaceholder}
         aria-label="Search players, opponents, seasons, managers, stadiums, and shaped questions"
         className={
           compact
@@ -152,9 +155,16 @@ export function SearchCommand({
               }
             />
           ) : ready ? (
-            <div className="px-4 py-3 text-sm text-ink-dim">
-              No matches. <Link href={seeAllHref} className="text-devil-bright hover:underline">Search the archive →</Link>
-            </div>
+            <SearchReshape
+              query={q}
+              seeAllHref={seeAllHref}
+              onPick={(query) => {
+                setQ(query);
+                setActive(-1);
+                inputRef.current?.focus();
+              }}
+              onSeeAll={() => select(seeAllHref)}
+            />
           ) : (
             <SearchEmptyState onPick={(query) => setQ(query)} />
           )}
