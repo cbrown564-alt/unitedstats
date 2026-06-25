@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
 
 /**
@@ -17,12 +18,6 @@ import type { EventRow } from "@/lib/queries";
  * (the timing shape is the whole point) and the names drop to a compact
  * chronological chip list below; from `sm` up the inline labels return.
  */
-
-function surname(name: string | null | undefined): string {
-  if (!name) return "";
-  const parts = name.trim().split(/\s+/);
-  return parts[parts.length - 1] || name;
-}
 
 /** Clock label that keeps stoppage time as "90+6", regulation as "64". */
 function clock(minute: number, added: number | null): string {
@@ -69,7 +64,7 @@ export function MatchFlow({
       added: e.added_time,
       side: "united" as const,
       delta: 1 as const,
-      scorer: surname(e.player_display_name),
+      scorer: familyName(e.player_display_name ?? ""),
       playerId: e.player_id,
       tag: e.type === "pen-goal" ? ("P" as const) : e.type === "own-goal-for" ? ("OG" as const) : null,
       title:
@@ -83,7 +78,7 @@ export function MatchFlow({
       added: e.added_time,
       side: "opponent" as const,
       delta: -1 as const,
-      scorer: surname(e.player_display_name),
+      scorer: familyName(e.player_display_name ?? ""),
       playerId: null,
       tag: e.type === "own-goal-against" ? ("OG" as const) : e.detail === "pen" ? ("P" as const) : null,
       title:

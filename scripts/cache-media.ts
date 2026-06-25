@@ -168,15 +168,16 @@ async function fetchBytes(url: string, options: Pick<CliOptions, "retries" | "ti
 }
 
 async function writeOptimizedImage(bytes: Buffer, file: string): Promise<void> {
-  const input = sharp(bytes, { failOn: "none" });
-  const meta = await input.metadata();
+  const meta = await sharp(bytes, { failOn: "none" }).metadata();
   if (!meta.width || !meta.height || meta.width < MIN_DIMENSION || meta.height < MIN_DIMENSION) {
     throw new Error(`invalid source dimensions ${meta.width ?? "?"}x${meta.height ?? "?"}`);
   }
+  // Tall sources (full-body portraits) lose heads under attention cropping — bias up.
+  const position = meta.height / meta.width > 1.15 ? "top" : "attention";
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  await input
+  await sharp(bytes, { failOn: "none" })
     .rotate()
-    .resize(TARGET_SIZE, TARGET_SIZE, { fit: "cover", position: "attention" })
+    .resize(TARGET_SIZE, TARGET_SIZE, { fit: "cover", position })
     .webp({ quality: 82 })
     .toFile(file);
   if (!(await verifiedImage(file))) throw new Error("optimized file failed validation");

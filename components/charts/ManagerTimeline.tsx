@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import type { ManagerRecord } from "@/lib/queries";
 
 /**
@@ -75,7 +76,7 @@ export function ManagerTimeline({ managers }: { managers: ManagerRecord[] }) {
             const p = m.p;
             const winRate = Math.round((100 * m.w) / p);
             const title = `${m.name} · ${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${p} matches · ${winRate}% win`;
-            const surname = m.name.replace(/^Sir /, "").split(" ").pop() ?? m.name;
+            const surname = familyName(m.name);
             return (
               <Link
                 key={m.id}

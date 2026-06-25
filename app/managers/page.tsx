@@ -1,3 +1,4 @@
+import { familyName } from "@/lib/names";
 import { managersIndex, managerCareerSparks, managerHonours } from "@/lib/queries";
 import { groupManagersByEra } from "@/lib/managerEras";
 import { WdlBar } from "@/components/WdlBar";
@@ -20,7 +21,7 @@ export default function ManagersPage() {
   const giantShare = pct(giants.reduce((a, m) => a + m.p, 0), totalP);
   const giantNames = [...giants]
     .sort((a, b) => (a.first ?? "").localeCompare(b.first ?? ""))
-    .map((g) => g.name.replace(/^Sir /, "").split(" ").pop())
+    .map((g) => familyName(g.name))
     .join(" and ");
 
   // Each row's tenure drawn as a season-by-season W/D/L sparkbar on a timeline
@@ -92,7 +93,7 @@ export default function ManagersPage() {
                   the other index heroes (most played, most appearances). */}
               <dd className="stat-num text-lg font-semibold text-devil-bright">
                 {fmtNum(giants[0]?.p ?? 0)}{" "}
-                <span className="text-sm font-normal text-ink-dim">{giants[0]?.name.split(" ").pop()}</span>
+                <span className="text-sm font-normal text-ink-dim">{familyName(giants[0]?.name ?? "")}</span>
               </dd>
             </div>
           </dl>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { initialsFor } from "@/lib/names";
 
 interface PlayerPortraitProps {
   name: string;
@@ -17,11 +18,6 @@ const SIZES = {
   md: { box: "h-14 w-14 sm:h-16 sm:w-16", pixels: 64, text: "text-lg" },
   lg: { box: "h-40 w-40 sm:h-44 sm:w-44", pixels: 176, text: "text-3xl" },
 };
-
-function initialsFor(name: string): string {
-  const parts = name.split(/\s+/).filter(Boolean);
-  return parts.slice(0, 2).map((part) => part[0]?.toUpperCase()).join("");
-}
 
 export function PlayerPortrait({ name, src, size = "sm", priority = false }: PlayerPortraitProps) {
   const config = SIZES[size];

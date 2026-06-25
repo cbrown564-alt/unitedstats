@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import type { PlayerTotals } from "@/lib/queries";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 
@@ -90,7 +91,7 @@ export function PlayerGreatnessMap({ players }: { players: PlayerTotals[] }) {
         {/* the frontier: a linked portrait + surname on its point */}
         {named.map((p) => {
           const apps = p.apps ?? 0;
-          const surname = p.name.split(" ").slice(-1)[0];
+          const surname = familyName(p.name);
           return (
             <Link
               key={p.player_id}

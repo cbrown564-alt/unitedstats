@@ -28,10 +28,21 @@ const FEATURED_PLAYERS: { playerId: string; name: string; wikiTitle: string }[] 
   { playerId: "javier-hernandez", name: "Javier Hernández", wikiTitle: "Javier Hernández" },
   { playerId: "john-connelly", name: "John Connelly", wikiTitle: "John Connelly (footballer, born 1938)" },
 ];
+
+/**
+ * Licensed Commons portraits chosen for era-appropriate likeness and framing.
+ * Wikidata P18 often points at post-career or poorly cropped images; overrides
+ * win when present. Re-run ingest:player-media after edits.
+ */
+const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
+  "denis-law": "Denis Law (4x5 cropped).jpg",
+  "ruud-van-nistelrooy": "Ruud.JPG",
+  "cristiano-ronaldo": "Cristiano Ronaldo of Manchester United, November 5, 2008, B.jpg",
+};
 const COMMONS_THUMB_WIDTH = 320;
 const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
 
-type SourceMethod = "wikidata-p18" | "wikipedia-pageimage";
+type SourceMethod = "wikidata-p18" | "wikipedia-pageimage" | "curated-override";
 
 interface PlayerRecordsFile {
   records: {
@@ -393,10 +404,12 @@ async function main() {
   const pageImagesByPlayer = await fetchWikipediaPageImages(topPlayers);
   const selectedFiles = new Map<string, string>();
   for (const player of topPlayers) {
+    const overrideFile = CURATED_COMMONS_OVERRIDES[player.playerId];
+    if (overrideFile) selectedFiles.set(commonsFileKey(overrideFile), overrideFile);
     const wikidataId = qidsByTitle.get(player.wikiTitle);
     const wikidataFile = wikidataId ? filesByQid.get(wikidataId) : null;
     const pageImageFile = pageImagesByPlayer.get(player.playerId)?.commonsFile;
-    const commonsFile = wikidataFile ?? pageImageFile;
+    const commonsFile = overrideFile ?? wikidataFile ?? pageImageFile;
     if (commonsFile) selectedFiles.set(commonsFileKey(commonsFile), commonsFile);
   }
   const metadataByFile = await fetchCommonsMetadata([...selectedFiles.values()]);
@@ -415,8 +428,9 @@ async function main() {
   for (const [index, player] of topPlayers.entries()) {
     const pageImage = pageImagesByPlayer.get(player.playerId);
     const wikidataId = qidsByTitle.get(player.wikiTitle) ?? pageImage?.wikidataId ?? null;
+    const overrideFile = CURATED_COMMONS_OVERRIDES[player.playerId];
     const wikidataFile = wikidataId ? filesByQid.get(wikidataId) : null;
-    const commonsFile = wikidataFile ?? pageImage?.commonsFile;
+    const commonsFile = overrideFile ?? wikidataFile ?? pageImage?.commonsFile;
     if (!commonsFile) {
       missing.push({
         playerId: player.playerId,
@@ -459,7 +473,7 @@ async function main() {
       artist: stripHtml(ext.Artist?.value),
       credit: stripHtml(ext.Credit?.value),
       sourceId: SOURCE_ID,
-      sourceMethod: wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
+      sourceMethod: overrideFile ? "curated-override" : wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
       retrievedAt,
     });
   }

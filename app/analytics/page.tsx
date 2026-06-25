@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import {
   eloSeries, seasonAggregates, getMeta,
   topAssistPartnerships, coverageOverview, managersIndex,
@@ -75,7 +76,7 @@ export default function AnalyticsPage() {
   const managerEras = managers.map((m, i) => ({
     from: m.first!,
     to: managers[i + 1]?.first ?? lastEloDate ?? m.last!,
-    label: m.p >= 250 ? m.name.split(" ").pop() : undefined,
+    label: m.p >= 250 ? familyName(m.name) : undefined,
   }));
 
   // Records chapter: the all-time peaks as answer-objects, each leading with the
