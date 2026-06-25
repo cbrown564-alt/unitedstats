@@ -66,7 +66,8 @@ export function MatchList<T extends MatchRow>({
                 <span className="min-w-0 text-sm font-medium sm:truncate" title={m.opponent_name}>
                   <span className="mr-1.5 text-ink-faint">{venuePrefix(m.venue)}</span>
                   <span className="sm:hidden">{opp.short}</span>
-                  <span className="hidden sm:inline">{m.opponent_name}</span>
+                  <span className="hidden sm:inline xl:hidden">{opp.short}</span>
+                  <span className="hidden xl:inline">{m.opponent_name}</span>
                 </span>
                 {note && <span className="shrink-0 text-xs text-ink-faint">{note}</span>}
               </span>
@@ -87,14 +88,14 @@ export function MatchList<T extends MatchRow>({
             <span
               className={`hidden items-center gap-x-3 text-xs text-ink-dim sm:grid ${
                 showSeason
-                  ? "[grid-template-columns:3.75rem_10.5rem_7rem]"
-                  : "[grid-template-columns:10.5rem_7rem]"
+                  ? "[grid-template-columns:3.75rem_minmax(0,12rem)_minmax(0,8rem)]"
+                  : "[grid-template-columns:minmax(0,12rem)_minmax(0,8rem)]"
               }`}
             >
               {showSeason && <span className="stat-num whitespace-nowrap text-ink-faint">{m.season}</span>}
-              <span className="flex min-w-0 items-center gap-1.5">
+              <span className="flex min-w-0 items-center gap-1.5" title={m.competition_name}>
                 <CompetitionDot type={m.competition_type} />
-                <span className="truncate">{m.competition_name}</span>
+                <span className="truncate">{competitionShortName(m.competition_id, m.competition_name)}</span>
               </span>
               <span className="min-w-0">
                 <span className="flex min-w-0 items-center gap-1.5 text-ink-dim" title={m.round ?? undefined}>

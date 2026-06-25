@@ -32,7 +32,11 @@ function paletteForDecade(decade?: string | null): { background: string; color: 
 
 export function ShirtBadge({ number, decade, apps, compact = false, muted = false }: ShirtBadgeProps) {
   if (number == null) {
-    return <span className="text-ink-faint">{compact ? "--" : "No shirt data"}</span>;
+    return (
+      <span className="text-ink-faint" title="Shirt number not recorded" aria-label="Shirt number not recorded">
+        {compact ? "\u00a0" : "—"}
+      </span>
+    );
   }
 
   const palette = paletteForDecade(decade);

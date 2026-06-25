@@ -38,6 +38,10 @@ const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
   "denis-law": "Manu-Finland-1965.jpg",
   "ruud-van-nistelrooy": "Ruud.JPG",
   "cristiano-ronaldo": "Cristiano Ronaldo of Manchester United, November 5, 2008, B.jpg",
+  "roy-keane": "Roy Keane cropped.jpg",
+  "peter-schmeichel": "Peter Schmeichel juli 1991.JPG",
+  "eric-cantona": "Cantona, Eric.jpg",
+  "steve-bruce": "Steve Bruce at the cliff -march 92.JPG",
 };
 
 /** Hand-cropped portraits stored under public/media/sources/ — see cache:media. */

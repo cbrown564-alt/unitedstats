@@ -7,6 +7,7 @@
  * player-records.json with slug / wiki-title / nickname / career-window
  * matching. This module owns that toolkit so the two lanes can't drift.
  */
+import { familyName } from "../lib/names";
 import { slugify } from "./lib";
 
 export interface PlayerRecord {
@@ -99,11 +100,18 @@ export function normalizedSlug(name: string): string {
   );
 }
 
+/** Slug for the particle-aware family name (e.g. de-gea, van-der-sar). */
+export function familyNameSlug(name: string): string {
+  return normalizedSlug(familyName(cleanPersonName(name)));
+}
+
 /** Split a name into its first/last slug tokens, or null if it has fewer than two. */
 export function nameParts(name: string): { first: string; last: string } | null {
   const parts = normalizedSlug(name).split("-").filter(Boolean);
   if (parts.length < 2) return null;
-  return { first: parts[0], last: parts[parts.length - 1] };
+  const last = familyNameSlug(name);
+  if (!last) return null;
+  return { first: parts[0], last };
 }
 
 /** True when two first-name slugs match directly or via the nickname table. */

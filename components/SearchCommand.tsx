@@ -10,6 +10,7 @@ import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
 import { useRotatingPlaceholder } from "./useRotatingPlaceholder";
+import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import type { SearchEntity } from "@/lib/search";
 import { entityMatchesHref } from "@/lib/search/matchesHref";
 import { queryString } from "@/lib/url";
@@ -59,7 +60,7 @@ export function SearchCommand({
   // header search and any caller-supplied placeholder stay fixed.
   const exampleQ = useRotatingPlaceholder(!placeholder && !compact && q === "");
   const computedPlaceholder =
-    placeholder ?? (compact ? "Search…" : `Try “${exampleQ}”`);
+    placeholder ?? (compact ? SEARCH_PLACEHOLDER : `Try “${exampleQ}”`);
 
   const resolveHref = (href: string, entity?: SearchEntity) => {
     if (!forMatches) return href;

@@ -9,6 +9,7 @@ import { SearchEmptyState } from "./SearchEmptyState";
 import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
+import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 
 /**
  * The ⌘K / Ctrl-K command palette: a centred overlay over the same engine the
@@ -106,7 +107,7 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
           value={q}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={onKeyDown}
-          placeholder="Search names, seasons, stadiums, or a question…"
+          placeholder={SEARCH_PLACEHOLDER}
           aria-label="Search"
           className="w-full border-b border-line bg-transparent px-4 py-3.5 text-base placeholder:text-ink-faint focus:outline-none"
         />

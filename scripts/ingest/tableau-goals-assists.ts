@@ -33,7 +33,7 @@ import {
   seasonKey,
   type AliasFile,
 } from "../lib";
-import { normalizedSlug } from "../player-resolver";
+import { familyNameSlug, normalizedSlug } from "../player-resolver";
 
 const SOURCE_ID = "tableau-goals-assists";
 const SOURCE_NAME = "Manchester United Games (Tableau Public, conor.brown)";
@@ -150,8 +150,7 @@ function buildResolver(): Resolver {
   const byFull = new Map<string, string>();
   for (const p of players) {
     byFull.set(norm(p.name), p.id);
-    const tokens = norm(p.name).split("-");
-    const surname = tokens[tokens.length - 1];
+    const surname = familyNameSlug(p.name);
     (bySurname.get(surname) ?? bySurname.set(surname, []).get(surname)!).push(p.id);
   }
 
@@ -170,8 +169,7 @@ function buildResolver(): Resolver {
       if (label in EXPLICIT_ID) return { playerId: EXPLICIT_ID[label], attribution: "player" };
       const full = byFull.get(norm(label));
       if (full) return { playerId: full, attribution: "player" };
-      const tokens = norm(label).split("-");
-      const cands = bySurname.get(tokens[tokens.length - 1]) ?? [];
+      const cands = bySurname.get(familyNameSlug(label)) ?? [];
       if (cands.length === 1) return { playerId: cands[0], attribution: "player" };
       return { playerId: null, attribution: "unknown" };
     },

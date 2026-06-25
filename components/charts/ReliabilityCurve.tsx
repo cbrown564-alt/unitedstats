@@ -43,7 +43,7 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
     ` L ${[...winC].reverse().map((p) => p.join(",")).join(" L ")} Z`;
 
   return (
-    <figure className="mx-auto max-w-sm">
+    <figure className="mx-auto min-w-[17rem] max-w-sm">
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full"
@@ -103,13 +103,15 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
         </text>
       </svg>
 
-      <figcaption className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-ink-faint">
-        <span className="flex items-center gap-1.5">
-          <span aria-hidden className="h-2 w-2 rounded-full bg-devil-bright" /> Points share — on the diagonal means the ratings land where they aim
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span aria-hidden className="h-2 w-2 rounded-full border border-gold bg-pitch" /> Win rate — the gap up to the line is where draws live
-        </span>
+      <figcaption className="mt-2 space-y-1 text-[11px] leading-4 text-ink-faint sm:space-y-0">
+        <p className="flex items-center gap-1.5">
+          <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-devil-bright" />
+          <span>Points share — on the diagonal means the ratings land where they aim</span>
+        </p>
+        <p className="flex items-center gap-1.5">
+          <span aria-hidden className="h-2 w-2 shrink-0 rounded-full border border-gold bg-pitch" />
+          <span>Win rate — the gap up to the line is where draws live</span>
+        </p>
       </figcaption>
     </figure>
   );

@@ -4,7 +4,7 @@ import { Pager } from "@/components/Pager";
 import { AnswerCoverageTag } from "@/components/AnswerCoverageTag";
 import { searchPage, entityResults, type SearchEntity } from "@/lib/search";
 import { highlight } from "@/lib/search/highlight";
-import { KIND_LABELS, KIND_HEADINGS, POPULAR_SEARCHES, RESHAPE_PROMPTS, SEARCH_HINTS } from "@/lib/search/examples";
+import { KIND_LABELS, KIND_HEADINGS, POPULAR_SEARCHES, RESHAPE_PROMPTS, SEARCH_HINTS, SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
@@ -211,7 +211,7 @@ function SearchForm({ q }: { q: string }) {
         name="q"
         defaultValue={q}
         autoFocus={q.length < 2}
-        placeholder='Search — a name, a season, or "biggest win in the 90s"'
+        placeholder={SEARCH_PLACEHOLDER}
         aria-label="Search the archive"
         className="w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-faint focus:border-devil focus:outline-none"
       />

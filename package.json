@@ -7,7 +7,7 @@
     "test": "tsx --test tests/*.test.ts",
     "predev": "node -e \"require('node:fs').existsSync('data/united.db')||require('node:child_process').execSync('npm run build:db',{stdio:'inherit'})\"",
     "dev": "next dev",
-    "prebuild": "npm run build:db && npm run export:dataset",
+    "prebuild": "npm run build:db && npm run cache:media && npm run export:dataset",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

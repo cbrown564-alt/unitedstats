@@ -17,6 +17,8 @@ jobs:
       - run: npm run knip
       - run: npm run validate
       - run: npm run build:db
+      - run: npm run cache:media
+      - run: npm run check:media
       - run: npm test
       - run: npm run build
       - run: npm run check:static

@@ -9,6 +9,7 @@ import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone
 import { clubNames, opponentNames, type ClubNames } from "@/lib/clubNames";
 import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
+import { StatTile } from "@/components/PageHeader";
 import { MatchList } from "@/components/MatchList";
 import { MatchFlow } from "@/components/MatchFlow";
 import { EloWinBar } from "@/components/EloWinBar";
@@ -273,14 +274,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
       {/* Teamsheet — the reason to visit a match: inline, expanded, the lead's payoff. */}
       {hasTeamsheet && (
-        <section className="space-y-5">
-          <div className="flex items-baseline justify-between gap-3">
+        <section className="overflow-hidden rounded-lg border border-line bg-panel">
+          <div className="flex items-baseline justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
             <h2 className="display text-xl">Teamsheet</h2>
             {teamsheetParts.length > 0 && (
               <span className="stat-num text-xs text-ink-faint">{teamsheetParts.join(" · ")}</span>
             )}
           </div>
-          <div className="space-y-6">
+          <div className="space-y-6 p-4 sm:p-5">
               {canPitch ? (
                 <>
                   {usedSubs.length > 0 || bench.length > 0 ? (
@@ -385,35 +386,38 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
 
-      {/* Match facts + pre-match expectancy — supporting context, below the payoff. */}
-      <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden text-sm">
-        {[
-          ["Venue", m.stadium_name ?? venueLabel(m.venue)],
-          ["Attendance", m.attendance ? fmtNum(m.attendance) : "—"],
-          ["Manager", m.manager_name ?? "—"],
-          ["Competition", m.competition_name],
-        ].map(([k, v]) => (
-          <div key={k} className="bg-panel px-3 py-2.5">
-            <dt className="text-[11px] text-ink-faint uppercase tracking-wider">{k}</dt>
-            <dd className="mt-0.5 truncate" title={String(v)}>{v}</dd>
+      <details open className="group">
+        <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
+          <h2 className="display text-xl">Match details</h2>
+          <span className="stat-num text-xs text-ink-faint">
+            venue · attendance · manager · competition ·{" "}
+            <span className="text-devil-bright group-open:hidden">show</span>
+            <span className="hidden text-devil-bright group-open:inline">hide</span>
+          </span>
+        </summary>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <StatTile label="Venue" value={m.stadium_name ?? venueLabel(m.venue)} />
+            <StatTile label="Attendance" value={m.attendance ? fmtNum(m.attendance) : "—"} />
+            <StatTile label="Manager" value={m.manager_name ?? "—"} />
+            <StatTile label="Competition" value={m.competition_name} />
           </div>
-        ))}
-      </dl>
-      <Link href={`/corrections?match=${id}`} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
-        Suggest a correction →
-      </Link>
-      {m.notes && <p className="max-w-2xl text-sm text-ink-dim italic">{m.notes}</p>}
-
-      {elo && (
-        <EloWinBar
-          club={club}
-          opponentName={m.opponent_name}
-          eloPre={elo.elo_pre}
-          oppEloPre={elo.opp_elo_pre}
-          expected={elo.expected}
-          eloPost={elo.elo_post}
-        />
-      )}
+          <Link href={`/corrections?match=${id}`} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
+            Suggest a correction →
+          </Link>
+          {m.notes && <p className="max-w-2xl text-sm text-ink-dim italic">{m.notes}</p>}
+          {elo && (
+            <EloWinBar
+              club={club}
+              opponentName={m.opponent_name}
+              eloPre={elo.elo_pre}
+              oppEloPre={elo.opp_elo_pre}
+              expected={elo.expected}
+              eloPost={elo.elo_post}
+            />
+          )}
+        </div>
+      </details>
 
       <section>
         <details className="group">

@@ -237,11 +237,15 @@ export default async function PlayerPage({
       )}
 
       {(minutes.length > 3 || facetCount > 0) && (
-        <section className="space-y-3">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <details open className="group space-y-3">
+          <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3">
             <h2 className="display text-xl">The shape of his scoring</h2>
-            <span className="stat-num text-xs text-ink-faint">recorded goals</span>
-          </div>
+            <span className="stat-num text-xs text-ink-faint">
+              recorded goals ·{" "}
+              <span className="text-devil-bright group-open:hidden">show</span>
+              <span className="hidden text-devil-bright group-open:inline">hide</span>
+            </span>
+          </summary>
 
           <div className="overflow-hidden rounded-xl border border-line bg-panel">
             {minutes.length > 3 && (
@@ -326,7 +330,7 @@ export default async function PlayerPage({
               </div>
             )}
           </div>
-        </section>
+        </details>
       )}
 
       {curatedTotals && (
@@ -383,8 +387,16 @@ export default async function PlayerPage({
           </div>
 
           {bySeason.length > 1 && (
-            <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-              <div className="mb-2 flex items-center gap-4 text-[11px] text-ink-faint">
+            <details open className="group rounded-xl border border-line bg-panel">
+              <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+                <span className="text-sm font-medium text-ink-dim">Goals and assists by season</span>
+                <span className="stat-num text-xs text-ink-faint">
+                  <span className="text-devil-bright group-open:hidden">show chart</span>
+                  <span className="hidden text-devil-bright group-open:inline">hide</span>
+                </span>
+              </summary>
+              <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+              <div className="mb-2 mt-4 flex items-center gap-4 text-[11px] text-ink-faint">
                 <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" /> goals</span>
                 <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" /> assists</span>
               </div>
@@ -404,7 +416,8 @@ export default async function PlayerPage({
                 Recorded goals and combined assists (curated through 2014-15, match events after) per season;
                 early or sparsely covered seasons can read low.
               </p>
-            </div>
+              </div>
+            </details>
           )}
 
           <details open className="group">
@@ -444,14 +457,23 @@ export default async function PlayerPage({
         ) : (
           <>
             {matches.length >= 12 && (
-              <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Goals per game, across the career</p>
-                <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
-                <p className="mt-2 text-[11px] leading-4 text-ink-faint">
-                  Every match where he scored, in order — bar height is the goals in that game; gold marks multi-goal
-                  nights, and pips mark his hat-tricks. Only matches where he scored are drawn, so blank games are omitted.
-                </p>
-              </div>
+              <details open className="group rounded-xl border border-line bg-panel">
+                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+                  <span className="text-sm font-medium text-ink-dim">Goals per game, across the career</span>
+                  <span className="stat-num text-xs text-ink-faint">
+                    <span className="text-devil-bright group-open:hidden">show chart</span>
+                    <span className="hidden text-devil-bright group-open:inline">hide</span>
+                  </span>
+                </summary>
+                <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                  <p className="mb-2 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Contribution spine</p>
+                  <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
+                  <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+                    Every match where he scored, in order — bar height is the goals in that game; gold marks multi-goal
+                    nights, and pips mark his hat-tricks. Only matches where he scored are drawn, so blank games are omitted.
+                  </p>
+                </div>
+              </details>
             )}
 
             {!longScoredList ? (
@@ -528,8 +550,16 @@ export default async function PlayerPage({
             const started = appearances.filter((m) => m.started).length;
             const sub = appearances.length - started;
             return (
-              <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-                <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">How he came into the game</p>
+              <details open className="group rounded-xl border border-line bg-panel">
+                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+                  <span className="text-sm font-medium text-ink-dim">How he came into the game</span>
+                  <span className="stat-num text-xs text-ink-faint">
+                    <span className="text-devil-bright group-open:hidden">show chart</span>
+                    <span className="hidden text-devil-bright group-open:inline">hide</span>
+                  </span>
+                </summary>
+                <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                <p className="mb-2.5 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Starts vs subs</p>
                 <SplitBar
                   height={16}
                   segments={[
@@ -548,7 +578,8 @@ export default async function PlayerPage({
                 <p className="mt-2 text-xs text-ink-faint">
                   Across {fmtNum(appearances.length)} appearances with lineup coverage — not a career total.
                 </p>
-              </div>
+                </div>
+              </details>
             );
           })()}
 

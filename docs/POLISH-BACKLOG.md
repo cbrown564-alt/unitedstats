@@ -4,7 +4,7 @@ Living list of known bugs, display quirks, and polish items identified in
 code review and UI sweeps (June 2026). Use this for the next polish passes;
 cross-check `docs/VISUAL-AUDIT.md` for broader design/UX audit items.
 
-**Last updated:** 2026-06-25
+**Last updated:** 2026-06-25 (second polish pass)
 
 ---
 
@@ -44,15 +44,46 @@ These are done on `master` — listed here so we do not re-open them.
 - [x] Cut chart label gutter widened on mobile (`w-28`)
 - [x] Elo era labels hidden when band &lt; 7% of chart width
 
+### Bugs and correctness (second pass)
+
+- [x] Ingest surname index uses `familyNameSlug()` — `nameParts()` in `player-resolver.ts` + Tableau surname index; MUFCInfo lineups/goal-minutes inherit via resolver
+- [x] Transfer portrait queries use `COALESCE(local_path, thumb_url, image_url)` (`lib/queries.ts`)
+- [x] `cache:media` in `prebuild`; CI runs `cache:media` + `check:media`
+
+### Portraits and media (second pass)
+
+- [x] Analytics “Supply lines” shows assister/scorer portraits (`app/analytics/page.tsx`)
+- [x] OG event list per-row Commons attribution when `pageUrl` exists (`OwnGoalProfile.tsx`)
+- [x] Curated playing-era overrides for Keane, Schmeichel, Cantona, Bruce (`wikidata-player-media.ts`)
+
+### Truncation and dense layouts (second pass)
+
+- [x] Match list meta columns: flexible `minmax` grid, `competitionShortName()` with `title` tooltip
+- [x] `SplitBar` / `CupLeanBar`: lower label threshold (7%/9%), scaled type, `title` tooltips in narrow segments
+- [x] `GeoScatter`: basic vertical collision avoidance for top-N labels
+- [x] Season competition headers: `line-clamp-2` at all breakpoints (removed `sm:truncate`)
+
+### Copy and micro-consistency (second pass)
+
+- [x] Unified search placeholder via `SEARCH_PLACEHOLDER` in `lib/search/examples.ts`
+- [x] `ShirtBadge` quieter empty state (blank compact; `—` non-compact)
+- [x] `TransferList` unknown dates use `—` instead of `"date unknown"`
+- [x] Copy-refine pass landed (`app/page.tsx`, `lib/questions.ts`, `components/WhatsInteresting.tsx`, streak modules — see `docs/COPY-REFINE-LOG.md`)
+
+### Visual audit pages (second pass)
+
+- [x] `/analytics` odds: `SelectCombobox` opponent picker; hero forecast layout; mobile-safe calibration table
+- [x] Away-days travel: map leads via `Module` `visual` slot; metric chips; `GeoScatter` legend
+- [x] `/match/[id]`: facts → `StatTile`; grouped teamsheet panel; collapsible “Match details”
+- [x] `/player/[id]`: collapsible chart groups (scoring shape, season contribution, spine, starts vs subs)
+
 ---
 
 ## Open — bugs and correctness
 
 | Priority | Item | Where | Notes |
 |----------|------|-------|-------|
-| P1 | Ingest surname index still uses last token | `scripts/player-resolver.ts` `nameParts()`, `tableau-goals-assists.ts`, `mufcinfo-lineups.ts`, `mufcinfo-goal-minutes.ts` | Display is fixed; ingest/resolution can still mis-match `de Gea` / `van der Sar` labels unless slug ends with full family name |
-| P2 | Transfer portrait queries use `local_path` only | `lib/queries.ts` ~1740 | Same gap assist partnerships had before `COALESCE` |
-| P2 | `cache:media` not in `prebuild` / CI | `package.json` | Fresh deploys can ship manifests without cached WebPs until ops runs `npm run cache:media` |
+| — | *(none)* | | Second pass cleared P1–P2 items |
 
 ---
 
@@ -62,31 +93,21 @@ These are done on `master` — listed here so we do not re-open them.
 
 | Priority | Item | Where | Notes |
 |----------|------|-------|-------|
-| P1 | Analytics assist partnerships are text-only | `app/analytics/page.tsx` | Player page uses `AssistPartnerships` with portraits; analytics “Supply lines” does not — data now has thumbs |
-| P2 | OG event list has no per-row Commons attribution | `components/OwnGoalProfile.tsx` | Hero/player pages link license when `pageUrl` exists; long OG list does not |
-| P1 | ~25 players have no Commons image | `data/canonical/player-media.json` `missing[]` | e.g. Joe Spence, Stan Pearson, Gary Pallister — initials fallback |
-| P1 | Post-retirement Wikidata P18 for legends | `scripts/ingest/wikidata-player-media.ts` | Extend `CURATED_COMMONS_OVERRIDES` / `MANUAL_PORTRAIT_SOURCES` (Keane, Schmeichel, Cantona, Bruce, etc.) |
+| P1 | ~18 players still have no Commons image | `data/canonical/player-media.json` `missing[]` | e.g. Joe Spence, Lou Macari, Gary Pallister — initials fallback; down from ~25 after legend overrides |
 | P2 | Long tail (~850 players) outside media cohort | ingest selection logic | Accept initials, or expand cohorts thoughtfully |
+| P2 | `check:media --strict-coverage` not yet in CI | `scripts/check-media.ts` | `check:media` runs in CI; strict coverage flag deferred until missing[] stabilises |
 
 ### Truncation and dense layouts
 
 | Priority | Item | Where | Notes |
 |----------|------|-------|-------|
-| P2 | Match list meta columns truncate on `sm+` | `components/MatchList.tsx` | Competition `10.5rem`, round `7rem`; mobile sub-line improved but desktop rail still clips long European names |
-| P2 | `SplitBar` / `CupLeanBar` hide counts in narrow segments | `components/charts/SplitBar.tsx`, `CupLeanBar.tsx` | Labels hidden or truncated when segment &lt; ~11% width |
-| P2 | `GeoScatter` label overlap | `components/GeoScatter.tsx` | Top-N labels to the right of dots; no collision avoidance |
-| P2 | Season competition headers clip | `app/seasons/[season]/page.tsx` | `line-clamp-2` mobile → `sm:truncate` |
 | P2 | Manager index names on very narrow screens | `app/managers/page.tsx` | Opponents pass `compactName`; managers usually short enough — revisit if needed |
 
 ### Copy and micro-consistency
 
 | Priority | Item | Where | Notes |
 |----------|------|-------|-------|
-| P2 | Search placeholder tone varies | `HeaderSearch`, `CommandPalette`, `app/search/page.tsx`, `SearchCommand` | Different guidance across entry points |
-| P3 | `ShirtBadge` shows `--` when number missing | `components/ShirtBadge.tsx` | Consider quieter empty state |
-| P3 | `TransferList` uses `"date unknown"` | `components/TransferList.tsx` | Elsewhere site prefers `—` (`lib/format.ts`) |
 | P3 | Pre-war OG scorers show as `"Unknown"` | `components/OwnGoalProfile.tsx` | Data-correct; visually flat |
-| — | **Copy-refine pass in progress** | `app/page.tsx`, `lib/questions.ts`, `components/WhatsInteresting.tsx`, en-dash normalisation in streak modules | Uncommitted WIP — see `docs/COPY-REFINE-LOG.md` |
 
 ### Intentional (do not “fix” without product decision)
 
@@ -98,29 +119,26 @@ These are done on `master` — listed here so we do not re-open them.
 
 ---
 
-## Open — from `docs/VISUAL-AUDIT.md` (not yet in a polish pass)
-
-These predate the June 2026 sweep but remain valid. See the audit for detail.
+## Open — from `docs/VISUAL-AUDIT.md` (remaining)
 
 | Severity | Page / area | Summary |
 |----------|-------------|---------|
-| High | `/analytics/odds` | Native opponent `select`; calibration table mobile overflow; hero layout |
-| Medium-high | `/analytics/travel` | Map should lead; metric chips; legend clarity |
-| Medium | `/match/[id]` | Facts `dl` vs `StatTile`; teamsheet grouping; page length on mobile |
-| Medium | `/player/[id]` | Long chart stack on mobile — more collapsible groups |
+| Medium | `/match/[id]` | Tabbed Goals / Teamsheet / Provenance / Trails (deferred — larger structural change) |
 | Medium | Global G-05 | `text-ink-faint` on trust/coverage surfaces — contrast |
 | Medium | Global G-06 | Atmosphere beyond competition colour (texture, honours markers) |
 | Low-medium | Global G-07 | Hover/focus vocabulary consistency across link types |
+| Low | `/player/[id]` | “How he scored & created” / curated Tableau block lower on scroll stack |
+
+*Completed from this audit in second pass: `/analytics` odds, away-days travel, match facts/teamsheet/length, player chart collapsibles.*
 
 ---
 
 ## Suggested next passes
 
-1. **Media queue** — Curated overrides + manual crops for 5–10 legends; run `cache:media`; add `check:media --strict-coverage` to CI once stable.
-2. **Analytics assist UI** — Reuse `AssistPartnerships` (or thumbnails) on `/analytics` supply lines.
-3. **Ingest surname alignment** — Share `familyName()` slug logic with `nameParts()` so Tableau/MUFCInfo resolution matches display.
-4. **Mobile page depth** — `/player/[id]` and `/match/[id]` collapsible sections; `/analytics/odds` combobox.
-5. **Copy-refine** — Land or split the uncommitted homepage/questions copy work.
+1. **Remaining media queue** — Curated overrides / manual crops for the 18 `missing[]` legends (Spence, Macari, Pallister, etc.); run `cache:media`; enable `check:media --strict-coverage` once stable.
+2. **Global design tokens** — G-05 faint-text contrast, G-06 atmosphere, G-07 hover/focus vocabulary (see `docs/VISUAL-AUDIT.md`).
+3. **Match page depth** — Tabbed Goals / Teamsheet / Provenance if mobile length remains an issue after collapsible details.
+4. **Manager index** — `compactName` on very narrow screens if user reports clip.
 
 ---
 

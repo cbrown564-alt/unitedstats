@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CoverageNote } from "@/components/CoverageNote";
+import { SelectCombobox } from "@/components/SelectCombobox";
 import { fmtNum, venueLabel } from "@/lib/format";
 import type { Odds } from "@/lib/predict";
 
@@ -51,25 +52,50 @@ export function OddsPredictor({
   }
 
   const odds = oddsByOpponent[opponentId]?.[venue];
+  const opponentOptions = opponents.map((o) => ({ value: o.id, label: o.name }));
 
   return (
-    <div className="rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
-      <div className="flex flex-wrap items-end gap-3 text-sm">
-        <label className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-wider text-ink-faint">Opponent</span>
-          <select
-            value={opponentId}
-            onChange={(e) => {
-              setOpponentId(e.target.value);
-              sync(e.target.value, venue);
-            }}
-            className="control"
-          >
-            {opponents.map((o) => (
-              <option key={o.id} value={o.id}>{o.name}</option>
-            ))}
-          </select>
-        </label>
+    <div className="overflow-hidden rounded-lg border border-line bg-panel shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
+      {odds ? (
+        <div className="border-b border-line bg-panel-2/40 px-4 py-5 sm:px-5">
+          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-devil-bright">
+            Strength forecast
+          </p>
+          <p className="mb-4 text-sm text-ink-dim">
+            United v <span className="font-medium text-ink">{odds.opponentName}</span>,{" "}
+            {venueLabel(venue).toLowerCase()}, at today&apos;s Elo ratings — not bookmaker odds.
+          </p>
+          <div className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line text-center">
+            <div className="bg-panel px-2 py-3 sm:px-3 sm:py-4">
+              <div className="stat-num text-2xl font-semibold text-win sm:text-3xl">{(100 * odds.pW).toFixed(0)}%</div>
+              <div className="text-[11px] uppercase tracking-wider text-ink-faint">United win</div>
+            </div>
+            <div className="bg-panel px-2 py-3 sm:px-3 sm:py-4">
+              <div className="stat-num text-2xl font-semibold text-draw sm:text-3xl">{(100 * odds.pD).toFixed(0)}%</div>
+              <div className="text-[11px] uppercase tracking-wider text-ink-faint">Draw</div>
+            </div>
+            <div className="bg-panel px-2 py-3 sm:px-3 sm:py-4">
+              <div className="stat-num text-2xl font-semibold text-loss sm:text-3xl">{(100 * odds.pL).toFixed(0)}%</div>
+              <div className="text-[11px] uppercase tracking-wider text-ink-faint">{odds.opponentName} win</div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="border-b border-line px-4 py-5 sm:px-5">
+          <p className="text-sm text-ink-dim">Pick an opponent and venue to see the strength forecast.</p>
+        </div>
+      )}
+
+      <div className="flex flex-wrap items-end gap-3 p-4 text-sm">
+        <SelectCombobox
+          label="Opponent"
+          options={opponentOptions}
+          value={opponentId}
+          onChange={(id) => {
+            setOpponentId(id);
+            sync(id, venue);
+          }}
+        />
         <label className="flex flex-col gap-1">
           <span className="text-xs uppercase tracking-wider text-ink-faint">Venue</span>
           <select
@@ -89,25 +115,7 @@ export function OddsPredictor({
       </div>
 
       {odds && (
-        <div className="mt-5">
-          <p className="mb-3 text-sm text-ink-dim">
-            United v <span className="font-medium text-ink">{odds.opponentName}</span>,{" "}
-            {venueLabel(venue).toLowerCase()}, at today&apos;s ratings:
-          </p>
-          <div className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line text-center">
-            <div className="bg-panel-2 px-3 py-3">
-              <div className="stat-num text-2xl font-semibold text-win">{(100 * odds.pW).toFixed(0)}%</div>
-              <div className="text-[11px] uppercase tracking-wider text-ink-faint">United win</div>
-            </div>
-            <div className="bg-panel-2 px-3 py-3">
-              <div className="stat-num text-2xl font-semibold text-draw">{(100 * odds.pD).toFixed(0)}%</div>
-              <div className="text-[11px] uppercase tracking-wider text-ink-faint">Draw</div>
-            </div>
-            <div className="bg-panel-2 px-3 py-3">
-              <div className="stat-num text-2xl font-semibold text-loss">{(100 * odds.pL).toFixed(0)}%</div>
-              <div className="text-[11px] uppercase tracking-wider text-ink-faint">{odds.opponentName} win</div>
-            </div>
-          </div>
+        <div className="border-t border-line px-4 pb-4 sm:px-4">
           <CoverageNote
             slice={`United ${Math.round(odds.unitedElo)} v ${odds.opponentName} ${Math.round(odds.opponentElo)} (closed-universe Elo, ${venueLabel(venue).toLowerCase()} worth ${venue === "N" ? 0 : homeAdvantage} points), expectancy ${(100 * odds.expected).toFixed(0)}%, split using the ${fmtNum(odds.sample)} historical matches in that expectancy band.`}
             evidenceHref={`/matches?opponent=${opponentId}`}

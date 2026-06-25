@@ -89,7 +89,7 @@ function MatchesArrival({
  * `${slug}-*` id so an answer's stages stay deep-linkable and citable.
  */
 function Module({
-  slug, finding, slice, coverage, evidence, variant = "canonical", children,
+  slug, finding, slice, coverage, evidence, variant = "canonical", visual, children,
 }: {
   slug: string;
   finding: string;
@@ -97,6 +97,8 @@ function Module({
   coverage?: string;
   evidence?: { href: string; label?: string; count?: number; countNoun?: string };
   variant?: ModuleVariant;
+  /** Optional visual payoff rendered before the prose answer (maps, charts). */
+  visual?: React.ReactNode;
   children: React.ReactNode;
 }) {
   const question = questionBySlug(slug)?.question ?? slug;
@@ -105,9 +107,10 @@ function Module({
     return (
       <section id={slug} className="border border-line rounded-lg bg-panel p-5 sm:p-6 scroll-mt-28 space-y-5">
         <header className="flex items-start justify-between gap-4">
-          <div>
+          <div className="min-w-0 space-y-4">
             <h2 className="display text-balance text-2xl">{question}</h2>
-            <p className="text-sm text-ink-dim mt-1 text-pretty">{finding}</p>
+            {visual}
+            <p className="text-sm text-ink-dim text-pretty">{finding}</p>
           </div>
           <Link
             href={`/questions/${slug}`}
@@ -133,6 +136,13 @@ function Module({
   }
 
   const stations: ThreadStation[] = [
+    ...(visual
+      ? [{
+          id: `${slug}-visual`,
+          label: "The map",
+          node: visual,
+        }]
+      : []),
     {
       id: `${slug}-answer`,
       label: "Answer",
@@ -736,18 +746,29 @@ function AwayDaysModule({ variant }: ModuleProps) {
   const domestic = footprint.filter((v) => v.european === 0);
   const european = footprint.filter((v) => v.european > 0);
   const farthest = [...footprint].sort((a, b) => b.km - a.km)[0];
-  return (
-    <Module
-      slug="away-days"
-      evidence={{ href: "/matches?venue=A", label: "Every away match →", count: travelCov.total, countNoun: "away matches" }}
-      variant={variant}
-      finding={`Across ${fmtNum(travelCov.covered)} mapped away matches, the trips run from short Lancashire hops to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Season travel steps up with the First Division's southern spread and European football from 1956.`}
-      slice={`official away matches; one-way distance from Manchester to each opponent's home town, city level. Average trip per season, ${travelSeasons[0]?.season}–${travelSeasons[travelSeasons.length - 1]?.season}.`}
-      coverage={`opponent home towns are mapped for ${fmtNum(travelCov.covered)} of ${fmtNum(travelCov.total)} official away matches.`}
-    >
-      <div className="grid lg:grid-cols-2 gap-4">
+  const countries = new Set(footprint.map((v) => v.country).filter(Boolean)).size;
+  const totalKm = footprint.reduce((sum, v) => sum + v.km * v.p, 0);
+  const travelVisual = (
+    <>
+      <div className="flex flex-wrap gap-2">
+        {[
+          { value: fmtNum(footprint.length), label: "away grounds" },
+          { value: fmtNum(countries), label: countries === 1 ? "country" : "countries" },
+          { value: `${fmtNum(Math.round(farthest.km))} km`, label: "farthest hop" },
+          { value: `${Math.round(totalKm / 1000).toLocaleString()}k km`, label: "mapped travel" },
+        ].map((chip) => (
+          <div
+            key={chip.label}
+            className="rounded-full border border-line bg-panel-2 px-3 py-1.5 text-xs"
+          >
+            <span className="stat-num font-semibold text-ink">{chip.value}</span>
+            <span className="ml-1.5 text-ink-faint">{chip.label}</span>
+          </div>
+        ))}
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
         <div>
-          <h3 className="text-sm font-medium mb-2 text-ink-dim">
+          <h3 className="mb-2 text-sm font-medium text-ink-dim">
             The league footprint · {domestic.length} grounds
           </h3>
           <GeoScatter
@@ -759,7 +780,7 @@ function AwayDaysModule({ variant }: ModuleProps) {
           />
         </div>
         <div>
-          <h3 className="text-sm font-medium mb-2 text-ink-dim">
+          <h3 className="mb-2 text-sm font-medium text-ink-dim">
             European nights · {european.length} clubs
           </h3>
           <GeoScatter
@@ -769,11 +790,24 @@ function AwayDaysModule({ variant }: ModuleProps) {
             land={EUROPE_LAND}
             labelTop={8}
             dotColor="var(--color-gold)"
+            dotLabel="European away ground"
           />
         </div>
       </div>
+    </>
+  );
+  return (
+    <Module
+      slug="away-days"
+      evidence={{ href: "/matches?venue=A", label: "Every away match →", count: travelCov.total, countNoun: "away matches" }}
+      variant={variant}
+      visual={travelVisual}
+      finding={`Across ${fmtNum(travelCov.covered)} mapped away matches, the trips run from short Lancashire hops to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Season travel steps up with the First Division's southern spread and European football from 1956.`}
+      slice={`official away matches; one-way distance from Manchester to each opponent's home town, city level. Average trip per season, ${travelSeasons[0]?.season}–${travelSeasons[travelSeasons.length - 1]?.season}.`}
+      coverage={`opponent home towns are mapped for ${fmtNum(travelCov.covered)} of ${fmtNum(travelCov.total)} official away matches.`}
+    >
       <div>
-        <h3 className="text-sm font-medium mb-2 text-ink-dim">Average away trip per season</h3>
+        <h3 className="mb-2 text-sm font-medium text-ink-dim">Average away trip per season</h3>
         <InspectableTimeSeriesChart
           data={travelSeasons.map((s) => ({
             x: Number(s.season.slice(0, 4)),

@@ -30,7 +30,7 @@ function TypeBadge({ type }: { type: string }) {
 
 /** Best date label for the row's precision — full date, month, or year. */
 function transferDate(t: TransferRow): string {
-  if (!t.date) return "date unknown";
+  if (!t.date) return "—";
   if (t.date_precision === "day") return fmtDate(t.date);
   if (t.date_precision === "month") return fmtMonthYear(t.date);
   return t.date.slice(0, 4);

@@ -1453,17 +1453,31 @@ export interface OwnGoalScorer {
   recent_match_id: string;
   thumb_url: string | null;
   image_url: string | null;
+  page_url: string | null;
+  license: string | null;
 }
 
 /** Commons portrait per own-goal scorer name, where one resolved. */
-function ownGoalScorerMedia(): Map<string, { thumb_url: string | null; image_url: string | null }> {
+function ownGoalScorerMedia(): Map<string, {
+  thumb_url: string | null;
+  image_url: string | null;
+  page_url: string | null;
+  license: string | null;
+}> {
   const rows = getDb()
     .prepare(`SELECT name,
                      COALESCE(local_path, thumb_url) thumb_url,
-                     COALESCE(local_path, image_url) image_url
+                     COALESCE(local_path, image_url) image_url,
+                     page_url, license
               FROM og_scorer_media`)
-    .all() as { name: string; thumb_url: string | null; image_url: string | null }[];
-  return new Map(rows.map((r) => [r.name, { thumb_url: r.thumb_url, image_url: r.image_url }]));
+    .all() as {
+      name: string;
+      thumb_url: string | null;
+      image_url: string | null;
+      page_url: string | null;
+      license: string | null;
+    }[];
+  return new Map(rows.map((r) => [r.name, r]));
 }
 
 /** Opposition players ranked by own goals gifted to United (named scorers only). */
@@ -1480,7 +1494,7 @@ export function ownGoalScorers(): OwnGoalScorer[] {
       map.set(r.scorer, {
         name: r.scorer, n: 1, first: r.date, last: r.date,
         recent_opponent: r.opponent_name, recent_opponent_id: r.opponent_id, recent_match_id: r.match_id,
-        thumb_url: null, image_url: null,
+        thumb_url: null, image_url: null, page_url: null, license: null,
       });
     }
   }
@@ -1490,6 +1504,8 @@ export function ownGoalScorers(): OwnGoalScorer[] {
     if (m) {
       scorer.thumb_url = m.thumb_url;
       scorer.image_url = m.image_url;
+      scorer.page_url = m.page_url;
+      scorer.license = m.license;
     }
   }
   return [...map.values()].sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.name.localeCompare(b.name));
@@ -1741,7 +1757,7 @@ const TRANSFER_SELECT = `
   SELECT t.id, t.player_id, COALESCE(p.name, t.player_name) player_name,
          t.direction, t.date, t.date_precision, t.season, t.club, t.club_id,
          t.fee_gbp, t.fee_kind, t.market_value_eur, t.type,
-         pm.local_path thumb_url
+         COALESCE(pm.local_path, pm.thumb_url, pm.image_url) thumb_url
   FROM transfers t
   LEFT JOIN players p ON p.id = t.player_id
   LEFT JOIN player_media pm ON pm.player_id = t.player_id

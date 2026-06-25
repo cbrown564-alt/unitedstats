@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
+import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 
 type SearchCommandProps = {
   autoFocusKey?: boolean;
@@ -106,7 +107,7 @@ export function HeaderSearch() {
               compact
               autoFocusKey={false}
               autoFocusOnMount
-              placeholder="Search names, seasons, questions…"
+              placeholder={SEARCH_PLACEHOLDER}
               onNavigate={() => setMobileOpen(false)}
             />
           ) : (
@@ -133,7 +134,7 @@ function SearchShell({
         tabIndex={0}
         aria-label="Search players, opponents, seasons, managers, stadiums, and shaped questions"
         aria-busy={activating}
-        placeholder={activating ? "Loading search…" : "Search..."}
+        placeholder={activating ? "Loading search…" : SEARCH_PLACEHOLDER}
         onFocus={onActivate}
         onPointerDown={onActivate}
         className={`w-full cursor-text rounded-md border bg-panel px-3 py-1.5 text-sm placeholder:text-ink-faint focus:outline-none ${

@@ -1,5 +1,7 @@
+/** Canonical input placeholder shared across search entry points. */
+export const SEARCH_PLACEHOLDER = "Search names, seasons, or questions…";
+
 /**
- * Worked example queries for the empty state — questions the deterministic
  * parser actually answers, so a first-time searcher sees what the box can do.
  * Shared by the dropdown empty state, the command palette, and /search. The
  * natural-language entry ("did United ever beat Barcelona") teaches that the box
