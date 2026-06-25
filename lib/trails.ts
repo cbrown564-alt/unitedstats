@@ -150,7 +150,8 @@ export function managerBounce(): ManagerBounce[] {
   const managers = db
     .prepare(
       `SELECT mg.id, mg.name, MIN(m.date) first_date, COUNT(*) p,
-              mm.thumb_url, mm.image_url
+              mm.local_path thumb_url,
+              mm.local_path image_url
        FROM managers mg JOIN matches m ON m.manager_id = mg.id
        LEFT JOIN manager_media mm ON mm.manager_id = mg.id
        GROUP BY mg.id HAVING p >= 10 ORDER BY first_date`,
@@ -551,7 +552,8 @@ export function cupSpecialists(minGoals = 25, limit = 10): CupSpecialist[] {
       `SELECT e.player_id, p.name, COUNT(*) total,
               SUM(c.type NOT IN ('league','unofficial')) cup_goals,
               SUM(c.type = 'league') league_goals,
-              pm.thumb_url, pm.image_url
+              pm.local_path thumb_url,
+              pm.local_path image_url
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
        JOIN competitions c ON c.id = m.competition_id

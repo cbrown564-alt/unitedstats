@@ -687,7 +687,8 @@ export function managersIndex(): ManagerRecord[] {
                 COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
                 COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga,
                 MIN(m.date) first, MAX(m.date) last,
-                mm.thumb_url, mm.image_url
+                mm.local_path thumb_url,
+                mm.local_path image_url
          FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
          LEFT JOIN manager_media mm ON mm.manager_id = mg.id
          GROUP BY mg.id ORDER BY first`,
@@ -855,8 +856,8 @@ const PLAYER_TOTALS_SELECT = `
          ps.shirt primary_shirt,
          ps.decade primary_shirt_decade,
          ps.apps primary_shirt_apps,
-         pm.image_url player_image_url,
-         pm.thumb_url player_thumb_url,
+         pm.local_path player_image_url,
+         pm.local_path player_thumb_url,
          pm.page_url player_image_page_url,
          pm.license player_image_license,
          pp.bucket position_bucket,
@@ -1237,8 +1238,8 @@ export interface AssistPartnership {
 export function topAssistPartnerships(limit = 20): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.thumb_url scorer_thumb,
-              e.assist_player_id assister_id, ap.name assister_name, apm.thumb_url assister_thumb,
+      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.local_path scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name, apm.local_path assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
@@ -1260,8 +1261,8 @@ export function topAssistPartnerships(limit = 20): AssistPartnership[] {
 export function playerAssistPartnerships(id: string, limit = 12): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.thumb_url scorer_thumb,
-              e.assist_player_id assister_id, ap.name assister_name, apm.thumb_url assister_thumb,
+      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.local_path scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name, apm.local_path assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
@@ -1453,7 +1454,10 @@ export interface OwnGoalScorer {
 /** Commons portrait per own-goal scorer name, where one resolved. */
 function ownGoalScorerMedia(): Map<string, { thumb_url: string | null; image_url: string | null }> {
   const rows = getDb()
-    .prepare("SELECT name, thumb_url, image_url FROM og_scorer_media")
+    .prepare(`SELECT name,
+                     local_path thumb_url,
+                     local_path image_url
+              FROM og_scorer_media`)
     .all() as { name: string; thumb_url: string | null; image_url: string | null }[];
   return new Map(rows.map((r) => [r.name, { thumb_url: r.thumb_url, image_url: r.image_url }]));
 }
@@ -1733,7 +1737,7 @@ const TRANSFER_SELECT = `
   SELECT t.id, t.player_id, COALESCE(p.name, t.player_name) player_name,
          t.direction, t.date, t.date_precision, t.season, t.club, t.club_id,
          t.fee_gbp, t.fee_kind, t.market_value_eur, t.type,
-         pm.thumb_url
+         pm.local_path thumb_url
   FROM transfers t
   LEFT JOIN players p ON p.id = t.player_id
   LEFT JOIN player_media pm ON pm.player_id = t.player_id

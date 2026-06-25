@@ -9,7 +9,7 @@ export type RoundFilterKey =
   | "group-stage"
   | "play-off";
 
-export const ROUND_FILTER_KEYS: readonly RoundFilterKey[] = [
+const ROUND_FILTER_KEYS: readonly RoundFilterKey[] = [
   "final",
   "semi-final",
   "quarter-final",
@@ -19,7 +19,7 @@ export const ROUND_FILTER_KEYS: readonly RoundFilterKey[] = [
   "play-off",
 ];
 
-export const ROUND_FILTER_LABELS: Record<RoundFilterKey, string> = {
+const ROUND_FILTER_LABELS: Record<RoundFilterKey, string> = {
   final: "Final",
   "semi-final": "Semi-final",
   "quarter-final": "Quarter-final",

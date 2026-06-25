@@ -66,8 +66,9 @@ by competition rules, not calendar).
   career span; match-derived lineup/event counts remain separate coverage
   fields.
 - **`player-media.json`** — top-player image manifest imported from Wikidata
-  `P18` and Wikimedia Commons `imageinfo`, including thumbnail URL, Commons
-  description URL, license short name, artist, credit, and retrieval timestamp.
+  `P18` and Wikimedia Commons `imageinfo`, including original image/thumbnail
+  URL, optional checked `localPath` under `public/media`, Commons description
+  URL, license short name, artist, credit, and retrieval timestamp.
 - **`player-shirts.json`** — top-player shirt-number summary derived from
   MUFCInfo match pages. Rows are grouped by player, shirt number, and decade
   for the appearance-ranked top 500 where numbered lineup rows are available.
@@ -109,7 +110,7 @@ player_totals(player_id FK, competition_type, apps, starts, goals, assists, firs
 player_records(player_id FK, career, first_year, last_year, starts, subs, apps,
                goals, source_id, source_url, stats_as_of)
 player_media(player_id FK, wikidata_id, commons_file, image_url, thumb_url,
-             page_url, license, artist, credit, source_id, retrieved_at)
+local_path, page_url, license, artist, credit, source_id, retrieved_at)
 player_shirts(player_id FK, shirt, decade, apps, first_date, last_date, source_id)
 season_summaries(season, competition_id, p, w, d, l, gf, ga, position, note)
 streaks(...), records(...)
@@ -165,9 +166,11 @@ lineup source from producing impossible statements such as goals exceeding
 appearances.
 
 Player portraits use a third source lane: `player_media` is optional,
-Commons-backed, and license-labelled. Missing portraits fall back to generated
-shirt/initial visuals rather than unlicensed club, agency, or search-result
-images.
+Commons-backed, and license-labelled. Original Wikimedia URLs remain as
+provenance and refresh inputs, while app surfaces use only checked local
+`local_path` files. Missing or uncached portraits fall back to generated
+shirt/initial visuals rather than remote hotlinks, unlicensed club images,
+agency images, or search-result images.
 
 MUFCInfo is the preferred broad historical lane for United lineup and shirt
 number enrichment. `npm run ingest:mufcinfo-lineups` writes match-level

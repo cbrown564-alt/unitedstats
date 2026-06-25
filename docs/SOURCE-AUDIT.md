@@ -89,15 +89,18 @@ should enter the canonical record.
 - **Range:** strongest for modern and famous players; early players often have
   no reusable portrait. Use this before considering club-site or agency images.
 - **Importer:** `npm run ingest:player-media` imports the top 100
-  `player_records` rows by appearances into `data/canonical/player-media.json`;
-  `npm run build:db` loads reusable image and attribution fields into
-  `player_media`.
+  `player_records` rows by appearances plus the Premier League-era cohort and
+  featured surfaces into `data/canonical/player-media.json`; `npm run
+  cache:media` downloads verified local WebP display files into
+  `public/media/**`; `npm run build:db` loads reusable image, local path, and
+  attribution fields into `player_media`.
 - **Failure modes:** no image, poor likeness, non-player images, deleted Commons
-  files, or license metadata requiring visible attribution.
+  files, Wikimedia rate limits during cache refresh, or license metadata
+  requiring visible attribution.
 - **Canonical rule:** do not hotlink or store official club images unless
-  explicit reuse permission is recorded. If Commons coverage cannot reach the
-  top 100, use the shirt-number visual as the fallback rather than unlicensed
-  portraits.
+  explicit reuse permission is recorded. App surfaces use `local_path` only; if
+  Commons media is not cached, use the shirt-number/initial visual as the
+  fallback rather than remote or unlicensed portraits.
 
 ## RSSSF
 

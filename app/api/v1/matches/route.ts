@@ -25,6 +25,7 @@ export async function GET(request: Request) {
   };
   const from = p("from");
   const to = p("to");
+  const rawRound = p("round");
   if ((from && !ISO_DATE.test(from)) || (to && !ISO_DATE.test(to))) {
     return apiError(400, "from/to must be ISO dates (YYYY, YYYY-MM, or YYYY-MM-DD)");
   }
@@ -37,7 +38,7 @@ export async function GET(request: Request) {
     venue: p("venue"),
     result: p("result"),
     type: p("type"),
-    round: isRoundFilterKey(p("round") ?? undefined) ? p("round") : undefined,
+    round: isRoundFilterKey(rawRound) ? rawRound : undefined,
     stadium: p("stadium"),
     city: p("city"),
     scorer: p("scorer"),

@@ -158,7 +158,7 @@ const counts: Record<string, number> = {
             pr.source_id record_source_id,
             pr.source_url record_source_url,
             pr.stats_as_of record_stats_as_of,
-            pm.thumb_url player_thumb_url,
+            pm.local_path player_thumb_url,
             pm.page_url player_image_page_url,
             pm.license player_image_license,
             pp.bucket position_bucket,
@@ -176,7 +176,7 @@ const counts: Record<string, number> = {
   ),
   "player_media.csv": exportCsv(
     "player_media.csv",
-    `SELECT pm.player_id, p.name, pm.wikidata_id, pm.commons_file, pm.image_url, pm.thumb_url,
+    `SELECT pm.player_id, p.name, pm.wikidata_id, pm.commons_file, pm.image_url, pm.thumb_url, pm.local_path,
             pm.page_url, pm.license, pm.artist, pm.credit, pm.source_id, pm.retrieved_at
      FROM player_media pm
      JOIN players p ON p.id = pm.player_id
@@ -184,7 +184,7 @@ const counts: Record<string, number> = {
   ),
   "manager_media.csv": exportCsv(
     "manager_media.csv",
-    `SELECT mm.manager_id, mg.name, mm.wikidata_id, mm.commons_file, mm.image_url, mm.thumb_url,
+    `SELECT mm.manager_id, mg.name, mm.wikidata_id, mm.commons_file, mm.image_url, mm.thumb_url, mm.local_path,
             mm.page_url, mm.license, mm.artist, mm.credit, mm.source_id, mm.retrieved_at
      FROM manager_media mm
      JOIN managers mg ON mg.id = mm.manager_id
@@ -192,7 +192,7 @@ const counts: Record<string, number> = {
   ),
   "og_scorer_media.csv": exportCsv(
     "og_scorer_media.csv",
-    `SELECT name, wikidata_id, commons_file, image_url, thumb_url,
+    `SELECT name, wikidata_id, commons_file, image_url, thumb_url, local_path,
             page_url, license, artist, credit, source_id, retrieved_at
      FROM og_scorer_media
      ORDER BY name`,

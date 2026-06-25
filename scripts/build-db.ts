@@ -63,6 +63,7 @@ interface PlayerMedia {
     commonsFile: string;
     imageUrl: string;
     thumbUrl?: string | null;
+    localPath?: string | null;
     pageUrl?: string | null;
     license?: string | null;
     artist?: string | null;
@@ -78,6 +79,7 @@ interface ManagerMedia {
     commonsFile: string;
     imageUrl: string;
     thumbUrl?: string | null;
+    localPath?: string | null;
     pageUrl?: string | null;
     license?: string | null;
     artist?: string | null;
@@ -93,6 +95,7 @@ interface OgScorerMedia {
     commonsFile: string;
     imageUrl: string;
     thumbUrl?: string | null;
+    localPath?: string | null;
     pageUrl?: string | null;
     license?: string | null;
     artist?: string | null;
@@ -441,6 +444,7 @@ CREATE TABLE player_media (
   commons_file TEXT NOT NULL,
   image_url TEXT NOT NULL,
   thumb_url TEXT,
+  local_path TEXT,
   page_url TEXT,
   license TEXT,
   artist TEXT,
@@ -456,6 +460,7 @@ CREATE TABLE manager_media (
   commons_file TEXT NOT NULL,
   image_url TEXT NOT NULL,
   thumb_url TEXT,
+  local_path TEXT,
   page_url TEXT,
   license TEXT,
   artist TEXT,
@@ -470,6 +475,7 @@ CREATE TABLE og_scorer_media (
   commons_file TEXT NOT NULL,
   image_url TEXT NOT NULL,
   thumb_url TEXT,
+  local_path TEXT,
   page_url TEXT,
   license TEXT,
   artist TEXT,
@@ -643,7 +649,7 @@ for (const r of playerRecords) {
   );
 }
 
-const insPlayerMedia = db.prepare("INSERT OR REPLACE INTO player_media VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+const insPlayerMedia = db.prepare("INSERT OR REPLACE INTO player_media VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 for (const m of playerMedia) {
   insPlayerMedia.run(
     m.playerId,
@@ -651,6 +657,7 @@ for (const m of playerMedia) {
     m.commonsFile,
     m.imageUrl,
     m.thumbUrl ?? null,
+    m.localPath ?? null,
     m.pageUrl ?? null,
     m.license ?? null,
     m.artist ?? null,
@@ -661,19 +668,19 @@ for (const m of playerMedia) {
 }
 
 const managerIds = new Set(managers.map((m) => m.id));
-const insManagerMedia = db.prepare("INSERT OR REPLACE INTO manager_media VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+const insManagerMedia = db.prepare("INSERT OR REPLACE INTO manager_media VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 for (const m of managerMedia) {
   if (!managerIds.has(m.managerId)) continue;
   insManagerMedia.run(
-    m.managerId, m.wikidataId ?? null, m.commonsFile, m.imageUrl, m.thumbUrl ?? null,
+    m.managerId, m.wikidataId ?? null, m.commonsFile, m.imageUrl, m.thumbUrl ?? null, m.localPath ?? null,
     m.pageUrl ?? null, m.license ?? null, m.artist ?? null, m.credit ?? null, m.sourceId, m.retrievedAt ?? null,
   );
 }
 
-const insOgMedia = db.prepare("INSERT OR REPLACE INTO og_scorer_media VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+const insOgMedia = db.prepare("INSERT OR REPLACE INTO og_scorer_media VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 for (const m of ogScorerMedia) {
   insOgMedia.run(
-    m.name, m.wikidataId ?? null, m.commonsFile, m.imageUrl, m.thumbUrl ?? null,
+    m.name, m.wikidataId ?? null, m.commonsFile, m.imageUrl, m.thumbUrl ?? null, m.localPath ?? null,
     m.pageUrl ?? null, m.license ?? null, m.artist ?? null, m.credit ?? null, m.sourceId, m.retrievedAt ?? null,
   );
 }

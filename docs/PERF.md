@@ -81,11 +81,12 @@ Elo hero chart is above the fold.
   fixed-size container, and club crests are pure CSS — no layout shift.
 - **LCP:** the hero portrait on `/player/[id]` now sets `priority` (+ `sizes`),
   so the page's largest image isn't lazy-loaded.
-- **Wikimedia 429s:** portraits are immutable, so the optimizer holds each
-  variant for a year (`images.minimumCacheTTL`). Wikimedia is hit at most once
-  per image rather than on every cache expiry. (A build-time download into
-  `public/` would remove the runtime dependency entirely — noted as optional
-  further hardening; not needed for the perf budget.)
+- **Portrait delivery:** Wikimedia URLs are provenance, not the production
+  delivery path. `npm run cache:media` downloads licensed media records into
+  `public/media/**` as verified local WebP files, and app queries expose only
+  `local_path` values. Records that are not cached render through the designed
+  initials/shirt fallback rather than hotlinking Wikimedia. `npm run
+  check:media` validates cached files and reports cache/fallback coverage.
 
 ## M6 — regression guard
 
