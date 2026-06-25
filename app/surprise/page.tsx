@@ -1,14 +1,34 @@
-import { redirect } from "next/navigation";
-import { pickSurprise } from "@/lib/surprise";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { PageHeader } from "@/components/PageHeader";
+import { SurpriseReveal } from "@/components/SurpriseReveal";
+import { surpriseFacts, pickIndex } from "@/lib/surprise";
 
-// The wanderer's door (Phase 18.3): every visit lands on a different real,
-// curated-quality surface — a tested question, a curated Cut, a flagship debate —
-// never random noise and never a dead end. Dynamic by design: the destination
-// must change on each load, so it is never cached. The curated pool lives in
-// `lib/surprise.ts`; this page only rolls the die and forwards. Entry points set
-// `prefetch={false}` so a hover never spends the surprise before the click.
+// The wanderer's door (Phase 18.3): not a redirect but a *reveal* — one curated,
+// genuinely-surprising fact, with a re-roll that deals another in place. Dynamic
+// so the server's opening fact varies per visit and reflects the latest data; the
+// curated pool and rolling logic live in `lib/surprise.ts` / `SurpriseReveal`.
 export const dynamic = "force-dynamic";
 
+export const metadata: Metadata = {
+  title: "Surprise me",
+  description:
+    "One curated, genuinely-surprising fact from United's record — then another, and another. Every find links to the matches behind it.",
+  alternates: { canonical: "/surprise" },
+};
+
 export default function SurprisePage() {
-  redirect(pickSurprise().href);
+  const facts = surpriseFacts();
+  if (facts.length === 0) notFound();
+  const seed = pickIndex(facts.length);
+
+  return (
+    <div className="space-y-8">
+      <PageHeader eyebrow="Surprise" title="Something you didn't know">
+        Pull the thread at random — a tested myth, a way to slice the record, or a club peak. Land on
+        one, follow it to its receipt, or roll again.
+      </PageHeader>
+      <SurpriseReveal facts={facts} seed={seed} />
+    </div>
+  );
 }

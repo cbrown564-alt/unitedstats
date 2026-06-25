@@ -18,27 +18,35 @@ import test from "node:test";
 
 import { QUESTIONS, questionSlugs } from "../lib/questions";
 import { CURATED_CUTS } from "../lib/cut";
-import { CURATED_DEBATES } from "../lib/compare";
-import { surpriseDestinations, pickSurprise } from "../lib/surprise";
+import { surpriseFacts, pickIndex } from "../lib/surprise";
 import { relatedAnswers, relatedSlugs } from "../lib/related";
 import { whatsInteresting } from "../lib/now";
 
 const slugSet = new Set(questionSlugs());
 
-test("the surprise pool is the union of every curated registry", () => {
-  const pool = surpriseDestinations();
-  const debates = CURATED_DEBATES.players.length + CURATED_DEBATES.managers.length + CURATED_DEBATES.eras.length;
-  assert.equal(pool.length, QUESTIONS.length + CURATED_CUTS.length + debates);
-  for (const d of pool) {
-    assert.ok(d.href.startsWith("/"), `surprise href is not site-relative: ${d.href}`);
-    assert.ok(d.label.length > 0, `surprise destination has no label: ${d.href}`);
+test("every surprise fact is a complete, curated morsel with a door", () => {
+  const facts = surpriseFacts();
+  // The nine questions and three cuts always resolve; records depend on data, so
+  // the floor is the curated minimum, not an exact count.
+  assert.ok(facts.length >= QUESTIONS.length + CURATED_CUTS.length, `thin surprise pool: ${facts.length}`);
+  const ids = new Set<string>();
+  const validTone = new Set(["devil", "gold", "win"]);
+  for (const f of facts) {
+    assert.ok(!ids.has(f.id), `duplicate surprise fact id: ${f.id}`);
+    ids.add(f.id);
+    assert.ok(f.figure.length > 0, `${f.id} has no figure`);
+    assert.notEqual(f.figure, "—", `${f.id} figure fell back to the no-data placeholder`);
+    assert.ok(f.line.length > 0, `${f.id} has no line`);
+    assert.ok(f.cta.length > 0, `${f.id} has no door label`);
+    assert.ok(f.href.startsWith("/"), `${f.id} href not site-relative: ${f.href}`);
+    assert.ok(validTone.has(f.tone), `${f.id} has an unknown tone: ${f.tone}`);
   }
 });
 
-test("pickSurprise stays in-bounds across the rng range", () => {
-  const pool = surpriseDestinations();
-  assert.deepEqual(pickSurprise(() => 0), pool[0]);
-  assert.deepEqual(pickSurprise(() => 0.999999), pool[pool.length - 1]);
+test("pickIndex stays in-bounds across the rng range", () => {
+  const len = surpriseFacts().length;
+  assert.equal(pickIndex(len, () => 0), 0);
+  assert.equal(pickIndex(len, () => 0.999999), len - 1);
 });
 
 test("every answer carries a curated trail of 2–3 valid next steps", () => {
