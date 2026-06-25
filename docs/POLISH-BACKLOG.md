@@ -4,7 +4,7 @@ Living list of known bugs, display quirks, and polish items identified in
 code review and UI sweeps (June 2026). Use this for the next polish passes;
 cross-check `docs/VISUAL-AUDIT.md` for broader design/UX audit items.
 
-**Last updated:** 2026-06-25 (second polish pass)
+**Last updated:** 2026-06-25 (G-05/G-07 pass, manager names, match mobile tabs)
 
 ---
 
@@ -77,6 +77,13 @@ These are done on `master` — listed here so we do not re-open them.
 - [x] `/match/[id]`: facts → `StatTile`; grouped teamsheet panel; collapsible “Match details”
 - [x] `/player/[id]`: collapsible chart groups (scoring shape, season contribution, spine, starts vs subs)
 
+### Global design tokens (third pass)
+
+- [x] G-05 trust-surface contrast — 41 `text-ink-faint` → `text-ink-dim` promotions on coverage/caveat text (match, player, seasons, QuestionModules, OwnGoalProfile, MatchList, ReliabilityCurve)
+- [x] G-07 link/hover vocabulary — three tiers documented in `docs/DESIGN-REFRESH.md`; `IndexRow`, match/player pages, `EvidenceLink`, `SelectCombobox` aligned
+- [x] Manager index `compactName={familyName(m.name)}` with full-name tooltip on `IndexRow`
+- [x] Match page mobile tabs (Option A) — `MatchSectionTabs`: Goals · Sheet · Details · Context · Sources below `sm`; desktop narrative unchanged
+
 ---
 
 ## Open — bugs and correctness
@@ -101,7 +108,7 @@ These are done on `master` — listed here so we do not re-open them.
 
 | Priority | Item | Where | Notes |
 |----------|------|-------|-------|
-| P2 | Manager index names on very narrow screens | `app/managers/page.tsx` | Opponents pass `compactName`; managers usually short enough — revisit if needed |
+| — | *(none)* | | Manager `compactName` done in third pass |
 
 ### Copy and micro-consistency
 
@@ -123,22 +130,18 @@ These are done on `master` — listed here so we do not re-open them.
 
 | Severity | Page / area | Summary |
 |----------|-------------|---------|
-| Medium | `/match/[id]` | Tabbed Goals / Teamsheet / Provenance / Trails (deferred — larger structural change) |
-| Medium | Global G-05 | `text-ink-faint` on trust/coverage surfaces — contrast |
 | Medium | Global G-06 | Atmosphere beyond competition colour (texture, honours markers) |
-| Low-medium | Global G-07 | Hover/focus vocabulary consistency across link types |
 | Low | `/player/[id]` | “How he scored & created” / curated Tableau block lower on scroll stack |
 
-*Completed from this audit in second pass: `/analytics` odds, away-days travel, match facts/teamsheet/length, player chart collapsibles.*
+*Completed from this audit: odds, travel, match facts/teamsheet/length, player chart collapsibles, G-05 contrast, G-07 hover/focus, match mobile tabs.*
 
 ---
 
 ## Suggested next passes
 
-1. **Remaining media queue** — Curated overrides / manual crops for the 18 `missing[]` legends (Spence, Macari, Pallister, etc.); run `cache:media`; enable `check:media --strict-coverage` once stable.
-2. **Global design tokens** — G-05 faint-text contrast, G-06 atmosphere, G-07 hover/focus vocabulary (see `docs/VISUAL-AUDIT.md`).
-3. **Match page depth** — Tabbed Goals / Teamsheet / Provenance if mobile length remains an issue after collapsible details.
-4. **Manager index** — `compactName` on very narrow screens if user reports clip.
+1. **Remaining media queue** — Curated overrides / manual crops for the 18 `missing[]` legends; run `cache:media`; enable `check:media --strict-coverage` once stable.
+2. **G-06 atmosphere** — Reusable `TrophyMarker` + era banding on seasons/Elo (see `docs/VISUAL-AUDIT.md`).
+3. **G-05 tail** — Optional second pass on decorative-faint vs actionable-faint in index/table meta (low priority).
 
 ---
 

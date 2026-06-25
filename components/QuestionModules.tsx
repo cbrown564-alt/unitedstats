@@ -56,7 +56,7 @@ function MatchesArrival({
       <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-devil-bright ring-4 ring-devil-bright/15" aria-hidden />
       <span className="min-w-0 flex-1">
         <span className="block text-base font-medium text-ink group-hover:text-devil-bright">{action}</span>
-        <span className="mt-0.5 block text-xs text-ink-faint">
+        <span className="mt-0.5 block text-xs text-ink-dim">
           {count != null ? (
             <><span className="stat-num text-ink-dim">{fmtNum(count)}</span> {countNoun ?? "matches"} behind this answer</>
           ) : (
@@ -125,7 +125,7 @@ function Module({
           {evidence && <EvidenceLink href={evidence.href} label={evidence.label} />}
         </div>
         <footer className="border-t border-line pt-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-          <div className="text-xs text-ink-faint space-y-1 min-w-0">
+          <div className="text-xs text-ink-dim space-y-1 min-w-0">
             <p><span className="text-ink-dim">Slice:</span> {slice}</p>
             {coverage && <p><span className="text-ink-dim">Coverage:</span> {coverage}</p>}
           </div>
@@ -210,7 +210,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
       <div>
         <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals land</h3>
         <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={200} />
-        <p className="text-xs text-ink-faint mt-1">
+        <p className="text-xs text-ink-dim mt-1">
           <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
           {" · "}
           <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage time</span>
@@ -239,7 +239,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
               baseline={{ value: 100 / 18 }}
             />
           </div>
-          <p className="text-xs text-ink-faint mt-1">
+          <p className="text-xs text-ink-dim mt-1">
             <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> last 5 min (86–90)</span>
             {" · "}
             <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage (90+)</span>
@@ -379,7 +379,7 @@ function BogeySidesModule({ variant }: ModuleProps) {
                     <ClubBadge id={o.id} name={o.name} />
                     <span className="truncate">{o.name}</span>
                   </Link>
-                  <span className="stat-num whitespace-nowrap text-[11px] text-ink-faint">
+                  <span className="stat-num whitespace-nowrap text-[11px] text-ink-dim">
                     {o.p} met · away {o.away_p ? pct(o.away_w, o.away_p) : "—"}
                   </span>
                 </div>
@@ -405,7 +405,7 @@ function ManagerBounceModule({ variant }: ModuleProps) {
       slice="Each manager's first 10 matches in charge versus the club's previous 10 matches (any manager), all competitions; managers with fewer than 10 matches, and the first manager on record, are excluded."
     >
       <div>
-        <div className="mb-3 flex items-center justify-between text-[11px] text-ink-faint">
+        <div className="mb-3 flex items-center justify-between text-[11px] text-ink-dim">
           <span className="flex items-center gap-3">
             <span className="flex items-center gap-1.5">
               <span className="inline-block h-2.5 w-2.5 rounded-full border-2 bg-pitch" style={{ borderColor: "var(--color-ink-faint)" }} />
@@ -562,7 +562,7 @@ function FortressModule({ variant }: ModuleProps) {
 
       <div>
         <h3 className="mb-2 text-sm font-medium text-ink-dim">Every home league game United led at half-time — oldest first</h3>
-        <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-faint">
+        <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-dim">
           <span className="flex items-center gap-1.5">
             <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "var(--color-win)" }} /> won
           </span>
@@ -574,7 +574,7 @@ function FortressModule({ variant }: ModuleProps) {
           </span>
         </div>
         <LeadHeldDotplot dots={leadDots} fromLabel={leadHeld.from.slice(0, 4)} toLabel={leadHeld.to.slice(0, 4)} />
-        <p className="text-xs text-ink-faint mt-1">
+        <p className="text-xs text-ink-dim mt-1">
           Each dot is one home league game United led at half-time; the numbered dots are the closest calls below.
         </p>
       </div>
@@ -627,7 +627,7 @@ function FortressModule({ variant }: ModuleProps) {
           yTickSuffix="%"
           baseline={{ value: 50, label: "half won" }}
         />
-        <p className="text-xs text-ink-faint mt-1">Percent of Old Trafford home matches won, by decade.</p>
+        <p className="text-xs text-ink-dim mt-1">Percent of Old Trafford home matches won, by decade.</p>
       </div>
     </Module>
   );
@@ -664,7 +664,7 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
       </div>
 
       <div>
-        <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-faint">
+        <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-dim">
           <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm bg-gold" /> cup goals</span>
           <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "var(--color-panel-2)" }} /> league goals</span>
           <span className="flex items-center gap-1.5">

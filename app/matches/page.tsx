@@ -20,7 +20,11 @@ import { fmtNum, fmtDate, pct, venueLabel, resultLabel, resultTone, COMPETITION_
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Matches" };
+export const metadata = {
+  title: "Matches",
+  description: "Browse and filter the complete Manchester United match record since 1886 — filter by opponent, manager, season, venue, and result.",
+};
+
 
 const PAGE_SIZE = 50;
 

@@ -1086,6 +1086,21 @@ moves every front door got: author the bold object that shows the whole subject 
 encoding dodge the data's pathology (here, that the subject barely existed in money terms for a century)
 rather than letting the pathology flatten the object.*
 
+## Global design tokens
+
+Ongoing polish from `docs/VISUAL-AUDIT.md` and `docs/POLISH-BACKLOG.md`. G-05
+(faint-text contrast) landed on `/data`; G-06 (atmosphere) is still open.
+
+**G-07 — link hover/focus (three tiers):**
+
+1. **Inline link** — entity names, list items, chart labels: `hover:text-devil-bright`
+   and `focus-ring` on the anchor. No underline unless the link sits in running prose.
+2. **Row link** — whole-row navigation (`IndexRow`, match/archive rows): `hover:bg-panel`
+   on the row anchor (`group` on the link); primary label gets `group-hover:text-devil-bright`.
+3. **CTA link** — trails, evidence paths, back links: `text-devil-bright hover:underline focus-ring`.
+
+Form fields keep `.control` focus (border + shadow); other interactives use `focus-ring`.
+
 ## Working method
 
 - One surface at a time, on its own branch; `next build` + golden tests + lint +

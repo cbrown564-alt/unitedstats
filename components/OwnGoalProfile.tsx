@@ -45,7 +45,7 @@ export function OwnGoalProfile() {
         enough to rank{rank ? ` #${rank}` : ""} among the club&apos;s all-time scorers — by {fmtNum(summary.scorers)}{" "}
         different opposition players, no one of them more than {repeat[0]?.n ?? 1} times.
         {summary.unknown > 0 && (
-          <span className="text-ink-faint">
+          <span className="text-ink-dim">
             {" "}({fmtNum(summary.unknown)} older own goals carry no recorded scorer.)
           </span>
         )}
@@ -64,14 +64,14 @@ export function OwnGoalProfile() {
                   <PlayerPortrait name={s.name} src={portraitByScorer.get(s.name)?.src} size="xs" />
                   <span className="min-w-0">
                     <span className="font-medium">{s.name}</span>
-                    <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-ink-faint hover:text-devil-bright">
+                    <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-ink-faint hover:text-devil-bright focus-ring">
                       {s.recent_opponent}
                     </Link>
                   </span>
                 </span>
                 <span className="stat-num shrink-0 text-ink-faint">
                   <span className="text-devil-bright">{fmtNum(s.n)}</span> · last{" "}
-                  <Link href={`/match/${s.recent_match_id}`} className="hover:text-devil-bright">{s.last.slice(0, 4)}</Link>
+                  <Link href={`/match/${s.recent_match_id}`} className="hover:text-devil-bright focus-ring">{s.last.slice(0, 4)}</Link>
                 </span>
               </li>
             ))}
@@ -89,11 +89,11 @@ export function OwnGoalProfile() {
             const portrait = e.scorer ? portraitByScorer.get(e.scorer) : null;
             return (
               <li key={`${e.match_id}-${i}`}>
-                <div className="px-3 py-2.5 transition-colors hover:bg-panel sm:px-4">
-                  <Link
-                    href={`/match/${e.match_id}`}
-                    className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-3"
-                  >
+                <Link
+                  href={`/match/${e.match_id}`}
+                  className="group block px-3 py-2.5 transition-colors hover:bg-panel focus-ring sm:px-4"
+                >
+                  <span className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-3">
                     <span className="stat-num w-20 shrink-0 text-xs text-ink-dim">{fmtDate(e.date)}</span>
                     <PlayerPortrait
                       name={e.scorer ?? "Unknown"}
@@ -102,24 +102,24 @@ export function OwnGoalProfile() {
                     />
                     <span className="min-w-0">
                       <span className="block truncate text-sm">
-                        <span className="font-medium">{e.scorer ?? "Unknown"}</span>
-                        <span className="text-ink-faint"> · {venuePrefix(e.venue)} {e.opponent_name}</span>
+                        <span className="font-medium transition-colors group-hover:text-devil-bright">{e.scorer ?? "Unknown"}</span>
+                        <span className="text-ink-dim"> · {venuePrefix(e.venue)} {e.opponent_name}</span>
                       </span>
                     </span>
                     <span className="flex shrink-0 items-center gap-2">
                       {e.minute != null && <span className="stat-num text-xs text-ink-faint">{e.minute}&prime;</span>}
                       <span className="stat-num rounded bg-panel-2 px-2 py-1 text-xs font-semibold">{scoreline(e.gf, e.ga)}</span>
                     </span>
-                  </Link>
+                  </span>
+                </Link>
                   {portrait?.pageUrl && (
                     <a
                       href={portrait.pageUrl}
-                      className="ml-[calc(5rem+0.75rem)] mt-0.5 block max-w-xs text-[11px] leading-4 text-ink-faint hover:text-devil-bright focus-ring"
+                      className="ml-[calc(5rem+0.75rem)] mt-0.5 block max-w-xs px-3 text-[11px] leading-4 text-ink-dim hover:text-devil-bright focus-ring sm:px-4"
                     >
                       Wikimedia Commons{portrait.license ? ` · ${portrait.license}` : ""}
                     </a>
                   )}
-                </div>
               </li>
             );
           })}
@@ -127,7 +127,7 @@ export function OwnGoalProfile() {
       </section>
 
       <p className="text-sm">
-        <Link href="/players" className="text-devil-bright hover:underline">← All players</Link>
+        <Link href="/players" className="text-devil-bright hover:underline focus-ring">← All players</Link>
       </p>
     </div>
   );

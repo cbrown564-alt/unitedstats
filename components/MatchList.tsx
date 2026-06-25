@@ -69,7 +69,7 @@ export function MatchList<T extends MatchRow>({
                   <span className="hidden sm:inline xl:hidden">{opp.short}</span>
                   <span className="hidden xl:inline">{m.opponent_name}</span>
                 </span>
-                {note && <span className="shrink-0 text-xs text-ink-faint">{note}</span>}
+                {note && <span className="shrink-0 text-xs text-ink-dim">{note}</span>}
               </span>
               <span className="flex min-w-0 items-center gap-1.5 text-xs text-ink-dim sm:hidden">
                 <CompetitionDot type={m.competition_type} />

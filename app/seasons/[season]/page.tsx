@@ -202,7 +202,7 @@ export default async function SeasonPage({
         <div className="max-w-3xl rounded-lg border border-line bg-panel p-4">
           <h2 className="mb-1.5 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
           <p className="text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
-          <p className="mt-2 text-[11px] text-ink-faint">
+          <p className="mt-2 text-[11px] text-ink-dim">
             Written by the data: every sentence is computed from the match record below, and goalscorer
             claims state their coverage.
           </p>
@@ -218,7 +218,7 @@ export default async function SeasonPage({
           <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
           <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
             <ResultSpine matches={sequence} subject={`United ${season}`} />
-            <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+            <p className="mt-2 text-[11px] leading-4 text-ink-dim">
               Every match in order — wins above the line, losses below, bar height the goal margin.
             </p>
           </div>

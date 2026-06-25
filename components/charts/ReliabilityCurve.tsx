@@ -103,7 +103,7 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
         </text>
       </svg>
 
-      <figcaption className="mt-2 space-y-1 text-[11px] leading-4 text-ink-faint sm:space-y-0">
+      <figcaption className="mt-2 space-y-1 text-[11px] leading-4 text-ink-dim sm:space-y-0">
         <p className="flex items-center gap-1.5">
           <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-devil-bright" />
           <span>Points share — on the diagonal means the ratings land where they aim</span>

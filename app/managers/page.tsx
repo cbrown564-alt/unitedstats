@@ -175,6 +175,7 @@ export default function ManagersPage() {
                       href={`/manager/${m.id}`}
                       leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="sm" />}
                       name={m.name}
+                      compactName={familyName(m.name)}
                       badge={
                         (trophyCount.get(m.id) ?? 0) > 0 ? (
                           <span

@@ -104,3 +104,16 @@ Swept the codebase to replace incorrect spaced en dashes (` – `) in date and r
 
 #### 2. Scoreboard Table (`components/CompareTable.tsx`)
 * **Verdict Description**: Upgraded the default tie verdict to a more active description (`"These records are too close to separate on these measures."`).
+
+### 2026-06-25: Matches & Cut Pages
+
+#### 1. Matches Page (`app/matches/page.tsx`)
+* **Metadata & SEO**: Added meta description with a spaced em dash and Oxford comma: `"Browse and filter the complete Manchester United match record since 1886 — filter by opponent, manager, season, venue, and result."` for proper SEO indexability.
+
+#### 2. Cut Page (`app/cut/page.tsx` & `components/cut/CutControls.tsx`)
+* **Metadata & Description**: Standardized straight apostrophe to curly in default description: `"United’s record..."`.
+* **Page Header**: Upgraded description to be more evocative and use active verbs: `"The whole record reordered as a standings ladder. Every group is an open door to its matches — change the dimension or lens to build your own custom cut."` (standardizing spaced em dash).
+* **Standout Matches Link**: Modified from `"See the matches →"` to `"View the matches →"` for active phrasing.
+* **Controls summary**: Standardized from `"Narrow the slice"` to `"Refine the slice"`.
+* **Controls CTA**: Standardized from `"Apply"` to `"Apply filters"` for clarity.
+

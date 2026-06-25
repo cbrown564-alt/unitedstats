@@ -85,7 +85,7 @@ export function SelectCombobox({
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
         onClick={() => setOpen((o) => !o)}
-        className="control flex w-full min-w-[10rem] items-center justify-between gap-2 text-left sm:min-w-[12rem]"
+        className="control focus-ring flex w-full min-w-[10rem] items-center justify-between gap-2 text-left sm:min-w-[12rem]"
       >
         <span className="truncate font-medium">{currentLabel}</span>
         <span aria-hidden className="shrink-0 text-[11px] text-ink-faint">▾</span>

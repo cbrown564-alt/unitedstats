@@ -225,7 +225,7 @@ export default async function PlayerPage({
         shirts={shirts}
         caveat="Goals, apps, and starts use verified competitive player records where available. Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from recorded match coverage — the part of a career we can evidence, not a career total."
       />
-      <Link href={playerCorrectionHref} className="inline-block text-xs font-semibold text-devil-bright hover:underline">
+      <Link href={playerCorrectionHref} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
         Suggest player correction
       </Link>
 
@@ -250,9 +250,9 @@ export default async function PlayerPage({
           <div className="overflow-hidden rounded-xl border border-line bg-panel">
             {minutes.length > 3 && (
               <div className="border-b border-line p-4 sm:p-5">
-                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-faint">When in the match the goals come</p>
+                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-dim">When in the match the goals come</p>
                 <MinuteColumns bins={minuteShape.bins} stoppage={minuteShape.stoppage} height={170} subject={p.name} />
-                <p className="mt-1 text-xs text-ink-faint">
+                <p className="mt-1 text-xs text-ink-dim">
                   <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
                   {minuteShape.stoppage > 0 && (
                     <>
@@ -269,7 +269,7 @@ export default async function PlayerPage({
               <div className={`grid divide-y divide-line sm:divide-x sm:divide-y-0 ${facetColsClass}`}>
                 {leagueGoals + cupGoals > 0 && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Where they landed</p>
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Where they landed</p>
                     <SplitBar
                       height={16}
                       segments={[
@@ -290,8 +290,8 @@ export default async function PlayerPage({
 
                 {topOpponent && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Favourite victim</p>
-                    <Link href={`/opponent/${topOpponent.opponent_id}`} className="group block">
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Favourite victim</p>
+                    <Link href={`/opponent/${topOpponent.opponent_id}`} className="group block focus-ring">
                       <span className="stat-num text-3xl font-semibold text-devil-bright">{fmtNum(topOpponent.goals)}</span>
                       <span className="ml-2 text-sm text-ink-dim">goals</span>
                       <div className="mt-0.5 truncate text-sm font-medium group-hover:text-devil-bright">
@@ -304,7 +304,7 @@ export default async function PlayerPage({
                         {opponentGoals.slice(1, 3).map((o, i) => (
                           <span key={o.opponent_id}>
                             {i > 0 && ", "}
-                            <Link href={`/opponent/${o.opponent_id}`} className="hover:text-devil-bright">
+                            <Link href={`/opponent/${o.opponent_id}`} className="hover:text-devil-bright focus-ring">
                               {o.opponent_name} <span className="stat-num">{fmtNum(o.goals)}</span>
                             </Link>
                           </span>
@@ -316,13 +316,13 @@ export default async function PlayerPage({
 
                 {bestRun && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Best scoring run</p>
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Best scoring run</p>
                     <span className="stat-num text-3xl font-semibold text-devil-bright">{bestRun.length}</span>
                     <span className="ml-2 text-sm text-ink-dim">in a row</span>
                     <p className="stat-num mt-1 text-xs text-ink-faint">
                       {fmtDate(bestRun.from)}–{fmtDate(bestRun.to)}
                     </p>
-                    <p className="mt-1 text-[11px] leading-4 text-ink-faint">
+                    <p className="mt-1 text-[11px] leading-4 text-ink-dim">
                       Consecutive matches where he scored, across games with complete goalscorer records — gaps break a run.
                     </p>
                   </div>
@@ -381,7 +381,7 @@ export default async function PlayerPage({
         <section id="seasons" className="space-y-3">
           <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <h2 className="display text-xl">Season by season</h2>
-            <span className="stat-num text-xs text-ink-faint">
+            <span className="stat-num text-xs text-ink-dim">
               {fmtNum(p.recorded_goals)} recorded goals · {fmtNum(coveredSeasons.length)} of {fmtNum(bySeason.length)} seasons covered
             </span>
           </div>
@@ -412,7 +412,7 @@ export default async function PlayerPage({
                 labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
                 chartLabel={`${p.name} goals and assists by season`}
               />
-              <p className="mt-1 text-xs text-ink-faint">
+              <p className="mt-1 text-xs text-ink-dim">
                 Recorded goals and combined assists (curated through 2014-15, match events after) per season;
                 early or sparsely covered seasons can read low.
               </p>
@@ -451,7 +451,7 @@ export default async function PlayerPage({
         </div>
 
         {matches.length === 0 ? (
-          <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-faint">
+          <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-dim">
             No matches with recorded goalscorer data yet.
           </p>
         ) : (
@@ -466,9 +466,9 @@ export default async function PlayerPage({
                   </span>
                 </summary>
                 <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
-                  <p className="mb-2 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Contribution spine</p>
+                  <p className="mb-2 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Contribution spine</p>
                   <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
-                  <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+                  <p className="mt-2 text-[11px] leading-4 text-ink-dim">
                     Every match where he scored, in order — bar height is the goals in that game; gold marks multi-goal
                     nights, and pips mark his hat-tricks. Only matches where he scored are drawn, so blank games are omitted.
                   </p>
@@ -559,7 +559,7 @@ export default async function PlayerPage({
                   </span>
                 </summary>
                 <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
-                <p className="mb-2.5 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Starts vs subs</p>
+                <p className="mb-2.5 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Starts vs subs</p>
                 <SplitBar
                   height={16}
                   segments={[
@@ -575,7 +575,7 @@ export default async function PlayerPage({
                     Off the bench <span className="text-ink">{fmtNum(sub)}</span>
                   </span>
                 </div>
-                <p className="mt-2 text-xs text-ink-faint">
+                <p className="mt-2 text-xs text-ink-dim">
                   Across {fmtNum(appearances.length)} appearances with lineup coverage — not a career total.
                 </p>
                 </div>
@@ -631,7 +631,7 @@ export default async function PlayerPage({
                   return (
                     <div key={season} id={`apps-${season}`} className="scroll-mt-24">
                       <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
-                        <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright">
+                        <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright focus-ring">
                           {season}
                         </Link>
                         <span className="stat-num text-xs text-ink-faint">
@@ -681,7 +681,7 @@ export default async function PlayerPage({
       )}
 
       <p className="text-sm">
-        <Link href="/players" className="text-devil-bright hover:underline">← All players</Link>
+        <Link href="/players" className="text-devil-bright hover:underline focus-ring">← All players</Link>
       </p>
     </div>
   );
@@ -703,16 +703,16 @@ function SeasonEvidenceRow({
   return (
     <section id={id} className="scroll-mt-24 rounded-lg border border-line bg-panel px-3 py-2.5 sm:px-4">
       <div className="flex items-center gap-3">
-        <Link href={`/seasons/${season}`} className="display w-[5.25rem] shrink-0 text-base leading-none hover:text-devil-bright">
+        <Link href={`/seasons/${season}`} className="display w-[5.25rem] shrink-0 text-base leading-none hover:text-devil-bright focus-ring">
           {season}
         </Link>
         <span className="stat-num text-xs text-ink">
           <span className="text-devil-bright">{primary}</span>
-          <span className="text-ink-faint"> · {secondary}</span>
+          <span className="text-ink-dim"> · {secondary}</span>
         </span>
         <Link
           href={href}
-          className="ml-auto shrink-0 rounded-md border border-line bg-panel-2 px-2.5 py-1 text-xs text-devil-bright transition-colors hover:border-devil/60 hover:bg-devil/10"
+          className="ml-auto shrink-0 rounded-md border border-line bg-panel-2 px-2.5 py-1 text-xs text-devil-bright transition-colors hover:border-devil/60 hover:bg-devil/10 focus-ring"
         >
           Open
         </Link>

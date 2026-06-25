@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MatchFilterBarWithCounts } from "@/components/MatchFilterBarWithCounts";
 import type { DecadeBucket } from "@/components/matches/FilterZones";
 import type { FacetOptions } from "@/lib/matchFacets";
@@ -48,11 +48,15 @@ export function MatchFilterCollapse({
   decadeBuckets?: DecadeBucket[];
 }) {
   const [open, setOpen] = useState(defaultOpen);
+  const [prevDefaultOpen, setPrevDefaultOpen] = useState(defaultOpen);
 
-  // Open when navigation applies filters; still allow manual collapse.
-  useEffect(() => {
-    if (defaultOpen) setOpen(true);
-  }, [defaultOpen]);
+  if (defaultOpen !== prevDefaultOpen) {
+    setPrevDefaultOpen(defaultOpen);
+    if (defaultOpen) {
+      setOpen(true);
+    }
+  }
+
 
   return (
     <details
