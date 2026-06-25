@@ -25,7 +25,7 @@ import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
 import { TransferList } from "@/components/TransferList";
 import { EvidenceLink } from "@/components/EvidenceLink";
-import { fmtDate, fmtNum, pct } from "@/lib/format";
+import { fmtDate, fmtNum, pct, playerCareerSpan } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
 import { correctionPrefillHref } from "@/lib/corrections";
@@ -110,13 +110,7 @@ export default async function PlayerPage({
     ? timeline.reduce((a, b) => (b.date > a.date ? b : a))
     : null;
 
-  const careerYears =
-    p.career ??
-    (p.first_year && p.last_year
-      ? `${p.first_year}–${p.last_year}`
-      : p.first_year
-        ? `${p.first_year}–`
-        : null);
+  const careerYears = playerCareerSpan(p);
 
   // Scoring matches (newest first). For a prolific scorer the flat list is huge,
   // so we lead with the hauls and tuck the complete record, season-grouped, behind

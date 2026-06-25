@@ -1,4 +1,5 @@
 import { playerById, opponentById, managerById, allSeasons } from "./queries";
+import { fmtYearRange } from "./format";
 import type { CarouselCard } from "@/components/CuratedCarousel";
 
 /**
@@ -75,7 +76,7 @@ const ERAS: EraSpec[] = [
 function resolvePlayer(s: PlayerSpec): EntryPoint {
   const p = playerById(s.id);
   if (!p) throw new Error(`entryPoints: unknown player "${s.id}"`);
-  const hint = p.first_year && p.last_year ? `${p.first_year}–${p.last_year}` : (p.position_label ?? "United");
+  const hint = p.first_year ? fmtYearRange(p.first_year, p.last_year) : (p.position_label ?? "United");
   return {
     kind: "player", label: s.label, href: `/player/${s.id}`, hint,
     photo: { src: p.player_thumb_url ?? p.player_image_url, name: p.name },

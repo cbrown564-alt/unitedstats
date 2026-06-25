@@ -212,7 +212,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     <span className="flex-1">
                       {e.player_id ? (
                         <Link href={`/player/${e.player_id}`} className="font-medium hover:text-devil-bright">
-                          {e.player_name}
+                          {e.player_display_name ?? "Goal"}
                         </Link>
                       ) : (
                         <span className="font-medium">{e.player_display_name ?? "Goal"}</span>

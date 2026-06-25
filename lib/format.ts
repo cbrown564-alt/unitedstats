@@ -231,3 +231,40 @@ export function scoreNote(pens?: [number | null, number | null] | null, aet?: bo
   if (pens && pens[0] != null) parts.push(`${pens[0]}–${pens[1]} pens`);
   return parts.join(" · ");
 }
+
+/** En-dash year range — the product convention for career spans and timelines. */
+export function fmtYearRange(
+  startYear: number | null | undefined,
+  endYear?: number | null | undefined,
+): string {
+  if (startYear == null) return "?";
+  const end = endYear ?? "present";
+  return `${startYear}–${end}`;
+}
+
+type CareerSpanSource = {
+  career?: string | null;
+  first_year?: number | null;
+  last_year?: number | null;
+};
+
+/** Normalize a stored career string to four-digit years and an en-dash. */
+function normalizeCareerSpan(raw: string): string {
+  const trimmed = raw.trim();
+  const years = [...trimmed.matchAll(/\d{4}/g)].map((m) => Number(m[0]));
+  if (years.length === 0) return trimmed.replace(/-/g, "–");
+  const first = years[0];
+  if (/[-–—]\s*$/.test(trimmed)) return fmtYearRange(first, null);
+  if (years.length === 1) return String(first);
+  return fmtYearRange(first, years[years.length - 1]);
+}
+
+/**
+ * United career span for display. Structured years win over a stored career
+ * string; open-ended careers read as "present".
+ */
+export function playerCareerSpan(p: CareerSpanSource): string | null {
+  if (p.first_year != null) return fmtYearRange(p.first_year, p.last_year);
+  if (p.career?.trim()) return normalizeCareerSpan(p.career);
+  return null;
+}

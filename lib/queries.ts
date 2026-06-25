@@ -687,8 +687,8 @@ export function managersIndex(): ManagerRecord[] {
                 COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
                 COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga,
                 MIN(m.date) first, MAX(m.date) last,
-                mm.local_path thumb_url,
-                mm.local_path image_url
+                COALESCE(mm.local_path, mm.thumb_url) thumb_url,
+                COALESCE(mm.local_path, mm.image_url) image_url
          FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
          LEFT JOIN manager_media mm ON mm.manager_id = mg.id
          GROUP BY mg.id ORDER BY first`,
@@ -856,8 +856,8 @@ const PLAYER_TOTALS_SELECT = `
          ps.shirt primary_shirt,
          ps.decade primary_shirt_decade,
          ps.apps primary_shirt_apps,
-         pm.local_path player_image_url,
-         pm.local_path player_thumb_url,
+         COALESCE(pm.local_path, pm.image_url) player_image_url,
+         COALESCE(pm.local_path, pm.thumb_url, pm.image_url) player_thumb_url,
          pm.page_url player_image_page_url,
          pm.license player_image_license,
          pp.bucket position_bucket,
@@ -1455,8 +1455,8 @@ export interface OwnGoalScorer {
 function ownGoalScorerMedia(): Map<string, { thumb_url: string | null; image_url: string | null }> {
   const rows = getDb()
     .prepare(`SELECT name,
-                     local_path thumb_url,
-                     local_path image_url
+                     COALESCE(local_path, thumb_url) thumb_url,
+                     COALESCE(local_path, image_url) image_url
               FROM og_scorer_media`)
     .all() as { name: string; thumb_url: string | null; image_url: string | null }[];
   return new Map(rows.map((r) => [r.name, { thumb_url: r.thumb_url, image_url: r.image_url }]));

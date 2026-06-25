@@ -55,7 +55,7 @@ export function CupLeanBar({
           return (
             <div
               key={p.player_id}
-              className="grid grid-cols-[8.5rem_minmax(0,1fr)_3.75rem] items-center gap-3 sm:grid-cols-[11rem_minmax(0,1fr)_4.25rem]"
+              className="grid grid-cols-[10.5rem_minmax(0,1fr)_3.75rem] items-center gap-3 sm:grid-cols-[13rem_minmax(0,1fr)_4.25rem]"
             >
               <Link
                 href={`/player/${p.player_id}`}

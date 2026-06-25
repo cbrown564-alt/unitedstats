@@ -1,4 +1,5 @@
 import { getDb } from "./db";
+import { playerCareerSpan } from "./format";
 import {
   CUP_WON_PREDICATE, managerById, managerHonours, playerById, playerSplitsBySeason,
 } from "./queries";
@@ -129,8 +130,7 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
   const b = playerById(idB);
   if (!a || !b || a.player_id === b.player_id) return null;
 
-  const span = (p: typeof a): string =>
-    p.career ?? (p.first_year && p.last_year ? `${p.first_year}–${p.last_year}` : "");
+  const span = (p: typeof a): string => playerCareerSpan(p) ?? "";
   const perApp = (goals: number, apps: number): number | null => (apps > 0 ? goals / apps : null);
   const arc = (id: string): CareerSeason[] =>
     playerSplitsBySeason(id).map((s, i) => ({ n: i + 1, season: s.season, goals: s.goals, apps: s.apps }));

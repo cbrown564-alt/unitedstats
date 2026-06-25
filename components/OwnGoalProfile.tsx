@@ -3,6 +3,7 @@ import {
   ownGoalForEvents, ownGoalScorers, ownGoalSummary, playersIndex,
 } from "@/lib/queries";
 import { PageHeader, StatTile } from "@/components/PageHeader";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { fmtDate, fmtNum, scoreline, venuePrefix } from "@/lib/format";
 
 /**
@@ -17,6 +18,9 @@ export function OwnGoalProfile() {
   const events = ownGoalForEvents();
   const rank = playersIndex().findIndex((p) => p.player_id === "own-goal") + 1;
   const repeat = scorers.filter((s) => s.n > 1);
+  const portraitByScorer = new Map(
+    scorers.map((s) => [s.name, s.thumb_url ?? s.image_url] as const),
+  );
 
   return (
     <div className="space-y-10">
@@ -52,11 +56,14 @@ export function OwnGoalProfile() {
           <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-panel text-sm">
             {repeat.map((s) => (
               <li key={s.name} className="flex items-center justify-between gap-3 px-4 py-2.5">
-                <span className="min-w-0">
-                  <span className="font-medium">{s.name}</span>
-                  <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-ink-faint hover:text-devil-bright">
-                    {s.recent_opponent}
-                  </Link>
+                <span className="flex min-w-0 items-center gap-2.5">
+                  <PlayerPortrait name={s.name} src={s.thumb_url ?? s.image_url} size="xs" />
+                  <span className="min-w-0">
+                    <span className="font-medium">{s.name}</span>
+                    <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-ink-faint hover:text-devil-bright">
+                      {s.recent_opponent}
+                    </Link>
+                  </span>
                 </span>
                 <span className="stat-num shrink-0 text-ink-faint">
                   <span className="text-devil-bright">{fmtNum(s.n)}</span> · last{" "}
@@ -78,9 +85,14 @@ export function OwnGoalProfile() {
             <li key={`${e.match_id}-${i}`}>
               <Link
                 href={`/match/${e.match_id}`}
-                className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel sm:px-4"
+                className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel sm:px-4"
               >
                 <span className="stat-num w-20 shrink-0 text-xs text-ink-dim">{fmtDate(e.date)}</span>
+                <PlayerPortrait
+                  name={e.scorer ?? "Unknown"}
+                  src={e.scorer ? portraitByScorer.get(e.scorer) : null}
+                  size="xs"
+                />
                 <span className="min-w-0">
                   <span className="block truncate text-sm">
                     <span className="font-medium">{e.scorer ?? "Unknown"}</span>

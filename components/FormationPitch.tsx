@@ -22,6 +22,9 @@ import { GoalMark, AssistMark, CardMark } from "@/components/MatchMarkers";
  * Goals, bookings and the minute a player left the pitch are drawn onto the
  * shirt itself, so the teamsheet carries the match's events without a stack of
  * separate boxes. The bench sits alongside as a vertical column.
+ *
+ * Naming: the pitch uses {@link familyName} for compact shirt labels; bench and
+ * list views keep the full display name — intentional, not a drift to fix.
  */
 
 type Band = "GK" | "DEF" | "MID" | "FWD";

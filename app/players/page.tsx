@@ -9,7 +9,7 @@ import { ShirtBadge } from "@/components/ShirtBadge";
 import { SectionHead } from "@/components/SectionHead";
 import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
 import { CoverageNote } from "@/components/CoverageNote";
-import { fmtNum, pct } from "@/lib/format";
+import { fmtNum, pct, fmtYearRange } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Players" };
@@ -81,8 +81,7 @@ function comparePlayers(a: PlayerTotals, b: PlayerTotals, key: PlayerSortKey, di
 function spanForPlayer(p: PlayerTotals) {
   const first = firstYearForPlayer(p);
   const last = lastYearForPlayer(p);
-  if (!first) return "?";
-  return `${first}-${last ?? "present"}`;
+  return fmtYearRange(first, last);
 }
 
 export default async function PlayersPage({
@@ -133,6 +132,10 @@ export default async function PlayersPage({
     sparkMaxScale = Math.max(sparkMaxScale, r.apps, r.goals);
   }
   for (const list of sparksByPlayer.values()) list.sort((a, b) => a.season.localeCompare(b.season));
+  const sparkAxisLabel =
+    Number.isFinite(sparkAxisStart) && Number.isFinite(sparkAxisEnd)
+      ? fmtYearRange(sparkAxisStart, sparkAxisEnd)
+      : "—";
   const topScorer = [...allPlayers].sort((a, b) => b.goals - a.goals)[0];
   const mostApps = [...allPlayers].sort((a, b) => (b.apps || 0) - (a.apps || 0))[0];
   const verifiedRecords = allPlayers.filter((p) => p.record_apps != null).length;
@@ -326,7 +329,7 @@ export default async function PlayersPage({
             best season
           </span>
           <span>
-            on one shared <span className="stat-num">{sparkAxisStart}–{String(sparkAxisEnd).slice(2)}</span> timeline,
+            on one shared <span className="stat-num">{sparkAxisLabel}</span> timeline,
             guides every 25 years
           </span>
         </p>
