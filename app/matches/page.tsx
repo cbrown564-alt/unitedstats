@@ -5,6 +5,7 @@ import {
   opponentsIndex,
 } from "@/lib/queries";
 import type { MatchFilter } from "@/lib/queries";
+import { isRoundFilterKey, roundFilterLabel } from "@/lib/matchRounds";
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
@@ -65,6 +66,7 @@ export default async function MatchesPage({
   const goalWindow = GOAL_WINDOW_FILTERS.some((w) => w.key === sp.goalWindow)
     ? sp.goalWindow as (typeof GOAL_WINDOW_FILTERS)[number]["key"]
     : undefined;
+  const round = isRoundFilterKey(sp.round) ? sp.round : undefined;
   const filter = {
     competition: sp.competition || undefined,
     opponent: sp.opponent || undefined,
@@ -73,6 +75,7 @@ export default async function MatchesPage({
     venue: sp.venue || undefined,
     result: sp.result || undefined,
     type: sp.type || undefined,
+    round,
     stadium: sp.stadium || undefined,
     city: sp.city || undefined,
     scorer: sp.scorer || undefined,
@@ -127,7 +130,7 @@ export default async function MatchesPage({
   };
   const hasFilters = Boolean(
     sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type ||
-    sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
+    sp.round || sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
     sp.goalFrom || sp.goalTo || sp.from || sp.to,
   );
   const stadium = sp.stadium ? stadiumById(sp.stadium) : undefined;
@@ -179,6 +182,7 @@ export default async function MatchesPage({
   if (sp.venue) chips.push({ key: "venue", label: venueLabel(sp.venue) });
   if (sp.result) chips.push({ key: "result", label: resultLabel(sp.result) });
   if (sp.type) chips.push({ key: "type", label: COMPETITION_TYPE_LABELS[sp.type] ?? sp.type });
+  if (round) chips.push({ key: "round", label: roundFilterLabel(round) });
   if (sp.stadium) chips.push({ key: "stadium", label: stadium?.name ?? "Ground" });
   if (sp.city) chips.push({ key: "city", label: sp.city });
   if (sp.scorer) chips.push({ key: "scorer", label: `Goalscorer: ${playerById(sp.scorer)?.name ?? sp.scorer}` });
@@ -223,7 +227,6 @@ export default async function MatchesPage({
       <MatchSliceHero
         summary={summary}
         sequence={sequence}
-        decades={decades}
         hasFilters={hasFilters}
         pinnedResult={pinnedResult}
         heroValue={heroValue}
@@ -231,8 +234,6 @@ export default async function MatchesPage({
         heroTone={heroTone}
         heroSub={heroSub}
         activeResult={sp.result}
-        activeFrom={sp.from}
-        activeTo={sp.to}
         params={sp}
       />
 

@@ -1,5 +1,6 @@
 import { getDb } from "./db";
 import { cachedQuery } from "./queryCache";
+import { roundFilterPredicate, type RoundFilterKey } from "./matchRounds";
 
 /** Reference indexes change only on deploy; prod DB is read-only — 5m is safe. */
 const STATIC_REF_TTL_MS = 300_000;
@@ -297,6 +298,8 @@ export interface MatchFilter {
   result?: string;
   /** Competition type; "cup" matches every official cup competition. */
   type?: string;
+  /** Knockout round stage — search-created only (see {@link matchRounds}). */
+  round?: RoundFilterKey;
   /** A specific ground (stadiums.id), e.g. from a search result. */
   stadium?: string;
   /** A city — every ground in it (stadiums.city), e.g. "Madrid", "London". */
@@ -398,6 +401,9 @@ export function matchWhere(f: MatchFilter): { cond: string; params: Record<strin
   } else if (f.type) {
     where.push("c.type = @type");
     params.type = f.type;
+  }
+  if (f.round) {
+    where.push(roundFilterPredicate(f.round));
   }
   if (f.stadium) { where.push("m.stadium_id = @stadium"); params.stadium = f.stadium; }
   if (f.city) { where.push("m.stadium_id IN (SELECT id FROM stadiums WHERE city = @city)"); params.city = f.city; }

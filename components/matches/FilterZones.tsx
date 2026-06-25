@@ -44,7 +44,7 @@ function detectPlayerRole(params: Record<string, string | undefined>): PlayerRol
 
 function detectTimeMode(params: Record<string, string | undefined>): TimeMode | null {
   if (params.season) return "season";
-  // Bare 4-digit years → decade mode (written by decade picker or InteractiveSliceSpine)
+  // Bare 4-digit years → decade mode (written by decade picker)
   if (params.from && /^\d{4}$/.test(params.from) && (!params.to || /^\d{4}$/.test(params.to)))
     return "decade";
   if (params.from || params.to) return "dates";

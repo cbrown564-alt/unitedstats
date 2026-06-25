@@ -4,16 +4,13 @@ import { WdlBarFilter } from "@/components/matches/WdlBarFilter";
 import { fmtDate } from "@/lib/format";
 import type { SequenceMatch } from "@/lib/trails";
 
-type Decade = { decade: string; from: number; to: number; n: number };
-
 /**
  * Answer-first hero for the Matches page: the slice headline, goals ribbon, and
- * interactive shape (spine + decade axis, or a clickable W/D/L bar below the gate).
+ * interactive shape (spine or a clickable W/D/L bar below the gate).
  */
 export function MatchSliceHero({
   summary,
   sequence,
-  decades,
   hasFilters,
   pinnedResult,
   heroValue,
@@ -21,13 +18,10 @@ export function MatchSliceHero({
   heroTone,
   heroSub,
   activeResult,
-  activeFrom,
-  activeTo,
   params,
 }: {
   summary: { p: number; w: number; d: number; l: number; gf: number; ga: number; first: string | null; last: string | null };
   sequence: SequenceMatch[];
-  decades: Decade[];
   hasFilters: boolean;
   pinnedResult?: string;
   heroValue: string;
@@ -35,8 +29,6 @@ export function MatchSliceHero({
   heroTone: string;
   heroSub: string | null;
   activeResult?: string;
-  activeFrom?: string;
-  activeTo?: string;
   params: Record<string, string | undefined>;
 }) {
   return (
@@ -69,14 +61,11 @@ export function MatchSliceHero({
           {sequence.length >= 24 ? (
             <InteractiveSliceSpine
               matches={sequence}
-              decades={decades}
               w={summary.w}
               d={summary.d}
               l={summary.l}
               showRecord={!pinnedResult}
               activeResult={activeResult}
-              activeFrom={activeFrom}
-              activeTo={activeTo}
               params={params}
             />
           ) : (

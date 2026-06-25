@@ -1,5 +1,6 @@
 import { getDb } from "../db";
 import { findMatches, matchWhere, type MatchFilter, type Record_ } from "../queries";
+import { parseRoundPhrase, roundFilterLabel } from "../matchRounds";
 import { queryString } from "../url";
 import { scoreline, fmtDate } from "../format";
 import { resolveEntity, type IndexRow } from "./resolve";
@@ -171,6 +172,8 @@ interface ParsedIntent {
     decadeLabel?: string;
     seasonLabel?: string;
     managerName?: string;
+    competitionLabel?: string;
+    roundLabel?: string;
   };
   /** A confident head-to-head signal (verb, record metric, or a connector). */
   triggered: boolean;
@@ -253,6 +256,16 @@ function parseIntent(norm: string): ParsedIntent {
     labels.decadeLabel = `${base}s`;
   }
 
+  // 4b. knockout round — longest phrase first ("semi-final" before "final").
+  const roundParsed = parseRoundPhrase(s.trim());
+  if (roundParsed) {
+    filter.round = roundParsed.key;
+    link.round = roundParsed.key;
+    labels.roundLabel = roundFilterLabel(roundParsed.key);
+    triggered = true;
+    s = ` ${roundParsed.rest} `;
+  }
+
   // 5. competition scopes
   if (strip(/\bin europe\b/) || strip(/\beurope(?:an)?\b/)) {
     filter.type = "european"; link.type = "european"; labels.scopeLabel = "in Europe";
@@ -264,6 +277,39 @@ function parseIntent(norm: string): ParsedIntent {
     filter.type = "cup"; link.type = "cup"; labels.scopeLabel = "in the cups";
   } else if (strip(/\bin (?:the )?league\b/)) {
     filter.type = "league"; link.type = "league"; labels.scopeLabel = "in the league";
+  }
+
+  // 5b. named competition — explicit phrases before the index resolver so
+  // "champions league" lands on the modern competition, not the European Cup alias.
+  if (!filter.competition && !filter.type) {
+    if (strip(/\bchampions league\b|\bucl\b/)) {
+      filter.competition = "champions-league";
+      link.competition = "champions-league";
+      labels.competitionLabel = "UEFA Champions League";
+      triggered = true;
+    } else if (strip(/\beuropa league\b|\buefa cup\b|\buel\b/)) {
+      filter.competition = "europa-league";
+      link.competition = "europa-league";
+      labels.competitionLabel = "UEFA Europa League";
+      triggered = true;
+    } else if (strip(/\beuropean cup\b/)) {
+      filter.competition = "european-cup";
+      link.competition = "european-cup";
+      labels.competitionLabel = "European Cup";
+      triggered = true;
+    } else {
+      const compResidual = stripUnitedSubject(s.trim());
+      if (compResidual) {
+        const comp = resolveEntity(compResidual, "competition", { strong: true });
+        if (comp) {
+          filter.competition = comp.entity_id;
+          link.competition = comp.entity_id;
+          labels.competitionLabel = comp.label;
+          triggered = true;
+          s = " ";
+        }
+      }
+    }
   }
 
   // 6. manager scope "under X" (distinct from a manager *subject* — this narrows)
@@ -341,8 +387,10 @@ function cleanSubject(s: string): { text: string; verb: boolean; question: boole
 function scopeFilter(intent: ParsedIntent, opponentId?: string): MatchFilter {
   return {
     opponent: opponentId,
+    competition: intent.filter.competition,
     venue: intent.filter.venue,
     type: intent.filter.type,
+    round: intent.filter.round,
     from: intent.filter.from,
     to: intent.filter.to,
     season: intent.filter.season,
@@ -364,8 +412,10 @@ function scopeExtra(f: MatchFilter): { sql: string; params: Record<string, strin
 function scopeLink(intent: ParsedIntent, extra: Record<string, string | undefined>): Record<string, string | undefined> {
   return {
     opponent: intent.opponent?.entity_id,
+    competition: intent.filter.competition,
     venue: intent.filter.venue,
     type: intent.filter.type,
+    round: intent.filter.round,
     manager: intent.filter.manager,
     season: intent.filter.season,
     from: intent.filter.from?.slice(0, 4),
@@ -414,7 +464,7 @@ function teamRecordVs(opp: IndexRow, extra: MatchFilter, label?: string): Shaped
   const where = venue === "A" ? "away at" : venue === "H" ? "at home to" : "against";
   const filter: MatchFilter = { ...extra, opponent: opp.entity_id };
   const link: Record<string, string | undefined> = {
-    opponent: opp.entity_id, venue, type: extra.type,
+    opponent: opp.entity_id, venue, type: extra.type, competition: extra.competition, round: extra.round,
     from: extra.from ? extra.from.slice(0, 4) : undefined,
     to: extra.to ? extra.to.slice(0, 4) : undefined,
   };
@@ -619,6 +669,25 @@ function teamScopedRecord(intent: ParsedIntent): ShapedAnswer | null {
   return null;
 }
 
+/** A competition round slice — finals, semi-finals, etc. — usually reached from search. */
+function roundSliceCut(intent: ParsedIntent): ShapedAnswer | null {
+  if (!intent.filter.round) return null;
+
+  const roundWord = (intent.labels.roundLabel ?? roundFilterLabel(intent.filter.round)).toLowerCase();
+  const comp = intent.labels.competitionLabel
+    ?? intent.labels.scopeLabel?.replace(/^in (?:the )?/i, "");
+  const title = comp ? `${comp} ${roundWord}s` : `United ${roundWord}s`;
+
+  const filter = scopeFilter(intent, intent.opponent?.entity_id);
+  return {
+    title,
+    summary: recText(recordFor(filter)),
+    href: matchesHref(scopeLink(intent, {})),
+    hrefLabel: "Show the matches →",
+    coverage: RESULT_COVERAGE,
+  };
+}
+
 // =================================================================== specials
 
 /** Biggest win / heaviest defeat / best attended — the single extreme match in
@@ -735,6 +804,9 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
   if (out.length) return out;
 
   const intent = parseIntent(norm);
+
+  // Round slices ("champions league finals") are search-first — surface them early.
+  push(roundSliceCut(intent));
 
   // The extreme-match selector sits alongside the grammar (it returns one match).
   push(superlative(norm, intent));

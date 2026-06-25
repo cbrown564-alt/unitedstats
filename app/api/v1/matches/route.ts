@@ -1,4 +1,5 @@
 import { apiError, apiJson, pagination } from "@/lib/api";
+import { isRoundFilterKey } from "@/lib/matchRounds";
 import { findMatches } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
@@ -36,6 +37,7 @@ export async function GET(request: Request) {
     venue: p("venue"),
     result: p("result"),
     type: p("type"),
+    round: isRoundFilterKey(p("round") ?? undefined) ? p("round") : undefined,
     stadium: p("stadium"),
     city: p("city"),
     scorer: p("scorer"),
