@@ -1021,24 +1021,27 @@ rotation's determinism), holding total tests at 107.
       slice, walk the timeline, the long arc, the ledger, on-this-day) with a
       concrete example, as a scroll-snap peek-carousel whose partial next-card peek
       cues "there's more" rather than laying the whole map flat.
-- [x] A lightweight, dismissable orientation for first visits that never gets in
-      a returning user's way. `FirstVisitOrientation` is a one-line note above the
-      hero, shown once and then gone: it reads through `useSyncExternalStore` (the
-      `recents.ts` pattern) with a server snapshot of "dismissed", so it renders
-      **nothing during SSR** and is revealed only after hydration for a true first
-      visit. A returning visitor (flag set) or the researcher who enters through
-      the header search and bypasses the homepage never sees it — no modal, no
-      overlay, no focus trap, no depth pushed down.
+- ❌ A lightweight, dismissable first-visit orientation — **built, then removed.**
+      A `FirstVisitOrientation` banner (a one-line "New here?" note read through
+      `useSyncExternalStore`, server-snapshot "dismissed" so it rendered nothing in
+      SSR and showed once after hydration) was built and shipped, then cut on review
+      as adding nothing the page didn't already say: the self-teaching search field
+      (18.2's rotating example placeholder) and the named entry chips already orient
+      a newcomer in place, so a separate banner was redundant chrome above the
+      answer-first hero. The orientation *job* is served; the standalone object is
+      not the way to serve it.
 
 Phase 18.4 is complete as the orientation build (Candidate C from `docs/DISCOVERY.md`,
 built on the entity trails that already exist): the cold homepage now offers a
-*name* as a door beside the blank query, teases its range without a directory, and
-greets a newcomer once without ever slowing a regular. Everything stays static and
-zero-cost — the rotation is day-seeded, the dismiss flag is `localStorage`, the
-chips and tease are server components with plain links — and the answer-first
-hierarchy holds: the chips sit *beneath* the search field, the tease *below* the
-divider. Pinned by `tests/phase18-discovery.test.ts` (every chip resolves to a
-real entity, the strip is balanced/distinct/day-rotated, the breadth tease is
+*name* as a door beside the blank query — chips that lead with a **face or a crest**
+(round player portraits, the club's generated badge, a gold star for an era) so you
+enter through something you recognise — and teases its range without a directory.
+Orientation lands through the field and the chips themselves rather than a dismissable
+banner (built and cut, above). Everything stays static and zero-cost — the rotation
+is day-seeded, the chips and tease are server components with plain links — and the
+answer-first hierarchy holds: the chips sit *beneath* the search field, the tease
+*below* the divider. Pinned by `tests/phase18-discovery.test.ts` (every chip resolves
+to a real entity, the strip is balanced/distinct/day-rotated, the breadth tease is
 well-formed), holding at 110 tests. This closes Phase 18 — discovery is now easy
 *and* delightful across all five personas; **Phase 19 (sharing)** is next.
 

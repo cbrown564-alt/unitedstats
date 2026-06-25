@@ -18,7 +18,6 @@ import { RecentlyChanged } from "@/components/RecentlyChanged";
 import { WhatsInteresting } from "@/components/WhatsInteresting";
 import { whatsInteresting } from "@/lib/now";
 import { EntryChips } from "@/components/EntryChips";
-import { FirstVisitOrientation } from "@/components/FirstVisitOrientation";
 import { entryStrip, breadthWays } from "@/lib/entryPoints";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
@@ -103,11 +102,6 @@ export default function Home() {
 
   return (
     <div className="space-y-14 sm:space-y-16">
-      {/* A dismissable first-visit orientation for the newcomer — client-only,
-          shown once, gone for good; the researcher who bypasses the homepage
-          never meets it. */}
-      <FirstVisitOrientation />
-
       {/* 1. The invitation — a floodlit plate that *shows* the whole record:
           the headline and search sit over a skyline of every season ever played. */}
       <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">

@@ -18,7 +18,7 @@ import type { CarouselCard } from "@/components/CuratedCarousel";
  *     never 404; the resolvers throw on an unknown id and a golden test
  *     (`tests/phase18-discovery.test.ts`) walks the whole registry.
  */
-export type EntryKind = "player" | "rivalry" | "era";
+type EntryKind = "player" | "rivalry" | "era";
 
 export interface EntryPoint {
   kind: EntryKind;
@@ -29,6 +29,10 @@ export interface EntryPoint {
    *  span, a meetings count, a season — never an editorial epithet (guide, don't
    *  pundit). */
   hint: string;
+  /** Player chips: the photo src and the full name for the portrait's alt/initials. */
+  photo?: { src: string | null; name: string };
+  /** Rivalry chips: the opponent id + name for the generated crest. */
+  crest?: { id: string; name: string };
 }
 
 interface PlayerSpec { id: string; label: string }
@@ -72,13 +76,19 @@ function resolvePlayer(s: PlayerSpec): EntryPoint {
   const p = playerById(s.id);
   if (!p) throw new Error(`entryPoints: unknown player "${s.id}"`);
   const hint = p.first_year && p.last_year ? `${p.first_year}–${p.last_year}` : (p.position_label ?? "United");
-  return { kind: "player", label: s.label, href: `/player/${s.id}`, hint };
+  return {
+    kind: "player", label: s.label, href: `/player/${s.id}`, hint,
+    photo: { src: p.player_thumb_url ?? p.player_image_url, name: p.name },
+  };
 }
 
 function resolveRival(s: RivalSpec): EntryPoint {
   const o = opponentById(s.id);
   if (!o) throw new Error(`entryPoints: unknown opponent "${s.id}"`);
-  return { kind: "rivalry", label: s.label, href: `/opponent/${s.id}`, hint: `${o.p} meetings` };
+  return {
+    kind: "rivalry", label: s.label, href: `/opponent/${s.id}`, hint: `${o.p} meetings`,
+    crest: { id: o.id, name: o.name },
+  };
 }
 
 function resolveEra(s: EraSpec): EntryPoint {
