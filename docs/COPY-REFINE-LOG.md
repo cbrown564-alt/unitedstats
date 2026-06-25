@@ -91,3 +91,16 @@ Swept the codebase to replace incorrect spaced en dashes (` – `) in date and r
 * **Curiosity Carousel**: Spaced em dashes on the comebacks summary (`behind — and avoided defeat — replayed`) and converted all straight apostrophes to curly ones.
 * **Question Headlines**: Extensively rewrote the question glosses to use active verbs, clinical precision, and proper curly apostrophes/quotes.
 * **OG Card Data**: Aligned the card descriptions and figures to match the refined headlines.
+
+### 2026-06-25: Compare Page
+
+#### 1. Compare Page (`app/compare/page.tsx`)
+* **Metadata & SEO**: Added meta description and alternates canonical link for proper SEO indexability.
+* **Page Header**: Upgraded description to be more evocative and highlight the bounds of historical data.
+* **Modes Blurb**: Converted straight apostrophe to curly in the Eras mode blurb (`stretches of the club’s history`).
+* **Curated Debates Section**: Rebranded section head from `"Great debates"` to `"Curated debates"` for consistency with the Explore page, and rephrased intro text.
+* **Custom Matchup Section**: Rebranded section head from `"Or build your own"` to `"Build a custom matchup"`, and converted straight apostrophe to curly in the unresolved error text (`Couldn’t`).
+* **Explore as a Cut Section**: Upgraded description to use active verbs (`"Group either record... then change..."`).
+
+#### 2. Scoreboard Table (`components/CompareTable.tsx`)
+* **Verdict Description**: Upgraded the default tie verdict to a more active description (`"These records are too close to separate on these measures."`).

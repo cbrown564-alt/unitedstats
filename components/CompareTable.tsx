@@ -136,7 +136,7 @@ export function CompareTable({ comparison }: { comparison: Comparison }) {
   const verdict =
     comparison.headline ??
     (judged.length === 0
-      ? "These two are too close to separate on the measures here."
+      ? "These records are too close to separate on these measures."
       : `Leads ${Math.max(leadsA, leadsB)}–${Math.min(leadsA, leadsB)} across ${judged.length} measures.`);
 
   return (

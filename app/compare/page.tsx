@@ -11,12 +11,17 @@ import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Compare" };
+export const metadata = {
+  title: "Compare",
+  description:
+    "Compare two Manchester United careers, managerial tenures, or historical eras side by side on shared, coverage-aware metrics.",
+  alternates: { canonical: "/compare" },
+};
 
 const MODES: { key: CompareMode; label: string; blurb: string }[] = [
   { key: "players", label: "Players", blurb: "two careers, appearance for appearance" },
   { key: "managers", label: "Managers", blurb: "two reigns on win rate, points, and trophies" },
-  { key: "eras", label: "Eras", blurb: "two stretches of the club's history side by side" },
+  { key: "eras", label: "Eras", blurb: "two stretches of the club’s history side by side" },
 ];
 
 // Curated head-to-heads live in lib/compare.ts (CURATED_DEBATES) so /compare and
@@ -119,9 +124,8 @@ export default async function ComparePage({
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Discovery" title="Compare">
-        Put two careers, reigns, or eras side by side on shared metrics — each one coverage-aware, so a
-        comparison never claims a fairer like-for-like than the record supports, and every figure links
-        back to the matches behind it.
+        Compare two careers, reigns, or eras side by side on shared, coverage-aware metrics. Every
+        comparison highlights the bounds of the historical data, ensuring you never assume a fairer like-for-like than the record supports, and every figure links directly to the matches behind it.
       </PageHeader>
 
       <ModePills mode={mode} />
@@ -139,18 +143,18 @@ export default async function ComparePage({
       ) : (
         <div className="space-y-7">
           <section>
-            <h2 className={sectionHead}>Great debates</h2>
+            <h2 className={sectionHead}>Curated debates</h2>
             <p className="mt-1 mb-3 text-sm text-ink-dim">
-              Open one of these, or build your own below — {MODES.find((m) => m.key === mode)?.blurb}.
+              Open a curated head-to-head comparison, or build a custom matchup below — {MODES.find((m) => m.key === mode)?.blurb}.
             </p>
             <Suggestions mode={mode} suggestions={suggestions} />
           </section>
 
           <section>
-            <h2 className={sectionHead}>Or build your own</h2>
+            <h2 className={sectionHead}>Build a custom matchup</h2>
             {unresolved && (
               <p className="mt-2 text-sm text-ink-dim">
-                Couldn&apos;t find a {cfg.noun} matching &ldquo;{unresolved}&rdquo;. Try a name, or pick a debate above.
+                Couldn’t find a {cfg.noun} matching &ldquo;{unresolved}&rdquo;. Try another name, or pick a curated debate above.
               </p>
             )}
             <div className="mt-3">{picker}</div>
@@ -192,7 +196,7 @@ function CutLinks({ comparison }: { comparison: Comparison }) {
     <section>
       <h2 className={sectionHead}>Explore as a cut</h2>
       <p className="mt-1 mb-3 text-sm text-ink-dim">
-        Group either side&apos;s record season by season, then fork the dimension or lens into your own cut.
+        Group either record season by season, then change the dimension or lens to build a custom cut.
       </p>
       <div className="flex flex-wrap gap-2">
         {links.map((l) => (
