@@ -2,7 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { questionBySlug, questionSlugs } from "@/lib/questions";
+import { relatedAnswers } from "@/lib/related";
 import { QUESTION_COMPONENTS } from "@/components/QuestionModules";
+import { RelatedAnswers } from "@/components/RelatedAnswers";
 
 export const dynamicParams = false;
 
@@ -52,6 +54,8 @@ export default async function QuestionPage({
       </nav>
 
       <Module variant="canonical" />
+
+      <RelatedAnswers links={relatedAnswers(slug)} />
     </div>
   );
 }

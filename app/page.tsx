@@ -15,6 +15,8 @@ import { SearchCommand } from "@/components/SearchCommand";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
 import { RecentlyChanged } from "@/components/RecentlyChanged";
+import { WhatsInteresting } from "@/components/WhatsInteresting";
+import { whatsInteresting } from "@/lib/now";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
@@ -37,6 +39,7 @@ export default function Home() {
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
   const recentChanges = recentHistoryDigests(3);
+  const interesting = whatsInteresting();
   const scorers = topScorers(8);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -144,6 +147,26 @@ export default function Home() {
             <HistorySkyline seasons={skyline} champions={champs} />
           </div>
         </div>
+      </section>
+
+      {/* ── The wanderer's door: a demoted living strip (Phase 18.3) weaving
+          on-this-day, the freshest record change, and a rotating curated cut,
+          with a surprise-me roll onto any curated surface. Below the answer-first
+          hero, above the curated questions — serendipity, not a feed. ── */}
+      <section>
+        <SectionHead
+          title="What's interesting right now"
+          aside={
+            <Link
+              href="/surprise"
+              prefetch={false}
+              className="text-devil-bright hover:underline"
+            >
+              Surprise me →
+            </Link>
+          }
+        />
+        <WhatsInteresting data={interesting} />
       </section>
 
       {/* ── Movement: start a trail. The curated-cut launcher leads (answer

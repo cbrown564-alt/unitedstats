@@ -967,18 +967,38 @@ per the recorded stance.
 > the Ferguson late-goals figure shifted slightly and is now consistent across the
 > product. 102 golden tests.
 
-### 18.3 — Serendipity and guided wandering
+### 18.3 — Serendipity and guided wandering ✅ (complete)
 
-- [ ] A "surprise me" / random-but-good route that only ever lands on a real,
+- [x] A "surprise me" / random-but-good route that only ever lands on a real,
       curated-quality cut.
-- [ ] Related-answers rail at the foot of every answer ("if this interested you
+- [x] Related-answers rail at the foot of every answer ("if this interested you
       …") — deterministic and curated, never behavioural, to honour the static
       guardrail.
-- [ ] Trails that lead one answer to the next, turning a single question into a
+- [x] Trails that lead one answer to the next, turning a single question into a
       session.
-- [ ] A "what's interesting right now" feed weaving the existing
+- [x] A "what's interesting right now" feed weaving the existing
       recently-changed strip, on-this-day, and a rotating curated cut into one
       living entry point.
+
+Phase 18.3 serves the **wanderer** without breaking the static guardrail — every
+new surface is deterministic and curated, never behavioural. **Surprise me**
+(`/surprise`, `lib/surprise.ts`) is a dynamic route that rolls over the union of
+the curated registries — the nine tested questions, the curated Cuts, and the
+flagship debates — and redirects, so a random landing is always a real,
+hand-picked page and never a dead end; entry points (homepage strip header,
+`/explore` trust line) set `prefetch={false}` so a hover never spends the roll.
+The **related-answers rail and the trails are one object**, not two: a curated
+graph (`lib/related.ts`) gives every answer 2–3 next steps, each carried by a
+*connective* hook ("if they score late, do they come from behind too?") so the
+rail reads as a guided trail rather than a generic see-also, rendered at the foot
+of every `/questions/[slug]` page as **Pull the thread further** (the brand spine
+continued past the answer). The **"what's interesting right now"** weave
+(`lib/now.ts`, `WhatsInteresting`) is the *demoted* living strip the 18.1 decision
+called for — on-this-day, the freshest record change, and a curated Cut that
+**rotates by day-of-year** — placed below the answer-first hero on the homepage,
+serendipity not a feed. Pinned by `tests/phase18-discovery.test.ts` (the surprise
+pool's bounds, full trail coverage with no self-links or dangling slugs, and the
+rotation's determinism), holding total tests at 107.
 
 ### 18.4 — Orientation and personal entry points
 

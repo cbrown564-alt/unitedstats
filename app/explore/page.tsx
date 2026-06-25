@@ -88,7 +88,11 @@ export default function ExplorePage() {
           <span className="stat-num text-ink-dim">{fmtNum(rec.p)}</span> matches across{" "}
           <span className="stat-num text-ink-dim">{years}</span> years — every figure links to the
           matches behind it, with a coverage grade where the record is still growing. Search names,
-          seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo;.
+          seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo; — or{" "}
+          <Link href="/surprise" prefetch={false} className="text-devil-bright hover:underline">
+            surprise me
+          </Link>{" "}
+          with a curated answer at random.
         </p>
       </section>
 
