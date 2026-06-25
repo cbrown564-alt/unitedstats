@@ -511,10 +511,21 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
 }
 
 /** Decade buckets with fixture counts, for the chronological jump rail. */
-export function matchDecades(): { decade: string; from: number; to: number; n: number }[] {
+/**
+ * Decade buckets for the matches navigator, counted within the current slice.
+ * Pass a filter with its `from`/`to` (decade range) stripped: the chips then show
+ * how the rest of the slice spreads across decades, so picking one decade doesn't
+ * collapse the navigator to a single chip. Decades with no matches are dropped.
+ */
+export function matchDecades(f?: MatchFilter): { decade: string; from: number; to: number; n: number }[] {
+  const { cond, params } = f ? matchWhere(f) : { cond: "", params: {} };
   const rows = getDb()
-    .prepare(`SELECT substr(date,1,3) || '0' AS start, COUNT(*) n FROM matches GROUP BY 1 ORDER BY 1`)
-    .all() as { start: string; n: number }[];
+    .prepare(
+      `SELECT substr(m.date,1,3) || '0' AS start, COUNT(*) n
+       FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all(params) as { start: string; n: number }[];
   return rows.map((r) => {
     const from = parseInt(r.start, 10);
     return { decade: `${from}s`, from, to: from + 9, n: r.n };

@@ -105,7 +105,9 @@ export default async function MatchesPage({
   const stadiums = stadiumsList();
   const cities = matchCitiesList();
   const opponents = opponentsIndex();
-  const decades = matchDecades();
+  // Decade chips count within the current slice, but ignore the active decade
+  // range so the navigator stays a way to jump between decades, not a single chip.
+  const decades = matchDecades({ ...filter, from: undefined, to: undefined });
   const pages = Math.ceil(total / PAGE_SIZE);
   // Option lists for the facet bar, keyed by facet `optionsKey`. Reuses the same
   // data the classic form below renders from — no extra queries. Labels stay clean
@@ -287,6 +289,7 @@ export default async function MatchesPage({
         )}
       </section>
 
+      {decades.length > 1 && (
       <div>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Jump to a decade</p>
         <div className="flex gap-1.5 overflow-x-auto pb-1">
@@ -306,6 +309,7 @@ export default async function MatchesPage({
           })}
         </div>
       </div>
+      )}
 
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm">
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Sort</span>
