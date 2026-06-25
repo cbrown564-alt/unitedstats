@@ -77,7 +77,7 @@ export default async function CollectionPage({ searchParams }: { searchParams: P
                   </div>
                 </>
               ) : (
-                <p className="mt-3 text-sm text-ink-dim">This Cut&apos;s slice is empty.</p>
+                <p className="mt-3 text-sm text-ink-dim">This Cut’s slice is empty.</p>
               )}
 
               <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">

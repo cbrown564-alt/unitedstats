@@ -15,7 +15,9 @@ import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
+import { ManagerHonoursPanel } from "@/components/ManagerHonoursPanel";
 import { StatTile } from "@/components/PageHeader";
+import { managerTrophyHaul } from "@/lib/compare";
 import { fmtDate, fmtFee, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 import { queryString } from "@/lib/url";
@@ -136,6 +138,14 @@ export default async function ManagerPage({
           caption: tenureCaption,
         }}
       />
+
+      <section>
+        <SectionHead title="Trophy cabinet" aside="major honours won in charge" />
+        <ManagerHonoursPanel haul={managerTrophyHaul(id)} winPct={total > 0 ? (m.w / total) * 100 : null} />
+        <CoverageNote slice="league titles and knockout cups won, attributed to the manager of the decisive match.">
+          League titles go to whoever took the last league game of the title season; cups to the winning-final manager.
+        </CoverageNote>
+      </section>
 
       {runs.length > 0 && (
         <section>

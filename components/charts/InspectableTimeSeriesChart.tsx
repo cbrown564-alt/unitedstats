@@ -6,6 +6,7 @@ import {
   AreaChart,
   CartesianGrid,
   ReferenceArea,
+  ReferenceDot,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -30,6 +31,8 @@ type InspectableTimeSeriesChartProps = {
   yTickSuffix?: string;
   /** Background era bands (e.g. managerial tenures) drawn behind the series. */
   eras?: { x0: number; x1: number; label?: string; key: string }[];
+  /** Gold dots along the top for trophy-winning seasons. */
+  markers?: { x: number; key: string }[];
 };
 
 export function InspectableTimeSeriesChart({
@@ -45,6 +48,7 @@ export function InspectableTimeSeriesChart({
   chartLabel = valueLabel ?? "Time series chart",
   yTickSuffix = "",
   eras,
+  markers,
 }: InspectableTimeSeriesChartProps) {
   const gradientId = useId().replace(/:/g, "");
 
@@ -54,6 +58,7 @@ export function InspectableTimeSeriesChart({
   const xMax = data[data.length - 1]?.x ?? xMin;
   const xSpan = xMax - xMin || 1;
   const minEraLabelSpan = xSpan * 0.07;
+  const yMax = typeof yDomain[1] === "number" ? yDomain[1] : Math.max(...data.map((d) => d.y));
 
   return (
     <div className="h-full min-h-56 min-w-0 w-full" style={{ height }}>
@@ -85,6 +90,18 @@ export function InspectableTimeSeriesChart({
                   ? { value: era.label, position: "insideTop", fill: "var(--color-ink-faint)", fontSize: 10 }
                   : undefined
               }
+            />
+          ))}
+          {markers?.map((marker) => (
+            <ReferenceDot
+              key={marker.key}
+              x={marker.x}
+              y={yMax}
+              r={3}
+              fill="var(--color-gold)"
+              stroke="var(--color-panel)"
+              strokeWidth={1}
+              ifOverflow="hidden"
             />
           ))}
           <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.72} vertical={false} />

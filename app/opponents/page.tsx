@@ -57,7 +57,7 @@ export default function OpponentsPage() {
             {fmtNum(allOpponents.length)} opponents, one nemesis
           </h1>
           <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
-            Every club United have faced since 1886, placed by how often we&apos;ve met and how we fare.
+            Every club United have faced since 1886, placed by how often we’ve met and how we fare.
             Against almost everyone we play a lot the record hovers near break-even — but{" "}
             {dominated && (
               <>
@@ -67,7 +67,7 @@ export default function OpponentsPage() {
             )}
             {nemesis && (
               <>
-                <span className="font-semibold text-loss">{nemesis.name}</span>, the rival we&apos;ve met
+                <span className="font-semibold text-loss">{nemesis.name}</span>, the rival we’ve met
                 most, we beat least.
               </>
             )}

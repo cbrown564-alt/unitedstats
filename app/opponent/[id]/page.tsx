@@ -168,8 +168,8 @@ export default async function OpponentPage({
             ))}
           </div>
           <p className="text-xs text-ink-faint mt-2 max-w-xl">
-            Closed-universe Elo at today&apos;s ratings, split by the historical record at that
-            expectancy; {o.name}&apos;s rating last moved when the sides last met ({o.last}).{" "}
+            Closed-universe Elo at today’s ratings, split by the historical record at that
+            expectancy; {o.name}’s rating last moved when the sides last met ({o.last}).{" "}
             <Link href={`/analytics?opponent=${id}`} className="text-devil-bright hover:underline">
               How this is computed →
             </Link>

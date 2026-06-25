@@ -1,4 +1,5 @@
 import type { CareerSeason, EraFinish, TrophyHaul } from "@/lib/compare";
+import { TROPHY_CAT_TONE, TrophyGlyphFilled } from "@/components/CampaignIcons";
 
 // The two sides carry identity colours across every signature: A is United red,
 // B a cool blue — warm vs cool so the pair is always separable, with gold left
@@ -127,33 +128,10 @@ export function CareerArcDuel({
 
 // ----------------------------------------------------------- trophy cabinet (managers)
 
-const CAT_TONE: Record<string, string> = {
-  league: "var(--color-gold)",
-  european: "var(--color-europe)",
-  "domestic-cup": "var(--color-silver)",
-  "league-cup": "var(--color-devil-bright)",
-  "super-cup": "var(--color-ink-dim)",
-  world: "var(--color-win)",
-};
-
-function TrophyIcon({ color }: { color: string }) {
-  return (
-    <svg width="15" height="17" viewBox="0 0 24 26" aria-hidden style={{ color }}>
-      {/* cup bowl + handles + stem + base */}
-      <path
-        d="M6 2h12v5a6 6 0 0 1-12 0V2Z"
-        fill="currentColor"
-      />
-      <path d="M6 3H3v2a4 4 0 0 0 4 4M18 3h3v2a4 4 0 0 1-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <rect x="11" y="13" width="2" height="5" fill="currentColor" />
-      <rect x="7" y="22" width="10" height="2.5" rx="1" fill="currentColor" />
-      <rect x="9" y="18" width="6" height="4" rx="1" fill="currentColor" />
-    </svg>
-  );
-}
-
 function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul; color: string; win: number | null }) {
-  const glyphs = haul.categories.flatMap((c) => Array.from({ length: c.n }, (_, i) => ({ key: `${c.key}-${i}`, tone: CAT_TONE[c.key] ?? "var(--color-gold)" })));
+  const glyphs = haul.categories.flatMap((c) =>
+    Array.from({ length: c.n }, (_, i) => ({ key: `${c.key}-${i}`, tone: TROPHY_CAT_TONE[c.key] ?? "var(--color-gold)" })),
+  );
   return (
     <div className="rounded-lg border border-line bg-pitch/40 p-3 sm:p-4">
       <div className="flex items-baseline justify-between gap-2">
@@ -166,7 +144,7 @@ function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul;
 
       <div className="mt-3 flex min-h-[2.25rem] flex-wrap content-start gap-1">
         {glyphs.length ? (
-          glyphs.map((g) => <TrophyIcon key={g.key} color={g.tone} />)
+          glyphs.map((g) => <TrophyGlyphFilled key={g.key} style={{ color: g.tone }} />)
         ) : (
           <span className="text-sm text-ink-faint">No major honours in this span.</span>
         )}
@@ -176,7 +154,7 @@ function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul;
         <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-ink-dim">
           {haul.categories.map((c) => (
             <li key={c.key} className="inline-flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-[2px]" style={{ background: CAT_TONE[c.key] }} aria-hidden />
+              <span className="h-2 w-2 rounded-[2px]" style={{ background: TROPHY_CAT_TONE[c.key] }} aria-hidden />
               {c.label} <span className="stat-num text-ink">{c.n}</span>
             </li>
           ))}

@@ -118,7 +118,7 @@ export default function Home() {
           <h1 className="display text-4xl sm:text-5xl leading-[0.97] text-balance max-w-4xl">
             <span className="block">Follow the thread through</span>
             <span className="block">
-              <span className="text-devil-bright">Manchester United&apos;s</span> history
+              <span className="text-devil-bright">Manchester United’s</span> history
             </span>
           </h1>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">

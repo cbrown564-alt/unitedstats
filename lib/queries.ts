@@ -1106,6 +1106,32 @@ export function managerHonours(): ManagerHonourSeason[] {
     .all() as ManagerHonourSeason[];
 }
 
+export interface HonourSeasonMarker {
+  season: string;
+  date: string;
+}
+
+/** Latest match date of each trophy-winning season — for Elo timeline markers. */
+export function honourSeasonMarkers(): HonourSeasonMarker[] {
+  return getDb()
+    .prepare(
+      `WITH honour_seasons AS (
+         SELECT ss.season
+         FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+         WHERE c.type = 'league' AND ss.position = 1 AND c.name IN ('First Division','Premier League')
+         UNION
+         SELECT DISTINCT m.season
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE ${CUP_WON_PREDICATE}
+       )
+       SELECT hs.season, d.date
+       FROM honour_seasons hs
+       JOIN (SELECT season, MAX(date) AS date FROM matches GROUP BY season) d ON d.season = hs.season
+       ORDER BY d.date`,
+    )
+    .all() as HonourSeasonMarker[];
+}
+
 export function playerLineupMatches(id: string): (MatchRow & {
   started: number;
   sub_on: number | null;

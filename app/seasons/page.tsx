@@ -4,7 +4,9 @@ import { decadeBriefs } from "@/lib/narrative";
 import { PageHeader } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
+import { HonoursChip } from "@/components/HonoursBadge";
 import { TrophyIcon } from "@/components/CampaignIcons";
+import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
 import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
 import { CoverageNote } from "@/components/CoverageNote";
 import { JumpRail, type JumpChip } from "@/components/JumpRail";
@@ -46,16 +48,14 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
       {titles > 0 && (
-        <span className="inline-flex items-center gap-1 rounded-full border border-gold/50 bg-gold/15 px-2 py-0.5 text-[11px] font-semibold leading-none text-gold">
-          <TrophyIcon className="h-3 w-3" />
+        <HonoursChip tone="gold">
           {titles} {titles > 1 ? "league titles" : "league title"}
-        </span>
+        </HonoursChip>
       )}
       {cups > 0 && (
-        <span className="inline-flex items-center gap-1 rounded-full border border-line bg-panel-2/70 px-2 py-0.5 text-[11px] font-medium leading-none text-ink-dim">
-          <TrophyIcon className="h-3 w-3 text-silver" />
+        <HonoursChip tone="quiet">
           {cups} {cups > 1 ? "cups won" : "cup won"}
-        </span>
+        </HonoursChip>
       )}
     </div>
   );
@@ -505,8 +505,10 @@ export default async function SeasonsPage({
                 </div>
 
                 <ul>
-                  {rows.map((r) => (
-                    <li key={r.season} className="border-b border-line last:border-b-0">
+                  {rows.map((r) => {
+                    const eraKey = eraForFirstMatchYear(Number(r.season.slice(0, 4))).key;
+                    return (
+                    <li key={r.season} className={`border-b border-line last:border-b-0 ${eraSeasonRowClass(eraKey)}`}>
                       <Link
                         href={`/seasons/${r.season}`}
                         className="grid items-center gap-x-3 px-4 py-2.5 transition-colors hover:bg-panel-2/60"
@@ -539,7 +541,8 @@ export default async function SeasonsPage({
                         ))}
                       </Link>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               </div>
             </div>

@@ -6,7 +6,7 @@ import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ManagerTimeline } from "@/components/charts/ManagerTimeline";
 import { ManagerSparkbar, type ManagerSparkSeason } from "@/components/charts/ManagerSparkbar";
 import { IndexRow } from "@/components/IndexRow";
-import { TrophyIcon } from "@/components/CampaignIcons";
+import { HonoursBadge } from "@/components/HonoursBadge";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct } from "@/lib/format";
 
@@ -178,15 +178,7 @@ export default function ManagersPage() {
                       compactName={familyName(m.name)}
                       badge={
                         (trophyCount.get(m.id) ?? 0) > 0 ? (
-                          <span
-                            className="inline-flex shrink-0 items-center gap-0.5 text-gold"
-                            title={`${trophyCount.get(m.id)} trophies won`}
-                          >
-                            <TrophyIcon className="h-3 w-3" />
-                            <span className="stat-num text-[11px] font-semibold leading-none">
-                              {trophyCount.get(m.id)}
-                            </span>
-                          </span>
+                          <HonoursBadge count={trophyCount.get(m.id) ?? 0} />
                         ) : undefined
                       }
                       sub={`${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${m.role}`}

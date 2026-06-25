@@ -11,10 +11,11 @@ import { fmtMonthYear } from "@/lib/format";
  * opening — the strength signal as the thing you see before you read.
  */
 export function EloHero({
-  points, eras, current, peak, trough, firstYear,
+  points, eras, trophyMarkers, current, peak, trough, firstYear,
 }: {
   points: { date: string; elo: number }[];
   eras: { from: string; to: string; label?: string }[];
+  trophyMarkers?: { date: string; season: string }[];
   current: number;
   peak: { elo: number; date: string };
   trough: { elo: number; date: string };
@@ -64,14 +65,14 @@ export function EloHero({
         </div>
 
         <div className="mt-6">
-          <EloRatingChart points={points} height={300} eras={eras} />
+          <EloRatingChart points={points} height={300} eras={eras} trophyMarkers={trophyMarkers} />
         </div>
 
         <p className="mt-3 max-w-2xl text-xs text-ink-faint">
           <span className="text-ink-dim">Slice:</span> every competitive match, closed-universe Elo — opponents are
           rated only on their matches against United, K varies by competition and goal margin, home advantage worth
-          60 points. Shaded bands mark managerial eras, the longest-serving labelled, so rises and falls read against
-          who was in charge. This rating drives the favourites line on every match page.
+          60 points. Shaded bands mark managerial eras, the longest-serving labelled; gold dots mark trophy-winning
+          seasons. This rating drives the favourites line on every match page.
         </p>
       </div>
     </section>

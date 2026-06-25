@@ -43,7 +43,7 @@ function EmptyState() {
         A correction is always about one specific claim — a score, a date, an attendance, a name, a goal minute. Start
         from the page that shows the value you want to fix and use its{" "}
         <span className="font-semibold text-ink">Suggest a correction</span> link; it brings you here with that match
-        or player&apos;s facts laid out to choose from.
+        or player’s facts laid out to choose from.
       </p>
       <div className="flex flex-wrap gap-2 text-sm font-semibold">
         <Link href="/matches" className="control inline-flex items-center hover:text-devil-bright focus-ring">

@@ -209,7 +209,7 @@ function HeaderMock({ id, title }: { id: DirectionId; title: string }) {
               ))}
             </div>
             <div className="flex h-10 w-80 items-center rounded-md border border-line bg-panel px-3 text-ink-faint">
-              Ask United&apos;s history...
+              Ask United’s history...
             </div>
           </div>
         </div>

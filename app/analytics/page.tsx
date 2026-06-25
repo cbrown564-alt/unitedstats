@@ -2,7 +2,7 @@ import Link from "next/link";
 import { familyName } from "@/lib/names";
 import {
   eloSeries, seasonAggregates, getMeta,
-  topAssistPartnerships, coverageOverview, managersIndex,
+  topAssistPartnerships, coverageOverview, managersIndex, honourSeasonMarkers,
 } from "@/lib/queries";
 import { clubRecords } from "@/lib/trails";
 import { calibration, oddsFor, ratedOpponents, simulateLeagueSeason, HOME_ADVANTAGE } from "@/lib/predict";
@@ -160,6 +160,7 @@ export default function AnalyticsPage() {
         <EloHero
           points={elo}
           eras={managerEras}
+          trophyMarkers={honourSeasonMarkers()}
           current={currentElo}
           peak={peak}
           trough={trough}
@@ -246,7 +247,7 @@ export default function AnalyticsPage() {
 
         <section>
           <RecordCards records={recordCards} />
-          <CoverageNote slice="all-time peaks across official competitions — friendlies and wartime excluded, so a friendly rout or a wartime goal glut can't pose as a record. Each card opens its match or season.">
+          <CoverageNote slice="all-time peaks across official competitions — friendlies and wartime excluded, so a friendly rout or a wartime goal glut can’t pose as a record. Each card opens its match or season.">
             Ranked in full in the browser:{" "}
             <Link href="/matches?sort=margin" className="text-devil-bright hover:underline">biggest wins</Link>,{" "}
             <Link href="/matches?sort=defeat" className="text-devil-bright hover:underline">heaviest defeats</Link>,{" "}
@@ -384,7 +385,7 @@ export default function AnalyticsPage() {
                 checked-in dataset records assists for these matches.
               </p>
             )}
-            <CoverageNote coverage="assist events exist only from 2012-13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission.">
+            <CoverageNote coverage="assist events exist only from 2012–13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission.">
               Bars scale to the top pairing.
             </CoverageNote>
           </div>
@@ -395,7 +396,7 @@ export default function AnalyticsPage() {
       <div className="space-y-4 border-t border-line/70 pt-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">Where next</p>
         <section className="grid gap-3 sm:grid-cols-3">
-          <TrailLink href="/data" title="Data & coverage">
+          <TrailLink href="/data" title="Data and coverage">
             Results are complete for every decade; goalscorer depth reaches {fmtNum(overview.completeScorers)} of{" "}
             {fmtNum(overview.matches)} matches and {fmtNum(Number(meta.matches_with_lineups ?? 0))} carry full
             lineups. See the ledger and how the gaps get filled.

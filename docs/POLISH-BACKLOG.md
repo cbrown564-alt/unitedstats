@@ -4,7 +4,7 @@ Living list of known bugs, display quirks, and polish items identified in
 code review and UI sweeps (June 2026). Use this for the next polish passes;
 cross-check `docs/VISUAL-AUDIT.md` for broader design/UX audit items.
 
-**Last updated:** 2026-06-25 (G-05/G-07 pass, manager names, match mobile tabs)
+**Last updated:** 2026-06-25 (G-06 atmosphere pass)
 
 ---
 
@@ -84,6 +84,14 @@ These are done on `master` — listed here so we do not re-open them.
 - [x] Manager index `compactName={familyName(m.name)}` with full-name tooltip on `IndexRow`
 - [x] Match page mobile tabs (Option A) — `MatchSectionTabs`: Goals · Sheet · Details · Context · Sources below `sm`; desktop narrative unchanged
 
+### G-06 atmosphere (fourth pass)
+
+- [x] Shared honours vocabulary — `HonoursBadge`, `HonoursChip`, `TrophyGlyphFilled` + `TROPHY_CAT_TONE` in `CampaignIcons`; compare cabinet deduped
+- [x] Manager detail trophy cabinet — `ManagerHonoursPanel` on `/manager/[id]` via exported `managerTrophyHaul()`
+- [x] Elo trophy markers — gold `ReferenceDot` per honour season on analytics Elo chart (`honourSeasonMarkers()`)
+- [x] Season ledger era accents — `eraForFirstMatchYear()` left-border on season rows; `DecadeHonours` uses `HonoursChip`
+- [x] Match hero floodlit plate — `hero-grid` + devil wash on score header
+
 ---
 
 ## Open — bugs and correctness
@@ -130,17 +138,16 @@ These are done on `master` — listed here so we do not re-open them.
 
 | Severity | Page / area | Summary |
 |----------|-------------|---------|
-| Medium | Global G-06 | Atmosphere beyond competition colour (texture, honours markers) |
 | Low | `/player/[id]` | “How he scored & created” / curated Tableau block lower on scroll stack |
 
-*Completed from this audit: odds, travel, match facts/teamsheet/length, player chart collapsibles, G-05 contrast, G-07 hover/focus, match mobile tabs.*
+*G-06 largely addressed in fourth pass (honours markers, era accents, match hero texture, Elo trophy dots). Optional tail: `FinishTimeline` era wash.*
 
 ---
 
 ## Suggested next passes
 
 1. **Remaining media queue** — Curated overrides / manual crops for the 18 `missing[]` legends; run `cache:media`; enable `check:media --strict-coverage` once stable.
-2. **G-06 atmosphere** — Reusable `TrophyMarker` + era banding on seasons/Elo (see `docs/VISUAL-AUDIT.md`).
+2. **G-06 tail** — Optional `FinishTimeline` managerial-era wash if the season ledger accents feel too quiet.
 3. **G-05 tail** — Optional second pass on decorative-faint vs actionable-faint in index/table meta (low priority).
 
 ---

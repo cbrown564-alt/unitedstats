@@ -28,6 +28,24 @@ const ERAS: ManagerEra[] = [
   { key: "after", label: "After Ferguson", from: 2013, to: Infinity },
 ];
 
+/** Era for a manager's first-match year (or a season's opening year). */
+export function eraForFirstMatchYear(year: number): ManagerEra {
+  return ERAS.find((e) => year >= e.from && year < e.to) ?? ERAS[0]!;
+}
+
+/** Subtle left-edge accent for season ledger rows keyed by era. */
+export function eraSeasonRowClass(eraKey: string): string {
+  switch (eraKey) {
+    case "busby":
+    case "ferguson":
+      return "border-l-2 border-gold/35";
+    case "between":
+      return "border-l-2 border-line/70";
+    default:
+      return "border-l border-line/40";
+  }
+}
+
 export interface ManagerEraGroup {
   era: ManagerEra;
   managers: ManagerRecord[];

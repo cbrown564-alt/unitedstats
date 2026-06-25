@@ -489,7 +489,15 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <div className="space-y-5">
-        <header className="space-y-4">
+        <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_16px_32px_rgb(0_0_0_/0.18)]">
+          <div className="hero-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+          <div
+            className="pointer-events-none absolute -right-20 -top-24 h-56 w-1/2 rounded-full opacity-[0.10] blur-3xl"
+            style={{ backgroundColor: "var(--color-devil)" }}
+            aria-hidden
+          />
+          <div className="relative space-y-4 p-5 sm:p-6">
+            <header className="space-y-4">
           <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
             <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
             <span aria-hidden>·</span>
@@ -527,22 +535,24 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </p>
             )}
           </div>
-        </header>
+            </header>
 
-        <div className="flex justify-center">
+            <div className="flex justify-center">
           <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
-        </div>
+            </div>
 
-        {hasDigest && (
-          <div className="flex justify-center">
+            {hasDigest && (
+              <div className="flex justify-center">
             <Link
               href={`/history-changed/${id}`}
               className="inline-flex items-center gap-1.5 rounded-full border border-line bg-panel px-3.5 py-1.5 text-xs font-semibold text-ink-dim transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
             >
               What this result changed in the all-time record →
             </Link>
+              </div>
+            )}
           </div>
-        )}
+        </section>
       </div>
 
       <MatchSectionTabs

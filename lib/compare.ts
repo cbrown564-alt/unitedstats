@@ -190,7 +190,7 @@ function buildHaul(rows: { cat: string; n: number }[]): TrophyHaul {
 /** Trophies a manager won, split by competition category. League titles attribute
  *  to whoever managed the last league match of the title season; cups to the
  *  winning-final manager (the shared {@link CUP_WON_PREDICATE}). */
-function managerTrophies(id: string): TrophyHaul {
+export function managerTrophyHaul(id: string): TrophyHaul {
   const rows = getDb()
     .prepare(
       `WITH honours AS (
@@ -265,7 +265,7 @@ export function compareManagers(idA: string, idB: string): Comparison | null {
       { label: "Conceded per game", a: per(a.ga, a.p), b: per(b.ga, b.p), fmt: "dec1", better: "lower" },
       { label: "Trophies", a: aTot, b: bTot, fmt: "int", better: "higher" },
     ],
-    signature: { kind: "trophies", a: managerTrophies(a.id), b: managerTrophies(b.id) },
+    signature: { kind: "trophies", a: managerTrophyHaul(a.id), b: managerTrophyHaul(b.id) },
     headline: trophyHeadline(a.name, b.name, aTot, bTot, winPct(a), winPct(b)),
     coverage:
       "Records cover every competitive match. Points per game restates older eras in three-points-for-a-win terms; trophies count league titles and the cups whose deciding final was won.",
