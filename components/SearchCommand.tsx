@@ -10,11 +10,16 @@ import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
 import { useRotatingPlaceholder } from "./useRotatingPlaceholder";
+import type { SearchEntity } from "@/lib/search";
+import { entityMatchesHref } from "@/lib/search/matchesHref";
+import { queryString } from "@/lib/url";
 
 export function SearchCommand({
   autoFocusKey = true,
   autoFocusOnMount = false,
   compact = false,
+  fullWidth = false,
+  forMatches = false,
   placeholder,
   onNavigate,
 }: {
@@ -23,6 +28,10 @@ export function SearchCommand({
   autoFocusOnMount?: boolean;
   /** Slimmer styling and shorter placeholder for the persistent header search. */
   compact?: boolean;
+  /** Span the full container width (hero / Matches page). */
+  fullWidth?: boolean;
+  /** On `/matches`, route picks into filter chips instead of entity pages or `/search`. */
+  forMatches?: boolean;
   placeholder?: string;
   /** Fired when a result is chosen, so a wrapping panel can close itself. */
   onNavigate?: () => void;
@@ -39,7 +48,10 @@ export function SearchCommand({
 
   const { shaped, entities, total } = useSiteSearch(q);
   const ready = q.trim().length >= 2;
-  const rows: { href: string }[] = [...shaped, ...entities];
+  const rows: { href: string; entity?: SearchEntity }[] = [
+    ...shaped.map((s) => ({ href: s.href })),
+    ...entities.map((e) => ({ href: e.href, entity: e })),
+  ];
   const hasResults = rows.length > 0;
   const seeAllHref = `/search?q=${encodeURIComponent(q.trim())}`;
 
@@ -47,7 +59,20 @@ export function SearchCommand({
   // header search and any caller-supplied placeholder stay fixed.
   const exampleQ = useRotatingPlaceholder(!placeholder && !compact && q === "");
   const computedPlaceholder =
-    placeholder ?? (compact ? "Search…" : `Try “${exampleQ}” — or a name`);
+    placeholder ?? (compact ? "Search…" : `Try “${exampleQ}”`);
+
+  const resolveHref = (href: string, entity?: SearchEntity) => {
+    if (!forMatches) return href;
+    if (href.startsWith("/matches") || href.startsWith("/match/")) return href;
+    if (entity) return entityMatchesHref(entity);
+    return href;
+  };
+
+  const defaultMatchesHref = () => {
+    if (shaped[0]) return shaped[0].href;
+    if (entities[0]) return entityMatchesHref(entities[0]);
+    return `/matches${queryString({ q: q.trim() })}`;
+  };
 
   const onChange = (value: string) => {
     setQ(value);
@@ -55,12 +80,13 @@ export function SearchCommand({
     setOpen(true);
   };
 
-  const select = (href: string) => {
+  const select = (href: string, entity?: SearchEntity) => {
+    const destination = resolveHref(href, entity);
     pushRecent(q);
-    logSearchClick(q, href, total);
+    logSearchClick(q, destination, total);
     setOpen(false);
     onNavigate?.();
-    router.push(href);
+    router.push(destination);
   };
 
   useEffect(() => {
@@ -98,8 +124,8 @@ export function SearchCommand({
       setActive((a) => Math.max(a - 1, -1));
     } else if (e.key === "Enter") {
       // a highlighted row wins; otherwise Enter opens the full results page
-      if (active >= 0 && rows[active]) select(rows[active].href);
-      else if (ready) select(seeAllHref);
+      if (active >= 0 && rows[active]) select(rows[active].href, rows[active].entity);
+      else if (ready) select(forMatches ? defaultMatchesHref() : seeAllHref);
     } else if (e.key === "Escape") {
       setOpen(false);
       inputRef.current?.blur();
@@ -107,7 +133,7 @@ export function SearchCommand({
   };
 
   return (
-    <div ref={boxRef} className={`relative ${compact ? "w-full" : "max-w-xl"}`}>
+    <div ref={boxRef} className={`relative ${compact || fullWidth ? "w-full" : "max-w-xl"}`}>
       <input
         ref={inputRef}
         type="search"
@@ -145,13 +171,15 @@ export function SearchCommand({
               onSelect={select}
               onHover={setActive}
               footer={
-                <Link
-                  href={seeAllHref}
-                  onClick={() => select(seeAllHref)}
-                  className="block border-t border-line px-4 py-2 text-xs font-medium text-devil-bright hover:bg-panel-2"
-                >
-                  {total > 0 ? `See all ${total} result${total === 1 ? "" : "s"} →` : "Open the results page →"}
-                </Link>
+                forMatches ? undefined : (
+                  <Link
+                    href={seeAllHref}
+                    onClick={() => select(seeAllHref)}
+                    className="block border-t border-line px-4 py-2 text-xs font-medium text-devil-bright hover:bg-panel-2"
+                  >
+                    {total > 0 ? `See all ${total} result${total === 1 ? "" : "s"} →` : "Open the results page →"}
+                  </Link>
+                )
               }
             />
           ) : ready ? (
@@ -163,7 +191,7 @@ export function SearchCommand({
                 setActive(-1);
                 inputRef.current?.focus();
               }}
-              onSeeAll={() => select(seeAllHref)}
+              onSeeAll={() => select(forMatches ? defaultMatchesHref() : seeAllHref)}
             />
           ) : (
             <SearchEmptyState onPick={(query) => setQ(query)} />

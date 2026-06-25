@@ -30,7 +30,7 @@ export function SearchResults({
   listId: string;
   /** Builds the DOM id for option N, so the input can point aria-activedescendant at it. */
   optionId: (i: number) => string;
-  onSelect: (href: string) => void;
+  onSelect: (href: string, entity?: SearchEntity) => void;
   onHover?: (i: number) => void;
   footer?: React.ReactNode;
 }) {
@@ -65,7 +65,7 @@ export function SearchResults({
           <li key={`${r.kind}-${r.href}`} id={optionId(idx)} role="option" aria-selected={active === idx}>
             <Link
               href={r.href}
-              onClick={() => onSelect(r.href)}
+              onClick={() => onSelect(r.href, r)}
               onMouseEnter={() => onHover?.(idx)}
               className={`tap-target flex items-center justify-between gap-3 px-4 py-2.5 text-sm sm:py-2 ${
                 active === idx ? "bg-panel-2" : "hover:bg-panel-2"

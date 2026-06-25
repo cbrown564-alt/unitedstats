@@ -26,6 +26,13 @@ const PATHS: Record<string, React.ReactNode> = {
       <circle cx="8" cy="8" r="0.5" fill="currentColor" stroke="none" />
     </>
   ),
+  // Goal-difference / margin: goalposts with a gap bracket between them.
+  margin: (
+    <>
+      <path d="M3.2 12.4V3.8M12.8 12.4V3.8M3.2 3.8h9.6" />
+      <path d="M5.4 10.8v-3.2M10.6 10.8v-3.2M5.4 10.8h5.2" />
+    </>
+  ),
   arrow: <path d="M3 8h9M8.4 4.4 12 8l-3.6 3.6" />,
   trophy: (
     <>

@@ -8,6 +8,15 @@ const ISO_DATE = /^\d{4}(-\d{2}(-\d{2})?)?$/;
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const p = (k: string) => url.searchParams.get(k) ?? undefined;
+  const rawSort = p("sort");
+  const sort = (
+    rawSort === "date-desc" ||
+    rawSort === "date-asc" ||
+    rawSort === "gd-desc" ||
+    rawSort === "gd-asc"
+      ? rawSort
+      : undefined
+  ) as "date-desc" | "date-asc" | "gd-desc" | "gd-asc" | undefined;
   const minute = (k: string) => {
     const raw = p(k);
     if (!raw || !/^\d{1,3}$/.test(raw)) return undefined;
@@ -41,6 +50,7 @@ export async function GET(request: Request) {
     from,
     to,
     q: p("q"),
+    sort,
     limit,
     offset,
   });
