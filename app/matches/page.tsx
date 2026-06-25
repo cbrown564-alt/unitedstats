@@ -4,6 +4,7 @@ import {
   playerById, playersIndex, stadiumById, stadiumsList, matchCitiesList, matchEventBadges,
   opponentsIndex, matchFacetCounts,
 } from "@/lib/queries";
+import type { MatchFilter } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
@@ -215,6 +216,18 @@ export default async function MatchesPage({
   if (sp.from) chips.push({ key: "from", label: `From ${sp.from}` });
   if (sp.to) chips.push({ key: "to", label: `To ${sp.to}` });
 
+  // Each chip carries the size of its own filter in isolation — the universe it
+  // draws from, not the current (multi-filter) slice. It turns a chip from a bare
+  // control into a small piece of evidence ("Liverpool · 230"). Only the chip's own
+  // constraint is applied; `q` is the free-text opponent match, which `findMatches`
+  // resolves the same way the chip does.
+  const chipCounts: Record<string, number> = {};
+  for (const chip of chips) {
+    const value = (filter as Record<string, unknown>)[chip.key];
+    if (value === undefined || value === false) continue;
+    chipCounts[chip.key] = findMatches({ [chip.key]: value, sort, limit: 1, offset: 0 } as MatchFilter).total;
+  }
+
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Fixture record" title="Matches">
@@ -244,6 +257,7 @@ export default async function MatchesPage({
       <MatchFilterBar
         params={sp}
         chips={chips}
+        chipCounts={chipCounts}
         options={facetOptions}
         counts={facetCounts}
         total={total}

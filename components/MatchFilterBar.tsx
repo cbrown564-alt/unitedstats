@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState, useTransition } from "react";
+import { Fragment, useEffect, useRef, useState, useTransition, ViewTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
@@ -11,6 +11,17 @@ import {
   MATCH_FACETS, FACET_BY_KEY, FACET_GROUPS,
   type FacetDef, type FacetGroup, type FacetOption, type FacetOptions, type FacetCounts,
 } from "@/lib/matchFacets";
+
+// Group accent for facet icons — one muted hue per group (who/what/where/when),
+// so colour quietly echoes the spatial grouping. Kept low-key on purpose: the
+// tint lives only on the small glyph, never the chip label or border. Tune the
+// /60 here to dial the whole accent up or down in one place.
+const GROUP_TONE: Record<FacetGroup, string> = {
+  who: "text-europe/60",
+  what: "text-gold/60",
+  where: "text-silver/60",
+  when: "text-devil-bright/60",
+};
 
 /**
  * Live facet-chip filter bar for the Matches page. The URL stays the single
@@ -25,6 +36,7 @@ import {
 export function MatchFilterBar({
   params,
   chips,
+  chipCounts,
   options,
   counts,
   total,
@@ -32,6 +44,9 @@ export function MatchFilterBar({
 }: {
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
+  /** Size of each chip's filter in isolation, keyed by chip key — the universe it
+   *  draws from, shown as a quiet trailing number. */
+  chipCounts: Record<string, number>;
   options: FacetOptions;
   counts: FacetCounts;
   total: number;
@@ -105,9 +120,11 @@ export function MatchFilterBar({
           const editable = facet && facet.kind !== "toggle";
           const prevGroup = i > 0 ? FACET_BY_KEY[orderedChips[i - 1].key]?.group : undefined;
           const groupBreak = i > 0 && facet?.group !== prevGroup;
+          const count = chipCounts[chip.key];
           return (
             <Fragment key={chip.key}>
             {groupBreak && <span aria-hidden className="mx-0.5 h-4 w-px self-center bg-line" />}
+            <ViewTransition>
             <span className="relative inline-flex items-stretch overflow-hidden rounded-full border border-line bg-panel-2 text-sm text-ink-dim">
               <button
                 type="button"
@@ -116,8 +133,13 @@ export function MatchFilterBar({
                 aria-expanded={open === chip.key}
                 className={`inline-flex items-center gap-1.5 py-1 pl-2.5 pr-2 transition-colors focus-ring ${editable ? "hover:text-ink" : "cursor-default"}`}
               >
-                {facet && <FacetIcon name={facet.icon} className="shrink-0 text-ink-faint" />}
+                {facet && <FacetIcon name={facet.icon} className={`shrink-0 ${facet.group ? GROUP_TONE[facet.group] : "text-ink-faint"}`} />}
                 {chip.label}
+                {typeof count === "number" && (
+                  <span className="stat-num ml-0.5 text-xs text-ink-faint" title={`${count.toLocaleString("en-GB")} matches match this filter`}>
+                    {count.toLocaleString("en-GB")}
+                  </span>
+                )}
                 {editable && <span aria-hidden className="ml-0.5 text-ink-faint">▾</span>}
               </button>
               <span aria-hidden className="my-1 w-px self-stretch bg-line" />
@@ -139,6 +161,7 @@ export function MatchFilterBar({
                 />
               )}
             </span>
+            </ViewTransition>
             </Fragment>
           );
         })}
@@ -237,7 +260,7 @@ function AddMenu({
           dim ? "text-ink-faint hover:bg-panel-2" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
         }`}
       >
-        <FacetIcon name={f.icon} className="shrink-0 text-ink-faint" />
+        <FacetIcon name={f.icon} className={`shrink-0 ${f.group ? GROUP_TONE[f.group] : "text-ink-faint"}`} />
         <span className="truncate">{f.label}</span>
       </button>
     );
