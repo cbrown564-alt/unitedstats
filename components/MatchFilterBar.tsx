@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { Fragment, useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
@@ -79,6 +79,15 @@ export function MatchFilterBar({
 
   const activeKeys = new Set(chips.map((c) => c.key));
   const available = MATCH_FACETS.filter((f) => !activeKeys.has(f.key));
+  // Order active chips by facet group (who → what → where → when) so the bar
+  // clusters related filters; the sort is stable, so insertion order holds within
+  // a group. A hairline is dropped in wherever the group changes.
+  const groupOrder = new Map(FACET_GROUPS.map((g, i) => [g.key, i] as const));
+  const orderedChips = [...chips].sort(
+    (a, b) =>
+      (groupOrder.get(FACET_BY_KEY[a.key]?.group ?? "who") ?? 99) -
+      (groupOrder.get(FACET_BY_KEY[b.key]?.group ?? "who") ?? 99),
+  );
   // When the open popover is a facet that isn't yet active, its editor anchors to
   // the add-filter button rather than to a chip.
   const newFacet = open && open !== "add" && !activeKeys.has(open) ? FACET_BY_KEY[open] : undefined;
@@ -90,28 +99,33 @@ export function MatchFilterBar({
         {pending && <span className="stat-num text-xs text-ink-faint motion-safe:animate-pulse">updating…</span>}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
-        {chips.map((chip) => {
+      <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+        {orderedChips.map((chip, i) => {
           const facet = FACET_BY_KEY[chip.key];
           const editable = facet && facet.kind !== "toggle";
+          const prevGroup = i > 0 ? FACET_BY_KEY[orderedChips[i - 1].key]?.group : undefined;
+          const groupBreak = i > 0 && facet?.group !== prevGroup;
           return (
-            <span key={chip.key} className="relative inline-flex items-center rounded-full border border-line bg-panel-2 text-sm text-ink-dim">
+            <Fragment key={chip.key}>
+            {groupBreak && <span aria-hidden className="mx-0.5 h-4 w-px self-center bg-line" />}
+            <span className="relative inline-flex items-stretch overflow-hidden rounded-full border border-line bg-panel-2 text-sm text-ink-dim">
               <button
                 type="button"
                 disabled={!editable}
                 onClick={() => editable && setOpen(open === chip.key ? null : chip.key)}
                 aria-expanded={open === chip.key}
-                className={`inline-flex items-center gap-1.5 rounded-l-full py-1 pl-2.5 pr-2 transition-colors focus-ring ${editable ? "hover:text-ink" : "cursor-default"}`}
+                className={`inline-flex items-center gap-1.5 py-1 pl-2.5 pr-2 transition-colors focus-ring ${editable ? "hover:text-ink" : "cursor-default"}`}
               >
                 {facet && <FacetIcon name={facet.icon} className="shrink-0 text-ink-faint" />}
                 {chip.label}
                 {editable && <span aria-hidden className="ml-0.5 text-ink-faint">▾</span>}
               </button>
+              <span aria-hidden className="my-1 w-px self-stretch bg-line" />
               <button
                 type="button"
                 onClick={() => apply(chip.key, undefined)}
                 aria-label={`Remove filter: ${chip.label}`}
-                className="rounded-r-full py-1 pl-1 pr-2.5 text-ink-faint transition-colors hover:text-devil-bright focus-ring"
+                className="flex items-center px-2 text-ink-faint transition-colors hover:bg-devil-bright/10 hover:text-devil-bright focus-ring"
               >
                 ×
               </button>
@@ -125,8 +139,11 @@ export function MatchFilterBar({
                 />
               )}
             </span>
+            </Fragment>
           );
         })}
+
+        {chips.length > 0 && <span aria-hidden className="mx-0.5 h-5 w-px self-center bg-line" />}
 
         <span className="relative inline-flex">
           <button
@@ -153,7 +170,7 @@ export function MatchFilterBar({
           <button
             type="button"
             onClick={() => navigate({})}
-            className="rounded-full px-2 py-1 text-sm text-ink-faint underline-offset-2 transition-colors hover:text-ink hover:underline focus-ring"
+            className="ml-auto rounded-full px-2 py-1 text-sm text-ink-faint underline-offset-2 transition-colors hover:text-ink hover:underline focus-ring"
           >
             Clear all
           </button>
@@ -277,16 +294,18 @@ function AddMenu({
           ) : available.length === 0 ? (
             <p className="px-3 py-3 text-sm text-ink-faint">Every filter is already in play.</p>
           ) : (
-            <div className="grid grid-cols-2 gap-x-2 p-1.5">
+            <div className="grid grid-cols-2 gap-x-4 p-2">
               {MENU_COLUMNS.map((groups, col) => (
                 <div key={col} className="min-w-0">
                   {groups.map((g) => {
                     const items = available.filter((f) => f.group === g);
                     if (items.length === 0) return null;
                     const label = FACET_GROUPS.find((x) => x.key === g)?.label ?? g;
+                    // Each group hugs its own header (small pb) but is pushed clear of
+                    // the group above (larger pt) so the four clusters read distinctly.
                     return (
-                      <div key={g} className="px-0.5 py-1 first:pt-0.5">
-                        <p className="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">{label}</p>
+                      <div key={g} className="px-0.5 pt-3.5 first:pt-0">
+                        <p className="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">{label}</p>
                         {items.map(item)}
                       </div>
                     );
