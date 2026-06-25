@@ -171,3 +171,12 @@ export function scoreline(gf: number, ga: number, pens?: [number | null, number 
   if (pens && pens[0] != null) s += ` (${pens[0]}–${pens[1]} pens)`;
   return s;
 }
+
+/** The extra-time / shootout footnote, kept apart from the base scoreline so the
+ *  score pill stays a uniform width and locked to the list grid. */
+export function scoreNote(pens?: [number | null, number | null] | null, aet?: boolean): string {
+  const parts: string[] = [];
+  if (aet) parts.push("aet");
+  if (pens && pens[0] != null) parts.push(`${pens[0]}–${pens[1]} pens`);
+  return parts.join(" · ");
+}

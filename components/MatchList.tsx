@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
-import { fmtDate, fmtNum, fmtRound, scoreline, venuePrefix } from "@/lib/format";
+import { fmtDate, fmtNum, fmtRound, scoreline, scoreNote, venuePrefix } from "@/lib/format";
 import { ResultBadge } from "./ResultBadge";
 import { CompetitionDot } from "./CompetitionChip";
 
@@ -33,26 +33,37 @@ export function MatchList<T extends MatchRow>({
   /** Render an extra trailing cell per row (e.g. a goals/minutes annotation). */
   renderExtra?: (m: T) => ReactNode;
 }) {
-  // The trailing extra cell (e.g. a goals/minutes badge) is given a fixed width
-  // so its variable content can't push the score / season / competition / round
-  // columns around row to row — they stay vertically scannable.
+  // Reading order across a row: date · score · result · opponent, then the meta
+  // rail (competition + crowd) pinned to the right edge. Score leads the result
+  // so each row reads "2–0 W v Aston Villa"; the fixed date column keeps every
+  // scoreline left-aligned in a clean vertical rail. When a scorer filter is on,
+  // the goals/minutes badge sits just left of the meta rail, content-sized and
+  // right-aligned — it grows leftward into the opponent slack, never colliding.
   const cols = renderExtra
-    ? "grid-cols-[auto_1fr_auto_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto_13rem]"
-    : "grid-cols-[auto_1fr_auto] sm:grid-cols-[7rem_auto_1fr_auto_auto]";
+    ? "grid-cols-[auto_auto_1fr_auto] sm:grid-cols-[7rem_auto_auto_1fr_auto_auto]"
+    : "grid-cols-[auto_auto_1fr] sm:grid-cols-[7rem_auto_auto_1fr_auto]";
   return (
     <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
-      {matches.map((m) => (
+      {matches.map((m) => {
+        const note = scoreNote(m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet);
+        return (
         <li key={m.id} className="match-list-item">
           <Link
             href={`/match/${m.id}`}
             className={`grid min-h-14 ${cols} items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:px-4 ${accentResult ? accentClass(m.result) : ""}`}
           >
             <span className="stat-num hidden text-xs text-ink-dim sm:block">{fmtDate(m.date)}</span>
+            <span className="stat-num min-w-[2.75rem] rounded bg-panel-2 px-2 py-1 text-center text-sm font-semibold whitespace-nowrap">
+              {scoreline(m.gf, m.ga)}
+            </span>
             <ResultBadge result={m.result} outcome={m.outcome} />
             <span className="min-w-0">
-              <span className="text-sm font-medium truncate block">
-                <span className="mr-1.5 text-ink-faint">{venuePrefix(m.venue)}</span>
-                {m.opponent_name}
+              <span className="flex items-baseline gap-2">
+                <span className="text-sm font-medium truncate min-w-0">
+                  <span className="mr-1.5 text-ink-faint">{venuePrefix(m.venue)}</span>
+                  {m.opponent_name}
+                </span>
+                {note && <span className="shrink-0 text-xs text-ink-faint">{note}</span>}
               </span>
               <span className="flex items-center gap-1.5 text-xs text-ink-dim sm:hidden">
                 <CompetitionDot type={m.competition_type} />
@@ -61,16 +72,16 @@ export function MatchList<T extends MatchRow>({
                 {showAttendance && m.attendance != null ? ` · ${fmtNum(m.attendance)}` : ""}
               </span>
             </span>
-            <span className="stat-num rounded bg-panel-2 px-2 py-1 text-sm font-semibold whitespace-nowrap">
-              {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet)}
-            </span>
+            {renderExtra && (
+              <span className="justify-self-end whitespace-nowrap">{renderExtra(m)}</span>
+            )}
             {/* Fixed-width sub-columns so season / competition / round line up
                 vertically down the list and stay scannable row to row. */}
             <span
               className={`hidden items-center gap-x-3 text-xs text-ink-dim sm:grid ${
                 showSeason
-                  ? "[grid-template-columns:3.75rem_8rem_4.5rem]"
-                  : "[grid-template-columns:8rem_4.5rem]"
+                  ? "[grid-template-columns:3.75rem_8rem_7rem]"
+                  : "[grid-template-columns:8rem_7rem]"
               }`}
             >
               {showSeason && <span className="stat-num whitespace-nowrap text-ink-faint">{m.season}</span>}
@@ -79,7 +90,7 @@ export function MatchList<T extends MatchRow>({
                 <span className="truncate">{m.competition_name}</span>
               </span>
               <span className="min-w-0">
-                <span className="block truncate text-ink-faint" title={m.round ?? undefined}>
+                <span className="block truncate text-ink-dim" title={m.round ?? undefined}>
                   {m.round ? fmtRound(m.round) : ""}
                 </span>
                 {showAttendance && m.attendance != null && (
@@ -87,10 +98,10 @@ export function MatchList<T extends MatchRow>({
                 )}
               </span>
             </span>
-            {renderExtra && <span className="justify-self-end">{renderExtra(m)}</span>}
           </Link>
         </li>
-      ))}
+        );
+      })}
       {matches.length === 0 && (
         <li className="px-4 py-8 text-center text-sm text-ink-faint">No matches found.</li>
       )}
