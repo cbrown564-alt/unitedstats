@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
 import { FacetCombobox } from "@/components/FacetCombobox";
@@ -27,12 +28,16 @@ export function MatchFilterBar({
   options,
   counts,
   total,
+  matchHref,
 }: {
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
   options: FacetOptions;
   counts: FacetCounts;
   total: number;
+  /** Link to the lone match when the slice has narrowed to one — the add-filter
+   *  menu offers it as the way forward instead of a wall of dead options. */
+  matchHref?: string;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -132,7 +137,7 @@ export function MatchFilterBar({
           >
             <span aria-hidden>＋</span> Add filter
           </button>
-          {open === "add" && <AddMenu available={available} counts={counts} total={total} onPick={pick} />}
+          {open === "add" && <AddMenu available={available} counts={counts} total={total} matchHref={matchHref} onPick={pick} />}
           {newFacet && (
             <FacetEditor
               facet={newFacet}
@@ -175,11 +180,13 @@ function AddMenu({
   available,
   counts,
   total,
+  matchHref,
   onPick,
 }: {
   available: FacetDef[];
   counts: FacetCounts;
   total: number;
+  matchHref?: string;
   onPick: (f: FacetDef) => void;
 }) {
   const { ref, align } = usePopoverAlign();
@@ -219,46 +226,76 @@ function AddMenu({
     );
   };
 
+  // The slice can't be narrowed when it's already a single match, or when every
+  // remaining facet collapses to one value across it. Either way a grid of options
+  // would be a wall of dead, dimmed items — show a way forward instead.
+  const allExhausted = available.length > 0 && available.every(exhausted);
+  const stuck = total <= 1 || allExhausted;
+
   return (
     <div ref={ref} role="menu" className={`pop-in absolute ${align} top-full z-40 mt-1 w-[30rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-line bg-panel shadow-xl`}>
-      <div className="border-b border-line p-2">
-        <input
-          autoFocus
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Find a filter…"
-          aria-label="Find a filter"
-          className="control w-full"
-        />
-      </div>
-
-      {matches ? (
-        <div className="max-h-80 overflow-y-auto p-1.5">
-          {matches.length > 0 ? matches.map(item) : (
-            <p className="px-2 py-2 text-sm text-ink-faint">No filter matches “{query}”.</p>
+      {stuck ? (
+        <div className="p-3">
+          {matchHref ? (
+            <>
+              <p className="text-sm text-ink-dim">You&rsquo;re down to a single match — nothing left to filter.</p>
+              <Link
+                href={matchHref}
+                className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-devil-bright underline-offset-2 transition-colors hover:underline focus-ring"
+              >
+                View match <span aria-hidden>→</span>
+              </Link>
+            </>
+          ) : (
+            <p className="text-sm text-ink-faint">
+              {total === 0
+                ? "No matches in this slice — remove a filter to broaden."
+                : "Every remaining filter has one value across these matches — remove a filter to broaden."}
+            </p>
           )}
         </div>
-      ) : available.length === 0 ? (
-        <p className="px-3 py-3 text-sm text-ink-faint">Every filter is already in play.</p>
       ) : (
-        <div className="grid grid-cols-2 gap-x-2 p-1.5">
-          {MENU_COLUMNS.map((groups, col) => (
-            <div key={col} className="min-w-0">
-              {groups.map((g) => {
-                const items = available.filter((f) => f.group === g);
-                if (items.length === 0) return null;
-                const label = FACET_GROUPS.find((x) => x.key === g)?.label ?? g;
-                return (
-                  <div key={g} className="px-0.5 py-1 first:pt-0.5">
-                    <p className="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">{label}</p>
-                    {items.map(item)}
-                  </div>
-                );
-              })}
+        <>
+          <div className="border-b border-line p-2">
+            <input
+              autoFocus
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Find a filter…"
+              aria-label="Find a filter"
+              className="control w-full"
+            />
+          </div>
+
+          {matches ? (
+            <div className="max-h-80 overflow-y-auto p-1.5">
+              {matches.length > 0 ? matches.map(item) : (
+                <p className="px-2 py-2 text-sm text-ink-faint">No filter matches “{query}”.</p>
+              )}
             </div>
-          ))}
-        </div>
+          ) : available.length === 0 ? (
+            <p className="px-3 py-3 text-sm text-ink-faint">Every filter is already in play.</p>
+          ) : (
+            <div className="grid grid-cols-2 gap-x-2 p-1.5">
+              {MENU_COLUMNS.map((groups, col) => (
+                <div key={col} className="min-w-0">
+                  {groups.map((g) => {
+                    const items = available.filter((f) => f.group === g);
+                    if (items.length === 0) return null;
+                    const label = FACET_GROUPS.find((x) => x.key === g)?.label ?? g;
+                    return (
+                      <div key={g} className="px-0.5 py-1 first:pt-0.5">
+                        <p className="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint">{label}</p>
+                        {items.map(item)}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

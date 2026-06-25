@@ -227,7 +227,14 @@ export default async function MatchesPage({
         </div>
       </div>
 
-      <MatchFilterBar params={sp} chips={chips} options={facetOptions} counts={facetCounts} total={total} />
+      <MatchFilterBar
+        params={sp}
+        chips={chips}
+        options={facetOptions}
+        counts={facetCounts}
+        total={total}
+        matchHref={total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined}
+      />
 
       <section className="rounded-lg border border-line bg-panel p-4">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
