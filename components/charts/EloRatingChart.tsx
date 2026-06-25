@@ -7,8 +7,6 @@ type EloRatingChartProps = {
   height?: number;
   /** Managerial eras to shade behind the rating line; long tenures carry a label. */
   eras?: { from: string; to: string; label?: string }[];
-  /** Trophy-winning season dates as gold markers along the chart top. */
-  trophyMarkers?: { date: string; season: string }[];
 };
 
 function movementLabel(current: number, previous?: number) {
@@ -18,7 +16,7 @@ function movementLabel(current: number, previous?: number) {
   return `${movement > 0 ? "+" : ""}${movement} since previous point`;
 }
 
-export function EloRatingChart({ points, height = 260, eras, trophyMarkers }: EloRatingChartProps) {
+export function EloRatingChart({ points, height = 260, eras }: EloRatingChartProps) {
   const data: ChartDatum[] = points.map((point, index) => ({
     x: Date.parse(point.date),
     y: point.elo,
@@ -44,11 +42,6 @@ export function EloRatingChart({ points, height = 260, eras, trophyMarkers }: El
     label: era.label,
   }));
 
-  const markers = trophyMarkers?.map((m) => ({
-    key: m.season,
-    x: Date.parse(m.date),
-  }));
-
   return (
     <InspectableTimeSeriesChart
       data={data}
@@ -60,7 +53,6 @@ export function EloRatingChart({ points, height = 260, eras, trophyMarkers }: El
       xTicks={ticks}
       yDomain={[Math.floor(min - padding), Math.ceil(max + padding)]}
       eras={eraAreas}
-      markers={markers}
     />
   );
 }
