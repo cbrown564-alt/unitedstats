@@ -435,3 +435,64 @@ select {
   color: var(--color-ink-dim);
 }
 
+/* Dual-thumb season range on /matches — transparent tracks, devil thumbs. */
+.season-range {
+  height: 1.5rem;
+}
+
+.season-range__thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1.5rem;
+  margin: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.season-range__thumb::-webkit-slider-runnable-track {
+  height: 0;
+  background: transparent;
+}
+
+.season-range__thumb::-moz-range-track {
+  height: 0;
+  background: transparent;
+  border: none;
+}
+
+.season-range__thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  pointer-events: auto;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-top: -0.2rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-ink);
+  background: var(--color-devil-bright);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.5);
+  cursor: grab;
+}
+
+.season-range__thumb:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+.season-range__thumb::-moz-range-thumb {
+  pointer-events: auto;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-ink);
+  background: var(--color-devil-bright);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.5);
+  cursor: grab;
+}
+
+.season-range__thumb--hi {
+  z-index: 2;
+}
+
+.season-range__thumb--lo {
+  z-index: 1;
+}
+

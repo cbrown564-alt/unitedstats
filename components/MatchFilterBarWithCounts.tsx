@@ -12,19 +12,24 @@ const EMPTY_COUNTS: FacetCounts = {};
  * after mount so the expensive aggregate queries stay off the SSR critical path.
  */
 export function MatchFilterBarWithCounts({
+  embedded = false,
   params,
   chips,
   chipCounts,
   options,
   total,
   matchHref,
+  seasons,
 }: {
+  /** Render as the chip row inside MatchControlDeck — no outer panel. */
+  embedded?: boolean;
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
   chipCounts: Record<string, number>;
   options: FacetOptions;
   total: number;
   matchHref?: string;
+  seasons: string[];
 }) {
   const [counts, setCounts] = useState<FacetCounts>(EMPTY_COUNTS);
   const [loadedQs, setLoadedQs] = useState<string | null>(null);
@@ -62,6 +67,7 @@ export function MatchFilterBarWithCounts({
 
   return (
     <MatchFilterBar
+      embedded={embedded}
       params={params}
       chips={chips}
       chipCounts={chipCounts}
@@ -70,6 +76,7 @@ export function MatchFilterBarWithCounts({
       countsLoading={countsLoading}
       total={total}
       matchHref={matchHref}
+      seasons={seasons}
     />
   );
 }

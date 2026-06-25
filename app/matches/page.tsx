@@ -9,14 +9,12 @@ import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { FacetIcon } from "@/components/FacetIcon";
-import { SearchCommand } from "@/components/SearchCommand";
 import type { FacetOptions } from "@/lib/matchFacets";
-import { MatchFilterBarWithCounts } from "@/components/MatchFilterBarWithCounts";
+import { MatchControlDeck } from "@/components/matches/MatchControlDeck";
+import { MatchListToolbar } from "@/components/matches/MatchListToolbar";
+import { MatchSliceHero } from "@/components/matches/MatchSliceHero";
 import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
-import { WdlBar } from "@/components/WdlBar";
-import { GoalDiff } from "@/components/GoalDiff";
-import { ResultSpine } from "@/components/charts/ResultSpine";
 import { fmtNum, fmtDate, pct, venueLabel, resultLabel, resultTone, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
@@ -38,12 +36,6 @@ const GOAL_WINDOW_FILTERS = [
 const GOAL_WINDOW_LABELS: Record<string, string> = Object.fromEntries(GOAL_WINDOW_FILTERS.map((w) => [w.key, w.label]));
 
 type MatchSort = "date-desc" | "date-asc" | "gd-desc" | "gd-asc";
-
-// Selected/idle treatment for the bordered filter pills (quick views, decade jumps).
-const pillTone = (active: boolean) =>
-  active
-    ? "border-devil/60 bg-devil/15 text-devil-bright"
-    : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink";
 
 export default async function MatchesPage({
   searchParams,
@@ -196,8 +188,18 @@ export default async function MatchesPage({
   if (sp.goalWindow) chips.push({ key: "goalWindow", label: `Goal timing: ${GOAL_WINDOW_LABELS[sp.goalWindow] ?? sp.goalWindow}` });
   if (sp.goalFrom) chips.push({ key: "goalFrom", label: `Goals from ${sp.goalFrom}'` });
   if (sp.goalTo) chips.push({ key: "goalTo", label: `Goals to ${sp.goalTo}'` });
-  if (sp.from) chips.push({ key: "from", label: `From ${sp.from}` });
-  if (sp.to) chips.push({ key: "to", label: `To ${sp.to}` });
+  if (sp.from) {
+    chips.push({
+      key: "from",
+      label: /^\d{4}$/.test(sp.from) ? `From ${sp.from}` : `From ${fmtDate(sp.from.slice(0, 10))}`,
+    });
+  }
+  if (sp.to) {
+    chips.push({
+      key: "to",
+      label: /^\d{4}$/.test(sp.to) ? `To ${sp.to}` : `To ${fmtDate(sp.to.slice(0, 10))}`,
+    });
+  }
 
   // Each chip carries the size of its own filter in isolation — the universe it
   // draws from, not the current (multi-filter) slice. It turns a chip from a bare
@@ -218,121 +220,33 @@ export default async function MatchesPage({
         Filter by era, competition, venue, result, or opponent trail.
       </PageHeader>
 
-      <SearchCommand forMatches fullWidth autoFocusKey={false} />
+      <MatchSliceHero
+        summary={summary}
+        sequence={sequence}
+        decades={decades}
+        hasFilters={hasFilters}
+        pinnedResult={pinnedResult}
+        heroValue={heroValue}
+        heroLabel={heroLabel}
+        heroTone={heroTone}
+        heroSub={heroSub}
+        activeResult={sp.result}
+        activeFrom={sp.from}
+        activeTo={sp.to}
+        params={sp}
+      />
 
-      <MatchFilterBarWithCounts
+      <MatchControlDeck
         params={sp}
         chips={chips}
         chipCounts={chipCounts}
         options={facetOptions}
         total={total}
         matchHref={total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined}
+        seasons={seasons}
       />
 
-      <section className="rounded-lg border border-line bg-panel p-4">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
-            {hasFilters ? "This slice" : "All matches"}
-          </h2>
-          {summary.first && (
-            <span className="stat-num text-xs text-ink-faint">
-              {fmtDate(summary.first)}
-              {summary.last && summary.last !== summary.first ? ` → ${fmtDate(summary.last)}` : ""}
-            </span>
-          )}
-        </div>
-
-        {summary.p > 0 ? (
-          <>
-            {/* The answer to this slice: the win rate (or pinned-result count) writ large,
-                with goals for/against beside it as a ribbon — echoing the detail-page plate. */}
-            <div className="mt-4 flex flex-wrap items-end gap-x-7 gap-y-4">
-              <div className="leading-none">
-                <div className="flex items-baseline gap-2">
-                  <span className={`stat-num text-5xl font-semibold sm:text-6xl ${heroTone}`}>{heroValue}</span>
-                  <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">{heroLabel}</span>
-                </div>
-                {heroSub && <p className="stat-num mt-2 text-xs text-ink-faint">{heroSub}</p>}
-              </div>
-              <GoalDiff gf={summary.gf} ga={summary.ga} played={summary.p} size="lg" className="border-l border-line pl-6 sm:pl-7" />
-            </div>
-
-            {/* The record — W-D-L columns over the diverging bar — then its shape over time.
-                The spine carries the columns+bar header when it draws; below the spine
-                threshold a non-pinned slice still gets the record header on its own. */}
-            {sequence.length >= 24 ? (
-              <div className="mt-4 border-t border-line/70 pt-3">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
-                  Result by match over time
-                </p>
-                <ResultSpine matches={sequence} showRecord={!pinnedResult} />
-              </div>
-            ) : (
-              !pinnedResult && (
-                <div className="mt-4 border-t border-line/70 pt-3">
-                  <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" variant="stacked" showLabels />
-                </div>
-              )
-            )}
-          </>
-        ) : (
-          <p className="mt-2 text-sm text-ink-dim">No matches fit this filter. Loosen a control or clear the slice.</p>
-        )}
-      </section>
-
-      {decades.length > 1 && (
-      <div>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Jump to a decade</p>
-        <div className="flex gap-1.5 overflow-x-auto pb-1">
-          {decades.map((dec) => {
-            const active = sp.from === String(dec.from) && sp.to === String(dec.to);
-            return (
-              <Link
-                key={dec.decade}
-                href={`/matches${qs({ from: String(dec.from), to: String(dec.to), page: undefined })}`}
-                aria-current={active ? "true" : undefined}
-                className={`tap-target shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring ${pillTone(active)}`}
-              >
-                <span className="stat-num block text-xs font-semibold leading-tight">{dec.decade}</span>
-                <span className="stat-num block text-[10px] leading-tight text-ink-faint">{fmtNum(dec.n)}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-      )}
-
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm">
-        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Sort</span>
-        <Link
-          href={`/matches${qs({ sort: dateSort === "date-desc" ? "date-asc" : "date-desc", page: undefined })}`}
-          aria-current={dateSort === sort ? "true" : undefined}
-          className={`tap-target inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 transition-colors focus-ring ${
-            dateSort === sort
-              ? "border-devil/60 bg-devil/15 font-semibold text-devil-bright"
-              : "border-line text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
-          }`}
-          title={dateSort === "date-desc" ? "Date: newest first" : "Date: oldest first"}
-        >
-          <FacetIcon name="calendar" className="h-3.5 w-3.5 shrink-0" />
-          <span className="text-xs">Date</span>
-          <span className="stat-num text-xs">{dateSort === sort ? (dateSort === "date-desc" ? "↓" : "↑") : ""}</span>
-        </Link>
-        <Link
-          href={`/matches${qs({ sort: goalDiffSort === "gd-desc" ? "gd-asc" : "gd-desc", page: undefined })}`}
-          aria-current={goalDiffSort === sort ? "true" : undefined}
-          className={`tap-target inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 transition-colors focus-ring ${
-            goalDiffSort === sort
-              ? "border-devil/60 bg-devil/15 font-semibold text-devil-bright"
-              : "border-line text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
-          }`}
-          title={goalDiffSort === "gd-desc" ? "Goal difference: highest first" : "Goal difference: lowest first"}
-        >
-          <FacetIcon name="margin" className="h-3.5 w-3.5 shrink-0" />
-          <span className="text-xs">GD</span>
-          <span className="stat-num text-xs">{goalDiffSort === sort ? (goalDiffSort === "gd-desc" ? "↓" : "↑") : ""}</span>
-        </Link>
-      </div>
+      <MatchListToolbar total={total} sort={sort} dateSort={dateSort} goalDiffSort={goalDiffSort} qs={qs} />
 
       {/* Mobile: a slim bar that pins under the header once the list starts to
           scroll, so the filter is one tap away deep in a 50-row page instead of

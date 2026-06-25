@@ -1,14 +1,15 @@
 "use client";
 
 import { Fragment, useEffect, useRef, useState, useTransition, ViewTransition } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
 import { FacetCombobox } from "@/components/FacetCombobox";
 import { FacetIcon } from "@/components/FacetIcon";
+import { SeasonRangeSlider } from "@/components/matches/SeasonRangeSlider";
+import { FilterPalette } from "@/components/matches/FilterPalette";
 import { usePopoverAlign } from "@/components/usePopoverAlign";
 import {
-  MATCH_FACETS, FACET_BY_KEY, FACET_GROUPS,
+  FACET_BY_KEY, FACET_GROUPS, PRIMARY_FACETS, paramToInputDate,
   type FacetDef, type FacetGroup, type FacetOption, type FacetOptions, type FacetCounts,
 } from "@/lib/matchFacets";
 
@@ -34,6 +35,7 @@ const GROUP_TONE: Record<FacetGroup, string> = {
  * facet `optionsKey`.
  */
 export function MatchFilterBar({
+  embedded = false,
   params,
   chips,
   chipCounts,
@@ -42,7 +44,10 @@ export function MatchFilterBar({
   countsLoading,
   total,
   matchHref,
+  seasons,
 }: {
+  /** Chip row inside MatchControlDeck — no duplicate panel chrome. */
+  embedded?: boolean;
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
   /** Size of each chip's filter in isolation, keyed by chip key — the universe it
@@ -56,6 +61,7 @@ export function MatchFilterBar({
   /** Link to the lone match when the slice has narrowed to one — the add-filter
    *  menu offers it as the way forward instead of a wall of dead options. */
   matchHref?: string;
+  seasons: string[];
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -63,6 +69,9 @@ export function MatchFilterBar({
   // that facet's editor, or null when nothing is open.
   const [open, setOpen] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
+
+  const closeMenu = () => setOpen(null);
+  const toggleAddMenu = () => setOpen((prev) => (prev === "add" ? null : "add"));
 
   // Dismiss any open popover on an outside click or Escape.
   useEffect(() => {
@@ -90,13 +99,16 @@ export function MatchFilterBar({
     const v = value?.trim();
     navigate({ ...params, [key]: v || undefined });
   };
+  const applyDates = (from: string | undefined, to: string | undefined) => {
+    navigate({ ...params, from, to });
+  };
   const pick = (facet: FacetDef) => {
     if (facet.kind === "toggle") apply(facet.key, facet.onValue);
     else setOpen(facet.key);
   };
 
   const activeKeys = new Set(chips.map((c) => c.key));
-  const available = MATCH_FACETS.filter((f) => !activeKeys.has(f.key));
+  const available = PRIMARY_FACETS.filter((f) => !activeKeys.has(f.key));
   // Order active chips by facet group (who → what → where → when) so the bar
   // clusters related filters; the sort is stable, so insertion order holds within
   // a group. A hairline is dropped in wherever the group changes.
@@ -111,12 +123,20 @@ export function MatchFilterBar({
   const newFacet = open && open !== "add" && !activeKeys.has(open) ? FACET_BY_KEY[open] : undefined;
 
   return (
-    <div ref={rootRef} id="match-filters" className="scroll-mt-20 rounded-lg border border-line bg-panel p-3 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
-      <div className="mb-2 flex items-center gap-2">
+    <div
+      ref={rootRef}
+      {...(!embedded ? { id: "match-filters" } : {})}
+      className={
+        embedded
+          ? "border-t border-line/70 pt-4"
+          : "scroll-mt-20 rounded-lg border border-line bg-panel p-3 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]"
+      }
+    >
+      <div className="mb-2.5 flex items-center gap-2">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Filters</p>
         {(pending || countsLoading) && (
           <span className="stat-num text-xs text-ink-faint motion-safe:animate-pulse">
-            {pending ? "updating…" : "loading counts…"}
+            {pending ? "Updating…" : "Loading counts…"}
           </span>
         )}
       </div>
@@ -125,6 +145,7 @@ export function MatchFilterBar({
         {orderedChips.map((chip, i) => {
           const facet = FACET_BY_KEY[chip.key];
           const editable = facet && facet.kind !== "toggle";
+          const dateChip = chip.key === "from" || chip.key === "to";
           const prevGroup = i > 0 ? FACET_BY_KEY[orderedChips[i - 1].key]?.group : undefined;
           const groupBreak = i > 0 && facet?.group !== prevGroup;
           const count = chipCounts[chip.key];
@@ -158,7 +179,10 @@ export function MatchFilterBar({
               >
                 ×
               </button>
-              {open === chip.key && facet && (
+              {open === chip.key && dateChip && (
+                <DateRangeFacetEditor params={params} seasons={seasons} onApply={applyDates} />
+              )}
+              {open === chip.key && facet && !dateChip && (
                 <FacetEditor
                   facet={facet}
                   current={params[chip.key] ?? ""}
@@ -175,16 +199,33 @@ export function MatchFilterBar({
 
         {chips.length > 0 && <span aria-hidden className="mx-0.5 h-5 w-px self-center bg-line" />}
 
-        <span className="relative inline-flex">
+        <span className={embedded ? "w-full sm:w-auto" : "relative inline-flex"}>
           <button
             type="button"
-            onClick={() => setOpen(open === "add" ? null : "add")}
+            onClick={toggleAddMenu}
             aria-expanded={open === "add"}
-            className="inline-flex items-center gap-1 rounded-full border border-dashed border-line bg-panel px-3 py-1 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
+            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors focus-ring sm:w-auto ${
+              open === "add"
+                ? "border-devil/60 bg-devil/15 font-medium text-devil-bright"
+                : "border-dashed border-line bg-panel text-ink-dim hover:border-devil/50 hover:text-devil-bright"
+            }`}
           >
             <span aria-hidden>＋</span> Add filter
           </button>
-          {open === "add" && <AddMenu available={available} counts={counts} total={total} matchHref={matchHref} onPick={pick} />}
+          {open === "add" && !embedded && (
+            <FilterPalette
+              available={available}
+              counts={counts}
+              total={total}
+              matchHref={matchHref}
+              params={params}
+              seasons={seasons}
+              onPick={pick}
+              onApplyDates={applyDates}
+              onClose={closeMenu}
+              variant="popover"
+            />
+          )}
           {newFacet && (
             <FacetEditor
               facet={newFacet}
@@ -207,145 +248,59 @@ export function MatchFilterBar({
         )}
       </div>
 
-      {chips.length === 0 && (
+      {open === "add" && embedded && (
+        <FilterPalette
+          available={available}
+          counts={counts}
+          total={total}
+          matchHref={matchHref}
+          params={params}
+          seasons={seasons}
+          onPick={pick}
+          onApplyDates={applyDates}
+          onClose={closeMenu}
+          variant="inline"
+        />
+      )}
+
+      {chips.length === 0 && embedded && open !== "add" && (
         <p className="mt-2 text-sm text-ink-faint">
-          Add a filter to narrow the archive — opponent, era, competition, result, ground, goalscorer and more.
+          Add a filter for opponent, manager, player, competition, season, or dates — or use search for result, venue, and more.
+        </p>
+      )}
+
+      {chips.length === 0 && !embedded && (
+        <p className="mt-2 text-sm text-ink-faint">
+          Add a filter for opponent, manager, player, competition, season, or dates — or use search for result, venue, and more.
         </p>
       )}
     </div>
   );
 }
 
-// Left column carries Who + What, right column Where + When — roughly balancing
-// the two halves so the menu is short and scannable rather than one tall list.
-const MENU_COLUMNS: FacetGroup[][] = [
-  ["who", "what"],
-  ["where", "when"],
-];
-
-function AddMenu({
-  available,
-  counts,
-  total,
-  matchHref,
-  onPick,
+function DateRangeFacetEditor({
+  params,
+  seasons,
+  onApply,
 }: {
-  available: FacetDef[];
-  counts: FacetCounts;
-  total: number;
-  matchHref?: string;
-  onPick: (f: FacetDef) => void;
+  params: Record<string, string | undefined>;
+  seasons: string[];
+  onApply: (from: string | undefined, to: string | undefined) => void;
 }) {
   const { ref, align } = usePopoverAlign();
-  const [query, setQuery] = useState("");
-  const needle = query.trim().toLowerCase();
-  const matches = needle ? available.filter((f) => f.label.toLowerCase().includes(needle)) : null;
-
-  // A counted facet is "exhausted" when every match in the slice shares one value
-  // for it — picking it can't narrow further, so it's dimmed. We require the
-  // counted options to cover the whole slice: a column that's merely sparse (few
-  // matches carry a ground/city) collapses to one value too, but isn't a real
-  // narrowing and shouldn't be dimmed.
-  const exhausted = (f: FacetDef) => {
-    const c = counts[f.key];
-    if (!c || total === 0) return false;
-    const vals = Object.values(c);
-    const coverage = vals.reduce((sum, n) => sum + n, 0);
-    return coverage >= total && vals.filter((n) => n > 0).length <= 1;
-  };
-
-  const item = (f: FacetDef) => {
-    const dim = exhausted(f);
-    return (
-      <button
-        key={f.key}
-        type="button"
-        role="menuitem"
-        onClick={() => onPick(f)}
-        title={dim ? "Only one option in this slice" : undefined}
-        className={`flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm transition-colors focus-ring ${
-          dim ? "text-ink-faint hover:bg-panel-2" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
-        }`}
-      >
-        <FacetIcon name={f.icon} className={`shrink-0 ${f.group ? GROUP_TONE[f.group] : "text-ink-faint"}`} />
-        <span className="truncate">{f.label}</span>
-      </button>
-    );
-  };
-
-  // The slice can't be narrowed when it's already a single match, or when every
-  // remaining facet collapses to one value across it. Either way a grid of options
-  // would be a wall of dead, dimmed items — show a way forward instead.
-  const allExhausted = available.length > 0 && available.every(exhausted);
-  const stuck = total <= 1 || allExhausted;
-
   return (
-    <div ref={ref} role="menu" className={`pop-in absolute ${align} top-full z-40 mt-1 w-[30rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-line bg-panel shadow-xl`}>
-      {stuck ? (
-        <div className="p-3">
-          {matchHref ? (
-            <>
-              <p className="text-sm text-ink-dim">You&rsquo;re down to a single match — nothing left to filter.</p>
-              <Link
-                href={matchHref}
-                className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-devil-bright underline-offset-2 transition-colors hover:underline focus-ring"
-              >
-                View match <span aria-hidden>→</span>
-              </Link>
-            </>
-          ) : (
-            <p className="text-sm text-ink-faint">
-              {total === 0
-                ? "No matches in this slice — remove a filter to broaden."
-                : "Every remaining filter has one value across these matches — remove a filter to broaden."}
-            </p>
-          )}
-        </div>
-      ) : (
-        <>
-          <div className="border-b border-line p-2">
-            <input
-              autoFocus
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Find a filter…"
-              aria-label="Find a filter"
-              className="control w-full"
-            />
-          </div>
-
-          {matches ? (
-            <div className="max-h-80 overflow-y-auto p-1.5">
-              {matches.length > 0 ? matches.map(item) : (
-                <p className="px-2 py-2 text-sm text-ink-faint">No filter matches “{query}”.</p>
-              )}
-            </div>
-          ) : available.length === 0 ? (
-            <p className="px-3 py-3 text-sm text-ink-faint">Every filter is already in play.</p>
-          ) : (
-            <div className="grid grid-cols-2 gap-x-4 p-2">
-              {MENU_COLUMNS.map((groups, col) => (
-                <div key={col} className="min-w-0">
-                  {groups.map((g) => {
-                    const items = available.filter((f) => f.group === g);
-                    if (items.length === 0) return null;
-                    const label = FACET_GROUPS.find((x) => x.key === g)?.label ?? g;
-                    // Each group hugs its own header (small pb) but is pushed clear of
-                    // the group above (larger pt) so the four clusters read distinctly.
-                    return (
-                      <div key={g} className="px-0.5 pt-3.5 first:pt-0">
-                        <p className="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">{label}</p>
-                        {items.map(item)}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-          )}
-        </>
-      )}
+    <div
+      ref={ref}
+      className={`pop-in absolute ${align} top-full z-40 mt-1 w-[min(100vw-2rem,22rem)] overflow-hidden rounded-lg border border-line bg-panel p-3 shadow-xl`}
+    >
+      <SeasonRangeSlider
+        key={`${params.from ?? ""}-${params.to ?? ""}`}
+        seasons={seasons}
+        fromParam={params.from}
+        toParam={params.to}
+        onApply={onApply}
+        compact
+      />
     </div>
   );
 }
@@ -363,7 +318,11 @@ function FacetEditor({
   counts?: Record<string, number>;
   onApply: (value: string | undefined) => void;
 }) {
-  const [val, setVal] = useState(current);
+  const [val, setVal] = useState(() =>
+    facet.kind === "date"
+      ? paramToInputDate(current, facet.key === "from" ? "from" : "to")
+      : current,
+  );
   const { ref, align } = usePopoverAlign<HTMLFormElement>();
 
   // Every option-backed facet (select + datalist) gets the searchable listbox.
@@ -371,7 +330,34 @@ function FacetEditor({
     return <FacetCombobox label={facet.label} options={options} current={current} counts={counts} onApply={onApply} />;
   }
 
-  // What remains is the numeric facets (year / minute): a small typed input.
+  if (facet.kind === "date") {
+    return (
+      <form
+        ref={ref}
+        className={`pop-in absolute ${align} top-full z-40 mt-1 flex items-center gap-2 rounded-lg border border-line bg-panel p-2 shadow-xl`}
+        onSubmit={(e) => {
+          e.preventDefault();
+          onApply(val || undefined);
+        }}
+      >
+        <input
+          autoFocus
+          type="date"
+          value={val}
+          min="1886-01-01"
+          max="2026-12-31"
+          onChange={(e) => setVal(e.target.value)}
+          aria-label={facet.label}
+          className="control w-44"
+        />
+        <button type="submit" className="min-h-[2.375rem] shrink-0 rounded-md bg-devil px-3 text-xs font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
+          Apply
+        </button>
+      </form>
+    );
+  }
+
+  // Numeric facets (goal minute).
   return (
     <form
       ref={ref}

@@ -4,7 +4,7 @@
 // menu, and the per-facet editors. Keep this pure data: no DB or server-only
 // imports, so it stays safe to pull into the client bundle.
 
-type FacetKind = "datalist" | "select" | "year" | "minute" | "toggle";
+type FacetKind = "datalist" | "select" | "date" | "minute" | "toggle";
 export type FacetGroup = "who" | "what" | "where" | "when";
 
 export interface FacetDef {
@@ -49,8 +49,8 @@ export const MATCH_FACETS: FacetDef[] = [
   { key: "city", label: "City", kind: "select", group: "where", optionsKey: "city", icon: "pin" },
 
   { key: "season", label: "Season", kind: "select", group: "when", optionsKey: "season", icon: "calendar" },
-  { key: "from", label: "From year", kind: "year", group: "when", placeholder: "1886", icon: "calendar" },
-  { key: "to", label: "To year", kind: "year", group: "when", placeholder: "2026", icon: "calendar" },
+  { key: "from", label: "From", kind: "date", group: "when", icon: "calendar" },
+  { key: "to", label: "To", kind: "date", group: "when", icon: "calendar" },
   { key: "goalWindow", label: "Goal timing", kind: "select", group: "when", optionsKey: "goalWindow", icon: "stopwatch" },
   { key: "goalFrom", label: "Goal from minute", kind: "minute", group: "when", placeholder: "86", icon: "stopwatch" },
   { key: "goalTo", label: "Goal to minute", kind: "minute", group: "when", placeholder: "90", icon: "stopwatch" },
@@ -59,6 +59,40 @@ export const MATCH_FACETS: FacetDef[] = [
 export const FACET_BY_KEY: Record<string, FacetDef> = Object.fromEntries(
   MATCH_FACETS.map((f) => [f.key, f]),
 );
+
+/** Filters offered as tactile controls in the add-filter palette. */
+export const PRIMARY_FACET_KEYS = [
+  "opponent",
+  "manager",
+  "player",
+  "scorer",
+  "assister",
+  "competition",
+  "season",
+] as const;
+
+/** Narrowing dimensions the search bar understands — shown as hints, not palette picks. */
+export const SEARCH_ONLY_FACET_KEYS = [
+  "type",
+  "result",
+  "aet",
+  "venue",
+  "stadium",
+  "city",
+  "goalWindow",
+  "goalFrom",
+  "goalTo",
+] as const;
+
+export const PRIMARY_FACETS = PRIMARY_FACET_KEYS.map((k) => FACET_BY_KEY[k]);
+export const SEARCH_ONLY_FACETS = SEARCH_ONLY_FACET_KEYS.map((k) => FACET_BY_KEY[k]);
+
+/** Normalise a `from`/`to` param (bare year or ISO date) for `<input type="date">`. */
+export function paramToInputDate(v: string | undefined, edge: "from" | "to"): string {
+  if (!v) return "";
+  if (/^\d{4}$/.test(v)) return edge === "from" ? `${v}-01-01` : `${v}-12-31`;
+  return v.slice(0, 10);
+}
 
 export type FacetOption = { value: string; label: string };
 export type FacetOptions = Record<string, FacetOption[]>;
