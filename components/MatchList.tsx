@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
-import { fmtDate, fmtNum, parseRound, scoreline, scoreNote, venuePrefix } from "@/lib/format";
+import { fmtDate, fmtNum, parseRound, resultTone, scoreline, scoreNote, venuePrefix } from "@/lib/format";
 import { ResultBadge } from "./ResultBadge";
 import { CompetitionDot } from "./CompetitionChip";
 import { RoundMark } from "./RoundMark";
@@ -55,7 +55,7 @@ export function MatchList<T extends MatchRow>({
             className={`grid min-h-14 ${cols} items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:px-4 ${accentResult ? accentClass(m.result) : ""}`}
           >
             <span className="stat-num hidden text-xs text-ink-dim sm:block">{fmtDate(m.date)}</span>
-            <span className="stat-num min-w-[2.75rem] rounded bg-panel-2 px-2 py-1 text-center text-sm font-semibold whitespace-nowrap">
+            <span className={`stat-num min-w-[2.75rem] rounded bg-panel-2 px-2 py-1 text-center text-sm font-semibold whitespace-nowrap ${resultTone(m.outcome ?? m.result)}`}>
               {scoreline(m.gf, m.ga)}
             </span>
             <ResultBadge result={m.result} outcome={m.outcome} />
