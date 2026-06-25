@@ -404,6 +404,20 @@ test("player-vs-opponent never steals a two-player comparison", () => {
   assert.ok(!shaped.some((s) => /Charlton Athletic/.test(s.title)), "the opponent read must not leak in");
 });
 
+test("ambiguous 'player vs club token' prefers opponent cuts and keeps player comparison as an alternative", () => {
+  const { shaped } = runSearch("cantona vs leeds");
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — appearances"));
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — goals"));
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — assists"));
+  assert.ok(
+    shaped.some((s) => s.summary.includes("appearance")) &&
+      shaped.some((s) => s.summary.includes("recorded goal")) &&
+      shaped.some((s) => s.summary.includes("recorded assist")),
+    "expected appearance, goal, and assist variants for the player-vs-opponent cut",
+  );
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona vs Lee Sharpe"), "expected comparison as an alternative");
+});
+
 test("a team-record phrasing still falls through to the head-to-head", () => {
   // "record against arsenal" names no player on the left, so player-vs-opponent
   // returns null and the team head-to-head answers instead.

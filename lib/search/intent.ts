@@ -618,32 +618,42 @@ function teamScopedRecord(intent: ParsedIntent): ShapedAnswer | null {
  * the current scope, with a browse-the-slice link. */
 function superlative(norm: string, intent: ParsedIntent): ShapedAnswer | null {
   let sort: MatchFilter["sort"] | undefined;
+  let attendanceMode = false;
   let noun = "";
   if (/\b(biggest|best|record|heaviest)\s+(win|victory|wins|victories)\b/.test(norm)) {
-    sort = "margin"; noun = "Biggest win";
+    sort = "gd-desc"; noun = "Biggest win";
   } else if (/\b(heaviest|worst|biggest)\s+(defeat|loss|defeats|losses)\b/.test(norm)) {
-    sort = "defeat"; noun = "Heaviest defeat";
+    sort = "gd-asc"; noun = "Heaviest defeat";
   } else if (/\b(best attended|highest attendance|record attendance|biggest crowd|best attendance)\b/.test(norm)) {
-    sort = "attendance"; noun = "Best attended";
+    attendanceMode = true; noun = "Best attended";
   }
-  if (!sort) return null;
+  if (!sort && !attendanceMode) return null;
 
   const oppId = intent.opponent?.entity_id;
   const oppLabel = intent.opponent ? ` v ${intent.opponent.label}` : "";
-  const filter: MatchFilter = { ...scopeFilter(intent, oppId), sort, limit: 1 };
+  const filter: MatchFilter = { ...scopeFilter(intent, oppId), ...(sort ? { sort } : {}), limit: attendanceMode ? 8000 : 1 };
   const { rows } = findMatches(filter);
-  const top = rows[0];
+  const top = attendanceMode
+    ? rows.reduce<(typeof rows)[number] | undefined>(
+        (best, row) => {
+          if (!row.attendance) return best;
+          if (!best || !best.attendance || row.attendance > best.attendance) return row;
+          return best;
+        },
+        undefined,
+      )
+    : rows[0];
   if (!top) return null;
 
   const scopeBits = [oppLabel.trim(), intent.labels.scopeLabel, intent.labels.decadeLabel ? `in the ${intent.labels.decadeLabel}` : ""]
     .filter(Boolean)
     .join(" ");
   const title = `${noun}${scopeBits ? ` ${scopeBits}` : ""}`;
-  const att = sort === "attendance" && top.attendance ? ` · ${top.attendance.toLocaleString("en-GB")}` : "";
+  const att = attendanceMode && top.attendance ? ` · ${top.attendance.toLocaleString("en-GB")}` : "";
   const summary = `${scoreline(top.gf, top.ga, [top.pen_gf, top.pen_ga], !!top.aet)} v ${top.opponent_name} · ${fmtDate(top.date)}${att}`;
-  const link: Record<string, string | undefined> = { ...scopeLink(intent, {}), sort };
+  const link: Record<string, string | undefined> = { ...scopeLink(intent, {}), ...(sort ? { sort } : {}) };
   const coverage: AnswerCoverage =
-    sort === "attendance" ? { grade: "partial", label: "attendance data" } : RESULT_COVERAGE;
+    attendanceMode ? { grade: "partial", label: "attendance data" } : RESULT_COVERAGE;
   return { title, summary, href: matchesHref(link), hrefLabel: "Browse the slice →", coverage };
 }
 
@@ -662,6 +672,12 @@ function comparison(norm: string): ShapedAnswer | null {
   };
 }
 
+function comparisonParts(norm: string): { left: string; right: string } | null {
+  const m = /^(.+?)\s+(?:vs\.?|versus|v|compared to|compared with)\s+(.+?)$/.exec(norm);
+  if (!m) return null;
+  return { left: m[1].trim(), right: m[2].trim() };
+}
+
 // =================================================================== dispatch
 
 /**
@@ -677,9 +693,38 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
   if (!norm) return out;
 
   const push = (a: ShapedAnswer | null) => { if (a && !out.some((o) => o.title === a.title)) out.push(a); };
+  const cmpParts = comparisonParts(norm);
+  const cmp = comparison(norm);
+
+  // Ambiguous "player vs short token" reads (e.g. "cantona vs leeds") should favour
+  // player-vs-opponent when the club resolves strongly and the player on the right does not.
+  if (cmpParts) {
+    const leftPlayer = resolveEntity(cmpParts.left, "player", { strong: true });
+    const rightText = stripUnitedSubject(cleanSubject(cmpParts.right).text);
+    const rightOpponent = rightText ? resolveEntity(rightText, "opponent", { strong: true }) : undefined;
+    const rightPlayerStrong = resolveEntity(cmpParts.right, "player", { strong: true });
+    if (leftPlayer && rightOpponent && !rightPlayerStrong) {
+      const intent = parseIntent(norm);
+      const scoped: ParsedIntent = { ...intent, subjectKind: "player", subject: leftPlayer, opponent: rightOpponent };
+      const explicitMetric = intent.metric;
+      if (explicitMetric) {
+        push(playerCut(leftPlayer, explicitMetric, scoped));
+      } else {
+        const withMetricTitle = (metric: MetricKey): ShapedAnswer => {
+          const metricTitle = metric === "appearances" ? "appearances" : metric;
+          return { ...playerCut(leftPlayer, metric, scoped), title: `${leftPlayer.label} v ${rightOpponent.label} — ${metricTitle}` };
+        };
+        push(withMetricTitle("appearances"));
+        push(withMetricTitle("goals"));
+        push(withMetricTitle("assists"));
+      }
+      push(cmp);
+      return out;
+    }
+  }
 
   // Comparison wins outright when both sides resolve to players.
-  push(comparison(norm));
+  push(cmp);
   if (out.length) return out;
 
   const intent = parseIntent(norm);
