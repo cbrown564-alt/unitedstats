@@ -39,6 +39,7 @@ export function MatchFilterBar({
   chipCounts,
   options,
   counts,
+  countsLoading,
   total,
   matchHref,
 }: {
@@ -49,6 +50,8 @@ export function MatchFilterBar({
   chipCounts: Record<string, number>;
   options: FacetOptions;
   counts: FacetCounts;
+  /** True while contextual facet counts are loading client-side. */
+  countsLoading?: boolean;
   total: number;
   /** Link to the lone match when the slice has narrowed to one — the add-filter
    *  menu offers it as the way forward instead of a wall of dead options. */
@@ -111,7 +114,11 @@ export function MatchFilterBar({
     <div ref={rootRef} id="match-filters" className="scroll-mt-20 rounded-lg border border-line bg-panel p-3 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
       <div className="mb-2 flex items-center gap-2">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Filters</p>
-        {pending && <span className="stat-num text-xs text-ink-faint motion-safe:animate-pulse">updating…</span>}
+        {(pending || countsLoading) && (
+          <span className="stat-num text-xs text-ink-faint motion-safe:animate-pulse">
+            {pending ? "updating…" : "loading counts…"}
+          </span>
+        )}
       </div>
 
       <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2">

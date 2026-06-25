@@ -1,4 +1,8 @@
 import { getDb } from "./db";
+import { cachedQuery } from "./queryCache";
+
+/** Reference indexes change only on deploy; prod DB is read-only — 5m is safe. */
+const STATIC_REF_TTL_MS = 300_000;
 
 export interface MatchRow {
   id: string;
@@ -273,11 +277,13 @@ export function seasonMatches(season: string): MatchRow[] {
 }
 
 export function allSeasons(): string[] {
-  return (
-    getDb().prepare("SELECT DISTINCT season FROM matches ORDER BY season DESC").all() as {
-      season: string;
-    }[]
-  ).map((r) => r.season);
+  return cachedQuery("allSeasons", STATIC_REF_TTL_MS, () =>
+    (
+      getDb().prepare("SELECT DISTINCT season FROM matches ORDER BY season DESC").all() as {
+        season: string;
+      }[]
+    ).map((r) => r.season),
+  );
 }
 
 // ---------------------------------------------------------------- matches browser
@@ -477,24 +483,28 @@ export function stadiumById(id: string): { id: string; name: string; city: strin
 }
 
 export function stadiumsList(): { id: string; name: string; city: string | null; n: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT s.id, s.name, s.city, COUNT(m.id) n
-       FROM stadiums s JOIN matches m ON m.stadium_id = s.id
-       GROUP BY s.id ORDER BY n DESC, s.name`,
-    )
-    .all() as { id: string; name: string; city: string | null; n: number }[];
+  return cachedQuery("stadiumsList", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT s.id, s.name, s.city, COUNT(m.id) n
+         FROM stadiums s JOIN matches m ON m.stadium_id = s.id
+         GROUP BY s.id ORDER BY n DESC, s.name`,
+      )
+      .all() as { id: string; name: string; city: string | null; n: number }[],
+  );
 }
 
 export function matchCitiesList(): { city: string; n: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT s.city, COUNT(m.id) n
-       FROM stadiums s JOIN matches m ON m.stadium_id = s.id
-       WHERE s.city IS NOT NULL AND s.city != ''
-       GROUP BY s.city ORDER BY n DESC, s.city`,
-    )
-    .all() as { city: string; n: number }[];
+  return cachedQuery("matchCitiesList", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT s.city, COUNT(m.id) n
+         FROM stadiums s JOIN matches m ON m.stadium_id = s.id
+         WHERE s.city IS NOT NULL AND s.city != ''
+         GROUP BY s.city ORDER BY n DESC, s.city`,
+      )
+      .all() as { city: string; n: number }[],
+  );
 }
 
 export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number } {
@@ -596,13 +606,15 @@ export function matchFacetCounts(f: MatchFilter): Record<string, Record<string, 
 }
 
 export function competitionsList(): { id: string; name: string; type: string; n: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT c.id, c.name, c.type, COUNT(m.id) n
-       FROM competitions c JOIN matches m ON m.competition_id = c.id
-       GROUP BY c.id ORDER BY n DESC`,
-    )
-    .all() as { id: string; name: string; type: string; n: number }[];
+  return cachedQuery("competitionsList", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT c.id, c.name, c.type, COUNT(m.id) n
+         FROM competitions c JOIN matches m ON m.competition_id = c.id
+         GROUP BY c.id ORDER BY n DESC`,
+      )
+      .all() as { id: string; name: string; type: string; n: number }[],
+  );
 }
 
 // ---------------------------------------------------------------- opponents
@@ -616,15 +628,17 @@ export interface OpponentRecord extends Record_ {
 }
 
 export function opponentsIndex(): OpponentRecord[] {
-  return getDb()
-    .prepare(
-      `SELECT o.id, o.name, o.country, COUNT(*) p,
-              SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga, MIN(date) first, MAX(date) last
-       FROM matches m JOIN opponents o ON o.id = m.opponent_id
-       GROUP BY o.id ORDER BY p DESC`,
-    )
-    .all() as OpponentRecord[];
+  return cachedQuery("opponentsIndex", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT o.id, o.name, o.country, COUNT(*) p,
+                SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
+                SUM(gf) gf, SUM(ga) ga, MIN(date) first, MAX(date) last
+         FROM matches m JOIN opponents o ON o.id = m.opponent_id
+         GROUP BY o.id ORDER BY p DESC`,
+      )
+      .all() as OpponentRecord[],
+  );
 }
 
 export function opponentById(id: string): OpponentRecord | undefined {
@@ -660,18 +674,20 @@ export interface ManagerRecord extends Record_ {
 }
 
 export function managersIndex(): ManagerRecord[] {
-  return getDb()
-    .prepare(
-      `SELECT mg.id, mg.name, mg.nationality, mg.role,
-              COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
-              COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga,
-              MIN(m.date) first, MAX(m.date) last,
-              mm.thumb_url, mm.image_url
-       FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
-       LEFT JOIN manager_media mm ON mm.manager_id = mg.id
-       GROUP BY mg.id ORDER BY first`,
-    )
-    .all() as ManagerRecord[];
+  return cachedQuery("managersIndex", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT mg.id, mg.name, mg.nationality, mg.role,
+                COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
+                COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga,
+                MIN(m.date) first, MAX(m.date) last,
+                mm.thumb_url, mm.image_url
+         FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
+         LEFT JOIN manager_media mm ON mm.manager_id = mg.id
+         GROUP BY mg.id ORDER BY first`,
+      )
+      .all() as ManagerRecord[],
+  );
 }
 
 export function managerById(id: string): ManagerRecord | undefined {
@@ -858,14 +874,16 @@ const PLAYER_TOTALS_SELECT = `
 `;
 
 export function playersIndex(): PlayerTotals[] {
-  return getDb()
-    .prepare(
-      `${PLAYER_TOTALS_WITH}
-       ${PLAYER_TOTALS_SELECT}
-       WHERE pr.player_id IS NOT NULL OR p.id = 'own-goal'
-       ORDER BY goals DESC, apps DESC, starts DESC`,
-    )
-    .all() as PlayerTotals[];
+  return cachedQuery("playersIndex", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `${PLAYER_TOTALS_WITH}
+         ${PLAYER_TOTALS_SELECT}
+         WHERE pr.player_id IS NOT NULL OR p.id = 'own-goal'
+         ORDER BY goals DESC, apps DESC, starts DESC`,
+      )
+      .all() as PlayerTotals[],
+  );
 }
 
 export function playerById(id: string): PlayerTotals | undefined {

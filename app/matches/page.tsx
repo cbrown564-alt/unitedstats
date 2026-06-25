@@ -2,16 +2,16 @@ import Link from "next/link";
 import {
   findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById, managersIndex,
   playerById, playersIndex, stadiumById, stadiumsList, matchCitiesList, matchEventBadges,
-  opponentsIndex, matchFacetCounts,
+  opponentsIndex,
 } from "@/lib/queries";
 import type { MatchFilter } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { FacetIcon } from "@/components/FacetIcon";
-import { MatchFilterBar } from "@/components/MatchFilterBar";
 import { SearchCommand } from "@/components/SearchCommand";
-import type { FacetOptions, FacetCounts } from "@/lib/matchFacets";
+import type { FacetOptions } from "@/lib/matchFacets";
+import { MatchFilterBarWithCounts } from "@/components/MatchFilterBarWithCounts";
 import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
@@ -133,9 +133,6 @@ export default async function MatchesPage({
     goalWindow: GOAL_WINDOW_FILTERS.map((w) => ({ value: w.key, label: w.label })),
     player: players.map((p) => ({ value: p.player_id, label: p.name })),
   };
-  // Contextual option counts — each facet counted with its own constraint dropped,
-  // so the bar can narrow options to the current slice (Bayern → no Premier League).
-  const facetCounts: FacetCounts = matchFacetCounts(filter);
   const hasFilters = Boolean(
     sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type ||
     sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
@@ -223,12 +220,11 @@ export default async function MatchesPage({
 
       <SearchCommand forMatches fullWidth autoFocusKey={false} />
 
-      <MatchFilterBar
+      <MatchFilterBarWithCounts
         params={sp}
         chips={chips}
         chipCounts={chipCounts}
         options={facetOptions}
-        counts={facetCounts}
         total={total}
         matchHref={total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined}
       />
