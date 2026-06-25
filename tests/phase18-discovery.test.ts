@@ -55,8 +55,10 @@ test("every answer carries a curated trail of 2–3 valid next steps", () => {
     const links = relatedAnswers(slug);
     assert.ok(links.length >= 2 && links.length <= 3, `${slug} trail has ${links.length} links`);
     const seen = new Set<string>();
+    const validKind = new Set(["question", "cut", "debate"]);
     for (const l of links) {
       assert.ok(l.href.startsWith("/"), `${slug} trail href not site-relative: ${l.href}`);
+      assert.ok(validKind.has(l.kind), `${slug} trail step has an unknown kind: ${l.kind}`);
       assert.ok(l.hook.length > 0, `${slug} trail link missing a hook: ${l.href}`);
       assert.ok(!seen.has(l.href), `${slug} trail repeats ${l.href}`);
       seen.add(l.href);

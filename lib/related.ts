@@ -15,7 +15,12 @@ import { queryString } from "./url";
  * curated question, a curated Cut, or a flagship debate — so a link can never
  * 404. The graph is pinned by `tests/phase18-discovery.test.ts`.
  */
+/** What form the next step takes — surfaced as the station's eyebrow so the trail
+ *  reads as varied moves (another answer, a data slice, a head-to-head). */
+export type RelatedKind = "question" | "cut" | "debate";
+
 export interface RelatedLink {
+  kind: RelatedKind;
   href: string;
   label: string;
   /** One line connecting *this* answer to the next — the trail, not a list. */
@@ -26,21 +31,21 @@ export interface RelatedLink {
 function toQuestion(slug: string, hook: string): RelatedLink {
   const q = questionBySlug(slug);
   if (!q) throw new Error(`related: unknown question slug "${slug}"`);
-  return { href: `/questions/${slug}`, label: q.question, hook };
+  return { kind: "question", href: `/questions/${slug}`, label: q.question, hook };
 }
 
 /** A link to a curated Cut, labelled with its title. */
 function toCut(slug: string, hook: string): RelatedLink {
   const c = CURATED_CUTS.find((x) => x.slug === slug);
   if (!c) throw new Error(`related: unknown cut slug "${slug}"`);
-  return { href: cutHref(curatedCut(c)), label: c.title, hook };
+  return { kind: "cut", href: cutHref(curatedCut(c)), label: c.title, hook };
 }
 
 /** A link to a flagship debate, labelled with its head-to-head. */
 function toDebate(mode: CompareMode, index: number, hook: string): RelatedLink {
   const d = CURATED_DEBATES[mode][index];
   if (!d) throw new Error(`related: no debate ${mode}[${index}]`);
-  return { href: `/compare${queryString({ mode, a: d.a, b: d.b })}`, label: d.label, hook };
+  return { kind: "debate", href: `/compare${queryString({ mode, a: d.a, b: d.b })}`, label: d.label, hook };
 }
 
 const RELATED: Record<string, RelatedLink[]> = {
