@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
-import { fmtDate, fmtNum, fmtRound, scoreline, scoreNote, venuePrefix } from "@/lib/format";
+import { fmtDate, fmtNum, parseRound, scoreline, scoreNote, venuePrefix } from "@/lib/format";
 import { ResultBadge } from "./ResultBadge";
 import { CompetitionDot } from "./CompetitionChip";
+import { RoundMark } from "./RoundMark";
 
 // Supplementary result spine. Pairs with the textual ResultBadge, so colour is
 // never the only cue; speeds up W/D/L scanning down a long list.
@@ -46,6 +47,7 @@ export function MatchList<T extends MatchRow>({
     <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
       {matches.map((m) => {
         const note = scoreNote(m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet);
+        const round = parseRound(m.round);
         return (
         <li key={m.id} className="match-list-item">
           <Link
@@ -90,8 +92,9 @@ export function MatchList<T extends MatchRow>({
                 <span className="truncate">{m.competition_name}</span>
               </span>
               <span className="min-w-0">
-                <span className="block truncate text-ink-dim" title={m.round ?? undefined}>
-                  {m.round ? fmtRound(m.round) : ""}
+                <span className="flex min-w-0 items-center gap-1.5 text-ink-dim" title={m.round ?? undefined}>
+                  <span className="truncate">{round.label}</span>
+                  <RoundMark leg={round.leg} replay={round.replay} />
                 </span>
                 {showAttendance && m.attendance != null && (
                   <span className="stat-num block text-[11px] text-ink-faint">{fmtNum(m.attendance)}</span>

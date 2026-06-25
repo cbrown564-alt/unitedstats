@@ -1,4 +1,5 @@
-import { competitionTone, fmtRound, type CompetitionTone } from "@/lib/format";
+import { competitionTone, parseRound, type CompetitionTone } from "@/lib/format";
+import { RoundMark } from "./RoundMark";
 
 /**
  * Competition identity, used as a secondary grouping cue (NN/g: colour supports,
@@ -32,12 +33,18 @@ export function CompetitionChip({
   className?: string;
 }) {
   const tone = competitionTone(type);
+  const r = round ? parseRound(round) : null;
   return (
     <span
       className={`inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-[11px] leading-none ${CHIP_TONE[tone]} ${className}`}
     >
       {name}
-      {round ? <span className="opacity-70">· {fmtRound(round)}</span> : null}
+      {r ? (
+        <span className="inline-flex items-center gap-1 opacity-70" title={round ?? undefined}>
+          · {r.label}
+          <RoundMark leg={r.leg} replay={r.replay} />
+        </span>
+      ) : null}
     </span>
   );
 }

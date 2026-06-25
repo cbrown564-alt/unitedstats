@@ -83,12 +83,63 @@ export function venuePrefix(v: string): string {
   return v === "H" ? "v" : v === "A" ? "@" : "n";
 }
 
-/** Round/stage label for display. Collapses the verbose league "N. Matchday"
- * scraped form to a compact "Game N"; leaves cup stages (Final, Round 3) as-is. */
-export function fmtRound(round: string | null | undefined): string {
-  if (!round) return "";
+export type RoundParts = {
+  /** Round label with leg / replay qualifiers stripped and naming normalised. */
+  label: string;
+  /** Two-legged tie: which leg this match is (1 or 2). null when not legged. */
+  leg: 1 | 2 | null;
+  /** Replay sequence (1 = replay, 2 = second/2nd replay). null otherwise. */
+  replay: 1 | 2 | null;
+};
+
+// Casing/plural drifts in the scraped data for the named knockout stages; collapse
+// each family to one canonical spelling so the same round reads identically.
+const ROUND_NAME_FIXES: Array<[RegExp, string]> = [
+  [/^semi[-\s]?finals?/i, "Semi-final"],
+  [/^quarter[-\s]?finals?/i, "Quarter-final"],
+];
+
+/**
+ * Split a round/stage string into a compact label plus its leg/replay qualifier.
+ * The verbose league "N. Matchday" collapses to "Game N"; two-legged ties and
+ * replays shed their trailing words so the qualifier can render as a small icon
+ * instead of truncating ("Semi-final Second leg" → "Semi-final" + leg 2).
+ */
+export function parseRound(round: string | null | undefined): RoundParts {
+  if (!round) return { label: "", leg: null, replay: null };
+
   const md = round.match(/^(\d+)\.\s*Matchday$/i);
-  return md ? `Game ${md[1]}` : round;
+  if (md) return { label: `Game ${md[1]}`, leg: null, replay: null };
+
+  let base = round.trim();
+  let leg: 1 | 2 | null = null;
+  let replay: 1 | 2 | null = null;
+
+  const legMatch = base.match(/\s+(first|second)\s+leg$/i);
+  if (legMatch) {
+    leg = /first/i.test(legMatch[1]) ? 1 : 2;
+    base = base.slice(0, legMatch.index).trim();
+  }
+
+  const replayMatch = base.match(/\s+(2nd|second)?\s*replay$/i);
+  if (replayMatch) {
+    replay = replayMatch[1] ? 2 : 1;
+    base = base.slice(0, replayMatch.index).trim();
+  }
+
+  for (const [re, fix] of ROUND_NAME_FIXES) {
+    if (re.test(base)) {
+      base = base.replace(re, fix);
+      break;
+    }
+  }
+
+  return { label: base, leg, replay };
+}
+
+/** Compact round/stage label for display — the text half of {@link parseRound}. */
+export function fmtRound(round: string | null | undefined): string {
+  return parseRound(round).label;
 }
 
 /** Club display name by era. */
