@@ -1,5 +1,6 @@
 import { SearchCommand } from "@/components/SearchCommand";
-import { MatchFilterBarWithCounts } from "@/components/MatchFilterBarWithCounts";
+import { MatchFilterCollapse } from "@/components/matches/MatchFilterCollapse";
+import type { DecadeBucket } from "@/components/matches/FilterZones";
 import type { FacetOptions } from "@/lib/matchFacets";
 
 /**
@@ -14,6 +15,8 @@ export function MatchControlDeck({
   total,
   matchHref,
   seasons,
+  decadeBuckets,
+  defaultFiltersOpen,
 }: {
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
@@ -22,6 +25,9 @@ export function MatchControlDeck({
   total: number;
   matchHref?: string;
   seasons: string[];
+  decadeBuckets?: DecadeBucket[];
+  /** Expand the filter panel on load when the slice already has constraints. */
+  defaultFiltersOpen: boolean;
 }) {
   return (
     <section
@@ -29,10 +35,11 @@ export function MatchControlDeck({
       aria-label="Narrow the match archive"
       className="scroll-mt-20 rounded-xl border border-line bg-panel shadow-[inset_0_1px_0_rgb(255_255_255_/_0.04),0_18px_36px_-22px_rgb(0_0_0_/_0.75)]"
     >
-      <div className="space-y-4 p-4 sm:p-5">
+      <div className="p-4 sm:p-5">
         <SearchCommand forMatches fullWidth autoFocusKey={false} />
-        <MatchFilterBarWithCounts
-          embedded
+        <MatchFilterCollapse
+          defaultOpen={defaultFiltersOpen}
+          filterCount={chips.length}
           params={params}
           chips={chips}
           chipCounts={chipCounts}
@@ -40,6 +47,7 @@ export function MatchControlDeck({
           total={total}
           matchHref={matchHref}
           seasons={seasons}
+          decadeBuckets={decadeBuckets}
         />
       </div>
     </section>

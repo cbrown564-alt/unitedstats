@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
 import { FacetCombobox } from "@/components/FacetCombobox";
 import { FacetIcon } from "@/components/FacetIcon";
-import { FilterZones } from "@/components/matches/FilterZones";
+import { FilterZones, type DecadeBucket } from "@/components/matches/FilterZones";
 import { usePopoverAlign } from "@/components/usePopoverAlign";
 import {
   FACET_BY_KEY,
@@ -39,10 +39,9 @@ const GROUP_TONE: Record<FacetGroup, string> = {
 /**
  * Filter bar for the Matches page. The URL is the single source of truth.
  *
- * Renders FilterZones (always-visible people / competition / time panel) and,
- * below it, any chips for search-applied filters (result, venue, etc.) that
- * live outside the zone panel. A "Clear all" button appears whenever any
- * filter is active.
+ * Renders FilterZones (people / competition / time panel) and, below it, any
+ * chips for search-applied filters (result, venue, etc.) that live outside the
+ * zone panel. A "Clear all" button appears whenever any filter is active.
  */
 export function MatchFilterBar({
   embedded = false,
@@ -53,6 +52,7 @@ export function MatchFilterBar({
   counts,
   countsLoading,
   seasons,
+  decadeBuckets,
 }: {
   /** Chip row inside MatchControlDeck — no duplicate panel chrome. */
   embedded?: boolean;
@@ -68,6 +68,7 @@ export function MatchFilterBar({
   /** Accepted for interface compatibility; owned by FilterZones. */
   matchHref?: string;
   seasons: string[];
+  decadeBuckets?: DecadeBucket[];
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -114,7 +115,7 @@ export function MatchFilterBar({
       {...(!embedded ? { id: "match-filters" } : {})}
       className={
         embedded
-          ? "border-t border-line/70 pt-4"
+          ? ""
           : "scroll-mt-20 rounded-lg border border-line bg-panel p-3 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]"
       }
     >
@@ -130,6 +131,7 @@ export function MatchFilterBar({
         options={options}
         counts={counts}
         seasons={seasons}
+        decadeBuckets={decadeBuckets}
         navigate={navigate}
       />
 

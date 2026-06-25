@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { MatchFilterBar } from "@/components/MatchFilterBar";
+import type { DecadeBucket } from "@/components/matches/FilterZones";
 import type { FacetCounts, FacetOptions } from "@/lib/matchFacets";
 import { queryString } from "@/lib/url";
 
@@ -20,6 +21,7 @@ export function MatchFilterBarWithCounts({
   total,
   matchHref,
   seasons,
+  decadeBuckets,
 }: {
   /** Render as the chip row inside MatchControlDeck — no outer panel. */
   embedded?: boolean;
@@ -30,6 +32,7 @@ export function MatchFilterBarWithCounts({
   total: number;
   matchHref?: string;
   seasons: string[];
+  decadeBuckets?: DecadeBucket[];
 }) {
   const [counts, setCounts] = useState<FacetCounts>(EMPTY_COUNTS);
   const [loadedQs, setLoadedQs] = useState<string | null>(null);
@@ -77,6 +80,7 @@ export function MatchFilterBarWithCounts({
       total={total}
       matchHref={matchHref}
       seasons={seasons}
+      decadeBuckets={decadeBuckets}
     />
   );
 }

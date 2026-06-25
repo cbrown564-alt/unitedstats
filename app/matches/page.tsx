@@ -244,6 +244,8 @@ export default async function MatchesPage({
         total={total}
         matchHref={total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined}
         seasons={seasons}
+        decadeBuckets={decades}
+        defaultFiltersOpen={hasFilters}
       />
 
       <MatchListToolbar total={total} sort={sort} dateSort={dateSort} goalDiffSort={goalDiffSort} qs={qs} />

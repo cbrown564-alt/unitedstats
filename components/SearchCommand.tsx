@@ -150,8 +150,10 @@ export function SearchCommand({
         aria-label="Search players, opponents, seasons, managers, stadiums, and shaped questions"
         className={
           compact
-            ? "w-full rounded-md border border-line bg-panel px-3 py-1.5 text-sm placeholder:text-ink-faint focus:border-devil focus:outline-none"
-            : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil"
+            ? "w-full rounded-md border border-line bg-panel px-3 py-1.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
+            : forMatches
+              ? "w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
+              : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil"
         }
       />
       {open && (

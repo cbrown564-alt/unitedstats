@@ -9,6 +9,16 @@ import {
   seasonsAscending,
 } from "@/lib/seasonBounds";
 
+function decadeShortLabel(decade: number): string {
+  return `${String(decade).slice(-2)}s`;
+}
+
+function showDecadeLabel(decade: number, index: number, total: number, compact: boolean): boolean {
+  if (!compact) return true;
+  if (index === 0 || index === total - 1) return true;
+  return decade % 20 === 0;
+}
+
 /**
  * Dual-thumb era control that snaps to whole seasons. Drag the handles or tap a
  * decade marker to jump; releases write Jul–Jun bounds into `from`/`to`.
@@ -75,80 +85,92 @@ export function SeasonRangeSlider({
   const seasonCount = hi - lo + 1;
 
   return (
-    <div className={compact ? "space-y-2" : "space-y-3"}>
+    <div className={compact ? "space-y-3" : "space-y-4"}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">Era</p>
-          <p className="stat-num mt-0.5 text-sm font-medium text-ink">
-            {asc[lo]}
-            <span className="mx-1.5 text-ink-faint">→</span>
-            {asc[hi]}
-          </p>
-        </div>
-        <p className="stat-num text-xs text-ink-faint">
+        <p className="text-[13px] text-ink-dim">
+          <span className="text-ink-faint">From </span>
+          <span className="font-medium text-ink">{asc[lo]}</span>
+          <span className="mx-1.5 text-ink-faint/70">→</span>
+          <span className="font-medium text-ink">{asc[hi]}</span>
+        </p>
+        <p className="stat-num text-[11px] text-ink-dim">
           {seasonCount} {seasonCount === 1 ? "season" : "seasons"}
         </p>
       </div>
 
-      <div className={`season-range relative ${compact ? "px-0.5 pt-1" : "px-1 pt-2"}`}>
-        {/* Track + fill */}
-        <div className="relative mx-2 h-1.5 rounded-full bg-panel-2">
+      <div className={compact ? "space-y-2.5" : "space-y-3"}>
+        <div className={`season-range relative mx-3 ${compact ? "h-8" : "h-9"}`}>
+          {/* Visual track — same width and vertical center as the native thumbs */}
           <div
-            className="absolute inset-y-0 rounded-full bg-devil/55"
-            style={{ left: `${pct(lo)}%`, width: `${pct(hi) - pct(lo)}%` }}
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 overflow-hidden rounded-full bg-line/25"
+          >
+            <div
+              className="absolute inset-y-0 rounded-full bg-devil/50"
+              style={{ left: `${pct(lo)}%`, width: `${pct(hi) - pct(lo)}%` }}
+            />
+            {markers.map(({ decade, index }) => (
+              <div
+                key={decade}
+                className="absolute top-0 h-full w-px -translate-x-1/2 bg-line/50"
+                style={{ left: `${pct(index)}%` }}
+              />
+            ))}
+          </div>
+
+          <input
+            type="range"
+            min={0}
+            max={maxIdx}
+            step={1}
+            value={lo}
+            aria-label="Era start season"
+            onChange={(e) => onLoChange(Number(e.target.value))}
+            onMouseUp={onLoCommit}
+            onTouchEnd={onLoCommit}
+            onKeyUp={onLoCommit}
+            className="season-range__thumb season-range__thumb--lo pointer-events-auto absolute inset-0 z-[1]"
+          />
+          <input
+            type="range"
+            min={0}
+            max={maxIdx}
+            step={1}
+            value={hi}
+            aria-label="Era end season"
+            onChange={(e) => onHiChange(Number(e.target.value))}
+            onMouseUp={onHiCommit}
+            onTouchEnd={onHiCommit}
+            onKeyUp={onHiCommit}
+            className="season-range__thumb season-range__thumb--hi pointer-events-auto absolute inset-0 z-[2]"
           />
         </div>
 
-        {/* Decade affordances */}
-        <div className="relative mx-2 mt-2 h-5">
-          {markers.map(({ decade, index }) => (
-            <button
-              key={decade}
-              type="button"
-              onClick={() => jumpDecade(decade)}
-              className="tap-target absolute top-0 -translate-x-1/2 text-[9px] font-medium text-ink-faint transition-colors hover:text-devil-bright focus-ring"
-              style={{ left: `${pct(index)}%` }}
-              title={`${decade}s`}
-            >
-              {decade}
-            </button>
-          ))}
+        {/* Decade jump targets — share the track's horizontal inset */}
+        <div className={`relative mx-3 ${compact ? "h-4" : "h-5"}`}>
+          {markers.map(({ decade, index }, i) => {
+            if (!showDecadeLabel(decade, i, markers.length, compact)) return null;
+            return (
+              <button
+                key={decade}
+                type="button"
+                onClick={() => jumpDecade(decade)}
+                className="tap-target absolute top-0 -translate-x-1/2 text-[10px] font-medium text-ink-dim transition-colors hover:text-devil-bright focus-ring"
+                style={{ left: `${pct(index)}%` }}
+                title={`${decade}s`}
+              >
+                {compact ? decadeShortLabel(decade) : decade}
+              </button>
+            );
+          })}
         </div>
-
-        {/* Dual thumbs — transparent tracks, styled in globals via .season-range */}
-        <input
-          type="range"
-          min={0}
-          max={maxIdx}
-          step={1}
-          value={lo}
-          aria-label="Era start season"
-          onChange={(e) => onLoChange(Number(e.target.value))}
-          onMouseUp={onLoCommit}
-          onTouchEnd={onLoCommit}
-          onKeyUp={onLoCommit}
-          className="season-range__thumb season-range__thumb--lo pointer-events-auto absolute left-0 right-0 top-0 mx-0 w-full"
-        />
-        <input
-          type="range"
-          min={0}
-          max={maxIdx}
-          step={1}
-          value={hi}
-          aria-label="Era end season"
-          onChange={(e) => onHiChange(Number(e.target.value))}
-          onMouseUp={onHiCommit}
-          onTouchEnd={onHiCommit}
-          onKeyUp={onHiCommit}
-          className="season-range__thumb season-range__thumb--hi pointer-events-auto absolute left-0 right-0 top-0 mx-0 w-full"
-        />
       </div>
 
       {active && (
         <button
           type="button"
           onClick={clear}
-          className="text-xs text-ink-faint underline-offset-2 transition-colors hover:text-ink hover:underline focus-ring"
+          className="text-[11px] text-ink-dim underline-offset-2 transition-colors hover:text-ink-faint hover:underline focus-ring"
         >
           Clear era
         </button>
