@@ -17,21 +17,13 @@ import { SectionHead } from "@/components/SectionHead";
 import { RecentlyChanged } from "@/components/RecentlyChanged";
 import { WhatsInteresting } from "@/components/WhatsInteresting";
 import { whatsInteresting } from "@/lib/now";
+import { EntryChips } from "@/components/EntryChips";
+import { FirstVisitOrientation } from "@/components/FirstVisitOrientation";
+import { entryStrip, breadthWays } from "@/lib/entryPoints";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
-
-const ROUTES: [label: string, href: string, hint: string][] = [
-  ["Compare", "/compare", "players, managers, eras"],
-  ["Matches", "/matches", "filter 6,000+ fixtures"],
-  ["Seasons", "/seasons", "1886–87 to today"],
-  ["Players", "/players", "every recorded scorer"],
-  ["Managers", "/managers", "Mangnall to now"],
-  ["Opponents", "/opponents", "every head-to-head"],
-  ["Analytics", "/analytics", "Elo and the long arc"],
-  ["On this day", "/on-this-day", "today in United history"],
-];
 
 export default function Home() {
   const meta = getMeta();
@@ -40,6 +32,8 @@ export default function Home() {
   const recent = recentMatches(8);
   const recentChanges = recentHistoryDigests(3);
   const interesting = whatsInteresting();
+  const entries = entryStrip();
+  const ways = breadthWays();
   const scorers = topScorers(8);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -109,6 +103,11 @@ export default function Home() {
 
   return (
     <div className="space-y-14 sm:space-y-16">
+      {/* A dismissable first-visit orientation for the newcomer — client-only,
+          shown once, gone for good; the researcher who bypasses the homepage
+          never meets it. */}
+      <FirstVisitOrientation />
+
       {/* 1. The invitation — a floodlit plate that *shows* the whole record:
           the headline and search sit over a skyline of every season ever played. */}
       <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
@@ -141,6 +140,16 @@ export default function Home() {
               </span>
               {" "}— names, seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo;.
             </p>
+          </div>
+
+          {/* The personal door (Phase 18.4): for the reader who arrives with a
+              name rather than a query — a player, a rivalry, an era — each chip
+              branching into that subject's own trails. Day-rotated, deterministic. */}
+          <div className="mt-6 max-w-2xl">
+            <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-faint">
+              Or start from someone you remember
+            </p>
+            <EntryChips points={entries} />
           </div>
 
           <div className="mt-8">
@@ -314,20 +323,17 @@ export default function Home() {
           </section>
         )}
 
+        {/* Breadth tease (Phase 18.4): the range of moves the product makes, shown
+            as a peek-carousel rather than a flat directory grid — the Phase 11
+            lesson, "tease breadth, don't enumerate it". The partial peek of the
+            next card cues there is more than the eye can see. */}
         <section>
-          <h2 className="display text-xl mb-3">Routes into the record</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {ROUTES.map(([label, href, hint]) => (
-              <Link
-                key={href}
-                href={href}
-                className="border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
-              >
-                <div className="font-medium text-sm">{label}</div>
-                <div className="text-xs text-ink-faint mt-0.5">{hint}</div>
-              </Link>
-            ))}
-          </div>
+          <SectionHead title="More ways into the record" />
+          <CuratedCarousel cards={ways} label="Ways into the record" />
+          <p className="mt-2 text-xs text-ink-faint">
+            A few of the moves you can make here — compare, slice, or walk the timeline. Every one keeps the
+            evidence trail intact, with a coverage grade where the record is still growing.
+          </p>
         </section>
       </div>
     </div>

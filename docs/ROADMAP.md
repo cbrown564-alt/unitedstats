@@ -1000,16 +1000,47 @@ serendipity not a feed. Pinned by `tests/phase18-discovery.test.ts` (the surpris
 pool's bounds, full trail coverage with no self-links or dangling slugs, and the
 rotation's determinism), holding total tests at 107.
 
-### 18.4 — Orientation and personal entry points
+### 18.4 — Orientation and personal entry points ✅ (complete)
 
-- [ ] Let people enter through what they care about — a favourite player, an
+- [x] Let people enter through what they care about — a favourite player, an
       era, a rivalry — and branch outward, rather than starting from a blank
-      query.
-- [ ] Show the *range* of the product to a newcomer without a directory grid
+      query. The hero now carries a **personal entry strip** (`EntryChips`,
+      `lib/entryPoints.ts`): two players, a rivalry, and an era beneath the search
+      field, each chip landing on an entity page that already opens its own Phase
+      5/9 trails. The set is **day-rotated and deterministic** (the static
+      guardrail, sharing `lib/now.ts`'s day-of-year seed) so a returning visitor
+      meets fresh faces with no per-user state; every chip resolves against the
+      live record at request time and carries a factual hint read straight from it
+      (a career span, a meetings count, a season) rather than an editorial epithet.
+- [x] Show the *range* of the product to a newcomer without a directory grid
       (the lesson from the Phase 11 peek-carousel: tease breadth, don't enumerate
-      it).
-- [ ] A lightweight, dismissable orientation for first visits that never gets in
-      a returning user's way.
+      it). The flat eight-tile "Routes into the record" grid at the homepage foot —
+      the exact directory anti-pattern DISCOVERY flagged for the newcomer — is
+      replaced by a **breadth tease** (`breadthWays()` in a shared
+      `CuratedCarousel`): six cards, each a different *kind* of move (compare,
+      slice, walk the timeline, the long arc, the ledger, on-this-day) with a
+      concrete example, as a scroll-snap peek-carousel whose partial next-card peek
+      cues "there's more" rather than laying the whole map flat.
+- [x] A lightweight, dismissable orientation for first visits that never gets in
+      a returning user's way. `FirstVisitOrientation` is a one-line note above the
+      hero, shown once and then gone: it reads through `useSyncExternalStore` (the
+      `recents.ts` pattern) with a server snapshot of "dismissed", so it renders
+      **nothing during SSR** and is revealed only after hydration for a true first
+      visit. A returning visitor (flag set) or the researcher who enters through
+      the header search and bypasses the homepage never sees it — no modal, no
+      overlay, no focus trap, no depth pushed down.
+
+Phase 18.4 is complete as the orientation build (Candidate C from `docs/DISCOVERY.md`,
+built on the entity trails that already exist): the cold homepage now offers a
+*name* as a door beside the blank query, teases its range without a directory, and
+greets a newcomer once without ever slowing a regular. Everything stays static and
+zero-cost — the rotation is day-seeded, the dismiss flag is `localStorage`, the
+chips and tease are server components with plain links — and the answer-first
+hierarchy holds: the chips sit *beneath* the search field, the tease *below* the
+divider. Pinned by `tests/phase18-discovery.test.ts` (every chip resolves to a
+real entity, the strip is balanced/distinct/day-rotated, the breadth tease is
+well-formed), holding at 110 tests. This closes Phase 18 — discovery is now easy
+*and* delightful across all five personas; **Phase 19 (sharing)** is next.
 
 ## Phase 19 — Sharing: compelling, seamless, a habit
 
