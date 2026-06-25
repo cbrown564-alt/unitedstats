@@ -30,7 +30,7 @@ function cutTitle(cut: Cut): string {
 function cutDescription(cut: Cut): string {
   const c = curatedFor(cut);
   if (c) return c.blurb;
-  return `United's record grouped by ${dimensionLabel(cut.dimension).toLowerCase()} and ranked by ${metricLabel(cut.metric).toLowerCase()}, every group linking to the matches behind it.`;
+  return `United’s record grouped by ${dimensionLabel(cut.dimension).toLowerCase()} and ranked by ${metricLabel(cut.metric).toLowerCase()}, every group linking to the matches behind it.`;
 }
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<SP> }): Promise<Metadata> {
@@ -80,8 +80,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         title={cutTitle(cut)}
         aside={headline && coverage.grade !== "empty" ? <SaveToCollection href={cutHref(cut)} /> : undefined}
       >
-        The whole record as a standings ladder — every row links to the matches behind it. Change the
-        dimension or the lens to fork your own.
+        The whole record reordered as a standings ladder. Every group is an open door to its matches — change the dimension or lens to build your own custom cut.
       </PageHeader>
 
       {/* Active slice, as removable chips — each links to the same cut minus that filter. */}
@@ -132,7 +131,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
                 href={headline.href}
                 className="text-sm font-semibold text-devil-bright hover:underline focus-ring"
               >
-                See the matches →
+                View the matches →
               </Link>
             </div>
 

@@ -92,7 +92,7 @@ export function CutControls({
       <details className="group/slice border-t border-line bg-panel-2/25 px-4 py-3.5 sm:px-5" open={hasRefinement(filters)}>
         <summary className="flex cursor-pointer select-none list-none items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-dim transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
           <Chevron className="h-3 w-3 -rotate-90 text-devil-bright transition-transform duration-200 group-open/slice:rotate-0" />
-          Narrow the slice
+          Refine the slice
         </summary>
         {/* GET to /cut, carrying the active subject/dimension/metric so a filtered
             submit keeps the same answer shape — only the slice changes. */}
@@ -143,7 +143,7 @@ export function CutControls({
           <TextField className="md:col-span-2" label="To" name="to" defaultValue={filters.to ?? ""} placeholder="2026" />
           <div className="flex items-end md:col-span-2">
             <button className="h-[2.375rem] w-full rounded-md bg-devil px-4 text-sm font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
-              Apply
+              Apply filters
             </button>
           </div>
         </form>
