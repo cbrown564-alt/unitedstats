@@ -431,10 +431,14 @@ function minuteLabel(minute: number | null, added: number | null): string {
   return added && added > 0 ? `${minute}+${added}` : String(minute);
 }
 
+/** Per-match goal/assist annotation for a scorer/timing slice: the matching
+ * events' minute labels, plus how many and whether they were goals or assists. */
+export type MatchEventBadge = { count: number; noun: string; minutes: string[] };
+
 export function matchEventBadges(
   matchIds: string[],
   f: Pick<MatchFilter, "scorer" | "assister" | "goalWindow" | "goalFrom" | "goalTo">,
-): Map<string, string> {
+): Map<string, MatchEventBadge> {
   if (matchIds.length === 0 || !hasGoalEventFilter(f)) return new Map();
   const params: Record<string, string | number> = {};
   const ids = matchIds.map((_, i) => `@id${i}`);
@@ -459,11 +463,11 @@ export function matchEventBadges(
     }[];
   const grouped = new Map<string, typeof rows>();
   for (const row of rows) grouped.set(row.match_id, [...(grouped.get(row.match_id) ?? []), row]);
-  const labels = new Map<string, string>();
+  const labels = new Map<string, MatchEventBadge>();
   for (const [matchId, items] of grouped) {
-    const minutes = items.map((e) => minuteLabel(e.minute, e.added_time)).join(", ");
+    const minutes = items.map((e) => minuteLabel(e.minute, e.added_time));
     const noun = f.assister && !f.scorer ? "assist" : "goal";
-    labels.set(matchId, `${items.length} ${items.length === 1 ? noun : `${noun}s`} · ${minutes}`);
+    labels.set(matchId, { count: items.length, noun, minutes });
   }
   return labels;
 }

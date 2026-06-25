@@ -7,6 +7,7 @@ import {
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
+import { FacetIcon } from "@/components/FacetIcon";
 import { MatchFilterBar } from "@/components/MatchFilterBar";
 import type { FacetOptions, FacetCounts } from "@/lib/matchFacets";
 import { Pager } from "@/components/Pager";
@@ -141,11 +142,22 @@ export default async function MatchesPage({
   const eventBadges = matchEventBadges(rows.map((m) => m.id), filter);
   const renderEventBadge = (m: (typeof rows)[number]) => {
     const label = eventBadges.get(m.id);
-    return label ? (
-      <span className="stat-num rounded border border-devil/35 bg-devil/10 px-2 py-1 text-[11px] font-semibold text-devil-bright">
-        {label}
+    if (!label) return null;
+    // Reads on every row of a scorer/timing slice, so it's reference data, not an
+    // alarm: a quiet stopwatch glyph with the goal minutes stacked vertically, so a
+    // hat-trick costs row height rather than a wide red ribbon clashing with the
+    // loss rows. Full count + noun stays on hover.
+    const full = `${label.count} ${label.count === 1 ? label.noun : `${label.noun}s`} · ${label.minutes.join(", ")}`;
+    return (
+      <span className="inline-flex items-start gap-1 text-[11px] text-ink-dim" title={full}>
+        <FacetIcon name="stopwatch" className="mt-px h-3.5 w-3.5 shrink-0 text-ink-faint" />
+        <span className="stat-num flex flex-col items-end leading-tight">
+          {label.minutes.map((mn, i) => (
+            <span key={i}>{mn}</span>
+          ))}
+        </span>
       </span>
-    ) : null;
+    );
   };
   const eventBadgeRenderer = eventBadges.size > 0 ? renderEventBadge : undefined;
 
