@@ -233,8 +233,6 @@ export default async function MatchesPage({
         heroLabel={heroLabel}
         heroTone={heroTone}
         heroSub={heroSub}
-        activeResult={sp.result}
-        params={sp}
       />
 
       <MatchControlDeck

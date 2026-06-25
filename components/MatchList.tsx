@@ -82,8 +82,8 @@ export function MatchList<T extends MatchRow>({
             <span
               className={`hidden items-center gap-x-3 text-xs text-ink-dim sm:grid ${
                 showSeason
-                  ? "[grid-template-columns:3.75rem_8rem_7rem]"
-                  : "[grid-template-columns:8rem_7rem]"
+                  ? "[grid-template-columns:3.75rem_10.5rem_7rem]"
+                  : "[grid-template-columns:10.5rem_7rem]"
               }`}
             >
               {showSeason && <span className="stat-num whitespace-nowrap text-ink-faint">{m.season}</span>}

@@ -1,12 +1,12 @@
 import { GoalDiff } from "@/components/GoalDiff";
-import { InteractiveSliceSpine } from "@/components/matches/InteractiveSliceSpine";
-import { WdlBarFilter } from "@/components/matches/WdlBarFilter";
+import { WdlBar } from "@/components/WdlBar";
+import { ResultSpine } from "@/components/charts/ResultSpine";
 import { fmtDate } from "@/lib/format";
 import type { SequenceMatch } from "@/lib/trails";
 
 /**
  * Answer-first hero for the Matches page: the slice headline, goals ribbon, and
- * interactive shape (spine or a clickable W/D/L bar below the gate).
+ * result shape (spine or a W/D/L bar below the gate).
  */
 export function MatchSliceHero({
   summary,
@@ -17,8 +17,6 @@ export function MatchSliceHero({
   heroLabel,
   heroTone,
   heroSub,
-  activeResult,
-  params,
 }: {
   summary: { p: number; w: number; d: number; l: number; gf: number; ga: number; first: string | null; last: string | null };
   sequence: SequenceMatch[];
@@ -28,8 +26,6 @@ export function MatchSliceHero({
   heroLabel: string;
   heroTone: string;
   heroSub: string | null;
-  activeResult?: string;
-  params: Record<string, string | undefined>;
 }) {
   return (
     <section className="rounded-xl border border-line bg-panel p-4 shadow-[inset_0_1px_0_rgb(255_255_255_/_0.04)] sm:p-5">
@@ -59,26 +55,16 @@ export function MatchSliceHero({
           </div>
 
           {sequence.length >= 24 ? (
-            <InteractiveSliceSpine
-              matches={sequence}
-              w={summary.w}
-              d={summary.d}
-              l={summary.l}
-              showRecord={!pinnedResult}
-              activeResult={activeResult}
-              params={params}
-            />
+            <div className="mt-4 border-t border-line/70 pt-3">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
+                Result by match over time
+              </p>
+              <ResultSpine matches={sequence} showRecord={!pinnedResult} />
+            </div>
           ) : (
             !pinnedResult && (
               <div className="mt-4 border-t border-line/70 pt-3">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Record</p>
-                <WdlBarFilter
-                  params={params}
-                  w={summary.w}
-                  d={summary.d}
-                  l={summary.l}
-                  activeResult={activeResult}
-                />
+                <WdlBar w={summary.w} d={summary.d} l={summary.l} size="md" variant="stacked" showLabels />
               </div>
             )
           )}
