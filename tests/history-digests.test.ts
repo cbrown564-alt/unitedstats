@@ -172,8 +172,8 @@ test("history digest claim versions stay stable for the same facts and change wh
     ...digest,
     claims: [{ ...digest.claims[0], text: `${digest.claims[0].text} Corrected.` }, ...digest.claims.slice(1)],
   };
-  const body = { ...changed };
-  delete (body as any).claimVersion;
+  const body = { ...changed } as Partial<typeof changed>;
+  delete body.claimVersion;
   assert.notEqual(claimVersion(body), digest.claimVersion);
 });
 
