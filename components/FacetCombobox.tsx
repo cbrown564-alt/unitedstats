@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { usePopoverAlign } from "@/components/usePopoverAlign";
 import type { FacetOption } from "@/lib/matchFacets";
 
 /**
@@ -24,6 +25,7 @@ export function FacetCombobox({
   counts?: Record<string, number>;
   onApply: (value: string | undefined) => void;
 }) {
+  const { ref: rootRef, align } = usePopoverAlign();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const activeRef = useRef<HTMLButtonElement>(null);
@@ -54,7 +56,7 @@ export function FacetCombobox({
   };
 
   return (
-    <div className="pop-in absolute left-0 top-full z-40 mt-1 w-72 overflow-hidden rounded-lg border border-line bg-panel shadow-xl">
+    <div ref={rootRef} className={`pop-in absolute ${align} top-full z-40 mt-1 w-72 overflow-hidden rounded-lg border border-line bg-panel shadow-xl`}>
       {searchable && (
         <div className="border-b border-line p-2">
           <input

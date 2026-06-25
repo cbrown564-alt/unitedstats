@@ -231,7 +231,7 @@ export default async function MatchesPage({
         </div>
       </div>
 
-      <MatchFilterBar params={sp} chips={chips} options={facetOptions} counts={facetCounts} />
+      <MatchFilterBar params={sp} chips={chips} options={facetOptions} counts={facetCounts} total={total} />
 
       <details className="rounded-lg border border-line/70 bg-panel/50">
         <summary className="cursor-pointer select-none list-none px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">

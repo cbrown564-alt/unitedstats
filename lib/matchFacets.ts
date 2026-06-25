@@ -34,7 +34,7 @@ export const FACET_GROUPS: { key: FacetGroup; label: string }[] = [
 // Order within each group is the order shown in the add-filter menu.
 export const MATCH_FACETS: FacetDef[] = [
   { key: "opponent", label: "Opponent", kind: "select", group: "who", optionsKey: "opponent", icon: "shield" },
-  { key: "manager", label: "Manager", kind: "select", group: "who", optionsKey: "manager", icon: "clipboard" },
+  { key: "manager", label: "Manager", kind: "select", group: "who", optionsKey: "manager", icon: "suit" },
   { key: "player", label: "Player appeared", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney", icon: "person" },
   { key: "scorer", label: "Scorer", kind: "datalist", group: "who", optionsKey: "player", placeholder: "eric-cantona", icon: "target" },
   { key: "assister", label: "Assister", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney", icon: "arrow" },

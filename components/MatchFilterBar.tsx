@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
 import { FacetCombobox } from "@/components/FacetCombobox";
 import { FacetIcon } from "@/components/FacetIcon";
+import { usePopoverAlign } from "@/components/usePopoverAlign";
 import {
   MATCH_FACETS, FACET_BY_KEY, FACET_GROUPS,
   type FacetDef, type FacetGroup, type FacetOption, type FacetOptions, type FacetCounts,
@@ -25,11 +26,13 @@ export function MatchFilterBar({
   chips,
   options,
   counts,
+  total,
 }: {
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
   options: FacetOptions;
   counts: FacetCounts;
+  total: number;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -93,10 +96,11 @@ export function MatchFilterBar({
                 disabled={!editable}
                 onClick={() => editable && setOpen(open === chip.key ? null : chip.key)}
                 aria-expanded={open === chip.key}
-                className={`rounded-l-full py-1 pl-3 pr-2 transition-colors focus-ring ${editable ? "hover:text-ink" : "cursor-default"}`}
+                className={`inline-flex items-center gap-1.5 rounded-l-full py-1 pl-2.5 pr-2 transition-colors focus-ring ${editable ? "hover:text-ink" : "cursor-default"}`}
               >
+                {facet && <FacetIcon name={facet.icon} className="shrink-0 text-ink-faint" />}
                 {chip.label}
-                {editable && <span aria-hidden className="ml-1 text-ink-faint">▾</span>}
+                {editable && <span aria-hidden className="ml-0.5 text-ink-faint">▾</span>}
               </button>
               <button
                 type="button"
@@ -128,7 +132,7 @@ export function MatchFilterBar({
           >
             <span aria-hidden>＋</span> Add filter
           </button>
-          {open === "add" && <AddMenu available={available} counts={counts} onPick={pick} />}
+          {open === "add" && <AddMenu available={available} counts={counts} total={total} onPick={pick} />}
           {newFacet && (
             <FacetEditor
               facet={newFacet}
@@ -170,21 +174,30 @@ const MENU_COLUMNS: FacetGroup[][] = [
 function AddMenu({
   available,
   counts,
+  total,
   onPick,
 }: {
   available: FacetDef[];
   counts: FacetCounts;
+  total: number;
   onPick: (f: FacetDef) => void;
 }) {
+  const { ref, align } = usePopoverAlign();
   const [query, setQuery] = useState("");
   const needle = query.trim().toLowerCase();
   const matches = needle ? available.filter((f) => f.label.toLowerCase().includes(needle)) : null;
 
-  // A counted facet is "exhausted" when one option (or none) remains reachable in
-  // the rest of the slice — picking it can't narrow further, so it's dimmed.
+  // A counted facet is "exhausted" when every match in the slice shares one value
+  // for it — picking it can't narrow further, so it's dimmed. We require the
+  // counted options to cover the whole slice: a column that's merely sparse (few
+  // matches carry a ground/city) collapses to one value too, but isn't a real
+  // narrowing and shouldn't be dimmed.
   const exhausted = (f: FacetDef) => {
     const c = counts[f.key];
-    return c ? Object.values(c).filter((n) => n > 0).length <= 1 : false;
+    if (!c || total === 0) return false;
+    const vals = Object.values(c);
+    const coverage = vals.reduce((sum, n) => sum + n, 0);
+    return coverage >= total && vals.filter((n) => n > 0).length <= 1;
   };
 
   const item = (f: FacetDef) => {
@@ -207,7 +220,7 @@ function AddMenu({
   };
 
   return (
-    <div role="menu" className="pop-in absolute left-0 top-full z-40 mt-1 w-[30rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-line bg-panel shadow-xl">
+    <div ref={ref} role="menu" className={`pop-in absolute ${align} top-full z-40 mt-1 w-[30rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-line bg-panel shadow-xl`}>
       <div className="border-b border-line p-2">
         <input
           autoFocus
@@ -265,6 +278,7 @@ function FacetEditor({
   onApply: (value: string | undefined) => void;
 }) {
   const [val, setVal] = useState(current);
+  const { ref, align } = usePopoverAlign<HTMLFormElement>();
 
   // Every option-backed facet (select + datalist) gets the searchable listbox.
   if (facet.optionsKey) {
@@ -274,7 +288,8 @@ function FacetEditor({
   // What remains is the numeric facets (year / minute): a small typed input.
   return (
     <form
-      className="pop-in absolute left-0 top-full z-40 mt-1 flex items-center gap-2 rounded-lg border border-line bg-panel p-2 shadow-xl"
+      ref={ref}
+      className={`pop-in absolute ${align} top-full z-40 mt-1 flex items-center gap-2 rounded-lg border border-line bg-panel p-2 shadow-xl`}
       onSubmit={(e) => { e.preventDefault(); onApply(val || undefined); }}
     >
       <input

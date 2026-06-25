@@ -4,10 +4,13 @@
 
 const PATHS: Record<string, React.ReactNode> = {
   shield: <path d="M8 2.5l4.5 1.8v3.7c0 2.8-1.9 4.6-4.5 5.5-2.6-.9-4.5-2.7-4.5-5.5V4.3L8 2.5z" />,
-  clipboard: (
+  // Manager: head + a suit collar V meeting at a tie knot — the gaffer, distinct
+  // from the player's plain bust.
+  suit: (
     <>
-      <rect x="3.5" y="3.5" width="9" height="10" rx="1.2" />
-      <path d="M6 3.5V2.9a.8.8 0 0 1 .8-.8h2.4a.8.8 0 0 1 .8.8v.6M6 7h4M6 9.6h4" />
+      <circle cx="8" cy="4.4" r="2.1" />
+      <path d="M4 13c0-2 1.3-3.3 3.1-3.6L8 10.6l.9-1.2c1.8.3 3.1 1.6 3.1 3.6" />
+      <path d="M8 10.6l-.7 1 .7 2 .7-2-.7-1z" />
     </>
   ),
   person: (
