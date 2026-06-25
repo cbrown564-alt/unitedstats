@@ -136,10 +136,6 @@ export default async function MatchesPage({
     sp.goalFrom || sp.goalTo || sp.from || sp.to,
   );
   const stadium = sp.stadium ? stadiumById(sp.stadium) : undefined;
-  const refineActive = Boolean(
-    sp.venue || sp.result || sp.type || sp.from || sp.to || sp.manager || sp.player || sp.scorer ||
-    sp.assister || sp.stadium || sp.city || sp.aet || sp.goalWindow || sp.goalFrom || sp.goalTo,
-  );
   const eventBadges = matchEventBadges(rows.map((m) => m.id), filter);
   const renderEventBadge = (m: (typeof rows)[number]) => {
     const label = eventBadges.get(m.id);
@@ -233,166 +229,6 @@ export default async function MatchesPage({
 
       <MatchFilterBar params={sp} chips={chips} options={facetOptions} counts={facetCounts} total={total} />
 
-      <details className="rounded-lg border border-line/70 bg-panel/50">
-        <summary className="cursor-pointer select-none list-none px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
-          <span className="text-ink-faint" aria-hidden>▸ </span>Classic filter form (for comparison)
-        </summary>
-        <form id="match-filters-classic" className="p-3 text-sm" method="get" action="/matches">
-        {sort !== "recent" && <input type="hidden" name="sort" value={sort} />}
-        {sp.opponent && <input type="hidden" name="opponent" value={sp.opponent} />}
-        <div className="grid gap-3 md:grid-cols-12">
-          <label className="md:col-span-4">
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Opponent</span>
-            <input
-              type="search"
-              name="q"
-              defaultValue={sp.q ?? ""}
-              placeholder="Arsenal, Liverpool, Leeds"
-              className="control w-full"
-            />
-          </label>
-          <label className="md:col-span-4">
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Competition</span>
-            <select name="competition" defaultValue={sp.competition ?? ""} className="control w-full">
-              <option value="">All competitions</option>
-              {comps.map((c) => (
-                <option key={c.id} value={c.id}>{c.name} ({fmtNum(c.n)})</option>
-              ))}
-            </select>
-          </label>
-          <label className="md:col-span-2">
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Season</span>
-            <select name="season" defaultValue={sp.season ?? ""} className="control w-full">
-              <option value="">All seasons</option>
-              {seasons.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-          </label>
-          <div className="flex items-end gap-2 md:col-span-2">
-            <button className="min-h-[2.375rem] flex-1 rounded-md bg-devil px-4 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
-              Filter
-            </button>
-          </div>
-        </div>
-
-        <details className="mt-3 border-t border-line/70 pt-3" open={refineActive}>
-          <summary className="cursor-pointer select-none list-none text-xs font-semibold uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink focus-ring [&::-webkit-details-marker]:hidden">
-            <span className="text-devil-bright" aria-hidden>▸ </span>More filters
-          </summary>
-          <div className="mt-3 grid gap-3 md:grid-cols-12">
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Venue</span>
-              <select name="venue" defaultValue={sp.venue ?? ""} className="control w-full">
-                <option value="">Any venue</option>
-                <option value="H">Home</option>
-                <option value="A">Away</option>
-                <option value="N">Neutral</option>
-              </select>
-            </label>
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Result</span>
-              <select name="result" defaultValue={sp.result ?? ""} className="control w-full">
-                <option value="">Any result</option>
-                {RESULT_FILTER_KEYS.map((r) => (
-                  <option key={r} value={r}>{resultLabel(r)}</option>
-                ))}
-              </select>
-            </label>
-            <label className="md:col-span-3">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Match type</span>
-              <select name="type" defaultValue={sp.type ?? ""} className="control w-full">
-                <option value="">Any type</option>
-                {TYPE_FILTER_KEYS.map((t) => (
-                  <option key={t} value={t}>{COMPETITION_TYPE_LABELS[t]}</option>
-                ))}
-              </select>
-            </label>
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Extra time</span>
-              <select name="aet" defaultValue={sp.aet ?? ""} className="control w-full">
-                <option value="">Any</option>
-                <option value="1">Went to extra time</option>
-              </select>
-            </label>
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">From</span>
-              <input type="text" name="from" defaultValue={sp.from ?? ""} placeholder="1886" className="control w-full" />
-            </label>
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">To</span>
-              <input type="text" name="to" defaultValue={sp.to ?? ""} placeholder="2026" className="control w-full" />
-            </label>
-          </div>
-          <div className="mt-3 grid gap-3 border-t border-line/70 pt-3 md:grid-cols-12">
-            <label className="md:col-span-3">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Manager</span>
-              <select name="manager" defaultValue={sp.manager ?? ""} className="control w-full">
-                <option value="">Any manager</option>
-                {managers.map((m) => (
-                  <option key={m.id} value={m.id}>{m.name}</option>
-                ))}
-              </select>
-            </label>
-            <label className="md:col-span-3">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Player appeared</span>
-              <input list="match-player-options" name="player" defaultValue={sp.player ?? ""} placeholder="wayne-rooney" className="control w-full" />
-            </label>
-            <label className="md:col-span-3">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Scorer</span>
-              <input list="match-player-options" name="scorer" defaultValue={sp.scorer ?? ""} placeholder="eric-cantona" className="control w-full" />
-            </label>
-            <label className="md:col-span-3">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Assister</span>
-              <input list="match-player-options" name="assister" defaultValue={sp.assister ?? ""} placeholder="wayne-rooney" className="control w-full" />
-            </label>
-            <datalist id="match-player-options">
-              {players.map((p) => (
-                <option key={p.player_id} value={p.player_id}>{p.name}</option>
-              ))}
-            </datalist>
-          </div>
-          <div className="mt-3 grid gap-3 border-t border-line/70 pt-3 md:grid-cols-12">
-            <label className="md:col-span-3">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Stadium</span>
-              <select name="stadium" defaultValue={sp.stadium ?? ""} className="control w-full">
-                <option value="">Any ground</option>
-                {stadiums.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name}{s.city ? `, ${s.city}` : ""} ({fmtNum(s.n)})</option>
-                ))}
-              </select>
-            </label>
-            <label className="md:col-span-3">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">City</span>
-              <select name="city" defaultValue={sp.city ?? ""} className="control w-full">
-                <option value="">Any city</option>
-                {cities.map((c) => (
-                  <option key={c.city} value={c.city}>{c.city} ({fmtNum(c.n)})</option>
-                ))}
-              </select>
-            </label>
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Goal timing</span>
-              <select name="goalWindow" defaultValue={sp.goalWindow ?? ""} className="control w-full">
-                <option value="">Any time</option>
-                {GOAL_WINDOW_FILTERS.map((w) => (
-                  <option key={w.key} value={w.key}>{w.label}</option>
-                ))}
-              </select>
-            </label>
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Goal from</span>
-              <input type="text" name="goalFrom" defaultValue={sp.goalFrom ?? ""} placeholder="86" className="control w-full" />
-            </label>
-            <label className="md:col-span-2">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Goal to</span>
-              <input type="text" name="goalTo" defaultValue={sp.goalTo ?? ""} placeholder="90" className="control w-full" />
-            </label>
-          </div>
-        </details>
-        </form>
-      </details>
-
       <section className="rounded-lg border border-line bg-panel p-4">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
@@ -403,26 +239,6 @@ export default async function MatchesPage({
               {fmtDate(summary.first)}
               {summary.last && summary.last !== summary.first ? ` → ${fmtDate(summary.last)}` : ""}
             </span>
-          )}
-          {chips.length > 0 && (
-            <div className="flex flex-wrap items-center gap-1.5">
-              {chips.map((c) => (
-                <Link
-                  key={c.key}
-                  href={`/matches${qs({ [c.key]: undefined, page: undefined })}`}
-                  className="group inline-flex items-center gap-1 rounded-full border border-line bg-panel-2 py-0.5 pl-2.5 pr-1.5 text-xs text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
-                >
-                  {c.label}
-                  <span className="text-ink-faint group-hover:text-devil-bright" aria-label="remove filter">×</span>
-                </Link>
-              ))}
-              <Link
-                href="/matches"
-                className="rounded-full px-2 py-0.5 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
-              >
-                Clear all
-              </Link>
-            </div>
           )}
         </div>
 
