@@ -482,7 +482,7 @@ export default async function PlayersPage({
                 scroll={false}
                 className="rounded-md border border-line bg-panel px-4 py-2 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:bg-panel-2 hover:text-ink focus-ring"
               >
-                Show all {fmtNum(players.length)} {activeFilters ? "matches" : "players"} →
+                Show all {fmtNum(players.length)} players →
               </Link>
             ) : (
               <Link

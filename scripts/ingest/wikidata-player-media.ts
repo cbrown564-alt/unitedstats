@@ -35,9 +35,14 @@ const FEATURED_PLAYERS: { playerId: string; name: string; wikiTitle: string }[] 
  * win when present. Re-run ingest:player-media after edits.
  */
 const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
-  "denis-law": "Denis Law (4x5 cropped).jpg",
+  "denis-law": "Manu-Finland-1965.jpg",
   "ruud-van-nistelrooy": "Ruud.JPG",
   "cristiano-ronaldo": "Cristiano Ronaldo of Manchester United, November 5, 2008, B.jpg",
+};
+
+/** Hand-cropped portraits stored under public/media/sources/ — see cache:media. */
+const MANUAL_PORTRAIT_SOURCES: Record<string, string> = {
+  "denis-law": "/media/sources/denis-law-manu-finland.png",
 };
 const COMMONS_THUMB_WIDTH = 320;
 const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
@@ -146,6 +151,7 @@ interface MediaRecord {
   sourceId: string;
   sourceMethod: SourceMethod;
   retrievedAt: string;
+  manualPortraitSource?: string | null;
 }
 
 type PlayerRecord = PlayerRecordsFile["records"][number];
@@ -475,6 +481,9 @@ async function main() {
       sourceId: SOURCE_ID,
       sourceMethod: overrideFile ? "curated-override" : wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
       retrievedAt,
+      ...(MANUAL_PORTRAIT_SOURCES[player.playerId]
+        ? { manualPortraitSource: MANUAL_PORTRAIT_SOURCES[player.playerId] }
+        : {}),
     });
   }
 
@@ -498,6 +507,7 @@ async function main() {
       "Only raster Commons images are imported; SVG files are skipped because Next image optimization does not serve arbitrary SVGs by default.",
       "Wikidata P18 is preferred; Wikipedia pageimages are used only as a fallback and still require Commons imageinfo metadata.",
       "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run this script to refresh license or thumbnail changes.",
+      "Hand-cropped portraits live in public/media/sources/; MANUAL_PORTRAIT_SOURCES maps player ids to those files for cache:media.",
     ],
     records,
     missing,

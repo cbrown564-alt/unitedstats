@@ -25,6 +25,7 @@ interface MediaRecordBase {
   imageUrl: string;
   thumbUrl?: string | null;
   localPath?: string | null;
+  manualPortraitSource?: string | null;
 }
 
 interface PlayerMediaRecord extends MediaRecordBase {
@@ -126,6 +127,23 @@ function diskPathFor(localPath: string): string {
   return path.join(PUBLIC_DIR, localPath);
 }
 
+function manualPortraitDiskPath(manualPortraitSource: string): string {
+  if (!manualPortraitSource.startsWith("/media/")) {
+    throw new Error(`Unexpected manual portrait path: ${manualPortraitSource}`);
+  }
+  return path.join(PUBLIC_DIR, manualPortraitSource);
+}
+
+async function readSourceBytes(record: MediaRecordBase, options: Pick<CliOptions, "retries" | "timeoutMs">): Promise<Buffer> {
+  if (record.manualPortraitSource) {
+    const manualPath = manualPortraitDiskPath(record.manualPortraitSource);
+    if (!fs.existsSync(manualPath)) throw new Error(`manual portrait missing: ${record.manualPortraitSource}`);
+    return fs.readFileSync(manualPath);
+  }
+  const source = record.thumbUrl ?? record.imageUrl;
+  return fetchBytes(source, options);
+}
+
 async function verifiedImage(file: string): Promise<boolean> {
   if (!fs.existsSync(file)) return false;
   try {
@@ -197,7 +215,6 @@ async function cacheLane<T extends MediaRecordBase>(
 
   for (const record of manifest.records) {
     if (remaining === 0) break;
-    const source = record.thumbUrl ?? record.imageUrl;
     const localPath = localPathFor(lane, record);
     const diskPath = diskPathFor(localPath);
     const alreadyValid = await verifiedImage(diskPath);
@@ -221,15 +238,16 @@ async function cacheLane<T extends MediaRecordBase>(
     }
 
     if (remaining != null) remaining--;
-    if (options.delayMs > 0 && cached + failed > 0) await sleep(options.delayMs);
+    if (options.delayMs > 0 && cached + failed > 0 && !record.manualPortraitSource) await sleep(options.delayMs);
 
     try {
-      const bytes = await fetchBytes(source, options);
+      const bytes = await readSourceBytes(record, options);
       await writeOptimizedImage(bytes, diskPath);
       record.localPath = localPath;
       cached++;
       changed = true;
-      console.log(`cached ${lane.label}: ${lane.key(record)} -> ${localPath}`);
+      const via = record.manualPortraitSource ? "manual portrait" : "remote";
+      console.log(`cached ${lane.label}: ${lane.key(record)} (${via}) -> ${localPath}`);
     } catch (err) {
       if (record.localPath === localPath && !(await verifiedImage(diskPath))) {
         delete record.localPath;
