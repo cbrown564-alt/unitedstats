@@ -56,6 +56,13 @@ let matchCount = 0;
 // Latest date each United player actually featured (started or came on), used to
 // catch departures dated before a player who was demonstrably still playing.
 const lastAppearance = new Map<string, string>();
+// Both legs of a two-legged tie are, by definition, against the same club. If they
+// resolve to different opponentIds, one display name is missing an alias and the
+// club has split into two phantom opponents (e.g. "Lyon" vs "Olympique Lyonnais").
+// Keyed by season|competition|round-without-leg-marker.
+const legTies = new Map<string, { id: string; opponentId: string; opponent: string }[]>();
+const stripLeg = (round: string) =>
+  round.replace(/\b(first|second|1st|2nd)\s+leg\b/i, "").replace(/\s+/g, " ").trim().toLowerCase();
 
 for (const file of listSeasonFiles()) {
   const sf = readJson<SeasonFile>(path.join(MATCHES_DIR, file));
@@ -86,6 +93,10 @@ for (const file of listSeasonFiles()) {
     // fills the rest with null coords. So a missing entry only degrades the travel
     // map; warn rather than fail.
     if (!opponents.has(m.opponentId)) warnings.push(`${ctx}: opponent "${m.opponentId}" not in opponents.json (no coords/country)`);
+    if (m.round && /\bleg\b/i.test(m.round)) {
+      const key = `${sf.season}|${m.competition}|${stripLeg(m.round)}`;
+      (legTies.get(key) ?? legTies.set(key, []).get(key)!).push({ id: m.id, opponentId: m.opponentId, opponent: m.opponent });
+    }
     if (!["H", "A", "N"].includes(m.venue)) errors.push(`${ctx}: bad venue`);
     if (m.stadium && !stadiums.has(m.stadium)) errors.push(`${ctx}: unknown stadium "${m.stadium}"`);
     // Every match in the managerial era must map to a manager, or build-db credits
@@ -166,6 +177,15 @@ for (const file of listSeasonFiles()) {
     if (unitedLineupRows.length > 0 && starters !== 11) {
       errors.push(`${ctx}: ${starters} starters (expected 11)`);
     }
+  }
+}
+
+// Two legs of one tie must share an opponentId; a split means a missing alias.
+for (const [key, legs] of legTies) {
+  const distinct = new Set(legs.map((l) => l.opponentId));
+  if (distinct.size > 1) {
+    const detail = legs.map((l) => `"${l.opponent}"->${l.opponentId}`).join(" vs ");
+    errors.push(`two-leg tie ${key}: legs map to different opponents (${detail}); add an alias in opponent-aliases.json`);
   }
 }
 
