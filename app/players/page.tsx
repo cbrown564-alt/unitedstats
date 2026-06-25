@@ -12,7 +12,10 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct, fmtYearRange } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Players" };
+export const metadata = {
+  title: "Players",
+  description: "Everyone to pull on the shirt for Manchester United since 1886 — searchable and sortable by appearances, goals, assists, and career span.",
+};
 
 type PlayerSortKey = "name" | "shirt" | "apps" | "starts" | "goals" | "assists" | "span";
 
@@ -513,7 +516,7 @@ export default async function PlayersPage({
           Assists are recorded for{" "}
           <span className="stat-num text-ink">{fmtNum(assistsCovered)}</span> players and weighted to recent eras.
           The position tag beside each name — GK, DF, MF or FW — is the
-          player&rsquo;s primary position from Wikidata, known for{" "}
+          player’s primary position from Wikidata, known for{" "}
           <span className="stat-num text-ink">{fmtNum(positionsCovered)}</span> players ({pct(positionsCovered, allPlayers.length)});
           where it is unknown the tag is omitted, never guessed.{" "}
         </CoverageNote>

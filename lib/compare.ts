@@ -175,7 +175,7 @@ const TROPHY_CATS: { key: string; label: string }[] = [
   { key: "european", label: "European" },
   { key: "domestic-cup", label: "FA Cup" },
   { key: "league-cup", label: "League Cup" },
-  { key: "super-cup", label: "Shields & Super Cups" },
+  { key: "super-cup", label: "Shields and Super Cups" },
   { key: "world", label: "World" },
 ];
 
@@ -295,7 +295,7 @@ export interface EraDef {
 export const ERA_CATALOGUE: EraDef[] = [
   { key: "secretaries", label: "Secretary-managers (pre-1945)", from: 1886, to: 1945 },
   { key: "busby", label: "The Busby era (1945–1969)", from: 1945, to: 1969 },
-  { key: "between", label: "Between Busby & Ferguson (1969–1986)", from: 1969, to: 1986 },
+  { key: "between", label: "Between Busby and Ferguson (1969–1986)", from: 1969, to: 1986 },
   { key: "ferguson", label: "The Ferguson era (1986–2013)", from: 1986, to: 2013 },
   { key: "after", label: "After Ferguson (2013–now)", from: 2013, to: 2100 },
   ...[1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020].map((d) => ({

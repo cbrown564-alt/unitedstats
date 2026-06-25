@@ -153,4 +153,92 @@ Swept the codebase to replace incorrect spaced en dashes (` – `) in date and r
 * **Coverage Matrix Component (`components/charts/CoverageMatrix.tsx`)**:
   - Converted straight apostrophe to curly in `"decade’s"`.
 
+### 2026-06-25: Final Sweep & SEO Metadata Standardisations
+
+#### 1. Page-level Copy and Metadata Updates
+* **Seasons Page (`app/seasons/page.tsx`)**:
+  - Added descriptive metadata object.
+  - Fixed year range separator in the coverage slice from `1892-93` to `1892–93`.
+* **Season Detail Page (`app/seasons/[season]/page.tsx`)**:
+  - Implemented dynamic `generateMetadata` function.
+* **Players Page (`app/players/page.tsx`)**:
+  - Added descriptive metadata object.
+  - Converted straight apostrophe HTML entity `player&rsquo;s` to standard curly `player’s`.
+* **Player Detail Page (`app/player/[id]/page.tsx`)**:
+  - Implemented dynamic `generateMetadata` function.
+  - Spelled out ampersand in the curated goals coverage note (`curated goals, assists, and goal types`).
+* **Managers Page (`app/managers/page.tsx`)**:
+  - Added descriptive metadata object.
+* **Manager Detail Page (`app/manager/[id]/page.tsx`)**:
+  - Implemented dynamic `generateMetadata` function.
+  - Spelled out ampersand in the venue split group labels (`Home and away`).
+* **Opponents Page (`app/opponents/page.tsx`)**:
+  - Added descriptive metadata object.
+* **Opponent Detail Page (`app/opponent/[id]/page.tsx`)**:
+  - Implemented dynamic `generateMetadata` function.
+  - Spelled out ampersand in the cup meetings coverage note (`domestic and European cups`).
+* **Match Detail Page (`app/match/[id]/page.tsx`)**:
+  - Implemented dynamic `generateMetadata` function.
+* **Transfers Page (`app/transfers/page.tsx`)**:
+  - Added descriptive metadata object.
+* **On This Day Page (`app/on-this-day/[monthDay]/page.tsx`)**:
+  - Standardised straight apostrophe to curly in the fallback description (`United’s`).
+
+#### 2. Component-level and Library Typographical Cleanups
+* **Elo Win Bar Component (`components/EloWinBar.tsx`)**:
+  - Converted HTML entity `&rsquo;` to standard curly `’`.
+* **League Table Component (`components/LeagueTable.tsx`)**:
+  - Converted HTML entity `&rsquo;` to standard curly `’`.
+  - Standardised year range separator from `1976-77` to `1976–77`.
+* **Transfer Archive Component (`components/TransferArchive.tsx`)**:
+  - Converted HTML entity `&rsquo;` to standard curly `’`.
+* **Spend Tide Component (`components/charts/SpendTide.tsx`)**:
+  - Converted HTML entity `&rsquo;` to standard curly `’`.
+* **Comparison Library (`lib/compare.ts`)**:
+  - Spelled out ampersands in trophy category labels (`Shields and Super Cups`) and era definitions (`Between Busby and Ferguson`).
+* **Format Library (`lib/format.ts`)**:
+  - Spelled out ampersands in competition type labels (`Shields and Super Cups`, `Wartime and friendlies`).
+
+### 2026-06-25: Copy and Tone Refinement Sweep
+
+#### 1. Seasons Index and Detail Pages
+* **Seasons Index (`app/seasons/page.tsx`)**:
+  - Rephrased the subtitle to use active, functional phrasing (`"Every league and cup campaign..."` and `"Follow the trajectory..."`).
+  - Rebranded the timeline section title from `"Where United finished"` to `"League finishes across the eras"`.
+* **Season Detail Page (`app/seasons/[season]/page.tsx`)**:
+  - Rephrased the automated briefs notice from passive (`"Written by the data..."`) to active (`"Generated directly from the match record..."`).
+
+#### 2. Player Profile Page (`app/player/[id]/page.tsx`)
+* Standardised section headers, sub-headers, and descriptions to use objective and clinical terminology:
+  - Rebranded `"Comings and goings"` to `"Transfer record"`.
+  - Rebranded `"The shape of his scoring"` to `"Scoring profile"`.
+  - Rebranded `"When in the match the goals come"` to `"Goal timing across the ninety minutes"`.
+  - Rebranded `"Where they landed"` (League/Cup split) to `"Goals by competition"`.
+  - Rebranded `"Favourite victim"` to `"Top opponent"`.
+  - Rebranded `"Best scoring run"` to `"Longest scoring run"`.
+  - Rebranded `"How he came into the game"` to `"Starts and substitute appearances"`.
+  - Rebranded `"Keep exploring"` to `"Related trails"`.
+
+#### 3. Manager Profile Page (`app/manager/[id]/page.tsx`)
+* Standardised transfer details and match splits:
+  - Rephrased signings detail label from `"{count} in"` to `"{count} signings"`.
+  - Rephrased departures detail label from `"{count} out"` to `"{count} departures"`.
+  - Rebranded `"Dealings"` tile to `"Total movements"` with detail `"signings and departures"`.
+  - Rebranded `"Split five ways"` section title to `"Match splits"`.
+
+#### 4. Opponent Profile Page (`app/opponent/[id]/page.tsx`)
+* Rebranded `"Keep exploring"` to `"Related trails"`.
+
+#### 5. Transfers Index Page (`app/transfers/page.tsx`)
+* Standardised movement terminology and list labels:
+  - Rephrased signings detail from `"{count} in"` to `"{count} signings"`.
+  - Rephrased departures detail from `"{count} out"` to `"{count} departures"`.
+  - Rephrased `"moves in total"` to `"total movements"`.
+  - Rephrased `"list of moves"` to `"list of transfers"`.
+
+#### 6. Entry Points Library (`lib/entryPoints.ts`)
+* Rephrased transfers breadcrumb card CTA from `"See transfers →"` to `"View transfers →"`.
+
+
+
 

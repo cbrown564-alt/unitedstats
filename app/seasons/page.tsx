@@ -14,7 +14,10 @@ import { clubName, fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Seasons" };
+export const metadata = {
+  title: "Seasons",
+  description: "Every Manchester United campaign since Newton Heath joined the Football League in 1892 — tracing league finishes, cup campaigns, and honours decade by decade.",
+};
 
 function ordinal(n: number): string {
   const s = ["th", "st", "nd", "rd"];
@@ -350,9 +353,9 @@ export default async function SeasonsPage({
   return (
     <div className="space-y-10">
       <PageHeader eyebrow="Campaign ledger" title="Seasons">
-        Every Manchester United campaign since {clubName("1890-01-01")} joined the Football League in
-        1892, season by season. The timeline traces where each one finished; the decade ledger below
-        opens every campaign into its match evidence and competition trail.
+        Every league and cup campaign since {clubName("1890-01-01")} joined the Football League in
+        1892. Follow the trajectory of the club’s league finishes on the timeline, or open any season
+        below to trace the match evidence and competition paths.
       </PageHeader>
 
       {/* The hero: the whole league history as one rise-and-fall of finishing position. */}
@@ -369,7 +372,7 @@ export default async function SeasonsPage({
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
                 The shape of the eras
               </p>
-              <h2 className="display mt-1 text-2xl">Where United finished</h2>
+              <h2 className="display mt-1 text-2xl">League finishes across the eras</h2>
             </div>
             <dl className="flex flex-wrap items-end gap-x-7 gap-y-3">
               {ribbon.map((r) => (
@@ -383,7 +386,7 @@ export default async function SeasonsPage({
           <FinishTimeline points={points} />
           <CoverageNote
             className="mt-3"
-            slice={`league finishes from ${firstSeason ?? "1892-93"} to ${latestSeason}.`}
+            slice={`league finishes from ${firstSeason ?? "1892–93"} to ${latestSeason}.`}
             coverage="Final-table positions are complete for every league season; the breaks are the war years, when no league ran."
           />
         </div>

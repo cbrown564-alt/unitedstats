@@ -199,10 +199,10 @@ export const COMPETITION_TYPE_LABELS: Record<string, string> = {
   "domestic-cup": "FA Cup",
   "league-cup": "League Cup",
   european: "Europe",
-  "super-cup": "Shields & Super Cups",
+  "super-cup": "Shields and Super Cups",
   world: "World",
   playoff: "Test Matches",
-  unofficial: "Wartime & friendlies",
+  unofficial: "Wartime and friendlies",
 };
 
 /** Compact competition labels for mobile match rows and cards. */

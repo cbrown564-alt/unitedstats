@@ -7,7 +7,10 @@ import { FilterableList } from "@/components/FilterableList";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum } from "@/lib/format";
 
-export const metadata = { title: "Opponents" };
+export const metadata = {
+  title: "Opponents",
+  description: "Manchester United’s head-to-head record against every opponent since 1886 — searchable list and rivalry map of wins, draws, and losses.",
+};
 
 export default function OpponentsPage() {
   const allOpponents = opponentsIndex();

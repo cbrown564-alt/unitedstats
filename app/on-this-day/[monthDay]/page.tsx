@@ -38,7 +38,7 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
       <PageHeader eyebrow="On this day" title={entry.label}>
         {entry.fallback
           ? "Nothing in the record fell on this date — step a day either way."
-          : "United's matches on this date, across the years — the standout first."}
+          : "United’s matches on this date, across the years — the standout first."}
       </PageHeader>
 
       <nav className="flex items-center justify-between gap-3 text-sm" aria-label="Day navigation">

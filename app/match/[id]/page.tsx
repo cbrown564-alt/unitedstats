@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   matchById, eventsForMatch, lineupForMatch, eloForMatch, h2hBefore, formBefore,
@@ -21,6 +22,24 @@ import { historyDigestIds } from "@/lib/historyDigests";
 import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const m = matchById(id);
+  if (!m) return {};
+  const dateStr = fmtDateLong(m.date);
+  const resultStr = `${m.outcome === "W" ? "Won" : m.outcome === "L" ? "Lost" : "Drew"} ${m.gf}–${m.ga}`;
+  const title = `United v ${m.opponent_name} (${m.date})`;
+  const description = `${dateStr} — Manchester United ${resultStr} against ${m.opponent_name} at ${m.stadium_name ?? venueLabel(m.venue)} in the ${m.competition_name}.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return allMatchIds().map((id) => ({ id }));

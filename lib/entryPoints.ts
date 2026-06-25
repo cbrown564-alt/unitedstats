@@ -182,7 +182,7 @@ export function breadthWays(): CarouselCard[] {
       eyebrow: "The ledger",
       title: "Who came and went",
       blurb: "Net spend by manager, the record signings, and the whole transfer history in one place.",
-      cta: "See transfers →",
+      cta: "View transfers →",
     },
     {
       href: "/on-this-day",

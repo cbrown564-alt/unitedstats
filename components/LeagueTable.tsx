@@ -266,8 +266,8 @@ export function LeagueTable({
         slice={`the final ${competition_name} table for ${season}, every club computed from the full league results.`}
         coverage="complete — all results known."
       >
-        Points follow the era&rsquo;s rule (two then three for a win); the order uses goal
-        average before 1976-77 and goal difference after.{" "}
+        Points follow the era’s rule (two then three for a win); the order uses goal
+        average before 1976–77 and goal difference after.{" "}
         {topFlight
           ? "The faint foot marks the lower reaches — exact relegation places varied by era."
           : "The faint head marks the promotion places — exact counts varied by era."}

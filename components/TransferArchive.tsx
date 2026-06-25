@@ -350,7 +350,7 @@ function LegacySummary({ groups, since }: { groups: SeasonGroup[]; since: number
       <div className="border-t border-line p-3 sm:p-4">
         <p className="mb-3 max-w-2xl text-xs text-ink-dim">
           From {oldest} to {newest}, transfer fees were almost never published, so this era is summarised by
-          the volume of business — every season&rsquo;s arrivals and departures, the money lost to the record.
+          the volume of business — every season’s arrivals and departures, the money lost to the record.
         </p>
         <div className="grid grid-cols-2 gap-x-6 gap-y-px sm:grid-cols-3 lg:grid-cols-4">
           {groups.map((g) => (

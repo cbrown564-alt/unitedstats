@@ -175,7 +175,7 @@ export function SpendTide({ years }: { years: SpendYear[] }) {
       <figcaption className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-line/70 pt-3 text-[11px] text-ink-faint">
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" />Spent</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" />Received</span>
-        <span className="text-ink-dim">Bar height is the year&rsquo;s known fees on one shared scale · spend up, receipts down · pips mark the peak years</span>
+        <span className="text-ink-dim">Bar height is the year’s known fees on one shared scale · spend up, receipts down · pips mark the peak years</span>
       </figcaption>
     </figure>
   );

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { seasonMatches, allSeasons, seasonsIndex, seasonLeagueTable, type MatchRow, type SeasonSummary } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
@@ -17,6 +18,20 @@ import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ season: string }> }): Promise<Metadata> {
+  const { season } = await params;
+  const title = `${season} season`;
+  const description = `Manchester United campaign record for the ${season} season — matches, league table, cup runs, goals, and managers.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 export async function generateStaticParams() {
   return allSeasons().map((season) => ({ season }));
@@ -203,8 +218,8 @@ export default async function SeasonPage({
           <h2 className="mb-1.5 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
           <p className="text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
           <p className="mt-2 text-[11px] text-ink-dim">
-            Written by the data: every sentence is computed from the match record below, and goalscorer
-            claims state their coverage.
+            Generated directly from the match record: every sentence is computed from the match history below, and goalscorer
+            claims reflect database coverage.
           </p>
         </div>
       )}

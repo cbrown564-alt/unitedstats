@@ -65,7 +65,7 @@ export function EloWinBar({
 
       <p className="mt-2 text-xs text-ink-faint">
         {club} went in as the {favourite ? "favourite" : "underdog"} by rating, {Math.round(eloPre)} to{" "}
-        {opponentName}&rsquo;s {Math.round(oppEloPre)}. 
+        {opponentName}’s {Math.round(oppEloPre)}. 
       </p>
     </div>
   );

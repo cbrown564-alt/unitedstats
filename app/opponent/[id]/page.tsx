@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { opponentById, opponentMatches, opponentsIndex } from "@/lib/queries";
 import {
@@ -21,6 +22,22 @@ import { fmtNum, pct, venueLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const o = opponentById(id);
+  if (!o) return {};
+  const title = `United v ${o.name}`;
+  const description = `Manchester United’s head-to-head record against ${o.name}. ${fmtNum(o.p)} meetings since ${o.first?.slice(0, 4)}: ${pct(o.w, o.p)} wins.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return opponentsIndex().map((o) => ({ id: o.id }));
@@ -128,7 +145,7 @@ export default async function OpponentPage({
                 {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
               </p>
               <CoverageNote
-                slice="knockout ties only — domestic & European cups."
+                slice="knockout ties only — domestic and European cups."
                 evidenceHref={`/matches?opponent=${id}&type=cup`}
                 evidenceLabel="Show the cup ties →"
               />
@@ -208,7 +225,7 @@ export default async function OpponentPage({
       </section>
 
       <section>
-        <SectionHead title="Keep exploring" />
+        <SectionHead title="Related trails" />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <TrailLink href={`/matches?opponent=${id}&venue=A`} title="Away record">
             Every meeting at their ground, where bogey records usually live.

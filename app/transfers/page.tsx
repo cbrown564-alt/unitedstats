@@ -10,7 +10,10 @@ import { TransferArchive } from "@/components/TransferArchive";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtFee, fmtNum } from "@/lib/format";
 
-export const metadata = { title: "Transfers" };
+export const metadata = {
+  title: "Transfers",
+  description: "A century and a half of Manchester United transfer business — record fees, signings, sales, and net spend by manager since 1883.",
+};
 
 export default async function TransfersPage() {
   const totals = transferTotals();
@@ -65,13 +68,13 @@ export default async function TransfersPage() {
               <div className="leading-none">
                 <dd className="stat-num text-xl font-semibold text-devil-bright">{fmtFee(totals.gross_spend)}</dd>
                 <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                  Spent <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.signings)} in</span>
+                  Spent <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.signings)} signings</span>
                 </dt>
               </div>
               <div className="leading-none">
                 <dd className="stat-num text-xl font-semibold text-gold">{fmtFee(totals.gross_received)}</dd>
                 <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                  Received <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.departures)} out</span>
+                  Received <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.departures)} departures</span>
                 </dt>
               </div>
             </dl>
@@ -85,7 +88,7 @@ export default async function TransfersPage() {
             <span className="text-ink-dim">Slice:</span> every recorded arrival and departure, Newton Heath to now.
             Spend and receipts count only the{" "}
             <span className="stat-num text-ink-dim">{fmtNum(totals.spend_rows + totals.received_rows)}</span> deals with a
-            published fee, of {fmtNum(totals.signings + totals.departures)} moves in total — many historical fees were
+            published fee, of {fmtNum(totals.signings + totals.departures)} total movements — many historical fees were
             never disclosed, so the money is a floor and the early years sit flat on the line.
           </p>
         </div>
@@ -133,7 +136,7 @@ export default async function TransfersPage() {
           evidenceHref="/data"
           evidenceLabel="Coverage details"
         >
-          Each season opens to its full list of moves; net spend counts only the deals with a known fee.
+          Each season opens to its full list of transfers; net spend counts only the deals with a known fee.
           Academy promotions, releases and retirements carry no fee and no market, so they sit out of the
           two money columns — use the toggle to fold them into a quiet lane beneath each season. Before 1980
           fees were almost never published, so that era is summarised by the volume of business, never shown as £0.

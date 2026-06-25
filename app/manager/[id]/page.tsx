@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { managerById, managerMatches, managerTenures, managerTransferSummary, managersIndex } from "@/lib/queries";
 import {
@@ -23,6 +24,22 @@ import { getDb } from "@/lib/db";
 import { queryString } from "@/lib/url";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const m = managerById(id);
+  if (!m) return {};
+  const title = `${m.name}`;
+  const description = `${m.name} — Manchester United managerial record. ${fmtNum(m.p)} matches managed: ${pct(m.w, m.p)} win rate.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return managersIndex().map((m) => ({ id: m.id }));
@@ -76,7 +93,7 @@ export default async function ManagerPage({
   // Venue and competition are two different cuts of the same matches; group them so
   // that reads clearly rather than as one flat list of five.
   const splitGroups: [label: string, rows: typeof bendRows][] = [
-    ["Home & away", bendRows.slice(0, 2)],
+    ["Home and away", bendRows.slice(0, 2)],
     ["By competition", bendRows.slice(2)],
   ];
 
@@ -167,9 +184,9 @@ export default async function ManagerPage({
               detail={market.net >= 0 ? undefined : "net gain"}
               tone={market.net >= 0 ? "red" : "default"}
             />
-            <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} in`} tone="red" />
-            <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} out`} tone="gold" />
-            <StatTile label="Dealings" value={fmtNum(market.signings + market.departures)} detail="in + out" />
+            <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} signings`} tone="red" />
+            <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} departures`} tone="gold" />
+            <StatTile label="Transfers" value={fmtNum(market.signings + market.departures)} detail="signings and departures" />
           </div>
           <p className="mt-2 text-xs text-ink-faint">
             Fees for arrivals and departures dated within the tenure, known fees only.{" "}
@@ -182,7 +199,7 @@ export default async function ManagerPage({
 
       <section className="grid lg:grid-cols-2 gap-8">
         <div>
-          <SectionHead title="Split five ways" aside="venue · competition" />
+          <SectionHead title="Match splits" aside="venue · competition" />
           <div className="space-y-5 rounded-xl border border-line bg-panel p-4 sm:p-5">
             {splitGroups.map(([groupLabel, rows], gi) => {
               const live = rows.filter(([, r]) => r.p > 0);

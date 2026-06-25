@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerClubRanks,
@@ -31,6 +32,23 @@ import { entityRef } from "@/lib/citations";
 import { correctionPrefillHref } from "@/lib/corrections";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const p = playerById(id);
+  if (!p) return {};
+  const span = playerCareerSpan(p);
+  const title = `${p.name}`;
+  const description = `${p.name} — Manchester United playing record from ${span}. ${fmtNum(p.apps)} appearances, ${fmtNum(p.goals)} goals, and ${fmtNum(p.assists)} assists.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 const SCORING_ARCHIVE_INLINE_MAX = 25;
 const APPEARANCE_ARCHIVE_INLINE_MAX = 60;
@@ -231,7 +249,7 @@ export default async function PlayerPage({
 
       {transfers.length > 0 && (
         <section>
-          <SectionHead title="Comings and goings" aside={`${fmtNum(transfers.length)} recorded`} />
+          <SectionHead title="Transfer record" aside={`${fmtNum(transfers.length)} recorded`} />
           <TransferList transfers={transfers} />
         </section>
       )}
@@ -239,7 +257,7 @@ export default async function PlayerPage({
       {(minutes.length > 3 || facetCount > 0) && (
         <details open className="group space-y-3">
           <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3">
-            <h2 className="display text-xl">The shape of his scoring</h2>
+            <h2 className="display text-xl">Scoring profile</h2>
             <span className="stat-num text-xs text-ink-faint">
               recorded goals ·{" "}
               <span className="text-devil-bright group-open:hidden">show</span>
@@ -250,7 +268,7 @@ export default async function PlayerPage({
           <div className="overflow-hidden rounded-xl border border-line bg-panel">
             {minutes.length > 3 && (
               <div className="border-b border-line p-4 sm:p-5">
-                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-dim">When in the match the goals come</p>
+                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Goal timing across the ninety minutes</p>
                 <MinuteColumns bins={minuteShape.bins} stoppage={minuteShape.stoppage} height={170} subject={p.name} />
                 <p className="mt-1 text-xs text-ink-dim">
                   <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
@@ -269,7 +287,7 @@ export default async function PlayerPage({
               <div className={`grid divide-y divide-line sm:divide-x sm:divide-y-0 ${facetColsClass}`}>
                 {leagueGoals + cupGoals > 0 && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Where they landed</p>
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Goals by competition</p>
                     <SplitBar
                       height={16}
                       segments={[
@@ -290,7 +308,7 @@ export default async function PlayerPage({
 
                 {topOpponent && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Favourite victim</p>
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Top opponent</p>
                     <Link href={`/opponent/${topOpponent.opponent_id}`} className="group block focus-ring">
                       <span className="stat-num text-3xl font-semibold text-devil-bright">{fmtNum(topOpponent.goals)}</span>
                       <span className="ml-2 text-sm text-ink-dim">goals</span>
@@ -316,7 +334,7 @@ export default async function PlayerPage({
 
                 {bestRun && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Best scoring run</p>
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Longest scoring run</p>
                     <span className="stat-num text-3xl font-semibold text-devil-bright">{bestRun.length}</span>
                     <span className="ml-2 text-sm text-ink-dim">in a row</span>
                     <p className="stat-num mt-1 text-xs text-ink-faint">
@@ -369,7 +387,7 @@ export default async function PlayerPage({
           )}
 
           <CoverageNote
-            slice="curated goals, assists & goal types, 1987–2015"
+            slice="curated goals, assists, and goal types, 1987–2015"
             coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
             evidenceHref={curatedTotals.source_url ?? undefined}
             evidenceLabel="Tableau source"
@@ -552,7 +570,7 @@ export default async function PlayerPage({
             return (
               <details open className="group rounded-xl border border-line bg-panel">
                 <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
-                  <span className="text-sm font-medium text-ink-dim">How he came into the game</span>
+                  <span className="text-sm font-medium text-ink-dim">Starts and substitute appearances</span>
                   <span className="stat-num text-xs text-ink-faint">
                     <span className="text-devil-bright group-open:hidden">show chart</span>
                     <span className="hidden text-devil-bright group-open:inline">hide</span>
@@ -659,7 +677,7 @@ export default async function PlayerPage({
 
       {(peakSeason || topOpponent) && (
         <section>
-          <h2 className="display mb-3 text-xl">Keep exploring</h2>
+          <h2 className="display mb-3 text-xl">Related trails</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {peakSeason && (
               <TrailLink href={`/seasons/${peakSeason.season}`} title={peakSeason.season}>
