@@ -63,7 +63,7 @@ export function OddsPredictor({
           </p>
           <p className="mb-4 text-sm text-ink-dim">
             United v <span className="font-medium text-ink">{odds.opponentName}</span>,{" "}
-            {venueLabel(venue).toLowerCase()}, at today&apos;s Elo ratings — not bookmaker odds.
+            {venueLabel(venue).toLowerCase()}, at today’s Elo ratings — not bookmaker odds.
           </p>
           <div className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line text-center">
             <div className="bg-panel px-2 py-3 sm:px-3 sm:py-4">
@@ -121,7 +121,7 @@ export function OddsPredictor({
             evidenceHref={`/matches?opponent=${opponentId}`}
             evidenceLabel={`All ${fmtNum(odds.meetings)} rated meetings →`}
           >
-            {odds.opponentName}&apos;s rating moves only when they play United; it was last
+            {odds.opponentName}’s rating moves only when they play United; it was last
             updated {odds.lastMet}. Treat long-dormant opponents accordingly.
           </CoverageNote>
         </div>

@@ -117,3 +117,40 @@ Swept the codebase to replace incorrect spaced en dashes (` – `) in date and r
 * **Controls summary**: Standardized from `"Narrow the slice"` to `"Refine the slice"`.
 * **Controls CTA**: Standardized from `"Apply"` to `"Apply filters"` for clarity.
 
+### 2026-06-25: Application-wide Sweep & Typographical Standardizations
+
+#### 1. Page-level Copy Updates
+* **Analytics Page (`app/analytics/page.tsx`)**:
+  - Changed `can't` to `can’t` in the all-time peaks coverage note.
+  - Standardized the assist events date range from `2012-13` to `2012–13` using a closed en dash.
+  - Spelled out the ampersand in the `"Data and coverage"` link to `/data`.
+* **Data Page (`app/data/page.tsx`)**:
+  - Changed metadata title and `h1` heading from `"Data & corrections"` to `"Data and corrections"`.
+  - Standardized straight apostrophe to curly in `"decade’s"`.
+* **Opponents Page (`app/opponents/page.tsx`)**:
+  - Converted straight apostrophes to curly in `"we’ve"` in the page description and nemesis label.
+* **Collection Page (`app/collection/page.tsx`)**:
+  - Standardized straight apostrophe to curly in `"Cut’s"`.
+* **Correction Builder (`app/corrections/CorrectionBuilder.tsx`)**:
+  - Standardized straight apostrophe to curly in `"player’s"`.
+* **Logo Lab (`app/logo-lab/page.tsx`)**:
+  - Standardized straight apostrophe to curly in `"United’s"`.
+* **Opponent Detail (`app/opponent/[id]/page.tsx`)**:
+  - Standardized straight apostrophes to curly in `"today’s"` and `"opponent’s"` rating labels.
+* **Homepage (`app/page.tsx`)**:
+  - Standardized straight apostrophe to curly in `"Manchester United’s"`.
+
+#### 2. Component-level Typographical Cleanups
+* **Cup Run Component (`components/CupRun.tsx`)**:
+  - Converted straight apostrophe to curly in `"United’s"`.
+* **Odds Predictor Component (`components/OddsPredictor.tsx`)**:
+  - Converted straight apostrophes to curly in `"today’s"` and opponent's rating indicator.
+* **Own Goal Profile Component (`components/OwnGoalProfile.tsx`)**:
+  - Converted straight apostrophes to curly in `"United’s"` and `"club’s"`.
+* **Question Modules Component (`components/QuestionModules.tsx`)**:
+  - Converted straight apostrophes to curly in `"United’s"` and `"club’s"`.
+  - Standardized double quotes around `“Own Goal”` to curly double quotes.
+* **Coverage Matrix Component (`components/charts/CoverageMatrix.tsx`)**:
+  - Converted straight apostrophe to curly in `"decade’s"`.
+
+

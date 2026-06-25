@@ -40,9 +40,9 @@ export function OwnGoalProfile() {
           </div>
         }
       >
-        Not a person — a tally. Every goal an opponent has turned into his own net in United&apos;s favour,
+        Not a person — a tally. Every goal an opponent has turned into his own net in United’s favour,
         gathered under one name. Counted together they have been gifted to United {fmtNum(summary.total)} times,
-        enough to rank{rank ? ` #${rank}` : ""} among the club&apos;s all-time scorers — by {fmtNum(summary.scorers)}{" "}
+        enough to rank{rank ? ` #${rank}` : ""} among the club’s all-time scorers — by {fmtNum(summary.scorers)}{" "}
         different opposition players, no one of them more than {repeat[0]?.n ?? 1} times.
         {summary.unknown > 0 && (
           <span className="text-ink-dim">

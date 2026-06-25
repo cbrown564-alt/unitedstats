@@ -208,7 +208,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
       coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute, and that data thins quickly before the 1990s. Stoppage-time goals are only separable where a source marks them "90+" — largely a modern convention — so the stoppage segment reads near zero in the early decades partly because it went unrecorded, not only because added time was shorter.`}
     >
       <div>
-        <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals land</h3>
+        <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United’s goals land</h3>
         <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={200} />
         <p className="text-xs text-ink-dim mt-1">
           <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
@@ -658,7 +658,7 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
           <span>
             Of {fmtNum(cupBaseline.total)} recorded goals, just {fmtNum(cupBaseline.cup)} landed in a cup. So a goalscorer
             who hits the same rate is ordinary; the players below cleared{" "}
-            <span className="text-gold">double the club&apos;s {pct(cupBaseline.cup, cupBaseline.total)}</span> — they truly saved their goals for cup nights.
+            <span className="text-gold">double the club’s {pct(cupBaseline.cup, cupBaseline.total)}</span> — they truly saved their goals for cup nights.
           </span>
         </div>
       </div>
@@ -704,8 +704,8 @@ function OwnGoalsModule({ variant }: ModuleProps) {
         </Link>
         <div className="flex items-center text-sm text-ink-dim sm:px-2">
           Gifted by {fmtNum(ogSummary.scorers)} different opposition players between {fmtDate(ogSummary.first)} and{" "}
-          {fmtDate(ogSummary.last)} — more than United legends like George Best managed in open play. &ldquo;Own
-          Goal&rdquo; sits among the club&apos;s leading goalscorers precisely because it belongs to no one.
+          {fmtDate(ogSummary.last)} — more than United legends like George Best managed in open play. “Own
+          Goal” sits among the club’s leading goalscorers precisely because it belongs to no one.
         </div>
       </div>
       {ogRepeat.length > 0 && (
