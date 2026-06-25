@@ -10,7 +10,7 @@ export function seasonsAscending(seasons: string[]): string[] {
 }
 
 /** Normalise a `from`/`to` URL param to an ISO date for comparisons. */
-export function paramToIsoDate(v: string | undefined, edge: "from" | "to"): string | null {
+function paramToIsoDate(v: string | undefined, edge: "from" | "to"): string | null {
   if (!v) return null;
   if (/^\d{4}$/.test(v)) return edge === "from" ? `${v}-01-01` : `${v}-12-31`;
   return v.slice(0, 10);

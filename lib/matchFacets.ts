@@ -24,15 +24,8 @@ export interface FacetDef {
   icon?: string;
 }
 
-export const FACET_GROUPS: { key: FacetGroup; label: string }[] = [
-  { key: "who", label: "Who" },
-  { key: "what", label: "What" },
-  { key: "where", label: "Where" },
-  { key: "when", label: "When" },
-];
-
 // Order within each group is the order shown in the add-filter menu.
-export const MATCH_FACETS: FacetDef[] = [
+const MATCH_FACETS: FacetDef[] = [
   { key: "opponent", label: "Opponent", kind: "select", group: "who", optionsKey: "opponent", icon: "shield" },
   { key: "manager", label: "Manager", kind: "select", group: "who", optionsKey: "manager", icon: "suit" },
   { key: "player", label: "Player appeared", kind: "datalist", group: "who", optionsKey: "player", placeholder: "wayne-rooney", icon: "person" },
@@ -59,40 +52,6 @@ export const MATCH_FACETS: FacetDef[] = [
 export const FACET_BY_KEY: Record<string, FacetDef> = Object.fromEntries(
   MATCH_FACETS.map((f) => [f.key, f]),
 );
-
-/** Filters offered as tactile controls in the add-filter palette. */
-export const PRIMARY_FACET_KEYS = [
-  "opponent",
-  "manager",
-  "player",
-  "scorer",
-  "assister",
-  "competition",
-  "season",
-] as const;
-
-/** Narrowing dimensions the search bar understands — shown as hints, not palette picks. */
-export const SEARCH_ONLY_FACET_KEYS = [
-  "type",
-  "result",
-  "aet",
-  "venue",
-  "stadium",
-  "city",
-  "goalWindow",
-  "goalFrom",
-  "goalTo",
-] as const;
-
-export const PRIMARY_FACETS = PRIMARY_FACET_KEYS.map((k) => FACET_BY_KEY[k]);
-export const SEARCH_ONLY_FACETS = SEARCH_ONLY_FACET_KEYS.map((k) => FACET_BY_KEY[k]);
-
-/** Normalise a `from`/`to` param (bare year or ISO date) for `<input type="date">`. */
-export function paramToInputDate(v: string | undefined, edge: "from" | "to"): string {
-  if (!v) return "";
-  if (/^\d{4}$/.test(v)) return edge === "from" ? `${v}-01-01` : `${v}-12-31`;
-  return v.slice(0, 10);
-}
 
 export type FacetOption = { value: string; label: string };
 export type FacetOptions = Record<string, FacetOption[]>;
