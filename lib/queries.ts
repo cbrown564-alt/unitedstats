@@ -1238,8 +1238,10 @@ export interface AssistPartnership {
 export function topAssistPartnerships(limit = 20): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.local_path scorer_thumb,
-              e.assist_player_id assister_id, ap.name assister_name, apm.local_path assister_thumb,
+      `SELECT e.player_id scorer_id, sp.name scorer_name,
+              COALESCE(spm.local_path, spm.thumb_url, spm.image_url) scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name,
+              COALESCE(apm.local_path, apm.thumb_url, apm.image_url) assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
@@ -1261,8 +1263,10 @@ export function topAssistPartnerships(limit = 20): AssistPartnership[] {
 export function playerAssistPartnerships(id: string, limit = 12): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.local_path scorer_thumb,
-              e.assist_player_id assister_id, ap.name assister_name, apm.local_path assister_thumb,
+      `SELECT e.player_id scorer_id, sp.name scorer_name,
+              COALESCE(spm.local_path, spm.thumb_url, spm.image_url) scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name,
+              COALESCE(apm.local_path, apm.thumb_url, apm.image_url) assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id

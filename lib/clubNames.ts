@@ -15,6 +15,8 @@ import { clubName } from "./format";
  * the database, so they live here rather than in opponents.json. The hero on
  * the match page swaps between tiers responsively so a long name like
  * "Nottingham Forest" can't force a horizontal scroll on a narrow viewport.
+ * The match hero uses short below `lg` and full on wide screens — not the
+ * three-letter code tier, which is too cryptic for unfamiliar opponents.
  *
  * Keyed by canonical opponent id (data/canonical/opponents.json). Anything not
  * listed falls back to a suffix-stripped short and a derived code, which is

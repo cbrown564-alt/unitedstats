@@ -25,16 +25,15 @@ export function generateStaticParams() {
 }
 
 /**
- * Hero team name that swaps tier by viewport: 3-letter code on phones, the
- * broadcast short name on tablet/half-laptop, the full name on wide screens.
- * `min-w-0` lets the grid track shrink so a long name can't force a sideways
- * scroll; the full name is always available via the title tooltip.
+ * Hero team name that swaps tier by viewport: broadcast short name on phones
+ * and tablets, the full era-accurate name on wide screens. `min-w-0` lets the
+ * grid track shrink so a long name can't force a sideways scroll; the full
+ * name is always available via the title tooltip.
  */
 function TeamName({ names, align, href }: { names: ClubNames; align: "left" | "right"; href?: string }) {
   const inner = (
     <>
-      <span className="sm:hidden">{names.code}</span>
-      <span className="hidden sm:inline lg:hidden">{names.short}</span>
+      <span className="lg:hidden">{names.short}</span>
       <span className="hidden lg:inline">{names.full}</span>
     </>
   );

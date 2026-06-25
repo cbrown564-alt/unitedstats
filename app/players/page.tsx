@@ -399,7 +399,7 @@ export default async function PlayersPage({
                 <PositionTag bucket={p.position_bucket} title={p.position_label} />
                 <Link href={`/player/${p.player_id}`} className="flex min-w-0 items-center gap-3 font-medium hover:text-devil-bright">
                   <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
-                  <span className="block max-w-[27vw] truncate sm:max-w-none">{p.name}</span>
+                  <span className="min-w-0 break-words leading-snug line-clamp-2 sm:line-clamp-none">{p.name}</span>
                 </Link>
               </div>
             ),

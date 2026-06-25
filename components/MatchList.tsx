@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
 import { fmtDate, fmtNum, parseRound, resultTone, scoreline, scoreNote, venuePrefix } from "@/lib/format";
+import { opponentNames } from "@/lib/clubNames";
 import { ResultBadge } from "./ResultBadge";
 import { CompetitionDot } from "./CompetitionChip";
 import { RoundMark } from "./RoundMark";
@@ -48,6 +49,7 @@ export function MatchList<T extends MatchRow>({
       {matches.map((m) => {
         const note = scoreNote(m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet);
         const round = parseRound(m.round);
+        const opp = opponentNames(m.opponent_id, m.opponent_name);
         return (
         <li key={m.id} className="match-list-item">
           <Link
@@ -61,9 +63,10 @@ export function MatchList<T extends MatchRow>({
             <ResultBadge result={m.result} outcome={m.outcome} />
             <span className="min-w-0">
               <span className="flex items-baseline gap-2">
-                <span className="text-sm font-medium truncate min-w-0">
+                <span className="min-w-0 text-sm font-medium sm:truncate" title={m.opponent_name}>
                   <span className="mr-1.5 text-ink-faint">{venuePrefix(m.venue)}</span>
-                  {m.opponent_name}
+                  <span className="sm:hidden">{opp.short}</span>
+                  <span className="hidden sm:inline">{m.opponent_name}</span>
                 </span>
                 {note && <span className="shrink-0 text-xs text-ink-faint">{note}</span>}
               </span>
