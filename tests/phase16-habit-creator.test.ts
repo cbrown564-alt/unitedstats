@@ -137,7 +137,7 @@ test("cut embeds are bounded to curated slugs, render content, and are noindex",
   );
   // The card carries its headline figure, the cut title, and a link back to the source.
   assert.match(html, /Every opponent, by how often United beat them/);
-  assert.match(html, /95\.0%/);
+  assert.match(html, /95%/);
   assert.match(html, /View on Red Thread/);
 
   const meta = await embedMetadata();

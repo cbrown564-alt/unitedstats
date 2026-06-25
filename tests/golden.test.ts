@@ -261,7 +261,7 @@ test("shaped search: record away at Arsenal", () => {
   const { shaped } = runSearch("record away at arsenal");
   const hit = shaped.find((s) => s.title === "Record away at Arsenal");
   assert.ok(hit, "expected a shaped answer for 'record away at arsenal'");
-  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won · GF \d+ GA \d+$/);
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+% won · GF \d+ GA \d+$/);
   assert.equal(hit.href, "/matches?opponent=arsenal&venue=A");
 });
 
@@ -292,7 +292,7 @@ test("head-to-head resolves from a bare opponent phrase ('Arsenal away record')"
   const { shaped } = runSearch("arsenal away record");
   const hit = shaped.find((s) => s.title === "Record away at Arsenal");
   assert.ok(hit, "expected a venue-aware head-to-head for 'arsenal away record'");
-  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won · GF \d+ GA \d+$/);
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+% won · GF \d+ GA \d+$/);
   assert.equal(hit.href, "/matches?opponent=arsenal&venue=A");
 });
 
@@ -338,7 +338,7 @@ test("18.2 natural phrasing: a verb-shaped question computes a head-to-head", ()
   const { shaped } = runSearch("did united ever beat barcelona");
   const hit = shaped.find((s) => /Record against FC Barcelona/.test(s.title));
   assert.ok(hit, "expected a computed head-to-head for natural phrasing");
-  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won/);
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+% won/);
   assert.equal(hit.tentative, undefined, "a recognised verb is confident, not a guess");
   assert.equal(hit.coverage?.grade, "complete", "the result record is complete");
 });
@@ -456,7 +456,7 @@ test("grammar: 'late' is a window on the goals metric, applied for any subject",
   // goals. The window is now a slot: a rate over the same scope, partial coverage.
   const byPlayer = runSearch("late goals by cantona").shaped.find((s) => /Cantona late goals/.test(s.title));
   assert.ok(byPlayer, "expected a player late-goals rate");
-  assert.match(byPlayer.summary, /^\d+ of \d+ recorded goals? \(\d+\.\d%\) came after the 85th minute$/);
+  assert.match(byPlayer.summary, /^\d+ of \d+ recorded goals? \(\d+%\) came after the 85th minute$/);
   assert.equal(byPlayer.coverage?.label, "timed-goal data", "minute-derived → partial");
 
   const vsOpp = runSearch("late goals against bayern").shaped.find((s) => /late goals v /.test(s.title));

@@ -134,7 +134,7 @@ test("history digest detectors have positive and negative golden cases", () => {
   assertHas("1999-05-26-bayern-munich-n", "elo-movement", /\+5\.6/);
   assertLacks("1902-03-01-lincoln-city-h", "elo-movement");
 
-  assertHas("1999-05-26-bayern-munich-n", "historical-percentile", /99\.6th percentile/);
+  assertHas("1999-05-26-bayern-munich-n", "historical-percentile", /100th percentile/);
   assertLacks("1902-03-01-lincoln-city-h", "historical-percentile");
 });
 
