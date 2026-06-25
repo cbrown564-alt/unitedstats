@@ -135,6 +135,7 @@ export function WhatsInteresting({ data }: { data: WhatsInterestingData }) {
     figureTone: "text-gold",
     body: headline ? (
       <>
+        <span className="text-ink-dim">{headline.metric}</span> ·{" "}
         <span className="font-medium text-ink">{headline.subject}</span> — {headline.gloss}
       </>
     ) : (

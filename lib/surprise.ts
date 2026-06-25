@@ -74,7 +74,7 @@ export function surpriseFacts(): SurpriseFact[] {
       kind: "cut",
       eyebrow: "A way to slice the record",
       figure: head.figure,
-      line: `${head.subject} — ${head.gloss}`,
+      line: `${head.metric} · ${head.subject} — ${head.gloss}`,
       href: cutHref(spec),
       cta: "Open the cut",
       tone: "gold",
