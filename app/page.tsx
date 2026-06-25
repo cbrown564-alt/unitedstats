@@ -69,7 +69,7 @@ export default function Home() {
     const r = cr.longestUnbeaten;
     teaser.push({
       eyebrow: "Longest unbeaten run", figure: String(r.length), unit: "matches", tone: "devil",
-      detail: `${fmtMonthYear(r.from)} – ${fmtMonthYear(r.to)}`,
+      detail: `${fmtMonthYear(r.from)}–${fmtMonthYear(r.to)}`,
       meta: "wins and draws, official matches", href: `/matches?from=${r.from}&to=${r.to}`,
     });
   }
@@ -123,7 +123,7 @@ export default function Home() {
           </h1>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
-            start with a question, a name, or a season.
+            traced back to the fixture record.
           </p>
           <div className="mt-6 max-w-2xl">
             <SearchCommand autoFocusKey={false} />
@@ -132,7 +132,7 @@ export default function Home() {
               <span className="hidden sm:inline">
                 Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
               </span>
-              {" "}— names, seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo;.
+              {" "}— names, seasons, or questions like &ldquo;record away at Arsenal&rdquo;.
             </p>
           </div>
 
@@ -141,7 +141,7 @@ export default function Home() {
               branching into that subject's own trails. Day-rotated, deterministic. */}
           <div className="mt-6 max-w-2xl">
             <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-faint">
-              Or start from someone you remember
+              Or start with an era, a rival, or a name
             </p>
             <EntryChips points={entries} />
           </div>
@@ -158,7 +158,7 @@ export default function Home() {
           hero, above the curated questions — serendipity, not a feed. ── */}
       <section>
         <SectionHead
-          title="What's interesting right now"
+          title="What the record holds today"
           aside={
             <Link
               href="/surprise"
@@ -190,7 +190,7 @@ export default function Home() {
         {teaser.length > 0 && (
           <section>
             <SectionHead
-              title="Records that pull you in"
+              title="All-time peaks"
               aside={<Link href="/analytics" className="text-devil-bright hover:underline">All records →</Link>}
             />
             <RecordCards records={teaser} />
@@ -202,7 +202,7 @@ export default function Home() {
 
         <section>
           <SectionHead
-            title="One answer, in full"
+            title="Featured myth"
             aside={<Link href="/explore" className="text-devil-bright hover:underline">All questions →</Link>}
           />
           <Link
@@ -223,7 +223,7 @@ export default function Home() {
               <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={170} />
             </div>
             <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
-              See the late-goals breakdown →
+              Go to the late-goals thread →
             </p>
           </Link>
         </section>
@@ -278,8 +278,8 @@ export default function Home() {
             ))}
           </div>
           <p className="text-xs text-ink-faint">
-            The win, draw and loss share of every match in each competition; the rule under each
-            bar runs to its matches played, so League dwarfs the cups. Through{" "}
+            The win, draw, and loss share of official matches; the underline scales with volume,
+            so the League matches are in proportion. Through{" "}
             <span className="stat-num">{lastDate}</span>, updated after every match — each
             row links to its matches, and the{" "}
             <Link href="/data" className="text-devil-bright hover:underline">coverage ledger</Link> shows what is

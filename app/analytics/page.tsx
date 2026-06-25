@@ -119,7 +119,7 @@ export default function AnalyticsPage() {
     const r = rec.longestUnbeaten;
     recordCards.push({
       eyebrow: "Longest unbeaten run", figure: String(r.length), unit: "matches", tone: "win",
-      detail: `${fmtMonthYear(r.from)} – ${fmtMonthYear(r.to)}`,
+      detail: `${fmtMonthYear(r.from)}–${fmtMonthYear(r.to)}`,
       meta: "wins and draws, official matches", href: `/matches?from=${r.from}&to=${r.to}`,
     });
   }
@@ -127,7 +127,7 @@ export default function AnalyticsPage() {
     const r = rec.longestWinning;
     recordCards.push({
       eyebrow: "Longest winning run", figure: String(r.length), unit: "wins", tone: "win",
-      detail: `${fmtMonthYear(r.from)} – ${fmtMonthYear(r.to)}`,
+      detail: `${fmtMonthYear(r.from)}–${fmtMonthYear(r.to)}`,
       meta: "consecutive victories", href: `/matches?from=${r.from}&to=${r.to}`,
     });
   }

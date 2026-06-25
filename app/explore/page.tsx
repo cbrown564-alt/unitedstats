@@ -31,7 +31,7 @@ const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
 export const metadata: Metadata = {
   title: "Discover",
   description:
-    "Start with an answer: the curated questions tested against United's record, then compare two careers or eras and group the whole record your own way.",
+    "Start with an answer — the curated questions tested against United’s record, then compare careers or eras and group the whole record your own way.",
   alternates: { canonical: "/explore" },
 };
 
@@ -76,23 +76,23 @@ export default function ExplorePage() {
   return (
     <div className="space-y-12">
       <PageHeader eyebrow="Answering · asking · exploring" title="Discover">
-        Start with an answer. The questions below are tested against the canonical record — each
-        opens its full finding, the slice it&apos;s drawn from, the coverage behind it, and the
-        matches that produced it. Compare and grouping follow once you have a thread to pull.
+        Start with an answer. Every question below is tested directly against the canonical record — opening a
+        dedicated finding, the slice of history it’s drawn from, and the individual matches that built the
+        figure. Comparison and grouping follow once you have a thread to pull.
       </PageHeader>
 
       {/* The front door: the question field plus a one-line trust strip. */}
       <section className="space-y-2">
         <SearchCommand autoFocusKey={false} />
         <p className="text-xs text-ink-faint">
-          <span className="stat-num text-ink-dim">{fmtNum(rec.p)}</span> matches across{" "}
-          <span className="stat-num text-ink-dim">{years}</span> years — every figure links to the
-          matches behind it, with a coverage grade where the record is still growing. Search names,
-          seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo; — or{" "}
+          <span className="stat-num text-ink-dim">{fmtNum(rec.p)}</span> official matches across{" "}
+          <span className="stat-num text-ink-dim">{years}</span> years — every figure is an open door to the
+          matches behind it, with a coverage grade showing the density of our records. Search names,
+          seasons, or questions like &ldquo;record away at Arsenal&rdquo; — or{" "}
           <Link href="/surprise" prefetch={false} className="text-devil-bright hover:underline">
             surprise me
           </Link>{" "}
-          with a curated answer at random.
+          with a random finding.
         </p>
       </section>
 
@@ -103,11 +103,11 @@ export default function ExplorePage() {
           the strip previews, it does not reproduce the depth. */}
       <section className="space-y-4">
         <SectionHead
-          title="Questions, answered"
-          aside={<span className="text-ink-faint">Answering · {QUESTIONS.length} curated</span>}
+          title="Tested myths"
+          aside={<span className="text-ink-faint">Answering · {QUESTIONS.length} tested myths</span>}
         />
 
-        <FeatureCarousel label="Curated questions — swipe across the answers">
+        <FeatureCarousel label="Tested myths — swipe across the findings">
           {QUESTIONS.map((q) => {
             const h = headlines[q.slug];
             return (
@@ -132,7 +132,7 @@ export default function ExplorePage() {
                   </p>
                 )}
                 <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
-                  See the full finding →
+                  Go to the full thread →
                 </span>
               </FeatureSlide>
             );
@@ -166,11 +166,11 @@ export default function ExplorePage() {
           the full /compare scoreboard, where any pairing can be built. */}
       <section className="space-y-4">
         <SectionHead
-          title="Who was better?"
-          aside={<span className="text-ink-faint">Asking · player, manager &amp; era</span>}
+          title="Curated debates"
+          aside={<span className="text-ink-faint">Asking · player, manager, and era</span>}
         />
 
-        <FeatureCarousel label="Flagship debates — a player, a manager, an era">
+        <FeatureCarousel label="Flagship debates — comparing players, managers, and eras">
           {flagships.map((cmp) => (
             <ComparisonHero key={cmp.href} c={cmp.c} href={cmp.href} title={cmp.label} />
           ))}
@@ -185,8 +185,8 @@ export default function ExplorePage() {
         </ul>
 
         <p className="text-xs text-ink-faint">
-          Players, managers, and eras side by side on shared, coverage-aware metrics — or build your
-          own pairing in <Link href="/compare" className="text-devil-bright hover:underline">Compare</Link>.
+          Compare players, managers, and eras side by side on shared, coverage-aware metrics — or build a
+          custom matchup.
         </p>
       </section>
 
@@ -197,11 +197,11 @@ export default function ExplorePage() {
           previewing a cut with the very chart the /cut page draws. */}
       <section className="space-y-4">
         <SectionHead
-          title="Explore the record"
-          aside={<span className="text-ink-faint">Exploring · group it your own way</span>}
+          title="Curated cuts"
+          aside={<span className="text-ink-faint">Exploring · filter and group by any dimension</span>}
         />
 
-        <FeatureCarousel label="Curated cuts — swipe across the ways in">
+        <FeatureCarousel label="Curated cuts — group and rank the record">
           {cutPreviews.map(({ c, result, href }) => (
             <CutHero key={c.slug} cut={c} result={result} href={href} />
           ))}
@@ -228,8 +228,8 @@ export default function ExplorePage() {
         </ul>
 
         <p className="text-xs text-ink-faint">
-          Open any cut, then change the dimension or the lens to fork your own — every group links to the
-          matches behind it, with the coverage grade where the record is still growing.
+          Open any curated cut, then change the dimension or the lens to build your own — every group is an open door
+          to its matches, with a coverage grade showing the completeness of the source records.
         </p>
       </section>
 
@@ -239,7 +239,7 @@ export default function ExplorePage() {
       {recentChanges.length > 0 && (
         <section className="space-y-4">
           <SectionHead
-            title="Recently changed"
+            title="Recent updates"
             aside={
               <Link href={recentChanges[0].path} className="text-devil-bright hover:underline">
                 Latest digest →
@@ -248,8 +248,7 @@ export default function ExplorePage() {
           />
           <RecentlyChanged cards={recentChanges} />
           <p className="text-xs text-ink-faint">
-            Every result nudges 140 years of record — each card opens what that match moved, read
-            straight from the canonical data.
+            Every new result shifts 140 years of history — opening any card shows exactly which all-time figures moved, drawn directly from the match record.
           </p>
         </section>
       )}

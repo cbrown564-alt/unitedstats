@@ -18,6 +18,7 @@ export function IndexRow({
   rank,
   leading,
   name,
+  compactName,
   badge,
   sub,
   w,

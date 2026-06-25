@@ -23,66 +23,66 @@ export interface QuestionMeta {
 export const QUESTIONS: QuestionMeta[] = [
   {
     slug: "late-goals",
-    label: "Late goals",
+    label: "Fergie time",
     question: "Do United really score late?",
     summary:
-      "How often United score after the 85th minute, split by decade between minutes 86-90 and stoppage time.",
+      "Do United really score late? Track the post-85th minute edge by decade, from Bruce’s header to stoppage-time drama.",
   },
   {
     slug: "comebacks",
-    label: "Comebacks",
+    label: "Comeback kings",
     question: "Are United really the comeback kings?",
     summary:
-      "How often United come back from behind, tracked minute by minute from the goal record.",
+      "Test the legend of the fightback. How often United fell behind — and avoided defeat — replayed minute by minute.",
   },
   {
     slug: "runs",
-    label: "Great runs",
-    question: "How long are United's longest runs?",
+    label: "Unbeaten streaks",
+    question: "How long are United’s longest runs?",
     summary:
-      "United's longest unbeaten, winning, scoring and clean-sheet runs in official football.",
+      "Winning runs, clean-sheet streaks, and matches without defeat. The limits of United’s momentum over 140 years.",
   },
   {
     slug: "bogey-sides",
     label: "Bogey teams",
     question: "Which sides are the real bogey teams?",
     summary:
-      "The opponents United beat least often, among sides met at least twenty times in official competition.",
+      "The sides United beat least often. The historical obstacles, filtered for opponents met at least twenty times.",
   },
   {
     slug: "manager-bounce",
     label: "Manager bounce",
     question: "Is the new-manager bounce real?",
     summary:
-      "Whether new United managers really start better than the form the club handed them.",
+      "Does a new manager change the tide? Compare each manager’s first ten matches against the form they inherited.",
   },
   {
     slug: "fortress",
     label: "Fortress OT",
     question: "How much of a fortress is Old Trafford?",
     summary:
-      "How rarely United lose at Old Trafford after leading at half-time, based on the goal record.",
+      "Lead at half-time at Old Trafford and the game is over. See how rarely United surrendered a break-time lead.",
   },
   {
     slug: "cup-specialists",
     label: "Cup specialists",
     question: "Who saved their goals for cup nights?",
     summary:
-      "The United goalscorers most tilted towards cup nights, measured against the club's own cup-goal rate.",
+      "Who saved their goals for cup nights? The goalscorers whose records lean heavily toward domestic and European cups.",
   },
   {
     slug: "own-goals",
     label: "Own goals",
-    question: "Is “Own Goal” one of United's top goalscorers?",
+    question: "Is “Own Goal” one of United’s top goalscorers?",
     summary:
-      "Whether own goals, counted as one goalscorer, rank among United's leading goal totals.",
+      "Is ‘Own Goal’ one of the club’s leading goalscorers? The bizarre tally of opponent errors stacked against history’s legends.",
   },
   {
     slug: "away-days",
     label: "Away days",
     question: "How far do away days take United?",
     summary:
-      "How far United's away days have taken them, from short Lancashire hops to European nights.",
+      "From Lancashire hops to European nights. Trace the geographic footprint of United’s away trips since 1886.",
   },
 ];
 

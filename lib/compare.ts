@@ -38,18 +38,18 @@ export const CURATED_DEBATES: Record<CompareMode, CuratedDebate[]> = {
   players: [
     { label: "Rooney vs Charlton", a: "wayne-rooney", b: "bobby-charlton", hook: "The two men at the top of the all-time scoring charts." },
     { label: "Ronaldo vs Best", a: "cristiano-ronaldo", b: "george-best", hook: "Two No. 7s, two icons — a generation apart." },
-    { label: "Giggs vs Scholes", a: "ryan-giggs", b: "paul-scholes", hook: "The academy spine that ran through every Ferguson side." },
-    { label: "Cantona vs Van Persie", a: "eric-cantona", b: "robin-van-persie", hook: "Two imports who arrived and tilted a title race." },
+    { label: "Giggs vs Scholes", a: "ryan-giggs", b: "paul-scholes", hook: "The home-grown spine of the Ferguson dynasty, compared season by season." },
+    { label: "Cantona vs Van Persie", a: "eric-cantona", b: "robin-van-persie", hook: "Two catalyst signings whose arrival instantly tilted the title race." },
   ],
   managers: [
     { label: "Ferguson vs Busby", a: "alex-ferguson", b: "matt-busby", hook: "The two architects, a quarter-century each in charge." },
     { label: "Ferguson vs Mourinho", a: "alex-ferguson", b: "jose-mourinho", hook: "A 27-year reign against a stormy three." },
-    { label: "Busby vs Mangnall", a: "matt-busby", b: "ernest-mangnall", hook: "The club's first two dynasty-builders." },
+    { label: "Busby vs Mangnall", a: "matt-busby", b: "ernest-mangnall", hook: "The club’s first two dynasty-builders." },
   ],
   eras: [
-    { label: "Busby era vs Ferguson era", a: "busby", b: "ferguson", hook: "The two golden ages, side by side." },
-    { label: "1990s vs 2010s", a: "1990s", b: "2010s", hook: "The title machine against the post-Ferguson rebuild." },
-    { label: "1950s vs 2000s", a: "1950s", b: "2000s", hook: "The Busby Babes against the Ronaldo-era champions." },
+    { label: "Busby era vs Ferguson era", a: "busby", b: "ferguson", hook: "The club’s two defining reigns and their trophy hauls, side by side." },
+    { label: "1990s vs 2010s", a: "1990s", b: "2010s", hook: "The relentless title machine of the nineties against the post-Ferguson transition." },
+    { label: "1950s vs 2000s", a: "1950s", b: "2000s", hook: "The tragic brilliance of the Busby Babes against the peak of the Ronaldo era." },
   ],
 };
 
@@ -153,7 +153,7 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
       { label: "Goals per appearance", a: perApp(a.goals, a.apps), b: perApp(b.goals, b.apps), fmt: "dec2", better: "higher" },
       {
         label: "Assists", a: a.assists, b: b.assists, fmt: "int", better: "higher",
-        note: "Curated 1987-88–2014-15 lane plus match events after; assists before 1987-88 are unrecorded.",
+        note: "Curated 1987–88 to 2014–15 lane plus match events after; assists before 1987–88 are unrecorded.",
       },
     ],
     signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc } : undefined,

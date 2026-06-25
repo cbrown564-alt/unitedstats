@@ -25,7 +25,7 @@ function runHref(r: ClubRun): string {
 function spanLabel(r: ClubRun): string {
   const from = fmtMonthYear(r.from);
   const to = fmtMonthYear(r.to);
-  return from === to ? from : `${from} – ${to}`;
+  return from === to ? from : `${from}–${to}`;
 }
 
 /**

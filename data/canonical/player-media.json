@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T16:06:03.704Z",
+  "generatedAt": "2026-06-25T17:27:03.731Z",
   "sourceId": "wikidata-commons",
   "sourceName": "Wikidata P18, Wikipedia pageimages, and Wikimedia Commons imageinfo",
   "requestedTopPlayers": 100,
@@ -17,7 +17,9 @@
   "notes": [
     "Only raster Commons images are imported; SVG files are skipped because Next image optimization does not serve arbitrary SVGs by default.",
     "Wikidata P18 is preferred; Wikipedia pageimages are used only as a fallback and still require Commons imageinfo metadata.",
-    "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run this script to refresh license or thumbnail changes."
+    "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run this script to refresh license or thumbnail changes.",
+    "Hand-cropped portraits live in public/media/sources/; MANUAL_PORTRAIT_SOURCES maps player ids to those files for cache:media.",
+    "MANUAL_ONLY_PORTRAITS covers players with no Commons file; source metadata is recorded in-manifest and images are cached locally."
   ],
   "records": [
     {
@@ -37,7 +39,7 @@
       "credit": "https://www.flickr.com/photos/jmage/2974655582/in/set-72157608386211837/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/ryan-giggs.webp"
     },
     {
@@ -57,7 +59,7 @@
       "credit": "FIGURINA CAMPIONI DELLO SPORT PANINI - SPORT INVERNALI RUSSELL",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/bobby-charlton.webp"
     },
     {
@@ -77,7 +79,7 @@
       "credit": "https://www.flickr.com/photos/jmage/2973851051/in/set-72157608386211837/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/paul-scholes.webp"
     },
     {
@@ -97,7 +99,7 @@
       "credit": "North American Soccer League 1975 media guide via SportsArchive",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/bill-foulkes.webp"
     },
     {
@@ -117,7 +119,7 @@
       "credit": "https://www.flickr.com/photos/salforduniversity/15733516282/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/gary-neville.webp"
     },
     {
@@ -137,7 +139,7 @@
       "credit": "http://www.soccer.ru/galery/667228/photo/480232",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/wayne-rooney.webp"
     },
     {
@@ -157,7 +159,7 @@
       "credit": "https://www.soccer.ru/galery/1022771/photo/691822",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/david-de-gea.webp"
     },
     {
@@ -177,7 +179,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/alex-stepney.webp"
     },
     {
@@ -197,7 +199,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/tony-dunne.webp"
     },
     {
@@ -217,7 +219,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/denis-irwin.webp"
     },
     {
@@ -237,7 +239,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/arthur-albiston.webp"
     },
     {
@@ -257,7 +259,7 @@
       "credit": "Finished Goc Air Corps",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/roy-keane.webp"
     },
     {
@@ -277,7 +279,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/brian-mcclair.webp"
     },
     {
@@ -297,7 +299,7 @@
       "credit": "Nationaal Archief Fotocollectie Anefo 928-8290",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/george-best.webp"
     },
     {
@@ -317,7 +319,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/mark-hughes.webp"
     },
     {
@@ -337,7 +339,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/michael-carrick.webp"
     },
     {
@@ -357,7 +359,7 @@
       "credit": "https://www.flickr.com/photos/40561337@N07/4073518529/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/bryan-robson.webp"
     },
     {
@@ -377,8 +379,29 @@
       "credit": "https://www.flickr.com/photos/websummit/22183056474/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/rio-ferdinand.webp"
+    },
+    {
+      "rank": 22,
+      "overallRank": 22,
+      "premierLeagueEraRank": 13,
+      "playerId": "gary-pallister",
+      "name": "Gary Pallister",
+      "wikiTitle": "Gary Pallister",
+      "wikidataId": "Q380231",
+      "commonsFile": "PALLISTER.png",
+      "imageUrl": "https://static.wikia.nocookie.net/the-football-database/images/4/4f/PALLISTER.png/revision/latest?cb=20140811135253",
+      "thumbUrl": null,
+      "pageUrl": "https://football.fandom.com/wiki/File:PALLISTER.png",
+      "license": "CC BY-SA 3.0",
+      "artist": null,
+      "credit": "Football Wiki (Fandom), The Football Database",
+      "sourceId": "football-fandom",
+      "sourceMethod": "manual-portrait",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
+      "manualPortraitSource": "/media/sources/gary-pallister.png",
+      "localPath": "/media/players/gary-pallister.webp"
     },
     {
       "rank": 23,
@@ -397,7 +420,7 @@
       "credit": "https://www.flickr.com/photos/49707497@N06/53248339199/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/marcus-rashford.webp"
     },
     {
@@ -417,7 +440,7 @@
       "credit": "Nationaal Archief Fotocollectie Anefo",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/jack-rowley.webp"
     },
     {
@@ -437,7 +460,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/sammy-mcilroy.webp"
     },
     {
@@ -457,7 +480,7 @@
       "credit": "https://www.flickr.com/photos/ronmacphotos/6270169911/in/photostream",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/steve-bruce.webp"
     },
     {
@@ -473,11 +496,11 @@
       "thumbUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Manu-Finland-1965.jpg/330px-Manu-Finland-1965.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:Manu-Finland-1965.jpg",
       "license": "Public domain",
-      "artist": "Anonymous",
-      "credit": "Hand-cropped from Manu-Finland-1965.jpg (United training, Finland 1965)",
+      "artist": "Anonymous Unknown author",
+      "credit": "http://hs11.snstatic.fi/webkuva/taysi/1920/1442804318727",
       "sourceId": "wikidata-commons",
       "sourceMethod": "curated-override",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "manualPortraitSource": "/media/sources/denis-law-manu-finland.png",
       "localPath": "/media/players/denis-law.webp"
     },
@@ -498,7 +521,7 @@
       "credit": "mynewsdesk",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/peter-schmeichel.webp"
     },
     {
@@ -518,7 +541,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/paddy-crerand.webp"
     },
     {
@@ -538,7 +561,7 @@
       "credit": "Steve_coppell_2006_promotion_celebration.JPG",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/steve-coppell.webp"
     },
     {
@@ -558,7 +581,7 @@
       "credit": "'Euro Calciatori 1966 - 1967', Panini figurina",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/nobby-stiles.webp"
     },
     {
@@ -578,7 +601,7 @@
       "credit": "David Beckham",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/david-beckham.webp"
     },
     {
@@ -598,7 +621,7 @@
       "credit": "Manchester - Old Trafford - Manchester United vs Crawley Town",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/john-o-shea.webp"
     },
     {
@@ -618,7 +641,7 @@
       "credit": "https://www.flickr.com/photos/birdies-perch/4209630432/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/nicky-butt.webp"
     },
     {
@@ -638,7 +661,7 @@
       "credit": "Flickr : Bohemians V Everton (43 of 51)",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/phil-neville.webp"
     },
     {
@@ -658,8 +681,29 @@
       "credit": "RC2_9396",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/patrice-evra.webp"
+    },
+    {
+      "rank": 39,
+      "overallRank": 39,
+      "premierLeagueEraRank": null,
+      "playerId": "mike-duxbury",
+      "name": "Mike Duxbury",
+      "wikiTitle": "Mike Duxbury",
+      "wikidataId": "Q963888",
+      "commonsFile": "MDuxbury.png",
+      "imageUrl": "https://static.wikia.nocookie.net/the-football-database/images/d/d7/MDuxbury.png/revision/latest?cb=20180122201853",
+      "thumbUrl": null,
+      "pageUrl": "https://football.fandom.com/wiki/File:MDuxbury.png",
+      "license": "CC BY-SA 3.0",
+      "artist": null,
+      "credit": "Football Wiki (Fandom), The Football Database",
+      "sourceId": "football-fandom",
+      "sourceMethod": "manual-portrait",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
+      "manualPortraitSource": "/media/sources/mike-duxbury.png",
+      "localPath": "/media/players/mike-duxbury.webp"
     },
     {
       "rank": 41,
@@ -678,7 +722,7 @@
       "credit": "Flickr : Ole Gunnar Solskjær",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/ole-gunnar-solskj-r.webp"
     },
     {
@@ -698,7 +742,7 @@
       "credit": "Manchester - Old Trafford - Manchester United vs Crawley Town",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/wes-brown.webp"
     },
     {
@@ -718,7 +762,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/mikael-silvestre.webp"
     },
     {
@@ -738,7 +782,7 @@
       "credit": "Rekord-Magasinet nr 18 1960",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikipedia-pageimage",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/shay-brennan.webp"
     },
     {
@@ -758,7 +802,7 @@
       "credit": "https://www.flickr.com/photos/gowestphoto/3922501416/in/set-72157622375532166/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "curated-override",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/cristiano-ronaldo.webp"
     },
     {
@@ -778,7 +822,7 @@
       "credit": "West Brom 0 Chelsea 1",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/darren-fletcher.webp"
     },
     {
@@ -798,7 +842,7 @@
       "credit": "cropped from Soccer.ru photo",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/antonio-valencia.webp"
     },
     {
@@ -818,7 +862,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/billy-meredith.webp"
     },
     {
@@ -838,7 +882,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/bruno-fernandes.webp"
     },
     {
@@ -858,7 +902,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/luke-shaw.webp"
     },
     {
@@ -878,7 +922,7 @@
       "credit": "soccer.ru",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/chris-smalling.webp"
     },
     {
@@ -898,7 +942,7 @@
       "credit": "http://www.spartacus.schoolnet.co.uk/MANUwall.htm",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/george-wall.webp"
     },
     {
@@ -918,7 +962,7 @@
       "credit": "https://www.soccer0010.com/galery/1013619/photo/673742",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/anthony-martial.webp"
     },
     {
@@ -938,7 +982,7 @@
       "credit": "https://www.mufcinfo.com/manupag/a-z_player_archive/a-z_player_archive_pages/erentz_fred.html",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/fred-erentz.webp"
     },
     {
@@ -958,7 +1002,7 @@
       "credit": "Here",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/alex-bell.webp"
     },
     {
@@ -978,7 +1022,7 @@
       "credit": "Here",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/charlie-roberts.webp"
     },
     {
@@ -998,8 +1042,29 @@
       "credit": "Cropped version of the file uploaded to Flickr with the name IronMan2",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/nemanja-vidic.webp"
+    },
+    {
+      "rank": 65,
+      "overallRank": 65,
+      "premierLeagueEraRank": null,
+      "playerId": "willie-morgan",
+      "name": "Willie Morgan",
+      "wikiTitle": "Willie Morgan",
+      "wikidataId": "Q2618161",
+      "commonsFile": "Morgan.png",
+      "imageUrl": "https://static.wikia.nocookie.net/the-football-database/images/b/b5/Morgan.png/revision/latest?cb=20140120191619",
+      "thumbUrl": null,
+      "pageUrl": "https://football.fandom.com/wiki/File:Morgan.png",
+      "license": "CC BY-SA 3.0",
+      "artist": null,
+      "credit": "Football Wiki (Fandom), The Football Database",
+      "sourceId": "football-fandom",
+      "sourceMethod": "manual-portrait",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
+      "manualPortraitSource": "/media/sources/willie-morgan.png",
+      "localPath": "/media/players/willie-morgan.webp"
     },
     {
       "rank": 66,
@@ -1018,7 +1083,7 @@
       "credit": "Rekord-Magasinet nr 36, 1957",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/dennis-viollet.webp"
     },
     {
@@ -1038,7 +1103,7 @@
       "credit": "http://proxy.handle.net/10648/ad625fd8-d0b4-102d-bcf8-003048976d84",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/frank-stapleton.webp"
     },
     {
@@ -1058,7 +1123,7 @@
       "credit": "Football.ua",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/juan-mata.webp"
     },
     {
@@ -1078,7 +1143,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/victor-lindelof.webp"
     },
     {
@@ -1098,7 +1163,7 @@
       "credit": "Paul Ince and I",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/paul-ince.webp"
     },
     {
@@ -1118,7 +1183,7 @@
       "credit": "Rekord-Magasinet nr 36, 1957",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/roger-byrne.webp"
     },
     {
@@ -1138,7 +1203,7 @@
       "credit": "AEROFLOT ManchesterUnited TrophyTour",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/andy-cole.webp"
     },
     {
@@ -1158,7 +1223,7 @@
       "credit": "https://www.flickr.com/photos/apasciuto/8655409893/in/photostream/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/norman-whiteside.webp"
     },
     {
@@ -1178,7 +1243,7 @@
       "credit": "Ansa",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/brian-greenhoff.webp"
     },
     {
@@ -1198,7 +1263,7 @@
       "credit": "https://www.flickr.com/photos/49707497@N06/53248339219/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/harry-maguire.webp"
     },
     {
@@ -1218,7 +1283,7 @@
       "credit": "Here",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/george-stacey.webp"
     },
     {
@@ -1238,7 +1303,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/brian-kidd.webp"
     },
     {
@@ -1258,7 +1323,7 @@
       "credit": "http://www.postproduktie.nl/voetbal.htm",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/edwin-van-der-sar.webp"
     },
     {
@@ -1278,7 +1343,7 @@
       "credit": "Here",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/harry-moger.webp"
     },
     {
@@ -1298,8 +1363,29 @@
       "credit": "GaHetNa (Nationaal Archief NL) 915-5644",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/david-herd.webp"
+    },
+    {
+      "rank": 85,
+      "overallRank": 85,
+      "premierLeagueEraRank": 39,
+      "playerId": "lee-sharpe",
+      "name": "Lee Sharpe",
+      "wikiTitle": "Lee Sharpe",
+      "wikidataId": "Q706028",
+      "commonsFile": "SHARPE.png",
+      "imageUrl": "https://static.wikia.nocookie.net/the-football-database/images/4/4a/SHARPE.png/revision/latest?cb=20140811135827",
+      "thumbUrl": null,
+      "pageUrl": "https://football.fandom.com/wiki/File:SHARPE.png",
+      "license": "CC BY-SA 3.0",
+      "artist": null,
+      "credit": "Football Wiki (Fandom), The Football Database",
+      "sourceId": "football-fandom",
+      "sourceMethod": "manual-portrait",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
+      "manualPortraitSource": "/media/sources/lee-sharpe.png",
+      "localPath": "/media/players/lee-sharpe.webp"
     },
     {
       "rank": 86,
@@ -1318,7 +1404,7 @@
       "credit": "https://www.soccer.ru/galery/1053441/photo/729781",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/ashley-young.webp"
     },
     {
@@ -1338,7 +1424,7 @@
       "credit": "http://www.mufcinfo.com/manupag/a-z_player_archive/a-z_player_archive_pages/cartwright_walter.html",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/walter-cartwright.webp"
     },
     {
@@ -1358,7 +1444,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/scott-mctominay.webp"
     },
     {
@@ -1378,7 +1464,7 @@
       "credit": "Here",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/dick-duckworth.webp"
     },
     {
@@ -1398,7 +1484,7 @@
       "credit": "Transferred from uk.wikipedia to Commons.",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/stewart-houston.webp"
     },
     {
@@ -1418,7 +1504,7 @@
       "credit": "self-made Transferred from en.wikipedia",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/jimmy-nicholl.webp"
     },
     {
@@ -1438,7 +1524,7 @@
       "credit": "http://www.spartacus.schoolnet.co.uk/MANUturnbull.jpg",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/sandy-turnbull.webp"
     },
     {
@@ -1458,7 +1544,7 @@
       "credit": "GaHetNa (Nationaal Archief NL) 915-5646",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/harry-gregg.webp"
     },
     {
@@ -1478,7 +1564,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/diogo-dalot.webp"
     },
     {
@@ -1498,7 +1584,7 @@
       "credit": "Øyvind Vik",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/clayton-blackmore.webp"
     },
     {
@@ -1518,7 +1604,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/jonny-evans.webp"
     },
     {
@@ -1538,7 +1624,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/paul-pogba.webp"
     },
     {
@@ -1558,7 +1644,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/jesse-lingard.webp"
     },
     {
@@ -1578,7 +1664,7 @@
       "credit": "soccer.ru",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/nani.webp"
     },
     {
@@ -1598,7 +1684,7 @@
       "credit": "GaHetNa (Nationaal Archief NL) 932-6648",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/gordon-mcqueen.webp"
     },
     {
@@ -1618,7 +1704,7 @@
       "credit": "MUFC v CA - Seattle, WA - July 17, 2015",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/phil-jones.webp"
     },
     {
@@ -1638,7 +1724,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "curated-override",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/ruud-van-nistelrooy.webp"
     },
     {
@@ -1658,7 +1744,7 @@
       "credit": "https://www.soccer.ru/galery/1054670/photo/731880",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/fred.webp"
     },
     {
@@ -1678,7 +1764,7 @@
       "credit": "https://www.flickr.com/photos/42438955@N05/4840348690/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/park-ji-sung.webp"
     },
     {
@@ -1698,7 +1784,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/aaron-wan-bissaka.webp"
     },
     {
@@ -1718,7 +1804,7 @@
       "credit": "Self-photographed",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/ander-herrera.webp"
     },
     {
@@ -1738,7 +1824,7 @@
       "credit": "https://www.soccer.ru/galery/1055634/photo/733882",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/nemanja-matic.webp"
     },
     {
@@ -1758,7 +1844,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/eric-cantona.webp"
     },
     {
@@ -1778,7 +1864,7 @@
       "credit": "https://www.flickr.com/photos/dohastadiumplusqatar/8402079732/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/anderson.webp"
     },
     {
@@ -1798,7 +1884,7 @@
       "credit": "https://www.soccer.ru/galery/966142/photo/619951",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/marouane-fellaini.webp"
     },
     {
@@ -1818,7 +1904,7 @@
       "credit": "https://www.flickr.com/photos/tomjoad/5481081207/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/rafael.webp"
     },
     {
@@ -1838,7 +1924,7 @@
       "credit": "Self-photographed",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/andrei-kanchelskis.webp"
     },
     {
@@ -1858,7 +1944,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/chicharito.webp"
     },
     {
@@ -1878,7 +1964,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/teddy-sheringham.webp"
     },
     {
@@ -1898,7 +1984,7 @@
       "credit": "Flickr : Dwight Yorke in Chennai",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/dwight-yorke.webp"
     },
     {
@@ -1918,7 +2004,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/ronny-johnsen.webp"
     },
     {
@@ -1938,7 +2024,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/dimitar-berbatov.webp"
     },
     {
@@ -1958,7 +2044,7 @@
       "credit": "Alex Ferguson and Mike Phelan",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/mike-phelan.webp"
     },
     {
@@ -1978,7 +2064,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/alejandro-garnacho.webp"
     },
     {
@@ -1998,7 +2084,7 @@
       "credit": "https://www.soccer.ru/galery/1053441/photo/729793",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/danny-welbeck.webp"
     },
     {
@@ -2018,7 +2104,7 @@
       "credit": "Football.ua",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/daley-blind.webp"
     },
     {
@@ -2038,7 +2124,7 @@
       "credit": "fc-zenit.ru",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/fabien-barthez.webp"
     },
     {
@@ -2058,7 +2144,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/mason-greenwood.webp"
     },
     {
@@ -2078,7 +2164,7 @@
       "credit": "Original photo",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/jaap-stam.webp"
     },
     {
@@ -2098,7 +2184,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/quinton-fortune.webp"
     },
     {
@@ -2118,7 +2204,7 @@
       "credit": "Sportsfile (Web Summit)",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/louis-saha.webp"
     },
     {
@@ -2138,8 +2224,29 @@
       "credit": "https://www.soccer.ru/galery/1055457/photo/733466",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/marcos-rojo.webp"
+    },
+    {
+      "rank": 129,
+      "overallRank": null,
+      "premierLeagueEraRank": 76,
+      "playerId": "mal-donaghy",
+      "name": "Mal Donaghy",
+      "wikiTitle": "Mal Donaghy",
+      "wikidataId": "Q648928",
+      "commonsFile": "DONAGHY.png",
+      "imageUrl": "https://static.wikia.nocookie.net/the-football-database/images/9/98/DONAGHY.png/revision/latest?cb=20140811134120",
+      "thumbUrl": null,
+      "pageUrl": "https://football.fandom.com/wiki/File:DONAGHY.png",
+      "license": "CC BY-SA 3.0",
+      "artist": null,
+      "credit": "Football Wiki (Fandom), The Football Database",
+      "sourceId": "football-fandom",
+      "sourceMethod": "manual-portrait",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
+      "manualPortraitSource": "/media/sources/mal-donaghy.png",
+      "localPath": "/media/players/mal-donaghy.webp"
     },
     {
       "rank": 130,
@@ -2158,7 +2265,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/david-may.webp"
     },
     {
@@ -2178,8 +2285,29 @@
       "credit": "https://www.flickr.com/photos/199283147@N05/53251011694/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/eric-bailly.webp"
+    },
+    {
+      "rank": 132,
+      "overallRank": null,
+      "premierLeagueEraRank": 79,
+      "playerId": "neil-webb",
+      "name": "Neil Webb",
+      "wikiTitle": "Neil Webb",
+      "wikidataId": "Q463295",
+      "commonsFile": "Webb.png",
+      "imageUrl": "https://static.wikia.nocookie.net/the-football-database/images/f/f4/Webb.png/revision/latest?cb=20140706174303",
+      "thumbUrl": null,
+      "pageUrl": "https://football.fandom.com/wiki/File:Webb.png",
+      "license": "CC BY-SA 3.0",
+      "artist": null,
+      "credit": "Football Wiki (Fandom), The Football Database",
+      "sourceId": "football-fandom",
+      "sourceMethod": "manual-portrait",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
+      "manualPortraitSource": "/media/sources/neil-webb.png",
+      "localPath": "/media/players/neil-webb.webp"
     },
     {
       "rank": 133,
@@ -2198,7 +2326,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/lisandro-martinez.webp"
     },
     {
@@ -2218,7 +2346,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/lee-martin.webp"
     },
     {
@@ -2238,7 +2366,7 @@
       "credit": "Christian Eriksen - Tottenham Hotspurs former Ajax Amsterdam player",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/christian-eriksen.webp"
     },
     {
@@ -2258,7 +2386,7 @@
       "credit": "soccer.ru",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/robin-van-persie.webp"
     },
     {
@@ -2278,8 +2406,29 @@
       "credit": "Football.ua",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/henning-berg.webp"
+    },
+    {
+      "rank": 138,
+      "overallRank": null,
+      "premierLeagueEraRank": 85,
+      "playerId": "kobbie-mainoo",
+      "name": "Kobbie Mainoo",
+      "wikiTitle": "Kobbie Mainoo",
+      "wikidataId": "Q114703020",
+      "commonsFile": "Kobbie_Mainoo.png",
+      "imageUrl": "https://static.wikia.nocookie.net/the-football-database/images/4/48/Kobbie_Mainoo.png/revision/latest?cb=20230106045237",
+      "thumbUrl": null,
+      "pageUrl": "https://football.fandom.com/wiki/File:Kobbie_Mainoo.png",
+      "license": "CC BY-SA 3.0",
+      "artist": null,
+      "credit": "Football Wiki (Fandom), The Football Database",
+      "sourceId": "football-fandom",
+      "sourceMethod": "manual-portrait",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
+      "manualPortraitSource": "/media/sources/kobbie-mainoo.png",
+      "localPath": "/media/players/kobbie-mainoo.webp"
     },
     {
       "rank": 139,
@@ -2298,7 +2447,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/andre-onana.webp"
     },
     {
@@ -2318,7 +2467,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/carlos-tevez.webp"
     },
     {
@@ -2338,7 +2487,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/diego-forlan.webp"
     },
     {
@@ -2358,7 +2507,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/amad-diallo.webp"
     },
     {
@@ -2378,7 +2527,7 @@
       "credit": "https://fc-zenit.ru/photo/50817/",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/romelu-lukaku.webp"
     },
     {
@@ -2398,7 +2547,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/antony.webp"
     },
     {
@@ -2418,7 +2567,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/rasmus-h-jlund.webp"
     },
     {
@@ -2438,7 +2587,7 @@
       "credit": "https://www.soccer.ru/galery/1056072/photo/734535",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/raphael-varane.webp"
     },
     {
@@ -2458,7 +2607,7 @@
       "credit": "Cropped from https://www.flickr.com/photos/tiggy818/20285850/ Date uploaded to Flickr: June 19, 2005",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/alan-smith.webp"
     },
     {
@@ -2478,7 +2627,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/matteo-darmian.webp"
     },
     {
@@ -2498,7 +2647,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/jadon-sancho.webp"
     },
     {
@@ -2518,7 +2667,7 @@
       "credit": "Conferencia de prensa de Gabriel Heinze",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/gabriel-heinze.webp"
     },
     {
@@ -2538,7 +2687,7 @@
       "credit": "This image has been extracted from another file",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/juan-sebastian-veron.webp"
     },
     {
@@ -2558,7 +2707,7 @@
       "credit": "Transferred from en.wikipedia to Commons by Kafuffle using CommonsHelper .",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/kieran-richardson.webp"
     },
     {
@@ -2578,7 +2727,7 @@
       "credit": "BAT2015_Arsenal_vs_Everton-140",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/tom-cleverley.webp"
     },
     {
@@ -2598,7 +2747,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/casemiro.webp"
     },
     {
@@ -2618,7 +2767,7 @@
       "credit": "[1] - direct download",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/zlatan-ibrahimovic.webp"
     },
     {
@@ -2638,7 +2787,7 @@
       "credit": "Own work",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/javier-hernandez.webp"
     },
     {
@@ -2658,7 +2807,7 @@
       "credit": "Rekord-Magasinet nr 1, 1960",
       "sourceId": "wikidata-commons",
       "sourceMethod": "wikidata-p18",
-      "retrievedAt": "2026-06-25T16:06:03.704Z",
+      "retrievedAt": "2026-06-25T17:27:03.731Z",
       "localPath": "/media/players/john-connelly.webp"
     }
   ],
@@ -2688,14 +2837,6 @@
       "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
-      "playerId": "gary-pallister",
-      "name": "Gary Pallister",
-      "wikiTitle": "Gary Pallister",
-      "overallRank": 22,
-      "premierLeagueEraRank": 13,
-      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
-    },
-    {
       "playerId": "lou-macari",
       "name": "Lou Macari",
       "wikiTitle": "Lou Macari",
@@ -2708,14 +2849,6 @@
       "name": "Allenby Chilton",
       "wikiTitle": "Allenby Chilton",
       "overallRank": 35,
-      "premierLeagueEraRank": null,
-      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
-    },
-    {
-      "playerId": "mike-duxbury",
-      "name": "Mike Duxbury",
-      "wikiTitle": "Mike Duxbury",
-      "overallRank": 39,
       "premierLeagueEraRank": null,
       "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
@@ -2784,14 +2917,6 @@
       "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
-      "playerId": "willie-morgan",
-      "name": "Willie Morgan",
-      "wikiTitle": "Willie Morgan",
-      "overallRank": 65,
-      "premierLeagueEraRank": null,
-      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
-    },
-    {
       "playerId": "kevin-moran",
       "name": "Kevin Moran",
       "wikiTitle": "Kevin Moran (footballer)",
@@ -2824,45 +2949,13 @@
       "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     },
     {
-      "playerId": "lee-sharpe",
-      "name": "Lee Sharpe",
-      "wikiTitle": "Lee Sharpe",
-      "overallRank": 85,
-      "premierLeagueEraRank": 39,
-      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
-    },
-    {
       "playerId": "paul-parker",
       "name": "Paul Parker",
       "wikiTitle": "Paul Parker (footballer)",
       "overallRank": null,
       "premierLeagueEraRank": 66,
       "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
-    },
-    {
-      "playerId": "mal-donaghy",
-      "name": "Mal Donaghy",
-      "wikiTitle": "Mal Donaghy",
-      "overallRank": null,
-      "premierLeagueEraRank": 76,
-      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
-    },
-    {
-      "playerId": "neil-webb",
-      "name": "Neil Webb",
-      "wikiTitle": "Neil Webb",
-      "overallRank": null,
-      "premierLeagueEraRank": 79,
-      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
-    },
-    {
-      "playerId": "kobbie-mainoo",
-      "name": "Kobbie Mainoo",
-      "wikiTitle": "Kobbie Mainoo",
-      "overallRank": null,
-      "premierLeagueEraRank": 85,
-      "reason": "No raster Wikidata P18 image or Wikipedia pageimage found"
     }
   ],
-  "cachedAt": "2026-06-25T16:12:08.968Z"
+  "cachedAt": "2026-06-25T17:27:04.806Z"
 }

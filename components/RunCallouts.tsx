@@ -44,7 +44,7 @@ export function RunCallouts({
           <span className={`stat-num text-2xl font-semibold ${r.tone}`}>{r.n}</span>
           <span className="ml-1.5 text-sm text-ink-dim">{r.label}</span>
           <div className="stat-num mt-0.5 text-xs text-ink-faint">
-            {fmtDate(r.from)} – {fmtDate(r.to)}
+            {fmtDate(r.from)}–{fmtDate(r.to)}
           </div>
         </div>
       ))}

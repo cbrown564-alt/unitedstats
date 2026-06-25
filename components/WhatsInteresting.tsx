@@ -115,7 +115,7 @@ export function WhatsInteresting({ data }: { data: WhatsInterestingData }) {
     cards.push({
       key: "just-changed",
       href: change.path,
-      eyebrow: "Just changed",
+      eyebrow: "The record updated",
       figure: change.score,
       figureTone: resultTone(change.result),
       body: (

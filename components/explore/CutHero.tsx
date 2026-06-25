@@ -46,7 +46,7 @@ export function CutHero({ cut, result, href }: { cut: CuratedCut; result: CutRes
         <p className="mt-4 max-w-sm text-pretty text-sm leading-6 text-ink-dim">{cut.blurb}</p>
       )}
       <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
-        Open the cut →
+        Go to the full cut →
       </span>
     </FeatureSlide>
   );

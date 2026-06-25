@@ -63,51 +63,51 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   return {
     "late-goals": {
       stat: pct(late.late, late.timed),
-      gloss: "of timed goals come after the 85th — a genuine last-five edge, plus stoppage time that keeps growing",
+      gloss: "of timed goals land after the 85th minute — a late-stage edge, scaled by modern stoppage-time extensions",
       tone: "gold",
     },
     comebacks: {
       stat: fmtNum(cb.recovered),
-      gloss: `matches rescued after falling behind, ${fmtNum(cb.wonFromBehind)} turned all the way into wins`,
+      gloss: `matches salvaged from losing positions, including ${fmtNum(cb.wonFromBehind)} complete turnarounds`,
       tone: "win",
     },
     runs: {
       stat: fmtNum(longestUnbeaten?.length ?? 0),
-      gloss: "matches unbeaten — the club's longest run in official football",
+      gloss: "matches without defeat — the longest unbeaten run in official football",
       tone: "win",
     },
     "bogey-sides": {
       stat: topBogey ? pct(topBogey.w, topBogey.p) : "—",
       gloss: topBogey
-        ? `win rate against ${topBogey.name}, the hardest side United meet often`
+        ? `win rate against ${topBogey.name}, the most persistent obstacle in our history (min. 20 meetings)`
         : "the sides United beat least often",
       tone: "devil",
     },
     "manager-bounce": {
       stat: `${bounceUp} of ${bounce.length}`,
-      gloss: "managers started better than the form the club handed them",
+      gloss: "managers improved on the inherited form in their first ten matches",
       tone: "devil",
     },
     fortress: {
       stat: fmtNum(fortressRun),
-      gloss: `home league games led at half-time, unbeaten since ${fortressSince}`,
+      gloss: `home league fixtures led at the break, unbeaten since ${fortressSince}`,
       tone: "win",
     },
     "cup-specialists": {
       stat: cupMultiple ? `${cupMultiple.toFixed(1)}×` : "—",
       gloss: topCupLean
-        ? `${topCupLean.name}'s cup-goal rate over the club's — the most cup-loaded goalscorer`
+        ? `${topCupLean.name}’s rate of scoring in cups compared to the squad average — a cup-night specialist`
         : "goalscorers who leaned hardest to the cups",
       tone: "gold",
     },
     "own-goals": {
       stat: fmtNum(og.total),
-      gloss: `own goals for United${ogRank ? ` — #${ogRank} on the all-time scoring chart` : ""}`,
+      gloss: `own goals gifted to United — ranking #${ogRank} among our all-time top scorers`,
       tone: "devil",
     },
     "away-days": {
       stat: farthest ? `${fmtNum(Math.round(farthest.km))} km` : "—",
-      gloss: farthest ? `the longest away day, to ${farthest.name}` : "how far away days carry United",
+      gloss: farthest ? `for the longest away trip in the record, visiting ${farthest.name}` : "how far away days carry United",
       tone: "gold",
     },
   };

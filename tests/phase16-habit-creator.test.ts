@@ -136,7 +136,7 @@ test("cut embeds are bounded to curated slugs, render content, and are noindex",
     (await CutEmbedPage({ params: Promise.resolve({ slug: "opponents-by-win-rate" }) })) as React.ReactElement,
   );
   // The card carries its headline figure, the cut title, and a link back to the source.
-  assert.match(html, /Every opponent, by how often United beat them/);
+  assert.match(html, /All opponents, ranked by win rate/);
   assert.match(html, /95%/);
   assert.match(html, /View on Red Thread/);
 

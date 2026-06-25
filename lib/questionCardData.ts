@@ -31,7 +31,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const peakStoppage = Math.max(...data.map((d) => d.stoppage / d.timed));
       return {
         figure: pct(tot.late, tot.timed),
-        gloss: "of timed goals land after the 85th — a real edge in the last five minutes, plus a growing stoppage-time window",
+        gloss: "of timed goals land after the 85th minute — a late-stage edge, scaled by modern stoppage-time extensions",
         visual: {
           kind: "columns",
           bars: data.map((d) => ({
@@ -53,7 +53,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       ];
       return {
         figure: fmtNum(rows[0].value),
-        gloss: "matches unbeaten — United's longest run in official football",
+        gloss: "matches without defeat — the longest unbeaten run in official football",
         visual: { kind: "rows", bars: rows.map((r, i) => ({ ...r, valueText: fmtNum(r.value), highlight: i === 0 })) },
       };
     }
@@ -63,7 +63,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const worst = b[0];
       return {
         figure: pct(worst.w, worst.p),
-        gloss: `win rate v ${worst.name} — United's worst against a side met 20+ times`,
+        gloss: `win rate v ${worst.name} — the lowest against any opponent met 20+ times`,
         accent: "devil",
         visual: {
           kind: "rows",
@@ -79,7 +79,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const mult = base.share ? (top.cup_goals / top.total) / base.share : 0;
       return {
         figure: `${mult.toFixed(1)}×`,
-        gloss: `${top.name} leaned hardest to the cups — the club scores just ${pct(base.cup, base.total)} of its goals there`,
+        gloss: `${top.name} leaned hardest to the cups — compared to a squad baseline of just ${pct(base.cup, base.total)}`,
         visual: {
           kind: "rows",
           bars: sp.map((p, i) => ({
@@ -98,7 +98,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const board = (idx >= 0 && idx < 6 ? top.slice(0, 6) : [...top.slice(0, 5), top[idx]]).filter(Boolean);
       return {
         figure: idx >= 0 ? `#${idx + 1}` : fmtNum(og.total),
-        gloss: `“Own Goal” has ${fmtNum(og.total)} for United — among the club's leading goalscorers, belonging to no one`,
+        gloss: `“Own Goal” accounts for ${fmtNum(og.total)} goals — ranking among the club’s leading scorers, attributed to no player`,
         visual: {
           kind: "rows",
           bars: board.map((p) => ({
@@ -117,7 +117,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const since = lh.games.slice(lastLoss + 1);
       return {
         figure: fmtNum(since.length),
-        gloss: `home league games led at half-time, unbeaten since ${(lh.games[lastLoss]?.date ?? lh.from).slice(0, 4)}`,
+        gloss: `home league fixtures led at the break, unbeaten since ${(lh.games[lastLoss]?.date ?? lh.from).slice(0, 4)}`,
         visual: {
           kind: "wdl",
           w: since.filter((g) => g.result === "W").length,

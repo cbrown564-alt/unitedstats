@@ -316,7 +316,7 @@ export default async function PlayerPage({
                     <span className="stat-num text-3xl font-semibold text-devil-bright">{bestRun.length}</span>
                     <span className="ml-2 text-sm text-ink-dim">in a row</span>
                     <p className="stat-num mt-1 text-xs text-ink-faint">
-                      {fmtDate(bestRun.from)} – {fmtDate(bestRun.to)}
+                      {fmtDate(bestRun.from)}–{fmtDate(bestRun.to)}
                     </p>
                     <p className="mt-1 text-[11px] leading-4 text-ink-faint">
                       Consecutive matches where he scored, across games with complete goalscorer records — gaps break a run.

@@ -44,7 +44,7 @@ export function ComparisonHero({ c, href, title }: { c: Comparison; href: string
       </h3>
       {c.headline && <p className="mt-4 max-w-sm text-pretty text-sm leading-6 text-ink-dim">{c.headline}</p>}
       <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
-        Open the comparison →
+        Compare the records →
       </span>
     </FeatureSlide>
   );

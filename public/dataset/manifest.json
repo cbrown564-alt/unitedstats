@@ -1,7 +1,7 @@
 {
   "name": "Red Thread dataset",
   "description": "Every Manchester United match since 1886 with goal events, lineups, Elo history, and season summaries. Coverage varies by facet; see the events_complete and has_lineup flags and the site's /data page.",
-  "built_at": "2026-06-25T16:37:48.954Z",
+  "built_at": "2026-06-25T17:28:30.648Z",
   "first_match": "1886-10-30",
   "last_match": "2026-05-24",
   "files": {
@@ -13,7 +13,7 @@
     "season_summaries.csv": 398,
     "league_standings.csv": 2553,
     "players.csv": 984,
-    "player_media.csv": 132,
+    "player_media.csv": 139,
     "manager_media.csv": 22,
     "og_scorer_media.csv": 84,
     "player_positions.csv": 937

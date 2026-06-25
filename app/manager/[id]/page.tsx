@@ -109,7 +109,7 @@ export default async function ManagerPage({
     })
     .filter((s): s is SpanSegment => s != null);
   const tenureCaption = tenures
-    .map((t) => `${fmtDate(t.date_from)} – ${t.date_to ? fmtDate(t.date_to) : "present"}${t.note ? ` (${t.note})` : ""}`)
+    .map((t) => `${fmtDate(t.date_from)}–${t.date_to ? fmtDate(t.date_to) : "present"}${t.note ? ` (${t.note})` : ""}`)
     .join(" · ");
 
   return (
