@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { MatchRow } from "@/lib/queries";
 import { fmtDate, scoreline, venuePrefix } from "@/lib/format";
+import { opponentNames } from "@/lib/clubNames";
 
 type Haul = MatchRow & { goals: number; minutes?: string | null };
 
@@ -36,6 +37,7 @@ export function HaulCards({
     <div className={className}>
       {hauls.map((m) => {
         const mins = minuteList(m.minutes);
+        const opp = opponentNames(m.opponent_id, m.opponent_name);
         return (
           <Link
             key={m.id}
@@ -46,8 +48,10 @@ export function HaulCards({
             <div className="mt-1 flex items-baseline gap-2">
               <span className={`stat-num text-2xl font-semibold ${tone(m.goals)}`}>{m.goals}</span>
               <span className="text-sm text-ink-dim">goals</span>
-              <span className="min-w-0 truncate text-sm font-medium text-ink-dim group-hover:text-devil-bright">
-                <span className="text-ink-faint">{venuePrefix(m.venue)}</span> {m.opponent_name}
+              <span className="min-w-0 text-sm font-medium text-ink-dim group-hover:text-devil-bright sm:truncate" title={m.opponent_name}>
+                <span className="text-ink-faint">{venuePrefix(m.venue)}</span>{" "}
+                <span className="sm:hidden">{opp.short}</span>
+                <span className="hidden sm:inline">{m.opponent_name}</span>
               </span>
             </div>
             <p className="stat-num mt-0.5 text-xs text-ink-faint">

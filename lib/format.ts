@@ -205,6 +205,34 @@ export const COMPETITION_TYPE_LABELS: Record<string, string> = {
   unofficial: "Wartime & friendlies",
 };
 
+/** Compact competition labels for mobile match rows and cards. */
+const COMPETITION_SHORT: Record<string, string> = {
+  "premier-league": "Premier League",
+  "first-division": "First Division",
+  "second-division": "Second Div",
+  "football-league": "Football Lg",
+  "champions-league": "Champions Lg",
+  "european-cup": "European Cup",
+  "uefa-cup": "UEFA Cup",
+  "europa-league": "Europa Lg",
+  "cup-winners-cup": "Cup Winners",
+  "inter-cities-fairs-cup": "Fairs Cup",
+  "fa-cup": "FA Cup",
+  "league-cup": "League Cup",
+  "charity-shield": "Shield",
+  "uefa-super-cup": "Super Cup",
+  "screen-sport-super-cup": "Screen Sport",
+  "intercontinental-cup": "Intercontinental",
+  "fifa-club-world-cup": "Club World Cup",
+  "test-match": "Test Match",
+  wartime: "Wartime",
+  friendly: "Friendly",
+};
+
+export function competitionShortName(id: string, full: string): string {
+  return COMPETITION_SHORT[id] ?? full;
+}
+
 /** Count wins/draws/losses over a list of result-bearing rows. */
 export function tallyWdl(rows: { result: string }[]): { w: number; d: number; l: number } {
   let w = 0, d = 0, l = 0;

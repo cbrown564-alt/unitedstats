@@ -1,4 +1,5 @@
 import { opponentsIndex } from "@/lib/queries";
+import { opponentNames } from "@/lib/clubNames";
 import { ClubBadge } from "@/components/ClubBadge";
 import { OpponentRivalryMap } from "@/components/charts/OpponentRivalryMap";
 import { IndexRow } from "@/components/IndexRow";
@@ -28,6 +29,7 @@ export default function OpponentsPage() {
         rank={i + 1}
         leading={<ClubBadge id={o.id} name={o.name} size="md" />}
         name={o.name}
+        compactName={opponentNames(o.id, o.name).short}
         sub={`${o.first.slice(0, 4)}–${o.last.slice(0, 4)}`}
         w={o.w}
         d={o.d}

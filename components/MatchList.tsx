@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
-import { fmtDate, fmtNum, parseRound, resultTone, scoreline, scoreNote, venuePrefix } from "@/lib/format";
+import { fmtDate, fmtNum, parseRound, resultTone, scoreline, scoreNote, venuePrefix, competitionShortName } from "@/lib/format";
 import { opponentNames } from "@/lib/clubNames";
 import { ResultBadge } from "./ResultBadge";
 import { CompetitionDot } from "./CompetitionChip";
@@ -70,11 +70,13 @@ export function MatchList<T extends MatchRow>({
                 </span>
                 {note && <span className="shrink-0 text-xs text-ink-faint">{note}</span>}
               </span>
-              <span className="flex items-center gap-1.5 text-xs text-ink-dim sm:hidden">
+              <span className="flex min-w-0 items-center gap-1.5 text-xs text-ink-dim sm:hidden">
                 <CompetitionDot type={m.competition_type} />
-                {fmtDate(m.date)}
-                {showSeason ? ` · ${m.season}` : ""}
-                {showAttendance && m.attendance != null ? ` · ${fmtNum(m.attendance)}` : ""}
+                <span className="truncate">{competitionShortName(m.competition_id, m.competition_name)}</span>
+                <span className="shrink-0 text-ink-faint">·</span>
+                <span className="shrink-0">{fmtDate(m.date)}</span>
+                {showSeason ? <><span className="shrink-0 text-ink-faint"> · </span><span className="truncate">{m.season}</span></> : null}
+                {showAttendance && m.attendance != null ? <><span className="shrink-0 text-ink-faint"> · </span><span className="shrink-0">{fmtNum(m.attendance)}</span></> : null}
               </span>
             </span>
             {renderExtra && (

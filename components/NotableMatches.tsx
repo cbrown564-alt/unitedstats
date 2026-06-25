@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { fmtDate, scoreline, venuePrefix } from "@/lib/format";
+import { opponentNames } from "@/lib/clubNames";
 import type { NotableMatch } from "@/lib/trails";
 
 // Result-coloured left edge, matching the MatchList accent idiom so colour is a
@@ -33,7 +34,9 @@ export function NotableMatches({
   if (matches.length === 0) return null;
   return (
     <div className={className}>
-      {matches.map((m) => (
+      {matches.map((m) => {
+        const opp = opponentNames("", m.opponent_name);
+        return (
         <Link
           key={m.id}
           href={`/match/${m.id}`}
@@ -44,15 +47,18 @@ export function NotableMatches({
             <span className={`stat-num text-2xl font-semibold ${SCORE_TONE[m.result] ?? "text-ink"}`}>
               {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet)}
             </span>
-            <span className="min-w-0 truncate text-sm font-medium text-ink-dim group-hover:text-devil-bright">
-              <span className="text-ink-faint">{venuePrefix(m.venue)}</span> {m.opponent_name}
+            <span className="min-w-0 text-sm font-medium text-ink-dim group-hover:text-devil-bright sm:truncate" title={m.opponent_name}>
+              <span className="text-ink-faint">{venuePrefix(m.venue)}</span>{" "}
+              <span className="sm:hidden">{opp.short}</span>
+              <span className="hidden sm:inline">{m.opponent_name}</span>
             </span>
           </div>
-          <p className="stat-num mt-0.5 truncate text-xs text-ink-faint">
+          <p className="stat-num mt-0.5 break-words line-clamp-2 text-xs text-ink-faint sm:line-clamp-1 sm:truncate">
             {fmtDate(m.date)} · {m.competition_name}
           </p>
         </Link>
-      ))}
+        );
+      })}
     </div>
   );
 }

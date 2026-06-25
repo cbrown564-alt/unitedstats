@@ -50,6 +50,11 @@ export function InspectableTimeSeriesChart({
 
   if (data.length < 2) return null;
 
+  const xMin = data[0]?.x ?? 0;
+  const xMax = data[data.length - 1]?.x ?? xMin;
+  const xSpan = xMax - xMin || 1;
+  const minEraLabelSpan = xSpan * 0.07;
+
   return (
     <div className="h-full min-h-56 min-w-0 w-full" style={{ height }}>
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
@@ -76,7 +81,7 @@ export function InspectableTimeSeriesChart({
               stroke="var(--color-line)"
               strokeOpacity={0.5}
               label={
-                era.label
+                era.label && era.x1 - era.x0 >= minEraLabelSpan
                   ? { value: era.label, position: "insideTop", fill: "var(--color-ink-faint)", fontSize: 10 }
                   : undefined
               }

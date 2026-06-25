@@ -31,6 +31,8 @@ export function IndexRow({
   rank?: number;
   leading: React.ReactNode;
   name: string;
+  /** Shorter label for narrow viewports (e.g. broadcast opponent short name). */
+  compactName?: string;
   /** Small marker shown immediately after the name (e.g. a gold honours count). */
   badge?: React.ReactNode;
   sub: React.ReactNode;
@@ -60,7 +62,16 @@ export function IndexRow({
         {leading}
         <span className="min-w-0">
           <span className="flex items-center gap-1.5">
-            <span className="line-clamp-2 font-medium leading-tight sm:truncate">{name}</span>
+            <span className="break-words font-medium leading-tight line-clamp-2 sm:line-clamp-1 sm:truncate">
+              {compactName ? (
+                <>
+                  <span className="sm:hidden">{compactName}</span>
+                  <span className="hidden sm:inline">{name}</span>
+                </>
+              ) : (
+                name
+              )}
+            </span>
             {badge}
           </span>
           <span className="stat-num block text-xs text-ink-faint">{sub}</span>
