@@ -16,7 +16,7 @@ export function EloHero({
 }: {
   points: { date: string; elo: number }[];
   eras: { from: string; to: string; label?: string }[];
-  trophyMarkers?: { date: string; season: string }[];
+  trophyMarkers?: { date: string; season: string; count: number }[];
   current: number;
   peak: { elo: number; date: string };
   trough: { elo: number; date: string };
@@ -71,17 +71,15 @@ export function EloHero({
         <div className="mt-6">
           <EloRatingChart points={points} height={300} eras={eras} />
           {trophyMarkers && trophyMarkers.length > 0 && (
-            <div className="pl-[58px] pr-2.5">
-              <TrophyMarkerStrip markers={trophyMarkers} xMin={xMin} xMax={xMax} />
-            </div>
+            <TrophyMarkerStrip markers={trophyMarkers} xMin={xMin} xMax={xMax} />
           )}
         </div>
 
         <p className="mt-3 max-w-2xl text-xs text-ink-faint">
           <span className="text-ink-dim">Slice:</span> every competitive match, closed-universe Elo — opponents are
           rated only on their matches against United, K varies by competition and goal margin, home advantage worth
-          60 points. Shaded bands mark managerial eras, the longest-serving labelled; the gold ticks below the chart
-          mark trophy-winning seasons. This rating drives the favourites line on every match page.
+          60 points. Shaded bands mark managerial eras, the longest-serving labelled. This rating drives the
+          favourites line on every match page.
         </p>
       </div>
     </section>

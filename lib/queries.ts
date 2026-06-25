@@ -1109,24 +1109,27 @@ export function managerHonours(): ManagerHonourSeason[] {
 export interface HonourSeasonMarker {
   season: string;
   date: string;
+  /** Trophies won that season — a dot each, stacked when greater than one. */
+  count: number;
 }
 
-/** Latest match date of each trophy-winning season — for Elo timeline markers. */
+/** Trophy-winning seasons for the Elo timeline — one row per season, with count. */
 export function honourSeasonMarkers(): HonourSeasonMarker[] {
   return getDb()
     .prepare(
-      `WITH honour_seasons AS (
+      `WITH honours AS (
          SELECT ss.season
          FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
          WHERE c.type = 'league' AND ss.position = 1 AND c.name IN ('First Division','Premier League')
-         UNION
-         SELECT DISTINCT m.season
+         UNION ALL
+         SELECT m.season
          FROM matches m JOIN competitions c ON c.id = m.competition_id
          WHERE ${CUP_WON_PREDICATE}
        )
-       SELECT hs.season, d.date
-       FROM honour_seasons hs
-       JOIN (SELECT season, MAX(date) AS date FROM matches GROUP BY season) d ON d.season = hs.season
+       SELECT h.season, d.date, COUNT(*) AS count
+       FROM honours h
+       JOIN (SELECT season, MAX(date) AS date FROM matches GROUP BY season) d ON d.season = h.season
+       GROUP BY h.season
        ORDER BY d.date`,
     )
     .all() as HonourSeasonMarker[];
