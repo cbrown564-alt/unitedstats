@@ -46,3 +46,6 @@ next-env.d.ts
 # raw open-data downloads (reproducible via scripts/ingest)
 /data/raw/
 
+# compiled SQLite db (reproducible via `npm run build:db` from data/canonical)
+/data/united.db
+
