@@ -222,7 +222,7 @@ export default function AnalyticsPage() {
               data={sim.distribution.map((d) => ({
                 label: String(d.points),
                 value: d.share * 100,
-                valueLabel: `${(100 * d.share).toFixed(1)}% of replays`,
+                valueLabel: `${(100 * d.share).toFixed(0)}% of replays`,
                 meta: `${fmtNum(Math.round(d.share * sim.runs))} of ${fmtNum(sim.runs)} simulations`,
               }))}
               labelEvery={5}
@@ -268,7 +268,7 @@ export default function AnalyticsPage() {
                 x: Number(s.season.slice(0, 4)),
                 y: s.win_pct,
                 label: s.season,
-                valueLabel: `${s.win_pct.toFixed(1)}% won`,
+                valueLabel: `${s.win_pct.toFixed(0)}% won`,
                 meta: `${fmtNum(s.p)} matches, ${s.w} wins`,
               }))}
               baseline={50}

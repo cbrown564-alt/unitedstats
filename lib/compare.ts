@@ -65,7 +65,7 @@ export interface CompareMetric {
   label: string;
   a: number | null;
   b: number | null;
-  fmt: "int" | "pct" | "dec2";
+  fmt: "int" | "pct" | "dec1" | "dec2";
   /** Direction of "leads" for the highlight; omit for a neutral, un-judged metric. */
   better?: "higher" | "lower";
   /** Per-metric coverage caveat, surfaced under the label. */
@@ -229,7 +229,7 @@ function trophyHeadline(
   const [hi, lo, hiName] = aTot >= bTot ? [aTot, bTot, aLabel] : [bTot, aTot, bLabel];
   if (hi === 0) {
     const [wHi, wLo, wName] = (aWin ?? 0) >= (bWin ?? 0) ? [aWin ?? 0, bWin ?? 0, aLabel] : [bWin ?? 0, aWin ?? 0, bLabel];
-    return `Neither lifted a trophy here — ${wName} edges it on win rate, ${wHi.toFixed(1)}% to ${wLo.toFixed(1)}%.`;
+    return `Neither lifted a trophy here — ${wName} edges it on win rate, ${wHi.toFixed(0)}% to ${wLo.toFixed(0)}%.`;
   }
   if (lo === 0) return `${hiName} won every trophy between them — ${hi} to none.`;
   const ratio = hi / lo;
@@ -260,9 +260,9 @@ export function compareManagers(idA: string, idB: string): Comparison | null {
     metrics: [
       { label: "Matches in charge", a: a.p, b: b.p, fmt: "int" },
       { label: "Win rate", a: winPct(a), b: winPct(b), fmt: "pct", better: "higher" },
-      { label: "Points per game", a: ppg(a), b: ppg(b), fmt: "dec2", better: "higher", note: "Three points for a win applied across all eras, a modern convention." },
-      { label: "Goals per game", a: per(a.gf, a.p), b: per(b.gf, b.p), fmt: "dec2", better: "higher" },
-      { label: "Conceded per game", a: per(a.ga, a.p), b: per(b.ga, b.p), fmt: "dec2", better: "lower" },
+      { label: "Points per game", a: ppg(a), b: ppg(b), fmt: "dec1", better: "higher", note: "Three points for a win applied across all eras, a modern convention." },
+      { label: "Goals per game", a: per(a.gf, a.p), b: per(b.gf, b.p), fmt: "dec1", better: "higher" },
+      { label: "Conceded per game", a: per(a.ga, a.p), b: per(b.ga, b.p), fmt: "dec1", better: "lower" },
       { label: "Trophies", a: aTot, b: bTot, fmt: "int", better: "higher" },
     ],
     signature: { kind: "trophies", a: managerTrophies(a.id), b: managerTrophies(b.id) },
@@ -390,9 +390,9 @@ export function compareEras(keyA: string, keyB: string): Comparison | null {
     metrics: [
       { label: "Matches played", a: ra.p, b: rb.p, fmt: "int" },
       { label: "Win rate", a: winPct(ra), b: winPct(rb), fmt: "pct", better: "higher" },
-      { label: "Points per game", a: ppg(ra), b: ppg(rb), fmt: "dec2", better: "higher", note: "Three points for a win applied across all eras." },
-      { label: "Goals per game", a: per(ra.gf, ra.p), b: per(rb.gf, rb.p), fmt: "dec2", better: "higher" },
-      { label: "Conceded per game", a: per(ra.ga, ra.p), b: per(rb.ga, rb.p), fmt: "dec2", better: "lower" },
+      { label: "Points per game", a: ppg(ra), b: ppg(rb), fmt: "dec1", better: "higher", note: "Three points for a win applied across all eras." },
+      { label: "Goals per game", a: per(ra.gf, ra.p), b: per(rb.gf, rb.p), fmt: "dec1", better: "higher" },
+      { label: "Conceded per game", a: per(ra.ga, ra.p), b: per(rb.ga, rb.p), fmt: "dec1", better: "lower" },
       { label: "Trophies", a: haulA.total, b: haulB.total, fmt: "int", better: "higher" },
     ],
     signature: { kind: "skyline", a: eraFinishes(eraA), b: eraFinishes(eraB) },

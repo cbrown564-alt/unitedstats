@@ -187,7 +187,7 @@ function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul;
         <div className="mt-3">
           <div className="flex items-baseline justify-between text-[11px] uppercase tracking-[0.12em] text-ink-faint">
             <span>Win rate</span>
-            <span className="stat-num text-ink">{win.toFixed(1)}%</span>
+            <span className="stat-num text-ink">{win.toFixed(0)}%</span>
           </div>
           <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-panel-2">
             <div className="h-full rounded-full" style={{ width: `${Math.max(0, Math.min(100, win))}%`, background: color }} />

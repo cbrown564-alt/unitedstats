@@ -413,10 +413,10 @@ function percentileClaims(seq: SeqMatch[], index: number): Omit<HistoryDigestCla
   const belowOrEqual = values.filter((v) => v <= m.elo_post!).length;
   const percentile = (100 * belowOrEqual) / values.length;
   if (percentile >= 95) {
-    return [baseClaim(m, "historical-percentile", "Near United's strongest-ever form", `By Elo, United were rated stronger than at all but ${(100 - percentile).toFixed(1)}% of moments in their history to that date (${percentile.toFixed(1)}th percentile).`, Number(percentile.toFixed(1)))];
+    return [baseClaim(m, "historical-percentile", "Near United's strongest-ever form", `By Elo, United were rated stronger than at all but ${(100 - percentile).toFixed(0)}% of moments in their history to that date (${percentile.toFixed(0)}th percentile).`, Number(percentile.toFixed(1)))];
   }
   if (percentile <= 5) {
-    return [baseClaim(m, "historical-percentile", "Near United's lowest-ever ebb", `By Elo, United were rated weaker than at all but ${percentile.toFixed(1)}% of moments in their history to that date (${percentile.toFixed(1)}th percentile).`, Number(percentile.toFixed(1)))];
+    return [baseClaim(m, "historical-percentile", "Near United's lowest-ever ebb", `By Elo, United were rated weaker than at all but ${percentile.toFixed(0)}% of moments in their history to that date (${percentile.toFixed(0)}th percentile).`, Number(percentile.toFixed(1)))];
   }
   return [];
 }

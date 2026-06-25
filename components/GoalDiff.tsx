@@ -59,7 +59,7 @@ function GoalDiffBlock({
   const [perGame, setPerGame] = useState(canPerGame);
 
   const gd = gf - ga;
-  const per = (n: number) => (n / (played as number)).toFixed(2);
+  const per = (n: number) => (n / (played as number)).toFixed(1);
   const figure = `${signOf(gd)}${perGame ? per(Math.abs(gd)) : fmtNum(Math.abs(gd))}`;
   const scored = perGame ? per(gf) : fmtNum(gf);
   const conceded = perGame ? per(ga) : fmtNum(ga);

@@ -235,8 +235,9 @@ export function metricFmt(value: number | null, metric: CutMetric): string {
   if (value === null) return "—";
   switch (metric) {
     case "winrate":
-      return `${value.toFixed(1)}%`;
+      return `${value.toFixed(0)}%`;
     case "ppg":
+      return value.toFixed(1);
     case "goalsperapp":
       return value.toFixed(2);
     case "gd":

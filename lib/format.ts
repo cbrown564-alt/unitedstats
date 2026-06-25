@@ -31,7 +31,7 @@ export function fmtAxisNumber(value: number | string, suffix = ""): string {
 
 export function pct(part: number, whole: number): string {
   if (!whole) return "—";
-  return `${((100 * part) / whole).toFixed(1)}%`;
+  return `${((100 * part) / whole).toFixed(0)}%`;
 }
 
 /**

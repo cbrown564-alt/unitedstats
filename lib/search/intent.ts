@@ -52,7 +52,7 @@ function recordFor(f: MatchFilter): Record_ {
 
 function recText(r: Record_): string {
   if (!r.p) return "no matches on record";
-  const winPct = ((100 * r.w) / r.p).toFixed(1);
+  const winPct = ((100 * r.w) / r.p).toFixed(0);
   return `P${r.p} W${r.w} D${r.d} L${r.l} · ${winPct}% won · GF ${r.gf} GA ${r.ga}`;
 }
 
@@ -473,7 +473,7 @@ function goalWindowCut(intent: ParsedIntent, win: GoalWindow, player?: IndexRow)
   const scopeBit = intent.opponent
     ? ` ${oppPhrase(intent.opponent, intent.filter.venue)}`
     : scopePhrase(intent) ? ` ${scopePhrase(intent)}` : "";
-  const pct = r.total ? ((100 * r.win) / r.total).toFixed(1) : "0";
+  const pct = r.total ? ((100 * r.win) / r.total).toFixed(0) : "0";
   return {
     title: `${who} ${win.name} goals${scopeBit}`,
     summary: r.total

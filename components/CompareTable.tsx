@@ -7,7 +7,8 @@ import { fmtNum } from "@/lib/format";
 
 function fmtVal(v: number | null, fmt: CompareMetric["fmt"]): string {
   if (v == null) return "—";
-  if (fmt === "pct") return `${v.toFixed(1)}%`;
+  if (fmt === "pct") return `${v.toFixed(0)}%`;
+  if (fmt === "dec1") return v.toFixed(1);
   if (fmt === "dec2") return v.toFixed(2);
   return fmtNum(Math.round(v));
 }

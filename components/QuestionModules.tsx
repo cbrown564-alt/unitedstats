@@ -217,8 +217,8 @@ function LateGoalsModule({ variant }: ModuleProps) {
                 tickLabel: d.decade.slice(2),
                 value: round1((100 * d.reg) / d.timed),
                 value2: round1((100 * d.stoppage) / d.timed),
-                valueLabel: `${round1((100 * d.late) / d.timed).toFixed(1)}% after 85'`,
-                meta: `${round1((100 * d.reg) / d.timed).toFixed(1)}% last five minutes · ${round1((100 * d.stoppage) / d.timed).toFixed(1)}% stoppage`,
+                valueLabel: `${Math.round((100 * d.late) / d.timed)}% after 85'`,
+                meta: `${Math.round((100 * d.reg) / d.timed)}% last five minutes · ${Math.round((100 * d.stoppage) / d.timed)}% stoppage`,
                 href: `/matches?from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
               }))}
               fill

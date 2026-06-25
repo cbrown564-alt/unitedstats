@@ -78,7 +78,7 @@ export function IndexRow({
         {gdPerGame != null && (
           <span className={`block text-xs font-medium ${gdTone(gdPerGame)}`}>
             {gdSign(gdPerGame)}
-            {Math.abs(gdPerGame).toFixed(2)} <span className="text-ink-faint">gd/game</span>
+            {Math.abs(gdPerGame).toFixed(1)} <span className="text-ink-faint">gd/game</span>
           </span>
         )}
         <span className="block text-[11px] text-ink-faint">{fmtNum(p)} played</span>
