@@ -216,7 +216,7 @@ export default function Home() {
               </span>
             </div>
             <p className="mt-1 text-sm text-ink-dim">
-              of timed United goals come after the 85th minute. Most is a genuine edge in the last five regulation minutes
+              of timed United goals come after the 85th minute. Most of that edge is in minutes 86-90
               ({pct(lateAgg.reg, lateAgg.timed)}); the modern surge on top is stoppage time, and it keeps growing.
             </p>
             <div className="mt-4">

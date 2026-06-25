@@ -312,20 +312,17 @@ export interface MatchFilter {
   from?: string;
   to?: string;
   q?: string;
-  /** Result ordering. Defaults to most-recent-first. */
-  sort?: "recent" | "oldest" | "margin" | "defeat" | "attendance";
+  /** Result ordering. Defaults to newest date first. */
+  sort?: "date-desc" | "date-asc" | "gd-desc" | "gd-asc";
   limit?: number;
   offset?: number;
 }
 
 const MATCH_ORDER: Record<NonNullable<MatchFilter["sort"]>, string> = {
-  recent: "m.date DESC",
-  oldest: "m.date ASC",
-  margin: "(m.gf - m.ga) DESC, m.gf DESC, m.date DESC",
-  // heaviest losing margin first, then most goals conceded
-  defeat: "(m.gf - m.ga) ASC, m.ga DESC, m.date DESC",
-  // nulls last, then largest crowd first
-  attendance: "(m.attendance IS NULL), m.attendance DESC, m.date DESC",
+  "date-desc": "m.date DESC",
+  "date-asc": "m.date ASC",
+  "gd-desc": "(m.gf - m.ga) DESC, m.gf DESC, m.date DESC",
+  "gd-asc": "(m.gf - m.ga) ASC, m.ga DESC, m.date DESC",
 };
 
 function hasGoalEventFilter(f: MatchFilter): boolean {
@@ -507,7 +504,7 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
       .prepare(`SELECT COUNT(*) n FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`)
       .get(params) as { n: number }
   ).n;
-  const orderBy = MATCH_ORDER[f.sort ?? "recent"] ?? MATCH_ORDER.recent;
+  const orderBy = MATCH_ORDER[f.sort ?? "date-desc"] ?? MATCH_ORDER["date-desc"];
   const rows = getDb()
     .prepare(`${MATCH_SELECT} ${cond} ORDER BY ${orderBy} LIMIT @limit OFFSET @offset`)
     .all({ ...params, limit: f.limit ?? 50, offset: f.offset ?? 0 }) as MatchRow[];
@@ -1657,7 +1654,7 @@ export function dataGaps(limit = 12): {
     .prepare(
       `SELECT m.id, m.date, m.season, m.opponent_name, c.name AS competition_name, m.gf, m.ga,
               CASE
-                WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United scorers'
+                WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United goalscorers'
                 WHEN m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 'opposition goals'
                 WHEN m.has_lineup = 0 THEN 'lineup'
                 WHEN m.attendance IS NULL THEN 'attendance'

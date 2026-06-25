@@ -202,7 +202,7 @@ export function MatchFilterBar({
 
       {chips.length === 0 && (
         <p className="mt-2 text-sm text-ink-faint">
-          Add a filter to narrow the archive — opponent, era, competition, result, ground, scorer and more.
+          Add a filter to narrow the archive — opponent, era, competition, result, ground, goalscorer and more.
         </p>
       )}
     </div>

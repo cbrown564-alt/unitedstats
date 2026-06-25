@@ -194,12 +194,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <section className="space-y-2">
             <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
             {!m.events_complete && (
-              <p className="text-xs text-ink-faint">Scorer data for this match may be incomplete.</p>
+              <p className="text-xs text-ink-faint">Goalscorer data for this match may be incomplete.</p>
             )}
           </section>
         )}
 
-      {/* Untimed scorers: events exist but no minutes — keep a plain list. */}
+      {/* Untimed goalscorers: events exist but no minutes — keep a plain list. */}
       {!hasTimedGoals && (goals.length > 0 || opponentGoals.length > 0) && (
         <section className="grid sm:grid-cols-2 gap-x-8 gap-y-4 max-w-3xl">
           {goals.length > 0 && (
@@ -243,19 +243,19 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             </div>
           )}
           {!m.events_complete && (
-            <p className="text-xs text-ink-faint sm:col-span-2">Scorer data for this match may be incomplete.</p>
+            <p className="text-xs text-ink-faint sm:col-span-2">Goalscorer data for this match may be incomplete.</p>
           )}
         </section>
       )}
 
       {goals.length === 0 && m.gf > 0 && (
         <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
-          <h2 className="display text-xl">Scorers</h2>
+          <h2 className="display text-xl">Goalscorers</h2>
           <p className="text-sm text-ink-dim mt-1">
-            United scored {m.gf}, but this match does not yet have scorer events in the canonical record.
+            United scored {m.gf}, but this match does not yet have goalscorer events in the canonical record.
           </p>
           <Link href="/data" className="text-xs text-devil-bright hover:underline mt-2 inline-block">
-            How to add the missing scorers
+            How to add the missing goalscorers
           </Link>
         </section>
       )}
@@ -263,7 +263,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         <section className="border border-line rounded-lg bg-panel px-4 py-3 max-w-2xl">
           <h2 className="display text-xl">{m.opponent_name} goals</h2>
           <p className="text-sm text-ink-dim mt-1">
-            {m.opponent_name} scored {m.ga}, but opposition scorer events are not recorded for this match yet.
+            {m.opponent_name} scored {m.ga}, but opposition goalscorer events are not recorded for this match yet.
           </p>
           <Link href="/data" className="text-xs text-devil-bright hover:underline mt-2 inline-block">
             How to add opposition goals
@@ -360,7 +360,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         ))}
                       </ul>
                       <p className="text-xs text-ink-faint mt-2">
-                        Bench rows are source evidence only; they do not count as appearances unless the player entered the match.
+                        Players listed on the bench only count as appearances if they came on.
                       </p>
                     </div>
                   )}

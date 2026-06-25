@@ -203,7 +203,7 @@ export default async function SeasonPage({
           <h2 className="mb-1.5 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
           <p className="text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
           <p className="mt-2 text-[11px] text-ink-faint">
-            Written by the data: every sentence is computed from the match record below, and scorer
+            Written by the data: every sentence is computed from the match record below, and goalscorer
             claims state their coverage.
           </p>
         </div>
@@ -285,7 +285,7 @@ export default async function SeasonPage({
         </div>
         <CoverageNote
           slice="every competitive match this season, grouped by competition."
-          coverage="Result data is complete; recorded scorer and lineup coverage vary by era."
+          coverage="Result data is complete; recorded goalscorer and lineup coverage vary by era."
         />
       </section>
     </div>

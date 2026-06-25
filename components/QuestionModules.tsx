@@ -193,8 +193,8 @@ function LateGoalsModule({ variant }: ModuleProps) {
       slug="late-goals"
       evidence={{ href: "/matches", label: "Browse every match →", count: Number(meta.matches), countNoun: "matches" }}
       variant={variant}
-      finding={`Yes — and the proof is in regulation, not stoppage time. The last five minutes before the whistle (86–90) hold ${pct(overallLateShare.reg, overallLateShare.timed)} of all United goals, comfortably above the ${pct(5, 90)} an even spread would give. United were scoring late long before anyone gave it a name.`}
-      slice="United goals with a recorded minute — penalties and own goals for included — grouped by decade, the post-85th window split into the last five regulation minutes (86–90) and stoppage time (90+, with added time folded into the final minute). Decades with fewer than 20 timed goals are hidden."
+      finding={`Yes — and the proof is in normal time, not stoppage time. The last five minutes before the whistle (86–90) hold ${pct(overallLateShare.reg, overallLateShare.timed)} of all United goals, comfortably above the ${pct(5, 90)} an even spread would give. United were scoring late long before anyone gave it a name.`}
+      slice="United goals with a recorded minute — penalties and own goals for included — grouped by decade, the post-85th window split between minutes 86–90 and stoppage time (90+, with added time folded into the final minute). Decades with fewer than 20 timed goals are hidden."
       coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute, and that data thins quickly before the 1990s. Stoppage-time goals are only separable where a source marks them "90+" — largely a modern convention — so the stoppage segment reads near zero in the early decades partly because it went unrecorded, not only because added time was shorter.`}
     >
       <div>
@@ -224,7 +224,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
               fill
               color="var(--color-gold)"
               stack={{ color: "var(--color-devil-bright)" }}
-              chartLabel="Manchester United late goal share by decade, split into regulation and stoppage time"
+              chartLabel="Manchester United late goal share by decade, split between minutes 86-90 and stoppage time"
               yTickSuffix="%"
               baseline={{ value: 100 / 18 }}
             />
@@ -633,9 +633,9 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
       slug="cup-specialists"
       evidence={{ href: "/matches?type=cup", label: "Every cup match →" }}
       variant={variant}
-      finding={`United score just ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups — FA Cup, League Cup, Europe, and the one-off finals. These ten scorers all more than double that, ${topCupLean.name} most of all at ${(cupBaseline.share ? (topCupLean.cup_goals / topCupLean.total) / cupBaseline.share : 0).toFixed(1)}× the club rate.`}
+      finding={`United score just ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups — FA Cup, League Cup, Europe, and the one-off finals. These ten goalscorers all more than double that, ${topCupLean.name} most of all at ${(cupBaseline.share ? (topCupLean.cup_goals / topCupLean.total) / cupBaseline.share : 0).toFixed(1)}× the club rate.`}
       slice="Goals (excluding own goals) per player split league v cup by competition type, minimum 25 recorded goals, ranked by cup share. The multiplier is each player's cup share over the club-wide cup share."
-      coverage={`Scorer attribution exists for ${fmtNum(Number(meta.matches_with_scorers))} of ${fmtNum(Number(meta.matches))} matches, weighted toward the post-war era — pre-war specialists may be under-counted.`}
+      coverage={`Goalscorer attribution exists for ${fmtNum(Number(meta.matches_with_scorers))} of ${fmtNum(Number(meta.matches))} matches, weighted toward the post-war era — pre-war specialists may be under-counted.`}
     >
       <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
         <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
@@ -646,7 +646,7 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
         </div>
         <div className="flex items-center text-sm text-ink-dim sm:px-2">
           <span>
-            Of {fmtNum(cupBaseline.total)} recorded goals, just {fmtNum(cupBaseline.cup)} landed in a cup. So a scorer
+            Of {fmtNum(cupBaseline.total)} recorded goals, just {fmtNum(cupBaseline.cup)} landed in a cup. So a goalscorer
             who hits the same rate is ordinary; the players below cleared{" "}
             <span className="text-gold">double the club&apos;s {pct(cupBaseline.cup, cupBaseline.total)}</span> — they truly saved their goals for cup nights.
           </span>
@@ -678,9 +678,9 @@ function OwnGoalsModule({ variant }: ModuleProps) {
       slug="own-goals"
       evidence={{ href: "/player/own-goal", label: "Every own goal for United →", count: ogSummary.total, countNoun: "own goals" }}
       variant={variant}
-      finding={`Treat every own goal an opponent has turned into United's net as one scorer and the answer is yes: ${fmtNum(ogSummary.total)} of them${ogRank ? `, the ${ogRank === 5 ? "fifth" : `#${ogRank}`}-most in the club's history` : ""} — and spread so thin across ${fmtNum(ogSummary.scorers)} different players that no one has done it more than ${ogRepeat[0]?.n ?? 1} times.`}
-      slice="Own goals credited to United (an opponent scoring into his own net), all official competitions, gathered under the synthetic scorer 'Own Goal'. The leaderboard counts only own goals with a recorded scorer."
-      coverage={`${fmtNum(ogSummary.named)} of ${fmtNum(ogSummary.total)} own goals carry a named scorer; the remaining ${fmtNum(ogSummary.unknown)}, mostly pre-war, were recorded only as "own goal".`}
+      finding={`Treat every own goal an opponent has turned into United's net as one goalscorer and the answer is yes: ${fmtNum(ogSummary.total)} of them${ogRank ? `, the ${ogRank === 5 ? "fifth" : `#${ogRank}`}-most in the club's history` : ""} — and spread so thin across ${fmtNum(ogSummary.scorers)} different players that no one has done it more than ${ogRepeat[0]?.n ?? 1} times.`}
+      slice="Own goals credited to United (an opponent scoring into his own net), all official competitions, gathered under the synthetic goalscorer 'Own Goal'. The leaderboard counts only own goals with a recorded goalscorer."
+      coverage={`${fmtNum(ogSummary.named)} of ${fmtNum(ogSummary.total)} own goals carry a named goalscorer; the remaining ${fmtNum(ogSummary.unknown)}, mostly pre-war, were recorded only as "own goal".`}
     >
       <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
         <Link
@@ -695,7 +695,7 @@ function OwnGoalsModule({ variant }: ModuleProps) {
         <div className="flex items-center text-sm text-ink-dim sm:px-2">
           Gifted by {fmtNum(ogSummary.scorers)} different opposition players between {fmtDate(ogSummary.first)} and{" "}
           {fmtDate(ogSummary.last)} — more than United legends like George Best managed in open play. &ldquo;Own
-          Goal&rdquo; sits among the club&apos;s leading scorers precisely because it belongs to no one.
+          Goal&rdquo; sits among the club&apos;s leading goalscorers precisely because it belongs to no one.
         </div>
       </div>
       {ogRepeat.length > 0 && (

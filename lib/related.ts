@@ -85,7 +85,7 @@ const RELATED: Record<string, RelatedLink[]> = {
     toCut("opponents-by-win-rate", "See which opponents those cup nights were won against."),
   ],
   "own-goals": [
-    toQuestion("cup-specialists", "Set that phantom scorer beside the players who saved goals for the cups."),
+    toQuestion("cup-specialists", "Set that phantom goalscorer beside the players who saved goals for the cups."),
     toCut("opponents-by-win-rate", "Own goals quietly tilt some head-to-head records — see which."),
     toQuestion("bogey-sides", "The opponents United beat least often, the real bogey teams."),
   ],

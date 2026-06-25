@@ -96,8 +96,8 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
     "cup-specialists": {
       stat: cupMultiple ? `${cupMultiple.toFixed(1)}×` : "—",
       gloss: topCupLean
-        ? `${topCupLean.name}'s cup-goal rate over the club's — the most cup-loaded scorer`
-        : "scorers who leaned hardest to the cups",
+        ? `${topCupLean.name}'s cup-goal rate over the club's — the most cup-loaded goalscorer`
+        : "goalscorers who leaned hardest to the cups",
       tone: "gold",
     },
     "own-goals": {

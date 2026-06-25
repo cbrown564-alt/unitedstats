@@ -26,14 +26,14 @@ export const QUESTIONS: QuestionMeta[] = [
     label: "Late goals",
     question: "Do United really score late?",
     summary:
-      "How often United score after the 85th minute, split decade by decade into the last five regulation minutes and stoppage time.",
+      "How often United score after the 85th minute, split by decade between minutes 86-90 and stoppage time.",
   },
   {
     slug: "comebacks",
     label: "Comebacks",
     question: "Are United really the comeback kings?",
     summary:
-      "How often United recover from a losing position, replayed minute by minute from the goal record.",
+      "How often United come back from behind, tracked minute by minute from the goal record.",
   },
   {
     slug: "runs",
@@ -61,28 +61,28 @@ export const QUESTIONS: QuestionMeta[] = [
     label: "Fortress OT",
     question: "How much of a fortress is Old Trafford?",
     summary:
-      "How rarely United lose at Old Trafford once they lead at half-time, drawn from the goal record.",
+      "How rarely United lose at Old Trafford after leading at half-time, based on the goal record.",
   },
   {
     slug: "cup-specialists",
     label: "Cup specialists",
     question: "Who saved their goals for cup nights?",
     summary:
-      "The United scorers who leaned hardest to the cups, measured against the club's own cup-goal rate.",
+      "The United goalscorers most tilted towards cup nights, measured against the club's own cup-goal rate.",
   },
   {
     slug: "own-goals",
     label: "Own goals",
-    question: "Is “Own Goal” one of United's top scorers?",
+    question: "Is “Own Goal” one of United's top goalscorers?",
     summary:
-      "Whether own goals, counted together as one scorer, rank among United's leading goal totals.",
+      "Whether own goals, counted as one goalscorer, rank among United's leading goal totals.",
   },
   {
     slug: "away-days",
     label: "Away days",
     question: "How far do away days take United?",
     summary:
-      "How far away days have carried United, from short Lancashire hops to European nights.",
+      "How far United's away days have taken them, from short Lancashire hops to European nights.",
   },
 ];
 

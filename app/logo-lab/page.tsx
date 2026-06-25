@@ -260,7 +260,7 @@ function AnswerSurface() {
             Do United really score late?
           </h3>
           <p className="mt-4 max-w-xl text-sm leading-6 text-ink-dim">
-            Yes. The strongest edge is in the final five regulation minutes, with stoppage time
+            Yes. The strongest edge is in the final five minutes of normal time, with stoppage time
             making the modern effect look sharper.
           </p>
           <div className="mt-6 space-y-3">

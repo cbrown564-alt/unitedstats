@@ -168,7 +168,7 @@ export function PlayerPlate({
               </div>
               {rank && (
                 <p className="stat-num mt-2 text-xs text-ink-faint">
-                  #{fmtNum(rank.goalRank)} of {fmtNum(rank.total)} recorded scorers
+                  #{fmtNum(rank.goalRank)} of {fmtNum(rank.total)} recorded goalscorers
                 </p>
               )}
             </div>
@@ -269,7 +269,7 @@ function CareerArc({
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
             title={`Most prolific recorded season: ${fmtNum(peakSeason.goals)} goals`}
           >
-            ★ {peakSeason.season}
+            ★ {peakSeason.season}: Most Prolific Season
           </Link>
         )}
         {latest ? (

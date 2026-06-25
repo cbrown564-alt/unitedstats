@@ -21,7 +21,7 @@ export default async function CorrectionsPage({ searchParams }: { searchParams: 
   return (
     <div className="space-y-8">
       <PageHeader eyebrow="Corrections" title="Suggest a correction">
-        Found a wrong score, date, attendance, scorer, or shirt number? Pick the exact fact, make the claim, and it
+        Found a wrong score, date, attendance, goalscorer, or shirt number? Pick the exact fact, make the claim, and it
         becomes a structured GitHub issue with the field-level diff and your source attached. Every change is reviewed
         against the source before it ships.
       </PageHeader>

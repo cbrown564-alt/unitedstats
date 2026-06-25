@@ -325,7 +325,7 @@ export default async function PlayerPage({
                       {fmtDate(bestRun.from)} – {fmtDate(bestRun.to)}
                     </p>
                     <p className="mt-1 text-[11px] leading-4 text-ink-faint">
-                      Consecutive matches scored in, across games with complete scorer records — gaps break a run.
+                      Consecutive matches where he scored, across games with complete goalscorer records — gaps break a run.
                     </p>
                   </div>
                 )}
@@ -437,7 +437,7 @@ export default async function PlayerPage({
 
       <section id="scored" className="space-y-4">
         <div className="flex items-baseline justify-between">
-          <h2 className="display text-xl">Matches scored in</h2>
+          <h2 className="display text-xl">Matches where he scored</h2>
           {matches.length > 0 && (
             <span className="stat-num text-xs text-ink-faint">{fmtNum(matches.length)} matches</span>
           )}
@@ -445,7 +445,7 @@ export default async function PlayerPage({
 
         {matches.length === 0 ? (
           <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-faint">
-            No matches with recorded scorer data yet.
+            No matches with recorded goalscorer data yet.
           </p>
         ) : (
           <>
@@ -454,8 +454,8 @@ export default async function PlayerPage({
                 <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Goals per game, across the career</p>
                 <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
                 <p className="mt-2 text-[11px] leading-4 text-ink-faint">
-                  Every match he scored in, in order — bar height is the goals that game; gold marks the multi-goal
-                  nights, the pips his hat-tricks. Scoring games only, so blank games aren&apos;t drawn.
+                  Every match where he scored, in order — bar height is the goals in that game; gold marks multi-goal
+                  nights, and pips mark his hat-tricks. Only matches where he scored are drawn, so blank games are omitted.
                 </p>
               </div>
             )}
@@ -465,7 +465,7 @@ export default async function PlayerPage({
             ) : (
               <>
                 <p className="text-sm text-ink-dim">
-                  {fmtNum(matches.length)} matches carry a recorded goal
+                  He scored in {fmtNum(matches.length)} matches with recorded goal data
                   {multiGoalGames > 0 && (
                     <>
                       , including{" "}
@@ -494,7 +494,7 @@ export default async function PlayerPage({
 
                 <div>
                   <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
-                    <h3 className="text-sm font-medium text-ink-dim">Scoring seasons</h3>
+                    <h3 className="text-sm font-medium text-ink-dim">Seasons where he scored</h3>
                     <EvidenceLink
                       href={`/matches${queryString({ scorer: id })}`}
                       label={`Open all ${fmtNum(matches.length)} in the match browser →`}
@@ -511,7 +511,7 @@ export default async function PlayerPage({
                           season={season}
                           href={`/matches${queryString({ scorer: id, season })}`}
                           primary={`${fmtNum(seasonGoals)} goal${seasonGoals === 1 ? "" : "s"}`}
-                          secondary={`${fmtNum(ms.length)} scoring match${ms.length === 1 ? "" : "es"}`}
+                          secondary={`Scored in ${fmtNum(ms.length)} match${ms.length === 1 ? "" : "es"}`}
                         />
                       );
                     })}
@@ -561,7 +561,7 @@ export default async function PlayerPage({
           {longAppearanceList ? (
             <div>
               <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="text-sm font-medium text-ink-dim">Appearance seasons</h3>
+                <h3 className="text-sm font-medium text-ink-dim">Seasons with lineup appearances</h3>
                 <EvidenceLink
                   href={`/matches${queryString({ player: id })}`}
                   label={`Open all ${fmtNum(appearances.length)} in the match browser →`}
@@ -648,8 +648,8 @@ export default async function PlayerPage({
             )}
             <TrailLink href="/players" title="All players">
               {ranks
-                ? `Where ${p.name} ranks among ${fmtNum(ranks.total)} recorded scorers.`
-                : "Browse the full scorer and appearance index."}
+                ? `Where ${p.name} ranks among ${fmtNum(ranks.total)} recorded goalscorers.`
+                : "Browse the full goalscorer and appearance index."}
             </TrailLink>
           </div>
         </section>

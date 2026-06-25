@@ -225,7 +225,7 @@ export default async function PlayersPage({
               <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allPlayers.length)}</dd>
             </div>
             <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Top scorer</dt>
+              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Top goalscorer</dt>
               <dd className="stat-num text-lg font-semibold text-gold">
                 {topScorer ? fmtNum(topScorer.goals) : "0"}{" "}
                 <span className="text-sm font-normal text-ink-dim">{topScorer?.name}</span>
@@ -251,7 +251,7 @@ export default async function PlayersPage({
       <section className="space-y-3">
         <SectionHead title="The leaders" aside="by every measure" />
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <Leaderboard title="Top scorers" unit="goals" items={topGoals} figureTone="text-devil-bright" />
+          <Leaderboard title="Top goalscorers" unit="goals" items={topGoals} figureTone="text-devil-bright" />
           <Leaderboard title="Most appearances" unit="games" items={topAppsBoard} />
           <Leaderboard
             title="Goals per game"
@@ -502,7 +502,7 @@ export default async function PlayersPage({
           evidenceHref="/data"
           evidenceLabel="Coverage details"
         >
-          Complete scorer rows cover{" "}
+          Complete goalscorer rows cover{" "}
           <span className="stat-num text-ink">{fmtNum(coverage.completeScorers)}</span> matches (
           {pct(coverage.completeScorers, coverage.matches)}); verified club records cover{" "}
           <span className="stat-num text-ink">{fmtNum(verifiedRecords)}</span> players; lineup data covers{" "}

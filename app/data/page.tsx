@@ -45,7 +45,7 @@ export default function DataPage() {
         <h1 className="display text-3xl">Data &amp; corrections</h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-dim">
           Red Thread is built from plain JSON in <span className="stat-num">data/canonical</span>. The result of every
-          match is the spine; United scorers, opposition goals, lineups, cards, attendance, and assists are layered on
+          match is the spine; United goalscorers, opposition goals, lineups, cards, attendance, and assists are layered on
           top with cited sources, so partial coverage can be shown honestly rather than hidden.
         </p>
       </header>
@@ -77,7 +77,7 @@ export default function DataPage() {
               </div>
               <dl className="flex flex-wrap items-end gap-x-8 gap-y-3.5 border-l border-line pl-6">
                 {[
-                  ["Complete scorer rows", overview.completeScorers],
+                  ["Complete goalscorer rows", overview.completeScorers],
                   ["Starting XIs", overview.withStartingLineups],
                   ["Attendances", overview.withAttendance],
                 ].map(([label, value]) => (
@@ -126,7 +126,7 @@ export default function DataPage() {
             },
             { label: "Matches", key: "matches", numeric: true, render: (row) => fmtNum(row.matches) },
             {
-              label: "United scorers",
+              label: "United goalscorers",
               key: "scorers",
               numeric: true,
               render: (row) => (
@@ -274,7 +274,7 @@ export default function DataPage() {
             </ul>
           </div>
           <p className="mt-2 text-xs text-ink-dim">
-            The queue prioritises recent post-war United scorer gaps, then opposition goals, lineups, and attendance.
+            The queue prioritises recent post-war United goalscorer gaps, then opposition goals, lineups, and attendance.
             Older archive work can still be added whenever a citation is strong.
           </p>
         </section>

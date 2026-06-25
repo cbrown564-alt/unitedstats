@@ -98,7 +98,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const board = (idx >= 0 && idx < 6 ? top.slice(0, 6) : [...top.slice(0, 5), top[idx]]).filter(Boolean);
       return {
         figure: idx >= 0 ? `#${idx + 1}` : fmtNum(og.total),
-        gloss: `“Own Goal” has ${fmtNum(og.total)} for United — among the club's leading scorers, belonging to no one`,
+        gloss: `“Own Goal” has ${fmtNum(og.total)} for United — among the club's leading goalscorers, belonging to no one`,
         visual: {
           kind: "rows",
           bars: board.map((p) => ({

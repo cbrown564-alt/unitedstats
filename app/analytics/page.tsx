@@ -385,7 +385,7 @@ export default function AnalyticsPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">Where next</p>
         <section className="grid gap-3 sm:grid-cols-3">
           <TrailLink href="/data" title="Data & coverage">
-            Results are complete for every decade; scorer depth reaches {fmtNum(overview.completeScorers)} of{" "}
+            Results are complete for every decade; goalscorer depth reaches {fmtNum(overview.completeScorers)} of{" "}
             {fmtNum(overview.matches)} matches and {fmtNum(Number(meta.matches_with_lineups ?? 0))} carry full
             lineups. See the ledger and how the gaps get filled.
           </TrailLink>

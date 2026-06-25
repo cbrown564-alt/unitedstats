@@ -18,7 +18,7 @@ import { historyDigestJsonLd, jsonLdHtml } from "@/lib/structuredData";
 /** Human labels for the canonical match-source facet codes. */
 const FACET_LABEL: Record<string, string> = {
   result: "result",
-  "united-scorers": "United scorers",
+  "united-scorers": "United goalscorers",
   "opposition-goals": "opposition goals",
   assists: "assists",
   "starting-lineup": "starting lineup",

@@ -10,6 +10,7 @@ import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { FacetIcon } from "@/components/FacetIcon";
 import { MatchFilterBar } from "@/components/MatchFilterBar";
+import { SearchCommand } from "@/components/SearchCommand";
 import type { FacetOptions, FacetCounts } from "@/lib/matchFacets";
 import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
@@ -36,13 +37,7 @@ const GOAL_WINDOW_FILTERS = [
 ] as const;
 const GOAL_WINDOW_LABELS: Record<string, string> = Object.fromEntries(GOAL_WINDOW_FILTERS.map((w) => [w.key, w.label]));
 
-const SORTS: { key: string; label: string }[] = [
-  { key: "recent", label: "Most recent" },
-  { key: "oldest", label: "Oldest first" },
-  { key: "margin", label: "Biggest win" },
-  { key: "defeat", label: "Heaviest defeat" },
-  { key: "attendance", label: "Best attended" },
-];
+type MatchSort = "date-desc" | "date-asc" | "gd-desc" | "gd-asc";
 
 // Selected/idle treatment for the bordered filter pills (quick views, decade jumps).
 const pillTone = (active: boolean) =>
@@ -57,13 +52,20 @@ export default async function MatchesPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
-  const sort = (["oldest", "margin", "defeat", "attendance"].includes(sp.sort ?? "") ? sp.sort : "recent") as
-    | "recent"
-    | "oldest"
-    | "margin"
-    | "defeat"
-    | "attendance";
-  const chronological = sort === "recent" || sort === "oldest";
+  const sort = (
+    sp.sort === "date-desc" || sp.sort === "date-asc" || sp.sort === "gd-desc" || sp.sort === "gd-asc"
+      ? sp.sort
+      : sp.sort === "oldest"
+        ? "date-asc"
+        : sp.sort === "margin"
+          ? "gd-desc"
+          : sp.sort === "defeat"
+            ? "gd-asc"
+            : "date-desc"
+  ) as MatchSort;
+  const chronological = sort === "date-desc" || sort === "date-asc";
+  const dateSort = sort === "date-asc" || sort === "date-desc" ? sort : "date-desc";
+  const goalDiffSort = sort === "gd-asc" || sort === "gd-desc" ? sort : "gd-desc";
   // `from`/`to` accept a bare year (evidence links from decade/era modules) or a full ISO date
   const year = (v: string | undefined, edge: "from" | "to") =>
     v ? (/^\d{4}$/.test(v) ? `${v}-${edge === "from" ? "01-01" : "12-31"}` : v) : undefined;
@@ -164,22 +166,6 @@ export default async function MatchesPage({
 
   const qs = (overrides: Record<string, string | undefined>) => queryString({ ...sp, ...overrides });
 
-  // Quick views are fresh slices, not refinements of the current filter.
-  const presetHref = (params: Record<string, string>) => `/matches${queryString(params)}`;
-  const quickViews: { label: string; params: Record<string, string> }[] = [
-    ...(seasons[0] ? [{ label: "This season", params: { season: seasons[0] } }] : []),
-    { label: "Home wins", params: { venue: "H", result: "W" } },
-    { label: "Away days", params: { venue: "A" } },
-    { label: "European nights", params: { type: "european" } },
-    { label: "FA Cup ties", params: { type: "domestic-cup" } },
-    { label: "Defeats", params: { result: "L" } },
-  ];
-  const presetActive = (params: Record<string, string>) =>
-    Object.entries(params).every(([k, v]) => sp[k] === v) &&
-    // exact match: no other filters layered on top (sort/page are not filters)
-    Object.keys(params).length ===
-      Object.keys(sp).filter((k) => k !== "page" && k !== "sort" && sp[k]).length;
-
   // The summary band leads with the answer to the slice the reader chose. When a result
   // is pinned, the count of that result *is* the answer (win-rate would just read 100/0);
   // otherwise the win rate is the headline and the W–D–L breakdown is the sentence.
@@ -206,7 +192,7 @@ export default async function MatchesPage({
   if (sp.type) chips.push({ key: "type", label: COMPETITION_TYPE_LABELS[sp.type] ?? sp.type });
   if (sp.stadium) chips.push({ key: "stadium", label: stadium?.name ?? "Ground" });
   if (sp.city) chips.push({ key: "city", label: sp.city });
-  if (sp.scorer) chips.push({ key: "scorer", label: `Scorer: ${playerById(sp.scorer)?.name ?? sp.scorer}` });
+  if (sp.scorer) chips.push({ key: "scorer", label: `Goalscorer: ${playerById(sp.scorer)?.name ?? sp.scorer}` });
   if (sp.assister) chips.push({ key: "assister", label: `Assister: ${playerById(sp.assister)?.name ?? sp.assister}` });
   if (sp.player) chips.push({ key: "player", label: `Player: ${playerById(sp.player)?.name ?? sp.player}` });
   if (sp.aet) chips.push({ key: "aet", label: "Went to extra time" });
@@ -235,24 +221,7 @@ export default async function MatchesPage({
         Filter by era, competition, venue, result, or opponent trail.
       </PageHeader>
 
-      <div>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Quick views</p>
-        <div className="flex flex-wrap gap-2">
-          {quickViews.map((v) => {
-            const active = presetActive(v.params);
-            return (
-              <Link
-                key={v.label}
-                href={presetHref(v.params)}
-                aria-current={active ? "true" : undefined}
-                className={`tap-target rounded-full border px-3 py-1.5 text-sm transition-colors focus-ring ${pillTone(active)}`}
-              >
-                {v.label}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
+      <SearchCommand forMatches fullWidth autoFocusKey={false} />
 
       <MatchFilterBar
         params={sp}
@@ -339,21 +308,34 @@ export default async function MatchesPage({
 
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm">
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Sort</span>
-        {SORTS.map((s) => {
-          const active = sort === s.key;
-          return (
-            <Link
-              key={s.key}
-              href={`/matches${qs({ sort: s.key === "recent" ? undefined : s.key, page: undefined })}`}
-              aria-current={active ? "true" : undefined}
-              className={`tap-target rounded-md px-2 py-1 transition-colors focus-ring ${
-                active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
-              }`}
-            >
-              {s.label}
-            </Link>
-          );
-        })}
+        <Link
+          href={`/matches${qs({ sort: dateSort === "date-desc" ? "date-asc" : "date-desc", page: undefined })}`}
+          aria-current={dateSort === sort ? "true" : undefined}
+          className={`tap-target inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 transition-colors focus-ring ${
+            dateSort === sort
+              ? "border-devil/60 bg-devil/15 font-semibold text-devil-bright"
+              : "border-line text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
+          }`}
+          title={dateSort === "date-desc" ? "Date: newest first" : "Date: oldest first"}
+        >
+          <FacetIcon name="calendar" className="h-3.5 w-3.5 shrink-0" />
+          <span className="text-xs">Date</span>
+          <span className="stat-num text-xs">{dateSort === sort ? (dateSort === "date-desc" ? "↓" : "↑") : ""}</span>
+        </Link>
+        <Link
+          href={`/matches${qs({ sort: goalDiffSort === "gd-desc" ? "gd-asc" : "gd-desc", page: undefined })}`}
+          aria-current={goalDiffSort === sort ? "true" : undefined}
+          className={`tap-target inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 transition-colors focus-ring ${
+            goalDiffSort === sort
+              ? "border-devil/60 bg-devil/15 font-semibold text-devil-bright"
+              : "border-line text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
+          }`}
+          title={goalDiffSort === "gd-desc" ? "Goal difference: highest first" : "Goal difference: lowest first"}
+        >
+          <FacetIcon name="margin" className="h-3.5 w-3.5 shrink-0" />
+          <span className="text-xs">GD</span>
+          <span className="stat-num text-xs">{goalDiffSort === sort ? (goalDiffSort === "gd-desc" ? "↓" : "↑") : ""}</span>
+        </Link>
       </div>
 
       {/* Mobile: a slim bar that pins under the header once the list starts to
