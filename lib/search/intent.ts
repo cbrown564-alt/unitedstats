@@ -58,7 +58,14 @@ function recText(r: Record_): string {
 
 /** /matches link from a filter — years stay bare so the page's `from`/`to` accept them. */
 function matchesHref(p: Record<string, string | number | undefined>): string {
-  return `/matches${queryString(p)}`;
+  // Keep outward-facing sort aliases stable for existing links/tests, while the
+  // internal filter model uses canonical gd-* variants.
+  const sort = p.sort;
+  const outwardSort =
+    sort === "gd-desc" ? "margin"
+      : sort === "gd-asc" ? "defeat"
+      : sort;
+  return `/matches${queryString({ ...p, sort: outwardSort as string | number | undefined })}`;
 }
 
 const plural = (n: number, one: string, many = `${one}s`) => (n === 1 ? one : many);
