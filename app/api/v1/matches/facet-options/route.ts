@@ -1,8 +1,7 @@
 import { apiJson } from "@/lib/api";
 import { buildMatchFacetOptions } from "@/lib/matchFacetOptions";
-import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
 
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 86400;
 
 export async function GET() {
   return apiJson(buildMatchFacetOptions());

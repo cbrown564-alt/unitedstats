@@ -1,9 +1,8 @@
 import { apiError, apiJson } from "@/lib/api";
 import { matchChipCounts } from "@/lib/matchChipCounts";
 import { matchFilterFromSearchParams, validateMatchFilterDates } from "@/lib/matchFilterFromUrl";
-import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
 
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 86400;
 
 export async function GET(request: Request) {
   const url = new URL(request.url);

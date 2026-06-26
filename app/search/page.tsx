@@ -7,9 +7,7 @@ import { highlight } from "@/lib/search/highlight";
 import { KIND_LABELS, KIND_HEADINGS, POPULAR_SEARCHES, RESHAPE_PROMPTS, SEARCH_HINTS, SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { queryString } from "@/lib/url";
 
-import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 86400;
 export const metadata = { title: "Search" };
 
 const PAGE_SIZE = 25;

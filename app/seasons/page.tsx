@@ -13,9 +13,7 @@ import { JumpRail, type JumpChip } from "@/components/JumpRail";
 import { clubName, fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
-import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 86400;
 export const metadata = {
   title: "Seasons",
   description: "Every Manchester United campaign since Newton Heath joined the Football League in 1892 — tracing league finishes, cup campaigns, and honours decade by decade.",

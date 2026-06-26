@@ -11,9 +11,7 @@ import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct, fmtYearRange } from "@/lib/format";
 
-import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 86400;
 export const metadata = {
   title: "Players",
   description: "Everyone to pull on the shirt for Manchester United since 1886 — searchable and sortable by appearances, goals, assists, and career span.",

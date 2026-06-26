@@ -16,10 +16,9 @@ import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, fmtDate, pct, venueLabel, resultLabel, resultTone, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { matchFilterFromSearchParams, parseMatchSort, type MatchSort } from "@/lib/matchFilterFromUrl";
-import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
 import { queryString } from "@/lib/url";
 
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 86400;
 
 const PAGE_SIZE = 50;
 
@@ -31,7 +30,7 @@ const GOAL_WINDOW_LABELS: Record<string, string> = {
   extraTime: "Extra time",
 };
 
-export const metadata: Metadata = {
+const MATCHES_METADATA: Metadata = {
   title: "Matches",
   description:
     "Browse and filter the complete Manchester United match record since 1886 — filter by opponent, manager, season, venue, and result.",
@@ -44,9 +43,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
-  if (page <= 1) return metadata;
+  if (page <= 1) return MATCHES_METADATA;
   return {
-    ...metadata,
+    ...MATCHES_METADATA,
     robots: { index: false, follow: true },
   };
 }

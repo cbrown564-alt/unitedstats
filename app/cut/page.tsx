@@ -16,9 +16,7 @@ import { SaveToCollection } from "@/components/cut/SaveToCollection";
 import { EmbedCut } from "@/components/cut/EmbedCut";
 import { EMBED_DIMENSIONS } from "@/lib/embeds";
 
-import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 86400;
 
 type SP = Record<string, string | undefined>;
 
