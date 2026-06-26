@@ -10,7 +10,9 @@ import { CompareTable } from "@/components/CompareTable";
 import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 
-export const dynamic = "force-dynamic";
+import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
+
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 export const metadata = {
   title: "Compare",
   description:

@@ -1,7 +1,7 @@
-import { apiError, apiJson, pagination } from "@/lib/api";
+import { apiError, apiJson } from "@/lib/api";
+import { matchChipCounts } from "@/lib/matchChipCounts";
 import { matchFilterFromSearchParams, validateMatchFilterDates } from "@/lib/matchFilterFromUrl";
 import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
-import { findMatches } from "@/lib/queries";
 
 export const revalidate = PAGE_REVALIDATE_SECONDS;
 
@@ -11,8 +11,12 @@ export async function GET(request: Request) {
   const dateError = validateMatchFilterDates(sp);
   if (dateError) return apiError(400, dateError);
 
-  const { limit, offset } = pagination(url);
-  const filter = matchFilterFromSearchParams(sp, { limit, offset });
-  const { rows, total } = findMatches(filter);
-  return apiJson(rows, { total, limit, offset });
+  const keys = (url.searchParams.get("keys") ?? "")
+    .split(",")
+    .map((k) => k.trim())
+    .filter(Boolean);
+  if (keys.length === 0) return apiJson({});
+
+  const filter = matchFilterFromSearchParams(sp);
+  return apiJson(matchChipCounts(filter, keys));
 }

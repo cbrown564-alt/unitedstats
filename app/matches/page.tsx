@@ -1,46 +1,55 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  findMatches, matchesSummary, matchDecades, competitionsList, allSeasons, managerById, managersIndex,
-  playerById, playersIndex, stadiumById, stadiumsList, matchCitiesList, matchEventBadges,
-  opponentsIndex,
+  findMatches, matchesSummary, matchDecades, allSeasons, managerById,
+  playerById, stadiumById, matchEventBadges, opponentById, competitionNameById,
 } from "@/lib/queries";
-import type { MatchFilter } from "@/lib/queries";
 import { isRoundFilterKey, roundFilterLabel } from "@/lib/matchRounds";
 import { matchesSequence } from "@/lib/trails";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { FacetIcon } from "@/components/FacetIcon";
-import type { FacetOptions } from "@/lib/matchFacets";
 import { MatchControlDeck } from "@/components/matches/MatchControlDeck";
 import { MatchListToolbar } from "@/components/matches/MatchListToolbar";
 import { MatchSliceHero } from "@/components/matches/MatchSliceHero";
 import { Pager } from "@/components/Pager";
 import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, fmtDate, pct, venueLabel, resultLabel, resultTone, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { matchFilterFromSearchParams, parseMatchSort, type MatchSort } from "@/lib/matchFilterFromUrl";
+import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
 import { queryString } from "@/lib/url";
 
-export const dynamic = "force-dynamic";
-export const metadata = {
-  title: "Matches",
-  description: "Browse and filter the complete Manchester United match record since 1886 — filter by opponent, manager, season, venue, and result.",
-};
-
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 
 const PAGE_SIZE = 50;
 
-// Curated subset of competition types offered in the filter, in display order.
-const TYPE_FILTER_KEYS = ["league", "cup", "domestic-cup", "league-cup", "european", "unofficial"];
-const RESULT_FILTER_KEYS = ["W", "D", "L"];
-const GOAL_WINDOW_FILTERS = [
-  { key: "firstHalf", label: "First half" },
-  { key: "secondHalf", label: "Second half" },
-  { key: "late", label: "Late" },
-  { key: "stoppage", label: "Stoppage time" },
-  { key: "extraTime", label: "Extra time" },
-] as const;
-const GOAL_WINDOW_LABELS: Record<string, string> = Object.fromEntries(GOAL_WINDOW_FILTERS.map((w) => [w.key, w.label]));
+const GOAL_WINDOW_LABELS: Record<string, string> = {
+  firstHalf: "First half",
+  secondHalf: "Second half",
+  late: "Late",
+  stoppage: "Stoppage time",
+  extraTime: "Extra time",
+};
 
-type MatchSort = "date-desc" | "date-asc" | "gd-desc" | "gd-asc";
+export const metadata: Metadata = {
+  title: "Matches",
+  description:
+    "Browse and filter the complete Manchester United match record since 1886 — filter by opponent, manager, season, venue, and result.",
+};
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}): Promise<Metadata> {
+  const sp = await searchParams;
+  const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
+  if (page <= 1) return metadata;
+  return {
+    ...metadata,
+    robots: { index: false, follow: true },
+  };
+}
 
 export default async function MatchesPage({
   searchParams,
@@ -49,89 +58,21 @@ export default async function MatchesPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
-  const sort = (
-    sp.sort === "date-desc" || sp.sort === "date-asc" || sp.sort === "gd-desc" || sp.sort === "gd-asc"
-      ? sp.sort
-      : sp.sort === "oldest"
-        ? "date-asc"
-        : sp.sort === "margin"
-          ? "gd-desc"
-          : sp.sort === "defeat"
-            ? "gd-asc"
-            : "date-desc"
-  ) as MatchSort;
+  const sort = parseMatchSort(sp) as MatchSort;
   const chronological = sort === "date-desc" || sort === "date-asc";
   const dateSort = sort === "date-asc" || sort === "date-desc" ? sort : "date-desc";
   const goalDiffSort = sort === "gd-asc" || sort === "gd-desc" ? sort : "gd-desc";
-  // `from`/`to` accept a bare year (evidence links from decade/era modules) or a full ISO date
-  const year = (v: string | undefined, edge: "from" | "to") =>
-    v ? (/^\d{4}$/.test(v) ? `${v}-${edge === "from" ? "01-01" : "12-31"}` : v) : undefined;
-  const minute = (v: string | undefined) => (v && /^\d{1,3}$/.test(v) ? Number(v) : undefined);
-  const goalWindow = GOAL_WINDOW_FILTERS.some((w) => w.key === sp.goalWindow)
-    ? sp.goalWindow as (typeof GOAL_WINDOW_FILTERS)[number]["key"]
-    : undefined;
   const round = isRoundFilterKey(sp.round) ? sp.round : undefined;
-  const filter = {
-    competition: sp.competition || undefined,
-    opponent: sp.opponent || undefined,
-    manager: sp.manager || undefined,
-    season: sp.season || undefined,
-    venue: sp.venue || undefined,
-    result: sp.result || undefined,
-    type: sp.type || undefined,
-    round,
-    stadium: sp.stadium || undefined,
-    city: sp.city || undefined,
-    scorer: sp.scorer || undefined,
-    assister: sp.assister || undefined,
-    player: sp.player || undefined,
-    aet: sp.aet === "1",
-    goalWindow,
-    goalFrom: minute(sp.goalFrom),
-    goalTo: minute(sp.goalTo),
-    from: year(sp.from, "from"),
-    to: year(sp.to, "to"),
-    q: sp.q || undefined,
-    sort,
+  const filter = matchFilterFromSearchParams(sp, {
     limit: PAGE_SIZE,
     offset: (page - 1) * PAGE_SIZE,
-  };
+  });
   const { rows, total } = findMatches(filter);
   const summary = matchesSummary(filter);
-  // The spine reads the whole slice (never paginated) and only earns its space once
-  // there are enough matches for a shape to emerge; below that the list shows them all.
   const sequence = summary.p >= 24 ? matchesSequence(filter) : [];
-  const comps = competitionsList();
   const seasons = allSeasons();
-  const managers = managersIndex();
-  const players = [...playersIndex()].sort((a, b) => a.name.localeCompare(b.name));
-  const stadiums = stadiumsList();
-  const cities = matchCitiesList();
-  const opponents = opponentsIndex();
-  // Decade chips count within the current slice, but ignore the active decade
-  // range so the navigator stays a way to jump between decades, not a single chip.
   const decades = matchDecades({ ...filter, from: undefined, to: undefined });
   const pages = Math.ceil(total / PAGE_SIZE);
-  // Option lists for the facet bar, keyed by facet `optionsKey`. Reuses the same
-  // data the classic form below renders from — no extra queries. Labels stay clean
-  // (no "(123)"): the combobox shows live, contextual counts from `facetCounts`.
-  const facetOptions: FacetOptions = {
-    opponent: opponents.map((o) => ({ value: o.id, label: o.name })),
-    competition: comps.map((c) => ({ value: c.id, label: c.name })),
-    season: seasons.map((s) => ({ value: s, label: s })),
-    venue: [
-      { value: "H", label: "Home" },
-      { value: "A", label: "Away" },
-      { value: "N", label: "Neutral" },
-    ],
-    result: RESULT_FILTER_KEYS.map((r) => ({ value: r, label: resultLabel(r) })),
-    type: TYPE_FILTER_KEYS.map((t) => ({ value: t, label: COMPETITION_TYPE_LABELS[t] })),
-    manager: managers.map((m) => ({ value: m.id, label: m.name })),
-    stadium: stadiums.map((s) => ({ value: s.id, label: `${s.name}${s.city ? `, ${s.city}` : ""}` })),
-    city: cities.map((c) => ({ value: c.city, label: c.city })),
-    goalWindow: GOAL_WINDOW_FILTERS.map((w) => ({ value: w.key, label: w.label })),
-    player: players.map((p) => ({ value: p.player_id, label: p.name })),
-  };
   const hasFilters = Boolean(
     sp.q || sp.competition || sp.opponent || sp.manager || sp.season || sp.venue || sp.result || sp.type ||
     sp.round || sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
@@ -142,10 +83,6 @@ export default async function MatchesPage({
   const renderEventBadge = (m: (typeof rows)[number]) => {
     const label = eventBadges.get(m.id);
     if (!label) return null;
-    // Reads on every row of a scorer/timing slice, so it's reference data, not an
-    // alarm: a quiet stopwatch glyph with the goal minutes stacked vertically, so a
-    // hat-trick costs row height rather than a wide red ribbon clashing with the
-    // loss rows. Full count + noun stays on hover.
     const full = `${label.count} ${label.count === 1 ? label.noun : `${label.noun}s`} · ${label.minutes.join(", ")}`;
     return (
       <span className="inline-flex items-start gap-1 text-[11px] text-ink-dim" title={full}>
@@ -162,25 +99,22 @@ export default async function MatchesPage({
 
   const qs = (overrides: Record<string, string | undefined>) => queryString({ ...sp, ...overrides });
 
-  // The summary band leads with the answer to the slice the reader chose. When a result
-  // is pinned, the count of that result *is* the answer (win-rate would just read 100/0);
-  // otherwise the win rate is the headline and the W–D–L breakdown is the sentence.
   const RESULT_NOUN: Record<string, string> = { W: "wins", D: "draws", L: "defeats" };
   const pinnedResult = sp.result && RESULT_NOUN[sp.result] ? sp.result : undefined;
   const heroValue = pinnedResult ? fmtNum(summary.p) : pct(summary.w, summary.p);
   const heroLabel = pinnedResult ? RESULT_NOUN[pinnedResult] : "won";
-  // Default headline is the win rate, so it wears the win colour — never brand red,
-  // which now reads as the loss pole. A pinned result uses its own result tone.
   const heroTone = pinnedResult ? resultTone(pinnedResult) : "text-win";
-  // The count is its own "from N matches", so the subline only adds something when open.
   const heroSub = pinnedResult ? null : `from ${fmtNum(summary.p)} ${summary.p === 1 ? "match" : "matches"}`;
 
-  // Active filters, rendered as individually removable chips.
   const chips: { key: string; label: string }[] = [];
-  if (sp.opponent) chips.push({ key: "opponent", label: opponents.find((o) => o.id === sp.opponent)?.name ?? "Opponent" });
+  if (sp.opponent) chips.push({ key: "opponent", label: opponentById(sp.opponent)?.name ?? "Opponent" });
   if (sp.q) chips.push({ key: "q", label: `Opponent: ${sp.q}` });
-  if (sp.competition)
-    chips.push({ key: "competition", label: comps.find((c) => c.id === sp.competition)?.name ?? sp.competition });
+  if (sp.competition) {
+    chips.push({
+      key: "competition",
+      label: competitionNameById(sp.competition) ?? sp.competition,
+    });
+  }
   if (sp.manager) chips.push({ key: "manager", label: managerById(sp.manager)?.name ?? "Manager" });
   if (sp.season) chips.push({ key: "season", label: `Season ${sp.season}` });
   if (sp.venue) chips.push({ key: "venue", label: venueLabel(sp.venue) });
@@ -209,18 +143,6 @@ export default async function MatchesPage({
     });
   }
 
-  // Each chip carries the size of its own filter in isolation — the universe it
-  // draws from, not the current (multi-filter) slice. It turns a chip from a bare
-  // control into a small piece of evidence ("Liverpool · 230"). Only the chip's own
-  // constraint is applied; `q` is the free-text opponent match, which `findMatches`
-  // resolves the same way the chip does.
-  const chipCounts: Record<string, number> = {};
-  for (const chip of chips) {
-    const value = (filter as Record<string, unknown>)[chip.key];
-    if (value === undefined || value === false) continue;
-    chipCounts[chip.key] = findMatches({ [chip.key]: value, sort, limit: 1, offset: 0 } as MatchFilter).total;
-  }
-
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Fixture record" title="Matches">
@@ -242,8 +164,6 @@ export default async function MatchesPage({
       <MatchControlDeck
         params={sp}
         chips={chips}
-        chipCounts={chipCounts}
-        options={facetOptions}
         total={total}
         matchHref={total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined}
         seasons={seasons}
@@ -253,9 +173,6 @@ export default async function MatchesPage({
 
       <MatchListToolbar total={total} sort={sort} dateSort={dateSort} goalDiffSort={goalDiffSort} qs={qs} />
 
-      {/* Mobile: a slim bar that pins under the header once the list starts to
-          scroll, so the filter is one tap away deep in a 50-row page instead of
-          a long scroll back to the form. Pure sticky — no JS, no extra fetch. */}
       <div className="sticky top-14 z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:hidden">
         <div className="flex items-center justify-between gap-3">
           <span className="stat-num text-xs text-ink-dim">

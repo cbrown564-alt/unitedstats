@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { MatchFilterBarWithCounts } from "@/components/MatchFilterBarWithCounts";
 import type { DecadeBucket } from "@/components/matches/FilterZones";
-import type { FacetOptions } from "@/lib/matchFacets";
 
 function Chevron({ className = "" }: { className?: string }) {
   return (
@@ -29,8 +28,6 @@ export function MatchFilterCollapse({
   filterCount,
   params,
   chips,
-  chipCounts,
-  options,
   total,
   matchHref,
   seasons,
@@ -40,8 +37,6 @@ export function MatchFilterCollapse({
   filterCount: number;
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
-  chipCounts: Record<string, number>;
-  options: FacetOptions;
   total: number;
   matchHref?: string;
   seasons: string[];
@@ -78,8 +73,6 @@ export function MatchFilterCollapse({
           embedded
           params={params}
           chips={chips}
-          chipCounts={chipCounts}
-          options={options}
           total={total}
           matchHref={matchHref}
           seasons={seasons}

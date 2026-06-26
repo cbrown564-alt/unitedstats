@@ -16,7 +16,9 @@ import { SaveToCollection } from "@/components/cut/SaveToCollection";
 import { EmbedCut } from "@/components/cut/EmbedCut";
 import { EMBED_DIMENSIONS } from "@/lib/embeds";
 
-export const dynamic = "force-dynamic";
+import { PAGE_REVALIDATE_SECONDS } from "@/lib/pageRevalidate";
+
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 
 type SP = Record<string, string | undefined>;
 

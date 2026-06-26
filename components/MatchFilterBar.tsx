@@ -49,6 +49,7 @@ export function MatchFilterBar({
   chips,
   chipCounts,
   options,
+  optionsLoading,
   counts,
   countsLoading,
   seasons,
@@ -60,6 +61,8 @@ export function MatchFilterBar({
   chips: { key: string; label: string }[];
   chipCounts: Record<string, number>;
   options: FacetOptions;
+  /** True while static facet option lists are loading client-side. */
+  optionsLoading?: boolean;
   counts: FacetCounts;
   /** True while contextual facet counts are loading client-side. */
   countsLoading?: boolean;
@@ -119,7 +122,7 @@ export function MatchFilterBar({
           : "scroll-mt-20 rounded-lg border border-line bg-panel p-3 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]"
       }
     >
-      {(pending || countsLoading) && (
+      {(pending || countsLoading || optionsLoading) && (
         <p className="mb-2.5 text-xs text-ink-faint motion-safe:animate-pulse">
           {pending ? "Updating…" : "Loading…"}
         </p>

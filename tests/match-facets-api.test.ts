@@ -14,6 +14,7 @@ test("GET /api/v1/matches/facets returns contextual facet counts", async () => {
   assert.deepEqual(body.data.opponent, expected.opponent);
   assert.ok(Object.keys(body.data.competition).length > 0);
   assert.ok(body.attribution);
+  assert.match(res.headers.get("Cache-Control") ?? "", /s-maxage=86400/);
 });
 
 test("GET /api/v1/matches/facets rejects invalid date params", async () => {

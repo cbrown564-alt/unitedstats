@@ -623,6 +623,13 @@ export function competitionsList(): { id: string; name: string; type: string; n:
   );
 }
 
+export function competitionNameById(id: string): string | undefined {
+  const row = getDb()
+    .prepare("SELECT name FROM competitions WHERE id = ?")
+    .get(id) as { name: string } | undefined;
+  return row?.name;
+}
+
 // ---------------------------------------------------------------- opponents
 
 export interface OpponentRecord extends Record_ {

@@ -1,7 +1,6 @@
 import { SearchCommand } from "@/components/SearchCommand";
 import { MatchFilterCollapse } from "@/components/matches/MatchFilterCollapse";
 import type { DecadeBucket } from "@/components/matches/FilterZones";
-import type { FacetOptions } from "@/lib/matchFacets";
 
 /**
  * Search plus facet chips for narrowing the match archive. The filter palette
@@ -10,8 +9,6 @@ import type { FacetOptions } from "@/lib/matchFacets";
 export function MatchControlDeck({
   params,
   chips,
-  chipCounts,
-  options,
   total,
   matchHref,
   seasons,
@@ -20,8 +17,6 @@ export function MatchControlDeck({
 }: {
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
-  chipCounts: Record<string, number>;
-  options: FacetOptions;
   total: number;
   matchHref?: string;
   seasons: string[];
@@ -42,8 +37,6 @@ export function MatchControlDeck({
           filterCount={chips.length}
           params={params}
           chips={chips}
-          chipCounts={chipCounts}
-          options={options}
           total={total}
           matchHref={matchHref}
           seasons={seasons}
