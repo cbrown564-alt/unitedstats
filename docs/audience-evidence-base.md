@@ -15,19 +15,18 @@ the team can challenge a recommendation by going back to the source.
 **Method & honest caveats:**
 
 - **Sources reached:** RedCafe (the original feedback thread + the FBref/Opta
-  data-loss thread), UTDFORUM, BigSoccer, Tildes, a football-analytics
-  Substack, aggregated App Store / comparison-site reviews for the big live
-  apps, the prideofmanchester source guide, MUFCInfo, and a spread of
-  landscape/traffic articles (Similarweb-derived figures, footymetrics,
-  sportsdatacampus). Verbatim quotes below are pulled from these.
-- **The Reddit gap (important):** the user specifically asked for Reddit, and
-  Reddit is the single richest source for this audience (r/reddevils,
-  r/soccer, r/footballanalytics, r/FantasyPL). **It could not be reached.**
-  reddit.com is refused by the web-search crawler, by WebFetch, *and* by the
-  Claude-in-Chrome browser extension (safety restriction) — all three. There
-  is no clean automated path. To fill this layer, paste the thread URLs/text
-  you care about and they'll be folded into Sections 4–7. Until then, treat
-  Reddit-specific claims as **not yet evidenced**.
+  data-loss thread), Reddit (r/reddevils, r/soccer, r/FantasyPL, via Safari),
+  UTDFORUM, BigSoccer, Tildes, a football-analytics Substack, aggregated App
+  Store / comparison-site reviews for the big live apps, the prideofmanchester
+  source guide, MUFCInfo, and a spread of landscape/traffic articles
+  (Similarweb-derived figures, footymetrics, sportsdatacampus). Verbatim quotes
+  below are pulled from these.
+- **Reddit access caveat:** Reddit was reachable through the user's Safari
+  session, but not through the automated web crawler / in-app browser path.
+  This pass sampled high-signal threads from r/reddevils, r/soccer, and
+  r/FantasyPL; it is not a full subreddit scrape. Treat the Reddit layer as
+  qualitative launch-audience evidence, not a statistically representative
+  survey.
 - **Numbers caveat:** traffic figures come from third-party estimators
   (Similarweb/Semrush) and vary wildly by methodology. They're directional,
   not gospel. Treated as orders-of-magnitude.
@@ -164,6 +163,19 @@ got:
 This segment is also the **orphaned stretfordend.co.uk audience** — people who
 had a "Website of Dreams" and lost it.
 
+Reddit adds a sharper version of this: historical stats are not only reference,
+they reopen old debates with fresh evidence. In an r/reddevils thread of
+historical midfielder reports, users immediately used the charts to re-litigate
+Scholes, Keane, Carrick, Gerrard and Lampard:
+> "Keanes passing accuracy is exceptional. What made him great (not just his
+> tackling, leadership, defensive awareness etc.) was that he was always an
+> outlet for other players."
+> — MothsConrad, r/reddevils, [historical midfield reports](https://www.reddit.com/r/reddevils/comments/1o502x3/oc_historical_statistical_reports_of_united/)
+
+> "Scholes having more tackles per game over 11 years than Gerrard and Lampard
+> is low key hilarious."
+> — WanderingEnigma, r/reddevils, [historical midfield reports](https://www.reddit.com/r/reddevils/comments/1o502x3/oc_historical_statistical_reports_of_united/)
+
 ### 4.3 The amateur analyst / content creator
 Builds blogs, threads, videos, models off the data. Values *accessibility,
 export, and historical depth*. The most articulate and loyal segment — and the
@@ -172,17 +184,61 @@ loudest when data disappears.
 > own."* — hasanejaz88, RedCafe
 > *"Really harms the small scale content creators too."* — SilentWitness, RedCafe
 
+Reddit confirms this is not hypothetical. One r/reddevils poster built a
+United striker-scouting workflow with FBref, Understat, PCA, K-means clusters,
+distance scoring, charts, and a blog companion, then explicitly asked the
+community to critique the method:
+> "This method is a work in progress, and your feedback on the methodology
+> employed to find an ideal striker would be worth a lot to me."
+> — _respired_, r/reddevils, [data-driven striker post](https://www.reddit.com/r/reddevils/comments/1maqcv7/finding_an_ideal_striker_using_a_datadriven/)
+
+> "The work done here is heavily influenced by discussions here on
+> r/reddevils, and previous attempts at finding talent suitable for Manchester
+> United from amateur analysts."
+> — _respired_, r/reddevils, [data-driven striker post](https://www.reddit.com/r/reddevils/comments/1maqcv7/finding_an_ideal_striker_using_a_datadriven/)
+
+The audience rewarded that kind of work, but also pushed on it:
+> "Great work. Wish we had more of these analytical posts in this sub"
+> — SolskjaerHasWonIt_, r/reddevils, [data-driven striker post](https://www.reddit.com/r/reddevils/comments/1maqcv7/finding_an_ideal_striker_using_a_datadriven/)
+
+> "Your clusters don't seem particularly meaningfully separated. It'd be
+> interesting to see how they separate on some of the original stats."
+> — nathcun, r/reddevils, [data-driven striker post](https://www.reddit.com/r/reddevils/comments/1maqcv7/finding_an_ideal_striker_using_a_datadriven/)
+
 ### 4.4 The DIY data-keeper
 Will literally build their own spreadsheets when no tool serves them — proof
 of unmet demand United Stats can absorb.
 > *"creating Excel spreadsheets of 1990s matches with player ratings from
 > various sources."* — UTD_Since_1978, RedCafe (describing his own project)
 
+After FBref lost advanced data, r/soccer users immediately imagined DIY and
+open alternatives:
+> "Pls tell me someone managed to scrap the data before it was gone"
+> — lDistortionl, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
+
+> "I'd be interested in working on any open source project that would extract
+> advanced statistics from broadcast football footage"
+> — n-n_is_0, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
+
+> "Data stays free for everyone. Open source. Community owned."
+> — LilNasReps, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
+
 ### 4.5 The fantasy / betting pragmatist (adjacent)
 Comes for *form, comparison, projection*; values a clean comparison view above
 all. Less aligned with deep history, but a large adjacent pool.
 > *"purely as its visually very simple to compare teams and current form."*
 > — Richard Grantham, BigSoccer (on why he picks a site)
+
+r/FantasyPL shows the pragmatic job clearly: not "give me a model," but "give
+me free, usable raw data I can inspect myself":
+> "I'd like to change that a bit this season, but I'm pretty unfamiliar with
+> the resources that are available for free. I know there's sites like FFScout
+> and review models, but I'm not at all interested in those. What's your go-to
+> site to look up player and team data?"
+> — theonewhoknock_s, r/FantasyPL, [free player-stats thread](https://www.reddit.com/r/FantasyPL/comments/1mlku47/whats_the_best_place_to_look_up_player_stats/)
+
+> "If you're after raw data then https://fbref.com/en/"
+> — Neown, r/FantasyPL, [free player-stats thread](https://www.reddit.com/r/FantasyPL/comments/1mlku47/whats_the_best_place_to_look_up_player_stats/)
 
 **[inference]** United Stats' natural launch beachhead is 4.1 + 4.2 + 4.3 —
 United-supporting historians, nostalgists and creators — concentrated exactly
@@ -213,9 +269,22 @@ without.
    > technically 'Forlán'."* — DOTA, RedCafe
 5. **Historical depth that the live apps don't have.** The explicit reason
    this niche exists alongside SofaScore/FotMob.
+   > "I would love to be able to see advanced stats from before 2018"
+   > — Yandhi42, r/reddevils, [historical midfield reports](https://www.reddit.com/r/reddevils/comments/1o502x3/oc_historical_statistical_reports_of_united/)
 6. **Mobile-tolerable, ad-tolerable.** The live-app complaints (Section 6) are
    overwhelmingly about ads and paywalls degrading a once-clean experience —
    a low bar United Stats can clear simply by *not* doing that.
+7. **Era-aware comparison, not decontextualized charts.** Reddit users like
+   historical stat graphics, but they will challenge the denominator:
+   > "Why are they comparing these players' stats to data from 17/18 to
+   > 22/23? Comparing the data to their peers at time is much more relevant,
+   > given shifts in styles of play, level of competition, etc."
+   > — dataminimizer, r/reddevils, [historical midfield reports](https://www.reddit.com/r/reddevils/comments/1o502x3/oc_historical_statistical_reports_of_united/)
+8. **Metric honesty / limits.** The audience knows when an important thing is
+   not measured:
+   > "Unfortunately the most important defensive stat, for Carrick especially,
+   > isn't measured here. And that's passes prevented. That was his genius."
+   > — HamroveUTD, r/reddevils, [historical midfield reports](https://www.reddit.com/r/reddevils/comments/1o502x3/oc_historical_statistical_reports_of_united/)
 
 ---
 
@@ -233,6 +302,17 @@ Pain points in existing tools, each an opening.
   fbref"* (hasanejaz88). There is now a wandering, slightly grief-stricken
   analytics audience. **United Stats can't replace xG, but it can own
   *historical completeness, beautifully*.**
+  Reddit's version is even more visceral:
+  > "A dark day for football data nerds"
+  > — Sdub4, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
+
+  > "It's amazing how, in 2026, we're in a MUCH worse place in terms of
+  > publicly accessible data/'advanced stats' compared to just 5 years ago."
+  > — Albiceleste_D10S, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
+
+  > "Any alternatives? From what I have gathered in past years nothing came
+  > even close to FBREF... truly a dark day"
+  > — Reasonable-Weakness7, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
 - **Dated UX on the historical/club sites.** MUFCInfo, 11v11, RSSSF, statto
   are *comprehensive but ugly/clunky*. The recurring praise pattern in the
   data is "same data, better interface." **United Stats' entire wedge.**
@@ -245,6 +325,16 @@ Pain points in existing tools, each an opening.
   SuperiorXI). Note United Stats' own data ledger already flags assists as
   source-limited pre-2012-13, so advanced-metric asks must be set against
   honest coverage limits.
+- **Replacement products are already being tried.** In r/FantasyPL, one user
+  launched an "alternative to FBref" around exactly the metrics people miss:
+  > "If you used FBref for xG data, shot maps, set piece takers, or defensive
+  > stats for your FPL picks, you've probably noticed most of that is gone now."
+  > — no-ee, r/FantasyPL, [alternative-to-FBref thread](https://www.reddit.com/r/FantasyPL/comments/1sdw4ks/built_an_alternative_to_fbref_with_advanced_stats/)
+
+  The same thread shows the business tension for open/deep data:
+  > "Unfortunately data is really expensive (it's why I have a paid tier,
+  > actually lose money on this!)."
+  > — no-ee, r/FantasyPL, [alternative-to-FBref thread](https://www.reddit.com/r/FantasyPL/comments/1sdw4ks/built_an_alternative_to_fbref_with_advanced_stats/)
 
 ### The two self-inflicted gaps United Stats already heard about
 These came directly from the RedCafe feedback thread and are the highest-ROI
@@ -288,6 +378,17 @@ data; xG, xA, progressive passes, shot-creating actions all vanished overnight.
 > *"Nothing even close"* [exists elsewhere] — goldenboy, RedCafe
 > *"data … has helped me find players like Yan Diomande before I heard anyone
 > mainstream talking about him."* — BenitoSTARR, RedCafe
+> "Fbref did always feel too good to be true, or at least too good to be free.
+> Properly bummed me out"
+> — SDShrew, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
+> "Good is barely allowed to exist in 2026, as is Free, so I suppose something
+> good and free was always living on borrowed time. An enormous shame
+> considering how much good content and insight we got off of fans and writers
+> being able to access the data."
+> — firewalkwithme-, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
+> "Stats can show you that difference, and yes that can inform opinions on
+> player quality"
+> — Albiceleste_D10S, r/soccer, [FBref/Stathead data removal thread](https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/)
 
 **The lesson for United Stats:** the moat isn't a single metric — it's being
 the *free, open, durable, well-designed* home for the data. United Stats'
@@ -313,7 +414,9 @@ Ordered by leverage. **[inference]** throughout, grounded in the evidence above.
    predecessors — it signals you're one of them.
 4. **Make the nostalgia/rediscovery surface a front-door feature.** "On this
    day," "this forgotten match," shareable history cards. The single best
-   organic reaction was a rediscovery; engineer for more of them.
+   organic reaction was a rediscovery; engineer for more of them. Reddit's
+   historical-stat threads show the same mechanism: give fans a chart, and
+   they use it to remember, argue, and reinterpret players they already love.
 5. **Bang the free/open/honest drum explicitly.** Post-FBref, "free forever,
    open data, corrections via PR, we tell you what we *don't* have" is a
    positioning the analytics segment is primed to love. Make the data-coverage
@@ -321,7 +424,9 @@ Ordered by leverage. **[inference]** throughout, grounded in the evidence above.
 6. **Set expectations on advanced metrics honestly.** Don't over-promise xG/
    xAssists the open data can't support pre-2012. Frame United Stats as the
    home of *historical completeness*, with modern advanced metrics where the
-   data legitimately allows — and be loud about the boundary.
+   data legitimately allows — and be loud about the boundary. Users will ask
+   for "passes prevented"-style concepts; it is better to say "not measured"
+   than to launder a weak proxy into a false claim.
 7. **Right surface per segment.** Historian (browse/records), nostalgist
    (rediscovery/share), analyst (export/compare), fantasy (clean comparison).
    The data is one; the doors should be several.
@@ -330,10 +435,10 @@ Ordered by leverage. **[inference]** throughout, grounded in the evidence above.
 
 ## 9. Open gaps in this evidence base (fill before treating as final)
 
-- **Reddit (the big one).** r/reddevils, r/soccer, r/footballanalytics,
-  r/FantasyPL — unreached (tool-blocked, see §0). This is where the launch
-  audience actually lives; their verbatim voices belong in §4–§7. *Next step:
-  paste thread URLs/text and they'll be integrated.*
+- **Reddit breadth.** This pass reached r/reddevils, r/soccer, and r/FantasyPL,
+  but not r/footballanalytics, club Discords, or older Reddit threads around
+  StretfordEnd/MUFCInfo by name. A fuller pass should search those surfaces
+  before treating Reddit as exhausted.
 - **Hard traffic numbers** for the niche/club sites (MUFCInfo, 11v11) — none
   public; left as qualitative.
 - **Live-app review quotes** are aggregated/representative, not single-attributed
@@ -350,6 +455,21 @@ Ordered by leverage. **[inference]** throughout, grounded in the evidence above.
   https://www.redcafe.net/threads/fao-united-stats-lovers.492426/
 - RedCafe — *"Fbref: Opta Pull Data Support"*:
   https://www.redcafe.net/threads/fbref-opta-pull-data-support.491087/
+- Reddit / r/reddevils — *"Finding an ideal striker using a data-driven
+  approach"*:
+  https://www.reddit.com/r/reddevils/comments/1maqcv7/finding_an_ideal_striker_using_a_datadriven/
+- Reddit / r/reddevils — *"[OC] Historical statistical reports of United
+  midfielders inc. Scholes, Keane, Carrick"*:
+  https://www.reddit.com/r/reddevils/comments/1o502x3/oc_historical_statistical_reports_of_united/
+- Reddit / r/soccer — *"FBref & Stathead forced to remove advanced data by data
+  provider"*:
+  https://www.reddit.com/r/soccer/comments/1qig3gf/fbref_stathead_forced_to_remove_advanced_data_by/
+- Reddit / r/FantasyPL — *"What's the best place to look up player stats
+  (that's free)?"*:
+  https://www.reddit.com/r/FantasyPL/comments/1mlku47/whats_the_best_place_to_look_up_player_stats/
+- Reddit / r/FantasyPL — *"Built an alternative to FBref with advanced stats
+  and scouting reports for every PL team"*:
+  https://www.reddit.com/r/FantasyPL/comments/1sdw4ks/built_an_alternative_to_fbref_with_advanced_stats/
 - UTDFORUM — *"Manchester United Stats website"*:
   https://www.utdforum.com/forum/threads/manchester-united-stats-website.368040/
 - BigSoccer — *"Looking for football statistic sites"*:
