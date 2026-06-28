@@ -15,7 +15,8 @@ the team can challenge a recommendation by going back to the source.
 **Method & honest caveats:**
 
 - **Sources reached:** RedCafe (the original feedback thread + the FBref/Opta
-  data-loss thread), Reddit (r/reddevils, r/soccer, r/FantasyPL, via Safari),
+  data-loss thread), Reddit (r/reddevils, r/soccer, r/FantasyPL,
+  r/sportsanalytics, r/FootballDataAnalysis, via Safari),
   UTDFORUM, BigSoccer, Tildes, a football-analytics Substack, aggregated App
   Store / comparison-site reviews for the big live apps, the prideofmanchester
   source guide, MUFCInfo, and a spread of landscape/traffic articles
@@ -153,6 +154,12 @@ day," era-correct context. United Stats' bullseye.
 > *"For all you stattos, autists and 'football is me life' types."*
 > — Finport Red, UTDFORUM (sharing United Stats)
 
+The "my club first" motivation holds even in the hardcore analytics subs — the
+entry point is almost always someone's own team:
+> "I had the idea of analyzing data from my favorite football club as well as
+> other teams."
+> — HolidaySuccessful296, r/sportsanalytics, [best source of data thread](https://www.reddit.com/r/sportsanalytics/comments/1t0a4rg/best_source_of_data_for_football_analytics/)
+
 ### 4.2 The nostalgist / rediscoverer (the emotional core)
 Doesn't arrive with a query — arrives to *re-feel* the club's history and gets
 ambushed by a forgotten memory. The strongest organic reaction United Stats
@@ -271,6 +278,14 @@ without.
    this niche exists alongside SofaScore/FotMob.
    > "I would love to be able to see advanced stats from before 2018"
    > — Yandhi42, r/reddevils, [historical midfield reports](https://www.reddit.com/r/reddevils/comments/1o502x3/oc_historical_statistical_reports_of_united/)
+
+   And the *structured* historical record United Stats actually holds —
+   appearances, goals, lineups by season — is a named, unmet need even among
+   builders, who note the raw source is too messy to use:
+   > "historical soccer stats for club teams and national teams… by season and
+   > club — appearances by player with goals scored and assists… Some of this
+   > information is on Wikipedia but the information is not easy to extract."
+   > — Comfortable_Roll_382, r/sportsanalytics, [historical-stats API thread](https://www.reddit.com/r/sportsanalytics/comments/1s4kbke/looking_for_api_with_historical_soccer_stats/)
 6. **Mobile-tolerable, ad-tolerable.** The live-app complaints (Section 6) are
    overwhelmingly about ads and paywalls degrading a once-clean experience —
    a low bar United Stats can clear simply by *not* doing that.
@@ -346,7 +361,17 @@ fixes before a wider launch:
   > text makes it feel like I'm browsing a prototype."* — Jed I. Knight, RedCafe
   > *(elsewhere described as feeling like "dummy data")*
   **Why it matters:** for a credibility product, voice *is* trust. This is
-  cheap to fix and disproportionately damaging if left.
+  cheap to fix and disproportionately damaging if left. And it's not a
+  United-fan quirk — the analytics subs punish AI-feel just as hard:
+  > "Your website is AI slop. Tracker doesn't even work."
+  > — Ok-Notice-5189, r/sportsanalytics, [a website-feedback thread](https://www.reddit.com/r/sportsanalytics/comments/1t3872x/i_created_a_football_website/)
+  > (the builder conceded: "Its a vibe coded app")
+
+  The flip side of the same value is a preference for restraint over a busy UI:
+  > "I find it more enjoyable to read when there's just enough information on
+  > the screen without too many visual distractions. As it stands, the site
+  > feels a bit too colorful and busy."
+  > — First_Ad8620, r/sportsanalytics, [same thread](https://www.reddit.com/r/sportsanalytics/comments/1t3872x/i_created_a_football_website/)
 - **Search robustness (accents, nicknames, misspellings).** Already being
   fixed post-feedback, but it's the trust-breaker — must be solid before
   thousands arrive. (DOTA quote above.)
@@ -431,13 +456,53 @@ Ordered by leverage. **[inference]** throughout, grounded in the evidence above.
    (rediscovery/share), analyst (export/compare), fantasy (clean comparison).
    The data is one; the doors should be several.
 
+### How a stats-community launch gets received (and how to land it)
+
+Six "I built X" posts in r/sportsanalytics / r/FootballDataAnalysis show a
+remarkably consistent reception pattern. Treat it as the launch playbook for any
+analytics-leaning community (the room's stated norm is *"a preference for
+articles that show their work, especially links to source data"*):
+
+- **The first question is always "where's the data from?"** — *"How are you
+  getting this data?"* / *"What're the data sources being scraped?… Appreciate
+  the work re-democratizing the event data!"* (Betterpanosh, cjralphs). **Open
+  with provenance.** Your source ledger + open dataset win this on arrival —
+  put them in the first two sentences of the post.
+- **They will find data errors, fast and specific** (a flipped group label, an
+  off-by-one date). The builder who replied *"spot on, and a great catch —
+  fixing now"* got showered with goodwill. **Pre-stage the "it's just JSON,
+  corrections welcome / PR me" line** so reports become engagement, not
+  embarrassment.
+- **They interrogate method** — *"cross-reference your xG against other
+  sources… good way to stress-test your own methodology"* (Fast-Mix-6074);
+  *"you might be double-counting…"* (vaskov17). For United Stats that means
+  **be explicit about era-context and what's measured** before they ask.
+- **AI-feel is a kill-shot** (§6). Ship human copy first.
+- **Don't pitch into the xG hole.** This crowd's acute need is recent advanced
+  metrics for modelling/betting — which you don't have and can't fake. Pitch
+  the thing they *also* lack and you uniquely own: a clean, free, structured,
+  *complete* historical record of one club. The expensive-advanced-data
+  treadmill (*"data is really expensive,"* *"afraid I'll get rate-limited by my
+  source"*) is exactly the race you're not running.
+- **Claim the values banner:** free forever, no login, no tracking, open data —
+  *"nothing which tracks you and sells information about you. Fully free"*
+  (GunnarAndersson) is a positioning this audience explicitly applauds.
+
+(One quiet asset worth a mention: cross-source name matching is an
+industry-wide nightmare — *"team names fuck you over when 5 diff websites have
+5 diff variants… especially Spanish, German and French teams"* — so your clean
+canonical entities + accent-aware search is a real, if invisible, strength.)
+
 ---
 
 ## 9. Open gaps in this evidence base (fill before treating as final)
 
-- **Reddit breadth.** This pass reached r/reddevils, r/soccer, and r/FantasyPL,
-  but not r/footballanalytics, club Discords, or older Reddit threads around
-  StretfordEnd/MUFCInfo by name. A fuller pass should search those surfaces
+- **Reddit breadth.** This pass reached r/reddevils, r/soccer, r/FantasyPL,
+  r/sportsanalytics and r/FootballDataAnalysis. The last two are valuable for
+  *launch-reception* and *data-credibility* signals but skew toward
+  APIs/modelling/betting — so weight their "what fans want" signal lightly.
+  Still unsampled: r/footballanalytics proper, club Discords, and older threads
+  naming StretfordEnd/MUFCInfo directly. A fuller pass should cover those
   before treating Reddit as exhausted.
 - **Hard traffic numbers** for the niche/club sites (MUFCInfo, 11v11) — none
   public; left as qualitative.
@@ -470,6 +535,34 @@ Ordered by leverage. **[inference]** throughout, grounded in the evidence above.
 - Reddit / r/FantasyPL — *"Built an alternative to FBref with advanced stats
   and scouting reports for every PL team"*:
   https://www.reddit.com/r/FantasyPL/comments/1sdw4ks/built_an_alternative_to_fbref_with_advanced_stats/
+- Reddit / r/sportsanalytics — *"FBRef is dead!"*:
+  https://www.reddit.com/r/sportsanalytics/comments/1qnth7w/fbref_is_dead/
+- Reddit / r/sportsanalytics — *"Built a football/soccer database that replaces
+  FBref after they lost Opta data"*:
+  https://www.reddit.com/r/sportsanalytics/comments/1qprj59/built_a_footballsoccer_database_that_replaces/
+- Reddit / r/sportsanalytics — *"Looking for API with historical soccer
+  stats"*:
+  https://www.reddit.com/r/sportsanalytics/comments/1s4kbke/looking_for_api_with_historical_soccer_stats/
+- Reddit / r/sportsanalytics — *"Best source of data for football analytics"*:
+  https://www.reddit.com/r/sportsanalytics/comments/1t0a4rg/best_source_of_data_for_football_analytics/
+- Reddit / r/sportsanalytics — *"I created a football website"* (AI-slop /
+  busy-UI feedback):
+  https://www.reddit.com/r/sportsanalytics/comments/1t3872x/i_created_a_football_website/
+- Reddit / r/sportsanalytics — *"My World Cup 2026 hobby project turned into a
+  full prediction site"* (bug-handling reception):
+  https://www.reddit.com/r/sportsanalytics/comments/1u1brtg/my_world_cup_2026_hobby_project_turned_into_a/
+- Reddit / r/sportsanalytics — *"Made a website to show Statsbomb Open Data"*:
+  https://www.reddit.com/r/sportsanalytics/comments/1sipg3s/made_a_website_to_show_statsbomb_open_data/
+- Reddit / r/sportsanalytics — *"looking for football stat api (soccer)"*
+  (cross-source name matching):
+  https://www.reddit.com/r/sportsanalytics/comments/1tdgmq3/looking_for_football_stat_apisoccer/
+- Reddit / r/sportsanalytics — *"I analyzed 100 Football Prediction Tools &
+  Data Sites"*:
+  https://www.reddit.com/r/sportsanalytics/comments/1p1zpef/i_analyzed_100_football_prediction_tools_data/
+- Reddit / r/FootballDataAnalysis — *"FBRef rant"*:
+  https://www.reddit.com/r/FootballDataAnalysis/comments/1rj26xq/fbref_rant/
+- Reddit / r/FootballDataAnalysis — *"Best way to access football data?"*:
+  https://www.reddit.com/r/FootballDataAnalysis/comments/1aoedub/best_way_to_access_football_data/
 - UTDFORUM — *"Manchester United Stats website"*:
   https://www.utdforum.com/forum/threads/manchester-united-stats-website.368040/
 - BigSoccer — *"Looking for football statistic sites"*:
