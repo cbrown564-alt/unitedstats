@@ -189,6 +189,9 @@ export function CareerDuelChart({
     <div className="h-auto w-full" style={{ height }}>
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
         <AreaChart data={data} margin={{ top: 16, right: 12, bottom: 8, left: 0 }} accessibilityLayer aria-label={`Goals per season: ${labelA} vs ${labelB}`}>
+          {/* Matches InspectableBarChart: a <title> surfaces the click affordance
+              on hover, complementing the cursor change on each point. */}
+          <title>Click a point to open that player&apos;s matches for the season</title>
           <defs>
             <linearGradient id={`duel-a-${gid}`} x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stopColor={A_COLOR} stopOpacity={0.26} />
@@ -254,6 +257,9 @@ export function CareerDuelChart({
           />
         </AreaChart>
       </ResponsiveContainer>
+      <p className="mt-1 text-center text-[11px] text-ink-faint">
+        Click a point to open that player&apos;s matches for the season
+      </p>
     </div>
   );
 }
