@@ -23,7 +23,7 @@ import { CURATED_CUTS } from "../lib/cut";
 import { surpriseFacts, pickIndex } from "../lib/surprise";
 import { relatedAnswers, relatedSlugs } from "../lib/related";
 import { whatsInteresting } from "../lib/now";
-import { allEntryPoints, entryStrip, breadthWays } from "../lib/entryPoints";
+import { allEntryPoints, entryStrip } from "../lib/entryPoints";
 
 const slugSet = new Set(questionSlugs());
 
@@ -128,17 +128,4 @@ test("the entry strip is balanced, distinct, and rotates by day", () => {
   // Deterministic within a UTC day; turns over across days (the static guardrail).
   assert.deepEqual(a.map((p) => p.href), sameDay.map((p) => p.href), "strip changed within one UTC day");
   assert.notDeepEqual(a.map((p) => p.href), next.map((p) => p.href), "strip did not rotate across days");
-});
-
-test("the breadth tease emits well-formed, non-duplicate launchers", () => {
-  const ways = breadthWays();
-  assert.ok(ways.length >= 5, `thin breadth tease: ${ways.length}`);
-  const hrefs = new Set<string>();
-  for (const w of ways) {
-    assert.ok(w.href.startsWith("/"), `breadth href not site-relative: ${w.href}`);
-    assert.ok(!hrefs.has(w.href), `breadth tease repeats ${w.href}`);
-    hrefs.add(w.href);
-    assert.ok(w.title.length > 0 && w.blurb.length > 0, `breadth card ${w.href} missing copy`);
-    assert.ok((w.cta ?? "").length > 0, `breadth card ${w.href} missing a cta`);
-  }
 });

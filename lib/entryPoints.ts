@@ -1,6 +1,5 @@
 import { playerById, opponentById, managerById, allSeasons } from "./queries";
 import { fmtYearRange } from "./format";
-import type { CarouselCard } from "@/components/CuratedCarousel";
 
 /**
  * Orientation and personal entry points (Phase 18.4). The cold homepage offers a
@@ -136,60 +135,5 @@ export function entryStrip(now = new Date()): EntryPoint[] {
     ...players.map(resolvePlayer),
     resolveRival(RIVALRIES[o % RIVALRIES.length]),
     resolveEra(ERAS[o % ERAS.length]),
-  ];
-}
-
-/**
- * The breadth tease (Phase 18.4): show the newcomer the *range* of moves the
- * product makes without a directory grid — the Phase 11 peek-carousel lesson,
- * "tease breadth, don't enumerate it". Six cards, each a different kind of move
- * with a concrete example, rendered as a scroll-snap strip so the partial peek
- * cues "there's more" rather than laying the whole map flat. Every href is a
- * stable top-level surface; the strip replaces the old flat "Routes" grid.
- */
-export function breadthWays(): CarouselCard[] {
-  return [
-    {
-      href: "/compare",
-      eyebrow: "Settle a debate",
-      title: "Put two greats side by side",
-      blurb: "Rooney against Charlton, Busby against Ferguson, the 90s against the 60s — on shared, coverage-aware metrics.",
-      cta: "Compare →",
-    },
-    {
-      href: "/cut",
-      eyebrow: "Slice the record",
-      title: "Group every match your way",
-      blurb: "Rank all 6,000+ fixtures by decade, opponent, venue or result — then fork any parameter into a new cut.",
-      cta: "Open the cut →",
-    },
-    {
-      href: "/seasons",
-      eyebrow: "Walk the timeline",
-      title: "Every season since 1886",
-      blurb: "From the first Newton Heath campaign to today, each with its table, its story, and the matches behind it.",
-      cta: "Browse seasons →",
-    },
-    {
-      href: "/analytics",
-      eyebrow: "The long arc",
-      title: "140 years, measured",
-      blurb: "The Elo timeline, the travel map, attendance and goal-minute patterns — the record read as trends.",
-      cta: "Open analytics →",
-    },
-    {
-      href: "/transfers",
-      eyebrow: "The ledger",
-      title: "Who came and went",
-      blurb: "Net spend by manager, the record signings, and the whole transfer history in one place.",
-      cta: "View transfers →",
-    },
-    {
-      href: "/on-this-day",
-      eyebrow: "Today in history",
-      title: "What happened on this date",
-      blurb: "Every match United have played on today's date, across all 140 years — a fresh memory-jog each morning.",
-      cta: "On this day →",
-    },
   ];
 }

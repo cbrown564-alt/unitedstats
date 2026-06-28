@@ -3,8 +3,7 @@ import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
   topScorers, seasonAggregates, championSeasons,
 } from "@/lib/queries";
-import { clubRecords, goalMinuteRidge, lateGoalShareByDecade } from "@/lib/trails";
-import { recentHistoryDigests } from "@/lib/historyDigests";
+import { clubRecords } from "@/lib/trails";
 import {
   fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
 } from "@/lib/format";
@@ -14,14 +13,12 @@ import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
-import { RecentlyChanged } from "@/components/RecentlyChanged";
 import { WhatsInteresting } from "@/components/WhatsInteresting";
 import { whatsInteresting } from "@/lib/now";
 import { EntryChips } from "@/components/EntryChips";
-import { entryStrip, breadthWays } from "@/lib/entryPoints";
+import { entryStrip } from "@/lib/entryPoints";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
-import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 
 export default function Home() {
@@ -29,10 +26,8 @@ export default function Home() {
   const rec = allTimeRecord();
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
-  const recentChanges = recentHistoryDigests(3);
   const interesting = whatsInteresting();
   const entries = entryStrip();
-  const ways = breadthWays();
   const scorers = topScorers(8);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -73,14 +68,6 @@ export default function Home() {
       meta: "wins and draws, official matches", href: `/matches?from=${r.from}&to=${r.to}`,
     });
   }
-
-  // Featured myth: the late-goals window. Reuses the questions MinuteColumns so the
-  // homepage demonstrates the surface, and leads with the one finding number.
-  const ridge = goalMinuteRidge();
-  const lateAgg = lateGoalShareByDecade().reduce(
-    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late, reg: a.reg + d.reg }),
-    { timed: 0, late: 0, reg: 0 },
-  );
 
   // The curated-cut launcher: the nine myth-tested questions as a peek-carousel,
   // each card opening its full answer page (Phase 10 per-question routes). This is
@@ -199,51 +186,7 @@ export default function Home() {
             </p>
           </section>
         )}
-
-        <section>
-          <SectionHead
-            title="Featured myth"
-            aside={<Link href="/explore" className="text-devil-bright hover:underline">All questions →</Link>}
-          />
-          <Link
-            href="/questions/late-goals"
-            className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60"
-          >
-            <div className="flex items-baseline justify-between gap-3">
-              <h3 className="display text-xl group-hover:text-devil-bright">Do United really score late?</h3>
-              <span className="stat-num shrink-0 text-2xl font-semibold text-devil-bright">
-                {pct(lateAgg.late, lateAgg.timed)}
-              </span>
-            </div>
-            <p className="mt-1 text-sm text-ink-dim">
-              of timed United goals come after the 85th minute. Most of that edge is in minutes 86-90
-              ({pct(lateAgg.reg, lateAgg.timed)}); the modern surge on top is stoppage time, and it keeps growing.
-            </p>
-            <div className="mt-4">
-              <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={170} />
-            </div>
-            <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
-              Go to the late-goals thread →
-            </p>
-          </Link>
-        </section>
       </div>
-
-      {/* ── Movement: the living record. What the latest matches changed in 140
-          years, then what just happened beside the all-time shape of it. ── */}
-      {recentChanges.length > 0 && (
-        <section>
-          <SectionHead
-            title="What the record just gained"
-            aside={<Link href={recentChanges[0].path} className="text-devil-bright hover:underline">Latest digest →</Link>}
-          />
-          <RecentlyChanged cards={recentChanges} />
-          <p className="mt-2 text-xs text-ink-faint">
-            The freshest results, read for what they moved in the all-time record — the question a
-            live-score app never answers. Each card opens the full digest.
-          </p>
-        </section>
-      )}
 
       <section className="grid lg:grid-cols-[1fr_20rem] gap-10">
         <div>
@@ -288,8 +231,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Movement: explore. The quiet browse close, set off by a divider so the
-          eye registers the shift from "look at this" to "go find your own". ── */}
+      {/* ── The quiet browse close: the all-time scorers, set off by a divider so
+          the eye registers the shift into the people behind the record. ── */}
       <div className="space-y-8 border-t border-line/60 pt-10">
         {scorers.length > 0 && (
           <section>
@@ -316,19 +259,6 @@ export default function Home() {
             </div>
           </section>
         )}
-
-        {/* Breadth tease (Phase 18.4): the range of moves the product makes, shown
-            as a peek-carousel rather than a flat directory grid — the Phase 11
-            lesson, "tease breadth, don't enumerate it". The partial peek of the
-            next card cues there is more than the eye can see. */}
-        <section>
-          <SectionHead title="More ways into the record" />
-          <CuratedCarousel cards={ways} label="Ways into the record" />
-          <p className="mt-2 text-xs text-ink-faint">
-            A few of the moves you can make here — compare, slice, or walk the timeline. Every one keeps the
-            evidence trail intact, with a coverage grade where the record is still growing.
-          </p>
-        </section>
       </div>
     </div>
   );

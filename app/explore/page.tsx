@@ -75,7 +75,7 @@ export default function ExplorePage() {
 
   return (
     <div className="space-y-12">
-      <PageHeader eyebrow="Answering · asking · exploring" title="Discover">
+      <PageHeader eyebrow="Questions · comparisons · cuts" title="Discover">
         Start with an answer. Every question below is tested directly against the canonical record — opening a
         dedicated finding, the slice of history it’s drawn from, and the individual matches that built the
         figure. Comparison and grouping follow once you have a thread to pull.
@@ -104,7 +104,7 @@ export default function ExplorePage() {
       <section className="space-y-4">
         <SectionHead
           title="Tested myths"
-          aside={<span className="text-ink-faint">Answering · {QUESTIONS.length} tested myths</span>}
+          aside={<span className="text-ink-faint">{QUESTIONS.length} tested myths</span>}
         />
 
         <FeatureCarousel label="Tested myths — swipe across the findings">
@@ -167,7 +167,7 @@ export default function ExplorePage() {
       <section className="space-y-4">
         <SectionHead
           title="Curated debates"
-          aside={<span className="text-ink-faint">Asking · player, manager, and era</span>}
+          aside={<span className="text-ink-faint">Player, manager, and era</span>}
         />
 
         <FeatureCarousel label="Flagship debates — comparing players, managers, and eras">
@@ -198,7 +198,7 @@ export default function ExplorePage() {
       <section className="space-y-4">
         <SectionHead
           title="Curated cuts"
-          aside={<span className="text-ink-faint">Exploring · filter and group by any dimension</span>}
+          aside={<span className="text-ink-faint">Filter and group by any dimension</span>}
         />
 
         <FeatureCarousel label="Curated cuts — group and rank the record">
