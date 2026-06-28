@@ -1,16 +1,16 @@
 import { getDb } from "./db";
 
 /**
- * Predictive layer on top of the closed-universe Elo in elo_history.
+ * Closed-universe Elo in elo_history, read against history — not forward.
  *
  * Elo expectancy folds draws into a single number, so win/draw/loss
  * probabilities come from calibration: bucket all 6,000+ rated matches by
- * pre-match expectancy and use the observed W/D/L split in each bucket.
- * Empirical, evidence-linked, and honest about its closed-universe scope —
- * opponents are rated only on their matches against United.
+ * pre-match expectancy and use the observed W/D/L split in each bucket. That
+ * calibration powers two retrospective checks — the reliability curve (does
+ * expectancy come true) and the season replay (how a past season compares with
+ * what the ratings expected). There is no forecast: the archive ends at today,
+ * so the rating is only ever pointed back at matches that were actually played.
  */
-
-export const HOME_ADVANTAGE = 60;
 
 export interface CalibrationBucket {
   /** Expectancy range [lo, hi). */
@@ -60,79 +60,6 @@ function probabilitiesFor(expected: number): Probabilities {
   const idx = Math.min(Math.floor(expected * 10), 9);
   const b = buckets.find((x) => Math.round(x.lo * 10) === idx) ?? buckets[buckets.length - 1];
   return { pW: b.w / b.p, pD: b.d / b.p, pL: b.l / b.p, sample: b.p };
-}
-
-function unitedEloNow(): { elo: number; date: string } {
-  return getDb()
-    .prepare("SELECT elo_post elo, date FROM elo_history ORDER BY date DESC LIMIT 1")
-    .get() as { elo: number; date: string };
-}
-
-interface OpponentRating {
-  opponent_id: string;
-  name: string;
-  elo: number;
-  meetings: number;
-  last_date: string;
-}
-
-/**
- * An opponent's current closed-universe rating: their rating going into the
- * most recent meeting, adjusted by the (zero-sum) exchange from that match.
- */
-function opponentEloNow(opponentId: string): OpponentRating | undefined {
-  return getDb()
-    .prepare(
-      `SELECT m.opponent_id, o.name,
-              e.opp_elo_pre - (e.elo_post - e.elo_pre) elo,
-              (SELECT COUNT(*) FROM elo_history e2 JOIN matches m2 ON m2.id = e2.match_id
-               WHERE m2.opponent_id = m.opponent_id) meetings,
-              e.date last_date
-       FROM elo_history e JOIN matches m ON m.id = e.match_id
-       JOIN opponents o ON o.id = m.opponent_id
-       WHERE m.opponent_id = ?
-       ORDER BY e.date DESC LIMIT 1`,
-    )
-    .get(opponentId) as OpponentRating | undefined;
-}
-
-/** Opponents with a rating, for the odds-widget select. Rated meetings only. */
-export function ratedOpponents(): { id: string; name: string; meetings: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT m.opponent_id id, o.name, COUNT(*) meetings
-       FROM elo_history e JOIN matches m ON m.id = e.match_id
-       JOIN opponents o ON o.id = m.opponent_id
-       GROUP BY m.opponent_id ORDER BY o.name`,
-    )
-    .all() as { id: string; name: string; meetings: number }[];
-}
-
-export interface Odds extends Probabilities {
-  expected: number;
-  unitedElo: number;
-  opponentElo: number;
-  opponentName: string;
-  meetings: number;
-  lastMet: string;
-}
-
-/** "What are the odds" for a hypothetical meeting at today's ratings. */
-export function oddsFor(opponentId: string, venue: "H" | "A" | "N"): Odds | undefined {
-  const opp = opponentEloNow(opponentId);
-  if (!opp) return undefined;
-  const united = unitedEloNow();
-  const home = venue === "H" ? HOME_ADVANTAGE : venue === "A" ? -HOME_ADVANTAGE : 0;
-  const expected = 1 / (1 + 10 ** (-(united.elo + home - opp.elo) / 400));
-  return {
-    ...probabilitiesFor(expected),
-    expected,
-    unitedElo: united.elo,
-    opponentElo: opp.elo,
-    opponentName: opp.name,
-    meetings: opp.meetings,
-    lastMet: opp.last_date,
-  };
 }
 
 // ---------------------------------------------------------------- season replay
