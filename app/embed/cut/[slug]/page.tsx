@@ -41,7 +41,7 @@ export default async function CutEmbedPage({ params }: { params: Promise<{ slug:
 
         <div className="relative flex items-center justify-between gap-3">
           <a href={canonical} target="_blank" rel="noopener" className="text-[13px] font-extrabold uppercase tracking-[0.2em]">
-            <span className="text-devil-bright">United</span>Stats
+            <span className="text-devil-bright">Red</span> Thread
           </a>
           <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-faint">{curated.eyebrow}</span>
         </div>

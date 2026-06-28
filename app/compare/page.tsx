@@ -123,9 +123,10 @@ export default async function ComparePage({
 
   return (
     <div className="space-y-7">
-      <PageHeader eyebrow="Discovery" title="Compare">
-        Compare two careers, reigns, or eras side by side on shared, coverage-aware metrics. Every
-        comparison highlights the bounds of the historical data, ensuring you never assume a fairer like-for-like than the record supports, and every figure links directly to the matches behind it.
+      <PageHeader eyebrow="Side by side" title="Compare">
+        Compare two careers, reigns, or eras on shared, coverage-aware metrics. Each metric carries the
+        coverage behind it, so a thin record never poses as a fair fight — and the comparison links back
+        to the matches it is drawn from.
       </PageHeader>
 
       <ModePills mode={mode} />
