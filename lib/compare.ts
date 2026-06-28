@@ -102,9 +102,25 @@ interface TrophyCategory {
   n: number;
 }
 
+/** One trophy a manager won, at season granularity — the hover/click detail behind
+ *  each cabinet glyph. `href` opens the season page for a league title (a
+ *  season-long achievement, with its league table) or the deciding final for a
+ *  cup (a single match), so each glyph is a doorway into how it was won. */
+export interface TrophyEntry {
+  cat: string;
+  season: string;
+  competition: string;
+  /** → the deciding match. */
+  href: string;
+}
+
 export interface TrophyHaul {
   total: number;
   categories: TrophyCategory[];
+  /** Per-trophy detail, chronological — one entry per glyph. Populated for
+   *  managers (each trophy → its deciding match); absent for players and eras,
+   *  whose attribution is by medal rule / era span rather than a single match. */
+  entries?: TrophyEntry[];
 }
 
 /** A season's top-flight league finish (or a lower-tier season, topFlight=false).
@@ -426,27 +442,52 @@ function buildHaul(rows: { cat: string; n: number }[]): TrophyHaul {
   return { total: categories.reduce((s, c) => s + c.n, 0), categories };
 }
 
-/** Trophies a manager won, split by competition category. League titles attribute
- *  to whoever managed the last league match of the title season; cups to the
- *  winning-final manager (the shared {@link CUP_WON_PREDICATE}). */
+/** Category counts (in display order) from a flat list of trophy category keys. */
+function categoriesFromCats(cats: string[]): TrophyCategory[] {
+  const counts = new Map<string, number>();
+  for (const cat of cats) counts.set(cat, (counts.get(cat) ?? 0) + 1);
+  return TROPHY_CATS.map((c) => ({ key: c.key, label: c.label, n: counts.get(c.key) ?? 0 })).filter((c) => c.n > 0);
+}
+
+/** Trophies a manager won, each at season granularity with a link through. League
+ *  titles attribute to whoever managed the last league match of the title season;
+ *  cups to the winning-final manager (the shared {@link CUP_WON_PREDICATE}).
+ *  Each glyph opens the season page (league) or the deciding final (cup) — how the
+ *  trophy was actually won. Ordered chronologically. */
 export function managerTrophyHaul(id: string): TrophyHaul {
   const rows = getDb()
     .prepare(
-      `WITH honours AS (
-         SELECT 'league' cat,
-                (SELECT m.manager_id FROM matches m JOIN competitions lc ON lc.id = m.competition_id
-                 WHERE lc.type = 'league' AND m.season = ss.season ORDER BY m.date DESC LIMIT 1) manager_id
+      `WITH league_titles AS (
+         SELECT ss.season season, ss.competition_id competition_id,
+                (SELECT m.id FROM matches m
+                 WHERE m.season = ss.season AND m.competition_id = ss.competition_id
+                 ORDER BY m.date DESC LIMIT 1) match_id
          FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
          WHERE c.type = 'league' AND ss.position = 1 AND c.name IN ('First Division','Premier League')
+       ),
+       honours AS (
+         SELECT 'league' cat, lt.season season, lc.name competition, lt.match_id match_id
+         FROM league_titles lt JOIN competitions lc ON lc.id = lt.competition_id
          UNION ALL
-         SELECT c.type cat, m.manager_id
+         SELECT c.type cat, m.season season, c.name competition, m.id match_id
          FROM matches m JOIN competitions c ON c.id = m.competition_id
          WHERE ${CUP_WON_PREDICATE}
        )
-       SELECT cat, COUNT(*) n FROM honours WHERE manager_id = ? GROUP BY cat`,
+       SELECT h.cat cat, h.season season, h.competition competition, m.id match_id
+       FROM honours h JOIN matches m ON m.id = h.match_id
+       WHERE m.manager_id = ?
+       ORDER BY m.date`,
     )
-    .all(id) as { cat: string; n: number }[];
-  return buildHaul(rows);
+    .all(id) as { cat: string; season: string; competition: string; match_id: string }[];
+  const entries: TrophyEntry[] = rows.map((r) => ({
+    cat: r.cat,
+    season: r.season,
+    competition: r.competition,
+    // A league title is a season-long achievement — open the season page (with its
+    // league table). A cup is won in one match — open the deciding final.
+    href: r.cat === "league" ? `/seasons/${r.season}` : `/match/${r.match_id}`,
+  }));
+  return { total: entries.length, categories: categoriesFromCats(rows.map((r) => r.cat)), entries };
 }
 
 /** Trophies a *player* won, split by competition category. Attribution follows

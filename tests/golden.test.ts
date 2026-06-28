@@ -587,6 +587,22 @@ test("compare builders reproduce the official record across the three modes", ()
   // Per-game toggle: Points total carries a Points-per-game rate form.
   assert.ok(byLabel(mgrs, "Points").rate, "Points metric should expose a per-game rate");
 
+  // The trophy cabinet carries season-granular entries — one per glyph, each
+  // linking through. Ferguson's 38 trophies all resolve; league titles open the
+  // season page, cups open the deciding final.
+  if (mgrs.signature?.kind === "trophies") {
+    const fergie = mgrs.signature.a;
+    assert.equal(fergie.total, 38, "managerTrophyHaul total matches the canonical count");
+    assert.ok(fergie.entries?.length === 38, "every Ferguson trophy has an entry");
+    const leagues = fergie.entries!.filter((e) => e.cat === "league");
+    const cups = fergie.entries!.filter((e) => e.cat !== "league");
+    assert.ok(leagues.length > 0 && leagues.every((e) => e.href.startsWith("/seasons/")), "league titles link to the season page");
+    assert.ok(cups.every((e) => e.href.startsWith("/match/")), "cups link to the deciding final");
+    // The 1999 European Cup glyph resolves to a Champions League final entry.
+    const euro99 = fergie.entries!.find((e) => e.cat === "european" && e.season === "1998-99");
+    assert.ok(euro99, "the 1999 European Cup is in the haul");
+  }
+
   // Eras: a closed-vs-closed era comparison resolves with sane win rates.
   const eras = compareEras("busby", "ferguson");
   assert.ok(eras, "expected an era comparison");

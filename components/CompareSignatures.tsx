@@ -1,4 +1,5 @@
-import type { CareerSeason, EraFinish, TrophyHaul } from "@/lib/compare";
+import Link from "next/link";
+import type { CareerSeason, EraFinish, TrophyEntry, TrophyHaul } from "@/lib/compare";
 import { TROPHY_CAT_TONE, TrophyGlyphFilled } from "@/components/CampaignIcons";
 
 // The two sides carry identity colours across every signature: A is United red,
@@ -128,9 +129,23 @@ export function CareerArcDuel({
 // ----------------------------------------------------------- trophy cabinet (managers)
 
 function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul; color: string; win: number | null }) {
-  const glyphs = haul.categories.flatMap((c) =>
-    Array.from({ length: c.n }, (_, i) => ({ key: `${c.key}-${i}`, tone: TROPHY_CAT_TONE[c.key] ?? "var(--color-gold)" })),
-  );
+  // Match each glyph to its season-granular entry. Entries are chronological
+  // globally; grouped by category here (in display order) so the glyph wall reads
+  // "all the leagues, then all the cups" while each one still carries its season.
+  const entriesByCat = new Map<string, TrophyEntry[]>();
+  for (const e of haul.entries ?? []) {
+    const list = entriesByCat.get(e.cat);
+    if (list) list.push(e);
+    else entriesByCat.set(e.cat, [e]);
+  }
+  const glyphs = haul.categories.flatMap((c) => {
+    const catEntries = entriesByCat.get(c.key) ?? [];
+    return Array.from({ length: c.n }, (_, i) => ({
+      key: `${c.key}-${i}`,
+      tone: TROPHY_CAT_TONE[c.key] ?? "var(--color-gold)",
+      entry: catEntries[i],
+    }));
+  });
   return (
     <div className="rounded-lg border border-line bg-pitch/40 p-3 sm:p-4">
       <div className="flex items-baseline justify-between gap-2">
@@ -143,7 +158,24 @@ function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul;
 
       <div className="mt-3 flex min-h-[2.25rem] flex-wrap content-start gap-1">
         {glyphs.length ? (
-          glyphs.map((g) => <TrophyGlyphFilled key={g.key} style={{ color: g.tone }} />)
+          glyphs.map((g) => {
+            const glyph = <TrophyGlyphFilled style={{ color: g.tone }} />;
+            // Each trophy opens how it was won — a league title's season page
+            // (league table) or a cup's deciding final. The native title surfaces
+            // the season.
+            return g.entry ? (
+              <Link
+                key={g.key}
+                href={g.entry.href}
+                title={`${g.entry.competition}, ${g.entry.season}`}
+                className="rounded transition-transform hover:scale-110 focus-ring"
+              >
+                {glyph}
+              </Link>
+            ) : (
+              <span key={g.key}>{glyph}</span>
+            );
+          })
         ) : (
           <span className="text-sm text-ink-faint">No major honours in this span.</span>
         )}
@@ -190,10 +222,18 @@ export function TrophyCabinet({
   winA: number | null;
   winB: number | null;
 }) {
+  const hasEntries = !!(a.entries?.length || b.entries?.length);
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      <Cabinet label={labelA} haul={a} color={A_COLOR} win={winA} />
-      <Cabinet label={labelB} haul={b} color={B_COLOR} win={winB} />
+    <div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Cabinet label={labelA} haul={a} color={A_COLOR} win={winA} />
+        <Cabinet label={labelB} haul={b} color={B_COLOR} win={winB} />
+      </div>
+      {hasEntries && (
+        <p className="mt-2 text-center text-[11px] text-ink-faint">
+          Hover a trophy for the season; click to open how it was won
+        </p>
+      )}
     </div>
   );
 }
