@@ -107,12 +107,16 @@ export interface TrophyHaul {
   categories: TrophyCategory[];
 }
 
-/** A season's top-flight league finish (or a lower-tier season, topFlight=false). */
+/** A season's top-flight league finish (or a lower-tier season, topFlight=false).
+ *  `ppg` is the league record restated as three-points-per-game — the one-number
+ *  squad context the interactive skyline surfaces in its hover. */
 export interface EraFinish {
   season: string;
   position: number | null;
   topFlight: boolean;
   champion: boolean;
+  /** Three-points-for-a-win points per game across the league season. */
+  ppg: number | null;
 }
 
 export type CompareSignature =
@@ -211,6 +215,11 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
   const bHat = playerHatTricks(b.player_id);
   const pa = peakSeason(aArc);
   const pb = peakSeason(bArc);
+  // Silverware: a player's medal count, attributed the same way as a manager's
+  // haul (appeared in the deciding match). Match-attributed and complete across
+  // every curated pair, so no coverage gate is needed.
+  const aHaul = playerTrophyHaul(a.player_id);
+  const bHaul = playerTrophyHaul(b.player_id);
 
   return {
     mode: "players",
@@ -242,12 +251,16 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
         note: [pa && `${a.name}: ${pa.goals} in ${pa.season}`, pb && `${b.name}: ${pb.goals} in ${pb.season}`]
           .filter(Boolean).join("; ") + ".",
       }] : []),
+      {
+        label: "Trophies", a: aHaul.total, b: bHaul.total, fmt: "int", better: "higher",
+        note: "Medals by the medal rules: 5+ appearances in a title-winning league season, one appearance anywhere in a cup won.",
+      },
     ],
     signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc, aCovered, bCovered } : undefined,
     headline,
-    rhymes: playerRhymes(a, b, aArc, bArc),
+    rhymes: playerRhymes(a, b, aArc, bArc, aHaul.total, bHaul.total),
     coverage:
-      "Appearances and goals are the official club record (Wikipedia's List of Manchester United F.C. players); the career graph plots match-attributed goals per season, so its totals can sit just under the official figure where early matches are unrecorded. Assists combine the curated lane with match events, so the two careers are only fully like-for-like from 2012-13 on.",
+      "Appearances and goals are the official club record (Wikipedia's List of Manchester United F.C. players); the career graph plots match-attributed goals per season, so its totals can sit just under the official figure where early matches are unrecorded. Assists combine the curated lane with match events, so the two careers are only fully like-for-like from 2012-13 on. Trophies follow the medal rules — 5+ league appearances in a title season, one in a cup won.",
     evidence: [
       { label: `${a.name}'s matches →`, href: `/player/${a.player_id}` },
       { label: `${b.name}'s matches →`, href: `/player/${b.player_id}` },
@@ -268,6 +281,8 @@ function playerRhymes(
   b: { name: string; primary_shirt: number | null; first_year: number | null; last_year: number | null },
   aArc: CareerSeason[],
   bArc: CareerSeason[],
+  aTrophies: number,
+  bTrophies: number,
 ): { label: string; detail: string }[] | undefined {
   const out: { label: string; detail: string }[] = [];
 
@@ -294,6 +309,13 @@ function playerRhymes(
     });
   }
 
+  if (aTrophies > 0 && aTrophies === bTrophies) {
+    out.push({
+      label: `Level on ${aTrophies} medal${aTrophies === 1 ? "" : "s"}`,
+      detail: `${a.name} and ${b.name} each won ${aTrophies} United medal${aTrophies === 1 ? "" : "s"}.`,
+    });
+  }
+
   if (a.first_year && a.last_year && b.first_year && b.last_year) {
     const lo = Math.max(a.first_year, b.first_year);
     const hi = Math.min(a.last_year, b.last_year);
@@ -310,6 +332,81 @@ function playerRhymes(
 }
 
 // ----------------------------------------------------------------- managers
+
+/** Convergences between two managerial reigns — the moments two otherwise
+ *  different tenures lined up on the same number. Only signals the data carries:
+ *  a shared decade of appointment, the same trophy count, squad members who
+ *  featured under both, and overlapping time in charge. */
+function managerRhymes(
+  a: { id: string; name: string; first: string | null; last: string | null },
+  b: { id: string; name: string; first: string | null; last: string | null },
+  aTot: number,
+  bTot: number,
+): { label: string; detail: string }[] | undefined {
+  const out: { label: string; detail: string }[] = [];
+  const yr = (d: string | null): number | null => (d ? Number(d.slice(0, 4)) : null);
+
+  if (aTot > 0 && aTot === bTot) {
+    out.push({
+      label: `Level on ${aTot} ${aTot === 1 ? "trophy" : "trophies"}`,
+      detail: `${a.name} and ${b.name} each won ${aTot} as United manager.`,
+    });
+  }
+
+  const ay = yr(a.first);
+  const by = yr(b.first);
+  if (ay != null && by != null) {
+    const ad = Math.floor(ay / 10) * 10;
+    const bd = Math.floor(by / 10) * 10;
+    if (ad === bd) {
+      out.push({
+        label: `Both took charge in the ${ad}s`,
+        detail: `${a.name} and ${b.name} each began their United reign in the ${ad}s.`,
+      });
+    }
+  }
+
+  // Squad members who featured under both — match-attributed via the lineup record.
+  const shared = getDb()
+    .prepare(
+      `SELECT l.player_id, COALESCE(p.name, l.player_name) name, COUNT(DISTINCT m.id) apps
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       LEFT JOIN players p ON p.id = l.player_id
+       WHERE l.player_side = 'united' AND (l.started = 1 OR l.sub_on IS NOT NULL)
+         AND m.manager_id IN (?, ?)
+       GROUP BY l.player_id
+       HAVING COUNT(DISTINCT m.manager_id) = 2
+       ORDER BY apps DESC`,
+    )
+    .all(a.id, b.id) as { player_id: string; name: string; apps: number }[];
+  if (shared.length > 0) {
+    const top = shared[0];
+    const more = shared.length - 1;
+    out.push({
+      label: `Shared squad`,
+      detail:
+        more > 0
+          ? `${top.name} and ${more} other${more === 1 ? "" : "s"} featured under both managers.`
+          : `${top.name} featured under both managers.`,
+    });
+  }
+
+  const al = yr(a.last);
+  const bl = yr(b.last);
+  if (ay != null && al != null && by != null && bl != null) {
+    const lo = Math.max(ay, by);
+    const hi = Math.min(al, bl);
+    if (lo <= hi) {
+      out.push({
+        label: `Reigns overlapped`,
+        detail: `${a.name} and ${b.name} were both in charge between ${lo} and ${hi}.`,
+      });
+    }
+  }
+
+  return out.length ? out : undefined;
+}
 
 /** Display order + labels for trophy categories. */
 const TROPHY_CATS: { key: string; label: string }[] = [
@@ -347,6 +444,40 @@ export function managerTrophyHaul(id: string): TrophyHaul {
          WHERE ${CUP_WON_PREDICATE}
        )
        SELECT cat, COUNT(*) n FROM honours WHERE manager_id = ? GROUP BY cat`,
+    )
+    .all(id) as { cat: string; n: number }[];
+  return buildHaul(rows);
+}
+
+/** Trophies a *player* won, split by competition category. Attribution follows
+ *  the real medal rules: a league-title medal requires 5+ appearances in that
+ *  league competition over the title-winning season (the modern Premier League
+ *  threshold); a cup medal requires a single appearance anywhere in that cup
+ *  competition that season (one game in the tournament is enough — the final
+ *  itself is not required). Fully match-attributed, no judgment data; the two
+ *  thresholds are the documented medal rules, not a judgment call. */
+function playerTrophyHaul(id: string): TrophyHaul {
+  const rows = getDb()
+    .prepare(
+      `WITH honours AS (
+         SELECT ss.competition_id, ss.season, 'league' cat
+         FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+         WHERE c.type = 'league' AND ss.position = 1 AND c.name IN ('First Division','Premier League')
+         UNION ALL
+         SELECT m.competition_id, m.season, c.type cat
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE ${CUP_WON_PREDICATE}
+       )
+       SELECT h.cat cat, COUNT(*) n
+       FROM honours h
+       WHERE EXISTS (
+         SELECT 1 FROM match_lineups l JOIN matches m ON m.id = l.match_id
+         WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0
+           AND m.competition_id = h.competition_id AND m.season = h.season
+         GROUP BY m.competition_id, m.season
+         HAVING COUNT(*) >= CASE WHEN h.cat = 'league' THEN 5 ELSE 1 END
+       )
+       GROUP BY h.cat`,
     )
     .all(id) as { cat: string; n: number }[];
   return buildHaul(rows);
@@ -420,6 +551,7 @@ export function compareManagers(idA: string, idB: string): Comparison | null {
     ],
     signature: { kind: "trophies", a: managerTrophyHaul(a.id), b: managerTrophyHaul(b.id) },
     headline: trophyHeadline(a.name, b.name, aTot, bTot, winPct(a), winPct(b)),
+    rhymes: managerRhymes(a, b, aTot, bTot),
     coverage:
       "Records cover every competitive match. Points restate older eras in three-points-for-a-win terms; trophies count league titles and the cups whose deciding final was won.",
     evidence: [
@@ -504,21 +636,89 @@ function eraTrophies(era: EraDef): TrophyHaul {
 }
 
 /** Season-by-season league finish across an era (top-flight on the main scale,
- *  lower divisions flagged) — the raw material for the finish skyline. */
+ *  lower divisions flagged), each carrying its league record as PPG — the
+ *  one-number squad context the interactive skyline surfaces on hover. */
 function eraFinishes(era: EraDef): EraFinish[] {
   const rows = getDb()
     .prepare(
-      `SELECT ss.season, ss.position, c.name
+      `SELECT ss.season, ss.position, c.name, ss.p, ss.w, ss.d
        FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
        WHERE c.type = 'league'
          AND CAST(substr(ss.season,1,4) AS INTEGER) >= ? AND CAST(substr(ss.season,1,4) AS INTEGER) < ?
        ORDER BY ss.season`,
     )
-    .all(era.from, era.to) as { season: string; position: number | null; name: string }[];
+    .all(era.from, era.to) as { season: string; position: number | null; name: string; p: number; w: number; d: number }[];
   return rows.map((r) => {
     const topFlight = r.name === "First Division" || r.name === "Premier League";
-    return { season: r.season, position: r.position, topFlight, champion: topFlight && r.position === 1 };
+    const ppg = r.p > 0 ? (3 * r.w + r.d) / r.p : null;
+    return { season: r.season, position: r.position, topFlight, champion: topFlight && r.position === 1, ppg };
   });
+}
+
+/** Convergences between two eras — the moments two otherwise different spans of
+ *  the club's history lined up. Only signals the data carries: the same trophy
+ *  count, squad members who featured across both spans, and overlapping years. */
+function eraRhymes(
+  eraA: EraDef,
+  eraB: EraDef,
+  aTot: number,
+  bTot: number,
+): { label: string; detail: string }[] | undefined {
+  const out: { label: string; detail: string }[] = [];
+
+  if (aTot > 0 && aTot === bTot) {
+    out.push({
+      label: `Level on ${aTot} ${aTot === 1 ? "trophy" : "trophies"}`,
+      detail: `${eraA.label} and ${eraB.label} each yielded ${aTot}.`,
+    });
+  }
+
+  // Players who featured in both spans — a career long enough to bridge them, or
+  // the overlap when the spans themselves cross. Match-attributed via the lineup
+  // record, so it is honest wherever the matches are.
+  const shared = getDb()
+    .prepare(
+      `SELECT l.player_id, COALESCE(p.name, l.player_name) name
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       LEFT JOIN players p ON p.id = l.player_id
+       WHERE l.player_side = 'united' AND (l.started = 1 OR l.sub_on IS NOT NULL)
+         AND ( (m.date >= ? AND m.date < ?) OR (m.date >= ? AND m.date < ?) )
+       GROUP BY l.player_id
+       HAVING SUM(m.date >= ? AND m.date < ?) > 0
+          AND SUM(m.date >= ? AND m.date < ?) > 0
+       ORDER BY MAX(m.date) DESC`,
+    )
+    .all(
+      `${eraA.from}-01-01`, `${eraA.to}-01-01`,
+      `${eraB.from}-01-01`, `${eraB.to}-01-01`,
+      `${eraA.from}-01-01`, `${eraA.to}-01-01`,
+      `${eraB.from}-01-01`, `${eraB.to}-01-01`,
+    ) as { player_id: string; name: string }[];
+  if (shared.length > 0) {
+    const top = shared[0];
+    const more = shared.length - 1;
+    out.push({
+      label: `Shared squad`,
+      detail:
+        more > 0
+          ? `${top.name} and ${more} other${more === 1 ? "" : "s"} featured across both eras.`
+          : `${top.name} featured across both eras.`,
+    });
+  }
+
+  // Overlapping spans — the seasons the two eras share (named era vs decade, etc.).
+  const lo = Math.max(eraA.from, eraB.from);
+  const hi = Math.min(eraA.to, eraB.to);
+  if (lo < hi) {
+    const seasons = hi - lo;
+    out.push({
+      label: `Overlapping span`,
+      detail: `${eraA.label} and ${eraB.label} share ${seasons} year${seasons === 1 ? "" : "s"}, from ${lo} to ${hi === 2100 ? "now" : hi}.`,
+    });
+  }
+
+  return out.length ? out : undefined;
 }
 
 export function compareEras(keyA: string, keyB: string): Comparison | null {
@@ -561,6 +761,7 @@ export function compareEras(keyA: string, keyB: string): Comparison | null {
     ],
     signature: { kind: "skyline", a: eraFinishes(eraA), b: eraFinishes(eraB) },
     headline: trophyHeadline(shortLabel(eraA), shortLabel(eraB), haulA.total, haulB.total, winPct(ra), winPct(rb)),
+    rhymes: eraRhymes(eraA, eraB, haulA.total, haulB.total),
     coverage:
       "Official matches only (friendlies and wartime excluded). Eras are bounded by the calendar year of the appointment, so a few matches around a handover fall to the adjacent era; the skyline shows top-flight league finishes (lower-division seasons sit below the line); points per game restates older eras in three-points terms.",
     evidence: [

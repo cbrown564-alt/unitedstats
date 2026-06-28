@@ -575,6 +575,10 @@ test("compare builders reproduce the official record across the three modes", ()
   assert.match(best.note ?? "", /Charlton: 29 in/, "best-season note names the season");
   assert.equal(byLabel(players, "Hat-tricks").comparable, undefined, "hat-tricks need no coverage gate");
 
+  // Trophies: medals by the real rules (5+ league apps in a title season, one
+  // in a cup won) — Rooney 17, Charlton 5 (3 league, FA Cup, European Cup).
+  assert.deepEqual([byLabel(players, "Trophies").a, byLabel(players, "Trophies").b], [17, 5]);
+
   // Managers: Ferguson's trophy count is the canonical 38; Busby's reign is closed.
   const mgrs = compareManagers("alex-ferguson", "matt-busby");
   assert.ok(mgrs, "expected a manager comparison");
@@ -594,6 +598,21 @@ test("compare builders reproduce the official record across the three modes", ()
   const rooAssists = byLabel(players, "Assists");
   assert.equal(rooAssists.comparable, false, "Rooney-vs-Charlton assists must be flagged non-comparable");
   assert.ok(byLabel(players, "Goals").rate, "Goals metric should expose a per-90 rate");
+
+  // Rhymes: the Ferguson-vs-Mourinho reigns share a squad — players from the late
+  // Ferguson years carried over into Mourinho's tenure (Rooney, De Gea, …).
+  const mourinho = compareManagers("alex-ferguson", "jose-mourinho");
+  assert.ok(mourinho?.rhymes?.some((r) => r.label === "Shared squad"), "Ferguson vs Mourinho share squad members");
+
+  // The interactive skyline carries a per-season points-per-game for its hover —
+  // the squad context the static skyline didn't have. Every finish has the field.
+  if (eras.signature?.kind === "skyline") {
+    for (const f of [...eras.signature.a, ...eras.signature.b]) {
+      assert.ok("ppg" in f, "every era finish carries a ppg field");
+    }
+    const fergieChamps = eras.signature.b.filter((f) => f.champion);
+    assert.ok(fergieChamps.length > 0 && fergieChamps.every((f) => f.ppg != null && f.ppg > 1.5), "champion seasons carry a sane ppg");
+  }
 
   // Same entity on both sides is not a comparison.
   assert.equal(comparePlayers("wayne-rooney", "wayne-rooney"), null);

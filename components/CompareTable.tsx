@@ -2,8 +2,8 @@ import Link from "next/link";
 import type { Comparison, CompareMetric, CompareSide, CompareSignature } from "@/lib/compare";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
-import { CareerDuelChartLazy } from "@/components/charts/lazy";
-import { TrophyCabinet, EraSkyline } from "@/components/CompareSignatures";
+import { CareerDuelChartLazy, EraSkylineChartLazy } from "@/components/charts/lazy";
+import { TrophyCabinet } from "@/components/CompareSignatures";
 import { fmtNum } from "@/lib/format";
 
 /** The active-mode values/label/fmt for a metric: its rate form when the toggle
@@ -199,7 +199,12 @@ function Signature({
     );
   }
   const short = (s: string) => s.replace(/\s*\(.*\)$/, "");
-  return <EraSkyline a={signature.a} b={signature.b} labelA={short(a.label)} labelB={short(b.label)} />;
+  // The /compare page uses the interactive skyline (hover a season for the finish
+  // + points-per-game, click to open it); the static EraSkyline stays for the
+  // /explore SSR preview, where a client chart would flash blank.
+  return (
+    <EraSkylineChartLazy a={signature.a} b={signature.b} labelA={short(a.label)} labelB={short(b.label)} />
+  );
 }
 
 /**

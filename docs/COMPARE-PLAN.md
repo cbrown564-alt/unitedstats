@@ -8,11 +8,13 @@ recording boundary, scored as if fair), lazy presentation (a static SVG, an
 uninviting table), and a scoreline that reduced two careers to a count. This
 document captures the in-flight rework and the plan for the rest._
 
-> **Status: §1 committed; §3 in progress.** The "Done this round" baseline below is
-> committed (`f78dcff` + follow-ups). §1's verification is complete and §3's
-> data-backed metric depth (per-90, hat-tricks, best season, debut rhyme) is now
-> built and verified — see the updated checkboxes. Remaining §3 work hinges on a
-> player-honours data pass; §2 is largely human-eyeball polish; §4/§6 are deferred.
+> **Status: §1 committed; §3 complete; §4 complete.** The "Done this round" baseline below is
+> committed (`f78dcff` + follow-ups). §1's verification is complete, §3 is fully built and
+> verified (per-90, hat-tricks, best season, debut rhyme, player honours), and §4 is now built
+> and verified — the era skyline is interactive (hover for finish + points-per-game, click to
+> open a season) and both managers and eras carry data-backed rhymes (shared squad, same title
+> count, shared decade, overlapping span). Remaining work is §2 (largely human-eyeball polish),
+> §6 (accessibility, deferred).
 
 ---
 
@@ -68,10 +70,10 @@ Everything above was verified by text match, not by looking at it. Sit with the 
 
 Coverage-gating fixed the worst case (assists across the boundary). The metric set itself is still thin:
 
-- [ ] **Player honours / medals** — managers and eras carry trophy metrics; players have none. If the data supports it (league medals, cup winners' medals per player), add a honours metric or signature. — _Not yet investigated; needs a medal-attribution data pass (no per-player honours table today). Deferred._
+- [x] **Player honours / medals** — managers and eras carry trophy metrics; players have none. If the data supports it (league medals, cup winners' medals per player), add a honours metric or signature. — **Built** `playerTrophyHaul()`, attributed by the real medal rules: a league-title medal requires **5+ appearances** in that league competition over the title-winning season (the modern Premier League threshold); a cup medal requires **one appearance** anywhere in that cup competition that season (the final itself isn't required — one game in the tournament is enough). Fully match-attributed via `match_lineups`, no judgment data. Added as a "Trophies" metric on `comparePlayers` (matching the managers' row) plus a "Level on N medals" rhyme. Sane checks vs the official record: Giggs 36 (13 PL ✓), Scholes 25, Rooney 17 (5 PL ✓), Charlton 5 (3 league + FA Cup + European Cup ✓), Ronaldo 9, Best 3 (2 league + European Cup ✓), Cantona 9 (4 league ✓), Van Persie 2.
 - [x] **Per-90 vs per-appearance** — "per game" currently divides by appearances, but the football-standard rate is **per 90 minutes**. Decide: is per-appearance honest enough (minutes data is sparse historically), or do we add per-90 where minutes exist (modern era only, coverage-gated)? **Resolved & built:** minutes are *not* sparse — they derive from the lineup record for the whole dataset (starter → `sub_off` or full match; sub → final whistle minus `sub_on`; 90, or 120 when `aet=1`). Substitution counts per decade track the actual sub-rule history (1 from '65, 2 from '87, 3 from '95, 5 from '20), so the record is faithful, not gappy; pre-1965 there were no subs, so every starter played 90′ and minutes are trivially exact. **Replaced** per-appearance with per-90 (Total / Per 90 toggle), since per-90 strictly dominates per-app where they diverge (modern sub appearances) and ranks identically where they don't (pre-1965). The mode-aware label stays "Per game" for managers/eras (team-level). One honest floor, documented in code: a withdrawn starter in the pre-modern recording era with no `sub_off` is assumed to play the full match — a small (~5%), one-directional minutes overcount; stoppage time is not held per match, so durations are nominal 90/120 (standard — FBref/Opta do the same). Sane check: Ronaldo 0.49 G/90 vs Best 0.38 (per-90 credits Ronaldo where totals flatter Best); the Ronaldo-vs-Best verdict now flips total→per-90 from "out-scored" to "Level 1–1".
 - [x] **More dimensions**: debut age, career length, hat-tricks, single-season peaks (the chart shows peaks but no metric captures "best season"). Each should pass the same coverage-honesty test. — **Resolved:** _debut age_ is out (`players.born` is empty across the dataset — no birth dates to age from); _career length_ is already carried by the side sublabel (year span) so a separate metric is redundant. **Built** the two scoring-depth dimensions the data does carry: **Hat-tricks** (count of 3+ goal matches, match-attributed, complete for every curated pair — Rooney 8, Charlton 7, Best 4, Ronaldo 3) and **Best season** (peak single-season goal return, with a note naming the season — the metric the peak dots only hinted at). Both derive from the same match-event record as the career arc, so they need no coverage gate; the global coverage note already covers match-attribution.
-- [x] Apply the rhymes idea further: shared team-mates, same debut season, same number of trophies. — **Built** the data-backed one: _same debut season_ (a `first_year` match) now fires as a "Same debut season" rhyme. _Same number of trophies_ is blocked on the player-honours data pass above; _shared team-mates_ would need a heavier overlap query and is deferred.
+- [x] Apply the rhymes idea further: shared team-mates, same debut season, same number of trophies. — **Built** both data-backed ones: _same debut season_ (a `first_year` match) and _same number of trophies_ (`Level on N medals`, from the new `playerTrophyHaul`). _Shared team-mates_ would need a heavier overlap query and is deferred.
 
 ---
 
@@ -79,9 +81,9 @@ Coverage-gating fixed the worst case (assists across the boundary). The metric s
 
 Scope explicitly limited the interactive work to players. The other two signatures are still static:
 
-- [ ] **Eras skyline** → interactive (hover a season for the finish + squad context; click to open that season's matches). Same Recharts/lazy pattern.
-- [ ] **Managers trophy cabinet** is already decent; lower priority. Could add hover on the glyph row.
-- [ ] Rhymes for managers/eras: shared decade, shared players (a Busby Babe who also played under McGuinness), same title count.
+- [x] **Eras skyline** → interactive (hover a season for the finish + squad context; click to open that season's matches). Same Recharts/lazy pattern. — **Built** `components/charts/EraSkylineChart.tsx`: each era is a `BarChart` panel where bar height encodes league finish (1st ⇒ tallest), titles glow gold, relegation scrapes and seasons outside the top flight read as deep-red stubs below the baseline (negative values mirror the static design). Hover surfaces the season, an ordinal finish ("Champions" / "1st" / "Outside the top flight") and the league PPG — the squad context the static skyline lacked (`EraFinish` now carries a three-points-per-game field derived from `season_summaries`). Every bar opens that season's matches. Lazy/`ssr:false` via `EraSkylineChartLazy`; the static `EraSkyline` is **kept** for the `/explore` SSR preview, matching the career-arc precedent.
+- [ ] **Managers trophy cabinet** is already decent; lower priority. Could add hover on the glyph row. — _Deferred. The `TrophyHaul` carries category counts but not season-level data, so a meaningful per-glyph hover would need the trophy-winning seasons threaded through; not worth the churn for "already decent"._
+- [x] Rhymes for managers/eras: shared decade, shared players (a Busby Babe who also played under McGuinness), same title count. — **Built** `managerRhymes()` and `eraRhymes()`. Managers: _level on trophies_, _same decade of appointment_, _shared squad_ (match-attributed via `match_lineups`: players who featured under both, with a count + the top example), and _overlapping reign_. Eras: _level on trophies_, _shared squad_ (players who featured across both date spans — bridges eras when a career is long enough), and _overlapping span_. Only the data actually carries; the bare factual tone matches `COPY-VOICE.md` §3. Verified live: Ferguson vs Mourinho shares a squad; the Ferguson era vs the 1990s overlaps 10 years and shares a squad.
 
 ---
 
