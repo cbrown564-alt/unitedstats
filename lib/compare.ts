@@ -71,6 +71,15 @@ export interface CompareMetric {
   better?: "higher" | "lower";
   /** Per-metric coverage caveat, surfaced under the label. */
   note?: string;
+  /** False when the two sides' coverage differs enough to make a like-for-like
+   *  judgement misleading (assists across the 1987-88 recording boundary). Shown
+   *  but never scored, with a "coverage differs" pill. */
+  comparable?: boolean;
+  /** Rate-mode counterpart for the per-game toggle. When set, the metric renders
+   *  its rate form under "per game" and its total form under "total"; the scoreline
+   *  follows whichever mode is active. Absent ⇒ no per-game meaning (Appearances,
+   *  Trophies, Win rate). */
+  rate?: { a: number | null; b: number | null; label: string; fmt: CompareMetric["fmt"] };
 }
 
 // ---- signatures: the per-mode hero visualisation -------------------------
@@ -81,6 +90,7 @@ export interface CareerSeason {
   season: string;
   goals: number;
   apps: number;
+  assists: number;
 }
 
 /** A trophy count for one competition category (only categories actually won). */
@@ -104,7 +114,7 @@ export interface EraFinish {
 }
 
 export type CompareSignature =
-  | { kind: "career"; a: CareerSeason[]; b: CareerSeason[] }
+  | { kind: "career"; a: CareerSeason[]; b: CareerSeason[]; aCovered: boolean; bCovered: boolean }
   | { kind: "trophies"; a: TrophyHaul; b: TrophyHaul }
   | { kind: "skyline"; a: EraFinish[]; b: EraFinish[] };
 
@@ -117,10 +127,29 @@ export interface Comparison {
   signature?: CompareSignature;
   /** One-line plain-language verdict, leading with the most dramatic difference. */
   headline?: string;
+  /** Career convergences — shared shirt number, same peak season, overlapping years.
+   *  The "where they rhymed" callout; the headline is the divergence. */
+  rhymes?: { label: string; detail: string }[];
   /** Module-level coverage note. */
   coverage?: string;
   /** Evidence links — "the matches behind each side". */
   evidence?: { label: string; href: string }[];
+}
+
+/** First season of the curated assists lane; before it, assists are unrecorded. */
+const ASSISTS_COVERED_FROM = "1987-88";
+
+/** A player's career is "assist-covered" when most of their matches fall in
+ *  seasons from the curated lane onward — so an assist total is a fair figure,
+ *  not an artifact of when they happened to play. */
+function assistCovered(seasons: { season: string; apps: number }[]): boolean {
+  let total = 0;
+  let covered = 0;
+  for (const s of seasons) {
+    total += s.apps;
+    if (s.season >= ASSISTS_COVERED_FROM) covered += s.apps;
+  }
+  return total > 0 && covered / total >= 0.8;
 }
 
 // ----------------------------------------------------------------- players
@@ -131,12 +160,26 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
   if (!a || !b || a.player_id === b.player_id) return null;
 
   const span = (p: typeof a): string => playerCareerSpan(p) ?? "";
-  const perApp = (goals: number, apps: number): number | null => (apps > 0 ? goals / apps : null);
+  const perApp = (n: number, apps: number): number | null => (apps > 0 ? n / apps : null);
   const arc = (id: string): CareerSeason[] =>
-    playerSplitsBySeason(id).map((s, i) => ({ n: i + 1, season: s.season, goals: s.goals, apps: s.apps }));
+    playerSplitsBySeason(id).map((s, i) => ({ n: i + 1, season: s.season, goals: s.goals, apps: s.apps, assists: s.assists }));
 
   const aArc = arc(a.player_id);
   const bArc = arc(b.player_id);
+
+  // Assist coverage: the curated lane starts 1987-88. A career largely before it
+  // produces a literal 0 that isn't a figure — so assists only count toward the
+  // verdict when both careers fall inside the recorded window.
+  const aCovered = assistCovered(aArc);
+  const bCovered = assistCovered(bArc);
+  const assistsComparable = aCovered && bCovered;
+  const uncoveredName = !aCovered && !bCovered
+    ? "Both careers"
+    : !aCovered
+      ? a.name
+      : !bCovered
+        ? b.name
+        : "";
 
   const goalLeader = a.goals === b.goals ? null : a.goals > b.goals ? a : b;
   const headline = goalLeader
@@ -149,15 +192,21 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
     b: { id: b.player_id, label: b.name, sublabel: span(b), href: `/player/${b.player_id}`, thumb: b.player_thumb_url ?? b.player_image_url },
     metrics: [
       { label: "Appearances", a: a.apps, b: b.apps, fmt: "int", better: "higher" },
-      { label: "Goals", a: a.goals, b: b.goals, fmt: "int", better: "higher" },
-      { label: "Goals per appearance", a: perApp(a.goals, a.apps), b: perApp(b.goals, b.apps), fmt: "dec2", better: "higher" },
       {
-        label: "Assists", a: a.assists, b: b.assists, fmt: "int", better: "higher",
-        note: "Curated 1987–88 to 2014–15 lane plus match events after; assists before 1987–88 are unrecorded.",
+        label: "Goals", a: a.goals, b: b.goals, fmt: "int", better: "higher",
+        rate: { a: perApp(a.goals, a.apps), b: perApp(b.goals, b.apps), label: "Goals per appearance", fmt: "dec2" },
+      },
+      {
+        label: "Assists", a: a.assists, b: b.assists, fmt: "int", better: "higher", comparable: assistsComparable,
+        note: assistsComparable
+          ? "Curated 1987–88 to 2014–15 lane plus match events after."
+          : `${uncoveredName} predates assist recording (from 1987–88) — the gap is an artifact of the record, not the player.`,
+        rate: { a: perApp(a.assists, a.apps), b: perApp(b.assists, b.apps), label: "Assists per appearance", fmt: "dec2" },
       },
     ],
-    signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc } : undefined,
+    signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc, aCovered, bCovered } : undefined,
     headline,
+    rhymes: playerRhymes(a, b, aArc, bArc),
     coverage:
       "Appearances and goals are the official club record (Wikipedia's List of Manchester United F.C. players); the career graph plots match-attributed goals per season, so its totals can sit just under the official figure where early matches are unrecorded. Assists combine the curated lane with match events, so the two careers are only fully like-for-like from 2012-13 on.",
     evidence: [
@@ -165,6 +214,57 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
       { label: `${b.name}'s matches →`, href: `/player/${b.player_id}` },
     ],
   };
+}
+
+/**
+ * Convergences between two careers — the moments two otherwise different players
+ * lined up on the same number. Surfaced as the "where they rhymed" callout to
+ * balance the headline's "who won". Only signals the data actually carries:
+ * shared shirt number, same career-peak season (on the normalized n axis, which
+ * is why a generation-apart pair can rhyme), and overlapping United careers.
+ */
+function playerRhymes(
+  a: { name: string; primary_shirt: number | null; first_year: number | null; last_year: number | null },
+  b: { name: string; primary_shirt: number | null; first_year: number | null; last_year: number | null },
+  aArc: CareerSeason[],
+  bArc: CareerSeason[],
+): { label: string; detail: string }[] | undefined {
+  const out: { label: string; detail: string }[] = [];
+
+  if (a.primary_shirt && b.primary_shirt && a.primary_shirt === b.primary_shirt) {
+    out.push({
+      label: `Both wore #${a.primary_shirt}`,
+      detail: `${a.name} and ${b.name} each made the #${a.primary_shirt} their own.`,
+    });
+  }
+
+  const peakSeason = (arc: CareerSeason[]): { n: number; season: string; goals: number } | null => {
+    if (!arc.length) return null;
+    const peak = arc.reduce((m, p) => (p.goals > m.goals ? p : m), arc[0]);
+    return peak.goals > 0 ? { n: peak.n, season: peak.season, goals: peak.goals } : null;
+  };
+  const pa = peakSeason(aArc);
+  const pb = peakSeason(bArc);
+  if (pa && pb && pa.n === pb.n) {
+    out.push({
+      label: `Both peaked in season ${pa.n}`,
+      detail: `${a.name}'s best was ${pa.season} (${pa.goals} goals); ${b.name}'s, ${pb.season} (${pb.goals}).`,
+    });
+  }
+
+  if (a.first_year && a.last_year && b.first_year && b.last_year) {
+    const lo = Math.max(a.first_year, b.first_year);
+    const hi = Math.min(a.last_year, b.last_year);
+    if (lo <= hi) {
+      const seasons = hi - lo + 1;
+      out.push({
+        label: `Team-mates for ${seasons} season${seasons === 1 ? "" : "s"}`,
+        detail: `Their United careers overlapped from ${lo} to ${hi}.`,
+      });
+    }
+  }
+
+  return out.length ? out : undefined;
 }
 
 // ----------------------------------------------------------------- managers
@@ -244,7 +344,8 @@ export function compareManagers(idA: string, idB: string): Comparison | null {
   if (!a || !b || a.id === b.id) return null;
 
   const trophies = trophyCounts();
-  const ppg = (r: typeof a): number | null => (r.p > 0 ? (3 * r.w + r.d) / r.p : null);
+  const points = (r: typeof a): number => 3 * r.w + r.d; // three-for-a-win convention, see note
+  const ppg = (r: typeof a): number | null => (r.p > 0 ? points(r) / r.p : null);
   const winPct = (r: typeof a): number | null => (r.p > 0 ? (100 * r.w) / r.p : null);
   const per = (n: number, p: number): number | null => (p > 0 ? n / p : null);
   const span = (r: typeof a): string =>
@@ -258,17 +359,27 @@ export function compareManagers(idA: string, idB: string): Comparison | null {
     a: { id: a.id, label: a.name, sublabel: span(a), href: `/manager/${a.id}`, thumb: a.thumb_url ?? a.image_url },
     b: { id: b.id, label: b.name, sublabel: span(b), href: `/manager/${b.id}`, thumb: b.thumb_url ?? b.image_url },
     metrics: [
-      { label: "Matches in charge", a: a.p, b: b.p, fmt: "int" },
+      { label: "Matches", a: a.p, b: b.p, fmt: "int" },
       { label: "Win rate", a: winPct(a), b: winPct(b), fmt: "pct", better: "higher" },
-      { label: "Points per game", a: ppg(a), b: ppg(b), fmt: "dec1", better: "higher", note: "Three points for a win applied across all eras, a modern convention." },
-      { label: "Goals per game", a: per(a.gf, a.p), b: per(b.gf, b.p), fmt: "dec1", better: "higher" },
-      { label: "Conceded per game", a: per(a.ga, a.p), b: per(b.ga, b.p), fmt: "dec1", better: "lower" },
+      {
+        label: "Points", a: points(a), b: points(b), fmt: "int", better: "higher",
+        note: "Three points for a win applied across all eras, a modern convention.",
+        rate: { a: ppg(a), b: ppg(b), label: "Points per game", fmt: "dec1" },
+      },
+      {
+        label: "Goals", a: a.gf, b: b.gf, fmt: "int", better: "higher",
+        rate: { a: per(a.gf, a.p), b: per(b.gf, b.p), label: "Goals per game", fmt: "dec1" },
+      },
+      {
+        label: "Conceded", a: a.ga, b: b.ga, fmt: "int", better: "lower",
+        rate: { a: per(a.ga, a.p), b: per(b.ga, b.p), label: "Conceded per game", fmt: "dec1" },
+      },
       { label: "Trophies", a: aTot, b: bTot, fmt: "int", better: "higher" },
     ],
     signature: { kind: "trophies", a: managerTrophyHaul(a.id), b: managerTrophyHaul(b.id) },
     headline: trophyHeadline(a.name, b.name, aTot, bTot, winPct(a), winPct(b)),
     coverage:
-      "Records cover every competitive match. Points per game restates older eras in three-points-for-a-win terms; trophies count league titles and the cups whose deciding final was won.",
+      "Records cover every competitive match. Points restate older eras in three-points-for-a-win terms; trophies count league titles and the cups whose deciding final was won.",
     evidence: [
       { label: `${a.name}'s matches →`, href: `/matches?manager=${a.id}` },
       { label: `${b.name}'s matches →`, href: `/matches?manager=${b.id}` },
@@ -377,8 +488,9 @@ export function compareEras(keyA: string, keyB: string): Comparison | null {
   const rb = eraRecord(eraB);
   const haulA = eraTrophies(eraA);
   const haulB = eraTrophies(eraB);
+  const points = (r: EraRecord): number => 3 * r.w + r.d; // three-for-a-win convention, see note
   const winPct = (r: EraRecord): number | null => (r.p > 0 ? (100 * r.w) / r.p : null);
-  const ppg = (r: EraRecord): number | null => (r.p > 0 ? (3 * r.w + r.d) / r.p : null);
+  const ppg = (r: EraRecord): number | null => (r.p > 0 ? points(r) / r.p : null);
   const per = (n: number, p: number): number | null => (p > 0 ? n / p : null);
   const hrefFor = (era: EraDef): string => `/matches?from=${era.from}&to=${era.to - 1}&sort=oldest`;
   const shortLabel = (era: EraDef): string => era.label.replace(/\s*\(.*\)$/, "");
@@ -388,11 +500,21 @@ export function compareEras(keyA: string, keyB: string): Comparison | null {
     a: { id: eraA.key, label: eraA.label, sublabel: `${eraA.from}–${eraA.to === 2100 ? "now" : eraA.to}`, href: hrefFor(eraA) },
     b: { id: eraB.key, label: eraB.label, sublabel: `${eraB.from}–${eraB.to === 2100 ? "now" : eraB.to}`, href: hrefFor(eraB) },
     metrics: [
-      { label: "Matches played", a: ra.p, b: rb.p, fmt: "int" },
+      { label: "Matches", a: ra.p, b: rb.p, fmt: "int" },
       { label: "Win rate", a: winPct(ra), b: winPct(rb), fmt: "pct", better: "higher" },
-      { label: "Points per game", a: ppg(ra), b: ppg(rb), fmt: "dec1", better: "higher", note: "Three points for a win applied across all eras." },
-      { label: "Goals per game", a: per(ra.gf, ra.p), b: per(rb.gf, rb.p), fmt: "dec1", better: "higher" },
-      { label: "Conceded per game", a: per(ra.ga, ra.p), b: per(rb.ga, rb.p), fmt: "dec1", better: "lower" },
+      {
+        label: "Points", a: points(ra), b: points(rb), fmt: "int", better: "higher",
+        note: "Three points for a win applied across all eras.",
+        rate: { a: ppg(ra), b: ppg(rb), label: "Points per game", fmt: "dec1" },
+      },
+      {
+        label: "Goals", a: ra.gf, b: rb.gf, fmt: "int", better: "higher",
+        rate: { a: per(ra.gf, ra.p), b: per(rb.gf, rb.p), label: "Goals per game", fmt: "dec1" },
+      },
+      {
+        label: "Conceded", a: ra.ga, b: rb.ga, fmt: "int", better: "lower",
+        rate: { a: per(ra.ga, ra.p), b: per(rb.ga, rb.p), label: "Conceded per game", fmt: "dec1" },
+      },
       { label: "Trophies", a: haulA.total, b: haulB.total, fmt: "int", better: "higher" },
     ],
     signature: { kind: "skyline", a: eraFinishes(eraA), b: eraFinishes(eraB) },

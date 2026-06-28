@@ -16,13 +16,13 @@ function Swatch({ color, label }: { color: string; label: string }) {
   );
 }
 
-// ----------------------------------------------------------- career arc (players)
+// ----------------------------------------------------------- career arc (preview)
 
 /**
- * Two careers as overlaid goal curves on a shared career-season axis: peak,
- * longevity, and trajectory read at a glance, the thing two totals can never show.
- * Goals are match-attributed per season; the official totals sit in the measures
- * strip alongside.
+ * Static, dependency-free career-arc visual for the /explore preview slide — two
+ * goal curves on a shared career-season axis. The full /compare page uses the
+ * interactive CareerDuelChart (recharts, hover/peaks/click); this lighter SVG is
+ * right for a server-rendered preview where a client chart would flash blank.
  */
 export function CareerArcDuel({
   a,
@@ -87,7 +87,6 @@ export function CareerArcDuel({
             <stop offset="100%" stopColor={B_COLOR} stopOpacity="0.02" />
           </linearGradient>
         </defs>
-        {/* y reference: top (max) and baseline */}
         <line x1={padL} y1={padT} x2={W - padR} y2={padT} stroke="var(--color-line)" strokeDasharray="2 4" />
         <line x1={padL} y1={baseY} x2={W - padR} y2={baseY} stroke="var(--color-line)" />
         <text x={padL - 6} y={padT + 4} textAnchor="end" className="fill-ink-faint" style={{ fontSize: 10 }}>

@@ -72,6 +72,9 @@ export default async function ComparePage({
   const mode: CompareMode = MODES.some((m) => m.key === sp.mode) ? (sp.mode as CompareMode) : "players";
   const rawA = sp.a;
   const rawB = sp.b;
+  const rate = sp.rate === "per-game";
+  const rateHref = (perGame: boolean) =>
+    `/compare${queryString({ mode, a: rawA, b: rawB, rate: perGame ? "per-game" : undefined })}`;
 
   const managers = mode === "managers" ? [...managersIndex()].sort((a, b) => b.p - a.p) : [];
 
@@ -133,7 +136,7 @@ export default async function ComparePage({
 
       {comparison ? (
         <>
-          <CompareTable comparison={comparison} />
+          <CompareTable comparison={comparison} rate={rate} rateHref={rateHref} />
           <CutLinks comparison={comparison} />
           <section>
             <h2 className={sectionHead}>Compare another</h2>

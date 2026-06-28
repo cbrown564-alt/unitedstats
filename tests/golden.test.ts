@@ -572,13 +572,21 @@ test("compare builders reproduce the official record across the three modes", ()
   const mgrs = compareManagers("alex-ferguson", "matt-busby");
   assert.ok(mgrs, "expected a manager comparison");
   assert.deepEqual([byLabel(mgrs, "Trophies").a, byLabel(mgrs, "Trophies").b], [38, 11]);
-  assert.deepEqual([byLabel(mgrs, "Matches in charge").a, byLabel(mgrs, "Matches in charge").b], [1497, 1141]);
+  assert.deepEqual([byLabel(mgrs, "Matches").a, byLabel(mgrs, "Matches").b], [1497, 1141]);
+  // Per-game toggle: Points total carries a Points-per-game rate form.
+  assert.ok(byLabel(mgrs, "Points").rate, "Points metric should expose a per-game rate");
 
   // Eras: a closed-vs-closed era comparison resolves with sane win rates.
   const eras = compareEras("busby", "ferguson");
   assert.ok(eras, "expected an era comparison");
   const ferWin = byLabel(eras, "Win rate").b;
   assert.ok(ferWin != null && ferWin > 55 && ferWin < 62, `Ferguson-era win rate ${ferWin} out of range`);
+
+  // Coverage honesty: Rooney's career is inside the assists record, Charlton's
+  // predates it — assists must not be judged as a like-for-like figure.
+  const rooAssists = byLabel(players, "Assists");
+  assert.equal(rooAssists.comparable, false, "Rooney-vs-Charlton assists must be flagged non-comparable");
+  assert.ok(byLabel(players, "Goals").rate, "Goals metric should expose a per-appearance rate");
 
   // Same entity on both sides is not a comparison.
   assert.equal(comparePlayers("wayne-rooney", "wayne-rooney"), null);

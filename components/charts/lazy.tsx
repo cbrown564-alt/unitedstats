@@ -20,6 +20,7 @@ type InspectableBarProps = ComponentProps<
 type InspectableTimeSeriesProps = ComponentProps<
   (typeof import("./InspectableTimeSeriesChart"))["InspectableTimeSeriesChart"]
 >;
+type CareerDuelProps = ComponentProps<(typeof import("./CareerDuelChart"))["CareerDuelChart"]>;
 
 const SeasonContributionInner = dynamic(
   () => import("./SeasonContributionChart").then((m) => m.SeasonContributionChart),
@@ -31,6 +32,10 @@ const InspectableBarInner = dynamic(
 );
 const InspectableTimeSeriesInner = dynamic(
   () => import("./InspectableTimeSeriesChart").then((m) => m.InspectableTimeSeriesChart),
+  { ssr: false },
+);
+const CareerDuelInner = dynamic(
+  () => import("./CareerDuelChart").then((m) => m.CareerDuelChart),
   { ssr: false },
 );
 
@@ -59,6 +64,14 @@ export function InspectableTimeSeriesChartLazy(props: InspectableTimeSeriesProps
   return (
     <div style={{ minHeight: props.height ?? 260 }}>
       <InspectableTimeSeriesInner {...props} />
+    </div>
+  );
+}
+
+export function CareerDuelChartLazy(props: CareerDuelProps) {
+  return (
+    <div style={{ minHeight: props.height ?? 240 }}>
+      <CareerDuelInner {...props} />
     </div>
   );
 }
