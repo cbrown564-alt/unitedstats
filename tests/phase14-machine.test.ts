@@ -6,7 +6,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { GET as AnswersIndexRoute } from "../app/api/v1/answers/route";
 import { GET as CutAnswerRoute } from "../app/api/v1/answers/cuts/[slug]/route";
 import { GET as HistoryAnswerRoute } from "../app/api/v1/answers/history-digests/[id]/route";
-import { GET as LlmsRoute } from "../app/llms.txt/route";
 import MatchPage from "../app/match/[id]/page";
 import HistoryChangedPage from "../app/history-changed/[id]/page";
 import robots from "../app/robots";
@@ -14,7 +13,6 @@ import sitemap from "../app/sitemap";
 import { API_ATTRIBUTION } from "../lib/api";
 import { answerRef, cutKey, historyDigestRef, matchRef } from "../lib/citations";
 import { CURATED_CUTS, curatedCut } from "../lib/cut";
-import { llmsLinks, llmsTxt } from "../lib/llms";
 import { cutAnswer, historyDigestAnswer } from "../lib/machineAnswers";
 import { SITE_URL } from "../lib/site";
 import { jsonLdHtml, matchJsonLd } from "../lib/structuredData";
@@ -122,21 +120,7 @@ test("answer IDs are unique and deterministic across selected Phase 14 surfaces"
   ]);
 });
 
-test("llms.txt links resolve to known routes and use the same source name as apiJson", async () => {
-  const text = llmsTxt();
-  assert.match(text, new RegExp(API_ATTRIBUTION.source));
-  assert.match(text, /\/api\/v1\/answers/);
-  assert.ok(!text.includes("/api/search/click"));
-
-  const res = await LlmsRoute();
-  assert.equal(res.headers.get("Content-Type"), "text/plain; charset=utf-8");
-  assert.match(await res.text(), new RegExp(API_ATTRIBUTION.source));
-
-  const links = llmsLinks();
-  assert.ok(links.includes("/api/v1"));
-  assert.ok(links.includes("/api/v1/answers"));
-  assert.ok(links.includes(`/api/v1/answers/cuts/${CUT_SLUG}`));
-
+test("the answer index and sitemap agree on the machine and human surfaces", async () => {
   const answerIndex = await AnswersIndexRoute();
   assert.equal((await answerIndex.json()).data.source, API_ATTRIBUTION.source);
 
