@@ -1,5 +1,10 @@
 # Scope-creep audit & subtraction roadmap
 
+_Status: executed. Phases 1, 2, and 4 are closed in code; Phase 3 is closed
+except `/history-changed`, which is parked with a recorded rationale (see
+`docs/ROADMAP.md`, Phase 13 follow-up). The `/compare` FIX in Phase 3 became a
+larger enrichment track tracked in `docs/COMPARE-PLAN.md`._
+
 _Dated 2026-06-28. A deliberately subtractive review: not "what can we build" but
 "what shouldn't we have built, what doesn't earn its place, what drags the rest
 down." Four design critics audited the app from distinct lenses (subtraction,
