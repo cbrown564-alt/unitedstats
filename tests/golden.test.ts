@@ -586,7 +586,7 @@ test("compare builders reproduce the official record across the three modes", ()
   // predates it — assists must not be judged as a like-for-like figure.
   const rooAssists = byLabel(players, "Assists");
   assert.equal(rooAssists.comparable, false, "Rooney-vs-Charlton assists must be flagged non-comparable");
-  assert.ok(byLabel(players, "Goals").rate, "Goals metric should expose a per-appearance rate");
+  assert.ok(byLabel(players, "Goals").rate, "Goals metric should expose a per-90 rate");
 
   // Same entity on both sides is not a comparison.
   assert.equal(comparePlayers("wayne-rooney", "wayne-rooney"), null);

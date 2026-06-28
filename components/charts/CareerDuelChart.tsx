@@ -27,8 +27,10 @@ interface DuelDatum {
   bApps?: number;
   aGoals?: number;
   bGoals?: number;
-  aPerApp?: number | null;
-  bPerApp?: number | null;
+  aMinutes?: number;
+  bMinutes?: number;
+  aPer90?: number | null;
+  bPer90?: number | null;
   aHref?: string;
   bHref?: string;
 }
@@ -39,7 +41,7 @@ interface DuelDatum {
 function merge(a: CareerSeason[], b: CareerSeason[], aId: string, bId: string): DuelDatum[] {
   const maxN = Math.max(a.length, b.length);
   const seasonHref = (id: string, season?: string) => (season ? `/matches?player=${id}&season=${season}` : undefined);
-  const perApp = (goals?: number, apps?: number) => (goals != null && apps && apps > 0 ? goals / apps : null);
+  const per90 = (goals?: number, minutes?: number) => (goals != null && minutes && minutes > 0 ? (goals * 90) / minutes : null);
   const out: DuelDatum[] = [];
   for (let n = 1; n <= maxN; n++) {
     const sa = a[n - 1];
@@ -52,8 +54,10 @@ function merge(a: CareerSeason[], b: CareerSeason[], aId: string, bId: string): 
       bApps: sb?.apps,
       aGoals: sa?.goals,
       bGoals: sb?.goals,
-      aPerApp: perApp(sa?.goals, sa?.apps),
-      bPerApp: perApp(sb?.goals, sb?.apps),
+      aMinutes: sa?.minutes,
+      bMinutes: sb?.minutes,
+      aPer90: per90(sa?.goals, sa?.minutes),
+      bPer90: per90(sb?.goals, sb?.minutes),
       aHref: seasonHref(aId, sa?.season),
       bHref: seasonHref(bId, sb?.season),
     });
@@ -63,7 +67,7 @@ function merge(a: CareerSeason[], b: CareerSeason[], aId: string, bId: string): 
 
 function peakN(seasons: CareerSeason[], rate: boolean): number | null {
   if (!seasons.length) return null;
-  const score = (s: CareerSeason) => (rate ? (s.apps > 0 ? s.goals / s.apps : -1) : s.goals);
+  const score = (s: CareerSeason) => (rate ? (s.minutes > 0 ? (s.goals * 90) / s.minutes : -1) : s.goals);
   const peak = seasons.reduce((m, s) => (score(s) > score(m) ? s : m), seasons[0]);
   return score(peak) > 0 ? peak.n : null;
 }
@@ -100,7 +104,7 @@ function DuelTooltip({
       <div className="flex items-baseline justify-between gap-3">
         <span className="font-medium" style={{ color }}>{name}</span>
         <span className="stat-num text-sm font-semibold text-ink">
-          {fmtVal(value, rate)}{rate ? " / app" : " goals"}
+          {fmtVal(value, rate)}{rate ? " / 90" : " goals"}
         </span>
       </div>
       <div className="stat-num text-[11px] text-ink-faint">
@@ -111,8 +115,8 @@ function DuelTooltip({
   return (
     <div className="min-w-44 rounded-md border border-line bg-panel px-3 py-2 text-xs shadow-[0_10px_30px_rgb(0_0_0_/_0.35)]">
       <div className="text-ink-faint">Season {d.n}</div>
-      {row(labelA, d.aSeason, rate ? d.aPerApp : d.aGoals, d.aApps, A_COLOR)}
-      {row(labelB, d.bSeason, rate ? d.bPerApp : d.bGoals, d.bApps, B_COLOR)}
+      {row(labelA, d.aSeason, rate ? d.aPer90 : d.aGoals, d.aApps, A_COLOR)}
+      {row(labelB, d.bSeason, rate ? d.bPer90 : d.bGoals, d.bApps, B_COLOR)}
     </div>
   );
 }
@@ -148,10 +152,10 @@ export function CareerDuelChart({
   const data = merge(a, b, aId, bId);
   if (!data.length) return null;
 
-  const aKey = rate ? "aPerApp" : "aGoals";
-  const bKey = rate ? "bPerApp" : "bGoals";
+  const aKey = rate ? "aPer90" : "aGoals";
+  const bKey = rate ? "bPer90" : "bGoals";
   const maxN = data[data.length - 1].n;
-  const values = data.flatMap((d) => [rate ? d.aPerApp : d.aGoals, rate ? d.bPerApp : d.bGoals]).filter((v): v is number => v != null);
+  const values = data.flatMap((d) => [rate ? d.aPer90 : d.aGoals, rate ? d.bPer90 : d.bGoals]).filter((v): v is number => v != null);
   const yMax = values.length ? Math.max(...values) : 1;
   const peakA = peakN(a, rate);
   const peakB = peakN(b, rate);

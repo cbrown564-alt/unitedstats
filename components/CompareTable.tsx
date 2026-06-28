@@ -75,10 +75,12 @@ function ScoreSide({
   );
 }
 
-/** Segmented Total / Per-game toggle. URL-driven (the page passes a href builder),
+/** Segmented Total / rate toggle. URL-driven (the page passes a href builder),
  *  so the whole comparison — scoreline, chart, measures — re-renders consistently
- *  and the rate choice is shareable. Hidden when no metric has a rate form. */
-function RateToggle({ rate, hrefFor }: { rate: boolean; hrefFor: (perGame: boolean) => string }) {
+ *  and the rate choice is shareable. The rate label is mode-aware: per 90 for
+ *  players (minutes-derived), per game for managers/eras (team-level). Hidden
+ *  when no metric has a rate form. */
+function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: string; hrefFor: (perGame: boolean) => string }) {
   const pillCls = (on: boolean) =>
     `rounded-full px-3 py-1 text-xs font-semibold transition-colors focus-ring ${
       on ? "bg-devil/15 text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
@@ -87,7 +89,7 @@ function RateToggle({ rate, hrefFor }: { rate: boolean; hrefFor: (perGame: boole
     <div className="flex items-center justify-center gap-1">
       <span className="mr-1 text-[11px] font-medium uppercase tracking-[0.12em] text-ink-faint">View</span>
       <Link href={hrefFor(false)} aria-current={!rate ? "true" : undefined} className={pillCls(!rate)}>Total</Link>
-      <Link href={hrefFor(true)} aria-current={rate ? "true" : undefined} className={pillCls(rate)}>Per game</Link>
+      <Link href={hrefFor(true)} aria-current={rate ? "true" : undefined} className={pillCls(rate)}>{rateLabel}</Link>
     </div>
   );
 }
@@ -219,6 +221,9 @@ export function CompareTable({
 }) {
   const withThumb = comparison.mode !== "eras";
   const hasRate = comparison.metrics.some((m) => m.rate);
+  // Players rate by minutes (per 90); managers and eras rate by matches (per game).
+  const rateLabel = comparison.mode === "players" ? "Per 90" : "Per game";
+  const rateTag = comparison.mode === "players" ? "per 90" : "per game";
 
   const judged = comparison.metrics.filter((m) => leaderOf(m, rate) !== null);
   const leadsA = judged.filter((m) => leaderOf(m, rate) === "a").length;
@@ -243,7 +248,7 @@ export function CompareTable({
     <div className="overflow-hidden rounded-lg border border-line bg-panel">
       {hasRate && rateHref && (
         <div className="border-b border-line bg-panel-2/30 px-4 py-2 sm:px-5">
-          <RateToggle rate={rate} hrefFor={rateHref} />
+          <RateToggle rate={rate} rateLabel={rateLabel} hrefFor={rateHref} />
         </div>
       )}
 
@@ -254,7 +259,7 @@ export function CompareTable({
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">leads</span>
             <span className="h-8 w-px bg-line sm:h-10" aria-hidden />
             <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-ink-faint">
-              {rate ? "per game" : "total"}
+              {rate ? rateTag : "total"}
             </span>
           </div>
           <ScoreSide side={comparison.b} score={leadsB} state={stateOf("b")} align="left" withThumb={withThumb} />

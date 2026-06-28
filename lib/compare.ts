@@ -91,6 +91,8 @@ export interface CareerSeason {
   goals: number;
   apps: number;
   assists: number;
+  /** Minutes played this season — the per-90 denominator. */
+  minutes: number;
 }
 
 /** A trophy count for one competition category (only categories actually won). */
@@ -160,12 +162,18 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
   if (!a || !b || a.player_id === b.player_id) return null;
 
   const span = (p: typeof a): string => playerCareerSpan(p) ?? "";
-  const perApp = (n: number, apps: number): number | null => (apps > 0 ? n / apps : null);
+  // The football-standard rate is per 90 minutes, not per appearance — a sub's
+  // goal is worth the same in a per-app average as a starter's, which flatters
+  // 90-minute accumulators. Minutes are derived from the lineup record across
+  // the whole dataset, so per-90 is available wherever the career is.
+  const per90 = (n: number, minutes: number): number | null => (minutes > 0 ? (n * 90) / minutes : null);
   const arc = (id: string): CareerSeason[] =>
-    playerSplitsBySeason(id).map((s, i) => ({ n: i + 1, season: s.season, goals: s.goals, apps: s.apps, assists: s.assists }));
+    playerSplitsBySeason(id).map((s, i) => ({ n: i + 1, season: s.season, goals: s.goals, apps: s.apps, assists: s.assists, minutes: s.minutes }));
 
   const aArc = arc(a.player_id);
   const bArc = arc(b.player_id);
+  const aMinutes = aArc.reduce((t, s) => t + s.minutes, 0);
+  const bMinutes = bArc.reduce((t, s) => t + s.minutes, 0);
 
   // Assist coverage: the curated lane starts 1987-88. A career largely before it
   // produces a literal 0 that isn't a figure — so assists only count toward the
@@ -194,14 +202,14 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
       { label: "Appearances", a: a.apps, b: b.apps, fmt: "int", better: "higher" },
       {
         label: "Goals", a: a.goals, b: b.goals, fmt: "int", better: "higher",
-        rate: { a: perApp(a.goals, a.apps), b: perApp(b.goals, b.apps), label: "Goals per appearance", fmt: "dec2" },
+        rate: { a: per90(a.goals, aMinutes), b: per90(b.goals, bMinutes), label: "Goals per 90", fmt: "dec2" },
       },
       {
         label: "Assists", a: a.assists, b: b.assists, fmt: "int", better: "higher", comparable: assistsComparable,
         note: assistsComparable
           ? "Curated 1987–88 to 2014–15 lane plus match events after."
           : `${uncoveredName} predates assist recording (from 1987–88) — the gap is an artifact of the record, not the player.`,
-        rate: { a: perApp(a.assists, a.apps), b: perApp(b.assists, b.apps), label: "Assists per appearance", fmt: "dec2" },
+        rate: { a: per90(a.assists, aMinutes), b: per90(b.assists, bMinutes), label: "Assists per 90", fmt: "dec2" },
       },
     ],
     signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc, aCovered, bCovered } : undefined,

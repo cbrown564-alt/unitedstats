@@ -954,6 +954,13 @@ export function playerSplitsBySeason(id: string): {
   starts: number;
   goals: number;
   assists: number;
+  /** Minutes played, derived from the lineup record: a starter plays to his
+   *  `sub_off` minute or the full match (90, or 120 if the tie went to extra
+   *  time); a substitute plays from his `sub_on` minute to the final whistle.
+   *  Nominal durations only — stoppage time is not held per match, so this is
+   *  the football-standard per-90 denominator, a light floor for withdrawn
+   *  starters in the pre-modern recording era (see docs/COMPARE-PLAN.md). */
+  minutes: number;
 }[] {
   return getDb()
     .prepare(
@@ -971,6 +978,15 @@ export function playerSplitsBySeason(id: string): {
                         WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 AND m.season = s.season), 0) apps,
               COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
                         WHERE l.player_id = ? AND l.player_side = 'united' AND l.started = 1 AND l.bench = 0 AND m.season = s.season), 0) starts,
+              -- minutes played: starter -> sub_off or full match; sub -> final whistle minus sub_on.
+              -- duration is nominal (90, or 120 when the tie went to extra time); stoppage is not held.
+              COALESCE((SELECT SUM(CASE
+                        WHEN l.started = 1 THEN COALESCE(l.sub_off, CASE WHEN m.aet = 1 THEN 120 ELSE 90 END)
+                        WHEN l.sub_on IS NOT NULL THEN (CASE WHEN m.aet = 1 THEN 120 ELSE 90 END) - l.sub_on
+                        ELSE 0
+                      END)
+                        FROM match_lineups l JOIN matches m ON m.id=l.match_id
+                        WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 AND m.season = s.season), 0) minutes,
               COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
                         WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) goals,
               -- assists: same combined definition as the headline figure
@@ -980,12 +996,13 @@ export function playerSplitsBySeason(id: string): {
               END assists
        FROM seasons s ORDER BY s.season`,
     )
-    .all(id, id, id, id, id, id, id, id, id) as {
+    .all(id, id, id, id, id, id, id, id, id, id) as {
       season: string;
       apps: number;
       starts: number;
       goals: number;
       assists: number;
+      minutes: number;
     }[];
 }
 
