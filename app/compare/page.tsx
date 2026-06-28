@@ -72,9 +72,12 @@ export default async function ComparePage({
   const mode: CompareMode = MODES.some((m) => m.key === sp.mode) ? (sp.mode as CompareMode) : "players";
   const rawA = sp.a;
   const rawB = sp.b;
-  const rate = sp.rate === "per-game";
+  // The rate view (per 90 for players, per game for managers/eras) is the
+  // default — it compares honestly across careers and tenures of different
+  // lengths. Totals are the opt-out via `?rate=total`.
+  const rate = sp.rate !== "total";
   const rateHref = (perGame: boolean) =>
-    `/compare${queryString({ mode, a: rawA, b: rawB, rate: perGame ? "per-game" : undefined })}`;
+    `/compare${queryString({ mode, a: rawA, b: rawB, rate: perGame ? undefined : "total" })}`;
 
   const managers = mode === "managers" ? [...managersIndex()].sort((a, b) => b.p - a.p) : [];
 
