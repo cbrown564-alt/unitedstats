@@ -80,7 +80,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         title={cutTitle(cut)}
         aside={headline && coverage.grade !== "empty" ? <SaveToCollection href={cutHref(cut)} /> : undefined}
       >
-        The whole record reordered as a standings ladder. Every group is an open door to its matches — change the dimension or lens to build your own custom cut.
+        The whole record reordered as a standings ladder. Every group links to its matches — change the dimension or lens to build your own custom cut.
       </PageHeader>
 
       {/* Active slice, as removable chips — each links to the same cut minus that filter. */}

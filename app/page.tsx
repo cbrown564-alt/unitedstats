@@ -145,7 +145,7 @@ export default function Home() {
           hero, above the curated questions — serendipity, not a feed. ── */}
       <section>
         <SectionHead
-          title="What the record holds today"
+          title="Today in the record"
           aside={
             <Link
               href="/surprise"

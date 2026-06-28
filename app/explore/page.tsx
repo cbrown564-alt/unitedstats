@@ -86,7 +86,7 @@ export default function ExplorePage() {
         <SearchCommand autoFocusKey={false} />
         <p className="text-xs text-ink-faint">
           <span className="stat-num text-ink-dim">{fmtNum(rec.p)}</span> official matches across{" "}
-          <span className="stat-num text-ink-dim">{years}</span> years — every figure is an open door to the
+          <span className="stat-num text-ink-dim">{years}</span> years — every figure links to the
           matches behind it, with a coverage grade showing the density of our records. Search names,
           seasons, or questions like &ldquo;record away at Arsenal&rdquo; — or{" "}
           <Link href="/surprise" prefetch={false} className="text-devil-bright hover:underline">
@@ -228,7 +228,7 @@ export default function ExplorePage() {
         </ul>
 
         <p className="text-xs text-ink-faint">
-          Open any curated cut, then change the dimension or the lens to build your own — every group is an open door
+          Open any curated cut, then change the dimension or the lens to build your own — every group links
           to its matches, with a coverage grade showing the completeness of the source records.
         </p>
       </section>
