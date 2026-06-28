@@ -221,8 +221,7 @@ removed two whole components and a "late goals that season" section outright. Fe
 objects beat more, thinner ones.
 
 The principles above came from the match-detail redesign; the four below were distilled from
-the page-by-page refresh that carried it across every surface (mid-2026). See
-`docs/DESIGN-REFRESH.md` for the per-surface working.
+the page-by-page refresh that carried it across every surface (mid-2026).
 
 **Lead with the computed answer; keep the raw ledger as an auditable appendix.** A detail or
 index list should resolve into the reader's intent, not present a ledger ordered by recency.
@@ -406,9 +405,17 @@ Avoid:
 
 Curious guide, not pundit. The finalized copy direction is **Floodlit Guide**: refine the
 existing voice rather than pivot — precise about the record, romantic only about its reach,
-and silent where a number speaks for itself. The full working — the per-surface register map,
-worked rewrites, and the process for the copy pass — lives in `docs/COPY-VOICE.md`. This
-section is the canonical short form.
+and silent where a number speaks for itself.
+
+**House style in one line:** precise about the record, romantic only about its reach, and
+silent where a number speaks for itself. The model sentence is the transfers coverage line —
+
+> "…many historical fees were never disclosed, so the money is a floor and the early years
+> sit flat on the line."
+
+— which states a hard data limitation *and* paints it in one breath, without a single
+adjective of hype. Every sentence in the product should either read like that one or get out
+of the way.
 
 Voice traits:
 
@@ -417,7 +424,7 @@ Voice traits:
 - Transparent about coverage.
 - Confident in structure, cautious in claims.
 
-One voice is wrong; assign a register per surface (full map in `docs/COPY-VOICE.md`):
+One voice is wrong; assign a register per surface:
 
 - **Authored heroes** — Floodlit Guide: one true, evocative line, earned from place and span,
   never hype. ("A century and a half of business, in and out"; "managers, two cathedrals".)
@@ -432,6 +439,19 @@ One voice is wrong; assign a register per surface (full map in `docs/COPY-VOICE.
 **Wit is quarantined.** Personality and any point of view appear only on heroes and
 questions/myths. They never touch a scoreline, a record, a win-rate, or a coverage note —
 our credibility is that the numbers are not spun.
+
+**Universal rules (every register):**
+
+- **Coverage honesty over confidence.** Where data is partial, the claim is hedged and the
+  slice is shown. "There is a signal here, but it changes by era" beats any verdict.
+- **No hype lexicon, anywhere:** ultimate, definitive, insane, unbelievable, staggering,
+  astonishing, must-see, everything-you-need.
+- **Never restate a heading or a visible number in the body** (the "one element per fact"
+  rule, applied to words).
+- **British English**, football vocabulary, the club's historical labels (Newton Heath,
+  eras, grounds, competitions) used where they aid scanning.
+- **Numbers are mono** (`stat-num` / IBM Plex Mono) — write so figures sit as discrete
+  tokens, not spelled into prose.
 
 Good:
 

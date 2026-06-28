@@ -9,7 +9,7 @@
  * opponent in a given season and competition. They are hand-curated and not
  * exhaustive, but they are the only structured assist and goal-type data this
  * project has for the Sir Alex Ferguson era (the modern transfermarkt lane only
- * reaches back to 2012-13; see docs/ASSISTS-PLAN.md). They carry no dates or
+ * reaches back to 2012-13; see docs/SOURCE-AUDIT.md). They carry no dates or
  * minutes, so they are NOT match-attributed and never enter match_events — they
  * are season-level aggregates, surfaced as their own lane.
  *

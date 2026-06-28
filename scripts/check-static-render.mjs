@@ -1,5 +1,5 @@
 /**
- * Guards the static-rendering campaign (see docs/PERF.md): fails the build if a
+ * Guards the static-rendering campaign (see docs/ARCHITECTURE.md): fails the build if a
  * route that should be prerendered has regressed to server-rendered-on-demand.
  * A stray `searchParams`/`cookies()`/`headers()` read, or a dropped
  * `generateStaticParams`, silently flips a page back to dynamic — this catches
@@ -64,7 +64,7 @@ if (count < MIN_PRERENDERED) {
 if (failures.length > 0) {
   console.error("✗ static-render guard failed:");
   for (const f of failures) console.error("  - " + f);
-  console.error("\nSee docs/PERF.md for the expected route disposition.");
+  console.error("\nSee docs/ARCHITECTURE.md for the expected route disposition.");
   process.exit(1);
 }
 

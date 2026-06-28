@@ -72,6 +72,14 @@ by competition rules, not calendar).
 - **`player-shirts.json`** — top-player shirt-number summary derived from
   MUFCInfo match pages. Rows are grouped by player, shirt number, and decade
   for the appearance-ranked top 500 where numbered lineup rows are available.
+- **`tableau-goals-assists.json`** — hand-curated season-level goals and assists
+  by `(player, attribution, kind, season, competition, opponent)` for 1987-88 →
+  2014-15, from the public Tableau workbook *Manchester United Games*. A
+  **season-level aggregate lane, not match-attributed** (no dates/minutes), so it
+  coexists with the match-derived `player_totals` like `player-records` does and
+  never writes to `match_events`.
+- **`tableau-goal-types.json`** — goals by body part / technique over the same
+  range (right foot / left foot / head / knee / backheel / torso / shoulder).
 - **`opponents.json`** — id, canonical display name, aliases (e.g. "Small Heath" → Birmingham City lineage kept distinct), country, lat/lng of home city (spatial layer).
 - **`sources.json`** — source catalog with id, label, kind, URL, coverage note, and usage notes. Match
   records still reference sources by id; the database expands those ids into source facets.
@@ -150,7 +158,12 @@ During DB build, `match_sources` derives facets from the canonical fields:
   United scoring events account for United goals.
 - `opposition-goals` is complete when `opp-goal` and `own-goal-against` events
   account for the goals against in the final score.
-- `assists` is partial unless a source explicitly records assist data.
+- `assists` is partial unless a source explicitly records assist data. The
+  open/CC0 floor is 2012-13 (`transfermarkt-datasets`); pre-2012 assists are
+  unrecorded by history and unavailable from open sources (see
+  `SOURCE-AUDIT.md`). The only structured assist data for the Ferguson era is the
+  curated Tableau season-aggregate lane, which is season-level and not
+  match-attributed.
 - `starting-lineup` is complete when the match has a validated 11-starter
   United lineup.
 - `used-substitutes` is complete when substituted-on United players are present.

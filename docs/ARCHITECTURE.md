@@ -67,6 +67,45 @@ modern UI, a zero-cost auto-update pipeline, and a deep analytics layer.
   aggregates are precomputed into the DB so pages stay simple SELECTs.
 - A new deploy (triggered by the data commit) refreshes everything. No ISR
   invalidation logic to maintain.
+- The dataset is immutable between ingests, so the goal is **prerender at build,
+  touch SQLite only at build, serve static HTML from the CDN.** ~7,400 pages
+  prerender; the render-mode disposition is enforced by CI (see below).
+
+**Route render-mode disposition** (a regression here fails the build):
+
+- **Static `○`:** `/`, `/managers`, `/transfers`, `/explore`, `/data`,
+  `/opponents`, `/analytics` (`/opponents` filters client-side; `/analytics` runs
+  its forecast client-side over build-precomputed odds).
+- **SSG `●`** (`generateStaticParams` + `dynamicParams=false`): `/match/[id]`,
+  `/player/[id]`, `/seasons/[season]`, `/opponent/[id]`, `/manager/[id]`.
+  Sort/expand interactions are client islands.
+- **Dynamic `ƒ` by design:** `/matches`, `/players`, `/seasons` index, `/search`,
+  `/compare` — URL-state tools over deploy-immutable data, too heavy or
+  query-shaped to prerender. They share the read-only API cache policy
+  (`public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`).
+- Only the dynamic page routes above plus `/api/v1/*` and `/api/search` handlers
+  touch SQLite at runtime. The public API stays dynamic (static-generating ~7k
+  `[id]` endpoints would double build output for a secondary feature) and leans
+  on the same CDN cache headers.
+
+**Regression guards (CI):**
+
+- `npm run check:static` (`scripts/check-static-render.mjs`, after `npm run
+  build`) reads `.next/prerender-manifest.json` and fails if an expected
+  static/SSG route regresses to dynamic or the prerendered-path count collapses —
+  so a stray `searchParams`/`cookies()` read or a dropped
+  `generateStaticParams` fails the build instead of silently shipping.
+- `npm run check:perf` (`scripts/check-perf-budgets.mjs`, after `npm run build`)
+  fails on built-artifact regressions: max gzipped HTML 180 KB, max gzipped RSC
+  120 KB, max gzipped JS chunk 120 KB, max `.next` output 2 GB. Long-tail
+  archives (manager/opponent/player) switch to season-summary rows with filtered
+  match-browser links once they cross the long-list threshold, keeping pages
+  within budget.
+- recharts (~348 KB) is route-split and lazy-mounted (`ssr: false` wrappers with
+  height-reserved skeletons) everywhere except `/analytics`, whose Elo hero chart
+  is above the fold. Fonts self-host via `next/font/google`; portraits use
+  `next/image` with `priority` on player-hero LCP, served from cached local WebP
+  (`public/media/**`), never hotlinked Wikimedia.
 
 ## Repository layout
 
@@ -100,4 +139,30 @@ docs/                   this folder
 
 The enrichment strategy is **progressive**: the schema supports full per-match
 detail (lineups, events with player + minute + type) from day one; sources are
-layered in over time without schema changes. See PIPELINE.md and ROADMAP.md.
+layered in over time without schema changes. See PIPELINE.md.
+
+## Structured data and machine answers
+
+The launch surfaces expose structured data so crawlers and assistants can cite
+without turning generated facts into unattributed snippets:
+
+| Surface | Route | schema.org type |
+|---|---|---|
+| Match entity | `/match/[id]` | `SportsEvent` (only here — an actual completed fixture) |
+| History-changed answer | `/history-changed/[id]` | `CreativeWork` (not `ClaimReview` — UnitedStats publishes its own record, not a third-party claim review) |
+| Curated Cut answer API | `/api/v1/answers/cuts/[slug]` | JSON answer payload (the public contract is the `/api/v1` model, not a page) |
+| History-digest answer API | `/api/v1/answers/history-digests/[id]` | JSON answer payload |
+
+**ID and version policy.** All public IDs come from `lib/citations.ts`
+(`matchRef`, the digest's `historyDigestRef`, `cutRef`/`answerRef`,
+`answerRef("history-digest", …)`). Machine-answer `version` values are
+`claimVersion()` hashes of the stable answer payload — no wall-clock timestamps,
+change only when canonical inputs or generated claim content changes.
+
+**Crawl policy.** `/api/v1` is read-only public data, so robots allows `/api/v1/`
+and the answer routes beneath it; side-effect endpoints (`/api/search/click`)
+are disallowed. `/llms.txt`, `/sitemap.xml`, JSON-LD source names, and `apiJson`
+attribution all share one source name: *UnitedStats, the open Manchester United
+match history*. The answer routes currently stay dynamic (handlers read SQLite on
+demand) and return the shared immutable dataset cache headers via `apiJson`:
+browser `max-age=300`, edge `s-maxage=86400`, `stale-while-revalidate=604800`.

@@ -1,6 +1,7 @@
 # Phase 0 Citable Answer And Provenance Contract
 
-This is the shared contract for ROADMAP phases 13-16. The executable helpers
+This is the shared citable-answer and provenance contract for the generated,
+machine-facing surfaces (history digests, answer APIs, structured data). The executable helpers
 live in `lib/citations.ts`; tests in `tests/phase0-citations.test.ts` lock the
 round-trip, collision, version, and provenance behavior.
 

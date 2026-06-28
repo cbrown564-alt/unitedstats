@@ -5,7 +5,7 @@ import Link from "next/link";
  * cards — each one *launches* its full answer page rather than reproducing its
  * depth, so the carousel stays a front door and never competes with /questions.
  *
- * Design call (Phase 11, recorded in docs/ROADMAP.md): one peek-carousel at every
+ * Design call: one peek-carousel at every
  * breakpoint, not a grid on desktop. A 3×3 grid of question cards would read as a
  * portal and flatten the answer-first hierarchy; a peek-carousel reads as "there's
  * more, swipe on", keeps each card large enough to lead with its question, and is

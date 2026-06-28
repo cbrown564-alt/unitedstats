@@ -203,15 +203,38 @@ Sports Reference positions Stathead as a power-search layer for quickly answerin
 
 Craft's Baseball Reference redesign case study identifies discoverability, customization, and nostalgia as opportunities for historical sports data products. UnitedStats should use nostalgia as resonance, not decoration, and keep discoverability as a core product function: https://madebycraft.co/work/baseball-reference
 
-## Current Implementation Notes
+## What exists
 
-The current app already contains the bones of this product:
+- **The Record** — every match from Newton Heath (1886) to today: results,
+  competitions, managers, opponents, scorers (with minutes where recorded),
+  attendance, Elo. `/matches` is the canonical filterable home.
+- **Entity pages** — `/seasons`, `/player/[id]`, `/manager/[id]`,
+  `/opponent/[id]`, each leading with a computed answer-object and the auditable
+  record beneath.
+- **Analytics** — `/analytics`: Elo/strength timeline, trends, records,
+  attendance, goal timing, data-depth ledger.
+- **The front door** — `/questions` (curated question Cuts), `/explore`
+  (one jumping-off point across questions, comparisons, and the Cut),
+  `/compare`, `/surprise`, `/on-this-day`, `/history-changed`.
+- **Trust + corrections** — coverage grades at every interpretation point, full
+  source provenance, a public correction workflow into reviewed PRs.
+- **Auto-update pipeline** — new results flow in via GitHub Actions after each
+  match; no servers, no paid APIs (see `docs/PIPELINE.md`).
 
-- `/matches` provides the canonical filterable fixture record.
-- `/seasons` and `/seasons/[season]` preserve chronological structure.
-- `/analytics` contains the first pattern layer: Elo, win rate, attendance, goal timing, records, grounds, and data-depth ledger.
-- Match pages already connect result, context, Elo, previous head-to-head, and form.
-- Player pages already show coverage caveats for goals and lineups, with matches scored in as the evidence trail.
-- Manager and opponent pages already expose profile-level records and match lists.
+## What's next
 
-Future work should make guided pattern trails more explicit on top of this structure.
+The current front door answers novelty questions better than the ones fans
+actually argue about, and the slice-sprawl offers too many ways to cut a thin
+core. The active direction (see `docs/RESTRAINT-PASS.md`):
+
+1. **Re-aim the questions** at what the data can carry honestly — the
+   post-Ferguson decline, named rivalry ledgers, the Treble, Ferguson vs the
+   field, best/worst seasons, United in Europe. Same question format; real
+   contents.
+2. **Collapse the slice-sprawl** — one obvious way to slice, not nine; cut
+   redundant analytical machinery (`/collection`, generic `/cut` builder,
+   `/embed`), keep the strong surfaces (`/matches`, `/explore`, entity pages).
+3. **Rewrite the on-site copy** in a plain human voice — the templated
+   connective copy is the same AI-voice disease as the docs being cut.
+4. **Make rediscovery real** — a forgotten-but-charged match engine that earns
+   the kept nostalgia surfaces, instead of a calendar lottery.

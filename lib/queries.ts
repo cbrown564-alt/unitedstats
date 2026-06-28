@@ -959,7 +959,7 @@ export function playerSplitsBySeason(id: string): {
    *  time); a substitute plays from his `sub_on` minute to the final whistle.
    *  Nominal durations only — stoppage time is not held per match, so this is
    *  the football-standard per-90 denominator, a light floor for withdrawn
-   *  starters in the pre-modern recording era (see docs/COMPARE-PLAN.md). */
+   *  starters in the pre-modern recording era. */
   minutes: number;
 }[] {
   return getDb()
@@ -1358,7 +1358,7 @@ export function playerAssistPartnerships(id: string, limit = 12): AssistPartners
 
 // --------------------------------------------- curated Tableau season lane
 // Hand-curated goals/assists/goal-types by season for 1987-88..2014-15. Not
-// match-attributed; surfaced as its own labelled lane (docs/TABLEAU-GOALS-ASSISTS.md).
+// match-attributed; surfaced as its own labelled lane (see docs/SOURCE-AUDIT.md).
 
 export interface CuratedTotals {
   goals: number;

@@ -4,7 +4,7 @@ import { COMPETITION_TYPE_LABELS, fmtNum, resultLabel, venueLabel } from "./form
 import { queryString } from "./url";
 
 /**
- * The Cut — the keystone of the discovery layer (ROADMAP Phase 12).
+ * The Cut — the keystone of the discovery layer.
  *
  * A Cut is one serializable description of a slice of the record: filter the
  * fixtures, group them by a `dimension`, rank and headline them by a `metric`
