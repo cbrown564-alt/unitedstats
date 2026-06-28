@@ -83,7 +83,7 @@ test("saved collections round-trip one, many, and max-size Cut sets", async () =
     (await CollectionPage({ searchParams: Promise.resolve({ c: one }) })) as React.ReactElement,
   );
   assert.match(html, /Saved Cuts/);
-  assert.match(html, /Evidence/);
+  assert.match(html, /Open/);
 });
 
 test("the client save widget encodes a working set the server decodes identically", () => {

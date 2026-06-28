@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
-import { CoverageNote } from "@/components/CoverageNote";
 import { CollectionActions } from "@/components/collection/CollectionActions";
 import { OpenMyCollection } from "@/components/collection/OpenMyCollection";
 import { decodeCollection } from "@/lib/collections";
@@ -43,58 +42,47 @@ export default async function CollectionPage({ searchParams }: { searchParams: P
   return (
     <div className="space-y-8">
       <PageHeader eyebrow="Saved collection" title="Saved Cuts">
-        {cuts.length} {cuts.length === 1 ? "Cut" : "Cuts"} gathered into one shareable set — every figure still links to
-        the matches behind it.
+        {cuts.length} {cuts.length === 1 ? "Cut" : "Cuts"} gathered into one shareable set — open any to see the matches
+        behind it.
       </PageHeader>
 
       <CollectionActions hrefs={hrefs} />
 
-      <section className="grid gap-4 md:grid-cols-2">
+      <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-panel">
         {cuts.map(({ href, result }, index) => {
           const removeHref = hrefs.length > 1 ? collectionShareHref(hrefs.filter((_, i) => i !== index)) : "/collection";
           return (
-            <article key={`${href}-${index}`} className="relative overflow-hidden rounded-xl border border-line bg-panel p-5">
-              <div className="flex items-start justify-between gap-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">Cut {index + 1}</p>
-                <Link
-                  href={removeHref}
-                  aria-label={`Remove cut ${index + 1}`}
-                  className="text-xs font-semibold text-ink-faint transition-colors hover:text-devil-bright focus-ring"
-                >
-                  Remove ×
-                </Link>
-              </div>
-
-              {result.headline ? (
-                <>
-                  <h2 className="display mt-3 text-xl leading-tight text-ink">{result.headline.subject}</h2>
-                  <p className="mt-1 text-sm leading-6 text-ink-dim">{capitalize(result.headline.gloss)}.</p>
-                  <div className="mt-3 flex items-end justify-between gap-4">
-                    <span className="stat-num text-4xl font-semibold text-gold">{result.headline.figure}</span>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
-                      {result.headline.metric}
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <p className="mt-3 text-sm text-ink-dim">This Cut’s slice is empty.</p>
-              )}
-
-              <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
-                <Link href={href} className="text-devil-bright hover:underline focus-ring">
-                  Open Cut →
-                </Link>
-                {result.headline && (
-                  <Link href={result.headline.href} className="text-devil-bright hover:underline focus-ring">
-                    Evidence →
-                  </Link>
+            <li key={`${href}-${index}`} className="flex items-center gap-3 p-4">
+              <p className="w-12 shrink-0 text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">
+                Cut {index + 1}
+              </p>
+              <div className="min-w-0 flex-1">
+                {result.headline ? (
+                  <>
+                    <p className="truncate text-sm font-semibold text-ink">{result.headline.subject}</p>
+                    <p className="mt-0.5 truncate text-sm text-ink-dim">{capitalize(result.headline.gloss)}.</p>
+                  </>
+                ) : (
+                  <p className="text-sm text-ink-dim">This Cut’s slice is empty.</p>
                 )}
               </div>
-              <CoverageNote className="mt-3" slice={`${result.played} records`} coverage={result.coverage.basis} />
-            </article>
+              <Link
+                href={href}
+                className="shrink-0 text-sm font-semibold text-devil-bright hover:underline focus-ring"
+              >
+                Open →
+              </Link>
+              <Link
+                href={removeHref}
+                aria-label={`Remove cut ${index + 1}`}
+                className="shrink-0 text-xs font-semibold text-ink-faint transition-colors hover:text-devil-bright focus-ring"
+              >
+                Remove ×
+              </Link>
+            </li>
           );
         })}
-      </section>
+      </ul>
     </div>
   );
 }
