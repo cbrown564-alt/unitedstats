@@ -1006,6 +1006,23 @@ export function playerSplitsBySeason(id: string): {
     }[];
 }
 
+/** Matches in which the player scored three or more — a hat-trick count, the
+ *  natural measure of a dominant single-game performance. Drawn from the same
+ *  match-attributed goal record as the career arc and the per-90 rate, so it is
+ *  complete wherever the goal events are (the whole dataset for the giants). */
+export function playerHatTricks(id: string): number {
+  const row = getDb()
+    .prepare(
+      `SELECT COUNT(*) n FROM (
+         SELECT m.id FROM match_events e JOIN matches m ON m.id = e.match_id
+         WHERE e.player_id = ? AND e.player_side = 'united'
+           AND e.type IN ('goal','pen-goal')
+         GROUP BY m.id HAVING COUNT(*) >= 3)`,
+    )
+    .get(id) as { n: number } | undefined;
+  return row?.n ?? 0;
+}
+
 export interface PlayerCareerSpark {
   player_id: string;
   season: string;

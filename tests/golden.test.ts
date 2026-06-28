@@ -567,6 +567,13 @@ test("compare builders reproduce the official record across the three modes", ()
     c.metrics.find((m) => m.label === label)!;
   assert.deepEqual([byLabel(players, "Goals").a, byLabel(players, "Goals").b], [253, 249]);
   assert.deepEqual([byLabel(players, "Appearances").a, byLabel(players, "Appearances").b], [559, 758]);
+  // Scoring depth: hat-tricks and best single-season return, both match-attributed
+  // and complete across these careers (Rooney 8 hat-tricks to Charlton's 7).
+  assert.deepEqual([byLabel(players, "Hat-tricks").a, byLabel(players, "Hat-tricks").b], [8, 7]);
+  const best = byLabel(players, "Best season");
+  assert.deepEqual([best.a, best.b], [34, 29]);
+  assert.match(best.note ?? "", /Charlton: 29 in/, "best-season note names the season");
+  assert.equal(byLabel(players, "Hat-tricks").comparable, undefined, "hat-tricks need no coverage gate");
 
   // Managers: Ferguson's trophy count is the canonical 38; Busby's reign is closed.
   const mgrs = compareManagers("alex-ferguson", "matt-busby");

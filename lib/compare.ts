@@ -1,7 +1,7 @@
 import { getDb } from "./db";
 import { playerCareerSpan } from "./format";
 import {
-  CUP_WON_PREDICATE, managerById, managerHonours, playerById, playerSplitsBySeason,
+  CUP_WON_PREDICATE, managerById, managerHonours, playerById, playerHatTricks, playerSplitsBySeason,
 } from "./queries";
 
 /**
@@ -154,6 +154,15 @@ function assistCovered(seasons: { season: string; apps: number }[]): boolean {
   return total > 0 && covered / total >= 0.8;
 }
 
+/** The season of a player's highest goal return, on the normalized career axis —
+ *  the single-season peak the career graph plots as a dot. Null when the player
+ *  never scored (so a 0 isn't dressed up as a "best season"). */
+function peakSeason(arc: CareerSeason[]): { n: number; season: string; goals: number } | null {
+  if (!arc.length) return null;
+  const peak = arc.reduce((m, p) => (p.goals > m.goals ? p : m), arc[0]);
+  return peak.goals > 0 ? { n: peak.n, season: peak.season, goals: peak.goals } : null;
+}
+
 // ----------------------------------------------------------------- players
 
 export function comparePlayers(idA: string, idB: string): Comparison | null {
@@ -194,6 +203,15 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
     ? `${goalLeader.name} out-scored ${(goalLeader === a ? b : a).name} ${Math.max(a.goals, b.goals)}–${Math.min(a.goals, b.goals)}.`
     : `${a.name} and ${b.name} are level on goals — ${a.goals} apiece.`;
 
+  // Scoring depth beyond the volume total: hat-tricks (dominant single games)
+  // and the best season's goal return (the peak the career graph plots). Both
+  // derive from the match-attributed record, so they are honest wherever the
+  // goal events are — the whole career for every curated debate.
+  const aHat = playerHatTricks(a.player_id);
+  const bHat = playerHatTricks(b.player_id);
+  const pa = peakSeason(aArc);
+  const pb = peakSeason(bArc);
+
   return {
     mode: "players",
     a: { id: a.player_id, label: a.name, sublabel: span(a), href: `/player/${a.player_id}`, thumb: a.player_thumb_url ?? a.player_image_url },
@@ -205,12 +223,25 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
         rate: { a: per90(a.goals, aMinutes), b: per90(b.goals, bMinutes), label: "Goals per 90", fmt: "dec2" },
       },
       {
+        label: "Hat-tricks", a: aHat, b: bHat, fmt: "int", better: "higher",
+        note: "Three or more in one match — match-attributed, like the career graph.",
+      },
+      {
         label: "Assists", a: a.assists, b: b.assists, fmt: "int", better: "higher", comparable: assistsComparable,
         note: assistsComparable
           ? "Curated 1987–88 to 2014–15 lane plus match events after."
           : `${uncoveredName} predates assist recording (from 1987–88) — the gap is an artifact of the record, not the player.`,
         rate: { a: per90(a.assists, aMinutes), b: per90(b.assists, bMinutes), label: "Assists per 90", fmt: "dec2" },
       },
+      ...(pa || pb ? [{
+        label: "Best season",
+        a: pa?.goals ?? 0,
+        b: pb?.goals ?? 0,
+        fmt: "int" as const,
+        better: "higher" as const,
+        note: [pa && `${a.name}: ${pa.goals} in ${pa.season}`, pb && `${b.name}: ${pb.goals} in ${pb.season}`]
+          .filter(Boolean).join("; ") + ".",
+      }] : []),
     ],
     signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc, aCovered, bCovered } : undefined,
     headline,
@@ -229,7 +260,8 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
  * lined up on the same number. Surfaced as the "where they rhymed" callout to
  * balance the headline's "who won". Only signals the data actually carries:
  * shared shirt number, same career-peak season (on the normalized n axis, which
- * is why a generation-apart pair can rhyme), and overlapping United careers.
+ * is why a generation-apart pair can rhyme), the same debut year, and
+ * overlapping United careers.
  */
 function playerRhymes(
   a: { name: string; primary_shirt: number | null; first_year: number | null; last_year: number | null },
@@ -246,17 +278,19 @@ function playerRhymes(
     });
   }
 
-  const peakSeason = (arc: CareerSeason[]): { n: number; season: string; goals: number } | null => {
-    if (!arc.length) return null;
-    const peak = arc.reduce((m, p) => (p.goals > m.goals ? p : m), arc[0]);
-    return peak.goals > 0 ? { n: peak.n, season: peak.season, goals: peak.goals } : null;
-  };
   const pa = peakSeason(aArc);
   const pb = peakSeason(bArc);
   if (pa && pb && pa.n === pb.n) {
     out.push({
       label: `Both peaked in season ${pa.n}`,
       detail: `${a.name}'s best was ${pa.season} (${pa.goals} goals); ${b.name}'s, ${pb.season} (${pb.goals}).`,
+    });
+  }
+
+  if (a.first_year && b.first_year && a.first_year === b.first_year) {
+    out.push({
+      label: `Same debut season`,
+      detail: `${a.name} and ${b.name} both made their United first-team bows in ${a.first_year}-${a.first_year + 1}.`,
     });
   }
 
