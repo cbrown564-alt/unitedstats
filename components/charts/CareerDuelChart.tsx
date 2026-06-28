@@ -224,11 +224,18 @@ export function CareerDuelChart({
             axisLine={false}
             tickLine={false}
             tickMargin={8}
-            width={36}
+            width={44}
             stroke="var(--color-ink-faint)"
             fontSize={11}
-            tickFormatter={(v) => fmtAxisNumber(v, "")}
+            tickFormatter={(v) => (rate ? (v as number).toFixed(1) : fmtAxisNumber(v, ""))}
             allowDecimals={rate}
+            label={{
+              value: rate ? "Goals per 90" : "Goals",
+              angle: -90,
+              position: "insideLeft",
+              offset: 14,
+              style: { fill: "var(--color-ink-faint)", fontSize: 10, textAnchor: "middle" },
+            }}
           />
           <Tooltip
             content={<DuelTooltip labelA={labelA} labelB={labelB} rate={rate} />}
