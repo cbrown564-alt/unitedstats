@@ -1,6 +1,6 @@
 import { seasonMatches } from "@/lib/queries";
 import { immutableDataHeaders } from "@/lib/cache";
-import { OG_CONTENT_TYPE, OG_SIZE, entityCard, trustStrip } from "@/lib/og-card";
+import { OG_CONTENT_TYPE, OG_SIZE, entityCard, seasonCard, trustStrip } from "@/lib/og-card";
 
 export const dynamic = "force-dynamic";
 export const alt = "Manchester United season — Red Thread";
@@ -16,14 +16,17 @@ export default async function Image({ params }: { params: Promise<{ season: stri
       immutableDataHeaders,
     );
   }
-  const w = matches.filter((m) => m.result === "W").length;
-  const d = matches.filter((m) => m.result === "D").length;
-  const l = matches.filter((m) => m.result === "L").length;
-  return entityCard(
+  const results = matches.map((m) => m.result as "W" | "D" | "L");
+  const w = results.filter((r) => r === "W").length;
+  const d = results.filter((r) => r === "D").length;
+  const l = results.filter((r) => r === "L").length;
+  return seasonCard(
     {
-      eyebrow: "SEASON",
-      title: `United ${season}`,
-      subtitle: `${matches.length} matches · ${w}W ${d}D ${l}L`,
+      season,
+      results,
+      w,
+      d,
+      l,
       strip: trustStrip(),
     },
     immutableDataHeaders,

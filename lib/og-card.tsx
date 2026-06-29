@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import type { ReactNode } from "react";
 import { ImageResponse } from "next/og";
 import { getMeta } from "@/lib/queries";
 
@@ -265,6 +266,203 @@ export function matchCard(
       </div>
     ),
     ogOptions(headers),
+  );
+}
+
+// --- Entity cards: name + one figure + a shape that echoes the page's hero -----
+
+const CLUB_FOUNDED = 1878;
+
+/** A season as a diverging skyline: wins as gold bars above the midline, losses as
+ *  red below, draws as grey ticks on the line — the same idiom as the on-page
+ *  `ResultSpine`. The shape of a season (a relentless gold wall, a ragged struggle)
+ *  reads before any number. */
+function seasonSpine(results: ("W" | "D" | "L")[]) {
+  const W = Q_WIDTH;
+  const n = results.length || 1;
+  const gap = n > 50 ? 3 : n > 30 ? 5 : 8;
+  const cellW = Math.max(4, Math.floor((W - (n - 1) * gap) / n));
+  const half = 34;
+  const barH = 27;
+  return (
+    <div style={{ position: "relative", display: "flex", width: W, height: half * 2 }}>
+      <div style={{ position: "absolute", left: 0, top: half - 1, width: W, height: 2, background: LINE }} />
+      {results.map((r, i) => {
+        const left = i * (cellW + gap);
+        if (r === "D") {
+          return <div key={i} style={{ position: "absolute", left, top: half - 4, width: cellW, height: 8, background: DRAW, borderRadius: 2 }} />;
+        }
+        const win = r === "W";
+        return (
+          <div
+            key={i}
+            style={{ position: "absolute", left, top: win ? half - barH : half, width: cellW, height: barH, background: win ? WIN : LOSS, borderRadius: win ? "3px 3px 0 0" : "0 0 3px 3px" }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+/** A career/reign as a gold span on the club's full timeline (founding → today),
+ *  the same `CareerSpanBar` idiom the register and managers list use — so the card
+ *  shows *when* at a glance, the figure shows *how much*. */
+function careerBar(firstYear: number, lastYear: number) {
+  const W = Q_WIDTH;
+  const end = new Date().getFullYear();
+  const span = Math.max(1, end - CLUB_FOUNDED);
+  const at = (y: number) => Math.round(((Math.max(CLUB_FOUNDED, Math.min(end, y)) - CLUB_FOUNDED) / span) * W);
+  const left = at(firstYear);
+  const right = Math.max(left + 6, at(lastYear));
+  return (
+    <div style={{ display: "flex", flexDirection: "column", width: W }}>
+      <div style={{ position: "relative", display: "flex", width: W, height: 30 }}>
+        <div style={{ position: "absolute", left: 0, top: 9, width: W, height: 12, background: PANEL_2, borderRadius: 6 }} />
+        <div style={{ position: "absolute", left, top: 9, width: right - left, height: 12, background: GOLD, borderRadius: 6 }} />
+      </div>
+      <div style={{ position: "relative", display: "flex", width: W, height: 24, fontSize: 20, color: INK_FAINT }}>
+        <span style={{ position: "absolute", left: 0 }}>{CLUB_FOUNDED}</span>
+        <span style={{ position: "absolute", left: Math.min(W - 110, Math.max(0, left)), color: GOLD }}>{firstYear}–{lastYear}</span>
+        <span style={{ position: "absolute", right: 0 }}>{end}</span>
+      </div>
+    </div>
+  );
+}
+
+/** The shared entity-card frame: brand + eyebrow, the name, one mono figure with a
+ *  gloss, and a shape underneath. The structural sibling of `questionCard`, so every
+ *  surface's unfurl reads as one family. */
+function renderStatCard(
+  {
+    eyebrow, title, contextRight, figure, figureLabel, accent = "gold", shape, strip,
+  }: {
+    eyebrow: string;
+    title: string;
+    contextRight?: string;
+    figure: string;
+    figureLabel: string;
+    accent?: "gold" | "devil" | "ink";
+    shape: ReactNode;
+    strip: string[];
+  },
+  headers?: Record<string, string>,
+) {
+  const acc = accent === "devil" ? DEVIL : accent === "ink" ? INK : GOLD;
+  return new ImageResponse(
+    (
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
+        <div style={{ width: 16, height: "100%", background: DEVIL }} />
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
+          <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
+            <OgBrand />
+            <span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
+            {contextRight && <span style={{ color: INK_FAINT, marginLeft: "auto", letterSpacing: 0, fontSize: 24 }}>{contextRight}</span>}
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", width: Q_WIDTH, overflow: "hidden" }}>
+              <span style={{ fontSize: 62, fontWeight: 800, letterSpacing: -1.5, color: INK, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {title}
+              </span>
+            </div>
+            <div style={{ display: "flex", alignItems: "baseline", marginTop: 16 }}>
+              <span style={{ fontFamily: MONO, fontSize: 60, fontWeight: 600, letterSpacing: -1, color: acc }}>{figure}</span>
+              <span style={{ fontSize: 26, color: INK_DIM, marginLeft: 20, lineHeight: 1.3, maxWidth: 760 }}>{figureLabel}</span>
+            </div>
+            <div style={{ display: "flex", marginTop: 38 }}>{shape}</div>
+          </div>
+
+          <div style={{ display: "flex" }}>
+            {strip.map((chip) => (
+              <div
+                key={chip}
+                style={{ display: "flex", alignItems: "center", border: `1px solid ${LINE}`, background: PANEL, borderRadius: 10, padding: "12px 22px", marginRight: 16, fontSize: 24, color: INK }}
+              >
+                {chip}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+    ogOptions(headers),
+  );
+}
+
+const winPct = (w: number, p: number) => `${Math.round((100 * w) / (p || 1))}%`;
+
+/** A manager's card: their record drawn as a W-D-L conviction bar, win % as the figure. */
+export function managerCard(
+  { name, role, p, w, d, l, era, strip }: { name: string; role: string; p: number; w: number; d: number; l: number; era?: string; strip: string[] },
+  headers?: Record<string, string>,
+) {
+  return renderStatCard(
+    {
+      eyebrow: role.toUpperCase(),
+      title: name,
+      contextRight: era,
+      figure: winPct(w, p),
+      figureLabel: `won · ${p.toLocaleString("en-GB")} matches in charge`,
+      shape: vizWdl(w, d, l),
+      strip,
+    },
+    headers,
+  );
+}
+
+/** A head-to-head card: the all-time record as a conviction bar, win % as the figure. */
+export function opponentCard(
+  { name, p, w, d, l, since, strip }: { name: string; p: number; w: number; d: number; l: number; since?: string; strip: string[] },
+  headers?: Record<string, string>,
+) {
+  return renderStatCard(
+    {
+      eyebrow: "HEAD TO HEAD",
+      title: `United v ${name}`,
+      contextRight: since,
+      figure: winPct(w, p),
+      figureLabel: `United wins · ${p.toLocaleString("en-GB")} meetings`,
+      accent: w >= l ? "gold" : "devil",
+      shape: vizWdl(w, d, l),
+      strip,
+    },
+    headers,
+  );
+}
+
+/** A season's card: the season drawn as a diverging result spine, win % as the figure. */
+export function seasonCard(
+  { season, results, w, d, l, strip }: { season: string; results: ("W" | "D" | "L")[]; w: number; d: number; l: number; strip: string[] },
+  headers?: Record<string, string>,
+) {
+  return renderStatCard(
+    {
+      eyebrow: "SEASON",
+      title: `United ${season}`,
+      figure: winPct(w, results.length),
+      figureLabel: `won · ${w}W ${d}D ${l}L across ${results.length} matches`,
+      shape: seasonSpine(results),
+      strip,
+    },
+    headers,
+  );
+}
+
+/** A player's card: their years drawn as a career span on the club timeline, goals as the figure. */
+export function playerCard(
+  { name, position, goals, apps, firstYear, lastYear, strip }: { name: string; position?: string; goals: number; apps: number; firstYear: number; lastYear: number; strip: string[] },
+  headers?: Record<string, string>,
+) {
+  return renderStatCard(
+    {
+      eyebrow: (position ?? "Player").toUpperCase(),
+      title: name,
+      figure: goals.toLocaleString("en-GB"),
+      figureLabel: `goals · ${apps.toLocaleString("en-GB")} appearances`,
+      shape: careerBar(firstYear, lastYear),
+      strip,
+    },
+    headers,
   );
 }
 
