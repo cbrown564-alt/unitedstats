@@ -1,7 +1,6 @@
 import { getDb } from "./db";
 import type { MatchRow } from "./queries";
 import type { ChargeComponents, ReasonKind } from "./charge";
-import { scoreline } from "./format";
 
 /**
  * The rediscovery *selector* (Phase 3a — `CONTEXT.md` §6, `docs/RESTRAINT-PASS.md`).
@@ -43,6 +42,15 @@ export interface RediscoveryOpts {
   excludeIds?: string[];
   /** Floor on the base score, so a rail never surfaces a flat match. */
   minScore?: number;
+  /** Constrain to these results (e.g. `["W"]` for a warm, ungated first roll —
+   *  the base ranking skews to forgotten *defeats*, so warmth must be asked for). */
+  results?: Array<"W" | "D" | "L">;
+  /** Confine candidates to matches in `[fromYear, toYear]` (inclusive). The
+   *  reader's *formative window* — so "your years" leans into the early-years
+   *  nights that have aged into the right kind of bittersweet, not just the
+   *  highest-charge night anywhere after they started watching. */
+  fromYear?: number;
+  toYear?: number;
 }
 
 interface ChargeJoinRow extends MatchRow {
@@ -83,13 +91,22 @@ const ENTITY_CLAUSE: Record<NonNullable<RediscoveryOpts["entityKind"]>, string> 
  * higher-scoring one — cheap, since the pool is small and indexed.
  */
 export function topRediscoveries(opts: RediscoveryOpts = {}): RediscoveryPick[] {
-  const { since, limit = 10, entityId, entityKind, excludeIds = [], minScore = 0 } = opts;
+  const {
+    since, limit = 10, entityId, entityKind, excludeIds = [], minScore = 0, results, fromYear, toYear,
+  } = opts;
 
   const where: string[] = ["mc.score > @minScore"];
   if (entityId && entityKind) where.push(ENTITY_CLAUSE[entityKind]);
+  // Tone filter (typed to W/D/L, so a literal IN-list is safe).
+  const tone = (results ?? []).filter((r) => r === "W" || r === "D" || r === "L");
+  if (tone.length) where.push(`m.result IN (${tone.map((r) => `'${r}'`).join(", ")})`);
+  // Formative-window filter — dates are ISO strings, so lexical compare on the
+  // year boundary is exact.
+  if (fromYear != null) where.push("m.date >= @fromDate");
+  if (toYear != null) where.push("m.date <= @toDate");
 
   // Candidate pool: when an era bias is in play it can reorder, so pull wider than
-  // `limit` and re-rank. Entity slices are already small.
+  // `limit` and re-rank. Entity slices and windowed slices are already small.
   const pool = since != null ? 2000 : Math.max(limit * 4, 60);
 
   const rows = getDb()
@@ -106,7 +123,13 @@ export function topRediscoveries(opts: RediscoveryOpts = {}): RediscoveryPick[] 
        ORDER BY mc.score DESC
        LIMIT @pool`,
     )
-    .all({ minScore, entityId: entityId ?? null, pool }) as ChargeJoinRow[];
+    .all({
+      minScore,
+      entityId: entityId ?? null,
+      pool,
+      fromDate: fromYear != null ? `${fromYear}-01-01` : null,
+      toDate: toYear != null ? `${toYear}-12-31` : null,
+    }) as ChargeJoinRow[];
 
   const exclude = new Set(excludeIds);
   const picks = rows
@@ -140,50 +163,64 @@ function venuePhrase(v: string): string {
 }
 
 /**
- * The recognition line for a pick — plain, human, year-anchored (the on-site copy
- * voice the restraint pass calls for; refine when the surfaces land). Keyed by the
- * dominant `reason` so the line names what made the night, then the score and the
- * year do the recognising.
+ * The recognition line for a pick — the curiosity-gap prompt. It names the
+ * *occasion* (venue, opponent, sometimes the competition's flavour) and the year,
+ * but **withholds the result** — the scoreline and the win/loss are the reveal's
+ * job, not the question's. Naming "the late heartbreak" or "stunning United, 1–2"
+ * up front would close the loop before the reader strains to remember; the gap is
+ * the whole mechanic. Stays neutral on outcome so a forgotten win and a forgotten
+ * gut-punch read the same until revealed.
  */
 function promptFor(m: MatchRow, reason: ReasonKind | "none"): string {
   const year = m.date.slice(0, 4);
   const opp = m.opponent_name;
   const at = `${venuePhrase(m.venue)} ${opp}`;
-  const score = scoreline(m.gf, m.ga, [m.pen_gf, m.pen_ga], !!m.aet);
-  const comp = m.competition_name;
-  const won = m.result === "W";
+  const t = m.competition_type;
 
-  let body: string;
+  let occasion: string;
+  if (reason === "crowd") {
+    occasion = `the night the ground filled, ${at}`; // big crowd — outcome-neutral
+  } else if (reason === "rivalry") {
+    occasion = `that ${opp} night`;
+  } else if (t === "european") {
+    occasion = `that European night ${at}`;
+  } else if (t === "domestic-cup" || t === "league-cup") {
+    occasion = `that cup tie ${at}`;
+  } else {
+    occasion = `that night ${at}`;
+  }
+  return `Do you remember ${occasion}, back in ${year}?`;
+}
+
+/**
+ * The line shown *after* the reveal, once the scoreline is on screen — here the
+ * emotional framing is welcome, because the loop is closed. Keyed by the dominant
+ * `reason` and the result. First-draft copy; gets the editorial voice pass with the
+ * rest of the on-site copy.
+ */
+export function revealCaption(m: MatchRow, reason: ReasonKind | "none"): string {
+  const won = m.result === "W";
+  const lost = m.result === "L";
   switch (reason) {
     case "knockoutExit":
-      body = `going out of the ${comp} ${at}`;
-      break;
+      return "The night the run ended.";
     case "upset":
-      body = won ? `stunning ${opp}` : `${opp} stunning United, ${score}`;
-      break;
+      return won ? "A giant-killing." : "Nobody saw it coming.";
     case "comeback":
-      body = `the comeback ${at}`;
-      break;
+      return "Down — then back.";
     case "collapse":
-      body = won ? `${at}` : `throwing it away ${at}, ${score}`;
-      break;
+      return lost ? "Ahead, then undone." : "A lead let slip.";
     case "lateDrama":
-      body = won ? `the late win ${at}` : `the late heartbreak ${at}`;
-      break;
+      return won ? "Won in the dying minutes." : "Lost it at the death.";
     case "rivalry":
-      body = `that ${opp} ${score}`;
-      break;
+      return "A night against the old rivals.";
     case "scoreline":
-      body = `the ${score} ${at}`;
-      break;
+      return won ? "A rout." : "A hammering.";
     case "streakEnder":
-      body = `the run ending ${at}`;
-      break;
+      return "The night a long run ended.";
     case "crowd":
-      body = `the night the ground filled ${at}`;
-      break;
+      return "A full house, under the lights.";
     default:
-      body = `${score} ${at}`;
+      return "A night worth remembering.";
   }
-  return `Do you remember ${body}, back in ${year}?`;
 }

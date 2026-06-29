@@ -3,8 +3,11 @@ import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
   topScorers, seasonAggregates, championSeasons,
 } from "@/lib/queries";
-import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { fmtNum, pct, scoreline, resultTone, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { QUESTIONS } from "@/lib/questions";
+import { topRediscoveries, revealCaption, type RediscoveryPick } from "@/lib/rediscovery";
+import { ERA_OPTIONS, type RevealPick } from "@/lib/eras";
+import { RediscoveryReveal, type EraBucket } from "@/components/RediscoveryReveal";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
@@ -19,6 +22,25 @@ import { greatNights } from "@/lib/greatNights";
 // The served night is resolved per request so on-this-day reflects the real date
 // and the latest record — like /surprise and /on-this-day.
 export const dynamic = "force-dynamic";
+
+/** Flatten a rediscovery pick for the client island — result split into the
+ *  withheld prompt and the revealed facts. */
+function toReveal(p: RediscoveryPick): RevealPick {
+  const m = p.match;
+  return {
+    id: m.id,
+    prompt: p.prompt,
+    caption: revealCaption(m, p.reason),
+    scoreText: scoreline(m.gf, m.ga, [m.pen_gf, m.pen_ga], !!m.aet),
+    toneClass: resultTone(m.outcome),
+    opponent: m.opponent_name,
+    venue: m.venue as "H" | "A" | "N",
+    competition: m.competition_name,
+    round: m.round ?? null,
+    year: m.date.slice(0, 4),
+    href: `/match/${m.id}`,
+  };
+}
 
 export default function Home() {
   const meta = getMeta();
@@ -53,6 +75,17 @@ export default function Home() {
   const RECORD_TYPES = new Set(["league", "domestic-cup", "league-cup", "european"]);
   const recordRows = byType.filter((t) => RECORD_TYPES.has(t.type));
   const recordPMax = Math.max(1, ...recordRows.map((t) => t.p));
+
+  // The rediscovery beat (CONTEXT.md §6): a second, personal spark. The ungated
+  // roll is warm by construction (forgotten *wins*) so first contact stays warm;
+  // each era bucket is the reader's formative window, where the engine is free to
+  // lean bittersweet. All scored at request time (the page is already dynamic).
+  const warmReveal = topRediscoveries({ results: ["W"], limit: 8 }).map(toReveal);
+  const eraReveal: EraBucket[] = ERA_OPTIONS.map((e) => ({
+    key: e.key,
+    label: e.label,
+    picks: topRediscoveries({ fromYear: e.fromYear, toYear: e.toYear, limit: 8 }).map(toReveal),
+  }));
 
   return (
     <div className="space-y-14 sm:space-y-16">
@@ -107,6 +140,11 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      {/* ── The personal spark: a forgotten night, the result withheld until you
+          reveal it. Warm on first contact; once you name your era it leans into the
+          bittersweet nights from your own years (CONTEXT.md §6). ── */}
+      <RediscoveryReveal warm={warmReveal} eras={eraReveal} />
 
       {/* ── Movement: start a trail. The curated-cut launcher — the myth-tested
           questions as answer-first doors into the record. (The "All-time peaks"

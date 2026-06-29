@@ -89,6 +89,41 @@ among panels). The current composition:
 - The skyline + scope + search that used to lead are now the **foundation beat**
   below it (`CONTEXT.md` §2 — why the jolt is honest, why you stay).
 
+### The rediscovery beat — `components/RediscoveryReveal.tsx`
+
+A *second* front-door spark, below the hero — decided **coexist, not replace**: the
+hero stays the guaranteed-warm canonical first spark, and rediscovery is the
+personal, era-tuned layer the hero structurally can't be. It sits between the
+foundation beat and the questions. Added 2026-06-29.
+
+It runs a **curiosity-gap reveal**:
+
+- **The prompt withholds the result.** "Do you remember that night away at Chelsea,
+  back in 2012?" — venue, opponent, year, sometimes the competition's flavour; never
+  the scoreline or the win/loss. Closing that loop is the reveal's job. `promptFor`
+  (in `lib/rediscovery.ts`) was rewritten to withhold; the emotional framing moved to
+  a new `revealCaption` shown *after* the reveal.
+- **First contact stays warm.** The ungated roll is filtered to forgotten *wins*
+  (`results: ["W"]`); the raw engine skews to forgotten *defeats*, which is right for
+  the era-tuned layer but wrong for a cold open.
+- **"Your era" is the unlock, asked only after the first spark.** One-tap decade chips
+  → a *formative window* (`fromYear`/`toYear` ≈ decade + 15y), so it leans into the
+  early-years nights that have aged into the right bittersweet, not "anything since
+  you started watching." One `localStorage` value (no account; read via
+  `useSyncExternalStore` so SSR / first paint stay on the warm pool). Post-era the
+  pool is unfiltered, so defeats are eligible.
+- **The reveal opens the foundation.** Scoreline toned by result (gold for a win,
+  muted red for a loss), competition · round · venue · year, the caption, then
+  **"See the night →"** into the full match page — the deepening.
+
+Server renders the warm pool + per-decade pools (the page is already
+`force-dynamic`); the era swap is the only client layer. `lib/eras.ts` holds the
+decade options + the serialized `RevealPick` shape, kept DB-free so the client island
+doesn't pull in `better-sqlite3`.
+
+**Deferred (next):** a copy/voice pass on the prompts and captions, and a fuller,
+more involved reveal (scorers/minutes, more atmosphere) to match the hero's presence.
+
 ---
 
 ## 3. The design journey (what we tried, and why we moved on)
@@ -202,5 +237,8 @@ work through (the user wants more here; treat as a finishing-touch pass):
 - Hero: `components/TonightHero.tsx`.
 - Page: `app/page.tsx` (hero, then the foundation beat, then questions/peaks/etc.).
 - Tests: `tests/great-nights.test.ts`. Bootstrap: `scripts/bootstrap-great-nights.ts`.
+- Rediscovery beat: `components/RediscoveryReveal.tsx`, `lib/eras.ts`; engine filters
+  + copy in `lib/rediscovery.ts` (`results`/`fromYear`/`toYear`, `promptFor`,
+  `revealCaption`). Live (2026-06-29) — see §2; copy + a fuller reveal to follow.
 - **Temporary:** 1999 is pinned and the working tree is uncommitted while the hero
   is in visual iteration. The portrait path is gated off pending §4a.

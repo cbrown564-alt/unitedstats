@@ -296,7 +296,7 @@ deleting):
 
 ### Phase 3a — The rediscovery mechanic (what "elevate" means)
 
-> **Status — the engine is built and verified (2026-06-29); surfaces deferred.**
+> **Status — engine built (2026-06-29); homepage reveal shipped (2026-06-29).**
 > The computable charge scorer is live: `lib/charge.ts` (`computeAllCharge`) scores
 > every match by **charge × fadedness** into a new `match_charge` table at build
 > time (in `scripts/build-db.ts`), and `lib/rediscovery.ts` (`topRediscoveries`,
@@ -313,9 +313,18 @@ deleting):
 > since ___?" UI is deferred; **tone is decided per-surface** (the base ranking
 > skews to forgotten *defeats* because charged wins are mostly famous → suppressed;
 > the engine stays neutral and each surface filters its own tone via the returned
-> `reason`/`result`). **Still open (next pass):** wire the surfaces — homepage
-> "Do you remember…?" rail, entity-page "you might have forgotten…" rails, the
-> `/surprise` nostalgia mode — and the era-input UI.
+> `reason`/`result`). **Homepage reveal + era UI — built (2026-06-29).** The
+> "Do you remember…?" reveal is wired on the homepage as a *second beat* below the
+> warm curated hero (decided **coexist**, not replace — the hero stays the
+> guaranteed-warm first spark; `components/RediscoveryReveal.tsx`, `lib/eras.ts`).
+> The mechanic: the prompt **withholds the result** (curiosity gap — `promptFor`
+> rewritten, framing moved to a new `revealCaption`); the ungated first roll is
+> **warm** (`results: ["W"]`) so first contact never opens on a gut-punch; and the
+> **era input** is one-tap decade chips → a *formative window* (`fromYear`/`toYear`
+> ≈ decade + 15y) held in `localStorage`, served only **after** the first spark,
+> post-era unfiltered so it leans bittersweet. **Still open (next pass):**
+> entity-page "you might have forgotten…" rails and the `/surprise` nostalgia mode;
+> plus a copy/voice pass and a fuller reveal (scorers/minutes) — see `HOMEPAGE.md`.
 
 The strongest organic reaction Red Thread ever got — a fan rediscovering the 2015
 Europa League exit — was **serendipitous exploration of a forgotten, emotionally
