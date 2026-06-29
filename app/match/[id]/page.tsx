@@ -164,12 +164,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   // Disclosure summaries must advertise their contents (Primary-Answer rule).
   const hasTeamsheet = starters.length > 0 || usedSubs.length > 0 || bench.length > 0 || cards.length > 0;
-  const teamsheetParts = [
-    starters.length > 0 ? "Starting XI" : null,
-    usedSubs.length > 0 ? `${usedSubs.length} sub${usedSubs.length === 1 ? "" : "s"}` : null,
-    bench.length > 0 ? "bench" : null,
-    cards.length > 0 ? `${cards.length} card${cards.length === 1 ? "" : "s"}` : null,
-  ].filter(Boolean) as string[];
   const contextParts = [
     h2h.p > 0 ? "head-to-head" : null,
     "form",
@@ -268,34 +262,25 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   ) : null;
 
   const teamsheetPanel = hasTeamsheet ? (
-    <section className="overflow-hidden rounded-lg border border-line bg-panel">
-      <div className="flex items-baseline justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
-        <h2 className="display text-xl">Lineup</h2>
-        {teamsheetParts.length > 0 && (
-          <span className="stat-num text-xs text-ink-faint">{teamsheetParts.join(" · ")}</span>
-        )}
-      </div>
-      <div className="space-y-6 p-4 sm:p-5">
-        {canPitch ? (
-          <>
-            {usedSubs.length > 0 || bench.length > 0 ? (
-              <div className="grid items-start gap-x-6 gap-y-5 lg:grid-cols-[minmax(0,26rem)_minmax(12rem,16rem)]">
-                <div>
-                  <h3 className="display mb-3 text-lg">Starting XI</h3>
-                  <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
-                </div>
-                <Bench used={usedSubs} unused={bench} decade={m.date.slice(0, 4)} marks={marks} />
-              </div>
-            ) : (
-              <div className="max-w-md">
-                <h3 className="display mb-3 text-lg">Starting XI</h3>
-                <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            {starters.length > 0 && (
+    canPitch ? (
+      usedSubs.length > 0 || bench.length > 0 ? (
+        // No card; the block centres on wide screens so it isn't marooned to the left.
+        <div className="grid items-start gap-x-8 gap-y-6 lg:mx-auto lg:w-fit lg:grid-cols-[minmax(0,26rem)_minmax(12rem,16rem)]">
+          <div>
+            <h3 className="display mb-3 text-lg">Starting XI</h3>
+            <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
+          </div>
+          <Bench used={usedSubs} unused={bench} decade={m.date.slice(0, 4)} marks={marks} />
+        </div>
+      ) : (
+        <div className="max-w-md lg:mx-auto">
+          <h3 className="display mb-3 text-lg">Starting XI</h3>
+          <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
+        </div>
+      )
+    ) : (
+      <div className="space-y-6">
+        {starters.length > 0 && (
               <div>
                 <h3 className="display mb-3 text-lg">Starting XI</h3>
                 <ul className="grid max-w-2xl gap-1.5 text-sm sm:grid-cols-2">
@@ -374,10 +359,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 </ul>
               </div>
             )}
-          </>
-        )}
       </div>
-    </section>
+    )
   ) : null;
 
   const matchDetailsBody = (
@@ -541,72 +524,68 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="space-y-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
-      <div className="space-y-5">
-        <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_16px_32px_rgb(0_0_0_/0.18)]">
-          <div className="hero-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
-          <div
-            className="pointer-events-none absolute -right-20 -top-24 h-56 w-1/2 rounded-full opacity-[0.10] blur-3xl"
-            style={{ backgroundColor: "var(--color-devil)" }}
-            aria-hidden
-          />
-          <div className="relative space-y-4 p-5 sm:p-6">
-            <header className="space-y-4">
-          <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
-            <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
-            <span aria-hidden>·</span>
-            <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} />
-          </nav>
-          <div className="space-y-2 border-y border-line py-5 text-center">
-            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
-                {fmtDateLong(m.date)}
-              </p>
-              <span aria-hidden className="text-ink-faint">·</span>
-              <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${tone}`}>
-                {word}
-              </span>
-            </div>
-            <h1 className="display grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 text-4xl leading-tight sm:gap-x-5 lg:text-5xl">
-              {m.venue === "A" ? (
-                <>
-                  <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
-                  <span className={`stat-num whitespace-nowrap ${tone}`}>{m.ga}–{m.gf}</span>
-                  <TeamName names={clubN} align="left" />
-                </>
-              ) : (
-                <>
-                  <TeamName names={clubN} align="right" />
-                  <span className={`stat-num whitespace-nowrap ${tone}`}>{m.gf}–{m.ga}</span>
-                  <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
-                </>
-              )}
-            </h1>
-            {(m.aet || m.pen_gf != null) && (
-              <p className="text-sm text-ink-dim">
-                {m.aet ? "After extra time. " : ""}
-                {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
-              </p>
-            )}
-          </div>
-            </header>
-
-            <div className="flex justify-center">
-          <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
-            </div>
-
-            {hasDigest && (
-              <div className="flex justify-center">
-            <Link
-              href={`/history-changed/${id}`}
-              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-panel px-3.5 py-1.5 text-xs font-semibold text-ink-dim transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
-            >
-              What this result changed in the all-time record →
-            </Link>
+      <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-b border-line">
+        {/* Full-bleed broadcast band: the faint pitch grid spans the viewport, the
+            content stays aligned to the page gutter. No card — the result is the
+            page's headline, not a boxed widget. */}
+        <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+        <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-9 sm:px-6 sm:py-12">
+          <header className="space-y-4">
+            <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
+              <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
+              <span aria-hidden>·</span>
+              <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} />
+            </nav>
+            <div className="space-y-2 border-y border-line py-5 text-center">
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
+                  {fmtDateLong(m.date)}
+                </p>
+                <span aria-hidden className="text-ink-faint">·</span>
+                <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${tone}`}>
+                  {word}
+                </span>
               </div>
-            )}
+              <h1 className="display grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 text-4xl leading-tight sm:gap-x-5 sm:text-5xl lg:gap-x-8 lg:text-6xl">
+                {m.venue === "A" ? (
+                  <>
+                    <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
+                    <span className={`stat-num whitespace-nowrap ${tone}`}>{m.ga}–{m.gf}</span>
+                    <TeamName names={clubN} align="left" />
+                  </>
+                ) : (
+                  <>
+                    <TeamName names={clubN} align="right" />
+                    <span className={`stat-num whitespace-nowrap ${tone}`}>{m.gf}–{m.ga}</span>
+                    <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
+                  </>
+                )}
+              </h1>
+              {(m.aet || m.pen_gf != null) && (
+                <p className="text-sm text-ink-dim">
+                  {m.aet ? "After extra time. " : ""}
+                  {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
+                </p>
+              )}
+            </div>
+          </header>
+
+          <div className="flex justify-center">
+            <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
           </div>
-        </section>
-      </div>
+
+          {hasDigest && (
+            <div className="flex justify-center">
+              <Link
+                href={`/history-changed/${id}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-panel px-3.5 py-1.5 text-xs font-semibold text-ink-dim transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
+              >
+                What this result changed in the all-time record →
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
 
       <MatchSectionTabs
         defaultTab={defaultTab}

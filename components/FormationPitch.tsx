@@ -166,7 +166,7 @@ function PitchPlayer({ p, decade, marks }: { p: LineupRow; decade: string | null
         <ShirtBadge number={p.shirt} decade={decade} compact />
         {card && <CardMark type={card} className="absolute -right-1.5 -top-1" />}
       </span>
-      <span className="max-w-full break-words text-[11px] leading-tight text-ink group-hover:text-devil-bright">
+      <span className="mt-0.5 max-w-full break-words text-[11px] leading-tight text-ink group-hover:text-devil-bright">
         {familyName(name)}
       </span>
       {(goals > 0 || assists > 0 || p.sub_off != null) && (

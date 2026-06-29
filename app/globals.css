@@ -36,6 +36,13 @@
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
+html {
+  /* Contain full-bleed sections (the match hero breaks out to 100vw) so they
+     can't introduce a horizontal scrollbar. `clip`, not `hidden`, keeps the
+     sticky header working. */
+  overflow-x: clip;
+}
+
 body {
   background: var(--color-pitch);
   color: var(--color-ink);
