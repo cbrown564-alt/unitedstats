@@ -8,13 +8,11 @@ import {
   canonicalUrl,
   claimProvenance,
   claimVersion,
-  collectionRef,
   correctionRef,
   citableId,
   citableRef,
   cutKey,
   cutRef,
-  embedRef,
   entityRef,
   historyDigestRef,
   matchRef,
@@ -51,8 +49,6 @@ const REQUIRED_UNITS: CitableKind[] = [
   "history-digest",
   "correction",
   "on-this-day",
-  "collection",
-  "embed",
 ];
 
 test("Phase 0 defines every required citable unit", () => {
@@ -80,8 +76,6 @@ test("citable IDs round-trip and do not collide across the known public set", ()
     historyDigestRef("1999-05-26-bayern-munich-n"),
     correctionRef({ target: "match", id: "1999-05-26-bayern-munich-n", field: "attendance" }),
     onThisDayRef("02-29"),
-    collectionRef("c1.by=manager.metric=ppg"),
-    embedRef("cut-card", cutKey(curatedCut(CURATED_CUTS[1])), "/embed/cut/managers-by-points"),
   ];
 
   const ids = new Set<string>();

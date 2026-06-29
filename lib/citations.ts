@@ -11,9 +11,7 @@ export type CitableKind =
   | "answer"
   | "history-digest"
   | "correction"
-  | "on-this-day"
-  | "collection"
-  | "embed";
+  | "on-this-day";
 
 export interface CitableUnitDefinition {
   kind: CitableKind;
@@ -32,8 +30,6 @@ export const CITABLE_UNITS: CitableUnitDefinition[] = [
   { kind: "history-digest", unit: "History-changed digest", key: "match id", path: "/history-changed/[matchId]" },
   { kind: "correction", unit: "Correction request", key: "target hash or issue id", path: "GitHub issue / correction builder" },
   { kind: "on-this-day", unit: "On-this-day entry", key: "MM-DD", path: "/on-this-day/[monthDay]" },
-  { kind: "collection", unit: "Saved collection", key: "encoded collection payload", path: "/collection?..." },
-  { kind: "embed", unit: "Embed", key: "surface:key", path: "/embed/..." },
 ];
 
 export interface CitableRef {
@@ -125,14 +121,6 @@ export function correctionRef(target: unknown, path = "/corrections"): CitableRe
 
 export function onThisDayRef(monthDay: string): CitableRef {
   return citableRef("on-this-day", monthDay, `/on-this-day/${monthDay}`);
-}
-
-export function collectionRef(encoded: string): CitableRef {
-  return citableRef("collection", encoded, `/collection?c=${encodeURIComponent(encoded)}`);
-}
-
-export function embedRef(surface: string, key: string, path: string): CitableRef {
-  return citableRef("embed", `${surface}:${key}`, path);
 }
 
 export function claimVersion(claim: unknown): string {

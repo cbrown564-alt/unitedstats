@@ -60,11 +60,6 @@ export interface Cut {
   curated: boolean;
 }
 
-export const SUBJECTS: { key: CutSubject; label: string }[] = [
-  { key: "team", label: "Team" },
-  { key: "player", label: "Players" },
-];
-
 // ---- dimensions ----------------------------------------------------------
 
 interface DimMeta { key: CutDimension; label: string; short: string; noun: string }
@@ -85,11 +80,6 @@ const DIM_ORDER: Record<CutSubject, CutDimension[]> = {
   team: ["decade", "season", "type", "competition", "venue", "result", "opponent", "manager"],
   player: ["player", "season", "decade", "competition", "type", "opponent", "venue"],
 };
-
-/** The dimensions a reader can group by within a subject (ordered for the rail). */
-export function dimensionsFor(subject: CutSubject): DimMeta[] {
-  return DIM_ORDER[subject].map((k) => DIM_META[k]);
-}
 
 export function dimensionLabel(dim: CutDimension): string {
   return DIM_META[dim]?.short ?? dim;
@@ -204,11 +194,6 @@ const METRIC_ORDER: Record<CutSubject, CutMetric[]> = {
   team: ["winrate", "ppg", "gd", "matches"],
   player: ["goals", "apps", "starts", "goalsperapp"],
 };
-
-/** The metrics a reader can rank by within a subject (ordered for the rail). */
-export function metricsFor(subject: CutSubject): MetricMeta[] {
-  return METRIC_ORDER[subject].map((k) => METRIC_META[k]);
-}
 
 export function metricLabel(metric: CutMetric): string {
   return METRIC_META[metric]?.label ?? metric;

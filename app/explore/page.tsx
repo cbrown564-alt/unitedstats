@@ -31,7 +31,7 @@ const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
 export const metadata: Metadata = {
   title: "Discover",
   description:
-    "Start with an answer — the curated questions tested against United’s record, then compare careers or eras and group the whole record your own way.",
+    "Start with an answer — the curated questions tested against United’s record, then compare careers or eras and explore curated cuts of the whole record.",
   alternates: { canonical: "/explore" },
 };
 
@@ -190,15 +190,13 @@ export default function ExplorePage() {
         </p>
       </section>
 
-      {/* The Exploring strip (Strip 3 — the least curated, freest by design). The
-          curated cuts launch the Cut engine: group the whole record by a dimension,
-          rank it by a lens, then fork any parameter into a new shareable cut. Same
-          carousel + summary-rail shape as the two strips above, each slide
-          previewing a cut with the very chart the /cut page draws. */}
+      {/* The Exploring strip (Strip 3). The curated cuts reorder the whole record
+          by a dimension, ranked by a lens — each slide previews a cut with the very
+          chart the /cut page draws, then links through to its full standings ladder. */}
       <section className="space-y-4">
         <SectionHead
           title="Curated cuts"
-          aside={<span className="text-ink-faint">Filter and group by any dimension</span>}
+          aside={<span className="text-ink-faint">Reordered by dimension and lens</span>}
         />
 
         <FeatureCarousel label="Curated cuts — group and rank the record">
@@ -228,8 +226,8 @@ export default function ExplorePage() {
         </ul>
 
         <p className="text-xs text-ink-faint">
-          Open any curated cut, then change the dimension or the lens to build your own — every group links
-          to its matches, with a coverage grade showing the completeness of the source records.
+          Each cut reorders the whole record as a standings ladder — every group links to its matches, with a
+          coverage grade showing the completeness of the source records.
         </p>
       </section>
 

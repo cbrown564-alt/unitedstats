@@ -1,6 +1,5 @@
 import type { NextConfig } from "next";
 import { IMMUTABLE_DATA_CACHE_CONTROL } from "./lib/cache";
-import { EMBED_FRAME_HEADERS } from "./lib/embeds";
 
 const immutablePageCacheHeader = [
   { key: "Cache-Control", value: IMMUTABLE_DATA_CACHE_CONTROL },
@@ -34,7 +33,6 @@ const nextConfig: NextConfig = {
         source,
         headers: immutablePageCacheHeader,
       })),
-      { source: "/embed/:path*", headers: EMBED_FRAME_HEADERS },
     ];
   },
   images: {

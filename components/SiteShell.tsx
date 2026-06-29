@@ -3,7 +3,6 @@
 
 import { ViewTransition } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { MainNav } from "@/components/MainNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { CommandPaletteLoader } from "@/components/CommandPaletteLoader";
@@ -11,15 +10,11 @@ import { WebVitals } from "@/components/WebVitals";
 import { RedThreadWordmark } from "@/components/Brand";
 
 /**
- * The site chrome — header, nav, search, footer — wrapped so it can be dropped
- * for embeds. `/embed/*` renders bare and full-bleed so an iframe shows only the
- * card, not the whole site. Pages stay server components (passed as children);
- * only this visibility decision is client-side.
+ * The site chrome — header, nav, search, footer — wrapping every page. Pages
+ * stay server components (passed as children); this shell is the one client
+ * boundary, owning the cross-fade ViewTransition on navigation.
  */
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  if (pathname?.startsWith("/embed/")) return <>{children}</>;
-
   return (
     <>
       {/* Anchor the sticky chrome so it stays put while the content crossfades.

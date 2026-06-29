@@ -1,26 +1,20 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  competitionsList, allSeasons, managerById, opponentsIndex,
-} from "@/lib/queries";
 import {
   cutFromParams, runCut, cutHref, curatedFor, dimensionLabel, metricLabel, isChronological,
   type Cut,
 } from "@/lib/cut";
-import { COMPETITION_TYPE_LABELS, fmtNum, resultLabel, venueLabel } from "@/lib/format";
+import { fmtNum } from "@/lib/format";
 import { PageHeader } from "@/components/PageHeader";
 import { CoverageNote } from "@/components/CoverageNote";
-import { CutControls } from "@/components/cut/CutControls";
 import { CutChart } from "@/components/cut/CutChart";
-import { SaveToCollection } from "@/components/cut/SaveToCollection";
-import { EmbedCut } from "@/components/cut/EmbedCut";
-import { EMBED_DIMENSIONS } from "@/lib/embeds";
 
 export const revalidate = 86400;
 
 type SP = Record<string, string | undefined>;
 
-/** Title for the cut: a curated entry's own headline, or a generated one for a fork. */
+/** Title for a curated cut — its own headline. */
 function cutTitle(cut: Cut): string {
   const c = curatedFor(cut);
   if (c) return c.title;
@@ -39,9 +33,8 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   const title = cutTitle(cut);
   const description = cutDescription(cut);
 
-  // SEO guardrail: only curated cuts earn an indexable canonical page. Every other
-  // parameter combination is a fork — a real shareable URL, but noindex, so forking
-  // is unbounded without spawning infinite thin-content pages.
+  // Only curated cuts are real pages now. Any other parameter combination is a
+  // retired fork — the page redirects it to /explore, so it stays noindex.
   if (!cut.curated) {
     return { title, description, robots: { index: false, follow: true } };
   }
@@ -57,13 +50,16 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 export default async function CutPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
   const cut = cutFromParams(sp);
+  const curatedEntry = curatedFor(cut);
+
+  // The group-by-anything fork builder is retired: a cut is only ever a curated
+  // entry now. Any hand-built fork URL falls back to Discover, where the curated
+  // cuts live.
+  if (!curatedEntry) redirect("/explore");
+
   const result = runCut(cut);
   const { groups, headline, coverage, total, played, baseline } = result;
 
-  const competitions = competitionsList();
-  const seasons = allSeasons();
-  const curatedEntry = curatedFor(cut);
-  const chips = filterChips(cut);
   const dimLabel = dimensionLabel(cut.dimension);
   const volNoun = cut.subject === "player" ? "appearances" : "matches";
 
@@ -75,41 +71,12 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         <span className="text-ink-dim">Cut</span>
       </nav>
 
-      <PageHeader
-        eyebrow={cut.curated ? "Curated cut" : "Your cut"}
-        title={cutTitle(cut)}
-        aside={headline && coverage.grade !== "empty" ? <SaveToCollection href={cutHref(cut)} /> : undefined}
-      >
-        The whole record reordered as a standings ladder. Every group links to its matches — change the dimension or lens to build your own custom cut.
+      <PageHeader eyebrow="Curated cut" title={cutTitle(cut)}>
+        The whole record reordered as a standings ladder — every group links to the matches behind it.
       </PageHeader>
 
-      {/* Active slice, as removable chips — each links to the same cut minus that filter. */}
-      {chips.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Slice</span>
-          {chips.map((c) => (
-            <Link
-              key={c.key}
-              href={c.removeHref}
-              className="group inline-flex items-center gap-1 rounded-full border border-line bg-panel-2 py-0.5 pl-2.5 pr-1.5 text-xs text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
-            >
-              {c.label}
-              <span className="text-ink-faint group-hover:text-devil-bright" aria-label="remove filter">×</span>
-            </Link>
-          ))}
-          <Link
-            href={cutHref({ dimension: cut.dimension, metric: cut.metric })}
-            className="rounded-full px-2 py-0.5 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
-          >
-            Clear slice
-          </Link>
-        </div>
-      )}
-
-      {/* The answer first: the standout group for the active lens as a single
-          confident band (not a near-empty card). Over an empty slice — a fork whose
-          filters intersect to nothing — the cut degrades to its own unsupported state
-          rather than showing a clean total over a hole. */}
+      {/* The answer first: the standout group for this cut's lens as a single
+          confident band (not a near-empty card). */}
       {coverage.grade === "empty" || !headline ? (
         <section className="rounded-xl border border-line bg-panel px-5 py-6">
           <p className="text-sm text-ink-dim">{coverage.basis}</p>
@@ -155,27 +122,6 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         </section>
       )}
 
-      <CutControls cut={cut} competitions={competitions} seasons={seasons} />
-
-      {/* Mobile: a sticky bar pinning under the header so the fork dials are one tap
-          away deep in a long ladder, rather than a scroll back to the top. Pure
-          sticky anchor — no JS, no extra fetch (the proven /matches pattern). */}
-      {groups.length > 6 && (
-        <div className="sticky top-14 z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:hidden">
-          <div className="flex items-center justify-between gap-3">
-            <span className="stat-num text-xs text-ink-dim">
-              {fmtNum(total)} {dimLabel.toLowerCase()} groups · {fmtNum(played)} {volNoun}
-            </span>
-            <a
-              href="#cut-controls"
-              className="tap-target rounded-md border border-line bg-panel px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
-            >
-              Re-cut
-            </a>
-          </div>
-        </div>
-      )}
-
       {groups.length > 0 && (
         <section className="space-y-3">
           <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -200,43 +146,6 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
           <CoverageNote slice={`${dimLabel} groups across ${fmtNum(played)} ${volNoun}`} coverage={coverage.basis} />
         </section>
       )}
-
-      {curatedEntry && (
-        <EmbedCut slug={curatedEntry.slug} width={EMBED_DIMENSIONS.width} height={EMBED_DIMENSIONS.height} />
-      )}
     </div>
   );
-}
-
-interface FilterChip {
-  key: string;
-  label: string;
-  removeHref: string;
-}
-
-/** Active slice filters as chips, each linking to the cut with that filter removed. */
-function filterChips(cut: Cut): FilterChip[] {
-  const f = cut.filters;
-  const comps = f.competition ? competitionsList() : [];
-  const opps = f.opponent ? opponentsIndex() : [];
-  const out: FilterChip[] = [];
-  const without = (key: keyof Cut["filters"]): string => {
-    const next = { ...f };
-    delete next[key];
-    return cutHref({ dimension: cut.dimension, metric: cut.metric, filters: next });
-  };
-  const push = (key: keyof Cut["filters"], label: string) =>
-    out.push({ key, label, removeHref: without(key) });
-
-  if (f.q) push("q", `Opponent: ${f.q}`);
-  if (f.opponent) push("opponent", opps.find((o) => o.id === f.opponent)?.name ?? "Opponent");
-  if (f.competition) push("competition", comps.find((c) => c.id === f.competition)?.name ?? f.competition);
-  if (f.manager) push("manager", managerById(f.manager)?.name ?? "Manager");
-  if (f.season) push("season", `Season ${f.season}`);
-  if (f.type) push("type", COMPETITION_TYPE_LABELS[f.type] ?? f.type);
-  if (f.venue) push("venue", venueLabel(f.venue));
-  if (f.result) push("result", resultLabel(f.result));
-  if (f.from) push("from", `From ${f.from}`);
-  if (f.to) push("to", `To ${f.to}`);
-  return out;
 }
