@@ -13,20 +13,25 @@ import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
-import { WhatsInteresting } from "@/components/WhatsInteresting";
-import { whatsInteresting } from "@/lib/now";
 import { EntryChips } from "@/components/EntryChips";
 import { entryStrip } from "@/lib/entryPoints";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
+import { TonightHero } from "@/components/TonightHero";
+import { greatNights } from "@/lib/greatNights";
+
+// The front door is the gate (CONTEXT.md §6): its whole job is to fire the spark.
+// The served night is resolved per request so on-this-day reflects the real date
+// and the latest record — like /surprise and /on-this-day.
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   const meta = getMeta();
   const rec = allTimeRecord();
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
-  const interesting = whatsInteresting();
+  const { nights, seed } = greatNights();
   const entries = entryStrip();
   const scorers = topScorers(8);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
@@ -89,8 +94,23 @@ export default function Home() {
 
   return (
     <div className="space-y-14 sm:space-y-16">
-      {/* 1. The invitation — a floodlit plate that *shows* the whole record:
-          the headline and search sit over a skyline of every season ever played. */}
+      {/* 1. THE SPARK (CONTEXT.md §6) — the front door is the gate, and its whole
+          job is to fire the nostalgic jolt in the first seconds. A single served
+          match-night, chosen for you, is the entire first screen; the re-roll deals
+          another, and the steer beneath is for the reader who arrives with a name
+          rather than a mood. The skyline-and-scope hero that used to lead is now the
+          foundation beat below. */}
+      <TonightHero nights={nights} seed={seed}>
+        <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-faint">
+          Or follow a name — a player, a rival, an era
+        </p>
+        <EntryChips points={entries} />
+      </TonightHero>
+
+      {/* 2. THE FOUNDATION (CONTEXT.md §2) — the whole record the night belongs to:
+          every season as a breathing skyline, the scope, the search. The spark is
+          why you came; this is why the jolt is honest and why you stay. Demoted from
+          h1 to a second-beat plate now that the night leads. */}
       <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
         <div
@@ -102,15 +122,13 @@ export default function Home() {
           <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
             From Newton Heath to today
           </p>
-          <h1 className="display text-4xl sm:text-5xl leading-[0.97] text-balance max-w-4xl">
-            <span className="block">Follow the thread through</span>
-            <span className="block">
-              <span className="text-devil-bright">Manchester United’s</span> history
-            </span>
-          </h1>
+          <h2 className="display text-3xl sm:text-4xl leading-[0.97] text-balance max-w-3xl">
+            One thread through{" "}
+            <span className="text-devil-bright">Manchester United’s</span> whole history
+          </h2>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
-            traced back to the fixture record.
+            the night above is one of them, traced back to the fixture record.
           </p>
           <div className="mt-6 max-w-2xl">
             <SearchCommand autoFocusKey={false} />
@@ -123,40 +141,10 @@ export default function Home() {
             </p>
           </div>
 
-          {/* The personal door (Phase 18.4): for the reader who arrives with a
-              name rather than a query — a player, a rivalry, an era — each chip
-              branching into that subject's own trails. Day-rotated, deterministic. */}
-          <div className="mt-6 max-w-2xl">
-            <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-faint">
-              Or start with an era, a rival, or a name
-            </p>
-            <EntryChips points={entries} />
-          </div>
-
           <div className="mt-8">
             <HistorySkyline seasons={skyline} champions={champs} />
           </div>
         </div>
-      </section>
-
-      {/* ── The wanderer's door: a demoted living strip (Phase 18.3) weaving
-          on-this-day, the freshest record change, and a rotating curated cut,
-          with a surprise-me roll onto any curated surface. Below the answer-first
-          hero, above the curated questions — serendipity, not a feed. ── */}
-      <section>
-        <SectionHead
-          title="Today in the record"
-          aside={
-            <Link
-              href="/surprise"
-              prefetch={false}
-              className="text-devil-bright hover:underline"
-            >
-              Surprise me →
-            </Link>
-          }
-        />
-        <WhatsInteresting data={interesting} />
       </section>
 
       {/* ── Movement: start a trail. The curated-cut launcher leads (answer
