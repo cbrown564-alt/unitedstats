@@ -183,14 +183,14 @@ function Module({
   ];
 
   return (
-    <article id={slug} className="scroll-mt-24 rounded-lg border border-line bg-panel p-5 sm:p-7">
-      <header className="mb-8">
+    <article id={slug} className="relative scroll-mt-24 rounded-lg border border-line bg-panel p-5 sm:p-7">
+      <div className="absolute right-4 top-4 z-10">
+        <ShareCite path={`/questions/${slug}`} title={question} />
+      </div>
+      <header className="mb-8 pr-24">
         <h1 className="display text-3xl text-balance sm:text-4xl">{question}</h1>
       </header>
       <AnswerThread stations={stations} />
-      <div className="mt-6 flex justify-end border-t border-line pt-4">
-        <ShareCite path={`/questions/${slug}`} title={question} />
-      </div>
     </article>
   );
 }

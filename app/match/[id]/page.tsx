@@ -559,6 +559,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         />
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
         <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-7 sm:px-6 sm:py-12">
+          <div className="absolute right-4 top-4 z-10">
+            <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
+          </div>
           <header className="space-y-4">
             <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
               <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
@@ -598,10 +601,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               )}
             </div>
           </header>
-
-          <div className="flex justify-center">
-            <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} variant="hero" />
-          </div>
 
           {hasDigest && (
             <div className="flex justify-center">
