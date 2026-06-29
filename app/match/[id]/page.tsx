@@ -182,7 +182,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const goalsPanel = hasGoalsPanel ? (
     <div className="space-y-5">
       {hasTimedGoals && (
-        <section className="space-y-2">
+        // On wide screens, hold the timeline to the lineup block's width (26 + gap
+        // + 16rem) and centre it, so the two read as one column rather than the bar
+        // sprawling the full page.
+        <section className="space-y-2 lg:mx-auto lg:max-w-[43.5rem]">
           <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
           {!m.events_complete && (
             <p className="text-xs text-ink-dim">Goalscorer data for this match may be incomplete.</p>
