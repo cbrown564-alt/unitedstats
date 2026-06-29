@@ -616,7 +616,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </div>
       </section>
 
-      <div className="mt-4 sm:mt-8">
+      <div className="mt-2 sm:mt-8">
         <MatchSectionTabs
           defaultTab={defaultTab}
           tabs={[

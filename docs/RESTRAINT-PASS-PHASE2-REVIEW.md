@@ -459,3 +459,14 @@ All-time peaks. Both done:
 - **Question cards** — `TOO MANY WORDSSSSSS` is a quick copy trim, but "what can we
   do with the red thread instead?" reopens the **deferred `/questions` surface**
   (Session 2). Don't redesign it here; trim the prose at most, or hold.
+- **Match hero — do Share / Cite / Save card all earn their place?** The three
+  actions now sit in one considered glass pill (`ShareCite variant="hero"`, shipped
+  this session — and it reads well). But the open question is whether we're
+  optimising the wrong thing: should all three exist, and does each work well
+  enough _individually_ to justify the slot? Audit each on its own merit — native
+  **Share** vs copy-link reach across browsers; whether **Cite** is ever actually
+  wanted on a match; whether the **Save card** PNG is good enough that anyone
+  shares it — and consider collapsing to one or two. Restraint lens (pattern 3): a
+  control that doesn't earn its space is clutter even when it looks nice. Any trim
+  should weigh the shared `bar` variant too (player / manager / question /
+  history-changed surfaces use the same component).
