@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Red Thread — knot-as-the-night mockups (1999)</title>
+    <style>
+      :root {
+        --pitch: #0c0b0a;
+        --panel: #161312;
+        --panel-2: #1f1a18;
+        --line: #342b27;
+        --line-soft: #251f1c;
+        --ink: #f3ede8;
+        --dim: #a89c94;
+        --faint: #736861;
+        --red: #ff3b1f;
+        --gold: #f5c518;
+        --shadow: rgba(0, 0, 0, 0.34);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at top left, rgba(255, 59, 31, 0.1), transparent 30rem),
+          linear-gradient(145deg, #0c0b0a 0%, #14100f 48%, #090807 100%);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .page { min-height: 100vh; padding: 34px; }
+      .frame { max-width: 1320px; margin: 0 auto; }
+      header.intro { margin-bottom: 26px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: flex-end; }
+      .intro h1 { margin: 0; font-size: clamp(26px, 3.4vw, 40px); line-height: 1; text-transform: uppercase; font-weight: 900; }
+      .intro h1 span { color: var(--red); }
+      .intro p { margin: 12px 0 0; max-width: 640px; color: var(--dim); font-size: 14px; line-height: 1.55; }
+      .replay {
+        flex: 0 0 auto; cursor: pointer; border: 1px solid var(--line); background: var(--panel);
+        color: var(--ink); font: inherit; font-size: 13px; padding: 10px 16px; border-radius: 999px;
+        display: inline-flex; align-items: center; gap: 8px;
+      }
+      .replay:hover { border-color: rgba(255, 59, 31, 0.7); }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      @media (max-width: 1180px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .page { padding: 16px; } }
+      .panel {
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(31, 26, 24, 0.6), rgba(12, 11, 10, 0.96));
+        box-shadow: 0 24px 60px var(--shadow);
+        overflow: hidden;
+        display: flex; flex-direction: column;
+      }
+      .panel-head { padding: 16px 16px 12px; border-bottom: 1px solid var(--line-soft); }
+      .panel-head h2 { margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.02em; }
+      .chips { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+      .chip { border: 1px solid var(--line); color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; padding: 4px 7px; }
+      .chip b { color: var(--ink); font-weight: 600; }
+      .stage { position: relative; background: radial-gradient(120% 80% at 22% 40%, rgba(255, 59, 31, 0.05), transparent 60%); }
+      .svgwrap { display: block; width: 100%; }
+      svg { display: block; width: 100%; height: auto; }
+      .panel-foot { padding: 11px 16px 14px; border-top: 1px solid var(--line-soft); color: var(--faint); font-size: 11px; line-height: 1.4; }
+      .panel-foot b { color: var(--dim); font-weight: 600; }
+
+      /* ---- motion ---- */
+      .thread-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: trace 1.35s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      @keyframes trace { to { stroke-dashoffset: 0; } }
+
+      .knot-body { transform-box: fill-box; transform-origin: center; opacity: 0; animation-fill-mode: both; }
+      .knot-label { opacity: 0; animation: fade 0.45s ease-out both; }
+      @keyframes fade { to { opacity: 1; } }
+
+      .m-bloom { animation: bloom 0.62s cubic-bezier(0.22, 1, 0.36, 1) both; }
+      @keyframes bloom { 0% { opacity: 0; transform: scale(0.2); } 64% { opacity: 1; transform: scale(1.18); } 100% { opacity: 1; transform: scale(1); } }
+      .m-ignite { animation: ignite 0.7s ease-out both; }
+      @keyframes ignite { 0% { opacity: 0; transform: scale(0.7); } 30% { opacity: 1; transform: scale(1.05); } 45% { transform: scale(0.97); } 100% { opacity: 1; transform: scale(1); } }
+      .m-settle { animation: settle 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+      @keyframes settle { 0% { opacity: 0; transform: translateY(-14px) scale(0.8); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+      .m-cinch { animation: cinch 0.8s cubic-bezier(0.5, 0, 0.2, 1) both; }
+      @keyframes cinch { 0% { opacity: 0; transform: scale(2.1); } 60% { opacity: 1; } 100% { opacity: 1; transform: scale(1); } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .thread-line { stroke-dashoffset: 0; animation: none; }
+        .knot-body, .knot-label { opacity: 1; transform: none; animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="frame">
+        <header class="intro">
+          <div>
+            <h1><span>Red</span> Thread — the knot is the night</h1>
+            <p>
+              One match, six ways to tie it. Every panel is the 1999 final: United 2–1 Bayern, both goals
+              in stoppage time (90+1′ Sheringham, 90+3′ Solskjær). The thread runs the clock — kickoff at
+              the top, full time at the foot — so the two goals fall almost on top of each other, late.
+              The variations move knot <b>size</b>, <b>shape</b>, thread <b>looseness</b> and <b>motion</b>.
+              Press replay to watch them tie.
+            </p>
+          </div>
+          <button class="replay" id="replay" type="button">↻ Replay</button>
+        </header>
+        <div class="grid" id="grid"></div>
+      </div>
+    </main>
+
+    <script>
+      // ---- the night ----
+      const GOALS = [
+        { c: 91, label: "90+1′", name: "Sheringham", win: false },
+        { c: 93, label: "90+3′", name: "Solskjær", win: true },
+      ];
+      const AXIS = 96;
+
+      // ---- stage geometry (viewBox units) ----
+      const W = 320, H = 560, X = 118, TOP = 60, BOT = 486;
+      const RED = "#ff3b1f", GOLD = "#f5c518", DIM = "#a89c94", FAINT = "#736861";
+      const yOf = (c) => TOP + (c / AXIS) * (BOT - TOP);
+      const side = (i) => (i % 2 === 0 ? 1 : -1);
+      const xAt = (y, loose) => (loose ? X + 13 * Math.sin((y / H) * Math.PI * 2.4 + 0.5) : X);
+      const col = (g) => (g.win ? GOLD : RED);
+      // tie the knots near the end of the trace, in scoring order
+      const delay = (g) => (0.78 + (g.c - 90) * 0.17).toFixed(2);
+
+      function threadD(loose) {
+        if (!loose) return `M${X} 0 L${X} ${H}`;
+        let p = [];
+        for (let i = 0; i <= 56; i++) {
+          const y = (i / 56) * H;
+          p.push(`${xAt(y, loose).toFixed(1)} ${y.toFixed(1)}`);
+        }
+        return "M" + p.join(" L");
+      }
+
+      // faint clock furniture: a 45′ tick, KO and FT
+      function furniture(loose) {
+        const y45 = yOf(45), xk = xAt(y45, loose);
+        return `
+          <line x1="${xk - 6}" y1="${y45}" x2="${xk + 6}" y2="${y45}" stroke="${FAINT}" stroke-opacity="0.4" stroke-width="0.8" />
+          <text class="mono" x="${xAt(TOP, loose) - 12}" y="${TOP - 16}" text-anchor="end" font-size="10" fill="${FAINT}" opacity="0.7">KO</text>
+          <text class="mono" x="${xAt(BOT, loose) - 12}" y="${BOT + 22}" text-anchor="end" font-size="10" fill="${FAINT}" opacity="0.7">FT</text>`;
+      }
+
+      function label(g, lx, anchor, d) {
+        return `<g class="knot-label" style="animation-delay:${(+d + 0.12).toFixed(2)}s">
+            <text class="mono" x="${lx}" y="${yOf(g.c) - 3}" text-anchor="${anchor}" font-size="13" fill="${g.win ? GOLD : DIM}">${g.label}</text>
+            <text x="${lx}" y="${yOf(g.c) + 12}" text-anchor="${anchor}" font-size="10.5" fill="${FAINT}">${g.name}</text>
+          </g>`;
+      }
+
+      // ---- shapes ----
+      function ringSVG({ R, fillOp, loose, motion }) {
+        return GOALS.map((g, i) => {
+          const s = side(i), yc = yOf(g.c), cx = xAt(yc, loose) + s * 0.6 * R, c = col(g), d = delay(g);
+          const lx = xAt(yc, loose) + s * (1.55 * R + 10);
+          return `
+            <g class="knot-body ${motion}" style="animation-delay:${d}s; transform-origin:${cx}px ${yc}px">
+              <circle cx="${cx}" cy="${yc}" r="${R}" fill="${c}" fill-opacity="${fillOp}" stroke="${c}" stroke-opacity="0.85" stroke-width="1.5" />
+              <circle cx="${cx}" cy="${yc}" r="${g.win ? 3 : 2.2}" fill="${g.win ? GOLD : "#ff8a6e"}" />
+            </g>
+            ${label(g, lx, s > 0 ? "start" : "end", d)}`;
+        }).join("");
+      }
+
+      function beadSVG({ R, loose, motion }) {
+        return GOALS.map((g, i) => {
+          const s = side(i), yc = yOf(g.c), cx = xAt(yc, loose) + s * 0.5 * R, c = col(g), d = delay(g);
+          const r = g.win ? R * 1.15 : R, lx = xAt(yc, loose) + s * (R + 16);
+          return `
+            <g class="knot-body ${motion}" style="animation-delay:${d}s; transform-origin:${cx}px ${yc}px">
+              <circle cx="${cx}" cy="${yc}" r="${r * 1.5}" fill="${c}" fill-opacity="0.08" />
+              <circle cx="${cx}" cy="${yc}" r="${r}" fill="${c}" fill-opacity="0.26" />
+              <circle cx="${cx}" cy="${yc}" r="${g.win ? 3.4 : 2.6}" fill="${g.win ? "#fff0c2" : "#ffd0c0"}" />
+            </g>
+            ${label(g, lx, s > 0 ? "start" : "end", d)}`;
+        }).join("");
+      }
+
+      function pendantSVG({ R, loose, motion }) {
+        return GOALS.map((g, i) => {
+          const s = side(i), yc = yOf(g.c), px = xAt(yc, loose), c = col(g), d = delay(g);
+          const cx = px + s * 1.3 * R, lx = px + s * (2.1 * R + 8);
+          const path = `M${px} ${yc} C ${px + s * 2.7 * R} ${yc - 1.5 * R} ${px + s * 2.7 * R} ${yc + 1.5 * R} ${px} ${yc}`;
+          return `
+            <g class="knot-body ${motion}" style="animation-delay:${d}s; transform-origin:${px}px ${yc}px">
+              <path d="${path}" fill="${c}" fill-opacity="0.14" stroke="${c}" stroke-opacity="0.85" stroke-width="1.5" />
+              <circle cx="${cx}" cy="${yc}" r="${g.win ? 3.4 : 2.6}" fill="${g.win ? GOLD : "#ff8a6e"}" />
+            </g>
+            ${label(g, lx, s > 0 ? "start" : "end", d)}`;
+        }).join("");
+      }
+
+      // both goals as one cinched cluster: two interlocked translucent rings
+      function tangleSVG({ R, motion }) {
+        const ym = (yOf(91) + yOf(93)) / 2;
+        const a = { cx: X, cy: yOf(91), c: RED, g: GOALS[0] };
+        const b = { cx: X, cy: yOf(93), c: GOLD, g: GOALS[1] };
+        const ring = (o, dx) => `
+          <g class="knot-body ${motion}" style="animation-delay:${delay(o.g)}s; transform-origin:${X + dx}px ${o.cy}px">
+            <circle cx="${X + dx}" cy="${o.cy}" r="${R}" fill="${o.c}" fill-opacity="0.18" stroke="${o.c}" stroke-opacity="0.9" stroke-width="1.6" />
+            <circle cx="${X + dx}" cy="${o.cy}" r="2.6" fill="${o.c === GOLD ? GOLD : "#ff8a6e"}" />
+          </g>`;
+        return `
+          ${ring(a, -0.5 * R)}
+          ${ring(b, 0.5 * R)}
+          <g class="knot-label" style="animation-delay:${(+delay(b) + 0.12).toFixed(2)}s">
+            <text class="mono" x="${X - 1.5 * R - 8}" y="${yOf(91) - 2}" text-anchor="end" font-size="13" fill="${DIM}">90+1′</text>
+            <text x="${X - 1.5 * R - 8}" y="${yOf(91) + 12}" text-anchor="end" font-size="10.5" fill="${FAINT}">Sheringham</text>
+            <text class="mono" x="${X + 1.5 * R + 8}" y="${yOf(93) + 4}" text-anchor="start" font-size="13" fill="${GOLD}">90+3′</text>
+            <text x="${X + 1.5 * R + 8}" y="${yOf(93) + 18}" text-anchor="start" font-size="10.5" fill="${FAINT}">Solskjær</text>
+          </g>`;
+      }
+
+      function stage(cfg) {
+        const loose = cfg.thread === "loose";
+        let knots;
+        if (cfg.shape === "ring") knots = ringSVG(cfg);
+        else if (cfg.shape === "bead") knots = beadSVG(cfg);
+        else if (cfg.shape === "pendant") knots = pendantSVG(cfg);
+        else knots = tangleSVG(cfg);
+        const d = threadD(loose);
+        return `
+          <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-${cfg.id}" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${RED}" stop-opacity="0.05" />
+                <stop offset="14%" stop-color="${RED}" stop-opacity="0.7" />
+                <stop offset="86%" stop-color="${GOLD}" stop-opacity="0.82" />
+                <stop offset="100%" stop-color="${GOLD}" stop-opacity="0.06" />
+              </linearGradient>
+            </defs>
+            ${furniture(loose)}
+            <path d="${d}" stroke="${RED}" stroke-opacity="0.2" stroke-width="4" stroke-linecap="round" pathLength="1" class="thread-line" style="filter:blur(3px)" />
+            <path d="${d}" stroke="url(#g-${cfg.id})" stroke-width="1.5" stroke-linecap="round" pathLength="1" class="thread-line" />
+            ${knots}
+          </svg>`;
+      }
+
+      const PANELS = [
+        { id: "ring-taut", title: "Threaded rings · taut", shape: "ring", R: 24, fillOp: 0.16, thread: "taut", motion: "m-bloom",
+          chips: ["Size <b>M (24)</b>", "Shape <b>Ring</b>", "Thread <b>Taut</b>", "Motion <b>Bloom</b>"],
+          foot: "The thread passes through a loop at each goal; the two late loops straddle the line on opposite sides and overlap into a double-knot." },
+        { id: "ring-loose", title: "Threaded rings · loose thread", shape: "ring", R: 24, fillOp: 0.16, thread: "loose", motion: "m-bloom",
+          chips: ["Size <b>M (24)</b>", "Shape <b>Ring</b>", "Thread <b>Loose</b>", "Motion <b>Bloom</b>"],
+          foot: "Same rings, but the thread is hand-laid — a gentle slack instead of a ruler. Knots ride the curve." },
+        { id: "ring-big", title: "Big soft knots · overlap", shape: "ring", R: 34, fillOp: 0.24, thread: "taut", motion: "m-bloom",
+          chips: ["Size <b>L (34)</b>", "Shape <b>Ring</b>", "Thread <b>Taut</b>", "Motion <b>Bloom</b>"],
+          foot: "Larger, heavier translucent loops so the overlap itself glows — the two goals literally piled on each other." },
+        { id: "bead", title: "Luminous beads · minimal", shape: "bead", R: 17, thread: "taut", motion: "m-ignite",
+          chips: ["Size <b>S (17)</b>", "Shape <b>Bead</b>", "Thread <b>Taut</b>", "Motion <b>Ignite</b>"],
+          foot: "No loops — just light. Each goal a translucent orb on the wire; the winner flares gold. The clean, minimal end." },
+        { id: "pendant", title: "Pendant loops", shape: "pendant", R: 26, thread: "taut", motion: "m-settle",
+          chips: ["Size <b>L (26)</b>", "Shape <b>Teardrop</b>", "Thread <b>Taut</b>", "Motion <b>Settle</b>"],
+          foot: "Teardrop loops hang off alternating sides like pendants and settle into place — softer, more ornamental." },
+        { id: "tangle", title: "The night's knot · single tangle", shape: "tangle", R: 26, thread: "taut", motion: "m-cinch",
+          chips: ["Size <b>L (26)</b>", "Shape <b>Interlock</b>", "Thread <b>Taut</b>", "Motion <b>Cinch</b>"],
+          foot: "Both goals as one cinched double-knot — two interlocked rings, red over gold, labelled either side. The chaos as a single object." },
+      ];
+
+      function render() {
+        document.getElementById("grid").innerHTML = PANELS.map((p) => `
+          <section class="panel">
+            <div class="panel-head">
+              <h2>${p.title}</h2>
+              <div class="chips">${p.chips.map((c) => `<span class="chip">${c}</span>`).join("")}</div>
+            </div>
+            <div class="stage"><div class="svgwrap">${stage(p)}</div></div>
+            <div class="panel-foot">${p.foot}</div>
+          </section>`).join("");
+      }
+
+      render();
+      document.getElementById("replay").addEventListener("click", render);
+    </script>
+  </body>
+</html>
