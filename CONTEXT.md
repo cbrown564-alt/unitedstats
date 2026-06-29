@@ -141,4 +141,33 @@ conflict, **this file wins** until `PRODUCT.md` is reconciled:
   **the spark is the front door; the deepening (authored lenses) is the
   follow-on.**
 
-*Still open (next thread): what "done / good enough to launch" means, and to whom.*
+## 6. What "done" means — the spark is the gate
+
+**Done = depth, not reach.** The finish line is not "ready for a traffic spike";
+it's "**the moment lands for a single nostalgist**," reliably. Reach is a
+consequence, never the target.
+
+- **The spark is the smallest concrete proof — and the gate.** First contact must
+  make a fan feel something the live-score apps (FotMob, SofaScore) *structurally
+  can't*. That fleeting feeling is the proof the thing has value at all, and it's
+  the **necessary condition** for everything downstream: no spark → no return
+  visit, no word of mouth, no community connection. FotMob et al. own the
+  mindshare, so Red Thread has to feel **fundamentally different from the first
+  moment** just to earn a fan's time.
+- **The deepening is proof of *sustainable* value** — the authored lens that shows
+  there's something genuinely new here, worth coming back to. But it only ever gets
+  its turn *if the spark fires first.*
+
+**Highest-leverage consequence:** the **front door *is* the gate** — its whole job
+is to fire the spark within seconds — so engineering first-contact outranks the
+slice-collapse mechanics. This sharpens §5's supersede: the front door's *entire
+purpose* is the spark, not an answer/question field. And **Phase 3a (the
+rediscovery engine) is elevated** — it is the spark generator, which is why it kept
+surfacing as the real crux. Not a late-phase nicety; load-bearing for "done."
+
+---
+
+*All five clarity threads are resolved (who · what-for · the bar · restraint-is-real
+· done). The work is now **building**, in leverage order: (1) design the
+first-contact spark (the front door / Phase 3a); (2) execute the surface-by-surface
+pass against §3–4; (3) reconcile `PRODUCT.md` to this file (§5).*
