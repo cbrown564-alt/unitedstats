@@ -27,15 +27,6 @@ import { scoreline, fmtRound, resultTone } from "./format";
  *     deficit) for an on-this-day night that has no authored line. Instrument
  *     voice; fires only where goal-minute / half-time data exists.
  */
-/** One United goal, placed for the "shape of the night" strip: `pos` is its spot
- *  on a 0→full-time axis (0–1); stoppage-time goals carry a label and cluster at
- *  the right, so a night that turned at the death reads as marks bunched at the end. */
-export interface GoalMark {
-  pos: number;
-  stoppage: boolean;
-  label: string | null;
-}
-
 export interface GreatNight {
   id: string;
   href: string;
@@ -54,9 +45,6 @@ export interface GreatNight {
   /** The emotional lead: an authored stake, else derived texture, else null (then
    *  the scoreline leads instead). */
   line: string | null;
-  /** United goals as marks on the match clock — the shape of the night, where data
-   *  exists. Empty when no goal minutes are recorded. */
-  marks: GoalMark[];
   cta: string;
 }
 
@@ -178,29 +166,10 @@ function texture(m: MatchRow, goals: Goal[]): string | null {
   return null;
 }
 
-/** United goals as marks on a 0→full-time axis. Regular goals map 0–90 onto the
- *  first ~92% of the track; stoppage-time goals (90'+) cluster into the final
- *  stretch and carry a label, so a night won at the death reads at a glance. */
-function goalMarks(goals: Goal[]): GoalMark[] {
-  return goals
-    .filter((g) => g.minute != null)
-    .map((g) => {
-      const minute = g.minute as number;
-      const stoppage = minute >= 90;
-      const eff = minute + (g.added_time ?? 0);
-      const pos = stoppage
-        ? Math.min(1, 0.92 + Math.min(eff - 90, 8) / 8 * 0.08)
-        : (minute / 90) * 0.92;
-      return { pos, stoppage, label: stoppage ? `90+${g.added_time ?? Math.max(1, minute - 90)}` : null };
-    });
-}
-
 /** Build the served-night object from a match row. `stakes` (when curated) takes
- *  the supporting line; otherwise it falls to derived texture. One goal-minute
- *  query, reused for both the texture and the shape strip. */
+ *  the supporting line; otherwise it falls to derived texture. */
 function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | null, live: boolean): GreatNight {
   const metaParts = [m.competition_name, fmtRound(m.round), m.stadium_name].filter(Boolean) as string[];
-  const goals = unitedGoalMinutes(m.id);
   return {
     id: m.id,
     href: `/match/${m.id}`,
@@ -212,8 +181,7 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
     opponent: m.opponent_name,
     tone: resultTone(m.outcome),
     meta: metaParts.join(" · "),
-    line: stakes ?? texture(m, goals),
-    marks: goalMarks(goals),
+    line: stakes ?? texture(m, unitedGoalMinutes(m.id)),
     cta: "See the night",
   };
 }
