@@ -167,6 +167,28 @@ Ordered. Phase 1 first, because it changes how the next two get done.
 
 ### Phase 1 — Documentation cull (do this first)
 
+> **Status — documentation cull executed (2026-06-29).** `docs/` is now the
+> keep-list (20 → 11 `.md` files; ~2,750 lines cut). **Cut outright** (pure
+> narration of finished work): `DESIGN-REFRESH.md`, `SIMPLIFICATION.md`,
+> `ROADMAP.md` (its "what exists / what's next" already lives in `PRODUCT.md`),
+> `VISUAL-AUDIT.md`, `INVENTORY.md`, `SEARCH-PLAN.md`. The three **fold-then-delete**
+> docs were deleted too — their durable substance had *already been folded* into
+> the keep-docs in earlier sessions: `COPY-VOICE.md`'s register map + universal
+> rules live in `DESIGN.md` (Copy Voice; the open em-dash question is resolved
+> there); `ASSISTS-PLAN.md` and `TABLEAU-GOALS-ASSISTS.md`'s "why coverage is shaped
+> this way" reasoning lives in `SOURCE-AUDIT.md` (Assists / Tableau) and
+> `DATA-MODEL.md`. Three CI workflow comments were repointed off the deleted
+> `ASSISTS-PLAN.md` to `SOURCE-AUDIT.md`; no other reference dangles.
+> **Divergences from the lists below, all kept and justified:** `PERF.md` (live CI
+> static-render regression-guard contract), `HOMEPAGE.md` (active design diary with
+> open imagery/Red-Thread problems), `docs/feedback/*` (research). **Kept as live
+> scaffolding** for the still-open pass: this file and `RESTRAINT-PASS-PHASE2-REVIEW.md`
+> — per the Definition of Done they self-delete as the pass's *final act*, not now.
+> Many originally-listed cut targets were already gone (`DISCOVERY.md`,
+> `SCOPE-AUDIT.md`, `HISTORY-DIGESTS.md`, `STRUCTURED-DATA.md`, `COMPARE-PLAN.md`,
+> `HABIT-CREATOR.md`, `COPY-REFINE-LOG.md`, `PHASE13-16-FOLLOWUP.md`,
+> `POLISH-BACKLOG.md`, the `process/{reviews,handoffs,…}` tree).
+
 **Target: ~30 docs / 6,209 lines → ~12 docs / ~1,800 lines.** Keep only what a new
 contributor needs to avoid breaking things, plus the product definition. Cut
 everything that narrates work already done.
