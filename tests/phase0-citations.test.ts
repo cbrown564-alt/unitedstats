@@ -14,7 +14,6 @@ import {
   cutKey,
   cutRef,
   entityRef,
-  historyDigestRef,
   matchRef,
   matchSourceProvenance,
   normalizePath,
@@ -46,7 +45,6 @@ const REQUIRED_UNITS: CitableKind[] = [
   "question",
   "cut",
   "answer",
-  "history-digest",
   "correction",
   "on-this-day",
 ];
@@ -73,7 +71,6 @@ test("citable IDs round-trip and do not collide across the known public set", ()
     ...CURATED_CUTS.map((c) => cutRef(curatedCut(c))),
     cutRef(cutFromParams({ by: "manager", metric: "ppg", season: "1998-99", venue: "H" })),
     answerRef("cut-headline", cutKey(curatedCut(CURATED_CUTS[0])), "/api/v1/answers/cuts/opponents-by-win-rate"),
-    historyDigestRef("1999-05-26-bayern-munich-n"),
     correctionRef({ target: "match", id: "1999-05-26-bayern-munich-n", field: "attendance" }),
     onThisDayRef("02-29"),
   ];

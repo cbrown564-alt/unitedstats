@@ -532,3 +532,65 @@ something true at a glance.
 - Cards still have **no overflow recovery** by design; entity titles/names now clamp
   with ellipsis in `renderStatCard`, but very long opponent names on the *match*
   card lean on a fixed 396px column — worth an eyeball on an outlier.
+
+---
+
+## Session 5 (2026-06-29): the restraint pass starts cutting — `/history-changed` removed
+
+_Resuming from "what's next": the clarity session (`CONTEXT.md`) had reframed the
+pass and set a leverage order whose surface-by-surface pass (§4) names concrete
+cuts that were never executed. Chose to execute the decided cuts first (lowest
+risk, highest restraint payoff). One correction surfaced before any deletion, then
+the real cut shipped green._
+
+### The correction: `/cut` was already cut
+
+The plan listed `/cut` and `/history-changed` as the two live "cut/die" loom
+surfaces. Investigation showed **the `/cut` loom was already gone** — Phase 3
+(`e0e0b13`) retired the group-by-anything fork builder; any hand-built fork URL
+now `redirect("/explore")`. What remains at `/cut` is **three curated ladders**
+(opponents/managers/seasons-by-points), which are *lenses* by `CONTEXT.md` §3's own
+test and back `/explore` + `/compare` (both keepers) + 10 trail links. Deleting them
+would tear out authored lenses — the opposite of §4's intent. So nothing to cut
+there; at most a future *reshape* (fold the ladders inline), a separate decision.
+The stale memory ("`/cut` is the viz surface") predates the Phase-3 retirement.
+
+### The real cut: the freshness loop (`/history-changed`)
+
+`CONTEXT.md` §2/§4: the freshness loop is out of purpose. It was a deep vertical,
+not a page — `knip` forces all-or-nothing (surface-only leaves orphans). Removed:
+
+- **Routes/UI:** `app/history-changed/[id]/{page,opengraph-image}.tsx`,
+  `app/api/v1/answers/history-digests/[id]/route.ts`, `components/RecentlyChanged.tsx`,
+  the `/explore` "recent updates" strip, the match-page "what this changed" link.
+- **Lib:** `lib/historyDigests.ts` (whole module), `lib/now.ts` (already dead —
+  only the deleted freshness block used it), `digestCard`/`DigestTile` in
+  `lib/og-card.tsx`, `historyDigestAnswer` in `machineAnswers`, the `history-digest`
+  citable unit + `historyDigestRef` + the now-orphaned `groupProvenanceBySource`
+  in `citations.ts`, `historyDigestJsonLd` in `structuredData.ts`, the sitemap +
+  `/api/v1` index entries.
+- **Data/scripts/tests:** `data/history-digests/`, `scripts/generate-history-digests.ts`
+  + its npm script, `tests/history-digest{s,-page}.test.ts`, and the digest cases in
+  `phase14-machine` / `phase0-citations` / `phase18-discovery`.
+- **Docs:** the history-changed sections in `PIPELINE.md`, `ARCHITECTURE.md`,
+  `PHASE0-CITABLE-CONTRACT.md` (docs are the keep-list).
+
+All green: **tsc / knip / lint (touched files) clean; 126 tests pass** (down from
+~140: two digest test files + a few cases removed). Two pre-existing lint errors in
+`MatchFilterBarWithCounts` / `MatchesPageQueryGate` (set-state-in-effect) are
+untouched and out of scope.
+
+### Notes for next time
+
+- **`lib/entryPoints.ts` is separately dead** — the backing for the removed
+  EntryChips, kept alive only by `tests/phase18-discovery.test.ts`. Unrelated to the
+  freshness loop, so left out of this cut; a trivial future cleanup (delete the
+  module + its two test blocks).
+- **The parked `ferguson` stash was *not* dropped** — the auto-mode classifier
+  blocked it (parked work not named by "execute the cuts"). It still sits at
+  `stash@{0}`; `CONTEXT.md` §4 classifies ferguson as "argument, not moment," so
+  dropping it is the likely call — needs an explicit go-ahead.
+- **Next in the surface pass (§4):** reshape `/compare` into authored lenses
+  (the Best/Ronaldo normalized template — "the reason to exist it never had"), and
+  the Phase-3a rediscovery rail the entity pages need. Then reconcile `PRODUCT.md`
+  (§5).

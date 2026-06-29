@@ -9,11 +9,10 @@
  *
  *   - the "surprise me" pool (`lib/surprise.ts`)
  *   - the answer-foot related trails (`lib/related.ts`)
- *   - the "what's interesting right now" weave (`lib/now.ts`)
  *   - the personal entry chips + breadth tease (`lib/entryPoints.ts`)
  *
- * The surprise/related checks are pure (no DB); the `whatsInteresting` rotation
- * and the entry-point resolution read the live db (npm run build:db).
+ * The surprise/related checks are pure (no DB); the entry-point resolution reads
+ * the live db (npm run build:db).
  */
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -22,7 +21,6 @@ import { QUESTIONS, questionSlugs } from "../lib/questions";
 import { CURATED_CUTS } from "../lib/cut";
 import { surpriseFacts, pickIndex } from "../lib/surprise";
 import { relatedAnswers, relatedSlugs } from "../lib/related";
-import { whatsInteresting } from "../lib/now";
 import { allEntryPoints, entryStrip } from "../lib/entryPoints";
 
 const slugSet = new Set(questionSlugs());
@@ -72,20 +70,6 @@ test("every answer carries a curated trail of 2–3 valid next steps", () => {
       }
     }
   }
-});
-
-test("the rotating cut is deterministic by day and lands on /cut", () => {
-  // Two dates an even number of cuts apart land on the same curated cut; adjacent
-  // days differ. This is the static-guardrail property: rotation, not behaviour.
-  const a = whatsInteresting(new Date("2026-01-01T12:00:00Z"));
-  const b = whatsInteresting(new Date("2026-01-02T12:00:00Z"));
-  const sameDay = whatsInteresting(new Date("2026-01-01T23:00:00Z"));
-  assert.ok(a.cut.href.startsWith("/cut"), "today's cut is not a /cut link");
-  assert.equal(a.cut.cut.slug, sameDay.cut.cut.slug, "the cut changed within one UTC day");
-  if (CURATED_CUTS.length > 1) {
-    assert.notEqual(a.cut.cut.slug, b.cut.cut.slug, "the cut did not rotate across days");
-  }
-  assert.ok(a.today.label.length > 0, "on-this-day label is empty");
 });
 
 test("every entry chip resolves to a real entity page with an honest hint", () => {

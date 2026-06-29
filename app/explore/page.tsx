@@ -8,13 +8,11 @@ import {
   type CompareMode, type Comparison,
 } from "@/lib/compare";
 import { CURATED_CUTS, cutHref, curatedCut, runCut, isChronological } from "@/lib/cut";
-import { recentHistoryDigests } from "@/lib/historyDigests";
 import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { PageHeader } from "@/components/PageHeader";
 import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
-import { RecentlyChanged } from "@/components/RecentlyChanged";
 import { QuestionSignature } from "@/components/explore/QuestionSignature";
 import { FeatureCarousel } from "@/components/explore/FeatureCarousel";
 import { FeatureSlide } from "@/components/explore/FeatureSlide";
@@ -42,7 +40,6 @@ export default function ExplorePage() {
   const years = new Date().getFullYear() - Number(firstYear);
 
   const headlines = questionHeadlines();
-  const recentChanges = recentHistoryDigests(6);
 
   const COMPARE_MODES: CompareMode[] = ["players", "managers", "eras"];
   const debateHref = (mode: CompareMode, d: { a: string; b: string }) =>
@@ -231,25 +228,6 @@ export default function ExplorePage() {
         </p>
       </section>
 
-      {/* Freshness footer: what the most recent matches changed in the all-time
-          record, and the door into the history-changed surface. The least curated
-          of the strips, so it closes the page rather than leading it. */}
-      {recentChanges.length > 0 && (
-        <section className="space-y-4">
-          <SectionHead
-            title="Recent updates"
-            aside={
-              <Link href={recentChanges[0].path} className="text-devil-bright hover:underline">
-                Latest digest →
-              </Link>
-            }
-          />
-          <RecentlyChanged cards={recentChanges} />
-          <p className="text-xs text-ink-faint">
-            Every new result shifts 140 years of history — opening any card shows exactly which all-time figures moved, drawn directly from the match record.
-          </p>
-        </section>
-      )}
     </div>
   );
 }

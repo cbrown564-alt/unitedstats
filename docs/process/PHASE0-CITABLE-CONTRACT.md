@@ -20,7 +20,6 @@ than loosening the provenance contract.
 | Curated question | `question slug` | `/questions/[slug]` |
 | Cut | curated slug, otherwise normalized `/cut?...` URL | `/cut?...` |
 | Answer | `surface:key` | answer-shaped API and JSON-LD surfaces |
-| History-changed digest | `match id` | `/history-changed/[matchId]` |
 | Correction request | stable target hash or GitHub issue id | correction builder / GitHub issue |
 | On-this-day entry | `MM-DD` | `/on-this-day/[monthDay]` |
 | Saved collection | encoded collection payload | `/collection?...` |
@@ -74,12 +73,7 @@ Rules:
 - Match-source provenance uses source facets such as `result`, `attendance`,
   `united-scorers`, or `starting-lineup` and points to the match page.
 
-## Digest And Correction Policy
-
-History-changed digest pages recompute from current canonical data. The digest
-logical ID remains `us:history-digest:<match-id>` and the canonical URL remains
-stable. If a later correction changes the digest content, the `claimVersion`
-changes while the URL and logical ID stay the same.
+## Correction Policy
 
 Corrections are suggestions until reviewed. Phase 15 will generate stable
 correction request IDs from the target payload, preview field-level JSON

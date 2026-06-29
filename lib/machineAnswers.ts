@@ -11,7 +11,6 @@ import {
 } from "./citations";
 import { CURATED_CUTS, curatedCut, runCut, type CutResult } from "./cut";
 import { getDb } from "./db";
-import { digestSummary, historyDigestIds, readHistoryDigest, type HistoryDigest } from "./historyDigests";
 
 export interface MachineAnswer {
   ref: CitableRef;
@@ -103,43 +102,13 @@ export function cutAnswer(slug: string): MachineAnswer | null {
   };
 }
 
-export function historyDigestAnswer(id: string): MachineAnswer | null {
-  const digest = readHistoryDigest(id);
-  if (!digest) return null;
-  return historyDigestAnswerFromDigest(digest);
-}
-
-function historyDigestAnswerFromDigest(digest: HistoryDigest): MachineAnswer {
-  const ref = answerRef("history-digest", digest.matchId, `/api/v1/answers/history-digests/${digest.matchId}`);
-  const answer = digestSummary(digest);
-  const data = {
-    digestId: digest.ref.id,
-    digestVersion: digest.claimVersion,
-    match: digest.match,
-    claims: digest.claims,
-  };
-  return {
-    ref,
-    question: `What did ${digest.match.score} ${digest.match.opponent} change in United history?`,
-    answer,
-    version: claimVersion({ ref: ref.id, answer, data }),
-    page: digest.ref.path,
-    api: ref.path,
-    provenance: digest.provenance,
-    evidence: digest.evidenceLinks,
-    data,
-  };
-}
-
 export function answerIndex() {
-  const latestDigest = historyDigestIds().at(-1);
   return {
     source: API_ATTRIBUTION.source,
     docs: API_ATTRIBUTION.docs,
     cache: "Read-only dataset responses use immutableDataHeaders: browser max-age 300s, edge s-maxage 86400s, stale-while-revalidate 604800s.",
     endpoints: {
       "/api/v1/answers/cuts/{slug}": CURATED_CUTS.map((c) => c.slug),
-      "/api/v1/answers/history-digests/{id}": latestDigest ? [latestDigest] : [],
     },
   };
 }

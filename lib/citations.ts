@@ -9,7 +9,6 @@ export type CitableKind =
   | "question"
   | "cut"
   | "answer"
-  | "history-digest"
   | "correction"
   | "on-this-day";
 
@@ -27,7 +26,6 @@ export const CITABLE_UNITS: CitableUnitDefinition[] = [
   { kind: "question", unit: "Curated question", key: "question slug", path: "/questions/[slug]" },
   { kind: "cut", unit: "Cut", key: "curated slug or normalized /cut URL", path: "/cut?..." },
   { kind: "answer", unit: "Answer", key: "surface:key", path: "answer-shaped API/JSON-LD surfaces" },
-  { kind: "history-digest", unit: "History-changed digest", key: "match id", path: "/history-changed/[matchId]" },
   { kind: "correction", unit: "Correction request", key: "target hash or issue id", path: "GitHub issue / correction builder" },
   { kind: "on-this-day", unit: "On-this-day entry", key: "MM-DD", path: "/on-this-day/[monthDay]" },
 ];
@@ -109,10 +107,6 @@ export function cutRef(cut: Cut): CitableRef {
 
 export function answerRef(surface: string, key: string, path: string): CitableRef {
   return citableRef("answer", `${surface}:${key}`, path);
-}
-
-export function historyDigestRef(matchId: string): CitableRef {
-  return citableRef("history-digest", matchId, `/history-changed/${matchId}`);
 }
 
 export function correctionRef(target: unknown, path = "/corrections"): CitableRef {
@@ -211,61 +205,4 @@ export function matchSourceProvenance(source: MatchSourceRecord, matchId: string
     evidencePath: `/match/${matchId}`,
     note: source.source_note,
   });
-}
-
-interface SourceFacet {
-  facet: string;
-  confidence?: string;
-}
-
-export interface SourceProvenanceGroup {
-  sourceId: string;
-  sourceName: string;
-  sourceUrl?: string;
-  /** Facets this source recorded for the match, strongest confidence first. */
-  facets: SourceFacet[];
-  /** How many facets this source captured at `complete` confidence. */
-  completeCount: number;
-}
-
-/** Confidence ordered strongest → weakest, so a source's best coverage leads. */
-const CONFIDENCE_RANK: Record<string, number> = { complete: 0, supporting: 1, partial: 2 };
-
-function confidenceRank(c?: string): number {
-  return c != null && c in CONFIDENCE_RANK ? CONFIDENCE_RANK[c] : 3;
-}
-
-/**
- * Collapse a flat, facet-first provenance list into one entry per source, each
- * carrying exactly the facets that source recorded for this match. Turns the
- * repetitive "source · facet" dump into a contextually relevant "what did each
- * source capture here" view. Sources are ordered by how much they cover
- * (complete facets, then total facets), then by name; facets within a source by
- * confidence then facet name — both deterministic for stable artifacts.
- */
-export function groupProvenanceBySource(provenance: ClaimProvenance[]): SourceProvenanceGroup[] {
-  const groups = new Map<string, SourceProvenanceGroup>();
-  for (const p of provenance) {
-    let g = groups.get(p.sourceId);
-    if (!g) {
-      g = { sourceId: p.sourceId, sourceName: p.sourceName, completeCount: 0, facets: [] };
-      if (p.sourceUrl) g.sourceUrl = p.sourceUrl;
-      groups.set(p.sourceId, g);
-    }
-    if (p.facet && !g.facets.some((f) => f.facet === p.facet)) {
-      g.facets.push({ facet: p.facet, ...(p.confidence ? { confidence: p.confidence } : {}) });
-      if (p.confidence === "complete") g.completeCount += 1;
-    }
-  }
-  const ordered = [...groups.values()];
-  for (const g of ordered) {
-    g.facets.sort((a, b) => confidenceRank(a.confidence) - confidenceRank(b.confidence) || (a.facet < b.facet ? -1 : a.facet > b.facet ? 1 : 0));
-  }
-  ordered.sort(
-    (a, b) =>
-      b.completeCount - a.completeCount ||
-      b.facets.length - a.facets.length ||
-      (a.sourceName < b.sourceName ? -1 : a.sourceName > b.sourceName ? 1 : 0),
-  );
-  return ordered;
 }

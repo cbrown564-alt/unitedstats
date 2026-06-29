@@ -2,7 +2,6 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { questionSlugs } from "@/lib/questions";
 import { CURATED_CUTS, cutHref, curatedCut } from "@/lib/cut";
-import { historyDigestIds } from "@/lib/historyDigests";
 import { monthDayKeys } from "@/lib/onThisDay";
 import {
   allMatchIds, allSeasons, getMeta, managersIndex, opponentsIndex, playersIndex,
@@ -85,13 +84,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }));
 
-  const historyDigests: MetadataRoute.Sitemap = historyDigestIds().map((id) => ({
-    url: url(`/history-changed/${id}`),
-    changeFrequency: "yearly",
-    priority: 0.5,
-    lastModified: lastMatch,
-  }));
-
   const onThisDay: MetadataRoute.Sitemap = monthDayKeys().map((monthDay) => ({
     url: url(`/on-this-day/${monthDay}`),
     changeFrequency: "yearly",
@@ -101,6 +93,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticPages, ...questions, ...cuts, ...seasons,
-    ...players, ...managers, ...opponents, ...matches, ...historyDigests, ...onThisDay,
+    ...players, ...managers, ...opponents, ...matches, ...onThisDay,
   ];
 }

@@ -1,6 +1,5 @@
 import { canonicalStringify, matchRef, matchSourceProvenance, type ClaimProvenance } from "./citations";
 import { clubName, fmtDateLong, venueLabel } from "./format";
-import { digestSummary, digestTitle, type HistoryDigest } from "./historyDigests";
 import type { MatchRow, MatchSourceRecord } from "./queries";
 
 export type JsonLd = Record<string, unknown>;
@@ -50,26 +49,5 @@ export function matchJsonLd(match: MatchRow, sources: MatchSourceRecord[]): Json
     location: match.stadium_name ? { "@type": "Place", name: match.stadium_name } : undefined,
     ...matchTeams(match),
     isBasedOn: provenance.map(sourceWork),
-  };
-}
-
-export function historyDigestJsonLd(digest: HistoryDigest): JsonLd {
-  return {
-    "@context": "https://schema.org",
-    "@id": digest.ref.url,
-    "@type": "CreativeWork",
-    identifier: digest.ref.id,
-    url: digest.ref.url,
-    name: digestTitle(digest),
-    description: digestSummary(digest),
-    version: digest.claimVersion,
-    about: {
-      "@id": matchRef(digest.matchId).url,
-      "@type": "SportsEvent",
-      identifier: matchRef(digest.matchId).id,
-      name: `${digest.match.score} ${digest.match.opponent}`,
-    },
-    citation: digest.evidenceLinks.map((link) => link.url),
-    isBasedOn: digest.provenance.map(sourceWork),
   };
 }

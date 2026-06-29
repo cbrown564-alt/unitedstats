@@ -125,6 +125,16 @@ result, not yet executed cuts.
 - **Cut / die:** the `/cut` self-serve fork builder, compare-anything,
   group-by-anything (no baked-in judgment); the freshness loop `/history-changed`
   (out of purpose).
+  - ✅ **Done (2026-06-29).** The `/cut` *loom* (group-by-anything fork builder) was
+    already retired in Phase 3 (`e0e0b13`) — only three *curated* ladders remain,
+    which are lenses, not loom, so they stay (they back `/explore` and `/compare`).
+    The **freshness loop `/history-changed` is now fully cut**: routes, OG image,
+    `RecentlyChanged`, the `/explore` "recent updates" strip, the match-page link,
+    `lib/historyDigests.ts`, `lib/now.ts` (already dead), the `digestCard` OG card,
+    the `/api/v1/answers/history-digests` route + machine answer, the `history-digest`
+    citable unit + JSON-LD, the data dir, the ingest script, and the digest tests.
+    All green (tsc / knip / lint / 126 tests). `lib/entryPoints.ts` is *separately*
+    dead (the removed EntryChips backing) — a future small cut, left for now.
 
 ## 5. What this supersedes in `PRODUCT.md` (reconcile later)
 

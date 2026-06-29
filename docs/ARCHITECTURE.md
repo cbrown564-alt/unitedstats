@@ -149,13 +149,10 @@ without turning generated facts into unattributed snippets:
 | Surface | Route | schema.org type |
 |---|---|---|
 | Match entity | `/match/[id]` | `SportsEvent` (only here — an actual completed fixture) |
-| History-changed answer | `/history-changed/[id]` | `CreativeWork` (not `ClaimReview` — UnitedStats publishes its own record, not a third-party claim review) |
 | Curated Cut answer API | `/api/v1/answers/cuts/[slug]` | JSON answer payload (the public contract is the `/api/v1` model, not a page) |
-| History-digest answer API | `/api/v1/answers/history-digests/[id]` | JSON answer payload |
 
 **ID and version policy.** All public IDs come from `lib/citations.ts`
-(`matchRef`, the digest's `historyDigestRef`, `cutRef`/`answerRef`,
-`answerRef("history-digest", …)`). Machine-answer `version` values are
+(`matchRef`, `cutRef`/`answerRef`). Machine-answer `version` values are
 `claimVersion()` hashes of the stable answer payload — no wall-clock timestamps,
 change only when canonical inputs or generated claim content changes.
 
