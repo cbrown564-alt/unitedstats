@@ -77,6 +77,8 @@ move is 6 new cards → 5, with `decline` slated to fold into `ferguson` next.
 | `dedc0dc` | **Build principles added** to `RESTRAINT-PASS.md` (the four above). |
 | `c8a3d89` | **Treble showpiece** — "Ten days in May": the three deciders in sequence with minute-stamped, named goals; the European Cup final leads with its two stoppage-time goals (90+1, 90+3) and a from-behind caption, all derived from the record. **Seasons cut** — removed from front door, headlines, explore signature, related trails; `/seasons` browsing page still carries per-season discovery; orphaned `seasonRanks` dropped. |
 | _(this session)_ | **Treble elevated** — the card now has a hero, a moment, and a forging story. Details below. |
+| _(this session)_ | **Template distilled** — the five-move playbook + restraint counterweight (above), agreed as floor + earned. |
+| _(this session)_ | **Rivalries elevated** — moves 1+2. `OpponentRivalryMap` hero featuring the four rivals among the whole landscape; each ledger now crowns its biggest win as a focal match over the supporting notables. First application of the template. Details below. |
 
 ### Treble elevation (this session)
 
@@ -180,10 +182,15 @@ work — the expensive part is choosing the right focal match/reign and the copy
 
 ## Open / next
 
-- **Rivalries** — moves 1+2. Swap the WDL bar grid for `OpponentRivalryMap` (move
-  1), promote one charged match per ledger (the 6-1, the 4-0s, the title-deciders)
-  to a focal slot (move 2). Stop there: four rivalries already give the card
-  breadth — don't also bolt on a backstory section (restraint counterweight).
+- **Rivalries** — ✅ **done** (moves 1+2). `OpponentRivalryMap` is the hero,
+  extended with a backward-compatible `featured` prop that crests the four named
+  rivals and fades the rest of the landscape to context (same extension pattern as
+  `ResultSpine`'s `markerGlyph`). Each ledger crowns its biggest win as a focal
+  match — prominent scoreline, the heaviest defeat and run-ender demoted to a
+  supporting list — so the grid-of-equals becomes a hierarchy. Held the line on the
+  counterweight: no backstory section. `tsc`/140 tests/`knip`/lint all clean.
+  Coordinate-checked the four crests are ≥8 plot-% apart, so featured-mode (which
+  waives collision-avoidance) doesn't pile them up.
 - **Ferguson** — moves 1+4. Swap the PPG bar chart for a `ManagerTimeline` reign
   visual (every manager on a shared time axis, Ferguson's bar stretching across
   the page, PPG as tint — move 1), and absorb the decline before/after as the
