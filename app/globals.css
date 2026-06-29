@@ -95,30 +95,38 @@ body {
 .surprise-in {
   animation: surprise-in 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-/* The front-door thread, drawn as the match clock: the spine wipes in from the
-   top, each goal-bead pops in scoring order, and the winner's knot blooms last —
-   so the late winner arrives late. Neutralised under reduced motion below. */
-@keyframes thread-draw {
-  from { clip-path: inset(0 0 100% 0); }
-  to { clip-path: inset(0 0 0 0); }
+/* The front-door thread, tied as the match clock: the filament traces itself from
+   the top, tying a slipknot at each goal, and the beads settle into them in scoring
+   order — so the late winner drops in last. Neutralised under reduced motion below. */
+@keyframes thread-trace {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
 }
-.thread-line {
-  animation: thread-draw 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+.thread-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: thread-trace 1200ms cubic-bezier(0.4, 0, 0.2, 1) both;
 }
-@keyframes bead-in {
-  from { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+@keyframes mark-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-.thread-bead {
-  animation: bead-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+.thread-mark {
+  opacity: 1;
+  animation: mark-in 360ms ease-out both;
 }
-@keyframes knot-bloom {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-  55% { opacity: 1; transform: translate(-50%, -50%) scale(1.35); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+@keyframes bead-settle {
+  0% { opacity: 0; transform: translateY(-16px) scale(0.7); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.thread-bead,
+.thread-knot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bead-settle 560ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .thread-knot {
-  animation: knot-bloom 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-duration: 680ms;
 }
 /* Cross-page continuity: a quick, gentle fade between routes (opacity only —
    no positional movement, which is the main motion-sensitivity trigger). The
@@ -152,7 +160,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .wdl-reveal,
   .wdl-reveal-center,
-  .thread-line,
+  .thread-path,
+  .thread-mark,
   .thread-bead,
   .thread-knot {
     animation: none;

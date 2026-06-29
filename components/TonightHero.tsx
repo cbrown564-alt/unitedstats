@@ -48,68 +48,124 @@ function Scorers({ scorers }: { scorers: GreatNight["scorers"] }) {
 }
 
 /**
- * The Red Thread, made literal — and made the monument. The luminous spine down
- * the left is read as the match clock: kickoff at the top, full time at the foot.
- * Every United goal is a bead at its real minute and the last is the gold knot, so
- * a late flurry collapses onto the foot and you see the drama as a *shape* before
- * you read a word (1999's two beads jammed at the bottom, the top three-quarters
- * empty). On load the spine wipes in top→foot, the beads pop in scoring order and
- * the knot blooms last — the late winner arrives late.
+ * The Red Thread, tied as the match — the Wavy Slipknot treatment. One continuous
+ * filament runs down the left, read as the clock (kickoff at the top, full time at
+ * the foot). It doesn't fall straight: it sways, a slack cord swung down the stage.
+ * At every United goal it ties a *slipknot* — a full circle centred on the thread,
+ * the cord running straight on through its middle — with a translucent bead held
+ * inside, the winner's in gold. A late pair (1999's 90+1' and 90+3') overlaps into
+ * one fat double-knot, the overlap itself telling the story; the minute labels
+ * alternate sides so they never collide. The geometry is exact: every x is sampled
+ * from the same sway curve and the whole thing is scaled as one, so loops stay
+ * circular and land on the real minute at any stage height.
  *
- * Falls back to the static spine when a night's goal minutes aren't on record; the
- * ghosted-year monument (rendered by the hero) then carries the night instead.
+ * On load the filament traces itself top→foot and the beads settle into each knot
+ * in scoring order, so the late winner drops in last. Gated on prefers-reduced-
+ * motion. A night with no recorded minutes falls back to the bare swaying cord, the
+ * ghosted-year monument (rendered by the hero) carrying it instead.
  */
 function ThreadTimeline({ timeline }: { timeline: GreatNight["timeline"] }) {
-  const SPINE = "left-8 sm:left-14"; // the spine's x, inside the content inset
+  // viewBox space — geometry is authored here once and scaled whole, so the knots
+  // stay perfectly circular and land on the exact minute at any stage height.
+  const VB_W = 120;
+  const VB_H = 760;
+  const X = 48; // the filament's resting line
+  const TOP = 74; // 0' anchor
+  const BOT = 686; // full-time anchor
+  const R = 16; // slipknot radius
+  const AMP = 5; // how far the cord sways off its line
+  const svgClass = "pointer-events-none absolute inset-y-0 left-0 w-[7rem] overflow-visible sm:w-[8.5rem]";
+
+  // The sway: every x — cord, loops, beads — is read off this slow wave down the
+  // stage, so the knots sit *on* the thread rather than beside a ruled axis.
+  const wx = (yy: number) => X + AMP * Math.sin((yy / VB_H) * Math.PI * 2.4 + 0.5);
 
   if (timeline.length === 0) {
+    // No recorded minutes: the bare swaying cord, one gold node at its middle.
+    let bare = `M ${wx(0).toFixed(1)} 0`;
+    for (let yy = 10; yy <= VB_H; yy += 10) bare += ` L ${wx(yy).toFixed(1)} ${yy}`;
     return (
-      <>
-        <div className={`pointer-events-none absolute inset-y-0 ${SPINE} w-px bg-[linear-gradient(to_bottom,transparent,rgb(255_59_31_/0.6)_42%,rgb(255_59_31_/0.6)_58%,transparent)]`} aria-hidden />
-        <div className={`pointer-events-none absolute top-1/2 ${SPINE} h-48 w-1 -translate-x-1/2 -translate-y-1/2 bg-devil-bright/40 blur-md`} aria-hidden />
-        <span className={`pointer-events-none absolute top-1/2 ${SPINE} h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_24px_6px_rgb(245_197_24_/0.45)]`} aria-hidden />
-      </>
+      <svg className={svgClass} viewBox={`0 0 ${VB_W} ${VB_H}`} preserveAspectRatio="xMinYMid meet" fill="none" aria-hidden>
+        <path d={bare} stroke="rgb(255 59 31)" strokeOpacity="0.5" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx={wx(VB_H / 2)} cy={VB_H / 2} r="4.5" fill="rgb(245 197 24)" />
+      </svg>
     );
   }
 
-  // The clock frame: 0' at the top, full time at the foot. The axis runs to 96'
-  // (or past the latest goal, for extra time), mapped into a band that leaves the
-  // spine bleeding off the top and foot of the stage.
-  const TOP = 12;
-  const SPAN = 76;
   const axisMax = Math.max(96, ...timeline.map((g) => g.clock + 4));
-  const y = (clock: number) => TOP + (clock / axisMax) * SPAN;
-  const winnerClock = timeline[timeline.length - 1].clock;
+  const y = (clock: number) => TOP + (clock / axisMax) * (BOT - TOP);
+  const side = (i: number) => (i % 2 === 0 ? 1 : -1); // labels alternate so close goals don't collide
+
+  // One continuous filament: it sways down the stage (a poly-line sampling the wave)
+  // and at every goal ties a slipknot — a full circle centred on the cord, drawn as
+  // two semicircle arcs — after which the cord runs straight on through the loop's
+  // middle to the next.
+  const STEP = 10;
+  const sway = (from: number, to: number) => {
+    let s = "";
+    for (let yy = Math.ceil((from + 0.01) / STEP) * STEP; yy < to; yy += STEP) {
+      s += ` L ${wx(yy).toFixed(1)} ${yy.toFixed(1)}`;
+    }
+    return s;
+  };
+
+  let d = `M ${wx(0).toFixed(1)} 0`;
+  let penY = 0;
+  timeline.forEach((g) => {
+    const yc = y(g.clock);
+    const ys = yc - R; // top of the loop
+    const ye = yc + R; // bottom of the loop
+    d += `${sway(penY, ys)} L ${wx(ys).toFixed(1)} ${ys.toFixed(1)}`;
+    d += ` A ${R} ${R} 0 0 1 ${wx(ye).toFixed(1)} ${ye.toFixed(1)}`;
+    d += ` A ${R} ${R} 0 0 1 ${wx(ys).toFixed(1)} ${ys.toFixed(1)}`;
+    penY = ys; // the cord runs on from the loop's top, straight through its middle
+  });
+  d += `${sway(penY, VB_H)} L ${wx(VB_H).toFixed(1)} ${VB_H}`;
+
+  const winner = timeline[timeline.length - 1];
+  const wy = y(winner.clock);
 
   return (
-    <>
-      <div className={`thread-line pointer-events-none absolute inset-y-0 ${SPINE} w-px bg-[linear-gradient(to_bottom,transparent,rgb(255_59_31_/0.5)_12%,rgb(255_59_31_/0.5)_88%,transparent)]`} aria-hidden />
-      {/* Half-time: the one quiet mark that gives the clock a middle, so a low bead reads as late. */}
-      <span className={`pointer-events-none absolute ${SPINE} h-px w-2.5 -translate-x-1/2 bg-ink-faint/25`} style={{ top: `${y(45)}%` }} aria-hidden />
-      {/* Light gathered at the goal that settled it, blooming in with the knot. */}
-      <span
-        className={`thread-bead pointer-events-none absolute ${SPINE} h-20 w-1.5 -translate-x-1/2 -translate-y-1/2 bg-gold/25 blur-md`}
-        style={{ top: `${y(winnerClock)}%`, animationDelay: `${360 + (timeline.length - 1) * 150}ms` }}
-        aria-hidden
-      />
-      {timeline.map((g, i) =>
-        g.winner ? (
-          <span
-            key={i}
-            className={`thread-knot pointer-events-none absolute ${SPINE} h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_24px_6px_rgb(245_197_24_/0.5)]`}
-            style={{ top: `${y(g.clock)}%`, animationDelay: `${360 + i * 150}ms` }}
-            aria-hidden
-          />
-        ) : (
-          <span
-            key={i}
-            className={`thread-bead pointer-events-none absolute ${SPINE} h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-devil-bright shadow-[0_0_10px_2px_rgb(255_59_31_/0.5)]`}
-            style={{ top: `${y(g.clock)}%`, animationDelay: `${360 + i * 150}ms` }}
-            aria-hidden
-          />
-        ),
-      )}
-    </>
+    <svg className={svgClass} viewBox={`0 0 ${VB_W} ${VB_H}`} preserveAspectRatio="xMinYMid meet" fill="none" aria-hidden>
+      <defs>
+        <linearGradient id="rt-thread" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgb(255 59 31)" stopOpacity="0.12" />
+          <stop offset="16%" stopColor="rgb(255 59 31)" stopOpacity="0.72" />
+          <stop offset="84%" stopColor="rgb(245 197 24)" stopOpacity="0.82" />
+          <stop offset="100%" stopColor="rgb(245 197 24)" stopOpacity="0.1" />
+        </linearGradient>
+      </defs>
+
+      {/* Half-time: the one quiet mark that gives the clock a middle. */}
+      <line x1={wx(y(45)) - 5} y1={y(45)} x2={wx(y(45)) + 5} y2={y(45)} stroke="rgb(168 156 148)" strokeOpacity="0.22" strokeWidth="0.8" />
+      {/* The winner's glow — light gathered in the knot that settled it. */}
+      <circle cx={wx(wy)} cy={wy} r={R * 1.6} fill="rgb(245 197 24)" fillOpacity="0.1" style={{ filter: "blur(5px)" }} />
+
+      {/* The filament: a soft glow underlay, then the gradient thread — both traced on load. */}
+      <path d={d} stroke="rgb(255 59 31)" strokeOpacity="0.22" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" pathLength={1} className="thread-path" style={{ filter: "blur(2.5px)" }} />
+      <path d={d} stroke="url(#rt-thread)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" pathLength={1} className="thread-path" />
+
+      {timeline.map((g, i) => {
+        const s = side(i);
+        const yc = y(g.clock);
+        const cx = wx(yc);
+        const isWin = g.winner;
+        const tone = isWin ? "rgb(245 197 24)" : "rgb(255 59 31)";
+        const delay = Math.round(240 + 820 * (g.clock / axisMax) + (isWin ? 150 : 0));
+        return (
+          <g key={i}>
+            {/* The bead held in the loop — translucent, the winner's in gold — settling in on load. */}
+            <g className={isWin ? "thread-knot" : "thread-bead"} style={{ animationDelay: `${delay}ms` }}>
+              <circle cx={cx} cy={yc} r={isWin ? R * 0.62 : R * 0.5} fill={tone} fillOpacity={isWin ? 0.3 : 0.2} />
+              <circle cx={cx} cy={yc} r={isWin ? 2.6 : 1.9} fill={isWin ? "rgb(245 197 24)" : "rgb(255 120 92)"} />
+            </g>
+            <text className="stat-num thread-mark" x={cx + s * (R + 9)} y={yc} dy="0.32em" textAnchor={s > 0 ? "start" : "end"} fontSize="12.5" fill={isWin ? "rgb(245 197 24)" : "rgb(168 156 148)"} style={{ animationDelay: `${delay}ms` }}>
+              {g.label}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
   );
 }
 
@@ -203,7 +259,7 @@ export function TonightHero({
         {/* The night, hung off the thread. */}
         <div
           key={night.id}
-          className="surprise-in relative flex min-h-[31rem] flex-col justify-center py-16 pl-16 pr-6 sm:min-h-[42rem] sm:pl-28 sm:pr-12"
+          className="surprise-in relative flex min-h-[31rem] flex-col justify-center py-16 pl-28 pr-6 sm:min-h-[42rem] sm:pl-40 sm:pr-12"
         >
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">
             <span className="stat-num text-sm font-bold tracking-normal text-gold">{night.year}</span>
