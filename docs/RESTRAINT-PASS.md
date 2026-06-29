@@ -239,6 +239,20 @@ the point.
 
 ### Phase 3 — Collapse the slice-sprawl
 
+> **Status — slice-collapse executed (2026-06-29, commit `e0e0b13`).** The
+> *analytical* slicing machinery is gone: `/collection` and `/embed` deleted; the
+> group-by-anything **fork builder** retired from `/cut` (controls, removable
+> slice chips, re-cut bar, save/embed) so `/cut` now renders only curated cuts and
+> hand-built fork URLs `redirect("/explore")`; the "build your own / fork" copy
+> trimmed from `/explore`. Reference cleanup: the citable `collection`/`embed`
+> kinds and the now-unused `SUBJECTS`/`dimensionsFor`/`metricsFor` cut exports
+> removed; the habit-creator test gutted to its still-living on-this-day cases
+> (renamed). **Kept:** `/matches`, `/questions`, `/explore`, entity pages,
+> `/surprise`, `/on-this-day`, `/history-changed`, `/compare`. tsc + knip clean,
+> 135 tests pass, build green. **Still open:** Phase 3a (the rediscovery engine
+> that *earns* the kept nostalgia surfaces — not yet built); `/compare` "bring it
+> to the bar"; and the fresh restraint read of the browse / catalogue / match pages.
+
 Decide which redundant slice-surfaces die. Recommended triage (confirm before
 deleting):
 
