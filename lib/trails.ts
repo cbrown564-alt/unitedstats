@@ -1,7 +1,7 @@
 import { getDb } from "./db";
 import { tallyWdl } from "./format";
 import { roundFilterPredicate } from "./matchRounds";
-import { CUP_WON_PREDICATE, MATCH_SELECT, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
+import { CUP_WON_PREDICATE, MATCH_SELECT, eventsForMatch, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
 
 /** One-off final only — excludes semis *and* quarter-finals (which contain the
  *  substring "final"). Shared with the matches browser so the definition can't
@@ -884,33 +884,6 @@ export function titlesInRange(fromSeason: string, toSeason: string): number {
   ).n;
 }
 
-// ---------------------------------------------------------------- season ranks
-
-export interface SeasonRankRow extends Record_ {
-  season: string;
-  ppg: number;
-}
-
-/**
- * Every season's all-competition official record with its three-points-per-game
- * rate — the basis for ranking best and worst campaigns. The raw record is
- * complete for every official match, so the PPG figure is honest across eras;
- * pre-1990s seasons mix in cup ties where they're held, like the modern ones.
- */
-export function seasonRanks(minMatches = 30): SeasonRankRow[] {
-  const rows = getDb()
-    .prepare(
-      `SELECT m.season, ${RECORD_COLS_OFFICIAL}
-       FROM matches m JOIN competitions c ON c.id = m.competition_id
-       GROUP BY m.season HAVING p >= ? ORDER BY m.season`,
-    )
-    .all(minMatches) as (Record_ & { season: string })[];
-  return rows.map((r) => ({
-    ...r,
-    ppg: (3 * r.w + r.d) / (r.p || 1),
-  }));
-}
-
 // ---------------------------------------------------------------- ferguson vs field
 
 export interface ManagerRateRow extends Record_ {
@@ -982,6 +955,66 @@ export function trebleRuns(season = "1998-99"): SeasonRun[] {
       : decidingFinal(season, c.competition_id);
     return { ...c, won, decider };
   });
+}
+
+/** One United goal in a deciding match, minute-stamped and named. */
+interface TrebleGoal {
+  minute: number;
+  added: number | null;
+  scorer: string | null;
+  /** Scored in the 90th minute or later. */
+  stoppage: boolean;
+}
+
+/** A trophy-deciding night, with United's goals as the record holds them. */
+export interface TrebleDecider {
+  competition_id: string;
+  competition_name: string;
+  id: string;
+  date: string;
+  opponent_name: string;
+  venue: string;
+  gf: number;
+  ga: number;
+  goals: TrebleGoal[];
+  /** Every United goal came at 90'+ — the Champions League final, won from behind. */
+  wonInStoppage: boolean;
+}
+
+/**
+ * The three nights that clinched the Treble, in the order they happened — the
+ * last league game, the FA Cup final, the European Cup final — each with United's
+ * minute-stamped, named goals. The drama is in the timings the record holds: the
+ * European Cup was won with two goals after the 90th minute, the only United
+ * goals of the match.
+ */
+export function trebleDeciders(season = "1998-99"): TrebleDecider[] {
+  return trebleRuns(season)
+    .filter((r) => r.won && r.decider)
+    .map((r) => {
+      const d = r.decider!;
+      const goals: TrebleGoal[] = eventsForMatch(d.id)
+        .filter((e) => e.type === "goal" && e.player_side === "united")
+        .map((e) => ({
+          minute: e.minute ?? 0,
+          added: e.added_time,
+          scorer: e.player_display_name,
+          stoppage: (e.minute ?? 0) >= 90,
+        }));
+      return {
+        competition_id: r.competition_id,
+        competition_name: r.competition_name,
+        id: d.id,
+        date: d.date,
+        opponent_name: d.opponent_name,
+        venue: d.venue,
+        gf: d.gf,
+        ga: d.ga,
+        goals,
+        wonInStoppage: goals.length > 0 && goals.every((g) => g.stoppage),
+      };
+    })
+    .sort((a, b) => a.date.localeCompare(b.date));
 }
 
 function cupWon(competitionId: string, season: string): boolean {

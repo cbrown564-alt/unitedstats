@@ -2,7 +2,7 @@ import { fmtNum, pct } from "./format";
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   lateGoalShareByDecade, leadHeldAtHome, managerBounce,
-  eraRecord, FERGUSON_END, seasonRanks, managerPpgRanking,
+  eraRecord, FERGUSON_END, managerPpgRanking,
   europeByDecade, europeanFinals,
 } from "./trails";
 import { clubStreaks } from "./streaks";
@@ -56,8 +56,6 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   const ferg = eraRecord("1986-11-08", FERGUSON_END);
   const since = eraRecord("2013-05-20", "9999-12-31");
 
-  const ranks = [...seasonRanks()].sort((a, b) => b.ppg - a.ppg);
-
   const managerRanking = managerPpgRanking();
   const fergusonRank = managerRanking.find((m) => m.id === "alex-ferguson");
 
@@ -84,11 +82,6 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
     treble: {
       stat: "3",
       gloss: "trophies in 1998-99 — the first English side to hold the league, FA Cup and European Cup at once",
-      tone: "gold",
-    },
-    seasons: {
-      stat: ranks[0] ? ranks[0].ppg.toFixed(2) : "—",
-      gloss: ranks[0] ? `points per game in the best campaign on record (${ranks[0].season})` : "every campaign ranked by points per game",
       tone: "gold",
     },
     europe: {

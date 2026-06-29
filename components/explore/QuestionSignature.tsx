@@ -1,7 +1,7 @@
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   goalMinuteRidge, leadHeldAtHome, managerBounce,
-  eraRecord, FERGUSON_END, seasonRanks, managerPpgRanking, europeByDecade, europeanFinals,
+  eraRecord, FERGUSON_END, managerPpgRanking, europeByDecade, europeanFinals,
 } from "@/lib/trails";
 import { clubStreaks } from "@/lib/streaks";
 import { fmtNum, pct } from "@/lib/format";
@@ -146,19 +146,6 @@ export function QuestionSignature({ slug }: { slug: string }) {
             { value: "3", label: "trophies, 1998-99", tone: "gold" },
             { value: "5", label: "losses all season", tone: "win" },
             { value: "128", label: "goals scored", tone: "ink" },
-          ]}
-        />
-      );
-    }
-
-    case "seasons": {
-      const ranks = [...seasonRanks()].sort((a, b) => b.ppg - a.ppg);
-      return (
-        <Figures
-          items={[
-            { value: ranks[0].season.slice(0, 4), label: `best · ${ranks[0].ppg.toFixed(2)} ppg`, tone: "gold" },
-            { value: ranks[ranks.length - 1].season.slice(0, 4), label: `worst · ${ranks[ranks.length - 1].ppg.toFixed(2)}`, tone: "devil" },
-            { value: String(ranks.length), label: "seasons ranked", tone: "ink" },
           ]}
         />
       );

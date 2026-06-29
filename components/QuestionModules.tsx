@@ -4,7 +4,7 @@ import {
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord, FERGUSON_END, topFlightFinishes, titlesInRange,
-  seasonRanks, managerPpgRanking, trebleRuns, europeByDecade, europeanFinals,
+  managerPpgRanking, trebleRuns, trebleDeciders, europeByDecade, europeanFinals,
   notableMatches, opponentResultSequence, longestStreak,
 } from "@/lib/trails";
 import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
@@ -531,127 +531,94 @@ function FergusonModule({ variant }: ModuleProps) {
 // ---- The Treble ------------------------------------------------------------
 
 function TrebleModule({ variant }: ModuleProps) {
-  const runs = trebleRuns("1998-99");
+  const runs = trebleRuns("1998-99").filter((r) => r.won);
+  const deciders = trebleDeciders("1998-99");
   const overall = runs.reduce((a, r) => ({ p: a.p + r.p, w: a.w + r.w, d: a.d + r.d, l: a.l + r.l, gf: a.gf + r.gf, ga: a.ga + r.ga }), { p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 });
+  // The window the trophies were decided in — derived, not asserted.
+  const first = deciders[0];
+  const last = deciders[deciders.length - 1];
+  const spanDays = first && last ? Math.round((Date.parse(last.date) - Date.parse(first.date)) / 86_400_000) : 0;
+  const month = first ? new Date(`${first.date}T00:00:00`).toLocaleDateString("en-GB", { month: "long" }) : "";
+  const year = first ? first.date.slice(0, 4) : "";
+  const shortDate = (d: string) => fmtDate(d).replace(/\s*\d{4}$/, "");
   return (
     <Module
       slug="treble"
       evidence={{ href: "/matches?season=1998-99", label: "Every match of 1998-99 →", count: overall.p, countNoun: "matches" }}
       variant={variant}
-      finding={`One season, three trophies, ${overall.p} matches. United lost only ${overall.l} of them — ${overall.w} won, ${overall.d} drawn, ${overall.gf} goals scored — and became the first English side to hold the league, FA Cup and European Cup at once.`}
-      slice="All official matches in 1998-99, split by competition. Each run carries its own record and the match that decided it — the last league game for the title, the final for the cups."
-      coverage="Result-level record — every match of the season held in full, with scorers, lineups and minutes for the modern era. No advanced metrics; the Treble is a result-level story and the record tells it completely."
+      finding={`One season, three trophies. United played ${overall.p} matches across the three winning runs — losing just ${overall.l} — and became the first English side to hold the league, FA Cup and European Cup at once. All three were settled inside ${spanDays} days in ${month} ${year}.`}
+      slice="The 1998-99 Treble, told through the three nights that clinched it — the last league game, the FA Cup final, the European Cup final — and the season-long run behind each. United's goals are shown with the minute and scorer the record holds."
+      coverage="Result-level record with timed, named scorers for the modern era — so the deciding goals carry their exact minute. No advanced metrics; the Treble is a result-level story and the record tells it completely."
     >
-      <div className="grid gap-3 sm:grid-cols-[repeat(4,minmax(0,1fr))]">
-        {[
-          { v: fmtNum(overall.p), l: "played" },
-          { v: fmtNum(overall.w), l: "won" },
-          { v: fmtNum(overall.l), l: "lost" },
-          { v: fmtNum(overall.gf), l: "goals scored" },
-        ].map((t) => (
-          <div key={t.l} className="rounded-lg border border-line bg-panel-2 px-4 py-3 text-center">
-            <div className="stat-num text-3xl font-semibold text-ink">{t.v}</div>
-            <div className="text-[11px] uppercase tracking-wider text-ink-faint">{t.l}</div>
-          </div>
-        ))}
-      </div>
-      <div className="space-y-3">
-        {runs.map((r) => (
-          <div key={r.competition_id} className="rounded-lg border border-line bg-panel-2 p-4">
-            <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <div className="flex items-center gap-2">
-                <span className="font-medium">{r.competition_name}</span>
-                {r.won && <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[10px] uppercase tracking-wide text-gold">won</span>}
-              </div>
-              <span className="stat-num text-xs text-ink-dim">{r.w}W {r.d}D {r.l}L · {r.gf}–{r.ga}{r.position ? ` · ${ordinal(r.position)}` : ""}</span>
-            </div>
-            {r.decider && (
-              <Link href={`/match/${r.decider.id}`} className="group flex items-center gap-3 text-sm hover:text-devil-bright">
-                <span className="stat-num shrink-0 text-xs text-ink-faint">{fmtDate(r.decider.date)}</span>
-                <span className="truncate"><span className="text-ink-faint">{venuePrefix(r.decider.venue)}</span> {r.decider.opponent_name}</span>
-                <span className="stat-num ml-auto font-medium">{r.decider.gf}–{r.decider.ga}</span>
-                <span className="shrink-0 text-[10px] uppercase tracking-wide text-ink-faint group-hover:text-devil-bright">decider →</span>
+      <section>
+        <h3 className="text-sm font-medium text-ink-dim">{spanDays} days in {month}</h3>
+        <p className="mt-1 mb-3 text-xs text-ink-dim">
+          The three trophies were decided inside {spanDays} days — each final won, the last of them in stoppage time.
+        </p>
+        <ol className="relative space-y-2.5">
+          <span aria-hidden className="absolute bottom-3 left-[7px] top-3 w-px bg-line" />
+          {deciders.map((d) => (
+            <li key={d.id} className="relative pl-7">
+              <span aria-hidden className={`absolute left-0 top-3.5 h-3.5 w-3.5 rounded-full border-2 border-panel ${d.wonInStoppage ? "bg-gold ring-2 ring-gold/40" : "bg-gold/70"}`} />
+              <Link
+                href={`/match/${d.id}`}
+                className={`group block rounded-lg border bg-panel-2 p-4 hover:border-devil/60 ${d.wonInStoppage ? "border-gold/40" : "border-line"}`}
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                  <span className="text-sm">
+                    <span className="stat-num text-ink-faint">{shortDate(d.date)}</span>
+                    <span className="mx-1.5 text-ink-faint">·</span>
+                    <span className="font-medium group-hover:text-devil-bright">{d.competition_name}</span>
+                  </span>
+                  <span className="stat-num text-sm">
+                    <span className="text-ink-faint">{venuePrefix(d.venue)}</span> {d.opponent_name}
+                    <span className="ml-2 font-semibold">{d.gf}–{d.ga}</span>
+                  </span>
+                </div>
+                {d.goals.length > 0 && (
+                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                    {d.goals.map((g, j) => (
+                      <span
+                        key={j}
+                        className={`stat-num rounded px-1.5 py-0.5 text-[11px] ${g.stoppage ? "bg-gold/15 text-gold" : "bg-panel text-ink-dim"}`}
+                      >
+                        {g.minute}{g.added ? `+${g.added}` : ""}′ {g.scorer ? surname(g.scorer) : "goal"}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {d.wonInStoppage && (
+                  <p className="mt-2.5 text-xs text-gold/90">
+                    Trailed until the 90th — both United goals came in stoppage time. The latest a European Cup has been turned around in a final.
+                  </p>
+                )}
               </Link>
-            )}
-          </div>
-        ))}
-      </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <section>
+        <h3 className="mb-2 text-sm font-medium text-ink-dim">The road there — three runs, one season</h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {runs.map((r) => (
+            <Link
+              key={r.competition_id}
+              href={`/matches?season=1998-99`}
+              className="group rounded-lg border border-line bg-panel-2 p-4 hover:border-devil/60"
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium group-hover:text-devil-bright">{r.competition_name}</span>
+                <span className="ml-auto rounded-full bg-gold/15 px-2 py-0.5 text-[10px] uppercase tracking-wide text-gold">won</span>
+              </div>
+              <div className="stat-num mt-2 text-xs text-ink-dim">{r.w}W {r.d}D {r.l}L</div>
+              <div className="stat-num mt-0.5 text-xs text-ink-faint">{r.gf}–{r.ga}{r.position ? ` · finished ${ordinal(r.position)}` : ""}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </Module>
   );
 }
-
-// ---- Best & worst seasons --------------------------------------------------
-
-function SeasonsModule({ variant }: ModuleProps) {
-  const ranks = seasonRanks();
-  const byPpg = [...ranks].sort((a, b) => b.ppg - a.ppg);
-  const best = byPpg.slice(0, 5);
-  const worst = byPpg.slice(-5).reverse();
-  const finishes = topFlightFinishes();
-  return (
-    <Module
-      slug="seasons"
-      evidence={{ href: "/seasons", label: "Every season's record →" }}
-      variant={variant}
-      finding={`Across ${ranks.length} seasons on three-points terms, the best campaign is ${best[0].season} at ${best[0].ppg.toFixed(2)} points a game; the worst is ${worst[0].season} at ${worst[0].ppg.toFixed(2)}. The peaks cluster in the Ferguson years; the troughs are the post-war rebuild and the modern slide.`}
-      slice="Every season with at least 30 official matches (friendlies and wartime excluded), all competitions combined, ranked by three-points-per-game — the only rate that lets a 19th-century campaign sit beside a modern one."
-      coverage="Result-level record — complete for every official match in every season. Points per game normalises the two-points-for-a-win era; no advanced metrics, just the campaign-level shape the scores carry."
-    >
-      <div>
-        <h3 className="mb-2 text-sm font-medium text-ink-dim">Points per game by season — the shape of 130 years</h3>
-        <InspectableBarChart
-          data={ranks.map((s) => ({
-            label: s.season,
-            tickLabel: s.season.slice(2, 4),
-            value: Math.round(s.ppg * 100) / 100,
-            valueLabel: `${s.ppg.toFixed(2)} ppg`,
-            meta: `${s.season} · ${s.w}W ${s.d}D ${s.l}L · ${s.p} matches`,
-            href: `/matches?season=${s.season}`,
-          }))}
-          height={170}
-          color="var(--color-win)"
-          chartLabel="Manchester United points per game by season"
-          yTickSuffix=""
-          baseline={{ value: 2, label: "title pace (2.0 ppg)" }}
-        />
-        <p className="text-xs text-ink-dim mt-1">Each bar is one season&apos;s points-per-game. Title pace is roughly two a game; the gold line marks where a title-winning campaign sits.</p>
-      </div>
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div>
-          <h3 className="mb-2 text-sm font-medium text-win">The five best — by points per game</h3>
-          <SeasonLadder rows={best} highlightSet={new Set(finishes.filter((f) => f.position === 1).map((f) => f.season))} tone="win" />
-        </div>
-        <div>
-          <h3 className="mb-2 text-sm font-medium text-loss">The five worst — by points per game</h3>
-          <SeasonLadder rows={worst} highlightSet={new Set()} tone="loss" />
-        </div>
-      </div>
-    </Module>
-  );
-}
-
-function SeasonLadder({ rows, highlightSet, tone }: { rows: SeasonRankRowLike[]; highlightSet: Set<string>; tone: "win" | "loss" }) {
-  return (
-    <div className="space-y-1">
-      {rows.map((s) => {
-        const champ = highlightSet.has(s.season);
-        return (
-          <Link
-            key={s.season}
-            href={`/matches?season=${s.season}`}
-            className="group grid grid-cols-[5rem_1fr_3rem] items-center gap-3 rounded-md px-3 py-2 odd:bg-panel-2/40 hover:border-devil/60"
-          >
-            <span className="stat-num text-sm text-ink-dim">{s.season}</span>
-            <span className={`stat-num text-sm font-medium ${tone === "win" ? "text-win" : "text-loss"}`}>{s.ppg.toFixed(2)} ppg{champ ? " · champions" : ""}</span>
-            <span className="stat-num text-right text-[11px] text-ink-faint">{s.w}W {s.d}D {s.l}L</span>
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
-
-type SeasonRankRowLike = { season: string; ppg: number; w: number; d: number; l: number };
 
 // ---- United in Europe ------------------------------------------------------
 
@@ -1179,7 +1146,6 @@ export const QUESTION_COMPONENTS: Record<string, (props: ModuleProps) => React.R
   rivalries: RivalriesModule,
   ferguson: FergusonModule,
   treble: TrebleModule,
-  seasons: SeasonsModule,
   europe: EuropeModule,
   "late-goals": LateGoalsModule,
   comebacks: ComebacksModule,

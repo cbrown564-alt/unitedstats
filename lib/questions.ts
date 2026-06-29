@@ -56,13 +56,6 @@ export const QUESTIONS: QuestionMeta[] = [
       "Anatomy of 1998-99: the Premier League, the FA Cup and the Champions League, run by run, down to the deciding nights.",
   },
   {
-    slug: "seasons",
-    label: "Best & worst seasons",
-    question: "Which were United's best seasons — and the worst?",
-    summary:
-      "Every campaign since 1886 ranked by points per game. The peaks, the troughs, and how the modern era compares once everything is on three-points terms.",
-  },
-  {
     slug: "europe",
     label: "United in Europe",
     question: "What is United's European record by era?",

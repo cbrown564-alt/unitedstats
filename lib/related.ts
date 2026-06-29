@@ -51,7 +51,7 @@ function toDebate(mode: CompareMode, index: number, hook: string): RelatedLink {
 const RELATED: Record<string, RelatedLink[]> = {
   decline: [
     toQuestion("ferguson", "Measure the fall against the man who set the ceiling."),
-    toQuestion("seasons", "Rank every campaign — the post-Ferguson years sink to the bottom."),
+    toQuestion("rivalries", "Part of the fall is the neighbours: see where City crossed ahead."),
     toCut("managers-by-points", "Each successor restated on the same points-per-game scale."),
   ],
   rivalries: [
@@ -68,11 +68,6 @@ const RELATED: Record<string, RelatedLink[]> = {
     toQuestion("europe", "The Champions League trophy was one thread of the continental record."),
     toQuestion("comebacks", "That final in Barcelona was the deepest comeback of all."),
     toCut("seasons-by-points", "1998-99 against every other season, by points per game."),
-  ],
-  seasons: [
-    toQuestion("decline", "The worst modern seasons are the post-Ferguson trough."),
-    toQuestion("ferguson", "The best seasons cluster in one man's reign."),
-    toCut("seasons-by-points", "Slice the same campaigns by the points they returned."),
   ],
   europe: [
     toQuestion("treble", "The greatest European night is the one that completed the Treble."),
