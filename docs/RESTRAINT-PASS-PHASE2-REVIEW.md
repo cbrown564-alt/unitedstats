@@ -244,3 +244,118 @@ cut; reuse is necessary, not sufficient.)
   stories (move 3). Revisit after ferguson.
 - **Phase 3** — collapse the slice-sprawl, and apply principle 2 to `/compare`
   (like-for-like, role-appropriate metrics).
+
+---
+
+## Session 2 (2026-06-29): stepping back — what is the questions surface _for_?
+
+_The ferguson elevation was built and shipped green (tsc / 141 tests / knip /
+lint), then a step-back review judged it a **tribute**, not a question. That
+triggered a deeper, still-unresolved conversation about the whole `/questions`
+surface. The build is **parked** (`git stash@{0}`, message "ferguson question
+elevation (parked)…"); the working tree is back to the committed baseline (decline
++ old ferguson card both restored). Nothing about the questions surface shipped
+this session. These are the resume notes._
+
+### What got built, then parked
+
+Followed the Treble template on `ferguson`: hero `ManagerTimeline` (crowned via a
+new `featured` prop), trophy stat band (38 > all other managers combined, 27), the
+absorbed `decline` era-contrast as a second beat, `decline` retired from the front
+door, a regression test pinning the claims, and a `Module` `visualLabel` fix (the
+visual station was hardcoded "The map", wrong for a timeline/spine). Move 0 on the
+_numbers_ passed cleanly (reign length and trophies are genuinely incomparable; PPG
+is the thin axis, so the bar chart was correctly dropped).
+
+### Why it was rejected (the same trap as rivalries)
+
+The card's hero **is literally the `/managers` hero** (same `ManagerTimeline`
+component, Ferguson's segment painted gold); its trophy count is on his profile;
+the decline contrast is the era record. Every element is borrowed and re-skinned
+under a rhetorical question whose answer no fan disputes. **Move 0 on the numbers
+isn't enough — the prior question is "does this question need to exist?"**
+
+### The reframe (the useful output of the session)
+
+A question isn't a topic; it fills the **one empty cell** in the product's grid of
+surfaces:
+
+| Surface | Subjects | Dimensions | See it at once? |
+| --- | --- | --- | --- |
+| catalogue (`/manager/[id]`, `/player/[id]`) | **one** | many | yes |
+| compare | **two** | many | yes |
+| browse (`/managers`, `/seasons`…) | **all** | one (mostly) | **no** — hero + a mountain of rows |
+| match (`/match/[id]`) | one event | deep | yes |
+| **question** | **a curated group** | **many** | **yes** ← the empty cell |
+
+The question page is the only surface that gives **many subjects × several
+dimensions × one screen** — a _vignette_: a curated group/period/pattern composed
+so a fan can sit back and take it in. (Author's framing, sharper than the
+"interrogate" one: catalogue = scale of one career; match = tangibility of one
+event; browse = the full history through one lens but too big to see at once;
+**the best question mixes the tangibility of a match with the scope of a career**.)
+
+On top of the structural job sits a **mode**, and the bar is the higher one:
+
+- **Floor — settle a debate** ("Is X true?"). Confirms what a fan already suspected.
+- **Ceiling — reveal a new angle.** A lifelong fan sees the club from a perspective
+  they'd never assembled, and the relationship deepens. **This is the prize**, and
+  it's the explicit standard the author set: "great for discovering something you
+  never knew."
+
+**The test (the real Move 0 for a question):** does it compose a _coherent set_
+(not a census) into a _single takeable view_ that shows a fan something they
+couldn't get from a profile / browse / compare page — ideally something they never
+knew? **Anti-pattern:** a _slice of a browse page_ or a _re-skin of a catalogue
+page_ (ferguson, rivalries).
+
+### Per-question audit (honest first pass)
+
+| Question | The angle it composes | Mode | Earns it? |
+| --- | --- | --- | --- |
+| manager-bounce | every manager's first 10 vs inherited form, one screen | **ceiling** | ✅ the model of the form |
+| cup-specialists | which players over-index on cup nights (a lean no profile shows) | **ceiling** | ✅ strong |
+| late-goals | the late-goal share **by decade** (feeling → shape) | floor→**ceiling** | ✅ strong |
+| comebacks | every behind-and-won, replayed minute-by-minute | floor + tangible | ✅ |
+| fortress | every half-time home lead as a dot, surrenders flagged | floor, bespoke lens | ✅ |
+| runs | cross-season streaks browse can't span | floor (record-settling) | ✅ but only the floor |
+| treble | one season composed into a spine + deciders | **anatomy** (not a debate) | ✅ sacred exception |
+| europe | continental record by decade + finals grid | **reference**, generic bars | ⚠️ weakest — reads like a `/matches?type=european` slice |
+| ferguson | succession timeline + trophy count + decline | settled; elements live elsewhere | ❌ tribute → parked |
+
+Two takeaways: **the ceiling is rarely reached** (only manager-bounce,
+cup-specialists, and late-goals' decade shape truly _reveal_; the rest sit at the
+debate floor, and europe sits below it); and the redeemable energy is in **decline
+re-posed** — not "ppg is down since 2013" but **"Is this the worst United have ever
+been?"**, ranking every down-period in 140 years (1930s relegations, 1974 drop,
+1970s wilderness, now) on one screen. That composes a coherent set, it's the live
+argument, and it hits the ceiling. (Needs its own Move 0 before building.)
+
+### Decision: defer the questions surface; pivot to restraint elsewhere
+
+This is the most opinionated part of the product and **we don't yet have
+sufficient clarity** — the taxonomy above is "reasonable but not exhaustive"
+(author), the frame still wants stretching. Phase 2 also **over-indexed on
+building new cards rather than exercising restraint**, which is the pass's actual
+purpose. So: **the questions-surface rethink (and `/explore`, the other opinionated
+discovery surface) move to the _end_ of the restraint pass.** Pivot now to the
+other surfaces and apply the restraint lens there. Recorded in `RESTRAINT-PASS.md`
+as a course correction.
+
+### Open space to explore next session (don't build yet — stretch the ideas first)
+
+- **Is the taxonomy exhaustive?** It was reached from two angles (interrogate;
+  the surface-grid). Find more angles before locking a definition.
+- **`/questions` vs `/explore`** — both are the opinionated discovery layer; how do
+  they relate, and does one subsume part of the other?
+- **Floor → ceiling for each survivor** — can europe / runs be pushed to revelation,
+  or should they be cut? What's the right _number_ of questions (now ~9 + 2 eggs)?
+- **Generative** — what revelatory questions _don't exist yet_ but should
+  (decline-as-worst-era; an era-contextualised dominance lens; a greatest-XI from
+  the record)? The cut list and the build list should be decided together.
+- **Downstream coupling** — any cut/add ripples through `questionHeadlines`,
+  `QuestionSignature`, `questionCardData` (OG cards), `related.ts` (trail graph,
+  pinned by `tests/phase18-discovery.test.ts`), and the homepage carousel.
+- **Reusable scraps in the stash** — the `Module` `visualLabel` fix (treble's spine
+  is mislabelled "The map") and the throwaway insight that PPG is the wrong Ferguson
+  axis are worth keeping regardless of the surface's fate.

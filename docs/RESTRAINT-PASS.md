@@ -314,6 +314,27 @@ so the engine leans where the data is richest and grades honestly where it isn't
 Only where two charts are near-duplicate variants, give them a shared canonical
 base. Keep every distinctive form. Not a cull. Do last, or never.
 
+### Course correction — defer the opinionated discovery layer to the end (2026-06-29, session 2)
+
+Phase 2 **over-indexed on building new question cards rather than exercising
+restraint** — the opposite of this pass's purpose. Stepping back on the `ferguson`
+card exposed an unresolved prior question: _what is the `/questions` surface for,
+and what bar must a question clear to exist at all?_ A working answer took shape
+(the surface-grid "empty cell"; the debate-floor vs revelation-ceiling bar; a
+per-question audit that flags `ferguson` and `europe` as not earning their slot) —
+but it is **not yet clear enough to act on**, and it is the most opinionated part
+of the product. The full synthesis is in `RESTRAINT-PASS-PHASE2-REVIEW.md`
+("Session 2"); the `ferguson` build is parked in `git stash`.
+
+So **the questions-surface rethink — and `/explore`, the other opinionated
+discovery surface — are deferred to the end of this pass.** They need the frame
+stretched further, not another card built on an unsettled definition.
+
+**Pivot now to the other surfaces and perspectives** and do the actual restraint
+work there (Phase 3 slice-collapse, plus a fresh restraint read of the
+browse / catalogue / match pages). Return to the questions + discovery layer last,
+once the rest is tightened and the definition has had room to breathe.
+
 ### Non-goal reminder — brand
 
 No brand subtraction beyond `/logo-lab`. If anything, extend the thread motif
