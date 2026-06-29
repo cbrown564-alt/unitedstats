@@ -1,16 +1,17 @@
 # Phase 2 review — what shipped, what it taught, what's next
 
-_Dated 2026-06-29. A review of the Phase 2 commits ("re-aim the front door at the
-real debates") against the goals in `RESTRAINT-PASS.md`, plus the changes made in
-response. Working notes for resuming tomorrow — not a permanent doc. The durable
+_Started 2026-06-29. A review of the Phase 2 commits ("re-aim the front door at
+the real debates") against the goals in `RESTRAINT-PASS.md`, plus the changes
+made in response. Working notes for resuming — not a permanent doc. The durable
 parts (the principles) are flagged to graduate to `PRODUCT.md`._
 
 ## Verdict in one line
 
-The re-aim was faithful to the plan and ~80% solid, but it shipped one
+The re-aim was faithful to the plan and ~80% solid, but shipped one
 launch-breaking factual bug and one "right number, wrong concept" error, and the
-new cards are mostly uninspired and partly duplicative — which is the thing the
-restraint pass exists to fight.
+new cards were mostly uninspired and partly duplicative. The treble card has
+since been elevated to the template; `rivalries`, `ferguson`, and `europe`
+follow the same playbook.
 
 ## Two failure patterns (the combined feedback)
 
@@ -60,13 +61,13 @@ file self-deletes.
 | --- | --- | --- | --- |
 | decline | ✅ the central debate | ◐ EraSkyline is a real form | Keep — strongest |
 | europe | ✅ now correct | ◐ finals grid good, decade bars generic | Keep |
-| treble | ✅ sacred | ✗→◐ rebuilt; still flat | Keep + elevate (in progress) |
+| treble | ✅ sacred | ✗→◐→✅ spine hero + semis | **Elevated** — template for the rest |
 | rivalries | ✅ named ledgers | ✗ four stacked WDL bars read like a directory | Keep, add character |
-| ferguson | ◐ overlaps decline | ✗ a manager bar chart | Keep, watch overlap |
+| ferguson | ◐ overlaps decline | ✗ a manager bar chart | Keep — will absorb `decline` |
 | seasons | ✗ points ≠ best; dup of treble | ✗ 130-bar density | **Cut** (done) |
 
-Only `decline` and `europe` are both correct and reasonably distinctive. The net
-move is 6 new cards → 5.
+Only `europe` and the rebuilt `treble` are both correct and distinctive. The net
+move is 6 new cards → 5, with `decline` slated to fold into `ferguson` next.
 
 ## Changes made this pass
 
@@ -75,20 +76,60 @@ move is 6 new cards → 5.
 | `050c5b9` | **Europe finals bug fixed** — reuse `roundFilterPredicate("final")`; 5 trophies / 10 finals; regression test that re-derives the count independently. |
 | `dedc0dc` | **Build principles added** to `RESTRAINT-PASS.md` (the four above). |
 | `c8a3d89` | **Treble showpiece** — "Ten days in May": the three deciders in sequence with minute-stamped, named goals; the European Cup final leads with its two stoppage-time goals (90+1, 90+3) and a from-behind caption, all derived from the record. **Seasons cut** — removed from front door, headlines, explore signature, related trails; `/seasons` browsing page still carries per-season discovery; orphaned `seasonRanks` dropped. |
+| _(this session)_ | **Treble elevated** — the card now has a hero, a moment, and a forging story. Details below. |
 
-All green: `tsc` clean, 140 tests pass (incl. the new europe guard), `knip` clean.
+### Treble elevation (this session)
 
-## Open / next (tomorrow)
+The card went from "faithful but flat" to the template the other elevations
+should follow. The diagnosis: existing strong cards (late-goals, comebacks,
+fortress) each have a **bespoke visual that encodes the argument** — the new
+cards defaulted to generic primitives (`InspectableBarChart`, `WdlBar`) when
+bespoke chart components were already in the codebase, unused. Three moves:
 
-- **Treble still feels lifeless.** The structure is right (the ten-days thread,
-  the stoppage-time climax) but it doesn't yet carry the weight of the season.
-  Ideas to try: a stronger visual for the stoppage-time turn (the goals literally
-  past the 90 line); the knockout comebacks that forged it (Juventus from 2-0
-  down, the Giggs semi-final winner) as part of the story, not just the deciders;
-  warmer, less templated copy. It is _the_ card to get right — the home of "best
-  season".
-- **Elevate the two "faithful but flat" survivors** — `rivalries` (beyond four
-  WDL bars: the emotional beats — the 6-1, the 4-0s, the title-deciders) and
-  `ferguson` (beyond a bar chart; and de-risk its overlap with `decline`).
+1. **Season spine hero.** All 63 matches of 1998-99 as a `ResultSpine` — a
+   diverging skyline of wins above / losses below, bar height tracking goal
+   margin. The three trophy-deciding nights carry competition-toned trophy
+   glyphs (gold league, silver FA Cup, europe-blue CL) above their bars; the
+   x-axis reads `Aug '98 … May '99`. The shape *is* the argument: you see the
+   relentlessness before reading a word. `ResultSpine` was already built, already
+   tested, already used on `/matches` — it just wasn't wired to this card
+   (principle 4). Extended with `markerGlyph`, per-marker `tone`, and `xLabel`
+   props, all backward-compatible.
+
+2. **How it was forged — two semi-final nights.** New `trebleSemis()` helper in
+   `trails.ts` surfaces the Juventus CL semi 2nd leg (2-0 down after 11 minutes,
+   won 3-2 — Keane, Yorke, Cole) and the Arsenal FA Cup semi replay (won 2-1
+   AET, Giggs). Each card replays the goals minute-by-minute for *both* sides, so
+   the comeback reads in the coloured dots: red-red early, green-green-green
+   late. This is the same minute-stamped event data the comebacks module uses;
+   it was absent from the treble card entirely.
+
+3. **Copy tightened** — less templated finding, warmer decider captions, factual
+   framing of the "first English side" claim without overreach.
+
+All green: `tsc` clean, 140 tests pass, `knip` clean, lint clean on touched files.
+
+### Consensus decisions
+
+- **`decline` will be retired** when the Ferguson reign-length visual lands. The
+  decline story is absorbed into the Ferguson card as a supporting before/after
+  chart; the headline becomes Ferguson vs every other manager on the axis where
+  he's incomparable (reign length). The decline page is "a bit bland" on its own;
+  the Ferguson card is the stronger home for the same data.
+- **Treble is the template.** The move that worked — find the bespoke shape that
+  already exists, make the chart the argument, add the dramatic story the data
+  already carries — is the playbook for `rivalries` and `ferguson`.
+
+## Open / next
+
+- **Rivalries** — swap the WDL bar grid for `OpponentRivalryMap`; promote one
+  charged match per ledger (the 6-1, the 4-0s, the title-deciders) to a hero
+  slot; give each rivalry its emotional beat, not just its aggregate W-D-L.
+- **Ferguson** — swap the PPG bar chart for a `ManagerTimeline`-style reign
+  visual (every manager on a shared time axis, Ferguson's bar stretching across
+  the page, PPG as tint). Absorb the decline before/after as a supporting chart.
+  Retire `/decline` from the front door.
+- **Europe** — still "a bit dry"; the finals grid is good, the decade bars are
+  generic. Revisit after rivalries and ferguson.
 - **Phase 3** — collapse the slice-sprawl, and apply principle 2 to `/compare`
   (like-for-like, role-appropriate metrics).

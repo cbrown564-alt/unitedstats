@@ -329,3 +329,29 @@ slice, not nine (Phase 3); and the kept nostalgia surfaces deliver rediscovery v
 the Phase 3a engine rather than a calendar lottery. At that point this document and the docs it marked for
 cutting are deleted in the same commit — the pass's final act is to remove its own
 scaffolding.
+
+---
+
+## Logged for later — mobile-first design pass (noted 2026-06-29)
+
+Reviewing the match page on a phone (against FotMob) surfaced a cluster of design
+ideas that **outlive this restraint pass**. Capture, don't build — out of scope now.
+When this file self-deletes, these move to a real backlog (or `PRODUCT.md`), not the bin.
+
+- **Match header: edge-to-edge, not a card.** The hero sits in a bordered, rounded
+  card today. It would feel more immersive as a full-bleed band where the result's
+  colour-coding does the encapsulation on its own — subtle, no hard container. Most
+  appropriate on mobile, but probably better on desktop too.
+- **Player shirts need polish.** The teamsheet shirts lack crispness and depth —
+  they read flat. Wants more refined rendering (shading, edge, weight).
+- **Lineup headers are redundant to the point of obstructive.** The "Lineup" section
+  heading, the "Starting XI" subheading, and the "Starting XI · N subs · …" summary
+  line stack up saying the same thing. Collapse to one.
+- **Mobile nav: floating translucent pill, swipe to switch.** Replace the top navbar
+  on mobile with a translucent floating pill menu, with swipe gestures to move between
+  match sections/tabs. Desktop keeps its own nav — but some of this aesthetic
+  (immersion, translucency, less chrome) likely spills onto the desktop look too.
+
+Meta-note: the narrow screen **focuses the eye** — reviewing on mobile caught
+redundancy and flatness the roomier desktop layout hid. Worth running future design
+reviews phone-first.
