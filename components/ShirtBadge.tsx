@@ -5,15 +5,22 @@ interface ShirtBadgeProps {
   compact?: boolean;
   /** Drain the shirt colour for an unused substitute who never took the pitch. */
   muted?: boolean;
-  /** Drop the decade-tint for a neutral shirt — for dense lists (the register)
-   *  where the era colour is a distraction rather than a signal. */
-  plain?: boolean;
+  /** Render every shirt the same dark United red instead of the decade-tint — for
+   *  dense lists (the register) where the era colour is a distraction, not a signal. */
+  uniform?: boolean;
 }
 
 const NEUTRAL_SHIRT = {
   background: "linear-gradient(180deg, oklch(35% 0.01 40), oklch(22% 0.01 40))",
   color: "var(--color-ink-dim)",
   border: "rgb(168 156 148 / 0.35)",
+} as const;
+
+// One dark United red, used for every uniform row — the shirt without the era grade.
+const UNIFORM_SHIRT = {
+  background: "linear-gradient(180deg, oklch(40% 0.16 31), oklch(27% 0.13 31))",
+  color: "var(--color-ink)",
+  border: "oklch(46% 0.13 31 / 0.7)",
 } as const;
 
 function paletteForDecade(decade?: string | null): { background: string; color: string; border: string } {
@@ -35,7 +42,7 @@ function paletteForDecade(decade?: string | null): { background: string; color: 
   };
 }
 
-export function ShirtBadge({ number, decade, apps, compact = false, muted = false, plain = false }: ShirtBadgeProps) {
+export function ShirtBadge({ number, decade, apps, compact = false, muted = false, uniform = false }: ShirtBadgeProps) {
   if (number == null) {
     return (
       <span className="text-ink-faint" title="Shirt number not recorded" aria-label="Shirt number not recorded">
@@ -44,7 +51,7 @@ export function ShirtBadge({ number, decade, apps, compact = false, muted = fals
     );
   }
 
-  const palette = plain ? NEUTRAL_SHIRT : paletteForDecade(decade);
+  const palette = uniform ? UNIFORM_SHIRT : paletteForDecade(decade);
   const title = `${decade ?? "Unknown era"} shirt ${number}${apps ? `, ${apps} covered apps` : ""}`;
 
   return (

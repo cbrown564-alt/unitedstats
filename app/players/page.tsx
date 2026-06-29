@@ -138,20 +138,15 @@ export default async function PlayersPage({
   }
 
   // Collapse each player's seasons to the span the barbell draws: first→last
-  // played year, plus the busiest season as the gold pip (only for real careers,
-  // ≥5 seasons, so a cup cameo's lone year never wears a peak). Players with no
-  // match-attributed seasons (early pros) have no entry and fall back to text.
-  const spanByPlayer = new Map<string, { first: number; last: number; peak: number | null }>();
+  // played year. Just the two endpoints — the register column is too cramped to
+  // also pip the busiest season. Players with no match-attributed seasons (early
+  // pros) have no entry and fall back to the plain text span.
+  const spanByPlayer = new Map<string, { first: number; last: number }>();
   for (const [id, list] of sparksByPlayer) {
     const played = list.filter((s) => s.apps > 0 || s.goals > 0);
     if (played.length === 0) continue;
     const years = played.map((s) => Number(s.season.slice(0, 4)));
-    const peak = played.reduce((best, s) => (s.apps > best.apps ? s : best), played[0]);
-    spanByPlayer.set(id, {
-      first: Math.min(...years),
-      last: Math.max(...years),
-      peak: played.length >= 5 ? Number(peak.season.slice(0, 4)) : null,
-    });
+    spanByPlayer.set(id, { first: Math.min(...years), last: Math.max(...years) });
   }
   const sparkAxisLabel =
     Number.isFinite(sparkAxisStart) && Number.isFinite(sparkAxisEnd)
@@ -341,10 +336,6 @@ export default async function PlayersPage({
             <span className="h-px w-5 bg-ink-dim/55" aria-hidden />
             first year → last
           </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
-            busiest season
-          </span>
           <span>
             on one shared <span className="stat-num">{sparkAxisLabel}</span> timeline,
             guides every 25 years
@@ -403,7 +394,7 @@ export default async function PlayersPage({
                 decade={p.primary_shirt_decade}
                 apps={p.primary_shirt_apps}
                 compact
-                plain
+                uniform
               />
             ),
           },
@@ -506,8 +497,7 @@ export default async function PlayersPage({
                       last={s.last}
                       axisStart={sparkAxisStart}
                       axisEnd={sparkAxisEnd}
-                      peaks={s.peak != null ? [s.peak] : []}
-                      label={`Career ${fmtYearRange(s.first, s.last)}${s.peak != null ? `, busiest ${s.peak}` : ""}`}
+                      label={`Career ${fmtYearRange(s.first, s.last)}`}
                       caption={fmtYearRange(s.first, s.last)}
                     />
                   </div>
