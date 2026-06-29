@@ -10,15 +10,17 @@ const hasNativeShare = () => typeof navigator !== "undefined" && typeof navigato
  * same on every surface (the host renders it top-right of the plate/hero):
  *
  *  - **Share** (when the browser exposes `navigator.share`): opens the OS share
- *    sheet, handing over the page's own OG card *image* where the browser can
- *    share files, else a plain url+title share.
+ *    sheet for the page link.
  *  - **Copy link** (the fallback where there is no share sheet).
  *
- * (Cite and Save-card were removed — scope creep; the saved card was a link-unfurl,
- * not a post-worthy image. The energy went into the OG card itself.)
+ * We share the **link only** — never the card image as a file. The link already
+ * unfurls to the route's own OG card on every platform, so attaching the file was
+ * redundant; worse, macOS copied *both* the file and the link-preview image from
+ * the share sheet, pasting two copies of the same card. (Cite and Save-card were
+ * removed earlier for similar reasons — scope that didn't earn its place.)
  *
- * The OG card is the route's own `opengraph-image`, always same-origin; absolute
- * URLs are built from the live origin at click time, correct on any surface.
+ * Absolute URLs are built from the live origin at click time, so they are correct
+ * regardless of which surface this is embedded in.
  */
 export function ShareCite({ path, title }: { path: string; title: string }) {
   const [copied, setCopied] = useState(false);
@@ -29,10 +31,6 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
   const canShare = useSyncExternalStore(NOOP, hasNativeShare, () => false);
 
   const absolute = () => (typeof window === "undefined" ? path : `${window.location.origin}${path}`);
-  const cardUrl = `${path}/opengraph-image`;
-  const cardFilename = `red-thread-${
-    title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "card"
-  }.png`;
 
   const copyLink = async () => {
     try {
@@ -44,26 +42,10 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
     }
   };
 
-  // Try to hand the share sheet the actual card image; fall back to a url share.
-  // Both run inside the click so the user-activation the share sheet requires is
-  // preserved. A cancelled sheet (AbortError) is a no-op, not a failure.
+  // Share the link only. A cancelled sheet (AbortError) is a no-op, not a failure.
   const share = async () => {
-    const url = absolute();
-    let file: File | null = null;
     try {
-      file = await fetchCardFile(cardUrl, cardFilename);
-    } catch {
-      file = null;
-    }
-    // Only `url` + `title` — deliberately no separate `text`. A `text` that
-    // duplicated the title made the OS "Copy" action paste the link *and* the
-    // title (two strings), which read as a double copy.
-    const data =
-      file && navigator.canShare?.({ files: [file] })
-        ? { files: [file], title, url }
-        : { title, url };
-    try {
-      await navigator.share(data);
+      await navigator.share({ title, url: absolute() });
     } catch {
       /* sheet dismissed or share rejected — nothing to recover */
     }
@@ -85,12 +67,4 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
       )}
     </div>
   );
-}
-
-/** Fetch the route's OG card PNG as a shareable File, or null. */
-async function fetchCardFile(url: string, filename: string): Promise<File | null> {
-  const res = await fetch(url);
-  if (!res.ok) return null;
-  const blob = await res.blob();
-  return new File([blob], filename, { type: blob.type || "image/png" });
 }
