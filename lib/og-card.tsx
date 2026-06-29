@@ -1,8 +1,30 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { getMeta } from "@/lib/queries";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
+
+// The site's own faces, bundled as static TTFs (Satori can't read the woff2 that
+// next/font caches). Archivo is the default; Plex Mono carries the numerals, so a
+// shared card's scores match the on-page `.stat-num` mono exactly. Read once per
+// server process; the OG routes are `force-dynamic`, so they run in Node.
+const FONT_DIR = join(process.cwd(), "assets", "og-fonts");
+const font = (file: string) => readFileSync(join(FONT_DIR, file));
+const OG_FONTS = [
+  { name: "Archivo", data: font("archivo-400.ttf"), weight: 400 as const, style: "normal" as const },
+  { name: "Archivo", data: font("archivo-600.ttf"), weight: 600 as const, style: "normal" as const },
+  { name: "Archivo", data: font("archivo-800.ttf"), weight: 800 as const, style: "normal" as const },
+  { name: "Plex Mono", data: font("plexmono-600.ttf"), weight: 600 as const, style: "normal" as const },
+];
+const MONO = "Plex Mono";
+
+const ogOptions = (headers?: Record<string, string>) => ({
+  ...OG_SIZE,
+  fonts: OG_FONTS,
+  ...(headers ? { headers } : {}),
+});
 
 // Brand tokens, inlined: the OG renderer (Satori) has no access to the
 // stylesheet's CSS custom properties, so these mirror app/globals.css.
@@ -56,7 +78,7 @@ function renderCard(
 ) {
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
         <div style={{ width: 16, height: "100%", background: DEVIL }} />
         <div
           style={{
@@ -102,7 +124,7 @@ function renderCard(
         </div>
       </div>
     ),
-    { ...OG_SIZE, ...(headers ? { headers } : {}) },
+    ogOptions(headers),
   );
 }
 
@@ -205,7 +227,7 @@ export function matchCard(
   );
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
         <div style={{ width: 16, height: "100%", background: DEVIL }} />
         <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
@@ -217,7 +239,7 @@ export function matchCard(
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
               {name(home, "flex-end")}
-              <span style={{ fontSize: 92, fontWeight: 800, letterSpacing: -3, color: scoreColor, margin: "0 28px", lineHeight: 1 }}>{score}</span>
+              <span style={{ fontFamily: MONO, fontSize: 86, fontWeight: 600, letterSpacing: -2, color: scoreColor, margin: "0 30px", lineHeight: 1 }}>{score}</span>
               {name(away, "flex-start")}
             </div>
             {footnote && (
@@ -242,7 +264,7 @@ export function matchCard(
         </div>
       </div>
     ),
-    { ...OG_SIZE, ...(headers ? { headers } : {}) },
+    ogOptions(headers),
   );
 }
 
@@ -273,7 +295,7 @@ export function digestCard(
   const scoreColor = result.outcome === "W" ? WIN : result.outcome === "L" ? DEVIL : DRAW;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
         <div style={{ width: 16, height: "100%", background: DEVIL }} />
         <div
           style={{
@@ -293,7 +315,7 @@ export function digestCard(
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", alignItems: "center", fontSize: 30 }}>
               <span style={{ color: INK_DIM }}>{result.team}</span>
-              <span style={{ color: scoreColor, fontWeight: 800, margin: "0 16px", fontSize: 38, letterSpacing: -1 }}>
+              <span style={{ fontFamily: MONO, color: scoreColor, fontWeight: 600, margin: "0 16px", fontSize: 38, letterSpacing: -1 }}>
                 {result.score}
               </span>
               <span style={{ color: INK }}>{result.opponent}</span>
@@ -317,7 +339,7 @@ export function digestCard(
                       marginRight: 18,
                     }}
                   >
-                    <span style={{ fontSize: 48, fontWeight: 800, letterSpacing: -1.5, color: tileColor(tile.tone) }}>
+                    <span style={{ fontFamily: MONO, fontSize: 46, fontWeight: 600, letterSpacing: -1, color: tileColor(tile.tone) }}>
                       {tile.figure}
                     </span>
                     <span style={{ fontSize: 20, color: INK_DIM, marginTop: 8, letterSpacing: 1, textTransform: "uppercase" }}>
@@ -352,7 +374,7 @@ export function digestCard(
         </div>
       </div>
     ),
-    { ...OG_SIZE, ...(headers ? { headers } : {}) },
+    ogOptions(headers),
   );
 }
 
@@ -470,7 +492,7 @@ export function questionCard(
     : vizWdl(visual.w, visual.d, visual.l);
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
         <div style={{ width: 16, height: "100%", background: DEVIL }} />
         <div
           style={{
@@ -491,7 +513,7 @@ export function questionCard(
               {question}
             </div>
             <div style={{ display: "flex", alignItems: "baseline", marginTop: 16 }}>
-              <span style={{ fontSize: 64, fontWeight: 800, letterSpacing: -2, color: acc }}>{figure}</span>
+              <span style={{ fontFamily: MONO, fontSize: 60, fontWeight: 600, letterSpacing: -1, color: acc }}>{figure}</span>
               <span style={{ fontSize: 26, color: INK_DIM, marginLeft: 20, lineHeight: 1.3, maxWidth: 760 }}>{gloss}</span>
             </div>
             <div style={{ display: "flex", marginTop: 30 }}>{body}</div>
@@ -520,6 +542,6 @@ export function questionCard(
         </div>
       </div>
     ),
-    { ...OG_SIZE, ...(headers ? { headers } : {}) },
+    ogOptions(headers),
   );
 }
