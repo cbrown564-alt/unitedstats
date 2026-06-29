@@ -407,10 +407,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   // centre on the same axis.
   const detailsPanel = (
     <div className="mx-auto max-w-3xl">
-      <div className="space-y-4 sm:hidden">
-        <h2 className="display text-xl">Match details</h2>
-        {matchDetailsBody}
-      </div>
+      {/* Mobile: no section title — the "Details" tab already names it. */}
+      <div className="sm:hidden">{matchDetailsBody}</div>
       <details open className="group hidden sm:block">
         <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
           <h2 className="display text-xl">Match details</h2>
@@ -443,7 +441,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </div>
         <div className="sm:text-right">
           <h3 className="display mb-3 text-lg">United&rsquo;s last 6 matches</h3>
-          <div className="flex gap-1.5 sm:justify-end">
+          {/* Mobile: spread the six badges edge-to-edge so they line up with the
+              full-width head-to-head bar above. Desktop: pack them right, opposite
+              the head-to-head column. */}
+          <div className="flex justify-between gap-1.5 sm:justify-end">
             {form.map((f) => (
               <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${f.venue} ${f.opponent_name} ${f.gf}-${f.ga}`} className="focus-ring">
                 <ResultBadge result={f.result} outcome={f.outcome} />
@@ -471,10 +472,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   const contextPanel = (
     <div className="mx-auto max-w-3xl">
-      <div className="sm:hidden">
-        <h2 className="display mb-4 text-xl">Previous results</h2>
-        {contextBody}
-      </div>
+      {/* Mobile: no section title — the "Previous" tab already names it. */}
+      <div className="sm:hidden">{contextBody}</div>
       <details className="group hidden sm:block">
         <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
           <h2 className="display text-xl">Previous results</h2>
@@ -512,10 +511,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   const sourcesPanel = sources.length > 0 ? (
     <div className="mx-auto max-w-3xl">
-      <div className="sm:hidden">
-        <h2 className="display mb-4 text-xl">Data sources</h2>
-        {sourcesBody}
-      </div>
+      {/* Mobile: no section title — the "Sources" tab already names it. */}
+      <div className="sm:hidden">{sourcesBody}</div>
       <details className="group hidden sm:block">
         <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
           <h2 className="display text-xl">Data sources</h2>
@@ -612,7 +609,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         tabs={[
           {
             id: "goals",
-            label: "Goals",
+            // Mobile tab label: this panel carries the match story (timeline +
+            // line-ups appended below), so it reads as "Match", not just "Goals".
+            label: "Match",
             // On mobile the goals panel otherwise floats alone above a tall empty
             // tab; append the teamsheet so the result scrolls down into the
             // line-ups (FotMob-style). Hidden at sm+, where every panel already
@@ -628,7 +627,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           // its tab button there; it still stacks as its own section on desktop.
           { id: "sheet", label: "Lineup", content: teamsheetPanel, desktopOnly: hasGoalsPanel && hasTeamsheet },
           { id: "details", label: "Details", content: detailsPanel },
-          { id: "context", label: "Context", content: contextPanel },
+          { id: "context", label: "Previous", content: contextPanel },
           { id: "sources", label: "Sources", content: sourcesPanel },
         ]}
       />

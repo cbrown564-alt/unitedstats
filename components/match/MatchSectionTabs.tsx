@@ -37,7 +37,7 @@ export function MatchSectionTabs({
     <div className="space-y-5 sm:space-y-8">
       {tabbable.length > 1 && (
         <div
-          className="flex items-center gap-0.5 overflow-x-auto border-b border-line sm:hidden"
+          className="flex items-stretch border-b border-line sm:hidden"
           role="tablist"
           aria-label="Match sections"
         >
@@ -50,7 +50,7 @@ export function MatchSectionTabs({
               aria-selected={current === tab.id}
               aria-controls={`match-panel-${tab.id}`}
               onClick={() => setActive(tab.id)}
-              className={`shrink-0 border-b px-3 py-2 text-sm transition-colors focus-ring ${
+              className={`flex-1 border-b px-3 py-2.5 text-center text-sm transition-colors focus-ring ${
                 current === tab.id
                   ? "border-devil/45 text-ink"
                   : "border-transparent text-ink-dim hover:text-ink"
