@@ -441,9 +441,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
             <p className="text-sm text-ink-dim">First recorded meeting with {m.opponent_name}.</p>
           )}
         </div>
-        <div>
-          <h3 className="display mb-3 text-lg">Form before</h3>
-          <div className="flex gap-1.5">
+        <div className="sm:text-right">
+          <h3 className="display mb-3 text-lg">United&rsquo;s last 6 matches</h3>
+          <div className="flex gap-1.5 sm:justify-end">
             {form.map((f) => (
               <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${f.venue} ${f.opponent_name} ${f.gf}-${f.ga}`} className="focus-ring">
                 <ResultBadge result={f.result} outcome={f.outcome} />
