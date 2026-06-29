@@ -136,7 +136,7 @@ export function CareerDuelChart({
   labelA,
   labelB,
   rate = false,
-  height = 240,
+  height = 264,
 }: {
   a: CareerSeason[];
   b: CareerSeason[];
@@ -190,9 +190,26 @@ export function CareerDuelChart({
   };
 
   return (
-    <div className="h-auto w-full" style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
-        <AreaChart data={data} margin={{ top: 16, right: 12, bottom: 8, left: 0 }} accessibilityLayer aria-label={`Goals per season: ${labelA} vs ${labelB}`}>
+    <div className="flex h-auto w-full flex-col" style={{ height }}>
+      <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+        {rate ? "Goals per 90 by career season" : "Goals by career season"}
+      </p>
+      <div className="flex min-h-0 flex-1">
+        {/* Y-axis title lives in an HTML gutter, not as Recharts SVG <text>, so the
+            chart's SVG can't clip it at the top/bottom. Reads bottom-to-top.
+            translateY centres it on the plot (which sits above the x-axis-title
+            margin) rather than on plot+margin. */}
+        <div className="flex w-4 shrink-0 items-center justify-center">
+          <span
+            className="mt-1 text-center text-[10px] text-ink-faint"
+            style={{ writingMode: "vertical-rl", transform: "translateY(-10px) rotate(180deg)" }}
+          >
+            {rate ? "Goals per 90" : "Goals"}
+          </span>
+        </div>
+        <div className="min-h-0 flex-1">
+        <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
+          <AreaChart data={data} margin={{ top: 12, right: 12, bottom: 24, left: 0 }} accessibilityLayer aria-label={`Goals per season: ${labelA} vs ${labelB}`}>
           {/* Matches InspectableBarChart: a <title> surfaces the click affordance
               on hover, complementing the cursor change on each point. */}
           <title>Click a point to open that player&apos;s matches for the season</title>
@@ -217,25 +234,24 @@ export function CareerDuelChart({
             tickLine={false}
             stroke="var(--color-ink-faint)"
             fontSize={11}
+            label={{
+              value: "Career season",
+              position: "insideBottom",
+              offset: -4,
+              style: { fill: "var(--color-ink-faint)", fontSize: 11, textAnchor: "middle" },
+            }}
           />
           <YAxis
             type="number"
             domain={[0, yMax * 1.1]}
             axisLine={false}
             tickLine={false}
-            tickMargin={8}
-            width={44}
+            tickMargin={6}
+            width={36}
             stroke="var(--color-ink-faint)"
             fontSize={11}
             tickFormatter={(v) => (rate ? (v as number).toFixed(1) : fmtAxisNumber(v, ""))}
             allowDecimals={rate}
-            label={{
-              value: rate ? "Goals per 90" : "Goals",
-              angle: -90,
-              position: "insideLeft",
-              offset: 14,
-              style: { fill: "var(--color-ink-faint)", fontSize: 10, textAnchor: "middle" },
-            }}
           />
           <Tooltip
             content={<DuelTooltip labelA={labelA} labelB={labelB} rate={rate} />}
@@ -267,7 +283,9 @@ export function CareerDuelChart({
             isAnimationActive={false}
           />
         </AreaChart>
-      </ResponsiveContainer>
+        </ResponsiveContainer>
+        </div>
+      </div>
       <p className="mt-1 text-center text-[11px] text-ink-faint">
         Click a point to open that player&apos;s matches for the season
       </p>
