@@ -35,13 +35,6 @@ export const QUESTIONS: QuestionMeta[] = [
       "The post-Ferguson era by the only numbers that travel across decades — league finishes, win rate, points per game, and trophies — set against the Ferguson years.",
   },
   {
-    slug: "rivalries",
-    label: "Rivalry ledgers",
-    question: "Where do United stand in the great rivalries?",
-    summary:
-      "The head-to-head ledgers against Liverpool, Manchester City, Leeds and Arsenal — every meeting, the runs, the biggest nights and the heaviest falls.",
-  },
-  {
     slug: "ferguson",
     label: "Ferguson vs the field",
     question: "Was Ferguson really that far ahead?",

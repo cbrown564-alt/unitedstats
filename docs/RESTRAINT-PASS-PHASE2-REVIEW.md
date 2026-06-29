@@ -62,12 +62,13 @@ file self-deletes.
 | decline | ✅ the central debate | ◐ EraSkyline is a real form | Keep — strongest |
 | europe | ✅ now correct | ◐ finals grid good, decade bars generic | Keep |
 | treble | ✅ sacred | ✗→◐→✅ spine hero + semis | **Elevated** — template for the rest |
-| rivalries | ✅ named ledgers | ✗ four stacked WDL bars read like a directory | Keep, add character |
+| rivalries | ✗ no question, just a census | ✗ map argues the wrong axis; data won't carry a story | **Cut** (done) |
 | ferguson | ◐ overlaps decline | ✗ a manager bar chart | Keep — will absorb `decline` |
 | seasons | ✗ points ≠ best; dup of treble | ✗ 130-bar density | **Cut** (done) |
 
 Only `europe` and the rebuilt `treble` are both correct and distinctive. The net
-move is 6 new cards → 5, with `decline` slated to fold into `ferguson` next.
+move is 6 new cards → 4, with `seasons` and `rivalries` cut and `decline` slated to
+fold into `ferguson` next.
 
 ## Changes made this pass
 
@@ -78,7 +79,7 @@ move is 6 new cards → 5, with `decline` slated to fold into `ferguson` next.
 | `c8a3d89` | **Treble showpiece** — "Ten days in May": the three deciders in sequence with minute-stamped, named goals; the European Cup final leads with its two stoppage-time goals (90+1, 90+3) and a from-behind caption, all derived from the record. **Seasons cut** — removed from front door, headlines, explore signature, related trails; `/seasons` browsing page still carries per-season discovery; orphaned `seasonRanks` dropped. |
 | _(this session)_ | **Treble elevated** — the card now has a hero, a moment, and a forging story. Details below. |
 | _(this session)_ | **Template distilled** — the five-move playbook + restraint counterweight (above), agreed as floor + earned. |
-| _(this session)_ | **Rivalries elevated** — moves 1+2. `OpponentRivalryMap` hero featuring the four rivals among the whole landscape; each ledger now crowns its biggest win as a focal match over the supporting notables. First application of the template. Details below. |
+| _(this session)_ | **Rivalries elevated, then cut.** First applied moves 1+2 (`OpponentRivalryMap` hero + crowned focal match per ledger), but a fan's-eye review found the page still answered nothing — and validating the metric showed why. **Cut** like `seasons`: removed from front door, headlines, explore signature, related trails (inbound links re-pointed); the elevation reverted. `/opponents` + per-opponent pages still carry rivalry discovery. Details below. |
 
 ### Treble elevation (this session)
 
@@ -111,6 +112,37 @@ bespoke chart components were already in the codebase, unused. Three moves:
 
 All green: `tsc` clean, 140 tests pass, `knip` clean, lint clean on touched files.
 
+### Rivalries: elevated, validated, cut (this session)
+
+The most useful failure of the pass. The sequence:
+
+1. **Applied the template (moves 1+2).** `OpponentRivalryMap` as the hero (extended
+   with a `featured` prop to crest the four named rivals over the faint landscape);
+   each ledger crowned its biggest win. Clean build, all checks green.
+2. **A fan's-eye review rejected it.** Reusing a good visual wasn't enough: the map
+   says "we've played these teams a lot and win a bit less than average" — facts,
+   not a story. The page didn't say why it existed. *Right reflex (reuse), wrong
+   question (census, not rivalry).* → This is **Move 0**, added to the template.
+3. **Chased a real angle, then validated it.** The pitched thesis — "balance of
+   power over time; United's grip loosens on all their rivals" — was checked against
+   the per-decade head-to-head record *before building*. It **didn't hold**: the
+   records are noisy and lagged the league decline (United kept beating Liverpool and
+   Arsenal head-to-head right through the 2010s). The clean story was false.
+4. **The honest story was real but too mild.** Summed across rivals, the per-decade
+   net does trace the rise-and-fall (troughs in the 1920s/30s/70s relegations, a
+   +28 peak in the 1990s, a first dip below zero in the 2020s) — defensible, but a
+   thin reed for a whole front-door question.
+5. **Cut it.** Offered the user the honest reframe or deletion; they chose deletion.
+   Removed like `seasons`: out of `questions.ts`, `questionHeadlines.ts`,
+   `QuestionSignature.tsx`, `QUESTION_COMPONENTS`, and `related.ts` (three inbound
+   trails re-pointed so each keeps ≥2 valid links); the moves-1+2 elevation reverted
+   and the `featured` extension rolled back. `/opponents` + per-opponent pages keep
+   rivalry discovery. `tsc`/140 tests/`knip`/lint all clean.
+
+The lesson is cheaper learned here than shipped: **validate the question and the
+metric before you build the chart.** Polishing the wrong page just makes the wrong
+page shinier.
+
 ### Consensus decisions
 
 - **`decline` will be retired** when the Ferguson reign-length visual lands. The
@@ -120,11 +152,12 @@ All green: `tsc` clean, 140 tests pass, `knip` clean, lint clean on touched file
   the Ferguson card is the stronger home for the same data.
 - **Treble is the template.** The move that worked — find the bespoke shape that
   already exists, make the chart the argument, add the dramatic story the data
-  already carries — is the playbook for `rivalries` and `ferguson`.
+  already carries — is the playbook for `ferguson`. (Tried on `rivalries`; Move 0
+  then cut it — the template needs a real question and a real story underneath.)
 - **Agreed scope: floor + earned.** Moves 1–2 on every elevated card; moves 3–4
   only where the card has a genuine second act. Not the full treble budget each
-  time — that would re-create the sprawl this pass is fighting. **Rivalries first**
-  (self-contained, no `/decline` retirement entangled), then `ferguson`.
+  time — that would re-create the sprawl this pass is fighting. Did `rivalries`
+  first (now cut at Move 0); `ferguson` is next.
 
 ## The Treble template, distilled — the playbook for the rest
 
@@ -133,13 +166,25 @@ abstracted into transferable moves. This is the part to agree on before applying
 it to the other cards. The five moves are in priority order; a card climbs as far
 up as it earns, not all the way by default (see the restraint counterweight)._
 
+**Move 0 — First, does the card answer a real question?** (Learned the hard way on
+`rivalries`, below.) Before any of the moves, two preconditions: (a) the card poses
+a question a fan actually argues, and (b) the data carries a true, defendable story
+toward an answer. The template *amplifies* a story; it cannot *manufacture* one. Two
+traps it surfaced: **a reused good visual can still argue the wrong axis** — the
+`OpponentRivalryMap` answers "who do we play most and beat least" (a census), not
+"who's our enemy and are we still beating them" (the rivalry); and **the headline
+thesis must survive the numbers** — validate the metric before building, because
+"United's grip loosens on all their rivals" sounded right and the per-decade record
+flatly refused to show it. If Move 0 fails, the honest move is to cut, not to dress
+the census up.
+
 **Move 1 — Lead with a shape that argues.** The hero visual should encode the
 answer so the eye gets it before the prose does. The treble's `ResultSpine` of all
 63 matches *is* the relentlessness — wins above, losses below, trophies marked.
 The rule underneath: **reach for the bespoke chart that fits the dimension, not a
-generic primitive.** A season wants a spine; head-to-heads want a rivalry map; a
-reign wants a time axis. `InspectableBarChart` and the stacked `WdlBar` are the
-tells of a flat card.
+generic primitive** — *and that argues the question, not an adjacent one* (Move 0).
+A season wants a spine; a reign wants a time axis. `InspectableBarChart` and the
+stacked `WdlBar` are the tells of a flat card.
 
 **Move 2 — Crown one moment; don't grid equals.** The European Cup final is
 elevated (gold glow, a from-behind caption) while the other two deciders support
@@ -167,36 +212,35 @@ all five rungs. The treble is sacred and earns a hero + two full sections. **Mov
 treatment. Spending the full treble budget on every card is its own kind of sprawl,
 and the wrong default for this pass.
 
-**Reuse finding that makes this cheap.** Both bespoke shapes the next two cards
-want *already exist and are already wired* — to their browsing pages, not the
-question cards. This is exactly the `ResultSpine` situation (built, tested, used on
-`/matches`, just not on the treble card):
+**Reuse finding that makes this cheap.** The bespoke shape `ferguson` wants
+*already exists and is already wired* — to its browsing page, not the question card.
+This is exactly the `ResultSpine` situation (built, tested, used on `/matches`, just
+not on the treble card):
 
 | Card | Bespoke shape | Already used on | Not yet on |
 | --- | --- | --- | --- |
-| rivalries | `OpponentRivalryMap` | `/opponents` | the rivalries card |
 | ferguson | `ManagerTimeline` | `/managers` | the ferguson card |
 
-So elevating `rivalries` and `ferguson` is mostly wiring + curation, not new chart
-work — the expensive part is choosing the right focal match/reign and the copy.
+So elevating `ferguson` is mostly wiring + curation, not new chart work — the
+expensive part is choosing the right focal reign and the copy. (`rivalries` looked
+like the same easy win — reuse `OpponentRivalryMap` — but failed Move 0 and was
+cut; reuse is necessary, not sufficient.)
 
 ## Open / next
 
-- **Rivalries** — ✅ **done** (moves 1+2). `OpponentRivalryMap` is the hero,
-  extended with a backward-compatible `featured` prop that crests the four named
-  rivals and fades the rest of the landscape to context (same extension pattern as
-  `ResultSpine`'s `markerGlyph`). Each ledger crowns its biggest win as a focal
-  match — prominent scoreline, the heaviest defeat and run-ender demoted to a
-  supporting list — so the grid-of-equals becomes a hierarchy. Held the line on the
-  counterweight: no backstory section. `tsc`/140 tests/`knip`/lint all clean.
-  Coordinate-checked the four crests are ≥8 plot-% apart, so featured-mode (which
-  waives collision-avoidance) doesn't pile them up.
-- **Ferguson** — moves 1+4. Swap the PPG bar chart for a `ManagerTimeline` reign
-  visual (every manager on a shared time axis, Ferguson's bar stretching across
-  the page, PPG as tint — move 1), and absorb the decline before/after as the
-  supporting second beat (move 4). Retire `/decline` from the front door.
+- **Rivalries** — ✅ **cut** (see "Rivalries: elevated, validated, cut" below). The
+  moves-1+2 build was real, but the page failed Move 0 and no honest metric rescued
+  it. Removed cleanly like `seasons`; the elevation reverted. Rivalry discovery
+  stays on `/opponents` and the per-opponent pages.
+- **Ferguson** — moves 1+4, and the next thing to build. Swap the PPG bar chart for
+  a `ManagerTimeline` reign visual (every manager on a shared time axis, Ferguson's
+  bar stretching across the page, PPG as tint — move 1), and absorb the decline
+  before/after as the supporting second beat (move 4). Retire `/decline` from the
+  front door. **Apply Move 0 first** — confirm the reign-length story survives
+  before wiring the chart (it should: Ferguson's 27 years is incomparable, a fact
+  the data carries cleanly — unlike the rivalry balance).
 - **Europe** — lower priority. The finals grid is already a bespoke shape (move 1
   done); what's "dry" is the missing drama — the two European Cup finals' own
-  stories (move 3). Revisit after rivalries and ferguson.
+  stories (move 3). Revisit after ferguson.
 - **Phase 3** — collapse the slice-sprawl, and apply principle 2 to `/compare`
   (like-for-like, role-appropriate metrics).

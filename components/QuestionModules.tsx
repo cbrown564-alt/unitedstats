@@ -6,12 +6,12 @@ import {
   eraRecord, FERGUSON_END, topFlightFinishes, titlesInRange,
   managerPpgRanking, trebleRuns, trebleDeciders, trebleSemis,
   europeByDecade, europeanFinals,
-  notableMatches, opponentResultSequence, longestStreak, matchesSequence,
+  matchesSequence,
 } from "@/lib/trails";
 import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
-import { getMeta, managerHonours, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch, opponentsIndex } from "@/lib/queries";
+import { getMeta, managerHonours, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
@@ -19,7 +19,6 @@ import { EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { ResultSpine } from "@/components/charts/ResultSpine";
-import { OpponentRivalryMap } from "@/components/charts/OpponentRivalryMap";
 import { MatchFlow } from "@/components/MatchFlow";
 import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
@@ -28,7 +27,6 @@ import { GeoScatter } from "@/components/GeoScatter";
 import { MatchList } from "@/components/MatchList";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { WdlBar } from "@/components/WdlBar";
-import { ClubBadge } from "@/components/ClubBadge";
 import { TrophyIcon, TROPHY_CAT_TONE } from "@/components/CampaignIcons";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { EvidenceLink } from "@/components/EvidenceLink";
@@ -398,106 +396,6 @@ function DeclineModule({ variant }: ModuleProps) {
         <h3 className="mb-2 text-sm font-medium text-ink-dim">League finishes — the two eras side by side</h3>
         <EraSkylineChart a={eraFinishes(fergEra)} b={eraFinishes(afterEra)} labelA="Ferguson era" labelB="Since Ferguson" />
         <p className="text-xs text-ink-dim mt-1">Each bar is one season&apos;s league finish — gold is a title, deep red a relegation or non-top-flight year. The top panel held the line for 27 years; the bottom one is where it drops away.</p>
-      </div>
-    </Module>
-  );
-}
-
-// ---- Rivalries -------------------------------------------------------------
-
-const RIVALRIES: { id: string; name: string; blurb: string }[] = [
-  { id: "liverpool", name: "Liverpool", blurb: "The fixture. Two cities, two empires, one unending argument." },
-  { id: "manchester-city", name: "Manchester City", blurb: "The neighbour that crossed town and, lately, crossed ahead." },
-  { id: "leeds-united", name: "Leeds United", blurb: "The Roses rivalry — dormant for years, never forgotten." },
-  { id: "arsenal", name: "Arsenal", blurb: "The most-played foe, and the Wenger-years title fights." },
-];
-
-function RivalriesModule({ variant }: ModuleProps) {
-  const venueWord = (v: string) => (v === "H" ? "home" : v === "A" ? "away" : "neutral");
-  const yr = (iso: string | undefined) => (iso ? fmtDate(iso).slice(-4) : "");
-  const ledgers = RIVALRIES.map((r) => {
-    const seq = opponentResultSequence(r.id);
-    const agg = seq.reduce(
-      (a, m) => ({
-        p: a.p + 1,
-        w: a.w + (m.result === "W" ? 1 : 0),
-        d: a.d + (m.result === "D" ? 1 : 0),
-        l: a.l + (m.result === "L" ? 1 : 0),
-        gf: a.gf + m.gf,
-        ga: a.ga + m.ga,
-      }),
-      { p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 },
-    );
-    const unbeaten = longestStreak(seq, "unbeaten");
-    const notables = notableMatches(seq, [{ streak: unbeaten, noun: "unbeaten run" }], { minMatches: 20 });
-    // The result a fan brings up first is the crown; the rest stay as context.
-    const focal = notables.find((m) => m.reason === "Biggest win") ?? notables[0];
-    const rest = notables.filter((m) => m.id !== focal?.id).slice(0, 2);
-    return { ...r, agg, first: seq[0]?.date, last: seq[seq.length - 1]?.date, focal, rest, unbeaten };
-  });
-  return (
-    <Module
-      slug="rivalries"
-      evidence={{ href: "/opponents", label: "Every head-to-head record →" }}
-      variant={variant}
-      visual={
-        <div className="space-y-1.5">
-          <div className="text-[11px] uppercase tracking-wider text-ink-faint">
-            Every opponent United has faced — the four that define us, placed by how often we meet and how we fare
-          </div>
-          <OpponentRivalryMap opponents={opponentsIndex()} featured={RIVALRIES.map((r) => r.id)} />
-        </div>
-      }
-      finding="The four confrontations that define United — measured in every meeting since the 1890s, not in one season's form. Each ledger holds the wins, the falls, and the night a fan brings up first."
-      slice="All official competitions, every recorded meeting since first facing the side. 'Unbeaten run' is the longest streak without defeat; the crowned match is the biggest win by margin, with the heaviest defeat and the game that ended the longest run beneath it."
-      coverage="Result-level record — complete for every meeting against all four. No advanced metrics; these ledgers rest on the scores and dates the record holds in full."
-    >
-      <div className="grid gap-4 lg:grid-cols-2">
-        {ledgers.map((r) => (
-          <div key={r.id} className="rounded-lg border border-line bg-panel-2 p-4">
-            <div className="mb-3 flex items-center gap-2">
-              <ClubBadge id={r.id} name={r.name} />
-              <div className="min-w-0">
-                <Link href={`/opponent/${r.id}`} className="font-medium hover:text-devil-bright">{r.name}</Link>
-                <div className="stat-num text-[11px] text-ink-faint">{r.agg.p} meetings · {yr(r.first)}–{yr(r.last)}</div>
-              </div>
-              <span className="stat-num ml-auto text-xs text-ink-dim">{r.agg.gf}–{r.agg.ga}</span>
-            </div>
-            <WdlBar w={r.agg.w} d={r.agg.d} l={r.agg.l} size="sm" showLabels />
-            <div className="stat-num mt-2 flex items-center gap-3 text-[11px] text-ink-dim">
-              <span><span className="text-win">{r.agg.w}</span> won</span>
-              <span><span className="text-ink-faint">{r.agg.d}</span> drawn</span>
-              <span><span className="text-loss">{r.agg.l}</span> lost</span>
-              {r.unbeaten && <span className="ml-auto">best run {r.unbeaten.length} unbeaten</span>}
-            </div>
-            {r.focal && (
-              <Link
-                href={`/match/${r.focal.id}`}
-                className="group mt-3 flex items-center gap-3 rounded-md border border-line bg-panel px-3 py-2 transition-colors hover:border-devil/60"
-              >
-                <span className="flex min-w-0 flex-col">
-                  <span className="text-[10px] uppercase tracking-wide text-ink-faint">{r.focal.reason}</span>
-                  <span className="stat-num text-xs text-ink-dim">{yr(r.focal.date)} · {venueWord(r.focal.venue)}</span>
-                </span>
-                <span className="stat-num ml-auto shrink-0 text-xl font-semibold tabular-nums text-ink group-hover:text-devil-bright">
-                  {r.focal.gf}<span className="mx-px text-ink-faint">–</span>{r.focal.ga}
-                </span>
-              </Link>
-            )}
-            {r.rest.length > 0 && (
-              <div className="mt-2 space-y-1">
-                {r.rest.map((m) => (
-                  <Link key={m.id} href={`/match/${m.id}`} className="group flex items-center gap-2 text-xs hover:text-devil-bright">
-                    <span className="stat-num shrink-0 text-ink-faint">{yr(m.date)}</span>
-                    <span className="truncate"><span className="text-ink-faint">{venueWord(m.venue)}</span> · {m.gf}–{m.ga}</span>
-                    <span className="ml-auto shrink-0 text-[10px] uppercase tracking-wide text-ink-faint group-hover:text-devil-bright">{m.reason}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
-            <p className="mt-3 text-xs text-ink-dim">{r.blurb}</p>
-          </div>
-        ))}
       </div>
     </Module>
   );
@@ -1284,7 +1182,6 @@ function surname(name: string): string {
 /** Slug → rendered evidence module, the counterpart to the `QUESTIONS` registry. */
 export const QUESTION_COMPONENTS: Record<string, (props: ModuleProps) => React.ReactNode> = {
   decline: DeclineModule,
-  rivalries: RivalriesModule,
   ferguson: FergusonModule,
   treble: TrebleModule,
   europe: EuropeModule,

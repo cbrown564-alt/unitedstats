@@ -17,17 +17,9 @@ import { ClubBadge } from "@/components/ClubBadge";
  * nemesis). Pure positioned HTML, not SVG: circles stay round and crisp at any
  * width, where a non-uniformly-scaled SVG would squash them into ellipses.
  */
-export function OpponentRivalryMap({
-  opponents,
-  featured,
-}: {
-  opponents: OpponentRecord[];
-  /** Opponent ids to always crest and emphasise; the rest fade back to context. */
-  featured?: string[];
-}) {
+export function OpponentRivalryMap({ opponents }: { opponents: OpponentRecord[] }) {
   const rows = opponents.filter((o) => o.p > 0);
   if (rows.length === 0) return null;
-  const featuredSet = new Set(featured ?? []);
 
   const maxP = Math.max(...rows.map((o) => o.p));
   // Inset the scales so edge points (and their crests) never clip.
@@ -42,23 +34,13 @@ export function OpponentRivalryMap({
   const MIN_DIST = 6; // plot-% between two crests
   const named = new Set<string>();
   const placed: { x: number; y: number }[] = [];
-  // Featured rivals are the subject: always crested, collision rules waived.
-  if (featuredSet.size > 0) {
-    for (const o of rows) {
-      if (!featuredSet.has(o.id)) continue;
-      named.add(o.id);
-      placed.push({ x: xOf(o.p), y: yOf((100 * o.w) / o.p) });
-    }
-  } else {
-    // Otherwise crest the most-played, greedily skipping any that would collide.
-    for (const o of [...rows].sort((a, b) => b.p - a.p)) {
-      if (named.size >= 10) break;
-      const x = xOf(o.p);
-      const y = yOf((100 * o.w) / o.p);
-      if (placed.some((q) => Math.hypot(q.x - x, q.y - y) < MIN_DIST)) continue;
-      named.add(o.id);
-      placed.push({ x, y });
-    }
+  for (const o of [...rows].sort((a, b) => b.p - a.p)) {
+    if (named.size >= 10) break;
+    const x = xOf(o.p);
+    const y = yOf((100 * o.w) / o.p);
+    if (placed.some((q) => Math.hypot(q.x - x, q.y - y) < MIN_DIST)) continue;
+    named.add(o.id);
+    placed.push({ x, y });
   }
 
   const xTicks = [50, 100, 150, 200].filter((n) => n <= maxP);
@@ -84,8 +66,7 @@ export function OpponentRivalryMap({
           if (named.has(o.id)) return null; // crest drawn below
           const winRate = (100 * o.w) / o.p;
           const size = Math.max(4, Math.min(14, Math.sqrt(o.p) * 1.1));
-          // With a featured subject, push the rest of the landscape back to context.
-          const op = (0.16 + 0.6 * (o.p / maxP)) * (featuredSet.size > 0 ? 0.45 : 1);
+          const op = 0.16 + 0.6 * (o.p / maxP);
           const ahead = o.w >= o.l;
           return (
             <span

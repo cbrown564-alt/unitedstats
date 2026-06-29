@@ -23,10 +23,10 @@ import { getDb } from "../lib/db";
 import { fmtNum } from "../lib/format";
 
 // Questions that render a data-driven OG card. The new front-door questions
-// (decline, rivalries, ferguson, treble, europe) fall back to the text
-// card for now; own-goals stays as a linkable easter-egg card.
+// (decline, ferguson, treble, europe) fall back to the text card for now;
+// own-goals stays as a linkable easter-egg card.
 const DATA_CARD_SLUGS = ["late-goals", "runs", "cup-specialists", "own-goals", "fortress"];
-const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "decline", "rivalries", "ferguson", "treble", "europe"];
+const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "decline", "ferguson", "treble", "europe"];
 // Questions whose headline figure and card figure are the same number.
 const HEADLINE_MATCHES_CARD = ["late-goals", "runs", "cup-specialists", "fortress"];
 

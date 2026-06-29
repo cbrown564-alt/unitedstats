@@ -6,7 +6,6 @@ import {
 import { clubStreaks } from "@/lib/streaks";
 import { fmtNum, pct } from "@/lib/format";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
-import { WdlBar } from "@/components/WdlBar";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -103,26 +102,6 @@ export function QuestionSignature({ slug }: { slug: string }) {
             { value: "0", label: "titles since 2013", tone: "devil" },
           ]}
         />
-      );
-    }
-
-    case "rivalries": {
-      const ledgers: { id: string; w: number; d: number; l: number }[] = [
-        { id: "liverpool", w: 85, d: 61, l: 72 },
-        { id: "manchester-city", w: 80, d: 55, l: 62 },
-        { id: "leeds-united", w: 50, d: 38, l: 27 },
-        { id: "arsenal", w: 100, d: 55, l: 90 },
-      ];
-      return (
-        <div className="space-y-2">
-          {ledgers.map((r) => (
-            <div key={r.id} className="grid grid-cols-[5.5rem_1fr_4.5rem] items-center gap-3 text-sm">
-              <span className="truncate">{r.id === "leeds-united" ? "Leeds" : r.id === "manchester-city" ? "Man City" : r.id.charAt(0).toUpperCase() + r.id.slice(1)}</span>
-              <WdlBar w={r.w} d={r.d} l={r.l} />
-              <span className="stat-num text-right text-[11px] text-ink-faint">{r.w}–{r.d}–{r.l}</span>
-            </div>
-          ))}
-        </div>
       );
     }
 

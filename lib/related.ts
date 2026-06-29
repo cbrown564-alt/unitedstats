@@ -51,13 +51,8 @@ function toDebate(mode: CompareMode, index: number, hook: string): RelatedLink {
 const RELATED: Record<string, RelatedLink[]> = {
   decline: [
     toQuestion("ferguson", "Measure the fall against the man who set the ceiling."),
-    toQuestion("rivalries", "Part of the fall is the neighbours: see where City crossed ahead."),
+    toQuestion("manager-bounce", "Each appointment since promised the bounce that never came."),
     toCut("managers-by-points", "Each successor restated on the same points-per-game scale."),
-  ],
-  rivalries: [
-    toCut("opponents-by-win-rate", "The four great rivals are the head of the full opponent ladder."),
-    toQuestion("fortress", "Old Trafford is where most of those rivalry wins were banked."),
-    toQuestion("europe", "Some rivalries — Bayern, Barcelona — are continental, not domestic."),
   ],
   ferguson: [
     toDebate("managers", 0, "Set his reign beside Busby's — the club's two architects."),
@@ -107,10 +102,9 @@ const RELATED: Record<string, RelatedLink[]> = {
   "own-goals": [
     toQuestion("cup-specialists", "Set that phantom goalscorer beside the players who saved goals for the cups."),
     toCut("opponents-by-win-rate", "Own goals quietly tilt some head-to-head records — see which."),
-    toQuestion("rivalries", "The great rivals are where every goal, gifted or not, lands hardest."),
   ],
   "away-days": [
-    toQuestion("rivalries", "The farthest trips are often to the sides United argue with most."),
+    toQuestion("fortress", "Old Trafford is the fortress those long trips are measured against."),
     toCut("opponents-by-win-rate", "Every opponent United have travelled to, by win rate."),
     toQuestion("europe", "European away days are where the continental record was built."),
   ],

@@ -69,11 +69,6 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
       gloss: `points per game since Ferguson — down from ${ferg.ppg.toFixed(2)} across his ${ferg.p.toLocaleString("en-GB")} matches`,
       tone: "devil",
     },
-    rivalries: {
-      stat: "4",
-      gloss: "great rivalries — Liverpool, City, Leeds and Arsenal — measured in every meeting since the 1890s",
-      tone: "devil",
-    },
     ferguson: {
       stat: fergusonRank ? fergusonRank.ppg.toFixed(2) : "—",
       gloss: "points per game under Ferguson — the highest of any United manager over a full reign",
