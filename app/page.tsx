@@ -3,10 +3,7 @@ import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
   topScorers, seasonAggregates, championSeasons,
 } from "@/lib/queries";
-import { clubRecords } from "@/lib/trails";
-import {
-  fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
-} from "@/lib/format";
+import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { QUESTIONS } from "@/lib/questions";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
@@ -14,7 +11,6 @@ import { SearchCommand } from "@/components/SearchCommand";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
-import { RecordCards, type RecordCard } from "@/components/RecordCards";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
 import { greatNights } from "@/lib/greatNights";
@@ -39,37 +35,6 @@ export default function Home() {
   // bar of matches played, stacked W/D/L, championship years gold-capped.
   const skyline = seasonAggregates().filter((s) => s.p > 0);
   const champs = new Set(championSeasons());
-
-  // The trail the homepage leads with: three all-time peaks as answer-objects,
-  // each a clickable figure-with-a-fixture rather than a metric tile. Built only
-  // from records that exist, with three distinct units (a scoreline, a crowd, a
-  // goal tally) so the teaser shows the family's range.
-  const cr = clubRecords();
-  const teaser: RecordCard[] = [];
-  if (cr.biggestWin) {
-    const m = cr.biggestWin;
-    teaser.push({
-      eyebrow: "Biggest win", figure: scoreline(m.gf, m.ga), tone: "win",
-      detail: `${venuePrefix(m.venue)} ${m.opponent_name}`,
-      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
-    });
-  }
-  if (cr.recordCrowd?.attendance != null) {
-    const m = cr.recordCrowd;
-    teaser.push({
-      eyebrow: "Record crowd", figure: fmtNum(m.attendance), tone: "gold",
-      detail: `${venuePrefix(m.venue)} ${m.opponent_name} · ${scoreline(m.gf, m.ga)}`,
-      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
-    });
-  }
-  if (cr.longestUnbeaten) {
-    const r = cr.longestUnbeaten;
-    teaser.push({
-      eyebrow: "Longest unbeaten run", figure: String(r.length), unit: "matches", tone: "devil",
-      detail: `${fmtMonthYear(r.from)}–${fmtMonthYear(r.to)}`,
-      meta: "wins and draws, official matches", href: `/matches?from=${r.from}&to=${r.to}`,
-    });
-  }
 
   // The curated-cut launcher: the nine myth-tested questions as a peek-carousel,
   // each card opening its full answer page (Phase 10 per-question routes). This is
@@ -143,34 +108,21 @@ export default function Home() {
         </section>
       </div>
 
-      {/* ── Movement: start a trail. The curated-cut launcher leads (answer
-          first), then the wow-records and the live demonstrated question. ── */}
-      <div className="space-y-10">
-        <section>
-          <SectionHead
-            title="Start with a question"
-            aside={<Link href="/explore" className="text-devil-bright hover:underline">Discover all →</Link>}
-          />
-          <CuratedCarousel cards={questionCards} label="Curated questions" />
-          <p className="mt-2 text-xs text-ink-faint">
-            Myths fans repeat, each tested against the record — open one for its finding, the slice it
-            is drawn from, the coverage behind it, and the matches that produced it.
-          </p>
-        </section>
-
-        {teaser.length > 0 && (
-          <section>
-            <SectionHead
-              title="All-time peaks"
-              aside={<Link href="/analytics" className="text-devil-bright hover:underline">All records →</Link>}
-            />
-            <RecordCards records={teaser} />
-            <p className="text-xs text-ink-faint mt-2">
-              All-time peaks across official competitions, each card opening the match or run that holds it.
-            </p>
-          </section>
-        )}
-      </div>
+      {/* ── Movement: start a trail. The curated-cut launcher — the myth-tested
+          questions as answer-first doors into the record. (The "All-time peaks"
+          cards used to sit here; cut as redundant with the all-time record below
+          and the figures on /analytics — Session 3 of the restraint pass.) ── */}
+      <section>
+        <SectionHead
+          title="Start with a question"
+          aside={<Link href="/explore" className="text-devil-bright hover:underline">Discover all →</Link>}
+        />
+        <CuratedCarousel cards={questionCards} label="Curated questions" />
+        <p className="mt-2 text-xs text-ink-faint">
+          Myths fans repeat, each tested against the record — open one for its finding, the slice it
+          is drawn from, the coverage behind it, and the matches that produced it.
+        </p>
+      </section>
 
       <section className="grid lg:grid-cols-[1fr_20rem] gap-10">
         <div>

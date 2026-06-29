@@ -401,19 +401,19 @@ absent "Today in the Record" freshness block, the latter also CONTEXT.md's call)
 
 | Surface | Item | Pattern | Verdict |
 | --- | --- | --- | --- |
-| players | career sparkline | 1 | **Replace** → career-span barbell/timeline (needs a call) |
+| players | career sparkline | 1 | **Replaced** → `CareerSpanBar` (shipped) |
 | players | shirt-number colour | 3 | **Fix** — blend in the register (shipped) |
 | players | assists `0` | 2 | **Fix** — `–` when era uncovered (shipped) |
 | players | hero scatter | — | _Defer_ — "tells me less the more I look"; reward depth or stop promising it |
 | players | LEADERS | 1 | _Defer_ — "needs another look"; too many numbers |
 | managers | clipped labels | 2 | **Fix** — truncate within segment (shipped) |
-| managers | per-row mini-bars | 1 | **Replace** (needs a call) |
+| managers | per-row mini-bars | 1 | **Replaced** → `CareerSpanBar` (shipped) |
 | managers | hero "blocky/clunky" | — | _Defer_ — "what else could we do?" (redesign) |
 | matches | "Europa Lg" on wide | 2 | **Fix** — full name at `xl` (shipped) |
 | matches | "10 matches" count | 2 | **Fix** — honest "of N" (needs season totals) |
 | matches | season transition / bar spacing | — | Polish (small) |
 | matches | search box "barrier" | 4 | _Defer_ — reframe (conceptual) |
-| home | All-time peaks "boring" | 3 | _Decide_ — cut / rethink |
+| home | All-time peaks "boring" | 3 | **Cut** (shipped) — redundant with the record below |
 | home | question cards "too many words" / "what else" | 3,4 | _Defer_ — collides with the parked `/questions` surface |
 | home | Latest-results truncation | — | **Fixed** in `795cc63` (MatchList min-width floor) |
 
@@ -433,14 +433,29 @@ absent "Today in the Record" freshness block, the latter also CONTEXT.md's call)
 - **Managers — labels stop clipping.** Surname labels truncate within their own
   segment, so a narrow tenure's name is never painted over by the next bar.
 
+### Shipped after the steer (pattern 1 + a cut)
+
+The user chose **career-span barbell** for the too-small visuals and **cut** for
+All-time peaks. Both done:
+
+- **`CareerSpanBar`** — one new component replaces both failed micro-charts: a
+  career/reign as a span on the shared timeline (first→last, gold pips for the
+  busiest season / silverware), legible at row height where the per-season bars
+  were noise. Wired into the **players register** (Career column) and the
+  **managers list** rows; `CareerSparkline` and `ManagerSparkbar` deleted (the
+  only consumers). Net: two charts → one, and it actually reads.
+- **All-time peaks cut** from the homepage — redundant with the all-time record
+  directly below it and the figures on `/analytics`; `clubRecords`/`RecordCards`
+  stay (still used by `/analytics`).
+
 ### Open decisions for the next steer (parked, not abandoned)
 
-- **The "too-small visual" replacements** (career sparkline, manager mini-bars):
-  barbell/span vs. drop entirely. Same call on both — pick one treatment.
-- **Homepage All-time peaks**: cut, or rethink into something that isn't redundant
-  with the all-time record below it.
-- **The conceptual heroes** (players scatter, managers timeline) and the **matches
-  search box** "barrier" — these are redesigns; need direction before building.
+- **The conceptual heroes** (players scatter "tells me less the more I look",
+  managers timeline "blocky/clunky — what else?") — redesigns; need direction.
+- **Matches search box** "barrier" — reframe the filter entry; conceptual.
+- **Matches "10 matches" count** — honest "of N" needs per-season totals threaded
+  into `MatchGroups` (it only sees the page's rows today); plus the small
+  season-transition / summary-bar spacing polish.
 - **Question cards** — `TOO MANY WORDSSSSSS` is a quick copy trim, but "what can we
   do with the red thread instead?" reopens the **deferred `/questions` surface**
   (Session 2). Don't redesign it here; trim the prose at most, or hold.

@@ -1,10 +1,10 @@
 import { familyName } from "@/lib/names";
-import { managersIndex, managerCareerSparks, managerHonours } from "@/lib/queries";
+import { managersIndex, managerCareerSparks, managerHonours, type ManagerCareerSpark } from "@/lib/queries";
 import { groupManagersByEra } from "@/lib/managerEras";
 import { WdlBar } from "@/components/WdlBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ManagerTimeline } from "@/components/charts/ManagerTimeline";
-import { ManagerSparkbar, type ManagerSparkSeason } from "@/components/charts/ManagerSparkbar";
+import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
 import { IndexRow } from "@/components/IndexRow";
 import { HonoursBadge } from "@/components/HonoursBadge";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -27,12 +27,11 @@ export default function ManagersPage() {
     .map((g) => familyName(g.name))
     .join(" and ");
 
-  // Each row's tenure drawn as a season-by-season W/D/L sparkbar on a timeline
-  // *shared* by every row — so the column builds into the succession as you scan
-  // down, each man's block landing at his real years. Scale (axis span + tallest
-  // season) is global, computed once here and handed to every row.
+  // Each row's tenure drawn as a span on a timeline *shared* by every row — so the
+  // column builds into the succession as you scan down, each man's bar landing at
+  // his real years. The axis is global, computed once here from every season.
   const sparks = managerCareerSparks();
-  const byManager = new Map<string, ManagerSparkSeason[]>();
+  const byManager = new Map<string, ManagerCareerSpark[]>();
   for (const s of sparks) {
     const arr = byManager.get(s.manager_id);
     if (arr) arr.push(s);
@@ -41,7 +40,6 @@ export default function ManagersPage() {
   const sparkYears = sparks.map((s) => Number(s.season.slice(0, 4)));
   const axisStart = sparkYears.length ? Math.min(...sparkYears) : 1892;
   const axisEnd = (sparkYears.length ? Math.max(...sparkYears) : 2026) + 1;
-  const maxSeason = sparks.reduce((mx, s) => Math.max(mx, s.w + s.d + s.l), 1);
 
   // Trophies, attributed to the manager of the decisive match — gold pips on the
   // winning seasons of each sparkbar and an honours count beside the name, so the
@@ -54,6 +52,20 @@ export default function ManagersPage() {
       h.season,
     );
     trophyCount.set(h.manager_id, (trophyCount.get(h.manager_id) ?? 0) + h.n);
+  }
+
+  // Collapse each tenure to the span the row barbell draws: first→last season, with
+  // the trophy-winning seasons as gold pips so a decorated reign glows along its bar.
+  const spanByManager = new Map<string, { first: number; last: number; peaks: number[] }>();
+  for (const [id, seasons] of byManager) {
+    if (seasons.length === 0) continue;
+    const years = seasons.map((s) => Number(s.season.slice(0, 4)));
+    const trophies = trophySeasonsBy.get(id);
+    spanByManager.set(id, {
+      first: Math.min(...years),
+      last: Math.max(...years),
+      peaks: trophies ? [...trophies].map((s) => Number(s.slice(0, 4))) : [],
+    });
   }
 
   return (
@@ -172,36 +184,42 @@ export default function ManagersPage() {
                   cathedral ? "border-gold/20" : "border-line"
                 }`}
               >
-                {g.managers.map((m) => (
-                  <li key={m.id} className="border-b border-line last:border-b-0">
-                    <IndexRow
-                      href={`/manager/${m.id}`}
-                      leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="sm" />}
-                      name={m.name}
-                      compactName={familyName(m.name)}
-                      badge={
-                        (trophyCount.get(m.id) ?? 0) > 0 ? (
-                          <HonoursBadge count={trophyCount.get(m.id) ?? 0} />
-                        ) : undefined
-                      }
-                      sub={`${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${m.role}`}
-                      w={m.w}
-                      d={m.d}
-                      l={m.l}
-                      gf={m.gf}
-                      ga={m.ga}
-                      chart={
-                        <ManagerSparkbar
-                          seasons={byManager.get(m.id) ?? []}
-                          axisStart={axisStart}
-                          axisEnd={axisEnd}
-                          maxScale={maxSeason}
-                          trophySeasons={trophySeasonsBy.get(m.id)}
-                        />
-                      }
-                    />
-                  </li>
-                ))}
+                {g.managers.map((m) => {
+                  const sp = spanByManager.get(m.id);
+                  return (
+                    <li key={m.id} className="border-b border-line last:border-b-0">
+                      <IndexRow
+                        href={`/manager/${m.id}`}
+                        leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="sm" />}
+                        name={m.name}
+                        compactName={familyName(m.name)}
+                        badge={
+                          (trophyCount.get(m.id) ?? 0) > 0 ? (
+                            <HonoursBadge count={trophyCount.get(m.id) ?? 0} />
+                          ) : undefined
+                        }
+                        sub={`${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${m.role}`}
+                        w={m.w}
+                        d={m.d}
+                        l={m.l}
+                        gf={m.gf}
+                        ga={m.ga}
+                        chart={
+                          sp ? (
+                            <CareerSpanBar
+                              first={sp.first}
+                              last={sp.last}
+                              axisStart={axisStart}
+                              axisEnd={axisEnd}
+                              peaks={sp.peaks}
+                              label={`${familyName(m.name)} ${sp.first}–${sp.last}${sp.peaks.length ? `, ${sp.peaks.length} trophy season${sp.peaks.length === 1 ? "" : "s"}` : ""}`}
+                            />
+                          ) : null
+                        }
+                      />
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           );

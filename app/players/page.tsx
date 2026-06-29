@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { coverageOverview, getMeta, playerCareerSparks, playersIndex, type PlayerTotals } from "@/lib/queries";
+import { coverageOverview, getMeta, playerCareerSparks, playersIndex, type PlayerCareerSpark, type PlayerTotals } from "@/lib/queries";
 import { DataTable, type SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
-import { CareerSparkline, type CareerSparkSeason } from "@/components/charts/CareerSparkline";
+import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { PositionTag } from "@/components/PositionTag";
 import { ShirtBadge } from "@/components/ShirtBadge";
@@ -120,26 +120,39 @@ export default async function PlayersPage({
   const meta = getMeta();
   const coverage = coverageOverview();
 
-  // Per-season apps+goals for the career sparklines, batched once and grouped by
-  // player. The sparks share one timeline axis and one height scale across every
-  // row, so scanning the column reads as eras sliding left→right and bar heights
-  // stay comparable between players.
+  // Per-season apps+goals, grouped by player, used to derive each career's span and
+  // busiest season for the register barbell. The axis (first→last year across every
+  // player) is shared by all rows, so scanning the column reads as eras sliding
+  // left→right on one timeline.
   const sparkRows = playerCareerSparks();
-  const sparksByPlayer = new Map<string, CareerSparkSeason[]>();
+  const sparksByPlayer = new Map<string, PlayerCareerSpark[]>();
   let sparkAxisStart = Infinity;
   let sparkAxisEnd = -Infinity;
-  let sparkMaxScale = 1;
   for (const r of sparkRows) {
     const list = sparksByPlayer.get(r.player_id);
-    const season: CareerSparkSeason = { season: r.season, apps: r.apps, goals: r.goals };
-    if (list) list.push(season);
-    else sparksByPlayer.set(r.player_id, [season]);
+    if (list) list.push(r);
+    else sparksByPlayer.set(r.player_id, [r]);
     const year = Number(r.season.slice(0, 4));
     if (year < sparkAxisStart) sparkAxisStart = year;
     if (year > sparkAxisEnd) sparkAxisEnd = year;
-    sparkMaxScale = Math.max(sparkMaxScale, r.apps, r.goals);
   }
-  for (const list of sparksByPlayer.values()) list.sort((a, b) => a.season.localeCompare(b.season));
+
+  // Collapse each player's seasons to the span the barbell draws: first→last
+  // played year, plus the busiest season as the gold pip (only for real careers,
+  // ≥5 seasons, so a cup cameo's lone year never wears a peak). Players with no
+  // match-attributed seasons (early pros) have no entry and fall back to text.
+  const spanByPlayer = new Map<string, { first: number; last: number; peak: number | null }>();
+  for (const [id, list] of sparksByPlayer) {
+    const played = list.filter((s) => s.apps > 0 || s.goals > 0);
+    if (played.length === 0) continue;
+    const years = played.map((s) => Number(s.season.slice(0, 4)));
+    const peak = played.reduce((best, s) => (s.apps > best.apps ? s : best), played[0]);
+    spanByPlayer.set(id, {
+      first: Math.min(...years),
+      last: Math.max(...years),
+      peak: played.length >= 5 ? Number(peak.season.slice(0, 4)) : null,
+    });
+  }
   const sparkAxisLabel =
     Number.isFinite(sparkAxisStart) && Number.isFinite(sparkAxisEnd)
       ? fmtYearRange(sparkAxisStart, sparkAxisEnd)
@@ -320,21 +333,17 @@ export default async function PlayersPage({
           </nav>
         </div>
 
-        {/* Teach the Career column once: it's a shared 1886→now timeline, so the bars
-            sit where the years fall — sort by Career to watch the eras march across. */}
+        {/* Teach the Career column once: a shared 1886→now timeline, each career a
+            span from first year to last — sort by Career to watch the eras march across. */}
         <p className="hidden items-center justify-end gap-x-3 gap-y-1 text-[11px] text-ink-faint lg:flex">
           <span className="text-ink-dim">Career</span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-1 rounded-sm bg-ink-dim/40" aria-hidden />
-            bar height = apps that season
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-1 rounded-sm bg-devil-bright" aria-hidden />
-            red = goals
+            <span className="h-px w-5 bg-ink-dim/55" aria-hidden />
+            first year → last
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
-            best season
+            busiest season
           </span>
           <span>
             on one shared <span className="stat-num">{sparkAxisLabel}</span> timeline,
@@ -480,17 +489,31 @@ export default async function PlayersPage({
             sortKey: "span",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
             sortLabel: "career span",
-            render: (p) => (
-              <div className="flex justify-end">
-                <CareerSparkline
-                  seasons={sparksByPlayer.get(p.player_id) ?? []}
-                  axisStart={sparkAxisStart}
-                  axisEnd={sparkAxisEnd}
-                  maxScale={sparkMaxScale}
-                  fallback={<span className="text-ink-dim">{spanForPlayer(p)}</span>}
-                />
-              </div>
-            ),
+            render: (p) => {
+              const s = spanByPlayer.get(p.player_id);
+              if (!s) {
+                return (
+                  <div className="flex justify-end">
+                    <span className="text-ink-dim">{spanForPlayer(p)}</span>
+                  </div>
+                );
+              }
+              return (
+                <div className="flex justify-end">
+                  <div className="w-[140px] max-w-full">
+                    <CareerSpanBar
+                      first={s.first}
+                      last={s.last}
+                      axisStart={sparkAxisStart}
+                      axisEnd={sparkAxisEnd}
+                      peaks={s.peak != null ? [s.peak] : []}
+                      label={`Career ${fmtYearRange(s.first, s.last)}${s.peak != null ? `, busiest ${s.peak}` : ""}`}
+                      caption={fmtYearRange(s.first, s.last)}
+                    />
+                  </div>
+                </div>
+              );
+            },
           },
         ]}
       />
