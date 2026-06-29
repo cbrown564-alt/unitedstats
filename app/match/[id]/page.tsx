@@ -80,16 +80,16 @@ function DetailCard({ label, value, href, mono = false }: { label: string; value
   const body = (
     <>
       <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">{label}</div>
-      <div className={`mt-1.5 break-words text-[15px] font-medium leading-snug text-ink ${mono ? "stat-num tabular-nums" : ""} ${href ? "group-hover:text-devil-bright" : ""}`}>
+      <div className={`mt-1.5 break-words text-[15px] font-medium leading-snug text-ink ${mono ? "stat-num tabular-nums" : ""} ${href ? "group-hover/detail:text-devil-bright" : ""}`}>
         {value}
       </div>
     </>
   );
   const base = "min-w-0 rounded-lg border border-line bg-panel px-4 py-3";
   return href ? (
-    <Link href={href} className={`group relative block ${base} transition-colors hover:border-devil/50 focus-ring`}>
+    <Link href={href} className={`group/detail relative block ${base} transition-colors hover:border-devil/50 focus-ring`}>
       {body}
-      <span aria-hidden className="absolute right-3 top-3 text-xs text-ink-faint opacity-0 transition-opacity group-hover:opacity-100">→</span>
+      <span aria-hidden className="absolute right-3 top-3 text-xs text-ink-faint opacity-0 transition-opacity group-hover/detail:opacity-100">→</span>
     </Link>
   ) : (
     <div className={base}>{body}</div>
@@ -429,7 +429,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-8">
       <div className="grid gap-8 sm:grid-cols-2">
         <div>
-          <h3 className="display mb-3 text-lg">Head-to-head before</h3>
+          <h3 className="display mb-3 text-lg">Previous head-to-head results</h3>
           {h2h.p > 0 ? (
             <div className="space-y-3">
               <WdlBar w={h2h.w} d={h2h.d} l={h2h.l} size="md" variant="stacked" showLabels />
@@ -472,12 +472,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const contextPanel = (
     <div className="mx-auto max-w-3xl">
       <div className="sm:hidden">
-        <h2 className="display mb-4 text-xl">Context</h2>
+        <h2 className="display mb-4 text-xl">Previous results</h2>
         {contextBody}
       </div>
       <details className="group hidden sm:block">
         <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
-          <h2 className="display text-xl">Context</h2>
+          <h2 className="display text-xl">Previous results</h2>
           <span className="stat-num text-xs text-ink-faint">
             {contextParts.join(" · ")} ·{" "}
             <span className="text-devil-bright group-open:hidden">show</span>
@@ -513,12 +513,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const sourcesPanel = sources.length > 0 ? (
     <div className="mx-auto max-w-3xl">
       <div className="sm:hidden">
-        <h2 className="display mb-4 text-xl">Provenance</h2>
+        <h2 className="display mb-4 text-xl">Data sources</h2>
         {sourcesBody}
       </div>
       <details className="group hidden sm:block">
         <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
-          <h2 className="display text-xl">Provenance</h2>
+          <h2 className="display text-xl">Data sources</h2>
           <span className="stat-num text-xs text-ink-faint">
             {sourceSummary.size} source{sourceSummary.size === 1 ? "" : "s"} ·{" "}
             <span className="text-devil-bright group-open:hidden">show</span>
