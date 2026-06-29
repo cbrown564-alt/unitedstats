@@ -84,7 +84,7 @@ interface CuratedSpec {
 export const CURATED_NIGHTS: CuratedSpec[] = [
   // — European nights —
   { id: "1968-05-29-benfica-n", stakes: "Ten years after Munich, the first English club to win the European Cup." },
-  { id: "1999-05-26-bayern-munich-n", stakes: "Lost in the 90th minute, won in stoppage time — and the Treble with it." },
+  { id: "1999-05-26-bayern-munich-n", stakes: "Lost in the 90th minute, won in stoppage time. Unbelievable." },
   { id: "2008-05-21-chelsea-n", stakes: "Settled on penalties in the Moscow rain, a second European Cup." },
   { id: "1991-05-15-barcelona-n", stakes: "Two from Mark Hughes against his old club — Europe, back at last." },
   { id: "2017-05-24-afc-ajax-n", stakes: "The one trophy still missing from the cabinet, finally claimed." },
@@ -243,7 +243,7 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
     scorers,
     timeline,
     image: USE_WINNER_PORTRAIT && winner?.player_id ? winnerImage(winner.player_id, winner.player_display_name ?? "") : null,
-    cta: "See the night",
+    cta: "See the full match",
   };
 }
 

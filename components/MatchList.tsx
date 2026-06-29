@@ -41,9 +41,15 @@ export function MatchList<T extends MatchRow>({
   // scoreline left-aligned in a clean vertical rail. When a scorer filter is on,
   // the goals/minutes badge sits just left of the meta rail, content-sized and
   // right-aligned — it grows leftward into the opponent slack, never colliding.
+  //
+  // The opponent name is the row's headline, so its track carries a min-width
+  // floor (`minmax(7.5rem,1fr)`) rather than a bare `1fr`: a plain fr track has
+  // no floor and collapses first, which let the meta rail starve the name down
+  // to "Bright…" in a narrow column. The floor guarantees the name its room and
+  // makes the lower-priority meta fields truncate before it does.
   const cols = renderExtra
-    ? "grid-cols-[auto_auto_1fr_auto] sm:grid-cols-[7rem_auto_auto_1fr_auto_auto]"
-    : "grid-cols-[auto_auto_1fr] sm:grid-cols-[7rem_auto_auto_1fr_auto]";
+    ? "grid-cols-[auto_auto_1fr_auto] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto_auto]"
+    : "grid-cols-[auto_auto_1fr] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto]";
   return (
     <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
       {matches.map((m) => {
@@ -88,8 +94,8 @@ export function MatchList<T extends MatchRow>({
             <span
               className={`hidden items-center gap-x-3 text-xs text-ink-dim sm:grid ${
                 showSeason
-                  ? "[grid-template-columns:3.75rem_minmax(0,12rem)_minmax(0,8rem)]"
-                  : "[grid-template-columns:minmax(0,12rem)_minmax(0,8rem)]"
+                  ? "[grid-template-columns:3.75rem_minmax(0,9rem)_minmax(0,8rem)]"
+                  : "[grid-template-columns:minmax(0,9rem)_minmax(0,8rem)]"
               }`}
             >
               {showSeason && <span className="stat-num whitespace-nowrap text-ink-faint">{m.season}</span>}

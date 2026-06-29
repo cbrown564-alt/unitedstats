@@ -83,8 +83,9 @@ among panels). The current composition:
   presence** — full scoreline with the score in gold, and the **goalscorers with
   their minutes** (Sheringham 90+1', Solskjær 90+3'), the line a fan recites from
   memory. The scorers were the fix for "the match feels lifeless."
-- Below the stage: `Another night` (re-roll) and the personal-door steer
-  (`EntryChips`) for the reader who arrives with a name, not a mood.
+- Nothing interrupts the foot of the stage: the `Another night` re-roll and the
+  personal-door `EntryChips` steer were removed so the thread flows straight on
+  into the foundation beat below.
 - The skyline + scope + search that used to lead are now the **foundation beat**
   below it (`CONTEXT.md` §2 — why the jolt is honest, why you stay).
 

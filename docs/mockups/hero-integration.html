@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TonightHero — Red Thread Integration Mockups</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --pitch: #060505;
+        --panel: rgba(22, 19, 18, 0.45);
+        --panel-solid: #151211;
+        --panel-2: #1e1a18;
+        --line: rgba(52, 43, 39, 0.6);
+        --line-soft: rgba(37, 31, 28, 0.4);
+        --ink: #f3ede8;
+        --dim: #a89c94;
+        --faint: #736861;
+        --red: #ff3b1f;
+        --gold: #f5c518;
+        --shadow: rgba(0, 0, 0, 0.6);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: #0a0908;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      h1, h2, h3 {
+        font-family: Outfit, sans-serif;
+      }
+      .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+      
+      .page {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      
+      /* Dashboard Header */
+      .dash-header {
+        background: #0f0d0c;
+        border-bottom: 1px solid var(--line);
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        z-index: 10;
+      }
+      .dash-title h1 {
+        margin: 0;
+        font-size: 22px;
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      .dash-title h1 span { color: var(--red); }
+      .dash-title p {
+        margin: 4px 0 0;
+        font-size: 13px;
+        color: var(--dim);
+      }
+      
+      /* Control Deck */
+      .control-deck {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .deck-btn {
+        background: var(--panel-solid);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 999px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+      .deck-btn:hover {
+        border-color: rgba(255, 59, 31, 0.5);
+        background: var(--panel-2);
+      }
+      .deck-btn.active {
+        border-color: var(--red);
+        background: rgba(255, 59, 31, 0.08);
+      }
+      .indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #342b27;
+        transition: all 0.2s ease;
+      }
+      .deck-btn.active .indicator {
+        background: #00ffcc;
+        box-shadow: 0 0 8px #00ffcc;
+      }
+      
+      /* Split Screen Layout */
+      .workspace {
+        display: flex;
+        flex: 1;
+        height: calc(100vh - 78px);
+        overflow: hidden;
+      }
+      @media (max-width: 1024px) {
+        .workspace {
+          flex-direction: column;
+          height: auto;
+          overflow: visible;
+        }
+      }
+      
+      /* Hero stage column */
+      .stage-col {
+        flex: 1;
+        background: var(--pitch);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      @media (max-width: 1024px) {
+        .stage-col {
+          padding: 20px;
+          min-height: 500px;
+        }
+      }
+      
+      /* Settings / Inspector column */
+      .settings-col {
+        width: 380px;
+        background: #0b0a09;
+        border-left: 1px solid var(--line);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-y: auto;
+      }
+      @media (max-width: 1024px) {
+        .settings-col {
+          width: 100%;
+          border-left: none;
+          border-top: 1px solid var(--line);
+        }
+      }
+      
+      /* TonightHero Mock Replica */
+      .hero-stage {
+        width: 100%;
+        max-width: 680px;
+        height: 520px;
+        background: #060505;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      }
+      .hero-stage::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: [radial-gradient(115%_75%_at_50%_-12%,rgba(255,238,210,0.06),transparent_55%)];
+        pointer-events: none;
+      }
+      
+      /* Portrait Monument wash */
+      .hero-image {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        background-image: radial-gradient(circle at center, rgba(216,33,13,0.08), transparent 70%);
+        pointer-events: none;
+        opacity: 0.85;
+      }
+      .hero-image::after {
+        content: "1999";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: Outfit, sans-serif;
+        font-size: 15rem;
+        font-weight: 900;
+        color: rgba(255, 59, 31, 0.035);
+        user-select: none;
+      }
+      
+      /* Thread Timeline Positioning */
+      .thread-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 120px;
+        pointer-events: none;
+        overflow: visible;
+      }
+      .thread-container svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      
+      /* Match Details Container */
+      .hero-content {
+        position: relative;
+        height: 100%;
+        padding-left: 110px;
+        padding-right: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 2;
+      }
+      .hero-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 10.5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        tracking-widest: 0.3em;
+        letter-spacing: 0.25em;
+        color: #ff3b1f;
+        margin: 0;
+      }
+      .hero-eyebrow span.year {
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: normal;
+      }
+      .hero-line {
+        margin: 18px 0 0;
+        max-width: 480px;
+        font-size: 2.2rem;
+        line-height: 1.1;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        font-family: Outfit, sans-serif;
+        color: var(--ink);
+      }
+      @media (max-width: 480px) {
+        .hero-line { font-size: 1.8rem; }
+      }
+      .hero-scoreline {
+        margin-top: 24px;
+      }
+      .scoreline-row {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .scoreline-num {
+        font-family: Outfit, sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--red);
+      }
+      .hero-scorers {
+        margin: 8px 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 13px;
+        color: var(--dim);
+      }
+      .scorer-item b {
+        color: var(--gold);
+        margin-left: 3px;
+        font-family: Outfit, sans-serif;
+      }
+      .hero-meta {
+        margin: 10px 0 0;
+        font-size: 12px;
+        color: var(--faint);
+      }
+      .hero-cta {
+        margin-top: 26px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #ff3b1f;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      
+      /* LIVE PULSE */
+      .live-pulse {
+        display: inline-flex;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--red);
+        position: relative;
+      }
+      .live-pulse::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--red);
+        animation: ping 1.5s infinite ease-out;
+      }
+      @keyframes ping {
+        0% { transform: scale(1); opacity: 0.8; }
+        100% { transform: scale(3.5); opacity: 0; }
+      }
+      
+      /* Custom styles for thread animation models */
+      .thread-path {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 0;
+        transition: d 0.1s linear;
+      }
+      
+      /* Animation Shimmer Class */
+      .shimmering {
+        filter: url(#fizzle);
+      }
+      
+      /* Control Panels Section */
+      .section-title {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--faint);
+        letter-spacing: 0.08em;
+        margin: 0 0 10px;
+        font-weight: 600;
+      }
+      .control-box {
+        background: rgba(22, 19, 18, 0.3);
+        border: 1px solid var(--line-soft);
+        border-radius: 8px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .radio-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .radio-option input {
+        margin-top: 3px;
+      }
+      .radio-label {
+        font-size: 13.5px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .radio-desc {
+        font-size: 11.5px;
+        color: var(--dim);
+        margin-top: 2px;
+        line-height: 1.4;
+      }
+      
+      /* Match Selector */
+      .selector-btn {
+        background: var(--panel-solid);
+        border: 1px solid var(--line);
+        color: var(--dim);
+        font: inherit;
+        font-size: 12.5px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.2s ease;
+      }
+      .selector-btn:hover {
+        border-color: var(--red);
+        color: var(--ink);
+      }
+      .selector-btn.active {
+        border-color: var(--red);
+        color: var(--ink);
+        background: rgba(255,59,31,0.05);
+      }
+      
+      /* Path Inspector inside Column */
+      .inspector-box {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .inspector-pre {
+        background: #070605;
+        border: 1px solid var(--line-soft);
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 9.5px;
+        color: var(--dim);
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-all;
+        flex-grow: 1;
+        margin: 0;
+        max-height: 160px;
+      }
+      
+      /* Particle glowing sparks styling */
+      .spark {
+        fill: url(#spark-glow);
+        pointer-events: none;
+      }
+      
+    </style>
+  </head>
+  <body>
+    
+    <!-- Dashboard Header -->
+    <header class="dash-header">
+      <div class="dash-title">
+        <h1>TonightHero — <span>Red</span> Thread Animations</h1>
+        <p>Interactive lab testing continuous thread timeline animations in the Hero layout</p>
+      </div>
+      <div class="control-deck">
+        <button class="deck-btn active" id="btn-play" type="button">
+          <span class="indicator"></span> Live Feed
+        </button>
+        <button class="deck-btn" id="btn-grid" type="button">
+          <span class="indicator"></span> Show Guides
+        </button>
+        <button class="deck-btn" id="btn-slow" type="button">
+          <span class="indicator"></span> Slow Motion
+        </button>
+      </div>
+    </header>
+    
+    <!-- Workspace -->
+    <div class="workspace">
+      
+      <!-- Stage (Hero Panel Sandbox) -->
+      <div class="stage-col">
+        
+        <div class="hero-stage" id="hero-stage">
+          <!-- Portrait underlay -->
+          <div class="hero-image" id="hero-image"></div>
+          
+          <!-- Timeline SVG Container -->
+          <div class="thread-container" id="thread-container">
+            <!-- Dynamic SVG injected here -->
+          </div>
+          
+          <!-- Editorial Match Content -->
+          <div class="hero-content" id="hero-content">
+            <!-- Injected details here -->
+          </div>
+          
+        </div>
+        
+      </div>
+      
+      <!-- Settings Panel (Right Sidebar) -->
+      <div class="settings-col">
+        
+        <!-- Animation Selection -->
+        <div>
+          <h3 class="section-title">Animation Model</h3>
+          <div class="control-box">
+            
+            <label class="radio-option">
+              <input type="radio" name="anim-mode" value="grad" checked />
+              <div>
+                <span class="radio-label">Gradient Flow</span>
+                <p class="radio-desc">Thread remains physically static; a stream of red-to-gold light flows down the thread continuously.</p>
+              </div>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="anim-mode" value="wave" />
+              <div>
+                <span class="radio-label">Rippling Wave</span>
+                <p class="radio-desc">The wavy thread ripples downwards like liquid string. The goal loops and beads sway left-and-right in sync.</p>
+              </div>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="anim-mode" value="shimmer" />
+              <div>
+                <span class="radio-label">Turbulence Shimmer</span>
+                <p class="radio-desc">Applies fractal noise displacement. The thread shimmers, wiggles, and glows like a quantum energy fiber.</p>
+              </div>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="anim-mode" value="particles" />
+              <div>
+                <span class="radio-label">Dissolving Trail (Fizzle)</span>
+                <p class="radio-desc">Glowing sparks constantly break away and float downwards from the foot of the thread, fizzling away.</p>
+              </div>
+            </label>
+            
+            <label class="radio-option">
+              <input type="radio" name="anim-mode" value="drift" />
+              <div>
+                <span class="radio-label">Quiet Ambient Drift</span>
+                <p class="radio-desc">A highly subtle, slowed-down blend of wave ripple and gradient flow, ideal for a quiet production footprint.</p>
+              </div>
+            </label>
+            
+          </div>
+        </div>
+        
+        <!-- Match Selector -->
+        <div>
+          <h3 class="section-title">Timeline Data</h3>
+          <div class="control-box" style="gap: 8px;">
+            <button class="selector-btn active" id="sel-99" type="button">
+              <span>United 2–1 Bayern (1999)</span>
+              <span class="mono" style="font-size: 10px; opacity: 0.6;">90+1', 90+3'</span>
+            </button>
+            <button class="selector-btn" id="sel-08" type="button">
+              <span>United 1–1 Chelsea (2008)</span>
+              <span class="mono" style="font-size: 10px; opacity: 0.6;">26', 120'</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Live Geometry Inspector -->
+        <div class="inspector-box">
+          <h3 class="section-title">Path Geometry Inspector</h3>
+          <pre class="inspector-pre mono" id="path-inspect-pre">M 48.0 0 L 48.0 760 ...</pre>
+          <button class="deck-btn" id="btn-copy-path" style="justify-content: center; width: 100%;">
+            Copy Path String
+          </button>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- MAIN INTERACTIVE LAYER -->
+    <script>
+      // ---- MATCH TIMELINE DATA ----
+      const MATCHES = {
+        m99: {
+          year: "1999",
+          eyebrow: "THE GREATEST NIGHT",
+          line: "The night the treble was tied. Two goals in ninety seconds.",
+          score: "2",
+          opponent: "Bayern",
+          tone: "text-win",
+          meta: "Camp Nou · May 26, 1999 · Champions League Final",
+          cta: "Relive Camp Nou",
+          imageYear: "1999",
+          timeline: [
+            { clock: 91, label: "90+1′", name: "Sheringham", winner: false },
+            { clock: 93, label: "90+3′", name: "Solskjær", winner: true },
+          ],
+          scorers: [
+            { name: "Sheringham", minute: "90+1'" },
+            { name: "Solskjær", minute: "90+3'" }
+          ]
+        },
+        m08: {
+          year: "2008",
+          eyebrow: "MOSCOW IN THE RAIN",
+          line: "Slipped in the mud, settled in the stars. The double-cup season.",
+          score: "1",
+          opponent: "Chelsea",
+          tone: "text-win",
+          meta: "Luzhniki Stadium · May 21, 2008 · Champions League Final",
+          cta: "Relive Moscow",
+          imageYear: "2008",
+          timeline: [
+            { clock: 26, label: "26′", name: "Ronaldo", winner: false },
+            { clock: 120, label: "Pen", name: "Giggs", winner: true },
+          ],
+          scorers: [
+            { name: "Ronaldo", minute: "26'" },
+            { name: "Giggs", minute: "Pen" }
+          ]
+        }
+      };
+      
+      let activeMatch = MATCHES.m99;
+      
+      // ---- GEOMETRY CONFIG ----
+      const VB_W = 120, VB_H = 760, X = 48, TOP = 74, BOT = 686, R = 18;
+      const RED = "rgb(255 59 31)", GOLD = "rgb(245 197 24)", DIM = "rgb(168 156 148)", FAINT = "rgb(115 104 97)";
+
+      // ---- SYSTEM STATE ----
+      let animationMode = "grad"; // grad, wave, shimmer, particles, drift
+      let isPlaying = true;
+      let showGuides = false;
+      let slowMotion = false;
+      let phase = 0;
+      let gradPhase = 0;
+      let lastTime = 0;
+      
+      // Particles list
+      let particles = [];
+
+      // ---- GET Y COORDINATE FOR CLOCK MINUTE ----
+      function yOf(clock, timeline) {
+        const axisMax = Math.max(96, ...timeline.map((g) => g.clock + 4));
+        return TOP + (clock / axisMax) * (BOT - TOP);
+      }
+
+      // ---- SHIFT / WAVE FUNCTION WITH TRANSITION BLENDING ----
+      // Ensures the path curves into a perfect circle smoothly without horizontal kinks
+      function getShift(y, timeline, activePhase, isWavy) {
+        if (!isWavy) return 0;
+        
+        const axisMax = Math.max(96, ...timeline.map((g) => g.clock + 4));
+        const yOfLocal = (clock) => TOP + (clock / axisMax) * (BOT - TOP);
+        
+        // base wave formula
+        const baseWave = (yVal) => 12 * Math.sin((yVal / VB_H) * Math.PI * 2.4 - activePhase);
+        
+        for (let g of timeline) {
+          const yc = yOfLocal(g.clock);
+          const dStart = yc - R;
+          const dEnd = yc + R;
+          
+          // Constant shift inside the loop
+          if (y >= dStart && y <= dEnd) {
+            return baseWave(yc);
+          }
+          
+          // Blend upper transition zone: [yc - 2*R, yc - R]
+          if (y >= yc - 2 * R && y < dStart) {
+            const blend = (y - (yc - 2 * R)) / R;
+            const targetShift = baseWave(yc);
+            const sourceShift = baseWave(y);
+            return blend * targetShift + (1 - blend) * sourceShift;
+          }
+          
+          // Blend lower transition zone: [yc + R, yc + 2*R]
+          if (y > dEnd && y <= yc + 2 * R) {
+            const blend = ((yc + 2 * R) - y) / R;
+            const targetShift = baseWave(yc);
+            const sourceShift = baseWave(y);
+            return blend * targetShift + (1 - blend) * sourceShift;
+          }
+        }
+        
+        return baseWave(y);
+      }
+
+      // ---- CONTINUOUS PATH GENERATOR ----
+      function generateWavySlipknotPath(timeline, activePhase, isWavy) {
+        const axisMax = Math.max(96, ...timeline.map((g) => g.clock + 4));
+        const yOfLocal = (clock) => TOP + (clock / axisMax) * (BOT - TOP);
+        
+        let d = `M ${(X + getShift(0, timeline, activePhase, isWavy)).toFixed(1)} 0`;
+        let vertices = [];
+        let loops = [];
+        
+        vertices.push({ x: X + getShift(0, timeline, activePhase, isWavy), y: 0, label: "KO" });
+        
+        let y = 4;
+        while (y <= VB_H) {
+          let inLoop = false;
+          for (let g of timeline) {
+            const yc = yOfLocal(g.clock);
+            const dStart = yc - R;
+            
+            if (y >= dStart && y - 4 < dStart) {
+              const yStart = dStart;
+              d += ` L ${(X + getShift(yStart, timeline, activePhase, isWavy)).toFixed(1)} ${yStart.toFixed(1)}`;
+              vertices.push({ x: X + getShift(yStart, timeline, activePhase, isWavy), y: yStart, label: "Loop Start" });
+              
+              // Semicircles (clockwise loop)
+              const shift = getShift(yc, timeline, activePhase, isWavy);
+              const yEnd = yc + R;
+              d += ` A ${R.toFixed(1)} ${R.toFixed(1)} 0 0 1 ${(X + shift).toFixed(1)} ${yEnd.toFixed(1)}`;
+              d += ` A ${R.toFixed(1)} ${R.toFixed(1)} 0 0 1 ${(X + shift).toFixed(1)} ${yStart.toFixed(1)}`;
+              
+              loops.push({ cx: X + shift, cy: yc, r: R });
+              
+              // Skip past the loop start to draw the vertical line down the middle
+              y = yStart + 4;
+              inLoop = true;
+              break;
+            }
+          }
+          
+          if (!inLoop) {
+            d += ` L ${(X + getShift(y, timeline, activePhase, isWavy)).toFixed(1)} ${y.toFixed(1)}`;
+            y += 4;
+          }
+        }
+        
+        // Final anchor
+        vertices.push({ x: X + getShift(VB_H, timeline, activePhase, isWavy), y: VB_H, label: "FT" });
+        
+        return { d, vertices, loops };
+      }
+
+      // ---- SPARK PARTICLES ENGINE ----
+      function spawnSpark(x, y) {
+        particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: Math.random() * 1.2 + 0.8,
+          alpha: 1.0,
+          r: Math.random() * 2.2 + 1.2,
+          life: 1.0,
+          decay: Math.random() * 0.02 + 0.015
+        });
+      }
+
+      function updateParticles() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life -= p.decay;
+          p.alpha = Math.max(0, p.life);
+          p.r *= 0.98; // shrink
+          if (p.life <= 0 || p.y > VB_H + 20) {
+            particles.splice(i, 1);
+          }
+        }
+      }
+
+      function renderSparksSVG() {
+        return particles.map((p) => {
+          return `<circle class="spark" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.r.toFixed(1)}" fill="${GOLD}" fill-opacity="${p.alpha.toFixed(2)}" style="filter:blur(0.8px)" />`;
+        }).join("");
+      }
+
+      // ---- GEOMETRY HANDLES OVERLAY ----
+      function renderGuidesSVG(vertices, loops) {
+        let svg = '<g class="guides-overlay">';
+        
+        // Draw circles for loops
+        loops.forEach((l) => {
+          svg += `<circle cx="${l.cx.toFixed(1)}" cy="${l.cy.toFixed(1)}" r="${l.r.toFixed(1)}" stroke="#00ffcc" stroke-opacity="0.5" stroke-width="0.8" stroke-dasharray="3 3" fill="none" />`;
+          // Draw center coordinate crosshair
+          svg += `<line x1="${(l.cx - 6).toFixed(1)}" y1="${l.cy.toFixed(1)}" x2="${(l.cx + 6).toFixed(1)}" y2="${l.cy.toFixed(1)}" stroke="#00ffcc" stroke-opacity="0.6" stroke-width="0.8" />`;
+          svg += `<line x1="${l.cx.toFixed(1)}" y1="${(l.cy - 6).toFixed(1)}" x2="${l.cx.toFixed(1)}" y2="${(l.cy + 6).toFixed(1)}" stroke="#00ffcc" stroke-opacity="0.6" stroke-width="0.8" />`;
+        });
+        
+        // Draw anchors
+        vertices.forEach((v) => {
+          const c = v.label === "KO" ? RED : (v.label === "FT" ? GOLD : "#ffffff");
+          svg += `<circle cx="${v.x.toFixed(1)}" cy="${v.y.toFixed(1)}" r="3" fill="${c}" stroke="#0a0908" stroke-width="0.8" />`;
+          if (v.label) {
+            svg += `<text class="mono" x="${(v.x + 6).toFixed(1)}" y="${(v.y + 3).toFixed(1)}" fill="#00ffcc" font-size="8" font-weight="600" fill-opacity="0.8">${v.label}</text>`;
+          }
+        });
+        
+        svg += "</g>";
+        return svg;
+      }
+
+      // ---- MAIN HERO REPLAY ENGINE ----
+      function updateHeroDOM() {
+        const content = document.getElementById("hero-content");
+        const mon = document.getElementById("hero-image");
+        
+        // Set monument year
+        mon.innerHTML = "";
+        
+        // Score list
+        const scorersHTML = activeMatch.scorers.map(s => `
+          <span class="scorer-item">${s.name} <b class="stat-num">${s.minute}</b></span>
+        `).join("");
+        
+        content.innerHTML = `
+          <p class="hero-eyebrow">
+            <span class="year">${activeMatch.year}</span>
+            <span class="live-pulse"></span>
+            ${activeMatch.eyebrow}
+          </p>
+          <p class="hero-line">${activeMatch.line}</p>
+          <div class="hero-scoreline">
+            <p class="scoreline-row">
+              <span>United</span>
+              <span class="scoreline-num">${activeMatch.score}</span>
+              <span>${activeMatch.opponent}</span>
+            </p>
+            <div class="hero-scorers">${scorersHTML}</div>
+            <p class="hero-meta">${activeMatch.meta}</p>
+          </div>
+          <span class="hero-cta">
+            ${activeMatch.cta} <span aria-hidden>→</span>
+          </span>
+        `;
+        
+        // Monument Year face wash
+        const monumentText = activeMatch.year;
+        document.styleSheets[0].addRule('.hero-image::after', `content: "${monumentText}" !important;`);
+      }
+
+      function renderStage(activePhase, activeGradPhase) {
+        const container = document.getElementById("thread-container");
+        
+        const isWavy = (animationMode === "wave" || animationMode === "particles" || animationMode === "drift");
+        
+        const { d, vertices, loops } = generateWavySlipknotPath(activeMatch.timeline, activePhase, isWavy);
+        
+        // Update live geometry inspector
+        document.getElementById("path-inspect-pre").textContent = d;
+        
+        const yOfLocal = (clock) => yOf(clock, activeMatch.timeline);
+        
+        // Beads & Markings
+        const markings = activeMatch.timeline.map((g, i) => {
+          const yc = yOfLocal(g.clock);
+          // Slipknot is centered, so bead cx is exactly centered on the wavy thread at yc
+          const cx = X + getShift(yc, activeMatch.timeline, activePhase, isWavy);
+          const c = g.winner ? GOLD : RED;
+          const labelSide = 1; // display to the right
+          
+          const lx = X + labelSide * (R + 10) + getShift(yc, activeMatch.timeline, activePhase, isWavy);
+          const innerColor = g.winner ? "#fff4d4" : "#ffdcd5";
+          
+          return `
+            <g>
+              <g class="knot-body" style="opacity: 1; transform-origin:${cx.toFixed(1)}px ${yc.toFixed(1)}px">
+                <circle cx="${cx.toFixed(1)}" cy="${yc.toFixed(1)}" r="${R * 1.3}" fill="${c}" fill-opacity="0.14" />
+                <circle class="bead-pulse" cx="${cx.toFixed(1)}" cy="${yc.toFixed(1)}" r="7.5" stroke="${c}" stroke-width="1.2" fill="none" />
+                <circle cx="${cx.toFixed(1)}" cy="${yc.toFixed(1)}" r="${g.winner ? 4.5 : 3.5}" fill="${c}" stroke="#ffffff" stroke-width="1" />
+                <circle cx="${cx.toFixed(1)}" cy="${yc.toFixed(1)}" r="1.5" fill="${innerColor}" />
+              </g>
+              <text class="mono font-semibold" x="${lx.toFixed(1)}" y="${yc.toFixed(1)}" dy="0.32em" text-anchor="start" font-size="11.5" fill="${g.winner ? GOLD : DIM}">
+                ${g.label}
+              </text>
+            </g>
+          `;
+        }).join("");
+        
+        // Half time tick
+        const y45 = yOfLocal(45);
+        const xk = X + getShift(y45, activeMatch.timeline, activePhase, isWavy);
+        const halfTimeTick = `
+          <line x1="${(xk - 5).toFixed(1)}" y1="${y45.toFixed(1)}" x2="${(xk + 5).toFixed(1)}" y2="${y45.toFixed(1)}" stroke="${DIM}" stroke-opacity="0.3" stroke-width="0.8" />
+        `;
+        
+        // Guides overlay
+        const guidesSVG = showGuides ? renderGuidesSVG(vertices, loops) : "";
+        
+        // Sparks overlay (if particles active)
+        const sparksSVG = (animationMode === "particles") ? renderSparksSVG() : "";
+        
+        // Shimmer class
+        const pathClass = (animationMode === "shimmer") ? "thread-path shimmering" : "thread-path";
+
+        container.innerHTML = `
+          <svg viewBox="0 0 ${VB_W} ${VB_H}" preserveAspectRatio="xMinYMid meet" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="rt-thread" x1="0" y1="0%" x2="0" y2="200%" gradientTransform="translate(0, ${-activeGradPhase})">
+                <stop offset="0%" stop-color="${RED}" stop-opacity="0.12" />
+                <stop offset="25%" stop-color="${RED}" stop-opacity="0.8" />
+                <stop offset="75%" stop-color="${GOLD}" stop-opacity="0.85" />
+                <stop offset="100%" stop-color="${GOLD}" stop-opacity="0.1" />
+              </linearGradient>
+              
+              <!-- Spark glow filter -->
+              <radialGradient id="spark-glow">
+                <stop offset="0%" stop-color="#fff" />
+                <stop offset="40%" stop-color="${GOLD}" />
+                <stop offset="100%" stop-color="${GOLD}" stop-opacity="0" />
+              </radialGradient>
+              
+              <!-- Fractal Turbulence for shimmering mode -->
+              <filter id="fizzle" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.06 0.95" numOctaves="2" result="noise" id="turb-node" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+                <feMerge>
+                  <feMergeNode in="displaced" />
+                  <feMergeNode in="SourceGraphic" opacity="0.3" />
+                </feMerge>
+              </filter>
+            </defs>
+            
+            ${halfTimeTick}
+            
+            <!-- Core Thread paths -->
+            <path d="${d}" stroke="${RED}" stroke-opacity="0.22" stroke-width="3.6" stroke-linecap="round" class="${pathClass}" style="filter:blur(2.5px)" />
+            <path d="${d}" stroke="url(#rt-thread)" stroke-width="1.4" stroke-linecap="round" class="${pathClass}" />
+            
+            ${markings}
+            ${sparksSVG}
+            ${guidesSVG}
+          </svg>
+        `;
+      }
+
+      // ---- ANIMATION LOOP ----
+      function tick(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const delta = timestamp - lastTime;
+        lastTime = timestamp;
+        
+        if (isPlaying) {
+          // Speed multiplier based on Slow Motion toggle
+          const speedFactor = (slowMotion ? 0.2 : 1.0) * (animationMode === "drift" ? 0.35 : 1.0);
+          
+          // 1. Update wave phase (Mode wave, particles, drift)
+          if (animationMode === "wave" || animationMode === "particles" || animationMode === "drift") {
+            phase += 0.015 * speedFactor * 1.5;
+          } else {
+            phase = 0; // static path
+          }
+          
+          // 2. Update gradient flow (Mode grad, wave, particles, drift)
+          if (animationMode === "grad" || animationMode === "wave" || animationMode === "particles" || animationMode === "drift") {
+            gradPhase = (gradPhase + 0.8 * speedFactor * 1.5) % 760;
+          } else {
+            gradPhase = 0; // static gradient
+          }
+          
+          // 3. Update turbulence seed (Mode shimmer)
+          if (animationMode === "shimmer") {
+            const turb = document.getElementById("turb-node");
+            if (turb) {
+              // Rapid seed updates to simulate flickering glow
+              const seedVal = Math.floor(timestamp / (slowMotion ? 180 : 45)) % 100;
+              turb.setAttribute("seed", seedVal);
+            }
+          }
+          
+          // 4. Update particles (Mode particles)
+          if (animationMode === "particles") {
+            // Spawn sparks at the base of the timeline
+            const xk = X + getShift(BOT, activeMatch.timeline, phase, true);
+            if (Math.random() < (slowMotion ? 0.08 : 0.45)) {
+              spawnSpark(xk, BOT);
+            }
+            updateParticles();
+          } else {
+            particles = []; // clear particles if mode switched
+          }
+          
+          renderStage(phase, gradPhase);
+        }
+        
+        requestAnimationFrame(tick);
+      }
+
+      // ---- EVENT HANDLERS & BINDINGS ----
+      
+      // Animation Mode selection
+      document.querySelectorAll('input[name="anim-mode"]').forEach(input => {
+        input.addEventListener('change', (e) => {
+          animationMode = e.target.value;
+          // Clear particles if switching modes
+          if (animationMode !== "particles") particles = [];
+          renderStage(phase, gradPhase);
+        });
+      });
+      
+      // Match selector buttons
+      document.getElementById("sel-99").addEventListener("click", () => {
+        document.getElementById("sel-99").classList.add("active");
+        document.getElementById("sel-08").classList.remove("active");
+        activeMatch = MATCHES.m99;
+        updateHeroDOM();
+        renderStage(phase, gradPhase);
+      });
+      
+      document.getElementById("sel-08").addEventListener("click", () => {
+        document.getElementById("sel-08").classList.add("active");
+        document.getElementById("sel-99").classList.remove("active");
+        activeMatch = MATCHES.m08;
+        updateHeroDOM();
+        renderStage(phase, gradPhase);
+      });
+      
+      // Controls deck buttons
+      document.getElementById("btn-play").addEventListener("click", () => {
+        isPlaying = !isPlaying;
+        document.getElementById("btn-play").classList.toggle("active", isPlaying);
+      });
+      
+      document.getElementById("btn-grid").addEventListener("click", () => {
+        showGuides = !showGuides;
+        document.getElementById("btn-grid").classList.toggle("active", showGuides);
+        renderStage(phase, gradPhase);
+      });
+      
+      document.getElementById("btn-slow").addEventListener("click", () => {
+        slowMotion = !slowMotion;
+        document.getElementById("btn-slow").classList.toggle("active", slowMotion);
+      });
+      
+      // Copy Path Geometry String
+      document.getElementById("btn-copy-path").addEventListener("click", () => {
+        const text = document.getElementById("path-inspect-pre").textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.getElementById("btn-copy-path");
+          btn.textContent = "Copied Path!";
+          setTimeout(() => btn.textContent = "Copy Path String", 1200);
+        });
+      });
+
+      // ---- INIT RUN ----
+      updateHeroDOM();
+      requestAnimationFrame(tick);
+      
+      // Initialize controls deck active states
+      document.getElementById("btn-play").classList.add("active");
+      
+    </script>
+  </body>
+</html>
