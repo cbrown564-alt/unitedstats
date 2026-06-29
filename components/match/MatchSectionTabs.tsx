@@ -6,11 +6,15 @@ export type MatchSectionTab = {
   id: string;
   label: string;
   content: React.ReactNode;
+  /** Stacks on desktop but gets no mobile tab button — its content is reached
+   *  another way on mobile (e.g. the lineup lives in the goals-tab scroll). */
+  desktopOnly?: boolean;
 };
 
 /**
  * Mobile-only section tabs for `/match/[id]`. Below `sm`, one panel at a time;
  * at `sm+` every panel stacks in document order (desktop narrative unchanged).
+ * `desktopOnly` tabs stack on desktop but are absent from the mobile tab bar.
  */
 export function MatchSectionTabs({
   tabs,
@@ -20,23 +24,24 @@ export function MatchSectionTabs({
   defaultTab: string;
 }) {
   const visible = tabs.filter((t) => t.content != null);
-  const fallback = visible[0]?.id ?? defaultTab;
+  const tabbable = visible.filter((t) => !t.desktopOnly);
+  const fallback = tabbable[0]?.id ?? defaultTab;
   const [active, setActive] = useState(
-    visible.some((t) => t.id === defaultTab) ? defaultTab : fallback,
+    tabbable.some((t) => t.id === defaultTab) ? defaultTab : fallback,
   );
-  const current = visible.some((t) => t.id === active) ? active : fallback;
+  const current = tabbable.some((t) => t.id === active) ? active : fallback;
 
   if (visible.length === 0) return null;
 
   return (
     <div className="space-y-5 sm:space-y-8">
-      {visible.length > 1 && (
+      {tabbable.length > 1 && (
         <div
           className="flex items-center gap-0.5 overflow-x-auto border-b border-line sm:hidden"
           role="tablist"
           aria-label="Match sections"
         >
-          {visible.map((tab) => (
+          {tabbable.map((tab) => (
             <button
               key={tab.id}
               id={`match-tab-${tab.id}`}
@@ -61,9 +66,9 @@ export function MatchSectionTabs({
         <section
           key={tab.id}
           id={`match-panel-${tab.id}`}
-          role="tabpanel"
-          aria-labelledby={`match-tab-${tab.id}`}
-          className={current === tab.id ? "block" : "hidden sm:block"}
+          role={tab.desktopOnly ? undefined : "tabpanel"}
+          aria-labelledby={tab.desktopOnly ? undefined : `match-tab-${tab.id}`}
+          className={!tab.desktopOnly && current === tab.id ? "block" : "hidden sm:block"}
         >
           {tab.content}
         </section>

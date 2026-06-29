@@ -10,7 +10,7 @@ import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone
 import { clubNames, opponentNames, type ClubNames } from "@/lib/clubNames";
 import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
-import { StatTile } from "@/components/PageHeader";
+import type { ReactNode } from "react";
 import { MatchList } from "@/components/MatchList";
 import { MatchFlow } from "@/components/MatchFlow";
 import { EloWinBar } from "@/components/EloWinBar";
@@ -67,6 +67,32 @@ function TeamName({ names, align, href }: { names: ClubNames; align: "left" | "r
     <span title={names.full} className={className}>
       {inner}
     </span>
+  );
+}
+
+/**
+ * One fact in the match-details strip. Manager and competition carry an `href`,
+ * which turns the card into a link with a hover arrow; numeric facts (attendance)
+ * set `mono` for tabular figures. Text facts use the proportional UI font so the
+ * strip reads like the rest of the page rather than a monospace data dump.
+ */
+function DetailCard({ label, value, href, mono = false }: { label: string; value: ReactNode; href?: string; mono?: boolean }) {
+  const body = (
+    <>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">{label}</div>
+      <div className={`mt-1.5 break-words text-[15px] font-medium leading-snug text-ink ${mono ? "stat-num tabular-nums" : ""} ${href ? "group-hover:text-devil-bright" : ""}`}>
+        {value}
+      </div>
+    </>
+  );
+  const base = "min-w-0 rounded-lg border border-line bg-panel px-4 py-3";
+  return href ? (
+    <Link href={href} className={`group relative block ${base} transition-colors hover:border-devil/50 focus-ring`}>
+      {body}
+      <span aria-hidden className="absolute right-3 top-3 text-xs text-ink-faint opacity-0 transition-opacity group-hover:opacity-100">→</span>
+    </Link>
+  ) : (
+    <div className={base}>{body}</div>
   );
 }
 
@@ -244,7 +270,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const teamsheetPanel = hasTeamsheet ? (
     <section className="overflow-hidden rounded-lg border border-line bg-panel">
       <div className="flex items-baseline justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
-        <h2 className="display text-xl">Teamsheet</h2>
+        <h2 className="display text-xl">Lineup</h2>
         {teamsheetParts.length > 0 && (
           <span className="stat-num text-xs text-ink-faint">{teamsheetParts.join(" · ")}</span>
         )}
@@ -356,11 +382,19 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   const matchDetailsBody = (
     <div className="space-y-4">
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        <StatTile label="Venue" value={m.stadium_name ?? venueLabel(m.venue)} />
-        <StatTile label="Attendance" value={m.attendance ? fmtNum(m.attendance) : "—"} />
-        <StatTile label="Manager" value={m.manager_name ?? "—"} />
-        <StatTile label="Competition" value={m.competition_name} />
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+        <DetailCard label="Venue" value={m.stadium_name ?? venueLabel(m.venue)} />
+        <DetailCard label="Attendance" value={m.attendance ? fmtNum(m.attendance) : "—"} mono />
+        <DetailCard
+          label="Manager"
+          value={m.manager_name ?? "—"}
+          href={m.manager_id && m.manager_name ? `/manager/${m.manager_id}` : undefined}
+        />
+        <DetailCard
+          label="Competition"
+          value={m.competition_name}
+          href={`/matches?competition=${m.competition_id}`}
+        />
       </div>
       <Link href={`/corrections?match=${id}`} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
         Suggest a correction →
@@ -577,8 +611,23 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       <MatchSectionTabs
         defaultTab={defaultTab}
         tabs={[
-          { id: "goals", label: "Goals", content: goalsPanel },
-          { id: "sheet", label: "Sheet", content: teamsheetPanel },
+          {
+            id: "goals",
+            label: "Goals",
+            // On mobile the goals panel otherwise floats alone above a tall empty
+            // tab; append the teamsheet so the result scrolls down into the
+            // line-ups (FotMob-style). Hidden at sm+, where every panel already
+            // stacks in document order and the sheet renders separately.
+            content: goalsPanel && (
+              <div className="space-y-5">
+                {goalsPanel}
+                {hasTeamsheet && <div className="sm:hidden">{teamsheetPanel}</div>}
+              </div>
+            ),
+          },
+          // On mobile the lineup is reached by scrolling the goals tab, so drop
+          // its tab button there; it still stacks as its own section on desktop.
+          { id: "sheet", label: "Lineup", content: teamsheetPanel, desktopOnly: hasGoalsPanel && hasTeamsheet },
           { id: "details", label: "Details", content: detailsPanel },
           { id: "context", label: "Context", content: contextPanel },
           { id: "sources", label: "Sources", content: sourcesPanel },
