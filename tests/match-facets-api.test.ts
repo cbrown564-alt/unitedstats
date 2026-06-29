@@ -9,7 +9,7 @@ const SITE = "https://unitedstats.vercel.app";
 test("GET /api/v1/matches/facets returns contextual facet counts", async () => {
   const res = await GET(new Request(`${SITE}/api/v1/matches/facets?venue=H`));
   assert.equal(res.status, 200);
-  const body = (await res.json()) as { data: Record<string, Record<string, number>> };
+  const body = (await res.json()) as { data: Record<string, Record<string, number>>; attribution?: unknown };
   const expected = matchFacetCounts({ venue: "H" });
   assert.deepEqual(body.data.opponent, expected.opponent);
   assert.ok(Object.keys(body.data.competition).length > 0);

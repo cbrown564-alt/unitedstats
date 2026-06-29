@@ -5,7 +5,7 @@ import {
   seasonIndicesForDecade,
   seasonIndicesFromParams,
   seasonsAscending,
-} from "../lib/seasonBounds.ts";
+} from "../lib/seasonBounds";
 
 const SEASONS = ["2025-26", "2024-25", "1999-00", "1998-99", "1886-87"];
 
