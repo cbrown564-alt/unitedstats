@@ -119,17 +119,77 @@ All green: `tsc` clean, 140 tests pass, `knip` clean, lint clean on touched file
 - **Treble is the template.** The move that worked — find the bespoke shape that
   already exists, make the chart the argument, add the dramatic story the data
   already carries — is the playbook for `rivalries` and `ferguson`.
+- **Agreed scope: floor + earned.** Moves 1–2 on every elevated card; moves 3–4
+  only where the card has a genuine second act. Not the full treble budget each
+  time — that would re-create the sprawl this pass is fighting. **Rivalries first**
+  (self-contained, no `/decline` retirement entangled), then `ferguson`.
+
+## The Treble template, distilled — the playbook for the rest
+
+_What actually moved the treble card from "faithful but flat" to a showpiece,
+abstracted into transferable moves. This is the part to agree on before applying
+it to the other cards. The five moves are in priority order; a card climbs as far
+up as it earns, not all the way by default (see the restraint counterweight)._
+
+**Move 1 — Lead with a shape that argues.** The hero visual should encode the
+answer so the eye gets it before the prose does. The treble's `ResultSpine` of all
+63 matches *is* the relentlessness — wins above, losses below, trophies marked.
+The rule underneath: **reach for the bespoke chart that fits the dimension, not a
+generic primitive.** A season wants a spine; head-to-heads want a rivalry map; a
+reign wants a time axis. `InspectableBarChart` and the stacked `WdlBar` are the
+tells of a flat card.
+
+**Move 2 — Crown one moment; don't grid equals.** The European Cup final is
+elevated (gold glow, a from-behind caption) while the other two deciders support
+it. Four equal-weight ledgers read like a directory; a card needs a focal point.
+Pick the single match / rivalry / reign that carries the charge and give it
+hierarchy.
+
+**Move 3 — Surface the drama the data already holds.** The record carries
+stoppage-time goals (90+1, 90+3), a comeback from 2-0 — a flat card buries them in
+a scoreline. Show the minute-stamped, named specifics (via `MatchFlow`); *derive*
+"dramatic" from the timing rather than asserting it.
+
+**Move 4 — Add a second beat — the backstory.** "How it was forged" (the two
+semi-final comebacks) gives the card a second act past the headline. The aggregate
+is the claim; the specific nights are the proof you actually remember.
+
+**Move 5 — Write like a fan, derive like an analyst.** Plain, warm captions;
+factual claims grounded in the record ("first English club" — derived, not
+asserted); no templated finding-voice, no overreach.
+
+**The restraint counterweight (this is a restraint pass).** Not every card climbs
+all five rungs. The treble is sacred and earns a hero + two full sections. **Moves
+1–2 are the floor** — every elevated card needs the right shape and a focal point.
+**Moves 3–4 are earned** — only cards with a genuine second act get the backstory
+treatment. Spending the full treble budget on every card is its own kind of sprawl,
+and the wrong default for this pass.
+
+**Reuse finding that makes this cheap.** Both bespoke shapes the next two cards
+want *already exist and are already wired* — to their browsing pages, not the
+question cards. This is exactly the `ResultSpine` situation (built, tested, used on
+`/matches`, just not on the treble card):
+
+| Card | Bespoke shape | Already used on | Not yet on |
+| --- | --- | --- | --- |
+| rivalries | `OpponentRivalryMap` | `/opponents` | the rivalries card |
+| ferguson | `ManagerTimeline` | `/managers` | the ferguson card |
+
+So elevating `rivalries` and `ferguson` is mostly wiring + curation, not new chart
+work — the expensive part is choosing the right focal match/reign and the copy.
 
 ## Open / next
 
-- **Rivalries** — swap the WDL bar grid for `OpponentRivalryMap`; promote one
-  charged match per ledger (the 6-1, the 4-0s, the title-deciders) to a hero
-  slot; give each rivalry its emotional beat, not just its aggregate W-D-L.
-- **Ferguson** — swap the PPG bar chart for a `ManagerTimeline`-style reign
+- **Rivalries** — moves 1+2. Swap the WDL bar grid for `OpponentRivalryMap` (move
+  1), promote one charged match per ledger (the 6-1, the 4-0s, the title-deciders)
+  to a focal slot (move 2). Stop there: four rivalries already give the card
+  breadth — don't also bolt on a backstory section (restraint counterweight).
+- **Ferguson** — moves 1+4. Swap the PPG bar chart for a `ManagerTimeline` reign
   visual (every manager on a shared time axis, Ferguson's bar stretching across
-  the page, PPG as tint). Absorb the decline before/after as a supporting chart.
-  Retire `/decline` from the front door.
-- **Europe** — still "a bit dry"; the finals grid is good, the decade bars are
-  generic. Revisit after rivalries and ferguson.
+  the page, PPG as tint — move 1), and absorb the decline before/after as the
+  supporting second beat (move 4). Retire `/decline` from the front door.
+- **Europe** — lower priority. The finals grid is already a bespoke shape (move 1
+  done); what's "dry" is the missing drama — the two European Cup finals' own
+  stories (move 3). Revisit after rivalries and ferguson.
 - **Phase 3** — collapse the slice-sprawl, and apply principle 2 to `/compare`
   (like-for-like, role-appropriate metrics).
