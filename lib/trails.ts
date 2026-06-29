@@ -1,6 +1,12 @@
 import { getDb } from "./db";
 import { tallyWdl } from "./format";
+import { roundFilterPredicate } from "./matchRounds";
 import { CUP_WON_PREDICATE, MATCH_SELECT, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
+
+/** One-off final only — excludes semis *and* quarter-finals (which contain the
+ *  substring "final"). Shared with the matches browser so the definition can't
+ *  drift. */
+const FINAL_PREDICATE = roundFilterPredicate("final", "m");
 
 const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
@@ -1006,7 +1012,7 @@ function decidingFinal(season: string, competitionId: string): SequenceMatch | n
       .prepare(
         `SELECT ${SEQ_SELECT} FROM matches m JOIN competitions c ON c.id = m.competition_id
          WHERE m.season = ? AND m.competition_id = ?
-           AND m.round LIKE '%final%' AND m.round NOT LIKE '%semi%'
+           AND ${FINAL_PREDICATE}
          ORDER BY m.date DESC LIMIT 1`,
       )
       .get(season, competitionId) as SequenceMatch | undefined) ?? null
@@ -1038,7 +1044,7 @@ export function europeanFinals(): (SequenceMatch & { outcome: string; won: boole
       `SELECT ${SEQ_SELECT}, m.outcome
        FROM matches m JOIN competitions c ON c.id = m.competition_id
        WHERE (c.type = 'european' OR c.id = 'uefa-super-cup')
-         AND m.round LIKE '%final%' AND m.round NOT LIKE '%semi%'
+         AND ${FINAL_PREDICATE}
        ORDER BY m.date`,
     )
     .all() as (SequenceMatch & { outcome: string })[];

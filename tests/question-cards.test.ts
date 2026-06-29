@@ -17,8 +17,9 @@ import test from "node:test";
 import { QUESTIONS } from "../lib/questions";
 import { questionHeadlines } from "../lib/questionHeadlines";
 import { questionAnswer } from "../lib/questionCardData";
-import { leadHeldAtHome } from "../lib/trails";
+import { leadHeldAtHome, europeanFinals } from "../lib/trails";
 import { topScorers } from "../lib/queries";
+import { getDb } from "../lib/db";
 import { fmtNum } from "../lib/format";
 
 // Questions that render a data-driven OG card. The new front-door questions
@@ -114,4 +115,30 @@ test("fortress: every surface reports the real unbeaten run, never a stale 0", (
     assert.equal(a.visual.l, 0, "the card's modern run shows no losses");
     assert.equal(a.visual.w + a.visual.d, run, "the card's W+D should equal the run length");
   }
+});
+
+test("europe: finals are one-off deciders, not quarter-finals", () => {
+  // The round filter once read `round LIKE '%final%'`, which matches the substring
+  // in "Quarter-final" — inflating United's European finals from 10 to 65 (and the
+  // trophy count from 5 to 32). These guards re-derive independently so the bug
+  // can't return: a magnitude bound, and no final may share an id with a QF tie.
+  const finals = europeanFinals();
+  assert.ok(finals.length > 0, "should find European finals");
+  assert.ok(
+    finals.length <= 15,
+    `implausible European-final count (${finals.length}) — quarter-finals leaking through the round filter?`,
+  );
+  assert.ok(finals.filter((f) => f.won).length <= finals.length, "won finals can't exceed finals");
+
+  const qfIds = new Set(
+    (
+      getDb()
+        .prepare(
+          `SELECT m.id FROM matches m JOIN competitions c ON c.id = m.competition_id
+           WHERE (c.type = 'european' OR c.id = 'uefa-super-cup') AND m.round LIKE '%quarter%'`,
+        )
+        .all() as { id: string }[]
+    ).map((r) => r.id),
+  );
+  assert.ok(finals.every((f) => !qfIds.has(f.id)), "a quarter-final is being counted as a European final");
 });
