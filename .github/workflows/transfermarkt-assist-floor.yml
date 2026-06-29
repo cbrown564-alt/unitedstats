@@ -1,6 +1,6 @@
 name: Transfermarkt assist floor
 
-# Phase A of docs/ASSISTS-PLAN.md: probe how far back transfermarkt-datasets
+# Assist-source investigation, transfermarkt lane (docs/SOURCE-AUDIT.md, Assists): probe how far back transfermarkt-datasets
 # carries assists, to recover 2010-11 / 2011-12 if the data exists. GitHub-hosted
 # runners have open egress and can reach the dataset's R2 bucket. This job is
 # dry-run only by default (no write, no push); flip `write` to persist a backfill

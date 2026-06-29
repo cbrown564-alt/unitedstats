@@ -1,6 +1,6 @@
 name: MUFCInfo assist records probe
 
-# Phase C feasibility probe (docs/ASSISTS-PLAN.md): do MUFCInfo's AGGREGATE pages
+# Assist-source feasibility probe (docs/SOURCE-AUDIT.md, Assists): do MUFCInfo's AGGREGATE pages
 # (career/season stat tables, individual player-archive pages) carry assist
 # columns, and how far back? Read-only, no canonical writes, no push. Runs on
 # GitHub-hosted runners which can reach mufcinfo.com.

@@ -1,7 +1,7 @@
 name: MUFCInfo assist spike
 
-# Manual, read-only verification of the MUFCInfo assist lane (docs/ASSISTS-PLAN.md
-# Phase B). GitHub-hosted runners have open outbound internet, so they can reach
+# Manual, read-only verification of the MUFCInfo assist lane (closed — see
+# docs/SOURCE-AUDIT.md, Assists). GitHub-hosted runners have open outbound internet, so they can reach
 # mufcinfo.com. This job only runs --inspect / dry-run; it never writes canonical
 # data or pushes, so it cannot affect the deployed site.
 
