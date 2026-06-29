@@ -27,6 +27,15 @@ import { scoreline, fmtRound, resultTone } from "./format";
  *     deficit) for an on-this-day night that has no authored line. Instrument
  *     voice; fires only where goal-minute / half-time data exists.
  */
+/** One United goal, placed for the "shape of the night" strip: `pos` is its spot
+ *  on a 0→full-time axis (0–1); stoppage-time goals carry a label and cluster at
+ *  the right, so a night that turned at the death reads as marks bunched at the end. */
+export interface GoalMark {
+  pos: number;
+  stoppage: boolean;
+  label: string | null;
+}
+
 export interface GreatNight {
   id: string;
   href: string;
@@ -42,8 +51,12 @@ export interface GreatNight {
   tone: string;
   /** competition · round? · stadium? — the orienting meta line. */
   meta: string;
-  /** The one supporting line: an authored stake, else derived texture, else null. */
+  /** The emotional lead: an authored stake, else derived texture, else null (then
+   *  the scoreline leads instead). */
   line: string | null;
+  /** United goals as marks on the match clock — the shape of the night, where data
+   *  exists. Empty when no goal minutes are recorded. */
+  marks: GoalMark[];
   cta: string;
 }
 
@@ -66,7 +79,6 @@ export const CURATED_NIGHTS: CuratedSpec[] = [
   { id: "2008-05-21-chelsea-n", stakes: "Settled on penalties in the Moscow rain, a second European Cup." },
   { id: "1991-05-15-barcelona-n", stakes: "Two from Mark Hughes against his old club — Europe, back at last." },
   { id: "2017-05-24-afc-ajax-n", stakes: "The one trophy still missing from the cabinet, finally claimed." },
-  { id: "2025-04-17-olympique-lyonnais-h", stakes: "Nine goals, the winner deep in stoppage time of extra time." },
 
   // — Finals and silverware —
   { id: "1948-04-24-blackpool-n", stakes: "Matt Busby's first trophy, in one of Wembley's great finals." },
@@ -83,7 +95,12 @@ export const CURATED_NIGHTS: CuratedSpec[] = [
   { id: "1999-04-14-arsenal-n", stakes: "Giggs, from inside his own half, to keep the Treble alive." },
   { id: "1999-05-16-tottenham-hotspur-h", stakes: "Come from behind on the final day to take the title — the Treble's first leg." },
   { id: "2001-09-29-tottenham-hotspur-a", stakes: "Three down at half-time at White Hart Lane, five scored after it." },
-  { id: "2024-03-17-liverpool-h", stakes: "An FA Cup tie that would not end, settled deep in extra time." },
+
+  // — Modern nights —
+  { id: "2011-08-28-arsenal-h", stakes: "Arsenal on the wrong end of one of Old Trafford's great routs." },
+  { id: "2009-09-20-manchester-city-h", stakes: "Michael Owen, deep into stoppage time, to settle a seven-goal derby." },
+  { id: "2019-03-06-paris-saint-germain-a", stakes: "Two down from the first leg, through on a penalty in the last minute in Paris." },
+  { id: "2013-04-22-aston-villa-h", stakes: "Van Persie's volley, and a twentieth league title — Ferguson's last." },
 ];
 
 /** Zero-based day index within the UTC year — the deterministic rotation seed,
@@ -145,14 +162,15 @@ function qualifiesAsLead(m: MatchRow): boolean {
   return m.outcome === "W" && stoppage.length >= 2;
 }
 
+type Goal = { minute: number | null; added_time: number | null };
+
 /** The derived supporting line for a night with no authored stake — the half-time
  *  deficit if there was one, else stoppage-time goals. Null when neither applies. */
-function texture(m: MatchRow): string | null {
+function texture(m: MatchRow, goals: Goal[]): string | null {
   if (m.outcome === "W" && m.ht_ga != null && m.ht_gf != null && m.ht_ga - m.ht_gf >= 2) {
     return `${numWord(m.ht_ga - m.ht_gf)} down at half-time.`;
   }
   if (m.outcome !== "W") return null;
-  const goals = unitedGoalMinutes(m.id);
   const stoppage = goals.filter((g) => (g.minute ?? 0) >= 90);
   if (stoppage.length >= 2) return `${numWord(stoppage.length)} goals in stoppage time.`;
   const last = goals[goals.length - 1]?.minute ?? 0;
@@ -160,10 +178,29 @@ function texture(m: MatchRow): string | null {
   return null;
 }
 
+/** United goals as marks on a 0→full-time axis. Regular goals map 0–90 onto the
+ *  first ~92% of the track; stoppage-time goals (90'+) cluster into the final
+ *  stretch and carry a label, so a night won at the death reads at a glance. */
+function goalMarks(goals: Goal[]): GoalMark[] {
+  return goals
+    .filter((g) => g.minute != null)
+    .map((g) => {
+      const minute = g.minute as number;
+      const stoppage = minute >= 90;
+      const eff = minute + (g.added_time ?? 0);
+      const pos = stoppage
+        ? Math.min(1, 0.92 + Math.min(eff - 90, 8) / 8 * 0.08)
+        : (minute / 90) * 0.92;
+      return { pos, stoppage, label: stoppage ? `90+${g.added_time ?? Math.max(1, minute - 90)}` : null };
+    });
+}
+
 /** Build the served-night object from a match row. `stakes` (when curated) takes
- *  the supporting line; otherwise it falls to derived texture. */
+ *  the supporting line; otherwise it falls to derived texture. One goal-minute
+ *  query, reused for both the texture and the shape strip. */
 function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | null, live: boolean): GreatNight {
   const metaParts = [m.competition_name, fmtRound(m.round), m.stadium_name].filter(Boolean) as string[];
+  const goals = unitedGoalMinutes(m.id);
   return {
     id: m.id,
     href: `/match/${m.id}`,
@@ -175,7 +212,8 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
     opponent: m.opponent_name,
     tone: resultTone(m.outcome),
     meta: metaParts.join(" · "),
-    line: stakes ?? texture(m),
+    line: stakes ?? texture(m, goals),
+    marks: goalMarks(goals),
     cta: "See the night",
   };
 }
@@ -202,20 +240,33 @@ export function greatNights(now = new Date()): { nights: GreatNight[]; seed: num
     return m ? build(m, "great-night", c.stakes, false) : null;
   }).filter((n): n is GreatNight => n !== null);
 
-  // The day's candidate: onThisDay already ranks the date's matches editorially;
-  // we take its lead and gate it on the spectacle floor.
+  // The day's lead, in priority order:
+  //   1. A curated night on its own anniversary — hand-vouched, so it earns the
+  //      on-this-day lead whatever its scoreline (the spectacle floor only gates
+  //      the un-curated serendipity path). Checked against the pool's own dates,
+  //      not onThisDay's single pick, so the 4–3 derby lights up on its day even
+  //      when a bigger match elsewhere in history shares the date.
+  //   2. Otherwise the day's most significant match, if it clears the floor.
   const todayKey = monthDayOfDate(now);
-  const leadId = onThisDay(todayKey).lead?.id;
-  const leadRow = leadId ? matchById(leadId) : undefined;
+  const curatedTodayId = CURATED_NIGHTS.find((c) => monthDayOf(c.id) === todayKey)?.id;
+  let leadRow: MatchRow | undefined;
+  if (curatedTodayId) {
+    leadRow = matchById(curatedTodayId);
+  } else {
+    const otdId = onThisDay(todayKey).lead?.id;
+    const row = otdId ? matchById(otdId) : undefined;
+    if (row && qualifiesAsLead(row)) leadRow = row;
+  }
 
-  if (leadRow && qualifiesAsLead(leadRow)) {
-    const poolIndex = pool.findIndex((n) => n.id === leadRow.id);
+  if (leadRow) {
+    const row = leadRow; // a const, so narrowing survives into the closure below
+    const poolIndex = pool.findIndex((n) => n.id === row.id);
     if (poolIndex >= 0) {
       // The day's match is itself a curated night — reframe it in place and open there.
-      pool[poolIndex] = build(leadRow, "on-this-day", stakeById.get(leadRow.id) ?? null, true);
+      pool[poolIndex] = build(row, "on-this-day", stakeById.get(row.id) ?? null, true);
       return { nights: pool, seed: poolIndex };
     }
-    const lead = build(leadRow, "on-this-day", stakeById.get(leadRow.id) ?? null, true);
+    const lead = build(row, "on-this-day", stakeById.get(row.id) ?? null, true);
     return { nights: [lead, ...pool], seed: 0 };
   }
 

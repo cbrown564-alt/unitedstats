@@ -100,7 +100,7 @@ export default function Home() {
           another, and the steer beneath is for the reader who arrives with a name
           rather than a mood. The skyline-and-scope hero that used to lead is now the
           foundation beat below. */}
-      <TonightHero nights={nights} seed={seed}>
+      <TonightHero nights={nights} seed={seed} era={{ first: Number(firstYear), last: new Date().getFullYear() }}>
         <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-faint">
           Or follow a name — a player, a rival, an era
         </p>
@@ -124,7 +124,7 @@ export default function Home() {
           </p>
           <h2 className="display text-3xl sm:text-4xl leading-[0.97] text-balance max-w-3xl">
             One thread through{" "}
-            <span className="text-devil-bright">Manchester United’s</span> whole history
+            <span className="text-devil-bright">Manchester United’s</span> history
           </h2>
           <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
             {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
