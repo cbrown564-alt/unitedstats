@@ -48,15 +48,82 @@ function Scorers({ scorers }: { scorers: GreatNight["scorers"] }) {
 }
 
 /**
+ * The Red Thread, made literal — and made the monument. The luminous spine down
+ * the left is read as the match clock: kickoff at the top, full time at the foot.
+ * Every United goal is a bead at its real minute and the last is the gold knot, so
+ * a late flurry collapses onto the foot and you see the drama as a *shape* before
+ * you read a word (1999's two beads jammed at the bottom, the top three-quarters
+ * empty). On load the spine wipes in top→foot, the beads pop in scoring order and
+ * the knot blooms last — the late winner arrives late.
+ *
+ * Falls back to the static spine when a night's goal minutes aren't on record; the
+ * ghosted-year monument (rendered by the hero) then carries the night instead.
+ */
+function ThreadTimeline({ timeline }: { timeline: GreatNight["timeline"] }) {
+  const SPINE = "left-8 sm:left-14"; // the spine's x, inside the content inset
+
+  if (timeline.length === 0) {
+    return (
+      <>
+        <div className={`pointer-events-none absolute inset-y-0 ${SPINE} w-px bg-[linear-gradient(to_bottom,transparent,rgb(255_59_31_/0.6)_42%,rgb(255_59_31_/0.6)_58%,transparent)]`} aria-hidden />
+        <div className={`pointer-events-none absolute top-1/2 ${SPINE} h-48 w-1 -translate-x-1/2 -translate-y-1/2 bg-devil-bright/40 blur-md`} aria-hidden />
+        <span className={`pointer-events-none absolute top-1/2 ${SPINE} h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_24px_6px_rgb(245_197_24_/0.45)]`} aria-hidden />
+      </>
+    );
+  }
+
+  // The clock frame: 0' at the top, full time at the foot. The axis runs to 96'
+  // (or past the latest goal, for extra time), mapped into a band that leaves the
+  // spine bleeding off the top and foot of the stage.
+  const TOP = 12;
+  const SPAN = 76;
+  const axisMax = Math.max(96, ...timeline.map((g) => g.clock + 4));
+  const y = (clock: number) => TOP + (clock / axisMax) * SPAN;
+  const winnerClock = timeline[timeline.length - 1].clock;
+
+  return (
+    <>
+      <div className={`thread-line pointer-events-none absolute inset-y-0 ${SPINE} w-px bg-[linear-gradient(to_bottom,transparent,rgb(255_59_31_/0.5)_12%,rgb(255_59_31_/0.5)_88%,transparent)]`} aria-hidden />
+      {/* Half-time: the one quiet mark that gives the clock a middle, so a low bead reads as late. */}
+      <span className={`pointer-events-none absolute ${SPINE} h-px w-2.5 -translate-x-1/2 bg-ink-faint/25`} style={{ top: `${y(45)}%` }} aria-hidden />
+      {/* Light gathered at the goal that settled it, blooming in with the knot. */}
+      <span
+        className={`thread-bead pointer-events-none absolute ${SPINE} h-20 w-1.5 -translate-x-1/2 -translate-y-1/2 bg-gold/25 blur-md`}
+        style={{ top: `${y(winnerClock)}%`, animationDelay: `${360 + (timeline.length - 1) * 150}ms` }}
+        aria-hidden
+      />
+      {timeline.map((g, i) =>
+        g.winner ? (
+          <span
+            key={i}
+            className={`thread-knot pointer-events-none absolute ${SPINE} h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_24px_6px_rgb(245_197_24_/0.5)]`}
+            style={{ top: `${y(g.clock)}%`, animationDelay: `${360 + i * 150}ms` }}
+            aria-hidden
+          />
+        ) : (
+          <span
+            key={i}
+            className={`thread-bead pointer-events-none absolute ${SPINE} h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-devil-bright shadow-[0_0_10px_2px_rgb(255_59_31_/0.5)]`}
+            style={{ top: `${y(g.clock)}%`, animationDelay: `${360 + i * 150}ms` }}
+            aria-hidden
+          />
+        ),
+      )}
+    </>
+  );
+}
+
+/**
  * The first-contact spark (CONTEXT.md §6): the front door *is* the gate, so it is
  * built like nothing else on the site — not a panel among panels, but one floodlit
  * stage carrying a single match-night.
  *
  * The composition is the signature: the brand's Red Thread runs down the left as a
- * luminous spine and holds the night at its knot; the match-winner looms as a faded
- * portrait bled off the right; the story line is the editorial lead; and the match
- * itself is given real presence — full scoreline and the goalscorers with their
- * minutes, the line a fan recites from memory. No card, no grid, no metric tiles.
+ * luminous spine read as the match clock, holding each goal as a bead at its minute
+ * and the winner as the knot (see ThreadTimeline); the story line is the editorial
+ * lead; and the match itself is given real presence — full scoreline and the
+ * goalscorers with their minutes, the line a fan recites from memory. No card, no
+ * grid, no metric tiles.
  *
  * Progressive enhancement, mirroring SurpriseReveal: the server renders
  * `nights[seed]`, so a shared link or a no-JS visit shows a real night with a
@@ -128,20 +195,10 @@ export function TonightHero({
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_14%_24%,rgba(216,33,13,0.18),transparent_60%)]" aria-hidden />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_45%_45%,transparent_38%,rgba(0,0,0,0.66))]" aria-hidden />
 
-        {/* The Red Thread — a luminous spine down the left, brightest at the knot
-            that holds the night, bleeding off the top and foot of the stage. */}
-        <div
-          className="pointer-events-none absolute inset-y-0 left-8 w-px bg-[linear-gradient(to_bottom,transparent,rgb(255_59_31_/0.65)_42%,rgb(255_59_31_/0.65)_58%,transparent)] sm:left-14"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute left-8 top-1/2 h-48 w-1 -translate-x-1/2 -translate-y-1/2 bg-devil-bright/40 blur-md sm:left-14"
-          aria-hidden
-        />
-        <span
-          className="pointer-events-none absolute left-8 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_24px_6px_rgb(245_197_24_/0.45)] sm:left-14"
-          aria-hidden
-        />
+        {/* The Red Thread, made the monument: the spine read as the match clock,
+            every United goal a bead at its minute, the winner the gold knot. Keyed
+            by night so the re-roll re-draws the new shape. */}
+        <ThreadTimeline key={`thread-${night.id}`} timeline={night.timeline} />
 
         {/* The night, hung off the thread. */}
         <div

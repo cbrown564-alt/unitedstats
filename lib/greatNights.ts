@@ -58,6 +58,11 @@ export interface GreatNight {
   line: string | null;
   /** United's goals as name + minute — who scored, when. The soul of the match. */
   scorers: { name: string; minute: string }[];
+  /** The night's own shape for the thread-as-timeline monument: each United goal
+   *  placed on the match clock (minute incl. stoppage), the last flagged as the
+   *  knot. Empty when goal minutes aren't on record — the hero then falls back to
+   *  the ghosted-year monument rather than fake a position. */
+  timeline: { clock: number; label: string; name: string; winner: boolean }[];
   /** A face to carry the night: the match-winner's (last United scorer's) portrait,
    *  used as a faded monument. Null when no scorer image is on file. */
   image: { src: string; name: string } | null;
@@ -205,6 +210,18 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
   const goals = eventsForMatch(m.id).filter((e) => e.type === "goal" && e.player_side === "united");
   const scorers = goals.map((e) => ({ name: e.player_display_name ?? "—", minute: minuteText(e.minute, e.added_time) }));
   const winner = [...goals].reverse().find((e) => e.player_id);
+  // The night's shape for the thread monument: every United goal on the match
+  // clock, the last flagged as the knot. Only when every goal's minute is on
+  // record — otherwise empty, and the hero falls back to the ghosted year.
+  const timeline =
+    goals.length > 0 && goals.every((e) => e.minute != null)
+      ? goals.map((e, i) => ({
+          clock: (e.minute as number) + (e.added_time ?? 0),
+          label: minuteText(e.minute, e.added_time),
+          name: e.player_display_name ?? "—",
+          winner: i === goals.length - 1,
+        }))
+      : [];
   return {
     id: m.id,
     href: `/match/${m.id}`,
@@ -218,6 +235,7 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
     meta: metaParts.join(" · "),
     line: stakes ?? texture(m, goals.map((e) => ({ minute: e.minute, added_time: e.added_time }))),
     scorers,
+    timeline,
     image: USE_WINNER_PORTRAIT && winner?.player_id ? winnerImage(winner.player_id, winner.player_display_name ?? "") : null,
     cta: "See the night",
   };
