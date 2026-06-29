@@ -359,3 +359,88 @@ as a course correction.
 - **Reusable scraps in the stash** — the `Module` `visualLabel` fix (treble's spine
   is mislabelled "The map") and the throwaway insight that PPG is the wrong Ferguson
   axis are worth keeping regardless of the surface's fate.
+
+---
+
+## Session 3 (2026-06-29): the restraint pass leaves the front door
+
+_Session 2 deferred the `/questions` and `/explore` rethink and said: pivot the
+restraint lens to the other surfaces. The user then reviewed `/`, `/players`,
+`/managers`, and `/matches` on screen and dropped annotated screenshots into
+`docs/feedback/{homepage,players,managers,seasons}/`. This session reads that
+feedback, names the patterns under it, ships the unambiguous fixes, and parks the
+product-judgment calls for a steer. The front-door fusion (spark + record into one
+continuous thread; `EntryChips` and the re-roll removed) shipped first as `795cc63`
+— which already answers two of the homepage notes (the "uninspired pills" and the
+absent "Today in the Record" freshness block, the latter also CONTEXT.md's call)._
+
+### Four patterns under the feedback (the durable read)
+
+1. **Dense micro-visuals too small to perceive.** The player **career sparkline**
+   ("completely imperceptible"), the manager **per-row mini W/D/L bars** ("each
+   slice is so tiny… only because I'm trying really hard"), and the players
+   **LEADERS** block ("scanning too many numbers, can't see anything at a glance").
+   The lesson: _a chart you can't read at its rendered size is worse than the honest
+   number or span it replaced._ Either give the shape real room (a hero) or drop to
+   a span/figure — don't ship a chart-shaped thing that doesn't resolve.
+2. **Garden-path data** — violates CONTEXT.md's "respect the user: reliable data,
+   no garden path." Assists **`0`** reads as "scored none" when it means "not
+   recorded" (coverage starts 1987-88); the season group **"10 matches"** reads as
+   the season total when it's only the slice on this page. Honesty fixes, not taste.
+3. **Sections that don't earn their space** (the restraint lens proper). Homepage
+   **All-time peaks** ("Borrrrring, no-one cares"; the 33-match unbeaten run is
+   "iconic… but the all-time record does that already"); `EntryChips` (cut ✓);
+   "Today in the Record" (gone ✓); question-card prose ("TOO MANY WORDSSSSSS").
+4. **Encapsulation that reads as a barrier.** The matches **search/filter box**
+   ("feels like a barrier, a blocker… something to do with the encapsulation, the
+   positioning, the flow — something awkward") and the question cards ("what can we
+   do with the red thread instead?"). The chrome sits between the reader and the
+   data instead of inviting them in.
+
+### Per-surface verdict
+
+| Surface | Item | Pattern | Verdict |
+| --- | --- | --- | --- |
+| players | career sparkline | 1 | **Replace** → career-span barbell/timeline (needs a call) |
+| players | shirt-number colour | 3 | **Fix** — blend in the register (shipped) |
+| players | assists `0` | 2 | **Fix** — `–` when era uncovered (shipped) |
+| players | hero scatter | — | _Defer_ — "tells me less the more I look"; reward depth or stop promising it |
+| players | LEADERS | 1 | _Defer_ — "needs another look"; too many numbers |
+| managers | clipped labels | 2 | **Fix** — truncate within segment (shipped) |
+| managers | per-row mini-bars | 1 | **Replace** (needs a call) |
+| managers | hero "blocky/clunky" | — | _Defer_ — "what else could we do?" (redesign) |
+| matches | "Europa Lg" on wide | 2 | **Fix** — full name at `xl` (shipped) |
+| matches | "10 matches" count | 2 | **Fix** — honest "of N" (needs season totals) |
+| matches | season transition / bar spacing | — | Polish (small) |
+| matches | search box "barrier" | 4 | _Defer_ — reframe (conceptual) |
+| home | All-time peaks "boring" | 3 | _Decide_ — cut / rethink |
+| home | question cards "too many words" / "what else" | 3,4 | _Defer_ — collides with the parked `/questions` surface |
+| home | Latest-results truncation | — | **Fixed** in `795cc63` (MatchList min-width floor) |
+
+### Shipped this session
+
+- **Matches — full competition name on wide screens.** `MatchList` desktop meta
+  rail now shows `m.competition_name` at `xl` (mirroring the opponent-name pattern),
+  short label below; the truncating track no longer forces "Europa Lg" where there's
+  room for "Europa League".
+- **Players — assists honesty.** Register Assists column renders `–` for players
+  whose career ends before assist coverage (1987-88) instead of a misleading `0`;
+  covered-era zeros stay `0`. (The "Most assists" leaderboard already carried the
+  coverage note.)
+- **Players — shirt colour blended.** New `plain` variant on `ShirtBadge` drains the
+  decade-tint to neutral; used only in the register (the tint stays meaningful in
+  `PlayerPlate`'s shirt history and `FormationPitch`'s lineup).
+- **Managers — labels stop clipping.** Surname labels truncate within their own
+  segment, so a narrow tenure's name is never painted over by the next bar.
+
+### Open decisions for the next steer (parked, not abandoned)
+
+- **The "too-small visual" replacements** (career sparkline, manager mini-bars):
+  barbell/span vs. drop entirely. Same call on both — pick one treatment.
+- **Homepage All-time peaks**: cut, or rethink into something that isn't redundant
+  with the all-time record below it.
+- **The conceptual heroes** (players scatter, managers timeline) and the **matches
+  search box** "barrier" — these are redesigns; need direction before building.
+- **Question cards** — `TOO MANY WORDSSSSSS` is a quick copy trim, but "what can we
+  do with the red thread instead?" reopens the **deferred `/questions` surface**
+  (Session 2). Don't redesign it here; trim the prose at most, or hold.

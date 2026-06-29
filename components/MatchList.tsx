@@ -50,6 +50,12 @@ export function MatchList<T extends MatchRow>({
   const cols = renderExtra
     ? "grid-cols-[auto_auto_1fr_auto] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto_auto]"
     : "grid-cols-[auto_auto_1fr] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto]";
+  // The meta rail's competition track is sized for the short label down to lg, then
+  // widened at xl where the row has the room to spell competitions out in full
+  // (so "Europa League" no longer has to read "Europa Lg" on a wide screen).
+  const metaCols = showSeason
+    ? "[grid-template-columns:3.75rem_minmax(0,9rem)_minmax(0,8rem)] xl:[grid-template-columns:3.75rem_minmax(0,11rem)_minmax(0,8rem)]"
+    : "[grid-template-columns:minmax(0,9rem)_minmax(0,8rem)] xl:[grid-template-columns:minmax(0,11rem)_minmax(0,8rem)]";
   return (
     <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
       {matches.map((m) => {
@@ -91,17 +97,12 @@ export function MatchList<T extends MatchRow>({
             )}
             {/* Fixed-width sub-columns so season / competition / round line up
                 vertically down the list and stay scannable row to row. */}
-            <span
-              className={`hidden items-center gap-x-3 text-xs text-ink-dim sm:grid ${
-                showSeason
-                  ? "[grid-template-columns:3.75rem_minmax(0,9rem)_minmax(0,8rem)]"
-                  : "[grid-template-columns:minmax(0,9rem)_minmax(0,8rem)]"
-              }`}
-            >
+            <span className={`hidden items-center gap-x-3 text-xs text-ink-dim sm:grid ${metaCols}`}>
               {showSeason && <span className="stat-num whitespace-nowrap text-ink-faint">{m.season}</span>}
               <span className="flex min-w-0 items-center gap-1.5" title={m.competition_name}>
                 <CompetitionDot type={m.competition_type} />
-                <span className="truncate">{competitionShortName(m.competition_id, m.competition_name)}</span>
+                <span className="truncate xl:hidden">{competitionShortName(m.competition_id, m.competition_name)}</span>
+                <span className="hidden truncate xl:inline">{m.competition_name}</span>
               </span>
               <span className="min-w-0">
                 <span className="flex min-w-0 items-center gap-1.5 text-ink-dim" title={m.round ?? undefined}>

@@ -21,6 +21,11 @@ type PlayerSortKey = "name" | "shirt" | "apps" | "starts" | "goals" | "assists" 
 
 const DEFAULT_PLAYER_SORT: PlayerSortKey = "goals";
 
+// Combined assists are curated from 1987-88 on (and match-event–sourced after
+// 2014-15); nothing earlier carries assist data. Used to show "–" rather than a
+// misleading "0" for players whose career ends before coverage begins.
+const ASSIST_COVERAGE_FROM_YEAR = 1987;
+
 const PLAYER_SORT_DEFAULTS: Record<PlayerSortKey, SortDirection> = {
   name: "asc",
   shirt: "asc",
@@ -389,6 +394,7 @@ export default async function PlayersPage({
                 decade={p.primary_shirt_decade}
                 apps={p.primary_shirt_apps}
                 compact
+                plain
               />
             ),
           },
@@ -453,7 +459,17 @@ export default async function PlayersPage({
             sortKey: "assists",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
             sortLabel: "assists",
-            render: (p) => <span className="text-ink-dim">{p.assists || "0"}</span>,
+            // Assist coverage begins in 1987-88; a player whose career ends before
+            // then has no assist data, so a bare "0" would be a garden-path number
+            // (reads as "none" when it means "not recorded"). Show "–" for those,
+            // and keep the real figure — including a genuine 0 — from 1987-88 on.
+            render: (p) => {
+              const last = lastYearForPlayer(p);
+              if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
+                return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
+              }
+              return <span className="text-ink-dim">{p.assists || "0"}</span>;
+            },
           },
           {
             label: "Career",
