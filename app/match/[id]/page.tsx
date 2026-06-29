@@ -193,7 +193,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
       {!hasTimedGoals && (goals.length > 0 || opponentGoals.length > 0) && (
-        <section className="grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
+        <section className="mx-auto grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
           {goals.length > 0 && (
             <div>
               <h2 className="display mb-3 text-xl">{club} goals</h2>
@@ -240,7 +240,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
       {goals.length === 0 && m.gf > 0 && (
-        <section className="max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
+        <section className="mx-auto max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
           <h2 className="display text-xl">Goalscorers</h2>
           <p className="mt-1 text-sm text-ink-dim">
             United scored {m.gf}, but this match does not yet have goalscorer events in the canonical record.
@@ -251,7 +251,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
       {opponentGoals.length === 0 && m.ga > 0 && (
-        <section className="max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
+        <section className="mx-auto max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
           <h2 className="display text-xl">{m.opponent_name} goals</h2>
           <p className="mt-1 text-sm text-ink-dim">
             {m.opponent_name} scored {m.ga}, but opposition goalscorer events are not recorded for this match yet.
@@ -400,8 +400,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     </div>
   );
 
+  // Secondary sections share the central spine: centred and held to one column
+  // so the page reads as a single thread from the floodlit score down, rather
+  // than a tight centred lineup followed by a full-width detail strip snapping
+  // left. The story column above (timeline/lineup) sits a touch tighter; both
+  // centre on the same axis.
   const detailsPanel = (
-    <>
+    <div className="mx-auto max-w-3xl">
       <div className="space-y-4 sm:hidden">
         <h2 className="display text-xl">Match details</h2>
         {matchDetailsBody}
@@ -417,12 +422,12 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </summary>
         {matchDetailsBody}
       </details>
-    </>
+    </div>
   );
 
   const contextBody = (
     <div className="space-y-8">
-      <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
+      <div className="grid gap-8 sm:grid-cols-2">
         <div>
           <h3 className="display mb-3 text-lg">Head-to-head before</h3>
           {h2h.p > 0 ? (
@@ -465,7 +470,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   );
 
   const contextPanel = (
-    <>
+    <div className="mx-auto max-w-3xl">
       <div className="sm:hidden">
         <h2 className="display mb-4 text-xl">Context</h2>
         {contextBody}
@@ -481,11 +486,11 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </summary>
         {contextBody}
       </details>
-    </>
+    </div>
   );
 
   const sourcesBody = (
-    <div className="grid max-w-3xl gap-2 sm:grid-cols-2">
+    <div className="grid gap-2 sm:grid-cols-2">
       {[...sourceSummary.entries()].map(([sourceId, s]) => (
         <div key={sourceId} className="rounded-lg border border-line bg-panel px-4 py-3">
           <div className="flex items-start justify-between gap-3">
@@ -506,7 +511,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   );
 
   const sourcesPanel = sources.length > 0 ? (
-    <>
+    <div className="mx-auto max-w-3xl">
       <div className="sm:hidden">
         <h2 className="display mb-4 text-xl">Provenance</h2>
         {sourcesBody}
@@ -522,7 +527,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </summary>
         {sourcesBody}
       </details>
-    </>
+    </div>
   ) : null;
 
   return (
