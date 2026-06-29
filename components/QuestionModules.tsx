@@ -4,19 +4,22 @@ import {
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord, FERGUSON_END, topFlightFinishes, titlesInRange,
-  managerPpgRanking, trebleRuns, trebleDeciders, europeByDecade, europeanFinals,
-  notableMatches, opponentResultSequence, longestStreak,
+  managerPpgRanking, trebleRuns, trebleDeciders, trebleSemis,
+  europeByDecade, europeanFinals,
+  notableMatches, opponentResultSequence, longestStreak, matchesSequence,
 } from "@/lib/trails";
 import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
-import { getMeta, managerHonours, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
+import { getMeta, managerHonours, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
 import { EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
+import { ResultSpine } from "@/components/charts/ResultSpine";
+import { MatchFlow } from "@/components/MatchFlow";
 import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { DataTable } from "@/components/DataTable";
@@ -25,6 +28,7 @@ import { MatchList } from "@/components/MatchList";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { WdlBar } from "@/components/WdlBar";
 import { ClubBadge } from "@/components/ClubBadge";
+import { TrophyIcon, TROPHY_CAT_TONE } from "@/components/CampaignIcons";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { AnswerThread, type ThreadStation } from "@/components/AnswerThread";
@@ -531,87 +535,196 @@ function FergusonModule({ variant }: ModuleProps) {
 // ---- The Treble ------------------------------------------------------------
 
 function TrebleModule({ variant }: ModuleProps) {
-  const runs = trebleRuns("1998-99").filter((r) => r.won);
-  const deciders = trebleDeciders("1998-99");
-  const overall = runs.reduce((a, r) => ({ p: a.p + r.p, w: a.w + r.w, d: a.d + r.d, l: a.l + r.l, gf: a.gf + r.gf, ga: a.ga + r.ga }), { p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 });
-  // The window the trophies were decided in — derived, not asserted.
+  const season = "1998-99";
+  const runs = trebleRuns(season).filter((r) => r.won);
+  const deciders = trebleDeciders(season);
+  const semis = trebleSemis(season);
+  const seasonSeq = matchesSequence({ season });
+  const overall = runs.reduce(
+    (a, r) => ({ p: a.p + r.p, l: a.l + r.l }),
+    { p: 0, l: 0 },
+  );
   const first = deciders[0];
   const last = deciders[deciders.length - 1];
   const spanDays = first && last ? Math.round((Date.parse(last.date) - Date.parse(first.date)) / 86_400_000) : 0;
   const month = first ? new Date(`${first.date}T00:00:00`).toLocaleDateString("en-GB", { month: "long" }) : "";
   const year = first ? first.date.slice(0, 4) : "";
   const shortDate = (d: string) => fmtDate(d).replace(/\s*\d{4}$/, "");
+  const runTypeById = new Map(runs.map((r) => [r.competition_id, r.type]));
+  const spineMarkers = deciders.map((d) => ({
+    id: d.id,
+    label: `${d.competition_name} won — ${shortDate(d.date)}`,
+    tone: TROPHY_CAT_TONE[runTypeById.get(d.competition_id) ?? "league"],
+  }));
   return (
     <Module
       slug="treble"
-      evidence={{ href: "/matches?season=1998-99", label: "Every match of 1998-99 →", count: overall.p, countNoun: "matches" }}
+      evidence={{ href: `/matches?season=${season}`, label: "Every match of 1998-99 →", count: seasonSeq.length, countNoun: "matches" }}
       variant={variant}
-      finding={`One season, three trophies. United played ${overall.p} matches across the three winning runs — losing just ${overall.l} — and became the first English side to hold the league, FA Cup and European Cup at once. All three were settled inside ${spanDays} days in ${month} ${year}.`}
-      slice="The 1998-99 Treble, told through the three nights that clinched it — the last league game, the FA Cup final, the European Cup final — and the season-long run behind each. United's goals are shown with the minute and scorer the record holds."
-      coverage="Result-level record with timed, named scorers for the modern era — so the deciding goals carry their exact minute. No advanced metrics; the Treble is a result-level story and the record tells it completely."
+      visual={
+        <div className="space-y-1.5">
+          <div className="text-[11px] uppercase tracking-wider text-ink-faint">
+            All {seasonSeq.length} matches of 1998-99 — wins above the line, losses below
+          </div>
+          <ResultSpine matches={seasonSeq} markers={spineMarkers} height={120} subject="Manchester United 1998-99" markerGlyph={<TrophyIcon className="h-4 w-4" />} xLabel="month" />
+        </div>
+      }
+      finding={`United played ${overall.p} matches across the three competitions and lost just ${overall.l} — then became the first English club to hold the league, the FA Cup and the European Cup at the same time. All three were won inside ${spanDays} days in ${month} ${year}, the last of them in stoppage time.`}
+      slice="Every match of 1998-99 is in the timeline up top. The matches below show who scored and when in the decisive games."
+      coverage="Every goal. Every match. One glorious season."
     >
-      <section>
-        <h3 className="text-sm font-medium text-ink-dim">{spanDays} days in {month}</h3>
-        <p className="mt-1 mb-3 text-xs text-ink-dim">
-          The three trophies were decided inside {spanDays} days — each final won, the last of them in stoppage time.
-        </p>
-        <ol className="relative space-y-2.5">
-          <span aria-hidden className="absolute bottom-3 left-[7px] top-3 w-px bg-line" />
-          {deciders.map((d) => (
-            <li key={d.id} className="relative pl-7">
-              <span aria-hidden className={`absolute left-0 top-3.5 h-3.5 w-3.5 rounded-full border-2 border-panel ${d.wonInStoppage ? "bg-gold ring-2 ring-gold/40" : "bg-gold/70"}`} />
-              <Link
-                href={`/match/${d.id}`}
-                className={`group block rounded-lg border bg-panel-2 p-4 hover:border-devil/60 ${d.wonInStoppage ? "border-gold/40" : "border-line"}`}
+      <section className="space-y-3">
+        <div>
+          <h3 className="text-sm font-medium text-ink-dim">{spanDays} days in {month}</h3>
+          <p className="mt-0.5 text-xs text-ink-dim">
+            Three trophies settled in ten days — two wins after going behind, the last with two iconic goals in stoppage time.
+          </p>
+        </div>
+        <div className="space-y-3">
+          {deciders.map((d) => {
+            const ev = eventsForMatch(d.id);
+            const unitedGoals = ev.filter((e) => e.type === "goal" || e.type === "pen-goal" || e.type === "own-goal-for");
+            const opponentGoals = ev.filter((e) => e.type === "opp-goal" || e.type === "own-goal-against");
+            const hasTimed = unitedGoals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
+            const crowned = d.wonInStoppage;
+            const tone = TROPHY_CAT_TONE[runTypeById.get(d.competition_id) ?? "league"];
+            return (
+              <div
+                key={d.id}
+                className={`group relative overflow-hidden rounded-lg border bg-panel-2 p-4 transition-colors ${crowned ? "border-gold/35 shadow-[0_14px_36px_-18px_rgba(0,0,0,0.75)] hover:border-gold/55" : "border-line hover:border-devil/60"}`}
               >
-                <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                  <span className="text-sm">
-                    <span className="stat-num text-ink-faint">{shortDate(d.date)}</span>
-                    <span className="mx-1.5 text-ink-faint">·</span>
-                    <span className="font-medium group-hover:text-devil-bright">{d.competition_name}</span>
-                  </span>
-                  <span className="stat-num text-sm">
-                    <span className="text-ink-faint">{venuePrefix(d.venue)}</span> {d.opponent_name}
-                    <span className="ml-2 font-semibold">{d.gf}–{d.ga}</span>
-                  </span>
-                </div>
-                {d.goals.length > 0 && (
-                  <div className="mt-2.5 flex flex-wrap gap-1.5">
-                    {d.goals.map((g, j) => (
-                      <span
-                        key={j}
-                        className={`stat-num rounded px-1.5 py-0.5 text-[11px] ${g.stoppage ? "bg-gold/15 text-gold" : "bg-panel text-ink-dim"}`}
-                      >
-                        {g.minute}{g.added ? `+${g.added}` : ""}′ {g.scorer ? surname(g.scorer) : "goal"}
+                {crowned && (
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full opacity-[0.13] blur-3xl"
+                    style={{ backgroundColor: "var(--color-gold)" }}
+                  />
+                )}
+                <div className="relative">
+                  <Link href={`/match/${d.id}`} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                    <span className="flex items-center gap-1.5 text-sm">
+                      <span className="stat-num text-ink-faint">{shortDate(d.date)}</span>
+                      <span className="text-ink-faint">·</span>
+                      <span aria-hidden className="inline-flex shrink-0" style={{ color: tone }}>
+                        <TrophyIcon className="h-3.5 w-3.5" />
                       </span>
-                    ))}
+                      <span className="font-medium group-hover:text-devil-bright">{d.competition_name}</span>
+                    </span>
+                    <span className="flex items-center gap-2 text-sm">
+                      <span className="text-ink-faint">{venuePrefix(d.venue)}</span>
+                      <span className="font-medium text-ink group-hover:text-devil-bright">{d.opponent_name}</span>
+                      <span className={`stat-num font-semibold tabular-nums ${crowned ? "text-gold" : "text-ink"}`}>
+                        {d.gf}<span className="mx-px text-ink-faint">–</span>{d.ga}
+                      </span>
+                    </span>
+                  </Link>
+                  <div className="mt-3.5">
+                    {hasTimed ? (
+                      <MatchFlow unitedGoals={unitedGoals} opponentGoals={opponentGoals} aet={!!d.aet} />
+                    ) : d.goals.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5">
+                        {d.goals.map((g, j) => (
+                          <span
+                            key={j}
+                            className={`stat-num rounded px-1.5 py-0.5 text-[11px] ${g.stoppage ? "bg-gold/20 text-gold" : "bg-panel text-ink-dim"}`}
+                          >
+                            {g.minute}{g.added ? `+${g.added}` : ""}′ {g.scorer ? surname(g.scorer) : "goal"}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
-                )}
-                {d.wonInStoppage && (
-                  <p className="mt-2.5 text-xs text-gold/90">
-                    Trailed until the 90th — both United goals came in stoppage time. The latest a European Cup has been turned around in a final.
-                  </p>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ol>
+                  {crowned && (
+                    <p className="mt-3 text-xs text-gold/90">
+                      Trailed from the sixth minute — then scored twice after the 90th. No European Cup final had ever been turned around so late.
+                    </p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
+
+      {semis.length > 0 && (
+        <section className="space-y-3">
+          <div>
+            <h3 className="text-sm font-medium text-ink-dim">How it was forged — two semi-final nights</h3>
+            <p className="mt-0.5 text-xs text-ink-dim">
+              The Treble nearly never was. Both semi-finals turned on comebacks — one from two goals down in Turin, one in extra time at Villa Park.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {semis.map((s) => {
+              const ev = eventsForMatch(s.id);
+              const unitedGoals = ev.filter((e) => e.type === "goal" || e.type === "pen-goal" || e.type === "own-goal-for");
+              const opponentGoals = ev.filter((e) => e.type === "opp-goal" || e.type === "own-goal-against");
+              const hasTimed = unitedGoals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
+              return (
+                <div key={s.id} className="group rounded-lg border border-line bg-panel-2 p-4 transition-colors hover:border-devil/60">
+                  <Link href={`/match/${s.id}`} className="block">
+                    <div className="flex items-baseline justify-between gap-x-2">
+                      <span className="text-sm font-medium group-hover:text-devil-bright">{s.competition_name}</span>
+                      <span className="stat-num text-[11px] text-ink-faint">{shortDate(s.date)}</span>
+                    </div>
+                    <div className="mt-1 flex items-baseline gap-2 text-sm">
+                      <span className="text-ink-faint">{venuePrefix(s.venue)}</span>
+                      <span className="font-medium text-ink group-hover:text-devil-bright">{s.opponent_name}</span>
+                      <span className="stat-num font-semibold tabular-nums">{s.gf}<span className="mx-px text-ink-faint">–</span>{s.ga}</span>
+                      {s.aet ? <span className="stat-num text-[11px] text-ink-faint">AET</span> : null}
+                    </div>
+                  </Link>
+                  <div className="mt-3.5 border-t border-line pt-3.5">
+                    {hasTimed ? (
+                      <MatchFlow unitedGoals={unitedGoals} opponentGoals={opponentGoals} aet={!!s.aet} />
+                    ) : (
+                      <div className="space-y-1">
+                        {s.goals.map((g, j) => (
+                          <div key={j} className="flex items-center gap-2 text-[11px]">
+                            <span className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${g.side === "united" ? "bg-win" : "bg-loss"}`} />
+                            <span className={`stat-num tabular-nums ${g.side === "united" ? "text-ink" : "text-ink-faint"}`}>
+                              {g.minute}{g.added ? `+${g.added}` : ""}′
+                            </span>
+                            <span className={g.side === "united" ? "text-ink-dim" : "text-ink-faint"}>
+                              {g.scorer ? surname(g.scorer) : g.side === "opponent" ? "" : "goal"}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {s.deficit >= 2 && (
+                    <p className="mt-2.5 text-xs text-ink-dim">
+                      Trailed by {s.deficit} after eleven minutes — came back to win.
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       <section>
-        <h3 className="mb-2 text-sm font-medium text-ink-dim">The road there — three runs, one season</h3>
+        <h3 className="mb-2 text-sm font-medium text-ink-dim">Three runs, one season</h3>
         <div className="grid gap-3 sm:grid-cols-3">
           {runs.map((r) => (
             <Link
               key={r.competition_id}
-              href={`/matches?season=1998-99`}
+              href={`/matches?season=${season}`}
               className="group rounded-lg border border-line bg-panel-2 p-4 hover:border-devil/60"
             >
               <div className="flex items-center gap-2">
+                <span aria-hidden className="inline-flex shrink-0" style={{ color: TROPHY_CAT_TONE[r.type] }}>
+                  <TrophyIcon className="h-4 w-4" />
+                </span>
                 <span className="text-sm font-medium group-hover:text-devil-bright">{r.competition_name}</span>
-                <span className="ml-auto rounded-full bg-gold/15 px-2 py-0.5 text-[10px] uppercase tracking-wide text-gold">won</span>
+                {r.position ? <span className="stat-num ml-auto text-[11px] text-ink-faint">finished {ordinal(r.position)}</span> : null}
               </div>
-              <div className="stat-num mt-2 text-xs text-ink-dim">{r.w}W {r.d}D {r.l}L</div>
-              <div className="stat-num mt-0.5 text-xs text-ink-faint">{r.gf}–{r.ga}{r.position ? ` · finished ${ordinal(r.position)}` : ""}</div>
+              <div className="mt-3">
+                <WdlBar w={r.w} d={r.d} l={r.l} size="md" variant="stacked" showLabels />
+              </div>
+              <div className="stat-num mt-2.5 text-xs text-ink-faint">{r.p} played · {r.gf}<span className="mx-px">–</span>{r.ga} goals</div>
             </Link>
           ))}
         </div>

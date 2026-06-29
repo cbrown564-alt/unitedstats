@@ -976,6 +976,7 @@ export interface TrebleDecider {
   venue: string;
   gf: number;
   ga: number;
+  aet: number;
   goals: TrebleGoal[];
   /** Every United goal came at 90'+ — the Champions League final, won from behind. */
   wonInStoppage: boolean;
@@ -1010,11 +1011,72 @@ export function trebleDeciders(season = "1998-99"): TrebleDecider[] {
         venue: d.venue,
         gf: d.gf,
         ga: d.ga,
+        aet: d.aet,
         goals,
         wonInStoppage: goals.length > 0 && goals.every((g) => g.stoppage),
       };
     })
     .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** One goal in a Treble semi-final, with the side that scored. */
+interface TrebleSemiGoal {
+  minute: number;
+  added: number | null;
+  scorer: string | null;
+  side: "united" | "opponent";
+  stoppage: boolean;
+}
+
+/** A semi-final from the Treble season, with the full goal replay both sides. */
+export interface TrebleSemi extends SequenceMatch {
+  goals: TrebleSemiGoal[];
+  /** Deepest deficit United climbed out of (0 = never trailed). */
+  deficit: number;
+}
+
+const SEMI_PREDICATE = roundFilterPredicate("semi-final", "m");
+
+/**
+ * The semi-final nights that forged the Treble — the Juventus second leg (2-0
+ * down after 11 minutes, won 3-2) and the FA Cup semi-final replay (won in extra
+ * time). Each carries the minute-stamped goals *both sides* scored, so the
+ * comeback is visible in the timings, not just the scoreline. Restricted to
+ * United wins so the scoreless first legs drop.
+ */
+export function trebleSemis(season = "1998-99"): TrebleSemi[] {
+  const db = getDb();
+  const matches = db
+    .prepare(
+      `SELECT ${SEQ_SELECT}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.season = ? AND c.type IN ('domestic-cup','european')
+         AND ${SEMI_PREDICATE} AND m.result = 'W'
+       ORDER BY m.date`,
+    )
+    .all(season) as SequenceMatch[];
+
+  return matches.map((m) => {
+    const events = eventsForMatch(m.id).filter(
+      (e) =>
+        (UNITED_GOAL_SET.has(e.type) || e.type === "opp-goal" || e.type === "own-goal-against") &&
+        e.minute != null,
+    );
+    const goals: TrebleSemiGoal[] = events.map((e) => ({
+      minute: e.minute ?? 0,
+      added: e.added_time,
+      scorer: e.player_display_name,
+      side: e.player_side,
+      stoppage: (e.minute ?? 0) >= 90,
+    }));
+    let u = 0, o = 0, worst = 0;
+    for (const e of events) {
+      if (e.player_side === "united") u++;
+      else o++;
+      if (u - o < worst) worst = u - o;
+    }
+    return { ...m, goals, deficit: Math.max(0, -worst) };
+  });
 }
 
 function cupWon(competitionId: string, season: string): boolean {
