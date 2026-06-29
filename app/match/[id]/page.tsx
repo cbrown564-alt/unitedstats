@@ -425,26 +425,28 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   const contextBody = (
     <div className="space-y-8">
+      {/* Mobile: everything on this tab centres on one axis — headings, bars,
+          badges and captions. Desktop keeps the two-column split (head-to-head
+          left, recent form packed right). */}
       <div className="grid gap-8 sm:grid-cols-2">
         <div>
-          <h3 className="display mb-3 text-lg">Previous head-to-head results</h3>
+          <h3 className="display mb-3 text-center text-lg sm:text-left">Previous head-to-head results</h3>
           {h2h.p > 0 ? (
             <div className="space-y-3">
               <WdlBar w={h2h.w} d={h2h.d} l={h2h.l} size="md" variant="stacked" showLabels />
-              <p className="text-xs text-ink-dim">
+              <p className="text-center text-xs text-ink-dim sm:text-left">
                 {h2h.p} previous meeting{h2h.p === 1 ? "" : "s"} with {m.opponent_name} · {pct(h2h.w, h2h.p)} win rate
               </p>
             </div>
           ) : (
-            <p className="text-sm text-ink-dim">First recorded meeting with {m.opponent_name}.</p>
+            <p className="text-center text-sm text-ink-dim sm:text-left">First recorded meeting with {m.opponent_name}.</p>
           )}
         </div>
-        <div className="sm:text-right">
+        <div className="text-center sm:text-right">
           <h3 className="display mb-3 text-lg">United&rsquo;s last 6 matches</h3>
-          {/* Mobile: spread the six badges edge-to-edge so they line up with the
-              full-width head-to-head bar above. Desktop: pack them right, opposite
-              the head-to-head column. */}
-          <div className="flex justify-between gap-1.5 sm:justify-end">
+          {/* Mobile: the six badges sit tight and centred. Desktop: packed right,
+              opposite the head-to-head column. */}
+          <div className="flex justify-center gap-1.5 sm:justify-end">
             {form.map((f) => (
               <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${f.venue} ${f.opponent_name} ${f.gf}-${f.ga}`} className="focus-ring">
                 <ResultBadge result={f.result} outcome={f.outcome} />
@@ -456,9 +458,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       </div>
       {similar.length > 0 && (
         <div>
-          <h3 className="display mb-3 text-lg">This exact result, before</h3>
+          <h3 className="display mb-3 text-center text-lg sm:text-left">This exact result, before</h3>
           <MatchList matches={similar} showSeason />
-          <p className="mt-2 text-xs text-ink-dim">
+          <p className="mt-2 text-center text-xs text-ink-dim sm:text-left">
             Other {m.venue === "A" ? "away" : m.venue === "H" ? "home" : "neutral"} meetings with{" "}
             {m.opponent_name} that finished {m.gf}–{m.ga}.{" "}
             <Link href={`/opponent/${m.opponent_id}`} className="text-devil-bright hover:underline focus-ring">
@@ -528,30 +530,40 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   ) : null;
 
   return (
-    <div className="space-y-8">
+    <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
-      <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-b border-line">
+      {/* Pull the full-bleed hero up under the sticky nav, cancelling the shell's
+          main padding, so the floodlit colour runs to the very top with no black
+          band between nav and headline. */}
+      <section className="relative left-1/2 -mt-8 w-screen -translate-x-1/2 overflow-hidden border-b border-line sm:-mt-10">
         {/* Full-bleed broadcast band: twin devil-red floodlights bloom from the top
             corners (the same blurred-glow language as every other hero) over the
             faint pitch grid, the content held to the page gutter. No card — the
             result is the page's headline, not a boxed widget. */}
         <div
-          className="pointer-events-none absolute -left-24 -top-28 h-72 w-1/2 rounded-full opacity-[0.13] blur-3xl"
+          className="pointer-events-none absolute -left-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
           style={{ backgroundColor: "var(--color-devil)" }}
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute -right-24 -top-28 h-72 w-1/2 rounded-full opacity-[0.13] blur-3xl"
+          className="pointer-events-none absolute -right-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
+          style={{ backgroundColor: "var(--color-devil)" }}
+          aria-hidden
+        />
+        {/* Soft central wash so the floodlit colour reaches the top-centre — the
+            dark valley between the two corner blooms — not only the corners. */}
+        <div
+          className="pointer-events-none absolute -top-28 left-1/2 h-64 w-2/3 -translate-x-1/2 rounded-full opacity-[0.10] blur-3xl"
           style={{ backgroundColor: "var(--color-devil)" }}
           aria-hidden
         />
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
-        <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-9 sm:px-6 sm:py-12">
+        <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-7 sm:px-6 sm:py-12">
           <header className="space-y-4">
             <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
               <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
               <span aria-hidden>·</span>
-              <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} />
+              <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} bare />
             </nav>
             <div className="space-y-2 border-t border-line py-5 text-center">
               <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
@@ -588,7 +600,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </header>
 
           <div className="flex justify-center">
-            <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
+            <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} variant="hero" />
           </div>
 
           {hasDigest && (
@@ -604,33 +616,35 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </div>
       </section>
 
-      <MatchSectionTabs
-        defaultTab={defaultTab}
-        tabs={[
-          {
-            id: "goals",
-            // Mobile tab label: this panel carries the match story (timeline +
-            // line-ups appended below), so it reads as "Match", not just "Goals".
-            label: "Match",
-            // On mobile the goals panel otherwise floats alone above a tall empty
-            // tab; append the teamsheet so the result scrolls down into the
-            // line-ups (FotMob-style). Hidden at sm+, where every panel already
-            // stacks in document order and the sheet renders separately.
-            content: goalsPanel && (
-              <div className="space-y-5">
-                {goalsPanel}
-                {hasTeamsheet && <div className="sm:hidden">{teamsheetPanel}</div>}
-              </div>
-            ),
-          },
-          // On mobile the lineup is reached by scrolling the goals tab, so drop
-          // its tab button there; it still stacks as its own section on desktop.
-          { id: "sheet", label: "Lineup", content: teamsheetPanel, desktopOnly: hasGoalsPanel && hasTeamsheet },
-          { id: "details", label: "Details", content: detailsPanel },
-          { id: "context", label: "Previous", content: contextPanel },
-          { id: "sources", label: "Sources", content: sourcesPanel },
-        ]}
-      />
+      <div className="mt-4 sm:mt-8">
+        <MatchSectionTabs
+          defaultTab={defaultTab}
+          tabs={[
+            {
+              id: "goals",
+              // Mobile tab label: this panel carries the match story (timeline +
+              // line-ups appended below), so it reads as "Match", not just "Goals".
+              label: "Match",
+              // On mobile the goals panel otherwise floats alone above a tall empty
+              // tab; append the teamsheet so the result scrolls down into the
+              // line-ups (FotMob-style). Hidden at sm+, where every panel already
+              // stacks in document order and the sheet renders separately.
+              content: goalsPanel && (
+                <div className="space-y-5">
+                  {goalsPanel}
+                  {hasTeamsheet && <div className="sm:hidden">{teamsheetPanel}</div>}
+                </div>
+              ),
+            },
+            // On mobile the lineup is reached by scrolling the goals tab, so drop
+            // its tab button there; it still stacks as its own section on desktop.
+            { id: "sheet", label: "Lineup", content: teamsheetPanel, desktopOnly: hasGoalsPanel && hasTeamsheet },
+            { id: "details", label: "Details", content: detailsPanel },
+            { id: "context", label: "Previous", content: contextPanel },
+            { id: "sources", label: "Sources", content: sourcesPanel },
+          ]}
+        />
+      </div>
     </div>
   );
 }

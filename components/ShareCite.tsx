@@ -23,7 +23,17 @@ const hasNativeShare = () => typeof navigator !== "undefined" && typeof navigato
  * Absolute URLs are built from the live origin at click time, so they are correct
  * regardless of which surface this is embedded in.
  */
-export function ShareCite({ path, title }: { path: string; title: string }) {
+export function ShareCite({
+  path,
+  title,
+  variant = "bar",
+}: {
+  path: string;
+  title: string;
+  /** `bar` is the default right-aligned toolbar; `hero` is the grouped glass
+   *  pill used under a match-night headline. */
+  variant?: "bar" | "hero";
+}) {
   const [copied, setCopied] = useState<"" | "link" | "cite">("");
   const [saving, setSaving] = useState<"" | "busy" | "done">("");
 
@@ -115,6 +125,38 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
     }
   };
 
+  // Hero: one considered control rather than three stray buttons — a glass pill
+  // sitting on the floodlit headline, each action carrying an icon, the brand red
+  // threading in on hover. Compacted state labels keep the segments even.
+  if (variant === "hero") {
+    const seg =
+      "group/sc inline-flex items-center gap-1.5 px-3.5 py-2 text-ink-dim transition-colors hover:bg-panel-2/70 hover:text-ink focus-ring disabled:opacity-60";
+    const ic = "text-ink-faint transition-colors group-hover/sc:text-devil-bright";
+    return (
+      <div
+        className="inline-flex items-stretch divide-x divide-line/70 overflow-hidden rounded-full border border-line/70 bg-panel/40 text-xs backdrop-blur-sm"
+        aria-label="Share this match"
+      >
+        {canShare ? (
+          <button type="button" onClick={share} className={seg}>
+            <span className={ic}><ShareIcon /></span>Share
+          </button>
+        ) : (
+          <button type="button" onClick={copyLink} className={seg}>
+            <span className={ic}><LinkIcon /></span>{copied === "link" ? "Copied" : "Copy link"}
+          </button>
+        )}
+        <button type="button" onClick={copyCitation} className={seg}>
+          <span className={ic}><CiteIcon /></span>{copied === "cite" ? "Cited" : "Cite"}
+        </button>
+        <button type="button" onClick={saveCard} disabled={saving === "busy"} className={seg}>
+          <span className={ic}><SaveIcon /></span>
+          {saving === "busy" ? "Saving…" : saving === "done" ? "Saved" : "Save card"}
+        </button>
+      </div>
+    );
+  }
+
   const btn =
     "inline-flex items-center gap-1 rounded-md border border-line px-2 py-1 text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-ring disabled:opacity-60";
 
@@ -136,6 +178,45 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
         {saving === "busy" ? "Saving…" : saving === "done" ? "Card saved" : "Save card"}
       </button>
     </div>
+  );
+}
+
+const ICON = "h-3.5 w-3.5";
+
+function ShareIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={ICON} aria-hidden>
+      <path d="M12 15V4" />
+      <path d="m8 8 4-4 4 4" />
+      <path d="M5 12v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+    </svg>
+  );
+}
+
+function LinkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={ICON} aria-hidden>
+      <path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" />
+      <path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" />
+    </svg>
+  );
+}
+
+function CiteIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={ICON} aria-hidden>
+      <path d="M6 7h4.5v5.5A3.5 3.5 0 0 1 7 16v-1.8a1.7 1.7 0 0 0 1.7-1.7H6V7Zm7.5 0H18v5.5a3.5 3.5 0 0 1-3.5 3.5v-1.8a1.7 1.7 0 0 0 1.7-1.7h-2.7V7Z" />
+    </svg>
+  );
+}
+
+function SaveIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={ICON} aria-hidden>
+      <path d="M12 4v9" />
+      <path d="m8 9 4 4 4-4" />
+      <path d="M5 18h14" />
+    </svg>
   );
 }
 
