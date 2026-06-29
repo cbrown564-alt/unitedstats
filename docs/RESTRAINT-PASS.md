@@ -328,6 +328,20 @@ so the engine leans where the data is richest and grades honestly where it isn't
 Only where two charts are near-duplicate variants, give them a shared canonical
 base. Keep every distinctive form. Not a cull. Do last, or never.
 
+**Surveyed and parked (2026-06-29).** All 27 chart components reviewed: no dead
+code (every chart has live imports); the five bespoke forms stay bespoke. Four
+near-duplicate candidates found, none worth doing now — consolidation is invisible
+to users and the survey found no actual defect. **Revisit only if we make broader
+changes to charts**, at which point the only residue worth doing is: (1) fold
+`SeasonContributionChart` into `InspectableBarChart`'s already-existing `stack`
+prop (it already draws the same value-base + cap), and (2) extract one shared
+6-anchor year-axis leaf used by both Spines + both Sparklines. The
+`ResultSpine`/`ContributionSpine` "merge" is a wrong-abstraction trap — their
+differences (diverging vs one-sided, sqrt vs linear scale, fill semantics) are the
+substance; share the chrome leaves, never merge the charts. `HistorySkyline` +
+`ManagerTimeline` (~15 shared lines) is below the payoff threshold. Full rationale
+in memory: `phase4-chart-consolidation-parked`.
+
 ### Course correction — defer the opinionated discovery layer to the end (2026-06-29, session 2)
 
 Phase 2 **over-indexed on building new question cards rather than exercising
@@ -348,6 +362,73 @@ stretched further, not another card built on an unsettled definition.
 work there (Phase 3 slice-collapse, plus a fresh restraint read of the
 browse / catalogue / match pages). Return to the questions + discovery layer last,
 once the rest is tightened and the definition has had room to breathe.
+
+### Course correction — rebuild clarity before more cuts (2026-06-29, session 3) ← NEXT TASK
+
+**This supersedes "pivot now to the other surfaces" above.** The
+browse / catalogue / match read got started and immediately exposed the real
+problem: we don't share a picture of what we're doing. The read produced
+defensible findings and a disagreement about them that neither side could settle
+one-shot — that stalemate is the tell. We're executing a pass whose *purpose* has
+gone fuzzy. "I feel like we don't know what we're doing at this point."
+
+So the next task is **not another cut**. It is a **clarity session**: work through
+the complicated, ambiguous, often-unspoken questions until there is a shared sense
+of what this is *for* and what "good" looks like — enough to restore focus and
+momentum. Run it as **`/grill-with-docs`** (now installed in `~/.claude/skills/`,
+with its `grilling` + `domain-modeling` dependencies): one question at a time, each
+with a recommended answer, code explored rather than guessed, and any term or
+decision that crystallises written down (a `CONTEXT.md` glossary entry / a short
+ADR) so it stops being unspoken.
+
+**Start it fresh — a new conversation, not this thread.**
+
+Candidate threads to open (not a fixed agenda; the grilling surfaces them in
+dependency order, and the first real question is *which* of these is the crux):
+
+- **Who is this actually for, and what do they _do_ here?** The evidence points to
+  the nostalgist / casual fan; the build keeps serving the stats-obsessed maker.
+- **What is Red Thread _for_, in one sentence** — archive, debate-settler,
+  nostalgia machine, launchable artefact? The pass keeps oscillating between these.
+- **What bar must a page / surface / component clear to exist at all?** The
+  `/questions` rethink already hit this wall and parked it as unsettled.
+- **Is "restraint" the real goal, or a proxy** for lost conviction about what the
+  thing is? If the latter, cutting won't fix it.
+- **What does "done / good enough to launch" mean, and to whom?**
+
+**In flight:** one uncommitted change from the read — `components/MatchList.tsx`
+(opponent name given a min-width floor so the right-hand meta rail can no longer
+starve it to "Bright…"). Keep-or-revert is itself a question for the session; it is
+left in the working tree, not committed.
+
+### Clarity session — ran, and produced a shared picture (2026-06-29, session 4)
+
+The grill happened. It resolved the crux threads and wrote the result to a new
+durable doc, **`CONTEXT.md`** (root, beside `PRODUCT.md`) — read that, not this
+section, for the substance. In one breath:
+
+- **Who it's for:** the **nostalgist — as a mindset, not a demographic** (anyone
+  can be invited into it; even a young fan, toward Best / Munich / the Treble).
+  Creators and the xG/spider-diagram maker are out; historians served incidentally.
+- **What it's for:** **soul + foundation.** Soul = the *spark* (trigger the
+  feeling) then the *deepening* (a new authored lens that brings you closer —
+  Best & Ronaldo both peaking in season five on one normalized scale). Foundation
+  = the complete, trustworthy record, which is *load-bearing for the soul*, not
+  plumbing. The freshness loop is **out** (→ `/history-changed` cut/demote).
+- **The bar:** **lens, not loom.** The frame must *guarantee meaning whatever the
+  user points it at*; build-anything machinery abdicates authorship and dies.
+  This **promotes Principle 2** to the design principle of the deepening layer.
+  Whole thing reads as **respect for the user**: reliable data (no garden path) +
+  raw material to explore (no box).
+
+This **reframes the pass on truer ground:** restraint survived the stress-test, but
+the reason for the cuts is now "self-serve slicing isn't authorship," not "less is
+more." The provisional surface verdicts (which live, reshape, die) are in
+`CONTEXT.md` §4 — they now have a yardstick behind them.
+
+**Still open:** the last thread — *what "done / good enough to launch" means* — and
+the `MatchList.tsx` keep-or-revert. `PRODUCT.md` now conflicts with `CONTEXT.md` in
+three places (`CONTEXT.md` §5) and needs reconciling.
 
 ### Non-goal reminder — brand
 
