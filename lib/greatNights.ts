@@ -1,8 +1,19 @@
-import { matchById, type MatchRow } from "./queries";
+import { matchById, eventsForMatch, type MatchRow } from "./queries";
 import { onThisDay, monthDayLabel } from "./onThisDay";
 import { clubRecords } from "./trails";
 import { getDb } from "./db";
 import { scoreline, fmtRound, resultTone } from "./format";
+
+// TEMP (front-door design iteration): pin one night so the hero treatment can be
+// judged on the flagship rather than whatever falls today. Set to null to ship —
+// the served night then resolves normally (on-this-day, else the rotating pool).
+const PINNED_ID: string | null = "1999-05-26-bayern-munich-n";
+
+// The match-winner portraits we have are modern (often post-career / management
+// era) — anachronistic to the night, and a wrong-era face reads worse than none
+// (see docs/HOMEPAGE.md, the imagery problem). Off until we have period-correct or
+// match-moment imagery; the hero falls back to the ghosted-year monument.
+const USE_WINNER_PORTRAIT = false;
 
 /**
  * The first-contact spark (CONTEXT.md §6): a single *served* match-night that
@@ -45,6 +56,11 @@ export interface GreatNight {
   /** The emotional lead: an authored stake, else derived texture, else null (then
    *  the scoreline leads instead). */
   line: string | null;
+  /** United's goals as name + minute — who scored, when. The soul of the match. */
+  scorers: { name: string; minute: string }[];
+  /** A face to carry the night: the match-winner's (last United scorer's) portrait,
+   *  used as a faded monument. Null when no scorer image is on file. */
+  image: { src: string; name: string } | null;
   cta: string;
 }
 
@@ -166,22 +182,43 @@ function texture(m: MatchRow, goals: Goal[]): string | null {
   return null;
 }
 
-/** Build the served-night object from a match row. `stakes` (when curated) takes
- *  the supporting line; otherwise it falls to derived texture. */
+/** Minute label for a goal — "90+3'", "67'", or "" when unrecorded. */
+function minuteText(minute: number | null, added: number | null): string {
+  if (minute == null) return "";
+  return added ? `${minute}+${added}'` : `${minute}'`;
+}
+
+/** The match-winner's portrait (the last United scorer with a *locally cached*
+ *  image) — the face that carries the night. Local path only, so next/image needs
+ *  no remote-domain config. Null when no cached scorer image exists. */
+function winnerImage(playerId: string, name: string): { src: string; name: string } | null {
+  const row = getDb()
+    .prepare("SELECT local_path AS src FROM player_media WHERE player_id = ?")
+    .get(playerId) as { src: string | null } | undefined;
+  return row?.src ? { src: row.src, name } : null;
+}
+
+/** Build the served-night object from a match row. One events query feeds the
+ *  texture line, the scorer list, and the match-winner's portrait. */
 function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | null, live: boolean): GreatNight {
   const metaParts = [m.competition_name, fmtRound(m.round), m.stadium_name].filter(Boolean) as string[];
+  const goals = eventsForMatch(m.id).filter((e) => e.type === "goal" && e.player_side === "united");
+  const scorers = goals.map((e) => ({ name: e.player_display_name ?? "—", minute: minuteText(e.minute, e.added_time) }));
+  const winner = [...goals].reverse().find((e) => e.player_id);
   return {
     id: m.id,
     href: `/match/${m.id}`,
     framing,
     live,
-    eyebrow: framing === "on-this-day" ? `On this day · ${monthDayLabel(monthDayOf(m.date))}` : "A great United night",
+    eyebrow: framing === "on-this-day" ? `On this day · ${monthDayLabel(monthDayOf(m.date))}` : "A piece of United history",
     year: m.date.slice(0, 4),
     score: scoreline(m.gf, m.ga, [m.pen_gf, m.pen_ga], !!m.aet),
     opponent: m.opponent_name,
     tone: resultTone(m.outcome),
     meta: metaParts.join(" · "),
-    line: stakes ?? texture(m, unitedGoalMinutes(m.id)),
+    line: stakes ?? texture(m, goals.map((e) => ({ minute: e.minute, added_time: e.added_time }))),
+    scorers,
+    image: USE_WINNER_PORTRAIT && winner?.player_id ? winnerImage(winner.player_id, winner.player_display_name ?? "") : null,
     cta: "See the night",
   };
 }
@@ -199,7 +236,11 @@ function monthDayOfDate(d: Date): string {
  * to open on; `nights[seed]` is the on-this-day lead when one qualifies, otherwise
  * a deterministic pick from the curated pool.
  */
-export function greatNights(now = new Date()): { nights: GreatNight[]; seed: number } {
+export function greatNights(
+  now = new Date(),
+  opts: { pin?: string | null } = {},
+): { nights: GreatNight[]; seed: number } {
+  const pin = opts.pin === undefined ? PINNED_ID : opts.pin;
   const stakeById = new Map(CURATED_NIGHTS.map((c) => [c.id, c.stakes]));
 
   // The curated pool, resolved against the live record (an unknown id is dropped).
@@ -207,6 +248,13 @@ export function greatNights(now = new Date()): { nights: GreatNight[]; seed: num
     const m = matchById(c.id);
     return m ? build(m, "great-night", c.stakes, false) : null;
   }).filter((n): n is GreatNight => n !== null);
+
+  // TEMP: pin one night to the front so the hero treatment is judged on the
+  // flagship. Remove (set PINNED_ID = null) to ship. Tests pass `{ pin: null }`.
+  if (pin) {
+    const i = pool.findIndex((n) => n.id === pin);
+    if (i >= 0) return { nights: [pool[i], ...pool.slice(0, i), ...pool.slice(i + 1)], seed: 0 };
+  }
 
   // The day's lead, in priority order:
   //   1. A curated night on its own anniversary — hand-vouched, so it earns the

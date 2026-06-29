@@ -44,7 +44,7 @@ test("the served night is always a complete, site-relative door — and never a 
   // on-this-day path and the curated fallthrough across the whole year.
   for (const key of monthDayKeys()) {
     const [mm, dd] = key.split("-");
-    const { nights, seed } = greatNights(new Date(`2027-${mm}-${dd}T12:00:00Z`));
+    const { nights, seed } = greatNights(new Date(`2027-${mm}-${dd}T12:00:00Z`), { pin: null });
     assert.ok(nights.length > 0, `${key}: empty pool — the hero would have nothing to show`);
     assert.ok(seed >= 0 && seed < nights.length, `${key}: seed ${seed} out of range`);
     const n = nights[seed];
@@ -56,8 +56,8 @@ test("the served night is always a complete, site-relative door — and never a 
 });
 
 test("selection is deterministic within a UTC day and rotates across days", () => {
-  const a = greatNights(new Date("2027-03-10T09:00:00Z"));
-  const sameDay = greatNights(new Date("2027-03-10T22:00:00Z"));
+  const a = greatNights(new Date("2027-03-10T09:00:00Z"), { pin: null });
+  const sameDay = greatNights(new Date("2027-03-10T22:00:00Z"), { pin: null });
   assert.equal(a.nights[a.seed].id, sameDay.nights[sameDay.seed].id, "the served night changed within one UTC day");
 });
 
@@ -66,7 +66,7 @@ test("a genuinely significant date is promoted to the on-this-day lead", () => {
   // their own dates, framed to the calendar, not fall through to a random pull.
   for (const [key, year] of [["05-26", "1999"], ["05-29", "1968"]] as const) {
     const [mm, dd] = key.split("-");
-    const { nights, seed } = greatNights(new Date(`2027-${mm}-${dd}T12:00:00Z`));
+    const { nights, seed } = greatNights(new Date(`2027-${mm}-${dd}T12:00:00Z`), { pin: null });
     const n = nights[seed];
     assert.equal(n.framing, "on-this-day", `${key}: the date's final did not take the on-this-day lead`);
     assert.equal(n.live, true, `${key}: the on-this-day lead is missing its live pulse`);

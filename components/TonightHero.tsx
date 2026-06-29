@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCallback, useRef, useState, type ReactNode } from "react";
 import type { GreatNight } from "@/lib/greatNights";
 
@@ -27,18 +28,35 @@ function LivePulse() {
   );
 }
 
+/** The goals that made the night — name + minute, the line a fan recites from
+ *  memory. Capped so a rout doesn't run off the edge. */
+function Scorers({ scorers }: { scorers: GreatNight["scorers"] }) {
+  if (scorers.length === 0) return null;
+  const shown = scorers.slice(0, 5);
+  const extra = scorers.length - shown.length;
+  return (
+    <p className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm sm:text-base">
+      {shown.map((s, i) => (
+        <span key={i} className="text-ink-dim">
+          {s.name}
+          {s.minute && <span className="stat-num ml-1.5 text-win">{s.minute}</span>}
+        </span>
+      ))}
+      {extra > 0 && <span className="text-ink-faint">+{extra} more</span>}
+    </p>
+  );
+}
+
 /**
  * The first-contact spark (CONTEXT.md §6): the front door *is* the gate, so it is
  * built like nothing else on the site — not a panel among panels, but one floodlit
- * stage. A single served match-night fills it, told story-first so it lands whether
- * you lived it, forgot it, or never saw it.
+ * stage carrying a single match-night.
  *
  * The composition is the signature: the brand's Red Thread runs down the left as a
- * luminous spine and holds the night at its knot; the story line is the large,
- * editorial lead; the scoreline is a quiet two-tier caption; and the year looms as
- * a ghosted monument — the shorthand a fan reaches for ("the '99"). No card, no
- * grid, no metric tiles. The plate bleeds to the page edges and sits flush under
- * the header; everything quiet so the one bright thing is the night.
+ * luminous spine and holds the night at its knot; the match-winner looms as a faded
+ * portrait bled off the right; the story line is the editorial lead; and the match
+ * itself is given real presence — full scoreline and the goalscorers with their
+ * minutes, the line a fan recites from memory. No card, no grid, no metric tiles.
  *
  * Progressive enhancement, mirroring SurpriseReveal: the server renders
  * `nights[seed]`, so a shared link or a no-JS visit shows a real night with a
@@ -65,38 +83,50 @@ export function TonightHero({
   const night = nights[index];
   if (!night) return null;
 
-  const matchup = (
-    <>
-      <span className="text-ink-dim">United</span>{" "}
-      <span className={`stat-num font-semibold ${night.tone}`}>{night.score}</span>{" "}
-      <span className="text-ink">{night.opponent}</span>
-    </>
-  );
-
   return (
     <div>
       {/* The stage. Bleeds past the column to the page edges and pulls flush under
-          the header (cancelling the main padding) so it reads as a floodlit field,
-          not a card on a page. */}
+          the header so it reads as a floodlit field, not a card on a page. */}
       <Link
         href={night.href}
         aria-label={`${night.line ?? `United ${night.score} ${night.opponent}`} — see the match`}
         className="group relative -mx-4 -mt-8 block overflow-hidden bg-pitch focus-ring sm:-mx-6 sm:-mt-10"
       >
-        {/* Floodlight from above, a red wash by the thread, and a vignette that
-            sinks the edges to black — the light does the atmosphere, not a texture. */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(115%_75%_at_50%_-12%,rgba(255,238,210,0.11),transparent_55%)]" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_14%_24%,rgba(216,33,13,0.16),transparent_60%)]" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_50%_42%,transparent_45%,rgba(0,0,0,0.6))]" aria-hidden />
+        {/* Floodlight from above. */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(115%_75%_at_50%_-12%,rgba(255,238,210,0.10),transparent_55%)]" aria-hidden />
 
-        {/* The year, a ghosted monument bleeding off the right — the shorthand a fan
-            reaches for, present without competing. */}
-        <span
-          className="stat-num pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 select-none font-bold leading-none text-win/[0.05] text-[9rem] sm:text-[16rem] lg:text-[20rem]"
-          aria-hidden
-        >
-          {night.year}
-        </span>
+        {/* The match-winner, a faded monument bled off the right and dissolved into
+            the dark — a face to carry the night. Masked on the left and foot so the
+            portrait's own background (and any club crest) fades out; a devil wash
+            duotones it red so it reads as atmosphere, not a stray modern photo.
+            Falls back to the ghosted year. */}
+        {night.image ? (
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 w-[70%] [-webkit-mask-composite:source-in] [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,#000_60%),linear-gradient(to_top,transparent_6%,#000_46%)] sm:w-[56%]"
+            aria-hidden
+          >
+            <Image
+              src={night.image.src}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 70vw, 48vw"
+              className="object-cover object-[center_14%] opacity-[0.2] grayscale contrast-110"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(to_left,rgba(216,33,13,0.32),rgba(216,33,13,0.10)_45%,transparent)] mix-blend-overlay" />
+          </div>
+        ) : (
+          <span
+            className="stat-num pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 select-none font-bold leading-none text-win/[0.05] text-[9rem] sm:text-[16rem] lg:text-[20rem]"
+            aria-hidden
+          >
+            {night.year}
+          </span>
+        )}
+
+        {/* A red wash by the thread and a vignette that sinks the edges to black —
+            laid over the portrait so it reads as atmosphere, not a photo. */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_14%_24%,rgba(216,33,13,0.18),transparent_60%)]" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_45%_45%,transparent_38%,rgba(0,0,0,0.66))]" aria-hidden />
 
         {/* The Red Thread — a luminous spine down the left, brightest at the knot
             that holds the night, bleeding off the top and foot of the stage. */}
@@ -116,31 +146,32 @@ export function TonightHero({
         {/* The night, hung off the thread. */}
         <div
           key={night.id}
-          className="surprise-in relative flex min-h-[30rem] flex-col justify-center py-16 pl-16 pr-6 sm:min-h-[40rem] sm:pl-28 sm:pr-12"
+          className="surprise-in relative flex min-h-[31rem] flex-col justify-center py-16 pl-16 pr-6 sm:min-h-[42rem] sm:pl-28 sm:pr-12"
         >
-          <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">
+            <span className="stat-num text-sm font-bold tracking-normal text-gold">{night.year}</span>
             {night.live && <LivePulse />}
             {night.eyebrow}
           </p>
 
-          {night.line ? (
-            <>
-              <p className="mt-6 max-w-2xl text-balance text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl sm:leading-[1.05] lg:text-6xl">
-                {night.line}
-              </p>
-              <p className="mt-7 text-lg text-ink-dim sm:mt-9 sm:text-xl">{matchup}</p>
-              <p className="mt-1.5 text-sm text-ink-faint">{night.meta}</p>
-            </>
-          ) : (
-            <>
-              <p className="mt-6 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl">
-                {matchup}
-              </p>
-              <p className="mt-5 text-sm text-ink-faint sm:text-base">{night.meta}</p>
-            </>
+          {night.line && (
+            <p className="mt-6 max-w-2xl text-balance text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl sm:leading-[1.05] lg:text-6xl">
+              {night.line}
+            </p>
           )}
 
-          <span className="mt-10 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-devil-bright sm:mt-12">
+          {/* The match, given presence: the scoreline and the goals behind it. */}
+          <div className="mt-8 sm:mt-10">
+            <p className="flex flex-wrap items-baseline gap-x-3 text-xl font-medium sm:text-2xl">
+              <span className="text-ink">United</span>
+              <span className={`stat-num text-3xl font-bold sm:text-4xl ${night.tone}`}>{night.score}</span>
+              <span className="text-ink">{night.opponent}</span>
+            </p>
+            <Scorers scorers={night.scorers} />
+            <p className="mt-2.5 text-sm text-ink-faint">{night.meta}</p>
+          </div>
+
+          <span className="mt-9 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-devil-bright sm:mt-11">
             {night.cta}
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
           </span>
