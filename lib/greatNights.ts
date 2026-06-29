@@ -124,12 +124,18 @@ function isFinal(round: string | null): boolean {
   return !!round && /final/i.test(round) && !/semi|quarter/i.test(round);
 }
 
+/** A goal that counts for United — open play, a penalty, or an opponent's own
+ *  goal — matching the canonical set used on the match page. Note an own goal
+ *  carries `player_side = 'opponent'`, so we filter on type, never on side. */
+const UNITED_GOAL_TYPES = ["goal", "pen-goal", "own-goal-for"] as const;
+const isUnitedGoal = (type: string) => (UNITED_GOAL_TYPES as readonly string[]).includes(type);
+
 /** Recorded United goal minutes for a match, in order — for late-drama texture. */
 function unitedGoalMinutes(id: string): { minute: number | null; added_time: number | null }[] {
   return getDb()
     .prepare(
       `SELECT minute, added_time FROM match_events
-       WHERE match_id = ? AND type = 'goal' AND player_side = 'united'
+       WHERE match_id = ? AND type IN ('goal','pen-goal','own-goal-for')
        ORDER BY COALESCE(minute, 999), seq`,
     )
     .all(id) as { minute: number | null; added_time: number | null }[];
@@ -207,7 +213,7 @@ function winnerImage(playerId: string, name: string): { src: string; name: strin
  *  texture line, the scorer list, and the match-winner's portrait. */
 function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | null, live: boolean): GreatNight {
   const metaParts = [m.competition_name, fmtRound(m.round), m.stadium_name].filter(Boolean) as string[];
-  const goals = eventsForMatch(m.id).filter((e) => e.type === "goal" && e.player_side === "united");
+  const goals = eventsForMatch(m.id).filter((e) => isUnitedGoal(e.type));
   const scorers = goals.map((e) => ({ name: e.player_display_name ?? "—", minute: minuteText(e.minute, e.added_time) }));
   const winner = [...goals].reverse().find((e) => e.player_id);
   // The night's shape for the thread monument: every United goal on the match
