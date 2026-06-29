@@ -470,3 +470,65 @@ All-time peaks. Both done:
   control that doesn't earn its space is clutter even when it looks nice. Any trim
   should weigh the shared `bar` variant too (player / manager / question /
   history-changed surfaces use the same component).
+
+---
+
+## Session 4 (2026-06-29): share controls cut to one, OG cards made worth sharing
+
+_Resolved the open item above, then followed the energy where it actually
+mattered. Three commits, all green (tsc / knip / eslint, every card render
+verified)._
+
+### The decision (sharper than the audit framed it)
+
+The audit weighed "do all three earn their place." The answer, once we **rendered
+the actual saved card**, was blunter: the match OG card was a **text-only
+link-unfurl** — the treble final read pixel-identically to a 0–0 draw — so the
+Save-card button promised a post-worthy image it didn't deliver, and Cite was the
+wrong register for an emotional match. **User's call: cut both Cite and Save-card
+everywhere** (not just the match). Nobody asked for citing or saving; it was scope
+creep. `ShareCite` → a single capability-aware **Share / Copy-link** control. Then:
+**redirect all the energy to making the shared card itself as good as it can be on
+every surface.** (`2a9ddde`)
+
+### The durable principle (graduate to PRODUCT.md)
+
+**An OG card is a tiny surface that must obey the same grammar as the big ones:
+one figure + one shape that argues — not a text label.** The two cards that already
+worked (`questionCard`, `digestCard`) proved it; the five flat `entityCard`s
+(match, player, manager, opponent, season) just named their subject. A share card
+is the product's handshake with a stranger — it should look like us and say
+something true at a glance.
+
+### What shipped
+
+1. **Fonts** (`89c7850`) — the cards rendered in Satori's default sans, so every
+   unfurl was typographically *generic*. Bundled static TTFs of the site's own
+   faces (`assets/og-fonts/`): **Archivo** for headings, **IBM Plex Mono** for
+   numerals — so a card's score matches the on-page `.stat-num` exactly. Lifts all
+   seven cards at once. (Satori needs TTF, not the woff2 next/font caches; Archivo
+   is variable-only on Google's repo, so per-weight statics came from Fontsource.)
+2. **Match card** (`2a9ddde`) — the flagship. Score coloured by outcome + the goals
+   as a **minute-timeline** (United gold, opponent grey, HT/FT ticks). The treble
+   final's two stoppage-time goals finally read as a *shape* — two gold dots crammed
+   past full time; a goalless draw stays honestly spare. 92% goal-event coverage;
+   graceful fallback below that.
+3. **Rollout** (`1675184`) — `renderStatCard`, the structural sibling of
+   `questionCard`, now backs four entity cards: **manager/opponent** → W-D-L
+   conviction bar (reuses `vizWdl`) + win %; **season** → diverging result spine
+   (the `ResultSpine` idiom); **player** → career span on the club timeline
+   (`CareerSpanBar` idiom) + goals. Each echoes its page's own hero visual.
+
+### Notes for next time
+
+- **Player career-span is the thinnest shape** — a single gold span. It's the
+  honest floor (reuses the on-site idiom) but the least information-dense of the
+  five; a peak-season pip would earn it more if revisited.
+- **`ShareCite` is now a misnomer** (it only shares). Left as-is to avoid 6-file
+  churn; trivial rename when convenient.
+- **History-changed unfurls blank** for matches with no digest (saw it on the 1999
+  final) — it falls back to the generic default card. Separate latent issue, not
+  touched here.
+- Cards still have **no overflow recovery** by design; entity titles/names now clamp
+  with ellipsis in `renderStatCard`, but very long opponent names on the *match*
+  card lean on a fixed 396px column — worth an eyeball on an outlier.
