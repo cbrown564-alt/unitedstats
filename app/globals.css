@@ -197,20 +197,6 @@ body {
   background-size: 56px 56px;
 }
 
-/* Night-match floodlights for the full-bleed match hero. The field is near-black
-   (#0c0b0a), so the light has to be assertive to read: two bright pylon hotspots
-   bloom down from the top corners, a broad cool wash falls from above the frame,
-   a brand-red ambient rises from the foot, and a vignette deepens the edges so
-   the centred score stays on clear, dark ground. */
-.hero-floodlight {
-  background-image:
-    radial-gradient(26% 55% at 11% -10%, oklch(96% 0.025 230 / 0.4), transparent 62%),
-    radial-gradient(26% 55% at 89% -10%, oklch(96% 0.025 230 / 0.4), transparent 62%),
-    radial-gradient(120% 80% at 50% -30%, oklch(88% 0.03 235 / 0.14), transparent 72%),
-    radial-gradient(85% 80% at 50% 128%, oklch(55% 0.2 28 / 0.12), transparent 72%),
-    radial-gradient(150% 140% at 50% 30%, transparent 48%, rgb(0 0 0 / 0.34));
-}
-
 a {
   text-underline-offset: 3px;
 }

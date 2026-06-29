@@ -529,10 +529,20 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-b border-line">
-        {/* Full-bleed broadcast band: floodlight pools and the faint pitch grid
-            span the viewport, the content stays aligned to the page gutter. No
-            card — the result is the page's headline, not a boxed widget. */}
-        <div className="hero-floodlight pointer-events-none absolute inset-0" aria-hidden />
+        {/* Full-bleed broadcast band: twin devil-red floodlights bloom from the top
+            corners (the same blurred-glow language as every other hero) over the
+            faint pitch grid, the content held to the page gutter. No card — the
+            result is the page's headline, not a boxed widget. */}
+        <div
+          className="pointer-events-none absolute -left-24 -top-28 h-72 w-1/2 rounded-full opacity-[0.13] blur-3xl"
+          style={{ backgroundColor: "var(--color-devil)" }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-24 -top-28 h-72 w-1/2 rounded-full opacity-[0.13] blur-3xl"
+          style={{ backgroundColor: "var(--color-devil)" }}
+          aria-hidden
+        />
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
         <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-9 sm:px-6 sm:py-12">
           <header className="space-y-4">
