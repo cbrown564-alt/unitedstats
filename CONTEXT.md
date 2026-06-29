@@ -2,9 +2,9 @@
 
 Working glossary from the restraint-pass clarity session (2026-06-29). The terms
 and decisions Red Thread is built on, written down so they stop being unspoken.
-Reference, not diary. When the durable parts settle they graduate into
-`PRODUCT.md`; until then **this file wins where it conflicts with `PRODUCT.md`**
-(conflicts flagged in §5).
+Reference, not diary. The durable parts have now graduated into `PRODUCT.md`
+(reconciled 2026-06-29; see §5). This file remains the fuller shared picture — the
+modes, the white space, the surface verdicts — that `PRODUCT.md` only summarises.
 
 *(Red Thread is the brand; "UnitedStats" is the repo/codebase name.)*
 
@@ -136,10 +136,13 @@ result, not yet executed cuts.
     All green (tsc / knip / lint / 126 tests). `lib/entryPoints.ts` is *separately*
     dead (the removed EntryChips backing) — a future small cut, left for now.
 
-## 5. What this supersedes in `PRODUCT.md` (reconcile later)
+## 5. What this supersedes in `PRODUCT.md` (reconciled 2026-06-29)
 
-`PRODUCT.md` predates this session and encodes the pre-clarity frame. Where they
-conflict, **this file wins** until `PRODUCT.md` is reconciled:
+`PRODUCT.md` has now been reconciled to the frame below: the conflicts are resolved
+and the settled decisions have graduated into it — audience → the
+nostalgist-as-mindset; purpose → soul + foundation; the *lens, not loom* bar and the
+two promoted principles; the front door → the spark. The three superseded points are
+kept here as a record of what changed:
 
 - **Primary Audience** — PRODUCT.md says "stats-heavy United fans"; corrected to
   **the nostalgist-as-mindset** (the stats-heavy maker is explicitly
@@ -178,6 +181,6 @@ surfacing as the real crux. Not a late-phase nicety; load-bearing for "done."
 ---
 
 *All five clarity threads are resolved (who · what-for · the bar · restraint-is-real
-· done). The work is now **building**, in leverage order: (1) design the
-first-contact spark (the front door / Phase 3a); (2) execute the surface-by-surface
-pass against §3–4; (3) reconcile `PRODUCT.md` to this file (§5).*
+· done), and `PRODUCT.md` is reconciled to this file (§5, done 2026-06-29). The work
+is now **building**, in leverage order: (1) design the first-contact spark (the front
+door / Phase 3a); (2) execute the surface-by-surface pass against §3–4.*
