@@ -6,17 +6,17 @@ const NOOP = () => () => {};
 const hasNativeShare = () => typeof navigator !== "undefined" && typeof navigator.share === "function";
 
 /**
- * Share affordance for any answer or detail page. Three progressive layers:
+ * Share affordance for any answer or detail page. One action, capability-aware:
  *
  *  - **Share** (when the browser exposes `navigator.share`): opens the OS share
- *    sheet. Where the browser can also share files, it shares the page's own OG
- *    card *image* — so it lands in a story or chat as a picture, not just a link —
- *    falling back to a url+title share. The sheet already carries "copy", so we
- *    drop the explicit Copy-link button whenever native share is present.
- *  - **Copy link** (the desktop fallback when there is no share sheet).
- *  - **Cite**: a formatted citation carrying the reader's retrieval date — not
- *    something any share sheet offers, so it always shows.
- *  - **Save card**: downloads the page's branded OG card as a PNG.
+ *    sheet. Where the browser can also share files, it hands over the page's own
+ *    OG card *image* — so it lands in a story or chat as a picture, not just a
+ *    link — falling back to a url+title share.
+ *  - **Copy link** (the desktop fallback, where there is no share sheet).
+ *
+ * (Earlier this also offered Cite and Save-card; both were dropped — nobody asked
+ * for them, and the saved match card was a link-unfurl, not a post-worthy image.
+ * The energy moved to making the OG card itself worth sharing.)
  *
  * The OG card is the route's own `opengraph-image` (every page that renders this
  * has one colocated), so it is always same-origin and needs nothing threaded in.
@@ -30,22 +30,16 @@ export function ShareCite({
 }: {
   path: string;
   title: string;
-  /** `bar` is the default right-aligned toolbar; `hero` is the grouped glass
-   *  pill used under a match-night headline. */
+  /** `bar` is the default right-aligned button; `hero` is the glass pill used
+   *  under a match-night headline. */
   variant?: "bar" | "hero";
 }) {
-  const [copied, setCopied] = useState<"" | "link" | "cite">("");
-  const [saving, setSaving] = useState<"" | "busy" | "done">("");
+  const [copied, setCopied] = useState(false);
 
   // The server can't know the client's share capability, so the server snapshot
-  // is `false`: first paint matches the no-share markup, then the Share button
+  // is `false`: first paint matches the Copy-link markup, then the Share button
   // swaps in after hydration without a setState-in-effect cascade.
   const canShare = useSyncExternalStore(NOOP, hasNativeShare, () => false);
-
-  const flash = (which: "link" | "cite") => {
-    setCopied(which);
-    window.setTimeout(() => setCopied(""), 1600);
-  };
 
   const absolute = () =>
     typeof window === "undefined" ? path : `${window.location.origin}${path}`;
@@ -58,22 +52,8 @@ export function ShareCite({
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(absolute());
-      flash("link");
-    } catch {
-      /* clipboard unavailable — nothing to recover */
-    }
-  };
-
-  const copyCitation = async () => {
-    const retrieved = new Date().toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-    const citation = `${title} — Red Thread, ${absolute()} (retrieved ${retrieved}).`;
-    try {
-      await navigator.clipboard.writeText(citation);
-      flash("cite");
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
     } catch {
       /* clipboard unavailable — nothing to recover */
     }
@@ -84,10 +64,6 @@ export function ShareCite({
   // preserved. A cancelled sheet (AbortError) is a no-op, not a failure.
   const share = async () => {
     const url = absolute();
-    // Build the card image first, in its own try — a fetch failure just means we
-    // share the link instead. Then call navigator.share exactly ONCE. Calling it
-    // a second time was the bug: dismissing the sheet rejects the share with an
-    // AbortError, and a fall-through second call simply re-opened the sheet.
     let file: File | null = null;
     try {
       file = await fetchCardFile(cardUrl, cardFilename);
@@ -105,60 +81,29 @@ export function ShareCite({
     }
   };
 
-  const saveCard = async () => {
-    setSaving("busy");
-    try {
-      const file = await fetchCardFile(cardUrl, cardFilename);
-      if (!file) throw new Error("no card");
-      const href = URL.createObjectURL(file);
-      const a = document.createElement("a");
-      a.href = href;
-      a.download = cardFilename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(href);
-      setSaving("done");
-      window.setTimeout(() => setSaving(""), 1600);
-    } catch {
-      setSaving("");
-    }
-  };
-
-  // Hero: one considered control rather than three stray buttons — a glass pill
-  // sitting on the floodlit headline, each action carrying an icon, the brand red
-  // threading in on hover. Compacted state labels keep the segments even.
+  // Hero: a single glass pill sitting on the floodlit headline, the brand red
+  // threading in on hover.
   if (variant === "hero") {
     const seg =
-      "group/sc inline-flex items-center gap-1.5 px-3.5 py-2 text-ink-dim transition-colors hover:bg-panel-2/70 hover:text-ink focus-ring disabled:opacity-60";
+      "group/sc inline-flex items-center gap-1.5 rounded-full border border-line/70 bg-panel/40 px-4 py-2 text-xs text-ink-dim backdrop-blur-sm transition-colors hover:bg-panel-2/70 hover:text-ink focus-ring";
     const ic = "text-ink-faint transition-colors group-hover/sc:text-devil-bright";
     return (
-      <div
-        className="inline-flex items-stretch divide-x divide-line/70 overflow-hidden rounded-full border border-line/70 bg-panel/40 text-xs backdrop-blur-sm"
-        aria-label="Share this match"
-      >
+      <div className="inline-flex" aria-label="Share this match">
         {canShare ? (
           <button type="button" onClick={share} className={seg}>
             <span className={ic}><ShareIcon /></span>Share
           </button>
         ) : (
           <button type="button" onClick={copyLink} className={seg}>
-            <span className={ic}><LinkIcon /></span>{copied === "link" ? "Copied" : "Copy link"}
+            <span className={ic}><LinkIcon /></span>{copied ? "Link copied" : "Copy link"}
           </button>
         )}
-        <button type="button" onClick={copyCitation} className={seg}>
-          <span className={ic}><CiteIcon /></span>{copied === "cite" ? "Cited" : "Cite"}
-        </button>
-        <button type="button" onClick={saveCard} disabled={saving === "busy"} className={seg}>
-          <span className={ic}><SaveIcon /></span>
-          {saving === "busy" ? "Saving…" : saving === "done" ? "Saved" : "Save card"}
-        </button>
       </div>
     );
   }
 
   const btn =
-    "inline-flex items-center gap-1 rounded-md border border-line px-2 py-1 text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-ring disabled:opacity-60";
+    "inline-flex items-center gap-1 rounded-md border border-line px-2 py-1 text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-ring";
 
   return (
     <div className="flex flex-wrap items-center justify-end gap-2 text-xs" aria-label="Share this answer">
@@ -168,15 +113,9 @@ export function ShareCite({
         </button>
       ) : (
         <button type="button" onClick={copyLink} className={btn}>
-          {copied === "link" ? "Link copied" : "Copy link"}
+          {copied ? "Link copied" : "Copy link"}
         </button>
       )}
-      <button type="button" onClick={copyCitation} className={btn}>
-        {copied === "cite" ? "Citation copied" : "Cite"}
-      </button>
-      <button type="button" onClick={saveCard} disabled={saving === "busy"} className={btn}>
-        {saving === "busy" ? "Saving…" : saving === "done" ? "Card saved" : "Save card"}
-      </button>
     </div>
   );
 }
@@ -202,25 +141,7 @@ function LinkIcon() {
   );
 }
 
-function CiteIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={ICON} aria-hidden>
-      <path d="M6 7h4.5v5.5A3.5 3.5 0 0 1 7 16v-1.8a1.7 1.7 0 0 0 1.7-1.7H6V7Zm7.5 0H18v5.5a3.5 3.5 0 0 1-3.5 3.5v-1.8a1.7 1.7 0 0 0 1.7-1.7h-2.7V7Z" />
-    </svg>
-  );
-}
-
-function SaveIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className={ICON} aria-hidden>
-      <path d="M12 4v9" />
-      <path d="m8 9 4 4 4-4" />
-      <path d="M5 18h14" />
-    </svg>
-  );
-}
-
-/** Fetch the route's OG card PNG as a shareable/downloadable File, or null. */
+/** Fetch the route's OG card PNG as a shareable File, or null. */
 async function fetchCardFile(url: string, filename: string): Promise<File | null> {
   const res = await fetch(url);
   if (!res.ok) return null;

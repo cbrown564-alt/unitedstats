@@ -126,6 +126,126 @@ export function entityCard(
   return renderCard(props, headers);
 }
 
+/** A single goal as a point on the match's minute axis. `side` colours the dot —
+ *  United gold, opponent grey — so the run of play reads as a shape. */
+export type MatchGoal = { minute: number; addedTime: number; side: "united" | "opponent" };
+
+/** The goal-minute timeline: a 0→full-time axis with a dot per goal, United gold
+ *  and opponent grey, ticks at half- and full-time. A late flurry crammed past the
+ *  90' tick (the treble final's two stoppage-time goals) reads instantly; an early
+ *  concession sits alone on the left. The shape carries the drama the scoreline hides. */
+function goalStrip(goals: MatchGoal[]) {
+  const W = Q_WIDTH;
+  const dotR = 11;
+  const inner = W - dotR * 2;
+  const lastEff = Math.max(90, ...goals.map((g) => g.minute + (g.addedTime ?? 0)));
+  const domain = lastEff <= 90 ? 98 : lastEff + 6; // headroom past the last goal
+  const at = (min: number) => Math.round((min / domain) * inner) + dotR;
+  const x = (g: MatchGoal) => at(g.minute + Math.min(g.addedTime ?? 0, 7) * 0.7);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", width: W }}>
+      <div style={{ position: "relative", display: "flex", width: W, height: 52 }}>
+        <div style={{ position: "absolute", left: 0, top: 25, width: W, height: 2, background: LINE }} />
+        {[45, 90].map((m) => (
+          <div key={m} style={{ position: "absolute", left: at(m), top: 16, width: 2, height: 20, background: LINE }} />
+        ))}
+        {goals.map((g, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: x(g) - dotR,
+              top: 15,
+              width: dotR * 2,
+              height: dotR * 2,
+              borderRadius: dotR,
+              background: g.side === "united" ? GOLD : DRAW,
+              border: `3px solid ${PITCH}`,
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ position: "relative", display: "flex", width: W, height: 26, fontSize: 19, color: INK_FAINT }}>
+        <span style={{ position: "absolute", left: 0 }}>Kick-off</span>
+        <span style={{ position: "absolute", left: at(45) - 12 }}>HT</span>
+        <span style={{ position: "absolute", left: at(90) - 64 }}>Full time</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * A match's social card: the scoreline coloured by outcome, the matchup, and the
+ * goals drawn as a minute-timeline — so the record's drama (a stoppage-time
+ * flurry, an early concession) arrives as a *shape*, not a flat scoreline. When no
+ * goal events are recorded (older matches), the strip is dropped and a context
+ * line (venue, half-time) carries the slot instead.
+ */
+export function matchCard(
+  {
+    eyebrow, home, away, score, outcome, date, goals, footnote, strip,
+  }: {
+    eyebrow: string;
+    home: string;
+    away: string;
+    score: string;
+    outcome: "W" | "D" | "L";
+    date: string;
+    goals: MatchGoal[];
+    footnote?: string;
+    strip: string[];
+  },
+  headers?: Record<string, string>,
+) {
+  const scoreColor = outcome === "W" ? WIN : outcome === "L" ? DEVIL : DRAW;
+  const name = (text: string, align: "flex-end" | "flex-start") => (
+    <div style={{ display: "flex", width: 396, justifyContent: align, overflow: "hidden" }}>
+      <span style={{ fontSize: 40, color: INK, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{text}</span>
+    </div>
+  );
+  return new ImageResponse(
+    (
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK }}>
+        <div style={{ width: 16, height: "100%", background: DEVIL }} />
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
+          <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
+            <OgBrand />
+            <span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
+            <span style={{ color: INK_FAINT, marginLeft: "auto", letterSpacing: 0, fontSize: 24 }}>{date}</span>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {name(home, "flex-end")}
+              <span style={{ fontSize: 92, fontWeight: 800, letterSpacing: -3, color: scoreColor, margin: "0 28px", lineHeight: 1 }}>{score}</span>
+              {name(away, "flex-start")}
+            </div>
+            {footnote && (
+              <div style={{ display: "flex", justifyContent: "center", marginTop: 14, fontSize: 23, color: INK_DIM }}>{footnote}</div>
+            )}
+            {goals.length > 0 && <div style={{ display: "flex", marginTop: 40 }}>{goalStrip(goals)}</div>}
+          </div>
+
+          <div style={{ display: "flex" }}>
+            {strip.map((chip) => (
+              <div
+                key={chip}
+                style={{
+                  display: "flex", alignItems: "center", border: `1px solid ${LINE}`, background: PANEL,
+                  borderRadius: 10, padding: "12px 22px", marginRight: 16, fontSize: 24, color: INK,
+                }}
+              >
+                {chip}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+    { ...OG_SIZE, ...(headers ? { headers } : {}) },
+  );
+}
+
 /** A single moved record, shown as a figure-over-label stat tile. `tone` colours
  *  the figure: a gain reads gold, a loss reads red, anything neutral stays ink. */
 export type DigestTile = { figure: string; label: string; tone: "up" | "down" | "neutral" };
