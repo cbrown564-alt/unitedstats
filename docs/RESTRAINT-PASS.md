@@ -296,6 +296,27 @@ deleting):
 
 ### Phase 3a — The rediscovery mechanic (what "elevate" means)
 
+> **Status — the engine is built and verified (2026-06-29); surfaces deferred.**
+> The computable charge scorer is live: `lib/charge.ts` (`computeAllCharge`) scores
+> every match by **charge × fadedness** into a new `match_charge` table at build
+> time (in `scripts/build-db.ts`), and `lib/rediscovery.ts` (`topRediscoveries`,
+> era-aware via an optional `since`) reads it cheaply at request time with the
+> "Do you remember…?" prompt. Each factor reuses an existing engine (`buildCupRun`
+> exits, `comebacks`/`leadHeld` replay, `streaks` enders, `elo_history.expected`
+> upsets, rivalry/scoreline/late/crowd). Fadedness *inverts the curated hero* — a
+> living-memory window × a fame penalty that suppresses the famous nights, so
+> rediscovery surfaces the charged-but-*forgotten* middle. Verified via
+> `scripts/rediscovery-preview.ts` + `tests/rediscovery.test.ts` (picks are strong;
+> the 2015-16 Liverpool Europa exit tops its Liverpool/2015-16 slices; 1999 Bayern
+> is suppressed). **Decisions taken with the author:** keep the curated hero as the
+> gate (rediscovery is *separate surfaces*); engine is era-aware but the "Following
+> since ___?" UI is deferred; **tone is decided per-surface** (the base ranking
+> skews to forgotten *defeats* because charged wins are mostly famous → suppressed;
+> the engine stays neutral and each surface filters its own tone via the returned
+> `reason`/`result`). **Still open (next pass):** wire the surfaces — homepage
+> "Do you remember…?" rail, entity-page "you might have forgotten…" rails, the
+> `/surprise` nostalgia mode — and the era-input UI.
+
 The strongest organic reaction Red Thread ever got — a fan rediscovering the 2015
 Europa League exit — was **serendipitous exploration of a forgotten, emotionally
 charged match.** It was neither on-this-day (a ~1/365 calendar coincidence) nor

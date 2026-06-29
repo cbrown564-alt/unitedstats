@@ -97,7 +97,7 @@ export function timedGoalCounts(): { timed: number; total: number } {
  * because "iconic" is editorial; every entry is still a real one-goal win sealed
  * in the closing minutes, verified against the record.
  */
-const ICONIC_LATE_DATES = [
+export const ICONIC_LATE_DATES = [
   "1993-04-10", // Bruce's brace v Sheffield Wednesday — the original "Fergie time"
   "1996-05-11", // Cantona's late winner v Liverpool — the FA Cup final
   "1999-05-26", // Sheringham & Solskjaer v Bayern — the Treble sealed in stoppage

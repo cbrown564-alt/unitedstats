@@ -63,6 +63,9 @@ const RIVALRIES: RivalSpec[] = [
   { id: "chelsea", label: "Chelsea" },
 ];
 
+/** The rivalry opponent ids, for the rediscovery charge scorer (`lib/charge.ts`). */
+export const RIVALRY_IDS: ReadonlySet<string> = new Set(RIVALRIES.map((r) => r.id));
+
 // The defining eras, each landing on a rich page that opens its own trails — a
 // title campaign (a season) or a managerial reign (a manager page).
 const ERAS: EraSpec[] = [

@@ -14,6 +14,7 @@ import {
   CANONICAL, DB_PATH, Match, SeasonFile,
   listSeasonFiles, readJson, MATCHES_DIR,
 } from "./lib";
+import { computeAllCharge } from "../lib/charge";
 
 interface Managers {
   managers: {
@@ -1323,6 +1324,39 @@ for (const t of transfers) {
   );
 }
 const transfersN = (db.prepare("SELECT COUNT(*) n FROM transfers").get() as { n: number }).n;
+
+// ---------- rediscovery charge ----------
+// One precomputed score per match for the rediscovery engine (lib/charge.ts):
+// charge (how much the night carries) × fadedness (how forgotten it is). The
+// request-time selector (lib/rediscovery.ts) reads this cheaply and adds the
+// per-reader "your era" bias. Pure function of the tables above — see lib/charge.ts.
+db.exec(`
+CREATE TABLE match_charge (
+  match_id   TEXT PRIMARY KEY REFERENCES matches(id),
+  charge     REAL NOT NULL,
+  fadedness  REAL NOT NULL,
+  score      REAL NOT NULL,
+  reason     TEXT NOT NULL,
+  components TEXT NOT NULL
+);
+CREATE INDEX idx_match_charge_score ON match_charge(score DESC);
+`);
+const insCharge = db.prepare(
+  "INSERT INTO match_charge VALUES (@match_id, @charge, @fadedness, @score, @reason, @components)",
+);
+const chargeRows = computeAllCharge(db);
+for (const r of chargeRows) {
+  insCharge.run({
+    match_id: r.match_id,
+    charge: r.charge,
+    fadedness: r.fadedness,
+    score: r.score,
+    reason: r.reason,
+    components: JSON.stringify(r.components),
+  });
+}
+const chargedN = chargeRows.filter((r) => r.reason !== "none").length;
+console.log(`match_charge: ${chargeRows.length} matches scored (${chargedN} charged)`);
 
 const insMeta = db.prepare("INSERT INTO meta VALUES (?,?)");
 insMeta.run("built_at", new Date().toISOString());
