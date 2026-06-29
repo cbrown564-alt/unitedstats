@@ -1,16 +1,12 @@
 import {
-  bogeyOpponents, comebacks, cupGoalShareBaseline, cupSpecialists,
+  comebacks, cupGoalShareBaseline, cupSpecialists,
   goalMinuteRidge, leadHeldAtHome, managerBounce,
+  eraRecord, FERGUSON_END, seasonRanks, managerPpgRanking, europeByDecade, europeanFinals,
 } from "@/lib/trails";
 import { clubStreaks } from "@/lib/streaks";
-import { ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
-import { awayFootprint, MANCHESTER } from "@/lib/spatial";
-import { EUROPE_LAND } from "@/lib/geo/land";
 import { fmtNum, pct } from "@/lib/format";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
-import { GeoScatter } from "@/components/GeoScatter";
 import { WdlBar } from "@/components/WdlBar";
-import { ClubBadge } from "@/components/ClubBadge";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -27,8 +23,6 @@ import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotpl
  * figure itself lives in `lib/questionHeadlines.ts`; the figure clusters here show
  * the *other* facets so the slide doesn't just restate its own headline.
  */
-
-const EUROPE: [number, number, number, number] = [34, 61.5, -11, 36];
 
 const FIGURE_TONE: Record<"devil" | "gold" | "win" | "ink", string> = {
   devil: "text-devil-bright",
@@ -98,28 +92,89 @@ export function QuestionSignature({ slug }: { slug: string }) {
       );
     }
 
-    case "bogey-sides": {
-      const bogeys = bogeyOpponents(20, 3);
+    case "decline": {
+      const ferg = eraRecord("1986-11-08", FERGUSON_END);
+      const since = eraRecord("2013-05-20", "9999-12-31");
       return (
-        <div className="space-y-2.5">
-          {bogeys.map((o) => (
-            <div key={o.id} className="grid grid-cols-[2.6rem_minmax(0,1fr)] items-center gap-3">
-              <div className="stat-num text-right text-base font-semibold text-devil-bright">
-                {pct(o.w, o.p)}
-              </div>
-              <div className="min-w-0">
-                <div className="mb-1 flex items-center gap-2 text-sm">
-                  <ClubBadge id={o.id} name={o.name} />
-                  <span className="truncate">{o.name}</span>
-                  <span className="stat-num ml-auto whitespace-nowrap text-[11px] text-ink-faint">
-                    {o.p} met
-                  </span>
-                </div>
-                <WdlBar w={o.w} d={o.d} l={o.l} />
-              </div>
+        <Figures
+          items={[
+            { value: ferg.ppg.toFixed(2), label: "ppg under Ferguson", tone: "gold" },
+            { value: since.ppg.toFixed(2), label: "ppg since", tone: "devil" },
+            { value: "0", label: "titles since 2013", tone: "devil" },
+          ]}
+        />
+      );
+    }
+
+    case "rivalries": {
+      const ledgers: { id: string; w: number; d: number; l: number }[] = [
+        { id: "liverpool", w: 85, d: 61, l: 72 },
+        { id: "manchester-city", w: 80, d: 55, l: 62 },
+        { id: "leeds-united", w: 50, d: 38, l: 27 },
+        { id: "arsenal", w: 100, d: 55, l: 90 },
+      ];
+      return (
+        <div className="space-y-2">
+          {ledgers.map((r) => (
+            <div key={r.id} className="grid grid-cols-[5.5rem_1fr_4.5rem] items-center gap-3 text-sm">
+              <span className="truncate">{r.id === "leeds-united" ? "Leeds" : r.id === "manchester-city" ? "Man City" : r.id.charAt(0).toUpperCase() + r.id.slice(1)}</span>
+              <WdlBar w={r.w} d={r.d} l={r.l} />
+              <span className="stat-num text-right text-[11px] text-ink-faint">{r.w}–{r.d}–{r.l}</span>
             </div>
           ))}
         </div>
+      );
+    }
+
+    case "ferguson": {
+      const ranking = managerPpgRanking().slice(0, 4);
+      return (
+        <Figures
+          items={[
+            { value: "2.01", label: "Ferguson ppg", tone: "gold" },
+            { value: "38", label: "trophies", tone: "gold" },
+            { value: `${ranking[1]?.ppg.toFixed(2) ?? "—"}`, label: "next-best manager", tone: "ink" },
+          ]}
+        />
+      );
+    }
+
+    case "treble": {
+      return (
+        <Figures
+          items={[
+            { value: "3", label: "trophies, 1998-99", tone: "gold" },
+            { value: "5", label: "losses all season", tone: "win" },
+            { value: "128", label: "goals scored", tone: "ink" },
+          ]}
+        />
+      );
+    }
+
+    case "seasons": {
+      const ranks = [...seasonRanks()].sort((a, b) => b.ppg - a.ppg);
+      return (
+        <Figures
+          items={[
+            { value: ranks[0].season.slice(0, 4), label: `best · ${ranks[0].ppg.toFixed(2)} ppg`, tone: "gold" },
+            { value: ranks[ranks.length - 1].season.slice(0, 4), label: `worst · ${ranks[ranks.length - 1].ppg.toFixed(2)}`, tone: "devil" },
+            { value: String(ranks.length), label: "seasons ranked", tone: "ink" },
+          ]}
+        />
+      );
+    }
+
+    case "europe": {
+      const totals = europeByDecade().reduce((a, d) => ({ w: a.w + d.w, d: a.d + d.d, l: a.l + d.l }), { w: 0, d: 0, l: 0 });
+      const finals = europeanFinals();
+      return (
+        <Figures
+          items={[
+            { value: String(finals.filter((f) => f.won).length), label: "trophies won", tone: "gold" },
+            { value: String(finals.length), label: "finals reached", tone: "ink" },
+            { value: pct(totals.w, totals.w + totals.d + totals.l), label: "win rate in Europe", tone: "win" },
+          ]}
+        />
       );
     }
 
@@ -165,37 +220,6 @@ export function QuestionSignature({ slug }: { slug: string }) {
     case "cup-specialists": {
       const base = cupGoalShareBaseline();
       return <CupLeanBar rows={cupSpecialists(25, 6)} baseline={base.share} />;
-    }
-
-    case "own-goals": {
-      const og = ownGoalSummary();
-      const rank = topScorers(12).findIndex((p) => p.player_id === "own-goal") + 1;
-      const repeatMax = Math.max(1, ...ownGoalScorers().map((s) => s.n));
-      return (
-        <Figures
-          items={[
-            { value: fmtNum(og.total), label: rank ? `own goals · #${rank} all-time` : "own goals", tone: "devil" },
-            { value: fmtNum(og.scorers), label: "different benefactors", tone: "ink" },
-            { value: `${repeatMax}×`, label: "most by any one player", tone: "ink" },
-          ]}
-        />
-      );
-    }
-
-    case "away-days": {
-      const european = awayFootprint().filter((v) => v.european > 0);
-      return (
-        <div className="mx-auto w-full max-w-[24rem]">
-          <GeoScatter
-            points={european.map((v) => ({ lat: v.lat, lng: v.lng, label: v.name, value: v.p }))}
-            origin={{ ...MANCHESTER, label: "Manchester" }}
-            bounds={EUROPE}
-            land={EUROPE_LAND}
-            labelTop={6}
-            dotColor="var(--color-gold)"
-          />
-        </div>
-      );
     }
 
     default:

@@ -679,7 +679,7 @@ function eraTrophies(era: EraDef): TrophyHaul {
 /** Season-by-season league finish across an era (top-flight on the main scale,
  *  lower divisions flagged), each carrying its league record as PPG — the
  *  one-number squad context the interactive skyline surfaces on hover. */
-function eraFinishes(era: EraDef): EraFinish[] {
+export function eraFinishes(era: EraDef): EraFinish[] {
   const rows = getDb()
     .prepare(
       `SELECT ss.season, ss.position, c.name, ss.p, ss.w, ss.d

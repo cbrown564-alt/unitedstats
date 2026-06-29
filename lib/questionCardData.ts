@@ -1,5 +1,4 @@
 import {
-  bogeyOpponents,
   cupGoalShareBaseline,
   cupSpecialists,
   lateGoalShareByDecade,
@@ -55,20 +54,6 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
         figure: fmtNum(rows[0].value),
         gloss: "matches without defeat — the longest unbeaten run in official football",
         visual: { kind: "rows", bars: rows.map((r, i) => ({ ...r, valueText: fmtNum(r.value), highlight: i === 0 })) },
-      };
-    }
-    case "bogey-sides": {
-      const b = bogeyOpponents(20, 5);
-      if (b.length === 0) return null;
-      const worst = b[0];
-      return {
-        figure: pct(worst.w, worst.p),
-        gloss: `win rate v ${worst.name} — the lowest against any opponent met 20+ times`,
-        accent: "devil",
-        visual: {
-          kind: "rows",
-          bars: b.map((o, i) => ({ label: o.name, value: o.p ? (o.w / o.p) * 100 : 0, valueText: pct(o.w, o.p), highlight: i === 0 })),
-        },
       };
     }
     case "cup-specialists": {

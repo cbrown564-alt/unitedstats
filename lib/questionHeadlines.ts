@@ -1,11 +1,11 @@
 import { fmtNum, pct } from "./format";
 import {
-  bogeyOpponents, comebacks, cupGoalShareBaseline, cupSpecialists,
+  comebacks, cupGoalShareBaseline, cupSpecialists,
   lateGoalShareByDecade, leadHeldAtHome, managerBounce,
+  eraRecord, FERGUSON_END, seasonRanks, managerPpgRanking,
+  europeByDecade, europeanFinals,
 } from "./trails";
 import { clubStreaks } from "./streaks";
-import { ownGoalSummary, topScorers } from "./queries";
-import { awayFootprint } from "./spatial";
 
 /**
  * One headline figure per curated question — the single number that *is* the
@@ -16,7 +16,7 @@ import { awayFootprint } from "./spatial";
  * Each headline is derived from the same `lib/trails`, `lib/streaks`, and query
  * sources as the full finding paragraphs in `components/QuestionModules.tsx`, so
  * the card and the page it links to never contradict each other. These are light
- * reads on the in-process SQLite db — far cheaper than rendering all nine modules
+ * reads on the in-process SQLite db — far cheaper than rendering every module
  * (which `/questions` does), so computing the set for one launcher grid is fine.
  */
 export interface QuestionHeadline {
@@ -38,8 +38,6 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
 
   const longestUnbeaten = clubStreaks(1).unbeaten[0];
 
-  const topBogey = bogeyOpponents(20, 1)[0];
-
   const bounce = managerBounce();
   const bounceUp = bounce.filter((b) => b.first10.w > b.prev10.w).length;
 
@@ -55,12 +53,49 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   const cupMultiple =
     cupBaseline.share && topCupLean ? (topCupLean.cup_goals / topCupLean.total) / cupBaseline.share : 0;
 
-  const og = ownGoalSummary();
-  const ogRank = topScorers(12).findIndex((p) => p.player_id === "own-goal") + 1;
+  const ferg = eraRecord("1986-11-08", FERGUSON_END);
+  const since = eraRecord("2013-05-20", "9999-12-31");
 
-  const farthest = [...awayFootprint()].sort((a, b) => b.km - a.km)[0];
+  const ranks = [...seasonRanks()].sort((a, b) => b.ppg - a.ppg);
+
+  const managerRanking = managerPpgRanking();
+  const fergusonRank = managerRanking.find((m) => m.id === "alex-ferguson");
+
+  const europeTotals = europeByDecade().reduce((a, d) => ({ w: a.w + d.w, d: a.d + d.d, l: a.l + d.l }), { w: 0, d: 0, l: 0 });
+  const europeFinals = europeanFinals();
+  const europeWon = europeFinals.filter((f) => f.won).length;
 
   return {
+    decline: {
+      stat: since.ppg.toFixed(2),
+      gloss: `points per game since Ferguson — down from ${ferg.ppg.toFixed(2)} across his ${ferg.p.toLocaleString("en-GB")} matches`,
+      tone: "devil",
+    },
+    rivalries: {
+      stat: "4",
+      gloss: "great rivalries — Liverpool, City, Leeds and Arsenal — measured in every meeting since the 1890s",
+      tone: "devil",
+    },
+    ferguson: {
+      stat: fergusonRank ? fergusonRank.ppg.toFixed(2) : "—",
+      gloss: "points per game under Ferguson — the highest of any United manager over a full reign",
+      tone: "gold",
+    },
+    treble: {
+      stat: "3",
+      gloss: "trophies in 1998-99 — the first English side to hold the league, FA Cup and European Cup at once",
+      tone: "gold",
+    },
+    seasons: {
+      stat: ranks[0] ? ranks[0].ppg.toFixed(2) : "—",
+      gloss: ranks[0] ? `points per game in the best campaign on record (${ranks[0].season})` : "every campaign ranked by points per game",
+      tone: "gold",
+    },
+    europe: {
+      stat: String(europeWon),
+      gloss: `European trophies won across ${pct(europeTotals.w, europeTotals.w + europeTotals.d + europeTotals.l)} of ${fmtNum(europeTotals.w + europeTotals.d + europeTotals.l)} continental matches`,
+      tone: "gold",
+    },
     "late-goals": {
       stat: pct(late.late, late.timed),
       gloss: "of timed goals land after the 85th minute — a late-stage edge, scaled by modern stoppage-time extensions",
@@ -75,13 +110,6 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
       stat: fmtNum(longestUnbeaten?.length ?? 0),
       gloss: "matches without defeat — the longest unbeaten run in official football",
       tone: "win",
-    },
-    "bogey-sides": {
-      stat: topBogey ? pct(topBogey.w, topBogey.p) : "—",
-      gloss: topBogey
-        ? `win rate against ${topBogey.name}, the most persistent obstacle in our history (min. 20 meetings)`
-        : "the sides United beat least often",
-      tone: "devil",
     },
     "manager-bounce": {
       stat: `${bounceUp} of ${bounce.length}`,
@@ -98,16 +126,6 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
       gloss: topCupLean
         ? `${topCupLean.name}’s rate of scoring in cups compared to the squad average — a cup-night specialist`
         : "goalscorers who leaned hardest to the cups",
-      tone: "gold",
-    },
-    "own-goals": {
-      stat: fmtNum(og.total),
-      gloss: `own goals gifted to United — ranking #${ogRank} among our all-time top scorers`,
-      tone: "devil",
-    },
-    "away-days": {
-      stat: farthest ? `${fmtNum(Math.round(farthest.km))} km` : "—",
-      gloss: farthest ? `for the longest away trip in the record, visiting ${farthest.name}` : "how far away days carry United",
       tone: "gold",
     },
   };

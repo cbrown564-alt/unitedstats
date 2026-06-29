@@ -49,6 +49,36 @@ function toDebate(mode: CompareMode, index: number, hook: string): RelatedLink {
 }
 
 const RELATED: Record<string, RelatedLink[]> = {
+  decline: [
+    toQuestion("ferguson", "Measure the fall against the man who set the ceiling."),
+    toQuestion("seasons", "Rank every campaign — the post-Ferguson years sink to the bottom."),
+    toCut("managers-by-points", "Each successor restated on the same points-per-game scale."),
+  ],
+  rivalries: [
+    toCut("opponents-by-win-rate", "The four great rivals are the head of the full opponent ladder."),
+    toQuestion("fortress", "Old Trafford is where most of those rivalry wins were banked."),
+    toQuestion("europe", "Some rivalries — Bayern, Barcelona — are continental, not domestic."),
+  ],
+  ferguson: [
+    toDebate("managers", 0, "Set his reign beside Busby's — the club's two architects."),
+    toQuestion("decline", "Everything since is measured against the standard he set."),
+    toCut("managers-by-points", "Every reign, including his, on one points-per-game scale."),
+  ],
+  treble: [
+    toQuestion("europe", "The Champions League trophy was one thread of the continental record."),
+    toQuestion("comebacks", "That final in Barcelona was the deepest comeback of all."),
+    toCut("seasons-by-points", "1998-99 against every other season, by points per game."),
+  ],
+  seasons: [
+    toQuestion("decline", "The worst modern seasons are the post-Ferguson trough."),
+    toQuestion("ferguson", "The best seasons cluster in one man's reign."),
+    toCut("seasons-by-points", "Slice the same campaigns by the points they returned."),
+  ],
+  europe: [
+    toQuestion("treble", "The greatest European night is the one that completed the Treble."),
+    toCut("opponents-by-win-rate", "The continental record, by opponent, across the decades."),
+    toQuestion("cup-specialists", "Some players truly saved their goals for these European nights."),
+  ],
   "late-goals": [
     toQuestion("comebacks", "If they keep scoring late, do they come from behind too?"),
     toQuestion("fortress", "And once ahead late, how rarely do they let a lead slip?"),
@@ -64,11 +94,6 @@ const RELATED: Record<string, RelatedLink[]> = {
     toQuestion("fortress", "Home form is where most unbeaten runs are built and broken."),
     toCut("seasons-by-points", "Place those runs against the points the seasons around them returned."),
   ],
-  "bogey-sides": [
-    toCut("opponents-by-win-rate", "The bogey teams are just the tail of the full opponent ladder."),
-    toQuestion("away-days", "Many of the hardest sides are the ones met furthest from home."),
-    toQuestion("fortress", "Against the rest, Old Trafford swings the record back the other way."),
-  ],
   "manager-bounce": [
     toCut("managers-by-points", "See every reign restated on one points-per-game scale."),
     toDebate("managers", 1, "Test the bounce on the sharpest succession: Ferguson to Mourinho."),
@@ -81,18 +106,18 @@ const RELATED: Record<string, RelatedLink[]> = {
   ],
   "cup-specialists": [
     toQuestion("own-goals", "Counting goals by who scored them raises an odd name near the top."),
-    toQuestion("away-days", "Cup runs are also where away days reach their farthest."),
+    toQuestion("europe", "European nights are where the cup specialists made their name."),
     toCut("opponents-by-win-rate", "See which opponents those cup nights were won against."),
   ],
   "own-goals": [
     toQuestion("cup-specialists", "Set that phantom goalscorer beside the players who saved goals for the cups."),
     toCut("opponents-by-win-rate", "Own goals quietly tilt some head-to-head records — see which."),
-    toQuestion("bogey-sides", "The opponents United beat least often, the real bogey teams."),
+    toQuestion("rivalries", "The great rivals are where every goal, gifted or not, lands hardest."),
   ],
   "away-days": [
-    toQuestion("bogey-sides", "The farthest trips are often to the sides United beat least often."),
+    toQuestion("rivalries", "The farthest trips are often to the sides United argue with most."),
     toCut("opponents-by-win-rate", "Every opponent United have travelled to, by win rate."),
-    toQuestion("cup-specialists", "European away days are where the cup specialists made their name."),
+    toQuestion("europe", "European away days are where the continental record was built."),
   ],
 };
 

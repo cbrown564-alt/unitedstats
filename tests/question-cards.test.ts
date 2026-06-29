@@ -18,14 +18,16 @@ import { QUESTIONS } from "../lib/questions";
 import { questionHeadlines } from "../lib/questionHeadlines";
 import { questionAnswer } from "../lib/questionCardData";
 import { leadHeldAtHome } from "../lib/trails";
-import { ownGoalSummary, topScorers } from "../lib/queries";
+import { topScorers } from "../lib/queries";
 import { fmtNum } from "../lib/format";
 
-const DATA_CARD_SLUGS = ["late-goals", "runs", "bogey-sides", "cup-specialists", "own-goals", "fortress"];
-const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "away-days"];
-// Questions whose headline figure and card figure are the same number. own-goals
-// is excluded by design: the headline leads with the total, the card with the rank.
-const HEADLINE_MATCHES_CARD = ["late-goals", "runs", "bogey-sides", "cup-specialists", "fortress"];
+// Questions that render a data-driven OG card. The new front-door questions
+// (decline, rivalries, ferguson, treble, seasons, europe) fall back to the text
+// card for now; own-goals stays as a linkable easter-egg card.
+const DATA_CARD_SLUGS = ["late-goals", "runs", "cup-specialists", "own-goals", "fortress"];
+const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "decline", "rivalries", "ferguson", "treble", "seasons", "europe"];
+// Questions whose headline figure and card figure are the same number.
+const HEADLINE_MATCHES_CARD = ["late-goals", "runs", "cup-specialists", "fortress"];
 
 test("every curated question has a non-empty, data-present headline", () => {
   const headlines = questionHeadlines();
@@ -38,7 +40,7 @@ test("every curated question has a non-empty, data-present headline", () => {
   }
 });
 
-test("the six data-card questions render a card; the three deferred fall back to text", () => {
+test("the data-card questions render a card; the deferred fall back to text", () => {
   for (const slug of DATA_CARD_SLUGS) {
     const a = questionAnswer(slug);
     assert.ok(a, `${slug} should produce a data card`);
@@ -75,14 +77,11 @@ test("the /explore headline and the OG card report the same figure", () => {
   }
 });
 
-test("own-goals: headline leads with the total, card with the rank — both data-derived", () => {
-  const h = questionHeadlines()["own-goals"];
+test("own-goals: card leads with the rank, derived from the live top-scorers table", () => {
   const a = questionAnswer("own-goals");
   assert.ok(a);
-  const total = ownGoalSummary().total;
   const idx = topScorers(8).findIndex((p) => p.player_id === "own-goal");
-  assert.equal(h.stat, fmtNum(total), "headline should lead with the own-goal total");
-  assert.equal(a.figure, idx >= 0 ? `#${idx + 1}` : fmtNum(total), "card should lead with the own-goal rank");
+  assert.equal(a.figure, idx >= 0 ? `#${idx + 1}` : "—", "card should lead with the own-goal rank");
 });
 
 test("fortress: every surface reports the real unbeaten run, never a stale 0", () => {

@@ -1,15 +1,20 @@
 import Link from "next/link";
 import {
-  bogeyOpponents, comebacks, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
+  comebacks, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
+  eraRecord, FERGUSON_END, topFlightFinishes, titlesInRange,
+  seasonRanks, managerPpgRanking, trebleRuns, europeByDecade, europeanFinals,
+  notableMatches, opponentResultSequence, longestStreak,
 } from "@/lib/trails";
+import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
-import { getMeta, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
+import { getMeta, managerHonours, ownGoalScorers, ownGoalSummary, topScorers } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
+import { EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
@@ -347,48 +352,377 @@ function RunsModule({ variant }: ModuleProps) {
   );
 }
 
-function BogeySidesModule({ variant }: ModuleProps) {
-  const bogeys = bogeyOpponents(20, 10);
+// ---- The decline -----------------------------------------------------------
+
+function DeclineModule({ variant }: ModuleProps) {
+  const ferg = eraRecord("1986-11-08", FERGUSON_END);
+  const since = eraRecord("2013-05-20", "9999-12-31");
+  const finishes = topFlightFinishes();
+  const fergTitles = titlesInRange("1986-87", "2012-13");
+  const sinceTitles = titlesInRange("2013-14", "2999-99");
+  const sinceFinishes = finishes.filter((f) => f.season >= "2013-14");
+  const avgFinish =
+    sinceFinishes.length > 0
+      ? (sinceFinishes.reduce((s, f) => s + f.position, 0) / sinceFinishes.length).toFixed(1)
+      : "—";
+  const worst = sinceFinishes.reduce((m, f) => Math.max(m, f.position), 0);
+  const fergEra = ERA_CATALOGUE.find((e) => e.key === "ferguson")!;
+  const afterEra = ERA_CATALOGUE.find((e) => e.key === "after")!;
   return (
     <Module
-      slug="bogey-sides"
+      slug="decline"
+      evidence={{ href: `/matches?from=2013-05-20&sort=date-asc`, label: "Every match since Ferguson →", count: since.p, countNoun: "matches" }}
+      variant={variant}
+      finding={`In ${ferg.p.toLocaleString("en-GB")} official matches under Ferguson, United took ${ferg.ppg.toFixed(2)} points a game and won the title ${fergTitles} times. In the ${since.p.toLocaleString("en-GB")} since, the rate is ${since.ppg.toFixed(2)} a game, the average league finish is ${avgFinish}, the worst is ${worst ? ordinal(worst) : "—"} — and the title count is ${sinceTitles}.`}
+      slice="Official matches only (friendlies and wartime excluded). Ferguson's reign is dated 8 Nov 1986 to 19 May 2013; everything after is the post-Ferguson era. Points per game restates every season on three-points terms so older campaigns are comparable."
+      coverage="Result-level record — complete for every official match across both eras. No advanced metrics; the comparison leans on the record we hold in full, exactly as the data supports across decades."
+    >
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="rounded-lg border border-line bg-panel-2 px-5 py-4">
+          <div className="text-[11px] uppercase tracking-wider text-ink-faint">Ferguson era · 1986–2013</div>
+          <div className="stat-num mt-2 text-3xl font-semibold text-gold">{ferg.ppg.toFixed(2)}<span className="text-base font-normal text-ink-dim"> ppg</span></div>
+          <div className="stat-num mt-1 text-xs text-ink-dim">{ferg.w}W {ferg.d}D {ferg.l}L over {ferg.p.toLocaleString("en-GB")} matches · {fergTitles} titles</div>
+        </div>
+        <div className="rounded-lg border border-line bg-panel-2 px-5 py-4">
+          <div className="text-[11px] uppercase tracking-wider text-ink-faint">Since Ferguson</div>
+          <div className="stat-num mt-2 text-3xl font-semibold text-devil-bright">{since.ppg.toFixed(2)}<span className="text-base font-normal text-ink-dim"> ppg</span></div>
+          <div className="stat-num mt-1 text-xs text-ink-dim">{since.w}W {since.d}D {since.l}L over {since.p.toLocaleString("en-GB")} matches · {sinceTitles} titles · avg finish {avgFinish}</div>
+        </div>
+      </div>
+      <div>
+        <h3 className="mb-2 text-sm font-medium text-ink-dim">League finishes — the two eras side by side</h3>
+        <EraSkylineChart a={eraFinishes(fergEra)} b={eraFinishes(afterEra)} labelA="Ferguson era" labelB="Since Ferguson" />
+        <p className="text-xs text-ink-dim mt-1">Each bar is one season&apos;s league finish — gold is a title, deep red a relegation or non-top-flight year. The top panel held the line for 27 years; the bottom one is where it drops away.</p>
+      </div>
+    </Module>
+  );
+}
+
+// ---- Rivalries -------------------------------------------------------------
+
+const RIVALRIES: { id: string; name: string; blurb: string }[] = [
+  { id: "liverpool", name: "Liverpool", blurb: "The fixture. Two cities, two empires, one unending argument." },
+  { id: "manchester-city", name: "Manchester City", blurb: "The neighbour that crossed town and, lately, crossed ahead." },
+  { id: "leeds-united", name: "Leeds United", blurb: "The Roses rivalry — dormant for years, never forgotten." },
+  { id: "arsenal", name: "Arsenal", blurb: "The most-played foe, and the Wenger-years title fights." },
+];
+
+function RivalriesModule({ variant }: ModuleProps) {
+  const ledgers = RIVALRIES.map((r) => {
+    const seq = opponentResultSequence(r.id);
+    const agg = seq.reduce(
+      (a, m) => ({
+        p: a.p + 1,
+        w: a.w + (m.result === "W" ? 1 : 0),
+        d: a.d + (m.result === "D" ? 1 : 0),
+        l: a.l + (m.result === "L" ? 1 : 0),
+        gf: a.gf + m.gf,
+        ga: a.ga + m.ga,
+      }),
+      { p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 },
+    );
+    const unbeaten = longestStreak(seq, "unbeaten");
+    const notables = notableMatches(seq, [{ streak: unbeaten, noun: "unbeaten run" }], { minMatches: 20 });
+    return { ...r, agg, first: seq[0]?.date, last: seq[seq.length - 1]?.date, notables, unbeaten };
+  });
+  return (
+    <Module
+      slug="rivalries"
       evidence={{ href: "/opponents", label: "Every head-to-head record →" }}
       variant={variant}
-      finding="The opponents United beat least often, among sides met at least 20 times in official competition. Low win rates against fellow giants are expected; the surprises are further down the table."
-      slice="All official competitions, minimum 20 meetings, ranked by win rate ascending. Away columns show whether the problem travels."
+      finding="The four confrontations that define United — measured in every meeting since the 1890s, not in one season's form. Each ledger holds the wins, the falls, and the nights that settled an argument."
+      slice="All official competitions, every recorded meeting since first facing the side. 'Unbeaten run' is the longest streak without defeat; standout matches carry the biggest win, heaviest defeat, and the game that ended the longest run."
+      coverage="Result-level record — complete for every meeting against all four. No advanced metrics; these ledgers rest on the scores and dates the record holds in full."
     >
-      <div className="space-y-1">
-        {bogeys.map((o, i) => {
-          const worst = i < 3; // the genuine bogey sides lead the ladder
-          return (
-            <div
-              key={o.id}
-              className={`grid grid-cols-[3rem_minmax(0,1fr)] items-center gap-x-4 rounded-md py-2 pr-1 sm:grid-cols-[3.5rem_minmax(0,1fr)] ${
-                worst ? "border-l-2 border-devil bg-devil/5 pl-3" : "pl-3"
-              }`}
-            >
-              <div className="text-right leading-none">
-                <div className={`stat-num text-lg font-semibold ${worst ? "text-devil-bright" : "text-ink"}`}>
-                  {pct(o.w, o.p)}
-                </div>
-                <div className="mt-0.5 text-[10px] uppercase tracking-wide text-ink-faint">win</div>
-              </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        {ledgers.map((r) => (
+          <div key={r.id} className="rounded-lg border border-line bg-panel-2 p-4">
+            <div className="mb-3 flex items-center gap-2">
+              <ClubBadge id={r.id} name={r.name} />
               <div className="min-w-0">
-                <div className="mb-1 flex items-center justify-between gap-3">
-                  <Link href={`/opponent/${o.id}`} className="flex min-w-0 items-center gap-2 font-medium hover:text-devil-bright">
-                    <ClubBadge id={o.id} name={o.name} />
-                    <span className="truncate">{o.name}</span>
-                  </Link>
-                  <span className="stat-num whitespace-nowrap text-[11px] text-ink-dim">
-                    {o.p} met · away {o.away_p ? pct(o.away_w, o.away_p) : "—"}
-                  </span>
-                </div>
-                <WdlBar w={o.w} d={o.d} l={o.l} />
+                <Link href={`/opponent/${r.id}`} className="font-medium hover:text-devil-bright">{r.name}</Link>
+                <div className="stat-num text-[11px] text-ink-faint">{r.agg.p} meetings · {fmtDate(r.first).slice(-4)}–{fmtDate(r.last).slice(-4)}</div>
               </div>
+              <span className="stat-num ml-auto text-xs text-ink-dim">{r.agg.gf}–{r.agg.ga}</span>
             </div>
-          );
-        })}
+            <WdlBar w={r.agg.w} d={r.agg.d} l={r.agg.l} size="sm" showLabels />
+            <div className="stat-num mt-2 flex items-center gap-3 text-[11px] text-ink-dim">
+              <span><span className="text-win">{r.agg.w}</span> won</span>
+              <span><span className="text-ink-faint">{r.agg.d}</span> drawn</span>
+              <span><span className="text-loss">{r.agg.l}</span> lost</span>
+              {r.unbeaten && <span className="ml-auto">best run {r.unbeaten.length} unbeaten</span>}
+            </div>
+            {r.notables.length > 0 && (
+              <div className="mt-3 space-y-1 border-t border-line pt-3">
+                {r.notables.slice(0, 3).map((m) => (
+                  <Link key={m.id} href={`/match/${m.id}`} className="group flex items-center gap-2 text-xs hover:text-devil-bright">
+                    <span className="stat-num shrink-0 text-ink-faint">{fmtDate(m.date).slice(-4)}</span>
+                    <span className="truncate"><span className="text-ink-faint">{venuePrefix(m.venue)}</span> {m.opponent_name} {m.gf}–{m.ga}</span>
+                    <span className="ml-auto shrink-0 text-[10px] uppercase tracking-wide text-ink-faint group-hover:text-devil-bright">{m.reason}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+            <p className="mt-3 text-xs text-ink-dim">{r.blurb}</p>
+          </div>
+        ))}
       </div>
+    </Module>
+  );
+}
+
+// ---- Ferguson vs the field -------------------------------------------------
+
+function FergusonModule({ variant }: ModuleProps) {
+  const ranking = managerPpgRanking();
+  const ferg = ranking.find((m) => m.id === "alex-ferguson")!;
+  const honours = managerHonours();
+  const fergTrophies = honours.filter((h) => h.manager_id === "alex-ferguson").reduce((s, h) => s + h.n, 0);
+  const topTrophy = honours
+    .reduce<Map<string, number>>((m, h) => m.set(h.manager_id, (m.get(h.manager_id) ?? 0) + h.n), new Map());
+  const shown = ranking.slice(0, 8);
+  return (
+    <Module
+      slug="ferguson"
+      evidence={{ href: "/managers", label: "Every manager's full record →" }}
+      variant={variant}
+      finding={`Over ${ferg.p.toLocaleString("en-GB")} official matches and nearly 27 years, Ferguson took ${ferg.ppg.toFixed(2)} points a game and won ${fergTrophies} trophies — more than every other United manager combined has won since. No permanent manager before or since clears ${ferg.ppg.toFixed(2)} ppg over a real reign.`}
+      slice="Permanent managers only (30+ official matches, so caretaker stints can't top a real reign), ranked by three-points-per-game. Trophies are top-flight titles plus major knockout cups won; each is attributed to the manager of the deciding match."
+      coverage="Result-level record — complete for every official match under every manager. Points per game restates older reigns on three-points terms so the comparison travels across eras."
+    >
+      <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+        <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
+          <div className="stat-num text-5xl font-semibold leading-none text-gold">{fergTrophies}</div>
+          <div className="mx-auto mt-1.5 max-w-32 text-[11px] uppercase tracking-wider text-ink-faint">trophies in 27 years</div>
+        </div>
+        <div className="flex items-center text-sm text-ink-dim sm:px-2">
+          <span>
+            <span className="text-ink">{ferg.ppg.toFixed(2)} points per game</span> across {ferg.p.toLocaleString("en-GB")} matches — the highest of any United manager over a full reign. The bars below rank the rest by the same measure.
+          </span>
+        </div>
+      </div>
+      <div>
+        <div className="mb-2 flex items-center justify-between text-[11px] text-ink-dim">
+          <span>Points per game · permanent managers</span>
+          <span className="stat-num">0–3 ppg →</span>
+        </div>
+        <InspectableBarChart
+          data={shown.map((m) => ({
+            label: m.name,
+            tickLabel: surname(m.name),
+            value: Math.round(m.ppg * 100) / 100,
+            valueLabel: `${m.ppg.toFixed(2)} ppg`,
+            meta: `${m.name} · ${m.p} matches · ${topTrophy.get(m.id) ?? 0} trophies`,
+            href: `/manager/${m.id}`,
+          }))}
+          height={190}
+          color="var(--color-panel-ink-faint)"
+          highlightLabel="Sir Alex Ferguson"
+          highlightColor="var(--color-gold)"
+          chartLabel="Manchester United managers by points per game"
+          yTickSuffix=""
+        />
+        <p className="text-xs text-ink-dim mt-1">Each bar is one manager&apos;s points-per-game over 30+ official matches. Ferguson&apos;s reign is the gold bar — the longest sustained peak in the club&apos;s history.</p>
+      </div>
+    </Module>
+  );
+}
+
+// ---- The Treble ------------------------------------------------------------
+
+function TrebleModule({ variant }: ModuleProps) {
+  const runs = trebleRuns("1998-99");
+  const overall = runs.reduce((a, r) => ({ p: a.p + r.p, w: a.w + r.w, d: a.d + r.d, l: a.l + r.l, gf: a.gf + r.gf, ga: a.ga + r.ga }), { p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 });
+  return (
+    <Module
+      slug="treble"
+      evidence={{ href: "/matches?season=1998-99", label: "Every match of 1998-99 →", count: overall.p, countNoun: "matches" }}
+      variant={variant}
+      finding={`One season, three trophies, ${overall.p} matches. United lost only ${overall.l} of them — ${overall.w} won, ${overall.d} drawn, ${overall.gf} goals scored — and became the first English side to hold the league, FA Cup and European Cup at once.`}
+      slice="All official matches in 1998-99, split by competition. Each run carries its own record and the match that decided it — the last league game for the title, the final for the cups."
+      coverage="Result-level record — every match of the season held in full, with scorers, lineups and minutes for the modern era. No advanced metrics; the Treble is a result-level story and the record tells it completely."
+    >
+      <div className="grid gap-3 sm:grid-cols-[repeat(4,minmax(0,1fr))]">
+        {[
+          { v: fmtNum(overall.p), l: "played" },
+          { v: fmtNum(overall.w), l: "won" },
+          { v: fmtNum(overall.l), l: "lost" },
+          { v: fmtNum(overall.gf), l: "goals scored" },
+        ].map((t) => (
+          <div key={t.l} className="rounded-lg border border-line bg-panel-2 px-4 py-3 text-center">
+            <div className="stat-num text-3xl font-semibold text-ink">{t.v}</div>
+            <div className="text-[11px] uppercase tracking-wider text-ink-faint">{t.l}</div>
+          </div>
+        ))}
+      </div>
+      <div className="space-y-3">
+        {runs.map((r) => (
+          <div key={r.competition_id} className="rounded-lg border border-line bg-panel-2 p-4">
+            <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <div className="flex items-center gap-2">
+                <span className="font-medium">{r.competition_name}</span>
+                {r.won && <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[10px] uppercase tracking-wide text-gold">won</span>}
+              </div>
+              <span className="stat-num text-xs text-ink-dim">{r.w}W {r.d}D {r.l}L · {r.gf}–{r.ga}{r.position ? ` · ${ordinal(r.position)}` : ""}</span>
+            </div>
+            {r.decider && (
+              <Link href={`/match/${r.decider.id}`} className="group flex items-center gap-3 text-sm hover:text-devil-bright">
+                <span className="stat-num shrink-0 text-xs text-ink-faint">{fmtDate(r.decider.date)}</span>
+                <span className="truncate"><span className="text-ink-faint">{venuePrefix(r.decider.venue)}</span> {r.decider.opponent_name}</span>
+                <span className="stat-num ml-auto font-medium">{r.decider.gf}–{r.decider.ga}</span>
+                <span className="shrink-0 text-[10px] uppercase tracking-wide text-ink-faint group-hover:text-devil-bright">decider →</span>
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
+    </Module>
+  );
+}
+
+// ---- Best & worst seasons --------------------------------------------------
+
+function SeasonsModule({ variant }: ModuleProps) {
+  const ranks = seasonRanks();
+  const byPpg = [...ranks].sort((a, b) => b.ppg - a.ppg);
+  const best = byPpg.slice(0, 5);
+  const worst = byPpg.slice(-5).reverse();
+  const finishes = topFlightFinishes();
+  return (
+    <Module
+      slug="seasons"
+      evidence={{ href: "/seasons", label: "Every season's record →" }}
+      variant={variant}
+      finding={`Across ${ranks.length} seasons on three-points terms, the best campaign is ${best[0].season} at ${best[0].ppg.toFixed(2)} points a game; the worst is ${worst[0].season} at ${worst[0].ppg.toFixed(2)}. The peaks cluster in the Ferguson years; the troughs are the post-war rebuild and the modern slide.`}
+      slice="Every season with at least 30 official matches (friendlies and wartime excluded), all competitions combined, ranked by three-points-per-game — the only rate that lets a 19th-century campaign sit beside a modern one."
+      coverage="Result-level record — complete for every official match in every season. Points per game normalises the two-points-for-a-win era; no advanced metrics, just the campaign-level shape the scores carry."
+    >
+      <div>
+        <h3 className="mb-2 text-sm font-medium text-ink-dim">Points per game by season — the shape of 130 years</h3>
+        <InspectableBarChart
+          data={ranks.map((s) => ({
+            label: s.season,
+            tickLabel: s.season.slice(2, 4),
+            value: Math.round(s.ppg * 100) / 100,
+            valueLabel: `${s.ppg.toFixed(2)} ppg`,
+            meta: `${s.season} · ${s.w}W ${s.d}D ${s.l}L · ${s.p} matches`,
+            href: `/matches?season=${s.season}`,
+          }))}
+          height={170}
+          color="var(--color-win)"
+          chartLabel="Manchester United points per game by season"
+          yTickSuffix=""
+          baseline={{ value: 2, label: "title pace (2.0 ppg)" }}
+        />
+        <p className="text-xs text-ink-dim mt-1">Each bar is one season&apos;s points-per-game. Title pace is roughly two a game; the gold line marks where a title-winning campaign sits.</p>
+      </div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div>
+          <h3 className="mb-2 text-sm font-medium text-win">The five best — by points per game</h3>
+          <SeasonLadder rows={best} highlightSet={new Set(finishes.filter((f) => f.position === 1).map((f) => f.season))} tone="win" />
+        </div>
+        <div>
+          <h3 className="mb-2 text-sm font-medium text-loss">The five worst — by points per game</h3>
+          <SeasonLadder rows={worst} highlightSet={new Set()} tone="loss" />
+        </div>
+      </div>
+    </Module>
+  );
+}
+
+function SeasonLadder({ rows, highlightSet, tone }: { rows: SeasonRankRowLike[]; highlightSet: Set<string>; tone: "win" | "loss" }) {
+  return (
+    <div className="space-y-1">
+      {rows.map((s) => {
+        const champ = highlightSet.has(s.season);
+        return (
+          <Link
+            key={s.season}
+            href={`/matches?season=${s.season}`}
+            className="group grid grid-cols-[5rem_1fr_3rem] items-center gap-3 rounded-md px-3 py-2 odd:bg-panel-2/40 hover:border-devil/60"
+          >
+            <span className="stat-num text-sm text-ink-dim">{s.season}</span>
+            <span className={`stat-num text-sm font-medium ${tone === "win" ? "text-win" : "text-loss"}`}>{s.ppg.toFixed(2)} ppg{champ ? " · champions" : ""}</span>
+            <span className="stat-num text-right text-[11px] text-ink-faint">{s.w}W {s.d}D {s.l}L</span>
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
+
+type SeasonRankRowLike = { season: string; ppg: number; w: number; d: number; l: number };
+
+// ---- United in Europe ------------------------------------------------------
+
+function EuropeModule({ variant }: ModuleProps) {
+  const decades = europeByDecade();
+  const finals = europeanFinals();
+  const won = finals.filter((f) => f.won);
+  const total = decades.reduce((a, d) => ({ p: a.p + d.p, w: a.w + d.w, d: a.d + d.d, l: a.l + d.l }), { p: 0, w: 0, d: 0, l: 0 });
+  return (
+    <Module
+      slug="europe"
+      evidence={{ href: "/matches?type=european", label: "Every European match →", count: total.p, countNoun: "matches" }}
+      variant={variant}
+      finding={`From the Busby Babes' first European night in 1956 to today, United have played ${total.p.toLocaleString("en-GB")} continental matches, won ${pct(total.w, total.p)} of them, and reached ${finals.length} major finals — lifting the trophy in ${won.length} of them.`}
+      slice="European competition only (European Cup, Champions League, Cup Winners' Cup, UEFA Cup/Europa League, Inter-Cities Fairs Cup, and the UEFA Super Cup), grouped by decade. Finals are the one-off deciding match of each European campaign."
+      coverage="Result-level record — every European match held in full. Decade buckets carry the wins, draws and losses; finals name the trophy, the opponent and the night."
+    >
+      <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+        <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
+          <div className="stat-num text-5xl font-semibold leading-none text-gold">{won.length}</div>
+          <div className="mx-auto mt-1.5 max-w-32 text-[11px] uppercase tracking-wider text-ink-faint">European trophies won</div>
+        </div>
+        <div className="flex items-center text-sm text-ink-dim sm:px-2">
+          <span>
+            <span className="text-ink">{finals.length} finals reached</span> across six decades — won {won.length}, lost {finals.length - won.length}. The European Cup/Champions League accounts for {finals.filter((f) => f.competition_name.includes("Champions League") || f.competition_name === "European Cup").length} of those finals.
+          </span>
+        </div>
+      </div>
+      <div>
+        <h3 className="mb-2 text-sm font-medium text-ink-dim">European record by decade</h3>
+        <InspectableBarChart
+          data={decades.map((d) => ({
+            label: d.decade,
+            tickLabel: d.decade.slice(2),
+            value: d.w,
+            value2: d.d,
+            valueLabel: `${d.w}W ${d.d}D ${d.l}L`,
+            meta: `${d.decade} · ${d.p} matches · ${d.gf}–${d.ga} goals`,
+            href: `/matches?type=european&from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
+          }))}
+          fill
+          color="var(--color-win)"
+          stack={{ color: "var(--color-ink-faint)" }}
+          chartLabel="Manchester United European wins and draws by decade"
+        />
+        <p className="text-xs text-ink-dim mt-1">
+          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-win)" }} /> wins</span>
+          {" · "}
+          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-ink-faint)" }} /> draws</span>
+          . The 2000s peak is the Ferguson Champions League years; the 1970s dip is the post-Busby wilderness.
+        </p>
+      </div>
+      {finals.length > 0 && (
+        <div>
+          <h3 className="mb-2 text-sm font-medium text-ink-dim">Every European final — won and lost</h3>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {finals.map((f) => (
+              <Link key={f.id} href={`/match/${f.id}`} className="group flex items-center gap-3 rounded-lg border border-line bg-panel px-4 py-3 hover:border-devil/60">
+                <span className={`stat-num flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold ${f.won ? "bg-gold/15 text-gold" : "border border-line text-ink-faint"}`}>
+                  {f.won ? "W" : "L"}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm font-medium group-hover:text-devil-bright">{f.competition_name}</div>
+                  <div className="stat-num text-[11px] text-ink-faint">{fmtDate(f.date)} · v {f.opponent_name}</div>
+                </div>
+                <span className="stat-num shrink-0 text-sm">{f.gf}–{f.ga}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </Module>
   );
 }
@@ -826,12 +1160,30 @@ function AwayDaysModule({ variant }: ModuleProps) {
   );
 }
 
+/** 1 → "1st", 2 → "2nd", 3 → "3rd", 4 → "4th". */
+function ordinal(n: number): string {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return `${n}${s[(v - 20) % 10] ?? s[v] ?? s[0]}`;
+}
+
+/** Last token of a name, dropping honorifics — for compact manager bar labels. */
+function surname(name: string): string {
+  const parts = name.replace(/^(Sir|Dr\.?|Mr\.?)\s+/, "").split(" ");
+  return parts[parts.length - 1] ?? name;
+}
+
 /** Slug → rendered evidence module, the counterpart to the `QUESTIONS` registry. */
 export const QUESTION_COMPONENTS: Record<string, (props: ModuleProps) => React.ReactNode> = {
+  decline: DeclineModule,
+  rivalries: RivalriesModule,
+  ferguson: FergusonModule,
+  treble: TrebleModule,
+  seasons: SeasonsModule,
+  europe: EuropeModule,
   "late-goals": LateGoalsModule,
   comebacks: ComebacksModule,
   runs: RunsModule,
-  "bogey-sides": BogeySidesModule,
   "manager-bounce": ManagerBounceModule,
   fortress: FortressModule,
   "cup-specialists": CupSpecialistsModule,

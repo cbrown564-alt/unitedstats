@@ -1,6 +1,6 @@
 import { getDb } from "./db";
 import { tallyWdl } from "./format";
-import { MATCH_SELECT, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
+import { CUP_WON_PREDICATE, MATCH_SELECT, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
 
 const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
@@ -105,31 +105,6 @@ export function iconicLateWinners(): MatchRow[] {
   return getDb()
     .prepare(`${MATCH_SELECT} WHERE m.date IN (${placeholders}) ORDER BY m.date ASC`)
     .all(...ICONIC_LATE_DATES) as MatchRow[];
-}
-
-// ---------------------------------------------------------------- bogey sides
-
-export interface BogeyOpponent extends Record_ {
-  id: string;
-  name: string;
-  away_p: number;
-  away_w: number;
-}
-
-export function bogeyOpponents(minMeetings = 20, limit = 10): BogeyOpponent[] {
-  return getDb()
-    .prepare(
-      `SELECT o.id, o.name, COUNT(*) p,
-              SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga,
-              SUM(venue='A') away_p, SUM(venue='A' AND result='W') away_w
-       FROM matches m JOIN opponents o ON o.id = m.opponent_id
-       JOIN competitions c ON c.id = m.competition_id
-       WHERE c.type != 'unofficial'
-       GROUP BY o.id HAVING p >= ?
-       ORDER BY 1.0*w/p ASC LIMIT ?`,
-    )
-    .all(minMeetings, limit) as BogeyOpponent[];
 }
 
 // ---------------------------------------------------------------- manager bounce
@@ -830,4 +805,242 @@ export function clubRecords(): ClubRecords {
     longestUnbeaten: longestStreak(seq, "unbeaten"),
     longestWinning: longestStreak(seq, "winning"),
   };
+}
+
+// ---------------------------------------------------------------- the decline
+
+/** Sir Alex Ferguson's last match in charge — the hinge of the post-Ferguson era. */
+export const FERGUSON_END = "2013-05-19";
+
+/**
+ * A club record (W/D/L/GF/GA) over official matches played in an inclusive date
+ * range, plus the derived three-points-per-game rate — the like-for-like era
+ * comparison the deep record carries honestly without modern advanced metrics.
+ */
+export interface EraRecord extends Record_ {
+  /** Three-points-per-game, restating older eras on today's terms. */
+  ppg: number;
+  goalsPerGame: number;
+  concededPerGame: number;
+}
+
+export function eraRecord(from: string, to: string): EraRecord {
+  const r = getDb()
+    .prepare(
+      `SELECT ${RECORD_COLS_OFFICIAL}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.date >= ? AND m.date <= ?`,
+    )
+    .get(from, to) as Record_;
+  const p = r.p || 1;
+  return {
+    ...r,
+    ppg: (3 * r.w + r.d) / p,
+    goalsPerGame: r.gf / p,
+    concededPerGame: r.ga / p,
+  };
+}
+
+const RECORD_COLS_OFFICIAL = `COUNT(*) p,
+  COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d, COALESCE(SUM(result='L'),0) l,
+  COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga`;
+
+export interface SeasonFinishRow {
+  season: string;
+  position: number;
+  league_size: number;
+  competition: string;
+}
+
+/** Top-flight league finishes (First Division / Premier League), season by season. */
+export function topFlightFinishes(): SeasonFinishRow[] {
+  return getDb()
+    .prepare(
+      `SELECT ss.season, ss.position, ss.league_size, c.name AS competition
+       FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+       WHERE c.type = 'league' AND c.name IN ('First Division','Premier League')
+         AND ss.position IS NOT NULL
+       ORDER BY ss.season`,
+    )
+    .all() as SeasonFinishRow[];
+}
+
+/** Top-flight titles won across seasons in an inclusive [from,to] season range. */
+export function titlesInRange(fromSeason: string, toSeason: string): number {
+  return (
+    getDb()
+      .prepare(
+        `SELECT COUNT(*) n FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+         WHERE c.type = 'league' AND c.name IN ('First Division','Premier League')
+           AND ss.position = 1 AND ss.season >= ? AND ss.season <= ?`,
+      )
+      .get(fromSeason, toSeason) as { n: number }
+  ).n;
+}
+
+// ---------------------------------------------------------------- season ranks
+
+export interface SeasonRankRow extends Record_ {
+  season: string;
+  ppg: number;
+}
+
+/**
+ * Every season's all-competition official record with its three-points-per-game
+ * rate — the basis for ranking best and worst campaigns. The raw record is
+ * complete for every official match, so the PPG figure is honest across eras;
+ * pre-1990s seasons mix in cup ties where they're held, like the modern ones.
+ */
+export function seasonRanks(minMatches = 30): SeasonRankRow[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT m.season, ${RECORD_COLS_OFFICIAL}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       GROUP BY m.season HAVING p >= ? ORDER BY m.season`,
+    )
+    .all(minMatches) as (Record_ & { season: string })[];
+  return rows.map((r) => ({
+    ...r,
+    ppg: (3 * r.w + r.d) / (r.p || 1),
+  }));
+}
+
+// ---------------------------------------------------------------- ferguson vs field
+
+export interface ManagerRateRow extends Record_ {
+  id: string;
+  name: string;
+  ppg: number;
+}
+
+/**
+ * Permanent managers ranked by three-points-per-game over official matches.
+ * Caretakers (under 30 matches) are dropped so a four-game caretaker stint can
+ * never top a real reign — the comparison the question "was he that far ahead?"
+ * actually asks.
+ */
+export function managerPpgRanking(minMatches = 30): ManagerRateRow[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT mg.id, mg.name, ${RECORD_COLS_OFFICIAL}
+       FROM managers mg JOIN matches m ON m.manager_id = mg.id
+       JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type != 'unofficial'
+       GROUP BY mg.id HAVING p >= ? ORDER BY 1.0*(3*SUM(m.result='W')+SUM(m.result='D'))/COUNT(*) DESC`,
+    )
+    .all(minMatches) as (Record_ & { id: string; name: string })[];
+  return rows.map((r) => ({
+    ...r,
+    ppg: (3 * r.w + r.d) / (r.p || 1),
+  }));
+}
+
+// ---------------------------------------------------------------- treble season
+
+/** A single competition's run within a season, with its deciding (last) match. */
+export interface SeasonRun {
+  competition_id: string;
+  competition_name: string;
+  type: string;
+  p: number; w: number; d: number; l: number; gf: number; ga: number;
+  position: number | null;
+  /** Was the trophy won this season (the deciding final won, or league pos 1)? */
+  won: boolean;
+  /** The deciding match: the last league game, or the final. */
+  decider: SequenceMatch | null;
+}
+
+/**
+ * The 1998-99 Treble broken into its three winning runs — Premier League, FA
+ * Cup, Champions League — each with its record and the match that decided it.
+ * Drawn from the complete result-level record for that season.
+ */
+export function trebleRuns(season = "1998-99"): SeasonRun[] {
+  const db = getDb();
+  const comps = db
+    .prepare(
+      `SELECT c.id AS competition_id, c.name AS competition_name, c.type,
+              COUNT(*) p, SUM(m.result='W') w, SUM(m.result='D') d, SUM(m.result='L') l,
+              SUM(m.gf) gf, SUM(m.ga) ga, ss.position
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       LEFT JOIN season_summaries ss ON ss.season = m.season AND ss.competition_id = c.id
+       WHERE m.season = ? AND c.type IN ('league','domestic-cup','european')
+       GROUP BY c.id ORDER BY c.type, c.name`,
+    )
+    .all(season) as (Omit<SeasonRun, "won" | "decider"> & { type: string })[];
+
+  return comps.map((c) => {
+    const won = c.type === "league" ? c.position === 1 : cupWon(c.competition_id, season);
+    const decider = c.type === "league"
+      ? lastMatch(season, c.competition_id)
+      : decidingFinal(season, c.competition_id);
+    return { ...c, won, decider };
+  });
+}
+
+function cupWon(competitionId: string, season: string): boolean {
+  return (
+    (getDb()
+      .prepare(
+        `SELECT COUNT(*) n FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE ${CUP_WON_PREDICATE} AND m.season = ? AND m.competition_id = ?`,
+      )
+      .get(season, competitionId) as { n: number }).n > 0
+  );
+}
+
+function lastMatch(season: string, competitionId: string): SequenceMatch | null {
+  return (
+    (getDb()
+      .prepare(
+        `SELECT ${SEQ_SELECT} FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE m.season = ? AND m.competition_id = ? ORDER BY m.date DESC LIMIT 1`,
+      )
+      .get(season, competitionId) as SequenceMatch | undefined) ?? null
+  );
+}
+
+function decidingFinal(season: string, competitionId: string): SequenceMatch | null {
+  return (
+    (getDb()
+      .prepare(
+        `SELECT ${SEQ_SELECT} FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE m.season = ? AND m.competition_id = ?
+           AND m.round LIKE '%final%' AND m.round NOT LIKE '%semi%'
+         ORDER BY m.date DESC LIMIT 1`,
+      )
+      .get(season, competitionId) as SequenceMatch | undefined) ?? null
+  );
+}
+
+// ---------------------------------------------------------------- europe
+
+export interface EuropeDecadeRow extends Record_ {
+  decade: string;
+}
+
+/** European record (Champions League / UEFA Cup / Europa League / Cup Winners' Cup / Super Cup) by decade. */
+export function europeByDecade(): EuropeDecadeRow[] {
+  return getDb()
+    .prepare(
+      `SELECT substr(m.date,1,3) || '0s' decade, ${RECORD_COLS_OFFICIAL}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE (c.type = 'european' OR c.id = 'uefa-super-cup')
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all() as EuropeDecadeRow[];
+}
+
+/** Every European final (won or lost) United has reached. */
+export function europeanFinals(): (SequenceMatch & { outcome: string; won: boolean })[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT ${SEQ_SELECT}, m.outcome
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE (c.type = 'european' OR c.id = 'uefa-super-cup')
+         AND m.round LIKE '%final%' AND m.round NOT LIKE '%semi%'
+       ORDER BY m.date`,
+    )
+    .all() as (SequenceMatch & { outcome: string })[];
+  return rows.map((r) => ({ ...r, won: r.outcome === "W" }));
 }
