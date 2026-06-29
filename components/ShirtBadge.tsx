@@ -58,16 +58,11 @@ export function ShirtBadge({ number, decade, apps, compact = false, muted = fals
     <span className={`inline-flex items-center ${compact ? "justify-end" : "gap-2"}`} title={title}>
       <span
         aria-label={title}
-        className={`${compact ? "h-7 w-7 text-[0.68rem]" : "h-9 w-9 text-xs"} stat-num grid place-items-center border font-semibold`}
+        className={`${compact ? "h-7 w-7 text-[0.68rem]" : "h-9 w-9 text-xs"} stat-num grid place-items-center border font-semibold shadow-[inset_0_-8px_14px_rgb(0_0_0_/0.18)]`}
         style={{
-          // A diagonal sheen over the era colour gives the fabric a lit-from-above
-          // sheen; the colour gradient sits underneath, unchanged.
-          backgroundImage: `linear-gradient(157deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.045) 24%, transparent 46%), ${palette.background}`,
+          background: palette.background,
           color: palette.color,
           borderColor: palette.border,
-          // A crisp light line catches the shoulders, a soft shadow rises from the
-          // hem — the shirt reads as cloth with depth rather than a flat tile.
-          boxShadow: "inset 0 1px 1px rgb(255 255 255 / 0.22), inset 0 -7px 13px rgb(0 0 0 / 0.26)",
           clipPath: "polygon(18% 0, 35% 0, 42% 12%, 58% 12%, 65% 0, 82% 0, 100% 24%, 82% 42%, 82% 100%, 18% 100%, 18% 42%, 0 24%)",
           ...(muted ? { filter: "grayscale(0.85) brightness(0.85)", opacity: 0.55 } : null),
         }}

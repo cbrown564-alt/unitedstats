@@ -264,8 +264,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const teamsheetPanel = hasTeamsheet ? (
     canPitch ? (
       usedSubs.length > 0 || bench.length > 0 ? (
-        // No card; the block centres on wide screens so it isn't marooned to the left.
-        <div className="grid items-start gap-x-8 gap-y-6 lg:mx-auto lg:w-fit lg:grid-cols-[minmax(0,26rem)_minmax(12rem,16rem)]">
+        // No card; the column group centres on wide screens (justify-content,
+        // since the tracks are fixed-width) so it isn't marooned to the left.
+        <div className="grid items-start gap-x-6 gap-y-6 lg:grid-cols-[minmax(0,26rem)_minmax(12rem,16rem)] lg:justify-center">
           <div>
             <h3 className="display mb-3 text-lg">Starting XI</h3>
             <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
@@ -525,9 +526,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-b border-line">
-        {/* Full-bleed broadcast band: the faint pitch grid spans the viewport, the
-            content stays aligned to the page gutter. No card — the result is the
-            page's headline, not a boxed widget. */}
+        {/* Full-bleed broadcast band: floodlight pools and the faint pitch grid
+            span the viewport, the content stays aligned to the page gutter. No
+            card — the result is the page's headline, not a boxed widget. */}
+        <div className="hero-floodlight pointer-events-none absolute inset-0" aria-hidden />
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
         <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-9 sm:px-6 sm:py-12">
           <header className="space-y-4">
@@ -536,7 +538,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <span aria-hidden>·</span>
               <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} />
             </nav>
-            <div className="space-y-2 border-y border-line py-5 text-center">
+            <div className="space-y-2 border-t border-line py-5 text-center">
               <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
                   {fmtDateLong(m.date)}

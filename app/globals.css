@@ -197,6 +197,18 @@ body {
   background-size: 56px 56px;
 }
 
+/* Night-match floodlights for the full-bleed match hero: two cool pools bloom
+   down from the top corners like pylons, a faint brand-red ambient warms the
+   centre, and a soft vignette deepens the edges. The pools sit at the corners
+   so the centred score stays on clear ground. */
+.hero-floodlight {
+  background-image:
+    radial-gradient(58% 80% at 13% -22%, oklch(92% 0.03 235 / 0.2), transparent 62%),
+    radial-gradient(58% 80% at 87% -22%, oklch(92% 0.03 235 / 0.2), transparent 62%),
+    radial-gradient(70% 65% at 50% -30%, oklch(62% 0.2 28 / 0.12), transparent 68%),
+    radial-gradient(130% 120% at 50% 40%, transparent 58%, rgb(0 0 0 / 0.22));
+}
+
 a {
   text-underline-offset: 3px;
 }
