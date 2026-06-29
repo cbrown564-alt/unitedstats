@@ -1,4 +1,5 @@
 import type { MatchRow } from "@/lib/queries";
+import type { ReactNode } from "react";
 import { tallyWdl } from "@/lib/format";
 import { MatchList } from "./MatchList";
 import { WdlBar } from "./WdlBar";
@@ -12,10 +13,12 @@ export function MatchGroups({
   matches,
   showAttendance = false,
   accentResult = false,
+  renderExtra,
 }: {
   matches: MatchRow[];
   showAttendance?: boolean;
   accentResult?: boolean;
+  renderExtra?: (m: MatchRow) => ReactNode;
 }) {
   if (matches.length === 0) return <MatchList matches={[]} />;
 
@@ -41,7 +44,7 @@ export function MatchGroups({
                 <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
               </div>
             </div>
-            <MatchList matches={g.rows} showAttendance={showAttendance} accentResult={accentResult} />
+            <MatchList matches={g.rows} showAttendance={showAttendance} accentResult={accentResult} renderExtra={renderExtra} />
           </section>
         );
       })}

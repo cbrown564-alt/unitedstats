@@ -97,6 +97,15 @@ export function HistorySkyline({
             );
           })}
         </div>
+
+        {/* On a phone the per-season bars are ~2px wide — too fine to tap. Rather
+            than reshape the wall, cover it with one tap-through to the seasons
+            index on touch widths; the individual links stay live from sm up. */}
+        <Link
+          href="/seasons"
+          aria-label="Explore every season"
+          className="absolute inset-0 z-10 focus-ring sm:hidden"
+        />
       </div>
 
       {/* decade axis */}
@@ -116,7 +125,11 @@ export function HistorySkyline({
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-draw/45" />Drawn</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-loss/70" />Lost</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-gold" />League champions</span>
-        <span className="text-ink-dim">Bar height is matches played that season · every bar opens its season</span>
+        <span className="text-ink-dim">
+          Bar height is matches played that season ·{" "}
+          <span className="sm:hidden">tap to open the seasons index</span>
+          <span className="hidden sm:inline">every bar opens its season</span>
+        </span>
       </figcaption>
     </figure>
   );

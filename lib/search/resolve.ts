@@ -38,8 +38,16 @@ function kindMatches(rowKind: string, kind: KindFilter): boolean {
  * prior and an exact-prefix boost — the same ranking as the dropdown), then a
  * trigram-similarity fallback so "ferguson"/"roony"/"arsنal" still land. This is the
  * shared entity resolver the intent parser uses to turn slots into ids.
+ *
+ * `strong` skips the trigram fallback, so only a confident prefix-FTS hit counts.
+ * The intent parser's tentative "did you mean" path uses it: a best-guess answer
+ * from question-shape alone must not fire off a fuzzy near-miss.
  */
-export function resolveEntity(text: string, kind?: KindFilter): IndexRow | undefined {
+export function resolveEntity(
+  text: string,
+  kind?: KindFilter,
+  opts: { strong?: boolean } = {},
+): IndexRow | undefined {
   const folded = fold(text);
   if (!folded) return undefined;
   const db = getDb();
@@ -52,7 +60,10 @@ export function resolveEntity(text: string, kind?: KindFilter): IndexRow | undef
 
   const kinds = kind === undefined ? null : Array.isArray(kind) ? kind : [kind];
   const kindCond = kinds ? `AND s.kind IN (${kinds.map(() => "?").join(",")})` : "";
-  const params: (string | number)[] = [matchExpr, `${folded}%`, ...(kinds ?? [])];
+  // Bind order must follow the placeholders: MATCH, then the kind IN(...) list, then
+  // the exact-prefix LIKE in the ORDER BY. (The kind list and LIKE were swapped, so
+  // a kind-filtered FTS lookup always missed and silently fell through to trigram.)
+  const params: (string | number)[] = [matchExpr, ...(kinds ?? []), `${folded}%`];
 
   const row = db
     .prepare(
@@ -67,6 +78,7 @@ export function resolveEntity(text: string, kind?: KindFilter): IndexRow | undef
     )
     .get(...params) as IndexRow | undefined;
   if (row) return row;
+  if (opts.strong) return undefined;
 
   // Trigram fallback (typo tolerance) over the cached index, kind-filtered.
   const qg = trigrams(folded);

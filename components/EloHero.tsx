@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { EloRatingChart } from "@/components/charts/EloRatingChart";
+import { TrophyMarkerStrip } from "@/components/charts/TrophyMarkerStrip";
 import { fmtMonthYear } from "@/lib/format";
 
 /**
@@ -11,15 +12,19 @@ import { fmtMonthYear } from "@/lib/format";
  * opening — the strength signal as the thing you see before you read.
  */
 export function EloHero({
-  points, eras, current, peak, trough, firstYear,
+  points, eras, trophyMarkers, current, peak, trough, firstYear,
 }: {
   points: { date: string; elo: number }[];
   eras: { from: string; to: string; label?: string }[];
+  trophyMarkers?: { date: string; season: string; count: number }[];
   current: number;
   peak: { elo: number; date: string };
   trough: { elo: number; date: string };
   firstYear?: string;
 }) {
+  const xMin = points.length ? Date.parse(points[0].date) : 0;
+  const xMax = points.length ? Date.parse(points[points.length - 1].date) : xMin;
+
   return (
     <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
       <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
@@ -65,13 +70,16 @@ export function EloHero({
 
         <div className="mt-6">
           <EloRatingChart points={points} height={300} eras={eras} />
+          {trophyMarkers && trophyMarkers.length > 0 && (
+            <TrophyMarkerStrip markers={trophyMarkers} xMin={xMin} xMax={xMax} />
+          )}
         </div>
 
         <p className="mt-3 max-w-2xl text-xs text-ink-faint">
           <span className="text-ink-dim">Slice:</span> every competitive match, closed-universe Elo — opponents are
           rated only on their matches against United, K varies by competition and goal margin, home advantage worth
-          60 points. Shaded bands mark managerial eras, the longest-serving labelled, so rises and falls read against
-          who was in charge. This rating drives the favourites line on every match page.
+          60 points. Shaded bands mark managerial eras, the longest-serving labelled. This rating drives the
+          favourites line on every match page.
         </p>
       </div>
     </section>

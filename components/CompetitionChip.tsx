@@ -1,4 +1,5 @@
-import { competitionTone, fmtRound, type CompetitionTone } from "@/lib/format";
+import { competitionTone, parseRound, type CompetitionTone } from "@/lib/format";
+import { RoundMark } from "./RoundMark";
 
 /**
  * Competition identity, used as a secondary grouping cue (NN/g: colour supports,
@@ -20,24 +21,52 @@ const DOT_TONE: Record<CompetitionTone, string> = {
   muted: "bg-ink-faint/50",
 };
 
+// Colour-coded text alone, for the `bare` chip: no pill or border, the tone
+// carried by the text so it reads as a quiet label rather than a boxed widget.
+const TEXT_TONE: Record<CompetitionTone, string> = {
+  league: "text-ink-dim",
+  cup: "text-gold",
+  europe: "text-europe",
+  muted: "text-ink-faint",
+};
+
 export function CompetitionChip({
   type,
   name,
   round,
   className = "",
+  bare = false,
 }: {
   type: string | null | undefined;
   name: string;
   round?: string | null;
   className?: string;
+  /** Drop the pill/border and lean on colour-coded text alone (used in the
+   *  match hero, where a boxed chip reads as heavy clutter). */
+  bare?: boolean;
 }) {
   const tone = competitionTone(type);
+  const r = round ? parseRound(round) : null;
+  const round_ = r ? (
+    <span className="inline-flex items-center gap-1 opacity-70" title={round ?? undefined}>
+      · {r.label}
+      <RoundMark leg={r.leg} replay={r.replay} />
+    </span>
+  ) : null;
+  if (bare) {
+    return (
+      <span className={`inline-flex items-center gap-1 text-sm font-medium leading-none ${TEXT_TONE[tone]} ${className}`}>
+        {name}
+        {round_}
+      </span>
+    );
+  }
   return (
     <span
       className={`inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-[11px] leading-none ${CHIP_TONE[tone]} ${className}`}
     >
       {name}
-      {round ? <span className="opacity-70">· {fmtRound(round)}</span> : null}
+      {round_}
     </span>
   );
 }

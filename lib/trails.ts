@@ -1,6 +1,12 @@
 import { getDb } from "./db";
 import { tallyWdl } from "./format";
-import { MATCH_SELECT, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
+import { roundFilterPredicate } from "./matchRounds";
+import { CUP_WON_PREDICATE, MATCH_SELECT, eventsForMatch, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
+
+/** One-off final only — excludes semis *and* quarter-finals (which contain the
+ *  substring "final"). Shared with the matches browser so the definition can't
+ *  drift. */
+const FINAL_PREDICATE = roundFilterPredicate("final", "m");
 
 const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
@@ -8,41 +14,72 @@ const UNITED_GOAL_TYPES = "('goal','pen-goal','own-goal-for')";
 
 /**
  * Share of United goals (with recorded minutes) scored after the 85th minute,
- * per decade. The whole late-goals module is pinned to this one window — minute
- * ≥ 86, stoppage time included — so the ridge, the decade bars, and the curated
- * match list all describe the same closing five minutes.
+ * per decade — split into the two parts that the headline figure quietly conflates:
+ *
+ *   - `reg`: the last five *regulation* minutes (86–90, no stoppage). A genuine,
+ *     fixed five-minute slot, so it is fair to compare against an even spread.
+ *   - `stoppage`: anything past the 90th (minute > 90, or the 90th carrying added
+ *     time). This is *not* a five-minute slot — it is however long the fourth
+ *     official adds, which has grown from a minute or two mid-century to ten-plus
+ *     today, and which our sources only began notating in the modern era.
+ *
+ * `late = reg + stoppage`. Keeping the two apart is the whole point of the module:
+ * the regulation share is flat across every era, while the modern "Fergie time"
+ * surge is almost entirely the stoppage column — a lengthening of the closing
+ * window, not a United trait. We cannot normalise by each match's true stoppage
+ * length (no source records it before the Opta era, ~2006, and never for the deep
+ * archive), so we show the split rather than claim a rate we can't measure.
  */
-export function lateGoalShareByDecade(): { decade: string; timed: number; late: number }[] {
+export function lateGoalShareByDecade(): {
+  decade: string;
+  timed: number;
+  late: number;
+  reg: number;
+  stoppage: number;
+}[] {
   return getDb()
     .prepare(
       `SELECT substr(m.date,1,3) || '0s' decade,
               COUNT(*) timed,
-              SUM(e.minute >= 86) late
+              SUM(e.minute >= 86) late,
+              SUM(e.minute BETWEEN 86 AND 90 AND COALESCE(e.added_time, 0) = 0) reg,
+              SUM(e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0)) stoppage
        FROM match_events e JOIN matches m ON m.id = e.match_id
        WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL
        GROUP BY 1 HAVING COUNT(*) >= 20 ORDER BY 1`,
     )
-    .all() as { decade: string; timed: number; late: number }[];
+    .all() as { decade: string; timed: number; late: number; reg: number; stoppage: number }[];
 }
 
 /**
  * United goals by 5-minute bin across the match, for the late-goals ridge. Same
- * goal definition as {@link lateGoalShareByDecade}; stoppage time folds into the
- * final 86–90+ bin so the closing surge stays on the chart. Returns all 18 bins,
- * zero-filled, so the caller can render an unbroken timeline.
+ * goal definition as {@link lateGoalShareByDecade}, but stoppage time is kept
+ * *out* of the 86–90 bin and returned separately as `stoppage`, so the ridge can
+ * draw the genuine regulation late-spike (a real edge over an even spread) and the
+ * added-time goals as two distinct things rather than one fat, misleading bar.
+ * Returns all 18 regulation bins, zero-filled, for an unbroken timeline.
  */
-export function goalMinuteRidge(): { lo: number; hi: number; n: number }[] {
-  const rows = getDb()
+export function goalMinuteRidge(): { bins: { lo: number; hi: number; n: number }[]; stoppage: number } {
+  const db = getDb();
+  const notStoppage = `NOT (e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0))`;
+  const rows = db
     .prepare(
       `SELECT MIN((e.minute - 1) / 5, 17) AS bin, COUNT(*) n
        FROM match_events e
        WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL AND e.minute >= 1
+         AND ${notStoppage}
        GROUP BY 1 ORDER BY 1`,
     )
     .all() as { bin: number; n: number }[];
   const bins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
   for (const r of rows) if (bins[r.bin]) bins[r.bin].n = r.n;
-  return bins;
+  const { stoppage } = db
+    .prepare(
+      `SELECT COUNT(*) stoppage FROM match_events e
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL AND NOT (${notStoppage})`,
+    )
+    .get() as { stoppage: number };
+  return { bins, stoppage };
 }
 
 export function timedGoalCounts(): { timed: number; total: number } {
@@ -76,31 +113,6 @@ export function iconicLateWinners(): MatchRow[] {
     .all(...ICONIC_LATE_DATES) as MatchRow[];
 }
 
-// ---------------------------------------------------------------- bogey sides
-
-export interface BogeyOpponent extends Record_ {
-  id: string;
-  name: string;
-  away_p: number;
-  away_w: number;
-}
-
-export function bogeyOpponents(minMeetings = 20, limit = 10): BogeyOpponent[] {
-  return getDb()
-    .prepare(
-      `SELECT o.id, o.name, COUNT(*) p,
-              SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga,
-              SUM(venue='A') away_p, SUM(venue='A' AND result='W') away_w
-       FROM matches m JOIN opponents o ON o.id = m.opponent_id
-       JOIN competitions c ON c.id = m.competition_id
-       WHERE c.type != 'unofficial'
-       GROUP BY o.id HAVING p >= ?
-       ORDER BY 1.0*w/p ASC LIMIT ?`,
-    )
-    .all(minMeetings, limit) as BogeyOpponent[];
-}
-
 // ---------------------------------------------------------------- manager bounce
 
 export interface ManagerBounce {
@@ -119,7 +131,8 @@ export function managerBounce(): ManagerBounce[] {
   const managers = db
     .prepare(
       `SELECT mg.id, mg.name, MIN(m.date) first_date, COUNT(*) p,
-              mm.thumb_url, mm.image_url
+              mm.local_path thumb_url,
+              mm.local_path image_url
        FROM managers mg JOIN matches m ON m.manager_id = mg.id
        LEFT JOIN manager_media mm ON mm.manager_id = mg.id
        GROUP BY mg.id HAVING p >= 10 ORDER BY first_date`,
@@ -402,6 +415,105 @@ export function leadHeldAtHome(): LeadHeldSummary {
   };
 }
 
+// ---------------------------------------------------------------- comebacks
+
+export interface ComebackMatch {
+  id: string;
+  date: string;
+  season: string;
+  venue: string;
+  result: string;
+  gf: number;
+  ga: number;
+  opponent_name: string;
+  competition_name: string;
+  /** Deepest deficit United climbed out of (positive: goals once behind by). */
+  deficit: number;
+}
+
+export interface ComebackSummary {
+  /** Official matches whose goals all carry a minute, so a comeback can be verified. */
+  replayable: number;
+  fellBehind: number;
+  /** Trailed at some point but did not lose (won or drew). */
+  recovered: number;
+  wonFromBehind: number;
+  fellTwoPlus: number;
+  /** Trailed by two or more and still avoided defeat. */
+  twoPlusRecovered: number;
+}
+
+/**
+ * United's recoveries from a losing position, reconstructed by replaying every
+ * minute-stamped goal in the official record. A match "fell behind" if United's
+ * running margin ever went negative; it is a comeback win if they then won, a
+ * rescue if they avoided defeat. Restricted to matches whose goals all carry a
+ * minute (`events_complete`), so this is the verifiable part of the record — the
+ * same contract the fortress module uses — and the deepest comebacks are the
+ * matches won after trailing furthest.
+ */
+export function comebacks(limit = 6): { summary: ComebackSummary; deepest: ComebackMatch[] } {
+  const db = getDb();
+  const matches = db
+    .prepare(
+      `SELECT m.id, m.date, m.season, m.venue, m.result, m.gf, m.ga,
+              m.opponent_name, c.name AS competition_name
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type != 'unofficial' AND m.events_complete = 1
+       ORDER BY m.date`,
+    )
+    .all() as Omit<ComebackMatch, "deficit">[];
+
+  const ids = matches.map((m) => m.id);
+  const byMatch = new Map<string, { type: string; minute: number }[]>();
+  // Pull goals in chunks so the IN-list never blows past SQLite's parameter cap.
+  for (let i = 0; i < ids.length; i += 800) {
+    const chunk = ids.slice(i, i + 800);
+    const rows = db
+      .prepare(
+        `SELECT match_id, type, minute FROM match_events
+         WHERE match_id IN (${chunk.map(() => "?").join(",")})
+           AND (type IN ${UNITED_GOAL} OR type IN ${OPP_GOAL})
+         ORDER BY match_id, (minute IS NULL), minute, seq`,
+      )
+      .all(...chunk) as { match_id: string; type: string; minute: number }[];
+    for (const r of rows) (byMatch.get(r.match_id) ?? byMatch.set(r.match_id, []).get(r.match_id)!).push(r);
+  }
+
+  const summary: ComebackSummary = {
+    replayable: matches.length,
+    fellBehind: 0,
+    recovered: 0,
+    wonFromBehind: 0,
+    fellTwoPlus: 0,
+    twoPlusRecovered: 0,
+  };
+  const deepest: ComebackMatch[] = [];
+  for (const m of matches) {
+    let u = 0;
+    let o = 0;
+    let worst = 0;
+    for (const e of byMatch.get(m.id) ?? []) {
+      if (UNITED_GOAL_SET.has(e.type)) u++;
+      else o++;
+      if (u - o < worst) worst = u - o;
+    }
+    if (worst >= 0) continue; // never trailed
+    const deficit = -worst;
+    summary.fellBehind++;
+    if (m.result !== "L") summary.recovered++;
+    if (m.result === "W") summary.wonFromBehind++;
+    if (deficit >= 2) {
+      summary.fellTwoPlus++;
+      if (m.result !== "L") summary.twoPlusRecovered++;
+    }
+    if (m.result === "W" && deficit >= 2) deepest.push({ ...m, deficit });
+  }
+
+  deepest.sort((a, b) => b.deficit - a.deficit || b.date.localeCompare(a.date));
+  return { summary, deepest: deepest.slice(0, limit) };
+}
+
 // ---------------------------------------------------------------- cup specialists
 
 export interface CupSpecialist {
@@ -421,7 +533,8 @@ export function cupSpecialists(minGoals = 25, limit = 10): CupSpecialist[] {
       `SELECT e.player_id, p.name, COUNT(*) total,
               SUM(c.type NOT IN ('league','unofficial')) cup_goals,
               SUM(c.type = 'league') league_goals,
-              pm.thumb_url, pm.image_url
+              pm.local_path thumb_url,
+              pm.local_path image_url
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
        JOIN competitions c ON c.id = m.competition_id
@@ -698,4 +811,337 @@ export function clubRecords(): ClubRecords {
     longestUnbeaten: longestStreak(seq, "unbeaten"),
     longestWinning: longestStreak(seq, "winning"),
   };
+}
+
+// ---------------------------------------------------------------- the decline
+
+/** Sir Alex Ferguson's last match in charge — the hinge of the post-Ferguson era. */
+export const FERGUSON_END = "2013-05-19";
+
+/**
+ * A club record (W/D/L/GF/GA) over official matches played in an inclusive date
+ * range, plus the derived three-points-per-game rate — the like-for-like era
+ * comparison the deep record carries honestly without modern advanced metrics.
+ */
+export interface EraRecord extends Record_ {
+  /** Three-points-per-game, restating older eras on today's terms. */
+  ppg: number;
+  goalsPerGame: number;
+  concededPerGame: number;
+}
+
+export function eraRecord(from: string, to: string): EraRecord {
+  const r = getDb()
+    .prepare(
+      `SELECT ${RECORD_COLS_OFFICIAL}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.date >= ? AND m.date <= ?`,
+    )
+    .get(from, to) as Record_;
+  const p = r.p || 1;
+  return {
+    ...r,
+    ppg: (3 * r.w + r.d) / p,
+    goalsPerGame: r.gf / p,
+    concededPerGame: r.ga / p,
+  };
+}
+
+const RECORD_COLS_OFFICIAL = `COUNT(*) p,
+  COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d, COALESCE(SUM(result='L'),0) l,
+  COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga`;
+
+export interface SeasonFinishRow {
+  season: string;
+  position: number;
+  league_size: number;
+  competition: string;
+}
+
+/** Top-flight league finishes (First Division / Premier League), season by season. */
+export function topFlightFinishes(): SeasonFinishRow[] {
+  return getDb()
+    .prepare(
+      `SELECT ss.season, ss.position, ss.league_size, c.name AS competition
+       FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+       WHERE c.type = 'league' AND c.name IN ('First Division','Premier League')
+         AND ss.position IS NOT NULL
+       ORDER BY ss.season`,
+    )
+    .all() as SeasonFinishRow[];
+}
+
+/** Top-flight titles won across seasons in an inclusive [from,to] season range. */
+export function titlesInRange(fromSeason: string, toSeason: string): number {
+  return (
+    getDb()
+      .prepare(
+        `SELECT COUNT(*) n FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+         WHERE c.type = 'league' AND c.name IN ('First Division','Premier League')
+           AND ss.position = 1 AND ss.season >= ? AND ss.season <= ?`,
+      )
+      .get(fromSeason, toSeason) as { n: number }
+  ).n;
+}
+
+// ---------------------------------------------------------------- ferguson vs field
+
+export interface ManagerRateRow extends Record_ {
+  id: string;
+  name: string;
+  ppg: number;
+}
+
+/**
+ * Permanent managers ranked by three-points-per-game over official matches.
+ * Caretakers (under 30 matches) are dropped so a four-game caretaker stint can
+ * never top a real reign — the comparison the question "was he that far ahead?"
+ * actually asks.
+ */
+export function managerPpgRanking(minMatches = 30): ManagerRateRow[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT mg.id, mg.name, ${RECORD_COLS_OFFICIAL}
+       FROM managers mg JOIN matches m ON m.manager_id = mg.id
+       JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type != 'unofficial'
+       GROUP BY mg.id HAVING p >= ? ORDER BY 1.0*(3*SUM(m.result='W')+SUM(m.result='D'))/COUNT(*) DESC`,
+    )
+    .all(minMatches) as (Record_ & { id: string; name: string })[];
+  return rows.map((r) => ({
+    ...r,
+    ppg: (3 * r.w + r.d) / (r.p || 1),
+  }));
+}
+
+// ---------------------------------------------------------------- treble season
+
+/** A single competition's run within a season, with its deciding (last) match. */
+export interface SeasonRun {
+  competition_id: string;
+  competition_name: string;
+  type: string;
+  p: number; w: number; d: number; l: number; gf: number; ga: number;
+  position: number | null;
+  /** Was the trophy won this season (the deciding final won, or league pos 1)? */
+  won: boolean;
+  /** The deciding match: the last league game, or the final. */
+  decider: SequenceMatch | null;
+}
+
+/**
+ * The 1998-99 Treble broken into its three winning runs — Premier League, FA
+ * Cup, Champions League — each with its record and the match that decided it.
+ * Drawn from the complete result-level record for that season.
+ */
+export function trebleRuns(season = "1998-99"): SeasonRun[] {
+  const db = getDb();
+  const comps = db
+    .prepare(
+      `SELECT c.id AS competition_id, c.name AS competition_name, c.type,
+              COUNT(*) p, SUM(m.result='W') w, SUM(m.result='D') d, SUM(m.result='L') l,
+              SUM(m.gf) gf, SUM(m.ga) ga, ss.position
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       LEFT JOIN season_summaries ss ON ss.season = m.season AND ss.competition_id = c.id
+       WHERE m.season = ? AND c.type IN ('league','domestic-cup','european')
+       GROUP BY c.id ORDER BY c.type, c.name`,
+    )
+    .all(season) as (Omit<SeasonRun, "won" | "decider"> & { type: string })[];
+
+  return comps.map((c) => {
+    const won = c.type === "league" ? c.position === 1 : cupWon(c.competition_id, season);
+    const decider = c.type === "league"
+      ? lastMatch(season, c.competition_id)
+      : decidingFinal(season, c.competition_id);
+    return { ...c, won, decider };
+  });
+}
+
+/** One United goal in a deciding match, minute-stamped and named. */
+interface TrebleGoal {
+  minute: number;
+  added: number | null;
+  scorer: string | null;
+  /** Scored in the 90th minute or later. */
+  stoppage: boolean;
+}
+
+/** A trophy-deciding night, with United's goals as the record holds them. */
+export interface TrebleDecider {
+  competition_id: string;
+  competition_name: string;
+  id: string;
+  date: string;
+  opponent_name: string;
+  venue: string;
+  gf: number;
+  ga: number;
+  aet: number;
+  goals: TrebleGoal[];
+  /** Every United goal came at 90'+ — the Champions League final, won from behind. */
+  wonInStoppage: boolean;
+}
+
+/**
+ * The three nights that clinched the Treble, in the order they happened — the
+ * last league game, the FA Cup final, the European Cup final — each with United's
+ * minute-stamped, named goals. The drama is in the timings the record holds: the
+ * European Cup was won with two goals after the 90th minute, the only United
+ * goals of the match.
+ */
+export function trebleDeciders(season = "1998-99"): TrebleDecider[] {
+  return trebleRuns(season)
+    .filter((r) => r.won && r.decider)
+    .map((r) => {
+      const d = r.decider!;
+      const goals: TrebleGoal[] = eventsForMatch(d.id)
+        .filter((e) => e.type === "goal" && e.player_side === "united")
+        .map((e) => ({
+          minute: e.minute ?? 0,
+          added: e.added_time,
+          scorer: e.player_display_name,
+          stoppage: (e.minute ?? 0) >= 90,
+        }));
+      return {
+        competition_id: r.competition_id,
+        competition_name: r.competition_name,
+        id: d.id,
+        date: d.date,
+        opponent_name: d.opponent_name,
+        venue: d.venue,
+        gf: d.gf,
+        ga: d.ga,
+        aet: d.aet,
+        goals,
+        wonInStoppage: goals.length > 0 && goals.every((g) => g.stoppage),
+      };
+    })
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** One goal in a Treble semi-final, with the side that scored. */
+interface TrebleSemiGoal {
+  minute: number;
+  added: number | null;
+  scorer: string | null;
+  side: "united" | "opponent";
+  stoppage: boolean;
+}
+
+/** A semi-final from the Treble season, with the full goal replay both sides. */
+export interface TrebleSemi extends SequenceMatch {
+  goals: TrebleSemiGoal[];
+  /** Deepest deficit United climbed out of (0 = never trailed). */
+  deficit: number;
+}
+
+const SEMI_PREDICATE = roundFilterPredicate("semi-final", "m");
+
+/**
+ * The semi-final nights that forged the Treble — the Juventus second leg (2-0
+ * down after 11 minutes, won 3-2) and the FA Cup semi-final replay (won in extra
+ * time). Each carries the minute-stamped goals *both sides* scored, so the
+ * comeback is visible in the timings, not just the scoreline. Restricted to
+ * United wins so the scoreless first legs drop.
+ */
+export function trebleSemis(season = "1998-99"): TrebleSemi[] {
+  const db = getDb();
+  const matches = db
+    .prepare(
+      `SELECT ${SEQ_SELECT}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.season = ? AND c.type IN ('domestic-cup','european')
+         AND ${SEMI_PREDICATE} AND m.result = 'W'
+       ORDER BY m.date`,
+    )
+    .all(season) as SequenceMatch[];
+
+  return matches.map((m) => {
+    const events = eventsForMatch(m.id).filter(
+      (e) =>
+        (UNITED_GOAL_SET.has(e.type) || e.type === "opp-goal" || e.type === "own-goal-against") &&
+        e.minute != null,
+    );
+    const goals: TrebleSemiGoal[] = events.map((e) => ({
+      minute: e.minute ?? 0,
+      added: e.added_time,
+      scorer: e.player_display_name,
+      side: e.player_side,
+      stoppage: (e.minute ?? 0) >= 90,
+    }));
+    let u = 0, o = 0, worst = 0;
+    for (const e of events) {
+      if (e.player_side === "united") u++;
+      else o++;
+      if (u - o < worst) worst = u - o;
+    }
+    return { ...m, goals, deficit: Math.max(0, -worst) };
+  });
+}
+
+function cupWon(competitionId: string, season: string): boolean {
+  return (
+    (getDb()
+      .prepare(
+        `SELECT COUNT(*) n FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE ${CUP_WON_PREDICATE} AND m.season = ? AND m.competition_id = ?`,
+      )
+      .get(season, competitionId) as { n: number }).n > 0
+  );
+}
+
+function lastMatch(season: string, competitionId: string): SequenceMatch | null {
+  return (
+    (getDb()
+      .prepare(
+        `SELECT ${SEQ_SELECT} FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE m.season = ? AND m.competition_id = ? ORDER BY m.date DESC LIMIT 1`,
+      )
+      .get(season, competitionId) as SequenceMatch | undefined) ?? null
+  );
+}
+
+function decidingFinal(season: string, competitionId: string): SequenceMatch | null {
+  return (
+    (getDb()
+      .prepare(
+        `SELECT ${SEQ_SELECT} FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE m.season = ? AND m.competition_id = ?
+           AND ${FINAL_PREDICATE}
+         ORDER BY m.date DESC LIMIT 1`,
+      )
+      .get(season, competitionId) as SequenceMatch | undefined) ?? null
+  );
+}
+
+// ---------------------------------------------------------------- europe
+
+export interface EuropeDecadeRow extends Record_ {
+  decade: string;
+}
+
+/** European record (Champions League / UEFA Cup / Europa League / Cup Winners' Cup / Super Cup) by decade. */
+export function europeByDecade(): EuropeDecadeRow[] {
+  return getDb()
+    .prepare(
+      `SELECT substr(m.date,1,3) || '0s' decade, ${RECORD_COLS_OFFICIAL}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE (c.type = 'european' OR c.id = 'uefa-super-cup')
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all() as EuropeDecadeRow[];
+}
+
+/** Every European final (won or lost) United has reached. */
+export function europeanFinals(): (SequenceMatch & { outcome: string; won: boolean })[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT ${SEQ_SELECT}, m.outcome
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE (c.type = 'european' OR c.id = 'uefa-super-cup')
+         AND ${FINAL_PREDICATE}
+       ORDER BY m.date`,
+    )
+    .all() as (SequenceMatch & { outcome: string })[];
+  return rows.map((r) => ({ ...r, won: r.outcome === "W" }));
 }

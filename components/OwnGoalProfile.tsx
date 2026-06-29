@@ -3,6 +3,7 @@ import {
   ownGoalForEvents, ownGoalScorers, ownGoalSummary, playersIndex,
 } from "@/lib/queries";
 import { PageHeader, StatTile } from "@/components/PageHeader";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { fmtDate, fmtNum, scoreline, venuePrefix } from "@/lib/format";
 
 /**
@@ -17,6 +18,13 @@ export function OwnGoalProfile() {
   const events = ownGoalForEvents();
   const rank = playersIndex().findIndex((p) => p.player_id === "own-goal") + 1;
   const repeat = scorers.filter((s) => s.n > 1);
+  const portraitByScorer = new Map(
+    scorers.map((s) => [s.name, {
+      src: s.thumb_url ?? s.image_url,
+      pageUrl: s.page_url,
+      license: s.license,
+    }] as const),
+  );
 
   return (
     <div className="space-y-10">
@@ -32,12 +40,12 @@ export function OwnGoalProfile() {
           </div>
         }
       >
-        Not a person — a tally. Every goal an opponent has turned into his own net in United&apos;s favour,
+        Not a person — a tally. Every goal an opponent has turned into his own net in United’s favour,
         gathered under one name. Counted together they have been gifted to United {fmtNum(summary.total)} times,
-        enough to rank{rank ? ` #${rank}` : ""} among the club&apos;s all-time scorers — by {fmtNum(summary.scorers)}{" "}
+        enough to rank{rank ? ` #${rank}` : ""} among the club’s all-time scorers — by {fmtNum(summary.scorers)}{" "}
         different opposition players, no one of them more than {repeat[0]?.n ?? 1} times.
         {summary.unknown > 0 && (
-          <span className="text-ink-faint">
+          <span className="text-ink-dim">
             {" "}({fmtNum(summary.unknown)} older own goals carry no recorded scorer.)
           </span>
         )}
@@ -52,15 +60,18 @@ export function OwnGoalProfile() {
           <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-panel text-sm">
             {repeat.map((s) => (
               <li key={s.name} className="flex items-center justify-between gap-3 px-4 py-2.5">
-                <span className="min-w-0">
-                  <span className="font-medium">{s.name}</span>
-                  <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-ink-faint hover:text-devil-bright">
-                    {s.recent_opponent}
-                  </Link>
+                <span className="flex min-w-0 items-center gap-2.5">
+                  <PlayerPortrait name={s.name} src={portraitByScorer.get(s.name)?.src} size="xs" />
+                  <span className="min-w-0">
+                    <span className="font-medium">{s.name}</span>
+                    <Link href={`/opponent/${s.recent_opponent_id}`} className="ml-2 text-ink-faint hover:text-devil-bright focus-ring">
+                      {s.recent_opponent}
+                    </Link>
+                  </span>
                 </span>
                 <span className="stat-num shrink-0 text-ink-faint">
                   <span className="text-devil-bright">{fmtNum(s.n)}</span> · last{" "}
-                  <Link href={`/match/${s.recent_match_id}`} className="hover:text-devil-bright">{s.last.slice(0, 4)}</Link>
+                  <Link href={`/match/${s.recent_match_id}`} className="hover:text-devil-bright focus-ring">{s.last.slice(0, 4)}</Link>
                 </span>
               </li>
             ))}
@@ -74,31 +85,49 @@ export function OwnGoalProfile() {
           <span className="stat-num text-xs text-ink-faint">{fmtNum(events.length)} goals, newest first</span>
         </div>
         <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-pitch/35">
-          {events.map((e, i) => (
-            <li key={`${e.match_id}-${i}`}>
-              <Link
-                href={`/match/${e.match_id}`}
-                className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel sm:px-4"
-              >
-                <span className="stat-num w-20 shrink-0 text-xs text-ink-dim">{fmtDate(e.date)}</span>
-                <span className="min-w-0">
-                  <span className="block truncate text-sm">
-                    <span className="font-medium">{e.scorer ?? "Unknown"}</span>
-                    <span className="text-ink-faint"> · {venuePrefix(e.venue)} {e.opponent_name}</span>
+          {events.map((e, i) => {
+            const portrait = e.scorer ? portraitByScorer.get(e.scorer) : null;
+            return (
+              <li key={`${e.match_id}-${i}`}>
+                <Link
+                  href={`/match/${e.match_id}`}
+                  className="group block px-3 py-2.5 transition-colors hover:bg-panel focus-ring sm:px-4"
+                >
+                  <span className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-3">
+                    <span className="stat-num w-20 shrink-0 text-xs text-ink-dim">{fmtDate(e.date)}</span>
+                    <PlayerPortrait
+                      name={e.scorer ?? "Unknown"}
+                      src={portrait?.src}
+                      size="xs"
+                    />
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm">
+                        <span className="font-medium transition-colors group-hover:text-devil-bright">{e.scorer ?? "Unknown"}</span>
+                        <span className="text-ink-dim"> · {venuePrefix(e.venue)} {e.opponent_name}</span>
+                      </span>
+                    </span>
+                    <span className="flex shrink-0 items-center gap-2">
+                      {e.minute != null && <span className="stat-num text-xs text-ink-faint">{e.minute}&prime;</span>}
+                      <span className="stat-num rounded bg-panel-2 px-2 py-1 text-xs font-semibold">{scoreline(e.gf, e.ga)}</span>
+                    </span>
                   </span>
-                </span>
-                <span className="flex shrink-0 items-center gap-2">
-                  {e.minute != null && <span className="stat-num text-xs text-ink-faint">{e.minute}&prime;</span>}
-                  <span className="stat-num rounded bg-panel-2 px-2 py-1 text-xs font-semibold">{scoreline(e.gf, e.ga)}</span>
-                </span>
-              </Link>
-            </li>
-          ))}
+                </Link>
+                  {portrait?.pageUrl && (
+                    <a
+                      href={portrait.pageUrl}
+                      className="ml-[calc(5rem+0.75rem)] mt-0.5 block max-w-xs px-3 text-[11px] leading-4 text-ink-dim hover:text-devil-bright focus-ring sm:px-4"
+                    >
+                      Wikimedia Commons{portrait.license ? ` · ${portrait.license}` : ""}
+                    </a>
+                  )}
+              </li>
+            );
+          })}
         </ul>
       </section>
 
       <p className="text-sm">
-        <Link href="/players" className="text-devil-bright hover:underline">← All players</Link>
+        <Link href="/players" className="text-devil-bright hover:underline focus-ring">← All players</Link>
       </p>
     </div>
   );

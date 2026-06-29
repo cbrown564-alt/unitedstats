@@ -51,7 +51,7 @@ npm run dev        # http://localhost:3000
 | League positions | every season, computed from full-league results with era-correct rules |
 | Managers | every match attributed via tenure dates, 1892– |
 | Lineups | 6,022 matches with full United starting lineups / 72,095 recorded United appearances, primarily from MUFCInfo match pages, structured Wikipedia match articles, and CC0 transfermarkt-datasets; only five matches remain without a validated XI |
-| Assist partnerships | 975 recorded assists (2012-13–present, transfermarkt-datasets, CC0). No open, redistributable source records United assists before 2012-13 (assists were not systematically tracked anywhere until the Opta era, and the pre-2012 holders — Opta, Transfermarkt.com, FBref/StatsBomb — are licence-restricted), so earlier seasons are blank by source limitation, not omission. See `docs/ASSISTS-PLAN.md`. |
+| Assist partnerships | 975 recorded assists (2012-13–present, transfermarkt-datasets, CC0). No open, redistributable source records United assists before 2012-13 (assists were not systematically tracked anywhere until the Opta era, and the pre-2012 holders — Opta, Transfermarkt.com, FBref/StatsBomb — are licence-restricted), so earlier seasons are blank by source limitation, not omission. See `docs/SOURCE-AUDIT.md`. |
 
 Every aggregate in the UI shows the coverage behind it (see the data-depth
 ledger on /analytics). Corrections welcome — the data is plain JSON,

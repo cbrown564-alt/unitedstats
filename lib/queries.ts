@@ -1,4 +1,9 @@
 import { getDb } from "./db";
+import { cachedQuery } from "./queryCache";
+import { roundFilterPredicate, type RoundFilterKey } from "./matchRounds";
+
+/** Reference indexes change only on deploy; prod DB is read-only — 5m is safe. */
+const STATIC_REF_TTL_MS = 300_000;
 
 export interface MatchRow {
   id: string;
@@ -273,11 +278,13 @@ export function seasonMatches(season: string): MatchRow[] {
 }
 
 export function allSeasons(): string[] {
-  return (
-    getDb().prepare("SELECT DISTINCT season FROM matches ORDER BY season DESC").all() as {
-      season: string;
-    }[]
-  ).map((r) => r.season);
+  return cachedQuery("allSeasons", STATIC_REF_TTL_MS, () =>
+    (
+      getDb().prepare("SELECT DISTINCT season FROM matches ORDER BY season DESC").all() as {
+        season: string;
+      }[]
+    ).map((r) => r.season),
+  );
 }
 
 // ---------------------------------------------------------------- matches browser
@@ -291,29 +298,92 @@ export interface MatchFilter {
   result?: string;
   /** Competition type; "cup" matches every official cup competition. */
   type?: string;
+  /** Knockout round stage — search-created only (see {@link matchRounds}). */
+  round?: RoundFilterKey;
   /** A specific ground (stadiums.id), e.g. from a search result. */
   stadium?: string;
   /** A city — every ground in it (stadiums.city), e.g. "Madrid", "London". */
   city?: string;
+  /** Matches where this United player scored. */
+  scorer?: string;
+  /** Matches where this United player assisted a recorded goal. */
+  assister?: string;
+  /** Matches where this United player appears in the lineup coverage. */
+  player?: string;
+  /** Matches that went to extra time. */
+  aet?: boolean;
+  /** Named window for recorded United goal events. */
+  goalWindow?: "firstHalf" | "secondHalf" | "late" | "stoppage" | "extraTime";
+  /** Inclusive minute bounds for recorded United goal events. */
+  goalFrom?: number;
+  goalTo?: number;
   /** Inclusive ISO date bounds, so era/decade aggregates can link to their matches. */
   from?: string;
   to?: string;
   q?: string;
-  /** Result ordering. Defaults to most-recent-first. */
-  sort?: "recent" | "oldest" | "margin" | "defeat" | "attendance";
+  /** Result ordering. Defaults to newest date first. */
+  sort?: "date-desc" | "date-asc" | "gd-desc" | "gd-asc";
   limit?: number;
   offset?: number;
 }
 
 const MATCH_ORDER: Record<NonNullable<MatchFilter["sort"]>, string> = {
-  recent: "m.date DESC",
-  oldest: "m.date ASC",
-  margin: "(m.gf - m.ga) DESC, m.gf DESC, m.date DESC",
-  // heaviest losing margin first, then most goals conceded
-  defeat: "(m.gf - m.ga) ASC, m.ga DESC, m.date DESC",
-  // nulls last, then largest crowd first
-  attendance: "(m.attendance IS NULL), m.attendance DESC, m.date DESC",
+  "date-desc": "m.date DESC",
+  "date-asc": "m.date ASC",
+  "gd-desc": "(m.gf - m.ga) DESC, m.gf DESC, m.date DESC",
+  "gd-asc": "(m.gf - m.ga) ASC, m.ga DESC, m.date DESC",
 };
+
+function hasGoalEventFilter(f: MatchFilter): boolean {
+  return Boolean(f.scorer || f.assister || f.goalWindow || f.goalFrom != null || f.goalTo != null);
+}
+
+function goalEventConditions(
+  f: MatchFilter,
+  params: Record<string, string | number>,
+  e = "e",
+  m = "m",
+): string[] {
+  const where: string[] = [];
+  if (f.scorer) {
+    where.push(`${e}.player_id = @scorer`);
+    where.push(`${e}.player_side = 'united'`);
+    where.push(`${e}.type IN ('goal','pen-goal')`);
+    params.scorer = f.scorer;
+  } else {
+    where.push(`${e}.type IN ('goal','pen-goal','own-goal-for')`);
+  }
+  if (f.assister) {
+    where.push(`${e}.assist_player_id = @assister`);
+    where.push(`${e}.assist_side = 'united'`);
+    where.push(`${e}.type IN ('goal','pen-goal')`);
+    params.assister = f.assister;
+  }
+  if (f.goalWindow || f.goalFrom != null || f.goalTo != null) {
+    where.push(`${e}.minute IS NOT NULL`);
+  }
+  if (f.goalWindow === "firstHalf") {
+    where.push(`${e}.minute BETWEEN 1 AND 45`);
+  } else if (f.goalWindow === "secondHalf") {
+    where.push(`${e}.minute >= 46`);
+  } else if (f.goalWindow === "late") {
+    where.push(`${e}.minute >= 86`);
+  } else if (f.goalWindow === "stoppage") {
+    where.push(`(COALESCE(${e}.added_time, 0) > 0 OR (${m}.aet = 0 AND ${e}.minute > 90))`);
+  } else if (f.goalWindow === "extraTime") {
+    where.push(`${m}.aet = 1`);
+    where.push(`${e}.minute > 90`);
+  }
+  if (f.goalFrom != null) {
+    where.push(`${e}.minute >= @goalFrom`);
+    params.goalFrom = f.goalFrom;
+  }
+  if (f.goalTo != null) {
+    where.push(`${e}.minute <= @goalTo`);
+    params.goalTo = f.goalTo;
+  }
+  return where;
+}
 
 /** Shared filter compilation so the list, its summary, and its spine read the same slice. */
 export function matchWhere(f: MatchFilter): { cond: string; params: Record<string, string | number> } {
@@ -325,18 +395,90 @@ export function matchWhere(f: MatchFilter): { cond: string; params: Record<strin
   if (f.season) { where.push("m.season = @season"); params.season = f.season; }
   if (f.venue) { where.push("m.venue = @venue"); params.venue = f.venue; }
   if (f.result) { where.push("m.result = @result"); params.result = f.result; }
+  if (f.aet) { where.push("m.aet = 1"); }
   if (f.type === "cup") {
     where.push("c.type NOT IN ('league','unofficial')");
   } else if (f.type) {
     where.push("c.type = @type");
     params.type = f.type;
   }
+  if (f.round) {
+    where.push(roundFilterPredicate(f.round));
+  }
   if (f.stadium) { where.push("m.stadium_id = @stadium"); params.stadium = f.stadium; }
   if (f.city) { where.push("m.stadium_id IN (SELECT id FROM stadiums WHERE city = @city)"); params.city = f.city; }
+  if (hasGoalEventFilter(f)) {
+    const eventWhere = goalEventConditions(f, params).join(" AND ");
+    where.push(
+      `EXISTS (
+        SELECT 1 FROM match_events e
+        WHERE e.match_id = m.id
+          AND ${eventWhere}
+      )`,
+    );
+  }
+  if (f.player) {
+    where.push(
+      `EXISTS (
+        SELECT 1 FROM match_lineups l
+        WHERE l.match_id = m.id
+          AND l.player_id = @player
+          AND l.player_side = 'united'
+          AND l.bench = 0
+      )`,
+    );
+    params.player = f.player;
+  }
   if (f.from) { where.push("m.date >= @from"); params.from = f.from; }
   if (f.to) { where.push("m.date <= @to"); params.to = f.to; }
   if (f.q) { where.push("m.opponent_name LIKE @q"); params.q = `%${f.q}%`; }
   return { cond: where.length ? `WHERE ${where.join(" AND ")}` : "", params };
+}
+
+function minuteLabel(minute: number | null, added: number | null): string {
+  if (minute == null) return "?";
+  return added && added > 0 ? `${minute}+${added}` : String(minute);
+}
+
+/** Per-match goal/assist annotation for a scorer/timing slice: the matching
+ * events' minute labels, plus how many and whether they were goals or assists. */
+export type MatchEventBadge = { count: number; noun: string; minutes: string[] };
+
+export function matchEventBadges(
+  matchIds: string[],
+  f: Pick<MatchFilter, "scorer" | "assister" | "goalWindow" | "goalFrom" | "goalTo">,
+): Map<string, MatchEventBadge> {
+  if (matchIds.length === 0 || !hasGoalEventFilter(f)) return new Map();
+  const params: Record<string, string | number> = {};
+  const ids = matchIds.map((_, i) => `@id${i}`);
+  matchIds.forEach((id, i) => { params[`id${i}`] = id; });
+  const eventWhere = goalEventConditions(f, params).join(" AND ");
+  const rows = getDb()
+    .prepare(
+      `SELECT e.match_id, e.minute, e.added_time, p.name scorer_name, ap.name assister_name
+       FROM match_events e
+       JOIN matches m ON m.id = e.match_id
+       LEFT JOIN players p ON p.id = e.player_id
+       LEFT JOIN players ap ON ap.id = e.assist_player_id
+       WHERE e.match_id IN (${ids.join(",")}) AND ${eventWhere}
+       ORDER BY e.match_id, COALESCE(e.minute, 999), e.seq`,
+    )
+    .all(params) as {
+      match_id: string;
+      minute: number | null;
+      added_time: number | null;
+      scorer_name: string | null;
+      assister_name: string | null;
+    }[];
+  const grouped = new Map<string, typeof rows>();
+  for (const row of rows) grouped.set(row.match_id, [...(grouped.get(row.match_id) ?? []), row]);
+  const labels = new Map<string, MatchEventBadge>();
+  for (const [matchId, items] of grouped) {
+    const minutes = items.map((e) => minuteLabel(e.minute, e.added_time));
+    const noun = f.assister && !f.scorer ? "assist" : "goal";
+    labels.set(matchId, { count: items.length, noun, minutes });
+  }
+  return labels;
 }
 
 /** Name + city of a single ground, for labelling a stadium-filtered slice. */
@@ -346,6 +488,31 @@ export function stadiumById(id: string): { id: string; name: string; city: strin
     .get(id) as { id: string; name: string; city: string | null } | undefined;
 }
 
+export function stadiumsList(): { id: string; name: string; city: string | null; n: number }[] {
+  return cachedQuery("stadiumsList", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT s.id, s.name, s.city, COUNT(m.id) n
+         FROM stadiums s JOIN matches m ON m.stadium_id = s.id
+         GROUP BY s.id ORDER BY n DESC, s.name`,
+      )
+      .all() as { id: string; name: string; city: string | null; n: number }[],
+  );
+}
+
+export function matchCitiesList(): { city: string; n: number }[] {
+  return cachedQuery("matchCitiesList", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT s.city, COUNT(m.id) n
+         FROM stadiums s JOIN matches m ON m.stadium_id = s.id
+         WHERE s.city IS NOT NULL AND s.city != ''
+         GROUP BY s.city ORDER BY n DESC, s.city`,
+      )
+      .all() as { city: string; n: number }[],
+  );
+}
+
 export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number } {
   const { cond, params } = matchWhere(f);
   const total = (
@@ -353,7 +520,7 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
       .prepare(`SELECT COUNT(*) n FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}`)
       .get(params) as { n: number }
   ).n;
-  const orderBy = MATCH_ORDER[f.sort ?? "recent"] ?? MATCH_ORDER.recent;
+  const orderBy = MATCH_ORDER[f.sort ?? "date-desc"] ?? MATCH_ORDER["date-desc"];
   const rows = getDb()
     .prepare(`${MATCH_SELECT} ${cond} ORDER BY ${orderBy} LIMIT @limit OFFSET @offset`)
     .all({ ...params, limit: f.limit ?? 50, offset: f.offset ?? 0 }) as MatchRow[];
@@ -361,10 +528,21 @@ export function findMatches(f: MatchFilter): { rows: MatchRow[]; total: number }
 }
 
 /** Decade buckets with fixture counts, for the chronological jump rail. */
-export function matchDecades(): { decade: string; from: number; to: number; n: number }[] {
+/**
+ * Decade buckets for the matches navigator, counted within the current slice.
+ * Pass a filter with its `from`/`to` (decade range) stripped: the chips then show
+ * how the rest of the slice spreads across decades, so picking one decade doesn't
+ * collapse the navigator to a single chip. Decades with no matches are dropped.
+ */
+export function matchDecades(f?: MatchFilter): { decade: string; from: number; to: number; n: number }[] {
+  const { cond, params } = f ? matchWhere(f) : { cond: "", params: {} };
   const rows = getDb()
-    .prepare(`SELECT substr(date,1,3) || '0' AS start, COUNT(*) n FROM matches GROUP BY 1 ORDER BY 1`)
-    .all() as { start: string; n: number }[];
+    .prepare(
+      `SELECT substr(m.date,1,3) || '0' AS start, COUNT(*) n
+       FROM matches m JOIN competitions c ON c.id = m.competition_id ${cond}
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all(params) as { start: string; n: number }[];
   return rows.map((r) => {
     const from = parseInt(r.start, 10);
     return { decade: `${from}s`, from, to: from + 9, n: r.n };
@@ -390,14 +568,66 @@ export function matchesSummary(f: MatchFilter): MatchesSummary {
     .get(params) as MatchesSummary;
 }
 
-export function competitionsList(): { id: string; name: string; type: string; n: number }[] {
-  return getDb()
+/** One categorical facet's option→count map within a slice, as a GROUP BY. */
+function facetColumnCounts(col: string, f: MatchFilter, join = ""): Record<string, number> {
+  const { cond, params } = matchWhere(f);
+  const rows = getDb()
     .prepare(
-      `SELECT c.id, c.name, c.type, COUNT(m.id) n
-       FROM competitions c JOIN matches m ON m.competition_id = c.id
-       GROUP BY c.id ORDER BY n DESC`,
+      `SELECT ${col} v, COUNT(*) n FROM matches m
+       JOIN competitions c ON c.id = m.competition_id ${join} ${cond}
+       GROUP BY ${col}`,
     )
-    .all() as { id: string; name: string; type: string; n: number }[];
+    .all(params) as { v: string | null; n: number }[];
+  const out: Record<string, number> = {};
+  for (const r of rows) if (r.v != null) out[String(r.v)] = r.n;
+  return out;
+}
+
+/**
+ * Contextual option counts for the categorical facets, so the filter UI can show
+ * how many matches each option still yields and hide the ones that lead nowhere.
+ * Each facet is counted with its *own* constraint removed (standard faceted
+ * semantics) — so picking an opponent narrows the competition options, but the
+ * opponent list still shows every opponent. Event/lineup facets (scorer,
+ * assister, goal timing, player) are omitted: they stay type-ahead, uncounted.
+ */
+export function matchFacetCounts(f: MatchFilter): Record<string, Record<string, number>> {
+  const without = (key: keyof MatchFilter): MatchFilter => ({ ...f, [key]: undefined });
+  const typeRaw = facetColumnCounts("c.type", without("type"));
+  // "cup" is an umbrella over every official cup type (see matchWhere).
+  const cupTotal = Object.entries(typeRaw)
+    .filter(([t]) => t !== "league" && t !== "unofficial")
+    .reduce((sum, [, n]) => sum + n, 0);
+  return {
+    opponent: facetColumnCounts("m.opponent_id", without("opponent")),
+    competition: facetColumnCounts("m.competition_id", without("competition")),
+    season: facetColumnCounts("m.season", without("season")),
+    venue: facetColumnCounts("m.venue", without("venue")),
+    result: facetColumnCounts("m.result", without("result")),
+    manager: facetColumnCounts("m.manager_id", without("manager")),
+    stadium: facetColumnCounts("m.stadium_id", without("stadium")),
+    city: facetColumnCounts("s.city", without("city"), "JOIN stadiums s ON s.id = m.stadium_id"),
+    type: cupTotal > 0 ? { ...typeRaw, cup: cupTotal } : typeRaw,
+  };
+}
+
+export function competitionsList(): { id: string; name: string; type: string; n: number }[] {
+  return cachedQuery("competitionsList", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT c.id, c.name, c.type, COUNT(m.id) n
+         FROM competitions c JOIN matches m ON m.competition_id = c.id
+         GROUP BY c.id ORDER BY n DESC`,
+      )
+      .all() as { id: string; name: string; type: string; n: number }[],
+  );
+}
+
+export function competitionNameById(id: string): string | undefined {
+  const row = getDb()
+    .prepare("SELECT name FROM competitions WHERE id = ?")
+    .get(id) as { name: string } | undefined;
+  return row?.name;
 }
 
 // ---------------------------------------------------------------- opponents
@@ -411,15 +641,17 @@ export interface OpponentRecord extends Record_ {
 }
 
 export function opponentsIndex(): OpponentRecord[] {
-  return getDb()
-    .prepare(
-      `SELECT o.id, o.name, o.country, COUNT(*) p,
-              SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
-              SUM(gf) gf, SUM(ga) ga, MIN(date) first, MAX(date) last
-       FROM matches m JOIN opponents o ON o.id = m.opponent_id
-       GROUP BY o.id ORDER BY p DESC`,
-    )
-    .all() as OpponentRecord[];
+  return cachedQuery("opponentsIndex", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT o.id, o.name, o.country, COUNT(*) p,
+                SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
+                SUM(gf) gf, SUM(ga) ga, MIN(date) first, MAX(date) last
+         FROM matches m JOIN opponents o ON o.id = m.opponent_id
+         GROUP BY o.id ORDER BY p DESC`,
+      )
+      .all() as OpponentRecord[],
+  );
 }
 
 export function opponentById(id: string): OpponentRecord | undefined {
@@ -455,18 +687,21 @@ export interface ManagerRecord extends Record_ {
 }
 
 export function managersIndex(): ManagerRecord[] {
-  return getDb()
-    .prepare(
-      `SELECT mg.id, mg.name, mg.nationality, mg.role,
-              COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
-              COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga,
-              MIN(m.date) first, MAX(m.date) last,
-              mm.thumb_url, mm.image_url
-       FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
-       LEFT JOIN manager_media mm ON mm.manager_id = mg.id
-       GROUP BY mg.id ORDER BY first`,
-    )
-    .all() as ManagerRecord[];
+  return cachedQuery("managersIndex", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT mg.id, mg.name, mg.nationality, mg.role,
+                COUNT(m.id) p, COALESCE(SUM(m.result='W'),0) w, COALESCE(SUM(m.result='D'),0) d,
+                COALESCE(SUM(m.result='L'),0) l, COALESCE(SUM(m.gf),0) gf, COALESCE(SUM(m.ga),0) ga,
+                MIN(m.date) first, MAX(m.date) last,
+                COALESCE(mm.local_path, mm.thumb_url) thumb_url,
+                COALESCE(mm.local_path, mm.image_url) image_url
+         FROM managers mg LEFT JOIN matches m ON m.manager_id = mg.id
+         LEFT JOIN manager_media mm ON mm.manager_id = mg.id
+         GROUP BY mg.id ORDER BY first`,
+      )
+      .all() as ManagerRecord[],
+  );
 }
 
 export function managerById(id: string): ManagerRecord | undefined {
@@ -628,8 +863,8 @@ const PLAYER_TOTALS_SELECT = `
          ps.shirt primary_shirt,
          ps.decade primary_shirt_decade,
          ps.apps primary_shirt_apps,
-         pm.image_url player_image_url,
-         pm.thumb_url player_thumb_url,
+         COALESCE(pm.local_path, pm.image_url) player_image_url,
+         COALESCE(pm.local_path, pm.thumb_url, pm.image_url) player_thumb_url,
          pm.page_url player_image_page_url,
          pm.license player_image_license,
          pp.bucket position_bucket,
@@ -653,14 +888,16 @@ const PLAYER_TOTALS_SELECT = `
 `;
 
 export function playersIndex(): PlayerTotals[] {
-  return getDb()
-    .prepare(
-      `${PLAYER_TOTALS_WITH}
-       ${PLAYER_TOTALS_SELECT}
-       WHERE pr.player_id IS NOT NULL OR p.id = 'own-goal'
-       ORDER BY goals DESC, apps DESC, starts DESC`,
-    )
-    .all() as PlayerTotals[];
+  return cachedQuery("playersIndex", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `${PLAYER_TOTALS_WITH}
+         ${PLAYER_TOTALS_SELECT}
+         WHERE pr.player_id IS NOT NULL OR p.id = 'own-goal'
+         ORDER BY goals DESC, apps DESC, starts DESC`,
+      )
+      .all() as PlayerTotals[],
+  );
 }
 
 export function playerById(id: string): PlayerTotals | undefined {
@@ -717,6 +954,13 @@ export function playerSplitsBySeason(id: string): {
   starts: number;
   goals: number;
   assists: number;
+  /** Minutes played, derived from the lineup record: a starter plays to his
+   *  `sub_off` minute or the full match (90, or 120 if the tie went to extra
+   *  time); a substitute plays from his `sub_on` minute to the final whistle.
+   *  Nominal durations only — stoppage time is not held per match, so this is
+   *  the football-standard per-90 denominator, a light floor for withdrawn
+   *  starters in the pre-modern recording era. */
+  minutes: number;
 }[] {
   return getDb()
     .prepare(
@@ -734,6 +978,15 @@ export function playerSplitsBySeason(id: string): {
                         WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 AND m.season = s.season), 0) apps,
               COALESCE((SELECT COUNT(*) FROM match_lineups l JOIN matches m ON m.id=l.match_id
                         WHERE l.player_id = ? AND l.player_side = 'united' AND l.started = 1 AND l.bench = 0 AND m.season = s.season), 0) starts,
+              -- minutes played: starter -> sub_off or full match; sub -> final whistle minus sub_on.
+              -- duration is nominal (90, or 120 when the tie went to extra time); stoppage is not held.
+              COALESCE((SELECT SUM(CASE
+                        WHEN l.started = 1 THEN COALESCE(l.sub_off, CASE WHEN m.aet = 1 THEN 120 ELSE 90 END)
+                        WHEN l.sub_on IS NOT NULL THEN (CASE WHEN m.aet = 1 THEN 120 ELSE 90 END) - l.sub_on
+                        ELSE 0
+                      END)
+                        FROM match_lineups l JOIN matches m ON m.id=l.match_id
+                        WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 AND m.season = s.season), 0) minutes,
               COALESCE((SELECT COUNT(*) FROM match_events e JOIN matches m ON m.id=e.match_id
                         WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND m.season = s.season), 0) goals,
               -- assists: same combined definition as the headline figure
@@ -743,13 +996,31 @@ export function playerSplitsBySeason(id: string): {
               END assists
        FROM seasons s ORDER BY s.season`,
     )
-    .all(id, id, id, id, id, id, id, id, id) as {
+    .all(id, id, id, id, id, id, id, id, id, id) as {
       season: string;
       apps: number;
       starts: number;
       goals: number;
       assists: number;
+      minutes: number;
     }[];
+}
+
+/** Matches in which the player scored three or more — a hat-trick count, the
+ *  natural measure of a dominant single-game performance. Drawn from the same
+ *  match-attributed goal record as the career arc and the per-90 rate, so it is
+ *  complete wherever the goal events are (the whole dataset for the giants). */
+export function playerHatTricks(id: string): number {
+  const row = getDb()
+    .prepare(
+      `SELECT COUNT(*) n FROM (
+         SELECT m.id FROM match_events e JOIN matches m ON m.id = e.match_id
+         WHERE e.player_id = ? AND e.player_side = 'united'
+           AND e.type IN ('goal','pen-goal')
+         GROUP BY m.id HAVING COUNT(*) >= 3)`,
+    )
+    .get(id) as { n: number } | undefined;
+  return row?.n ?? 0;
 }
 
 export interface PlayerCareerSpark {
@@ -876,6 +1147,35 @@ export function managerHonours(): ManagerHonourSeason[] {
     .all() as ManagerHonourSeason[];
 }
 
+export interface HonourSeasonMarker {
+  season: string;
+  date: string;
+  /** Trophies won that season — a dot each, stacked when greater than one. */
+  count: number;
+}
+
+/** Trophy-winning seasons for the Elo timeline — one row per season, with count. */
+export function honourSeasonMarkers(): HonourSeasonMarker[] {
+  return getDb()
+    .prepare(
+      `WITH honours AS (
+         SELECT ss.season
+         FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+         WHERE c.type = 'league' AND ss.position = 1 AND c.name IN ('First Division','Premier League')
+         UNION ALL
+         SELECT m.season
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE ${CUP_WON_PREDICATE}
+       )
+       SELECT h.season, d.date, COUNT(*) AS count
+       FROM honours h
+       JOIN (SELECT season, MAX(date) AS date FROM matches GROUP BY season) d ON d.season = h.season
+       GROUP BY h.season
+       ORDER BY d.date`,
+    )
+    .all() as HonourSeasonMarker[];
+}
+
 export function playerLineupMatches(id: string): (MatchRow & {
   started: number;
   sub_on: number | null;
@@ -925,6 +1225,37 @@ export function playerGoalMinutes(id: string): number[] {
       )
       .all(id) as { minute: number }[]
   ).map((r) => r.minute);
+}
+
+/**
+ * A player's goals by 5-minute regulation window, with stoppage-time goals (90+)
+ * held out as a separate `stoppage` count — the per-player mirror of
+ * {@link import("./trails").goalMinuteRidge}, so the player "shape of his scoring"
+ * column chart stacks added-time goals on the final bar exactly like the
+ * club-wide late-goals chart instead of folding them into a fat 86–90 bar.
+ */
+export function playerGoalMinuteBins(id: string): { bins: { lo: number; hi: number; n: number }[]; stoppage: number } {
+  const db = getDb();
+  const notStoppage = `NOT (e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0))`;
+  const rows = db
+    .prepare(
+      `SELECT MIN((e.minute - 1) / 5, 17) AS bin, COUNT(*) n
+       FROM match_events e
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
+         AND e.minute IS NOT NULL AND e.minute >= 1 AND ${notStoppage}
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all(id) as { bin: number; n: number }[];
+  const bins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
+  for (const r of rows) if (bins[r.bin]) bins[r.bin].n = r.n;
+  const { stoppage } = db
+    .prepare(
+      `SELECT COUNT(*) stoppage FROM match_events e
+       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
+         AND e.minute IS NOT NULL AND NOT (${notStoppage})`,
+    )
+    .get(id) as { stoppage: number };
+  return { bins, stoppage };
 }
 
 export interface PlayerOpponentGoals {
@@ -977,8 +1308,10 @@ export interface AssistPartnership {
 export function topAssistPartnerships(limit = 20): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.thumb_url scorer_thumb,
-              e.assist_player_id assister_id, ap.name assister_name, apm.thumb_url assister_thumb,
+      `SELECT e.player_id scorer_id, sp.name scorer_name,
+              COALESCE(spm.local_path, spm.thumb_url, spm.image_url) scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name,
+              COALESCE(apm.local_path, apm.thumb_url, apm.image_url) assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
@@ -1000,8 +1333,10 @@ export function topAssistPartnerships(limit = 20): AssistPartnership[] {
 export function playerAssistPartnerships(id: string, limit = 12): AssistPartnership[] {
   return getDb()
     .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name, spm.thumb_url scorer_thumb,
-              e.assist_player_id assister_id, ap.name assister_name, apm.thumb_url assister_thumb,
+      `SELECT e.player_id scorer_id, sp.name scorer_name,
+              COALESCE(spm.local_path, spm.thumb_url, spm.image_url) scorer_thumb,
+              e.assist_player_id assister_id, ap.name assister_name,
+              COALESCE(apm.local_path, apm.thumb_url, apm.image_url) assister_thumb,
               COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
        FROM match_events e
        JOIN matches m ON m.id = e.match_id
@@ -1023,7 +1358,7 @@ export function playerAssistPartnerships(id: string, limit = 12): AssistPartners
 
 // --------------------------------------------- curated Tableau season lane
 // Hand-curated goals/assists/goal-types by season for 1987-88..2014-15. Not
-// match-attributed; surfaced as its own labelled lane (docs/TABLEAU-GOALS-ASSISTS.md).
+// match-attributed; surfaced as its own labelled lane (see docs/SOURCE-AUDIT.md).
 
 export interface CuratedTotals {
   goals: number;
@@ -1188,14 +1523,31 @@ export interface OwnGoalScorer {
   recent_match_id: string;
   thumb_url: string | null;
   image_url: string | null;
+  page_url: string | null;
+  license: string | null;
 }
 
 /** Commons portrait per own-goal scorer name, where one resolved. */
-function ownGoalScorerMedia(): Map<string, { thumb_url: string | null; image_url: string | null }> {
+function ownGoalScorerMedia(): Map<string, {
+  thumb_url: string | null;
+  image_url: string | null;
+  page_url: string | null;
+  license: string | null;
+}> {
   const rows = getDb()
-    .prepare("SELECT name, thumb_url, image_url FROM og_scorer_media")
-    .all() as { name: string; thumb_url: string | null; image_url: string | null }[];
-  return new Map(rows.map((r) => [r.name, { thumb_url: r.thumb_url, image_url: r.image_url }]));
+    .prepare(`SELECT name,
+                     COALESCE(local_path, thumb_url) thumb_url,
+                     COALESCE(local_path, image_url) image_url,
+                     page_url, license
+              FROM og_scorer_media`)
+    .all() as {
+      name: string;
+      thumb_url: string | null;
+      image_url: string | null;
+      page_url: string | null;
+      license: string | null;
+    }[];
+  return new Map(rows.map((r) => [r.name, r]));
 }
 
 /** Opposition players ranked by own goals gifted to United (named scorers only). */
@@ -1212,7 +1564,7 @@ export function ownGoalScorers(): OwnGoalScorer[] {
       map.set(r.scorer, {
         name: r.scorer, n: 1, first: r.date, last: r.date,
         recent_opponent: r.opponent_name, recent_opponent_id: r.opponent_id, recent_match_id: r.match_id,
-        thumb_url: null, image_url: null,
+        thumb_url: null, image_url: null, page_url: null, license: null,
       });
     }
   }
@@ -1222,6 +1574,8 @@ export function ownGoalScorers(): OwnGoalScorer[] {
     if (m) {
       scorer.thumb_url = m.thumb_url;
       scorer.image_url = m.image_url;
+      scorer.page_url = m.page_url;
+      scorer.license = m.license;
     }
   }
   return [...map.values()].sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.name.localeCompare(b.name));
@@ -1418,7 +1772,7 @@ export function dataGaps(limit = 12): {
     .prepare(
       `SELECT m.id, m.date, m.season, m.opponent_name, c.name AS competition_name, m.gf, m.ga,
               CASE
-                WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United scorers'
+                WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United goalscorers'
                 WHEN m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 'opposition goals'
                 WHEN m.has_lineup = 0 THEN 'lineup'
                 WHEN m.attendance IS NULL THEN 'attendance'
@@ -1473,7 +1827,7 @@ const TRANSFER_SELECT = `
   SELECT t.id, t.player_id, COALESCE(p.name, t.player_name) player_name,
          t.direction, t.date, t.date_precision, t.season, t.club, t.club_id,
          t.fee_gbp, t.fee_kind, t.market_value_eur, t.type,
-         pm.thumb_url
+         COALESCE(pm.local_path, pm.thumb_url, pm.image_url) thumb_url
   FROM transfers t
   LEFT JOIN players p ON p.id = t.player_id
   LEFT JOIN player_media pm ON pm.player_id = t.player_id

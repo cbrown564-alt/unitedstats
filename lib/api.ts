@@ -3,9 +3,10 @@
  * with permissive CORS so the dataset can be used from anywhere; every
  * payload carries its attribution and a pointer to the docs on /data.
  */
+import { immutableDataHeaders } from "./cache";
 
-const ATTRIBUTION = {
-  source: "UnitedStats, the open Manchester United match history",
+export const API_ATTRIBUTION = {
+  source: "Red Thread, the open evidence base for Manchester United history",
   docs: "/data#api",
   note: "Read-only. Result data: engsoccerdata, openfootball, Wikipedia. Coverage varies by facet; see /api/v1/meta.",
 };
@@ -17,15 +18,15 @@ const ATTRIBUTION = {
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Cache-Control": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800",
+  ...immutableDataHeaders,
 };
 
 export function apiJson(data: unknown, extra?: Record<string, unknown>): Response {
-  return Response.json({ ...extra, data, attribution: ATTRIBUTION }, { headers: CORS_HEADERS });
+  return Response.json({ ...extra, data, attribution: API_ATTRIBUTION }, { headers: CORS_HEADERS });
 }
 
 export function apiError(status: number, message: string): Response {
-  return Response.json({ error: message, attribution: ATTRIBUTION }, { status, headers: CORS_HEADERS });
+  return Response.json({ error: message, attribution: API_ATTRIBUTION }, { status, headers: CORS_HEADERS });
 }
 
 /** Clamp user-supplied pagination to sane bounds. */

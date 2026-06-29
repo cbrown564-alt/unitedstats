@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>All-time record — encoding games played</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --pitch:#0c0b0a; --panel:#161312; --panel-2:#1f1a18; --line:#2c2522;
+    --ink:#f3ede8; --ink-dim:#a89c94; --ink-faint:#6f645d;
+    --gold:#f5c518; --win:#f4452a; --draw:#9a8d83; --loss:#34527a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--pitch);color:var(--ink);
+    font-family:Archivo,system-ui,sans-serif;font-feature-settings:"tnum";padding:40px 44px 72px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-feature-settings:"tnum"}
+  h1{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:700;margin:0 0 4px}
+  .sub{color:var(--ink-faint);font-size:12px;margin:0 0 30px;max-width:78ch;line-height:1.5}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:1240px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+  .tag{display:flex;align-items:baseline;gap:10px;margin-bottom:3px}
+  .tag h2{font-size:14px;font-weight:700;margin:0}
+  .tag .n{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.08em}
+  .note{color:var(--ink-faint);font-size:11.5px;line-height:1.5;margin:2px 0 20px;max-width:50ch}
+  .row{padding:10px 0}
+  .row + .row{border-top:1px solid color-mix(in oklab,var(--line),transparent 35%)}
+  .rhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+  .rhead .name{font-size:13px;color:var(--ink-dim);font-weight:600}
+  .rhead .read{font-size:11.5px;color:var(--ink-faint)}
+  .rhead .read b{color:var(--ink);font-weight:600}
+
+  /* shared stacked bar */
+  .bar{display:flex;gap:1px;height:18px;border-radius:3px;overflow:hidden;background:var(--panel-2)}
+  .seg{height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;min-width:0}
+  .seg.w{background:var(--win)} .seg.d{background:color-mix(in oklab,var(--draw),transparent 30%)} .seg.l{background:var(--loss)}
+  .seg span{display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:700;line-height:1;white-space:nowrap}
+  .seg.w span,.seg.d span{color:#150a06} .seg.l span{color:#e8eef7}
+  .seg span i{font-style:normal;font-size:9px;font-weight:700;opacity:.7}
+
+  /* track for length variant */
+  .track{width:100%;background:color-mix(in oklab,var(--panel-2),transparent 25%);border-radius:3px}
+
+  /* opt 2 volume rule */
+  .vol{height:3px;margin-top:6px;border-radius:2px;background:var(--gold);opacity:.8}
+  .vollabel{display:flex;justify-content:flex-end;font-size:9px;color:var(--ink-faint);margin-top:3px;letter-spacing:.04em}
+
+  /* opt 3 data-bar readout */
+  .databar{position:relative;display:inline-flex;align-items:baseline;gap:6px;padding:3px 8px;border-radius:4px;overflow:hidden;min-width:120px;justify-content:flex-end}
+  .databar .fill{position:absolute;inset:0 auto 0 0;background:color-mix(in oklab,var(--gold),transparent 78%);border-right:1px solid color-mix(in oklab,var(--gold),transparent 55%)}
+  .databar .txt{position:relative}
+
+  /* opt 5 ticks */
+  .ticks{display:flex;flex-wrap:wrap;gap:3px;margin-top:7px}
+  .ticks i{width:7px;height:7px;border-radius:2px;background:var(--ink-dim);opacity:.85}
+  .ticks .frac{opacity:.4}
+  .ticks .cap{font-size:9px;color:var(--ink-faint);margin-left:6px;align-self:center}
+</style>
+</head>
+<body>
+  <h1>All-time record · encoding games played</h1>
+  <p class="sub">League 4,860 · FA&nbsp;Cup 464 · Europe 430 · League&nbsp;Cup 217 — a 22× range. All magnitude cues are <b>√-scaled</b> so the cups stay legible (linear would crush them). Every row keeps the same height and left edge, the thing thickness broke.</p>
+
+  <div class="grid">
+    <div class="card" id="opt1">
+      <div class="tag"><h2>1 · Bar length (√)</h2><span class="n">REUSES MANAGER SPLITS</span></div>
+      <p class="note">The W/D/L bar itself is shorter for fewer games, left-aligned on a faint track. Most consistent with the rest of the app. Cost: short bars can't hold their inline counts.</p>
+    </div>
+    <div class="card" id="opt2">
+      <div class="tag"><h2>2 · Shape + volume lane</h2><span class="n">KEEPS IN-BAR COUNTS</span></div>
+      <p class="note">Full-width labelled bar for the W/D/L shape, plus a thin √-scaled volume rule beneath it. Two channels, neither fighting the other; nothing you just built is lost.</p>
+    </div>
+    <div class="card" id="opt3">
+      <div class="tag"><h2>3 · Data-bar behind P</h2><span class="n">LIGHTEST TOUCH</span></div>
+      <p class="note">Bars unchanged; the existing "P" readout gets a faint √-scaled fill behind it. No new column, no geometry change — just a quiet hint of volume in chrome that's already there.</p>
+    </div>
+    <div class="card" id="opt5">
+      <div class="tag"><h2>5 · Unit tally</h2><span class="n">READS AS COUNT</span></div>
+      <p class="note">A row of ticks, one per 250 games. League towers, the cups are a tick or two. Explicit and stats-native — but eats space and the cups look sparse (sort of the point).</p>
+    </div>
+  </div>
+
+<script>
+  const DATA = [
+    {name:'League',     w:2343, d:1161, l:1356, p:4860, wr:'48.2%'},
+    {name:'FA Cup',     w:262,  d:99,   l:103,  p:464,  wr:'56.5%'},
+    {name:'Europe',     w:230,  d:107,  l:93,   p:430,  wr:'53.5%'},
+    {name:'League Cup', w:127,  d:33,   l:57,   p:217,  wr:'58.5%'},
+  ];
+  const maxRoot = Math.sqrt(4860);
+  const vol = p => Math.sqrt(p) / maxRoot;            // 0..1, √-scaled
+  const fmt = n => n.toLocaleString('en-US');
+  const fits = (pct, n) => pct >= (String(n).length + 1) * 3.2 + 3;  // same rule as the app
+
+  // stacked bar; widthScale shrinks the whole bar (opt 1). labelBasis = pct of the
+  // full track each segment owns (so labels hide on short bars).
+  function stacked(d, withLabels, widthScale = 1) {
+    const t = d.w + d.d + d.l;
+    const seg = (cls, n, letter) => {
+      const shareOfBar = 100 * n / t;
+      const trackPct = shareOfBar * widthScale;       // % of the full track
+      const show = withLabels && fits(trackPct, n);
+      return `<div class="seg ${cls}" style="width:${shareOfBar}%">`
+        + (show ? `<span>${fmt(n)}<i>${letter}</i></span>` : '') + `</div>`;
+    };
+    return `<div class="bar" style="width:${widthScale*100}%">`
+      + seg('w', d.w, 'W') + seg('d', d.d, 'D') + seg('l', d.l, 'L') + `</div>`;
+  }
+  const rhead = d => `<div class="rhead"><span class="name">${d.name}</span>`
+    + `<span class="read mono">${fmt(d.p)} P · <b>${d.wr}</b> W</span></div>`;
+
+  // OPT 1 — length
+  document.getElementById('opt1').insertAdjacentHTML('beforeend',
+    DATA.map(d => `<div class="row">${rhead(d)}<div class="track">${stacked(d, true, vol(d.p))}</div></div>`).join(''));
+
+  // OPT 2 — shape + volume lane
+  document.getElementById('opt2').insertAdjacentHTML('beforeend',
+    DATA.map(d => `<div class="row">${rhead(d)}${stacked(d, true)}`
+      + `<div class="vol" style="width:${vol(d.p)*100}%"></div></div>`).join(''));
+
+  // OPT 3 — data-bar behind P (readout shows the fill)
+  document.getElementById('opt3').insertAdjacentHTML('beforeend',
+    DATA.map(d => `<div class="row">`
+      + `<div class="rhead"><span class="name">${d.name}</span>`
+      + `<span class="databar mono"><span class="fill" style="width:${vol(d.p)*100}%"></span>`
+      + `<span class="txt read"><b>${fmt(d.p)}</b> P · ${d.wr} W</span></span></div>`
+      + stacked(d, true) + `</div>`).join(''));
+
+  // OPT 5 — unit tally
+  document.getElementById('opt5').insertAdjacentHTML('beforeend',
+    DATA.map(d => {
+      const units = d.p / 250;
+      const full = Math.floor(units);
+      const frac = units - full > 0.25;
+      let dots = '';
+      for (let i = 0; i < full; i++) dots += '<i></i>';
+      if (frac) dots += '<i class="frac"></i>';
+      return `<div class="row">${rhead(d)}${stacked(d, true)}`
+        + `<div class="ticks">${dots}<span class="cap mono">${fmt(d.p)}</span></div></div>`;
+    }).join(''));
+</script>
+</body>
+</html>

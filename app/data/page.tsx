@@ -10,8 +10,9 @@ import { CoverageMatrix } from "@/components/charts/CoverageMatrix";
 import { CoverageNote } from "@/components/CoverageNote";
 import { DataTable } from "@/components/DataTable";
 import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { CORRECTION_STATUS_URL } from "@/lib/corrections";
 
-export const metadata = { title: "Data & corrections" };
+export const metadata = { title: "Data and corrections" };
 
 /**
  * Movement header for the page's three acts (the record → its cuts → how it's
@@ -41,10 +42,10 @@ export default function DataPage() {
     <div className="space-y-14">
       <header>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">Canonical record</p>
-        <h1 className="display text-3xl">Data &amp; corrections</h1>
+        <h1 className="display text-3xl">Data and corrections</h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-dim">
-          UnitedStats is built from plain JSON in <span className="stat-num">data/canonical</span>. The result of every
-          match is the spine; United scorers, opposition goals, lineups, cards, attendance, and assists are layered on
+          Red Thread is built from plain JSON in <span className="stat-num">data/canonical</span>. The result of every
+          match is the spine; United goalscorers, opposition goals, lineups, cards, attendance, and assists are layered on
           top with cited sources, so partial coverage can be shown honestly rather than hidden.
         </p>
       </header>
@@ -76,7 +77,7 @@ export default function DataPage() {
               </div>
               <dl className="flex flex-wrap items-end gap-x-8 gap-y-3.5 border-l border-line pl-6">
                 {[
-                  ["Complete scorer rows", overview.completeScorers],
+                  ["Complete goalscorer rows", overview.completeScorers],
                   ["Starting XIs", overview.withStartingLineups],
                   ["Attendances", overview.withAttendance],
                 ].map(([label, value]) => (
@@ -98,7 +99,7 @@ export default function DataPage() {
               className="mt-4"
               slice={`all ${fmtNum(overview.matches)} matches in the database, grouped by decade. The result row is the spine — every match carries one.`}
             >
-              Intensity and the cell value are the share of each decade&apos;s matches that carry the layer. The
+              Intensity and the cell value are the share of each decade’s matches that carry the layer. The
               all-time column on the right is the same share across the whole record.
             </CoverageNote>
           </div>
@@ -125,7 +126,7 @@ export default function DataPage() {
             },
             { label: "Matches", key: "matches", numeric: true, render: (row) => fmtNum(row.matches) },
             {
-              label: "United scorers",
+              label: "United goalscorers",
               key: "scorers",
               numeric: true,
               render: (row) => (
@@ -240,6 +241,14 @@ export default function DataPage() {
               <span className="stat-num text-ink"> wartime</span> or <span className="stat-num text-ink"> friendly</span> competition
               ids. They stay out of official records by default.
             </p>
+            <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold">
+              <Link href="/corrections" className="text-devil-bright hover:underline">
+                Correction builder
+              </Link>
+              <a href={CORRECTION_STATUS_URL} className="text-devil-bright hover:underline">
+                Correction status
+              </a>
+            </div>
           </aside>
         </section>
 
@@ -265,7 +274,7 @@ export default function DataPage() {
             </ul>
           </div>
           <p className="mt-2 text-xs text-ink-dim">
-            The queue prioritises recent post-war United scorer gaps, then opposition goals, lineups, and attendance.
+            The queue prioritises recent post-war United goalscorer gaps, then opposition goals, lineups, and attendance.
             Older archive work can still be added whenever a citation is strong.
           </p>
         </section>

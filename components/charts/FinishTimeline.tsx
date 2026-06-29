@@ -31,7 +31,7 @@ export interface FinishPoint {
 // further 1 unit, so a Second Division champion sits just below a relegated side.
 const SECOND_TOP = 1.28;
 const MAX_DEPTH = SECOND_TOP + 1;
-const Y_TOP = 9; // % headroom above the champions line
+const Y_TOP = 12; // % headroom above the champions line (fits gold dot + ring)
 const Y_BOT = 90; // % floor below the second tier
 const X_PAD = 2.2; // % inset so the first and last seasons clear the edges
 
@@ -93,7 +93,7 @@ export function FinishTimeline({ points }: { points: FinishPoint[] }) {
 
   return (
     <figure className="m-0">
-      <div className="relative h-64 w-full sm:h-72">
+      <div className="relative h-64 w-full overflow-visible sm:h-72">
         {/* tier bands behind everything — a faint warm lift for the top flight, a
             deeper shadow for the second tier, so the drop reads as altitude */}
         <div className="absolute inset-x-0 rounded-sm bg-ink/[0.025]" style={{ top: `${Y_TOP}%`, height: `${dividerY - Y_TOP}%` }} aria-hidden />

@@ -36,6 +36,13 @@
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
+html {
+  /* Contain full-bleed sections (the match hero breaks out to 100vw) so they
+     can't introduce a horizontal scrollbar. `clip`, not `hidden`, keeps the
+     sticky header working. */
+  overflow-x: clip;
+}
+
 body {
   background: var(--color-pitch);
   color: var(--color-ink);
@@ -74,10 +81,111 @@ body {
 .wdl-reveal-center {
   animation: wdl-reveal-center 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+/* Filter popovers (add-filter menu, facet editors) settle in with a quick fade +
+   a hair of travel. The global reduced-motion rule above neutralises this. */
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-3px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+.pop-in {
+  animation: pop-in 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top left;
+}
+/* The surprise reveal: each freshly drawn fact rises and fades in, so a re-roll
+   reads as a new card dealt rather than text swapping in place. Keyed by fact id
+   so React remounts it on every pull. The global reduced-motion rule neutralises
+   the travel; the fact still swaps, just without movement. */
+@keyframes surprise-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+.surprise-in {
+  animation: surprise-in 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* The front-door thread, tied as the match clock: the filament traces itself from
+   the top, tying a slipknot at each goal, and the beads settle into them in scoring
+   order — so the late winner drops in last. Neutralised under reduced motion below. */
+@keyframes thread-trace {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+.thread-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: thread-trace 1200ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes mark-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.thread-mark {
+  opacity: 1;
+  animation: mark-in 360ms ease-out both;
+}
+@keyframes bead-settle {
+  0% { opacity: 0; transform: translateY(-16px) scale(0.7); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.thread-bead,
+.thread-knot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bead-settle 560ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.thread-knot {
+  animation-duration: 680ms;
+}
+/* Cross-page continuity: a quick, gentle fade between routes (opacity only —
+   no positional movement, which is the main motion-sensitivity trigger). The
+   sticky header is lifted out of the snapshot so it stays put as content fades. */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Only the sticky site chrome is lifted out of the snapshot so it stays put as
+   content fades. The `view-transition-name: site-header` is applied by React's
+   <ViewTransition name="site-header"> in SiteShell — not a raw CSS rule — so the
+   name is owned by exactly one live element across the old/new trees and cannot
+   collide with itself mid-navigation (a raw CSS name does, and the browser aborts
+   the transition with "multiple elements found"). These rules suppress its
+   animation by matching that same name. */
+::view-transition-group(site-header) {
+  animation: none;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Honour an explicit OS request to minimise motion: neutralise keyframe
+   animations and view transitions, and collapse transition durations so
+   movement (transforms) resolves instantly. Colour/opacity still settle, just
+   without travel. */
 @media (prefers-reduced-motion: reduce) {
   .wdl-reveal,
-  .wdl-reveal-center {
+  .wdl-reveal-center,
+  .thread-path,
+  .thread-mark,
+  .thread-bead,
+  .thread-knot {
     animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
   }
 }
 
@@ -112,6 +220,11 @@ select {
   display: none;
 }
 
+.match-list-item {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 3.5rem;
+}
+
 .control {
   border: 1px solid var(--color-line);
   background: var(--color-panel);
@@ -140,6 +253,30 @@ select {
 .focus-ring:focus-visible {
   outline: 2px solid var(--color-devil-bright);
   outline-offset: 2px;
+}
+
+/* Lift a small control to the ~44px touch minimum on coarse pointers WITHOUT
+   changing its visual box: a transparent overlay centred on the element. Width
+   and height stay at 100%, so a wide control (a nav tab, a pill) only gains
+   vertical reach into the surrounding padding; min-width/height pull a narrow
+   control out to the target. Desktop (fine pointer) is untouched — the dense
+   look survives, only the finger gets more room. The host needs a positioning
+   context, which the rule supplies so callers needn't add `relative`. */
+@media (pointer: coarse) {
+  .tap-target {
+    position: relative;
+  }
+  .tap-target::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 44px;
+    min-height: 44px;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .data-table-shell {
@@ -342,4 +479,78 @@ select {
   color: var(--color-ink-dim);
 }
 
+/* Dual-thumb season range on /matches — transparent tracks, devil thumbs. */
+.season-range {
+  --season-range-thumb: 0.8rem;
+  --season-range-hit: 2rem;
+  touch-action: none;
+}
+
+.season-range.h-9 {
+  --season-range-hit: 2.25rem;
+}
+
+.season-range__thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.season-range__thumb::-webkit-slider-runnable-track {
+  height: var(--season-range-hit);
+  background: transparent;
+  border: none;
+}
+
+.season-range__thumb::-moz-range-track {
+  height: var(--season-range-hit);
+  background: transparent;
+  border: none;
+}
+
+.season-range__thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  pointer-events: auto;
+  width: var(--season-range-thumb);
+  height: var(--season-range-thumb);
+  margin-top: calc((var(--season-range-hit) - var(--season-range-thumb)) / 2);
+  border-radius: 9999px;
+  border: 2px solid rgb(255 255 255 / 0.85);
+  background: var(--color-devil-bright);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.45);
+  cursor: grab;
+  transition: box-shadow 0.15s ease;
+}
+
+.season-range__thumb:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--color-devil-bright), 0 0 0 4px rgb(0 0 0 / 0.5);
+}
+
+.season-range__thumb:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+.season-range__thumb::-moz-range-thumb {
+  pointer-events: auto;
+  width: var(--season-range-thumb);
+  height: var(--season-range-thumb);
+  border-radius: 9999px;
+  border: 2px solid rgb(255 255 255 / 0.85);
+  background: var(--color-devil-bright);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.45);
+  cursor: grab;
+}
+
+.season-range__thumb--hi {
+  z-index: 2;
+}
+
+.season-range__thumb--lo {
+  z-index: 1;
+}
 

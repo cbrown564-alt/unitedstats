@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { fmtDate, venuePrefix } from "@/lib/format";
 import type { SequenceMatch } from "@/lib/trails";
 import { WdlBar } from "@/components/WdlBar";
@@ -14,12 +15,14 @@ import { WdlBar } from "@/components/WdlBar";
  * SVG that stretches to its container; the x-axis is non-uniformly scaled, so the
  * pips ride an HTML overlay to stay circular.
  *
+ * Pass `markerGlyph` to replace the default gold dot+line with a custom glyph
+ * (e.g. a trophy icon), with extra headroom to fit it.
+ *
  * With `showRecord`, the same W/D/L the skyline plots is summarised above it as a
  * `WdlColumns` caption over a diverging `WdlBar` — the totals and proportion, then
  * their timing. Off by default: surfaces that already lead with the record (the
  * detail-page `IdentityPlate`) leave it off to avoid restating it.
  */
-const PAD_T = 12; // headroom for the pips
 const PAD_B = 16; // room for the year axis
 
 export function ResultSpine({
@@ -28,19 +31,28 @@ export function ResultSpine({
   height = 88,
   subject = "United",
   showRecord = false,
+  markerGlyph,
+  xLabel,
 }: {
   /** Date-ordered match sequence. */
   matches: SequenceMatch[];
   /** Matches to flag above the spine, with the reason for the hover label. */
-  markers?: { id: string; label?: string }[];
+  markers?: { id: string; label?: string; tone?: string }[];
   height?: number;
   subject?: string;
   /** Render a WdlColumns + WdlBar record summary above the skyline. */
   showRecord?: boolean;
+  /** Custom marker glyph (e.g. `<TrophyIcon/>`) instead of the default gold pip. */
+  markerGlyph?: ReactNode;
+  /** X-axis labels: "year" (default) or "month" for single-season spans. */
+  xLabel?: "year" | "month";
 }) {
   const n = matches.length;
   if (n === 0) return null;
 
+  const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const PAD_T = markerGlyph ? 26 : 12; // headroom for glyph vs dot
   const W = n; // one virtual unit per match; the SVG stretches to its container
   const plotH = height - PAD_T - PAD_B;
   const mid = PAD_T + plotH / 2;
@@ -59,16 +71,22 @@ export function ResultSpine({
   const l = matches.length - w - d;
 
   const labelById = new Map(markers.map((mk) => [mk.id, mk.label]));
+  const toneById = new Map(markers.map((mk) => [mk.id, mk.tone]));
   const pips = matches
     .map((m, i) => ({ m, i }))
     .filter(({ m }) => labelById.has(m.id))
-    .map(({ m, i }) => ({ id: m.id, left: ((i + 0.5) / n) * 100, label: labelById.get(m.id) }));
+    .map(({ m, i }) => ({ id: m.id, left: ((i + 0.5) / n) * 100, label: labelById.get(m.id), tone: toneById.get(m.id) }));
 
-  // A handful of year anchors across the span; ends are edge-aligned so they fit.
+  // A handful of anchors across the span; ends are edge-aligned so they fit.
   const anchorCount = Math.min(6, n);
+  const xLabelMode = xLabel ?? "year";
   const anchors = Array.from({ length: anchorCount }, (_, k) => {
     const i = Math.round((k / Math.max(1, anchorCount - 1)) * (n - 1));
-    return { i, year: matches[i].date.slice(0, 4), first: k === 0, last: k === anchorCount - 1 };
+    const d = matches[i].date;
+    const label = xLabelMode === "month"
+      ? `${MONTHS[Number(d.slice(5, 7))]} '${d.slice(2, 4)}`
+      : d.slice(0, 4);
+    return { i, label, first: k === 0, last: k === anchorCount - 1 };
   });
 
   return (
@@ -122,8 +140,14 @@ export function ResultSpine({
             style={{ left: `${p.left}%` }}
             title={p.label}
           >
-            <div className="absolute inset-y-0 w-px -translate-x-1/2 bg-gold/35" />
-            <div className="absolute top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-gold" />
+            {markerGlyph ? (
+              <div className="absolute top-0 -translate-x-1/2" style={{ color: p.tone ?? "var(--color-gold)" }}>{markerGlyph}</div>
+            ) : (
+              <>
+                <div className="absolute inset-y-0 w-px -translate-x-1/2 bg-gold/35" />
+                <div className="absolute top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-gold" />
+              </>
+            )}
           </div>
         ))}
       </div>
@@ -135,7 +159,7 @@ export function ResultSpine({
             className={`stat-num absolute text-[10px] text-ink-faint ${a.first ? "left-0" : a.last ? "right-0" : "-translate-x-1/2"}`}
             style={a.first || a.last ? undefined : { left: `${((a.i + 0.5) / n) * 100}%` }}
           >
-            {a.year}
+            {a.label}
           </span>
         ))}
       </div>

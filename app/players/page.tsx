@@ -1,22 +1,30 @@
 import Link from "next/link";
-import { coverageOverview, getMeta, playerCareerSparks, playersIndex, type PlayerTotals } from "@/lib/queries";
+import { coverageOverview, getMeta, playerCareerSparks, playersIndex, type PlayerCareerSpark, type PlayerTotals } from "@/lib/queries";
 import { DataTable, type SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
-import { CareerSparkline, type CareerSparkSeason } from "@/components/charts/CareerSparkline";
+import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { PositionTag } from "@/components/PositionTag";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { SectionHead } from "@/components/SectionHead";
 import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
 import { CoverageNote } from "@/components/CoverageNote";
-import { fmtNum, pct } from "@/lib/format";
+import { fmtNum, pct, fmtYearRange } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
-export const metadata = { title: "Players" };
+export const revalidate = 86400;
+export const metadata = {
+  title: "Players",
+  description: "Everyone to pull on the shirt for Manchester United since 1886 — searchable and sortable by appearances, goals, assists, and career span.",
+};
 
 type PlayerSortKey = "name" | "shirt" | "apps" | "starts" | "goals" | "assists" | "span";
 
 const DEFAULT_PLAYER_SORT: PlayerSortKey = "goals";
+
+// Combined assists are curated from 1987-88 on (and match-event–sourced after
+// 2014-15); nothing earlier carries assist data. Used to show "–" rather than a
+// misleading "0" for players whose career ends before coverage begins.
+const ASSIST_COVERAGE_FROM_YEAR = 1987;
 
 const PLAYER_SORT_DEFAULTS: Record<PlayerSortKey, SortDirection> = {
   name: "asc",
@@ -81,8 +89,7 @@ function comparePlayers(a: PlayerTotals, b: PlayerTotals, key: PlayerSortKey, di
 function spanForPlayer(p: PlayerTotals) {
   const first = firstYearForPlayer(p);
   const last = lastYearForPlayer(p);
-  if (!first) return "?";
-  return `${first}-${last ?? "present"}`;
+  return fmtYearRange(first, last);
 }
 
 export default async function PlayersPage({
@@ -113,26 +120,38 @@ export default async function PlayersPage({
   const meta = getMeta();
   const coverage = coverageOverview();
 
-  // Per-season apps+goals for the career sparklines, batched once and grouped by
-  // player. The sparks share one timeline axis and one height scale across every
-  // row, so scanning the column reads as eras sliding left→right and bar heights
-  // stay comparable between players.
+  // Per-season apps+goals, grouped by player, used to derive each career's span and
+  // busiest season for the register barbell. The axis (first→last year across every
+  // player) is shared by all rows, so scanning the column reads as eras sliding
+  // left→right on one timeline.
   const sparkRows = playerCareerSparks();
-  const sparksByPlayer = new Map<string, CareerSparkSeason[]>();
+  const sparksByPlayer = new Map<string, PlayerCareerSpark[]>();
   let sparkAxisStart = Infinity;
   let sparkAxisEnd = -Infinity;
-  let sparkMaxScale = 1;
   for (const r of sparkRows) {
     const list = sparksByPlayer.get(r.player_id);
-    const season: CareerSparkSeason = { season: r.season, apps: r.apps, goals: r.goals };
-    if (list) list.push(season);
-    else sparksByPlayer.set(r.player_id, [season]);
+    if (list) list.push(r);
+    else sparksByPlayer.set(r.player_id, [r]);
     const year = Number(r.season.slice(0, 4));
     if (year < sparkAxisStart) sparkAxisStart = year;
     if (year > sparkAxisEnd) sparkAxisEnd = year;
-    sparkMaxScale = Math.max(sparkMaxScale, r.apps, r.goals);
   }
-  for (const list of sparksByPlayer.values()) list.sort((a, b) => a.season.localeCompare(b.season));
+
+  // Collapse each player's seasons to the span the barbell draws: first→last
+  // played year. Just the two endpoints — the register column is too cramped to
+  // also pip the busiest season. Players with no match-attributed seasons (early
+  // pros) have no entry and fall back to the plain text span.
+  const spanByPlayer = new Map<string, { first: number; last: number }>();
+  for (const [id, list] of sparksByPlayer) {
+    const played = list.filter((s) => s.apps > 0 || s.goals > 0);
+    if (played.length === 0) continue;
+    const years = played.map((s) => Number(s.season.slice(0, 4)));
+    spanByPlayer.set(id, { first: Math.min(...years), last: Math.max(...years) });
+  }
+  const sparkAxisLabel =
+    Number.isFinite(sparkAxisStart) && Number.isFinite(sparkAxisEnd)
+      ? fmtYearRange(sparkAxisStart, sparkAxisEnd)
+      : "—";
   const topScorer = [...allPlayers].sort((a, b) => b.goals - a.goals)[0];
   const mostApps = [...allPlayers].sort((a, b) => (b.apps || 0) - (a.apps || 0))[0];
   const verifiedRecords = allPlayers.filter((p) => p.record_apps != null).length;
@@ -225,7 +244,7 @@ export default async function PlayersPage({
               <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allPlayers.length)}</dd>
             </div>
             <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Top scorer</dt>
+              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Top goalscorer</dt>
               <dd className="stat-num text-lg font-semibold text-gold">
                 {topScorer ? fmtNum(topScorer.goals) : "0"}{" "}
                 <span className="text-sm font-normal text-ink-dim">{topScorer?.name}</span>
@@ -251,7 +270,7 @@ export default async function PlayersPage({
       <section className="space-y-3">
         <SectionHead title="The leaders" aside="by every measure" />
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <Leaderboard title="Top scorers" unit="goals" items={topGoals} figureTone="text-devil-bright" />
+          <Leaderboard title="Top goalscorers" unit="goals" items={topGoals} figureTone="text-devil-bright" />
           <Leaderboard title="Most appearances" unit="games" items={topAppsBoard} />
           <Leaderboard
             title="Goals per game"
@@ -309,24 +328,16 @@ export default async function PlayersPage({
           </nav>
         </div>
 
-        {/* Teach the Career column once: it's a shared 1886→now timeline, so the bars
-            sit where the years fall — sort by Career to watch the eras march across. */}
+        {/* Teach the Career column once: a shared 1886→now timeline, each career a
+            span from first year to last — sort by Career to watch the eras march across. */}
         <p className="hidden items-center justify-end gap-x-3 gap-y-1 text-[11px] text-ink-faint lg:flex">
           <span className="text-ink-dim">Career</span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-1 rounded-sm bg-ink-dim/40" aria-hidden />
-            bar height = apps that season
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-2.5 w-1 rounded-sm bg-devil-bright" aria-hidden />
-            red = goals
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
-            best season
+            <span className="h-px w-5 bg-ink-dim/55" aria-hidden />
+            first year → last
           </span>
           <span>
-            on one shared <span className="stat-num">{sparkAxisStart}–{String(sparkAxisEnd).slice(2)}</span> timeline,
+            on one shared <span className="stat-num">{sparkAxisLabel}</span> timeline,
             guides every 25 years
           </span>
         </p>
@@ -383,6 +394,7 @@ export default async function PlayersPage({
                 decade={p.primary_shirt_decade}
                 apps={p.primary_shirt_apps}
                 compact
+                uniform
               />
             ),
           },
@@ -396,7 +408,7 @@ export default async function PlayersPage({
                 <PositionTag bucket={p.position_bucket} title={p.position_label} />
                 <Link href={`/player/${p.player_id}`} className="flex min-w-0 items-center gap-3 font-medium hover:text-devil-bright">
                   <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
-                  <span className="block max-w-[27vw] truncate sm:max-w-none">{p.name}</span>
+                  <span className="min-w-0 break-words leading-snug line-clamp-2 sm:line-clamp-none">{p.name}</span>
                 </Link>
               </div>
             ),
@@ -447,7 +459,17 @@ export default async function PlayersPage({
             sortKey: "assists",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
             sortLabel: "assists",
-            render: (p) => <span className="text-ink-dim">{p.assists || "0"}</span>,
+            // Assist coverage begins in 1987-88; a player whose career ends before
+            // then has no assist data, so a bare "0" would be a garden-path number
+            // (reads as "none" when it means "not recorded"). Show "–" for those,
+            // and keep the real figure — including a genuine 0 — from 1987-88 on.
+            render: (p) => {
+              const last = lastYearForPlayer(p);
+              if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
+                return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
+              }
+              return <span className="text-ink-dim">{p.assists || "0"}</span>;
+            },
           },
           {
             label: "Career",
@@ -458,17 +480,30 @@ export default async function PlayersPage({
             sortKey: "span",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
             sortLabel: "career span",
-            render: (p) => (
-              <div className="flex justify-end">
-                <CareerSparkline
-                  seasons={sparksByPlayer.get(p.player_id) ?? []}
-                  axisStart={sparkAxisStart}
-                  axisEnd={sparkAxisEnd}
-                  maxScale={sparkMaxScale}
-                  fallback={<span className="text-ink-dim">{spanForPlayer(p)}</span>}
-                />
-              </div>
-            ),
+            render: (p) => {
+              const s = spanByPlayer.get(p.player_id);
+              if (!s) {
+                return (
+                  <div className="flex justify-end">
+                    <span className="text-ink-dim">{spanForPlayer(p)}</span>
+                  </div>
+                );
+              }
+              return (
+                <div className="flex justify-end">
+                  <div className="w-[140px] max-w-full">
+                    <CareerSpanBar
+                      first={s.first}
+                      last={s.last}
+                      axisStart={sparkAxisStart}
+                      axisEnd={sparkAxisEnd}
+                      label={`Career ${fmtYearRange(s.first, s.last)}`}
+                      caption={fmtYearRange(s.first, s.last)}
+                    />
+                  </div>
+                </div>
+              );
+            },
           },
         ]}
       />
@@ -482,7 +517,7 @@ export default async function PlayersPage({
                 scroll={false}
                 className="rounded-md border border-line bg-panel px-4 py-2 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:bg-panel-2 hover:text-ink focus-ring"
               >
-                Show all {fmtNum(players.length)} {activeFilters ? "matches" : "players"} →
+                Show all {fmtNum(players.length)} players →
               </Link>
             ) : (
               <Link
@@ -502,7 +537,7 @@ export default async function PlayersPage({
           evidenceHref="/data"
           evidenceLabel="Coverage details"
         >
-          Complete scorer rows cover{" "}
+          Complete goalscorer rows cover{" "}
           <span className="stat-num text-ink">{fmtNum(coverage.completeScorers)}</span> matches (
           {pct(coverage.completeScorers, coverage.matches)}); verified club records cover{" "}
           <span className="stat-num text-ink">{fmtNum(verifiedRecords)}</span> players; lineup data covers{" "}
@@ -510,7 +545,7 @@ export default async function PlayersPage({
           Assists are recorded for{" "}
           <span className="stat-num text-ink">{fmtNum(assistsCovered)}</span> players and weighted to recent eras.
           The position tag beside each name — GK, DF, MF or FW — is the
-          player&rsquo;s primary position from Wikidata, known for{" "}
+          player’s primary position from Wikidata, known for{" "}
           <span className="stat-num text-ink">{fmtNum(positionsCovered)}</span> players ({pct(positionsCovered, allPlayers.length)});
           where it is unknown the tag is omitted, never guessed.{" "}
         </CoverageNote>

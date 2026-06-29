@@ -2,7 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 export const ROOT = path.resolve(__dirname, "..");
-export const CANONICAL = path.join(ROOT, "data", "canonical");
+export const CANONICAL = process.env.UNITEDSTATS_CANONICAL_DIR
+  ? path.resolve(process.env.UNITEDSTATS_CANONICAL_DIR)
+  : path.join(ROOT, "data", "canonical");
 export const MATCHES_DIR = path.join(CANONICAL, "matches");
 export const RAW = path.join(ROOT, "data", "raw");
 export const DB_PATH = path.join(ROOT, "data", "united.db");

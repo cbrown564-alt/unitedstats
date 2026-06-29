@@ -1,0 +1,39 @@
+
+> unitedstats@0.1.0 prebuild
+> npm run build:db && npm run export:dataset
+
+
+> unitedstats@0.1.0 build:db
+> tsx scripts/build-db.ts
+
+league_standings: linked 2430/2430 rival rows to opponents
+search_index: 1419 entities (1000 players)
+built C:\Users\cbrow\Code\unitedstats\data\united.db: 6027 matches (1886-10-30 → 2026-05-24), 19661 events, 6022 matches with lineups
+
+> unitedstats@0.1.0 export:dataset
+> tsx scripts/export-dataset.ts
+
+exported matches.csv (6027), events.csv (19661), lineups.csv (88406), elo_history.csv (6027), transfers.csv (1967), season_summaries.csv (398), league_standings.csv (2553), players.csv (984), player_media.csv (132), manager_media.csv (22), og_scorer_media.csv (84), player_positions.csv (937) -> C:\Users\cbrow\Code\unitedstats\public\dataset
+
+> unitedstats@0.1.0 build
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.8s
+  Running TypeScript ...
+Failed to type check.
+
+./app/player/[id]/page.tsx:82:38
+Type error: Cannot find name 'SeasonSplit'.
+
+  [90m80 |[0m   [36mconst[0m multiGoalGames = matches.filter((m) => m.goals >= [35m2[0m).length;
+  [90m81 |[0m   [36mconst[0m hatTricks = matches.filter((m) => m.goals >= [35m3[0m).length;
+[31m[1m>[0m [90m82 |[0m   [36mconst[0m peakSeason = bySeason.reduce<[33mSeasonSplit[0m | [36mnull[0m>(
+  [90m   |[0m                                      [31m[1m^[0m
+  [90m83 |[0m     (best, s) => (s.goals > [35m0[0m && (!best || s.goals > best.goals) ? s : best),
+  [90m84 |[0m     [36mnull[0m,
+  [90m85 |[0m   );
+Next.js build worker exited with code: 1 and signal: null

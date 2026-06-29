@@ -1,0 +1,2928 @@
+[
+  {
+    "name": "home",
+    "route": "/",
+    "url": "http://localhost:3000/",
+    "screenshots": [
+      "home-viewport.png",
+      "home-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] done in 187ms"
+      }
+    ],
+    "audit": {
+      "title": "UnitedStats — every Manchester United match since 1886",
+      "h1": "Every match Manchester United ever played",
+      "scrollHeight": 4261,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur",
+          "text": "",
+          "left": 232,
+          "right": 469,
+          "width": 237
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "1886-87 · 1 matches · 0W 1D 0L",
+          "w": 3,
+          "h": 176,
+          "x": 37,
+          "y": 491,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "1889-90 · 1 matches · 0W 0D 1L",
+          "w": 3,
+          "h": 176,
+          "x": 40,
+          "y": 491,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "1892-93 · 33 matches · 7W 7D 19L",
+          "w": 3,
+          "h": 176,
+          "x": 42,
+          "y": 491,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "1893-94 · 34 matches · 7W 3D 24L",
+          "w": 3,
+          "h": 176,
+          "x": 45,
+          "y": 491,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "1894-95 · 32 matches · 15W 8D 9L",
+          "w": 3,
+          "h": 176,
+          "x": 47,
+          "y": 491,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "1895-96 · 33 matches · 16W 4D 13L",
+          "w": 3,
+          "h": 176,
+          "x": 50,
+          "y": 491,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "Every match Manchester United ever played",
+          "top": 138
+        },
+        {
+          "tag": "h2",
+          "text": "Records that pull you in",
+          "top": 842
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "questions",
+    "route": "/questions",
+    "url": "http://localhost:3000/questions",
+    "screenshots": [
+      "questions-viewport.png",
+      "questions-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "warning",
+        "text": "Image with src \"https://upload.wikimedia.org/wikipedia/commons/7/74/Matt_Busby_cropped.jpg\" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: \"auto\"' or 'height: \"auto\"' to maintain the aspect ratio."
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] done in 321ms"
+      }
+    ],
+    "audit": {
+      "title": "Questions · UnitedStats",
+      "h1": "Questions",
+      "scrollHeight": 9908,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "li",
+          "cls": "",
+          "text": "Fortress OT",
+          "left": 320,
+          "right": 405,
+          "width": 85
+        },
+        {
+          "tag": "a",
+          "cls": "inline-block whitespace-nowrap rounded-md border border-line px-2.5 py-1 text-ink-dim tran",
+          "text": "Fortress OT",
+          "left": 320,
+          "right": 405,
+          "width": 85
+        },
+        {
+          "tag": "li",
+          "cls": "",
+          "text": "Cup specialists",
+          "left": 413,
+          "right": 516,
+          "width": 103
+        },
+        {
+          "tag": "a",
+          "cls": "inline-block whitespace-nowrap rounded-md border border-line px-2.5 py-1 text-ink-dim tran",
+          "text": "Cup specialists",
+          "left": 413,
+          "right": 516,
+          "width": 103
+        },
+        {
+          "tag": "li",
+          "cls": "",
+          "text": "Own goals",
+          "left": 524,
+          "right": 602,
+          "width": 78
+        },
+        {
+          "tag": "a",
+          "cls": "inline-block whitespace-nowrap rounded-md border border-line px-2.5 py-1 text-ink-dim tran",
+          "text": "Own goals",
+          "left": 524,
+          "right": 602,
+          "width": 78
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Late goals",
+          "w": 77,
+          "h": 26,
+          "x": 16,
+          "y": 249,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Bogey teams",
+          "w": 92,
+          "h": 26,
+          "x": 101,
+          "y": 249,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Manager bounce",
+          "w": 111,
+          "h": 26,
+          "x": 201,
+          "y": 249,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Fortress OT",
+          "w": 85,
+          "h": 26,
+          "x": 320,
+          "y": 249,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Cup specialists",
+          "w": 103,
+          "h": 26,
+          "x": 413,
+          "y": 249,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Own goals",
+          "w": 78,
+          "h": 26,
+          "x": 524,
+          "y": 249,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "Questions",
+          "top": 89
+        },
+        {
+          "tag": "h2",
+          "text": "Do United really score late?",
+          "top": 337
+        },
+        {
+          "tag": "h3",
+          "text": "Across the 90 — when United's goals actually land",
+          "top": 505
+        },
+        {
+          "tag": "h3",
+          "text": "Is it an era, or a habit? Late share by decade",
+          "top": 825
+        }
+      ],
+      "recharts": 3,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "matches",
+    "route": "/matches",
+    "url": "http://localhost:3000/matches",
+    "screenshots": [
+      "matches-viewport.png",
+      "matches-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "error",
+        "text": "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` wh"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      }
+    ],
+    "audit": {
+      "title": "Matches · UnitedStats",
+      "h1": "Matches",
+      "scrollHeight": 4720,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "a",
+          "cls": "shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring border-lin",
+          "text": "1930s420",
+          "left": 336,
+          "right": 394,
+          "width": 58
+        },
+        {
+          "tag": "a",
+          "cls": "shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring border-lin",
+          "text": "1940s172",
+          "left": 400,
+          "right": 458,
+          "width": 58
+        },
+        {
+          "tag": "span",
+          "cls": "stat-num block text-xs font-semibold leading-tight",
+          "text": "1940s",
+          "left": 411,
+          "right": 447,
+          "width": 36
+        },
+        {
+          "tag": "span",
+          "cls": "stat-num block text-[10px] leading-tight text-ink-faint",
+          "text": "172",
+          "left": 411,
+          "right": 447,
+          "width": 36
+        },
+        {
+          "tag": "a",
+          "cls": "shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring border-lin",
+          "text": "1950s472",
+          "left": 464,
+          "right": 522,
+          "width": 58
+        },
+        {
+          "tag": "span",
+          "cls": "stat-num block text-xs font-semibold leading-tight",
+          "text": "1950s",
+          "left": 475,
+          "right": 511,
+          "width": 36
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "This season",
+          "w": 101,
+          "h": 34,
+          "x": 16,
+          "y": 302,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Home wins",
+          "w": 95,
+          "h": 34,
+          "x": 125,
+          "y": 302,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Away days",
+          "w": 93,
+          "h": 34,
+          "x": 228,
+          "y": 302,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "European nights",
+          "w": 128,
+          "h": 34,
+          "x": 16,
+          "y": 344,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "FA Cup ties",
+          "w": 97,
+          "h": 34,
+          "x": 152,
+          "y": 344,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Defeats",
+          "w": 74,
+          "h": 34,
+          "x": 257,
+          "y": 344,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "Matches",
+          "top": 113
+        },
+        {
+          "tag": "h2",
+          "text": "All matches",
+          "top": 766
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "match-detail",
+    "route": "/match/2025-10-25-brighton-and-hove-albion-h",
+    "url": "http://localhost:3000/match/2025-10-25-brighton-and-hove-albion-h",
+    "screenshots": [
+      "match-detail-viewport.png",
+      "match-detail-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      }
+    ],
+    "audit": {
+      "title": "UnitedStats — every Manchester United match since 1886",
+      "h1": "MUNMan UtdManchester United4–2BHABrightonBrighton & Hove Albion",
+      "scrollHeight": 1309,
+      "clientWidth": 390,
+      "scrollWidth": 417,
+      "horizontalOverflow": true,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "absolute bottom-0 flex flex-col items-center",
+          "text": "90+6′Mbeumo",
+          "left": 334,
+          "right": 414,
+          "width": 81
+        },
+        {
+          "tag": "span",
+          "cls": "flex items-center gap-1 whitespace-nowrap text-[11px] leading-none",
+          "text": "90+6′Mbeumo",
+          "left": 334,
+          "right": 414,
+          "width": 81
+        },
+        {
+          "tag": "a",
+          "cls": "text-ink hover:text-devil-bright",
+          "text": "Mbeumo",
+          "left": 371,
+          "right": 414,
+          "width": 44
+        },
+        {
+          "tag": "div",
+          "cls": "absolute top-0 flex flex-col items-center",
+          "text": "90+2′Kostoulas",
+          "left": 331,
+          "right": 417,
+          "width": 86
+        },
+        {
+          "tag": "span",
+          "cls": "flex items-center gap-1 whitespace-nowrap text-[11px] leading-none",
+          "text": "90+2′Kostoulas",
+          "left": 331,
+          "right": 417,
+          "width": 86
+        },
+        {
+          "tag": "span",
+          "cls": "text-ink",
+          "text": "Kostoulas",
+          "left": 368,
+          "right": 417,
+          "width": 49
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "2025-26",
+          "w": 52,
+          "h": 20,
+          "x": 89,
+          "y": 89,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Cunha",
+          "w": 33,
+          "h": 11,
+          "x": 107,
+          "y": 310,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Casemiro",
+          "w": 47,
+          "h": 11,
+          "x": 139,
+          "y": 310,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Mbeumo",
+          "w": 44,
+          "h": 11,
+          "x": 249,
+          "y": 310,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Mbeumo",
+          "w": 44,
+          "h": 11,
+          "x": 371,
+          "y": 310,
+          "visible": true
+        },
+        {
+          "tag": "summary",
+          "text": "Contexthead-to-head · form · showhide",
+          "w": 358,
+          "h": 28,
+          "x": 16,
+          "y": 936,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "MUNMan UtdManchester United4–2BHABrightonBrighton & Hove Albion",
+          "top": 178
+        },
+        {
+          "tag": "h2",
+          "text": "Teamsheet",
+          "top": 839
+        },
+        {
+          "tag": "h3",
+          "text": "Starting XI",
+          "top": 896
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "seasons",
+    "route": "/seasons",
+    "url": "http://localhost:3000/seasons",
+    "screenshots": [
+      "seasons-viewport.png",
+      "seasons-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] done in 298ms"
+      },
+      {
+        "type": "error",
+        "text": "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` wh"
+      }
+    ],
+    "audit": {
+      "title": "Seasons · UnitedStats",
+      "h1": "Seasons",
+      "scrollHeight": 11743,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring bg-panel-2 text-in",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur",
+          "text": "",
+          "left": 232,
+          "right": 469,
+          "width": 237
+        },
+        {
+          "tag": "div",
+          "cls": "min-w-max overflow-hidden rounded-lg border border-line bg-pitch/35",
+          "text": "SeasonFinish1stlastRecordFA CupLeague CupEuropeOther2025-26403rd20 teamsL7D11W20R3R2––2024",
+          "left": 16,
+          "right": 819,
+          "width": 803
+        },
+        {
+          "tag": "div",
+          "cls": "grid items-center gap-x-3 border-b border-line bg-panel/50 px-4 py-2 text-[10px] font-semi",
+          "text": "SeasonFinish1stlastRecordFA CupLeague CupEuropeOther",
+          "left": 17,
+          "right": 818,
+          "width": 801
+        },
+        {
+          "tag": "span",
+          "cls": "text-gold/75",
+          "text": "FA Cup",
+          "left": 381,
+          "right": 477,
+          "width": 96
+        },
+        {
+          "tag": "span",
+          "cls": "text-gold/75",
+          "text": "League Cup",
+          "left": 489,
+          "right": 585,
+          "width": 96
+        },
+        {
+          "tag": "span",
+          "cls": "text-europe",
+          "text": "Europe",
+          "left": 597,
+          "right": 693,
+          "width": 96
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "",
+          "w": 18,
+          "h": 18,
+          "x": 35,
+          "y": 698,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "",
+          "w": 20,
+          "h": 20,
+          "x": 36,
+          "y": 697,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "",
+          "w": 18,
+          "h": 18,
+          "x": 39,
+          "y": 736,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "",
+          "w": 18,
+          "h": 18,
+          "x": 42,
+          "y": 754,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "",
+          "w": 18,
+          "h": 18,
+          "x": 44,
+          "y": 730,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "",
+          "w": 18,
+          "h": 18,
+          "x": 46,
+          "y": 742,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "Seasons",
+          "top": 113
+        },
+        {
+          "tag": "h2",
+          "text": "Where United finished",
+          "top": 379
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "season-detail",
+    "route": "/seasons/1998-99",
+    "url": "http://localhost:3000/seasons/1998-99",
+    "screenshots": [
+      "season-detail-viewport.png",
+      "season-detail-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] done in 179ms"
+      }
+    ],
+    "audit": {
+      "title": "UnitedStats — every Manchester United match since 1886",
+      "h1": "1998-99",
+      "scrollHeight": 1920,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring bg-panel-2 text-in",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur",
+          "text": "",
+          "left": 232,
+          "right": 469,
+          "width": 237
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "button",
+          "text": "per game",
+          "w": 49,
+          "h": 10,
+          "x": 62,
+          "y": 455,
+          "visible": true
+        },
+        {
+          "tag": "button",
+          "text": "total",
+          "w": 26,
+          "h": 10,
+          "x": 127,
+          "y": 455,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "v 2–0",
+          "w": 48,
+          "h": 20,
+          "x": 99,
+          "y": 1462,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "@ 0–0",
+          "w": 48,
+          "h": 20,
+          "x": 153,
+          "y": 1462,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "v 2–0",
+          "w": 48,
+          "h": 20,
+          "x": 99,
+          "y": 1624,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "@ 1–1",
+          "w": 48,
+          "h": 20,
+          "x": 153,
+          "y": 1624,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "1998-99",
+          "top": 210
+        },
+        {
+          "tag": "h2",
+          "text": "Season in brief",
+          "top": 674
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "players",
+    "route": "/players",
+    "url": "http://localhost:3000/players",
+    "screenshots": [
+      "players-viewport.png",
+      "players-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] done in 176ms"
+      }
+    ],
+    "audit": {
+      "title": "Players · UnitedStats",
+      "h1": "984 players, a handful immortal",
+      "scrollHeight": 6321,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring bg-panel-2 text-in",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur",
+          "text": "",
+          "left": 232,
+          "right": 469,
+          "width": 237
+        },
+        {
+          "tag": "table",
+          "cls": "data-table ",
+          "text": "Manchester United player totals#No.↕Player↕Goals↓Apps↕Assists↕Career↕110Wayne Rooney2530.4",
+          "left": 17,
+          "right": 721,
+          "width": 704
+        },
+        {
+          "tag": "thead",
+          "cls": "",
+          "text": "#No.↕Player↕Goals↓Apps↕Assists↕Career↕",
+          "left": 17,
+          "right": 721,
+          "width": 704
+        },
+        {
+          "tag": "tr",
+          "cls": "",
+          "text": "#No.↕Player↕Goals↓Apps↕Assists↕Career↕",
+          "left": 17,
+          "right": 721,
+          "width": 704
+        },
+        {
+          "tag": "th",
+          "cls": "  ",
+          "text": "Player↕",
+          "left": 83,
+          "right": 433,
+          "width": 350
+        },
+        {
+          "tag": "th",
+          "cls": "data-table__numeric  ",
+          "text": "Goals↓",
+          "left": 433,
+          "right": 584,
+          "width": 151
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Rooney",
+          "w": 32,
+          "h": 39,
+          "x": 201,
+          "y": 522,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Law",
+          "w": 28,
+          "h": 39,
+          "x": 159,
+          "y": 538,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Rowley",
+          "w": 31,
+          "h": 39,
+          "x": 163,
+          "y": 563,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Best",
+          "w": 28,
+          "h": 39,
+          "x": 178,
+          "y": 595,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Viollet",
+          "w": 28,
+          "h": 39,
+          "x": 128,
+          "y": 595,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Giggs",
+          "w": 28,
+          "h": 39,
+          "x": 317,
+          "y": 605,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "984 players, a handful immortal",
+          "top": 138
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "player-rooney",
+    "route": "/player/wayne-rooney",
+    "url": "http://localhost:3000/player/wayne-rooney",
+    "screenshots": [
+      "player-rooney-viewport.png",
+      "player-rooney-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "warning",
+        "text": "Image with src \"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Wayne-Rooney-2015-10-21.jpg/330px-Wayne-Rooney-2015-10-21.jpg\" was detected as the Largest Contentful Paint (LCP). Please add the `loading=\"eager\"` property if this image is above the fold.\nRead more: https://nextjs.org/docs/a"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] done in 206ms"
+      }
+    ],
+    "audit": {
+      "title": "UnitedStats — every Manchester United match since 1886",
+      "h1": "Wayne Rooney",
+      "scrollHeight": 6436,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full bg-devil/12 blur-3x",
+          "text": "",
+          "left": 232,
+          "right": 469,
+          "width": 237
+        },
+        {
+          "tag": "table",
+          "cls": "data-table data-table--compact",
+          "text": "Wayne Rooney season-by-season apps, goals, and assistsSeason↑Apps↕Starts↕Goals↕Assists↕G+A",
+          "left": 17,
+          "right": 721,
+          "width": 704
+        },
+        {
+          "tag": "thead",
+          "cls": "",
+          "text": "Season↑Apps↕Starts↕Goals↕Assists↕G+A↕",
+          "left": 17,
+          "right": 721,
+          "width": 704
+        },
+        {
+          "tag": "tr",
+          "cls": "",
+          "text": "Season↑Apps↕Starts↕Goals↕Assists↕G+A↕",
+          "left": 17,
+          "right": 721,
+          "width": 704
+        },
+        {
+          "tag": "th",
+          "cls": "data-table__numeric  ",
+          "text": "Goals↕",
+          "left": 373,
+          "right": 561,
+          "width": 189
+        },
+        {
+          "tag": "a",
+          "cls": "data-table-sort ",
+          "text": "Goals↕",
+          "left": 474,
+          "right": 548,
+          "width": 74
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Wikimedia Commons · CC BY-SA 3.0",
+          "w": 176,
+          "h": 32,
+          "x": 37,
+          "y": 278,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "2004-05 v Fenerbahçe S.K.",
+          "w": 129,
+          "h": 16,
+          "x": 37,
+          "y": 727,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "★ 2009-10",
+          "w": 68,
+          "h": 16,
+          "x": 178,
+          "y": 727,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "v AFC Ajax 2016-17",
+          "w": 96,
+          "h": 16,
+          "x": 257,
+          "y": 727,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Newcastle United 13",
+          "w": 110,
+          "h": 14,
+          "x": 59,
+          "y": 1543,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "West Ham United 12",
+          "w": 110,
+          "h": 14,
+          "x": 175,
+          "y": 1543,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "Wayne Rooney",
+          "top": 354
+        }
+      ],
+      "recharts": 1,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "managers",
+    "route": "/managers",
+    "url": "http://localhost:3000/managers",
+    "screenshots": [
+      "managers-viewport.png",
+      "managers-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] done in 149ms"
+      }
+    ],
+    "audit": {
+      "title": "Managers · UnitedStats",
+      "h1": "29 managers, two cathedrals",
+      "scrollHeight": 4250,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring bg-panel-2 text-in",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur",
+          "text": "",
+          "left": 232,
+          "right": 469,
+          "width": 237
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-16 -top-20 h-56 w-1/2 rounded-full opacity-[0.10] blur",
+          "text": "",
+          "left": 259,
+          "right": 437,
+          "width": 178
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-16 -top-20 h-56 w-1/2 rounded-full opacity-[0.10] blur",
+          "text": "",
+          "left": 259,
+          "right": 437,
+          "width": 178
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Albut",
+          "w": 14,
+          "h": 160,
+          "x": 37,
+          "y": 540,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "James West · 1900–1903 · 111 matches · 39% win",
+          "w": 6,
+          "h": 160,
+          "x": 51,
+          "y": 540,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Mangnall",
+          "w": 19,
+          "h": 160,
+          "x": 57,
+          "y": 540,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "John Bentley · 1912–1914 · 98 matches · 40% win",
+          "w": 5,
+          "h": 160,
+          "x": 76,
+          "y": 540,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Jack Robson · 1915–1921 · 121 matches · 31% win",
+          "w": 6,
+          "h": 160,
+          "x": 81,
+          "y": 540,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "John Chapman · 1921–1926 · 220 matches · 39% win",
+          "w": 12,
+          "h": 160,
+          "x": 88,
+          "y": 540,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "29 managers, two cathedrals",
+          "top": 138
+        },
+        {
+          "tag": "h2",
+          "text": "The secretary-managers",
+          "top": 841
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "manager-ferguson",
+    "route": "/manager/alex-ferguson",
+    "url": "http://localhost:3000/manager/alex-ferguson",
+    "screenshots": [
+      "manager-ferguson-viewport.png",
+      "manager-ferguson-full.png"
+    ],
+    "messages": [
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      }
+    ],
+    "audit": {
+      "title": "UnitedStats — every Manchester United match since 1886",
+      "h1": "Sir Alex Ferguson",
+      "scrollHeight": 5818,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Seasons",
+          "left": 330,
+          "right": 405,
+          "width": 75
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Players",
+          "left": 409,
+          "right": 475,
+          "width": 67
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Managers",
+          "left": 479,
+          "right": 562,
+          "width": 82
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Opponents",
+          "left": 566,
+          "right": 655,
+          "width": 90
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Analytics",
+          "left": 659,
+          "right": 736,
+          "width": 77
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-md px-2.5 py-1.5 whitespace-nowrap transition-colors focus-ring text-ink-dim hover",
+          "text": "Data",
+          "left": 740,
+          "right": 790,
+          "width": 50
+        },
+        {
+          "tag": "div",
+          "cls": "pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur",
+          "text": "",
+          "left": 232,
+          "right": 469,
+          "width": 237
+        },
+        {
+          "tag": "a",
+          "cls": "shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring border-lin",
+          "text": "1990–94287",
+          "left": 330,
+          "right": 402,
+          "width": 72
+        },
+        {
+          "tag": "a",
+          "cls": "shrink-0 rounded-md border px-2.5 py-1 text-center transition-colors focus-ring border-lin",
+          "text": "1985–89176",
+          "left": 408,
+          "right": 480,
+          "width": 72
+        },
+        {
+          "tag": "span",
+          "cls": "stat-num block text-xs font-semibold leading-tight",
+          "text": "1985–89",
+          "left": 419,
+          "right": 469,
+          "width": 50
+        },
+        {
+          "tag": "span",
+          "cls": "stat-num block text-[10px] leading-tight text-ink-faint",
+          "text": "176",
+          "left": 419,
+          "right": 469,
+          "width": 50
+        }
+      ],
+      "smallTargets": [
+        {
+          "tag": "a",
+          "text": "UnitedStats",
+          "w": 132,
+          "h": 28,
+          "x": 16,
+          "y": 14,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Questions",
+          "w": 84,
+          "h": 32,
+          "x": 164,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Matches",
+          "w": 74,
+          "h": 32,
+          "x": 252,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Seasons",
+          "w": 75,
+          "h": 32,
+          "x": 330,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Players",
+          "w": 67,
+          "h": 32,
+          "x": 409,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Managers",
+          "w": 82,
+          "h": 32,
+          "x": 479,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Opponents",
+          "w": 90,
+          "h": 32,
+          "x": 566,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Analytics",
+          "w": 77,
+          "h": 32,
+          "x": 659,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Data",
+          "w": 50,
+          "h": 32,
+          "x": 740,
+          "y": 12,
+          "visible": true
+        },
+        {
+          "tag": "button",
+          "text": "per game",
+          "w": 49,
+          "h": 10,
+          "x": 62,
+          "y": 595,
+          "visible": true
+        },
+        {
+          "tag": "button",
+          "text": "total",
+          "w": 26,
+          "h": 10,
+          "x": 127,
+          "y": 595,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Is the new-manager bounce real? →",
+          "w": 190,
+          "h": 14,
+          "x": 124,
+          "y": 2455,
+          "visible": true
+        },
+        {
+          "tag": "a",
+          "text": "Filter these in the match browser →",
+          "w": 185,
+          "h": 16,
+          "x": 189,
+          "y": 3748,
+          "visible": true
+        }
+      ],
+      "firstViewportHeadings": [
+        {
+          "tag": "h1",
+          "text": "Sir Alex Ferguson",
+          "top": 314
+        }
+      ],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "opponents",
+    "route": "/opponents",
+    "url": "http://localhost:3000/opponents",
+    "screenshots": [
+      "opponents-viewport.png",
+      "opponents-full.png"
+    ],
+    "messages": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      },
+      {
+        "type": "pageerror",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed\n\n"
+      },
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "clear",
+        "text": "console.clear"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      }
+    ],
+    "audit": {
+      "title": "",
+      "h1": "",
+      "scrollHeight": 844,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [],
+      "smallTargets": [],
+      "firstViewportHeadings": [],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "opponent-arsenal",
+    "route": "/opponent/arsenal",
+    "url": "http://localhost:3000/opponent/arsenal",
+    "screenshots": [
+      "opponent-arsenal-viewport.png",
+      "opponent-arsenal-full.png"
+    ],
+    "messages": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      },
+      {
+        "type": "pageerror",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed\n\n"
+      },
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "clear",
+        "text": "console.clear"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      }
+    ],
+    "audit": {
+      "title": "",
+      "h1": "",
+      "scrollHeight": 844,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [],
+      "smallTargets": [],
+      "firstViewportHeadings": [],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "analytics",
+    "route": "/analytics",
+    "url": "http://localhost:3000/analytics",
+    "screenshots": [
+      "analytics-viewport.png",
+      "analytics-full.png"
+    ],
+    "messages": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      },
+      {
+        "type": "pageerror",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed\n\n"
+      },
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "clear",
+        "text": "console.clear"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      }
+    ],
+    "audit": {
+      "title": "",
+      "h1": "",
+      "scrollHeight": 844,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [],
+      "smallTargets": [],
+      "firstViewportHeadings": [],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  },
+  {
+    "name": "data",
+    "route": "/data",
+    "url": "http://localhost:3000/data",
+    "screenshots": [
+      "data-viewport.png",
+      "data-full.png"
+    ],
+    "messages": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      },
+      {
+        "type": "pageerror",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed\n\n"
+      },
+      {
+        "type": "log",
+        "text": "[HMR] connected"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "clear",
+        "text": "console.clear"
+      },
+      {
+        "type": "error",
+        "text": "./app/match/[id]/page.tsx:455:1\nUnexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  453 |     </div>\n  454 |   );\n> 455 | }\n      | ^\n  456 |\n\nParsing ecmascript source code failed"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      },
+      {
+        "type": "log",
+        "text": "[Fast Refresh] rebuilding"
+      }
+    ],
+    "audit": {
+      "title": "",
+      "h1": "",
+      "scrollHeight": 844,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflow": [],
+      "smallTargets": [],
+      "firstViewportHeadings": [],
+      "recharts": 0,
+      "emptyRecharts": 0
+    }
+  }
+]

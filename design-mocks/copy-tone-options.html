@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Copy tone — four directions on the Transfers page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --pitch:#0c0b0a; --panel:#161312; --panel-2:#1f1a18; --line:#2c2522;
+    --ink:#f3ede8; --ink-dim:#a89c94; --ink-faint:#6f645d;
+    --devil:#d8210d; --devil-bright:#ff3b1f; --gold:#f5c518;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--pitch);color:var(--ink);
+    font-family:Archivo,system-ui,sans-serif;font-feature-settings:"tnum";
+    padding:36px 40px 64px;
+  }
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-feature-settings:"tnum"}
+  .display{font-weight:800;letter-spacing:0;text-transform:uppercase;line-height:.96}
+
+  .pageHead{margin:0 0 4px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);font-weight:700}
+  .pageSub{color:var(--ink-faint);font-size:12.5px;margin:0 0 28px;max-width:96ch;line-height:1.55}
+  .pageSub b{color:var(--ink-dim);font-weight:600}
+
+  .cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;align-items:start}
+
+  /* column identity band */
+  .band{margin:0 0 14px;padding:0 0 12px;border-bottom:1px solid var(--line)}
+  .band .id{display:flex;align-items:baseline;gap:8px}
+  .band .letter{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.1em}
+  .band .name{font-size:15px;font-weight:800;letter-spacing:.005em}
+  .band .ethos{margin:5px 0 0;font-size:11.5px;line-height:1.5;color:var(--ink-faint)}
+
+  /* the mini transfers page */
+  .hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:11px;background:var(--panel);padding:16px 16px 15px}
+  .hero .grid{position:absolute;inset:0;opacity:.5;background-image:
+    linear-gradient(to right,rgb(255 255 255/.025) 1px,transparent 1px),
+    linear-gradient(to bottom,rgb(255 255 255/.025) 1px,transparent 1px);
+    background-size:34px 34px;pointer-events:none}
+  .hero .wash{position:absolute;right:-40px;top:-50px;width:62%;height:150px;border-radius:50%;
+    background:var(--devil);opacity:.12;filter:blur(38px);pointer-events:none}
+  .hero > *{position:relative}
+
+  .eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--devil-bright);margin:0 0 7px;min-height:12px}
+  .title{font-size:20px;margin:0 0 12px;min-height:62px}
+
+  .figs{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+  .net .n{font-size:25px;font-weight:700}
+  .net .l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-left:6px}
+  .gross{display:flex;gap:14px;border-left:1px solid var(--line);padding-left:13px}
+  .gross .n{font-size:14px;font-weight:700}
+  .gross .ni{color:var(--devil-bright)} .gross .no{color:var(--gold)}
+  .gross .l{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:3px;display:block}
+
+  .tide{margin:13px 0 11px;height:38px;width:100%;display:block}
+  .frame{font-size:10.5px;line-height:1.55;color:var(--ink-faint);margin:0;min-height:58px}
+  .frame b{color:var(--ink-dim);font-weight:600}
+
+  .sec{margin:18px 0 0}
+  .secHead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:9px}
+  .secHead h3{margin:0;font-size:13px;font-weight:800;letter-spacing:.01em;text-transform:uppercase}
+  .secHead .aside{font-size:10px;color:var(--ink-faint)}
+
+  .lbrow{display:flex;align-items:center;gap:9px;padding:6px 0}
+  .lbrow + .lbrow{border-top:1px solid color-mix(in oklab,var(--line),transparent 40%)}
+  .lbrow .rank{font-size:10px;color:var(--ink-faint);width:14px}
+  .lbrow .who{flex:1;font-size:12px;font-weight:600}
+  .lbrow .who span{display:block;font-size:9.5px;color:var(--ink-faint);font-weight:500;margin-top:1px}
+  .lbrow .fee{font-size:12.5px;font-weight:700;color:var(--devil-bright)}
+
+  .cov{margin:13px 0 0;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:color-mix(in oklab,var(--panel),var(--pitch) 35%)}
+  .cov p{margin:0;font-size:10px;line-height:1.6;color:var(--ink-dim)}
+  .cov b{color:var(--ink);font-weight:600}
+
+  .note{margin:46px 0 0;font-size:11px;line-height:1.6;color:var(--ink-faint);max-width:100ch}
+  .note b{color:var(--ink-dim);font-weight:600}
+</style>
+</head>
+<body>
+  <h1 class="pageHead">Copy tone — four directions, one page</h1>
+  <p class="pageSub">The <b>Transfers</b> page rendered four ways. Layout, figures and visuals are identical in every
+    column; only the words change, so the tone is the only variable. Same six copy slots in each: hero eyebrow, hero
+    title, the figures, the framing line, a section head + aside, and the coverage note. Read each column top to
+    bottom as one voice. You picked <b>B</b> — this is to confirm or revise that against the real alternatives.</p>
+
+  <div class="cols">
+
+    <!-- ============ A. ARCHIVIST ============ -->
+    <section>
+      <div class="band">
+        <div class="id"><span class="letter">A</span><span class="name">The Archivist</span></div>
+        <p class="ethos">Cool, exact, complete. Romance only from historical reach. Opta-style scope does the work; no adjectives anywhere.</p>
+      </div>
+      <div class="hero">
+        <div class="grid"></div><div class="wash"></div>
+        <p class="eyebrow">Transfers · complete record</p>
+        <h2 class="title display">Every recorded transfer, 1883&nbsp;to&nbsp;today</h2>
+        <div class="figs">
+          <div class="net"><span class="n mono">−£1.41bn</span><span class="l">net since 1883</span></div>
+          <div class="gross">
+            <div><span class="n mono ni">£2.94bn</span><span class="l">Spent · 1,240 in</span></div>
+            <div><span class="n mono no">£1.53bn</span><span class="l">Received · 1,182 out</span></div>
+          </div>
+        </div>
+        <svg class="tide" viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0,38 L60,38 L90,34 L150,30 L200,18 L240,22 L270,8 L300,14 L300,40 L0,40 Z" fill="#d8210d" opacity=".5"/><path d="M0,39 L120,39 L180,36 L230,34 L270,30 L300,31 L300,40 L0,40 Z" fill="#f5c518" opacity=".4"/></svg>
+        <p class="frame">Gross spend and receipts across every move with a <b>published fee</b>. Undisclosed and free transfers are excluded, so each total is a floor. Pre-1980 fees were rarely recorded.</p>
+        <div class="sec">
+          <div class="secHead"><h3>Net spend by manager</h3><span class="aside">top 10, by net</span></div>
+          <div class="lbrow"><span class="rank mono">1</span><span class="who">Erik ten Hag<span>2022–24</span></span><span class="fee mono">£404m</span></div>
+          <div class="lbrow"><span class="rank mono">2</span><span class="who">Ole Gunnar Solskjær<span>2018–21</span></span><span class="fee mono">£312m</span></div>
+          <div class="lbrow"><span class="rank mono">3</span><span class="who">José Mourinho<span>2016–18</span></span><span class="fee mono">£289m</span></div>
+        </div>
+        <div class="cov"><p><b>Slice:</b> known-fee transfers only. 2,422 of 4,310 moves carry a published fee; the remainder are excluded from spend and receipts. Pre-1980 fees were rarely published.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ B. FLOODLIT GUIDE ============ -->
+    <section>
+      <div class="band">
+        <div class="id"><span class="letter">B</span><span class="name">Floodlit Guide</span></div>
+        <p class="ethos">Your current trajectory. One evocative, true line per hero; clean body; clinical coverage. Romance from place and span, never hype.</p>
+      </div>
+      <div class="hero">
+        <div class="grid"></div><div class="wash"></div>
+        <p class="eyebrow">From Newton Heath to today</p>
+        <h2 class="title display">A century and a half of business, in&nbsp;and&nbsp;out</h2>
+        <div class="figs">
+          <div class="net"><span class="n mono">−£1.41bn</span><span class="l">net since 1883</span></div>
+          <div class="gross">
+            <div><span class="n mono ni">£2.94bn</span><span class="l">Spent · 1,240 in</span></div>
+            <div><span class="n mono no">£1.53bn</span><span class="l">Received · 1,182 out</span></div>
+          </div>
+        </div>
+        <svg class="tide" viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0,38 L60,38 L90,34 L150,30 L200,18 L240,22 L270,8 L300,14 L300,40 L0,40 Z" fill="#d8210d" opacity=".5"/><path d="M0,39 L120,39 L180,36 L230,34 L270,30 L300,31 L300,40 L0,40 Z" fill="#f5c518" opacity=".4"/></svg>
+        <p class="frame">The money tide across 140 years of buying and selling. Spend and receipts count only the deals with a published fee — many historical fees were never disclosed, so the money is a <b>floor</b> and the early years sit flat on the line.</p>
+        <div class="sec">
+          <div class="secHead"><h3>Who spent it</h3><span class="aside">top 10 by net</span></div>
+          <div class="lbrow"><span class="rank mono">1</span><span class="who">Erik ten Hag<span>2022–24</span></span><span class="fee mono">£404m</span></div>
+          <div class="lbrow"><span class="rank mono">2</span><span class="who">Ole Gunnar Solskjær<span>2018–21</span></span><span class="fee mono">£312m</span></div>
+          <div class="lbrow"><span class="rank mono">3</span><span class="who">José Mourinho<span>2016–18</span></span><span class="fee mono">£289m</span></div>
+        </div>
+        <div class="cov"><p><b>Slice:</b> every recorded arrival and departure, Newton Heath to now. Net spend counts only the deals with a known fee; before 1980 fees were almost never published, so that era reads as volume, never as £0.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ C. KNOWING COMPANION ============ -->
+    <section>
+      <div class="band">
+        <div class="id"><span class="letter">C</span><span class="name">Knowing Companion</span></div>
+        <p class="ethos">Warmer, dry wit, a point of view about the question — never the result. Closest to a fan blog without ever spinning a number.</p>
+      </div>
+      <div class="hero">
+        <div class="grid"></div><div class="wash"></div>
+        <p class="eyebrow">The money, all of it</p>
+        <h2 class="title display">Where the money actually&nbsp;went</h2>
+        <div class="figs">
+          <div class="net"><span class="n mono">−£1.41bn</span><span class="l">net since 1883</span></div>
+          <div class="gross">
+            <div><span class="n mono ni">£2.94bn</span><span class="l">Spent · 1,240 in</span></div>
+            <div><span class="n mono no">£1.53bn</span><span class="l">Received · 1,182 out</span></div>
+          </div>
+        </div>
+        <svg class="tide" viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0,38 L60,38 L90,34 L150,30 L200,18 L240,22 L270,8 L300,14 L300,40 L0,40 Z" fill="#d8210d" opacity=".5"/><path d="M0,39 L120,39 L180,36 L230,34 L270,30 L300,31 L300,40 L0,40 Z" fill="#f5c518" opacity=".4"/></svg>
+        <p class="frame">United have rarely been shy with a chequebook, and here's the damage — century by century. The catch: plenty of old fees went to the grave undisclosed, so the flat early years mean <b>nobody's telling</b>, not nobody spent.</p>
+        <div class="sec">
+          <div class="secHead"><h3>Whose chequebook</h3><span class="aside">top 10 — yes, the recent ones</span></div>
+          <div class="lbrow"><span class="rank mono">1</span><span class="who">Erik ten Hag<span>2022–24</span></span><span class="fee mono">£404m</span></div>
+          <div class="lbrow"><span class="rank mono">2</span><span class="who">Ole Gunnar Solskjær<span>2018–21</span></span><span class="fee mono">£312m</span></div>
+          <div class="lbrow"><span class="rank mono">3</span><span class="who">José Mourinho<span>2016–18</span></span><span class="fee mono">£289m</span></div>
+        </div>
+        <div class="cov"><p><b>Slice:</b> the deals someone actually wrote a number down for. A lot of old business never came with a fee attached — so treat the early flat line as a shrug, not a saving.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ D. INSTRUMENT ============ -->
+    <section>
+      <div class="band">
+        <div class="id"><span class="letter">D</span><span class="name">The Instrument</span></div>
+        <p class="ethos">Voice pulled almost all the way out. The objects carry everything; copy is a label. Maximum trust, minimum personality.</p>
+      </div>
+      <div class="hero">
+        <div class="grid"></div><div class="wash"></div>
+        <p class="eyebrow">Transfers</p>
+        <h2 class="title display">Transfer&nbsp;record</h2>
+        <div class="figs">
+          <div class="net"><span class="n mono">−£1.41bn</span><span class="l">net since 1883</span></div>
+          <div class="gross">
+            <div><span class="n mono ni">£2.94bn</span><span class="l">Spent · 1,240 in</span></div>
+            <div><span class="n mono no">£1.53bn</span><span class="l">Received · 1,182 out</span></div>
+          </div>
+        </div>
+        <svg class="tide" viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0,38 L60,38 L90,34 L150,30 L200,18 L240,22 L270,8 L300,14 L300,40 L0,40 Z" fill="#d8210d" opacity=".5"/><path d="M0,39 L120,39 L180,36 L230,34 L270,30 L300,31 L300,40 L0,40 Z" fill="#f5c518" opacity=".4"/></svg>
+        <p class="frame">Net since 1883. Spend and receipts cover deals with a published fee. Undisclosed and free moves carry no amount.</p>
+        <div class="sec">
+          <div class="secHead"><h3>Net spend · manager</h3><span class="aside">top 10</span></div>
+          <div class="lbrow"><span class="rank mono">1</span><span class="who">Erik ten Hag<span>2022–24</span></span><span class="fee mono">£404m</span></div>
+          <div class="lbrow"><span class="rank mono">2</span><span class="who">Ole Gunnar Solskjær<span>2018–21</span></span><span class="fee mono">£312m</span></div>
+          <div class="lbrow"><span class="rank mono">3</span><span class="who">José Mourinho<span>2016–18</span></span><span class="fee mono">£289m</span></div>
+        </div>
+        <div class="cov"><p><b>Slice:</b> known-fee transfers. Totals are a floor.</p></div>
+      </div>
+    </section>
+
+  </div>
+
+  <p class="note"><b>How to read it:</b> A and D are the cold poles (A keeps the historical grandeur, D strips even that); B is your
+    current pick; C is the warm pole. Note that B and C share the same coverage <i>fact</i> but C lets wit into it — which is
+    exactly the line the spec says to <b>quarantine</b>. The realistic recommendation is still B for the page, borrowing C's wit
+    only on the questions/myths surface, never here on the ledger.</p>
+</body>
+</html>

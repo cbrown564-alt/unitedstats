@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { seasonMatches, allSeasons, seasonsIndex, seasonLeagueTable, type MatchRow, type SeasonSummary } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
@@ -17,6 +18,20 @@ import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ season: string }> }): Promise<Metadata> {
+  const { season } = await params;
+  const title = `${season} season`;
+  const description = `Manchester United campaign record for the ${season} season — matches, league table, cup runs, goals, and managers.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 export async function generateStaticParams() {
   return allSeasons().map((season) => ({ season }));
@@ -180,6 +195,7 @@ export default async function SeasonPage({
 
       <IdentityPlate
         eyebrow="Season"
+        share={{ path: `/seasons/${season}`, title: `Manchester United ${season} season` }}
         title={season}
         subtitle={
           <>
@@ -201,9 +217,9 @@ export default async function SeasonPage({
         <div className="max-w-3xl rounded-lg border border-line bg-panel p-4">
           <h2 className="mb-1.5 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
           <p className="text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
-          <p className="mt-2 text-[11px] text-ink-faint">
-            Written by the data: every sentence is computed from the match record below, and scorer
-            claims state their coverage.
+          <p className="mt-2 text-[11px] text-ink-dim">
+            Generated directly from the match record: every sentence is computed from the match history below, and goalscorer
+            claims reflect database coverage.
           </p>
         </div>
       )}
@@ -217,7 +233,7 @@ export default async function SeasonPage({
           <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
           <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
             <ResultSpine matches={sequence} subject={`United ${season}`} />
-            <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+            <p className="mt-2 text-[11px] leading-4 text-ink-dim">
               Every match in order — wins above the line, losses below, bar height the goal margin.
             </p>
           </div>
@@ -264,7 +280,7 @@ export default async function SeasonPage({
                     size="md"
                   />
                   <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
-                    <h3 className="display line-clamp-2 text-base leading-tight sm:truncate sm:leading-none">{comp}</h3>
+                    <h3 className="display line-clamp-2 min-w-0 text-base leading-snug" title={comp}>{comp}</h3>
                     {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
                   </div>
                   {/* Right cluster: match total, then the stacked W/D/L record bar. */}
@@ -284,7 +300,7 @@ export default async function SeasonPage({
         </div>
         <CoverageNote
           slice="every competitive match this season, grouped by competition."
-          coverage="Result data is complete; recorded scorer and lineup coverage vary by era."
+          coverage="Result data is complete; recorded goalscorer and lineup coverage vary by era."
         />
       </section>
     </div>

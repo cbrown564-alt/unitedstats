@@ -126,7 +126,7 @@ export function CoverageMatrix({ rows, totals }: { rows: DecadeRow[]; totals: To
 
       {/* legend ramp — intensity = share of that decade's matches carrying the layer */}
       <figcaption className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-ink-dim">
-        <span>Cell value is the percent of that decade&apos;s matches carrying the layer.</span>
+        <span>Cell value is the percent of that decade’s matches carrying the layer.</span>
         <span className="flex items-center gap-1.5">
           <span className="text-ink-faint">0%</span>
           <span className="flex h-2.5 w-24 overflow-hidden rounded-full ring-1 ring-inset ring-line">

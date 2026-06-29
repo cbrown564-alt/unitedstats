@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { managerById, managerMatches, managerTenures, managerTransferSummary, managersIndex } from "@/lib/queries";
 import {
@@ -15,11 +16,30 @@ import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
+import { ManagerHonoursPanel } from "@/components/ManagerHonoursPanel";
 import { StatTile } from "@/components/PageHeader";
+import { managerTrophyHaul } from "@/lib/compare";
 import { fmtDate, fmtFee, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
+import { queryString } from "@/lib/url";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const m = managerById(id);
+  if (!m) return {};
+  const title = `${m.name}`;
+  const description = `${m.name} — Manchester United managerial record. ${fmtNum(m.p)} matches managed: ${pct(m.w, m.p)} win rate.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return managersIndex().map((m) => ({ id: m.id }));
@@ -73,7 +93,7 @@ export default async function ManagerPage({
   // Venue and competition are two different cuts of the same matches; group them so
   // that reads clearly rather than as one flat list of five.
   const splitGroups: [label: string, rows: typeof bendRows][] = [
-    ["Home & away", bendRows.slice(0, 2)],
+    ["Home and away", bendRows.slice(0, 2)],
     ["By competition", bendRows.slice(2)],
   ];
 
@@ -108,13 +128,14 @@ export default async function ManagerPage({
     })
     .filter((s): s is SpanSegment => s != null);
   const tenureCaption = tenures
-    .map((t) => `${fmtDate(t.date_from)} – ${t.date_to ? fmtDate(t.date_to) : "present"}${t.note ? ` (${t.note})` : ""}`)
+    .map((t) => `${fmtDate(t.date_from)}–${t.date_to ? fmtDate(t.date_to) : "present"}${t.note ? ` (${t.note})` : ""}`)
     .join(" · ");
 
   return (
     <div className="space-y-8">
       <IdentityPlate
         eyebrow={m.role ?? "Manager"}
+        share={{ path: `/manager/${m.id}`, title: `${m.name} — Manchester United record` }}
         leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="lg" />}
         title={m.name}
         subtitle={
@@ -134,6 +155,14 @@ export default async function ManagerPage({
           caption: tenureCaption,
         }}
       />
+
+      <section>
+        <SectionHead title="Trophy cabinet" aside="major honours won in charge" />
+        <ManagerHonoursPanel haul={managerTrophyHaul(id)} winPct={total > 0 ? (m.w / total) * 100 : null} />
+        <CoverageNote slice="league titles and knockout cups won, attributed to the manager of the decisive match.">
+          League titles go to whoever took the last league game of the title season; cups to the winning-final manager.
+        </CoverageNote>
+      </section>
 
       {runs.length > 0 && (
         <section>
@@ -155,9 +184,9 @@ export default async function ManagerPage({
               detail={market.net >= 0 ? undefined : "net gain"}
               tone={market.net >= 0 ? "red" : "default"}
             />
-            <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} in`} tone="red" />
-            <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} out`} tone="gold" />
-            <StatTile label="Dealings" value={fmtNum(market.signings + market.departures)} detail="in + out" />
+            <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} signings`} tone="red" />
+            <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} departures`} tone="gold" />
+            <StatTile label="Transfers" value={fmtNum(market.signings + market.departures)} detail="signings and departures" />
           </div>
           <p className="mt-2 text-xs text-ink-faint">
             Fees for arrivals and departures dated within the tenure, known fees only.{" "}
@@ -170,7 +199,7 @@ export default async function ManagerPage({
 
       <section className="grid lg:grid-cols-2 gap-8">
         <div>
-          <SectionHead title="Split five ways" aside="venue · competition" />
+          <SectionHead title="Match splits" aside="venue · competition" />
           <div className="space-y-5 rounded-xl border border-line bg-panel p-4 sm:p-5">
             {splitGroups.map(([groupLabel, rows], gi) => {
               const live = rows.filter(([, r]) => r.p > 0);
@@ -213,7 +242,7 @@ export default async function ManagerPage({
             <MatchList matches={first10} showSeason />
             <p className="mt-2 text-xs text-ink-faint">
               {first10W} of the first 10 won.{" "}
-              <Link href="/questions#manager-bounce" className="text-devil-bright hover:underline">
+              <Link href="/questions/manager-bounce" className="text-devil-bright hover:underline">
                 Is the new-manager bounce real? →
               </Link>
             </p>
@@ -254,7 +283,11 @@ export default async function ManagerPage({
         <div className="mb-3 flex justify-end">
           <EvidenceLink href={`/matches?manager=${id}`} label="Filter these in the match browser →" />
         </div>
-        <MatchArchive matches={allMatches} accentResult />
+        <MatchArchive
+          matches={allMatches}
+          accentResult
+          hrefForSeason={(season) => `/matches${queryString({ manager: id, season })}`}
+        />
         <CoverageNote
           slice="every competitive match under this manager, all competitions"
           coverage={`${fmtNum(total)} matches, season by season; caretaker and interim spells are attributed to whoever picked the team on the day.`}

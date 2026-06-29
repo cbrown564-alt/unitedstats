@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { Pager } from "@/components/Pager";
+import { AnswerCoverageTag } from "@/components/AnswerCoverageTag";
 import { searchPage, entityResults, type SearchEntity } from "@/lib/search";
 import { highlight } from "@/lib/search/highlight";
-import { KIND_LABELS, KIND_HEADINGS, POPULAR_SEARCHES, SEARCH_HINTS } from "@/lib/search/examples";
+import { KIND_LABELS, KIND_HEADINGS, POPULAR_SEARCHES, RESHAPE_PROMPTS, SEARCH_HINTS, SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { queryString } from "@/lib/url";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 export const metadata = { title: "Search" };
 
 const PAGE_SIZE = 25;
@@ -105,11 +106,17 @@ export default async function SearchPage({
               href={s.href}
               className="block rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
             >
+              {s.tentative && (
+                <div className="text-[10px] uppercase tracking-wider text-ink-faint">Did you mean</div>
+              )}
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-medium">{s.title}</span>
                 <span className="shrink-0 text-xs text-devil-bright">{s.hrefLabel}</span>
               </div>
-              <div className="stat-num mt-0.5 text-xs text-ink-dim">{s.summary}</div>
+              <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
+                {s.coverage && <AnswerCoverageTag coverage={s.coverage} />}
+              </div>
             </Link>
           ))}
         </section>
@@ -173,10 +180,23 @@ export default async function SearchPage({
       )}
 
       {total === 0 && shaped.length === 0 && suggestions.length === 0 && (
-        <p className="text-sm text-ink-dim">
-          Nothing close enough to suggest. Try a surname, a season like 1998-99, or an operator such as{" "}
-          <code className="stat-num">player:rooney</code>.
-        </p>
+        <section className="space-y-3">
+          <p className="text-sm text-ink-dim">
+            Nothing close enough to suggest. Try a surname, a season like 1998-99, or an operator such as{" "}
+            <code className="stat-num">player:rooney</code> — or one of these shaped questions:
+          </p>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {RESHAPE_PROMPTS.map((p) => (
+              <Link
+                key={p}
+                href={`/search${queryString({ q: p })}`}
+                className="rounded-lg border border-line bg-panel px-4 py-3 text-sm font-medium transition-colors hover:border-devil/60"
+              >
+                {p}
+              </Link>
+            ))}
+          </div>
+        </section>
       )}
     </div>
   );
@@ -191,7 +211,7 @@ function SearchForm({ q }: { q: string }) {
         name="q"
         defaultValue={q}
         autoFocus={q.length < 2}
-        placeholder='Search — a name, a season, or "biggest win in the 90s"'
+        placeholder={SEARCH_PLACEHOLDER}
         aria-label="Search the archive"
         className="w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-faint focus:border-devil focus:outline-none"
       />

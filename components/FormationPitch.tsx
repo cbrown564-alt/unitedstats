@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import type { LineupRow } from "@/lib/queries";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { GoalMark, AssistMark, CardMark } from "@/components/MatchMarkers";
@@ -21,6 +22,9 @@ import { GoalMark, AssistMark, CardMark } from "@/components/MatchMarkers";
  * Goals, bookings and the minute a player left the pitch are drawn onto the
  * shirt itself, so the teamsheet carries the match's events without a stack of
  * separate boxes. The bench sits alongside as a vertical column.
+ *
+ * Naming: the pitch uses {@link familyName} for compact shirt labels; bench and
+ * list views keep the full display name — intentional, not a drift to fix.
  */
 
 type Band = "GK" | "DEF" | "MID" | "FWD";
@@ -143,11 +147,6 @@ export function placeBand(
   return placement(p, year)?.band ?? null;
 }
 
-function surname(name: string): string {
-  const parts = name.trim().split(/\s+/);
-  return parts[parts.length - 1] || name;
-}
-
 const goalsFor = (marks: MatchMarks | undefined, id: string | null) =>
   id && marks ? marks.goals.get(id) ?? 0 : 0;
 const assistsFor = (marks: MatchMarks | undefined, id: string | null) =>
@@ -167,8 +166,8 @@ function PitchPlayer({ p, decade, marks }: { p: LineupRow; decade: string | null
         <ShirtBadge number={p.shirt} decade={decade} compact />
         {card && <CardMark type={card} className="absolute -right-1.5 -top-1" />}
       </span>
-      <span className="max-w-full break-words text-[11px] leading-tight text-ink group-hover:text-devil-bright">
-        {surname(name)}
+      <span className="mt-0.5 max-w-full break-words text-[11px] leading-tight text-ink group-hover:text-devil-bright">
+        {familyName(name)}
       </span>
       {(goals > 0 || assists > 0 || p.sub_off != null) && (
         <span className="flex items-center gap-1 text-[9px] leading-none text-ink-faint">

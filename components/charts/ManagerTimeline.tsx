@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import type { ManagerRecord } from "@/lib/queries";
 
 /**
@@ -75,7 +76,7 @@ export function ManagerTimeline({ managers }: { managers: ManagerRecord[] }) {
             const p = m.p;
             const winRate = Math.round((100 * m.w) / p);
             const title = `${m.name} · ${m.first?.slice(0, 4)}–${m.last?.slice(0, 4)} · ${p} matches · ${winRate}% win`;
-            const surname = m.name.replace(/^Sir /, "").split(" ").pop() ?? m.name;
+            const surname = familyName(m.name);
             return (
               <Link
                 key={m.id}
@@ -91,7 +92,7 @@ export function ManagerTimeline({ managers }: { managers: ManagerRecord[] }) {
                   <div className="bg-loss/75" style={{ height: `${(m.l / p) * 100}%` }} />
                 </div>
                 {width >= LABEL_MIN_WIDTH && (
-                  <span className="pointer-events-none absolute inset-x-0 top-1.5 px-1 text-center text-[10px] font-semibold uppercase tracking-wide text-ink [text-shadow:0_1px_2px_rgb(0_0_0_/0.7)]">
+                  <span className="pointer-events-none absolute inset-x-0 top-1.5 truncate px-1 text-center text-[10px] font-semibold uppercase tracking-wide text-ink [text-shadow:0_1px_2px_rgb(0_0_0_/0.7)]">
                     {surname}
                   </span>
                 )}

@@ -3,43 +3,29 @@ import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
   topScorers, seasonAggregates, championSeasons,
 } from "@/lib/queries";
-import { clubRecords, goalMinuteRidge, lateGoalShareByDecade } from "@/lib/trails";
-import {
-  fmtNum, pct, fmtDate, fmtMonthYear, scoreline, venuePrefix, COMPETITION_TYPE_LABELS,
-} from "@/lib/format";
+import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { QUESTIONS } from "@/lib/questions";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
+import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
-import { RecordCards, type RecordCard } from "@/components/RecordCards";
-import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
+import { TonightHero } from "@/components/TonightHero";
+import { greatNights } from "@/lib/greatNights";
 
-// The other myths, listed as compact prompts beside the demonstrated one. Late
-// goals is pulled out as the featured question (it owns the MinuteRidge below),
-// so the homepage *shows* one question's visual rather than only linking out.
-const MYTHS: [question: string, hook: string, href: string][] = [
-  ["Which sides are the real bogey teams?", "Lowest win rates across 20+ meetings.", "/questions#bogey-sides"],
-  ["Is the new-manager bounce real?", "Each manager's first ten against the ten before.", "/questions#manager-bounce"],
-  ["How much of a fortress is Old Trafford?", "Home win rate by decade and the longest run.", "/questions#fortress"],
-  ["Who saved their goals for cup nights?", "Scorers who lean hardest toward the cups.", "/questions#cup-specialists"],
-];
-
-const ROUTES: [label: string, href: string, hint: string][] = [
-  ["Matches", "/matches", "the fixture spine"],
-  ["Seasons", "/seasons", "1886–87 to today"],
-  ["Players", "/players", "every recorded scorer"],
-  ["Managers", "/managers", "Mangnall to now"],
-  ["Opponents", "/opponents", "every head-to-head"],
-  ["Analytics", "/analytics", "Elo and the long arc"],
-];
+// The front door is the gate (CONTEXT.md §6): its whole job is to fire the spark.
+// The served night is resolved per request so on-this-day reflects the real date
+// and the latest record — like /surprise and /on-this-day.
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   const meta = getMeta();
   const rec = allTimeRecord();
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
+  const { nights, seed } = greatNights();
   const scorers = topScorers(8);
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -50,44 +36,15 @@ export default function Home() {
   const skyline = seasonAggregates().filter((s) => s.p > 0);
   const champs = new Set(championSeasons());
 
-  // The trail the homepage leads with: three all-time peaks as answer-objects,
-  // each a clickable figure-with-a-fixture rather than a metric tile. Built only
-  // from records that exist, with three distinct units (a scoreline, a crowd, a
-  // goal tally) so the teaser shows the family's range.
-  const cr = clubRecords();
-  const teaser: RecordCard[] = [];
-  if (cr.biggestWin) {
-    const m = cr.biggestWin;
-    teaser.push({
-      eyebrow: "Biggest win", figure: scoreline(m.gf, m.ga), tone: "win",
-      detail: `${venuePrefix(m.venue)} ${m.opponent_name}`,
-      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
-    });
-  }
-  if (cr.recordCrowd?.attendance != null) {
-    const m = cr.recordCrowd;
-    teaser.push({
-      eyebrow: "Record crowd", figure: fmtNum(m.attendance), tone: "gold",
-      detail: `${venuePrefix(m.venue)} ${m.opponent_name} · ${scoreline(m.gf, m.ga)}`,
-      meta: `${fmtDate(m.date)} · ${m.competition_name}`, href: `/match/${m.id}`,
-    });
-  }
-  if (cr.longestUnbeaten) {
-    const r = cr.longestUnbeaten;
-    teaser.push({
-      eyebrow: "Longest unbeaten run", figure: String(r.length), unit: "matches", tone: "devil",
-      detail: `${fmtMonthYear(r.from)} – ${fmtMonthYear(r.to)}`,
-      meta: "wins and draws, official matches", href: `/matches?from=${r.from}&to=${r.to}`,
-    });
-  }
-
-  // Featured myth: the late-goals window. Reuses the questions MinuteRidge so the
-  // homepage demonstrates the surface, and leads with the one finding number.
-  const ridge = goalMinuteRidge();
-  const lateAgg = lateGoalShareByDecade().reduce(
-    (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
-    { timed: 0, late: 0 },
-  );
+  // The curated-cut launcher: the nine myth-tested questions as a peek-carousel,
+  // each card opening its full answer page (Phase 10 per-question routes). This is
+  // the answer-first front door — it launches findings, it does not reproduce them.
+  const questionCards: CarouselCard[] = QUESTIONS.map((q) => ({
+    href: `/questions/${q.slug}`,
+    eyebrow: q.label,
+    title: q.question,
+    blurb: q.summary,
+  }));
 
   // All-time record by competition as stacked W/D/L bars; matches played rides a
   // √-scaled volume lane under each (so League dwarfs the cups without distorting the
@@ -99,103 +56,74 @@ export default function Home() {
 
   return (
     <div className="space-y-14 sm:space-y-16">
-      {/* 1. The invitation — a floodlit plate that *shows* the whole record:
-          the headline and search sit over a skyline of every season ever played. */}
-      <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
-        <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
-        <div
-          className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur-3xl"
-          style={{ backgroundColor: "var(--color-devil)" }}
-          aria-hidden
-        />
-        <div className="relative p-5 sm:p-7">
-          <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
-            From Newton Heath to today
-          </p>
-          <h1 className="display text-4xl sm:text-6xl leading-[0.95] max-w-3xl">
-            Every match Manchester United ever played
-          </h1>
-          <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
-            {fmtNum(rec.p)} matches across {years} years of league, cup, and European football —
-            start with a question, a name, or a season.
-          </p>
-          <div className="mt-6 max-w-2xl">
-            <SearchCommand autoFocusKey={false} />
-            <p className="text-xs text-ink-faint mt-1.5">
-              <span className="sm:hidden">Search</span>
-              <span className="hidden sm:inline">
-                Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
-              </span>
-              {" "}— names, seasons, or shaped questions like &ldquo;record away at Arsenal&rdquo;.
-            </p>
-          </div>
+      {/* The front door, fused into one piece (CONTEXT.md §§2,6): the spark and the
+          foundation it belongs to, set so the Red Thread runs out of the night and
+          straight on behind the foundation plate. They live in their own wrapper —
+          outside the page's section rhythm — so the card can pull up over the
+          thread's foot; the rest of the page keeps its spacing. */}
+      <div>
+        {/* 1. THE SPARK — the front door is the gate, and its whole job is to fire
+            the nostalgic jolt in the first seconds: a single served match-night,
+            chosen for you, is the entire first screen, the Red Thread its spine. */}
+        <TonightHero nights={nights} seed={seed} />
 
-          <div className="mt-8">
-            <HistorySkyline seasons={skyline} champions={champs} />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Movement: start a trail. The wow-records and the live question,
-          clustered tight so they read as one "click into something" beat. ── */}
-      <div className="space-y-10">
-        {teaser.length > 0 && (
-          <section>
-            <SectionHead
-              title="Records that pull you in"
-              aside={<Link href="/analytics" className="text-devil-bright hover:underline">All records →</Link>}
-            />
-            <RecordCards records={teaser} />
-            <p className="text-xs text-ink-faint mt-2">
-              All-time peaks across official competitions, each card opening the match or run that holds it.
-            </p>
-          </section>
-        )}
-
-        <section>
-          <SectionHead
-            title="Test a myth"
-            aside={<Link href="/questions" className="text-devil-bright hover:underline">All questions →</Link>}
+        {/* 2. THE FOUNDATION (CONTEXT.md §2) — the whole record the night belongs to:
+            every season as a breathing skyline, the scope, the search. Pulled up so
+            the thread runs into it and disappears behind its top edge — the spark and
+            the record read as one continuous piece. The negative margin is the knob
+            for how far the thread sinks behind the plate. */}
+        <section id="the-record" className="relative z-10 -mt-14 scroll-mt-24 overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)] sm:-mt-12">
+          <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+          <div
+            className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur-3xl"
+            style={{ backgroundColor: "var(--color-devil)" }}
+            aria-hidden
           />
-          <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
-            <Link
-              href="/questions#late-goals"
-              className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="display text-xl group-hover:text-devil-bright">Do United really score late?</h3>
-                <span className="stat-num shrink-0 text-2xl font-semibold text-devil-bright">
-                  {pct(lateAgg.late, lateAgg.timed)}
+          <div className="relative p-5 sm:p-7">
+            <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
+              From Newton Heath to today
+            </p>
+            <h2 className="display text-3xl sm:text-4xl leading-[0.97] text-balance max-w-3xl">
+              One thread through{" "}
+              <span className="text-devil-bright">Manchester United’s</span> history
+            </h2>
+            <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
+              {fmtNum(rec.p)} matches across {years} years of league, cup, and European football. 
+            </p>
+            <div className="mt-6 max-w-2xl">
+              <SearchCommand autoFocusKey={false} />
+              <p className="text-xs text-ink-faint mt-1.5">
+                <span className="sm:hidden">Search</span>
+                <span className="hidden sm:inline">
+                  Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
                 </span>
-              </div>
-              <p className="mt-1 text-sm text-ink-dim">
-                of timed United goals come after the 85th minute, roughly double an even spread across the 90.
+                {" "}— players, matches, seasons; anything.
               </p>
-              <div className="mt-4">
-                <MinuteRidge bins={ridge} lateFrom={85} height={170} />
-              </div>
-              <p className="mt-auto pt-3 text-xs text-devil-bright opacity-0 transition-opacity group-hover:opacity-100">
-                See the late-goals breakdown →
-              </p>
-            </Link>
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
-              {MYTHS.map(([question, hook, href]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="flex flex-col justify-center rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
-                >
-                  <div className="text-sm font-medium">{question}</div>
-                  <div className="mt-1 text-xs text-ink-faint">{hook}</div>
-                </Link>
-              ))}
+            </div>
+
+            <div className="mt-8">
+              <HistorySkyline seasons={skyline} champions={champs} />
             </div>
           </div>
         </section>
       </div>
 
-      {/* ── Movement: the living record. What just happened, beside the all-time
-          shape of it, with the coverage ledger one click away. ── */}
+      {/* ── Movement: start a trail. The curated-cut launcher — the myth-tested
+          questions as answer-first doors into the record. (The "All-time peaks"
+          cards used to sit here; cut as redundant with the all-time record below
+          and the figures on /analytics — Session 3 of the restraint pass.) ── */}
+      <section>
+        <SectionHead
+          title="Start with a question"
+          aside={<Link href="/explore" className="text-devil-bright hover:underline">Discover all →</Link>}
+        />
+        <CuratedCarousel cards={questionCards} label="Curated questions" />
+        <p className="mt-2 text-xs text-ink-faint">
+          Myths fans repeat, each tested against the record — open one for its finding, the slice it
+          is drawn from, the coverage behind it, and the matches that produced it.
+        </p>
+      </section>
+
       <section className="grid lg:grid-cols-[1fr_20rem] gap-10">
         <div>
           <SectionHead
@@ -229,8 +157,8 @@ export default function Home() {
             ))}
           </div>
           <p className="text-xs text-ink-faint">
-            The win, draw and loss share of every match in each competition; the rule under each
-            bar runs to its matches played, so League dwarfs the cups. Through{" "}
+            The win, draw, and loss share of official matches; the underline scales with volume,
+            so the League matches are in proportion. Through{" "}
             <span className="stat-num">{lastDate}</span>, updated after every match — each
             row links to its matches, and the{" "}
             <Link href="/data" className="text-devil-bright hover:underline">coverage ledger</Link> shows what is
@@ -239,8 +167,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Movement: explore. The quiet browse close, set off by a divider so the
-          eye registers the shift from "look at this" to "go find your own". ── */}
+      {/* ── The quiet browse close: the all-time scorers, set off by a divider so
+          the eye registers the shift into the people behind the record. ── */}
       <div className="space-y-8 border-t border-line/60 pt-10">
         {scorers.length > 0 && (
           <section>
@@ -267,22 +195,6 @@ export default function Home() {
             </div>
           </section>
         )}
-
-        <section>
-          <h2 className="display text-xl mb-3">Routes into the record</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {ROUTES.map(([label, href, hint]) => (
-              <Link
-                key={href}
-                href={href}
-                className="border border-line rounded-lg bg-panel px-4 py-3 hover:border-devil/60 transition-colors"
-              >
-                <div className="font-medium text-sm">{label}</div>
-                <div className="text-xs text-ink-faint mt-0.5">{hint}</div>
-              </Link>
-            ))}
-          </div>
-        </section>
       </div>
     </div>
   );

@@ -1,14 +1,31 @@
+/** Canonical input placeholder shared across search entry points. */
+export const SEARCH_PLACEHOLDER = "Search names, seasons, or questions…";
+
 /**
- * Worked example queries for the empty state — questions the deterministic
  * parser actually answers, so a first-time searcher sees what the box can do.
- * Shared by the dropdown empty state, the command palette, and /search.
+ * Shared by the dropdown empty state, the command palette, and /search. The
+ * natural-language entry ("did United ever beat Barcelona") teaches that the box
+ * understands how people actually argue, not only the operator grammar.
  */
 export const POPULAR_SEARCHES: { q: string; hint: string }[] = [
+  { q: "did United ever beat Barcelona", hint: "ask it plainly" },
   { q: "record away at Arsenal", hint: "venue-aware head-to-head" },
   { q: "biggest win in the 90s", hint: "era-scoped superlative" },
   { q: "United in Europe", hint: "competition-scoped record" },
   { q: "Rooney vs Charlton", hint: "player comparison" },
   { q: "late goals under Ferguson", hint: "a shaped question" },
+];
+
+/** Bare example queries — one source of truth for the rotating placeholder and the
+ *  never-blank reshape suggestions, drawn from the questions the parser answers. */
+export const EXAMPLE_QUERIES: string[] = POPULAR_SEARCHES.map((p) => p.q);
+
+/** A few strong reshapes shown when a query finds nothing, so the box is never a
+ *  dead end ("no exact match — try one of these"). */
+export const RESHAPE_PROMPTS: string[] = [
+  "did United ever beat Barcelona",
+  "record away at Liverpool",
+  "biggest win in the 90s",
 ];
 
 /** One-line syntax hints for the scoping operators. */

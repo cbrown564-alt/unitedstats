@@ -1,9 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerClubRanks,
   playerCuratedGoalTypes, playerCuratedTotals,
-  playerGoalMatches, playerGoalMinutes, playerGoalsByOpponent, playerLineupMatches,
+  playerGoalMatches, playerGoalMinutes, playerGoalMinuteBins, playerGoalsByOpponent, playerLineupMatches,
   playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
@@ -11,8 +12,8 @@ import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PlayerSeasonTable, type SeasonSplit } from "@/components/PlayerSeasonTable";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
-import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
+import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
@@ -24,9 +25,33 @@ import { ContributionSpine } from "@/components/charts/ContributionSpine";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
 import { TransferList } from "@/components/TransferList";
-import { fmtDate, fmtNum, pct } from "@/lib/format";
+import { EvidenceLink } from "@/components/EvidenceLink";
+import { fmtDate, fmtNum, pct, playerCareerSpan } from "@/lib/format";
+import { queryString } from "@/lib/url";
+import { entityRef } from "@/lib/citations";
+import { correctionPrefillHref } from "@/lib/corrections";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const p = playerById(id);
+  if (!p) return {};
+  const span = playerCareerSpan(p);
+  const title = `${p.name}`;
+  const description = `${p.name} — Manchester United playing record from ${span}. ${fmtNum(p.apps)} appearances, ${fmtNum(p.goals)} goals, and ${fmtNum(p.assists)} assists.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
+
+const SCORING_ARCHIVE_INLINE_MAX = 25;
+const APPEARANCE_ARCHIVE_INLINE_MAX = 60;
 
 export async function generateStaticParams() {
   return playersIndex().map((p) => ({ id: p.player_id }));
@@ -45,6 +70,15 @@ export default async function PlayerPage({
 
   const p = playerById(id);
   if (!p) notFound();
+  const playerCorrectionHref = correctionPrefillHref({
+    targetKind: "player",
+    targetId: id,
+    targetLabel: p.name,
+    fieldPath: `players[id=${id}].name`,
+    currentValue: p.name,
+    pagePath: `/player/${id}`,
+    citableId: entityRef("player", id).id,
+  });
 
   const bySeason = playerSplitsBySeason(id);
   const matches = playerGoalMatches(id);
@@ -66,11 +100,10 @@ export default async function PlayerPage({
 
   const coveredSeasons = bySeason.filter((s) => s.apps > 0);
 
-  // Goal-minute distribution as a 5-minute ridge across the 90; minutes past 90
-  // fold into the closing bin. The final-15 share is called out for the late trail.
-  const ridgeBins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
-  for (const m of minutes) ridgeBins[Math.min(17, Math.floor((m - 1) / 5))].n++;
-  const lateGoals = minutes.filter((m) => m > 75).length;
+  // Goal-minute distribution as 5-minute columns across the 90, with stoppage-time
+  // goals (90+) held out so they stack on the final bar — the same encoding as the
+  // club-wide late-goals chart.
+  const minuteShape = playerGoalMinuteBins(id);
 
   // League vs cup split of recorded goals (unofficial excluded, matching the rest of the app).
   const leagueGoals = compSplits.filter((c) => c.type === "league").reduce((a, c) => a + c.goals, 0);
@@ -95,13 +128,7 @@ export default async function PlayerPage({
     ? timeline.reduce((a, b) => (b.date > a.date ? b : a))
     : null;
 
-  const careerYears =
-    p.career ??
-    (p.first_year && p.last_year
-      ? `${p.first_year}–${p.last_year}`
-      : p.first_year
-        ? `${p.first_year}–`
-        : null);
+  const careerYears = playerCareerSpan(p);
 
   // Scoring matches (newest first). For a prolific scorer the flat list is huge,
   // so we lead with the hauls and tuck the complete record, season-grouped, behind
@@ -113,7 +140,7 @@ export default async function PlayerPage({
   // The haul cards are a highlight reel, not the full multi-goal list — biggest
   // nights first, capped, with the complete record carried by the archive below.
   const topHauls = hauls.slice(0, 6);
-  const longScoredList = matches.length > 25;
+  const longScoredList = matches.length > SCORING_ARCHIVE_INLINE_MAX;
   const scoredBySeason: [string, typeof matches][] = [];
   const seasonIndex = new Map<string, number>();
   for (const m of matches) {
@@ -144,6 +171,7 @@ export default async function PlayerPage({
     }
     appsBySeason[i][1].push(m);
   }
+  const longAppearanceList = appearances.length > APPEARANCE_ARCHIVE_INLINE_MAX;
 
   // Goal-count badge with the recorded minutes, reused across the scored lists.
   const goalExtra = (m: { goals: number; minutes?: string | null }) => {
@@ -190,6 +218,7 @@ export default async function PlayerPage({
     <div className="space-y-10">
       <PlayerPlate
         name={p.name}
+        share={{ path: `/player/${id}`, title: `${p.name} — Manchester United record` }}
         portrait={{
           src: p.player_thumb_url ?? p.player_image_url,
           pageUrl: p.player_image_page_url,
@@ -214,36 +243,42 @@ export default async function PlayerPage({
         shirts={shirts}
         caveat="Goals, apps, and starts use verified competitive player records where available. Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from recorded match coverage — the part of a career we can evidence, not a career total."
       />
+      <Link href={playerCorrectionHref} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
+        Suggest player correction
+      </Link>
 
       {transfers.length > 0 && (
         <section>
-          <SectionHead title="Comings and goings" aside={`${fmtNum(transfers.length)} recorded`} />
+          <SectionHead title="Transfer record" aside={`${fmtNum(transfers.length)} recorded`} />
           <TransferList transfers={transfers} />
         </section>
       )}
 
       {(minutes.length > 3 || facetCount > 0) && (
-        <section className="space-y-3">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-            <h2 className="display text-xl">The shape of his scoring</h2>
-            <span className="stat-num text-xs text-ink-faint">recorded goals</span>
-          </div>
+        <details open className="group space-y-3">
+          <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3">
+            <h2 className="display text-xl">Scoring profile</h2>
+            <span className="stat-num text-xs text-ink-faint">
+              recorded goals ·{" "}
+              <span className="text-devil-bright group-open:hidden">show</span>
+              <span className="hidden text-devil-bright group-open:inline">hide</span>
+            </span>
+          </summary>
 
           <div className="overflow-hidden rounded-xl border border-line bg-panel">
             {minutes.length > 3 && (
               <div className="border-b border-line p-4 sm:p-5">
-                <div className="mb-2 flex items-baseline justify-between gap-3">
-                  <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">When in the match the goals come</p>
-                  {lateGoals > 0 && (
-                    <span className="stat-num text-xs text-ink-dim">
-                      <span className="text-devil-bright">{pct(lateGoals, minutes.length)}</span> in the final 15
-                    </span>
+                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Goal timing across the ninety minutes</p>
+                <MinuteColumns bins={minuteShape.bins} stoppage={minuteShape.stoppage} height={170} subject={p.name} />
+                <p className="mt-1 text-xs text-ink-dim">
+                  <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
+                  {minuteShape.stoppage > 0 && (
+                    <>
+                      {" · "}
+                      <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage time</span>
+                    </>
                   )}
-                </div>
-                <MinuteRidge bins={ridgeBins} lateFrom={75} lateLabel={null} subject={p.name} height={170} />
-                <p className="mt-1 text-xs text-ink-faint">
-                  {fmtNum(minutes.length)} goals with a recorded minute, in 5-minute windows. The closing 15 are shaded;
-                  the dashed line is an even spread across the 90.
+                  . {fmtNum(minutes.length)} goals with a recorded minute; the dashed line is an even spread across the 90.
                 </p>
               </div>
             )}
@@ -252,7 +287,7 @@ export default async function PlayerPage({
               <div className={`grid divide-y divide-line sm:divide-x sm:divide-y-0 ${facetColsClass}`}>
                 {leagueGoals + cupGoals > 0 && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Where they landed</p>
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Goals by competition</p>
                     <SplitBar
                       height={16}
                       segments={[
@@ -273,8 +308,8 @@ export default async function PlayerPage({
 
                 {topOpponent && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Favourite victim</p>
-                    <Link href={`/opponent/${topOpponent.opponent_id}`} className="group block">
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Top opponent</p>
+                    <Link href={`/opponent/${topOpponent.opponent_id}`} className="group block focus-ring">
                       <span className="stat-num text-3xl font-semibold text-devil-bright">{fmtNum(topOpponent.goals)}</span>
                       <span className="ml-2 text-sm text-ink-dim">goals</span>
                       <div className="mt-0.5 truncate text-sm font-medium group-hover:text-devil-bright">
@@ -287,7 +322,7 @@ export default async function PlayerPage({
                         {opponentGoals.slice(1, 3).map((o, i) => (
                           <span key={o.opponent_id}>
                             {i > 0 && ", "}
-                            <Link href={`/opponent/${o.opponent_id}`} className="hover:text-devil-bright">
+                            <Link href={`/opponent/${o.opponent_id}`} className="hover:text-devil-bright focus-ring">
                               {o.opponent_name} <span className="stat-num">{fmtNum(o.goals)}</span>
                             </Link>
                           </span>
@@ -299,21 +334,21 @@ export default async function PlayerPage({
 
                 {bestRun && (
                   <div className="p-4 sm:p-5">
-                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Best scoring run</p>
+                    <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Longest scoring run</p>
                     <span className="stat-num text-3xl font-semibold text-devil-bright">{bestRun.length}</span>
                     <span className="ml-2 text-sm text-ink-dim">in a row</span>
                     <p className="stat-num mt-1 text-xs text-ink-faint">
-                      {fmtDate(bestRun.from)} – {fmtDate(bestRun.to)}
+                      {fmtDate(bestRun.from)}–{fmtDate(bestRun.to)}
                     </p>
-                    <p className="mt-1 text-[11px] leading-4 text-ink-faint">
-                      Consecutive matches scored in, across games with complete scorer records — gaps break a run.
+                    <p className="mt-1 text-[11px] leading-4 text-ink-dim">
+                      Consecutive matches where he scored, across games with complete goalscorer records — gaps break a run.
                     </p>
                   </div>
                 )}
               </div>
             )}
           </div>
-        </section>
+        </details>
       )}
 
       {curatedTotals && (
@@ -352,7 +387,7 @@ export default async function PlayerPage({
           )}
 
           <CoverageNote
-            slice="curated goals, assists & goal types, 1987–2015"
+            slice="curated goals, assists, and goal types, 1987–2015"
             coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
             evidenceHref={curatedTotals.source_url ?? undefined}
             evidenceLabel="Tableau source"
@@ -364,14 +399,22 @@ export default async function PlayerPage({
         <section id="seasons" className="space-y-3">
           <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <h2 className="display text-xl">Season by season</h2>
-            <span className="stat-num text-xs text-ink-faint">
+            <span className="stat-num text-xs text-ink-dim">
               {fmtNum(p.recorded_goals)} recorded goals · {fmtNum(coveredSeasons.length)} of {fmtNum(bySeason.length)} seasons covered
             </span>
           </div>
 
           {bySeason.length > 1 && (
-            <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-              <div className="mb-2 flex items-center gap-4 text-[11px] text-ink-faint">
+            <details open className="group rounded-xl border border-line bg-panel">
+              <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+                <span className="text-sm font-medium text-ink-dim">Goals and assists by season</span>
+                <span className="stat-num text-xs text-ink-faint">
+                  <span className="text-devil-bright group-open:hidden">show chart</span>
+                  <span className="hidden text-devil-bright group-open:inline">hide</span>
+                </span>
+              </summary>
+              <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+              <div className="mb-2 mt-4 flex items-center gap-4 text-[11px] text-ink-faint">
                 <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" /> goals</span>
                 <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" /> assists</span>
               </div>
@@ -387,11 +430,12 @@ export default async function PlayerPage({
                 labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
                 chartLabel={`${p.name} goals and assists by season`}
               />
-              <p className="mt-1 text-xs text-ink-faint">
+              <p className="mt-1 text-xs text-ink-dim">
                 Recorded goals and combined assists (curated through 2014-15, match events after) per season;
                 early or sparsely covered seasons can read low.
               </p>
-            </div>
+              </div>
+            </details>
           )}
 
           <details open className="group">
@@ -418,27 +462,36 @@ export default async function PlayerPage({
 
       <section id="scored" className="space-y-4">
         <div className="flex items-baseline justify-between">
-          <h2 className="display text-xl">Matches scored in</h2>
+          <h2 className="display text-xl">Matches where he scored</h2>
           {matches.length > 0 && (
             <span className="stat-num text-xs text-ink-faint">{fmtNum(matches.length)} matches</span>
           )}
         </div>
 
         {matches.length === 0 ? (
-          <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-faint">
-            No matches with recorded scorer data yet.
+          <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-dim">
+            No matches with recorded goalscorer data yet.
           </p>
         ) : (
           <>
             {matches.length >= 12 && (
-              <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-                <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-ink-faint">Goals per game, across the career</p>
-                <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
-                <p className="mt-2 text-[11px] leading-4 text-ink-faint">
-                  Every match he scored in, in order — bar height is the goals that game; gold marks the multi-goal
-                  nights, the pips his hat-tricks. Scoring games only, so blank games aren&apos;t drawn.
-                </p>
-              </div>
+              <details open className="group rounded-xl border border-line bg-panel">
+                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+                  <span className="text-sm font-medium text-ink-dim">Goals per game, across the career</span>
+                  <span className="stat-num text-xs text-ink-faint">
+                    <span className="text-devil-bright group-open:hidden">show chart</span>
+                    <span className="hidden text-devil-bright group-open:inline">hide</span>
+                  </span>
+                </summary>
+                <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                  <p className="mb-2 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Contribution spine</p>
+                  <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
+                  <p className="mt-2 text-[11px] leading-4 text-ink-dim">
+                    Every match where he scored, in order — bar height is the goals in that game; gold marks multi-goal
+                    nights, and pips mark his hat-tricks. Only matches where he scored are drawn, so blank games are omitted.
+                  </p>
+                </div>
+              </details>
             )}
 
             {!longScoredList ? (
@@ -446,7 +499,7 @@ export default async function PlayerPage({
             ) : (
               <>
                 <p className="text-sm text-ink-dim">
-                  {fmtNum(matches.length)} matches carry a recorded goal
+                  He scored in {fmtNum(matches.length)} matches with recorded goal data
                   {multiGoalGames > 0 && (
                     <>
                       , including{" "}
@@ -473,37 +526,31 @@ export default async function PlayerPage({
                   </div>
                 )}
 
-                <details className="group">
-                  <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
-                    <h3 className="text-sm font-medium text-ink-dim">Every scoring match, season by season</h3>
-                    <span className="stat-num text-xs text-devil-bright">
-                      <span className="group-open:hidden">show all {fmtNum(matches.length)}</span>
-                      <span className="hidden group-open:inline">hide</span>
-                    </span>
-                  </summary>
-                  <div className="mt-3">
-                    <ArchiveJumpRail matches={matches} idPrefix="scored" />
+                <div>
+                  <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
+                    <h3 className="text-sm font-medium text-ink-dim">Seasons where he scored</h3>
+                    <EvidenceLink
+                      href={`/matches${queryString({ scorer: id })}`}
+                      label={`Open all ${fmtNum(matches.length)} in the match browser →`}
+                    />
                   </div>
-                  <div className="mt-3 space-y-6">
+                  <ArchiveJumpRail matches={matches} idPrefix="scored" />
+                  <div className="mt-3 space-y-2">
                     {scoredBySeason.map(([season, ms]) => {
                       const seasonGoals = ms.reduce((a, m) => a + m.goals, 0);
                       return (
-                        <div key={season} id={`scored-${season}`} className="scroll-mt-24">
-                          <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
-                            <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright">
-                              {season}
-                            </Link>
-                            <span className="stat-num text-xs text-ink-faint">
-                              <span className="text-devil-bright">{fmtNum(seasonGoals)}</span> goal{seasonGoals === 1 ? "" : "s"}
-                              {" · "}{fmtNum(ms.length)} match{ms.length === 1 ? "" : "es"}
-                            </span>
-                          </div>
-                          <MatchList matches={ms} renderExtra={goalExtra} />
-                        </div>
+                        <SeasonEvidenceRow
+                          key={season}
+                          id={`scored-${season}`}
+                          season={season}
+                          href={`/matches${queryString({ scorer: id, season })}`}
+                          primary={`${fmtNum(seasonGoals)} goal${seasonGoals === 1 ? "" : "s"}`}
+                          secondary={`Scored in ${fmtNum(ms.length)} match${ms.length === 1 ? "" : "es"}`}
+                        />
                       );
                     })}
                   </div>
-                </details>
+                </div>
               </>
             )}
           </>
@@ -521,8 +568,16 @@ export default async function PlayerPage({
             const started = appearances.filter((m) => m.started).length;
             const sub = appearances.length - started;
             return (
-              <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-                <p className="mb-2.5 text-[11px] uppercase tracking-[0.14em] text-ink-faint">How he came into the game</p>
+              <details open className="group rounded-xl border border-line bg-panel">
+                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+                  <span className="text-sm font-medium text-ink-dim">Starts and substitute appearances</span>
+                  <span className="stat-num text-xs text-ink-faint">
+                    <span className="text-devil-bright group-open:hidden">show chart</span>
+                    <span className="hidden text-devil-bright group-open:inline">hide</span>
+                  </span>
+                </summary>
+                <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                <p className="mb-2.5 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Starts vs subs</p>
                 <SplitBar
                   height={16}
                   segments={[
@@ -538,48 +593,81 @@ export default async function PlayerPage({
                     Off the bench <span className="text-ink">{fmtNum(sub)}</span>
                   </span>
                 </div>
-                <p className="mt-2 text-xs text-ink-faint">
+                <p className="mt-2 text-xs text-ink-dim">
                   Across {fmtNum(appearances.length)} appearances with lineup coverage — not a career total.
                 </p>
-              </div>
+                </div>
+              </details>
             );
           })()}
 
-          <details className="group">
-            <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
-              <h3 className="text-sm font-medium text-ink-dim">The matches, season by season</h3>
-              <span className="stat-num text-xs text-devil-bright">
-                <span className="group-open:hidden">show all {fmtNum(appearances.length)}</span>
-                <span className="hidden group-open:inline">hide</span>
-              </span>
-            </summary>
-            <div className="mt-3">
+          {longAppearanceList ? (
+            <div>
+              <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="text-sm font-medium text-ink-dim">Seasons with lineup appearances</h3>
+                <EvidenceLink
+                  href={`/matches${queryString({ player: id })}`}
+                  label={`Open all ${fmtNum(appearances.length)} in the match browser →`}
+                />
+              </div>
               <ArchiveJumpRail matches={appearances} idPrefix="apps" />
+              <div className="mt-3 space-y-2">
+                {appsBySeason.map(([season, ms]) => {
+                  const starts = ms.filter((x) => x.started).length;
+                  return (
+                    <SeasonEvidenceRow
+                      key={season}
+                      id={`apps-${season}`}
+                      season={season}
+                      href={`/matches${queryString({ player: id, season })}`}
+                      primary={`${fmtNum(ms.length)} app${ms.length === 1 ? "" : "s"}`}
+                      secondary={`${fmtNum(starts)} start${starts === 1 ? "" : "s"}`}
+                    />
+                  );
+                })}
+              </div>
+              <CoverageNote
+                slice="lineup appearances, all competitions"
+                coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
+              />
             </div>
-            <div className="mt-3 space-y-6">
-              {appsBySeason.map(([season, ms]) => {
-                const starts = ms.filter((x) => x.started).length;
-                return (
-                  <div key={season} id={`apps-${season}`} className="scroll-mt-24">
-                    <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
-                      <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright">
-                        {season}
-                      </Link>
-                      <span className="stat-num text-xs text-ink-faint">
-                        {fmtNum(ms.length)} app{ms.length === 1 ? "" : "s"}
-                        {" · "}<span className="text-devil-bright">{fmtNum(starts)}</span> started
-                      </span>
+          ) : (
+            <details className="group">
+              <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
+                <h3 className="text-sm font-medium text-ink-dim">The matches, season by season</h3>
+                <span className="stat-num text-xs text-devil-bright">
+                  <span className="group-open:hidden">show all {fmtNum(appearances.length)}</span>
+                  <span className="hidden group-open:inline">hide</span>
+                </span>
+              </summary>
+              <div className="mt-3">
+                <ArchiveJumpRail matches={appearances} idPrefix="apps" />
+              </div>
+              <div className="mt-3 space-y-6">
+                {appsBySeason.map(([season, ms]) => {
+                  const starts = ms.filter((x) => x.started).length;
+                  return (
+                    <div key={season} id={`apps-${season}`} className="scroll-mt-24">
+                      <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
+                        <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright focus-ring">
+                          {season}
+                        </Link>
+                        <span className="stat-num text-xs text-ink-faint">
+                          {fmtNum(ms.length)} app{ms.length === 1 ? "" : "s"}
+                          {" · "}<span className="text-devil-bright">{fmtNum(starts)}</span> started
+                        </span>
+                      </div>
+                      <MatchList matches={ms} renderExtra={appsExtra} />
                     </div>
-                    <MatchList matches={ms} renderExtra={appsExtra} />
-                  </div>
-                );
-              })}
-            </div>
-            <CoverageNote
-              slice="lineup appearances, all competitions"
-              coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
-            />
-          </details>
+                  );
+                })}
+              </div>
+              <CoverageNote
+                slice="lineup appearances, all competitions"
+                coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
+              />
+            </details>
+          )}
         </section>
       )}
 
@@ -589,7 +677,7 @@ export default async function PlayerPage({
 
       {(peakSeason || topOpponent) && (
         <section>
-          <h2 className="display mb-3 text-xl">Keep exploring</h2>
+          <h2 className="display mb-3 text-xl">Related trails</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {peakSeason && (
               <TrailLink href={`/seasons/${peakSeason.season}`} title={peakSeason.season}>
@@ -603,16 +691,50 @@ export default async function PlayerPage({
             )}
             <TrailLink href="/players" title="All players">
               {ranks
-                ? `Where ${p.name} ranks among ${fmtNum(ranks.total)} recorded scorers.`
-                : "Browse the full scorer and appearance index."}
+                ? `Where ${p.name} ranks among ${fmtNum(ranks.total)} recorded goalscorers.`
+                : "Browse the full goalscorer and appearance index."}
             </TrailLink>
           </div>
         </section>
       )}
 
       <p className="text-sm">
-        <Link href="/players" className="text-devil-bright hover:underline">← All players</Link>
+        <Link href="/players" className="text-devil-bright hover:underline focus-ring">← All players</Link>
       </p>
     </div>
+  );
+}
+
+function SeasonEvidenceRow({
+  id,
+  season,
+  href,
+  primary,
+  secondary,
+}: {
+  id: string;
+  season: string;
+  href: string;
+  primary: string;
+  secondary: string;
+}) {
+  return (
+    <section id={id} className="scroll-mt-24 rounded-lg border border-line bg-panel px-3 py-2.5 sm:px-4">
+      <div className="flex items-center gap-3">
+        <Link href={`/seasons/${season}`} className="display w-[5.25rem] shrink-0 text-base leading-none hover:text-devil-bright focus-ring">
+          {season}
+        </Link>
+        <span className="stat-num text-xs text-ink">
+          <span className="text-devil-bright">{primary}</span>
+          <span className="text-ink-dim"> · {secondary}</span>
+        </span>
+        <Link
+          href={href}
+          className="ml-auto shrink-0 rounded-md border border-line bg-panel-2 px-2.5 py-1 text-xs text-devil-bright transition-colors hover:border-devil/60 hover:bg-devil/10 focus-ring"
+        >
+          Open
+        </Link>
+      </div>
+    </section>
   );
 }

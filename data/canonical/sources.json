@@ -41,6 +41,14 @@
       "notes": "Preferred image source because Commons exposes license and attribution metadata. Wikipedia pageimages may be used as a fallback only when Commons imageinfo is available. Do not replace with club or agency images unless explicit reuse permission is captured."
     },
     {
+      "id": "football-fandom",
+      "label": "Football Wiki (Fandom)",
+      "kind": "open-media",
+      "url": "https://football.fandom.com/",
+      "coverage": "Manual portrait fallback when no Wikimedia image exists for a player in the media cohort.",
+      "notes": "Fandom community content is CC BY-SA 3.0; individual file provenance is recorded per player in data/canonical/player-media.json. Cached locally under public/media/sources/ — not hotlinked at runtime."
+    },
+    {
       "id": "wikidata-positions",
       "label": "Wikidata (position played on team)",
       "kind": "reference",

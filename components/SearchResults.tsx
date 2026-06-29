@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { SearchEntity, ShapedAnswer } from "@/lib/search";
 import { highlight } from "@/lib/search/highlight";
 import { KIND_LABELS } from "@/lib/search/examples";
+import { AnswerCoverageTag } from "./AnswerCoverageTag";
 
 /**
  * The shared, keyboard-driven results list rendered inside both the header
@@ -29,7 +30,7 @@ export function SearchResults({
   listId: string;
   /** Builds the DOM id for option N, so the input can point aria-activedescendant at it. */
   optionId: (i: number) => string;
-  onSelect: (href: string) => void;
+  onSelect: (href: string, entity?: SearchEntity) => void;
   onHover?: (i: number) => void;
   footer?: React.ReactNode;
 }) {
@@ -42,13 +43,19 @@ export function SearchResults({
             href={s.href}
             onClick={() => onSelect(s.href)}
             onMouseEnter={() => onHover?.(i)}
-            className={`block px-4 py-2.5 border-b border-line ${active === i ? "bg-panel-2" : "hover:bg-panel-2"}`}
+            className={`tap-target block px-4 py-2.5 border-b border-line ${active === i ? "bg-panel-2" : "hover:bg-panel-2"}`}
           >
+            {s.tentative && (
+              <div className="text-[10px] uppercase tracking-wider text-ink-faint">Did you mean</div>
+            )}
             <div className="flex justify-between gap-3 text-sm">
               <span className="font-medium">{s.title}</span>
               <span className="text-xs text-devil-bright whitespace-nowrap">{s.hrefLabel}</span>
             </div>
-            <div className="stat-num text-xs text-ink-dim mt-0.5">{s.summary}</div>
+            <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
+              {s.coverage && <AnswerCoverageTag coverage={s.coverage} />}
+            </div>
           </Link>
         </li>
       ))}
@@ -58,14 +65,14 @@ export function SearchResults({
           <li key={`${r.kind}-${r.href}`} id={optionId(idx)} role="option" aria-selected={active === idx}>
             <Link
               href={r.href}
-              onClick={() => onSelect(r.href)}
+              onClick={() => onSelect(r.href, r)}
               onMouseEnter={() => onHover?.(idx)}
-              className={`flex items-center justify-between gap-3 px-4 py-2 text-sm ${
+              className={`tap-target flex items-center justify-between gap-3 px-4 py-2.5 text-sm sm:py-2 ${
                 active === idx ? "bg-panel-2" : "hover:bg-panel-2"
               }`}
             >
               <span className="truncate">
-                <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2 inline-block w-20">
+                <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2 inline-block w-16 sm:w-20">
                   {KIND_LABELS[r.kind] ?? r.kind}
                 </span>
                 <span className="font-medium">{highlight(r.label, query)}</span>

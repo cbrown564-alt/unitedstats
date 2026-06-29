@@ -18,11 +18,20 @@ import test from "node:test";
 import {
   allTimeRecord,
   eloSeries,
+  findMatches,
   getMeta,
+  matchesSummary,
   recordByCompetitionType,
   topScorers,
 } from "../lib/queries";
+import { comebacks } from "../lib/trails";
+import { clubStreaks, topRuns } from "../lib/streaks";
+import { compareEras, compareManagers, comparePlayers } from "../lib/compare";
+import {
+  CURATED_CUTS, cutFromParams, cutHref, curatedCut, isCurated, runCut,
+} from "../lib/cut";
 import { runSearch } from "../lib/search";
+import { classifyMiss } from "../lib/search/log";
 import { getDb } from "../lib/db";
 
 const rec = (cond: string, ...params: unknown[]) =>
@@ -252,7 +261,7 @@ test("shaped search: record away at Arsenal", () => {
   const { shaped } = runSearch("record away at arsenal");
   const hit = shaped.find((s) => s.title === "Record away at Arsenal");
   assert.ok(hit, "expected a shaped answer for 'record away at arsenal'");
-  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won · GF \d+ GA \d+$/);
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+% won · GF \d+ GA \d+$/);
   assert.equal(hit.href, "/matches?opponent=arsenal&venue=A");
 });
 
@@ -283,7 +292,7 @@ test("head-to-head resolves from a bare opponent phrase ('Arsenal away record')"
   const { shaped } = runSearch("arsenal away record");
   const hit = shaped.find((s) => s.title === "Record away at Arsenal");
   assert.ok(hit, "expected a venue-aware head-to-head for 'arsenal away record'");
-  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+\.\d% won · GF \d+ GA \d+$/);
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+% won · GF \d+ GA \d+$/);
   assert.equal(hit.href, "/matches?opponent=arsenal&venue=A");
 });
 
@@ -319,4 +328,441 @@ test("scoping operators: 'player:' constrains kind, 'vs:' yields a head-to-head"
 
   const { shaped } = runSearch("vs:liverpool");
   assert.ok(shaped.some((s) => /Record against Liverpool/.test(s.title)), "vs: should return a head-to-head");
+});
+
+// ------------------------------------------ phase 18.2: search as the front door
+
+test("18.2 natural phrasing: a verb-shaped question computes a head-to-head", () => {
+  // "did united ever beat barcelona" used to return nothing at all (no shaped, no
+  // entity). The expanded verb lexicon now recognises "beat" and routes it.
+  const { shaped } = runSearch("did united ever beat barcelona");
+  const hit = shaped.find((s) => /Record against FC Barcelona/.test(s.title));
+  assert.ok(hit, "expected a computed head-to-head for natural phrasing");
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+ · \d+% won/);
+  assert.equal(hit.tentative, undefined, "a recognised verb is confident, not a guess");
+  assert.equal(hit.coverage?.grade, "complete", "the result record is complete");
+});
+
+test("18.2 tentative fallback: question-shape + one strong opponent, no trigger", () => {
+  // No verb, no trigger word — just question-shape and an opponent. The parser
+  // offers a *tentative* best guess ("Did you mean …?"), never an assertion.
+  const { shaped } = runSearch("how many times barcelona");
+  const guess = shaped.find((s) => /Record against FC Barcelona/.test(s.title));
+  assert.ok(guess, "expected a tentative head-to-head");
+  assert.equal(guess.tentative, true, "a verb-less guess must be flagged tentative");
+});
+
+test("18.2 no false positive: a bare opponent name stays entity-first", () => {
+  // A plain name must NOT auto-fire a head-to-head — the researcher may want the
+  // opponent page, and entity rows are the right answer.
+  const { shaped, entities } = runSearch("barcelona");
+  assert.equal(shaped.length, 0, "a bare name shapes no answer");
+  assert.ok(entities.some((e) => e.kind === "opponent" && /Barcelona/.test(e.label)));
+});
+
+test("18.2 subject-strip is safe for clubs whose name contains 'United'", () => {
+  // Stripping the United subject must never eat a trailing club name.
+  const bare = runSearch("leeds united");
+  assert.equal(bare.shaped.length, 0, "'leeds united' is an opponent lookup, not a cut");
+  const h2h = runSearch("did united lose to leeds").shaped;
+  assert.ok(h2h.some((s) => /Record against Leeds United/.test(s.title)), "verb-shaped vs Leeds resolves");
+});
+
+test("18.2 coverage grade rides on every shaped verdict, graded honestly", () => {
+  const h2h = runSearch("record away at arsenal").shaped.find((s) => /Arsenal/.test(s.title));
+  assert.equal(h2h?.coverage?.grade, "complete", "result record is complete");
+
+  const late = runSearch("late goals under ferguson").shaped[0];
+  assert.equal(late?.coverage?.grade, "partial", "an event-derived answer is partial");
+  assert.match(late.coverage.label, /timed-goal/);
+});
+
+// ------------------------ phase 18.2 cont.: the player-vs-opponent answer shape
+
+test("player vs opponent: a player's goals against one club computes", () => {
+  // The shape the team head-to-head structurally can't reach. Rooney is retired,
+  // so the recorded figure is a closed slice; pinned structurally (player, opponent,
+  // grade) rather than to an exact count so future event backfill can only grow it,
+  // while a broken join (0 goals → "No recorded goals…") still fails the regex.
+  const { shaped } = runSearch("how many times did rooney score against arsenal");
+  const hit = shaped.find((s) => s.title === "Wayne Rooney v Arsenal");
+  assert.ok(hit, "expected a player-vs-opponent answer");
+  assert.match(hit.summary, /^\d+ recorded goals in \d+ matches/);
+  assert.equal(hit.coverage?.grade, "partial", "goal events are partial coverage");
+  // The evidence link reproduces exactly the matches counted: this player's goals
+  // against this club, via the shared scorer+opponent /matches filter.
+  assert.match(hit.href, /^\/matches\?/);
+  assert.match(hit.href, /scorer=wayne-rooney/);
+  assert.match(hit.href, /opponent=arsenal/);
+});
+
+test("player-vs-opponent never steals a two-player comparison", () => {
+  // "rooney vs charlton" must stay Rooney-vs-Bobby-Charlton, not also surface
+  // "Wayne Rooney v Charlton Athletic" (a real opponent club).
+  const { shaped } = runSearch("rooney vs charlton");
+  assert.ok(shaped.some((s) => s.title === "Wayne Rooney vs Bobby Charlton"));
+  assert.ok(!shaped.some((s) => /Charlton Athletic/.test(s.title)), "the opponent read must not leak in");
+});
+
+test("ambiguous 'player vs club token' prefers opponent cuts and keeps player comparison as an alternative", () => {
+  const { shaped } = runSearch("cantona vs leeds");
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — appearances"));
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — goals"));
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — assists"));
+  assert.ok(
+    shaped.some((s) => s.summary.includes("appearance")) &&
+      shaped.some((s) => s.summary.includes("recorded goal")) &&
+      shaped.some((s) => s.summary.includes("recorded assist")),
+    "expected appearance, goal, and assist variants for the player-vs-opponent cut",
+  );
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona vs Lee Sharpe"), "expected comparison as an alternative");
+});
+
+test("a team-record phrasing still falls through to the head-to-head", () => {
+  // "record against arsenal" names no player on the left, so player-vs-opponent
+  // returns null and the team head-to-head answers instead.
+  const { shaped } = runSearch("record against arsenal");
+  assert.ok(shaped.some((s) => s.title === "Record against Arsenal"));
+  assert.ok(!shaped.some((s) => / v Arsenal$/.test(s.title)), "no spurious player answer");
+});
+
+test("18.2 miss classification: shaped = hit, entity-only = fell, nothing = zero", () => {
+  assert.equal(classifyMiss(9, 1), undefined, "a shaped answer is never a miss");
+  assert.equal(classifyMiss(9, 0), "fell", "entity rows but no answer is a fall-through");
+  assert.equal(classifyMiss(0, 0), "zero", "nothing at all is a zero-result");
+});
+
+// ------------------------- the subject × metric × scope grammar (one engine)
+
+test("grammar: a player's metric varies by keyword (appearances, not just goals)", () => {
+  // The whack-a-mole fix: the metric is a slot, so the appearances cell — adjacent
+  // to the goals cell — computes instead of returning nothing.
+  const apps = runSearch("rooney appearances vs liverpool").shaped.find((s) => s.title === "Wayne Rooney v Liverpool");
+  assert.ok(apps, "expected a player-appearances answer");
+  assert.match(apps.summary, /^\d+ appearances? \(\d+ starts?\)/);
+  assert.equal(apps.coverage?.label, "lineup data", "appearances are lineup-derived");
+  assert.match(apps.href, /player=wayne-rooney/);
+  assert.match(apps.href, /opponent=liverpool/);
+});
+
+test("grammar: a manager is a subject — record scoped to him, link agrees with count", () => {
+  const hit = runSearch("ferguson record vs arsenal").shaped.find((s) => s.title === "Sir Alex Ferguson v Arsenal");
+  assert.ok(hit, "expected a manager-vs-opponent record");
+  assert.match(hit.summary, /^P\d+ W\d+ D\d+ L\d+/);
+  assert.equal(hit.coverage?.grade, "complete", "the result record is complete");
+  // The evidence link must carry the manager filter, or it would show every United
+  // v Arsenal match rather than Ferguson's — the count and the slice must match.
+  assert.match(hit.href, /manager=alex-ferguson/);
+  assert.match(hit.href, /opponent=arsenal/);
+});
+
+test("grammar: United's own goals over a scope is a complete count", () => {
+  const hit = runSearch("united goals at home in the 90s").shaped.find((s) => /^United goals/.test(s.title));
+  assert.ok(hit, "expected a team-goals aggregate");
+  assert.match(hit.summary, /^\d[\d,]* scored, \d[\d,]* conceded in \d+ matches$/);
+  assert.equal(hit.coverage?.grade, "complete", "goals-for is in the result table");
+  assert.equal(hit.href, "/matches?venue=H&from=1990&to=1999");
+});
+
+test("grammar: 'late' is a window on the goals metric, applied for any subject", () => {
+  // "late goals by Cantona" used to return nothing (the "by player" + "late"
+  // shape); "late goals against Bayern" silently dropped "late" and returned all
+  // goals. The window is now a slot: a rate over the same scope, partial coverage.
+  const byPlayer = runSearch("late goals by cantona").shaped.find((s) => /Cantona late goals/.test(s.title));
+  assert.ok(byPlayer, "expected a player late-goals rate");
+  assert.match(byPlayer.summary, /^\d+ of \d+ recorded goals? \(\d+%\) came after the 85th minute$/);
+  assert.equal(byPlayer.coverage?.label, "timed-goal data", "minute-derived → partial");
+
+  const vsOpp = runSearch("late goals against bayern").shaped.find((s) => /late goals v /.test(s.title));
+  assert.ok(vsOpp, "expected a team late-goals rate vs the opponent");
+  assert.match(vsOpp.summary, /came after the 85th minute$/);
+  assert.match(vsOpp.href, /goalWindow=late/);
+  assert.ok(!/scored, \d+ conceded/.test(vsOpp.summary), "'late' must not collapse to a plain goal total");
+});
+
+test("grammar: 'late' uses the canonical after-the-85th-minute definition", () => {
+  // One definition across the product (the homepage late-goals question and
+  // lib/trails.ts), not the search box's old looser "final 15 minutes".
+  const hit = runSearch("late goals under ferguson").shaped.find((s) => /late goals under/i.test(s.title));
+  assert.ok(hit, "expected a manager-scoped late-goals rate");
+  assert.match(hit.summary, /came after the 85th minute$/);
+  assert.equal(hit.coverage?.grade, "partial");
+});
+
+test("matches parity: event filters reproduce late-goal and assist evidence slices", () => {
+  const late = runSearch("late goals by cantona").shaped.find((s) => /Cantona late goals/.test(s.title));
+  assert.ok(late, "expected a player late-goals answer");
+  const lateUrl = new URL(`https://example.test${late.href}`);
+  assert.equal(lateUrl.searchParams.get("scorer"), "eric-cantona");
+  assert.equal(lateUrl.searchParams.get("goalWindow"), "late");
+  const lateSummary = matchesSummary({ scorer: "eric-cantona", goalWindow: "late" });
+  assert.match(late.summary, new RegExp(`^${lateSummary.p} of \\d+ recorded goals?`));
+
+  const assists = runSearch("rooney assists vs arsenal").shaped.find((s) => s.title === "Wayne Rooney v Arsenal");
+  assert.ok(assists, "expected a player-assists answer");
+  assert.match(assists.href, /assister=wayne-rooney/);
+  assert.match(assists.href, /opponent=arsenal/);
+  const assistMatches = findMatches({ assister: "wayne-rooney", opponent: "arsenal", limit: 200 });
+  assert.match(assists.summary, new RegExp(`recorded assists? in ${assistMatches.total} matches?`));
+});
+
+test("grammar: a bare player or manager name stays entity-first (no metric, no fire)", () => {
+  // Symmetry with the bare-opponent rule: only a metric or an opponent earns a
+  // shaped verdict, so typing a name still lands on its entity row.
+  assert.equal(runSearch("rooney").shaped.length, 0, "a bare player name shapes no answer");
+  assert.equal(runSearch("ferguson").shaped.length, 0, "a bare manager name shapes no answer");
+});
+
+// ------------------------------------------------ phase 9: runs and comebacks
+
+test("run detection is ordered, bounded, and reaches a deep unbeaten run", () => {
+  const runs = topRuns("unbeaten", 5);
+  assert.ok(runs.length > 0, "expected at least one unbeaten run");
+  // Longest first, then chronological — never increasing in length down the list.
+  for (let i = 1; i < runs.length; i++) {
+    assert.ok(runs[i].length <= runs[i - 1].length, "runs must be ordered longest-first");
+  }
+  // Each run is a real, forward span; an ended run names the match that broke it.
+  for (const r of runs) {
+    assert.ok(r.from <= r.to, `run span ${r.from}..${r.to} must run forwards`);
+    assert.equal(r.ongoing, r.ender === null, "a run is ongoing iff it has no ender");
+  }
+  // The all-time unbeaten record is the 1998-99 treble run; it can only grow, so
+  // this is a floor, not an exact pin.
+  assert.ok(runs[0].length >= 33, `longest unbeaten run ${runs[0].length} below the known 33`);
+
+  // Every kind produces a record run, and clubStreaks agrees with topRuns.
+  const s = clubStreaks(5);
+  assert.equal(s.unbeaten[0].length, runs[0].length);
+  for (const kind of ["winning", "scoring", "cleansheet"] as const) {
+    assert.ok(s[kind][0]?.length >= 3, `expected a ${kind} run of 3+`);
+  }
+});
+
+test("comeback detection is internally consistent and finds the 2001 Spurs fightback", () => {
+  const { summary, deepest } = comebacks(50);
+  // The funnel only narrows: wins ⊆ recoveries ⊆ fell-behind ⊆ replayable.
+  assert.ok(summary.wonFromBehind <= summary.recovered);
+  assert.ok(summary.recovered <= summary.fellBehind);
+  assert.ok(summary.fellBehind <= summary.replayable);
+  assert.ok(summary.twoPlusRecovered <= summary.recovered);
+  assert.equal(summary.replayable, Number(getMeta().matches_events_complete));
+  // Floors that only grow as more matches are minute-stamped.
+  assert.ok(summary.recovered >= 1000, `recoveries ${summary.recovered} below floor`);
+  assert.ok(summary.wonFromBehind >= 490, `comeback wins ${summary.wonFromBehind} below floor`);
+
+  // United trailed 3-0 at White Hart Lane in 2001 and won 5-3 — the canonical
+  // comeback, detected from minute-stamped goals with a deficit of 3.
+  const spurs = deepest.find((m) => m.id === "2001-09-29-tottenham-hotspur-a");
+  assert.ok(spurs, "expected the 5-3 at Spurs among the deepest comebacks");
+  assert.equal(spurs.deficit, 3);
+  assert.equal(spurs.result, "W");
+});
+
+test("compare builders reproduce the official record across the three modes", () => {
+  // Players: the comparison reads the official scorer/appearance record.
+  const players = comparePlayers("wayne-rooney", "bobby-charlton");
+  assert.ok(players, "expected a player comparison");
+  const byLabel = (c: NonNullable<typeof players>, label: string) =>
+    c.metrics.find((m) => m.label === label)!;
+  assert.deepEqual([byLabel(players, "Goals").a, byLabel(players, "Goals").b], [253, 249]);
+  assert.deepEqual([byLabel(players, "Appearances").a, byLabel(players, "Appearances").b], [559, 758]);
+  // Scoring depth: hat-tricks and best single-season return, both match-attributed
+  // and complete across these careers (Rooney 8 hat-tricks to Charlton's 7).
+  assert.deepEqual([byLabel(players, "Hat-tricks").a, byLabel(players, "Hat-tricks").b], [8, 7]);
+  const best = byLabel(players, "Best season");
+  assert.deepEqual([best.a, best.b], [34, 29]);
+  assert.match(best.note ?? "", /Charlton: 29 in/, "best-season note names the season");
+  assert.equal(byLabel(players, "Hat-tricks").comparable, undefined, "hat-tricks need no coverage gate");
+
+  // Trophies: medals by the real rules (5+ league apps in a title season, one
+  // in a cup won) — Rooney 17, Charlton 5 (3 league, FA Cup, European Cup).
+  assert.deepEqual([byLabel(players, "Trophies").a, byLabel(players, "Trophies").b], [17, 5]);
+
+  // Managers: Ferguson's trophy count is the canonical 38; Busby's reign is closed.
+  const mgrs = compareManagers("alex-ferguson", "matt-busby");
+  assert.ok(mgrs, "expected a manager comparison");
+  assert.deepEqual([byLabel(mgrs, "Trophies").a, byLabel(mgrs, "Trophies").b], [38, 11]);
+  assert.deepEqual([byLabel(mgrs, "Matches").a, byLabel(mgrs, "Matches").b], [1497, 1141]);
+  // Per-game toggle: Points total carries a Points-per-game rate form.
+  assert.ok(byLabel(mgrs, "Points").rate, "Points metric should expose a per-game rate");
+
+  // The trophy cabinet carries season-granular entries — one per glyph, each
+  // linking through. Ferguson's 38 trophies all resolve; league titles open the
+  // season page, cups open the deciding final.
+  if (mgrs.signature?.kind === "trophies") {
+    const fergie = mgrs.signature.a;
+    assert.equal(fergie.total, 38, "managerTrophyHaul total matches the canonical count");
+    assert.ok(fergie.entries?.length === 38, "every Ferguson trophy has an entry");
+    const leagues = fergie.entries!.filter((e) => e.cat === "league");
+    const cups = fergie.entries!.filter((e) => e.cat !== "league");
+    assert.ok(leagues.length > 0 && leagues.every((e) => e.href.startsWith("/seasons/")), "league titles link to the season page");
+    assert.ok(cups.every((e) => e.href.startsWith("/match/")), "cups link to the deciding final");
+    // The 1999 European Cup glyph resolves to a Champions League final entry.
+    const euro99 = fergie.entries!.find((e) => e.cat === "european" && e.season === "1998-99");
+    assert.ok(euro99, "the 1999 European Cup is in the haul");
+  }
+
+  // Eras: a closed-vs-closed era comparison resolves with sane win rates.
+  const eras = compareEras("busby", "ferguson");
+  assert.ok(eras, "expected an era comparison");
+  const ferWin = byLabel(eras, "Win rate").b;
+  assert.ok(ferWin != null && ferWin > 55 && ferWin < 62, `Ferguson-era win rate ${ferWin} out of range`);
+
+  // Coverage honesty: Rooney's career is inside the assists record, Charlton's
+  // predates it — assists must not be judged as a like-for-like figure.
+  const rooAssists = byLabel(players, "Assists");
+  assert.equal(rooAssists.comparable, false, "Rooney-vs-Charlton assists must be flagged non-comparable");
+  assert.ok(byLabel(players, "Goals").rate, "Goals metric should expose a per-90 rate");
+
+  // Rhymes: the Ferguson-vs-Mourinho reigns share a squad — players from the late
+  // Ferguson years carried over into Mourinho's tenure (Rooney, De Gea, …).
+  const mourinho = compareManagers("alex-ferguson", "jose-mourinho");
+  assert.ok(mourinho?.rhymes?.some((r) => r.label === "Shared squad"), "Ferguson vs Mourinho share squad members");
+
+  // The interactive skyline carries a per-season points-per-game for its hover —
+  // the squad context the static skyline didn't have. Every finish has the field.
+  if (eras.signature?.kind === "skyline") {
+    for (const f of [...eras.signature.a, ...eras.signature.b]) {
+      assert.ok("ppg" in f, "every era finish carries a ppg field");
+    }
+    const fergieChamps = eras.signature.b.filter((f) => f.champion);
+    assert.ok(fergieChamps.length > 0 && fergieChamps.every((f) => f.ppg != null && f.ppg > 1.5), "champion seasons carry a sane ppg");
+  }
+
+  // Same entity on both sides is not a comparison.
+  assert.equal(comparePlayers("wayne-rooney", "wayne-rooney"), null);
+  assert.equal(compareEras("busby", "busby"), null);
+});
+
+// ------------------------------------------------------------------ the Cut
+
+test("Cut params round-trip through the URL without loss", () => {
+  const cut = cutFromParams({ by: "manager", metric: "ppg", season: "1998-99", venue: "H" });
+  assert.equal(cut.dimension, "manager");
+  assert.equal(cut.metric, "ppg");
+  assert.equal(cut.filters.season, "1998-99");
+  assert.equal(cut.filters.venue, "H");
+
+  // Serialize, re-parse from the resulting query string: the cut is stable.
+  const sp = Object.fromEntries(new URL(`https://x${cutHref(cut)}`).searchParams);
+  const back = cutFromParams(sp);
+  assert.deepEqual(back.filters, cut.filters);
+  assert.equal(back.dimension, cut.dimension);
+  assert.equal(back.metric, cut.metric);
+
+  // Unknown dimension/metric fall back to the safe defaults rather than throwing.
+  const bad = cutFromParams({ by: "nonsense", metric: "vibes" });
+  assert.equal(bad.dimension, "decade");
+  assert.equal(bad.metric, "winrate");
+});
+
+test("only registered cuts are curated (the SEO guardrail)", () => {
+  // Every registry entry recognises itself.
+  for (const c of CURATED_CUTS) assert.equal(isCurated(curatedCut(c)), true, `curated ${c.slug}`);
+  // A registered combination, parsed from a bare URL, is curated.
+  assert.equal(cutFromParams({ by: "manager", metric: "ppg" }).curated, true);
+  // The same dimension on a different lens is a fork — noindex.
+  assert.equal(cutFromParams({ by: "manager", metric: "winrate" }).curated, false);
+  // Any added filter turns a curated cut into a fork.
+  assert.equal(cutFromParams({ by: "manager", metric: "ppg", venue: "H" }).curated, false);
+});
+
+test("runCut aggregates the record and degrades honestly", () => {
+  // Decades cover every match (every fixture has a date), so the grouped sum is
+  // the all-time total and the engine matches the canonical record.
+  const decades = runCut(cutFromParams({ by: "decade", metric: "winrate" }));
+  assert.equal(decades.played, allTimeRecord().p);
+  assert.ok(decades.groups.length >= 13, `expected 13+ decades, got ${decades.groups.length}`);
+  assert.equal(decades.coverage.grade, "complete");
+  assert.ok(decades.headline, "expected a standout decade");
+  for (const g of decades.groups) assert.equal(g.w + g.d + g.l, g.p, `W+D+L=P for ${g.label}`);
+
+  // Cross-check one group against a direct query: home matches in calendar 1990.
+  const venue90 = runCut(cutFromParams({ by: "venue", metric: "winrate", from: "1990", to: "1990" }));
+  const home = venue90.groups.find((g) => g.key === "H");
+  assert.ok(home, "expected a Home group in 1990");
+  const direct = rec("venue='H' AND date>='1990-01-01' AND date<='1990-12-31'");
+  assert.deepEqual(
+    { p: home.p, w: home.w, d: home.d, l: home.l, gf: home.gf, ga: home.ga },
+    { p: direct.p, w: direct.w, d: direct.d, l: direct.l, gf: direct.gf, ga: direct.ga },
+  );
+
+  // A fork whose filters intersect to nothing degrades to an empty state rather
+  // than a clean total over a hole — no headline, the coverage grade says empty.
+  const empty = runCut(cutFromParams({ by: "decade", metric: "winrate", season: "3000-3001" }));
+  assert.equal(empty.played, 0);
+  assert.equal(empty.groups.length, 0);
+  assert.equal(empty.headline, null);
+  assert.equal(empty.coverage.grade, "empty");
+
+  // Thin samples never top a rate ladder: the opponent win-rate cut leads with a
+  // solid-sample group that matches the headline, and every thin group sorts below
+  // every solid one (so a 100%-from-two-games club can't pose as the best record).
+  const opp = runCut(cutFromParams({ by: "opponent", metric: "winrate" }));
+  assert.equal(opp.groups[0].thin, false, "ladder must not open on a thin sample");
+  assert.equal(opp.groups[0].key, opp.headline?.key, "ladder #1 must be the headline");
+  const firstThin = opp.groups.findIndex((g) => g.thin);
+  if (firstThin !== -1) {
+    assert.ok(
+      opp.groups.slice(firstThin).every((g) => g.thin),
+      "no solid group may sort below a thin one",
+    );
+  }
+});
+
+test("player Cut ranks the squad and slices one player, from complete-history sources", () => {
+  // By-player goals reproduce the canonical all-time top scorer and headline him as
+  // the most of all players (a count metric — "the most", never "the strongest").
+  const scorers = runCut(cutFromParams({ subject: "player", by: "player", metric: "goals" }));
+  assert.equal(scorers.cut.subject, "player");
+  const top = scorers.groups[0];
+  assert.equal(top.key, "wayne-rooney");
+  assert.equal(top.value, 253);
+  assert.equal(scorers.headline?.key, "wayne-rooney");
+  assert.ok(scorers.headline, "expected a top-scorer headline");
+  assert.match(scorers.headline.gloss, /the most of [\d,]+ players/);
+  // A by-player row's evidence is the player's page; player cuts are forks (noindex).
+  assert.equal(top.href, "/player/wayne-rooney");
+  assert.equal(scorers.cut.curated, false);
+
+  // Single-player slice: grouping by season under a player filter counts THAT
+  // player's goals (attribution), not every goal in matches he played. The grouped
+  // total equals his recorded event goals, and his peak season matches a direct query.
+  const rooney = runCut(
+    cutFromParams({ subject: "player", by: "season", metric: "goals", player: "wayne-rooney" }),
+  );
+  const grouped = rooney.groups.reduce((s, g) => s + (g.value ?? 0), 0);
+  const directTotal = (
+    getDb()
+      .prepare(
+        "SELECT COUNT(*) n FROM match_events WHERE player_side='united' AND type IN ('goal','pen-goal') AND player_id='wayne-rooney'",
+      )
+      .get() as { n: number }
+  ).n;
+  assert.equal(grouped, directTotal);
+  const peak = getDb()
+    .prepare(
+      `SELECT m.season s, COUNT(*) n FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.player_side='united' AND e.type IN ('goal','pen-goal') AND e.player_id='wayne-rooney'
+       GROUP BY m.season ORDER BY n DESC, s LIMIT 1`,
+    )
+    .get() as { s: string; n: number };
+  const peakGroup = rooney.groups.find((g) => g.key === peak.s);
+  assert.ok(peakGroup && peakGroup.value === peak.n, "peak season goals match a direct query");
+
+  // A stale or cross-subject URL (a team dimension/metric under the player subject)
+  // falls back to the player defaults rather than producing an invalid cut.
+  const coerced = cutFromParams({ subject: "player", by: "manager", metric: "winrate" });
+  assert.equal(coerced.dimension, "player");
+  assert.equal(coerced.metric, "goals");
+
+  // subject survives the URL round-trip; team stays the clean default (no param).
+  const back = cutFromParams(Object.fromEntries(new URL(`https://x${cutHref(scorers.cut)}`).searchParams));
+  assert.equal(back.subject, "player");
+  assert.ok(!cutHref(cutFromParams({ by: "decade", metric: "winrate" })).includes("subject"));
+
+  // A rate lens (goals per app) never opens on a thin sample.
+  const gpa = runCut(cutFromParams({ subject: "player", by: "player", metric: "goalsperapp" }));
+  assert.equal(gpa.groups[0].thin, false, "rate ladder must not open on a thin sample");
 });

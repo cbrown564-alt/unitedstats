@@ -1,10 +1,9 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { opponentById, opponentMatches, opponentsIndex } from "@/lib/queries";
 import {
   longestStreak, notableMatches, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
 } from "@/lib/trails";
-import { oddsFor } from "@/lib/predict";
 import { clubColor } from "@/lib/clubColors";
 import { ClubBadge } from "@/components/ClubBadge";
 import { IdentityPlate } from "@/components/IdentityPlate";
@@ -18,8 +17,25 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { SectionHead } from "@/components/SectionHead";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
+import { queryString } from "@/lib/url";
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const o = opponentById(id);
+  if (!o) return {};
+  const title = `United v ${o.name}`;
+  const description = `Manchester United’s head-to-head record against ${o.name}. ${fmtNum(o.p)} meetings since ${o.first?.slice(0, 4)}: ${pct(o.w, o.p)} wins.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Red Thread`,
+      description,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return opponentsIndex().map((o) => ({ id: o.id }));
@@ -40,15 +56,6 @@ export default async function OpponentPage({
   const sequence = opponentResultSequence(id);
   const unbeaten = longestStreak(sequence, "unbeaten");
   const winless = longestStreak(sequence, "winless");
-  const oddsHome = oddsFor(id, "H");
-  const oddsAway = oddsFor(id, "A");
-  const oddsPanels =
-    oddsHome && oddsAway
-      ? [
-          { label: "At home", odds: oddsHome },
-          { label: "Away", odds: oddsAway },
-        ]
-      : [];
   const accent = clubColor(id, o.name).bg;
   const runs = [
     unbeaten && unbeaten.length >= 3
@@ -70,6 +77,7 @@ export default async function OpponentPage({
     <div className="space-y-8">
       <IdentityPlate
         eyebrow="Head to head"
+        share={{ path: `/opponent/${id}`, title: `Manchester United v ${o.name} — head-to-head record` }}
         leading={<ClubBadge id={id} name={o.name} size="lg" />}
         title={`United v ${o.name}`}
         subtitle={
@@ -126,7 +134,7 @@ export default async function OpponentPage({
                 {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
               </p>
               <CoverageNote
-                slice="knockout ties only — domestic & European cups."
+                slice="knockout ties only — domestic and European cups."
                 evidenceHref={`/matches?opponent=${id}&type=cup`}
                 evidenceLabel="Show the cup ties →"
               />
@@ -147,34 +155,6 @@ export default async function OpponentPage({
         </div>
       </section>
 
-      {oddsPanels.length > 0 && (
-        <section>
-          <SectionHead title="If they met tomorrow" aside="closed-universe Elo" />
-          <div className="grid sm:grid-cols-2 gap-3 max-w-2xl">
-            {oddsPanels.map(({ label, odds }) => (
-              <div key={label} className="border border-line rounded-lg bg-panel px-4 py-3">
-                <div className="text-xs text-ink-faint uppercase tracking-wider mb-1">{label}</div>
-                <div className="stat-num text-lg font-semibold">
-                  <span className="text-win">{(100 * odds.pW).toFixed(0)}%</span>
-                  <span className="text-ink-faint text-sm"> W · </span>
-                  <span className="text-draw">{(100 * odds.pD).toFixed(0)}%</span>
-                  <span className="text-ink-faint text-sm"> D · </span>
-                  <span className="text-loss">{(100 * odds.pL).toFixed(0)}%</span>
-                  <span className="text-ink-faint text-sm"> L</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-ink-faint mt-2 max-w-xl">
-            Closed-universe Elo at today&apos;s ratings, split by the historical record at that
-            expectancy; {o.name}&apos;s rating last moved when the sides last met ({o.last}).{" "}
-            <Link href={`/analytics?opponent=${id}`} className="text-devil-bright hover:underline">
-              How this is computed →
-            </Link>
-          </p>
-        </section>
-      )}
-
       <section>
         <SectionHead title="All meetings" aside={`${fmtNum(total)} on record`} />
         {notable.length > 0 && <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />}
@@ -194,7 +174,11 @@ export default async function OpponentPage({
         <div className="mb-3 flex justify-end">
           <EvidenceLink href={`/matches?opponent=${id}`} label="Filter these in the match browser →" />
         </div>
-        <MatchArchive matches={allMatches} accentResult />
+        <MatchArchive
+          matches={allMatches}
+          accentResult
+          hrefForSeason={(season) => `/matches${queryString({ opponent: id, season })}`}
+        />
         <CoverageNote
           slice="every recorded United v opponent fixture, all competitions"
           coverage={`${fmtNum(total)} meetings, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}, season by season; pre-merge name changes are folded into one opponent where known.`}
@@ -202,7 +186,7 @@ export default async function OpponentPage({
       </section>
 
       <section>
-        <SectionHead title="Keep exploring" />
+        <SectionHead title="Related trails" />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <TrailLink href={`/matches?opponent=${id}&venue=A`} title="Away record">
             Every meeting at their ground, where bogey records usually live.

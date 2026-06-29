@@ -1,0 +1,93 @@
+
+> unitedstats@0.1.0 prebuild
+> npm run build:db && npm run export:dataset
+
+
+> unitedstats@0.1.0 build:db
+> tsx scripts/build-db.ts
+
+league_standings: linked 2430/2430 rival rows to opponents
+search_index: 1419 entities (1000 players)
+built C:\Users\cbrow\Code\unitedstats\data\united.db: 6027 matches (1886-10-30 → 2026-05-24), 19661 events, 6022 matches with lineups
+
+> unitedstats@0.1.0 export:dataset
+> tsx scripts/export-dataset.ts
+
+exported matches.csv (6027), events.csv (19661), lineups.csv (88406), elo_history.csv (6027), transfers.csv (1967), season_summaries.csv (398), league_standings.csv (2553), players.csv (984), player_media.csv (132), manager_media.csv (22), og_scorer_media.csv (84), player_positions.csv (937) -> C:\Users\cbrow\Code\unitedstats\public\dataset
+
+> unitedstats@0.1.0 build
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.5s
+  Running TypeScript ...
+  Finished TypeScript in 4.7s ...
+  Collecting page data using 21 workers ...
+  Generating static pages using 21 workers (0/7416) ...
+  Generating static pages using 21 workers (1854/7416) 
+  Generating static pages using 21 workers (3708/7416) 
+  Generating static pages using 21 workers (5562/7416) 
+  Generating static pages using 21 workers (7277/7416) 
+✓ Generating static pages using 21 workers (7416/7416) in 97s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /analytics
+├ ƒ /api/search
+├ ƒ /api/search/click
+├ ƒ /api/v1
+├ ƒ /api/v1/competitions
+├ ƒ /api/v1/managers
+├ ƒ /api/v1/matches
+├ ƒ /api/v1/matches/[id]
+├ ƒ /api/v1/meta
+├ ƒ /api/v1/opponents
+├ ƒ /api/v1/players
+├ ƒ /api/v1/players/[id]
+├ ƒ /api/v1/seasons
+├ ƒ /api/v1/seasons/[season]
+├ ○ /data
+├ ● /manager/[id]
+│ ├ /manager/ah-albut
+│ ├ /manager/james-west
+│ ├ /manager/ernest-mangnall
+│ └ [+26 more paths]
+├ ○ /managers
+├ ● /match/[id]
+│ ├ /match/1886-10-30-fleetwood-rangers-a
+│ ├ /match/1890-01-18-preston-north-end-a
+│ ├ /match/1892-09-03-blackburn-rovers-a
+│ └ [+6024 more paths]
+├ ƒ /matches
+├ ● /opponent/[id]
+│ ├ /opponent/arsenal
+│ ├ /opponent/liverpool
+│ ├ /opponent/everton
+│ └ [+234 more paths]
+├ ○ /opponents
+├ ● /player/[id]
+│ ├ /player/wayne-rooney
+│ ├ /player/bobby-charlton
+│ ├ /player/denis-law
+│ └ [+982 more paths]
+├ ƒ /players
+├ ○ /questions
+├ ƒ /search
+├ ƒ /seasons
+├ ● /seasons/[season]
+│ ├ /seasons/2025-26
+│ ├ /seasons/2024-25
+│ ├ /seasons/2023-24
+│ └ [+123 more paths]
+└ ○ /transfers
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

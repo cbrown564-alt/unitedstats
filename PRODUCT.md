@@ -28,7 +28,18 @@ Secondary audiences:
 
 Help fans explore United history and notice meaningful patterns, without losing confidence in the data underneath.
 
-UnitedStats should answer direct questions, but its main success mode is deeper exploration: a user follows a trail from one stat to a match, from that match to an era, from that era to a myth, and leaves with a sharper view than they expected.
+**The answer is the front door; exploration is the follow-on.** A user arrives with
+a question — late goals, bogey sides, the longest run — and the product's first job
+is to answer it directly, with the slice, the coverage grade, and the matches behind
+it. From that answer the trail opens: a user follows it from one stat to a match,
+from that match to an era, from that era to a myth, and leaves with a sharper view
+than they expected. Exploration is what an answer earns, not the first move it asks
+of the reader.
+
+This is a clarification of the model, not a break from it: the discovery layer was
+always question-led. The shift is one of hierarchy — the homepage and discovery IA
+lead with the answer rather than with the trail, so a casual arrival gets a finding
+before it is asked to browse.
 
 ## Product Model
 
@@ -94,9 +105,39 @@ Avoid framing like:
 
 ## Homepage Role
 
-Start exploration immediately.
+Lead with the answer, then open the trail.
 
-The homepage should be a curiosity launchpad, not a brochure and not only a status dashboard. It should still communicate scope and trust, but the first screen should pull users into explorable trails: myth prompts, recent changes, notable patterns, search, and clear routes into matches, seasons, players, opponents, managers, and analytics.
+The homepage is an answer-first front door, not a brochure, not only a status
+dashboard, and no longer a flat portal of routes. The first screen leads with the
+question field, a launcher of curated question Cuts (each opening its full answer
+page), and a trust strip that communicates scope and provenance. Recent changes,
+notable patterns, and the routes into matches, seasons, players, opponents,
+managers, and analytics still belong on the page — but demoted beneath the answer
+layer rather than competing with it. The goal is unchanged (pull users into the
+record); the hierarchy is sharper (a finding first, browsing second).
+
+## Discovery Surface (Explore)
+
+One surface, three strips, a single framework: **exploring, asking, and answering
+questions.** `/explore` is the jumping-off point for all three — a set of curated
+previews, not a portal of links — ordered along a curation gradient, most curated
+at the top to least at the bottom, so the visual sophistication falls as the
+freedom rises.
+
+- **Answering — Questions.** A curated set of meaningful questions, each a quick
+  answer and a piece of inspiration. The richest, most finished strip.
+- **Asking — Comparisons.** The same pattern narrowed to the one endlessly
+  extensible question — *who was better than who at X?* Semi-curated.
+- **Exploring — the Cut.** A blank canvas: group dimensions, measures, and filters
+  freely and choose your own adventure. Least curated, plainest.
+
+Each strip is the same shape: a full-bleed feature view the reader moves across
+horizontally, a rail of summary cards beneath so the set can be skimmed without
+swiping, and from either, a jump to the canonical full page. The dedicated depth
+always lives one click away (`/questions/[slug]`, `/compare`, the `/cut` engine);
+`/explore` previews and routes into it rather than reproducing it. The standalone
+`/questions` index is folded into the Answering strip — the curated set is surfaced
+once, as previews, not maintained as a parallel page.
 
 ## Search Direction
 
@@ -162,15 +203,38 @@ Sports Reference positions Stathead as a power-search layer for quickly answerin
 
 Craft's Baseball Reference redesign case study identifies discoverability, customization, and nostalgia as opportunities for historical sports data products. UnitedStats should use nostalgia as resonance, not decoration, and keep discoverability as a core product function: https://madebycraft.co/work/baseball-reference
 
-## Current Implementation Notes
+## What exists
 
-The current app already contains the bones of this product:
+- **The Record** — every match from Newton Heath (1886) to today: results,
+  competitions, managers, opponents, scorers (with minutes where recorded),
+  attendance, Elo. `/matches` is the canonical filterable home.
+- **Entity pages** — `/seasons`, `/player/[id]`, `/manager/[id]`,
+  `/opponent/[id]`, each leading with a computed answer-object and the auditable
+  record beneath.
+- **Analytics** — `/analytics`: Elo/strength timeline, trends, records,
+  attendance, goal timing, data-depth ledger.
+- **The front door** — `/questions` (curated question Cuts), `/explore`
+  (one jumping-off point across questions, comparisons, and the Cut),
+  `/compare`, `/surprise`, `/on-this-day`, `/history-changed`.
+- **Trust + corrections** — coverage grades at every interpretation point, full
+  source provenance, a public correction workflow into reviewed PRs.
+- **Auto-update pipeline** — new results flow in via GitHub Actions after each
+  match; no servers, no paid APIs (see `docs/PIPELINE.md`).
 
-- `/matches` provides the canonical filterable fixture record.
-- `/seasons` and `/seasons/[season]` preserve chronological structure.
-- `/analytics` contains the first pattern layer: Elo, win rate, attendance, goal timing, records, grounds, and data-depth ledger.
-- Match pages already connect result, context, Elo, previous head-to-head, and form.
-- Player pages already show coverage caveats for goals and lineups, with matches scored in as the evidence trail.
-- Manager and opponent pages already expose profile-level records and match lists.
+## What's next
 
-Future work should make guided pattern trails more explicit on top of this structure.
+The current front door answers novelty questions better than the ones fans
+actually argue about, and the slice-sprawl offers too many ways to cut a thin
+core. The active direction (see `docs/RESTRAINT-PASS.md`):
+
+1. **Re-aim the questions** at what the data can carry honestly — the
+   post-Ferguson decline, named rivalry ledgers, the Treble, Ferguson vs the
+   field, best/worst seasons, United in Europe. Same question format; real
+   contents.
+2. **Collapse the slice-sprawl** — one obvious way to slice, not nine; cut
+   redundant analytical machinery (`/collection`, generic `/cut` builder,
+   `/embed`), keep the strong surfaces (`/matches`, `/explore`, entity pages).
+3. **Rewrite the on-site copy** in a plain human voice — the templated
+   connective copy is the same AI-voice disease as the docs being cut.
+4. **Make rediscovery real** — a forgotten-but-charged match engine that earns
+   the kept nostalgia surfaces, instead of a calendar lottery.

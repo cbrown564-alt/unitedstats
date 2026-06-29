@@ -4,15 +4,20 @@ import { decadeBriefs } from "@/lib/narrative";
 import { PageHeader } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
+import { HonoursChip } from "@/components/HonoursBadge";
 import { TrophyIcon } from "@/components/CampaignIcons";
+import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
 import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
 import { CoverageNote } from "@/components/CoverageNote";
 import { JumpRail, type JumpChip } from "@/components/JumpRail";
 import { clubName, fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
-export const dynamic = "force-dynamic";
-export const metadata = { title: "Seasons" };
+export const revalidate = 86400;
+export const metadata = {
+  title: "Seasons",
+  description: "Every Manchester United campaign since Newton Heath joined the Football League in 1892 — tracing league finishes, cup campaigns, and honours decade by decade.",
+};
 
 function ordinal(n: number): string {
   const s = ["th", "st", "nd", "rd"];
@@ -46,16 +51,14 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
       {titles > 0 && (
-        <span className="inline-flex items-center gap-1 rounded-full border border-gold/50 bg-gold/15 px-2 py-0.5 text-[11px] font-semibold leading-none text-gold">
-          <TrophyIcon className="h-3 w-3" />
+        <HonoursChip tone="gold">
           {titles} {titles > 1 ? "league titles" : "league title"}
-        </span>
+        </HonoursChip>
       )}
       {cups > 0 && (
-        <span className="inline-flex items-center gap-1 rounded-full border border-line bg-panel-2/70 px-2 py-0.5 text-[11px] font-medium leading-none text-ink-dim">
-          <TrophyIcon className="h-3 w-3 text-silver" />
+        <HonoursChip tone="quiet">
           {cups} {cups > 1 ? "cups won" : "cup won"}
-        </span>
+        </HonoursChip>
       )}
     </div>
   );
@@ -350,9 +353,9 @@ export default async function SeasonsPage({
   return (
     <div className="space-y-10">
       <PageHeader eyebrow="Campaign ledger" title="Seasons">
-        Every Manchester United campaign since {clubName("1890-01-01")} joined the Football League in
-        1892, season by season. The timeline traces where each one finished; the decade ledger below
-        opens every campaign into its match evidence and competition trail.
+        Every league and cup campaign since {clubName("1890-01-01")} joined the Football League in
+        1892. Follow the trajectory of the club’s league finishes on the timeline, or open any season
+        below to trace the match evidence and competition paths.
       </PageHeader>
 
       {/* The hero: the whole league history as one rise-and-fall of finishing position. */}
@@ -369,7 +372,7 @@ export default async function SeasonsPage({
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
                 The shape of the eras
               </p>
-              <h2 className="display mt-1 text-2xl">Where United finished</h2>
+              <h2 className="display mt-1 text-2xl">League finishes across the eras</h2>
             </div>
             <dl className="flex flex-wrap items-end gap-x-7 gap-y-3">
               {ribbon.map((r) => (
@@ -383,7 +386,7 @@ export default async function SeasonsPage({
           <FinishTimeline points={points} />
           <CoverageNote
             className="mt-3"
-            slice={`league finishes from ${firstSeason ?? "1892-93"} to ${latestSeason}.`}
+            slice={`league finishes from ${firstSeason ?? "1892–93"} to ${latestSeason}.`}
             coverage="Final-table positions are complete for every league season; the breaks are the war years, when no league ran."
           />
         </div>
@@ -505,8 +508,10 @@ export default async function SeasonsPage({
                 </div>
 
                 <ul>
-                  {rows.map((r) => (
-                    <li key={r.season} className="border-b border-line last:border-b-0">
+                  {rows.map((r) => {
+                    const eraKey = eraForFirstMatchYear(Number(r.season.slice(0, 4))).key;
+                    return (
+                    <li key={r.season} className={`border-b border-line last:border-b-0 ${eraSeasonRowClass(eraKey)}`}>
                       <Link
                         href={`/seasons/${r.season}`}
                         className="grid items-center gap-x-3 px-4 py-2.5 transition-colors hover:bg-panel-2/60"
@@ -539,7 +544,8 @@ export default async function SeasonsPage({
                         ))}
                       </Link>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               </div>
             </div>

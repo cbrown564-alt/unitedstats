@@ -1,4 +1,5 @@
 import { opponentsIndex } from "@/lib/queries";
+import { opponentNames } from "@/lib/clubNames";
 import { ClubBadge } from "@/components/ClubBadge";
 import { OpponentRivalryMap } from "@/components/charts/OpponentRivalryMap";
 import { IndexRow } from "@/components/IndexRow";
@@ -6,7 +7,10 @@ import { FilterableList } from "@/components/FilterableList";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum } from "@/lib/format";
 
-export const metadata = { title: "Opponents" };
+export const metadata = {
+  title: "Opponents",
+  description: "Manchester United’s head-to-head record against every opponent since 1886 — searchable list and rivalry map of wins, draws, and losses.",
+};
 
 export default function OpponentsPage() {
   const allOpponents = opponentsIndex();
@@ -28,6 +32,7 @@ export default function OpponentsPage() {
         rank={i + 1}
         leading={<ClubBadge id={o.id} name={o.name} size="md" />}
         name={o.name}
+        compactName={opponentNames(o.id, o.name).short}
         sub={`${o.first.slice(0, 4)}–${o.last.slice(0, 4)}`}
         w={o.w}
         d={o.d}
@@ -55,7 +60,7 @@ export default function OpponentsPage() {
             {fmtNum(allOpponents.length)} opponents, one nemesis
           </h1>
           <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
-            Every club United have faced since 1886, placed by how often we&apos;ve met and how we fare.
+            Every club United have faced since 1886, placed by how often we’ve met and how we fare.
             Against almost everyone we play a lot the record hovers near break-even — but{" "}
             {dominated && (
               <>
@@ -65,7 +70,7 @@ export default function OpponentsPage() {
             )}
             {nemesis && (
               <>
-                <span className="font-semibold text-loss">{nemesis.name}</span>, the rival we&apos;ve met
+                <span className="font-semibold text-loss">{nemesis.name}</span>, the rival we’ve met
                 most, we beat least.
               </>
             )}

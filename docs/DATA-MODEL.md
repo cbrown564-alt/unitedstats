@@ -66,11 +66,20 @@ by competition rules, not calendar).
   career span; match-derived lineup/event counts remain separate coverage
   fields.
 - **`player-media.json`** — top-player image manifest imported from Wikidata
-  `P18` and Wikimedia Commons `imageinfo`, including thumbnail URL, Commons
-  description URL, license short name, artist, credit, and retrieval timestamp.
+  `P18` and Wikimedia Commons `imageinfo`, including original image/thumbnail
+  URL, optional checked `localPath` under `public/media`, Commons description
+  URL, license short name, artist, credit, and retrieval timestamp.
 - **`player-shirts.json`** — top-player shirt-number summary derived from
   MUFCInfo match pages. Rows are grouped by player, shirt number, and decade
   for the appearance-ranked top 500 where numbered lineup rows are available.
+- **`tableau-goals-assists.json`** — hand-curated season-level goals and assists
+  by `(player, attribution, kind, season, competition, opponent)` for 1987-88 →
+  2014-15, from the public Tableau workbook *Manchester United Games*. A
+  **season-level aggregate lane, not match-attributed** (no dates/minutes), so it
+  coexists with the match-derived `player_totals` like `player-records` does and
+  never writes to `match_events`.
+- **`tableau-goal-types.json`** — goals by body part / technique over the same
+  range (right foot / left foot / head / knee / backheel / torso / shoulder).
 - **`opponents.json`** — id, canonical display name, aliases (e.g. "Small Heath" → Birmingham City lineage kept distinct), country, lat/lng of home city (spatial layer).
 - **`sources.json`** — source catalog with id, label, kind, URL, coverage note, and usage notes. Match
   records still reference sources by id; the database expands those ids into source facets.
@@ -109,7 +118,7 @@ player_totals(player_id FK, competition_type, apps, starts, goals, assists, firs
 player_records(player_id FK, career, first_year, last_year, starts, subs, apps,
                goals, source_id, source_url, stats_as_of)
 player_media(player_id FK, wikidata_id, commons_file, image_url, thumb_url,
-             page_url, license, artist, credit, source_id, retrieved_at)
+local_path, page_url, license, artist, credit, source_id, retrieved_at)
 player_shirts(player_id FK, shirt, decade, apps, first_date, last_date, source_id)
 season_summaries(season, competition_id, p, w, d, l, gf, ga, position, note)
 streaks(...), records(...)
@@ -149,7 +158,12 @@ During DB build, `match_sources` derives facets from the canonical fields:
   United scoring events account for United goals.
 - `opposition-goals` is complete when `opp-goal` and `own-goal-against` events
   account for the goals against in the final score.
-- `assists` is partial unless a source explicitly records assist data.
+- `assists` is partial unless a source explicitly records assist data. The
+  open/CC0 floor is 2012-13 (`transfermarkt-datasets`); pre-2012 assists are
+  unrecorded by history and unavailable from open sources (see
+  `SOURCE-AUDIT.md`). The only structured assist data for the Ferguson era is the
+  curated Tableau season-aggregate lane, which is season-level and not
+  match-attributed.
 - `starting-lineup` is complete when the match has a validated 11-starter
   United lineup.
 - `used-substitutes` is complete when substituted-on United players are present.
@@ -165,9 +179,11 @@ lineup source from producing impossible statements such as goals exceeding
 appearances.
 
 Player portraits use a third source lane: `player_media` is optional,
-Commons-backed, and license-labelled. Missing portraits fall back to generated
-shirt/initial visuals rather than unlicensed club, agency, or search-result
-images.
+Commons-backed, and license-labelled. Original Wikimedia URLs remain as
+provenance and refresh inputs, while app surfaces use only checked local
+`local_path` files. Missing or uncached portraits fall back to generated
+shirt/initial visuals rather than remote hotlinks, unlicensed club images,
+agency images, or search-result images.
 
 MUFCInfo is the preferred broad historical lane for United lineup and shirt
 number enrichment. `npm run ingest:mufcinfo-lineups` writes match-level

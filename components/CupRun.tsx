@@ -170,7 +170,7 @@ export function CupRun({ stages }: { stages: CupStage[] }) {
         ))}
       </ol>
       <p className="mt-1 pl-6 text-[11px] leading-4 text-ink-faint">
-        United&apos;s path, round by round — the line climbs while they advance and stops where they {verdict}.
+        United’s path, round by round — the line climbs while they advance and stops where they {verdict}.
         Two-legged ties show both legs and the aggregate.
       </p>
     </div>

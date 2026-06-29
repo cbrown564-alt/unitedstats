@@ -5,16 +5,28 @@ interface ShirtBadgeProps {
   compact?: boolean;
   /** Drain the shirt colour for an unused substitute who never took the pitch. */
   muted?: boolean;
+  /** Render every shirt the same dark United red instead of the decade-tint — for
+   *  dense lists (the register) where the era colour is a distraction, not a signal. */
+  uniform?: boolean;
 }
+
+const NEUTRAL_SHIRT = {
+  background: "linear-gradient(180deg, oklch(35% 0.01 40), oklch(22% 0.01 40))",
+  color: "var(--color-ink-dim)",
+  border: "rgb(168 156 148 / 0.35)",
+} as const;
+
+// One dark United red, used for every uniform row — the shirt without the era grade.
+const UNIFORM_SHIRT = {
+  background: "linear-gradient(180deg, oklch(40% 0.16 31), oklch(27% 0.13 31))",
+  color: "var(--color-ink)",
+  border: "oklch(46% 0.13 31 / 0.7)",
+} as const;
 
 function paletteForDecade(decade?: string | null): { background: string; color: string; border: string } {
   const year = decade ? Number(decade.slice(0, 4)) : Number.NaN;
   if (Number.isNaN(year)) {
-    return {
-      background: "linear-gradient(180deg, oklch(35% 0.01 40), oklch(22% 0.01 40))",
-      color: "var(--color-ink-dim)",
-      border: "rgb(168 156 148 / 0.35)",
-    };
+    return NEUTRAL_SHIRT;
   }
 
   const clamped = Math.max(1880, Math.min(2030, year));
@@ -30,12 +42,16 @@ function paletteForDecade(decade?: string | null): { background: string; color: 
   };
 }
 
-export function ShirtBadge({ number, decade, apps, compact = false, muted = false }: ShirtBadgeProps) {
+export function ShirtBadge({ number, decade, apps, compact = false, muted = false, uniform = false }: ShirtBadgeProps) {
   if (number == null) {
-    return <span className="text-ink-faint">{compact ? "--" : "No shirt data"}</span>;
+    return (
+      <span className="text-ink-faint" title="Shirt number not recorded" aria-label="Shirt number not recorded">
+        {compact ? "\u00a0" : "—"}
+      </span>
+    );
   }
 
-  const palette = paletteForDecade(decade);
+  const palette = uniform ? UNIFORM_SHIRT : paletteForDecade(decade);
   const title = `${decade ?? "Unknown era"} shirt ${number}${apps ? `, ${apps} covered apps` : ""}`;
 
   return (

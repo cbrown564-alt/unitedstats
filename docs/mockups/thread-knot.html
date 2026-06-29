@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Red Thread — Knot-as-the-Night Interactive Mockups</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --pitch: #0a0908;
+        --panel: rgba(22, 19, 18, 0.45);
+        --panel-solid: #151211;
+        --panel-2: #1e1a18;
+        --line: rgba(52, 43, 39, 0.6);
+        --line-soft: rgba(37, 31, 28, 0.4);
+        --ink: #f3ede8;
+        --dim: #a89c94;
+        --faint: #736861;
+        --red: #ff3b1f;
+        --gold: #f5c518;
+        --shadow: rgba(0, 0, 0, 0.5);
+        --duration: 1.4s;
+        --slow-factor: 1.0;
+        --bloom-duration: 0.6s;
+        --cinch-duration: 0.8s;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at top left, rgba(255, 59, 31, 0.12), transparent 45rem),
+          linear-gradient(145deg, #0a0908 0%, #120e0d 50%, #060505 100%);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        min-height: 100vh;
+      }
+      h1, h2, h3 {
+        font-family: Outfit, sans-serif;
+      }
+      .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+      .page { padding: 40px 24px; }
+      .frame { max-width: 1400px; margin: 0 auto; }
+      
+      header.intro {
+        margin-bottom: 34px;
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        border-bottom: 1px solid var(--line-soft);
+        padding-bottom: 24px;
+      }
+      .intro h1 { margin: 0; font-size: clamp(28px, 4vw, 44px); line-height: 1.1; text-transform: uppercase; font-weight: 900; letter-spacing: -0.02em; }
+      .intro h1 span { color: var(--red); text-shadow: 0 0 20px rgba(255, 59, 31, 0.2); }
+      .intro p { margin: 14px 0 0; max-width: 720px; color: var(--dim); font-size: 14.5px; line-height: 1.6; }
+      
+      /* Control Deck */
+      .control-deck {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .deck-btn {
+        background: var(--panel-solid);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        font: inherit;
+        font-size: 13.5px;
+        font-weight: 500;
+        padding: 10px 18px;
+        border-radius: 999px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: 0 4px 12px var(--shadow);
+      }
+      .deck-btn:hover {
+        border-color: rgba(255, 59, 31, 0.6);
+        background: var(--panel-2);
+        transform: translateY(-1.5px);
+      }
+      .deck-btn:active {
+        transform: translateY(0);
+      }
+      .deck-btn.primary {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+        font-weight: 600;
+      }
+      .deck-btn.primary:hover {
+        background: #ff553b;
+        border-color: #ff553b;
+        box-shadow: 0 0 20px rgba(255, 59, 31, 0.45);
+      }
+      .deck-btn.accent {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .deck-btn.accent:hover {
+        background: rgba(245, 197, 24, 0.1);
+        box-shadow: 0 0 20px rgba(245, 197, 24, 0.25);
+      }
+      
+      .indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #342b27;
+        transition: all 0.2s ease;
+      }
+      .deck-btn.active .indicator {
+        background: #00ffcc;
+        box-shadow: 0 0 10px #00ffcc;
+      }
+      
+      /* Grid Layout */
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+      @media (max-width: 1200px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+      
+      /* Panel Card */
+      .panel {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 16px 40px var(--shadow);
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex; flex-direction: column;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .panel:hover {
+        border-color: rgba(255, 59, 31, 0.3);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+      }
+      
+      .panel-head { padding: 20px 20px 14px; border-bottom: 1px solid var(--line-soft); }
+      .panel-head h2 { margin: 0; font-size: 17px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+      .chips { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+      .chip { border: 1px solid var(--line); color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; padding: 4px 8px; border-radius: 4px; background: rgba(0,0,0,0.15); }
+      .chip b { color: var(--ink); font-weight: 600; }
+      
+      .stage {
+        position: relative;
+        background: radial-gradient(120% 80% at 22% 40%, rgba(255, 59, 31, 0.03), transparent 65%);
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+      }
+      .svgwrap { display: block; width: 100%; max-width: 290px; }
+      svg { display: block; width: 100%; height: auto; overflow: visible; }
+      
+      .panel-foot { padding: 14px 20px 18px; border-top: 1px solid var(--line-soft); color: var(--dim); font-size: 12.5px; line-height: 1.5; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+      .panel-foot p { margin: 0 0 12px 0; }
+      .panel-foot b { color: var(--ink); font-weight: 600; }
+      
+      /* Path Inspector Widget */
+      details.path-details {
+        margin-top: 12px;
+        border-top: 1px dashed var(--line-soft);
+        padding-top: 12px;
+      }
+      details.path-details summary {
+        font-size: 11px;
+        color: var(--dim);
+        cursor: pointer;
+        user-select: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        outline: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      details.path-details summary:hover {
+        color: var(--red);
+      }
+      details.path-details[open] summary {
+        margin-bottom: 8px;
+      }
+      .code-container {
+        position: relative;
+        background: #070605;
+        border: 1px solid var(--line-soft);
+        border-radius: 6px;
+        padding: 10px;
+        max-height: 100px;
+        overflow: auto;
+      }
+      .code-container pre {
+        margin: 0;
+        font-size: 10px;
+        line-height: 1.45;
+        color: var(--dim);
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .copy-btn {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 9px;
+        padding: 3px 6px;
+        cursor: pointer;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-weight: 600;
+        transition: all 0.2s ease;
+      }
+      .copy-btn:hover {
+        border-color: var(--red);
+        color: var(--ink);
+        background: var(--pitch);
+      }
+      
+      /* ---- MOTION STYLING ---- */
+      .thread-line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: trace var(--duration, 1.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        transition: d var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes trace { to { stroke-dashoffset: 0; } }
+      
+      .knot-body {
+        transform-box: fill-box;
+        transform-origin: center;
+        opacity: 0;
+        animation-fill-mode: both;
+      }
+      .knot-body circle {
+        transition: cx var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1),
+                    cy var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1),
+                    r var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .knot-label {
+        opacity: 0;
+        animation: fade 0.45s ease-out both;
+      }
+      @keyframes fade { to { opacity: 1; } }
+      
+      /* Bead / Knot entry animations */
+      .m-bloom { animation: bloom var(--bloom-duration) cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+      @keyframes bloom { 0% { opacity: 0; transform: scale(0.2); } 100% { opacity: 1; transform: scale(1); } }
+      
+      .m-ignite { animation: ignite var(--bloom-duration) cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+      @keyframes ignite { 
+        0% { opacity: 0; transform: scale(0.1); filter: brightness(3) drop-shadow(0 0 0px var(--red)); } 
+        60% { opacity: 1; transform: scale(1.3); filter: brightness(1.5) drop-shadow(0 0 8px var(--red)); } 
+        100% { opacity: 1; transform: scale(1); filter: brightness(1) drop-shadow(0 0 3px rgba(255, 59, 31, 0.2)); } 
+      }
+      
+      .m-settle { animation: settle var(--bloom-duration) cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+      @keyframes settle { 0% { opacity: 0; transform: translateY(-16px) scale(0.7); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+      
+      .m-cinch { animation: cinch var(--bloom-duration) cubic-bezier(0.25, 1, 0.5, 1) both; }
+      @keyframes cinch { 0% { opacity: 0; transform: scale(2.2); } 100% { opacity: 1; transform: scale(1); } }
+      
+      /* Continuous bead pulse halo */
+      .bead-pulse {
+        transform-origin: center;
+        animation: pulse-halo 2.4s infinite ease-out;
+      }
+      @keyframes pulse-halo {
+        0% { transform: scale(0.8); opacity: 0.8; }
+        100% { transform: scale(2.6); opacity: 0; }
+      }
+      
+      /* Vector handle overlays styling */
+      .handles-overlay circle {
+        transition: cx var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1),
+                    cy var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1),
+                    r var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .handles-overlay line {
+        transition: x1 var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1),
+                    y1 var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1),
+                    x2 var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1),
+                    y2 var(--cinch-duration, 0.8s) cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      
+      @media (prefers-reduced-motion: reduce) {
+        .thread-line { stroke-dashoffset: 0; animation: none; }
+        .knot-body, .knot-label { opacity: 1; transform: none; animation: none; }
+        .bead-pulse { animation: none; opacity: 0.4; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="frame">
+        <header class="intro">
+          <div>
+            <h1><span>Red</span> Thread — mathematically perfect circles</h1>
+            <p>
+              One match, six ways to weave it. Every panel is the 1999 final: United 2–1 Bayern, both goals
+              in stoppage time (90+1′ Sheringham, 90+3′ Solskjær). The thread runs the clock — kickoff at
+              the top, full time at the foot. Unlike wobbly spline approximations, the thread loops are drawn 
+              using SVG Arc commands, rendering mathematically perfect circles. Press Replay to watch them draw.
+            </p>
+          </div>
+          <div class="control-deck">
+            <button class="deck-btn primary" id="replay" type="button">↻ Replay</button>
+            <button class="deck-btn" id="toggle-slow" type="button">
+              <span class="indicator" id="slow-indicator"></span> Slow Motion
+            </button>
+            <button class="deck-btn" id="toggle-handles" type="button">
+              <span class="indicator" id="handles-indicator"></span> Show Handles
+            </button>
+            <button class="deck-btn accent" id="cinch-btn" type="button">Cinch Knots</button>
+          </div>
+        </header>
+        
+        <div class="grid" id="grid"></div>
+      </div>
+    </main>
+
+    <script>
+      // ---- GOALS ----
+      const GOALS = [
+        { c: 91, label: "90+1′", name: "Sheringham", win: false },
+        { c: 93, label: "90+3′", name: "Solskjær", win: true },
+      ];
+      const AXIS = 96;
+
+      // ---- GEOMETRY CONSTANTS ----
+      const W = 320, H = 560, X = 118, TOP = 60, BOT = 486;
+      const RED = "#ff3b1f", GOLD = "#f5c518", DIM = "#a89c94", FAINT = "#736861";
+      const yOf = (c) => TOP + (c / AXIS) * (BOT - TOP);
+      const side = (i) => (i % 2 === 0 ? -1 : 1);
+      const col = (g) => (g.win ? GOLD : RED);
+
+      // ---- INTERACTIVE STATE ----
+      let isSlowMotion = false;
+      let showHandles = false;
+      let isCinched = false;
+      let cinchTimeout;
+
+      // ---- PATHS GENERATOR ENGINE ----
+      // Generates single continuous path string 'd' and coordinates for vector handles overlay
+      function generateThreadPathData(cfg, state = "loose") {
+        const shape = cfg.shape;
+        const loose = cfg.thread === "loose";
+        
+        let R1 = cfg.R || 20;
+        let R2 = cfg.R || 20;
+        
+        if (state === "cinched") {
+          R1 = cfg.R_cinched || 2.5;
+          R2 = cfg.R_cinched || 2.5;
+        }
+        
+        const y1 = yOf(GOALS[0].c);
+        const y2 = yOf(GOALS[1].c);
+        
+        // organic wave function for loose thread
+        const wx = (x, y) => {
+          if (!loose) return x;
+          return x + 12 * Math.sin((y / H) * Math.PI * 2.4 + 0.5);
+        };
+        
+        let d = `M ${wx(X, 0).toFixed(1)} 0`;
+        let vertices = [];
+        let loops = [];
+        
+        // Start anchor
+        vertices.push({ x: wx(X, 0), y: 0, type: "anchor", label: "KO" });
+        
+        if (shape === "bead") {
+          if (loose) {
+            for (let y = 10; y <= H; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+              if (y % 80 === 0 || y === H) {
+                vertices.push({ x: wx(X, y), y: y, type: "anchor" });
+              }
+            }
+          } else {
+            d += ` L ${X} ${H}`;
+            vertices.push({ x: X, y: H, type: "anchor", label: "FT" });
+          }
+        } else if (shape === "slipknot") {
+          // Centered loops: circle centered at (X, yc). Thread enters at yc - R, circles, and goes through center.
+          const ys1 = y1 - R1;
+          const ye1 = y1 + R1;
+          
+          if (loose) {
+            for (let y = 10; y < ys1; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, ys1).toFixed(1)} ${ys1.toFixed(1)}`;
+          vertices.push({ x: wx(X, ys1), y: ys1, type: "anchor", label: "Slipknot 1 Start" });
+          
+          // Semicircles
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 1 ${wx(X, ye1).toFixed(1)} ${ye1.toFixed(1)}`;
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 1 ${wx(X, ys1).toFixed(1)} ${ys1.toFixed(1)}`;
+          loops.push({ cx: wx(X, y1), cy: y1, r: R1 });
+          
+          // Segment 2
+          const ys2 = y2 - R2;
+          const ye2 = y2 + R2;
+          
+          if (loose) {
+            for (let y = ys1 + 10; y < ys2; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, ys2).toFixed(1)} ${ys2.toFixed(1)}`;
+          vertices.push({ x: wx(X, ys2), y: ys2, type: "anchor", label: "Slipknot 2 Start" });
+          
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X, ye2).toFixed(1)} ${ye2.toFixed(1)}`;
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X, ys2).toFixed(1)} ${ys2.toFixed(1)}`;
+          loops.push({ cx: wx(X, y2), cy: y2, r: R2 });
+          
+          // Segment 3
+          if (loose) {
+            for (let y = ys2 + 10; y <= H; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          } else {
+            d += ` L ${X} ${H}`;
+          }
+          vertices.push({ x: wx(X, H), y: H, type: "anchor", label: "FT" });
+          
+        } else if (shape === "figure8") {
+          // Double tangent loops at y2: Left tangent circle and Right tangent circle both tangent at (X, y2)
+          // Goal 1 (left loop at y1)
+          if (loose) {
+            for (let y = 10; y < y1; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          vertices.push({ x: wx(X, y1), y: y1, type: "anchor", label: "Loop 1 Tangent" });
+          
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 0 ${wx(X - 2*R1, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 0 ${wx(X, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          loops.push({ cx: wx(X - R1, y1), cy: y1, r: R1 });
+          
+          // Segment 2
+          if (loose) {
+            for (let y = y1 + 10; y < y2; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          vertices.push({ x: wx(X, y2), y: y2, type: "anchor", label: "Fig8 Tangent" });
+          
+          // Left circle of Fig8
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 0 ${wx(X - 2*R2, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 0 ${wx(X, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          loops.push({ cx: wx(X - R2, y2), cy: y2, r: R2 });
+          
+          // Right circle of Fig8
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X + 2*R2, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          loops.push({ cx: wx(X + R2, y2), cy: y2, r: R2 });
+          
+          // Segment 3
+          if (loose) {
+            for (let y = y2 + 10; y <= H; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          } else {
+            d += ` L ${X} ${H}`;
+          }
+          vertices.push({ x: wx(X, H), y: H, type: "anchor", label: "FT" });
+          
+        } else if (shape === "tangle") {
+          // Interlocking Loops: Loop 1 goes Left, Loop 2 goes Right. Since y1 and y2 are 9px apart, they interlock.
+          // Goal 1: left tangent loop
+          if (loose) {
+            for (let y = 10; y < y1; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          vertices.push({ x: wx(X, y1), y: y1, type: "anchor", label: "Loop 1 Tangent" });
+          
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 0 ${wx(X - 2*R1, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 0 ${wx(X, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          loops.push({ cx: wx(X - R1, y1), cy: y1, r: R1 });
+          
+          // Segment 2
+          if (loose) {
+            for (let y = y1 + 10; y < y2; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          vertices.push({ x: wx(X, y2), y: y2, type: "anchor", label: "Loop 2 Tangent" });
+          
+          // Goal 2: right tangent loop
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X + 2*R2, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          loops.push({ cx: wx(X + R2, y2), cy: y2, r: R2 });
+          
+          // Segment 3
+          if (loose) {
+            for (let y = y2 + 10; y <= H; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          } else {
+            d += ` L ${X} ${H}`;
+          }
+          vertices.push({ x: wx(X, H), y: H, type: "anchor", label: "FT" });
+          
+        } else {
+          // Standard / Overhand / Cinch: both loop to the right (side = 1)
+          if (loose) {
+            for (let y = 10; y < y1; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          vertices.push({ x: wx(X, y1), y: y1, type: "anchor", label: "Loop 1 Tangent" });
+          
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 1 ${wx(X + 2*R1, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          d += ` A ${R1.toFixed(1)} ${R1.toFixed(1)} 0 0 1 ${wx(X, y1).toFixed(1)} ${y1.toFixed(1)}`;
+          loops.push({ cx: wx(X + R1, y1), cy: y1, r: R1 });
+          
+          // Segment to y2:
+          if (loose) {
+            for (let y = y1 + 10; y < y2; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          }
+          d += ` L ${wx(X, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          vertices.push({ x: wx(X, y2), y: y2, type: "anchor", label: "Loop 2 Tangent" });
+          
+          // Goal 2:
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X + 2*R2, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          d += ` A ${R2.toFixed(1)} ${R2.toFixed(1)} 0 0 1 ${wx(X, y2).toFixed(1)} ${y2.toFixed(1)}`;
+          loops.push({ cx: wx(X + R2, y2), cy: y2, r: R2 });
+          
+          // Segment to H:
+          if (loose) {
+            for (let y = y2 + 10; y <= H; y += 10) {
+              d += ` L ${wx(X, y).toFixed(1)} ${y}`;
+            }
+          } else {
+            d += ` L ${X} ${H}`;
+          }
+          vertices.push({ x: wx(X, H), y: H, type: "anchor", label: "FT" });
+        }
+        
+        return { d, vertices, loops };
+      }
+
+      // ---- TICK CLOCK FURNITURE ----
+      function furniture(loose) {
+        const y45 = yOf(45);
+        const wx = (x, y) => loose ? x + 12 * Math.sin((y / H) * Math.PI * 2.4 + 0.5) : x;
+        const xk = wx(X, y45);
+        return `
+          <line x1="${xk - 6}" y1="${y45}" x2="${xk + 6}" y2="${y45}" stroke="${FAINT}" stroke-opacity="0.4" stroke-width="0.8" />
+          <text class="mono" x="${wx(X, TOP) - 12}" y="${TOP - 16}" text-anchor="end" font-size="10" fill="${FAINT}" opacity="0.7">KO</text>
+          <text class="mono" x="${wx(X, BOT) - 12}" y="${BOT + 22}" text-anchor="end" font-size="10" fill="${FAINT}" opacity="0.7">FT</text>`;
+      }
+
+      // ---- KNOT BEADS & LABELS ----
+      function labelsAndBeadsSVG(cfg, isSlow) {
+        const loose = cfg.thread === "loose";
+        const wx = (x, y) => loose ? x + 12 * Math.sin((y / H) * Math.PI * 2.4 + 0.5) : x;
+        const delayMult = isSlow ? 5.0 : 1.0;
+        
+        return GOALS.map((g, i) => {
+          const s = side(i);
+          const yc = yOf(g.c);
+          
+          let cx = X;
+          if (cfg.shape === "bead" || cfg.shape === "slipknot") {
+            cx = X;
+          } else if (cfg.shape === "figure8") {
+            cx = i === 0 ? X - (cfg.R || 20) : X + (cfg.R || 20);
+          } else if (cfg.shape === "tangle") {
+            cx = i === 0 ? X - (cfg.R || 20) : X + (cfg.R || 20);
+          } else {
+            cx = X + (cfg.R || 20);
+          }
+          
+          const finalCx = wx(cx, yc);
+          const c = col(g);
+          const d = ((0.78 + (g.c - 90) * 0.17) * delayMult).toFixed(2);
+          
+          // Text label is offset from the circle edge to stay aligned
+          let labelSide = 1;
+          if (cfg.shape === "tangle" && i === 0) labelSide = -1;
+          if (cfg.shape === "figure8" && i === 0) labelSide = -1;
+          
+          const lx = wx(X + labelSide * (2.0 * (cfg.R || 20) + 12), yc);
+          const anchor = labelSide > 0 ? 'start' : 'end';
+          
+          const innerColor = g.win ? "#fff4d4" : "#ffdcd5";
+          const glowOpacity = g.win ? 0.22 : 0.14;
+          
+          return `
+            <g class="knot-body ${cfg.motion}" style="animation-delay:${d}s; transform-origin:${finalCx}px ${yc}px">
+              <circle id="bead-glow-${cfg.id}-${i}" cx="${finalCx}" cy="${yc}" r="${(cfg.R || 20) * 1.5}" fill="${c}" fill-opacity="${glowOpacity}" />
+              <circle cx="${finalCx}" cy="${yc}" r="${cfg.R || 20}" fill="${c}" fill-opacity="0.08" stroke="${c}" stroke-opacity="0.4" stroke-width="0.8" />
+              <!-- Pulsing outer halo -->
+              <circle id="bead-pulse-${cfg.id}-${i}" class="bead-pulse" cx="${finalCx}" cy="${yc}" r="${g.win ? 10 : 8}" stroke="${c}" stroke-width="1.2" fill="none" />
+              <!-- Core Bead -->
+              <circle id="bead-core-${cfg.id}-${i}" class="bead-core" cx="${finalCx}" cy="${yc}" r="${g.win ? 4.8 : 3.8}" fill="${c}" stroke="#ffffff" stroke-width="1" />
+              <circle cx="${finalCx}" cy="${yc}" r="1.5" fill="${innerColor}" />
+            </g>
+            <g class="knot-label" style="animation-delay:${(+d + 0.12 * delayMult).toFixed(2)}s">
+              <text class="mono" x="${lx}" y="${yc - 4}" text-anchor="${anchor}" font-size="13" font-weight="600" fill="${g.win ? GOLD : DIM}">${g.label}</text>
+              <text x="${lx}" y="${yc + 10}" text-anchor="${anchor}" font-size="10.5" fill="${FAINT}">${g.name}</text>
+            </g>`;
+        }).join("");
+      }
+
+      // ---- VECTOR HANDLES OVERLAY RENDER ----
+      function renderHandlesOverlay(vertices, loops) {
+        let svg = '<g class="handles-overlay">';
+        
+        // Draw the circle bounds and crosshair centers
+        loops.forEach((l) => {
+          svg += `<circle cx="${l.cx.toFixed(1)}" cy="${l.cy.toFixed(1)}" r="${l.r.toFixed(1)}" stroke="#00ffcc" stroke-opacity="0.4" stroke-width="0.8" stroke-dasharray="3 3" fill="none" />`;
+          // Draw center point crosshair
+          svg += `<line x1="${(l.cx - 4).toFixed(1)}" y1="${l.cy.toFixed(1)}" x2="${(l.cx + 4).toFixed(1)}" y2="${l.cy.toFixed(1)}" stroke="#00ffcc" stroke-opacity="0.5" stroke-width="0.8" />`;
+          svg += `<line x1="${l.cx.toFixed(1)}" y1="${(l.cy - 4).toFixed(1)}" x2="${l.cx.toFixed(1)}" y2="${(l.cy + 4).toFixed(1)}" stroke="#00ffcc" stroke-opacity="0.5" stroke-width="0.8" />`;
+        });
+        
+        // Draw anchor points
+        vertices.forEach((v) => {
+          svg += `<circle cx="${v.x.toFixed(1)}" cy="${v.y.toFixed(1)}" r="3.2" fill="${varColor(v.label)}" stroke="#0a0908" stroke-width="0.8" />`;
+          if (v.label && showHandles) {
+            svg += `<text class="mono" x="${(v.x + 6).toFixed(1)}" y="${(v.y + 3).toFixed(1)}" fill="#00ffcc" font-size="7.5" fill-opacity="0.8">${v.label}</text>`;
+          }
+        });
+        
+        svg += "</g>";
+        return svg;
+      }
+
+      function varColor(label) {
+        if (!label) return "#00ffcc";
+        if (label === "KO") return "#ff3b1f";
+        if (label === "FT") return "#f5c518";
+        return "#ffffff";
+      }
+
+      // ---- MAIN PANEL BUILDER ----
+      function stage(cfg, isSlow, state = "loose") {
+        const loose = cfg.thread === "loose";
+        const { d, vertices, loops } = generateThreadPathData(cfg, state);
+        const knots = labelsAndBeadsSVG(cfg, isSlow);
+        
+        const overlaySVG = showHandles ? renderHandlesOverlay(vertices, loops) : "";
+        
+        return `
+          <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-${cfg.id}" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${RED}" stop-opacity="0.05" />
+                <stop offset="14%" stop-color="${RED}" stop-opacity="0.85" />
+                <stop offset="86%" stop-color="${GOLD}" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="${GOLD}" stop-opacity="0.05" />
+              </linearGradient>
+            </defs>
+            ${furniture(loose)}
+            <!-- Glowing Red/Gold Thread Shadow -->
+            <path id="path-blur-${cfg.id}" d="${d}" stroke="${RED}" stroke-opacity="0.22" stroke-width="4.5" stroke-linecap="round" pathLength="1" class="thread-line" style="filter:blur(3px)" />
+            <!-- Core Red/Gold Thread Line -->
+            <path id="path-core-${cfg.id}" d="${d}" stroke="url(#g-${cfg.id})" stroke-width="1.6" stroke-linecap="round" pathLength="1" class="thread-line" />
+            
+            ${knots}
+            
+            <!-- Handles Overlay Group -->
+            <g id="overlay-${cfg.id}">${overlaySVG}</g>
+          </svg>`;
+      }
+
+      // ---- MOCKUP CONFIGURATIONS ----
+      const PANELS = [
+        { id: "overhand-taut", title: "Overhand Loop · Taut", shape: "overhand", R: 20, thread: "taut", motion: "m-bloom",
+          chips: ["Size <b>M (20)</b>", "Shape <b>Perfect Circle</b>", "Thread <b>Taut</b>", "Motion <b>Bloom</b>"],
+          foot: "Tangent circle loop on the right. The thread transitions smoothly into a circular loop and continues straight down." },
+        
+        { id: "overhand-loose", title: "Overhand Loop · Wavy", shape: "overhand", R: 20, thread: "loose", motion: "m-bloom",
+          chips: ["Size <b>M (20)</b>", "Shape <b>Perfect Circle</b>", "Thread <b>Wavy</b>", "Motion <b>Bloom</b>"],
+          foot: "Wavy thread path where the tangent loop is dynamically shifted horizontally to attach perfectly without geometric distortion." },
+        
+        { id: "figure8-taut", title: "Figure-Eight Knot", shape: "figure8", R: 24, thread: "taut", motion: "m-ignite",
+          chips: ["Size <b>L (24)</b>", "Shape <b>Figure-8</b>", "Thread <b>Taut</b>", "Motion <b>Ignite</b>"],
+          foot: "A true figure-eight at the winning goal. The path loops left, then loops right, forming two tangent perfect circles." },
+        
+        { id: "slipknot-wavy", title: "Wavy Slipknot", shape: "slipknot", R: 22, thread: "loose", motion: "m-settle",
+          chips: ["Size <b>M (22)</b>", "Shape <b>Centered</b>", "Thread <b>Wavy</b>", "Motion <b>Settle</b>"],
+          foot: "A perfect circle centered on the thread. The path loops completely around the center, allowing the line to pass straight through." },
+        
+        { id: "cinching-loop", title: "Cinching Loop · Dynamic", shape: "cinch", R: 24, R_cinched: 3, thread: "taut", motion: "m-cinch",
+          chips: ["Size <b>Morphing</b>", "Shape <b>Cinch Loop</b>", "Thread <b>Taut</b>", "Motion <b>Cinch</b>"],
+          foot: "Starts as a wide, perfect circular loop. Once drawn, the coordinates smoothly morph to cinch it down into a tiny node." },
+        
+        { id: "tangle-interlock", title: "Interlocking Tangle", shape: "tangle", R: 22, thread: "taut", motion: "m-cinch",
+          chips: ["Size <b>L (22)</b>", "Shape <b>Interlock</b>", "Thread <b>Taut</b>", "Motion <b>Cinch</b>"],
+          foot: "Loop 1 goes left, Loop 2 goes right. Because the goals are 9px apart, they form a perfect interlocking Venn-diagram weave." },
+      ];
+
+      // ---- INTERACTIVE ACTIONS ----
+      function render() {
+        const speed = isSlowMotion ? 5.0 : 1.0;
+        document.documentElement.style.setProperty('--duration', `${1.4 * speed}s`);
+        document.documentElement.style.setProperty('--bloom-duration', `${0.6 * speed}s`);
+        document.documentElement.style.setProperty('--cinch-duration', `${0.8 * speed}s`);
+        
+        const grid = document.getElementById("grid");
+        
+        grid.innerHTML = PANELS.map((p) => {
+          const { d } = generateThreadPathData(p, isCinched ? "cinched" : "loose");
+          
+          return `
+            <section class="panel" id="panel-${p.id}">
+              <div class="panel-head">
+                <h2>${p.title}</h2>
+                <div class="chips">${p.chips.map((c) => `<span class="chip">${c}</span>`).join("")}</div>
+              </div>
+              <div class="stage">
+                <div class="svgwrap">${stage(p, isSlowMotion, isCinched ? "cinched" : "loose")}</div>
+              </div>
+              <div class="panel-foot">
+                <p>${p.foot}</p>
+                <details class="path-details">
+                  <summary>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    Inspect Path Geometry
+                  </summary>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyPathCode('${p.id}')">Copy</button>
+                    <pre class="mono" id="code-string-${p.id}">${d}</pre>
+                  </div>
+                </details>
+              </div>
+            </section>`;
+        }).join("");
+      }
+
+      // Copying utility
+      window.copyPathCode = function(id) {
+        const el = document.getElementById(`code-string-${id}`);
+        if (!el) return;
+        navigator.clipboard.writeText(el.textContent).then(() => {
+          const btn = el.parentElement.querySelector('.copy-btn');
+          const oldText = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = oldText, 1200);
+        });
+      };
+
+      // Restart tracing animations
+      function triggerReplay() {
+        // Trigger reflow to restart SVG stroke path animations
+        render();
+        
+        // Auto-cinch cinch-loop panel after delay
+        clearTimeout(cinchTimeout);
+        if (!isCinched) {
+          const delay = (isSlowMotion ? 7.0 : 1.4) * 1000 + 150;
+          cinchTimeout = setTimeout(() => {
+            const cinchPanel = document.getElementById(`panel-cinching-loop`);
+            if (cinchPanel) {
+              cinchPanel.classList.add("cinched");
+              const p = PANELS.find(x => x.id === "cinching-loop");
+              const { d, vertices, loops } = generateThreadPathData(p, "cinched");
+              
+              // Morph paths
+              document.getElementById(`path-core-${p.id}`).setAttribute("d", d);
+              document.getElementById(`path-blur-${p.id}`).setAttribute("d", d);
+              document.getElementById(`code-string-${p.id}`).textContent = d;
+              
+              // Slide beads into place (cinched center position)
+              GOALS.forEach((g, idx) => {
+                const yc = yOf(g.c);
+                const r_c = p.R_cinched || 2.5;
+                const finalCx = X + r_c; // cinch right
+                
+                const glow = document.getElementById(`bead-glow-${p.id}-${idx}`);
+                const core = document.getElementById(`bead-core-${p.id}-${idx}`);
+                const pulse = document.getElementById(`bead-pulse-${p.id}-${idx}`);
+                
+                if (glow) glow.setAttribute('cx', finalCx);
+                if (core) core.setAttribute('cx', finalCx);
+                if (pulse) pulse.setAttribute('cx', finalCx);
+              });
+              
+              // Update handles overlay
+              if (showHandles) {
+                document.getElementById(`overlay-${p.id}`).innerHTML = renderHandlesOverlay(vertices, loops);
+              }
+            }
+          }, delay);
+        }
+      }
+
+      // Setup Event Listeners
+      document.getElementById("replay").addEventListener("click", () => {
+        isCinched = false;
+        document.getElementById("cinch-btn").textContent = "Cinch Knots";
+        triggerReplay();
+      });
+
+      document.getElementById("toggle-slow").addEventListener("click", () => {
+        isSlowMotion = !isSlowMotion;
+        document.getElementById("toggle-slow").classList.toggle("active", isSlowMotion);
+        triggerReplay();
+      });
+
+      document.getElementById("toggle-handles").addEventListener("click", () => {
+        showHandles = !showHandles;
+        document.getElementById("toggle-handles").classList.toggle("active", showHandles);
+        render();
+      });
+
+      document.getElementById("cinch-btn").addEventListener("click", () => {
+        isCinched = !isCinched;
+        const cinchBtn = document.getElementById("cinch-btn");
+        if (isCinched) {
+          cinchBtn.textContent = "Loosen Knots";
+          // Cinch all panels
+          PANELS.forEach(p => {
+            const { d, vertices, loops } = generateThreadPathData(p, "cinched");
+            document.getElementById(`path-core-${p.id}`).setAttribute("d", d);
+            document.getElementById(`path-blur-${p.id}`).setAttribute("d", d);
+            document.getElementById(`code-string-${p.id}`).textContent = d;
+            
+            // Slide beads
+            GOALS.forEach((g, idx) => {
+              const s = side(idx);
+              const yc = yOf(g.c);
+              let r_c = p.R_cinched || 2.5;
+              let cx;
+              if (p.shape === "bead") cx = X;
+              else if (p.shape === "slipknot") cx = X;
+              else if (p.shape === "figure8" || p.shape === "tangle") cx = idx === 0 ? X - r_c : X + r_c;
+              else cx = X + r_c;
+              
+              const loose = p.thread === "loose";
+              const wx = (x, y) => loose ? x + 12 * Math.sin((y / H) * Math.PI * 2.4 + 0.5) : x;
+              const finalCx = wx(cx, yc);
+              
+              const glow = document.getElementById(`bead-glow-${p.id}-${idx}`);
+              const core = document.getElementById(`bead-core-${p.id}-${idx}`);
+              const pulse = document.getElementById(`bead-pulse-${p.id}-${idx}`);
+              
+              if (glow) glow.setAttribute('cx', finalCx);
+              if (core) core.setAttribute('cx', finalCx);
+              if (pulse) pulse.setAttribute('cx', finalCx);
+            });
+            
+            if (showHandles) {
+              document.getElementById(`overlay-${p.id}`).innerHTML = renderHandlesOverlay(vertices, loops);
+            }
+          });
+        } else {
+          cinchBtn.textContent = "Cinch Knots";
+          // Loosen all panels
+          PANELS.forEach(p => {
+            const { d, vertices, loops } = generateThreadPathData(p, "loose");
+            document.getElementById(`path-core-${p.id}`).setAttribute("d", d);
+            document.getElementById(`path-blur-${p.id}`).setAttribute("d", d);
+            document.getElementById(`code-string-${p.id}`).textContent = d;
+            
+            // Slide beads
+            GOALS.forEach((g, idx) => {
+              const s = side(idx);
+              const yc = yOf(g.c);
+              let r_l = p.R || 20;
+              let cx;
+              if (p.shape === "bead") cx = X;
+              else if (p.shape === "slipknot") cx = X;
+              else if (p.shape === "figure8" || p.shape === "tangle") cx = idx === 0 ? X - r_l : X + r_l;
+              else cx = X + r_l;
+              
+              const loose = p.thread === "loose";
+              const wx = (x, y) => loose ? x + 12 * Math.sin((y / H) * Math.PI * 2.4 + 0.5) : x;
+              const finalCx = wx(cx, yc);
+              
+              const glow = document.getElementById(`bead-glow-${p.id}-${idx}`);
+              const core = document.getElementById(`bead-core-${p.id}-${idx}`);
+              const pulse = document.getElementById(`bead-pulse-${p.id}-${idx}`);
+              
+              if (glow) glow.setAttribute('cx', finalCx);
+              if (core) core.setAttribute('cx', finalCx);
+              if (pulse) pulse.setAttribute('cx', finalCx);
+            });
+            
+            if (showHandles) {
+              document.getElementById(`overlay-${p.id}`).innerHTML = renderHandlesOverlay(vertices, loops);
+            }
+          });
+        }
+      });
+
+      // Initial render & play
+      triggerReplay();
+    </script>
+  </body>
+</html>

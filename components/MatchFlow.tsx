@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
 
 /**
@@ -11,18 +12,11 @@ import type { EventRow } from "@/lib/queries";
  * Server-rendered from timed goal events only. Matches without timed goals fall
  * back to a plain scorer list (handled by the caller).
  *
- * Inline scorer labels only fit on wider screens — a single "15' Viollet" is a
- * fifth of a phone's bar width, so a high-event match would stack into an
- * unreadable, overflowing mess. Under `sm` the bar keeps only its lollipop dots
- * (the timing shape is the whole point) and the names drop to a compact
- * chronological chip list below; from `sm` up the inline labels return.
+ * Scorer labels ride above the bar (United) and below it (opponent), positioned
+ * by minute, with lane-staggering and an edge-flip keeping close or edge labels
+ * legible. The same positioned layout holds on mobile — tighter, but it keeps the
+ * spatial read (who scored, when, which side) rather than collapsing to a flat list.
  */
-
-function surname(name: string | null | undefined): string {
-  if (!name) return "";
-  const parts = name.trim().split(/\s+/);
-  return parts[parts.length - 1] || name;
-}
 
 /** Clock label that keeps stoppage time as "90+6", regulation as "64". */
 function clock(minute: number, added: number | null): string {
@@ -69,7 +63,7 @@ export function MatchFlow({
       added: e.added_time,
       side: "united" as const,
       delta: 1 as const,
-      scorer: surname(e.player_display_name),
+      scorer: familyName(e.player_display_name ?? ""),
       playerId: e.player_id,
       tag: e.type === "pen-goal" ? ("P" as const) : e.type === "own-goal-for" ? ("OG" as const) : null,
       title:
@@ -83,7 +77,7 @@ export function MatchFlow({
       added: e.added_time,
       side: "opponent" as const,
       delta: -1 as const,
-      scorer: surname(e.player_display_name),
+      scorer: familyName(e.player_display_name ?? ""),
       playerId: null,
       tag: e.type === "own-goal-against" ? ("OG" as const) : e.detail === "pen" ? ("P" as const) : null,
       title:
@@ -99,6 +93,10 @@ export function MatchFlow({
   const maxMin = Math.max(90, ...goals.map((g) => g.minute), aet ? 120 : 0);
   const end = aet ? 120 : maxMin > 90 ? Math.min(120, Math.ceil(maxMin / 5) * 5) : 90;
   const pos = (m: number) => Math.max(0, Math.min(100, (m / end) * 100));
+
+  // Edge-flip: a label centred on a dot near either end overflows the chart, so
+  // labels in the outer ~15% anchor their inner edge to the dot and grow inward.
+  const anchorTx = (p: number) => (p > 84 ? "translateX(-100%)" : p < 16 ? "translateX(0)" : "translateX(-50%)");
 
   // Running-lead segments: hold each margin until the next goal, then jump.
   const segs: { from: number; to: number; margin: number }[] = [];
@@ -117,7 +115,7 @@ export function MatchFlow({
   const unitedMarks = sorted.filter((g) => g.side === "united");
   const oppMarks = sorted.filter((g) => g.side === "opponent");
   const lane = new Map<string, number>();
-  const LABEL_GAP = 9; // % of timeline width two labels need to clear each other
+  const LABEL_GAP = 13; // % of timeline width two labels need to clear each other (covers narrow cards)
   const assignLanes = (marks: GoalMark[]) => {
     let prevPos = -Infinity;
     let prevLane = 1;
@@ -157,36 +155,38 @@ export function MatchFlow({
   return (
     <div className="w-full">
       {/* United scorers — above the bar (z-10 so dots paint over the bar, which
-          sits later in the DOM; the per-column transform traps dot-level z-index).
-          Mobile keeps only the dots; the label tower is sm+ to avoid collisions. */}
-      <div className="relative z-10 h-2 sm:h-[60px]">
+          sits later in the DOM; the per-column transform traps dot-level z-index). */}
+      <div className="relative z-10 h-[60px]">
         {unitedMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const colHeight = ln === 0 ? ANNOT_H - 26 : ANNOT_H;
+          const p = pos(g.minute);
           return (
             <div
               key={g.key}
               className="absolute bottom-0"
-              style={{ left: `${pos(g.minute)}%`, transform: "translateX(-50%)" }}
+              style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
-              <div
-                className="absolute bottom-2 left-1/2 hidden -translate-x-1/2 flex-col items-center sm:flex"
-                style={{ height: colHeight }}
+              <span
+                aria-hidden
+                className="absolute bottom-2 left-1/2 w-px -translate-x-1/2 bg-line"
+                style={{ height: colHeight - 14 }}
+              />
+              <span
+                className="absolute flex items-center gap-1 whitespace-nowrap text-[11px] leading-none"
+                style={{ bottom: colHeight - 6, left: "50%", transform: anchorTx(p) }}
               >
-                <span className="flex items-center gap-1 whitespace-nowrap text-[11px] leading-none">
-                  <span className="stat-num font-semibold text-devil-bright">{clock(g.minute, g.added)}&prime;</span>
-                  {g.playerId ? (
-                    <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
-                      {g.scorer}
-                    </Link>
-                  ) : (
-                    <span className="text-ink">{g.scorer}</span>
-                  )}
-                  {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
-                </span>
-                <span className="mt-1 w-px flex-1 bg-line" />
-              </div>
+                <span className="stat-num font-semibold text-devil-bright">{clock(g.minute, g.added)}&prime;</span>
+                {g.playerId ? (
+                  <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
+                    {g.scorer}
+                  </Link>
+                ) : (
+                  <span className="text-ink">{g.scorer}</span>
+                )}
+                {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
+              </span>
               <span className="-mb-1 block h-2.5 w-2.5 rounded-full bg-devil-bright ring-2 ring-pitch" />
             </div>
           );
@@ -209,30 +209,33 @@ export function MatchFlow({
         )}
       </div>
 
-      {/* Opponent scorers — below the bar. Mobile keeps only the dots. */}
-      <div className="relative h-2 sm:h-[60px]">
+      {/* Opponent scorers — below the bar. */}
+      <div className="relative h-[60px]">
         {oppMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const colHeight = ln === 0 ? ANNOT_H - 26 : ANNOT_H;
+          const p = pos(g.minute);
           return (
             <div
               key={g.key}
               className="absolute top-0"
-              style={{ left: `${pos(g.minute)}%`, transform: "translateX(-50%)" }}
+              style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
               <span className="relative z-10 -mt-1 block h-2.5 w-2.5 rounded-full bg-ink ring-2 ring-pitch" />
-              <div
-                className="absolute top-2 left-1/2 hidden -translate-x-1/2 flex-col items-center sm:flex"
-                style={{ height: colHeight }}
+              <span
+                aria-hidden
+                className="absolute top-2 left-1/2 w-px -translate-x-1/2 bg-line"
+                style={{ height: colHeight - 14 }}
+              />
+              <span
+                className="absolute flex items-center gap-1 whitespace-nowrap text-[11px] leading-none"
+                style={{ top: colHeight - 6, left: "50%", transform: anchorTx(p) }}
               >
-                <span className="mb-1 w-px flex-1 bg-line" />
-                <span className="flex items-center gap-1 whitespace-nowrap text-[11px] leading-none">
-                  <span className="stat-num font-semibold text-ink-dim">{clock(g.minute, g.added)}&prime;</span>
-                  <span className="text-ink">{g.scorer}</span>
-                  {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
-                </span>
-              </div>
+                <span className="stat-num font-semibold text-ink-dim">{clock(g.minute, g.added)}&prime;</span>
+                <span className="text-ink">{g.scorer}</span>
+                {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
+              </span>
             </div>
           );
         })}
@@ -252,29 +255,6 @@ export function MatchFlow({
         ))}
       </div>
 
-      {/* Mobile scorer list — names that don't fit inline on the bar, in the
-          order they were scored. Dot colour keys back to the timeline. */}
-      <ol className="mt-3 flex flex-wrap gap-x-3 gap-y-1.5 text-[11px] leading-none sm:hidden">
-        {sorted.map((g) => (
-          <li key={g.key} className="flex items-center gap-1.5 whitespace-nowrap" title={g.title}>
-            <span
-              className={`h-2 w-2 shrink-0 rounded-full ${g.side === "united" ? "bg-devil-bright" : "bg-ink"}`}
-              aria-hidden
-            />
-            <span className={`stat-num font-semibold ${g.side === "united" ? "text-devil-bright" : "text-ink-dim"}`}>
-              {clock(g.minute, g.added)}&prime;
-            </span>
-            {g.side === "united" && g.playerId ? (
-              <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
-                {g.scorer}
-              </Link>
-            ) : (
-              <span className="text-ink">{g.scorer}</span>
-            )}
-            {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
-          </li>
-        ))}
-      </ol>
     </div>
   );
 }

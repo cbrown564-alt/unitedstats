@@ -1,0 +1,11 @@
+{
+  // Fast, standalone type-check gate for CI and local pre-push (`npm run typecheck`).
+  //
+  // It extends the app tsconfig but drops the generated `.next/**` route types,
+  // which only exist after a build and are checked by `next build` itself. Their
+  // absence here lets the gate run on a clean checkout with no build artifacts —
+  // catching type errors in scripts/, lib/, and components/ in a couple of seconds
+  // instead of waiting for the full production build at the end of CI.
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", ".next"]
+}

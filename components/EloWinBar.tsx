@@ -1,10 +1,8 @@
 /**
  * Pre-match Elo expectancy bar.
  *
- * `expected` is United's Elo expected score (0–1): a single rating-implied
- * scalar with draws split into it, NOT a separate win/draw/loss forecast. It is
- * surfaced as a two-team split so "favourite or underdog, and by how much" reads
- * at a glance, paired with the rating movement the result actually produced.
+ * `expected` is United's Elo expected score (0–1), shown as a two-team split so
+ * "favourite or underdog, and by how much" reads at a glance.
  *
  * Colour encodes team identity (United red); length encodes expectancy.
  */
@@ -66,9 +64,8 @@ export function EloWinBar({
       </div>
 
       <p className="mt-2 text-xs text-ink-faint">
-        {club} went in the {favourite ? "favourite" : "underdog"} by rating, {Math.round(eloPre)} to{" "}
-        {opponentName}&rsquo;s {Math.round(oppEloPre)}. Expectancy folds draws into one figure, not a
-        separate win/draw/loss split.
+        {club} went in as the {favourite ? "favourite" : "underdog"} by rating, {Math.round(eloPre)} to{" "}
+        {opponentName}’s {Math.round(oppEloPre)}. 
       </p>
     </div>
   );

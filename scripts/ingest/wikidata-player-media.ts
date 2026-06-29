@@ -28,10 +28,125 @@ const FEATURED_PLAYERS: { playerId: string; name: string; wikiTitle: string }[] 
   { playerId: "javier-hernandez", name: "Javier Hernández", wikiTitle: "Javier Hernández" },
   { playerId: "john-connelly", name: "John Connelly", wikiTitle: "John Connelly (footballer, born 1938)" },
 ];
+
+/**
+ * Licensed Commons portraits chosen for era-appropriate likeness and framing.
+ * Wikidata P18 often points at post-career or poorly cropped images; overrides
+ * win when present. Re-run ingest:player-media after edits.
+ */
+const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
+  "denis-law": "Manu-Finland-1965.jpg",
+  "ruud-van-nistelrooy": "Ruud.JPG",
+  "cristiano-ronaldo": "Cristiano Ronaldo of Manchester United, November 5, 2008, B.jpg",
+  "roy-keane": "Roy Keane cropped.jpg",
+  "peter-schmeichel": "Peter Schmeichel juli 1991.JPG",
+  "eric-cantona": "Cantona, Eric.jpg",
+  "steve-bruce": "Steve Bruce at the cliff -march 92.JPG",
+};
+
+/** Hand-cropped portraits stored under public/media/sources/ — see cache:media. */
+const MANUAL_PORTRAIT_SOURCES: Record<string, string> = {
+  "denis-law": "/media/sources/denis-law-manu-finland.png",
+};
+
+interface FandomPortrait {
+  playerId: string;
+  file: string;
+  imageUrl: string;
+}
+
+/** Player portraits from Football Wiki (Fandom) when Wikimedia has none. */
+const FANDOM_PLAYER_PORTRAITS: FandomPortrait[] = [
+  {
+    playerId: "gary-pallister",
+    file: "PALLISTER.png",
+    imageUrl:
+      "https://static.wikia.nocookie.net/the-football-database/images/4/4f/PALLISTER.png/revision/latest?cb=20140811135253",
+  },
+  {
+    playerId: "lee-sharpe",
+    file: "SHARPE.png",
+    imageUrl:
+      "https://static.wikia.nocookie.net/the-football-database/images/4/4a/SHARPE.png/revision/latest?cb=20140811135827",
+  },
+  {
+    playerId: "mike-duxbury",
+    file: "MDuxbury.png",
+    imageUrl:
+      "https://static.wikia.nocookie.net/the-football-database/images/d/d7/MDuxbury.png/revision/latest?cb=20180122201853",
+  },
+  {
+    playerId: "mal-donaghy",
+    file: "DONAGHY.png",
+    imageUrl:
+      "https://static.wikia.nocookie.net/the-football-database/images/9/98/DONAGHY.png/revision/latest?cb=20140811134120",
+  },
+  {
+    playerId: "neil-webb",
+    file: "Webb.png",
+    imageUrl:
+      "https://static.wikia.nocookie.net/the-football-database/images/f/f4/Webb.png/revision/latest?cb=20140706174303",
+  },
+  {
+    playerId: "willie-morgan",
+    file: "Morgan.png",
+    imageUrl:
+      "https://static.wikia.nocookie.net/the-football-database/images/b/b5/Morgan.png/revision/latest?cb=20140120191619",
+  },
+  {
+    playerId: "kobbie-mainoo",
+    file: "Kobbie_Mainoo.png",
+    imageUrl:
+      "https://static.wikia.nocookie.net/the-football-database/images/4/48/Kobbie_Mainoo.png/revision/latest?cb=20230106045237",
+  },
+];
+
+const FANDOM_CREDIT = "Football Wiki (Fandom), The Football Database";
+const FANDOM_LICENSE = "CC BY-SA 3.0";
+const FANDOM_SOURCE_ID = "football-fandom";
+
+function fandomPageUrl(file: string): string {
+  return `https://football.fandom.com/wiki/File:${encodeURIComponent(file)}`;
+}
+
+function buildFandomPortraits(): Record<
+  string,
+  {
+    manualPortraitSource: string;
+    imageUrl: string;
+    pageUrl: string;
+    commonsFile: string;
+    credit: string;
+    license: string;
+    sourceId: string;
+  }
+> {
+  const out: Record<string, ReturnType<typeof buildFandomPortraits>[string]> = {};
+  for (const portrait of FANDOM_PLAYER_PORTRAITS) {
+    const manualPortraitSource = `/media/sources/${portrait.playerId}.png`;
+    out[portrait.playerId] = {
+      manualPortraitSource,
+      imageUrl: portrait.imageUrl,
+      pageUrl: fandomPageUrl(portrait.file),
+      commonsFile: portrait.file,
+      credit: FANDOM_CREDIT,
+      license: FANDOM_LICENSE,
+      sourceId: FANDOM_SOURCE_ID,
+    };
+    MANUAL_PORTRAIT_SOURCES[portrait.playerId] = manualPortraitSource;
+  }
+  return out;
+}
+
+/**
+ * Portraits with no Wikimedia Commons file — cached locally from an attributed
+ * third-party wiki. Re-run ingest:player-media after edits.
+ */
+const MANUAL_ONLY_PORTRAITS = buildFandomPortraits();
 const COMMONS_THUMB_WIDTH = 320;
 const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
 
-type SourceMethod = "wikidata-p18" | "wikipedia-pageimage";
+type SourceMethod = "wikidata-p18" | "wikipedia-pageimage" | "curated-override" | "manual-portrait";
 
 interface PlayerRecordsFile {
   records: {
@@ -135,6 +250,7 @@ interface MediaRecord {
   sourceId: string;
   sourceMethod: SourceMethod;
   retrievedAt: string;
+  manualPortraitSource?: string | null;
 }
 
 type PlayerRecord = PlayerRecordsFile["records"][number];
@@ -393,10 +509,12 @@ async function main() {
   const pageImagesByPlayer = await fetchWikipediaPageImages(topPlayers);
   const selectedFiles = new Map<string, string>();
   for (const player of topPlayers) {
+    const overrideFile = CURATED_COMMONS_OVERRIDES[player.playerId];
+    if (overrideFile) selectedFiles.set(commonsFileKey(overrideFile), overrideFile);
     const wikidataId = qidsByTitle.get(player.wikiTitle);
     const wikidataFile = wikidataId ? filesByQid.get(wikidataId) : null;
     const pageImageFile = pageImagesByPlayer.get(player.playerId)?.commonsFile;
-    const commonsFile = wikidataFile ?? pageImageFile;
+    const commonsFile = overrideFile ?? wikidataFile ?? pageImageFile;
     if (commonsFile) selectedFiles.set(commonsFileKey(commonsFile), commonsFile);
   }
   const metadataByFile = await fetchCommonsMetadata([...selectedFiles.values()]);
@@ -415,8 +533,33 @@ async function main() {
   for (const [index, player] of topPlayers.entries()) {
     const pageImage = pageImagesByPlayer.get(player.playerId);
     const wikidataId = qidsByTitle.get(player.wikiTitle) ?? pageImage?.wikidataId ?? null;
+    const manualOnly = MANUAL_ONLY_PORTRAITS[player.playerId];
+    if (manualOnly) {
+      records.push({
+        rank: index + 1,
+        overallRank: player.overallRank,
+        premierLeagueEraRank: player.premierLeagueEraRank,
+        playerId: player.playerId,
+        name: player.name,
+        wikiTitle: player.wikiTitle,
+        wikidataId,
+        commonsFile: manualOnly.commonsFile,
+        imageUrl: manualOnly.imageUrl,
+        thumbUrl: null,
+        pageUrl: manualOnly.pageUrl,
+        license: manualOnly.license,
+        artist: null,
+        credit: manualOnly.credit,
+        sourceId: manualOnly.sourceId,
+        sourceMethod: "manual-portrait",
+        retrievedAt,
+        manualPortraitSource: manualOnly.manualPortraitSource,
+      });
+      continue;
+    }
+    const overrideFile = CURATED_COMMONS_OVERRIDES[player.playerId];
     const wikidataFile = wikidataId ? filesByQid.get(wikidataId) : null;
-    const commonsFile = wikidataFile ?? pageImage?.commonsFile;
+    const commonsFile = overrideFile ?? wikidataFile ?? pageImage?.commonsFile;
     if (!commonsFile) {
       missing.push({
         playerId: player.playerId,
@@ -459,8 +602,11 @@ async function main() {
       artist: stripHtml(ext.Artist?.value),
       credit: stripHtml(ext.Credit?.value),
       sourceId: SOURCE_ID,
-      sourceMethod: wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
+      sourceMethod: overrideFile ? "curated-override" : wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
       retrievedAt,
+      ...(MANUAL_PORTRAIT_SOURCES[player.playerId]
+        ? { manualPortraitSource: MANUAL_PORTRAIT_SOURCES[player.playerId] }
+        : {}),
     });
   }
 
@@ -484,6 +630,8 @@ async function main() {
       "Only raster Commons images are imported; SVG files are skipped because Next image optimization does not serve arbitrary SVGs by default.",
       "Wikidata P18 is preferred; Wikipedia pageimages are used only as a fallback and still require Commons imageinfo metadata.",
       "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run this script to refresh license or thumbnail changes.",
+      "Hand-cropped portraits live in public/media/sources/; MANUAL_PORTRAIT_SOURCES maps player ids to those files for cache:media.",
+      "MANUAL_ONLY_PORTRAITS covers players with no Commons file; source metadata is recorded in-manifest and images are cached locally.",
     ],
     records,
     missing,

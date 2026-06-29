@@ -1,5 +1,6 @@
 import { WdlBar } from "@/components/WdlBar";
 import { GoalDiff } from "@/components/GoalDiff";
+import { ShareCite } from "@/components/ShareCite";
 import { fmtNum, pct } from "@/lib/format";
 
 interface Readout {
@@ -57,6 +58,8 @@ interface IdentityPlateProps {
   /** Floodlight wash colour — the club's colour for an opponent, else devil red. */
   accent?: string;
   span?: SpanProps;
+  /** Copy-link / cite affordance, rendered top-right of the plate. */
+  share?: { path: string; title: string };
 }
 
 /**
@@ -70,7 +73,7 @@ interface IdentityPlateProps {
  * season); the two share the floodlit-plate look but answer different questions.
  */
 export function IdentityPlate({
-  eyebrow, leading, leadingNote, title, subtitle, record, headline, secondary = [], accent, span,
+  eyebrow, leading, leadingNote, title, subtitle, record, headline, secondary = [], accent, span, share,
 }: IdentityPlateProps) {
   const { w, d, l, p, gf, ga } = record;
   const wash = accent ?? "var(--color-devil)";
@@ -92,6 +95,12 @@ export function IdentityPlate({
         style={{ backgroundColor: wash }}
         aria-hidden
       />
+
+      {share && (
+        <div className="absolute right-4 top-4 z-10">
+          <ShareCite path={share.path} title={share.title} />
+        </div>
+      )}
 
       <div className={`relative grid gap-6 p-5 sm:p-6 ${leading ? "lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-8" : ""}`}>
         {leading && (

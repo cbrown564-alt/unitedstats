@@ -1,7 +1,7 @@
 /**
  * Enrich existing United goal events with assists from MUFCInfo match pages.
  *
- * This is the Phase B assist backfill lane (see docs/ASSISTS-PLAN.md). It reuses
+ * This is the MUFCInfo assist-backfill lane (see docs/SOURCE-AUDIT.md). It reuses
  * the same cached MUFCInfo match pages as scripts/ingest/mufcinfo-lineups.ts
  *   https://www.mufcinfo.com/manupag/match_data/match_sql.php?my_match_date=YYYY-MM-DD
  * and the same conservative player-resolution approach (players.json +

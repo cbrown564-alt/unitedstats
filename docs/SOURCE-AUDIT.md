@@ -89,15 +89,18 @@ should enter the canonical record.
 - **Range:** strongest for modern and famous players; early players often have
   no reusable portrait. Use this before considering club-site or agency images.
 - **Importer:** `npm run ingest:player-media` imports the top 100
-  `player_records` rows by appearances into `data/canonical/player-media.json`;
-  `npm run build:db` loads reusable image and attribution fields into
-  `player_media`.
+  `player_records` rows by appearances plus the Premier League-era cohort and
+  featured surfaces into `data/canonical/player-media.json`; `npm run
+  cache:media` downloads verified local WebP display files into
+  `public/media/**`; `npm run build:db` loads reusable image, local path, and
+  attribution fields into `player_media`.
 - **Failure modes:** no image, poor likeness, non-player images, deleted Commons
-  files, or license metadata requiring visible attribution.
+  files, Wikimedia rate limits during cache refresh, or license metadata
+  requiring visible attribution.
 - **Canonical rule:** do not hotlink or store official club images unless
-  explicit reuse permission is recorded. If Commons coverage cannot reach the
-  top 100, use the shirt-number visual as the fallback rather than unlicensed
-  portraits.
+  explicit reuse permission is recorded. App surfaces use `local_path` only; if
+  Commons media is not cached, use the shirt-number/initial visual as the
+  fallback rather than remote or unlicensed portraits.
 
 ## RSSSF
 
@@ -150,7 +153,51 @@ should enter the canonical record.
 
 ## Assists
 
-Assist coverage is the largest remaining event-data gap (only ~9% of all-time
-United goals carry an assist, all from `transfermarkt-datasets`, 2012-13 onward).
-The measured gap, source assessment, and a phased plan to plug it live in
-`docs/ASSISTS-PLAN.md`.
+Assist coverage is the largest remaining event-data gap and is **closed at the
+open/CC0 floor**: only ~9% of all-time United goals carry an assist, all from
+`transfermarkt-datasets` (CC0), beginning abruptly at **2012-13**. The "assist"
+was not systematically recorded by anyone before the 1990s and only became a
+reliable, standardised statistic from 2006-07 (Opta's real-time collection).
+
+Three open/redistributable lanes were investigated and exhausted with evidence:
+
+- **transfermarkt-datasets** — assists exist only from 2012-13; already fully
+  ingested (floor confirmed by a cloud dry-run over 2009-10→2013-14 that enriched
+  0 of 102 matched games — the data is absent at source for 2009–2012).
+- **MUFCInfo match pages** — carry no per-goal assists in any era (goal cells are
+  plain `"Scorer minute', minute'"` text with no "assisted by" wording).
+- **MUFCInfo aggregate/career pages** — publish no structured assist data at all
+  (assists appear only as SEO keywords or narrative editorial prose).
+
+**Conclusion:** there is no open, redistributable, structured source for United
+assists before 2012-13; pre-2012 assists exist only in proprietary datasets
+(Opta from 2006-07; Transfermarkt.com and FBref/StatsBomb for the modern era)
+whose terms the project's licensing guardrails forbid redistributing. The honest
+position is to keep the complete 2012-13+ coverage and treat pre-2012 assists as
+**unavailable from open sources**, stated in the coverage ledger rather than
+presented as a fillable gap. Only hand-curated, cited per-match assists for
+landmark goals could add anything before 2012, at low volume and high manual
+cost.
+
+The one structured assist data held for the Ferguson era is the curated Tableau
+season-aggregate lane below.
+
+## Tableau (curated Ferguson-era goals & assists)
+
+- **Provides:** season-level goals **and assists** by player/opponent/competition
+  for 1987-88 → 2014-15 (2,887 goals, 2,469 assists), plus a second export of
+  goals by **body part / technique** (right foot / left foot / head / knee /
+  backheel / torso / shoulder).
+- **Source:** the public Tableau workbook *Manchester United Games*
+  (conor.brown), hand-curated and not exhaustive.
+- **Importer:** `npm run ingest:tableau-goals-assists` normalizes both exports
+  into `data/canonical/tableau-goals-assists.json` and
+  `tableau-goal-types.json` (dry-run by default; `-- --write` to persist).
+- **Canonical rule:** this is a **season-level aggregate lane, not
+  match-attributed** (no dates or minutes), so it can never be written to
+  `match_events` — it coexists with the match-derived `player_totals` exactly as
+  `player_records` does. Body-part detail is body part only, not
+  penalty/free-kick/open-play classification.
+- **Status:** the normalized JSON is **not yet loaded by `build:db`** and is not
+  surfaced in the UI (surfacing it, clearly labelled "curated, season-level, not
+  match-attributed", is the open follow-up).

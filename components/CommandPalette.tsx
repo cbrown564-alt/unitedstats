@@ -6,16 +6,18 @@ import Link from "next/link";
 import { useSiteSearch } from "./useSiteSearch";
 import { SearchResults } from "./SearchResults";
 import { SearchEmptyState } from "./SearchEmptyState";
+import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
+import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 
 /**
  * The ⌘K / Ctrl-K command palette: a centred overlay over the same engine the
  * header dropdown uses, so power users get a focus-trapping, full-keyboard search
  * from anywhere. Mounted once in the root layout.
  */
-export function CommandPalette() {
-  const [open, setOpen] = useState(false);
+export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [q, setQ] = useState("");
   const [active, setActive] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -105,7 +107,7 @@ export function CommandPalette() {
           value={q}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={onKeyDown}
-          placeholder="Search names, seasons, stadiums, or a question…"
+          placeholder={SEARCH_PLACEHOLDER}
           aria-label="Search"
           className="w-full border-b border-line bg-transparent px-4 py-3.5 text-base placeholder:text-ink-faint focus:outline-none"
         />
@@ -130,9 +132,16 @@ export function CommandPalette() {
             }
           />
         ) : ready ? (
-          <div className="px-4 py-4 text-sm text-ink-dim">
-            No matches. <Link href={seeAllHref} onClick={() => select(seeAllHref)} className="text-devil-bright hover:underline">Search the archive →</Link>
-          </div>
+          <SearchReshape
+            query={q}
+            seeAllHref={seeAllHref}
+            onPick={(query) => {
+              setQ(query);
+              setActive(-1);
+              inputRef.current?.focus();
+            }}
+            onSeeAll={() => select(seeAllHref)}
+          />
         ) : (
           <SearchEmptyState onPick={setQ} />
         )}

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WDL bar — alternatives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --pitch:#0c0b0a; --panel:#161312; --panel-2:#1f1a18; --line:#2c2522;
+    --ink:#f3ede8; --ink-dim:#a89c94; --ink-faint:#6f645d;
+    --gold:#f5c518; --win:#f4452a; --draw:#9a8d83; --loss:#34527a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--pitch);color:var(--ink);
+    font-family:Archivo,system-ui,sans-serif;font-feature-settings:"tnum";
+    padding:40px 44px 80px;
+  }
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-feature-settings:"tnum"}
+  h1{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:700;margin:0 0 4px}
+  .sub{color:var(--ink-faint);font-size:12px;margin:0 0 32px;max-width:64ch;line-height:1.5}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:1180px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .card.full{grid-column:1/-1}
+  .tag{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+  .tag h2{font-size:14px;font-weight:700;margin:0;letter-spacing:.01em}
+  .tag .n{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.08em}
+  .note{color:var(--ink-faint);font-size:11.5px;line-height:1.5;margin:2px 0 18px;max-width:52ch}
+  .row{display:grid;grid-template-columns:120px 1fr;align-items:center;gap:18px;padding:9px 0}
+  .row + .row{border-top:1px solid color-mix(in oklab,var(--line),transparent 35%)}
+  .rl{font-size:12.5px;color:var(--ink-dim);font-weight:600}
+  .rl .mono{display:block;font-size:10.5px;color:var(--ink-faint);font-weight:500;margin-top:2px}
+  .legend{display:flex;gap:16px;font-size:10.5px;color:var(--ink-faint);margin-top:18px;text-transform:uppercase;letter-spacing:.1em}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+
+  /* shared count caption */
+  .cap{display:flex;gap:14px;align-items:baseline}
+  .cap b{font-weight:700}
+  .cw{color:var(--win)} .cd{color:var(--draw)} .cl{color:var(--loss)}
+  .cap .mono{font-size:13px}
+
+  /* ---------- 0. current: floating diverging pill ---------- */
+  .pill{position:relative;height:16px;width:100%}
+  .pill .seg{position:absolute;top:0;bottom:0}
+  .pill .axis{position:absolute;top:0;bottom:0;left:50%;width:1px;transform:translateX(-.5px);background:color-mix(in oklab,var(--pitch),transparent 30%);z-index:2}
+
+  /* ---------- A. tornado on a shared, continuous centre axis ---------- */
+  .torn{position:relative;--axis:calc(50% + 69px)}
+  .torn::before{content:"";position:absolute;top:6px;bottom:6px;left:var(--axis);width:1px;background:color-mix(in oklab,var(--ink-faint),transparent 35%);z-index:3}
+  .tbar{position:relative;height:14px;width:100%}
+  .tbar .seg{position:absolute;top:0;bottom:0;border-radius:1px}
+
+  /* ---------- B. seated stacked bar, edge to edge ---------- */
+  .seat{display:flex;align-items:center;gap:14px}
+  .track{position:relative;flex:1;height:18px;border-radius:3px;background:var(--panel-2);
+    box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--line),transparent 20%);overflow:hidden;display:flex}
+  .track .seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+  .track .seg.w{background:var(--win);color:#1a0a06}
+  .track .seg.d{background:color-mix(in oklab,var(--draw),transparent 25%);color:#15110e}
+  .track .seg.l{background:var(--loss);color:#e8eef7}
+
+  /* ---------- C. waffle / unit chart ---------- */
+  .waffle{display:grid;grid-template-columns:repeat(20,1fr);gap:3px;width:100%;max-width:280px}
+  .waffle i{aspect-ratio:1;border-radius:2px}
+  .wf-w{background:var(--win)} .wf-d{background:color-mix(in oklab,var(--draw),transparent 30%)} .wf-l{background:var(--loss)}
+
+  /* ---------- D. segmented underline seated on row baseline ---------- */
+  .under{position:relative;width:100%;height:3px;border-radius:2px;display:flex;gap:2px;background:color-mix(in oklab,var(--line),transparent 40%)}
+  .under .seg{height:100%;border-radius:2px}
+  .under .seg.w{background:var(--win)} .under .seg.d{background:var(--draw)} .under .seg.l{background:var(--loss)}
+</style>
+</head>
+<body>
+  <h1>W / D / L — alternatives to the floating diverging pill</h1>
+  <p class="sub">Same palette &amp; data. Two record shapes per option: a win-heavy all-time record and a losing split. The magnitude card (A &amp; B) shows several seasons of different <span class="mono">P</span> so you can judge how each encodes sample size without fattening into a lozenge.</p>
+
+  <div class="grid">
+
+    <!-- 0 current -->
+    <div class="card">
+      <div class="tag"><h2>0 · Current</h2><span class="n">BASELINE</span></div>
+      <p class="note">Diverging, both ends rounded, floating in the centre with its own internal axis tick. The lozenge shape + empty gutters = "free-floating pill".</p>
+      <div class="row"><div class="rl">All-time<span class="mono">W2400 D1100 L900</span></div>
+        <div class="pill" id="p0a"></div></div>
+      <div class="row"><div class="rl">A losing split<span class="mono">W30 D25 L55</span></div>
+        <div class="pill" id="p0b"></div></div>
+    </div>
+
+    <!-- B seated stacked -->
+    <div class="card">
+      <div class="tag"><h2>B · Seated stacked bar</h2><span class="n">SOFASCORE</span></div>
+      <p class="note">Edge-to-edge on a faint inset track, squared ends, counts inside. Fills its cell so it never floats; the track gives it a wall to sit on. Magnitude → track opacity (below).</p>
+      <div class="row"><div class="rl">All-time</div>
+        <div class="seat"><div class="track" id="sbA"></div></div></div>
+      <div class="row"><div class="rl">A losing split</div>
+        <div class="seat"><div class="track" id="sbB"></div></div></div>
+    </div>
+
+    <!-- A tornado -->
+    <div class="card">
+      <div class="tag"><h2>A · Tornado on shared axis</h2><span class="n">RECOMMENDED</span></div>
+      <p class="note">Your diverging idea, kept — but every row pivots on one continuous centre rule drawn down the whole column. Inner ends squared. Length encodes games. Reads as one chart, not loose pills.</p>
+      <div class="torn">
+        <div class="row"><div class="rl">1994&ndash;95<span class="mono">W26 D10 L6 · P42</span></div><div class="tbar" data-w="26" data-d="10" data-l="6"></div></div>
+        <div class="row"><div class="rl">2020&ndash;21<span class="mono">W21 D11 L6 · P38</span></div><div class="tbar" data-w="21" data-d="11" data-l="6"></div></div>
+        <div class="row"><div class="rl">Europe 08&ndash;09<span class="mono">W9 D3 L1 · P13</span></div><div class="tbar" data-w="9" data-d="3" data-l="1"></div></div>
+        <div class="row"><div class="rl">1930&ndash;31<span class="mono">W7 D6 L29 · P42</span></div><div class="tbar" data-w="7" data-d="6" data-l="29"></div></div>
+      </div>
+    </div>
+
+    <!-- C waffle -->
+    <div class="card">
+      <div class="tag"><h2>C · Waffle / unit chart</h2><span class="n">SCOREBOARD</span></div>
+      <p class="note">20 cells allocated by proportion. Reads as discrete "games", anchored to a grid so nothing floats. Great in a header; too heavy for dense list rows.</p>
+      <div class="row"><div class="rl">All-time</div><div class="waffle" id="wfA"></div></div>
+      <div class="row"><div class="rl">A losing split</div><div class="waffle" id="wfB"></div></div>
+    </div>
+
+    <!-- D underline -->
+    <div class="card full">
+      <div class="tag"><h2>D · Segmented underline + counts</h2><span class="n">LIST ROWS</span></div>
+      <p class="note">For dense index rows: drop the bar to a 3px rule seated flush under the record text — it anchors to the row's own chrome instead of floating. The tinted W&ndash;D&ndash;L numbers carry the magnitude; the rule carries the proportion.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px">
+        <div class="row" style="grid-template-columns:1fr auto"><div>
+            <div style="font-weight:600;font-size:13px">Sir Alex Ferguson</div>
+            <div class="under" style="margin-top:6px;max-width:200px" data-w="895" data-d="338" data-l="222"></div>
+          </div>
+          <div class="cap mono"><b class="cw">895</b><b class="cd">338</b><b class="cl">222</b></div></div>
+        <div class="row" style="grid-template-columns:1fr auto"><div>
+            <div style="font-weight:600;font-size:13px">David Moyes</div>
+            <div class="under" style="margin-top:6px;max-width:200px" data-w="27" data-d="9" data-l="15"></div>
+          </div>
+          <div class="cap mono"><b class="cw">27</b><b class="cd">9</b><b class="cl">15</b></div></div>
+      </div>
+    </div>
+
+    <!-- magnitude focus -->
+    <div class="card full">
+      <div class="tag"><h2>Magnitude, without fattening — A length vs B opacity</h2></div>
+      <p class="note">The home page currently encodes "games played" as bar <i>thickness</i>, which is what makes it a lozenge. Two cleaner channels: <b>length</b> off a shared axis (A), or a <b>fixed-width seated bar whose track saturation tracks P</b> (B). Both keep a constant bar height.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px">
+        <div>
+          <div class="rl" style="margin-bottom:10px">A · length = games (shared axis)</div>
+          <div class="torn" style="--axis:calc(50% + 54px)">
+            <div class="row" style="grid-template-columns:90px 1fr"><div class="rl mono">P42</div><div class="tbar" data-w="26" data-d="10" data-l="6"></div></div>
+            <div class="row" style="grid-template-columns:90px 1fr"><div class="rl mono">P38</div><div class="tbar" data-w="21" data-d="11" data-l="6"></div></div>
+            <div class="row" style="grid-template-columns:90px 1fr"><div class="rl mono">P13</div><div class="tbar" data-w="9" data-d="3" data-l="1"></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="rl" style="margin-bottom:10px">B · saturation = games (fixed width)</div>
+          <div class="row" style="grid-template-columns:90px 1fr"><div class="rl mono">P42</div><div class="seat"><div class="track" data-fade="0" id="mb1"></div></div></div>
+          <div class="row" style="grid-template-columns:90px 1fr"><div class="rl mono">P38</div><div class="seat"><div class="track" data-fade="0" id="mb2"></div></div></div>
+          <div class="row" style="grid-template-columns:90px 1fr"><div class="rl mono">P13</div><div class="seat"><div class="track" data-fade=".45" id="mb3"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend"><span><i style="background:var(--win)"></i>Win</span><span><i style="background:var(--draw)"></i>Draw</span><span><i style="background:var(--loss)"></i>Loss</span></div>
+
+<script>
+  const WIN="var(--win)",DRAW="var(--draw)",LOSS="var(--loss)";
+
+  // --- 0 current floating pill (diverging, both ends rounded) ---
+  function pill(el,w,d,l){
+    const t=w+d+l, wp=100*w/t, dp=100*d/t, lp=100*l/t, dh=dp/4;
+    el.innerHTML="";
+    const mk=(left,width,bg,r)=>{const s=document.createElement('div');s.className='seg';s.style.cssText=
+      `left:${left}%;width:${width}%;background:${bg};border-radius:${r}`;el.appendChild(s);};
+    mk(50-dh-lp/2, lp/2, LOSS, '8px 0 0 8px');
+    mk(50-dh, dp/2, 'color-mix(in oklab,var(--draw),transparent 30%)','0');
+    mk(50+dh, wp/2, WIN, '0 8px 8px 0');
+    const a=document.createElement('div');a.className='axis';el.appendChild(a);
+  }
+  pill(p0a,2400,1100,900); pill(p0b,30,25,55);
+
+  // --- A tornado, shared axis, length = games ---
+  const tbars=[...document.querySelectorAll('.tbar')];
+  const maxSide=Math.max(...tbars.map(b=>{const w=+b.dataset.w,d=+b.dataset.d,l=+b.dataset.l;return Math.max(l+d/2,w+d/2);}));
+  const scale=50/maxSide; // % of track per game so the heaviest side just reaches an edge
+  tbars.forEach(b=>{
+    const w=+b.dataset.w,d=+b.dataset.d,l=+b.dataset.l;
+    const lw=l*scale, dw=d*scale, ww=w*scale, left=50-(l+d/2)*scale;
+    const mk=(x,width,bg,r)=>{if(width<=0)return;const s=document.createElement('div');s.className='seg';
+      s.style.cssText=`left:${x}%;width:${width}%;background:${bg};border-radius:${r}`;b.appendChild(s);};
+    mk(left,lw,LOSS,'2px 0 0 2px');
+    mk(left+lw,dw,'color-mix(in oklab,var(--draw),transparent 25%)','0');
+    mk(left+lw+dw,ww,WIN,'0 2px 2px 0');
+  });
+
+  // --- B seated stacked, counts inside ---
+  function seat(el,w,d,l,fade){
+    const t=w+d+l;
+    const seg=(cls,n)=>{const s=document.createElement('div');s.className='seg '+cls;
+      s.style.width=(100*n/t)+'%'; if(100*n/t>=12)s.textContent=n; return s;};
+    el.append(seg('w',w),seg('d',d),seg('l',l));
+    if(fade)el.style.opacity=1-fade;
+  }
+  seat(sbA,2400,1100,900); seat(sbB,30,25,55);
+  // magnitude variant B: same proportions, saturation by P
+  seat(mb1,26,10,6,0); seat(mb2,21,11,6,.18); seat(mb3,9,3,1,.5);
+
+  // --- C waffle ---
+  function waffle(el,w,d,l){
+    const t=w+d+l, cells=20;
+    let nw=Math.round(cells*w/t), nd=Math.round(cells*d/t); let nl=cells-nw-nd;
+    if(nl<0){nd+=nl;nl=0;}
+    const add=(cls,n)=>{for(let i=0;i<n;i++){const c=document.createElement('i');c.className=cls;el.appendChild(c);}};
+    add('wf-w',nw);add('wf-d',nd);add('wf-l',nl);
+  }
+  waffle(wfA,2400,1100,900); waffle(wfB,30,25,55);
+
+  // --- D underline ---
+  document.querySelectorAll('.under').forEach(u=>{
+    const w=+u.dataset.w,d=+u.dataset.d,l=+u.dataset.l,t=w+d+l;
+    const seg=(cls,n)=>{const s=document.createElement('div');s.className='seg '+cls;s.style.width=(100*n/t)+'%';return s;};
+    u.append(seg('w',w),seg('d',d),seg('l',l));
+  });
+</script>
+</body>
+</html>

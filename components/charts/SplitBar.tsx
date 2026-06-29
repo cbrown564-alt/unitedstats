@@ -22,15 +22,17 @@ export function SplitBar({
       {segments.map((s, i) => {
         const pct = (100 * s.value) / total;
         if (pct <= 0) return null;
+        const showLabel = s.label && pct >= 7;
         return (
           <div
             key={i}
             className="relative flex h-full items-center justify-center"
             style={{ width: `${pct}%`, background: s.color }}
+            title={s.label && !showLabel ? `${s.label}: ${s.value}` : undefined}
           >
-            {s.label && pct >= 11 && (
+            {showLabel && (
               <span
-                className="stat-num truncate px-1 text-[10px] font-semibold leading-none"
+                className={`stat-num truncate px-0.5 font-semibold leading-none ${pct >= 11 ? "text-[10px]" : "text-[9px]"}`}
                 style={{ color: s.textColor ?? "var(--color-pitch)" }}
               >
                 {s.label}

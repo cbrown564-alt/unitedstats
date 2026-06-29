@@ -18,6 +18,8 @@ export function IndexRow({
   rank,
   leading,
   name,
+  compactName,
+  title,
   badge,
   sub,
   w,
@@ -31,6 +33,10 @@ export function IndexRow({
   rank?: number;
   leading: React.ReactNode;
   name: string;
+  /** Shorter label for narrow viewports (e.g. broadcast opponent short name). */
+  compactName?: string;
+  /** Full name for native tooltip when `compactName` is shown on narrow screens. */
+  title?: string;
   /** Small marker shown immediately after the name (e.g. a gold honours count). */
   badge?: React.ReactNode;
   sub: React.ReactNode;
@@ -51,7 +57,8 @@ export function IndexRow({
   return (
     <Link
       href={href}
-      className="grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-5 gap-y-1.5 px-4 py-3 transition-colors hover:bg-panel sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)_auto]"
+      title={title ?? (compactName ? name : undefined)}
+      className="group grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-5 gap-y-1.5 px-4 py-3 transition-colors hover:bg-panel focus-ring sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)_auto]"
     >
       <span className="flex min-w-0 items-center gap-3">
         {rank != null && (
@@ -60,7 +67,16 @@ export function IndexRow({
         {leading}
         <span className="min-w-0">
           <span className="flex items-center gap-1.5">
-            <span className="line-clamp-2 font-medium leading-tight sm:truncate">{name}</span>
+            <span className="break-words font-medium leading-tight line-clamp-2 transition-colors group-hover:text-devil-bright sm:line-clamp-1 sm:truncate">
+              {compactName ? (
+                <>
+                  <span className="sm:hidden">{compactName}</span>
+                  <span className="hidden sm:inline">{name}</span>
+                </>
+              ) : (
+                name
+              )}
+            </span>
             {badge}
           </span>
           <span className="stat-num block text-xs text-ink-faint">{sub}</span>
@@ -78,7 +94,7 @@ export function IndexRow({
         {gdPerGame != null && (
           <span className={`block text-xs font-medium ${gdTone(gdPerGame)}`}>
             {gdSign(gdPerGame)}
-            {Math.abs(gdPerGame).toFixed(2)} <span className="text-ink-faint">gd/game</span>
+            {Math.abs(gdPerGame).toFixed(1)} <span className="text-ink-faint">gd/game</span>
           </span>
         )}
         <span className="block text-[11px] text-ink-faint">{fmtNum(p)} played</span>

@@ -55,7 +55,7 @@ export function CupLeanBar({
           return (
             <div
               key={p.player_id}
-              className="grid grid-cols-[8.5rem_minmax(0,1fr)_3.75rem] items-center gap-3 sm:grid-cols-[11rem_minmax(0,1fr)_4.25rem]"
+              className="grid grid-cols-[10.5rem_minmax(0,1fr)_3.75rem] items-center gap-3 sm:grid-cols-[13rem_minmax(0,1fr)_4.25rem]"
             >
               <Link
                 href={`/player/${p.player_id}`}
@@ -76,19 +76,25 @@ export function CupLeanBar({
                 <div
                   className="absolute inset-y-0 left-0 flex items-center bg-gold"
                   style={{ width: `${sharePct}%` }}
+                  title={sharePct < 9 ? `${p.cup_goals} cup goals` : undefined}
                 >
-                  <span className="stat-num truncate px-1.5 text-[11px] font-semibold leading-none text-pitch">
-                    {p.cup_goals}
-                  </span>
+                  {sharePct >= 9 && (
+                    <span className={`stat-num truncate px-1 font-semibold leading-none text-pitch ${sharePct >= 14 ? "text-[11px]" : "text-[9px]"}`}>
+                      {p.cup_goals}
+                    </span>
+                  )}
                 </div>
                 {/* League goals fill the remainder of the track. */}
                 <div
                   className="absolute inset-y-0 right-0 flex items-center justify-end"
                   style={{ width: `${100 - sharePct}%` }}
+                  title={100 - sharePct < 9 ? `${p.league_goals} league goals` : undefined}
                 >
-                  <span className="stat-num truncate px-1.5 text-[11px] leading-none text-ink-dim">
-                    {p.league_goals}
-                  </span>
+                  {100 - sharePct >= 9 && (
+                    <span className={`stat-num truncate px-1 leading-none text-ink-dim ${100 - sharePct >= 14 ? "text-[11px]" : "text-[9px]"}`}>
+                      {p.league_goals}
+                    </span>
+                  )}
                 </div>
               </div>
 

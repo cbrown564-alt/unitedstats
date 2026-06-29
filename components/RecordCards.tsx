@@ -49,8 +49,8 @@ export function RecordCards({ records }: { records: RecordCard[] }) {
             <span className={`stat-num text-3xl font-semibold sm:text-4xl ${TONE[r.tone]}`}>{r.figure}</span>
             {r.unit && <span className="text-xs uppercase tracking-[0.14em] text-ink-faint">{r.unit}</span>}
           </div>
-          <p className="mt-2 truncate text-sm font-medium text-ink-dim group-hover:text-devil-bright">{r.detail}</p>
-          <p className="stat-num mt-0.5 truncate text-xs text-ink-faint">{r.meta}</p>
+          <p className="mt-2 break-words line-clamp-2 text-sm font-medium text-ink-dim group-hover:text-devil-bright sm:line-clamp-1 sm:truncate">{r.detail}</p>
+          <p className="stat-num mt-0.5 break-words line-clamp-2 text-xs text-ink-faint sm:line-clamp-1 sm:truncate">{r.meta}</p>
         </Link>
       ))}
     </div>
