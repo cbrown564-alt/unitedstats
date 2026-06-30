@@ -94,3 +94,19 @@ after `npm run build`) reads `.next/prerender-manifest.json` and fails if any
 expected static page or SSG route has regressed to dynamic, or if the
 prerendered-path count collapses. A stray `searchParams`/`cookies()` read or a
 dropped `generateStaticParams` will fail the build instead of silently shipping.
+
+## Build profiles
+
+Production deploys and CI use a **full** build profile: `prebuild` rebuilds the
+DB, verifies media, exports the downloadable dataset, and prerenders all ~7,400
+entity pages for CDN-fast UX.
+
+**Preview** deploys (Vercel `VERCEL_ENV=preview`, i.e. PR branches) default to
+a faster profile: `generateStaticParams` samples ~24 evenly spaced ids per heavy
+route (other valid ids still SSR on demand via the default `dynamicParams`),
+and `export:dataset` is skipped. Override either way with
+`UNITEDSTATS_BUILD_PROFILE=full|preview`. Local fast iteration:
+
+```bash
+UNITEDSTATS_BUILD_PROFILE=preview npm run build
+```

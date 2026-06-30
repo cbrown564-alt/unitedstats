@@ -19,8 +19,7 @@ import { FormationPitch, Bench, placeBand, type MatchMarks } from "@/components/
 import { ShareCite } from "@/components/ShareCite";
 import { MatchSectionTabs } from "@/components/match/MatchSectionTabs";
 import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
-
-export const dynamicParams = false;
+import { sampleStaticIds } from "@/lib/static-build";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -41,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export function generateStaticParams() {
-  return allMatchIds().map((id) => ({ id }));
+  return sampleStaticIds(allMatchIds()).map((id) => ({ id }));
 }
 
 /**

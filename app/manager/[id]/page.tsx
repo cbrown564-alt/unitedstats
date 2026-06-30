@@ -22,8 +22,7 @@ import { managerTrophyHaul } from "@/lib/compare";
 import { fmtDate, fmtFee, fmtNum, pct, tallyWdl } from "@/lib/format";
 import { getDb } from "@/lib/db";
 import { queryString } from "@/lib/url";
-
-export const dynamicParams = false;
+import { sampleStaticIds } from "@/lib/static-build";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -42,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export function generateStaticParams() {
-  return managersIndex().map((m) => ({ id: m.id }));
+  return sampleStaticIds(managersIndex().map((m) => m.id)).map((id) => ({ id }));
 }
 
 /** Date → a fractional year ("1999-08-01" → 1999.58) for placing span bands. */
