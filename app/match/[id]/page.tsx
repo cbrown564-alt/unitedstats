@@ -51,9 +51,9 @@ export function generateStaticParams() {
 
 /**
  * Hero team name that swaps tier by viewport: broadcast short name on phones
- * and tablets, the full era-accurate name on wide screens. `min-w-0` lets the
- * grid track shrink so a long name can't force a sideways scroll; the full
- * name is always available via the title tooltip.
+ * and tablets, the full era-accurate name on wide screens. `min-w-0` and
+ * `whitespace-nowrap` keep each side on one line; the h1 scales type down on
+ * narrow viewports so names like "Liverpool" fit. Full name stays in title.
  */
 function TeamName({ names, align, href }: { names: ClubNames; align: "left" | "right"; href?: string }) {
   const inner = (
@@ -62,7 +62,7 @@ function TeamName({ names, align, href }: { names: ClubNames; align: "left" | "r
       <span className="hidden lg:inline">{names.full}</span>
     </>
   );
-  const className = `min-w-0 break-words ${align === "left" ? "text-left" : "text-right"}`;
+  const className = `min-w-0 whitespace-nowrap ${align === "left" ? "text-left" : "text-right"}`;
   return href ? (
     <Link href={href} title={names.full} className={`${className} hover:text-devil-bright focus-ring`}>
       {inner}
@@ -588,17 +588,17 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   {word}
                 </span>
               </div>
-              <h1 className="display grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 text-4xl leading-tight sm:gap-x-5 sm:text-5xl lg:gap-x-8 lg:text-6xl">
+              <h1 className="display grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 text-xl leading-none sm:gap-x-5 sm:text-5xl sm:leading-tight lg:gap-x-8 lg:text-6xl">
                 {m.venue === "A" ? (
                   <>
                     <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
-                    <span className={`stat-num whitespace-nowrap ${tone}`}>{m.ga}–{m.gf}</span>
+                    <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.ga}–{m.gf}</span>
                     <TeamName names={clubN} align="left" />
                   </>
                 ) : (
                   <>
                     <TeamName names={clubN} align="right" />
-                    <span className={`stat-num whitespace-nowrap ${tone}`}>{m.gf}–{m.ga}</span>
+                    <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.gf}–{m.ga}</span>
                     <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
                   </>
                 )}
