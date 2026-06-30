@@ -41,7 +41,10 @@ phone-tuned `rem` sizing and `inset-inline: 0` sheets read as massively oversize
 Narrow shell is the same interaction model with phone-proportioned chrome.
 
 **QA matrix:** always verify mobile changes on (1) a real phone, (2) a half-screen
-desktop window in the sm–lg band, and (3) full desktop at lg+.
+desktop window in the sm–lg band, and (3) full desktop at lg+. **Agent workflow:** any
+UI change on this track must be confirmed with a screenshot shown to the user — see
+`AGENTS.md` (Playwright via `scripts/shot.mjs`, phone width 390×844 unless the change
+targets narrow shell or desktop).
 
 ---
 
