@@ -3,6 +3,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { RUNTIME_DB_PATH, usesRuntimeDbBlob } from "./runtime-db-path";
 
+/** Scoped to data/ so the file tracer does not pull the whole repo into every function. */
+const LOCAL_DB_PATH = path.join(process.cwd(), "data", "united.db");
+
 let db: Database.Database | null = null;
 let resolvedPath: string | null = null;
 
@@ -12,23 +15,24 @@ function openDb(file: string): Database.Database {
 
 function resolveLocalPath(): string {
   if (resolvedPath) return resolvedPath;
-  resolvedPath = usesRuntimeDbBlob()
-    ? RUNTIME_DB_PATH
-    : path.join(process.cwd(), "data", "united.db");
+  resolvedPath = usesRuntimeDbBlob() ? RUNTIME_DB_PATH : LOCAL_DB_PATH;
   return resolvedPath;
+}
+
+function missingDbMessage(file: string): string {
+  return usesRuntimeDbBlob()
+    ? `Runtime database missing at ${file}. Ensure instrumentation ran or call resetDb() after upload.`
+    : `Database missing at ${file}. Run npm run build:db.`;
 }
 
 export function getDb(): Database.Database {
   if (!db) {
     const file = resolveLocalPath();
-    if (!fs.existsSync(file)) {
-      throw new Error(
-        usesRuntimeDbBlob()
-          ? `Runtime database missing at ${file}. Ensure instrumentation ran or call resetDb() after upload.`
-          : `Database missing at ${file}. Run npm run build:db.`,
-      );
+    try {
+      db = openDb(file);
+    } catch {
+      throw new Error(missingDbMessage(file));
     }
-    db = openDb(file);
   }
   return db;
 }

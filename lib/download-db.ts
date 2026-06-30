@@ -5,13 +5,16 @@ import { RUNTIME_DB_PATH, usesRuntimeDbBlob } from "./runtime-db-path";
 // Re-exported so instrumentation can grab the guard alongside the downloader.
 export { usesRuntimeDbBlob };
 
+/** Scoped to data/ — see lib/db.ts LOCAL_DB_PATH. */
+const LOCAL_DB_PATH = path.join(process.cwd(), "data", "united.db");
+
 function runtimeDbBlobUrl(): string | null {
   return process.env.UNITEDSTATS_DB_BLOB_URL ?? null;
 }
 
 export async function downloadRuntimeDb(force = false): Promise<string> {
   const url = runtimeDbBlobUrl();
-  if (!url) return path.join(process.cwd(), "data", "united.db");
+  if (!url) return LOCAL_DB_PATH;
 
   if (force && fs.existsSync(RUNTIME_DB_PATH)) fs.unlinkSync(RUNTIME_DB_PATH);
 
