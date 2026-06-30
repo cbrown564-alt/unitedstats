@@ -12,7 +12,9 @@ import {
   YAxis,
 } from "recharts";
 import type { CareerSeason } from "@/lib/compare";
+import type { MouseHandlerDataParam } from "recharts";
 import { fmtAxisNumber } from "@/lib/format";
+import { useChartPin, useCoarsePointer } from "./useChartPin";
 
 // Identity colours mirror CompareSignatures: side A is United red, side B a cool
 // blue, so the pair stays separable and consistent with the rest of the comparison.
@@ -83,14 +85,16 @@ function DuelTooltip({
   labelA,
   labelB,
   rate,
+  pinned = false,
 }: {
   active?: boolean;
   payload?: { payload: DuelDatum }[];
   labelA: string;
   labelB: string;
   rate: boolean;
+  pinned?: boolean;
 }) {
-  if (!active || !payload?.length) return null;
+  if ((!active && !pinned) || !payload?.length) return null;
   const d = payload[0]?.payload;
   if (!d) return null;
   const row = (
@@ -113,10 +117,18 @@ function DuelTooltip({
     </div>
   );
   return (
-    <div className="min-w-44 rounded-md border border-line bg-panel px-3 py-2 text-xs shadow-[0_10px_30px_rgb(0_0_0_/_0.35)]">
+    <div
+      className={`min-w-44 rounded-md border bg-panel px-3 py-2 text-xs shadow-[0_10px_30px_rgb(0_0_0_/_0.35)] ${
+        pinned ? "border-devil/40 ring-1 ring-devil/15" : "border-line"
+      }`}
+      role={pinned ? "status" : undefined}
+    >
       <div className="text-ink-faint">Season {d.n}</div>
       {row(labelA, d.aSeason, rate ? d.aPer90 : d.aGoals, d.aApps, A_COLOR)}
       {row(labelB, d.bSeason, rate ? d.bPer90 : d.bGoals, d.bApps, B_COLOR)}
+      {pinned && (
+        <div className="mt-1 text-[11px] text-ink-faint">Tap a point again to open matches · tap elsewhere to dismiss</div>
+      )}
     </div>
   );
 }
@@ -149,6 +161,8 @@ export function CareerDuelChart({
 }) {
   const gid = useId().replace(/:/g, "");
   const router = useRouter();
+  const coarse = useCoarsePointer();
+  const { pinned, pin, rootRef } = useChartPin<DuelDatum>();
   const data = merge(a, b, aId, bId);
   if (!data.length) return null;
 
@@ -163,11 +177,23 @@ export function CareerDuelChart({
   const dotFor = (series: "a" | "b") => {
     const peak = series === "a" ? peakA : peakB;
     const color = series === "a" ? A_COLOR : B_COLOR;
+    const hitRadius = coarse ? 14 : 9;
     function Dot(props: { cx?: number; cy?: number; payload?: DuelDatum }) {
       const { cx, cy, payload } = props;
       if (cx == null || cy == null || !payload) return <g />;
       const href = series === "a" ? payload.aHref : payload.bHref;
       const isPeak = payload.n === peak;
+      const onActivate = () => {
+        if (coarse && pinned === payload && href) {
+          router.push(href);
+          return;
+        }
+        if (coarse) {
+          pin(payload);
+          return;
+        }
+        if (href) router.push(href);
+      };
       return (
         <g>
           {/* Generous transparent hit target so any point opens that player's
@@ -175,10 +201,10 @@ export function CareerDuelChart({
           <circle
             cx={cx}
             cy={cy}
-            r={9}
+            r={hitRadius}
             fill="transparent"
             className={href ? "cursor-pointer" : undefined}
-            onClick={() => href && router.push(href)}
+            onClick={onActivate}
           />
           {isPeak && (
             <circle cx={cx} cy={cy} r={4.5} fill={color} stroke="var(--color-panel)" strokeWidth={1.5} />
@@ -189,8 +215,14 @@ export function CareerDuelChart({
     return Dot;
   };
 
+  const onChartClick = (state: MouseHandlerDataParam) => {
+    if (!coarse) return;
+    const idx = state.activeIndex ?? state.activeTooltipIndex;
+    if (typeof idx === "number" && data[idx]) pin(data[idx]);
+  };
+
   return (
-    <div className="flex h-auto w-full flex-col" style={{ height }}>
+    <div ref={rootRef} className="flex h-auto w-full flex-col" style={{ height }}>
       <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
         {rate ? "Goals per 90 by career season" : "Goals by career season"}
       </p>
@@ -209,7 +241,13 @@ export function CareerDuelChart({
         </div>
         <div className="min-h-0 flex-1">
         <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
-          <AreaChart data={data} margin={{ top: 12, right: 12, bottom: 24, left: 0 }} accessibilityLayer aria-label={`Goals per season: ${labelA} vs ${labelB}`}>
+          <AreaChart
+            data={data}
+            margin={{ top: 12, right: 12, bottom: 24, left: 0 }}
+            accessibilityLayer
+            aria-label={`Goals per season: ${labelA} vs ${labelB}`}
+            onClick={onChartClick}
+          >
           {/* Matches InspectableBarChart: a <title> surfaces the click affordance
               on hover, complementing the cursor change on each point. */}
           <title>Click a point to open that player&apos;s matches for the season</title>
@@ -253,11 +291,13 @@ export function CareerDuelChart({
             tickFormatter={(v) => (rate ? (v as number).toFixed(1) : fmtAxisNumber(v, ""))}
             allowDecimals={rate}
           />
-          <Tooltip
-            content={<DuelTooltip labelA={labelA} labelB={labelB} rate={rate} />}
-            cursor={{ stroke: "var(--color-ink-dim)", strokeOpacity: 0.4, strokeWidth: 1 }}
-            isAnimationActive={false}
-          />
+          {!coarse && (
+            <Tooltip
+              content={<DuelTooltip labelA={labelA} labelB={labelB} rate={rate} />}
+              cursor={{ stroke: "var(--color-ink-dim)", strokeOpacity: 0.4, strokeWidth: 1 }}
+              isAnimationActive={false}
+            />
+          )}
           <Area
             type="monotone"
             dataKey={aKey}
@@ -266,7 +306,7 @@ export function CareerDuelChart({
             strokeWidth={2}
             fill={`url(#duel-a-${gid})`}
             dot={dotFor("a")}
-            activeDot={{ r: 4, stroke: A_COLOR, strokeWidth: 2, fill: "var(--color-panel)" }}
+            activeDot={{ r: coarse ? 7 : 4, stroke: A_COLOR, strokeWidth: 2, fill: "var(--color-panel)" }}
             connectNulls
             isAnimationActive={false}
           />
@@ -278,7 +318,7 @@ export function CareerDuelChart({
             strokeWidth={2}
             fill={`url(#duel-b-${gid})`}
             dot={dotFor("b")}
-            activeDot={{ r: 4, stroke: B_COLOR, strokeWidth: 2, fill: "var(--color-panel)" }}
+            activeDot={{ r: coarse ? 7 : 4, stroke: B_COLOR, strokeWidth: 2, fill: "var(--color-panel)" }}
             connectNulls
             isAnimationActive={false}
           />
@@ -286,7 +326,13 @@ export function CareerDuelChart({
         </ResponsiveContainer>
         </div>
       </div>
-      <p className="mt-1 text-center text-[11px] text-ink-faint">
+      {coarse && pinned && (
+        <div className="mt-2">
+          <DuelTooltip active pinned payload={[{ payload: pinned }]} labelA={labelA} labelB={labelB} rate={rate} />
+        </div>
+      )}
+      <p className="mt-1 text-center text-[11px] text-ink-faint sm:hidden">Tap a point to inspect</p>
+      <p className="mt-1 hidden text-center text-[11px] text-ink-faint sm:block">
         Click a point to open that player&apos;s matches for the season
       </p>
     </div>

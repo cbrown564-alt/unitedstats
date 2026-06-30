@@ -328,8 +328,8 @@ Impact weighted toward argument-settler and fragmented browse.
 | Match-detail progressive disclosure (1.3) | M | **High** | ✅ `MatchSectionTabs`; hero + MatchFlow first; teamsheet/ledger behind tab/disclosure. |
 | Tables → card/list via shared register primitive (1.3) | L* | **High** | *Mostly done ✅ — `DataTable` + `LeagueTable`; `/players`, `PlayerSeasonTable`, `/data`, manager bounce wired. Any new `DataTable` sites inherit the primitive. |
 | Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ Filter button in pill on `/matches`; sheet via `BottomSheet`; page deck hidden below lg. |
-| Touch chart inspection (1.4) | M | Med–High | Tap-to-pin/dismiss + bigger target. Shared chart layer. |
-| Answer surfaces — questions + compare (1.7) | M | **High** | Share-native pages beyond match detail. |
+| Touch chart inspection (1.4) | M | Med–High | ✅ Tap-to-pin/dismiss + bigger targets on shared inspectable charts (`useChartPin`). |
+| Answer surfaces — questions + compare (1.7) | M | **High** | ✅ Breadcrumbs, mobile appendix (definition/coverage), compare measures disclosure. |
 | Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | Momentum stream, not a row wall. |
 | Analytics chapters (1.3) | M–L | Med | One question per screen-height, swipeable. |
 
@@ -371,7 +371,9 @@ polish or search-first work.*
    - ~~Filters → bottom sheet + applied chips~~ — done.
    - ~~Match-detail progressive disclosure~~ — done.
    - ~~Shared register primitive~~ — done for current surfaces (`DataTable`, `LeagueTable`, `/players`, `PlayerSeasonTable`, `/data`, manager bounce).
-   - Touch chart inspection; answer surfaces (questions + compare); seasons cards; analytics chapters.
+   - ~~Touch chart inspection~~ — done.
+   - ~~Answer surfaces (questions + compare)~~ — done.
+   - Seasons scroll → cards w/ sticky era headers; analytics chapters.
 4. **Wave 2 in parallel when ready** — `TonightHero` evolution, sheet Phase B (list preview),
    full-bleed match-night list cards. Phase B before committing to Phase C intercepting routes.
 5. **Ignore deferred platform work** until there is an explicit decision to pursue install /
@@ -380,4 +382,4 @@ polish or search-first work.*
 **Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
 rebuilding list→detail twice.
 
-**Suggested next dive:** touch chart inspection (tap-to-pin/dismiss on flagship charts), then answer surfaces polish on questions + compare — seasons cards and analytics chapters can follow.
+**Suggested next dive:** seasons cards with sticky era headers, then analytics chapters (one question per screen-height, swipeable) — both are Wave 1 reading-track items still open.

@@ -8,6 +8,7 @@ import { resolveEntity } from "@/lib/search/resolve";
 import { PageHeader } from "@/components/PageHeader";
 import { CompareTable } from "@/components/CompareTable";
 import { ShareCite } from "@/components/ShareCite";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 
@@ -140,6 +141,13 @@ export default async function ComparePage({
 
       {comparison ? (
         <>
+          <DetailBreadcrumb
+            segments={[
+              { label: "Discover", href: "/explore" },
+              { label: "Compare", href: "/compare" },
+              { label: `${comparison.a.label} vs ${comparison.b.label}` },
+            ]}
+          />
           <div className="flex justify-end">
             <ShareCite
               path={`/compare${queryString({ mode, a: rawA, b: rawB, rate: rate ? undefined : "total" })}`}

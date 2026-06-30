@@ -1,10 +1,10 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { questionBySlug, questionSlugs } from "@/lib/questions";
 import { relatedAnswers } from "@/lib/related";
 import { QUESTION_COMPONENTS } from "@/components/QuestionModules";
 import { RelatedAnswers } from "@/components/RelatedAnswers";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 
 // Questions are a fixed, finite set — always fully prerendered, never sampled.
 export const dynamicParams = false;
@@ -48,11 +48,13 @@ export default async function QuestionPage({
 
   return (
     <div className="space-y-8">
-      <nav className="text-xs text-ink-faint" aria-label="Breadcrumb">
-        <Link href="/explore" className="hover:text-devil-bright">Discover</Link>
-        <span className="mx-1.5">/</span>
-        <span className="text-ink-dim">{q.label}</span>
-      </nav>
+      <DetailBreadcrumb
+        segments={[
+          { label: "Discover", href: "/explore" },
+          { label: "Questions", href: "/questions" },
+          { label: q.label },
+        ]}
+      />
 
       <Module variant="canonical" />
 
