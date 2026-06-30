@@ -108,10 +108,15 @@ export function HistorySkyline({
         />
       </div>
 
-      {/* decade axis */}
+      {/* decade axis — on phones only pin first/last year; intermediate ticks
+          stay on sm+ where there is room beside the edge labels. */}
       <div className="relative mt-1 h-3.5">
         {ticks.map((t) => (
-          <span key={t.year} className="stat-num absolute -translate-x-1/2 text-[10px] text-ink-faint" style={{ left: `${t.left}%` }}>
+          <span
+            key={t.year}
+            className="stat-num absolute hidden -translate-x-1/2 text-[10px] text-ink-faint sm:block"
+            style={{ left: `${t.left}%` }}
+          >
             {t.label}
           </span>
         ))}

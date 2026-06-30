@@ -11,6 +11,7 @@ import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict
 import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
@@ -156,6 +157,12 @@ export default async function SeasonPage({
 
   return (
     <div className="space-y-8">
+      <DetailBreadcrumb
+        segments={[
+          { label: "Seasons", href: "/seasons" },
+          { label: season },
+        ]}
+      />
       {/* Older ← All seasons → Newer. A 3-column grid keeps "All seasons" centred
           even at the timeline's ends, where one neighbour is missing. */}
       <nav className="grid grid-cols-[1fr_auto_1fr] items-stretch gap-2 text-sm">

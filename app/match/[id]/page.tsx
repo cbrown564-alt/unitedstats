@@ -17,6 +17,7 @@ import { EloWinBar } from "@/components/EloWinBar";
 import { WdlBar } from "@/components/WdlBar";
 import { FormationPitch, Bench, placeBand, type MatchMarks } from "@/components/FormationPitch";
 import { ShareCite } from "@/components/ShareCite";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { MatchSectionTabs } from "@/components/match/MatchSectionTabs";
 import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
@@ -561,7 +562,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         />
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
         <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-7 sm:px-6 sm:py-12">
-          <div className="absolute right-4 top-4 z-10">
+          <DetailBreadcrumb
+            segments={[
+              { label: "Seasons", href: "/seasons" },
+              { label: m.season, href: `/seasons/${m.season}` },
+              { label: "This match" },
+            ]}
+          />
+          <div className="absolute right-4 top-4 z-10 sm:top-7">
             <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
           </div>
           <header className="space-y-4">

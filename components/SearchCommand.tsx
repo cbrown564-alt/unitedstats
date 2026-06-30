@@ -10,7 +10,7 @@ import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
 import { useRotatingPlaceholder } from "./useRotatingPlaceholder";
-import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
+import { SEARCH_PLACEHOLDER, MOBILE_SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import type { SearchEntity } from "@/lib/search";
 import { entityMatchesHref } from "@/lib/search/matchesHref";
 import { queryString } from "@/lib/url";
@@ -26,6 +26,8 @@ export function SearchCommand({
   onDismiss,
   inputClassName,
   dropdownClassName,
+  /** Full-width mobile overlay — prominent input, in-flow results, minimal empty state. */
+  mobileOverlay = false,
 }: {
   autoFocusKey?: boolean;
   /** Focus the input as soon as it mounts (used by the mobile header panel). */
@@ -45,9 +47,10 @@ export function SearchCommand({
   inputClassName?: string;
   /** Override the results panel positioning/sizing (e.g. sidebar search). */
   dropdownClassName?: string;
+  mobileOverlay?: boolean;
 }) {
   const [q, setQ] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(mobileOverlay);
   const [active, setActive] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -56,7 +59,7 @@ export function SearchCommand({
   const listId = `${baseId}-list`;
   const optionId = (i: number) => `${baseId}-opt-${i}`;
 
-  const { shaped, entities, total } = useSiteSearch(q);
+  const { shaped, entities, total, displayTotal } = useSiteSearch(q);
   const ready = q.trim().length >= 2;
   const rows: { href: string; entity?: SearchEntity }[] = [
     ...shaped.map((s) => ({ href: s.href })),
@@ -67,9 +70,10 @@ export function SearchCommand({
 
   // The big hero/discover field teaches itself with a rotating example; the compact
   // header search and any caller-supplied placeholder stay fixed.
-  const exampleQ = useRotatingPlaceholder(!placeholder && !compact && q === "");
+  const exampleQ = useRotatingPlaceholder(!placeholder && !compact && !mobileOverlay && q === "");
   const computedPlaceholder =
-    placeholder ?? (compact ? SEARCH_PLACEHOLDER : `Try “${exampleQ}”`);
+    placeholder ??
+    (mobileOverlay ? MOBILE_SEARCH_PLACEHOLDER : compact ? SEARCH_PLACEHOLDER : `Try “${exampleQ}”`);
 
   const resolveHref = (href: string, entity?: SearchEntity) => {
     if (!forMatches) return href;
@@ -117,12 +121,13 @@ export function SearchCommand({
   }, [autoFocusKey]);
 
   useEffect(() => {
+    if (mobileOverlay) return;
     const onClick = (e: MouseEvent) => {
       if (boxRef.current && !boxRef.current.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);
-  }, []);
+  }, [mobileOverlay]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (!open) return;
@@ -143,6 +148,7 @@ export function SearchCommand({
   };
 
   const onInputBlur = () => {
+    if (mobileOverlay) return;
     window.setTimeout(() => {
       if (!boxRef.current?.contains(document.activeElement)) {
         setOpen(false);
@@ -158,8 +164,20 @@ export function SearchCommand({
     "absolute right-0 z-40 mt-1 w-full overflow-hidden rounded-lg border border-line bg-panel shadow-xl sm:w-96";
   const defaultDropdownClass = compact ? compactDropdownClass : compactDropdownClass.replace(" sm:w-96", "");
 
+  const resolvedInputClass = mobileOverlay
+    ? (inputClassName ?? "mobile-search-input w-full")
+    : compact
+      ? (inputClassName ?? compactInputClass)
+      : forMatches
+        ? "w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
+        : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil";
+
+  const panelClass = mobileOverlay
+    ? (dropdownClassName ?? "mobile-search-results")
+    : (dropdownClassName ?? defaultDropdownClass);
+
   return (
-    <div ref={boxRef} className={`relative ${compact || fullWidth ? "w-full" : "max-w-xl"}`}>
+    <div ref={boxRef} className={`relative ${mobileOverlay || compact || fullWidth ? "w-full" : "max-w-xl"}`}>
       <input
         ref={inputRef}
         type="search"
@@ -175,16 +193,10 @@ export function SearchCommand({
         onKeyDown={onKeyDown}
         placeholder={computedPlaceholder}
         aria-label="Search players, opponents, seasons, managers, stadiums, and shaped questions"
-        className={
-          compact
-            ? (inputClassName ?? compactInputClass)
-            : forMatches
-              ? "w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
-              : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil"
-        }
+        className={resolvedInputClass}
       />
       {open && (
-        <div className={dropdownClassName ?? defaultDropdownClass}>
+        <div className={panelClass}>
           {ready && hasResults ? (
             <SearchResults
               shaped={shaped}
@@ -195,6 +207,8 @@ export function SearchCommand({
               optionId={optionId}
               onSelect={select}
               onHover={setActive}
+              hideCoverage={mobileOverlay}
+              hideCoverageBelowSm={!mobileOverlay}
               footer={
                 forMatches ? undefined : (
                   <Link
@@ -202,7 +216,9 @@ export function SearchCommand({
                     onClick={() => select(seeAllHref)}
                     className="block border-t border-line px-4 py-2 text-xs font-medium text-devil-bright hover:bg-panel-2"
                   >
-                    {total > 0 ? `See all ${total} result${total === 1 ? "" : "s"} →` : "Open the results page →"}
+                    {displayTotal > 0
+                      ? `See all ${displayTotal} result${displayTotal === 1 ? "" : "s"} →`
+                      : "Open the results page →"}
                   </Link>
                 )
               }
@@ -211,6 +227,7 @@ export function SearchCommand({
             <SearchReshape
               query={q}
               seeAllHref={seeAllHref}
+              variant={mobileOverlay ? "mobile" : "default"}
               onPick={(query) => {
                 setQ(query);
                 setActive(-1);
@@ -219,7 +236,7 @@ export function SearchCommand({
               onSeeAll={() => select(forMatches ? defaultMatchesHref() : seeAllHref)}
             />
           ) : (
-            <SearchEmptyState onPick={(query) => setQ(query)} />
+            <SearchEmptyState variant={mobileOverlay ? "mobile" : "default"} onPick={(query) => setQ(query)} />
           )}
         </div>
       )}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { Pager } from "@/components/Pager";
 import { AnswerCoverageTag } from "@/components/AnswerCoverageTag";
+import { ShareCite } from "@/components/ShareCite";
 import { searchPage, entityResults, type SearchEntity } from "@/lib/search";
 import { highlight } from "@/lib/search/highlight";
 import { KIND_LABELS, KIND_HEADINGS, POPULAR_SEARCHES, RESHAPE_PROMPTS, SEARCH_HINTS, SEARCH_PLACEHOLDER } from "@/lib/search/examples";
@@ -21,7 +22,7 @@ function EntityRow({ e, q }: { e: SearchEntity; q: string }) {
   return (
     <Link
       href={e.href}
-      className="flex items-center justify-between gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-panel-2"
+      className="tap-target flex items-center justify-between gap-3 rounded-md px-3 py-2.5 text-sm transition-colors hover:bg-panel-2"
     >
       <span className="truncate">
         <span className="mr-2 inline-block w-20 text-[10px] uppercase tracking-wider text-ink-faint">
@@ -101,23 +102,24 @@ export default async function SearchPage({
         <section className="space-y-2">
           <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Answers</h2>
           {shaped.map((s) => (
-            <Link
-              key={s.title}
-              href={s.href}
-              className="block rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60"
-            >
-              {s.tentative && (
-                <div className="text-[10px] uppercase tracking-wider text-ink-faint">Did you mean</div>
-              )}
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="font-medium">{s.title}</span>
-                <span className="shrink-0 text-xs text-devil-bright">{s.hrefLabel}</span>
+            <div key={s.title} className="relative rounded-lg border border-line bg-panel transition-colors hover:border-devil/60">
+              <Link href={s.href} className="tap-target block px-4 py-3 pr-24">
+                {s.tentative && (
+                  <div className="text-[10px] uppercase tracking-wider text-ink-faint">Did you mean</div>
+                )}
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="font-medium">{s.title}</span>
+                  <span className="shrink-0 text-xs text-devil-bright">{s.hrefLabel}</span>
+                </div>
+                <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
+                  {s.coverage && <AnswerCoverageTag coverage={s.coverage} />}
+                </div>
+              </Link>
+              <div className="absolute right-3 top-3 z-10">
+                <ShareCite path={s.href} title={s.title} />
               </div>
-              <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
-                {s.coverage && <AnswerCoverageTag coverage={s.coverage} />}
-              </div>
-            </Link>
+            </div>
           ))}
         </section>
       )}

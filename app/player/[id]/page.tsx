@@ -17,6 +17,7 @@ import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { SplitBar } from "@/components/charts/SplitBar";
 import { StatTile, TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { AssistPartnerships } from "@/components/AssistPartnerships";
 import { MatchList } from "@/components/MatchList";
 import { HaulCards } from "@/components/HaulCards";
@@ -220,6 +221,12 @@ export default async function PlayerPage({
 
   return (
     <div className="space-y-10">
+      <DetailBreadcrumb
+        segments={[
+          { label: "Players", href: "/players" },
+          { label: p.name },
+        ]}
+      />
       <PlayerPlate
         name={p.name}
         share={{ path: `/player/${id}`, title: `${p.name} — Manchester United record` }}

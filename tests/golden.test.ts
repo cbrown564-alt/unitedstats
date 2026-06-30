@@ -31,6 +31,7 @@ import {
   CURATED_CUTS, cutFromParams, cutHref, curatedCut, isCurated, runCut,
 } from "../lib/cut";
 import { runSearch } from "../lib/search";
+import { typeaheadTotal } from "../lib/search/typeaheadTotal";
 import { classifyMiss } from "../lib/search/log";
 import { getDb } from "../lib/db";
 
@@ -282,8 +283,8 @@ test("entity search: giggs resolves as player and manager", () => {
 });
 
 test("search ignores short or empty queries", () => {
-  assert.deepEqual(runSearch(""), { shaped: [], entities: [], total: 0 });
-  assert.deepEqual(runSearch("a"), { shaped: [], entities: [], total: 0 });
+  assert.deepEqual(runSearch(""), { shaped: [], entities: [], total: 0, displayTotal: 0 });
+  assert.deepEqual(runSearch("a"), { shaped: [], entities: [], total: 0, displayTotal: 0 });
 });
 
 // ------------------------------------------------ phase 2: query understanding
@@ -405,17 +406,18 @@ test("player-vs-opponent never steals a two-player comparison", () => {
 });
 
 test("ambiguous 'player vs club token' prefers opponent cuts and keeps player comparison as an alternative", () => {
-  const { shaped } = runSearch("cantona vs leeds");
-  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — appearances"));
+  const { shaped, entities, total, displayTotal } = runSearch("cantona vs leeds");
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — apps"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — goals"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — assists"));
   assert.ok(
-    shaped.some((s) => s.summary.includes("appearance")) &&
+    shaped.some((s) => s.summary.includes(" app")) &&
       shaped.some((s) => s.summary.includes("recorded goal")) &&
       shaped.some((s) => s.summary.includes("recorded assist")),
     "expected appearance, goal, and assist variants for the player-vs-opponent cut",
   );
   assert.ok(shaped.some((s) => s.title === "Eric Cantona vs Lee Sharpe"), "expected comparison as an alternative");
+  assert.equal(displayTotal, typeaheadTotal(shaped, entities, total), "typeahead count matches footer logic");
 });
 
 test("a team-record phrasing still falls through to the head-to-head", () => {
@@ -439,7 +441,7 @@ test("grammar: a player's metric varies by keyword (appearances, not just goals)
   // to the goals cell — computes instead of returning nothing.
   const apps = runSearch("rooney appearances vs liverpool").shaped.find((s) => s.title === "Wayne Rooney v Liverpool");
   assert.ok(apps, "expected a player-appearances answer");
-  assert.match(apps.summary, /^\d+ appearances? \(\d+ starts?\)/);
+  assert.match(apps.summary, /^\d+ apps? \(\d+ starts?\)/);
   assert.equal(apps.coverage?.label, "lineup data", "appearances are lineup-derived");
   assert.match(apps.href, /player=wayne-rooney/);
   assert.match(apps.href, /opponent=liverpool/);

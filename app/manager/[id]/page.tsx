@@ -12,6 +12,7 @@ import { NotableMatches } from "@/components/NotableMatches";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
 import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { IdentityPlate, type SpanSegment } from "@/components/IdentityPlate";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -137,6 +138,12 @@ export default async function ManagerPage({
 
   return (
     <div className="space-y-8">
+      <DetailBreadcrumb
+        segments={[
+          { label: "Managers", href: "/managers" },
+          { label: m.name },
+        ]}
+      />
       <IdentityPlate
         eyebrow={m.role ?? "Manager"}
         share={{ path: `/manager/${m.id}`, title: `${m.name} — Manchester United record` }}

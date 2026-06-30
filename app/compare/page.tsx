@@ -7,6 +7,7 @@ import { managerById, managersIndex, playerById, playersIndex, type ManagerRecor
 import { resolveEntity } from "@/lib/search/resolve";
 import { PageHeader } from "@/components/PageHeader";
 import { CompareTable } from "@/components/CompareTable";
+import { ShareCite } from "@/components/ShareCite";
 import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 
@@ -139,6 +140,12 @@ export default async function ComparePage({
 
       {comparison ? (
         <>
+          <div className="flex justify-end">
+            <ShareCite
+              path={`/compare${queryString({ mode, a: rawA, b: rawB, rate: rate ? undefined : "total" })}`}
+              title={`${comparison.a.label} vs ${comparison.b.label} — Compare`}
+            />
+          </div>
           <CompareTable comparison={comparison} rate={rate} rateHref={rateHref} />
           <CutLinks comparison={comparison} />
           <section>

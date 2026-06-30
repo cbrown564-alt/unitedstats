@@ -472,7 +472,7 @@ function teamRecordVs(opp: IndexRow, extra: MatchFilter, label?: string): Shaped
     title: `Record ${where} ${opp.label}${label ? ` ${label}` : ""}`,
     summary: recText(recordFor(filter)),
     href: matchesHref(link),
-    hrefLabel: "Show the matches →",
+    hrefLabel: "Matches →",
     coverage: RESULT_COVERAGE,
   };
 }
@@ -493,7 +493,7 @@ function teamGoals(intent: ParsedIntent, label: string): ShapedAnswer {
       ? `${row.gf.toLocaleString("en-GB")} scored, ${row.ga.toLocaleString("en-GB")} conceded in ${row.p} ${plural(row.p, "match", "matches")}`
       : "no matches on record",
     href: matchesHref(scopeLink(intent, {})),
-    hrefLabel: "Show the matches →",
+    hrefLabel: "Matches →",
     coverage: RESULT_COVERAGE,
   };
 }
@@ -537,7 +537,7 @@ function goalWindowCut(intent: ParsedIntent, win: GoalWindow, player?: IndexRow)
       ? `${r.win} of ${r.total} recorded ${plural(r.total, "goal")} (${pct}%) came ${win.label}`
       : `No recorded goals${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
     href: matchesHref(scopeLink(intent, { goalWindow: win.key, ...(player ? { scorer: player.entity_id } : {}) })),
-    hrefLabel: "Show the matches →",
+    hrefLabel: "Matches →",
     coverage: { grade: "partial", label: "timed-goal data" },
   };
 }
@@ -559,12 +559,12 @@ function playerCut(player: IndexRow, metric: MetricKey, intent: ParsedIntent): S
       )
       .get(bind) as { apps: number; starts: number; last_date: string | null };
     return {
-      title: intent.opponent ? `${player.label} ${titleScope}` : `${player.label} — appearances${titleScope ? ` ${titleScope}` : ""}`,
+      title: intent.opponent ? `${player.label} ${titleScope}` : `${player.label} — apps${titleScope ? ` ${titleScope}` : ""}`,
       summary: r.apps
-        ? `${r.apps} ${plural(r.apps, "appearance")} (${r.starts} ${plural(r.starts, "start")})${lastBit(r.last_date)}`
-        : `No recorded appearances${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
+        ? `${r.apps} ${plural(r.apps, "app")} (${r.starts} ${plural(r.starts, "start")})${lastBit(r.last_date)}`
+        : `No recorded apps${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
       href: matchesHref(scopeLink(intent, { player: player.entity_id })),
-      hrefLabel: "Show the matches →",
+      hrefLabel: "Matches →",
       coverage: LINEUP_COVERAGE,
     };
   }
@@ -583,7 +583,7 @@ function playerCut(player: IndexRow, metric: MetricKey, intent: ParsedIntent): S
         ? `${r.n} recorded ${plural(r.n, "assist")} in ${r.matches} ${plural(r.matches, "match", "matches")}${lastBit(r.last_date)}`
         : `No recorded assists${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
       href: matchesHref(scopeLink(intent, { assister: player.entity_id })),
-      hrefLabel: "Show the matches →",
+      hrefLabel: "Matches →",
       coverage: ASSIST_COVERAGE,
     };
   }
@@ -602,7 +602,7 @@ function playerCut(player: IndexRow, metric: MetricKey, intent: ParsedIntent): S
       ? `${r.n} recorded ${plural(r.n, "goal")} in ${r.matches} ${plural(r.matches, "match", "matches")}${lastBit(r.last_date)}`
       : `No recorded goals${intent.opponent ? ` against ${intent.opponent.label}` : ""}`,
     href: matchesHref(scopeLink(intent, { scorer: player.entity_id })),
-    hrefLabel: "Show the matches →",
+    hrefLabel: "Matches →",
     coverage: GOAL_COVERAGE,
   };
 }
@@ -615,7 +615,7 @@ function managerCut(manager: IndexRow, intent: ParsedIntent): ShapedAnswer {
       title: `${manager.label} ${oppPhrase(intent.opponent, intent.filter.venue)}`,
       summary: recText(recordFor(filter)),
       href: matchesHref(scopeLink(intent, { manager: manager.entity_id })),
-      hrefLabel: "Show the matches →",
+      hrefLabel: "Matches →",
       coverage: RESULT_COVERAGE,
     };
   }
@@ -649,7 +649,7 @@ function teamScopedRecord(intent: ParsedIntent): ShapedAnswer | null {
       title: `United ${where}`,
       summary: recText(recordFor(intent.filter)),
       href: matchesHref(intent.link),
-      hrefLabel: "Show the matches →",
+      hrefLabel: "Matches →",
       coverage: RESULT_COVERAGE,
     };
   }
@@ -683,7 +683,7 @@ function roundSliceCut(intent: ParsedIntent): ShapedAnswer | null {
     title,
     summary: recText(recordFor(filter)),
     href: matchesHref(scopeLink(intent, {})),
-    hrefLabel: "Show the matches →",
+    hrefLabel: "Matches →",
     coverage: RESULT_COVERAGE,
   };
 }
@@ -787,7 +787,7 @@ export function shapedAnswers(q: string): ShapedAnswer[] {
         push(playerCut(leftPlayer, explicitMetric, scoped));
       } else {
         const withMetricTitle = (metric: MetricKey): ShapedAnswer => {
-          const metricTitle = metric === "appearances" ? "appearances" : metric;
+          const metricTitle = metric === "appearances" ? "apps" : metric;
           return { ...playerCut(leftPlayer, metric, scoped), title: `${leftPlayer.label} v ${rightOpponent.label} — ${metricTitle}` };
         };
         push(withMetricTitle("appearances"));

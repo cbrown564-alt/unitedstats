@@ -1,6 +1,22 @@
 /** Canonical input placeholder shared across search entry points. */
 export const SEARCH_PLACEHOLDER = "Search names, seasons, or questions…";
 
+/** Shorter placeholder for the mobile overlay — less visual noise above the keyboard. */
+export const MOBILE_SEARCH_PLACEHOLDER = "Settle an argument…";
+
+/**
+ * Mobile empty-state suggestions — argument-settlers with short labels where the
+ * query differs (e.g. "the treble" → 1998-99). Kept separate from POPULAR_SEARCHES
+ * so desktop teaching stays rich.
+ */
+export type MobileSearchSuggestion = { q: string; label: string };
+
+export const MOBILE_SEARCH_SUGGESTIONS: MobileSearchSuggestion[] = [
+  { q: "Cantona vs Liverpool", label: "Cantona vs Liverpool" },
+  { q: "biggest win in the 90s", label: "biggest win in the 90s" },
+  { q: "1998-99", label: "the treble" },
+];
+
 /**
  * parser actually answers, so a first-time searcher sees what the box can do.
  * Shared by the dropdown empty state, the command palette, and /search. The
