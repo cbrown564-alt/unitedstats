@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef } from "react";
 import { NAV_SECTIONS, isNavActive } from "@/lib/navSections";
+import { useAnimatedOverlay } from "@/components/mobile/useAnimatedOverlay";
 
 type MobileNavSheetProps = {
   open: boolean;
@@ -11,10 +12,12 @@ type MobileNavSheetProps = {
 };
 
 const DISMISS_THRESHOLD = 72;
+const EXIT_MS = 300;
 
 export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
   const pathname = usePathname();
   const panelId = useId();
+  const { mounted, closing, onExitComplete } = useAnimatedOverlay(open, EXIT_MS);
   const dragRef = useRef<{ startY: number; offset: number; dragging: boolean }>({
     startY: 0,
     offset: 0,
@@ -24,12 +27,12 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!mounted) return;
     document.body.classList.add("mobile-sheet-open");
     dragOffsetRef.current = 0;
     if (sheetRef.current) sheetRef.current.style.transform = "";
     return () => document.body.classList.remove("mobile-sheet-open");
-  }, [open]);
+  }, [mounted]);
 
   useEffect(() => {
     if (!open) return;
@@ -65,10 +68,13 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
     if (shouldClose) onClose();
   }, [onClose]);
 
-  if (!open) return null;
+  if (!mounted) return null;
+
+  const rootClass = closing ? "mobile-sheet-root--closing" : "mobile-sheet-root--open";
+  const panelClass = closing ? "mobile-sheet-panel--closing" : "mobile-sheet-panel--open";
 
   return (
-    <div className="mobile-sheet-root mobile-sheet-root--open" aria-hidden={false}>
+    <div className={`mobile-sheet-root ${rootClass}`} aria-hidden={closing}>
       <button
         type="button"
         aria-label="Close navigation"
@@ -82,7 +88,8 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Site sections"
-        className="mobile-sheet-panel mobile-sheet-panel--open"
+        className={`mobile-sheet-panel ${panelClass}`}
+        onAnimationEnd={closing ? onExitComplete : undefined}
       >
         <div
           className="mobile-sheet-grab"

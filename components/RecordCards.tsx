@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ShareCite } from "@/components/ShareCite";
 
 /**
  * One all-time record as an answer-object: the eyebrow says *which* record, the
@@ -28,6 +29,11 @@ const TONE: Record<RecordCard["tone"], string> = {
   devil: "text-devil-bright",
 };
 
+function shareTitle(r: RecordCard) {
+  const unit = r.unit ? ` ${r.unit}` : "";
+  return `${r.eyebrow}: ${r.figure}${unit}`;
+}
+
 /**
  * The records chapter as a grid of answer-objects rather than links to a sort.
  * Each card leads with the record figure and routes to the match, season, or
@@ -39,19 +45,23 @@ export function RecordCards({ records }: { records: RecordCard[] }) {
   return (
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {records.map((r) => (
-        <Link
+        <div
           key={r.eyebrow}
-          href={r.href}
-          className="group flex flex-col rounded-xl border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring"
+          className="group relative flex flex-col rounded-xl border border-line bg-panel transition-colors hover:border-devil/60 hover:bg-panel-2/60"
         >
-          <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">{r.eyebrow}</p>
-          <div className="mt-1.5 flex items-baseline gap-1.5">
-            <span className={`stat-num text-3xl font-semibold sm:text-4xl ${TONE[r.tone]}`}>{r.figure}</span>
-            {r.unit && <span className="text-xs uppercase tracking-[0.14em] text-ink-faint">{r.unit}</span>}
+          <Link href={r.href} className="tap-target flex flex-1 flex-col px-4 py-3 pr-20 focus-ring">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">{r.eyebrow}</p>
+            <div className="mt-1.5 flex items-baseline gap-1.5">
+              <span className={`stat-num text-3xl font-semibold sm:text-4xl ${TONE[r.tone]}`}>{r.figure}</span>
+              {r.unit && <span className="text-xs uppercase tracking-[0.14em] text-ink-faint">{r.unit}</span>}
+            </div>
+            <p className="mt-2 break-words line-clamp-2 text-sm font-medium text-ink-dim group-hover:text-devil-bright sm:line-clamp-1 sm:truncate">{r.detail}</p>
+            <p className="stat-num mt-0.5 break-words line-clamp-2 text-xs text-ink-faint sm:line-clamp-1 sm:truncate">{r.meta}</p>
+          </Link>
+          <div className="absolute right-3 top-3 z-10">
+            <ShareCite path={r.href} title={shareTitle(r)} />
           </div>
-          <p className="mt-2 break-words line-clamp-2 text-sm font-medium text-ink-dim group-hover:text-devil-bright sm:line-clamp-1 sm:truncate">{r.detail}</p>
-          <p className="stat-num mt-0.5 break-words line-clamp-2 text-xs text-ink-faint sm:line-clamp-1 sm:truncate">{r.meta}</p>
-        </Link>
+        </div>
       ))}
     </div>
   );

@@ -7,6 +7,7 @@ import {
 import { clubColor } from "@/lib/clubColors";
 import { ClubBadge } from "@/components/ClubBadge";
 import { IdentityPlate } from "@/components/IdentityPlate";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { RunCallouts, type Run } from "@/components/RunCallouts";
 import { MatchArchive } from "@/components/MatchArchive";
 import { ResultSpine } from "@/components/charts/ResultSpine";
@@ -79,6 +80,12 @@ export default async function OpponentPage({
 
   return (
     <div className="space-y-8">
+      <DetailBreadcrumb
+        segments={[
+          { label: "Opponents", href: "/opponents" },
+          { label: o.name },
+        ]}
+      />
       <IdentityPlate
         eyebrow="Head to head"
         share={{ path: `/opponent/${id}`, title: `Manchester United v ${o.name} — head-to-head record` }}

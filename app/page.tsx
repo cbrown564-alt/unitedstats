@@ -8,6 +8,7 @@ import { QUESTIONS } from "@/lib/questions";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
+import { MobileSearchPrompt } from "@/components/mobile/MobileSearchPrompt";
 import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -90,16 +91,14 @@ export default function Home() {
             <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
               {fmtNum(rec.p)} matches across {years} years of league, cup, and European football. 
             </p>
-            <div className="mt-6 max-w-2xl">
+            <div className="mt-6 max-w-2xl hidden lg:block">
               <SearchCommand autoFocusKey={false} />
               <p className="text-xs text-ink-faint mt-1.5">
-                <span className="sm:hidden">Search</span>
-                <span className="hidden sm:inline">
-                  Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
-                </span>
+                Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
                 {" "}— players, matches, seasons; anything.
               </p>
             </div>
+            <MobileSearchPrompt />
 
             <div className="mt-8">
               <HistorySkyline seasons={skyline} champions={champs} />

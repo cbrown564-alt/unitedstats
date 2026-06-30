@@ -12,10 +12,8 @@ import type { EventRow } from "@/lib/queries";
  * Server-rendered from timed goal events only. Matches without timed goals fall
  * back to a plain scorer list (handled by the caller).
  *
- * Scorer labels ride above the bar (United) and below it (opponent), positioned
- * by minute, with lane-staggering and an edge-flip keeping close or edge labels
- * legible. The same positioned layout holds on mobile — tighter, but it keeps the
- * spatial read (who scored, when, which side) rather than collapsing to a flat list.
+ * On narrow viewports the floating labels collapse to a compact event list below
+ * the bar — same spatial read via the coloured lead bar, without label collision.
  */
 
 /** Clock label that keeps stoppage time as "90+6", regulation as "64". */
@@ -43,6 +41,77 @@ function leadColor(margin: number): string {
   const t = Math.min(1, (Math.abs(margin) - 1) / 2); // 1-goal lead → 0, 3+ → 1
   if (margin > 0) return `oklch(${53 - t * 9}% ${0.17 + t * 0.04} 28)`;
   return `oklch(${30 - t * 9}% ${0.018 - t * 0.008} 45)`;
+}
+
+function GoalLabel({
+  g,
+  p,
+  lane,
+  side,
+}: {
+  g: GoalMark;
+  p: number;
+  lane: number;
+  side: "united" | "opponent";
+}) {
+  const anchorTx = p > 84 ? "translateX(-100%)" : p < 16 ? "translateX(0)" : "translateX(-50%)";
+  const colHeight = lane === 0 ? ANNOT_H - 26 : ANNOT_H;
+  const minuteClass = side === "united" ? "text-devil-bright" : "text-ink-dim";
+
+  return (
+    <>
+      <span
+        aria-hidden
+        className={`absolute left-1/2 w-px -translate-x-1/2 bg-line ${side === "united" ? "bottom-2" : "top-2"}`}
+        style={{ height: colHeight - 14 }}
+      />
+      <span
+        className={`absolute flex items-center gap-1 whitespace-nowrap text-[11px] leading-none ${side === "united" ? "" : ""}`}
+        style={
+          side === "united"
+            ? { bottom: colHeight - 6, left: "50%", transform: anchorTx }
+            : { top: colHeight - 6, left: "50%", transform: anchorTx }
+        }
+      >
+        <span className={`stat-num font-semibold ${minuteClass}`}>{clock(g.minute, g.added)}&prime;</span>
+        {g.playerId ? (
+          <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
+            {g.scorer}
+          </Link>
+        ) : (
+          <span className="text-ink">{g.scorer}</span>
+        )}
+        {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
+      </span>
+    </>
+  );
+}
+
+function CompactGoalList({ goals }: { goals: GoalMark[] }) {
+  return (
+    <ol className="mt-3 space-y-1.5 border-t border-line/70 pt-3 sm:hidden" aria-label="Goals by minute">
+      {goals.map((g) => (
+        <li key={g.key} className="flex items-baseline gap-2 text-sm leading-snug">
+          <span className={`stat-num w-10 shrink-0 text-xs font-semibold ${g.side === "united" ? "text-devil-bright" : "text-ink-dim"}`}>
+            {clock(g.minute, g.added)}&prime;
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className={g.side === "united" ? "text-ink" : "text-ink-dim"}>
+              {g.side === "united" ? "" : "· "}
+              {g.playerId ? (
+                <Link href={`/player/${g.playerId}`} className="font-medium hover:text-devil-bright">
+                  {g.scorer}
+                </Link>
+              ) : (
+                <span className="font-medium">{g.scorer}</span>
+              )}
+              {g.tag && <span className="text-ink-faint"> {g.tag === "P" ? "(P)" : "(OG)"}</span>}
+            </span>
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
 }
 
 export function MatchFlow({
@@ -94,10 +163,6 @@ export function MatchFlow({
   const end = aet ? 120 : maxMin > 90 ? Math.min(120, Math.ceil(maxMin / 5) * 5) : 90;
   const pos = (m: number) => Math.max(0, Math.min(100, (m / end) * 100));
 
-  // Edge-flip: a label centred on a dot near either end overflows the chart, so
-  // labels in the outer ~15% anchor their inner edge to the dot and grow inward.
-  const anchorTx = (p: number) => (p > 84 ? "translateX(-100%)" : p < 16 ? "translateX(0)" : "translateX(-50%)");
-
   // Running-lead segments: hold each margin until the next goal, then jump.
   const segs: { from: number; to: number; margin: number }[] = [];
   let cur = 0;
@@ -109,13 +174,11 @@ export function MatchFlow({
   }
   segs.push({ from: prev, to: end, margin: cur });
 
-  // Lane-stagger labels per side, but only raise a goal when another goal on the
-  // SAME side sits close enough in time for the labels to collide. Opposite-side
-  // goals live across the bar and never interfere.
+  // Lane-stagger labels per side when goals on the same side sit close in time.
   const unitedMarks = sorted.filter((g) => g.side === "united");
   const oppMarks = sorted.filter((g) => g.side === "opponent");
   const lane = new Map<string, number>();
-  const LABEL_GAP = 13; // % of timeline width two labels need to clear each other (covers narrow cards)
+  const LABEL_GAP = 13;
   const assignLanes = (marks: GoalMark[]) => {
     let prevPos = -Infinity;
     let prevLane = 1;
@@ -130,10 +193,7 @@ export function MatchFlow({
   assignLanes(unitedMarks);
   assignLanes(oppMarks);
 
-  // Lead bar as one layered fill: a vertical satin highlight→shadow for depth,
-  // over a horizontal lead-colour gradient whose transitions blend across a small
-  // pad zone rather than snapping at a hard edge.
-  const PAD = 1.4; // % half-width of each transition blend
+  const PAD = 1.4;
   const barStops = segs
     .map((s, i) => {
       const c = leadColor(s.margin);
@@ -154,12 +214,10 @@ export function MatchFlow({
 
   return (
     <div className="w-full">
-      {/* United scorers — above the bar (z-10 so dots paint over the bar, which
-          sits later in the DOM; the per-column transform traps dot-level z-index). */}
-      <div className="relative z-10 h-[60px]">
+      {/* United scorers — labels hidden on narrow viewports (compact list below). */}
+      <div className="relative z-10 hidden h-[60px] sm:block">
         {unitedMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
-          const colHeight = ln === 0 ? ANNOT_H - 26 : ANNOT_H;
           const p = pos(g.minute);
           return (
             <div
@@ -168,26 +226,8 @@ export function MatchFlow({
               style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
-              <span
-                aria-hidden
-                className="absolute bottom-2 left-1/2 w-px -translate-x-1/2 bg-line"
-                style={{ height: colHeight - 14 }}
-              />
-              <span
-                className="absolute flex items-center gap-1 whitespace-nowrap text-[11px] leading-none"
-                style={{ bottom: colHeight - 6, left: "50%", transform: anchorTx(p) }}
-              >
-                <span className="stat-num font-semibold text-devil-bright">{clock(g.minute, g.added)}&prime;</span>
-                {g.playerId ? (
-                  <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
-                    {g.scorer}
-                  </Link>
-                ) : (
-                  <span className="text-ink">{g.scorer}</span>
-                )}
-                {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
-              </span>
-              <span className="-mb-1 block h-2.5 w-2.5 rounded-full bg-devil-bright ring-2 ring-pitch" />
+              <GoalLabel g={g} p={p} lane={ln} side="united" />
+              <span className="tap-target -mb-1 block h-2.5 w-2.5 rounded-full bg-devil-bright ring-2 ring-pitch" />
             </div>
           );
         })}
@@ -207,13 +247,24 @@ export function MatchFlow({
             aria-hidden
           />
         )}
+        {/* Mobile-only dots on the bar — tap targets without floating labels. */}
+        {sorted.map((g) => (
+          <span
+            key={`dot-${g.key}`}
+            className={`tap-target absolute top-1/2 z-10 block h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-pitch sm:hidden ${
+              g.side === "united" ? "bg-devil-bright" : "bg-ink"
+            }`}
+            style={{ left: `${pos(g.minute)}%` }}
+            title={g.title}
+            aria-hidden
+          />
+        ))}
       </div>
 
-      {/* Opponent scorers — below the bar. */}
-      <div className="relative h-[60px]">
+      {/* Opponent scorers — labels hidden on narrow viewports. */}
+      <div className="relative hidden h-[60px] sm:block">
         {oppMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
-          const colHeight = ln === 0 ? ANNOT_H - 26 : ANNOT_H;
           const p = pos(g.minute);
           return (
             <div
@@ -222,27 +273,17 @@ export function MatchFlow({
               style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
-              <span className="relative z-10 -mt-1 block h-2.5 w-2.5 rounded-full bg-ink ring-2 ring-pitch" />
-              <span
-                aria-hidden
-                className="absolute top-2 left-1/2 w-px -translate-x-1/2 bg-line"
-                style={{ height: colHeight - 14 }}
-              />
-              <span
-                className="absolute flex items-center gap-1 whitespace-nowrap text-[11px] leading-none"
-                style={{ top: colHeight - 6, left: "50%", transform: anchorTx(p) }}
-              >
-                <span className="stat-num font-semibold text-ink-dim">{clock(g.minute, g.added)}&prime;</span>
-                <span className="text-ink">{g.scorer}</span>
-                {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
-              </span>
+              <span className="tap-target relative z-10 -mt-1 block h-2.5 w-2.5 rounded-full bg-ink ring-2 ring-pitch" />
+              <GoalLabel g={g} p={p} lane={ln} side="opponent" />
             </div>
           );
         })}
       </div>
 
+      <CompactGoalList goals={sorted} />
+
       {/* minute axis */}
-      <div className="relative h-4">
+      <div className="relative mt-2 h-4 sm:mt-0">
         <span className="stat-num absolute left-0 text-[10px] text-ink-faint">0&prime;</span>
         {gridlines.map((gl) => (
           <span
@@ -254,7 +295,6 @@ export function MatchFlow({
           </span>
         ))}
       </div>
-
     </div>
   );
 }

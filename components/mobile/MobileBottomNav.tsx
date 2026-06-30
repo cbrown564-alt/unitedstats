@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
 import { mobileNavLabel } from "@/lib/navSections";
+import { onMobileSearchOpen } from "@/lib/mobileSearch";
 import { MobileNavSheet } from "@/components/mobile/MobileNavSheet";
 import { MobileSearchOverlay } from "@/components/mobile/MobileSearchOverlay";
 
@@ -46,13 +47,17 @@ export function MobileBottomNav() {
     setSearchOpen(false);
     setMenuOpen(true);
   };
-  const openSearch = () => {
+  const openSearch = useCallback(() => {
     setMenuOpen(false);
     setSearchOpen(true);
     if (SearchCommand) return;
     setSearchLoading(true);
     void ensureSearch().finally(() => setSearchLoading(false));
-  };
+  }, [SearchCommand, ensureSearch]);
+
+  useEffect(() => onMobileSearchOpen(openSearch), [openSearch]);
+
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   return (
     <>
@@ -65,7 +70,7 @@ export function MobileBottomNav() {
             <Link
               href="/"
               aria-label="Home"
-              className="mobile-pill-btn mobile-pill-btn--home focus-ring"
+              className="mobile-pill-btn mobile-pill-btn--home tap-target focus-ring"
             >
               <HomeIcon />
             </Link>
@@ -75,7 +80,7 @@ export function MobileBottomNav() {
             type="button"
             onClick={openMenu}
             aria-expanded={menuOpen}
-            className="mobile-pill-section focus-ring"
+            className="mobile-pill-section tap-target focus-ring"
           >
             <span className="mobile-pill-section-label">{sectionLabel}</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
@@ -88,7 +93,7 @@ export function MobileBottomNav() {
             aria-label="Search"
             aria-expanded={searchOpen}
             onClick={openSearch}
-            className="mobile-pill-btn focus-ring"
+            className="mobile-pill-btn tap-target focus-ring"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
               <circle cx="11" cy="11" r="7" />
@@ -101,7 +106,7 @@ export function MobileBottomNav() {
             aria-label="Open menu"
             aria-expanded={menuOpen}
             onClick={() => (menuOpen ? closeMenu() : openMenu())}
-            className="mobile-pill-btn mobile-pill-btn--menu focus-ring"
+            className="mobile-pill-btn mobile-pill-btn--menu tap-target focus-ring"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
               {menuOpen ? (
@@ -124,7 +129,7 @@ export function MobileBottomNav() {
       <MobileNavSheet open={menuOpen} onClose={closeMenu} />
       <MobileSearchOverlay
         open={searchOpen}
-        onClose={() => setSearchOpen(false)}
+        onClose={closeSearch}
         SearchCommand={SearchCommand}
         loading={searchLoading}
       />
