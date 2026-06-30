@@ -113,6 +113,31 @@ export function iconicLateWinners(): MatchRow[] {
     .all(...ICONIC_LATE_DATES) as MatchRow[];
 }
 
+// ---------------------------------------------------------------- bogey sides
+
+export interface BogeyOpponent extends Record_ {
+  id: string;
+  name: string;
+  away_p: number;
+  away_w: number;
+}
+
+export function bogeyOpponents(minMeetings = 20, limit = 10): BogeyOpponent[] {
+  return getDb()
+    .prepare(
+      `SELECT o.id, o.name, COUNT(*) p,
+              SUM(result='W') w, SUM(result='D') d, SUM(result='L') l,
+              SUM(gf) gf, SUM(ga) ga,
+              SUM(venue='A') away_p, SUM(venue='A' AND result='W') away_w
+       FROM matches m JOIN opponents o ON o.id = m.opponent_id
+       JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type != 'unofficial'
+       GROUP BY o.id HAVING p >= ?
+       ORDER BY 1.0*w/p ASC LIMIT ?`,
+    )
+    .all(minMeetings, limit) as BogeyOpponent[];
+}
+
 // ---------------------------------------------------------------- manager bounce
 
 export interface ManagerBounce {

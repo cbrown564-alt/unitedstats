@@ -88,7 +88,7 @@ export default function Home() {
   }));
 
   return (
-    <div className="space-y-14 sm:space-y-16">
+    <div className="space-y-10 sm:space-y-14 lg:space-y-16">
       {/* The front door, fused into one piece (CONTEXT.md §§2,6): the spark and the
           foundation it belongs to, set so the Red Thread runs out of the night and
           straight on behind the foundation plate. They live in their own wrapper —
@@ -112,7 +112,7 @@ export default function Home() {
             style={{ backgroundColor: "var(--color-devil)" }}
             aria-hidden
           />
-          <div className="relative p-5 sm:p-7">
+          <div className="relative p-4 sm:p-5 lg:p-7">
             <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
               From Newton Heath to today
             </p>

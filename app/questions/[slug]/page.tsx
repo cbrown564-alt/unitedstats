@@ -6,8 +6,6 @@ import { relatedAnswers } from "@/lib/related";
 import { QUESTION_COMPONENTS } from "@/components/QuestionModules";
 import { RelatedAnswers } from "@/components/RelatedAnswers";
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return questionSlugs().map((slug) => ({ slug }));
 }

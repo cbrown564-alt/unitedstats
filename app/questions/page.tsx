@@ -165,7 +165,7 @@ export default function QuestionsPage() {
       >
         <div>
           <h3 className="text-sm font-medium mb-2 text-ink-dim">Across the 90 — when United&apos;s goals actually land</h3>
-          <MinuteRidge bins={ridge} lateFrom={85} />
+          <MinuteRidge bins={ridge.bins} lateFrom={85} />
           <p className="text-xs text-ink-faint mt-1">
             United goals by 5-minute window; the closing five minutes (plus stoppage, folded into the final bar) are
             shaded red. The dashed line is an even spread across the match.
