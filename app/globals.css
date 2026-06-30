@@ -507,6 +507,57 @@ select {
   font-size: 0.875rem;
 }
 
+/* Seasons index — mobile card stream with sticky decade headers. */
+@media (max-width: 639px) {
+  .season-decade-header {
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + 2.625rem);
+    z-index: 20;
+    margin-inline: -1rem;
+    padding: 0.625rem 1rem 0.75rem;
+    background: rgb(8 7 6 / 0.94);
+    backdrop-filter: blur(10px);
+  }
+
+  .season-card-stream {
+    padding-bottom: 0.25rem;
+  }
+
+  .season-card {
+    margin-inline: 0;
+  }
+}
+
+/* Analytics — one ChartPanel per viewport chapter on mobile. */
+.chapter-pager {
+  --chapter-panel-min-h: calc(
+    100dvh - env(safe-area-inset-top, 0px) - var(--mobile-nav-clearance) - 4.75rem
+  );
+  margin-inline: -1rem;
+}
+
+.chapter-pager__track {
+  scroll-padding-inline: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chapter-pager__slide {
+  scroll-snap-stop: always;
+}
+
+.chapter-pager__panel {
+  max-height: calc(
+    100dvh - env(safe-area-inset-top, 0px) - var(--mobile-nav-clearance) - 3.5rem
+  );
+  overflow-y: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-pager__track {
+    scroll-behavior: auto;
+  }
+}
+
 /* Dual-thumb season range on /matches — transparent tracks, devil thumbs. */
 .season-range {
   --season-range-thumb: 0.8rem;
