@@ -7,7 +7,6 @@
 import { execSync } from "node:child_process";
 
 const DATA_PREFIXES = ["data/canonical/", "data/history-digests/", "public/dataset/"];
-const DATA_FILES = new Set(["data/united.db"]);
 
 function changedFiles() {
   const prev = process.env.VERCEL_GIT_PREVIOUS_SHA;
@@ -23,7 +22,7 @@ function changedFiles() {
 
 function isDataOnly(files) {
   if (files.length === 0) return false;
-  return files.every((file) => DATA_FILES.has(file) || DATA_PREFIXES.some((p) => file.startsWith(p)));
+  return files.every((file) => DATA_PREFIXES.some((p) => file.startsWith(p)));
 }
 
 const files = changedFiles();

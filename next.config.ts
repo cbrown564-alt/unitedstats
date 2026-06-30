@@ -7,11 +7,11 @@ const immutablePageCacheHeader = [
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_VERIFY_DIST ?? ".next",
-  // united.db (~49MB) is the runtime source of truth, read by better-sqlite3 (a
-  // native open the tracer can't follow), so include it explicitly in every
-  // server function. Production may serve a fresher /tmp copy downloaded from
-  // Vercel Blob, but the bundled copy is the floor so the site never 500s on a
-  // missing blob (see lib/db.ts).
+  // united.db (built in prebuild from canonical JSON) is the runtime floor, read
+  // by better-sqlite3 (a native open the tracer can't follow), so include it
+  // explicitly in every server function. Production may serve a fresher /tmp
+  // copy downloaded from Vercel Blob, but the bundled copy is the floor so the
+  // site never 500s on a missing blob (see lib/db.ts).
   outputFileTracingIncludes: {
     "/*": ["data/united.db"],
   },

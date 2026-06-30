@@ -55,14 +55,15 @@ Implemented in `lib/revalidation.ts`; the live path list is computed in CI by
 **Bundled-first, blob-as-upgrade** (rev. 2026-06-30 after an outage — see
 [INCIDENT-2026-06-30-runtime-db.md](./INCIDENT-2026-06-30-runtime-db.md)).
 
-The committed `data/united.db` is the source of truth: it is bundled into every
-server function (`outputFileTracingIncludes` in `next.config.ts`) and is always
-present, so the site cannot 500 on a missing blob. When `UNITEDSTATS_DB_BLOB_URL`
+The deploy-time `data/united.db` (built from canonical JSON in prebuild, not
+tracked in git) is the runtime floor: it is bundled into every server function
+(`outputFileTracingIncludes` in `next.config.ts`) and is always present at
+deploy, so the site cannot 500 on a missing blob. When `UNITEDSTATS_DB_BLOB_URL`
 is set, a fresher copy is downloaded from **Vercel Blob** into `/tmp` — on cold
 start (`instrumentation.ts`) and on each revalidation (`resetDb()`) — and
 `getDb()` prefers it **only when it exists**, otherwise it falls back to the
 bundled copy (`lib/db.ts`). The blob is a freshness upgrade, never a hard
-dependency. Local dev and CI use `data/united.db` directly.
+dependency. Local dev and CI run `npm run build:db` to produce `data/united.db`.
 
 > ⚠️ The blob/`/tmp`/instrumentation path runs **only when `UNITEDSTATS_DB_BLOB_URL`
 > is set** — which previews and CI do not set. Validate it the way production

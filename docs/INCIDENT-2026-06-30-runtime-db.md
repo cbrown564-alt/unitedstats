@@ -64,14 +64,16 @@ exist at deploy time), and any failure was fatal because `getDb()` threw.
 ## Why it escaped every check
 
 The blob/`/tmp`/instrumentation path is gated on `UNITEDSTATS_DB_BLOB_URL`, which
-previews, CI, and local **never set** — they read the committed `data/united.db`.
+previews, CI, and local **never set** — they read `data/united.db` built from
+canonical JSON (prebuild / `npm run build:db`), not the blob path.
 So every PR preview exercised a *different* code path than production, all checks
 were green, and the prod-only path shipped having never run successfully.
 
 ## The fix (this change)
 
-1. **Bundled DB is the source of truth.** `data/united.db` (49MB, committed) is
-   bundled into every function via `outputFileTracingIncludes: { "/*": ["data/united.db"] }`.
+1. **Bundled DB is the runtime floor.** `data/united.db` (built at deploy from
+   canonical JSON, gitignored) is bundled into every function via
+   `outputFileTracingIncludes: { "/*": ["data/united.db"] }`.
    `getDb()` reads the `/tmp` blob copy *only when it exists* and otherwise falls
    back to the bundled copy; if the `/tmp` copy is unreadable it catches and falls
    back too. It only throws if the bundled copy is genuinely missing.

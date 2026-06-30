@@ -6,10 +6,10 @@ import { RUNTIME_DB_PATH, usesRuntimeDbBlob } from "./runtime-db-path";
 let db: Database.Database | null = null;
 
 /**
- * The united.db committed to the repo and bundled into every server function
- * (via `outputFileTracingIncludes` in next.config.ts). This is the source of
- * truth — it always exists at runtime, so the site can never go down because a
- * blob is missing.
+ * The united.db built from canonical JSON in prebuild and bundled into every
+ * server function (via `outputFileTracingIncludes` in next.config.ts). This is
+ * the runtime floor — it always exists at deploy time, so the site can never go
+ * down because a blob is missing.
  */
 function bundledDbPath(): string {
   return path.join(process.cwd(), "data", "united.db");

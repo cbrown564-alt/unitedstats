@@ -120,7 +120,7 @@ lib/                    db access (db.ts), query helpers, formatting
 data/
   canonical/            source of truth (JSON, in git)
   raw/                  downloaded open datasets (gitignored, reproducible)
-  united.db             built SQLite artifact (in git so deploys are hermetic)
+  united.db             built SQLite artifact (gitignored; rebuilt in prebuild)
 scripts/                build-db.ts, validate.ts, ingest/* loaders
 pipeline/               update.ts — the recurring fetch-and-append job
 .github/workflows/      update-results.yml (cron), ci.yml
