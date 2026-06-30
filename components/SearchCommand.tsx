@@ -23,6 +23,9 @@ export function SearchCommand({
   forMatches = false,
   placeholder,
   onNavigate,
+  onDismiss,
+  inputClassName,
+  dropdownClassName,
 }: {
   autoFocusKey?: boolean;
   /** Focus the input as soon as it mounts (used by the mobile header panel). */
@@ -36,6 +39,12 @@ export function SearchCommand({
   placeholder?: string;
   /** Fired when a result is chosen, so a wrapping panel can close itself. */
   onNavigate?: () => void;
+  /** Fired when the field loses focus and nothing inside the command took it. */
+  onDismiss?: () => void;
+  /** Extra classes merged onto the input element. */
+  inputClassName?: string;
+  /** Override the results panel positioning/sizing (e.g. sidebar search). */
+  dropdownClassName?: string;
 }) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
@@ -133,6 +142,22 @@ export function SearchCommand({
     }
   };
 
+  const onInputBlur = () => {
+    window.setTimeout(() => {
+      if (!boxRef.current?.contains(document.activeElement)) {
+        setOpen(false);
+        onDismiss?.();
+      }
+    }, 0);
+  };
+
+  const compactInputClass =
+    "w-full rounded-md border border-line bg-panel px-3 py-1.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none";
+
+  const compactDropdownClass =
+    "absolute right-0 z-40 mt-1 w-full overflow-hidden rounded-lg border border-line bg-panel shadow-xl sm:w-96";
+  const defaultDropdownClass = compact ? compactDropdownClass : compactDropdownClass.replace(" sm:w-96", "");
+
   return (
     <div ref={boxRef} className={`relative ${compact || fullWidth ? "w-full" : "max-w-xl"}`}>
       <input
@@ -146,23 +171,20 @@ export function SearchCommand({
         value={q}
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setOpen(true)}
+        onBlur={onInputBlur}
         onKeyDown={onKeyDown}
         placeholder={computedPlaceholder}
         aria-label="Search players, opponents, seasons, managers, stadiums, and shaped questions"
         className={
           compact
-            ? "w-full rounded-md border border-line bg-panel px-3 py-1.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
+            ? (inputClassName ?? compactInputClass)
             : forMatches
               ? "w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
               : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil"
         }
       />
       {open && (
-        <div
-          className={`absolute right-0 z-40 mt-1 w-full overflow-hidden rounded-lg border border-line bg-panel shadow-xl ${
-            compact ? "sm:w-96" : ""
-          }`}
-        >
+        <div className={dropdownClassName ?? defaultDropdownClass}>
           {ready && hasResults ? (
             <SearchResults
               shaped={shaped}
