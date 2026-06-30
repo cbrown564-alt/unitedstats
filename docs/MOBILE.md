@@ -20,7 +20,7 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Post-Wave 0 polish** | 2026-06-30 | Narrow-shell pill search; mobile search UX; transparent sticky breadcrumb on heroes |
 | **Wave 1 — filter sheet** | 2026-06-30 | Matches search + filters in the floating pill below lg; filter sheet via `BottomSheet`; desktop keeps `MatchControlDeck` |
 | **Wave 1 — match-detail disclosure** | 2026-06-30 | `MatchSectionTabs` on mobile; hero + `MatchFlow` first; teamsheet in Match tab scroll; desktop `<details>` for secondary sections |
-| **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` with two layouts: **leaderboard** row (`registerLayout="leaderboard"`) for ranked registers — rank · portrait · name · sort-key figure, subline indented under name; **metrics** grid for timelines. First consumers: `/players`, `PlayerSeasonTable`. See `components/DataTable.tsx`. |
+| **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` + `LeagueTable` mobile rows — **leaderboard** for ranked lists (`/players`, `LeagueTable`, manager bounce); **metrics** for timelines and coverage grids (`PlayerSeasonTable`, `/data`). |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -326,7 +326,7 @@ Impact weighted toward argument-settler and fragmented browse.
 |---|---|---|---|
 | Sheet primitive Phase A (1.2) | M | **High** | ✅ `BottomSheet` in `components/mobile/`. |
 | Match-detail progressive disclosure (1.3) | M | **High** | ✅ `MatchSectionTabs`; hero + MatchFlow first; teamsheet/ledger behind tab/disclosure. |
-| Tables → card/list via shared register primitive (1.3) | L* | **High** | *Partial ✅ — `registerCards` + leaderboard/metrics layouts on `DataTable`; `/players` (leaderboard), `PlayerSeasonTable` (metrics). `LeagueTable`, remaining `DataTable` sites next. |
+| Tables → card/list via shared register primitive (1.3) | L* | **High** | *Mostly done ✅ — `DataTable` + `LeagueTable`; `/players`, `PlayerSeasonTable`, `/data`, manager bounce wired. Any new `DataTable` sites inherit the primitive. |
 | Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ Filter button in pill on `/matches`; sheet via `BottomSheet`; page deck hidden below lg. |
 | Touch chart inspection (1.4) | M | Med–High | Tap-to-pin/dismiss + bigger target. Shared chart layer. |
 | Answer surfaces — questions + compare (1.7) | M | **High** | Share-native pages beyond match detail. |
@@ -370,7 +370,7 @@ polish or search-first work.*
 3. **Wave 1 reading track** — page-by-page, in roughly this order:
    - ~~Filters → bottom sheet + applied chips~~ — done.
    - ~~Match-detail progressive disclosure~~ — done.
-   - ~~Shared register primitive~~ — landed on `DataTable` (leaderboard + metrics layouts); `/players` and `PlayerSeasonTable` wired. Remaining: `LeagueTable`, `/data`, question modules.
+   - ~~Shared register primitive~~ — done for current surfaces (`DataTable`, `LeagueTable`, `/players`, `PlayerSeasonTable`, `/data`, manager bounce).
    - Touch chart inspection; answer surfaces (questions + compare); seasons cards; analytics chapters.
 4. **Wave 2 in parallel when ready** — `TonightHero` evolution, sheet Phase B (list preview),
    full-bleed match-night list cards. Phase B before committing to Phase C intercepting routes.
@@ -380,4 +380,4 @@ polish or search-first work.*
 **Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
 rebuilding list→detail twice.
 
-**Suggested next dive:** wire `registerCards` on remaining table surfaces (`LeagueTable`, `/data`, question modules) — use **leaderboard** layout for ranked lists, **metrics** for timelines — then touch chart inspection and answer surfaces (questions + compare).
+**Suggested next dive:** touch chart inspection (tap-to-pin/dismiss on flagship charts), then answer surfaces polish on questions + compare — seasons cards and analytics chapters can follow.

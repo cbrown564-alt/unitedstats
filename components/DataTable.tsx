@@ -59,17 +59,20 @@ function SortHeader<T>({
       </button>
     );
   }
-  return (
-    <Link
-      href={sort.hrefFor!(c.sortKey!, nextDir)}
-      prefetch={false}
-      scroll={false}
-      className={cls}
-      title={title}
-    >
-      {inner}
-    </Link>
-  );
+  if (sort.hrefFor) {
+    return (
+      <Link
+        href={sort.hrefFor!(c.sortKey!, nextDir)}
+        prefetch={false}
+        scroll={false}
+        className={cls}
+        title={title}
+      >
+        {inner}
+      </Link>
+    );
+  }
+  return <span className={cls}>{inner}</span>;
 }
 
 function figureColumn<T>(columns: Column<T>[], sortKey: string): Column<T> | undefined {

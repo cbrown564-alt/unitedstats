@@ -12,7 +12,7 @@ import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotpl
 import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
 import { MinuteRidge } from "@/components/charts/MinuteRidge";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
-import { DataTable } from "@/components/DataTable";
+import { BounceComparisonTable } from "@/components/manager/BounceComparisonTable";
 import { GeoScatter } from "@/components/GeoScatter";
 import { MatchList } from "@/components/MatchList";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
@@ -295,55 +295,7 @@ export default function QuestionsPage() {
             Show the full comparison table
           </summary>
           <div className="mt-3">
-        <DataTable
-          caption="New-manager bounce comparison"
-          rows={bounce}
-          rowKey={(b) => b.id}
-          density="compact"
-          columns={[
-            {
-              label: "Manager",
-              key: "manager",
-              render: (b) => (
-                <Link href={`/manager/${b.id}`} className="font-medium hover:text-devil-bright">
-                  {b.name}
-                </Link>
-              ),
-            },
-            {
-              label: "From",
-              key: "from",
-              className: "text-xs text-ink-faint",
-              render: (b) => fmtDate(b.first_date),
-            },
-            {
-              label: "Prev 10",
-              key: "prev",
-              numeric: true,
-              className: "text-ink-dim",
-              render: (b) => `${b.prev10.w}W ${b.prev10.d}D ${b.prev10.l}L`,
-            },
-            {
-              label: "First 10",
-              key: "first",
-              numeric: true,
-              render: (b) => `${b.first10.w}W ${b.first10.d}D ${b.first10.l}L`,
-            },
-            {
-              label: "Swing",
-              key: "swing",
-              numeric: true,
-              render: (b) => {
-                const delta = b.first10.w - b.prev10.w;
-                return (
-                  <span className={delta > 0 ? "text-win" : delta < 0 ? "text-loss" : "text-ink-faint"}>
-                    {delta > 0 ? `+${delta}` : delta}
-                  </span>
-                );
-              },
-            },
-          ]}
-        />
+            <BounceComparisonTable bounce={bounce} />
           </div>
         </details>
         <EvidenceLink href="/managers" label="Every manager's full record →" />

@@ -114,6 +114,44 @@ export function LeagueTable({
 
   const num = "px-2 py-1.5 text-right stat-num tabular-nums";
 
+  function rowMeta(r: LeagueStanding) {
+    const united = r.is_united === 1;
+    const champ = r.position === 1;
+    const zone = topFlight ? r.position > n - 3 : r.position <= 3;
+    const name = united ? clubName(`${startYear}-08-01`) : r.team;
+    const accent = united
+      ? champ
+        ? "border-l-2 border-l-gold"
+        : "border-l-2 border-l-devil-bright"
+      : champ
+        ? "border-l-2 border-l-gold/45"
+        : "border-l-2 border-l-transparent";
+    const rowTone = united ? (champ ? "bg-gold/10" : "bg-devil/12") : "";
+    const posTone = champ
+      ? "font-semibold text-gold"
+      : zone
+        ? topFlight
+          ? "text-loss/80"
+          : "text-win/80"
+        : "text-ink-faint";
+    const nameTone = united
+      ? champ
+        ? "font-semibold text-gold"
+        : "font-semibold text-devil-bright"
+      : "text-ink";
+    const ptsTone = united ? (champ ? "text-gold" : "text-ink") : "text-ink";
+    return { united, champ, name, accent, rowTone, posTone, nameTone, ptsTone };
+  }
+
+  function clubLabel(r: LeagueStanding, meta: ReturnType<typeof rowMeta>) {
+    return (
+      <span className="flex min-w-0 items-center gap-1.5">
+        {meta.champ && <TrophyIcon className="h-3 w-3 shrink-0 text-gold" />}
+        <span className={`truncate ${meta.nameTone}`}>{meta.name}</span>
+      </span>
+    );
+  }
+
   return (
     <section id={ANCHOR} className="scroll-mt-24">
       <div className="mb-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
@@ -135,7 +173,60 @@ export function LeagueTable({
         )}
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-line bg-panel">
+      <div className="overflow-hidden rounded-xl border border-line bg-panel">
+        {/* Mobile: leaderboard row — position · club · points (scan the table). */}
+        <ol className="register-card-list divide-y divide-line/50 sm:hidden">
+          {list.map((item) => {
+            if (item.kind === "gap") {
+              return (
+                <li key={`gap-${item.from}`} className="register-card-item px-3.5 py-2 text-center">
+                  <button
+                    type="button"
+                    onClick={() => toggle(true)}
+                    className="text-[11px] text-ink-faint transition-colors hover:text-devil-bright focus-ring"
+                  >
+                    + {item.count} {item.count === 1 ? "club" : "clubs"}
+                  </button>
+                </li>
+              );
+            }
+            const r = item.row;
+            const meta = rowMeta(r);
+            const href = !meta.united && r.opponent_id ? `/opponent/${r.opponent_id}` : undefined;
+            const inner = (
+              <>
+                <span className={`stat-num w-6 shrink-0 text-right text-xs tabular-nums ${meta.posTone}`}>
+                  {r.position}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-col gap-1.5">
+                    {clubLabel(r, meta)}
+                    <span className="stat-num truncate text-[11px] leading-tight text-ink-faint">
+                      {r.p}P · {r.w}W {r.d}D {r.l}L · GD {gd(r.gf - r.ga)}
+                    </span>
+                  </span>
+                </span>
+                <span className={`stat-num shrink-0 text-base font-semibold tabular-nums leading-none ${meta.ptsTone}`}>
+                  {r.pts}
+                </span>
+              </>
+            );
+            const rowClass = `register-leaderboard-row flex min-h-[3.25rem] items-center gap-2.5 px-3.5 py-2 transition-colors ${meta.accent} ${meta.rowTone} focus-ring`;
+            return (
+              <li key={r.position} className="register-card-item">
+                {href ? (
+                  <Link href={href} className={`${rowClass} hover:bg-panel-2`}>
+                    {inner}
+                  </Link>
+                ) : (
+                  <div className={rowClass}>{inner}</div>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+
+        <div className="hidden overflow-x-auto sm:block">
         <table className="w-full min-w-[34rem] border-collapse text-sm">
           <thead>
             <tr className="border-b border-line bg-panel-2/40">
@@ -169,71 +260,30 @@ export function LeagueTable({
                 );
               }
               const r = item.row;
-              const united = r.is_united === 1;
-              const champ = r.position === 1;
-              // Indicative zone tint: foot of a top-flight table, head of a second tier.
-              const zone = topFlight ? r.position > n - 3 : r.position <= 3;
-              const name = united ? clubName(`${startYear}-08-01`) : r.team;
-
-              const rowTone = united
-                ? champ
-                  ? "bg-gold/10"
-                  : "bg-devil/12"
-                : "";
-              const accent = united
-                ? champ
-                  ? "border-l-2 border-l-gold"
-                  : "border-l-2 border-l-devil-bright"
-                : champ
-                  ? "border-l-2 border-l-gold/45"
-                  : "border-l-2 border-l-transparent";
+              const meta = rowMeta(r);
 
               return (
                 <tr
                   key={r.position}
-                  className={`border-b border-line/70 last:border-b-0 ${accent} ${rowTone} ${
-                    united ? "" : "hover:bg-panel-2/40"
+                  className={`border-b border-line/70 last:border-b-0 ${meta.accent} ${meta.rowTone} ${
+                    meta.united ? "" : "hover:bg-panel-2/40"
                   }`}
                 >
                   <td className="px-2 py-1.5 text-center">
-                    <span
-                      className={`stat-num tabular-nums text-xs ${
-                        champ
-                          ? "font-semibold text-gold"
-                          : zone
-                            ? topFlight
-                              ? "text-loss/80" // relegation foot — blue, the danger tone
-                              : "text-win/80" // promotion head — red, the positive tone
-                            : "text-ink-faint"
-                      }`}
-                    >
-                      {r.position}
-                    </span>
+                    <span className={`stat-num tabular-nums text-xs ${meta.posTone}`}>{r.position}</span>
                   </td>
                   <td className="px-2 py-1.5">
-                    <span className="flex items-center gap-1.5">
-                      {champ && <TrophyIcon className="h-3 w-3 shrink-0 text-gold" />}
-                      {!united && r.opponent_id ? (
-                        <Link
-                          href={`/opponent/${r.opponent_id}`}
-                          className="truncate text-ink transition-colors hover:text-devil-bright hover:underline focus-ring"
-                        >
-                          {name}
-                        </Link>
-                      ) : (
-                        <span
-                          className={`truncate ${
-                            united
-                              ? champ
-                                ? "font-semibold text-gold"
-                                : "font-semibold text-devil-bright"
-                              : "text-ink"
-                          }`}
-                        >
-                          {name}
-                        </span>
-                      )}
-                    </span>
+                    {!meta.united && r.opponent_id ? (
+                      <Link
+                        href={`/opponent/${r.opponent_id}`}
+                        className="flex min-w-0 items-center gap-1.5 truncate text-ink transition-colors hover:text-devil-bright hover:underline focus-ring"
+                      >
+                        {meta.champ && <TrophyIcon className="h-3 w-3 shrink-0 text-gold" />}
+                        {meta.name}
+                      </Link>
+                    ) : (
+                      clubLabel(r, meta)
+                    )}
                   </td>
                   <td className={`${num} text-ink-dim`}>{r.p}</td>
                   <td className={`${num} text-ink-dim`}>{r.w}</td>
@@ -249,9 +299,7 @@ export function LeagueTable({
                     {gd(r.gf - r.ga)}
                   </td>
                   <td
-                    className={`px-2 py-1.5 pr-3 text-right stat-num tabular-nums font-semibold ${
-                      united ? (champ ? "text-gold" : "text-ink") : "text-ink"
-                    }`}
+                    className={`px-2 py-1.5 pr-3 text-right stat-num tabular-nums font-semibold ${meta.ptsTone}`}
                   >
                     {r.pts}
                   </td>
@@ -260,6 +308,7 @@ export function LeagueTable({
             })}
           </tbody>
         </table>
+        </div>
       </div>
 
       <CoverageNote
