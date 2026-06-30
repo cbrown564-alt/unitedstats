@@ -16,8 +16,7 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
 import { WdlBar } from "@/components/WdlBar";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
-
-export const dynamicParams = false;
+import { sampleStaticIds } from "@/lib/static-build";
 
 export async function generateMetadata({ params }: { params: Promise<{ season: string }> }): Promise<Metadata> {
   const { season } = await params;
@@ -34,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ season: s
 }
 
 export async function generateStaticParams() {
-  return allSeasons().map((season) => ({ season }));
+  return sampleStaticIds(allSeasons()).map((season) => ({ season }));
 }
 
 function ordinal(n: number): string {

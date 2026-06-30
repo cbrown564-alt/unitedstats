@@ -30,8 +30,7 @@ import { fmtDate, fmtNum, pct, playerCareerSpan } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
 import { correctionPrefillHref } from "@/lib/corrections";
-
-export const dynamicParams = false;
+import { sampleStaticIds } from "@/lib/static-build";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -54,7 +53,7 @@ const SCORING_ARCHIVE_INLINE_MAX = 25;
 const APPEARANCE_ARCHIVE_INLINE_MAX = 60;
 
 export async function generateStaticParams() {
-  return playersIndex().map((p) => ({ id: p.player_id }));
+  return sampleStaticIds(playersIndex().map((p) => p.player_id)).map((id) => ({ id }));
 }
 
 export default async function PlayerPage({

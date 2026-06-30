@@ -33,7 +33,15 @@ const EXPECTED_SSG = [
 // A floor on total prerendered paths so a wholesale collapse to dynamic is
 // caught even if the named routes happen to survive. The campaign produces
 // ~7,400; 5,000 leaves room for data growth/shrinkage without false alarms.
-const MIN_PRERENDERED = 5000;
+// Preview builds sample ~24 paths per heavy route (~200 total) for fast deploys.
+function buildProfile() {
+  const explicit = process.env.UNITEDSTATS_BUILD_PROFILE;
+  if (explicit === "full" || explicit === "preview") return explicit;
+  if (process.env.VERCEL_ENV === "preview") return "preview";
+  return "full";
+}
+
+const MIN_PRERENDERED = buildProfile() === "preview" ? 50 : 5000;
 
 const file = path.join(process.cwd(), ".next", "prerender-manifest.json");
 
@@ -69,6 +77,6 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `✓ static-render guard: ${EXPECTED_STATIC.length} static pages, ` +
+  `✓ static-render guard (${buildProfile()}): ${EXPECTED_STATIC.length} static pages, ` +
     `${EXPECTED_SSG.length} SSG routes, ${count} prerendered paths.`,
 );

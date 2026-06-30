@@ -7,13 +7,12 @@ import { ResultBadge } from "@/components/ResultBadge";
 import { WdlBar } from "@/components/WdlBar";
 import { venueLabel } from "@/lib/format";
 import { monthDayKeys, monthDayLabel, onThisDay } from "@/lib/onThisDay";
-
-export const dynamicParams = false;
+import { sampleStaticIds } from "@/lib/static-build";
 
 const REST_CAP = 14;
 
 export function generateStaticParams() {
-  return monthDayKeys().map((monthDay) => ({ monthDay }));
+  return sampleStaticIds(monthDayKeys()).map((monthDay) => ({ monthDay }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ monthDay: string }> }): Promise<Metadata> {

@@ -18,8 +18,7 @@ import { EvidenceLink } from "@/components/EvidenceLink";
 import { SectionHead } from "@/components/SectionHead";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
-
-export const dynamicParams = false;
+import { sampleStaticIds } from "@/lib/static-build";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -38,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export function generateStaticParams() {
-  return opponentsIndex().map((o) => ({ id: o.id }));
+  return sampleStaticIds(opponentsIndex().map((o) => o.id)).map((id) => ({ id }));
 }
 
 export default async function OpponentPage({
