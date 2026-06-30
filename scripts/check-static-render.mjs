@@ -11,8 +11,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 // Pages that must be statically prerendered (○ in the build output).
+// `/` is intentionally dynamic (ƒ): TonightHero serves the real calendar date per request.
 const EXPECTED_STATIC = [
-  "/",
   "/analytics",
   "/data",
   "/explore",
