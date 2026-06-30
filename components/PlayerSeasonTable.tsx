@@ -161,6 +161,7 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       rowKey={(s) => s.season}
       density="compact"
       registerCards
+      registerLayout="metrics"
       caption={`${playerName} season-by-season apps, goals, and assists`}
       sort={{ key: sortKey, direction: sortDir, onSort }}
       summary={

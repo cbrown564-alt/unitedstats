@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export type SortDirection = "asc" | "desc";
 
-/** Mobile card slot — identity is the row headline; metrics fill a compact grid. */
-type CardRole = "identity" | "metric" | "skip";
+/** Mobile register slot — identity/figure for leaderboard rows; metric for stat grids. */
+type CardRole = "identity" | "metric" | "figure" | "skip";
 
 export interface Column<T> {
   label: string;
@@ -18,11 +18,11 @@ export interface Column<T> {
   sortDefaultDirection?: SortDirection;
   sortLabel?: string;
   render: (row: T, index: number) => React.ReactNode;
-  /** Mobile register-card slot. Requires `registerCards` on the table. */
+  /** Mobile register slot. Requires `registerCards` on the table. */
   card?: CardRole;
-  /** Shorter metric label on mobile cards. Defaults to `label`. */
+  /** Shorter metric label on mobile stat grids. Defaults to `label`. */
   cardLabel?: string;
-  /** Card-only render; falls back to `render`. */
+  /** Mobile-only render; falls back to `render`. */
   cardRender?: (row: T, index: number) => React.ReactNode;
 }
 
@@ -72,8 +72,14 @@ function SortHeader<T>({
   );
 }
 
-/** Card/list rhythm below sm — pairs with the table at sm+ inside `DataTable`. */
-function RegisterCardList<T>({
+function figureColumn<T>(columns: Column<T>[], sortKey: string): Column<T> | undefined {
+  const active = columns.find((c) => c.sortKey === sortKey && c.card !== "identity");
+  if (active) return active;
+  return columns.find((c) => c.card === "figure");
+}
+
+/** Stat grid below sm — for timelines/registers where every field earns a row. */
+function RegisterMetricList<T>({
   columns,
   rows,
   rowKey,
@@ -94,7 +100,7 @@ function RegisterCardList<T>({
   const metricCols = columns.filter((c) => c.card === "metric");
 
   return (
-    <ul className="register-card-list divide-y divide-line/60">
+    <ol className="register-card-list divide-y divide-line/60">
       {rows.map((row, index) => {
         if (renderMobileCard) {
           return (
@@ -134,7 +140,89 @@ function RegisterCardList<T>({
           </li>
         );
       })}
-    </ul>
+    </ol>
+  );
+}
+
+/** Ranked scan column below sm — rank · identity · sort-key figure (Leaderboard rhythm). */
+function RegisterLeaderboardList<T>({
+  columns,
+  rows,
+  rowKey,
+  emptyState,
+  sort,
+  subline,
+  figureTone,
+  hrefForRow,
+  renderMobileCard,
+}: {
+  columns: Column<T>[];
+  rows: T[];
+  rowKey: (row: T) => string;
+  emptyState: React.ReactNode;
+  sort: { key: string; direction: SortDirection };
+  subline?: (row: T, index: number, sortKey: string) => React.ReactNode;
+  figureTone?: (sortKey: string) => string;
+  hrefForRow?: (row: T) => string | undefined;
+  renderMobileCard?: (row: T, index: number) => React.ReactNode;
+}) {
+  if (rows.length === 0) {
+    return <div className="register-card-empty">{emptyState}</div>;
+  }
+
+  const identityCol = columns.find((c) => c.card === "identity");
+  const figureCol = figureColumn(columns, sort.key);
+  const tone = figureTone?.(sort.key) ?? "text-ink";
+
+  return (
+    <ol className="register-card-list divide-y divide-line/50">
+      {rows.map((row, index) => {
+        if (renderMobileCard) {
+          return (
+            <li key={rowKey(row)} className="register-card-item">
+              {renderMobileCard(row, index)}
+            </li>
+          );
+        }
+
+        const cell = (col: Column<T>) => (col.cardRender ?? col.render)(row, index);
+        const href = hrefForRow?.(row);
+        const quiet = subline?.(row, index, sort.key);
+        const inner = (
+          <>
+            <span className="stat-num w-5 shrink-0 text-right text-xs text-ink-faint">{index + 1}</span>
+            <span className="min-w-0 flex-1">
+              {identityCol ? cell(identityCol) : null}
+              {quiet && (
+                <span className="stat-num mt-0.5 block truncate text-[11px] leading-tight text-ink-faint">
+                  {quiet}
+                </span>
+              )}
+            </span>
+            {figureCol && (
+              <span className={`stat-num shrink-0 text-base font-semibold tabular-nums leading-none ${tone}`}>
+                {cell(figureCol)}
+              </span>
+            )}
+          </>
+        );
+
+        const rowClass =
+          "register-leaderboard-row flex min-h-[3.25rem] items-center gap-2.5 px-3.5 py-2 transition-colors hover:bg-panel-2 focus-ring";
+
+        return (
+          <li key={rowKey(row)} className="register-card-item">
+            {href ? (
+              <Link href={href} className={rowClass}>
+                {inner}
+              </Link>
+            ) : (
+              <div className={rowClass}>{inner}</div>
+            )}
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -149,6 +237,10 @@ export function DataTable<T>({
   density = "comfortable",
   className = "",
   registerCards = false,
+  registerLayout = "metrics",
+  registerSubline,
+  registerFigureTone,
+  registerHref,
   renderMobileCard,
 }: {
   columns: Column<T>[];
@@ -160,16 +252,21 @@ export function DataTable<T>({
   sort?: {
     key: string;
     direction: SortDirection;
-    /** Server mode: sortable headers are links to the next sort URL. */
     hrefFor?: (key: string, direction: SortDirection) => string;
-    /** Client mode: sortable headers are buttons calling back with the next sort. */
     onSort?: (key: string, direction: SortDirection) => void;
   };
   density?: "comfortable" | "compact";
   className?: string;
-  /** Below sm, render a card/list register instead of the horizontal table. */
+  /** Below sm, render a register list instead of the horizontal table. */
   registerCards?: boolean;
-  /** Full card override — when set, replaces the auto layout from column `card` roles. */
+  /** `leaderboard` — rank · name · sort-key figure; `metrics` — labelled stat grid. */
+  registerLayout?: "leaderboard" | "metrics";
+  /** Quiet line under the identity on leaderboard rows. */
+  registerSubline?: (row: T, index: number, sortKey: string) => React.ReactNode;
+  /** Figure colour class from the active sort key (e.g. goals → devil-red). */
+  registerFigureTone?: (sortKey: string) => string;
+  /** Row link for leaderboard mode. */
+  registerHref?: (row: T) => string | undefined;
   renderMobileCard?: (row: T, index: number) => React.ReactNode;
 }) {
   const densityClass = density === "compact" ? "data-table--compact" : "";
@@ -178,9 +275,25 @@ export function DataTable<T>({
     <div className={`data-table-shell ${className}`}>
       {summary && <div className="data-table-summary">{summary}</div>}
 
-      {registerCards && (
+      {registerCards && sort && registerLayout === "leaderboard" && (
         <div className="sm:hidden">
-          <RegisterCardList
+          <RegisterLeaderboardList
+            columns={columns}
+            rows={rows}
+            rowKey={rowKey}
+            emptyState={emptyState}
+            sort={sort}
+            subline={registerSubline}
+            figureTone={registerFigureTone}
+            hrefForRow={registerHref}
+            renderMobileCard={renderMobileCard}
+          />
+        </div>
+      )}
+
+      {registerCards && (registerLayout === "metrics" || !sort) && (
+        <div className="sm:hidden">
+          <RegisterMetricList
             columns={columns}
             rows={rows}
             rowKey={rowKey}

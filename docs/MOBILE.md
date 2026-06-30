@@ -20,7 +20,7 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Post-Wave 0 polish** | 2026-06-30 | Narrow-shell pill search; mobile search UX; transparent sticky breadcrumb on heroes |
 | **Wave 1 — filter sheet** | 2026-06-30 | Matches search + filters in the floating pill below lg; filter sheet via `BottomSheet`; desktop keeps `MatchControlDeck` |
 | **Wave 1 — match-detail disclosure** | 2026-06-30 | `MatchSectionTabs` on mobile; hero + `MatchFlow` first; teamsheet in Match tab scroll; desktop `<details>` for secondary sections |
-| **Wave 1 — register cards (partial)** | 2026-06-30 | `DataTable` `registerCards` + column `card` roles; first consumers: `/players` register, `PlayerSeasonTable` |
+| **Wave 1 — register cards (partial)** | 2026-06-30 | `DataTable` `registerCards` — **leaderboard** row for ranked lists (`/players`), **metrics** grid for timelines (`PlayerSeasonTable`) |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -178,10 +178,7 @@ mobile, where the ledger is unscannable.
   `CompareTable` **swap to card/list rhythm** on narrow viewports rather than
   horizontal-scrolling a dense grid. Lead with the computed answer
   (`HaulCards`, `RecordCards`, `Leaderboard`); keep the sortable register as the appendix.
-- **Shared responsive register primitive** — one abstraction (card below narrow breakpoint,
-  table above; shared sort/filter state) consumed by all table components. Without it,
-  `PlayerSeasonTable`, `LeagueTable`, `CompareTable`, and `DataTable` will diverge.
-  Same "do once, benefit all" pattern as touch chart inspection.
+- **Shared responsive register primitive** — one abstraction consumed by all table components: **leaderboard row** below sm for ranked registers (rank · identity · sort-key figure — same rhythm as `Leaderboard`), **metrics grid** for timelines; table unchanged at sm+.
 - **Seasons scroll** — a card-based momentum stream with sticky era/decade headers, not a
   wall of rows.
 - **Analytics chapters** — one question per screen-height chapter (chart + interpretation +
