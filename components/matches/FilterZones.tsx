@@ -60,6 +60,35 @@ function activeDecadeFromParams(params: Record<string, string | undefined>): num
   return to - from === 9 ? from : null;
 }
 
+function SegmentedTabs<T extends string>({
+  options,
+  value,
+  onChange,
+  ariaLabel,
+}: {
+  options: { key: T; label: string }[];
+  value: T;
+  onChange: (key: T) => void;
+  ariaLabel: string;
+}) {
+  return (
+    <div className="filter-zones-segmented" role="tablist" aria-label={ariaLabel}>
+      {options.map((option) => (
+        <button
+          key={option.key}
+          type="button"
+          role="tab"
+          aria-selected={value === option.key}
+          onClick={() => onChange(option.key)}
+          className="filter-zones-segmented-btn focus-ring"
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 // ─────────────────────────────────────────────────────────
 // FilterSlot — inline filter control; placeholder when empty, value + × when set
 // ─────────────────────────────────────────────────────────
@@ -71,6 +100,7 @@ function FilterSlot({
   isOpen,
   onToggle,
   onClear,
+  layout = "default",
 }: {
   icon?: string;
   iconGroup: FacetGroup;
@@ -79,27 +109,37 @@ function FilterSlot({
   isOpen: boolean;
   onToggle: () => void;
   onClear: () => void;
+  layout?: "default" | "sheet";
 }) {
   const set = Boolean(label);
+  const isSheet = layout === "sheet";
   return (
     <div
-      className={`flex items-stretch overflow-hidden rounded-lg border text-sm transition-colors ${
-        set ? "border-line bg-panel-2" : "border-dashed border-line/40 bg-transparent"
-      }`}
+      className={[
+        "filter-slot flex items-stretch overflow-hidden border text-sm transition-colors",
+        isSheet ? "rounded-xl" : "rounded-lg",
+        set ? "border-line bg-panel-2" : "border-dashed border-line/40 bg-transparent",
+      ].join(" ")}
     >
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className={`flex flex-1 items-center gap-2 px-3 py-2 transition-colors focus-ring ${
-          set ? "text-ink hover:bg-white/[0.02]" : "text-ink-dim hover:text-ink-faint"
-        }`}
+        className={[
+          "filter-slot-btn flex flex-1 items-center gap-2.5 transition-colors focus-ring",
+          isSheet ? "px-4 py-3 text-[15px]" : "px-3 py-2",
+          set ? "text-ink hover:bg-white/[0.02]" : "text-ink-dim hover:text-ink-faint",
+        ].join(" ")}
       >
         <FacetIcon
           name={icon}
-          className={`h-3.5 w-3.5 shrink-0 ${set ? GROUP_TONE[iconGroup] : "text-ink-faint/70"}`}
+          className={[
+            "filter-slot-icon shrink-0",
+            isSheet ? "h-4 w-4" : "h-3.5 w-3.5",
+            set ? GROUP_TONE[iconGroup] : "text-ink-faint/70",
+          ].join(" ")}
         />
-        <span className={set ? "font-medium" : "text-[13px]"}>{label ?? placeholder}</span>
+        <span className={set ? "font-medium" : isSheet ? "" : "text-[13px]"}>{label ?? placeholder}</span>
         <span aria-hidden className="ml-auto text-[11px] text-ink-faint/75">
           ▾
         </span>
@@ -131,6 +171,7 @@ export function FilterZones({
   seasons,
   decadeBuckets,
   navigate,
+  layout = "default",
 }: {
   params: Record<string, string | undefined>;
   options: FacetOptions;
@@ -139,6 +180,8 @@ export function FilterZones({
   /** Match counts per decade within the current slice (excludes active decade range). */
   decadeBuckets?: DecadeBucket[];
   navigate: (next: Record<string, string | undefined>) => void;
+  /** Roomier single-column layout for the mobile filter sheet. */
+  layout?: "default" | "sheet";
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<string | null>(null);
@@ -233,41 +276,46 @@ export function FilterZones({
     : undefined;
 
   const playerFacet = FACET_BY_KEY[playerRole];
+  const isSheet = layout === "sheet";
 
-  return (
-    <div ref={rootRef}>
-      {/* ── Player, Manager, Opponent, Competition ── */}
-      <div className="grid items-start gap-x-4 gap-y-5 sm:grid-cols-2 xl:grid-cols-4">
-        {/* Player — role switcher below the slot */}
-        <div className="min-w-0">
-          <div className="relative">
-            <FilterSlot
-              icon={playerFacet.icon}
-              iconGroup="who"
-              placeholder="Any player"
-              label={playerLabel}
-              isOpen={open === playerRole}
-              onToggle={() => toggleOpen(playerRole)}
-              onClear={() => {
-                setOpen(null);
-                navigate({ ...params, player: undefined, scorer: undefined, assister: undefined });
-              }}
+  const peopleFields = (
+    <>
+      <div className="min-w-0">
+        <div className="relative">
+          <FilterSlot
+            icon={playerFacet.icon}
+            iconGroup="who"
+            placeholder="Any player"
+            label={playerLabel}
+            isOpen={open === playerRole}
+            onToggle={() => toggleOpen(playerRole)}
+            onClear={() => {
+              setOpen(null);
+              navigate({ ...params, player: undefined, scorer: undefined, assister: undefined });
+            }}
+            layout={layout}
+          />
+          {open === playerRole && (
+            <FacetCombobox
+              label={playerFacet.label}
+              options={options["player"] ?? []}
+              current={params[playerRole] ?? ""}
+              counts={counts[playerRole]}
+              onApply={(v) => apply(playerRole, v)}
             />
-            {open === playerRole && (
-              <FacetCombobox
-                label={playerFacet.label}
-                options={options["player"] ?? []}
-                current={params[playerRole] ?? ""}
-                counts={counts[playerRole]}
-                onApply={(v) => apply(playerRole, v)}
-              />
-            )}
+          )}
+        </div>
+        {isSheet ? (
+          <div className="mt-2.5">
+            <SegmentedTabs
+              options={PLAYER_ROLES}
+              value={playerRole}
+              onChange={switchPlayerRole}
+              ariaLabel="Player role"
+            />
           </div>
-          <div
-            className="mt-1.5 flex items-center gap-0.5"
-            role="tablist"
-            aria-label="Player role"
-          >
+        ) : (
+          <div className="mt-1.5 flex items-center gap-0.5" role="tablist" aria-label="Player role">
             {PLAYER_ROLES.map((r) => (
               <button
                 key={r.key}
@@ -285,73 +333,222 @@ export function FilterZones({
               </button>
             ))}
           </div>
-        </div>
+        )}
+      </div>
 
-        {/* Manager */}
-        <div className="relative min-w-0">
-          <FilterSlot
-            icon="suit"
-            iconGroup="who"
-            placeholder="Any manager"
-            label={managerLabel}
-            isOpen={open === "manager"}
-            onToggle={() => toggleOpen("manager")}
-            onClear={() => apply("manager", undefined)}
+      <div className="relative min-w-0">
+        <FilterSlot
+          icon="suit"
+          iconGroup="who"
+          placeholder="Any manager"
+          label={managerLabel}
+          isOpen={open === "manager"}
+          onToggle={() => toggleOpen("manager")}
+          onClear={() => apply("manager", undefined)}
+          layout={layout}
+        />
+        {open === "manager" && (
+          <FacetCombobox
+            label="Manager"
+            options={options["manager"] ?? []}
+            current={params.manager ?? ""}
+            counts={counts["manager"]}
+            onApply={(v) => apply("manager", v)}
           />
-          {open === "manager" && (
+        )}
+      </div>
+
+      <div className="relative min-w-0">
+        <FilterSlot
+          icon="shield"
+          iconGroup="who"
+          placeholder="Any opponent"
+          label={opponentLabel}
+          isOpen={open === "opponent"}
+          onToggle={() => toggleOpen("opponent")}
+          onClear={() => apply("opponent", undefined)}
+          layout={layout}
+        />
+        {open === "opponent" && (
+          <FacetCombobox
+            label="Opponent"
+            options={options["opponent"] ?? []}
+            current={params.opponent ?? ""}
+            counts={counts["opponent"]}
+            onApply={(v) => apply("opponent", v)}
+          />
+        )}
+      </div>
+
+      <div className="relative min-w-0">
+        <FilterSlot
+          icon="trophy"
+          iconGroup="what"
+          placeholder="Any competition"
+          label={competitionLabel}
+          isOpen={open === "competition"}
+          onToggle={() => toggleOpen("competition")}
+          onClear={() => apply("competition", undefined)}
+          layout={layout}
+        />
+        {open === "competition" && (
+          <FacetCombobox
+            label="Competition"
+            options={options["competition"] ?? []}
+            current={params.competition ?? ""}
+            counts={counts["competition"]}
+            onApply={(v) => apply("competition", v)}
+          />
+        )}
+      </div>
+    </>
+  );
+
+  const timeModeTabs = isSheet ? (
+    <SegmentedTabs
+      options={TIME_MODES}
+      value={timeMode}
+      onChange={switchTimeMode}
+      ariaLabel="Time filter mode"
+    />
+  ) : (
+    <div className="flex items-center gap-0.5" role="tablist" aria-label="Time filter mode">
+      {TIME_MODES.map((m) => (
+        <button
+          key={m.key}
+          type="button"
+          role="tab"
+          aria-selected={timeMode === m.key}
+          onClick={() => switchTimeMode(m.key)}
+          className={`border-b px-2 py-px text-[13px] transition-colors focus-ring ${
+            timeMode === m.key
+              ? "border-devil/45 pb-px text-ink-dim"
+              : "border-transparent text-ink-dim/80 hover:text-ink-dim"
+          }`}
+        >
+          {m.label}
+        </button>
+      ))}
+    </div>
+  );
+
+  const timeModeContent = (
+    <>
+      {timeMode === "season" && (
+        <div className="relative">
+          <FilterSlot
+            icon="calendar"
+            iconGroup="when"
+            placeholder="Any season"
+            label={params.season ?? undefined}
+            isOpen={open === "season"}
+            onToggle={() => toggleOpen("season")}
+            onClear={() => {
+              setOpen(null);
+              navigate({ ...params, season: undefined });
+            }}
+            layout={layout}
+          />
+          {open === "season" && (
             <FacetCombobox
-              label="Manager"
-              options={options["manager"] ?? []}
-              current={params.manager ?? ""}
-              counts={counts["manager"]}
-              onApply={(v) => apply("manager", v)}
+              label="Season"
+              options={options["season"] ?? []}
+              current={params.season ?? ""}
+              counts={counts["season"]}
+              onApply={(v) => {
+                setOpen(null);
+                navigate({ ...params, season: v || undefined, from: undefined, to: undefined });
+              }}
             />
           )}
         </div>
+      )}
 
-        {/* Opponent */}
-        <div className="relative min-w-0">
-          <FilterSlot
-            icon="shield"
-            iconGroup="who"
-            placeholder="Any opponent"
-            label={opponentLabel}
-            isOpen={open === "opponent"}
-            onToggle={() => toggleOpen("opponent")}
-            onClear={() => apply("opponent", undefined)}
-          />
-          {open === "opponent" && (
-            <FacetCombobox
-              label="Opponent"
-              options={options["opponent"] ?? []}
-              current={params.opponent ?? ""}
-              counts={counts["opponent"]}
-              onApply={(v) => apply("opponent", v)}
-            />
-          )}
+      {timeMode === "decade" && (
+        <div className={TIME_PANEL}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(3.25rem,1fr))] gap-1">
+            {pickerDecades.map(({ year, n }) => {
+              const active = activeDec === year;
+              return (
+                <button
+                  key={year}
+                  type="button"
+                  onClick={() =>
+                    active
+                      ? navigate({ ...params, from: undefined, to: undefined })
+                      : navigate({
+                          ...params,
+                          season: undefined,
+                          from: String(year),
+                          to: String(year + 9),
+                        })
+                  }
+                  aria-pressed={active}
+                  title={typeof n === "number" ? `${year}s · ${fmtNum(n)} matches` : `${year}s`}
+                  className={`group relative flex flex-col items-center rounded-md px-1.5 py-1.5 transition-colors focus-ring ${
+                    active
+                      ? "bg-devil/10 text-ink"
+                      : "text-ink-dim hover:bg-white/[0.03] hover:text-ink-faint"
+                  }`}
+                >
+                  <span className="stat-num text-[11px] font-medium leading-tight">{year}s</span>
+                  {typeof n === "number" && (
+                    <span className="stat-num text-[9px] leading-tight text-ink-faint/80 group-hover:text-ink-faint">
+                      {fmtNum(n)}
+                    </span>
+                  )}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-2 bottom-0.5 h-px bg-devil/55"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
+      )}
 
-        {/* Competition */}
-        <div className="relative min-w-0">
-          <FilterSlot
-            icon="trophy"
-            iconGroup="what"
-            placeholder="Any competition"
-            label={competitionLabel}
-            isOpen={open === "competition"}
-            onToggle={() => toggleOpen("competition")}
-            onClear={() => apply("competition", undefined)}
+      {timeMode === "dates" && (
+        <div className={TIME_PANEL}>
+          <SeasonRangeSlider
+            key={`${params.from ?? ""}-${params.to ?? ""}`}
+            seasons={seasons}
+            fromParam={params.from}
+            toParam={params.to}
+            onApply={applyDates}
+            compact
           />
-          {open === "competition" && (
-            <FacetCombobox
-              label="Competition"
-              options={options["competition"] ?? []}
-              current={params.competition ?? ""}
-              counts={counts["competition"]}
-              onApply={(v) => apply("competition", v)}
-            />
-          )}
         </div>
+      )}
+    </>
+  );
+
+  if (isSheet) {
+    return (
+      <div ref={rootRef} className="filter-zones filter-zones--sheet">
+        <section className="filter-zones-section">
+          <h3 className="filter-zones-section-label">People &amp; competition</h3>
+          <div className="filter-zones-fields">{peopleFields}</div>
+        </section>
+
+        <section className="filter-zones-section">
+          <h3 className="filter-zones-section-label">Time</h3>
+          <div className="filter-zones-fields">
+            {timeModeTabs}
+            {timeModeContent}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  return (
+    <div ref={rootRef}>
+      {/* ── Player, Manager, Opponent, Competition ── */}
+      <div className="grid items-start gap-x-4 gap-y-5 sm:grid-cols-2 xl:grid-cols-4">
+        {peopleFields}
       </div>
 
       {/* ── Time zone ── */}
@@ -360,113 +557,9 @@ export function FilterZones({
           <h3 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-dim">
             Time
           </h3>
-          <div className="flex items-center gap-0.5" role="tablist" aria-label="Time filter mode">
-            {TIME_MODES.map((m) => (
-              <button
-                key={m.key}
-                type="button"
-                role="tab"
-                aria-selected={timeMode === m.key}
-                onClick={() => switchTimeMode(m.key)}
-                className={`border-b px-2 py-px text-[13px] transition-colors focus-ring ${
-                  timeMode === m.key
-                    ? "border-devil/45 pb-px text-ink-dim"
-                    : "border-transparent text-ink-dim/80 hover:text-ink-dim"
-                }`}
-              >
-                {m.label}
-              </button>
-            ))}
-          </div>
+          {timeModeTabs}
         </div>
-
-        {timeMode === "season" && (
-          <div className="relative">
-            <FilterSlot
-              icon="calendar"
-              iconGroup="when"
-              placeholder="Any season"
-              label={params.season ?? undefined}
-              isOpen={open === "season"}
-              onToggle={() => toggleOpen("season")}
-              onClear={() => {
-                setOpen(null);
-                navigate({ ...params, season: undefined });
-              }}
-            />
-            {open === "season" && (
-              <FacetCombobox
-                label="Season"
-                options={options["season"] ?? []}
-                current={params.season ?? ""}
-                counts={counts["season"]}
-                onApply={(v) => {
-                  setOpen(null);
-                  navigate({ ...params, season: v || undefined, from: undefined, to: undefined });
-                }}
-              />
-            )}
-          </div>
-        )}
-
-        {timeMode === "decade" && (
-          <div className={TIME_PANEL}>
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(3.25rem,1fr))] gap-1">
-              {pickerDecades.map(({ year, n }) => {
-                const active = activeDec === year;
-                return (
-                  <button
-                    key={year}
-                    type="button"
-                    onClick={() =>
-                      active
-                        ? navigate({ ...params, from: undefined, to: undefined })
-                        : navigate({
-                            ...params,
-                            season: undefined,
-                            from: String(year),
-                            to: String(year + 9),
-                          })
-                    }
-                    aria-pressed={active}
-                    title={typeof n === "number" ? `${year}s · ${fmtNum(n)} matches` : `${year}s`}
-                    className={`group relative flex flex-col items-center rounded-md px-1.5 py-1.5 transition-colors focus-ring ${
-                      active
-                        ? "bg-devil/10 text-ink"
-                        : "text-ink-dim hover:bg-white/[0.03] hover:text-ink-faint"
-                    }`}
-                  >
-                    <span className="stat-num text-[11px] font-medium leading-tight">{year}s</span>
-                    {typeof n === "number" && (
-                      <span className="stat-num text-[9px] leading-tight text-ink-faint/80 group-hover:text-ink-faint">
-                        {fmtNum(n)}
-                      </span>
-                    )}
-                    {active && (
-                      <span
-                        aria-hidden
-                        className="absolute inset-x-2 bottom-0.5 h-px bg-devil/55"
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {timeMode === "dates" && (
-          <div className={TIME_PANEL}>
-            <SeasonRangeSlider
-              key={`${params.from ?? ""}-${params.to ?? ""}`}
-              seasons={seasons}
-              fromParam={params.from}
-              toParam={params.to}
-              onApply={applyDates}
-              compact
-            />
-          </div>
-        )}
+        {timeModeContent}
       </div>
     </div>
   );

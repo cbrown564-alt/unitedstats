@@ -17,6 +17,7 @@ const EMPTY_CHIP_COUNTS: Record<string, number> = {};
  */
 export function MatchFilterBarWithCounts({
   embedded = false,
+  sheetLayout = false,
   params,
   chips,
   total,
@@ -26,6 +27,8 @@ export function MatchFilterBarWithCounts({
 }: {
   /** Render as the chip row inside MatchControlDeck — no outer panel. */
   embedded?: boolean;
+  /** Roomier layout for the mobile filter bottom sheet. */
+  sheetLayout?: boolean;
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
   total: number;
@@ -119,6 +122,7 @@ export function MatchFilterBarWithCounts({
   return (
     <MatchFilterBar
       embedded={embedded}
+      sheetLayout={sheetLayout}
       params={params}
       chips={chips}
       chipCounts={chipCounts}

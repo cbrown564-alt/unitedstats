@@ -1310,11 +1310,111 @@ input.site-sidebar-search-input:focus {
   max-height: min(92vh, 44rem);
 }
 
+.mobile-sheet-panel--filters .mobile-sheet-header {
+  padding: 0.35rem 1.25rem 1rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-line), transparent 25%);
+}
+
 .mobile-sheet-panel--filters .mobile-sheet-body {
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: 0 1rem 0.25rem;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+/* Filter sheet uses more width than nav — content-heavy, not a compact menu. */
+@media (max-width: 1023px) {
+  .mobile-sheet-panel--filters {
+    width: min(36rem, calc(100vw - 0.75rem));
+    max-width: none;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .mobile-sheet-panel--filters {
+    width: 100%;
+    inset-inline: 0;
+    margin-inline: 0;
+  }
+}
+
+.filter-zones--sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.filter-zones--sheet .filter-zones-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.filter-zones--sheet .filter-zones-section-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+.filter-zones--sheet .filter-zones-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.filter-zones-segmented {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in oklab, var(--color-line), transparent 20%);
+  background: color-mix(in oklab, var(--color-pitch), var(--color-panel) 35%);
+}
+
+.filter-zones-segmented-btn {
+  flex: 1;
+  min-height: 2.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  color: var(--color-ink-dim);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.filter-zones-segmented-btn[aria-selected="true"] {
+  background: var(--color-panel-2);
+  color: var(--color-ink);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.04);
+  font-weight: 600;
+}
+
+.filter-zones--sheet .filter-slot {
+  min-height: 3rem;
+  border-radius: 0.75rem;
+}
+
+.filter-zones--sheet .filter-slot-btn {
+  padding: 0.85rem 1rem;
+  font-size: 0.9375rem;
+}
+
+.filter-zones--sheet .filter-slot-btn .filter-slot-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.match-filter-bar--sheet .match-filter-chips {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-line), transparent 25%);
+  gap: 0.65rem;
 }
 
 .mobile-sheet-panel--open {
@@ -1657,6 +1757,11 @@ input.site-sidebar-search-input:focus {
 
   .mobile-sheet-panel--nav {
     padding-bottom: 0.75rem;
+  }
+
+  .mobile-sheet-panel--filters {
+    width: min(36rem, calc(100vw - 0.75rem));
+    max-width: none;
   }
 }
 

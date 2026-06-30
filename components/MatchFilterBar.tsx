@@ -45,6 +45,7 @@ const GROUP_TONE: Record<FacetGroup, string> = {
  */
 export function MatchFilterBar({
   embedded = false,
+  sheetLayout = false,
   params,
   chips,
   chipCounts,
@@ -57,6 +58,8 @@ export function MatchFilterBar({
 }: {
   /** Chip row inside MatchControlDeck — no duplicate panel chrome. */
   embedded?: boolean;
+  /** Roomier layout for the mobile filter bottom sheet. */
+  sheetLayout?: boolean;
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
   chipCounts: Record<string, number>;
@@ -118,12 +121,14 @@ export function MatchFilterBar({
       {...(!embedded ? { id: "match-filters" } : {})}
       className={
         embedded
-          ? ""
+          ? sheetLayout
+            ? "match-filter-bar--sheet"
+            : ""
           : "scroll-mt-20 rounded-lg border border-line bg-panel p-3 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]"
       }
     >
       {(pending || countsLoading || optionsLoading) && (
-        <p className="mb-2.5 text-xs text-ink-faint motion-safe:animate-pulse">
+        <p className={`text-ink-faint motion-safe:animate-pulse ${sheetLayout ? "mb-4 text-sm" : "mb-2.5 text-xs"}`}>
           {pending ? "Updating…" : "Loading…"}
         </p>
       )}
@@ -136,11 +141,18 @@ export function MatchFilterBar({
         seasons={seasons}
         decadeBuckets={decadeBuckets}
         navigate={navigate}
+        layout={sheetLayout ? "sheet" : "default"}
       />
 
       {/* Non-zone chips (search-applied: result, venue, type, goal window…) + clear all */}
       {hasAnyFilter && (
-        <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 border-t border-line/50 pt-3">
+        <div
+          className={
+            sheetLayout
+              ? "match-filter-chips flex flex-wrap items-center"
+              : "mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 border-t border-line/50 pt-3"
+          }
+        >
           {nonZoneChips.map((chip) => {
             const facet = FACET_BY_KEY[chip.key];
             const editable = Boolean(facet && facet.kind !== "toggle");
