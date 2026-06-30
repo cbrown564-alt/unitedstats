@@ -7,6 +7,15 @@ const immutablePageCacheHeader = [
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_VERIFY_DIST ?? ".next",
+  // The runtime db path (path.join(process.cwd(), …)) makes the file tracer pull
+  // the whole project into every server function, including build-only source
+  // data. data/canonical (~42MB) and data/history-digests are consumed by
+  // build-db at build time and never read at runtime, so exclude them — otherwise
+  // function bundles blow past Vercel's 250MB limit. data/united.db stays bundled
+  // for preview deploys (no blob), where dynamic routes read it directly.
+  outputFileTracingExcludes: {
+    "/*": ["data/canonical/**", "data/history-digests/**"],
+  },
   turbopack: {
     root: process.cwd(),
   },

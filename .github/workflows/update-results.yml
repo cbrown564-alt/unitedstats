@@ -45,6 +45,7 @@ jobs:
         run: |
           npm run validate
           npm run build:db
+          npm run export:dataset
           npm run generate:history-digests -- --latest ${{ steps.fetch.outputs.new }}
 
       - name: Commit and push
@@ -52,6 +53,21 @@ jobs:
         run: |
           git config user.name "unitedstats-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/canonical data/history-digests
+          git add data/canonical data/history-digests public/dataset
           git commit -m "data: ${{ steps.fetch.outputs.new }} new result(s) through $(date -u +%F)"
           git push
+
+      - name: Upload database and revalidate changed paths
+        if: steps.fetch.outputs.new != '0'
+        env:
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+          UNITEDSTATS_SITE_URL: ${{ secrets.UNITEDSTATS_SITE_URL }}
+        run: |
+          if [ -z "$BLOB_READ_WRITE_TOKEN" ] || [ -z "$REVALIDATE_SECRET" ] || [ -z "$UNITEDSTATS_SITE_URL" ]; then
+            echo "Skipping blob upload + revalidate (secrets not configured — Vercel will full-deploy instead)"
+            exit 0
+          fi
+          npm run upload:db
+          ids=$(grep -oP 'NEW_MATCH_IDS=\K.*' update.log)
+          npm run revalidate -- --site "$UNITEDSTATS_SITE_URL" --ids "$ids"

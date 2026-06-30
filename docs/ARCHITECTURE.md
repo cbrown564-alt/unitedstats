@@ -76,9 +76,11 @@ modern UI, a zero-cost auto-update pipeline, and a deep analytics layer.
 - **Static `○`:** `/`, `/managers`, `/transfers`, `/explore`, `/data`,
   `/opponents`, `/analytics` (`/opponents` filters client-side; `/analytics` runs
   its forecast client-side over build-precomputed odds).
-- **SSG `●`** (`generateStaticParams` + `dynamicParams=false`): `/match/[id]`,
-  `/player/[id]`, `/seasons/[season]`, `/opponent/[id]`, `/manager/[id]`.
-  Sort/expand interactions are client islands.
+- **SSG `●`** (`generateStaticParams` + `dynamicParams=true`): `/match/[id]`,
+  `/player/[id]`, `/seasons/[season]`, `/opponent/[id]`, `/manager/[id]`. Full
+  builds prerender every id; preview builds sample and serve the rest on demand.
+  Unknown ids fall through to `notFound()`. Sort/expand interactions are client
+  islands.
 - **Dynamic `ƒ` by design:** `/matches`, `/players`, `/seasons` index, `/search`,
   `/compare` — URL-state tools over deploy-immutable data, too heavy or
   query-shaped to prerender. They share the read-only API cache policy

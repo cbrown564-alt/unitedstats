@@ -5,10 +5,68 @@ pure build artifact of `data/canonical/*.json`, rebuilt in `prebuild`). The
 performance strategy follows from that: prerender everything at build, touch
 SQLite only at build, ship static HTML from the CDN.
 
-Re-ingest is **Option B**: a scheduled GitHub Action runs `pipeline/update.ts`,
-commits updated canonical JSON, and the push triggers a Vercel git deploy that
-rebuilds the DB. Every deploy is therefore a clean cache — no runtime cache
-invalidation (`revalidateTag`) is required.
+## Update strategy (decided)
+
+Post-launch the dataset grows by **one match at a time**, a few times a week.
+Rebuilding and prerendering all ~7,800 entity pages on every ingest made sense
+while the static-rendering campaign was landing; it does not make sense at
+steady state.
+
+**Decision: Option 2 — on-demand revalidation after data ingests.**
+
+| Phase | What runs | Build time |
+| --- | --- | --- |
+| Code deploy (PR / UI) | Preview build profile — sample SSG | ~2 min |
+| Code deploy (production merge) | Full build — all SSG | ~15 min |
+| Data ingest (2–3×/week) | Blob upload + `revalidatePath` blast radius | seconds |
+| Safety net | Scheduled or manual full production build | ~15 min |
+
+### How a data ingest works
+
+```
+GitHub Actions (update-results.yml)
+  1. append new match to data/canonical/
+  2. npm run validate && npm run build:db && npm run export:dataset
+  3. npm run upload:db  →  overwrites dataset/united.db on Vercel Blob
+  4. git commit + push  →  Vercel ignored-build step skips deploy (data-only)
+  5. npm run revalidate  →  POST /api/revalidate with affected paths
+       ├─ resetDb() pulls fresh blob into /tmp
+       └─ revalidatePath() for ~25 surfaces (match, season, opponent, …)
+```
+
+Historical entity pages that did not change are **not** rebuilt. Their existing
+CDN HTML is still correct. Only the blast radius refreshes.
+
+### Blast radius (per new match)
+
+Always invalidated: `/`, `/analytics`, `/data`, list indexes (`/matches`,
+`/players`, `/seasons`), `/managers`, `/opponents`, `/explore`, `/transfers`,
+and the read-only `/api/v1/*` handlers.
+
+Per match: `/match/[id]`, `/seasons/[season]`, `/opponent/[id]`,
+`/on-this-day/[MM-DD]`. After enrichment: affected `/player/[id]` and
+`/manager/[id]`.
+
+Implemented in `lib/revalidation.ts`; the live path list is computed in CI by
+`scripts/compute-revalidate-paths.ts` after `build:db`.
+
+### Runtime database
+
+Production reads `united.db` from **Vercel Blob** (`UNITEDSTATS_DB_BLOB_URL`)
+into `/tmp` on cold start (`instrumentation.ts`) and on each revalidation
+(`resetDb()` in `lib/db.ts`). Local dev and CI keep using `data/united.db`.
+
+### Required secrets (production)
+
+| Name | Purpose |
+| --- | --- |
+| `BLOB_READ_WRITE_TOKEN` | Upload `united.db` from the update workflow |
+| `UNITEDSTATS_DB_BLOB_URL` | Public blob URL wired into the Vercel project env |
+| `REVALIDATE_SECRET` | Bearer token for `POST /api/revalidate` |
+| `UNITEDSTATS_SITE_URL` | Production origin for the revalidate script |
+
+Until blob + revalidate secrets are configured, data commits still trigger a
+full Vercel deploy (previous behaviour).
 
 ## Baseline (2026-06-21, before the static-rendering campaign)
 
@@ -40,9 +98,11 @@ invalidation (`revalidateTag`) is required.
   `/opponents`, `/analytics`
   - `/opponents` filters client-side (`FilterableList`); `/analytics` runs its
     forecast client-side (`OddsPredictor`) over build-precomputed odds.
-- **SSG `●` (`generateStaticParams` + `dynamicParams=false`):** `/match/[id]`
+- **SSG `●` (`generateStaticParams` + `dynamicParams=true`):** `/match/[id]`
   (6,027), `/player/[id]` (985), `/seasons/[season]` (~128), `/opponent/[id]`
-  (237), `/manager/[id]` (29). Sort/expand interactions are client islands
+  (237), `/manager/[id]` (29). Full builds prerender every id; preview builds
+  sample a subset and serve the rest on demand (`dynamicParams=true`). Unknown
+  ids fall through to `notFound()`. Sort/expand interactions are client islands
   (`PlayerSeasonTable`, `LeagueTable`).
 - **Dynamic `ƒ` by design:** `/matches` and `/players` (filter/sort over large
   datasets with per-row visuals — too heavy to ship to the client), `/seasons`
@@ -103,7 +163,7 @@ entity pages for CDN-fast UX.
 
 **Preview** deploys (Vercel `VERCEL_ENV=preview`, i.e. PR branches) default to
 a faster profile: `generateStaticParams` samples ~24 evenly spaced ids per heavy
-route (other valid ids still SSR on demand via the default `dynamicParams`),
+route (other valid ids still SSR on demand via `dynamicParams = true`),
 and `export:dataset` is skipped. Override either way with
 `UNITEDSTATS_BUILD_PROFILE=full|preview`. Local fast iteration:
 

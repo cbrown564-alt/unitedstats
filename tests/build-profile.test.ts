@@ -18,19 +18,17 @@ async function loadStaticBuild(env: Record<string, string | undefined>) {
 }
 
 test("buildProfile defaults to full outside Vercel preview", async () => {
-  const { buildProfile, isFullBuild, staticBuildDynamicParams } = await loadBuildProfile({});
+  const { buildProfile, isFullBuild } = await loadBuildProfile({});
   assert.equal(buildProfile(), "full");
   assert.equal(isFullBuild(), true);
-  assert.equal(staticBuildDynamicParams(), false);
 });
 
 test("buildProfile follows VERCEL_ENV=preview", async () => {
-  const { buildProfile, isFullBuild, staticBuildDynamicParams } = await loadBuildProfile({
+  const { buildProfile, isFullBuild } = await loadBuildProfile({
     VERCEL_ENV: "preview",
   });
   assert.equal(buildProfile(), "preview");
   assert.equal(isFullBuild(), false);
-  assert.equal(staticBuildDynamicParams(), true);
 });
 
 test("sampleStaticIds returns a stable preview subset", async () => {

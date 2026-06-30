@@ -170,6 +170,7 @@ async function run() {
       .map((m) => `${m.opponentId}|${m.venue}`),
   );
   let added = 0;
+  const addedIds: string[] = [];
 
   for (const src of SOURCES) {
     const url = `https://raw.githubusercontent.com/openfootball/england/master/${season}/${src.file}`;
@@ -222,6 +223,7 @@ async function run() {
       known.add(id);
       if (!isCup) knownLeague.add(`${oppId}|${venue}`);
       added++;
+      addedIds.push(id);
       const [gf, ga] = match.score.ft;
       console.log(`+ ${f.date} ${isHome ? "v" : "@"} ${oppName} ${gf}-${ga}${f.pens ? ` (${match.score.pens!.join("-")} pens)` : ""} (${src.competition}${f.round ? ", " + f.round : ""})`);
     }
@@ -230,6 +232,7 @@ async function run() {
   if (added > 0) saveSeasonFile(sf);
   console.log(added > 0 ? `${added} new match(es) added to ${season}` : "no new matches");
   console.log(`NEW_MATCHES=${added}`);
+  if (addedIds.length > 0) console.log(`NEW_MATCH_IDS=${addedIds.join(",")}`);
 }
 
 // only run when executed directly (the parser is imported elsewhere)

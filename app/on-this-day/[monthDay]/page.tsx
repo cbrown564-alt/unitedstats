@@ -9,6 +9,11 @@ import { venueLabel } from "@/lib/format";
 import { monthDayKeys, monthDayLabel, onThisDay } from "@/lib/onThisDay";
 import { sampleStaticIds } from "@/lib/static-build";
 
+// Sampled SSG (see lib/static-build): preview builds prerender a subset, so
+// non-sampled ids render on demand; full builds prerender every id, leaving only
+// missing ids to fall through to notFound(). Must be a static literal for Next.
+export const dynamicParams = true;
+
 const REST_CAP = 14;
 
 export function generateStaticParams() {
