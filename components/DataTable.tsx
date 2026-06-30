@@ -3,7 +3,7 @@ import Link from "next/link";
 export type SortDirection = "asc" | "desc";
 
 /** Mobile card slot — identity is the row headline; metrics fill a compact grid. */
-export type CardRole = "identity" | "metric" | "skip";
+type CardRole = "identity" | "metric" | "skip";
 
 export interface Column<T> {
   label: string;
