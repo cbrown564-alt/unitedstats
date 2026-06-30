@@ -184,6 +184,8 @@ export function SearchCommand({
               optionId={optionId}
               onSelect={select}
               onHover={setActive}
+              hideCoverage={mobileOverlay}
+              hideCoverageBelowSm={!mobileOverlay}
               footer={
                 forMatches ? undefined : (
                   <Link

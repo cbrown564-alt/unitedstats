@@ -9,18 +9,18 @@ import type { AnswerCoverage } from "@/lib/search";
  */
 export function AnswerCoverageTag({
   coverage,
-  className = "",
+  hideBelowSm = false,
 }: {
   coverage: AnswerCoverage;
-  /** e.g. `hidden sm:inline-flex` to drop the tag in cramped live-search layouts. */
-  className?: string;
+  /** Drop the tag below the `sm` breakpoint — for cramped live-search layouts. */
+  hideBelowSm?: boolean;
 }) {
   const complete = coverage.grade === "complete";
   return (
     <span
-      className={`inline-flex items-center gap-1 whitespace-nowrap text-[10px] uppercase tracking-wider ${
+      className={`${hideBelowSm ? "hidden sm:inline-flex" : "inline-flex"} items-center gap-1 whitespace-nowrap text-[10px] uppercase tracking-wider ${
         complete ? "text-ink-dim" : "text-ink-faint"
-      } ${className}`}
+      }`}
     >
       <span
         aria-hidden
