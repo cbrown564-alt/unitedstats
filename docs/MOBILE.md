@@ -1,6 +1,6 @@
 # Mobile Experience — Wishlist & Roadmap
 
-**Status:** planning. Captured 2026-06-30, to be picked up next session.
+**Status:** planning. Captured 2026-06-30; revised after review same session.
 **Foundation already shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
 sliding from the top, safe-area padding, a first density pass, sticky subnav offsets,
@@ -22,49 +22,100 @@ to follow a trail. Mobile is a *different scene*, and most of this wishlist fall
 naming it honestly:
 
 - **The argument-settler.** A mate makes a claim in a group chat. Phone out, look it up,
-  screenshot the answer back in. Fast in, fast out, shareable.
-- **The second screen.** A United match is on; the phone carries the historical lens and
-  becomes the freshest evidence the moment it ends.
+  share the answer back in. Fast in, fast out, shareable.
+- **The second screen.** A United match is on; the phone carries the **historical lens**
+  — what happened here before, the record against this opponent, on-this-day parallels.
+  Not live scores or post-match recaps; people already have FotMob for that.
 - **The daily ritual.** "On this day", a surprising record, a changed stat — a thing
   worth opening for 30 seconds while the kettle boils.
 - **The fragmented browse.** Train, queue, sofa — one hand, intermittent attention,
   possibly bad signal.
 
 None of these is "sit down and audit the ledger". They're **in-the-moment, social,
-triggered by an external event**. That reframe is the spine of everything below: mobile
-leans harder on *answer-first*, *share*, *timeliness*, and *reversible exploration* than
-desktop does.
+triggered by an external event**. Mobile leans harder on *answer-first*, *share*,
+*reversible exploration*, and *search* than desktop does.
+
+### Persona priority (when they conflict)
+
+**Search first.** This is a place people come when they want to find something about
+the past they couldn't elsewhere. The argument-settler is the primary mobile persona;
+everything else is secondary.
+
+When above-the-fold space or engineering priority conflicts:
+
+1. **Search** — one tap from the pill, fast path to an answer, share on the answer.
+2. **Argument-settler** — search → answer → share (link + OG unfurl is sufficient).
+3. **Fragmented browse** — reversible trails, sheets, scroll restoration.
+4. **Daily ritual** — on-this-day / surprise modules on home, when they earn the space.
+5. **Second screen** — optional historical thread when something is happening today; never
+   compete with live-score apps on fixtures, kick-off, or "what just happened".
+
+**Restraint:** connecting today's live context to the archive (e.g. "United have won
+here 7 of the last 9" while a match is on) is a nice second-screen or repeat-visitor
+touch. Building toward FotMob-style match-day takeover, upcoming-fixture surfaces, or
+post-match freshness feeds is **feature creep** — out of scope.
+
+### Success signals (lightweight)
+
+| Persona | Signal |
+|---|---|
+| Argument-settler | Share taps; search-to-share time |
+| Fragmented browse | Sheet dismiss without losing place; scroll restoration |
+| Daily ritual | Return visits; on-this-day / surprise module taps |
+| Second screen | Historical-context module engagement during match windows (if shipped) |
 
 ---
 
 ## 1. Wishlist by theme
 
-### 1.1 A living "Today" front door
-Desktop home leads with `HistorySkyline` + search. Mobile's first screen should be a
-**timely, tappable feed**, not a miniaturised desktop hero.
+### 1.1 Mobile home — search-first, `TonightHero` evolved
 
-- **Match-day takeover** — when there's a fixture, `TonightHero` becomes the whole top of
-  the screen (opponent, venue, the historical lens — "United have won here 7 of the last
-  9"). Post-match it flips to "the freshest evidence", pointing at the new match detail.
-- **On-this-day card** as a permanent home module — one bespoke object (a famous result
-  from today's date), tap to expand. (`/on-this-day`, `[monthDay]` route + data exist.)
-- **One surprising record**, rotating daily, surfaced from `/surprise` / `/explore`.
-- **Recently changed evidence** — the on-demand revalidation work makes "what's new in
-  the archive" an honest feed.
-- **Full-bleed match-night cards** for hero list items — a match or season rendered
+Desktop home leads with `HistorySkyline` + search. Mobile home is **not** a miniaturised
+desktop hero and **not** a live-score feed. It is:
+
+1. **Search within immediate reach** — the pill's search button (and overlay) is the
+   primary entry for the argument-settler. Consider elevating search further: default
+   overlay from home, long-press on the pill, or a "settle it" mode tuned to records /
+   streaks / H2H — cheaper than rebuilding the whole home and directly unlocks share.
+2. **`TonightHero` + foundation, evolved** — the spark/foundation fusion already on
+   `app/page.tsx` is the right bones. Extend it thoughtfully, not wholesale replace it.
+
+**When "today" modules earn space:**
+
+- **On-this-day** — when the calendar date has significant United history,
+  `TonightHero` already leads with it (`greatNights()` tier 1). Keep and polish.
+- **Classic served night** — on many dates there are *no* matches on this day in the
+  archive, or none worth leading with. The curated rotating pool (`↻ another night`) is
+  *more useful* than forcing empty "today" feed tiles. Don't show on-this-day chrome on
+  days with nothing to say.
+- **Surprise record / recently changed evidence** — add as home modules only when they
+  add honest value, not as permanent filler. A quiet second row below the hero, not a
+  competing feed.
+- **Historical thread during a live match** (optional, restrained) — if we surface
+  anything during an active United match, it is *archive context* (venue record, H2H,
+  on-this-day parallel), not kick-off, line-ups, or full-time. Ship only if it reads as
+  lens, not live tracker.
+
+- **Full-bleed match-night cards** for list items — a match or season rendered
   edge-to-edge with the floodlit plate, not a dense row.
 
-> North-star framing: mobile home is a "Today" surface; desktop home stays the
-> exploration console.
+> North-star framing: mobile home is **search-first** with a **conditional** timely
+> spark (`TonightHero` when the date earns it, classic nights when it doesn't); desktop
+> home stays the exploration console.
 
 ### 1.2 Navigation & wayfinding in a deep archive
 The glass pill + nav sheet is a strong shell. The harder mobile problem is **not getting
 lost six taps deep**.
 
-- **Stacked sheet drill-down** — tapping a match in a list opens it as a bottom sheet
-  *over* the list (presented-card style), so the trail stays visible behind and
-  dismissing returns you exactly where you were. Serves the "follow a trail" thesis on a
-  small screen — exploration becomes reversible and safe.
+- **Phased sheet strategy** — don't jump straight to intercepting routes:
+  - **Phase A:** Reusable bottom-sheet primitive (exit animations, focus trap, swipe
+    dismiss) — unblocks filter sheet and quick previews.
+  - **Phase B:** List → detail preview in sheet without route interception; validate the
+    "reversible trail" feel.
+  - **Phase C:** Full stacked drill-down via intercepting/parallel routes only if Phase B
+    doesn't deliver. Handles deep-link, refresh, and scroll-restoration edge cases.
+- **Stacked sheet drill-down** (Phase C goal) — tapping a match in a list opens it as a
+  bottom sheet *over* the list, so dismissing returns you exactly where you were.
 - **Edge-swipe back** that respects the real back-stack, with a peek of the previous
   surface.
 - **Reachability** — keep high-value actions (search, back) off the top-of-screen reach;
@@ -85,20 +136,28 @@ mobile, where the ledger is unscannable.
   `CompareTable` **swap to card/list rhythm** on narrow viewports rather than
   horizontal-scrolling a dense grid. Lead with the computed answer
   (`HaulCards`, `RecordCards`, `Leaderboard`); keep the sortable register as the appendix.
+- **Shared responsive register primitive** — one abstraction (card below narrow breakpoint,
+  table above; shared sort/filter state) consumed by all table components. Without it,
+  `PlayerSeasonTable`, `LeagueTable`, `CompareTable`, and `DataTable` will diverge.
+  Same "do once, benefit all" pattern as touch chart inspection.
 - **Seasons scroll** — a card-based momentum stream with sticky era/decade headers, not a
   wall of rows.
 - **Analytics chapters** — one question per screen-height chapter (chart + interpretation +
   coverage), swipeable between chapters. `ChartPanel` becomes the vertical-rhythm unit.
 - **Filter bars** (`MatchFilterBar`, `FacetCombobox`) → a bottom-sheet filter panel with
-  applied-filter chips, instead of a cramped inline row.
+  applied-filter chips, instead of a cramped inline row. Lands on Phase A sheet primitive.
 
 ### 1.4 Data viz on touch
 The "shape in SVG, labels in HTML" rule (DESIGN.md) is the foundation. Mobile adds the
 **touch + small-width** problems.
 
-- **MatchFlow label collisions / overflow** (named pain point) — tighter lane-staggering
-  at narrow widths; tap-a-dot-to-reveal-label on busy matches; or a content-swap to a
-  compact stacked-scorer read below a width threshold while keeping the coloured lead bar.
+- **Flagship label collision pass** — `MatchFlow` and home `HistorySkyline` share the
+  same failure mode (colliding x-axis / event labels on narrow viewports). Fix as one
+  Wave-0 track: mobile label tiers (fewer labels by default, tap-to-reveal, stacked lanes
+  or compact event list below threshold).
+- **MatchFlow** (named pain point) — tighter lane-staggering at narrow widths;
+  tap-a-dot-to-reveal-label on busy matches; or content-swap to a compact stacked-scorer
+  read below a width threshold while keeping the coloured lead bar.
 - **Touch inspection replaces hover** — the Quiet Analyst Tooltip needs tap-to-pin /
   tap-elsewhere-to-dismiss, with a touch target larger than the SVG point.
 - **Small-multiple legibility audit** — `MinuteRidge`, `CoverageMatrix`, the index
@@ -109,43 +168,66 @@ The "shape in SVG, labels in HTML" rule (DESIGN.md) is the foundation. Mobile ad
   overflow.
 
 ### 1.5 Gestures & motion
-- **Pull-to-refresh** on the "Today" home and match detail (re-fetch freshest evidence) —
-  ties to the revalidation work.
+
+**Gesture priority** — several gestures compete on the same surfaces; define ownership
+before shipping:
+
+| Priority | Gesture | When active |
+|---|---|---|
+| 1 | Vertical scroll | Always, unless at scroll top |
+| 2 | Pull-to-refresh | Scroll top only (home, match detail revalidation) |
+| 3 | Horizontal section swipe | Hero / tab region only (match-detail tabs, analytics chapters) |
+| 4 | Edge-swipe back | When no sheet is open |
+| 5 | Sibling swipe (`Pager`) | Disabled while a sheet is open |
+| 6 | Sheet swipe-dismiss | On sheet grab handle / backdrop |
+
+- **Pull-to-refresh** on home and match detail (re-fetch revalidated evidence).
 - **Swipe between siblings** (next/previous match, next season — the `Pager` made tactile)
   and **between pinned sections** (see 1.2).
 - **Sheet choreography** — enter *and* exit animations; shared-element transitions where a
-  list card "expands" into its detail hero.
+  list card "expands" into its detail hero. Respect `prefers-reduced-motion` (already in
+  `globals.css`); no haptics when reduced motion is on.
 - **Section micro-interactions** — quiet, state-based, within DESIGN.md's 150–250ms /
   no-bounce rules. Skeleton/shimmer for chart panels on slow networks so layout doesn't jump.
-- **Haptics** on key confirmations (pin a section, copy a share card) where supported —
-  restrained, like the motion.
+- **Haptics** on key confirmations (pin a section, copy link) where supported — restrained,
+  like the motion.
 
 ### 1.6 Share-native & the social loop
 The authored half is already built — OG cards in the site's own faces (Archivo + Plex
-Mono), the Share-only control grammar. Mobile is *where sharing actually happens*.
+Mono), the Share-only control grammar. **`ShareCite` already wires `navigator.share`**
+on plates and match detail; link share + good OG unfurl is **sufficient** — we are not
+pursuing per-object share images (attaching card files caused duplicate pastes on macOS;
+the link already unfurls to the route's OG card).
 
-- **Web Share API** one-tap on every answer-object → native share sheet → straight into
-  WhatsApp/Messages. The argument-settler loop's payoff.
-- **Per-object share images**, not just per-page — share *this record card*, *this
-  MatchFlow*, *this leaderboard row* as an image, so what lands in the group chat is
-  authored, not a cropped UI.
-- **"Settle it" entry point** — search result → answer → share, as a deliberate fast path.
-- **Deep-link landing polish** — when someone taps a shared link, the cold-start mobile
-  landing must orient instantly (breadcrumb, 1.2).
+- **Extend `ShareCite` coverage** — lists, record cards, search results, question modules,
+  compare answers: every answer-object gets the same one-tap share affordance.
+- **"Settle it" entry point** — search result → answer → share, as a deliberate fast path
+  (pairs with search-first home, §1.1).
+- **Deep-link landing polish** — two distinct problems when someone taps a shared link:
+  1. **Orient** — "Where am I?" (breadcrumb, §1.2).
+  2. **Hook** — answer-object visible without scroll; share CTA in reach. Breadcrumb alone
+     doesn't convert a WhatsApp tap into a reader.
 
-### 1.7 Platform capabilities (the "app-like shell", completed)
-- **PWA: installable to home screen** — manifest, icons, standalone display, floodlit-plate
-  splash. Turns the shell into a real launch surface.
-- **Offline / cached reading** — recently-viewed matches and the "Today" surface readable
-  on the train; service worker over the static-rendered pages already built.
-- **On-this-day notifications** — opt-in daily push: the ritual hook, the retention feature
-  mobile uniquely enables here.
-- **Add-to-calendar** for the next fixture from the match-day takeover.
-- **Voice search** as a mobile search affordance (the argument-settler doesn't want to type).
+### 1.7 Answer surfaces beyond match detail
+Argument-settlers often land on share-native pages that aren't match detail. These need
+the same mobile reading treatment (answer-first, progressive disclosure, share on the
+answer):
+
+- **Question modules** (`/questions/*`) — long vertical pages (~10k px on mobile). Lead
+  with the chart/answer per module; collapse methodology and raw tables. Pacing aids
+  between modules (sticky chapter nav or section breaks).
+- **Compare flows** (`/compare`, `CompareTable`) — especially painful on narrow viewports;
+  card rhythm for the comparison answer, ledger as appendix. High share value when
+  settling "who was better" arguments.
+- **Explore / surprise / leaderboard surfaces** — answer-objects (`Leaderboard`,
+  `RecordCards`) already lead; ensure share + mobile density on the rows that get
+  screenshotted.
 
 ### 1.8 Performance & resilience
 - **Perceived performance on 4G** — prioritise the answer-object's first paint; defer
-  charts/ledger. Static rendering + revalidation is the backbone.
+  charts/ledger. Static rendering + revalidation is the backbone. Explicit React
+  `Suspense` / streaming boundaries on match detail and player pages — not just visual
+  skeletons.
 - **Image/card weight budget** for full-bleed heroes — atmosphere must not cost a second
   on cellular.
 - **Graceful partial-data states** — the "render only the facets the data can fill" rule
@@ -156,81 +238,95 @@ Mono), the Share-only control grammar. Mobile is *where sharing actually happens
   against it.
 - **One-handed reach** — keep primary actions in the bottom third; extend the pill's logic.
 - **Dynamic type / text scaling** — dense tables must survive a larger system font.
-- **Sunlight contrast** — verify the dim-ink tiers (`ink-faint`) survive an outdoor screen
-  at low brightness; the warm near-black is tuned for a dim room.
+- **Outdoor / sunlight contrast** — deferred decision. `DESIGN.md`'s scene is a dim room;
+  second-screen use may happen in lit rooms. Revisit when touching surfaces; may need
+  stronger ink tiers or a high-contrast bump — not necessarily full light mode.
+
+### 1.10 Technical footnotes (capture early)
+- **iOS Safari** — bottom pill + virtual keyboard, `100dvh`, sticky subnav with nested
+  overflow: test on real devices, not just 390px viewport audits.
+- **`prefers-reduced-motion`** — sheet choreography and haptics must respect it (see §1.5).
+- **Screenshot tests** — add for `MatchFlow` and `HistorySkyline` on high-event / full-span
+  data after the label-collision pass.
 
 ---
 
 ## 2. Roadmap
 
 Effort: **S** (hours–1 day) · **M** (a few days) · **L** (a week+ / architectural).
-Impact for the mobile personas (argument-settler / second-screen / daily-ritual).
+Impact weighted toward argument-settler and fragmented browse.
 
 ### Wave 0 — Fix-its & quick wins
 *Ship first: low effort, visible, unblock the rest.*
 
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
-| MatchFlow label collisions / overflow (1.4) | S–M | **High** | Named bug, one component. Tap-to-reveal on busy matches + tighter narrow staggering. |
-| Sheet exit animations (1.5) | S | Med | Enter exists; add symmetric exit. |
-| Web Share API one-tap (1.6) | S–M | **High** | Share grammar + OG cards exist; wire `navigator.share`. Unlocks the argument-settler loop cheaply. |
-| Tap-target + reachability audit (1.9, 1.2) | S | Med | Audit dense rows & chart dots vs the 44px lift; confirm primaries stay bottom-third. |
-| Deep-link landing breadcrumb (1.2) | S–M | Med | Sticky context line so shared links orient a cold visitor. Pairs with share. |
+| Flagship label collision pass — `MatchFlow` + `HistorySkyline` (1.4) | S–M | **High** | Same failure mode, both on critical paths. Mobile label tiers + tap-to-reveal. |
+| Sheet exit animations (1.5) | S | Med | Enter CSS exists; components unmount immediately — wire symmetric exit. |
+| Extend `ShareCite` coverage (1.6) | S–M | **High** | `ShareCite` + OG already on plates/match; extend to lists, search results, questions, compare. |
+| Search prominence on home (1.1) | S | **High** | Search-first persona: evaluate elevating search in pill / home (settle-it mode). |
+| Tap-target + reachability audit (1.9, 1.2) | S | Med | Audit dense rows & chart dots vs 44px lift; primaries in bottom third. |
+| Deep-link landing — orient + hook (1.2, 1.6) | S–M | Med | Breadcrumb + answer visible without scroll. Pairs with share. |
 
 ### Wave 1 — The reading track
-*Incremental, page-by-page, high value regardless of north stars. Rows ship independently.*
+*Incremental, page-by-page. Rows ship independently.*
 
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
-| Match-detail progressive disclosure (1.3) | M | **High** | Likely most-visited page. Hero + MatchFlow first; teamsheet/ledger collapse. |
-| Tables → card/list swap (1.3) | L* | **High** | *Large in aggregate but per-table incremental (`PlayerSeasonTable`, `LeagueTable`, `CompareTable`, `DataTable`). Lead with answer-objects, ledger as appendix. |
-| Filter → bottom-sheet + applied chips (1.3) | M | Med | Reuses the sheet primitive from Wave 2. |
-| Touch chart inspection (1.4) | M | Med–High | Quiet Analyst Tooltip tap-to-pin/dismiss + bigger target. Shared chart layer — do once, benefits all. |
+| Sheet primitive Phase A (1.2) | M | **High** | Reusable bottom sheet — exit anim, focus trap, swipe dismiss. Unblocks filter sheet. |
+| Match-detail progressive disclosure (1.3) | M | **High** | Hero + MatchFlow first; teamsheet/ledger collapse. |
+| Tables → card/list via shared register primitive (1.3) | L* | **High** | *Per-table incremental. One primitive, many consumers. |
+| Filter → bottom-sheet + applied chips (1.3) | M | Med | On Phase A sheet. |
+| Touch chart inspection (1.4) | M | Med–High | Tap-to-pin/dismiss + bigger target. Shared chart layer. |
+| Answer surfaces — questions + compare (1.7) | M | **High** | Share-native pages beyond match detail. |
 | Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | Momentum stream, not a row wall. |
 | Analytics chapters (1.3) | M–L | Med | One question per screen-height, swipeable. |
 
-### Wave 2 — North stars
-*The defining bets. What makes it feel like a mobile product, not a responsive site.*
+### Wave 2 — Structural polish
+*What makes exploration feel native on a phone — not a live-score app.*
 
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
-| "Today" front door (1.1) | M | **High** | Reuses `TonightHero`, `/on-this-day`, `/surprise`, revalidation feed. Best reframe-for-effort ratio. |
-| Stacked sheet drill-down (1.2) | L | **High** | Structural unlock; Next App Router intercepting/parallel routes. **Do before/alongside tables→cards** — changes the list→detail model. Yields the reusable sheet primitive Wave 1's filter wants. |
-| Per-object share images (1.6) | L | Med–High | Share *this record / MatchFlow / leaderboard row* as an authored image. Multiplies the Wave-0 share work. |
-| Full-bleed match-night hero cards (1.1) | M | Med | Edge-to-edge floodlit-plate cards for hero list items. |
+| `TonightHero` home evolution (1.1) | M | Med–High | Conditional on-this-day vs classic nights; optional restrained historical thread during live matches. No fixture takeover. |
+| Sheet Phase B → C — list drill-down (1.2) | L | **High** | Preview in sheet first; intercepting routes only if needed. **Before/alongside tables→cards** — avoids rebuilding list→detail twice. |
+| Full-bleed match-night hero cards (1.1) | M | Med | Edge-to-edge floodlit-plate cards for list items. |
 
-### Wave 3 — Platform ceiling
-*Highest ceiling, highest effort. The "installed app with a daily hook" bet — pursue only
-if we commit to the app framing.*
+### Deferred — platform / install framing
+*Revisit later. High effort, uncertain payoff for this audience. Does not gate reading
+polish or search-first work.*
 
-| Item | Effort | Impact | Notes |
-|---|---|---|---|
-| PWA: installable home-screen app (1.7) | M | Med–High | Manifest, icons, standalone, floodlit splash. Prereq for the next two. |
-| On-this-day push notifications (1.7) | L | **High** (ceiling) | Daily-ritual retention hook. Needs push infra + opt-in + backend. Highest payoff *if* the audience installs. |
-| Offline / cached reading (1.7) | L | Med | Service worker over the static-rendered pages. |
-| Add-to-calendar / voice search (1.7) | S | Low–Med | Cheap garnishes; fold in opportunistically. |
+| Item | Notes |
+|---|---|
+| PWA (installable home screen) | Manifest, icons, standalone splash |
+| Push notifications (on-this-day) | Needs infra + opt-in; niche install rates |
+| Offline / cached reading | Service worker over static pages |
+| Voice search | Patchy Safari support; search is already one tap |
 
 ### Cross-cutting (thread through every wave, don't batch)
-- **Perceived performance** (1.8) — answer-object first paint, defer charts/ledger,
+- **Perceived performance** (1.8) — answer-object first paint, `Suspense` boundaries,
   skeletons on slow nets. M / Med–High.
-- **Pull-to-refresh + sibling/section swipe** (1.5) — M / Med. Land with the Today home and
-  pinned sections respectively.
-- **Dynamic type + sunlight contrast** (1.9) — S–M / Med. Verify as each surface is touched.
+- **Pull-to-refresh + sibling/section swipe** (1.5) — M / Med. Respect gesture
+  priority table; land with home evolution and pinned sections respectively.
+- **Dynamic type** (1.9) — S–M / Med. Verify as each surface is touched.
+- **Outdoor contrast** (1.9) — decision deferred; revisit when second-screen modules ship.
 
 ---
 
 ## 3. Recommended path
 
-1. **Wave 0 in full** — a week of visible wins plus the share unlock.
-2. **Run Wave 1 and Wave 2 in parallel**, but start the **stacked-sheet primitive**
-   (Wave 2) *first*: tables→cards and the filter sheet both lean on it. Then let the
-   reading track grind page-by-page while the Today home gets built.
-3. **Hold Wave 3** until we've decided whether "installed app with notifications" is a
-   goal — it's a different commitment level (push infra, opt-in UX) and shouldn't gate the
-   reading polish.
+1. **Wave 0 in full** — label collision pass, sheet exit, extend share, search prominence,
+   deep-link orient+hook.
+2. **Start sheet Phase A immediately** — it unblocks Wave 1 filter sheet and is low risk
+   compared to intercepting routes.
+3. **Run Wave 1 and Wave 2 in parallel** — reading track page-by-page while home evolves
+   (`TonightHero` conditional logic, not a feed rewrite). Sheet Phase B before committing
+   to Phase C intercepting routes.
+4. **Ignore deferred platform work** until there is a explicit decision to pursue install /
+   push — it shouldn't gate anything above.
 
-**Sequencing risk to respect:** don't do tables→cards before the sheet drill-down lands,
+**Sequencing risk to respect:** don't do tables→cards before the sheet primitive lands,
 or the list→detail interaction gets rebuilt twice.
 
-**Suggested first dive next session:** the stacked-sheet primitive spec — it's the
-dependency root for Waves 1 and 2.
+**Suggested first dive next session:** sheet primitive Phase A spec — exit animation wiring,
+focus trap, reuse for filter panel. Dependency root for Wave 1; validates the pattern
+before Phase B/C.
