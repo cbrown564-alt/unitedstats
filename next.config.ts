@@ -7,12 +7,17 @@ const immutablePageCacheHeader = [
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_VERIFY_DIST ?? ".next",
-  // The runtime db path (path.join(process.cwd(), …)) makes the file tracer pull
-  // the whole project into every server function, including build-only source
-  // data. data/canonical (~42MB) and data/history-digests are consumed by
-  // build-db at build time and never read at runtime, so exclude them — otherwise
-  // function bundles blow past Vercel's 250MB limit. data/united.db stays bundled
-  // for preview deploys (no blob), where dynamic routes read it directly.
+  // united.db (~49MB) is the runtime source of truth, read by better-sqlite3 (a
+  // native open the tracer can't follow), so include it explicitly in every
+  // server function. Production may serve a fresher /tmp copy downloaded from
+  // Vercel Blob, but the bundled copy is the floor so the site never 500s on a
+  // missing blob (see lib/db.ts).
+  outputFileTracingIncludes: {
+    "/*": ["data/united.db"],
+  },
+  // Build-only sources consumed by build-db and never read at runtime. Excluded
+  // as belt-and-suspenders so they can't be traced into function bundles and
+  // push them past Vercel's 250MB limit. data/canonical is ~40MB.
   outputFileTracingExcludes: {
     "/*": [
       "data/canonical/**",

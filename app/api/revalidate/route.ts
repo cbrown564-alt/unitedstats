@@ -45,9 +45,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Provide matches or paths" }, { status: 400 });
   }
 
-  if (body.refreshDb !== false) {
-    await resetDb();
-  }
+  // Best-effort: resetDb() returns false (and keeps serving the bundled copy) if
+  // the blob refresh fails, so report what actually happened rather than intent.
+  const dbRefreshed = body.refreshDb !== false ? await resetDb() : false;
 
   for (const path of paths) {
     revalidatePath(path);
@@ -56,6 +56,6 @@ export async function POST(request: Request) {
   return NextResponse.json({
     revalidated: paths.length,
     paths,
-    dbRefreshed: body.refreshDb !== false,
+    dbRefreshed,
   });
 }

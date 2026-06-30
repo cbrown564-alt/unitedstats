@@ -52,9 +52,25 @@ Implemented in `lib/revalidation.ts`; the live path list is computed in CI by
 
 ### Runtime database
 
-Production reads `united.db` from **Vercel Blob** (`UNITEDSTATS_DB_BLOB_URL`)
-into `/tmp` on cold start (`instrumentation.ts`) and on each revalidation
-(`resetDb()` in `lib/db.ts`). Local dev and CI keep using `data/united.db`.
+**Bundled-first, blob-as-upgrade** (rev. 2026-06-30 after an outage — see
+[INCIDENT-2026-06-30-runtime-db.md](./INCIDENT-2026-06-30-runtime-db.md)).
+
+The committed `data/united.db` is the source of truth: it is bundled into every
+server function (`outputFileTracingIncludes` in `next.config.ts`) and is always
+present, so the site cannot 500 on a missing blob. When `UNITEDSTATS_DB_BLOB_URL`
+is set, a fresher copy is downloaded from **Vercel Blob** into `/tmp` — on cold
+start (`instrumentation.ts`) and on each revalidation (`resetDb()`) — and
+`getDb()` prefers it **only when it exists**, otherwise it falls back to the
+bundled copy (`lib/db.ts`). The blob is a freshness upgrade, never a hard
+dependency. Local dev and CI use `data/united.db` directly.
+
+> ⚠️ The blob/`/tmp`/instrumentation path runs **only when `UNITEDSTATS_DB_BLOB_URL`
+> is set** — which previews and CI do not set. Validate it the way production
+> runs it: `GET /api/health` reports `source` (`blob`|`bundled`) and DB
+> readability, `scripts/check-blob.mjs` verifies the blob object, and
+> `scripts/smoke-check.mjs` checks a live deploy end-to-end. Consider setting
+> `UNITEDSTATS_DB_BLOB_URL` on the **Preview** environment too so PR deploys
+> exercise the download (the fallback keeps them safe if the blob is stale).
 
 ### Required secrets (production)
 

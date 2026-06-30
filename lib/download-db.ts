@@ -5,7 +5,7 @@ import { RUNTIME_DB_PATH, usesRuntimeDbBlob } from "./runtime-db-path";
 // Re-exported so instrumentation can grab the guard alongside the downloader.
 export { usesRuntimeDbBlob };
 
-/** Scoped to data/ — see lib/db.ts LOCAL_DB_PATH. */
+/** The bundled copy returned when no blob is configured — mirrors lib/db.ts. */
 const LOCAL_DB_PATH = path.join(process.cwd(), "data", "united.db");
 
 function runtimeDbBlobUrl(): string | null {
