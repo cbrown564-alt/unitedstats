@@ -21,7 +21,6 @@ export interface SearchResponse {
 }
 
 export type { ShapedAnswer, AnswerCoverage };
-export { typeaheadTotal } from "./search/typeaheadTotal";
 
 const KINDS = ["player", "manager", "opponent", "season", "competition", "stadium", "city"] as const;
 
