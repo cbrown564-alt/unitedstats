@@ -14,7 +14,16 @@ const nextConfig: NextConfig = {
   // function bundles blow past Vercel's 250MB limit. data/united.db stays bundled
   // for preview deploys (no blob), where dynamic routes read it directly.
   outputFileTracingExcludes: {
-    "/*": ["data/canonical/**", "data/history-digests/**"],
+    "/*": [
+      "data/canonical/**",
+      "data/history-digests/**",
+      // Build/dev-only trees that must never ship in serverless bundles.
+      "design-mocks/**",
+      "output/**",
+      "docs/**",
+      "research/**",
+      "tests/**",
+    ],
   },
   turbopack: {
     root: process.cwd(),
