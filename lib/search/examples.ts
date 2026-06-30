@@ -1,6 +1,18 @@
 /** Canonical input placeholder shared across search entry points. */
 export const SEARCH_PLACEHOLDER = "Search names, seasons, or questions…";
 
+/** Shorter placeholder for the mobile overlay — less visual noise above the keyboard. */
+export const MOBILE_SEARCH_PLACEHOLDER = "Settle an argument…";
+
+/**
+ * Mobile empty-state suggestions only — one or two argument-settlers, no operator
+ * grammar. Kept separate from POPULAR_SEARCHES so desktop teaching stays rich.
+ */
+export const MOBILE_SEARCH_SUGGESTIONS: string[] = [
+  "record away at Arsenal",
+  "Rooney vs Charlton",
+];
+
 /**
  * parser actually answers, so a first-time searcher sees what the box can do.
  * Shared by the dropdown empty state, the command palette, and /search. The

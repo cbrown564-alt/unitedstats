@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { POPULAR_SEARCHES, SEARCH_HINTS } from "@/lib/search/examples";
+import { MOBILE_SEARCH_SUGGESTIONS, POPULAR_SEARCHES, SEARCH_HINTS } from "@/lib/search/examples";
 import { getRecentsSnapshot, getRecentsServerSnapshot, subscribeRecents } from "@/lib/search/recents";
 
 /**
@@ -9,9 +9,38 @@ import { getRecentsSnapshot, getRecentsServerSnapshot, subscribeRecents } from "
  * worked examples that prove what the parser can do, and the scoping-operator
  * syntax. Picking any of them fills the input rather than navigating, so the user
  * stays in the flow of refining a query.
+ *
+ * Mobile variant strips operators and caps suggestions — the keyboard already
+ * eats half the screen; pre-search chrome should be almost nothing.
  */
-export function SearchEmptyState({ onPick }: { onPick: (q: string) => void }) {
+export function SearchEmptyState({
+  onPick,
+  variant = "default",
+}: {
+  onPick: (q: string) => void;
+  variant?: "default" | "mobile";
+}) {
   const recents = useSyncExternalStore(subscribeRecents, getRecentsSnapshot, getRecentsServerSnapshot);
+
+  if (variant === "mobile") {
+    const picks: string[] = [];
+    if (recents[0]) picks.push(recents[0]);
+    for (const s of MOBILE_SEARCH_SUGGESTIONS) {
+      if (picks.length >= 2) break;
+      if (!picks.includes(s)) picks.push(s);
+    }
+    if (picks.length === 0) return null;
+
+    return (
+      <div className="mobile-search-suggestions">
+        {picks.map((q) => (
+          <button key={q} type="button" onClick={() => onPick(q)} className="mobile-search-suggestion focus-ring">
+            {q}
+          </button>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="p-2 text-sm">

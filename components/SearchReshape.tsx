@@ -15,6 +15,7 @@ export function SearchReshape({
   seeAllHref,
   onPick,
   onSeeAll,
+  variant = "default",
 }: {
   query: string;
   seeAllHref: string;
@@ -22,15 +23,40 @@ export function SearchReshape({
   onPick: (q: string) => void;
   /** Navigate to the full results page (so the click is logged like any other). */
   onSeeAll: () => void;
+  variant?: "default" | "mobile";
 }) {
   const trimmed = query.trim();
+  const prompts = variant === "mobile" ? RESHAPE_PROMPTS.slice(0, 1) : RESHAPE_PROMPTS;
+
+  if (variant === "mobile") {
+    return (
+      <div className="mobile-search-suggestions">
+        <p className="px-1 text-sm text-ink-dim">
+          No match{trimmed ? <> for &ldquo;{trimmed}&rdquo;</> : ""}. Try:
+        </p>
+        {prompts.map((p) => (
+          <button key={p} type="button" onClick={() => onPick(p)} className="mobile-search-suggestion focus-ring">
+            {p}
+          </button>
+        ))}
+        <Link
+          href={seeAllHref}
+          onClick={onSeeAll}
+          className="mt-1 block px-1 text-sm text-devil-bright hover:underline focus-ring"
+        >
+          Search the archive →
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="p-3 text-sm">
       <p className="px-1 text-ink-dim">
         No exact match{trimmed ? <> for &ldquo;<span className="text-ink">{trimmed}</span>&rdquo;</> : ""}. Try a shaped question:
       </p>
       <div className="mt-2 space-y-0.5">
-        {RESHAPE_PROMPTS.map((p) => (
+        {prompts.map((p) => (
           <button
             key={p}
             type="button"

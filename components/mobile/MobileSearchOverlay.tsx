@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
+import { MOBILE_SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { useAnimatedOverlay } from "@/components/mobile/useAnimatedOverlay";
 import { useBodyScrollLock } from "@/components/mobile/useBodyScrollLock";
 
@@ -40,8 +40,7 @@ export function MobileSearchOverlay({ open, onClose, SearchCommand, loading }: M
       <button type="button" aria-label="Close search" className="mobile-sheet-backdrop" onClick={onClose} />
 
       <div className={`mobile-search-panel ${panelClass}`} onAnimationEnd={closing ? onExitComplete : undefined}>
-        <div className="mobile-search-header">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">Search</p>
+        <div className="mobile-search-toolbar">
           <button
             type="button"
             onClick={onClose}
@@ -58,25 +57,22 @@ export function MobileSearchOverlay({ open, onClose, SearchCommand, loading }: M
         <div className="mobile-search-body">
           {SearchCommand ? (
             <SearchCommand
-              compact
+              mobileOverlay
               autoFocusKey={false}
               autoFocusOnMount
-              placeholder={SEARCH_PLACEHOLDER}
+              placeholder={MOBILE_SEARCH_PLACEHOLDER}
               onNavigate={onClose}
             />
           ) : (
-            <div className="relative">
-              <input
-                type="search"
-                readOnly
-                aria-busy={loading}
-                aria-label="Search players, opponents, seasons, managers, stadiums, and shaped questions"
-                placeholder={loading ? "Loading search…" : SEARCH_PLACEHOLDER}
-                className="control w-full"
-              />
-            </div>
+            <input
+              type="search"
+              readOnly
+              aria-busy={loading}
+              aria-label="Search the archive"
+              placeholder={loading ? "Loading search…" : MOBILE_SEARCH_PLACEHOLDER}
+              className="mobile-search-input w-full"
+            />
           )}
-          <p className="mt-2 text-xs text-ink-faint">Players, matches, seasons, shaped questions — anything.</p>
         </div>
       </div>
     </div>
