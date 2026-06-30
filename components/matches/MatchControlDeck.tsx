@@ -4,7 +4,7 @@ import type { DecadeBucket } from "@/components/matches/FilterZones";
 
 /**
  * Search plus facet chips for narrowing the match archive. The filter palette
- * expands inline below the chip row so it is never clipped by the deck.
+ * collapses by default so the match list stays visible; expand to edit filters.
  */
 export function MatchControlDeck({
   params,
@@ -13,7 +13,6 @@ export function MatchControlDeck({
   matchHref,
   seasons,
   decadeBuckets,
-  defaultFiltersOpen,
 }: {
   params: Record<string, string | undefined>;
   chips: { key: string; label: string }[];
@@ -21,8 +20,6 @@ export function MatchControlDeck({
   matchHref?: string;
   seasons: string[];
   decadeBuckets?: DecadeBucket[];
-  /** Expand the filter panel on load when the slice already has constraints. */
-  defaultFiltersOpen: boolean;
 }) {
   return (
     <section
@@ -33,7 +30,6 @@ export function MatchControlDeck({
       <div className="p-4 sm:p-5">
         <SearchCommand forMatches fullWidth autoFocusKey={false} />
         <MatchFilterCollapse
-          defaultOpen={defaultFiltersOpen}
           filterCount={chips.length}
           params={params}
           chips={chips}

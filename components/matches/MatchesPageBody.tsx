@@ -76,7 +76,6 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
         matchHref={matchHref}
         seasons={seasons}
         decadeBuckets={decades}
-        defaultFiltersOpen={hasFilters}
       />
 
       <MatchListToolbar total={total} sort={sort} dateSort={dateSort} goalDiffSort={goalDiffSort} qs={qs} />

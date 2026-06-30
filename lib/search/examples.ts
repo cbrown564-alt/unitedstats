@@ -2,7 +2,7 @@
 export const SEARCH_PLACEHOLDER = "Search names, seasons, or questions…";
 
 /** Shorter placeholder for the mobile overlay — less visual noise above the keyboard. */
-export const MOBILE_SEARCH_PLACEHOLDER = "Settle an argument…";
+export const MOBILE_SEARCH_PLACEHOLDER = "Search…";
 
 /**
  * Mobile empty-state suggestions — argument-settlers with short labels where the

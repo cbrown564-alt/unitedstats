@@ -17,7 +17,7 @@ export function MobileSearchPrompt() {
           <line x1="16.5" y1="16.5" x2="21" y2="21" />
         </svg>
         <span className="min-w-0 flex-1">
-          <span className="block text-sm font-medium text-ink">Settle it — search the archive</span>
+          <span className="block text-sm font-medium text-ink">Search</span>
           <span className="mt-0.5 block text-xs text-ink-faint">Players, records, head-to-heads, shaped questions</span>
         </span>
       </button>
