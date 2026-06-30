@@ -11,19 +11,18 @@ import { MobileSearchOverlay } from "@/components/mobile/MobileSearchOverlay";
 
 type SearchCommandComponent = typeof import("@/components/SearchCommand").SearchCommand;
 
-function ThreadlineMark({ size = 28 }: { size?: number }) {
+function HomeIcon() {
   return (
-    <svg width={size} height={size} viewBox="0 0 58 58" fill="none" aria-hidden>
-      <rect x="1" y="1" width="56" height="56" rx="14" fill="#161312" stroke="#2c2522" />
-      <path d="M12 31C18 22 25 39 31 29C36 21 41 22 46 27" stroke="#ff3b1f" strokeWidth="4" strokeLinecap="round" />
-      <path d="M18 17v24M40 17v24" stroke="#f3ede8" strokeWidth="3" strokeLinecap="round" />
-      <circle cx="46" cy="27" r="4" fill="#ff3b1f" />
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
+      <path d="M4 10.5 12 4l8 6.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6 9.5V20h12V9.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 export function MobileBottomNav() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [SearchCommand, setSearchCommand] = useState<SearchCommandComponent | null>(null);
@@ -62,14 +61,15 @@ export function MobileBottomNav() {
         className="mobile-bottom-nav lg:hidden"
       >
         <div className="mobile-bottom-pill">
-          <Link
-            href="/"
-            aria-label="Home"
-            aria-current={pathname === "/" ? "page" : undefined}
-            className="mobile-pill-btn mobile-pill-btn--home focus-ring"
-          >
-            <ThreadlineMark size={26} />
-          </Link>
+          {!isHome && (
+            <Link
+              href="/"
+              aria-label="Home"
+              className="mobile-pill-btn mobile-pill-btn--home focus-ring"
+            >
+              <HomeIcon />
+            </Link>
+          )}
 
           <button
             type="button"
