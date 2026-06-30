@@ -1,15 +1,12 @@
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
+import { RUNTIME_DB_PATH, usesRuntimeDbBlob } from "./runtime-db-path";
 
-export const RUNTIME_DB_PATH = path.join(os.tmpdir(), "unitedstats-united.db");
+// Re-exported so instrumentation can grab the guard alongside the downloader.
+export { usesRuntimeDbBlob };
 
 function runtimeDbBlobUrl(): string | null {
   return process.env.UNITEDSTATS_DB_BLOB_URL ?? null;
-}
-
-export function usesRuntimeDbBlob(): boolean {
-  return Boolean(runtimeDbBlobUrl());
 }
 
 export async function downloadRuntimeDb(force = false): Promise<string> {

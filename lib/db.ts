@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import fs from "node:fs";
 import path from "node:path";
-import { RUNTIME_DB_PATH, downloadRuntimeDb, usesRuntimeDbBlob } from "./download-db";
+import { RUNTIME_DB_PATH, usesRuntimeDbBlob } from "./runtime-db-path";
 
 let db: Database.Database | null = null;
 let resolvedPath: string | null = null;
@@ -41,6 +41,8 @@ export async function resetDb(): Promise<void> {
   }
   resolvedPath = null;
   if (usesRuntimeDbBlob()) {
+    // Dynamic import keeps the fs-backed downloader out of every page's bundle.
+    const { downloadRuntimeDb } = await import("./download-db");
     if (fs.existsSync(RUNTIME_DB_PATH)) fs.unlinkSync(RUNTIME_DB_PATH);
     resolvedPath = await downloadRuntimeDb();
   }

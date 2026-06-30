@@ -6,6 +6,9 @@ import { relatedAnswers } from "@/lib/related";
 import { QUESTION_COMPONENTS } from "@/components/QuestionModules";
 import { RelatedAnswers } from "@/components/RelatedAnswers";
 
+// Questions are a fixed, finite set — always fully prerendered, never sampled.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return questionSlugs().map((slug) => ({ slug }));
 }

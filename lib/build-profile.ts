@@ -21,8 +21,3 @@ export function buildProfile(): BuildProfile {
 export function isFullBuild(): boolean {
   return buildProfile() === "full";
 }
-
-/** When false, only paths from generateStaticParams are served; when true, others SSR on demand. */
-export function staticBuildDynamicParams(): boolean {
-  return !isFullBuild();
-}

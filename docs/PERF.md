@@ -98,9 +98,11 @@ full Vercel deploy (previous behaviour).
   `/opponents`, `/analytics`
   - `/opponents` filters client-side (`FilterableList`); `/analytics` runs its
     forecast client-side (`OddsPredictor`) over build-precomputed odds.
-- **SSG `●` (`generateStaticParams` + `dynamicParams=false`):** `/match/[id]`
+- **SSG `●` (`generateStaticParams` + `dynamicParams=true`):** `/match/[id]`
   (6,027), `/player/[id]` (985), `/seasons/[season]` (~128), `/opponent/[id]`
-  (237), `/manager/[id]` (29). Sort/expand interactions are client islands
+  (237), `/manager/[id]` (29). Full builds prerender every id; preview builds
+  sample a subset and serve the rest on demand (`dynamicParams=true`). Unknown
+  ids fall through to `notFound()`. Sort/expand interactions are client islands
   (`PlayerSeasonTable`, `LeagueTable`).
 - **Dynamic `ƒ` by design:** `/matches` and `/players` (filter/sort over large
   datasets with per-row visuals — too heavy to ship to the client), `/seasons`
@@ -161,7 +163,7 @@ entity pages for CDN-fast UX.
 
 **Preview** deploys (Vercel `VERCEL_ENV=preview`, i.e. PR branches) default to
 a faster profile: `generateStaticParams` samples ~24 evenly spaced ids per heavy
-route (other valid ids still SSR on demand via the default `dynamicParams`),
+route (other valid ids still SSR on demand via `dynamicParams = true`),
 and `export:dataset` is skipped. Override either way with
 `UNITEDSTATS_BUILD_PROFILE=full|preview`. Local fast iteration:
 

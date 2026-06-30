@@ -9,7 +9,7 @@ import { execSync } from "node:child_process";
 const DATA_PREFIXES = ["data/canonical/", "data/history-digests/", "public/dataset/"];
 const DATA_FILES = new Set(["data/united.db"]);
 
-function changedFiles(): string[] {
+function changedFiles() {
   const prev = process.env.VERCEL_GIT_PREVIOUS_SHA;
   const curr = process.env.VERCEL_GIT_COMMIT_SHA;
   if (!prev || !curr) return [];
@@ -21,7 +21,7 @@ function changedFiles(): string[] {
   }
 }
 
-function isDataOnly(files: string[]): boolean {
+function isDataOnly(files) {
   if (files.length === 0) return false;
   return files.every((file) => DATA_FILES.has(file) || DATA_PREFIXES.some((p) => file.startsWith(p)));
 }

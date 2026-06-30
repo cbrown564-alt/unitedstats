@@ -24,6 +24,10 @@ async function main() {
     addRandomSuffix: false,
     allowOverwrite: true,
     contentType: "application/octet-stream",
+    // The pathname is fixed and overwritten in place each ingest, so the default
+    // month-long CDN cache would serve a stale db after upload — defeating the
+    // point of revalidation. Force a no-cache so resetDb() always pulls fresh.
+    cacheControlMaxAge: 0,
   });
 
   console.log(`uploaded ${path.basename(DB_PATH)} (${fs.statSync(DB_PATH).size} bytes)`);
