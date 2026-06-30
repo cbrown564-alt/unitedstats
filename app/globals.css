@@ -1646,7 +1646,8 @@ body.mobile-sheet-open {
   top: 0;
   z-index: 20;
   margin-inline: -1rem;
-  margin-bottom: 0.75rem;
+  /* Tighter than parent space-y-* (~⅓) — unlayered so it wins over margin-block-end. */
+  margin-block-end: 0.75rem;
   border-bottom: 1px solid color-mix(in oklab, var(--color-line), transparent 30%);
   background: color-mix(in oklab, var(--color-pitch), transparent 8%);
   padding: 0.5rem 1rem;
@@ -1661,7 +1662,6 @@ body.mobile-sheet-open {
   .detail-breadcrumb {
     position: static;
     margin-inline: 0;
-    margin-bottom: 0;
     border-bottom: 0;
     background: transparent;
     padding: 0;
