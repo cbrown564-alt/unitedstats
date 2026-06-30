@@ -1,9 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { FacetIcon } from "@/components/FacetIcon";
+import { useId, useState } from "react";
+import {
+  BottomSheet,
+  BottomSheetBody,
+  BottomSheetHeader,
+} from "@/components/mobile/BottomSheet";
 import { MatchFilterBarWithCounts } from "@/components/MatchFilterBarWithCounts";
+import { FacetIcon } from "@/components/FacetIcon";
 import type { DecadeBucket } from "@/components/matches/FilterZones";
+import { fmtNum } from "@/lib/format";
 import { FACET_BY_KEY, type FacetGroup } from "@/lib/matchFacets";
 
 const GROUP_TONE: Record<FacetGroup, string> = {
@@ -11,6 +17,16 @@ const GROUP_TONE: Record<FacetGroup, string> = {
   what: "text-gold/60",
   where: "text-silver/60",
   when: "text-devil-bright/60",
+};
+
+type FilterCollapseProps = {
+  filterCount: number;
+  params: Record<string, string | undefined>;
+  chips: { key: string; label: string }[];
+  total: number;
+  matchHref?: string;
+  seasons: string[];
+  decadeBuckets?: DecadeBucket[];
 };
 
 function Chevron({ className = "" }: { className?: string }) {
@@ -78,66 +94,150 @@ function ActiveFilterStrip({
   );
 }
 
+function FilterBarPanel(props: FilterCollapseProps) {
+  return (
+    <MatchFilterBarWithCounts
+      embedded
+      params={props.params}
+      chips={props.chips}
+      total={props.total}
+      matchHref={props.matchHref}
+      seasons={props.seasons}
+      decadeBuckets={props.decadeBuckets}
+    />
+  );
+}
+
 /**
- * Collapsible filter palette below the matches search bar. Stays closed on load so
- * the match list stays above the fold; active filters show as a minimal red-underlined
- * strip until the user expands the full panel.
+ * Mobile filter sheet — full facet palette in BottomSheet; list stays above the fold.
  */
-export function MatchFilterCollapse({
+function MatchFilterSheet({
+  open,
+  onClose,
+  titleId,
   filterCount,
-  params,
-  chips,
   total,
-  matchHref,
-  seasons,
-  decadeBuckets,
-}: {
-  filterCount: number;
-  params: Record<string, string | undefined>;
-  chips: { key: string; label: string }[];
-  total: number;
-  matchHref?: string;
-  seasons: string[];
-  decadeBuckets?: DecadeBucket[];
+  ...panelProps
+}: FilterCollapseProps & {
+  open: boolean;
+  onClose: () => void;
+  titleId: string;
 }) {
-  const [open, setOpen] = useState(false);
+  return (
+    <BottomSheet
+      open={open}
+      onClose={onClose}
+      ariaLabel="Match filters"
+      titleId={titleId}
+      panelClassName="mobile-sheet-panel--filters"
+    >
+      <BottomSheetHeader>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p id={titleId} className="display text-lg leading-tight">
+              Filters
+            </p>
+            <p className="mt-1 text-xs text-ink-faint">
+              {filterCount > 0 ? (
+                <>
+                  <span className="stat-num">{filterCount}</span> active ·{" "}
+                </>
+              ) : null}
+              <span className="stat-num">{fmtNum(total)}</span> matches
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="shrink-0 rounded-md px-2.5 py-1.5 text-sm font-semibold text-devil-bright transition-colors hover:text-ink focus-ring"
+          >
+            Done
+          </button>
+        </div>
+      </BottomSheetHeader>
+
+      <BottomSheetBody>
+        <FilterBarPanel
+          filterCount={filterCount}
+          total={total}
+          {...panelProps}
+        />
+      </BottomSheetBody>
+    </BottomSheet>
+  );
+}
+
+/**
+ * Below lg: filter trigger + applied chips; full palette in a bottom sheet.
+ * Desktop: inline expand/collapse under the search bar (sidebar layout).
+ */
+export function MatchFilterCollapse(props: FilterCollapseProps) {
+  const { filterCount, chips } = props;
+  const titleId = useId();
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [inlineOpen, setInlineOpen] = useState(false);
+
+  const openSheet = () => setSheetOpen(true);
 
   return (
-    <div className="mt-4 border-t border-line/70">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="flex w-full cursor-pointer select-none items-center gap-2 py-3 text-left text-[13px] text-ink-dim transition-colors hover:text-ink-faint focus-ring"
-      >
-        <Chevron
-          className={`h-3 w-3 shrink-0 text-devil-bright/80 transition-transform duration-200 ${open ? "rotate-0" : "-rotate-90"}`}
-        />
-        <span>Filters</span>
+    <>
+      <div className="mt-4 border-t border-line/70 lg:hidden">
+        <button
+          type="button"
+          onClick={openSheet}
+          aria-haspopup="dialog"
+          aria-expanded={sheetOpen}
+          className="flex w-full cursor-pointer select-none items-center gap-2 py-3 text-left text-[13px] text-ink-dim transition-colors hover:text-ink-faint focus-ring"
+        >
+          <Chevron className="h-3 w-3 shrink-0 -rotate-90 text-devil-bright/80" />
+          <span>Filters</span>
+          {filterCount > 0 && (
+            <span className="stat-num ml-auto text-[11px] text-ink-faint">
+              {filterCount} active
+            </span>
+          )}
+        </button>
+
         {filterCount > 0 && (
-          <span className="stat-num ml-auto text-[11px] text-ink-faint">
-            {filterCount} active
-          </span>
+          <ActiveFilterStrip chips={chips} onEdit={openSheet} />
         )}
-      </button>
 
-      {!open && filterCount > 0 && (
-        <ActiveFilterStrip chips={chips} onEdit={() => setOpen(true)} />
-      )}
+        <MatchFilterSheet
+          open={sheetOpen}
+          onClose={() => setSheetOpen(false)}
+          titleId={titleId}
+          {...props}
+        />
+      </div>
 
-      {open && (
-        <div className="pb-1 pt-1">
-          <MatchFilterBarWithCounts
-            embedded
-            params={params}
-            chips={chips}
-            total={total}
-            matchHref={matchHref}
-            seasons={seasons}
-            decadeBuckets={decadeBuckets}
+      <div className="mt-4 hidden border-t border-line/70 lg:block">
+        <button
+          type="button"
+          onClick={() => setInlineOpen((v) => !v)}
+          aria-expanded={inlineOpen}
+          className="flex w-full cursor-pointer select-none items-center gap-2 py-3 text-left text-[13px] text-ink-dim transition-colors hover:text-ink-faint focus-ring"
+        >
+          <Chevron
+            className={`h-3 w-3 shrink-0 text-devil-bright/80 transition-transform duration-200 ${inlineOpen ? "rotate-0" : "-rotate-90"}`}
           />
-        </div>
-      )}
-    </div>
+          <span>Filters</span>
+          {filterCount > 0 && (
+            <span className="stat-num ml-auto text-[11px] text-ink-faint">
+              {filterCount} active
+            </span>
+          )}
+        </button>
+
+        {!inlineOpen && filterCount > 0 && (
+          <ActiveFilterStrip chips={chips} onEdit={() => setInlineOpen(true)} />
+        )}
+
+        {inlineOpen && (
+          <div className="pb-1 pt-1">
+            <FilterBarPanel {...props} />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
