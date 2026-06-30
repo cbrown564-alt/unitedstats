@@ -5,22 +5,6 @@ import type { SearchEntity, ShapedAnswer } from "@/lib/search";
 import { highlight } from "@/lib/search/highlight";
 import { KIND_LABELS } from "@/lib/search/examples";
 import { AnswerCoverageTag } from "./AnswerCoverageTag";
-import { ShareCite } from "./ShareCite";
-
-function ShapedShare({ path, title }: { path: string; title: string }) {
-  return (
-    <div
-      className="shrink-0"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-      onKeyDown={(e) => e.stopPropagation()}
-    >
-      <ShareCite path={path} title={title} />
-    </div>
-  );
-}
 
 /**
  * The shared, keyboard-driven results list rendered inside both the header
@@ -66,10 +50,7 @@ export function SearchResults({
             )}
             <div className="flex justify-between gap-3 text-sm">
               <span className="font-medium">{s.title}</span>
-              <div className="flex shrink-0 items-start gap-2">
-                <span className="text-xs text-devil-bright whitespace-nowrap">{s.hrefLabel}</span>
-                <ShapedShare path={s.href} title={s.title} />
-              </div>
+              <span className="shrink-0 text-xs text-devil-bright whitespace-nowrap">{s.hrefLabel}</span>
             </div>
             <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
