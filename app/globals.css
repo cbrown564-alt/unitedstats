@@ -1034,24 +1034,45 @@ select {
   padding: 0.75rem;
 }
 
+.mobile-search-suggestions-label {
+  padding: 0.125rem 0.125rem 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--color-ink-dim);
+}
+
+.mobile-search-suggestions-label:not(:first-child) {
+  margin-top: 0.375rem;
+}
+
 .mobile-search-suggestion {
   width: 100%;
   border-radius: 0.625rem;
-  border: 1px solid var(--color-line);
-  background: var(--color-panel-2);
+  border: 1px solid color-mix(in oklab, var(--color-line), var(--color-devil) 14%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-panel-2), white 5%) 0%,
+    var(--color-panel-2) 100%
+  );
   padding: 0.75rem 0.875rem;
   text-align: left;
   font-size: 0.9375rem;
+  font-weight: 500;
   line-height: 1.35;
   color: var(--color-ink);
+  box-shadow:
+    0 1px 0 color-mix(in oklab, white, transparent 90%) inset,
+    0 1px 2px rgb(0 0 0 / 0.14);
   transition:
     border-color 140ms ease,
-    background-color 140ms ease;
+    background-color 140ms ease,
+    box-shadow 140ms ease;
 }
 
 .mobile-search-suggestion:active {
   border-color: color-mix(in oklab, var(--color-devil), var(--color-line) 40%);
   background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 8%);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
 }
 
 .mobile-search-header {

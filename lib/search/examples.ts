@@ -5,12 +5,16 @@ export const SEARCH_PLACEHOLDER = "Search names, seasons, or questions…";
 export const MOBILE_SEARCH_PLACEHOLDER = "Settle an argument…";
 
 /**
- * Mobile empty-state suggestions only — one or two argument-settlers, no operator
- * grammar. Kept separate from POPULAR_SEARCHES so desktop teaching stays rich.
+ * Mobile empty-state suggestions — argument-settlers with short labels where the
+ * query differs (e.g. "the treble" → 1998-99). Kept separate from POPULAR_SEARCHES
+ * so desktop teaching stays rich.
  */
-export const MOBILE_SEARCH_SUGGESTIONS: string[] = [
-  "record away at Arsenal",
-  "Rooney vs Charlton",
+export type MobileSearchSuggestion = { q: string; label: string };
+
+export const MOBILE_SEARCH_SUGGESTIONS: MobileSearchSuggestion[] = [
+  { q: "Cantona vs Liverpool", label: "Cantona vs Liverpool" },
+  { q: "biggest win in the 90s", label: "biggest win in the 90s" },
+  { q: "1998-99", label: "the treble" },
 ];
 
 /**

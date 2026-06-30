@@ -23,19 +23,20 @@ export function SearchEmptyState({
   const recents = useSyncExternalStore(subscribeRecents, getRecentsSnapshot, getRecentsServerSnapshot);
 
   if (variant === "mobile") {
-    const picks: string[] = [];
-    if (recents[0]) picks.push(recents[0]);
-    for (const s of MOBILE_SEARCH_SUGGESTIONS) {
-      if (picks.length >= 2) break;
-      if (!picks.includes(s)) picks.push(s);
-    }
-    if (picks.length === 0) return null;
-
     return (
       <div className="mobile-search-suggestions">
-        {picks.map((q) => (
+        {recents[0] && (
+          <>
+            <p className="mobile-search-suggestions-label">Recent</p>
+            <button type="button" onClick={() => onPick(recents[0])} className="mobile-search-suggestion focus-ring">
+              {recents[0]}
+            </button>
+          </>
+        )}
+        <p className="mobile-search-suggestions-label">Try something like…</p>
+        {MOBILE_SEARCH_SUGGESTIONS.map(({ q, label }) => (
           <button key={q} type="button" onClick={() => onPick(q)} className="mobile-search-suggestion focus-ring">
-            {q}
+            {label}
           </button>
         ))}
       </div>
