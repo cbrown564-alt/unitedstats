@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { useAnimatedOverlay } from "@/components/mobile/useAnimatedOverlay";
+import { useBodyScrollLock } from "@/components/mobile/useBodyScrollLock";
 
 type SearchCommandComponent = typeof import("@/components/SearchCommand").SearchCommand;
 
@@ -18,18 +19,16 @@ const EXIT_MS = 280;
 export function MobileSearchOverlay({ open, onClose, SearchCommand, loading }: MobileSearchOverlayProps) {
   const { mounted, closing, onExitComplete } = useAnimatedOverlay(open, EXIT_MS);
 
+  useBodyScrollLock(mounted && !closing);
+
   useEffect(() => {
-    if (!mounted) return;
-    document.body.classList.add("mobile-sheet-open");
+    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.classList.remove("mobile-sheet-open");
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [onClose, mounted]);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, open]);
 
   if (!mounted) return null;
 

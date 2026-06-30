@@ -734,6 +734,7 @@ select {
   position: fixed;
   inset: 0;
   z-index: 70;
+  overscroll-behavior: none;
 }
 
 .mobile-sheet-backdrop {
@@ -779,7 +780,7 @@ select {
     var(--color-panel);
   box-shadow: 0 -24px 64px rgb(0 0 0 / 0.5);
   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
-  touch-action: pan-y;
+  overscroll-behavior: none;
   will-change: transform;
 }
 
@@ -792,14 +793,15 @@ select {
   flex: none;
   overflow-y: auto;
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
-.mobile-sheet-panel--fit .mobile-sheet-nav {
-  flex: none;
+.mobile-sheet-panel--nav .mobile-sheet-body {
   overflow: visible;
 }
 
 .mobile-sheet-panel--nav {
+  touch-action: none;
   padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
 }
 
@@ -1002,6 +1004,7 @@ select {
 
 body.mobile-sheet-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

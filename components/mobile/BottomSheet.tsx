@@ -11,6 +11,7 @@ import {
   type RefObject,
 } from "react";
 import { useAnimatedOverlay } from "@/components/mobile/useAnimatedOverlay";
+import { useBodyScrollLock } from "@/components/mobile/useBodyScrollLock";
 import { useFocusTrap } from "@/components/mobile/useFocusTrap";
 import { useSheetSwipe } from "@/components/mobile/useSheetSwipe";
 
@@ -56,22 +57,23 @@ export function BottomSheet({
   panelClassName = "",
 }: BottomSheetProps) {
   const panelId = useId();
+  const rootRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { mounted, closing, onExitComplete } = useAnimatedOverlay(open, EXIT_MS);
-  const { resetTransform, sheetProps } = useSheetSwipe(sheetRef, onClose, {
+  const { resetTransform, resetDrag, sheetProps } = useSheetSwipe(sheetRef, onClose, mounted && !closing, {
     threshold: dismissThreshold,
     scrollRef,
   });
 
+  useBodyScrollLock(mounted && !closing);
   useFocusTrap(sheetRef, mounted && !closing);
 
   useEffect(() => {
     if (!mounted) return;
-    document.body.classList.add("mobile-sheet-open");
     resetTransform();
-    return () => document.body.classList.remove("mobile-sheet-open");
-  }, [mounted, resetTransform]);
+    resetDrag();
+  }, [mounted, resetDrag, resetTransform]);
 
   useEffect(() => {
     if (!open) return;
@@ -82,6 +84,22 @@ export function BottomSheet({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  // Block touch scroll on the dimmed backdrop (iOS scroll bleed).
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || !mounted) return;
+
+    const blockBackdropTouch = (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains("mobile-sheet-backdrop")) {
+        e.preventDefault();
+      }
+    };
+
+    root.addEventListener("touchmove", blockBackdropTouch, { passive: false });
+    return () => root.removeEventListener("touchmove", blockBackdropTouch);
+  }, [mounted]);
+
   if (!mounted) return null;
 
   const rootClass = closing ? "mobile-sheet-root--closing" : "mobile-sheet-root--open";
@@ -89,7 +107,7 @@ export function BottomSheet({
   const panelSizeClass = fitContent ? "mobile-sheet-panel--fit" : "";
 
   return (
-    <div className={`mobile-sheet-root ${rootClass}`} aria-hidden={closing}>
+    <div ref={rootRef} className={`mobile-sheet-root ${rootClass}`} aria-hidden={closing}>
       <button
         type="button"
         aria-label="Close"
