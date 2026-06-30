@@ -621,21 +621,36 @@ select {
 
 .mobile-bottom-pill {
   pointer-events: auto;
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   gap: 0.25rem;
   min-height: var(--mobile-pill-height);
   padding: 0.35rem 0.45rem;
-  border: 1px solid color-mix(in oklab, var(--color-line), var(--color-ink) 8%);
   border-radius: 999px;
-  background: color-mix(in oklab, var(--color-panel), transparent 8%);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.11) 0%, rgb(255 255 255 / 0.02) 38%, rgb(0 0 0 / 0.08) 100%),
+    rgb(12 11 10 / 0.42);
   box-shadow:
-    0 0 0 1px rgb(0 0 0 / 0.35),
-    0 12px 40px rgb(0 0 0 / 0.45),
-    inset 0 1px 0 rgb(255 255 255 / 0.06);
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    0 0 0 0.5px rgb(255 255 255 / 0.05),
+    0 4px 24px rgb(0 0 0 / 0.28),
+    0 16px 48px rgb(0 0 0 / 0.42),
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 -0.5px 0 rgb(0 0 0 / 0.25);
+  backdrop-filter: blur(28px) saturate(1.85) brightness(1.08);
+  -webkit-backdrop-filter: blur(28px) saturate(1.85) brightness(1.08);
   animation: mobile-pill-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mobile-bottom-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(120% 80% at 50% -20%, rgb(255 255 255 / 0.12), transparent 55%);
+  pointer-events: none;
 }
 
 @keyframes mobile-pill-in {
@@ -650,6 +665,8 @@ select {
 }
 
 .mobile-pill-btn {
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   width: 2.75rem;
@@ -666,16 +683,17 @@ select {
   transform: scale(0.94);
 }
 
-.mobile-pill-btn:hover,
-.mobile-pill-btn[aria-current="page"] {
+.mobile-pill-btn:hover {
   color: var(--color-ink);
 }
 
-.mobile-pill-btn--home[aria-current="page"] {
-  background: rgb(255 59 31 / 0.12);
+.mobile-pill-btn--home:hover {
+  background: rgb(255 255 255 / 0.06);
 }
 
 .mobile-pill-section {
+  position: relative;
+  z-index: 1;
   display: flex;
   min-width: 0;
   flex: 1;
