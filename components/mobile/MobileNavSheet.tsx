@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useId } from "react";
 import { NAV_SECTIONS, isNavActive } from "@/lib/navSections";
-import { BottomSheet, BottomSheetBody, BottomSheetFooter, BottomSheetHeader } from "@/components/mobile/BottomSheet";
+import { BottomSheet, BottomSheetBody, BottomSheetHeader } from "@/components/mobile/BottomSheet";
 
 type MobileNavSheetProps = {
   open: boolean;
@@ -16,16 +16,22 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
   const titleId = useId();
 
   return (
-    <BottomSheet open={open} onClose={onClose} ariaLabel="Site sections" titleId={titleId}>
+    <BottomSheet
+      open={open}
+      onClose={onClose}
+      ariaLabel="Site sections"
+      titleId={titleId}
+      fitContent
+      panelClassName="mobile-sheet-panel--nav"
+    >
       <BottomSheetHeader>
         <p id={titleId} className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
           Sections
         </p>
-        <p className="mt-1 text-sm text-ink-dim">Swipe down or tap outside to close</p>
       </BottomSheetHeader>
 
       <BottomSheetBody>
-        <nav aria-label="Primary navigation" className="mobile-sheet-nav">
+        <nav aria-label="Primary navigation" className="mobile-sheet-nav mobile-sheet-nav--compact">
           <Link
             href="/"
             onClick={onClose}
@@ -52,10 +58,6 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
           })}
         </nav>
       </BottomSheetBody>
-
-      <BottomSheetFooter>
-        Red Thread — evidence-backed Manchester United history. Not affiliated with Manchester United FC.
-      </BottomSheetFooter>
     </BottomSheet>
   );
 }

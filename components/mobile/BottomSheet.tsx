@@ -1,11 +1,22 @@
 "use client";
 
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  useEffect,
+  useId,
+  useRef,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { useAnimatedOverlay } from "@/components/mobile/useAnimatedOverlay";
 import { useFocusTrap } from "@/components/mobile/useFocusTrap";
 import { useSheetSwipe } from "@/components/mobile/useSheetSwipe";
 
 const EXIT_MS = 300;
+
+const BottomSheetScrollContext = createContext<RefObject<HTMLDivElement | null> | null>(null);
 
 export type BottomSheetProps = {
   open: boolean;
@@ -19,6 +30,12 @@ export type BottomSheetProps = {
   grabHandle?: boolean;
   /** Pixels of downward drag before dismiss. */
   dismissThreshold?: number;
+  /** Hug content height instead of stretching to max viewport height. */
+  fitContent?: boolean;
+  /** Swipe down anywhere on the panel to dismiss (when scroll is at top). Default true. */
+  dismissAnywhere?: boolean;
+  /** Extra class on the panel — e.g. nav-specific density. */
+  panelClassName?: string;
 };
 
 /**
@@ -34,11 +51,18 @@ export function BottomSheet({
   children,
   grabHandle = true,
   dismissThreshold,
+  fitContent = false,
+  dismissAnywhere = true,
+  panelClassName = "",
 }: BottomSheetProps) {
   const panelId = useId();
   const sheetRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { mounted, closing, onExitComplete } = useAnimatedOverlay(open, EXIT_MS);
-  const { resetTransform, grabProps } = useSheetSwipe(sheetRef, onClose, dismissThreshold);
+  const { resetTransform, sheetProps } = useSheetSwipe(sheetRef, onClose, {
+    threshold: dismissThreshold,
+    scrollRef,
+  });
 
   useFocusTrap(sheetRef, mounted && !closing);
 
@@ -61,7 +85,8 @@ export function BottomSheet({
   if (!mounted) return null;
 
   const rootClass = closing ? "mobile-sheet-root--closing" : "mobile-sheet-root--open";
-  const panelClass = closing ? "mobile-sheet-panel--closing" : "mobile-sheet-panel--open";
+  const panelAnimClass = closing ? "mobile-sheet-panel--closing" : "mobile-sheet-panel--open";
+  const panelSizeClass = fitContent ? "mobile-sheet-panel--fit" : "";
 
   return (
     <div className={`mobile-sheet-root ${rootClass}`} aria-hidden={closing}>
@@ -79,15 +104,23 @@ export function BottomSheet({
         aria-modal="true"
         aria-label={titleId ? undefined : ariaLabel}
         aria-labelledby={titleId}
-        className={`mobile-sheet-panel ${panelClass}`}
+        className={[
+          "mobile-sheet-panel",
+          panelAnimClass,
+          panelSizeClass,
+          panelClassName,
+        ]
+          .filter(Boolean)
+          .join(" ")}
         onAnimationEnd={closing ? onExitComplete : undefined}
+        {...(dismissAnywhere ? sheetProps : undefined)}
       >
         {grabHandle && (
-          <div className="mobile-sheet-grab" {...grabProps}>
-            <span className="mobile-sheet-grab-bar" aria-hidden />
+          <div className="mobile-sheet-grab" aria-hidden>
+            <span className="mobile-sheet-grab-bar" />
           </div>
         )}
-        {children}
+        <BottomSheetScrollContext.Provider value={scrollRef}>{children}</BottomSheetScrollContext.Provider>
       </div>
     </div>
   );
@@ -97,11 +130,21 @@ export function BottomSheetHeader({ children }: { children: ReactNode }) {
   return <div className="mobile-sheet-header">{children}</div>;
 }
 
-/** Scrollable sheet content — flex-1 with overscroll containment. */
-export function BottomSheetBody({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={["mobile-sheet-body", className].filter(Boolean).join(" ")}>{children}</div>;
-}
+/** Scroll container when content exceeds max-height; ref wired for dismiss-anywhere. */
+export const BottomSheetBody = forwardRef<HTMLDivElement, { children: ReactNode; className?: string }>(
+  function BottomSheetBody({ children, className = "" }, ref) {
+    const scrollRef = useContext(BottomSheetScrollContext);
 
-export function BottomSheetFooter({ children }: { children: ReactNode }) {
-  return <p className="mobile-sheet-footnote">{children}</p>;
-}
+    const setRef = (node: HTMLDivElement | null) => {
+      if (scrollRef) scrollRef.current = node;
+      if (typeof ref === "function") ref(node);
+      else if (ref) ref.current = node;
+    };
+
+    return (
+      <div ref={setRef} className={["mobile-sheet-body", className].filter(Boolean).join(" ")}>
+        {children}
+      </div>
+    );
+  },
+);
