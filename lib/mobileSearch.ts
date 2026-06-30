@@ -1,4 +1,4 @@
-/** Lets any client surface open the mobile search overlay in the bottom pill. */
+/** Lets any client surface open search in the bottom pill (overlay on phone, focus inline field on narrow shell). */
 const MOBILE_SEARCH_OPEN = "mobile-search-open";
 
 export function requestMobileSearch() {

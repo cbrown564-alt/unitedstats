@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type RefObject } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSiteSearch } from "./useSiteSearch";
@@ -29,6 +29,9 @@ export function SearchCommand({
   dropdownClassName,
   /** Full-width mobile overlay — prominent input, in-flow results, minimal empty state. */
   mobileOverlay = false,
+  /** Inline search in the narrow-shell bottom pill — results open upward from the field. */
+  pillSearch = false,
+  commandInputRef,
 }: {
   autoFocusKey?: boolean;
   /** Focus the input as soon as it mounts (used by the mobile header panel). */
@@ -49,6 +52,8 @@ export function SearchCommand({
   /** Override the results panel positioning/sizing (e.g. sidebar search). */
   dropdownClassName?: string;
   mobileOverlay?: boolean;
+  pillSearch?: boolean;
+  commandInputRef?: RefObject<HTMLInputElement | null>;
 }) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(mobileOverlay);
@@ -73,10 +78,11 @@ export function SearchCommand({
 
   // The big hero/discover field teaches itself with a rotating example; the compact
   // header search and any caller-supplied placeholder stay fixed.
-  const exampleQ = useRotatingPlaceholder(!placeholder && !compact && !mobileOverlay && q === "");
+  const mobileChrome = mobileOverlay || pillSearch;
+  const exampleQ = useRotatingPlaceholder(!placeholder && !compact && !mobileChrome && q === "");
   const computedPlaceholder =
     placeholder ??
-    (mobileOverlay ? MOBILE_SEARCH_PLACEHOLDER : compact ? SEARCH_PLACEHOLDER : `Try “${exampleQ}”`);
+    (mobileChrome ? MOBILE_SEARCH_PLACEHOLDER : compact ? SEARCH_PLACEHOLDER : `Try “${exampleQ}”`);
 
   const resolveHref = (href: string, entity?: SearchEntity) => {
     if (!forMatches) return href;
@@ -102,6 +108,7 @@ export function SearchCommand({
     pushRecent(q);
     logSearchClick(q, destination, total);
     setOpen(false);
+    if (pillSearch || mobileOverlay) setQ("");
     router.push(destination);
     onNavigate?.();
   };
@@ -178,22 +185,40 @@ export function SearchCommand({
     "absolute right-0 z-40 mt-1 w-full overflow-hidden rounded-lg border border-line bg-panel shadow-xl sm:w-96";
   const defaultDropdownClass = compact ? compactDropdownClass : compactDropdownClass.replace(" sm:w-96", "");
 
-  const resolvedInputClass = mobileOverlay
-    ? (inputClassName ?? "mobile-search-input w-full")
-    : compact
-      ? (inputClassName ?? compactInputClass)
-      : forMatches
-        ? "w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
-        : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil";
+  const resolvedInputClass = pillSearch
+    ? (inputClassName ?? "mobile-pill-search-input w-full")
+    : mobileOverlay
+      ? (inputClassName ?? "mobile-search-input w-full")
+      : compact
+        ? (inputClassName ?? compactInputClass)
+        : forMatches
+          ? "w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
+          : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil";
 
-  const panelClass = mobileOverlay
-    ? (dropdownClassName ?? "mobile-search-results")
-    : (dropdownClassName ?? defaultDropdownClass);
+  const panelClass = pillSearch
+    ? (dropdownClassName ?? "mobile-pill-search-results")
+    : mobileOverlay
+      ? (dropdownClassName ?? "mobile-search-results")
+      : (dropdownClassName ?? defaultDropdownClass);
+
+  const setInputRef = (node: HTMLInputElement | null) => {
+    inputRef.current = node;
+    if (commandInputRef) commandInputRef.current = node;
+  };
 
   return (
-    <div ref={boxRef} className={`relative ${mobileOverlay || compact || fullWidth ? "w-full" : "max-w-xl"}`}>
+    <div
+      ref={boxRef}
+      className={[
+        pillSearch ? "mobile-pill-search-slot" : "relative",
+        mobileOverlay || pillSearch || compact || fullWidth ? "w-full" : "max-w-xl",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <input
-        ref={inputRef}
+        ref={setInputRef}
+        data-pill-search-input={pillSearch ? "" : undefined}
         type="search"
         role="combobox"
         aria-expanded={open}
@@ -221,8 +246,9 @@ export function SearchCommand({
               optionId={optionId}
               onSelect={select}
               onHover={setActive}
-              hideCoverage={mobileOverlay}
-              hideCoverageBelowSm={!mobileOverlay}
+              hideCoverage={mobileChrome}
+              hideCoverageBelowSm={!mobileChrome}
+              detailBelow={mobileChrome}
               footer={
                 forMatches ? undefined : (
                   <Link
@@ -245,12 +271,12 @@ export function SearchCommand({
             <SearchReshape
               query={q}
               seeAllHref={seeAllHref}
-              variant={mobileOverlay ? "mobile" : "default"}
+              variant={mobileChrome ? "mobile" : "default"}
               onPick={pickQuery}
               onSeeAll={() => select(forMatches ? defaultMatchesHref() : seeAllHref)}
             />
           ) : (
-            <SearchEmptyState variant={mobileOverlay ? "mobile" : "default"} onPick={pickQuery} />
+            <SearchEmptyState variant={mobileChrome ? "mobile" : "default"} onPick={pickQuery} />
           )}
         </div>
       )}

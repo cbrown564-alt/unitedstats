@@ -13,7 +13,8 @@ import { MobileBottomNav } from "@/components/mobile/MobileBottomNav";
  * owning the cross-fade ViewTransition on navigation.
  *
  * Below lg, the sidebar is hidden and a floating bottom pill provides section
- * picker, search, and menu — an app-like mobile shell.
+ * picker, search, and menu — an app-like mobile shell. Between sm and lg the
+ * pill and sheets cap to phone width (narrow-shell rules in globals.css).
  */
 export function SiteShell({ children }: { children: React.ReactNode }) {
   return (

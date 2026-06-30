@@ -25,6 +25,7 @@ export function SearchResults({
   footer,
   hideCoverage = false,
   hideCoverageBelowSm = true,
+  detailBelow = false,
 }: {
   shaped: ShapedAnswer[];
   entities: SearchEntity[];
@@ -40,6 +41,8 @@ export function SearchResults({
   hideCoverage?: boolean;
   /** Hide partial/complete coverage chips below `sm` — header dropdown on phones. */
   hideCoverageBelowSm?: boolean;
+  /** Stack entity detail under the label — pill search and mobile overlay. */
+  detailBelow?: boolean;
 }) {
   return (
     <>
@@ -59,16 +62,31 @@ export function SearchResults({
             {s.tentative && (
               <div className="text-[10px] uppercase tracking-wider text-ink-faint">Did you mean</div>
             )}
-            <div className="flex justify-between gap-3 text-sm">
-              <span className="font-medium">{s.title}</span>
-              <span className="shrink-0 text-xs text-devil-bright whitespace-nowrap">{s.hrefLabel}</span>
-            </div>
-            <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-              <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
-              {!hideCoverage && s.coverage && (
-                <AnswerCoverageTag coverage={s.coverage} hideBelowSm={hideCoverageBelowSm} />
-              )}
-            </div>
+            {detailBelow ? (
+              <>
+                <div className="text-sm font-medium">{s.title}</div>
+                <div className="mt-0.5 text-xs text-devil-bright">{s.hrefLabel}</div>
+                <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
+                  {!hideCoverage && s.coverage && (
+                    <AnswerCoverageTag coverage={s.coverage} hideBelowSm={hideCoverageBelowSm} />
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-between gap-3 text-sm">
+                  <span className="font-medium">{s.title}</span>
+                  <span className="shrink-0 text-xs text-devil-bright whitespace-nowrap">{s.hrefLabel}</span>
+                </div>
+                <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
+                  {!hideCoverage && s.coverage && (
+                    <AnswerCoverageTag coverage={s.coverage} hideBelowSm={hideCoverageBelowSm} />
+                  )}
+                </div>
+              </>
+            )}
           </Link>
         </li>
       ))}
@@ -84,17 +102,31 @@ export function SearchResults({
                 onSelect(r.href, r);
               }}
               onMouseEnter={() => onHover?.(idx)}
-              className={`tap-target flex items-center justify-between gap-3 px-4 py-2.5 text-sm sm:py-2 ${
+              className={`tap-target block px-4 py-2.5 text-sm sm:py-2 ${
                 active === idx ? "bg-panel-2" : "hover:bg-panel-2"
               }`}
             >
-              <span className="truncate">
-                <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2 inline-block w-16 sm:w-20">
-                  {KIND_LABELS[r.kind] ?? r.kind}
+              {detailBelow ? (
+                <>
+                  <div className="text-sm leading-snug">
+                    <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2">
+                      {KIND_LABELS[r.kind] ?? r.kind}
+                    </span>
+                    <span className="font-medium">{highlight(r.label, query)}</span>
+                  </div>
+                  <div className="stat-num mt-0.5 text-xs text-ink-faint">{r.detail}</div>
+                </>
+              ) : (
+                <span className="flex items-center justify-between gap-3">
+                  <span className="truncate">
+                    <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2 inline-block w-16 sm:w-20">
+                      {KIND_LABELS[r.kind] ?? r.kind}
+                    </span>
+                    <span className="font-medium">{highlight(r.label, query)}</span>
+                  </span>
+                  <span className="stat-num text-xs text-ink-faint whitespace-nowrap">{r.detail}</span>
                 </span>
-                <span className="font-medium">{highlight(r.label, query)}</span>
-              </span>
-              <span className="stat-num text-xs text-ink-faint whitespace-nowrap">{r.detail}</span>
+              )}
             </Link>
           </li>
         );

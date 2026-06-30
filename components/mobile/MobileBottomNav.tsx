@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { MOBILE_SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
 import { mobileNavLabel } from "@/lib/navSections";
 import { onMobileSearchOpen } from "@/lib/mobileSearch";
 import { MobileNavSheet } from "@/components/mobile/MobileNavSheet";
 import { MobileSearchOverlay } from "@/components/mobile/MobileSearchOverlay";
+import { useMobileShellTier } from "@/components/mobile/useMobileShellTier";
 
 type SearchCommandComponent = typeof import("@/components/SearchCommand").SearchCommand;
 
@@ -21,13 +23,26 @@ function HomeIcon() {
   );
 }
 
+function SearchIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <circle cx="11" cy="11" r="7" />
+      <line x1="16.5" y1="16.5" x2="21" y2="21" />
+    </svg>
+  );
+}
+
 export function MobileBottomNav() {
   const pathname = usePathname();
+  const shellTier = useMobileShellTier();
   const isHome = pathname === "/";
+  const isPhoneShell = shellTier === "phone";
+  const isNarrowShell = shellTier === "narrow";
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [SearchCommand, setSearchCommand] = useState<SearchCommandComponent | null>(null);
   const [searchLoading, setSearchLoading] = useState(false);
+  const pillInputRef = useRef<HTMLInputElement>(null);
   const sectionLabel = mobileNavLabel(pathname);
 
   const ensureSearch = useCallback(async () => {
@@ -42,18 +57,43 @@ export function MobileBottomNav() {
     });
   }, []);
 
+  useEffect(() => {
+    if (!isNarrowShell) return;
+    if (SearchCommand) return;
+    setSearchLoading(true);
+    void ensureSearch().finally(() => setSearchLoading(false));
+  }, [SearchCommand, ensureSearch, isNarrowShell]);
+
   const closeMenu = () => setMenuOpen(false);
   const openMenu = () => {
     setSearchOpen(false);
+    pillInputRef.current?.blur();
     setMenuOpen(true);
   };
+
+  const focusPillSearch = useCallback(() => {
+    pillInputRef.current?.focus();
+  }, []);
+
   const openSearch = useCallback(() => {
     setMenuOpen(false);
+    if (isNarrowShell) {
+      if (SearchCommand) {
+        focusPillSearch();
+        return;
+      }
+      setSearchLoading(true);
+      void ensureSearch().finally(() => {
+        setSearchLoading(false);
+        focusPillSearch();
+      });
+      return;
+    }
     setSearchOpen(true);
     if (SearchCommand) return;
     setSearchLoading(true);
     void ensureSearch().finally(() => setSearchLoading(false));
-  }, [SearchCommand, ensureSearch]);
+  }, [SearchCommand, ensureSearch, focusPillSearch, isNarrowShell]);
 
   useEffect(() => onMobileSearchOpen(openSearch), [openSearch]);
 
@@ -88,51 +128,49 @@ export function MobileBottomNav() {
             </svg>
           </button>
 
-          <button
-            type="button"
-            aria-label="Search"
-            aria-expanded={searchOpen}
-            onClick={openSearch}
-            className="mobile-pill-btn tap-target focus-ring"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              <circle cx="11" cy="11" r="7" />
-              <line x1="16.5" y1="16.5" x2="21" y2="21" />
-            </svg>
-          </button>
+          <div className="mobile-pill-search-icon">
+            <button
+              type="button"
+              aria-label="Search"
+              aria-expanded={searchOpen}
+              onClick={openSearch}
+              className="mobile-pill-btn tap-target focus-ring"
+            >
+              <SearchIcon />
+            </button>
+          </div>
 
-          <button
-            type="button"
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-            onClick={() => (menuOpen ? closeMenu() : openMenu())}
-            className="mobile-pill-btn mobile-pill-btn--menu tap-target focus-ring"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              {menuOpen ? (
-                <>
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                </>
-              ) : (
-                <>
-                  <line x1="3.5" y1="7" x2="20.5" y2="7" />
-                  <line x1="3.5" y1="12" x2="20.5" y2="12" />
-                  <line x1="3.5" y1="17" x2="20.5" y2="17" />
-                </>
-              )}
-            </svg>
-          </button>
+          <div className="mobile-pill-search-inline">
+            {SearchCommand ? (
+              <SearchCommand
+                pillSearch
+                autoFocusKey={false}
+                placeholder={MOBILE_SEARCH_PLACEHOLDER}
+                commandInputRef={pillInputRef}
+              />
+            ) : (
+              <input
+                type="search"
+                readOnly
+                aria-busy={searchLoading}
+                aria-label="Search the archive"
+                placeholder={searchLoading ? "Loading search…" : MOBILE_SEARCH_PLACEHOLDER}
+                className="mobile-pill-search-input w-full"
+              />
+            )}
+          </div>
         </div>
       </nav>
 
       <MobileNavSheet open={menuOpen} onClose={closeMenu} />
-      <MobileSearchOverlay
-        open={searchOpen}
-        onClose={closeSearch}
-        SearchCommand={SearchCommand}
-        loading={searchLoading}
-      />
+      {isPhoneShell && (
+        <MobileSearchOverlay
+          open={searchOpen}
+          onClose={closeSearch}
+          SearchCommand={SearchCommand}
+          loading={searchLoading}
+        />
+      )}
     </>
   );
 }

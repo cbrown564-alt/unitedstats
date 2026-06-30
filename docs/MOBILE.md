@@ -4,14 +4,33 @@
 **Foundation already shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
 sliding from the top, safe-area padding, a first density pass, sticky subnav offsets,
-and the match-detail mobile hero polish. Desktop (lg+) keeps the existing sticky top
-header unchanged. See `components/mobile/`, the `mobile-*` rules in `app/globals.css`,
-and `lib/navSections.ts`.
+match-detail mobile hero polish, and **narrow-shell layout** (sm–lg: pill/sheets capped
+to phone width so half-screen desktop doesn't inherit full-bleed mobile chrome). Desktop
+(lg+) keeps the collapsible sidebar unchanged. See `components/mobile/`, the `mobile-*`
+rules in `app/globals.css`, and `lib/navSections.ts`.
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
 alongside `DESIGN.md` (the product's design thesis) — nothing here overrides those
 principles; it applies them to the phone.
+
+### Three viewport tiers (don't conflate them)
+
+The shell is **not** binary phone vs desktop. Three tiers matter for layout and QA:
+
+| Tier | Breakpoint | Shell | Layout notes |
+|---|---|---|---|
+| **Phone** | `< sm` (&lt; 640px) | Mobile pill + sheets | Full-bleed sheets and overlay; home may show `MobileSearchPrompt` above the foundation plate. |
+| **Narrow shell** | `sm`–`lg` (640px–1023px) | Same mobile components | Half-screen desktop, tablet landscape — pill capped to ~26rem and centred. **Section picker + inline search field** in the pill (results pull up above it); no hamburger (section dropdown opens the nav sheet). Home search prompt hidden. |
+| **Desktop** | `lg+` (≥ 1024px) | Collapsible sidebar | Inline `SearchCommand` on home; no bottom pill. |
+
+**Why narrow shell exists:** below `lg` we correctly hide the sidebar, but a resized
+desktop browser can be 700–960px wide and *tall* — not a phone. Without the cap,
+phone-tuned `rem` sizing and `inset-inline: 0` sheets read as massively oversized.
+Narrow shell is the same interaction model with phone-proportioned chrome.
+
+**QA matrix:** always verify mobile changes on (1) a real phone, (2) a half-screen
+desktop window in the sm–lg band, and (3) full desktop at lg+.
 
 ---
 
@@ -74,9 +93,11 @@ Desktop home leads with `HistorySkyline` + search. Mobile home is **not** a mini
 desktop hero and **not** a live-score feed. It is:
 
 1. **Search within immediate reach** — the pill's search button (and overlay) is the
-   primary entry for the argument-settler. Consider elevating search further: default
-   overlay from home, long-press on the pill, or a "settle it" mode tuned to records /
-   streaks / H2H — cheaper than rebuilding the whole home and directly unlocks share.
+   primary entry for the argument-settler on **phone and narrow shell**. On phone only,
+   `MobileSearchPrompt` on the foundation plate is an extra affordance; from `sm` up
+   (still below `lg`) the pill alone is enough — avoid duplicating search CTAs in the
+   page body. Consider elevating search further: default overlay from home, long-press on
+   the pill, or a "settle it" mode tuned to records / streaks / H2H.
 2. **`TonightHero` + foundation, evolved** — the spark/foundation fusion already on
    `app/page.tsx` is the right bones. Extend it thoughtfully, not wholesale replace it.
 
@@ -104,8 +125,13 @@ desktop hero and **not** a live-score feed. It is:
 > home stays the exploration console.
 
 ### 1.2 Navigation & wayfinding in a deep archive
-The glass pill + nav sheet is a strong shell. The harder mobile problem is **not getting
-lost six taps deep**.
+The glass pill + nav sheet is a strong shell. The pill keeps **two essentials** on every
+page: the **section picker** (opens the nav sheet) and **search**. A separate menu
+hamburger was dropped — the section control already opens sections. On **phone**, search
+is an icon that opens the top overlay; on **narrow shell** (sm–lg), search is an inline
+field in the pill with results pulling up above it.
+
+The harder mobile problem is **not getting lost six taps deep**.
 
 - **Phased sheet strategy** — don't jump straight to intercepting routes:
   - **Phase A:** Reusable bottom-sheet primitive (exit animations, focus trap, swipe
@@ -245,6 +271,10 @@ answer):
 ### 1.10 Technical footnotes (capture early)
 - **iOS Safari** — bottom pill + virtual keyboard, `100dvh`, sticky subnav with nested
   overflow: test on real devices, not just 390px viewport audits.
+- **Narrow shell (sm–lg)** — half-screen desktop Safari is a common dev/review posture;
+  rules live in `app/globals.css` under the `mobile-shell-max-width` comment block. Pill
+  search uses `pillSearch` on `SearchCommand` (`MobileBottomNav`). Don't regress full-bleed
+  phone layout below `sm` when editing sheet/pill CSS.
 - **`prefers-reduced-motion`** — sheet choreography and haptics must respect it (see §1.5).
 - **Screenshot tests** — add for `MatchFlow` and `HistorySkyline` on high-event / full-span
   data after the label-collision pass.
@@ -264,7 +294,7 @@ Impact weighted toward argument-settler and fragmented browse.
 | Flagship label collision pass — `MatchFlow` + `HistorySkyline` (1.4) | S–M | **High** | Same failure mode, both on critical paths. Mobile label tiers + tap-to-reveal. |
 | Sheet exit animations (1.5) | S | Med | Enter CSS exists; components unmount immediately — wire symmetric exit. |
 | Extend `ShareCite` coverage (1.6) | S–M | **High** | `ShareCite` + OG already on plates/match; extend to lists, search results, questions, compare. |
-| Search prominence on home (1.1) | S | **High** | Search-first persona: evaluate elevating search in pill / home (settle-it mode). |
+| Search prominence on home (1.1) | S | **High** | Search-first persona: pill + overlay; `MobileSearchPrompt` phone-only. Narrow-shell QA in sm–lg band. |
 | Tap-target + reachability audit (1.9, 1.2) | S | Med | Audit dense rows & chart dots vs 44px lift; primaries in bottom third. |
 | Deep-link landing — orient + hook (1.2, 1.6) | S–M | Med | Breadcrumb + answer visible without scroll. Pairs with share. |
 

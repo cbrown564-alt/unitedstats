@@ -2,10 +2,11 @@
 
 import { requestMobileSearch } from "@/lib/mobileSearch";
 
-/** Search-first home entry on touch widths — opens the pill search overlay. */
+/** Search-first home entry on phone widths — opens the pill search overlay. Hidden
+ *  from sm up (pill search is enough; narrow-shell uses the same pill). */
 export function MobileSearchPrompt() {
   return (
-    <div className="mt-6 max-w-2xl lg:hidden">
+    <div className="mt-6 max-w-2xl sm:hidden">
       <button
         type="button"
         onClick={requestMobileSearch}

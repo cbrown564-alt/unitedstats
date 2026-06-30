@@ -959,6 +959,8 @@ input.site-sidebar-search-input:focus {
   --mobile-pill-height: 3.25rem;
   --mobile-pill-gap: 0.75rem;
   --mobile-nav-clearance: calc(var(--mobile-pill-height) + var(--mobile-pill-gap) + 0.5rem);
+  /* Phone-width cap for sheets/overlays on narrow desktop (sm–lg). Full-bleed below sm. */
+  --mobile-shell-max-width: min(26rem, calc(100vw - 2rem));
 }
 
 @media (min-width: 1024px) {
@@ -1125,6 +1127,70 @@ input.site-sidebar-search-input:focus {
 .mobile-pill-section svg {
   flex-shrink: 0;
   color: var(--color-ink-faint);
+}
+
+/* Phone: search icon button. Narrow shell: inline field (see sm–lg block below). */
+.mobile-pill-search-icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+}
+
+.mobile-pill-search-inline {
+  display: none;
+}
+
+.mobile-pill-search-slot {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-pill-search-input {
+  display: block;
+  width: 100%;
+  min-height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(0 0 0 / 0.22);
+  padding: 0.5rem 0.85rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--color-ink);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.mobile-pill-search-input::placeholder {
+  color: var(--color-ink-faint);
+}
+
+.mobile-pill-search-input:focus {
+  outline: none;
+  border-color: color-mix(in oklab, var(--color-devil), var(--color-line) 45%);
+  background: rgb(0 0 0 / 0.32);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-devil-bright), transparent 78%);
+}
+
+.mobile-pill-search-results {
+  position: absolute;
+  inset-inline: 0;
+  bottom: calc(100% + 0.5rem);
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-height: min(52vh, 22rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 1rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-panel);
+  box-shadow: 0 -16px 48px rgb(0 0 0 / 0.45);
 }
 
 /* Bottom sheet + search overlay */
@@ -1416,6 +1482,9 @@ input.site-sidebar-search-input:focus {
 }
 
 .mobile-search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   margin-top: 0.75rem;
   min-height: 0;
   overflow-y: auto;
@@ -1429,6 +1498,7 @@ input.site-sidebar-search-input:focus {
 .mobile-search-suggestions {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   gap: 0.5rem;
   padding: 0.75rem;
 }
@@ -1445,6 +1515,8 @@ input.site-sidebar-search-input:focus {
 }
 
 .mobile-search-suggestion {
+  display: block;
+  box-sizing: border-box;
   width: 100%;
   border-radius: 0.625rem;
   border: 1px solid color-mix(in oklab, var(--color-line), var(--color-devil) 14%);
@@ -1496,6 +1568,57 @@ input.site-sidebar-search-input:focus {
 
 .mobile-search-close:active {
   transform: scale(0.94);
+}
+
+/* Narrow shell (sm–lg): half-screen desktop, tablet landscape — same mobile
+   components as phone but capped to phone-like width so sheets and the pill
+   don't stretch edge-to-edge on a wide sub-lg viewport. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .mobile-bottom-nav {
+    overflow: visible;
+  }
+
+  .mobile-bottom-pill {
+    position: relative;
+    width: 100%;
+    max-width: var(--mobile-shell-max-width);
+    overflow: visible;
+  }
+
+  .mobile-pill-section {
+    flex: 0 1 auto;
+    max-width: 9rem;
+  }
+
+  .mobile-pill-search-icon {
+    display: none;
+  }
+
+  .mobile-pill-search-inline {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    align-items: center;
+  }
+
+  .mobile-pill-search-results {
+    inset-inline: 0;
+    width: auto;
+  }
+
+  .mobile-sheet-panel {
+    inset-inline: 0;
+    width: var(--mobile-shell-max-width);
+    margin-inline: auto;
+    bottom: var(--mobile-pill-gap);
+    border-radius: 1.25rem;
+    border: 1px solid color-mix(in oklab, var(--color-line), var(--color-ink) 6%);
+    box-shadow: 0 24px 64px rgb(0 0 0 / 0.5);
+  }
+
+  .mobile-sheet-panel--nav {
+    padding-bottom: 0.75rem;
+  }
 }
 
 body.mobile-sheet-open {
