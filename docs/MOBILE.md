@@ -1,13 +1,23 @@
 # Mobile Experience — Wishlist & Roadmap
 
-**Status:** planning. Captured 2026-06-30; revised after review same session.
-**Foundation already shipped:** app-like mobile shell — floating glass-pill bottom nav
+**Status:** in progress — Wave 0 and Sheet Phase A shipped; Wave 1 reading track active.
+Captured 2026-06-30; revised after review same session.
+**Foundation shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
 sliding from the top, safe-area padding, a first density pass, sticky subnav offsets,
 match-detail mobile hero polish, and **narrow-shell layout** (sm–lg: pill/sheets capped
 to phone width so half-screen desktop doesn't inherit full-bleed mobile chrome). Desktop
 (lg+) keeps the collapsible sidebar unchanged. See `components/mobile/`, the `mobile-*`
 rules in `app/globals.css`, and `lib/navSections.ts`.
+
+### Completed phases
+
+| Phase | Shipped | Highlights |
+|---|---|---|
+| **Foundation** | pre-roadmap | Glass-pill bottom nav, nav sheet, search overlay, safe-area padding, narrow-shell cap |
+| **Wave 0** | 2026-06-30 | `MatchFlow` + `HistorySkyline` label tiers; sheet exit animations; `ShareCite` on lists/search/compare/detail; search-first home (`MobileSearchPrompt` phone-only); `DetailBreadcrumb` on detail pages |
+| **Sheet Phase A** | 2026-06-30 | Reusable `BottomSheet` — exit animation, focus trap, swipe dismiss, body scroll lock; consumed by `MobileNavSheet` |
+| **Post-Wave 0 polish** | 2026-06-30 | Narrow-shell pill search; mobile search UX (warm cache, calm overlay); inline `MatchFilterCollapse` on matches (precursor to filter sheet); breadcrumb spacing + transparent sticky bar on heroes |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -286,24 +296,24 @@ answer):
 Effort: **S** (hours–1 day) · **M** (a few days) · **L** (a week+ / architectural).
 Impact weighted toward argument-settler and fragmented browse.
 
-### Wave 0 — Fix-its & quick wins
-*Ship first: low effort, visible, unblock the rest.*
+### Wave 0 — Fix-its & quick wins ✅
+*Shipped 2026-06-30. Tap-target audit and screenshot tests remain as footnotes.*
 
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
-| Flagship label collision pass — `MatchFlow` + `HistorySkyline` (1.4) | S–M | **High** | Same failure mode, both on critical paths. Mobile label tiers + tap-to-reveal. |
-| Sheet exit animations (1.5) | S | Med | Enter CSS exists; components unmount immediately — wire symmetric exit. |
-| Extend `ShareCite` coverage (1.6) | S–M | **High** | `ShareCite` + OG already on plates/match; extend to lists, search results, questions, compare. |
-| Search prominence on home (1.1) | S | **High** | Search-first persona: pill + overlay; `MobileSearchPrompt` phone-only. Narrow-shell QA in sm–lg band. |
-| Tap-target + reachability audit (1.9, 1.2) | S | Med | Audit dense rows & chart dots vs 44px lift; primaries in bottom third. |
-| Deep-link landing — orient + hook (1.2, 1.6) | S–M | Med | Breadcrumb + answer visible without scroll. Pairs with share. |
+| Flagship label collision pass — `MatchFlow` + `HistorySkyline` (1.4) | S–M | **High** | ✅ Mobile label tiers + compact event list / pinned edge labels. |
+| Sheet exit animations (1.5) | S | Med | ✅ `useAnimatedOverlay` + symmetric exit on nav/search sheets. |
+| Extend `ShareCite` coverage (1.6) | S–M | **High** | ✅ Lists, search results, questions, compare, detail plates. |
+| Search prominence on home (1.1) | S | **High** | ✅ Pill + overlay; `MobileSearchPrompt` phone-only. |
+| Tap-target + reachability audit (1.9, 1.2) | S | Med | Partial — 44px lift exists; full audit deferred per surface. |
+| Deep-link landing — orient + hook (1.2, 1.6) | S–M | Med | ✅ `DetailBreadcrumb` sticky orient line; hook (answer above fold) per page. |
 
 ### Wave 1 — The reading track
 *Incremental, page-by-page. Rows ship independently.*
 
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
-| Sheet primitive Phase A (1.2) | M | **High** | Reusable bottom sheet — exit anim, focus trap, swipe dismiss. Unblocks filter sheet. |
+| Sheet primitive Phase A (1.2) | M | **High** | ✅ `BottomSheet` in `components/mobile/`. Unblocks filter sheet. |
 | Match-detail progressive disclosure (1.3) | M | **High** | Hero + MatchFlow first; teamsheet/ledger collapse. |
 | Tables → card/list via shared register primitive (1.3) | L* | **High** | *Per-table incremental. One primitive, many consumers. |
 | Filter → bottom-sheet + applied chips (1.3) | M | Med | On Phase A sheet. |
@@ -344,19 +354,20 @@ polish or search-first work.*
 
 ## 3. Recommended path
 
-1. **Wave 0 in full** — label collision pass, sheet exit, extend share, search prominence,
-   deep-link orient+hook.
-2. **Start sheet Phase A immediately** — it unblocks Wave 1 filter sheet and is low risk
-   compared to intercepting routes.
-3. **Run Wave 1 and Wave 2 in parallel** — reading track page-by-page while home evolves
-   (`TonightHero` conditional logic, not a feed rewrite). Sheet Phase B before committing
-   to Phase C intercepting routes.
-4. **Ignore deferred platform work** until there is a explicit decision to pursue install /
+1. ~~**Wave 0 in full**~~ — done.
+2. ~~**Sheet Phase A**~~ — done (`BottomSheet`); filter sheet is the first new consumer.
+3. **Wave 1 reading track** — page-by-page, in roughly this order:
+   - Filters → bottom sheet + applied chips (replace inline `MatchFilterCollapse`).
+   - Match-detail progressive disclosure.
+   - Shared register primitive → tables as cards.
+   - Touch chart inspection; answer surfaces (questions + compare); seasons cards; analytics chapters.
+4. **Wave 2 in parallel when ready** — `TonightHero` evolution, sheet Phase B (list preview),
+   full-bleed match-night list cards. Phase B before committing to Phase C intercepting routes.
+5. **Ignore deferred platform work** until there is an explicit decision to pursue install /
    push — it shouldn't gate anything above.
 
-**Sequencing risk to respect:** don't do tables→cards before the sheet primitive lands,
-or the list→detail interaction gets rebuilt twice.
+**Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
+rebuilding list→detail twice.
 
-**Suggested first dive next session:** sheet primitive Phase A spec — exit animation wiring,
-focus trap, reuse for filter panel. Dependency root for Wave 1; validates the pattern
-before Phase B/C.
+**Suggested next dive:** filters → `BottomSheet` — validates Phase A on a second surface,
+ships visible UX on the matches path, medium effort.
