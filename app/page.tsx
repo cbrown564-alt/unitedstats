@@ -72,7 +72,7 @@ export default function Home() {
             the thread runs into it and disappears behind its top edge — the spark and
             the record read as one continuous piece. The negative margin is the knob
             for how far the thread sinks behind the plate. */}
-        <section id="the-record" className="relative z-10 -mt-14 scroll-mt-24 overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)] sm:-mt-12">
+        <section id="the-record" className="relative z-10 -mt-10 scroll-mt-24 overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)] sm:-mt-12">
           <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
           <div
             className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur-3xl"
