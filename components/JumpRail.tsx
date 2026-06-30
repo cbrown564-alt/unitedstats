@@ -102,7 +102,7 @@ export function JumpRail({
       aria-label={label}
       className={
         sticky
-          ? "sticky top-14 z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:-mx-6 sm:px-6"
+          ? "sticky-subnav sticky z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:-mx-6 sm:px-6"
           : ""
       }
     >

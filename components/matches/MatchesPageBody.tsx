@@ -81,7 +81,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
 
       <MatchListToolbar total={total} sort={sort} dateSort={dateSort} goalDiffSort={goalDiffSort} qs={qs} />
 
-      <div className="sticky top-14 z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:hidden">
+      <div className="sticky-subnav sticky z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:hidden">
         <div className="flex items-center justify-between gap-3">
           <span className="stat-num text-xs text-ink-dim">
             {hasFilters
