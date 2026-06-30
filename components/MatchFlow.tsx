@@ -189,6 +189,12 @@ export function MatchFlow({
   assignLanes(unitedMarks);
   assignLanes(oppMarks);
 
+  const unitedMaxLane = unitedMarks.reduce((max, g) => Math.max(max, lane.get(g.key) ?? 0), 0);
+  const oppMaxLane = oppMarks.reduce((max, g) => Math.max(max, lane.get(g.key) ?? 0), 0);
+  const unitedZoneH =
+    unitedMaxLane >= 1 ? "h-[62px] sm:h-[60px]" : "h-[46px] sm:h-[60px]";
+  const oppZoneH = oppMaxLane >= 1 ? "h-[62px] sm:h-[60px]" : "h-[46px] sm:h-[60px]";
+
   const PAD = 1.4;
   const barStops = segs
     .map((s, i) => {
@@ -209,16 +215,16 @@ export function MatchFlow({
   ];
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="relative z-0 w-full overflow-x-clip overflow-y-visible">
       {/* United scorers above the bar — positioned at their minute on every viewport. */}
-      <div className="relative z-10 h-[46px] sm:h-[60px]">
+      <div className={`relative overflow-visible ${unitedZoneH}`}>
         {unitedMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const p = pos(g.minute);
           return (
             <div
               key={g.key}
-              className="absolute bottom-0"
+              className={`absolute bottom-0 ${ln >= 1 ? "z-20" : "z-10"}`}
               style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
@@ -248,14 +254,14 @@ export function MatchFlow({
       </div>
 
       {/* Opponent scorers below the bar. */}
-      <div className="relative h-[46px] sm:h-[60px]">
+      <div className={`relative overflow-visible ${oppZoneH}`}>
         {oppMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const p = pos(g.minute);
           return (
             <div
               key={g.key}
-              className="absolute top-0"
+              className={`absolute top-0 ${ln >= 1 ? "z-20" : "z-10"}`}
               style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
