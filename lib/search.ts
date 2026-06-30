@@ -2,6 +2,7 @@ import { getDb } from "./db";
 import { fold, trigrams } from "./search/fold";
 import { allIndexRows, type IndexRow } from "./search/resolve";
 import { shapedAnswers, headToHead, type ShapedAnswer, type AnswerCoverage } from "./search/intent";
+import { typeaheadTotal } from "./search/typeaheadTotal";
 
 export interface SearchEntity {
   kind: "player" | "manager" | "opponent" | "season" | "competition" | "stadium" | "city" | "match";
@@ -15,9 +16,12 @@ export interface SearchResponse {
   entities: SearchEntity[];
   /** Total entity matches available (entities is the capped slice; this is the full count). */
   total: number;
+  /** Shaped answers plus entity matches — for typeahead "See all N results". */
+  displayTotal: number;
 }
 
 export type { ShapedAnswer, AnswerCoverage };
+export { typeaheadTotal } from "./search/typeaheadTotal";
 
 const KINDS = ["player", "manager", "opponent", "season", "competition", "stadium", "city"] as const;
 
@@ -137,21 +141,25 @@ function parseOperator(q: string): { op: string; rest: string } | null {
 }
 
 export function runSearch(q: string, limit = 12): SearchResponse {
-  if (!q || q.trim().length < 2) return { shaped: [], entities: [], total: 0 };
+  if (!q || q.trim().length < 2) {
+    return { shaped: [], entities: [], total: 0, displayTotal: 0 };
+  }
 
   const operator = parseOperator(q);
   if (operator) {
     if (operator.op === "vs") {
       const h2h = headToHead(operator.rest);
+      const shaped = h2h ? [h2h] : [];
       const { entities, total } = entityResults(operator.rest, { kind: "opponent", limit });
-      return { shaped: h2h ? [h2h] : [], entities, total };
+      return { shaped, entities, total, displayTotal: typeaheadTotal(shaped, entities, total) };
     }
     const { entities, total } = entityResults(operator.rest, { kind: operator.op, limit });
-    return { shaped: [], entities, total };
+    return { shaped: [], entities, total, displayTotal: typeaheadTotal([], entities, total) };
   }
 
+  const shaped = shapedAnswers(q);
   const { entities, total } = entityResults(q, { limit });
-  return { shaped: shapedAnswers(q), entities, total };
+  return { shaped, entities, total, displayTotal: typeaheadTotal(shaped, entities, total) };
 }
 
 /** Prefix-FTS match expression for a folded query ("ole gun" → "ole* gun*"). */

@@ -282,8 +282,8 @@ test("entity search: giggs resolves as player and manager", () => {
 });
 
 test("search ignores short or empty queries", () => {
-  assert.deepEqual(runSearch(""), { shaped: [], entities: [], total: 0 });
-  assert.deepEqual(runSearch("a"), { shaped: [], entities: [], total: 0 });
+  assert.deepEqual(runSearch(""), { shaped: [], entities: [], total: 0, displayTotal: 0 });
+  assert.deepEqual(runSearch("a"), { shaped: [], entities: [], total: 0, displayTotal: 0 });
 });
 
 // ------------------------------------------------ phase 2: query understanding
@@ -405,7 +405,7 @@ test("player-vs-opponent never steals a two-player comparison", () => {
 });
 
 test("ambiguous 'player vs club token' prefers opponent cuts and keeps player comparison as an alternative", () => {
-  const { shaped } = runSearch("cantona vs leeds");
+  const { shaped, displayTotal } = runSearch("cantona vs leeds");
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — apps"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — goals"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — assists"));
@@ -416,6 +416,7 @@ test("ambiguous 'player vs club token' prefers opponent cuts and keeps player co
     "expected appearance, goal, and assist variants for the player-vs-opponent cut",
   );
   assert.ok(shaped.some((s) => s.title === "Eric Cantona vs Lee Sharpe"), "expected comparison as an alternative");
+  assert.equal(runSearch("cantona vs leeds").displayTotal, shaped.length, "typeahead count matches listed shaped answers");
 });
 
 test("a team-record phrasing still falls through to the head-to-head", () => {

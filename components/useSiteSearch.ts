@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from "react";
 import type { SearchEntity, ShapedAnswer } from "@/lib/search";
+import { typeaheadTotal } from "@/lib/search/typeaheadTotal";
 
 export interface SiteSearchState {
   shaped: ShapedAnswer[];
   entities: SearchEntity[];
   total: number;
+  displayTotal: number;
 }
 
-const EMPTY: SiteSearchState = { shaped: [], entities: [], total: 0 };
+const EMPTY: SiteSearchState = { shaped: [], entities: [], total: 0, displayTotal: 0 };
 
 /**
  * Debounced query → /api/search fetch, shared by the header dropdown and the ⌘K
@@ -27,8 +29,19 @@ export function useSiteSearch(q: string): SiteSearchState {
     const t = setTimeout(async () => {
       try {
         const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: ctrl.signal });
-        const data = (await res.json()) as { shaped: ShapedAnswer[]; entities: SearchEntity[]; total?: number };
-        setState({ shaped: data.shaped, entities: data.entities, total: data.total ?? data.entities.length });
+        const data = (await res.json()) as {
+          shaped: ShapedAnswer[];
+          entities: SearchEntity[];
+          total?: number;
+          displayTotal?: number;
+        };
+        const total = data.total ?? data.entities.length;
+        setState({
+          shaped: data.shaped,
+          entities: data.entities,
+          total,
+          displayTotal: data.displayTotal ?? typeaheadTotal(data.shaped, data.entities, total),
+        });
       } catch {
         // aborted or offline — keep the previous results
       }

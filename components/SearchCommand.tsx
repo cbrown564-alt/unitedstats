@@ -50,7 +50,7 @@ export function SearchCommand({
   const listId = `${baseId}-list`;
   const optionId = (i: number) => `${baseId}-opt-${i}`;
 
-  const { shaped, entities, total } = useSiteSearch(q);
+  const { shaped, entities, total, displayTotal } = useSiteSearch(q);
   const ready = q.trim().length >= 2;
   const rows: { href: string; entity?: SearchEntity }[] = [
     ...shaped.map((s) => ({ href: s.href })),
@@ -193,7 +193,9 @@ export function SearchCommand({
                     onClick={() => select(seeAllHref)}
                     className="block border-t border-line px-4 py-2 text-xs font-medium text-devil-bright hover:bg-panel-2"
                   >
-                    {total > 0 ? `See all ${total} result${total === 1 ? "" : "s"} →` : "Open the results page →"}
+                    {displayTotal > 0
+                      ? `See all ${displayTotal} result${displayTotal === 1 ? "" : "s"} →`
+                      : "Open the results page →"}
                   </Link>
                 )
               }
