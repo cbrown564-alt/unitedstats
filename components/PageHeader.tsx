@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function PageHeader({
   eyebrow,
   title,
@@ -10,16 +12,16 @@ export function PageHeader({
   aside?: React.ReactNode;
 }) {
   return (
-    <header className="border-b border-line/80 pb-5">
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+    <header className="border-b border-line/80 pb-4 lg:pb-5">
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-4">
         <div>
           {eyebrow && (
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">
+            <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-devil-bright lg:mb-2 lg:text-xs">
               {eyebrow}
             </p>
           )}
-          <h1 className="display text-3xl">{title}</h1>
-          {children && <div className="mt-2 max-w-2xl text-sm leading-6 text-ink-dim">{children}</div>}
+          <h1 className="display text-2xl sm:text-3xl">{title}</h1>
+          {children && <div className="mt-1.5 max-w-2xl text-sm leading-6 text-ink-dim lg:mt-2">{children}</div>}
         </div>
         {aside}
       </div>
@@ -83,4 +85,3 @@ export function TrailLink({
     </Link>
   );
 }
-import Link from "next/link";
