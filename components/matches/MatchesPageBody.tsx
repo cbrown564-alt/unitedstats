@@ -87,22 +87,14 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
               ? `${chips.length} filter${chips.length === 1 ? "" : "s"} · ${fmtNum(total)} match${total === 1 ? "" : "es"}`
               : `${fmtNum(total)} matches`}
           </span>
-          <div className="flex items-center gap-1">
-            {hasFilters && (
-              <Link
-                href="/matches"
-                className="tap-target px-2 py-1 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
-              >
-                Clear
-              </Link>
-            )}
-            <a
-              href="#match-filters"
-              className="tap-target rounded-md border border-line bg-panel px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:border-devil/50 hover:text-devil-bright focus-ring"
+          {hasFilters && (
+            <Link
+              href="/matches"
+              className="tap-target px-2 py-1 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
             >
-              Filters
-            </a>
-          </div>
+              Clear all
+            </Link>
+          )}
         </div>
       </div>
 

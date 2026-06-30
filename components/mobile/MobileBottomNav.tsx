@@ -9,6 +9,7 @@ import { scheduleIdle } from "@/lib/scheduleIdle";
 import { mobileNavLabel } from "@/lib/navSections";
 import { onMobileSearchOpen } from "@/lib/mobileSearch";
 import { MobileNavSheet } from "@/components/mobile/MobileNavSheet";
+import { MobileMatchFilterControls } from "@/components/mobile/MobileMatchFilterControls";
 import { MobileSearchOverlay } from "@/components/mobile/MobileSearchOverlay";
 import { useMobileShellTier } from "@/components/mobile/useMobileShellTier";
 
@@ -36,10 +37,12 @@ export function MobileBottomNav() {
   const pathname = usePathname();
   const shellTier = useMobileShellTier();
   const isHome = pathname === "/";
+  const isMatchesPage = pathname === "/matches";
   const isPhoneShell = shellTier === "phone";
   const isNarrowShell = shellTier === "narrow";
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [SearchCommand, setSearchCommand] = useState<SearchCommandComponent | null>(null);
   const [searchLoading, setSearchLoading] = useState(false);
   const pillInputRef = useRef<HTMLInputElement>(null);
@@ -67,8 +70,17 @@ export function MobileBottomNav() {
   const closeMenu = () => setMenuOpen(false);
   const openMenu = () => {
     setSearchOpen(false);
+    setFiltersOpen(false);
     pillInputRef.current?.blur();
     setMenuOpen(true);
+  };
+
+  const closeFilters = () => setFiltersOpen(false);
+  const openFilters = () => {
+    setMenuOpen(false);
+    setSearchOpen(false);
+    pillInputRef.current?.blur();
+    setFiltersOpen(true);
   };
 
   const focusPillSearch = useCallback(() => {
@@ -77,6 +89,7 @@ export function MobileBottomNav() {
 
   const openSearch = useCallback(() => {
     setMenuOpen(false);
+    setFiltersOpen(false);
     if (isNarrowShell) {
       if (SearchCommand) {
         focusPillSearch();
@@ -144,6 +157,7 @@ export function MobileBottomNav() {
             {SearchCommand ? (
               <SearchCommand
                 pillSearch
+                forMatches={isMatchesPage}
                 autoFocusKey={false}
                 placeholder={MOBILE_SEARCH_PLACEHOLDER}
                 commandInputRef={pillInputRef}
@@ -159,6 +173,14 @@ export function MobileBottomNav() {
               />
             )}
           </div>
+
+          {isMatchesPage && (
+            <MobileMatchFilterControls
+              open={filtersOpen}
+              onOpen={openFilters}
+              onClose={closeFilters}
+            />
+          )}
         </div>
       </nav>
 
@@ -169,6 +191,7 @@ export function MobileBottomNav() {
           onClose={closeSearch}
           SearchCommand={SearchCommand}
           loading={searchLoading}
+          forMatches={isMatchesPage}
         />
       )}
     </>

@@ -12,11 +12,18 @@ type MobileSearchOverlayProps = {
   onClose: () => void;
   SearchCommand: SearchCommandComponent | null;
   loading: boolean;
+  forMatches?: boolean;
 };
 
 const EXIT_MS = 280;
 
-export function MobileSearchOverlay({ open, onClose, SearchCommand, loading }: MobileSearchOverlayProps) {
+export function MobileSearchOverlay({
+  open,
+  onClose,
+  SearchCommand,
+  loading,
+  forMatches = false,
+}: MobileSearchOverlayProps) {
   const { mounted, closing, onExitComplete } = useAnimatedOverlay(open, EXIT_MS);
 
   useBodyScrollLock(mounted && !closing);
@@ -58,6 +65,7 @@ export function MobileSearchOverlay({ open, onClose, SearchCommand, loading }: M
           {SearchCommand ? (
             <SearchCommand
               mobileOverlay
+              forMatches={forMatches}
               autoFocusKey={false}
               autoFocusOnMount
               placeholder={MOBILE_SEARCH_PLACEHOLDER}

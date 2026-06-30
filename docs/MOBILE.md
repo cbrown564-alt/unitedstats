@@ -18,7 +18,7 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Wave 0** | 2026-06-30 | `MatchFlow` + `HistorySkyline` label tiers; sheet exit animations; `ShareCite` on lists/search/compare/detail; search-first home; `DetailBreadcrumb` |
 | **Sheet Phase A** | 2026-06-30 | Reusable `BottomSheet` — exit animation, focus trap, swipe dismiss; consumed by nav + filters |
 | **Post-Wave 0 polish** | 2026-06-30 | Narrow-shell pill search; mobile search UX; transparent sticky breadcrumb on heroes |
-| **Wave 1 — filter sheet** | 2026-06-30 | Matches filters → `BottomSheet` below lg; applied chips on collapsed strip; desktop inline collapse |
+| **Wave 1 — filter sheet** | 2026-06-30 | Matches search + filters in the floating pill below lg; filter sheet via `BottomSheet`; desktop keeps `MatchControlDeck` |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -317,7 +317,7 @@ Impact weighted toward argument-settler and fragmented browse.
 | Sheet primitive Phase A (1.2) | M | **High** | ✅ `BottomSheet` in `components/mobile/`. |
 | Match-detail progressive disclosure (1.3) | M | **High** | Hero + MatchFlow first; teamsheet/ledger collapse. |
 | Tables → card/list via shared register primitive (1.3) | L* | **High** | *Per-table incremental. One primitive, many consumers. |
-| Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ `BottomSheet` filter panel below lg; inline collapse on desktop. |
+| Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ Filter button in pill on `/matches`; sheet via `BottomSheet`; page deck hidden below lg. |
 | Touch chart inspection (1.4) | M | Med–High | Tap-to-pin/dismiss + bigger target. Shared chart layer. |
 | Answer surfaces — questions + compare (1.7) | M | **High** | Share-native pages beyond match detail. |
 | Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | Momentum stream, not a row wall. |

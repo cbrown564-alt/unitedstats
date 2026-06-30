@@ -1092,6 +1092,34 @@ input.site-sidebar-search-input:focus {
   background: rgb(255 255 255 / 0.06);
 }
 
+.mobile-pill-btn--filters {
+  position: relative;
+}
+
+.mobile-pill-btn--filters-active {
+  color: var(--color-devil-bright);
+}
+
+.mobile-pill-btn--filters-active:hover {
+  color: var(--color-ink);
+}
+
+.mobile-pill-badge {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  min-width: 1rem;
+  height: 1rem;
+  padding-inline: 0.25rem;
+  border-radius: 999px;
+  background: var(--color-devil-bright);
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1rem;
+  color: var(--color-pitch);
+  pointer-events: none;
+}
+
 .mobile-pill-section {
   position: relative;
   z-index: 1;
