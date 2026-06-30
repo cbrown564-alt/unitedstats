@@ -12,9 +12,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { MouseHandlerDataParam } from "recharts";
 import type { ChartBarDatum } from "@/components/charts";
 import { fmtAxisNumber } from "@/lib/format";
 import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
+import { useChartPin, useCoarsePointer } from "./useChartPin";
 
 type InspectableBarChartProps = {
   data: ChartBarDatum[];
@@ -59,15 +61,45 @@ export function InspectableBarChart({
   stack,
 }: InspectableBarChartProps) {
   const router = useRouter();
+  const coarse = useCoarsePointer();
+  const { pinned, pin, rootRef } = useChartPin<ChartBarDatum>();
 
   if (data.length === 0) return null;
 
   const hasEvidenceLinks = data.some((datum) => datum.href);
 
+  const onBarActivate = (datum: ChartBarDatum) => {
+    if (coarse) {
+      pin(datum);
+      return;
+    }
+    if (datum.href) router.push(datum.href);
+  };
+
+  const onBarClick = (datum: ChartBarDatum) => {
+    if (coarse && pinned === datum && datum.href) {
+      router.push(datum.href);
+      return;
+    }
+    onBarActivate(datum);
+  };
+
+  const onChartClick = (state: MouseHandlerDataParam) => {
+    if (!coarse) return;
+    const idx = state.activeIndex ?? state.activeTooltipIndex;
+    if (typeof idx === "number" && data[idx]) onBarClick(data[idx]);
+  };
+
   return (
-    <div className="h-full min-h-40 min-w-0 w-full" style={fill ? undefined : { height }}>
+    <div ref={rootRef} className="h-full min-h-40 min-w-0 w-full" style={fill ? undefined : { height }}>
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
-        <BarChart data={data} margin={{ top: 10, right: 8, bottom: 8, left: 0 }} accessibilityLayer aria-label={chartLabel}>
+        <BarChart
+          data={data}
+          margin={{ top: 10, right: 8, bottom: 8, left: 0 }}
+          accessibilityLayer
+          aria-label={chartLabel}
+          onClick={onChartClick}
+        >
           <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.64} vertical={false} />
           <XAxis
             dataKey="label"
@@ -90,11 +122,13 @@ export function InspectableBarChart({
             fontSize={11}
             tickFormatter={(value) => fmtAxisNumber(value, yTickSuffix)}
           />
-          <Tooltip
-            content={<QuietAnalystTooltip />}
-            cursor={{ fill: "rgb(255 255 255 / 0.035)" }}
-            isAnimationActive={false}
-          />
+          {!coarse && (
+            <Tooltip
+              content={<QuietAnalystTooltip />}
+              cursor={{ fill: "rgb(255 255 255 / 0.035)" }}
+              isAnimationActive={false}
+            />
+          )}
           {baseline && (
             <ReferenceLine
               y={baseline.value}
@@ -129,9 +163,7 @@ export function InspectableBarChart({
                 className={datum.href ? "cursor-pointer" : undefined}
                 fill={datum.label === highlightLabel ? highlightColor : color}
                 fillOpacity={datum.label === highlightLabel ? 1 : 0.9}
-                onClick={() => {
-                  if (datum.href) router.push(datum.href);
-                }}
+                onClick={() => onBarClick(datum)}
               />
             ))}
           </Bar>
@@ -142,9 +174,7 @@ export function InspectableBarChart({
                   key={`${datum.label}-cap-${index}`}
                   className={datum.href ? "cursor-pointer" : undefined}
                   fill={stack.color}
-                  onClick={() => {
-                    if (datum.href) router.push(datum.href);
-                  }}
+                  onClick={() => onBarClick(datum)}
                 />
               ))}
             </Bar>
@@ -152,6 +182,14 @@ export function InspectableBarChart({
           {hasEvidenceLinks && <title>Click a bar to open its evidence</title>}
         </BarChart>
       </ResponsiveContainer>
+      {coarse && pinned && (
+        <div className="mt-2">
+          <QuietAnalystTooltip active pinned payload={[{ payload: pinned }]} />
+        </div>
+      )}
+      {coarse && !pinned && (
+        <p className="mt-1.5 text-center text-[11px] text-ink-faint">Tap a bar to inspect</p>
+      )}
     </div>
   );
 }

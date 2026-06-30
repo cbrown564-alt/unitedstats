@@ -281,8 +281,18 @@ export function CompareTable({
       )}
 
       <div className="px-4 py-4 sm:px-5">
-        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">The measures</p>
-        <MeasuresStrip metrics={comparison.metrics} rate={rate} />
+        <details className="sm:hidden">
+          <summary className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-dim hover:text-ink focus-ring">
+            The measures ({judged.length} compared)
+          </summary>
+          <div className="mt-3">
+            <MeasuresStrip metrics={comparison.metrics} rate={rate} />
+          </div>
+        </details>
+        <div className="hidden sm:block">
+          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">The measures</p>
+          <MeasuresStrip metrics={comparison.metrics} rate={rate} />
+        </div>
 
         {(comparison.coverage || comparison.evidence) && (
           <div className="mt-3 border-t border-line/60 pt-3">

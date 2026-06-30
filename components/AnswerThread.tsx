@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export type ThreadStation = { id: string; label: string; node: React.ReactNode };
+export type ThreadStation = { id: string; label: string; node: React.ReactNode; /** Collapse behind a disclosure on mobile — methodology / coverage appendix. */ mobileAppendix?: boolean };
 
 /**
  * The answer page as a thread: each stage of the argument — answer, evidence,
@@ -90,7 +90,19 @@ export function AnswerThread({ stations }: { stations: ThreadStation[] }) {
               >
                 {s.label}
               </p>
-              {s.node}
+              {s.mobileAppendix ? (
+                <>
+                  <details className="sm:hidden">
+                    <summary className="cursor-pointer text-sm text-ink-dim hover:text-ink focus-ring">
+                      Show {s.label.toLowerCase()}
+                    </summary>
+                    <div className="mt-3">{s.node}</div>
+                  </details>
+                  <div className="hidden sm:block">{s.node}</div>
+                </>
+              ) : (
+                s.node
+              )}
             </div>
           </li>
         );

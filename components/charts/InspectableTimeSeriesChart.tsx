@@ -12,9 +12,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { MouseHandlerDataParam } from "recharts";
 import type { ChartDatum } from "@/components/charts";
 import { fmtAxisNumber } from "@/lib/format";
 import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
+import { useChartPin, useCoarsePointer } from "./useChartPin";
 
 type InspectableTimeSeriesChartProps = {
   data: ChartDatum[];
@@ -47,6 +49,8 @@ export function InspectableTimeSeriesChart({
   eras,
 }: InspectableTimeSeriesChartProps) {
   const gradientId = useId().replace(/:/g, "");
+  const coarse = useCoarsePointer();
+  const { pinned, pin, rootRef } = useChartPin<ChartDatum>();
 
   if (data.length < 2) return null;
 
@@ -56,15 +60,23 @@ export function InspectableTimeSeriesChart({
   const minEraLabelSpan = xSpan * 0.07;
   const hasEraLabels = eras?.some((e) => e.label) ?? false;
   const topMargin = 14 + (hasEraLabels ? 6 : 0);
+  const dotRadius = coarse ? 7 : 4;
+
+  const onChartClick = (state: MouseHandlerDataParam) => {
+    if (!coarse) return;
+    const idx = state.activeIndex ?? state.activeTooltipIndex;
+    if (typeof idx === "number" && data[idx]) pin(data[idx]);
+  };
 
   return (
-    <div className="h-full min-h-56 min-w-0 w-full" style={{ height }}>
+    <div ref={rootRef} className="h-full min-h-56 min-w-0 w-full" style={{ height }}>
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
         <AreaChart
           data={data}
           margin={{ top: topMargin, right: 10, bottom: 8, left: 0 }}
           accessibilityLayer
           aria-label={chartLabel}
+          onClick={onChartClick}
         >
           <defs>
             <linearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
@@ -131,11 +143,13 @@ export function InspectableTimeSeriesChart({
               }
             />
           )}
-          <Tooltip
-            content={<QuietAnalystTooltip />}
-            cursor={{ stroke: "var(--color-devil-bright)", strokeOpacity: 0.32, strokeWidth: 1 }}
-            isAnimationActive={false}
-          />
+          {!coarse && (
+            <Tooltip
+              content={<QuietAnalystTooltip />}
+              cursor={{ stroke: "var(--color-devil-bright)", strokeOpacity: 0.32, strokeWidth: 1 }}
+              isAnimationActive={false}
+            />
+          )}
           <Area
             type="monotone"
             dataKey="y"
@@ -144,7 +158,7 @@ export function InspectableTimeSeriesChart({
             strokeWidth={2}
             fill={fill.startsWith("url(") ? fill : `url(#${gradientId})`}
             activeDot={{
-              r: 4,
+              r: dotRadius,
               stroke,
               strokeWidth: 2,
               fill: "var(--color-panel)",
@@ -154,6 +168,14 @@ export function InspectableTimeSeriesChart({
           />
         </AreaChart>
       </ResponsiveContainer>
+      {coarse && pinned && (
+        <div className="mt-2">
+          <QuietAnalystTooltip active pinned payload={[{ payload: pinned }]} />
+        </div>
+      )}
+      {coarse && !pinned && (
+        <p className="mt-1.5 text-center text-[11px] text-ink-faint">Tap a point to inspect</p>
+      )}
     </div>
   );
 }

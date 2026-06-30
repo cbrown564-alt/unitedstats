@@ -164,12 +164,14 @@ function Module({
     {
       id: `${slug}-definition`,
       label: "Definition",
+      mobileAppendix: true,
       node: <p className="text-sm leading-6 text-ink-dim text-pretty">{slice}</p>,
     },
     ...(coverage
       ? [{
           id: `${slug}-coverage`,
           label: "Coverage",
+          mobileAppendix: true,
           node: <p className="text-sm leading-6 text-ink-dim text-pretty">{coverage}</p>,
         }]
       : []),
