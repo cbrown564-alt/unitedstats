@@ -1,6 +1,6 @@
 # Mobile Experience — Wishlist & Roadmap
 
-**Status:** in progress — Wave 0, Sheet Phase A, and filter sheet shipped; Wave 1 reading track active.
+**Status:** in progress — Wave 0, Sheet Phase A, filter sheet, match-detail disclosure, and register-card primitive shipped; Wave 1 reading track active.
 Captured 2026-06-30; revised after review same session.
 **Foundation shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
@@ -19,6 +19,8 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Sheet Phase A** | 2026-06-30 | Reusable `BottomSheet` — exit animation, focus trap, swipe dismiss; consumed by nav + filters |
 | **Post-Wave 0 polish** | 2026-06-30 | Narrow-shell pill search; mobile search UX; transparent sticky breadcrumb on heroes |
 | **Wave 1 — filter sheet** | 2026-06-30 | Matches search + filters in the floating pill below lg; filter sheet via `BottomSheet`; desktop keeps `MatchControlDeck` |
+| **Wave 1 — match-detail disclosure** | 2026-06-30 | `MatchSectionTabs` on mobile; hero + `MatchFlow` first; teamsheet in Match tab scroll; desktop `<details>` for secondary sections |
+| **Wave 1 — register cards (partial)** | 2026-06-30 | `DataTable` `registerCards` + column `card` roles; first consumers: `/players` register, `PlayerSeasonTable` |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -318,8 +320,8 @@ Impact weighted toward argument-settler and fragmented browse.
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
 | Sheet primitive Phase A (1.2) | M | **High** | ✅ `BottomSheet` in `components/mobile/`. |
-| Match-detail progressive disclosure (1.3) | M | **High** | Hero + MatchFlow first; teamsheet/ledger collapse. |
-| Tables → card/list via shared register primitive (1.3) | L* | **High** | *Per-table incremental. One primitive, many consumers. |
+| Match-detail progressive disclosure (1.3) | M | **High** | ✅ `MatchSectionTabs`; hero + MatchFlow first; teamsheet/ledger behind tab/disclosure. |
+| Tables → card/list via shared register primitive (1.3) | L* | **High** | *Partial — `registerCards` on `DataTable`; `/players` + `PlayerSeasonTable` wired. `LeagueTable`, remaining `DataTable` sites next. |
 | Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ Filter button in pill on `/matches`; sheet via `BottomSheet`; page deck hidden below lg. |
 | Touch chart inspection (1.4) | M | Med–High | Tap-to-pin/dismiss + bigger target. Shared chart layer. |
 | Answer surfaces — questions + compare (1.7) | M | **High** | Share-native pages beyond match detail. |
@@ -362,8 +364,8 @@ polish or search-first work.*
 2. ~~**Sheet Phase A**~~ — done; filter sheet is the first new consumer (also done).
 3. **Wave 1 reading track** — page-by-page, in roughly this order:
    - ~~Filters → bottom sheet + applied chips~~ — done.
-   - Match-detail progressive disclosure.
-   - Shared register primitive → tables as cards.
+   - ~~Match-detail progressive disclosure~~ — done.
+   - ~~Shared register primitive~~ — landed on `DataTable`; wire remaining consumers (`LeagueTable`, `/data`, question modules).
    - Touch chart inspection; answer surfaces (questions + compare); seasons cards; analytics chapters.
 4. **Wave 2 in parallel when ready** — `TonightHero` evolution, sheet Phase B (list preview),
    full-bleed match-night list cards. Phase B before committing to Phase C intercepting routes.
@@ -373,5 +375,4 @@ polish or search-first work.*
 **Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
 rebuilding list→detail twice.
 
-**Suggested next dive:** match-detail progressive disclosure — hero + `MatchFlow` first;
-teamsheet and ledger behind collapse on narrow viewports.
+**Suggested next dive:** wire `registerCards` on remaining table surfaces — `LeagueTable` mobile cards, then touch chart inspection and answer surfaces (questions + compare).

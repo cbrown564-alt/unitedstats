@@ -344,6 +344,7 @@ export default async function PlayersPage({
 
       <DataTable
         className="data-table-fit"
+        registerCards
         rows={visiblePlayers}
         rowKey={(p) => p.player_id}
         caption="Manchester United player totals"
@@ -378,6 +379,7 @@ export default async function PlayersPage({
             label: "#",
             key: "rank",
             numeric: true,
+            card: "skip",
             render: (_p, index) => <span className="text-ink-faint">{index + 1}</span>,
           },
           {
@@ -388,6 +390,7 @@ export default async function PlayersPage({
             sortKey: "shirt",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.shirt,
             sortLabel: "primary shirt number",
+            card: "skip",
             render: (p) => (
               <ShirtBadge
                 number={p.primary_shirt}
@@ -403,6 +406,7 @@ export default async function PlayersPage({
             key: "name",
             sortKey: "name",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.name,
+            card: "identity",
             render: (p) => (
               <div className="flex items-center gap-2.5">
                 <PositionTag bucket={p.position_bucket} title={p.position_label} />
@@ -421,6 +425,7 @@ export default async function PlayersPage({
             numeric: true,
             sortKey: "goals",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.goals,
+            card: "metric",
             render: (p) => (
               <div className="flex flex-col items-end leading-tight">
                 <span className="text-sm font-semibold text-devil-bright">{p.goals}</span>
@@ -428,6 +433,14 @@ export default async function PlayersPage({
                   <span className="text-[10px] font-normal text-ink-faint">{(p.goals / p.apps).toFixed(2)}/g</span>
                 )}
               </div>
+            ),
+            cardRender: (p) => (
+              <span className="font-semibold text-devil-bright">
+                {p.goals}
+                {p.goals > 0 && (p.apps || 0) > 0 && (
+                  <span className="ml-1 text-[10px] font-normal text-ink-faint">({(p.goals / p.apps).toFixed(2)}/g)</span>
+                )}
+              </span>
             ),
           },
           {
@@ -439,6 +452,7 @@ export default async function PlayersPage({
             hideBelow: "hidden sm:table-cell",
             sortKey: "apps",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.apps,
+            card: "metric",
             render: (p) => (
               <div className="flex flex-col items-end leading-tight">
                 <span className="text-sm">{p.apps || "0"}</span>
@@ -446,6 +460,14 @@ export default async function PlayersPage({
                   <span className="text-[10px] text-ink-faint">{Math.round((p.starts / p.apps) * 100)}% st</span>
                 )}
               </div>
+            ),
+            cardRender: (p) => (
+              <span>
+                {p.apps || "0"}
+                {(p.apps || 0) > 0 && (
+                  <span className="ml-1 text-[10px] text-ink-faint">{Math.round((p.starts / p.apps) * 100)}% st</span>
+                )}
+              </span>
             ),
           },
           {
@@ -459,11 +481,19 @@ export default async function PlayersPage({
             sortKey: "assists",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
             sortLabel: "assists",
+            card: "metric",
             // Assist coverage begins in 1987-88; a player whose career ends before
             // then has no assist data, so a bare "0" would be a garden-path number
             // (reads as "none" when it means "not recorded"). Show "–" for those,
             // and keep the real figure — including a genuine 0 — from 1987-88 on.
             render: (p) => {
+              const last = lastYearForPlayer(p);
+              if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
+                return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
+              }
+              return <span className="text-ink-dim">{p.assists || "0"}</span>;
+            },
+            cardRender: (p) => {
               const last = lastYearForPlayer(p);
               if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
                 return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
@@ -480,6 +510,9 @@ export default async function PlayersPage({
             sortKey: "span",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
             sortLabel: "career span",
+            card: "metric",
+            cardLabel: "Career",
+            cardRender: (p) => <span className="text-ink-dim">{spanForPlayer(p)}</span>,
             render: (p) => {
               const s = spanByPlayer.get(p.player_id);
               if (!s) {
