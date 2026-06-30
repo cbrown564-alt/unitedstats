@@ -1,7 +1,7 @@
 # Mobile Experience — Wishlist & Roadmap
 
-**Status:** in progress — Wave 0, Sheet Phase A, filter sheet, match-detail disclosure, and register-card primitive shipped; Wave 1 reading track active.
-Captured 2026-06-30; revised after review same session.
+**Status:** in progress — Wave 0, Sheet Phase A, filter sheet, match-detail disclosure, and register primitive (first consumers) shipped; Wave 1 reading track active.
+Captured 2026-06-30; revised after register-layout review same session.
 **Foundation shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
 sliding from the top, safe-area padding, a first density pass, sticky subnav offsets,
@@ -20,7 +20,7 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Post-Wave 0 polish** | 2026-06-30 | Narrow-shell pill search; mobile search UX; transparent sticky breadcrumb on heroes |
 | **Wave 1 — filter sheet** | 2026-06-30 | Matches search + filters in the floating pill below lg; filter sheet via `BottomSheet`; desktop keeps `MatchControlDeck` |
 | **Wave 1 — match-detail disclosure** | 2026-06-30 | `MatchSectionTabs` on mobile; hero + `MatchFlow` first; teamsheet in Match tab scroll; desktop `<details>` for secondary sections |
-| **Wave 1 — register cards (partial)** | 2026-06-30 | `DataTable` `registerCards` — **leaderboard** row for ranked lists (`/players`), **metrics** grid for timelines (`PlayerSeasonTable`) |
+| **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` with two layouts: **leaderboard** row (`registerLayout="leaderboard"`) for ranked registers — rank · portrait · name · sort-key figure, subline indented under name; **metrics** grid for timelines. First consumers: `/players`, `PlayerSeasonTable`. See `components/DataTable.tsx`. |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -174,11 +174,19 @@ mobile, where the ledger is unscannable.
 
 - **Match detail** — hero + `MatchFlow` first; teamsheet pitch and full event ledger
   collapse behind progressive disclosure.
-- **Player / manager / opponent tables** — `PlayerSeasonTable`, `DataTable`, `LeagueTable`,
-  `CompareTable` **swap to card/list rhythm** on narrow viewports rather than
-  horizontal-scrolling a dense grid. Lead with the computed answer
+- **Player / manager / opponent tables** — on narrow viewports, drop the horizontal-scroll
+  table in favour of a register list. **Ranked registers** (players, managers, opponents
+  sorted by a measure) must preserve **column scan on the active sort** — same rhythm as
+  `Leaderboard` / `IndexRow`: rank · identity · headline figure; quiet subline under the
+  name, not a multi-metric stat grid per row. **Timelines and season splits** can use a
+  labelled metrics grid when every field earns its place. Lead with the computed answer
   (`HaulCards`, `RecordCards`, `Leaderboard`); keep the sortable register as the appendix.
-- **Shared responsive register primitive** — one abstraction consumed by all table components: **leaderboard row** below sm for ranked registers (rank · identity · sort-key figure — same rhythm as `Leaderboard`), **metrics grid** for timelines; table unchanged at sm+.
+- **Shared responsive register primitive** — ✅ landed on `DataTable` (`registerCards`,
+  `registerLayout`: `"leaderboard" | "metrics"`). Column `card` roles opt rows in;
+  `registerSubline`, `registerFigureTone`, and `registerHref` configure leaderboard mode.
+  Table unchanged at `sm+`. Wire remaining consumers: `LeagueTable`, `/data`, question
+  modules. Do **not** use a stat-dashboard card for ranked lists — fans scan the sort
+  column, not a profile grid.
 - **Seasons scroll** — a card-based momentum stream with sticky era/decade headers, not a
   wall of rows.
 - **Analytics chapters** — one question per screen-height chapter (chart + interpretation +
@@ -318,7 +326,7 @@ Impact weighted toward argument-settler and fragmented browse.
 |---|---|---|---|
 | Sheet primitive Phase A (1.2) | M | **High** | ✅ `BottomSheet` in `components/mobile/`. |
 | Match-detail progressive disclosure (1.3) | M | **High** | ✅ `MatchSectionTabs`; hero + MatchFlow first; teamsheet/ledger behind tab/disclosure. |
-| Tables → card/list via shared register primitive (1.3) | L* | **High** | *Partial — `registerCards` on `DataTable`; `/players` + `PlayerSeasonTable` wired. `LeagueTable`, remaining `DataTable` sites next. |
+| Tables → card/list via shared register primitive (1.3) | L* | **High** | *Partial ✅ — `registerCards` + leaderboard/metrics layouts on `DataTable`; `/players` (leaderboard), `PlayerSeasonTable` (metrics). `LeagueTable`, remaining `DataTable` sites next. |
 | Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ Filter button in pill on `/matches`; sheet via `BottomSheet`; page deck hidden below lg. |
 | Touch chart inspection (1.4) | M | Med–High | Tap-to-pin/dismiss + bigger target. Shared chart layer. |
 | Answer surfaces — questions + compare (1.7) | M | **High** | Share-native pages beyond match detail. |
@@ -362,7 +370,7 @@ polish or search-first work.*
 3. **Wave 1 reading track** — page-by-page, in roughly this order:
    - ~~Filters → bottom sheet + applied chips~~ — done.
    - ~~Match-detail progressive disclosure~~ — done.
-   - ~~Shared register primitive~~ — landed on `DataTable`; wire remaining consumers (`LeagueTable`, `/data`, question modules).
+   - ~~Shared register primitive~~ — landed on `DataTable` (leaderboard + metrics layouts); `/players` and `PlayerSeasonTable` wired. Remaining: `LeagueTable`, `/data`, question modules.
    - Touch chart inspection; answer surfaces (questions + compare); seasons cards; analytics chapters.
 4. **Wave 2 in parallel when ready** — `TonightHero` evolution, sheet Phase B (list preview),
    full-bleed match-night list cards. Phase B before committing to Phase C intercepting routes.
@@ -372,4 +380,4 @@ polish or search-first work.*
 **Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
 rebuilding list→detail twice.
 
-**Suggested next dive:** wire `registerCards` on remaining table surfaces — `LeagueTable` mobile cards, then touch chart inspection and answer surfaces (questions + compare).
+**Suggested next dive:** wire `registerCards` on remaining table surfaces (`LeagueTable`, `/data`, question modules) — use **leaderboard** layout for ranked lists, **metrics** for timelines — then touch chart inspection and answer surfaces (questions + compare).
