@@ -12,8 +12,9 @@ import type { EventRow } from "@/lib/queries";
  * Server-rendered from timed goal events only. Matches without timed goals fall
  * back to a plain scorer list (handled by the caller).
  *
- * On narrow viewports the floating labels collapse to a compact event list below
- * the bar — same spatial read via the coloured lead bar, without label collision.
+ * On narrow viewports labels stack minute over surname at their timeline position
+ * (same spatial read as desktop, tighter lanes). The lead bar stays the primary
+ * shape; dots carry a high-contrast ring so they read on any segment colour.
  */
 
 /** Clock label that keeps stoppage time as "90+6", regulation as "64". */
@@ -33,14 +34,16 @@ type GoalMark = {
   title: string;
 };
 
-const ANNOT_H = 60; // px label/connector zone on each side of the bar
-
 /** United-perspective lead → tinted bar colour. Red ahead, grey level, near-black behind. */
 function leadColor(margin: number): string {
   if (margin === 0) return "oklch(47% 0.008 50)";
   const t = Math.min(1, (Math.abs(margin) - 1) / 2); // 1-goal lead → 0, 3+ → 1
   if (margin > 0) return `oklch(${53 - t * 9}% ${0.17 + t * 0.04} 28)`;
   return `oklch(${30 - t * 9}% ${0.018 - t * 0.008} 45)`;
+}
+
+function anchorTransform(p: number): string {
+  return p > 84 ? "translateX(-100%)" : p < 16 ? "translateX(0)" : "translateX(-50%)";
 }
 
 function GoalLabel({
@@ -54,63 +57,56 @@ function GoalLabel({
   lane: number;
   side: "united" | "opponent";
 }) {
-  const anchorTx = p > 84 ? "translateX(-100%)" : p < 16 ? "translateX(0)" : "translateX(-50%)";
-  const colHeight = lane === 0 ? ANNOT_H - 26 : ANNOT_H;
+  const anchorTx = anchorTransform(p);
+  const lane0 = lane === 0;
   const minuteClass = side === "united" ? "text-devil-bright" : "text-ink-dim";
+  const posClass =
+    side === "united"
+      ? lane0
+        ? "bottom-[18px] sm:bottom-[28px]"
+        : "bottom-[40px] sm:bottom-[54px]"
+      : lane0
+        ? "top-[18px] sm:top-[28px]"
+        : "top-[40px] sm:top-[54px]";
+  const connClass =
+    side === "united"
+      ? `bottom-2 ${lane0 ? "h-[10px] sm:h-[20px]" : "h-[32px] sm:h-[46px]"}`
+      : `top-2 ${lane0 ? "h-[10px] sm:h-[20px]" : "h-[32px] sm:h-[46px]"}`;
+
+  const name = g.playerId ? (
+    <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
+      {g.scorer}
+    </Link>
+  ) : (
+    <span className="text-ink">{g.scorer}</span>
+  );
 
   return (
     <>
+      <span aria-hidden className={`absolute left-1/2 w-px -translate-x-1/2 bg-line/80 ${connClass}`} />
       <span
-        aria-hidden
-        className={`absolute left-1/2 w-px -translate-x-1/2 bg-line ${side === "united" ? "bottom-2" : "top-2"}`}
-        style={{ height: colHeight - 14 }}
-      />
-      <span
-        className={`absolute flex items-center gap-1 whitespace-nowrap text-[11px] leading-none ${side === "united" ? "" : ""}`}
-        style={
-          side === "united"
-            ? { bottom: colHeight - 6, left: "50%", transform: anchorTx }
-            : { top: colHeight - 6, left: "50%", transform: anchorTx }
-        }
+        className={`absolute flex max-w-[4.25rem] flex-col items-center text-center leading-tight sm:max-w-none sm:flex-row sm:items-center sm:gap-1 sm:whitespace-nowrap sm:text-[11px] ${posClass}`}
+        style={{ left: "50%", transform: anchorTx }}
       >
-        <span className={`stat-num font-semibold ${minuteClass}`}>{clock(g.minute, g.added)}&prime;</span>
-        {g.playerId ? (
-          <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
-            {g.scorer}
-          </Link>
-        ) : (
-          <span className="text-ink">{g.scorer}</span>
-        )}
-        {g.tag && <span className="text-ink-faint">{g.tag === "P" ? "(P)" : "(OG)"}</span>}
+        <span className={`stat-num shrink-0 text-[10px] font-semibold sm:text-[11px] ${minuteClass}`}>
+          {clock(g.minute, g.added)}&prime;
+        </span>
+        <span className="min-w-0 truncate text-[10px] sm:text-[11px]">
+          {name}
+          {g.tag && <span className="text-ink-faint"> {g.tag === "P" ? "(P)" : "(OG)"}</span>}
+        </span>
       </span>
     </>
   );
 }
 
-function CompactGoalList({ goals }: { goals: GoalMark[] }) {
+function GoalDot({ side }: { side: "united" | "opponent" }) {
   return (
-    <ol className="mt-3 space-y-1.5 border-t border-line/70 pt-3 sm:hidden" aria-label="Goals by minute">
-      {goals.map((g) => (
-        <li key={g.key} className="flex items-baseline gap-2 text-sm leading-snug">
-          <span className={`stat-num w-10 shrink-0 text-xs font-semibold ${g.side === "united" ? "text-devil-bright" : "text-ink-dim"}`}>
-            {clock(g.minute, g.added)}&prime;
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className={g.side === "united" ? "text-ink" : "text-ink-dim"}>
-              {g.side === "united" ? "" : "· "}
-              {g.playerId ? (
-                <Link href={`/player/${g.playerId}`} className="font-medium hover:text-devil-bright">
-                  {g.scorer}
-                </Link>
-              ) : (
-                <span className="font-medium">{g.scorer}</span>
-              )}
-              {g.tag && <span className="text-ink-faint"> {g.tag === "P" ? "(P)" : "(OG)"}</span>}
-            </span>
-          </span>
-        </li>
-      ))}
-    </ol>
+    <span
+      className={`tap-target relative z-10 block h-3 w-3 rounded-full ring-2 ring-pitch shadow-[0_0_0_1px_rgba(0,0,0,0.35)] sm:h-2.5 sm:w-2.5 ${
+        side === "united" ? "bg-devil-bright" : "bg-white/90"
+      }`}
+    />
   );
 }
 
@@ -178,7 +174,7 @@ export function MatchFlow({
   const unitedMarks = sorted.filter((g) => g.side === "united");
   const oppMarks = sorted.filter((g) => g.side === "opponent");
   const lane = new Map<string, number>();
-  const LABEL_GAP = 13;
+  const LABEL_GAP = 11;
   const assignLanes = (marks: GoalMark[]) => {
     let prevPos = -Infinity;
     let prevLane = 1;
@@ -213,9 +209,9 @@ export function MatchFlow({
   ];
 
   return (
-    <div className="w-full">
-      {/* United scorers — labels hidden on narrow viewports (compact list below). */}
-      <div className="relative z-10 hidden h-[60px] sm:block">
+    <div className="w-full overflow-hidden">
+      {/* United scorers above the bar — positioned at their minute on every viewport. */}
+      <div className="relative z-10 h-[46px] sm:h-[60px]">
         {unitedMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const p = pos(g.minute);
@@ -227,13 +223,15 @@ export function MatchFlow({
               title={g.title}
             >
               <GoalLabel g={g} p={p} lane={ln} side="united" />
-              <span className="tap-target -mb-1 block h-2.5 w-2.5 rounded-full bg-devil-bright ring-2 ring-pitch" />
+              <span className="-mb-1 block">
+                <GoalDot side="united" />
+              </span>
             </div>
           );
         })}
       </div>
 
-      {/* the lead bar */}
+      {/* Lead bar */}
       <div
         className="relative h-3.5 w-full overflow-hidden rounded-full ring-1 ring-inset ring-line shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
         style={{ background: barBg }}
@@ -247,22 +245,10 @@ export function MatchFlow({
             aria-hidden
           />
         )}
-        {/* Mobile-only dots on the bar — tap targets without floating labels. */}
-        {sorted.map((g) => (
-          <span
-            key={`dot-${g.key}`}
-            className={`tap-target absolute top-1/2 z-10 block h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-pitch sm:hidden ${
-              g.side === "united" ? "bg-devil-bright" : "bg-ink"
-            }`}
-            style={{ left: `${pos(g.minute)}%` }}
-            title={g.title}
-            aria-hidden
-          />
-        ))}
       </div>
 
-      {/* Opponent scorers — labels hidden on narrow viewports. */}
-      <div className="relative hidden h-[60px] sm:block">
+      {/* Opponent scorers below the bar. */}
+      <div className="relative h-[46px] sm:h-[60px]">
         {oppMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const p = pos(g.minute);
@@ -273,16 +259,16 @@ export function MatchFlow({
               style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
-              <span className="tap-target relative z-10 -mt-1 block h-2.5 w-2.5 rounded-full bg-ink ring-2 ring-pitch" />
+              <span className="-mt-1 block">
+                <GoalDot side="opponent" />
+              </span>
               <GoalLabel g={g} p={p} lane={ln} side="opponent" />
             </div>
           );
         })}
       </div>
 
-      <CompactGoalList goals={sorted} />
-
-      {/* minute axis */}
+      {/* Minute axis */}
       <div className="relative mt-2 h-4 sm:mt-0">
         <span className="stat-num absolute left-0 text-[10px] text-ink-faint">0&prime;</span>
         {gridlines.map((gl) => (
@@ -295,6 +281,13 @@ export function MatchFlow({
           </span>
         ))}
       </div>
+
+      {/* Screen-reader ordered list — visual labels are spatial, this preserves sequence. */}
+      <ol className="sr-only">
+        {sorted.map((g) => (
+          <li key={g.key}>{g.title}</li>
+        ))}
+      </ol>
     </div>
   );
 }
