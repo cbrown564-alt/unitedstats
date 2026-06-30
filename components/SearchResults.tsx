@@ -22,6 +22,7 @@ export function SearchResults({
   onSelect,
   onHover,
   footer,
+  hideCoverageBelowSm = true,
 }: {
   shaped: ShapedAnswer[];
   entities: SearchEntity[];
@@ -33,6 +34,8 @@ export function SearchResults({
   onSelect: (href: string, entity?: SearchEntity) => void;
   onHover?: (i: number) => void;
   footer?: React.ReactNode;
+  /** Hide partial/complete coverage chips below `sm` — for cramped mobile search. */
+  hideCoverageBelowSm?: boolean;
 }) {
   return (
     <>
@@ -54,7 +57,12 @@ export function SearchResults({
             </div>
             <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <span className="stat-num text-xs text-ink-dim">{s.summary}</span>
-              {s.coverage && <AnswerCoverageTag coverage={s.coverage} />}
+              {s.coverage && (
+                <AnswerCoverageTag
+                  coverage={s.coverage}
+                  className={hideCoverageBelowSm ? "hidden sm:inline-flex" : undefined}
+                />
+              )}
             </div>
           </Link>
         </li>

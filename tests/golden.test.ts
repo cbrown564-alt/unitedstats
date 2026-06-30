@@ -406,11 +406,11 @@ test("player-vs-opponent never steals a two-player comparison", () => {
 
 test("ambiguous 'player vs club token' prefers opponent cuts and keeps player comparison as an alternative", () => {
   const { shaped } = runSearch("cantona vs leeds");
-  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — appearances"));
+  assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — apps"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — goals"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — assists"));
   assert.ok(
-    shaped.some((s) => s.summary.includes("appearance")) &&
+    shaped.some((s) => s.summary.includes(" app")) &&
       shaped.some((s) => s.summary.includes("recorded goal")) &&
       shaped.some((s) => s.summary.includes("recorded assist")),
     "expected appearance, goal, and assist variants for the player-vs-opponent cut",
@@ -439,7 +439,7 @@ test("grammar: a player's metric varies by keyword (appearances, not just goals)
   // to the goals cell — computes instead of returning nothing.
   const apps = runSearch("rooney appearances vs liverpool").shaped.find((s) => s.title === "Wayne Rooney v Liverpool");
   assert.ok(apps, "expected a player-appearances answer");
-  assert.match(apps.summary, /^\d+ appearances? \(\d+ starts?\)/);
+  assert.match(apps.summary, /^\d+ apps? \(\d+ starts?\)/);
   assert.equal(apps.coverage?.label, "lineup data", "appearances are lineup-derived");
   assert.match(apps.href, /player=wayne-rooney/);
   assert.match(apps.href, /opponent=liverpool/);
