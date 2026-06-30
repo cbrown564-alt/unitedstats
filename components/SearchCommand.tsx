@@ -14,6 +14,7 @@ import { SEARCH_PLACEHOLDER, MOBILE_SEARCH_PLACEHOLDER } from "@/lib/search/exam
 import type { SearchEntity } from "@/lib/search";
 import { entityMatchesHref } from "@/lib/search/matchesHref";
 import { queryString } from "@/lib/url";
+import { keepComboboxFocus } from "./keepComboboxFocus";
 
 export function SearchCommand({
   autoFocusKey = true,
@@ -54,6 +55,8 @@ export function SearchCommand({
   const [active, setActive] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
+  const onDismissRef = useRef(onDismiss);
+  onDismissRef.current = onDismiss;
   const router = useRouter();
   const baseId = useId();
   const listId = `${baseId}-list`;
@@ -99,8 +102,8 @@ export function SearchCommand({
     pushRecent(q);
     logSearchClick(q, destination, total);
     setOpen(false);
-    onNavigate?.();
     router.push(destination);
+    onNavigate?.();
   };
 
   useEffect(() => {
@@ -122,11 +125,14 @@ export function SearchCommand({
 
   useEffect(() => {
     if (mobileOverlay) return;
-    const onClick = (e: MouseEvent) => {
-      if (boxRef.current && !boxRef.current.contains(e.target as Node)) setOpen(false);
+    const onClickOutside = (e: MouseEvent) => {
+      if (boxRef.current && !boxRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        onDismissRef.current?.();
+      }
     };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
   }, [mobileOverlay]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -149,12 +155,20 @@ export function SearchCommand({
 
   const onInputBlur = () => {
     if (mobileOverlay) return;
+    // Safari often omits relatedTarget on blur; defer and re-check focus inside the box.
     window.setTimeout(() => {
       if (!boxRef.current?.contains(document.activeElement)) {
         setOpen(false);
-        onDismiss?.();
+        onDismissRef.current?.();
       }
     }, 0);
+  };
+
+  const pickQuery = (query: string) => {
+    setQ(query);
+    setActive(-1);
+    setOpen(true);
+    inputRef.current?.focus();
   };
 
   const compactInputClass =
@@ -196,7 +210,7 @@ export function SearchCommand({
         className={resolvedInputClass}
       />
       {open && (
-        <div className={panelClass}>
+        <div className={panelClass} onMouseDown={keepComboboxFocus}>
           {ready && hasResults ? (
             <SearchResults
               shaped={shaped}
@@ -213,7 +227,11 @@ export function SearchCommand({
                 forMatches ? undefined : (
                   <Link
                     href={seeAllHref}
-                    onClick={() => select(seeAllHref)}
+                    onMouseDown={keepComboboxFocus}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      select(seeAllHref);
+                    }}
                     className="block border-t border-line px-4 py-2 text-xs font-medium text-devil-bright hover:bg-panel-2"
                   >
                     {displayTotal > 0
@@ -228,15 +246,11 @@ export function SearchCommand({
               query={q}
               seeAllHref={seeAllHref}
               variant={mobileOverlay ? "mobile" : "default"}
-              onPick={(query) => {
-                setQ(query);
-                setActive(-1);
-                inputRef.current?.focus();
-              }}
+              onPick={pickQuery}
               onSeeAll={() => select(forMatches ? defaultMatchesHref() : seeAllHref)}
             />
           ) : (
-            <SearchEmptyState variant={mobileOverlay ? "mobile" : "default"} onPick={(query) => setQ(query)} />
+            <SearchEmptyState variant={mobileOverlay ? "mobile" : "default"} onPick={pickQuery} />
           )}
         </div>
       )}

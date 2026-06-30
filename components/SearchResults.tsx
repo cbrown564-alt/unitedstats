@@ -5,6 +5,7 @@ import type { SearchEntity, ShapedAnswer } from "@/lib/search";
 import { highlight } from "@/lib/search/highlight";
 import { KIND_LABELS } from "@/lib/search/examples";
 import { AnswerCoverageTag } from "./AnswerCoverageTag";
+import { keepComboboxFocus } from "./keepComboboxFocus";
 
 /**
  * The shared, keyboard-driven results list rendered inside both the header
@@ -47,7 +48,11 @@ export function SearchResults({
         <li key={s.title} id={optionId(i)} role="option" aria-selected={active === i}>
           <Link
             href={s.href}
-            onClick={() => onSelect(s.href)}
+            onMouseDown={keepComboboxFocus}
+            onClick={(e) => {
+              e.preventDefault();
+              onSelect(s.href);
+            }}
             onMouseEnter={() => onHover?.(i)}
             className={`tap-target block px-4 py-2.5 border-b border-line ${active === i ? "bg-panel-2" : "hover:bg-panel-2"}`}
           >
@@ -73,7 +78,11 @@ export function SearchResults({
           <li key={`${r.kind}-${r.href}`} id={optionId(idx)} role="option" aria-selected={active === idx}>
             <Link
               href={r.href}
-              onClick={() => onSelect(r.href, r)}
+              onMouseDown={keepComboboxFocus}
+              onClick={(e) => {
+                e.preventDefault();
+                onSelect(r.href, r);
+              }}
               onMouseEnter={() => onHover?.(idx)}
               className={`tap-target flex items-center justify-between gap-3 px-4 py-2.5 text-sm sm:py-2 ${
                 active === idx ? "bg-panel-2" : "hover:bg-panel-2"

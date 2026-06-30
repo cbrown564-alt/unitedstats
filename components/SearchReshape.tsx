@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { RESHAPE_PROMPTS } from "@/lib/search/examples";
+import { keepComboboxFocus } from "./keepComboboxFocus";
 
 /**
  * The never-blank recovery (DISCOVERY §6): when a query resolves to nothing, the
@@ -60,6 +61,7 @@ export function SearchReshape({
           <button
             key={p}
             type="button"
+            onMouseDown={keepComboboxFocus}
             onClick={() => onPick(p)}
             className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-ink-dim hover:bg-panel-2 hover:text-ink focus-ring"
           >
@@ -70,7 +72,11 @@ export function SearchReshape({
       </div>
       <Link
         href={seeAllHref}
-        onClick={onSeeAll}
+        onMouseDown={keepComboboxFocus}
+        onClick={(e) => {
+          e.preventDefault();
+          onSeeAll();
+        }}
         className="mt-1 block border-t border-line px-2 pt-2 text-xs font-medium text-devil-bright hover:underline"
       >
         Search the full archive →

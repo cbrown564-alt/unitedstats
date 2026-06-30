@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { MOBILE_SEARCH_SUGGESTIONS, POPULAR_SEARCHES, SEARCH_HINTS } from "@/lib/search/examples";
 import { getRecentsSnapshot, getRecentsServerSnapshot, subscribeRecents } from "@/lib/search/recents";
+import { keepComboboxFocus } from "./keepComboboxFocus";
 
 /**
  * What the box shows before you type: your recent searches (when any), a few
@@ -48,7 +49,7 @@ export function SearchEmptyState({
       {recents.length > 0 && (
         <Section title="Recent">
           {recents.map((r) => (
-            <button key={r} type="button" onClick={() => onPick(r)} className={ROW}>
+            <button key={r} type="button" onMouseDown={keepComboboxFocus} onClick={() => onPick(r)} className={ROW}>
               <span className="text-ink-faint" aria-hidden>↻</span>
               <span className="truncate">{r}</span>
             </button>
@@ -57,7 +58,7 @@ export function SearchEmptyState({
       )}
       <Section title="Try a question">
         {POPULAR_SEARCHES.map((p) => (
-          <button key={p.q} type="button" onClick={() => onPick(p.q)} className={ROW}>
+          <button key={p.q} type="button" onMouseDown={keepComboboxFocus} onClick={() => onPick(p.q)} className={ROW}>
             <span className="truncate">{p.q}</span>
             <span className="ml-auto shrink-0 text-[10px] uppercase tracking-wider text-ink-faint">{p.hint}</span>
           </button>

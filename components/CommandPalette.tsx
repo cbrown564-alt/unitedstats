@@ -10,6 +10,7 @@ import { SearchReshape } from "./SearchReshape";
 import { pushRecent } from "@/lib/search/recents";
 import { logSearchClick } from "@/lib/search/clientLog";
 import { SEARCH_PLACEHOLDER } from "@/lib/search/examples";
+import { keepComboboxFocus } from "./keepComboboxFocus";
 
 /**
  * The ⌘K / Ctrl-K command palette: a centred overlay over the same engine the
@@ -124,7 +125,11 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
             footer={
               <Link
                 href={seeAllHref}
-                onClick={() => select(seeAllHref)}
+                onMouseDown={keepComboboxFocus}
+                onClick={(e) => {
+                  e.preventDefault();
+                  select(seeAllHref);
+                }}
                 className="block border-t border-line px-4 py-2.5 text-sm font-medium text-devil-bright hover:bg-panel-2"
               >
                 {displayTotal > 0
