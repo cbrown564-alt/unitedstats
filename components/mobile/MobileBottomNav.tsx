@@ -63,7 +63,7 @@ export function MobileBottomNav() {
     <>
       <nav
         aria-label="Mobile navigation"
-        className="mobile-bottom-nav lg:hidden"
+        className="mobile-bottom-nav"
       >
         <div className="mobile-bottom-pill">
           {!isHome && (

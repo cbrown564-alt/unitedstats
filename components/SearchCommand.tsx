@@ -23,6 +23,9 @@ export function SearchCommand({
   forMatches = false,
   placeholder,
   onNavigate,
+  onDismiss,
+  inputClassName,
+  dropdownClassName,
   /** Full-width mobile overlay — prominent input, in-flow results, minimal empty state. */
   mobileOverlay = false,
 }: {
@@ -38,6 +41,12 @@ export function SearchCommand({
   placeholder?: string;
   /** Fired when a result is chosen, so a wrapping panel can close itself. */
   onNavigate?: () => void;
+  /** Fired when the field loses focus and nothing inside the command took it. */
+  onDismiss?: () => void;
+  /** Extra classes merged onto the input element. */
+  inputClassName?: string;
+  /** Override the results panel positioning/sizing (e.g. sidebar search). */
+  dropdownClassName?: string;
   mobileOverlay?: boolean;
 }) {
   const [q, setQ] = useState("");
@@ -138,21 +147,34 @@ export function SearchCommand({
     }
   };
 
-  const inputClass = mobileOverlay
-    ? "mobile-search-input w-full"
+  const onInputBlur = () => {
+    if (mobileOverlay) return;
+    window.setTimeout(() => {
+      if (!boxRef.current?.contains(document.activeElement)) {
+        setOpen(false);
+        onDismiss?.();
+      }
+    }, 0);
+  };
+
+  const compactInputClass =
+    "w-full rounded-md border border-line bg-panel px-3 py-1.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none";
+
+  const compactDropdownClass =
+    "absolute right-0 z-40 mt-1 w-full overflow-hidden rounded-lg border border-line bg-panel shadow-xl sm:w-96";
+  const defaultDropdownClass = compact ? compactDropdownClass : compactDropdownClass.replace(" sm:w-96", "");
+
+  const resolvedInputClass = mobileOverlay
+    ? (inputClassName ?? "mobile-search-input w-full")
     : compact
-      ? "w-full rounded-md border border-line bg-panel px-3 py-1.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
+      ? (inputClassName ?? compactInputClass)
       : forMatches
         ? "w-full rounded-lg border border-line bg-panel px-4 py-2.5 text-sm placeholder:text-ink-dim focus:border-devil focus:outline-none"
         : "w-full bg-panel border border-line rounded-lg px-4 py-2.5 text-sm placeholder:text-ink-faint focus:outline-none focus:border-devil";
 
   const panelClass = mobileOverlay
-    ? "mobile-search-results"
-    : `absolute right-0 z-40 mt-1 w-full overflow-hidden rounded-lg border border-line bg-panel shadow-xl ${
-        compact ? "sm:w-96" : ""
-      }`;
-
-  const showPanel = open;
+    ? (dropdownClassName ?? "mobile-search-results")
+    : (dropdownClassName ?? defaultDropdownClass);
 
   return (
     <div ref={boxRef} className={`relative ${mobileOverlay || compact || fullWidth ? "w-full" : "max-w-xl"}`}>
@@ -167,12 +189,13 @@ export function SearchCommand({
         value={q}
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setOpen(true)}
+        onBlur={onInputBlur}
         onKeyDown={onKeyDown}
         placeholder={computedPlaceholder}
         aria-label="Search players, opponents, seasons, managers, stadiums, and shaped questions"
-        className={inputClass}
+        className={resolvedInputClass}
       />
-      {showPanel && (
+      {open && (
         <div className={panelClass}>
           {ready && hasResults ? (
             <SearchResults

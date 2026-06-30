@@ -11,17 +11,21 @@ function ThreadlineMark({ size = 34 }: { size?: number }) {
 
 export function RedThreadWordmark({
   compactOnMobile = false,
+  hideText = false,
   markSize = 34,
 }: {
   compactOnMobile?: boolean;
+  hideText?: boolean;
   markSize?: number;
 }) {
   return (
     <span className="inline-flex shrink-0 items-center gap-2.5 text-ink" aria-label="Red Thread">
       <ThreadlineMark size={markSize} />
-      <span className={["display text-base leading-none", compactOnMobile ? "hidden sm:inline" : ""].join(" ")}>
-        <span className="text-devil-bright">Red</span> Thread
-      </span>
+      {!hideText && (
+        <span className={["display text-base leading-none", compactOnMobile ? "hidden sm:inline" : ""].join(" ")}>
+          <span className="text-devil-bright">Red</span> Thread
+        </span>
+      )}
     </span>
   );
 }
