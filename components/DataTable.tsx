@@ -192,12 +192,14 @@ function RegisterLeaderboardList<T>({
           <>
             <span className="stat-num w-5 shrink-0 text-right text-xs text-ink-faint">{index + 1}</span>
             <span className="min-w-0 flex-1">
-              {identityCol ? cell(identityCol) : null}
-              {quiet && (
-                <span className="stat-num mt-0.5 block truncate text-[11px] leading-tight text-ink-faint">
-                  {quiet}
-                </span>
-              )}
+              <span className="flex flex-col gap-1.5">
+                {identityCol ? cell(identityCol) : null}
+                {quiet && (
+                  <span className="stat-num block truncate pl-[2.375rem] text-[11px] leading-tight text-ink-faint">
+                    {quiet}
+                  </span>
+                )}
+              </span>
             </span>
             {figureCol && (
               <span className={`stat-num shrink-0 text-base font-semibold tabular-nums leading-none ${tone}`}>
