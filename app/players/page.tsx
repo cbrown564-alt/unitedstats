@@ -344,6 +344,13 @@ export default async function PlayersPage({
 
       <DataTable
         className="data-table-fit"
+        registerCards
+        registerLayout="leaderboard"
+        registerHref={(p) => `/player/${p.player_id}`}
+        registerSubline={(p) => `${fmtNum(p.apps || 0)} apps · ${spanForPlayer(p)}`}
+        registerFigureTone={(key) =>
+          key === "goals" ? "text-devil-bright" : key === "assists" ? "text-gold" : "text-ink"
+        }
         rows={visiblePlayers}
         rowKey={(p) => p.player_id}
         caption="Manchester United player totals"
@@ -378,6 +385,7 @@ export default async function PlayersPage({
             label: "#",
             key: "rank",
             numeric: true,
+            card: "skip",
             render: (_p, index) => <span className="text-ink-faint">{index + 1}</span>,
           },
           {
@@ -388,6 +396,7 @@ export default async function PlayersPage({
             sortKey: "shirt",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.shirt,
             sortLabel: "primary shirt number",
+            card: "skip",
             render: (p) => (
               <ShirtBadge
                 number={p.primary_shirt}
@@ -397,12 +406,14 @@ export default async function PlayersPage({
                 uniform
               />
             ),
+            cardRender: (p) => (p.primary_shirt != null ? String(p.primary_shirt) : "—"),
           },
           {
             label: "Player",
             key: "name",
             sortKey: "name",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.name,
+            card: "identity",
             render: (p) => (
               <div className="flex items-center gap-2.5">
                 <PositionTag bucket={p.position_bucket} title={p.position_label} />
@@ -412,15 +423,23 @@ export default async function PlayersPage({
                 </Link>
               </div>
             ),
+            cardRender: (p) => (
+              <span className="flex min-w-0 items-center gap-2.5">
+                <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} size="xs" />
+                <span className="flex min-w-0 items-center gap-1.5">
+                  <PositionTag bucket={p.position_bucket} title={p.position_label} />
+                  <span className="truncate text-sm font-medium leading-tight">{p.name}</span>
+                </span>
+              </span>
+            ),
           },
           {
-            // The dominant figure — a goals-led club's history reads goals-first —
-            // with goals-per-game (the one fair cross-era output rate) in support.
             label: "Goals",
             key: "goals",
             numeric: true,
             sortKey: "goals",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.goals,
+            card: "figure",
             render: (p) => (
               <div className="flex flex-col items-end leading-tight">
                 <span className="text-sm font-semibold text-devil-bright">{p.goals}</span>
@@ -429,10 +448,9 @@ export default async function PlayersPage({
                 )}
               </div>
             ),
+            cardRender: (p) => fmtNum(p.goals),
           },
           {
-            // Starts folds in as a quiet "started %", retiring its own column: it
-            // separates nailed-on starters from impact subs without a fourth number.
             label: "Apps",
             key: "apps",
             numeric: true,
@@ -447,11 +465,9 @@ export default async function PlayersPage({
                 )}
               </div>
             ),
+            cardRender: (p) => fmtNum(p.apps || 0),
           },
           {
-            // Secondary, and deliberately dimmed: assists are partial and recent-
-            // weighted (see CoverageNote), so they stay an auditable number, never a
-            // glyph the eye would compare across eras.
             label: "Assists",
             key: "assists",
             numeric: true,
@@ -459,16 +475,19 @@ export default async function PlayersPage({
             sortKey: "assists",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
             sortLabel: "assists",
-            // Assist coverage begins in 1987-88; a player whose career ends before
-            // then has no assist data, so a bare "0" would be a garden-path number
-            // (reads as "none" when it means "not recorded"). Show "–" for those,
-            // and keep the real figure — including a genuine 0 — from 1987-88 on.
             render: (p) => {
               const last = lastYearForPlayer(p);
               if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
                 return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
               }
               return <span className="text-ink-dim">{p.assists || "0"}</span>;
+            },
+            cardRender: (p) => {
+              const last = lastYearForPlayer(p);
+              if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
+                return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
+              }
+              return fmtNum(p.assists || 0);
             },
           },
           {
@@ -480,6 +499,7 @@ export default async function PlayersPage({
             sortKey: "span",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
             sortLabel: "career span",
+            cardRender: (p) => spanForPlayer(p),
             render: (p) => {
               const s = spanByPlayer.get(p.player_id);
               if (!s) {

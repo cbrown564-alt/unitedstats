@@ -92,6 +92,7 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       key: "season",
       sortKey: "season",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.season,
+      card: "identity",
       render: (s) => (
         <Link href={`/seasons/${s.season}`} className="font-medium text-ink hover:text-devil-bright">
           {s.season}
@@ -104,6 +105,7 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       numeric: true,
       sortKey: "apps",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.apps,
+      card: "metric",
       render: (s) => (s.apps ? fmtNum(s.apps) : "—"),
     },
     {
@@ -113,6 +115,8 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       hideBelow: "hidden sm:table-cell",
       sortKey: "starts",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.starts,
+      card: "metric",
+      cardLabel: "Starts",
       render: (s) => (s.starts ? fmtNum(s.starts) : "—"),
     },
     {
@@ -121,6 +125,7 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       numeric: true,
       sortKey: "goals",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.goals,
+      card: "metric",
       render: (s) => (
         <span className={s.goals > 0 ? "text-devil-bright" : "text-ink-faint"}>{s.goals || "—"}</span>
       ),
@@ -132,6 +137,7 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       hideBelow: "hidden sm:table-cell",
       sortKey: "assists",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.assists,
+      card: "metric",
       render: (s) => (
         <span className={s.assists > 0 ? "text-gold" : "text-ink-faint"}>{s.assists || "—"}</span>
       ),
@@ -143,6 +149,7 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       sortKey: "ga",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.ga,
       sortLabel: "goals plus assists",
+      card: "metric",
       render: (s) => (s.goals + s.assists > 0 ? fmtNum(s.goals + s.assists) : "—"),
     },
   ];
@@ -153,6 +160,8 @@ export function PlayerSeasonTable({ seasons, playerName }: { seasons: SeasonSpli
       rows={rows}
       rowKey={(s) => s.season}
       density="compact"
+      registerCards
+      registerLayout="metrics"
       caption={`${playerName} season-by-season apps, goals, and assists`}
       sort={{ key: sortKey, direction: sortDir, onSort }}
       summary={

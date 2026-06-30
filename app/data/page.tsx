@@ -114,6 +114,8 @@ export default function DataPage() {
         </Act>
 
         <DataTable
+          registerCards
+          registerLayout="metrics"
           caption="Coverage by competition type"
           rows={byType}
           rowKey={(row) => row.type}
@@ -122,17 +124,32 @@ export default function DataPage() {
               label: "Scope",
               key: "scope",
               className: "font-medium",
+              card: "identity",
               render: (row) => COMPETITION_TYPE_LABELS[row.type] ?? row.type,
             },
-            { label: "Matches", key: "matches", numeric: true, render: (row) => fmtNum(row.matches) },
+            {
+              label: "Matches",
+              key: "matches",
+              numeric: true,
+              card: "metric",
+              render: (row) => fmtNum(row.matches),
+            },
             {
               label: "United goalscorers",
               key: "scorers",
               numeric: true,
+              card: "metric",
+              cardLabel: "Scorers",
               render: (row) => (
                 <>
                   {fmtNum(row.completeScorers)}{" "}
                   <span className="text-ink-dim">({pct(row.completeScorers, row.matches)})</span>
+                </>
+              ),
+              cardRender: (row) => (
+                <>
+                  {fmtNum(row.completeScorers)}{" "}
+                  <span className="text-[10px] font-normal text-ink-faint">({pct(row.completeScorers, row.matches)})</span>
                 </>
               ),
             },
@@ -141,10 +158,18 @@ export default function DataPage() {
               key: "opp-goals",
               numeric: true,
               hideBelow: "hidden sm:table-cell",
+              card: "metric",
+              cardLabel: "Opp goals",
               render: (row) => (
                 <>
                   {fmtNum(row.withOppositionGoals)}{" "}
                   <span className="text-ink-dim">({pct(row.withOppositionGoals, row.matches)})</span>
+                </>
+              ),
+              cardRender: (row) => (
+                <>
+                  {fmtNum(row.withOppositionGoals)}{" "}
+                  <span className="text-[10px] font-normal text-ink-faint">({pct(row.withOppositionGoals, row.matches)})</span>
                 </>
               ),
             },
@@ -153,10 +178,17 @@ export default function DataPage() {
               key: "assists",
               numeric: true,
               hideBelow: "hidden md:table-cell",
+              card: "metric",
               render: (row) => (
                 <>
                   {fmtNum(row.withAssists)}{" "}
                   <span className="text-ink-dim">({pct(row.withAssists, row.matches)})</span>
+                </>
+              ),
+              cardRender: (row) => (
+                <>
+                  {fmtNum(row.withAssists)}{" "}
+                  <span className="text-[10px] font-normal text-ink-faint">({pct(row.withAssists, row.matches)})</span>
                 </>
               ),
             },
@@ -165,10 +197,18 @@ export default function DataPage() {
               key: "starting-xi",
               numeric: true,
               hideBelow: "hidden lg:table-cell",
+              card: "metric",
+              cardLabel: "Lineups",
               render: (row) => (
                 <>
                   {fmtNum(row.withStartingLineups)}{" "}
                   <span className="text-ink-dim">({pct(row.withStartingLineups, row.matches)})</span>
+                </>
+              ),
+              cardRender: (row) => (
+                <>
+                  {fmtNum(row.withStartingLineups)}{" "}
+                  <span className="text-[10px] font-normal text-ink-faint">({pct(row.withStartingLineups, row.matches)})</span>
                 </>
               ),
             },
@@ -177,9 +217,16 @@ export default function DataPage() {
               key: "cards",
               numeric: true,
               hideBelow: "hidden xl:table-cell",
+              card: "metric",
               render: (row) => (
                 <>
                   {fmtNum(row.withCards)} <span className="text-ink-dim">({pct(row.withCards, row.matches)})</span>
+                </>
+              ),
+              cardRender: (row) => (
+                <>
+                  {fmtNum(row.withCards)}{" "}
+                  <span className="text-[10px] font-normal text-ink-faint">({pct(row.withCards, row.matches)})</span>
                 </>
               ),
             },

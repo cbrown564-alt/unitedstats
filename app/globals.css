@@ -479,6 +479,34 @@ select {
   color: var(--color-ink-dim);
 }
 
+/* Register card list — card rhythm below sm inside `DataTable` (`registerCards`). */
+.register-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.register-card-item {
+  background: rgb(12 11 10 / 0.36);
+  transition: background-color 180ms ease;
+}
+
+.register-card-item:nth-child(even) {
+  background: rgb(255 255 255 / 0.018);
+}
+
+.register-card-item:has(a:hover),
+.register-card-item:has(a:focus-visible) {
+  background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 7%);
+}
+
+.register-card-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--color-ink-dim);
+  font-size: 0.875rem;
+}
+
 /* Dual-thumb season range on /matches — transparent tracks, devil thumbs. */
 .season-range {
   --season-range-thumb: 0.8rem;
