@@ -7,7 +7,7 @@ import { fmtNum } from "@/lib/format";
  * final bar rather than folded into a fat 86–90 bar. The dashed baseline is an
  * even spread across the 90. One shape, used by every late-goals surface (the
  * questions module, the homepage card, the explore signature, a player page) so
- * they all read identically — fed by `goalMinuteRidge` / `playerGoalMinuteBins`,
+ * they all read identically — fed by `goalMinuteRidge`,
  * which already split regulation bins from the stoppage count.
  */
 export function MinuteColumns({

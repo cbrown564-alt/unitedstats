@@ -39,7 +39,6 @@ interface PlayerPlateProps {
     multiGoalGames: number;
     hatTricks: number;
     assists: number;
-    curatedAssists: number;
   };
   span: {
     debut: MatchRef | null;
@@ -72,22 +71,20 @@ export function PlayerPlate({
       : null;
 
   // Secondary readouts, built only where the number means something — no "—" filler.
-  const secondary: { value: string; label: string; lane?: string; detail?: string; tone?: string }[] = [
+  const secondary: { value: string; label: string; detail?: string; tone?: string }[] = [
     {
       value: stats.apps ? fmtNum(stats.apps) : "—",
       label: "apps",
-      lane: "record",
       detail: stats.subs ? `${fmtNum(stats.subs)} sub` : undefined,
     },
   ];
   if (stats.goalsPerApp != null) {
-    secondary.push({ value: stats.goalsPerApp.toFixed(2), label: "goals / app", lane: "recorded" });
+    secondary.push({ value: stats.goalsPerApp.toFixed(2), label: "goals / app" });
   }
   if (stats.multiGoalGames) {
     secondary.push({
       value: fmtNum(stats.multiGoalGames),
       label: "multi-goal",
-      lane: "recorded",
       detail: stats.hatTricks ? `${fmtNum(stats.hatTricks)} hat-trick${stats.hatTricks === 1 ? "" : "s"}` : undefined,
       tone: stats.hatTricks ? "text-gold" : undefined,
     });
@@ -96,8 +93,6 @@ export function PlayerPlate({
     secondary.push({
       value: fmtNum(stats.assists),
       label: "assists",
-      lane: "combined",
-      detail: stats.curatedAssists > 0 ? "curated + match events" : undefined,
     });
   }
 
@@ -157,14 +152,13 @@ export function PlayerPlate({
           {/* One dominant figure — goals — beside a hairline ribbon of supporting stats. */}
           <div className="mt-5 flex flex-wrap items-end gap-x-7 gap-y-4 sm:mt-6">
             <div className="leading-none">
-              <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink-faint">Club record</p>
-              <div className="mt-1 flex items-baseline gap-2">
+              <div className="flex items-baseline gap-2">
                 <span className="stat-num text-5xl font-semibold text-devil-bright sm:text-6xl">{fmtNum(stats.goals)}</span>
                 <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">goals</span>
               </div>
               {rank && (
                 <p className="stat-num mt-2 text-xs text-ink-faint">
-                  #{fmtNum(rank.goalRank)} of {fmtNum(rank.total)} recorded goalscorers
+                  #{fmtNum(rank.goalRank)} of {fmtNum(rank.total)} goalscorers
                 </p>
               )}
             </div>
@@ -173,11 +167,6 @@ export function PlayerPlate({
                 <div key={s.label} className="leading-none">
                   <dd className={`stat-num text-xl font-semibold ${s.tone ?? "text-ink"}`}>{s.value}</dd>
                   <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                    {s.lane && (
-                      <span className="mr-1 rounded bg-panel-2 px-1 py-px text-[10px] normal-case tracking-normal text-ink-dim">
-                        {s.lane}
-                      </span>
-                    )}
                     {s.label}
                     {s.detail && <span className="ml-1 normal-case tracking-normal text-ink-dim">{s.detail}</span>}
                   </dt>
@@ -227,8 +216,8 @@ function CareerArc({
   return (
     <div className="mt-7 border-t border-line/80 pt-4">
       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-ink-faint">
-        <span>First recorded</span>
-        <span className="text-ink-dim">Recorded career</span>
+        <span>First</span>
+        <span className="text-ink-dim">Career</span>
         <span>Latest</span>
       </div>
 
@@ -260,7 +249,7 @@ function CareerArc({
           <Link
             href={`/seasons/${peakSeason.season}`}
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
-            title={`Most prolific recorded season: ${fmtNum(peakSeason.goals)} goals`}
+            title={`Most prolific season: ${fmtNum(peakSeason.goals)} goals`}
           >
             ★ {peakSeason.season}: Most Prolific Season
           </Link>

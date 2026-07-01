@@ -36,10 +36,10 @@ export function QuietAnalystTooltip({ active, payload, pinned = false }: QuietAn
       )}
       {datum.meta && <div className="mt-1 max-w-56 text-ink-faint">{datum.meta}</div>}
       {datum.href && !pinned && (
-        <div className="mt-1 text-[11px] font-medium text-devil-bright">Click bar to open evidence</div>
+        <div className="mt-1 text-[11px] font-medium text-devil-bright">Click to open evidence</div>
       )}
       {datum.href && pinned && (
-        <div className="mt-1 text-[11px] font-medium text-devil-bright">Tap again on the bar to open evidence</div>
+        <div className="mt-1 text-[11px] font-medium text-devil-bright">Tap again to open evidence</div>
       )}
       {pinned && !datum.href && (
         <div className="mt-1 text-[11px] text-ink-faint">Tap elsewhere to dismiss</div>

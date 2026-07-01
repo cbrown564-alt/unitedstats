@@ -397,7 +397,55 @@ select {
   background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 10%);
   box-shadow:
     inset 3px 0 0 var(--color-devil-bright),
-    inset 0 0 0 1px rgb(255 59 31 / 0.18);
+    inset 0 0 0 1px color-mix(in oklab, var(--color-devil-bright), transparent 70%);
+}
+
+.data-table tbody tr.player-season-row--peak-g {
+  background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 9%);
+  box-shadow: inset 3px 0 0 var(--color-devil-bright);
+}
+
+.data-table tbody tr.player-season-row--peak-g:nth-child(even) {
+  background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 11%);
+}
+
+.data-table tbody tr.player-season-row--peak-a {
+  background: color-mix(in oklab, var(--color-panel-2), var(--color-gold) 14%);
+  box-shadow: inset 3px 0 0 color-mix(in oklab, var(--color-gold), white 25%);
+}
+
+.data-table tbody tr.player-season-row--peak-a:nth-child(even) {
+  background: color-mix(in oklab, var(--color-panel-2), var(--color-gold) 17%);
+}
+
+.data-table tbody tr.player-season-row--peak-ga {
+  background: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--color-panel-2), var(--color-devil) 9%) 50%,
+    color-mix(in oklab, var(--color-panel-2), var(--color-gold) 14%) 50%
+  );
+  box-shadow: inset 3px 0 0 var(--color-devil-bright);
+}
+
+.data-table tbody tr.player-season-row--peak-ga:nth-child(even) {
+  background: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--color-panel-2), var(--color-devil) 11%) 50%,
+    color-mix(in oklab, var(--color-panel-2), var(--color-gold) 17%) 50%
+  );
+}
+
+.data-table tbody tr.player-season-decade-row:hover {
+  background: rgb(12 11 10 / 0.36);
+  box-shadow: none;
+}
+
+.player-season-stat-col {
+  width: 5.5rem;
+}
+
+.player-season-stat-cell {
+  width: 100%;
 }
 
 .data-table tbody tr:last-child td {

@@ -1024,6 +1024,35 @@ export function playerHatTricks(id: string): number {
   return row?.n ?? 0;
 }
 
+/** Seasons in which the player won a United medal (league or cup), by documented rules. */
+export function playerMedalSeasons(id: string): string[] {
+  return (
+    getDb()
+      .prepare(
+        `WITH honours AS (
+           SELECT ss.competition_id, ss.season, 'league' cat
+           FROM season_summaries ss JOIN competitions c ON c.id = ss.competition_id
+           WHERE c.type = 'league' AND ss.position = 1 AND c.name IN ('First Division','Premier League')
+           UNION ALL
+           SELECT m.competition_id, m.season, c.type cat
+           FROM matches m JOIN competitions c ON c.id = m.competition_id
+           WHERE ${CUP_WON_PREDICATE}
+         )
+         SELECT DISTINCT h.season
+         FROM honours h
+         WHERE EXISTS (
+           SELECT 1 FROM match_lineups l JOIN matches m ON m.id = l.match_id
+           WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0
+             AND m.competition_id = h.competition_id AND m.season = h.season
+           GROUP BY m.competition_id, m.season
+           HAVING COUNT(*) >= CASE WHEN h.cat = 'league' THEN 5 ELSE 1 END
+         )
+         ORDER BY h.season`,
+      )
+      .all(id) as { season: string }[]
+  ).map((r) => r.season);
+}
+
 export interface PlayerCareerSpark {
   player_id: string;
   season: string;
@@ -1177,36 +1206,6 @@ export function honourSeasonMarkers(): HonourSeasonMarker[] {
     .all() as HonourSeasonMarker[];
 }
 
-export function playerLineupMatches(id: string): (MatchRow & {
-  started: number;
-  sub_on: number | null;
-  sub_off: number | null;
-  role: string | null;
-  shirt: number | null;
-  career_band: string | null;
-})[] {
-  return getDb()
-    .prepare(
-      `SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name,
-              l.started, l.sub_on, l.sub_off, l.role, l.shirt, pp.bucket AS career_band
-       FROM match_lineups l
-       JOIN matches m ON m.id = l.match_id
-       JOIN competitions c ON c.id = m.competition_id
-       LEFT JOIN stadiums s ON s.id = m.stadium_id
-       LEFT JOIN managers mg ON mg.id = m.manager_id
-       LEFT JOIN player_positions pp ON pp.player_id = l.player_id
-       WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 ORDER BY m.date DESC`,
-    )
-    .all(id) as (MatchRow & {
-      started: number;
-      sub_on: number | null;
-      sub_off: number | null;
-      role: string | null;
-      shirt: number | null;
-      career_band: string | null;
-    })[];
-}
-
 export function playerGoalMatches(id: string): (MatchRow & { goals: number; minutes: string | null })[] {
   return getDb()
     .prepare(
@@ -1220,48 +1219,6 @@ export function playerGoalMatches(id: string): (MatchRow & { goals: number; minu
        GROUP BY m.id ORDER BY m.date DESC`,
     )
     .all(id) as (MatchRow & { goals: number; minutes: string | null })[];
-}
-
-export function playerGoalMinutes(id: string): number[] {
-  return (
-    getDb()
-      .prepare(
-        `SELECT e.minute FROM match_events e
-         WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal') AND e.minute IS NOT NULL`,
-      )
-      .all(id) as { minute: number }[]
-  ).map((r) => r.minute);
-}
-
-/**
- * A player's goals by 5-minute regulation window, with stoppage-time goals (90+)
- * held out as a separate `stoppage` count — the per-player mirror of
- * {@link import("./trails").goalMinuteRidge}, so the player "shape of his scoring"
- * column chart stacks added-time goals on the final bar exactly like the
- * club-wide late-goals chart instead of folding them into a fat 86–90 bar.
- */
-export function playerGoalMinuteBins(id: string): { bins: { lo: number; hi: number; n: number }[]; stoppage: number } {
-  const db = getDb();
-  const notStoppage = `NOT (e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0))`;
-  const rows = db
-    .prepare(
-      `SELECT MIN((e.minute - 1) / 5, 17) AS bin, COUNT(*) n
-       FROM match_events e
-       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
-         AND e.minute IS NOT NULL AND e.minute >= 1 AND ${notStoppage}
-       GROUP BY 1 ORDER BY 1`,
-    )
-    .all(id) as { bin: number; n: number }[];
-  const bins = Array.from({ length: 18 }, (_, i) => ({ lo: i * 5, hi: i * 5 + 5, n: 0 }));
-  for (const r of rows) if (bins[r.bin]) bins[r.bin].n = r.n;
-  const { stoppage } = db
-    .prepare(
-      `SELECT COUNT(*) stoppage FROM match_events e
-       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
-         AND e.minute IS NOT NULL AND NOT (${notStoppage})`,
-    )
-    .get(id) as { stoppage: number };
-  return { bins, stoppage };
 }
 
 export interface PlayerOpponentGoals {

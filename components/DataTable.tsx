@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 
 export type SortDirection = "asc" | "desc";
 
@@ -247,6 +248,8 @@ export function DataTable<T>({
   registerFigureTone,
   registerHref,
   renderMobileCard,
+  rowClassName,
+  renderBeforeRow,
 }: {
   columns: Column<T>[];
   rows: T[];
@@ -273,6 +276,10 @@ export function DataTable<T>({
   /** Row link for leaderboard mode. */
   registerHref?: (row: T) => string | undefined;
   renderMobileCard?: (row: T, index: number) => React.ReactNode;
+  /** Extra class names per body row (desktop table). */
+  rowClassName?: (row: T) => string | undefined;
+  /** Insert a row immediately before a data row (e.g. decade headers). */
+  renderBeforeRow?: (row: T, prev: T | undefined, index: number) => React.ReactNode;
 }) {
   const densityClass = density === "compact" ? "data-table--compact" : "";
 
@@ -334,18 +341,24 @@ export function DataTable<T>({
             </tr>
           </thead>
           <tbody>
-            {rows.length > 0 ? rows.map((row, index) => (
-              <tr key={rowKey(row)}>
-                {columns.map((c) => (
-                  <td
-                    key={c.key ?? c.label}
-                    className={`${c.numeric ? "data-table__numeric stat-num" : ""} ${c.hideBelow ?? ""} ${c.className ?? ""}`}
-                  >
-                    {c.render(row, index)}
-                  </td>
-                ))}
-              </tr>
-            )) : (
+            {rows.length > 0 ? rows.map((row, index) => {
+              const prev = index > 0 ? rows[index - 1] : undefined;
+              return (
+                <Fragment key={rowKey(row)}>
+                  {renderBeforeRow?.(row, prev, index)}
+                  <tr className={rowClassName?.(row)}>
+                    {columns.map((c) => (
+                      <td
+                        key={c.key ?? c.label}
+                        className={`${c.numeric ? "data-table__numeric stat-num" : ""} ${c.hideBelow ?? ""} ${c.className ?? ""}`}
+                      >
+                        {c.render(row, index)}
+                      </td>
+                    ))}
+                  </tr>
+                </Fragment>
+              );
+            }) : (
               <tr>
                 <td colSpan={columns.length} className="data-table-empty">
                   {emptyState}

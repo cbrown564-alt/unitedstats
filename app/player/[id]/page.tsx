@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerClubRanks,
   playerCuratedGoalTypes, playerCuratedTotals,
-  playerGoalMatches, playerGoalsByOpponent, playerLineupMatches,
+  playerGoalMatches, playerGoalsByOpponent, playerMedalSeasons,
   playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
   type CuratedTotals,
 } from "@/lib/queries";
@@ -12,12 +12,12 @@ import { playerBestScoringRun } from "@/lib/trails";
 import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PlayerSeasonTable, type SeasonSplit } from "@/components/PlayerSeasonTable";
+import { PlayerSeasonHighlights } from "@/components/player/PlayerSeasonHighlights";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
 import { PlayerPlate } from "@/components/PlayerPlate";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
-import { PlayerCareerPitch } from "@/components/charts/PlayerCareerPitch";
 import { AssistPartnerships } from "@/components/AssistPartnerships";
 import { MatchList } from "@/components/MatchList";
 import { HaulCards } from "@/components/HaulCards";
@@ -25,11 +25,13 @@ import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
 import { TransferList } from "@/components/TransferList";
 import { EvidenceLink } from "@/components/EvidenceLink";
-import { fmtDate, fmtNum, playerCareerSpan } from "@/lib/format";
+import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
 import { correctionPrefillHref } from "@/lib/corrections";
+import { playerSeasonChartFootnotes } from "@/lib/playerSeasonChartNotes";
 import { sampleStaticIds } from "@/lib/static-build";
+import { peakAssistSeasons, peakGaSeason, peakGoalSeasons } from "@/lib/playerSeasonHighlights";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -54,7 +56,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 const SCORING_ARCHIVE_INLINE_MAX = 25;
-const APPEARANCE_ARCHIVE_INLINE_MAX = 60;
 
 export async function generateStaticParams() {
   return sampleStaticIds(playersIndex().map((p) => p.player_id)).map((id) => ({ id }));
@@ -85,7 +86,6 @@ export default async function PlayerPage({
 
   const bySeason = playerSplitsBySeason(id);
   const matches = playerGoalMatches(id);
-  const appearances = playerLineupMatches(id);
   const shirts = playerShirtNumbersByDecade(id);
   const partnerships = playerAssistPartnerships(id);
   const opponentGoals = playerGoalsByOpponent(id, 1);
@@ -110,16 +110,20 @@ export default async function PlayerPage({
   const topOpponent = opponentGoals[0];
   const goalsPerApp = p.apps > 0 ? p.goals / p.apps : null;
 
-  // Earliest and latest match we can place this player in, across scorer and lineup coverage.
-  const timeline = [...appearances, ...matches];
-  const debut = timeline.length
-    ? timeline.reduce((a, b) => (b.date < a.date ? b : a))
+  // Earliest and latest match we can place this player in from recorded scorer data.
+  const debut = matches.length
+    ? matches.reduce((a, b) => (b.date < a.date ? b : a))
     : null;
-  const latest = timeline.length
-    ? timeline.reduce((a, b) => (b.date > a.date ? b : a))
+  const latest = matches.length
+    ? matches.reduce((a, b) => (b.date > a.date ? b : a))
     : null;
 
   const careerYears = playerCareerSpan(p);
+  const seasonChartFootnotes = playerSeasonChartFootnotes(bySeason.map((s) => s.season));
+  const goalPeakSeasons = peakGoalSeasons(bySeason);
+  const assistPeakSeasons = peakAssistSeasons(bySeason);
+  const gaPeakSeason = peakGaSeason(bySeason);
+  const medalSeasons = playerMedalSeasons(id);
 
   // Scoring matches (newest first). For a prolific scorer the flat list is huge,
   // so we lead with the hauls and tuck the complete record, season-grouped, behind
@@ -143,20 +147,6 @@ export default async function PlayerPage({
     }
     scoredBySeason[i][1].push(m);
   }
-  // Lineup appearances, season-grouped (newest first) for the full archive.
-  const appsBySeason: [string, typeof appearances][] = [];
-  const appsIndex = new Map<string, number>();
-  for (const m of appearances) {
-    let i = appsIndex.get(m.season);
-    if (i === undefined) {
-      i = appsBySeason.length;
-      appsIndex.set(m.season, i);
-      appsBySeason.push([m.season, []]);
-    }
-    appsBySeason[i][1].push(m);
-  }
-  const longAppearanceList = appearances.length > APPEARANCE_ARCHIVE_INLINE_MAX;
-
   // Goal-count badge with the recorded minutes, reused across the scored lists.
   const goalExtra = (m: { goals: number; minutes?: string | null }) => {
     const mins = (m.minutes ?? "")
@@ -176,18 +166,6 @@ export default async function PlayerPage({
       </span>
     );
   };
-
-  // How he entered each appearance — started vs off the bench, with the role.
-  const appsExtra = (m: { started: number; sub_on: number | null; role: string | null }) => (
-    <span className="stat-num whitespace-nowrap text-xs">
-      {m.started ? (
-        <span className="text-devil-bright">Started</span>
-      ) : (
-        <span className="text-ink-dim">Sub{m.sub_on != null ? ` ${m.sub_on}'` : ""}</span>
-      )}
-      {m.role && <span className="ml-1.5 font-normal text-ink-faint">{m.role}</span>}
-    </span>
-  );
 
   // The season-by-season table is rendered by the PlayerSeasonTable client island
   // below, which owns its sort so this page can be statically prerendered.
@@ -221,7 +199,6 @@ export default async function PlayerPage({
           multiGoalGames,
           hatTricks,
           assists: p.assists,
-          curatedAssists: p.curated_assists,
         }}
         span={{ debut, latest, peakSeason }}
         shirts={shirts}
@@ -245,12 +222,12 @@ export default async function PlayerPage({
                   <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
                     <h2 className="display mb-3 text-xl">Goals and assists by season</h2>
                     <div className="mb-2 flex items-center gap-4 text-[11px] text-ink-faint">
-                      <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" /> goals</span>
-                      <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" /> assists</span>
+                      <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-devil" /> Goals</span>
+                      <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-gold" /> Assists</span>
                     </div>
                     <SeasonContributionChart
                       data={bySeason.map((s) => ({
-                        label: s.season.slice(0, 4),
+                        label: fmtSeasonShort(s.season),
                         goals: s.goals,
                         assists: s.assists,
                         valueLabel: `${fmtNum(s.goals)} goals · ${fmtNum(s.assists)} assists`,
@@ -260,10 +237,13 @@ export default async function PlayerPage({
                       labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
                       chartLabel={`${p.name} goals and assists by season`}
                     />
-                    <p className="mt-1 text-xs text-ink-dim">
-                      Recorded goals and combined assists (curated through 2014-15, match events after) per season;
-                      early or sparsely covered seasons can read low.
-                    </p>
+                    {seasonChartFootnotes.length > 0 && (
+                      <div className="mt-1 space-y-0.5">
+                        {seasonChartFootnotes.map((note) => (
+                          <p key={note} className="text-xs text-ink-dim">{note}</p>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -274,7 +254,14 @@ export default async function PlayerPage({
                       {fmtNum(p.recorded_goals)} recorded goals · {fmtNum(coveredSeasons.length)} of {fmtNum(bySeason.length)} seasons covered
                     </span>
                   </div>
-                  <PlayerSeasonTable seasons={bySeason} playerName={p.name} />
+                  <PlayerSeasonHighlights goalPeaks={goalPeakSeasons} gaPeak={gaPeakSeason} />
+                  <PlayerSeasonTable
+                    seasons={bySeason}
+                    playerName={p.name}
+                    goalPeakSeasons={goalPeakSeasons.map((s) => s.season)}
+                    assistPeakSeasons={assistPeakSeasons.map((s) => s.season)}
+                    medalSeasons={medalSeasons}
+                  />
                 </div>
               </section>
             ) : (
@@ -413,77 +400,6 @@ export default async function PlayerPage({
             ),
           },
           {
-            id: "apps",
-            label: "Appearances",
-            content: appearances.length > 0 ? (
-              <section className="space-y-6">
-                <PlayerCareerPitch
-                  appearances={appearances.map((a) => ({
-                    date: a.date,
-                    role: a.role,
-                    shirt: a.shirt,
-                    career_band: a.career_band,
-                  }))}
-                  playerName={p.name}
-                />
-
-                <div className="space-y-3">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                  <h2 className="display text-xl">Lineup appearances</h2>
-                  <span className="stat-num text-xs text-ink-faint">{fmtNum(appearances.length)} covered</span>
-                </div>
-
-                {longAppearanceList ? (
-                  <div>
-                    <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
-                      <h3 className="text-sm font-medium text-ink-dim">Seasons with lineup appearances</h3>
-                      <EvidenceLink
-                        href={`/matches${queryString({ player: id })}`}
-                        label={`Open all ${fmtNum(appearances.length)} in the match browser →`}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      {appsBySeason.map(([season, ms]) => {
-                        const starts = ms.filter((x) => x.started).length;
-                        return (
-                          <SeasonEvidenceRow
-                            key={season}
-                            id={`apps-${season}`}
-                            season={season}
-                            href={`/matches${queryString({ player: id, season })}`}
-                            primary={`${fmtNum(ms.length)} app${ms.length === 1 ? "" : "s"}`}
-                            secondary={`${fmtNum(starts)} start${starts === 1 ? "" : "s"}`}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-6">
-                    {appsBySeason.map(([season, ms]) => {
-                      const starts = ms.filter((x) => x.started).length;
-                      return (
-                        <div key={season} id={`apps-${season}`} className="scroll-mt-24">
-                          <div className="mb-2 flex items-baseline justify-between border-b border-line pb-1">
-                            <Link href={`/seasons/${season}`} className="stat-num text-sm font-medium text-ink hover:text-devil-bright focus-ring">
-                              {season}
-                            </Link>
-                            <span className="stat-num text-xs text-ink-faint">
-                              {fmtNum(ms.length)} app{ms.length === 1 ? "" : "s"}
-                              {" · "}<span className="text-devil-bright">{fmtNum(starts)}</span> started
-                            </span>
-                          </div>
-                          <MatchList matches={ms} renderExtra={appsExtra} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-                </div>
-              </section>
-            ) : null,
-          },
-          {
             id: "transfers",
             label: "Transfers",
             content: (
@@ -506,7 +422,6 @@ export default async function PlayerPage({
         coveredSeasons={coveredSeasons.length}
         totalSeasons={bySeason.length}
         curatedTotals={curatedTotals}
-        appearancesCount={appearances.length}
         hasPartnerships={partnerships.length > 0}
       />
 
@@ -556,13 +471,11 @@ function PlayerDataCoverage({
   coveredSeasons,
   totalSeasons,
   curatedTotals,
-  appearancesCount,
   hasPartnerships,
 }: {
   coveredSeasons: number;
   totalSeasons: number;
   curatedTotals: CuratedTotals | null;
-  appearancesCount: number;
   hasPartnerships: boolean;
 }) {
   return (
@@ -600,14 +513,6 @@ function PlayerDataCoverage({
             coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
             evidenceHref={curatedTotals.source_url ?? undefined}
             evidenceLabel="Tableau source"
-          />
-        )}
-
-        {appearancesCount > 0 && (
-          <CoverageNote
-            className="!mt-0"
-            slice="lineup appearances, all competitions"
-            coverage={`${fmtNum(appearancesCount)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
           />
         )}
 

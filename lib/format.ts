@@ -30,6 +30,11 @@ export function fmtNum(n: number | null | undefined): string {
   return n.toLocaleString("en-GB");
 }
 
+/** Compact season label from a canonical id, e.g. `2003-04` → `03/04`. */
+export function fmtSeasonShort(season: string): string {
+  return `${season.slice(2, 4)}/${season.slice(5)}`;
+}
+
 /** Round to an integer, group with en-GB thousands separators, append an optional suffix. */
 export function fmtAxisNumber(value: number | string, suffix = ""): string {
   return `${Math.round(Number(value)).toLocaleString("en-GB")}${suffix}`;

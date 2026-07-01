@@ -2,21 +2,21 @@
 
 import { useRouter } from "next/navigation";
 import {
-  Bar,
-  BarChart,
   CartesianGrid,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import { fmtAxisNumber } from "@/lib/format";
+import type { DotProps, MouseHandlerDataParam } from "recharts";
+import { fmtAxisNumber, fmtNum } from "@/lib/format";
 import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
 
 export type SeasonContributionDatum = {
-  /** X category — the season's start year. */
+  /** X category — compact season label, e.g. `04/05`. */
   label: string;
-  tickLabel?: string;
   goals: number;
   assists: number;
   /** Tooltip headline, e.g. "12 goals · 8 assists". */
@@ -25,10 +25,61 @@ export type SeasonContributionDatum = {
   href?: string;
 };
 
+function peakIndices(data: SeasonContributionDatum[], key: "goals" | "assists"): Set<number> {
+  const max = Math.max(0, ...data.map((d) => d[key]));
+  if (max <= 0) return new Set();
+  return new Set(data.flatMap((d, i) => (d[key] === max ? [i] : [])));
+}
+
+function measureLabel(value: number, unit: "goals" | "assists") {
+  const noun = value === 1 ? unit.slice(0, -1) : unit;
+  return `${fmtNum(value)} ${noun}`;
+}
+
+function PeakMarker({
+  cx,
+  cy,
+  index,
+  payload,
+  peaks,
+  color,
+  unit,
+  count,
+}: DotProps & {
+  peaks: Set<number>;
+  color: string;
+  unit: "goals" | "assists";
+  count: number;
+}) {
+  if (cx == null || cy == null || index == null || !payload || !peaks.has(index)) return null;
+
+  const datum = payload as SeasonContributionDatum;
+  const value = datum[unit];
+  const anchor =
+    index === 0 ? "start" : index === count - 1 ? "end" : "middle";
+  const dx = anchor === "start" ? 4 : anchor === "end" ? -4 : 0;
+
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={4} fill={color} stroke="var(--color-panel)" strokeWidth={2} />
+      <text
+        x={cx + dx}
+        y={cy - 10}
+        textAnchor={anchor}
+        fill={color}
+        fontSize={10}
+        fontWeight={600}
+      >
+        {measureLabel(value, unit)}
+      </text>
+    </g>
+  );
+}
+
 /**
- * A season's goal involvement, stacked: goals (devil red) at the base, assists
- * (gold) on top, so the column height is total goal contributions and the split
- * reads by colour. Pairs with the season table, which carries the exact figures.
+ * A season's goals and assists as two lines — devil red for goals, gold for
+ * assists — so each series reads independently across the career. Pairs with the
+ * season table, which carries the exact figures.
  */
 export function SeasonContributionChart({
   data,
@@ -46,30 +97,41 @@ export function SeasonContributionChart({
   if (data.length === 0) return null;
 
   const hasEvidenceLinks = data.some((datum) => datum.href);
-  const go = (entry: { href?: string; payload?: { href?: string } } | undefined) => {
-    const href = entry?.href ?? entry?.payload?.href;
+  const goalPeaks = peakIndices(data, "goals");
+  const assistPeaks = peakIndices(data, "assists");
+
+  const go = (state: MouseHandlerDataParam) => {
+    const idx = state.activeTooltipIndex;
+    const href = typeof idx === "number" ? data[idx]?.href : undefined;
     if (href) router.push(href);
   };
 
   return (
     <div className="h-full min-h-40 min-w-0 w-full" style={{ height }}>
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
-        <BarChart data={data} margin={{ top: 10, right: 8, bottom: 8, left: 0 }} accessibilityLayer aria-label={chartLabel}>
+        <LineChart
+          data={data}
+          margin={{ top: 28, right: 8, bottom: 22, left: 0 }}
+          accessibilityLayer
+          aria-label={chartLabel}
+          onClick={hasEvidenceLinks ? go : undefined}
+        >
           <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.64} vertical={false} />
           <XAxis
             dataKey="label"
-            // labelEvery<=1 means "label every season" — but on a narrow phone the
-            // four-digit years collide, so let Recharts thin by width (dropping
-            // overlapping ticks, always keeping first/last). Explicit thinning only
-            // kicks in for long series that opt into a fixed stride.
             interval={labelEvery <= 1 ? "preserveStartEnd" : labelEvery - 1}
-            tickFormatter={(label) => data.find((datum) => datum.label === label)?.tickLabel ?? String(label)}
             axisLine={false}
             tickLine={false}
             tickMargin={8}
             minTickGap={14}
             stroke="var(--color-ink-faint)"
             fontSize={11}
+            label={{
+              value: "Season",
+              position: "insideBottom",
+              offset: -2,
+              style: { fill: "var(--color-ink-faint)", fontSize: 11, textAnchor: "middle" },
+            }}
           />
           <YAxis
             type="number"
@@ -81,28 +143,61 @@ export function SeasonContributionChart({
             fontSize={11}
             tickFormatter={(value) => fmtAxisNumber(value, "")}
           />
-          <Tooltip content={<QuietAnalystTooltip />} cursor={{ fill: "rgb(255 255 255 / 0.035)" }} isAnimationActive={false} />
-          <Bar
+          <Tooltip
+            content={<QuietAnalystTooltip />}
+            cursor={{ stroke: "var(--color-devil-bright)", strokeOpacity: 0.28, strokeWidth: 1 }}
+            isAnimationActive={false}
+          />
+          <Line
+            type="monotone"
             dataKey="goals"
-            stackId="ga"
-            fill="var(--color-devil)"
-            fillOpacity={0.9}
+            name="Goals"
+            stroke="var(--color-devil)"
+            strokeWidth={2}
+            dot={(props) => (
+              <PeakMarker
+                {...props}
+                peaks={goalPeaks}
+                color="var(--color-devil)"
+                unit="goals"
+                count={data.length}
+              />
+            )}
+            activeDot={{
+              r: 4,
+              stroke: "var(--color-devil)",
+              strokeWidth: 2,
+              fill: "var(--color-panel)",
+            }}
             isAnimationActive={false}
-            onClick={go}
             className={hasEvidenceLinks ? "cursor-pointer" : undefined}
           />
-          <Bar
+          <Line
+            type="monotone"
             dataKey="assists"
-            stackId="ga"
-            fill="var(--color-gold)"
-            fillOpacity={0.9}
-            radius={[2, 2, 0, 0]}
+            name="Assists"
+            stroke="var(--color-gold)"
+            strokeWidth={2}
+            dot={(props) => (
+              <PeakMarker
+                {...props}
+                peaks={assistPeaks}
+                color="var(--color-gold)"
+                unit="assists"
+                count={data.length}
+              />
+            )}
+            activeDot={{
+              r: 4,
+              stroke: "var(--color-gold)",
+              strokeWidth: 2,
+              fill: "var(--color-panel)",
+            }}
             isAnimationActive={false}
-            onClick={go}
             className={hasEvidenceLinks ? "cursor-pointer" : undefined}
           />
-          {hasEvidenceLinks && <title>Click a column to open its season</title>}
-        </BarChart>
+          {hasEvidenceLinks && <title>Click a point to open its season</title>}
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );

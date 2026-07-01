@@ -780,19 +780,6 @@ export function similarMatches(m: MatchRow, limit = 6): MatchRow[] {
 
 // ---------------------------------------------------------------- player trails
 
-export function playerGoalsByCompetitionType(id: string): { type: string; goals: number }[] {
-  return getDb()
-    .prepare(
-      `SELECT c.type, COUNT(*) goals
-       FROM match_events e
-       JOIN matches m ON m.id = e.match_id
-       JOIN competitions c ON c.id = m.competition_id
-       WHERE e.player_id = ? AND e.player_side = 'united' AND e.type IN ('goal','pen-goal')
-       GROUP BY c.type ORDER BY goals DESC`,
-    )
-    .all(id) as { type: string; goals: number }[];
-}
-
 export interface ScoringRun extends Streak {
   matches: number;
 }

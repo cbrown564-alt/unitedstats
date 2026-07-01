@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { competitionShortName, fmtYearRange, playerCareerSpan, scoreline, scoreNote } from "@/lib/format";
+import { competitionShortName, fmtSeasonShort, fmtYearRange, playerCareerSpan, scoreline, scoreNote } from "@/lib/format";
+
+test("fmtSeasonShort renders compact season labels", () => {
+  assert.equal(fmtSeasonShort("2003-04"), "03/04");
+  assert.equal(fmtSeasonShort("2009-10"), "09/10");
+});
 
 test("fmtYearRange uses en-dash and present for open careers", () => {
   assert.equal(fmtYearRange(1992, null), "1992–present");
