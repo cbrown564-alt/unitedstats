@@ -46,7 +46,7 @@ export default async function TransfersPage() {
           aria-hidden
         />
         <div className="relative p-4 sm:p-5 lg:p-7">
-          <div className="mt-2 space-y-3 border-b border-line/60 pb-4 lg:hidden">
+          <dl className="mt-2 space-y-3 border-b border-line/60 pb-4 lg:hidden">
               <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
                 <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Net</dt>
                 <dd className="stat-num text-lg font-semibold leading-tight text-ink">{fmtFee(net)}</dd>
@@ -74,7 +74,6 @@ export default async function TransfersPage() {
                 </dd>
               </div>
             </dl>
-          </div>
 
           <div className="hidden lg:block">
             <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
