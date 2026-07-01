@@ -128,10 +128,26 @@ export default function AnalyticsPage() {
     />
   );
 
+  const eloHeroChapter = (
+    <EloHero
+      points={elo}
+      eras={managerEras}
+      trophyMarkers={honourSeasonMarkers()}
+      current={currentElo}
+      peak={peak}
+      trough={trough}
+      firstYear={meta.first_match?.slice(0, 4)}
+      compact
+    />
+  );
+
   const reliabilityPanel = (
     <div className="min-w-0 overflow-x-auto rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
       <ReliabilityCurve buckets={buckets} />
-      <CoverageNote slice={`all ${fmtNum(buckets.reduce((a, b) => a + b.p, 0))} rated matches since 1886, grouped into deciles by the Elo win expectancy United carried into them.`}>
+      <CoverageNote
+        collapsible
+        slice={`all ${fmtNum(buckets.reduce((a, b) => a + b.p, 0))} rated matches since 1886, grouped into deciles by the Elo win expectancy United carried into them.`}
+      >
         The red points track expected against actual points share; sitting on the diagonal means
         the ratings land where they aim. The win-rate dots fall below because Elo folds draws in —
         the gap up to the line is the draw, widest in the evenly-matched middle.
@@ -143,6 +159,7 @@ export default function AnalyticsPage() {
     <ChartPanel
       title={`Replaying ${sim.season} from the ratings`}
       kicker="A season as the ratings saw it"
+      collapsibleNote
       slice={`each of the ${sim.matches} ${sim.competitionName} matches redrawn ${fmtNum(sim.runs)} times from its pre-match win expectancy, 3 points for a win. This describes points totals, not table positions.`}
       note={
         <>
@@ -174,7 +191,10 @@ export default function AnalyticsPage() {
   const recordsSection = (
     <>
       <RecordCards records={recordCards} />
-      <CoverageNote slice="all-time peaks across official competitions — friendlies and wartime excluded, so a friendly rout or a wartime goal glut can't pose as a record. Each card opens its match or season.">
+      <CoverageNote
+        collapsible
+        slice="all-time peaks across official competitions — friendlies and wartime excluded, so a friendly rout or a wartime goal glut can't pose as a record. Each card opens its match or season."
+      >
         Ranked in full in the browser:{" "}
         <Link href="/matches?sort=margin" className="text-devil-bright hover:underline">biggest wins</Link>,{" "}
         <Link href="/matches?sort=defeat" className="text-devil-bright hover:underline">heaviest defeats</Link>,{" "}
@@ -186,10 +206,10 @@ export default function AnalyticsPage() {
   const winRatePanel = (
     <ChartPanel
       title="Win rate by season"
+      collapsibleNote
+      slice="all competitions per season; the dashed line is 50%. Troughs mark the relegation seasons and the early 1930s; the plateau is the Ferguson era."
       note={
         <>
-          <span className="text-ink-dim">Slice:</span> all competitions per season; the dashed line is
-          50%. Troughs mark the relegation seasons and the early 1930s; the plateau is the Ferguson era.{" "}
           <Link href="/seasons" className="text-devil-bright hover:underline">Season by season →</Link>
         </>
       }
@@ -219,12 +239,10 @@ export default function AnalyticsPage() {
   const goalsPanel = (
     <ChartPanel
       title="Goals scored per season"
+      collapsibleNote
+      slice="goals scored, all competitions — taller wartime-adjacent seasons partly reflect longer cup runs."
       note={
-        <>
-          <span className="text-ink-dim">Slice:</span> goals scored, all competitions — taller wartime-adjacent
-          seasons partly reflect longer cup runs.{" "}
-          <Link href="/seasons" className="text-devil-bright hover:underline">Season detail →</Link>
-        </>
+        <Link href="/seasons" className="text-devil-bright hover:underline">Season detail →</Link>
       }
     >
       <InspectableBarChart
@@ -246,13 +264,9 @@ export default function AnalyticsPage() {
     <ChartPanel
       title="Average home attendance"
       kicker="The crowd, century-long"
-      note={
-        <>
-          <span className="text-ink-dim">Slice:</span> mean of recorded home attendances per season.
-          <span className="text-ink-dim"> Coverage:</span> sparse before the 1920s — early points lean
-          on few matches. The post-war boom and the 1990s expansion of Old Trafford are the two big climbs.
-        </>
-      }
+      collapsibleNote
+      slice="mean of recorded home attendances per season."
+      coverage="sparse before the 1920s — early points lean on few matches. The post-war boom and the 1990s expansion of Old Trafford are the two big climbs."
     >
       <InspectableTimeSeriesChart
         data={seasons.filter((s) => s.avg_att).map((s) => ({
@@ -312,7 +326,10 @@ export default function AnalyticsPage() {
           checked-in dataset records assists for these matches.
         </p>
       )}
-      <CoverageNote coverage="assist events exist only from 2012–13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission.">
+      <CoverageNote
+        collapsible
+        coverage="assist events exist only from 2012–13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission."
+      >
         Bars scale to the top pairing.
       </CoverageNote>
     </div>
@@ -345,7 +362,7 @@ export default function AnalyticsPage() {
       kicker: "01 · The signal",
       title: "United's strength, measured",
       dek: "A single rating, updated match by match for over a century.",
-      content: eloHero,
+      content: eloHeroChapter,
     },
     {
       id: "reliability",

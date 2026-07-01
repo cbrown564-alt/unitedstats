@@ -19,6 +19,8 @@ export function CoverageNote({
   evidenceLabel,
   children,
   className = "",
+  collapsible = false,
+  summary = "Slice & coverage",
 }: {
   /** What the numbers are computed from ("all competitions per season"). */
   slice?: string;
@@ -30,6 +32,10 @@ export function CoverageNote({
   evidenceLabel?: string;
   children?: React.ReactNode;
   className?: string;
+  /** Below `sm`, wrap in a collapsed `<details>` footer instead of inline prose. */
+  collapsible?: boolean;
+  /** Summary label when `collapsible` — defaults to "Slice & coverage". */
+  summary?: string;
 }) {
   // Computed grade: a partial facet states its real counts; a complete one is silent.
   const graded =
@@ -64,8 +70,8 @@ export function CoverageNote({
 
   const evidence = evidenceHref ? <EvidenceLink href={evidenceHref} label={evidenceLabel} /> : null;
 
-  return (
-    <div className={`text-xs text-ink-dim mt-2 max-w-xl space-y-1 ${className}`}>
+  const inner = (
+    <>
       {lines.map((line, i) => (
         <p key={i}>
           {line}
@@ -73,6 +79,28 @@ export function CoverageNote({
         </p>
       ))}
       {evidence && lines.length === 0 && <p>{evidence}</p>}
+    </>
+  );
+
+  if (collapsible) {
+    return (
+      <>
+        <details className={`coverage-note-details mt-2 sm:hidden ${className}`.trim()}>
+          <summary className="coverage-note-details__summary focus-ring">{summary}</summary>
+          <div className="coverage-note-details__body mt-2 max-w-xl space-y-1 text-xs text-ink-dim">
+            {inner}
+          </div>
+        </details>
+        <div className={`hidden text-xs text-ink-dim sm:mt-2 sm:block sm:max-w-xl sm:space-y-1 ${className}`.trim()}>
+          {inner}
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <div className={`mt-2 max-w-xl space-y-1 text-xs text-ink-dim ${className}`.trim()}>
+      {inner}
     </div>
   );
 }

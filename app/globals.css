@@ -558,6 +558,33 @@ select {
   }
 }
 
+/* Collapsed slice/coverage footers on mobile chapter slides. */
+.coverage-note-details__summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-ink-dim);
+  padding: 0.375rem 0;
+}
+
+.coverage-note-details__summary::-webkit-details-marker {
+  display: none;
+}
+
+.coverage-note-details__summary::after {
+  content: " ›";
+  color: var(--color-ink-faint);
+}
+
+.coverage-note-details[open] .coverage-note-details__summary::after {
+  content: " ‹";
+}
+
+.coverage-note-details__summary:hover {
+  color: var(--color-ink);
+}
+
 /* Dual-thumb season range on /matches — transparent tracks, devil thumbs. */
 .season-range {
   --season-range-thumb: 0.8rem;

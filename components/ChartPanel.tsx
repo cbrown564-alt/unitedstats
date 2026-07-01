@@ -13,6 +13,7 @@ export function ChartPanel({
   evidenceLabel,
   note,
   kicker,
+  collapsibleNote = false,
   children,
 }: {
   title?: string;
@@ -25,6 +26,8 @@ export function ChartPanel({
   evidenceLabel?: string;
   /** Extra note content rendered inside the CoverageNote. */
   note?: React.ReactNode;
+  /** Collapse slice/coverage below `sm` — for mobile chapter slides. */
+  collapsibleNote?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -44,6 +47,7 @@ export function ChartPanel({
             count={count}
             evidenceHref={evidenceHref}
             evidenceLabel={evidenceLabel}
+            collapsible={collapsibleNote}
           >
             {note}
           </CoverageNote>
