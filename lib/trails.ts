@@ -1593,6 +1593,93 @@ export function trebleDeciders(season = "1998-99"): TrebleDecider[] {
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 
+/** Aggregate facts for a Treble season — volume, goals, losses, decider span. */
+export interface TrebleSummary {
+  season: string;
+  trophies: number;
+  matches: number;
+  losses: number;
+  goals: number;
+  spanDays: number;
+  month: string;
+  year: string;
+  /** Deciders where United trailed at some point during the match. */
+  decidersFromBehind: number;
+  wonRuns: SeasonRun[];
+}
+
+/**
+ * Shared Treble headline numbers — match count from the full season sequence,
+ * losses and goals from the whole season, calendar span of the three deciders,
+ * and how many of those nights required chasing the score.
+ */
+export function trebleSummary(season = "1998-99"): TrebleSummary {
+  const runs = trebleRuns(season);
+  const wonRuns = runs.filter((r) => r.won);
+  const deciders = trebleDeciders(season);
+  const seasonSeq = matchesSequence({ season });
+  const db = getDb();
+  const seasonRec = db
+    .prepare(`SELECT COUNT(*) p, SUM(m.result='L') l, SUM(m.gf) gf FROM matches m WHERE m.season = ?`)
+    .get(season) as { p: number; l: number; gf: number };
+
+  const first = deciders[0];
+  const last = deciders[deciders.length - 1];
+  const spanDays =
+    first && last ? Math.round((Date.parse(last.date) - Date.parse(first.date)) / 86_400_000) : 0;
+  const month = first
+    ? new Date(`${first.date}T00:00:00`).toLocaleDateString("en-GB", { month: "long" })
+    : "";
+  const year = first ? first.date.slice(0, 4) : "";
+
+  let decidersFromBehind = 0;
+  for (const d of deciders) {
+    const events = eventsForMatch(d.id).filter(
+      (e) =>
+        (UNITED_GOAL_SET.has(e.type) || e.type === "opp-goal" || e.type === "own-goal-against") &&
+        e.minute != null,
+    );
+    if (events.length === 0) {
+      if (d.ga > 0 && d.gf > d.ga) decidersFromBehind++;
+      continue;
+    }
+    let u = 0;
+    let o = 0;
+    let trailed = false;
+    for (const e of events) {
+      if (e.player_side === "united" || UNITED_GOAL_SET.has(e.type)) u++;
+      else o++;
+      if (u - o < 0) trailed = true;
+    }
+    if (trailed) decidersFromBehind++;
+  }
+
+  return {
+    season,
+    trophies: wonRuns.length,
+    matches: seasonSeq.length,
+    losses: seasonRec.l,
+    goals: seasonRec.gf,
+    spanDays,
+    month,
+    year,
+    decidersFromBehind,
+    wonRuns,
+  };
+}
+
+/** Short competition label for Treble OG rows (League / FA Cup / Europe). */
+export function trebleRunLabel(r: SeasonRun): string {
+  if (r.type === "league") return "League";
+  if (r.type === "european") return "Europe";
+  return "FA Cup";
+}
+
+/** Shared gloss for explore headline and OG card — derived from `trebleSummary`. */
+export function trebleGloss(s: TrebleSummary): string {
+  return `trophies in ${s.season} — ${s.losses} defeats, all three won inside ${s.spanDays} days in ${s.month} ${s.year}`;
+}
+
 /** One goal in a Treble semi-final, with the side that scored. */
 interface TrebleSemiGoal {
   minute: number;

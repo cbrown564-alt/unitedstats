@@ -4,6 +4,7 @@ import {
   lateGoalShareByDecade, lateGoalManagerEras, leadHeldAtHome, managerBounce,
   fergusonFloorSummary,
   europeByDecade, europeanFinals,
+  trebleSummary, trebleGloss,
 } from "./trails";
 import { clubStreaks } from "./streaks";
 
@@ -65,6 +66,8 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   const europeFinals = europeanFinals();
   const europeWon = europeFinals.filter((f) => f.won).length;
 
+  const treble = trebleSummary();
+
   return {
     "ferguson-era": {
       stat: `${floor.fergTitles} → ${floor.sinceTitles}`,
@@ -72,8 +75,8 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
       tone: "gold",
     },
     treble: {
-      stat: "3",
-      gloss: "trophies in 1998-99 — the first English side to hold the league, FA Cup and European Cup at once",
+      stat: String(treble.trophies),
+      gloss: trebleGloss(treble),
       tone: "gold",
     },
     europe: {

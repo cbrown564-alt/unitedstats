@@ -2,12 +2,15 @@ import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   annotatedLateGoals, lateGoalManagerEras, lateGoalScatter, lateGoalShareByDecade, leadHeldAtHome, managerBounce,
   fergusonFloorSummary, fergusonFloorTimeline,
+  trebleDeciders, trebleRuns, matchesSequence,
   europeByDecade, europeanFinals,
 } from "@/lib/trails";
 import { clubStreaks } from "@/lib/streaks";
-import { fmtNum, pct } from "@/lib/format";
+import { fmtDate, fmtNum, pct } from "@/lib/format";
 import { LateGoalScatter } from "@/components/charts/LateGoalScatter";
 import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
+import { ResultSpine } from "@/components/charts/ResultSpine";
+import { TrophyIcon, TROPHY_CAT_TONE } from "@/components/CampaignIcons";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -114,13 +117,25 @@ export function QuestionSignature({ slug }: { slug: string }) {
     }
 
     case "treble": {
+      const season = "1998-99";
+      const runs = trebleRuns(season).filter((r) => r.won);
+      const deciders = trebleDeciders(season);
+      const seasonSeq = matchesSequence({ season });
+      const runTypeById = new Map(runs.map((r) => [r.competition_id, r.type]));
+      const shortDate = (d: string) => fmtDate(d).replace(/\s*\d{4}$/, "");
+      const spineMarkers = deciders.map((d) => ({
+        id: d.id,
+        label: `${d.competition_name} won — ${shortDate(d.date)}`,
+        tone: TROPHY_CAT_TONE[runTypeById.get(d.competition_id) ?? "league"],
+      }));
       return (
-        <Figures
-          items={[
-            { value: "3", label: "trophies, 1998-99", tone: "gold" },
-            { value: "5", label: "losses all season", tone: "win" },
-            { value: "128", label: "goals scored", tone: "ink" },
-          ]}
+        <ResultSpine
+          matches={seasonSeq}
+          markers={spineMarkers}
+          height={88}
+          subject="Manchester United 1998-99"
+          markerGlyph={<TrophyIcon className="h-4 w-4" />}
+          xLabel="month"
         />
       );
     }

@@ -88,8 +88,8 @@ test("every entry chip resolves to a real entity page with an honest hint", () =
     assert.ok(p.href.startsWith(HREF_PREFIX[p.kind]), `entry ${p.label} href mismatches its kind: ${p.href}`);
     if (p.kind === "era") {
       assert.ok(
-        p.href.startsWith("/seasons/") || p.href.startsWith("/manager/"),
-        `era ${p.label} must land on a season or manager page: ${p.href}`,
+        p.href.startsWith("/seasons/") || p.href.startsWith("/manager/") || p.href.startsWith("/questions/"),
+        `era ${p.label} must land on a season, manager, or curated question page: ${p.href}`,
       );
     }
   }

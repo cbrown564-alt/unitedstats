@@ -17,18 +17,17 @@ import test from "node:test";
 import { QUESTIONS } from "../lib/questions";
 import { questionHeadlines } from "../lib/questionHeadlines";
 import { questionAnswer } from "../lib/questionCardData";
-import { leadHeldAtHome, europeanFinals } from "../lib/trails";
+import { leadHeldAtHome, europeanFinals, trebleSummary } from "../lib/trails";
 import { topScorers } from "../lib/queries";
 import { getDb } from "../lib/db";
 import { fmtNum } from "../lib/format";
 
-// Questions that render a data-driven OG card. The new front-door questions
-// (decline, ferguson, treble, europe) fall back to the text card for now;
-// own-goals stays as a linkable easter-egg card.
-const DATA_CARD_SLUGS = ["late-goals", "runs", "cup-specialists", "own-goals", "fortress"];
-const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "treble", "europe"];
+// Questions that render a data-driven OG card. Europe and a few easter eggs still
+// fall back to the text card; own-goals stays as a linkable easter-egg card.
+const DATA_CARD_SLUGS = ["late-goals", "runs", "cup-specialists", "own-goals", "fortress", "treble"];
+const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "europe"];
 // Questions whose headline figure and card figure are the same number.
-const HEADLINE_MATCHES_CARD = ["late-goals", "runs", "cup-specialists", "fortress"];
+const HEADLINE_MATCHES_CARD = ["late-goals", "runs", "cup-specialists", "fortress", "treble"];
 
 test("every curated question has a non-empty, data-present headline", () => {
   const headlines = questionHeadlines();
@@ -83,6 +82,39 @@ test("own-goals: card leads with the rank, derived from the live top-scorers tab
   assert.ok(a);
   const idx = topScorers(8).findIndex((p) => p.player_id === "own-goal");
   assert.equal(a.figure, idx >= 0 ? `#${idx + 1}` : "—", "card should lead with the own-goal rank");
+});
+
+test("treble: every surface reports live season figures", () => {
+  const t = trebleSummary();
+  assert.equal(t.trophies, 3, "three trophies in 1998-99");
+  assert.equal(t.losses, 5, "five defeats across the three competitions");
+  assert.equal(t.goals, 128, "128 goals scored that season");
+
+  const h = questionHeadlines().treble;
+  const a = questionAnswer("treble");
+  assert.ok(a);
+  assert.equal(h.stat, "3", "explore headline must report the trophy count");
+  assert.equal(a.figure, "3", "OG card must report the trophy count");
+  assert.equal(h.stat, a.figure, "headline and card figures must match");
+  assert.equal(h.gloss, a.gloss, "headline and card gloss must match");
+  assert.match(h.gloss, /5 defeats/, "gloss should name the live loss count");
+  assert.match(h.gloss, new RegExp(`${t.spanDays} days`), "gloss should name the decider span");
+  assert.equal(h.tone, "gold");
+  assert.equal(a.accent, "gold");
+
+  assert.equal(a.visual.kind, "rows");
+  if (a.visual.kind === "rows") {
+    assert.equal(a.visual.bars.length, 3, "one bar per winning competition run");
+    assert.ok(a.visual.bars.some((b) => b.highlight), "Champions League run should be highlighted");
+    const barMatches = a.visual.bars.reduce((s, b) => s + b.value, 0);
+    const runMatches = t.wonRuns.reduce((s, r) => s + r.p, 0);
+    assert.equal(barMatches, runMatches, "bar values should sum to competition matches played");
+    assert.equal(runMatches, t.wonRuns.reduce((s, r) => s + r.p, 0));
+    for (const r of t.wonRuns) {
+      const bar = a.visual.bars.find((b) => b.valueText === `${r.w}-${r.d}-${r.l}`);
+      assert.ok(bar, `missing bar for ${r.competition_name} W-D-L record`);
+    }
+  }
 });
 
 test("fortress: every surface reports the real unbeaten run, never a stale 0", () => {

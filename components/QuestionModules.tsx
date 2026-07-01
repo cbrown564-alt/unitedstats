@@ -5,7 +5,7 @@ import {
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord,
   fergusonFloorSummary, fergusonFloorTimeline, managerLongevityField, postFergusonFloorMoments,
-  trebleRuns, trebleDeciders, trebleSemis,
+  trebleDeciders, trebleSemis, trebleSummary,
   europeByDecade, europeWinRateTimeline, europeanFinals, europeMatchSequence,
   matchesSequence,
 } from "@/lib/trails";
@@ -627,19 +627,13 @@ function FergusonEraModule({ variant }: ModuleProps) {
 
 function TrebleModule({ variant }: ModuleProps) {
   const season = "1998-99";
-  const runs = trebleRuns(season).filter((r) => r.won);
+  const summary = trebleSummary(season);
+  const runs = summary.wonRuns;
   const deciders = trebleDeciders(season);
   const semis = trebleSemis(season);
   const seasonSeq = matchesSequence({ season });
-  const overall = runs.reduce(
-    (a, r) => ({ p: a.p + r.p, l: a.l + r.l }),
-    { p: 0, l: 0 },
-  );
-  const first = deciders[0];
-  const last = deciders[deciders.length - 1];
-  const spanDays = first && last ? Math.round((Date.parse(last.date) - Date.parse(first.date)) / 86_400_000) : 0;
-  const month = first ? new Date(`${first.date}T00:00:00`).toLocaleDateString("en-GB", { month: "long" }) : "";
-  const year = first ? first.date.slice(0, 4) : "";
+  const { spanDays, month, year, losses, decidersFromBehind } = summary;
+  const runPlayed = runs.reduce((n, r) => n + r.p, 0);
   const shortDate = (d: string) => fmtDate(d).replace(/\s*\d{4}$/, "");
   const runTypeById = new Map(runs.map((r) => [r.competition_id, r.type]));
   const spineMarkers = deciders.map((d) => ({
@@ -647,29 +641,70 @@ function TrebleModule({ variant }: ModuleProps) {
     label: `${d.competition_name} won — ${shortDate(d.date)}`,
     tone: TROPHY_CAT_TONE[runTypeById.get(d.competition_id) ?? "league"],
   }));
+  const lastDecider = deciders[deciders.length - 1];
+  const behindCopy =
+    decidersFromBehind === 0
+      ? "every decider won without falling behind"
+      : decidersFromBehind === 1
+        ? "one win after going behind"
+        : `${fmtNum(decidersFromBehind)} wins after going behind`;
+  const stoppageCopy = lastDecider?.wonInStoppage ? ", the last with two iconic goals in stoppage time" : "";
+  const trebleVisual = (
+    <div className="space-y-4">
+      <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+        <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
+          <div className="stat-num text-5xl font-semibold leading-none text-gold">{fmtNum(summary.trophies)}</div>
+          <div className="mx-auto mt-1.5 max-w-40 text-[11px] leading-snug text-ink-faint text-pretty">
+            trophies · {fmtNum(losses)} losses · {spanDays} days in {month}
+          </div>
+        </div>
+        <div className="flex items-center text-sm text-ink-dim sm:px-2">
+          <span>
+            The strip is every match in date order — <span className="text-ink">wins above the line, losses below</span>.
+            Trophy markers flag the three deciders in {month} {year}.
+          </span>
+        </div>
+      </div>
+      <div className="space-y-1.5">
+        <div className="text-[11px] uppercase tracking-wider text-ink-faint">
+          All {seasonSeq.length} matches of {season} — wins above the line, losses below; trophies mark the deciders
+        </div>
+        <ResultSpine
+          matches={seasonSeq}
+          markers={spineMarkers}
+          height={120}
+          subject="Manchester United 1998-99"
+          markerGlyph={<TrophyIcon className="h-4 w-4" />}
+          xLabel="month"
+        />
+      </div>
+      <p className="text-xs text-ink-dim text-pretty">
+        Each notch is one result in chronological order — green above the centre line, red below. The three gold trophies pin the nights that clinched the league, the cup and Europe; the rest is the long grind that made May possible.{" "}
+        <Link href={`/seasons/${season}`} className="text-devil-bright hover:underline focus-ring">
+          Open the full {season} campaign →
+        </Link>
+      </p>
+    </div>
+  );
   return (
     <Module
       slug="treble"
       evidence={{ href: `/matches?season=${season}`, label: "Every match of 1998-99 →", count: seasonSeq.length, countNoun: "matches" }}
       variant={variant}
-      visual={
-        <div className="space-y-1.5">
-          <div className="text-[11px] uppercase tracking-wider text-ink-faint">
-            All {seasonSeq.length} matches of 1998-99 — wins above the line, losses below
-          </div>
-          <ResultSpine matches={seasonSeq} markers={spineMarkers} height={120} subject="Manchester United 1998-99" markerGlyph={<TrophyIcon className="h-4 w-4" />} xLabel="month" />
-        </div>
-      }
+      visual={trebleVisual}
       visualLabel="One season"
-      finding={`United played ${overall.p} matches across the three competitions and lost just ${overall.l} — then became the first English club to hold the league, the FA Cup and the European Cup at the same time. All three were won inside ${spanDays} days in ${month} ${year}, the last of them in stoppage time.`}
-      slice="Every match of 1998-99 is in the timeline up top. The matches below show who scored and when in the decisive games."
+      finding={`United played ${fmtNum(runPlayed)} matches across the three competitions and lost just ${fmtNum(losses)} — then became the first English club to hold the league, the FA Cup and the European Cup at the same time. All three were won inside ${spanDays} days in ${month} ${year}${lastDecider?.wonInStoppage ? ", the last of them in stoppage time" : ""}.`}
+      slice={`Every match of ${season} is in the timeline up top. The matches below show who scored and when in the decisive games and semi-finals — the deciding legs that forged the Treble, not the full two-legged ties (scoreless first legs omitted).`}
       coverage="Every goal. Every match. One glorious season."
     >
+      <div className="mb-1">
+        <EvidenceLink href={`/seasons/${season}`} label={`Open the ${season} season page →`} />
+      </div>
       <section className="space-y-3">
         <div>
           <h3 className="text-sm font-medium text-ink-dim">{spanDays} days in {month}</h3>
           <p className="mt-0.5 text-xs text-ink-dim">
-            Three trophies settled in ten days — two wins after going behind, the last with two iconic goals in stoppage time.
+            Three trophies settled in {spanDays} days — {behindCopy}{stoppageCopy}.
           </p>
         </div>
         <div className="space-y-3">
@@ -743,7 +778,7 @@ function TrebleModule({ variant }: ModuleProps) {
           <div>
             <h3 className="text-sm font-medium text-ink-dim">How it was forged — two semi-final nights</h3>
             <p className="mt-0.5 text-xs text-ink-dim">
-              The Treble nearly never was. Both semi-finals turned on comebacks — one from two goals down in Turin, one in extra time at Villa Park.
+              The Treble nearly never was. Both semi-finals turned on comebacks — one from two goals down in Turin, one in extra time at Villa Park. These are the deciding legs only, not the full two-legged ties — scoreless first legs are omitted.
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -803,7 +838,7 @@ function TrebleModule({ variant }: ModuleProps) {
           {runs.map((r) => (
             <Link
               key={r.competition_id}
-              href={`/matches?season=${season}`}
+              href={`/matches?season=${season}&competition=${r.competition_id}`}
               className="group rounded-lg border border-line bg-panel-2 p-4 hover:border-devil/60"
             >
               <div className="flex items-center gap-2">

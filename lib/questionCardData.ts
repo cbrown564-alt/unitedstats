@@ -3,6 +3,9 @@ import {
   cupSpecialists,
   lateGoalManagerEras,
   leadHeldAtHome,
+  trebleSummary,
+  trebleGloss,
+  trebleRunLabel,
 } from "./trails";
 import { clubStreaks } from "./streaks";
 import { ownGoalSummary, topScorers } from "./queries";
@@ -91,6 +94,23 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
             value: p.goals,
             valueText: fmtNum(p.goals),
             highlight: p.player_id === "own-goal",
+          })),
+        },
+      };
+    }
+    case "treble": {
+      const t = trebleSummary();
+      return {
+        figure: String(t.trophies),
+        gloss: trebleGloss(t),
+        accent: "gold",
+        visual: {
+          kind: "rows",
+          bars: t.wonRuns.map((r) => ({
+            label: trebleRunLabel(r),
+            value: r.p,
+            valueText: `${r.w}-${r.d}-${r.l}`,
+            highlight: r.type === "european",
           })),
         },
       };

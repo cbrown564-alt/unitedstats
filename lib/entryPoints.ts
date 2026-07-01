@@ -38,7 +38,7 @@ export interface EntryPoint {
 interface PlayerSpec { id: string; label: string }
 interface RivalSpec { id: string; label: string }
 type EraSpec =
-  | { kind: "season"; id: string; label: string }
+  | { kind: "season"; id: string; label: string; href?: string }
   | { kind: "manager"; id: string; label: string };
 
 // Eight icons across the eras — the names a fan reaches for first. The strip
@@ -66,7 +66,7 @@ const RIVALRIES: RivalSpec[] = [
 // The defining eras, each landing on a rich page that opens its own trails — a
 // title campaign (a season) or a managerial reign (a manager page).
 const ERAS: EraSpec[] = [
-  { kind: "season", id: "1998-99", label: "The Treble" },
+  { kind: "season", id: "1998-99", label: "The Treble", href: "/questions/treble" },
   { kind: "season", id: "1967-68", label: "European Cup, ’68" },
   { kind: "manager", id: "matt-busby", label: "The Busby era" },
   { kind: "manager", id: "alex-ferguson", label: "The Ferguson era" },
@@ -94,7 +94,7 @@ function resolveRival(s: RivalSpec): EntryPoint {
 function resolveEra(s: EraSpec): EntryPoint {
   if (s.kind === "season") {
     if (!allSeasons().includes(s.id)) throw new Error(`entryPoints: unknown season "${s.id}"`);
-    return { kind: "era", label: s.label, href: `/seasons/${s.id}`, hint: s.id };
+    return { kind: "era", label: s.label, href: s.href ?? `/seasons/${s.id}`, hint: s.id };
   }
   const m = managerById(s.id);
   if (!m) throw new Error(`entryPoints: unknown manager "${s.id}"`);
