@@ -424,6 +424,7 @@ export default function AnalyticsPage() {
       <PageHeader
         eyebrow="Strength layer"
         title="Analytics"
+        deferOnMobile
         aside={
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-80">
             <StatTile label="Matches" value={fmtNum(Number(meta.matches))} tone="red" />

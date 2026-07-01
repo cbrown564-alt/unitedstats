@@ -47,44 +47,105 @@ export default async function TransfersPage() {
           style={{ backgroundColor: "var(--color-devil)" }}
           aria-hidden
         />
-        <div className="relative p-5 sm:p-7">
+        <div className="relative p-4 sm:p-5 lg:p-7">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
             People · the ledger
           </p>
-          <h1 className="display mt-2 max-w-3xl text-3xl leading-[0.95] sm:text-4xl">
-            A century and a half of business, in and out
-          </h1>
 
-          {/* The net is the answer; the two gross sides ride beside it, colour-keyed
-              to the tide below, with the volume of moves as the third readout. */}
-          <div className="mt-5 flex flex-wrap items-end gap-x-8 gap-y-4">
-            <div className="leading-none">
-              <div className="flex items-baseline gap-2">
-                <span className="stat-num text-4xl font-semibold text-ink sm:text-5xl">{fmtFee(net)}</span>
-                <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">net since 1883</span>
+          <div className="mt-2 space-y-3 border-b border-line/60 pb-4 lg:hidden">
+            <h1 className="display text-[1.65rem] leading-[1.02]">
+              A century and a half of business, in and out
+            </h1>
+            <p className="text-sm leading-6 text-ink-dim">
+              <span className="stat-num font-semibold text-ink">{fmtFee(net)}</span> net since 1883
+              {topIn[0] && (
+                <>
+                  {" "}
+                  — record fee{" "}
+                  <span className="font-semibold text-devil-bright">{topIn[0].player_name}</span>
+                </>
+              )}
+              .
+            </p>
+            <dl className="grid grid-cols-3 gap-2">
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Net</dt>
+                <dd className="stat-num text-lg font-semibold leading-tight text-ink">{fmtFee(net)}</dd>
               </div>
-            </div>
-            <dl className="flex flex-wrap items-end gap-x-7 gap-y-3.5 border-l border-line pl-6">
-              <div className="leading-none">
-                <dd className="stat-num text-xl font-semibold text-devil-bright">{fmtFee(totals.gross_spend)}</dd>
-                <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                  Spent <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.signings)} signings</span>
-                </dt>
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Spent</dt>
+                <dd className="stat-num text-lg font-semibold leading-tight text-devil-bright">
+                  {fmtFee(totals.gross_spend)}
+                  {topIn[0] && (
+                    <span className="mt-0.5 block truncate text-[11px] font-normal normal-case tracking-normal text-ink-dim">
+                      {topIn[0].player_name}
+                    </span>
+                  )}
+                </dd>
               </div>
-              <div className="leading-none">
-                <dd className="stat-num text-xl font-semibold text-gold">{fmtFee(totals.gross_received)}</dd>
-                <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                  Received <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.departures)} departures</span>
-                </dt>
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Received</dt>
+                <dd className="stat-num text-lg font-semibold leading-tight text-gold">
+                  {fmtFee(totals.gross_received)}
+                  {topOut[0] && (
+                    <span className="mt-0.5 block truncate text-[11px] font-normal normal-case tracking-normal text-ink-dim">
+                      {topOut[0].player_name}
+                    </span>
+                  )}
+                </dd>
               </div>
             </dl>
           </div>
 
-          <div className="mt-6">
+          <div className="hidden lg:block">
+            <h1 className="display mt-2 max-w-3xl text-3xl leading-[0.95] sm:text-4xl">
+              A century and a half of business, in and out
+            </h1>
+
+            <div className="mt-5 flex flex-wrap items-end gap-x-8 gap-y-4">
+              <div className="leading-none">
+                <div className="flex items-baseline gap-2">
+                  <span className="stat-num text-4xl font-semibold text-ink sm:text-5xl">{fmtFee(net)}</span>
+                  <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">net since 1883</span>
+                </div>
+              </div>
+              <dl className="flex flex-wrap items-end gap-x-7 gap-y-3.5 border-l border-line pl-6">
+                <div className="leading-none">
+                  <dd className="stat-num text-xl font-semibold text-devil-bright">{fmtFee(totals.gross_spend)}</dd>
+                  <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
+                    Spent <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.signings)} signings</span>
+                  </dt>
+                </div>
+                <div className="leading-none">
+                  <dd className="stat-num text-xl font-semibold text-gold">{fmtFee(totals.gross_received)}</dd>
+                  <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
+                    Received <span className="ml-1 normal-case tracking-normal text-ink-dim">{fmtNum(totals.departures)} departures</span>
+                  </dt>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <details className="group mt-4 lg:hidden">
+            <summary className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-dim hover:text-ink focus-ring">
+              The money tide
+            </summary>
+            <div className="mt-3">
+              <SpendTide years={tide} />
+            </div>
+            <p className="mt-4 max-w-xl text-xs text-ink-faint">
+              <span className="text-ink-dim">Slice:</span> every recorded arrival and departure, Newton Heath to now.
+              Spend and receipts count only the{" "}
+              <span className="stat-num text-ink-dim">{fmtNum(totals.spend_rows + totals.received_rows)}</span> deals with a
+              published fee, of {fmtNum(totals.signings + totals.departures)} total movements — many historical fees were
+              never disclosed, so the money is a floor and the early years sit flat on the line.
+            </p>
+          </details>
+          <div className="mt-6 hidden lg:block">
             <SpendTide years={tide} />
           </div>
 
-          <p className="mt-4 max-w-xl text-xs text-ink-faint">
+          <p className="mt-4 hidden max-w-xl text-xs text-ink-faint lg:block">
             <span className="text-ink-dim">Slice:</span> every recorded arrival and departure, Newton Heath to now.
             Spend and receipts count only the{" "}
             <span className="stat-num text-ink-dim">{fmtNum(totals.spend_rows + totals.received_rows)}</span> deals with a

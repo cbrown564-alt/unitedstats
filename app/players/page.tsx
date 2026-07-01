@@ -223,43 +223,98 @@ export default async function PlayersPage({
           style={{ backgroundColor: "var(--color-devil)" }}
           aria-hidden
         />
-        <div className="relative p-5 sm:p-7">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
+        <div className="relative p-4 sm:p-5 lg:p-7">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright lg:mb-3">
             People · the frontier
           </p>
-          <h1 className="display max-w-3xl text-4xl leading-[0.95] sm:text-5xl">
-            {fmtNum(allPlayers.length)} players, a handful immortal
-          </h1>
-          <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
-            Everyone to pull on the shirt, placed by how long they stayed and how much they scored. Most
-            cluster near the start — a cup tie, a cameo — while a few stretch out to the frontier:{" "}
-            {topScorer && <span className="font-semibold text-ink">{topScorer.name}</span>} up the goals
-            axis, {mostApps && <span className="font-semibold text-ink">{mostApps.name}</span>} far along
-            the appearances.
-          </p>
 
-          <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
-            <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Players</dt>
-              <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allPlayers.length)}</dd>
-            </div>
-            <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Top goalscorer</dt>
-              <dd className="stat-num text-lg font-semibold text-gold">
-                {topScorer ? fmtNum(topScorer.goals) : "0"}{" "}
-                <span className="text-sm font-normal text-ink-dim">{topScorer?.name}</span>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Most appearances</dt>
-              <dd className="stat-num text-lg font-semibold text-devil-bright">
-                {mostApps ? fmtNum(mostApps.apps || 0) : "0"}{" "}
-                <span className="text-sm font-normal text-ink-dim">{mostApps?.name}</span>
-              </dd>
-            </div>
-          </dl>
+          {/* Mobile: a scan-first headline strip — the stats that matter, one line of
+              context, then the map on demand so the first screen isn't all chart. */}
+          <div className="space-y-3 border-b border-line/60 pb-4 lg:hidden">
+            <h1 className="display text-[1.65rem] leading-[1.02]">
+              {fmtNum(allPlayers.length)} players, a handful immortal
+            </h1>
+            <p className="text-sm leading-6 text-ink-dim">
+              {topScorer && <span className="font-semibold text-gold">{topScorer.name}</span>}
+              {topScorer && mostApps && " · "}
+              {mostApps && <span className="font-semibold text-devil-bright">{mostApps.name}</span>}
+              {(topScorer || mostApps) && " — "}
+              the two frontiers on goals and appearances.
+            </p>
+            <dl className="grid grid-cols-3 gap-2">
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Players</dt>
+                <dd className="stat-num text-xl font-semibold text-ink">{fmtNum(allPlayers.length)}</dd>
+              </div>
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Top scorer</dt>
+                <dd className="stat-num text-xl font-semibold leading-tight text-gold">
+                  {topScorer ? fmtNum(topScorer.goals) : "0"}
+                  {topScorer && (
+                    <span className="mt-0.5 block truncate text-[11px] font-normal normal-case tracking-normal text-ink-dim">
+                      {topScorer.name}
+                    </span>
+                  )}
+                </dd>
+              </div>
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Most apps</dt>
+                <dd className="stat-num text-xl font-semibold leading-tight text-devil-bright">
+                  {mostApps ? fmtNum(mostApps.apps || 0) : "0"}
+                  {mostApps && (
+                    <span className="mt-0.5 block truncate text-[11px] font-normal normal-case tracking-normal text-ink-dim">
+                      {mostApps.name}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            </dl>
+          </div>
 
-          <div className="mt-7">
+          {/* Desktop: the full intro the chart sits under. */}
+          <div className="hidden lg:block">
+            <h1 className="display max-w-3xl text-4xl leading-[0.95] sm:text-5xl">
+              {fmtNum(allPlayers.length)} players, a handful immortal
+            </h1>
+            <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
+              Everyone to pull on the shirt, placed by how long they stayed and how much they scored. Most
+              cluster near the start — a cup tie, a cameo — while a few stretch out to the frontier:{" "}
+              {topScorer && <span className="font-semibold text-ink">{topScorer.name}</span>} up the goals
+              axis, {mostApps && <span className="font-semibold text-ink">{mostApps.name}</span>} far along
+              the appearances.
+            </p>
+
+            <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Players</dt>
+                <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allPlayers.length)}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Top goalscorer</dt>
+                <dd className="stat-num text-lg font-semibold text-gold">
+                  {topScorer ? fmtNum(topScorer.goals) : "0"}{" "}
+                  <span className="text-sm font-normal text-ink-dim">{topScorer?.name}</span>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Most appearances</dt>
+                <dd className="stat-num text-lg font-semibold text-devil-bright">
+                  {mostApps ? fmtNum(mostApps.apps || 0) : "0"}{" "}
+                  <span className="text-sm font-normal text-ink-dim">{mostApps?.name}</span>
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <details className="group mt-4 lg:hidden">
+            <summary className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-dim hover:text-ink focus-ring">
+              The greatness map
+            </summary>
+            <div className="mt-3">
+              <PlayerGreatnessMap players={allPlayers} />
+            </div>
+          </details>
+          <div className="mt-7 hidden lg:block">
             <PlayerGreatnessMap players={allPlayers} />
           </div>
         </div>

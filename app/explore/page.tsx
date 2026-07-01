@@ -72,7 +72,7 @@ export default function ExplorePage() {
 
   return (
     <div className="space-y-12">
-      <PageHeader eyebrow="Questions · comparisons · cuts" title="Discover">
+      <PageHeader eyebrow="Questions · comparisons · cuts" title="Discover" deferOnMobile>
         Start with an answer. Every question below is tested directly against the canonical record — opening a
         dedicated finding, the slice of history it’s drawn from, and the individual matches that built the
         figure. Comparison and grouping follow once you have a thread to pull.

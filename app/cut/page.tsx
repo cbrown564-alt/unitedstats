@@ -71,7 +71,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         <span className="text-ink-dim">Cut</span>
       </nav>
 
-      <PageHeader eyebrow="Curated cut" title={cutTitle(cut)}>
+      <PageHeader eyebrow="Curated cut" title={cutTitle(cut)} deferOnMobile>
         The whole record reordered as a standings ladder — every group links to the matches behind it.
       </PageHeader>
 

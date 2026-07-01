@@ -52,49 +52,101 @@ export default function OpponentsPage() {
           style={{ backgroundColor: "var(--color-devil)" }}
           aria-hidden
         />
-        <div className="relative p-5 sm:p-7">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
+        <div className="relative p-4 sm:p-5 lg:p-7">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright lg:mb-3">
             Head to head · the landscape
           </p>
-          <h1 className="display max-w-3xl text-4xl leading-[0.95] sm:text-5xl">
-            {fmtNum(allOpponents.length)} opponents, one nemesis
-          </h1>
-          <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
-            Every club United have faced since 1886, placed by how often we’ve met and how we fare.
-            Against almost everyone we play a lot the record hovers near break-even — but{" "}
-            {dominated && (
-              <>
-                <span className="font-semibold text-win">{dominated.name}</span> we genuinely master
-                {nemesis ? ", and " : "."}
-              </>
-            )}
-            {nemesis && (
-              <>
-                <span className="font-semibold text-loss">{nemesis.name}</span>, the rival we’ve met
-                most, we beat least.
-              </>
-            )}
-          </p>
 
-          <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
-            <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Opponents faced</dt>
-              <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allOpponents.length)}</dd>
-            </div>
-            <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Most played</dt>
-              <dd className="stat-num text-lg font-semibold text-devil-bright">
-                {fmtNum(mostPlayed?.p ?? 0)}{" "}
-                <span className="text-sm font-normal text-ink-dim">{mostPlayed?.name}</span>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Since</dt>
-              <dd className="stat-num text-lg font-semibold text-ink">1886</dd>
-            </div>
-          </dl>
+          <div className="space-y-3 border-b border-line/60 pb-4 lg:hidden">
+            <h1 className="display text-[1.65rem] leading-[1.02]">
+              {fmtNum(allOpponents.length)} opponents, one nemesis
+            </h1>
+            <p className="text-sm leading-6 text-ink-dim">
+              {dominated && (
+                <>
+                  Master <span className="font-semibold text-win">{dominated.name}</span>
+                  {nemesis ? "; " : "."}
+                </>
+              )}
+              {nemesis && (
+                <>
+                  struggle most against{" "}
+                  <span className="font-semibold text-loss">{nemesis.name}</span>.
+                </>
+              )}
+            </p>
+            <dl className="grid grid-cols-3 gap-2">
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Opponents</dt>
+                <dd className="stat-num text-xl font-semibold text-ink">{fmtNum(allOpponents.length)}</dd>
+              </div>
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Most played</dt>
+                <dd className="stat-num text-xl font-semibold leading-tight text-devil-bright">
+                  {fmtNum(mostPlayed?.p ?? 0)}
+                  {mostPlayed && (
+                    <span className="mt-0.5 block truncate text-[11px] font-normal normal-case tracking-normal text-ink-dim">
+                      {mostPlayed.name}
+                    </span>
+                  )}
+                </dd>
+              </div>
+              <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
+                <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Since</dt>
+                <dd className="stat-num text-xl font-semibold text-ink">1886</dd>
+              </div>
+            </dl>
+          </div>
 
-          <div className="mt-7">
+          <div className="hidden lg:block">
+            <h1 className="display max-w-3xl text-4xl leading-[0.95] sm:text-5xl">
+              {fmtNum(allOpponents.length)} opponents, one nemesis
+            </h1>
+            <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
+              Every club United have faced since 1886, placed by how often we’ve met and how we fare.
+              Against almost everyone we play a lot the record hovers near break-even — but{" "}
+              {dominated && (
+                <>
+                  <span className="font-semibold text-win">{dominated.name}</span> we genuinely master
+                  {nemesis ? ", and " : "."}
+                </>
+              )}
+              {nemesis && (
+                <>
+                  <span className="font-semibold text-loss">{nemesis.name}</span>, the rival we’ve met
+                  most, we beat least.
+                </>
+              )}
+            </p>
+
+            <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Opponents faced</dt>
+                <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allOpponents.length)}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Most played</dt>
+                <dd className="stat-num text-lg font-semibold text-devil-bright">
+                  {fmtNum(mostPlayed?.p ?? 0)}{" "}
+                  <span className="text-sm font-normal text-ink-dim">{mostPlayed?.name}</span>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Since</dt>
+                <dd className="stat-num text-lg font-semibold text-ink">1886</dd>
+              </div>
+            </dl>
+          </div>
+
+          <details className="group mt-4 lg:hidden">
+            <summary className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-dim hover:text-ink focus-ring">
+              The rivalry map
+            </summary>
+            <div className="mt-3">
+              <OpponentRivalryMap opponents={allOpponents} />
+            </div>
+          </details>
+          <div className="mt-7 hidden lg:block">
             <OpponentRivalryMap opponents={allOpponents} />
           </div>
         </div>

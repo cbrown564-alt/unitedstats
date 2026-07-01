@@ -5,13 +5,16 @@ export function PageHeader({
   title,
   children,
   aside,
+  /** On mobile, skip the title band when a hero plate follows — sr-only h1 remains. */
+  deferOnMobile,
 }: {
   eyebrow?: string;
   title: string;
   children?: React.ReactNode;
   aside?: React.ReactNode;
+  deferOnMobile?: boolean;
 }) {
-  return (
+  const header = (
     <header className="border-b border-line/80 pb-4 lg:pb-5">
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-4">
         <div>
@@ -26,6 +29,15 @@ export function PageHeader({
         {aside}
       </div>
     </header>
+  );
+
+  if (!deferOnMobile) return header;
+
+  return (
+    <>
+      <h1 className="sr-only lg:hidden">{title}</h1>
+      <div className="hidden lg:block">{header}</div>
+    </>
   );
 }
 

@@ -39,7 +39,7 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
 
   return (
     <div className="space-y-7">
-      <PageHeader eyebrow="On this day" title={entry.label}>
+      <PageHeader eyebrow="On this day" title={entry.label} deferOnMobile>
         {entry.fallback
           ? "Nothing in the record fell on this date — step a day either way."
           : "United’s matches on this date, across the years — the standout first."}

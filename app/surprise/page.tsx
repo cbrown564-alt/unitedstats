@@ -24,7 +24,7 @@ export default function SurprisePage() {
 
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Surprise" title="Something you didn't know">
+      <PageHeader eyebrow="Surprise" title="Something you didn't know" deferOnMobile>
         Pull the thread at random — a tested myth, a way to slice the record, or a club peak. Land on
         one, follow it to its receipt, or roll again.
       </PageHeader>

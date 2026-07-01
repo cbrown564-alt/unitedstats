@@ -215,7 +215,7 @@ export default async function SeasonsPage({
 
   return (
     <div className="space-y-10">
-      <PageHeader eyebrow="Campaign ledger" title="Seasons">
+      <PageHeader eyebrow="Campaign ledger" title="Seasons" deferOnMobile>
         Every league and cup campaign since {clubName("1890-01-01")} joined the Football League in
         1892. Follow the trajectory of the club’s league finishes on the timeline, or open any season
         below to trace the match evidence and competition paths.
