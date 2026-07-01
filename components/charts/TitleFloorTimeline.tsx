@@ -71,6 +71,14 @@ export function TitleFloorTimeline({
   const decades: number[] = [];
   for (let dYear = Math.ceil(yMin / 10) * 10; dYear <= yMax; dYear += 10) decades.push(dYear);
 
+  // Rebuild: Ferguson's first six seasons before the 1992–93 title breakthrough.
+  const rebuildStart = x(yMin);
+  const rebuildEnd = x(1991);
+  const rebuildMid = (rebuildStart + rebuildEnd) / 2;
+  const rebuildLow = decorated
+    .filter((d) => d.p.year <= 1991)
+    .sort((a, b) => b.p.position - a.p.position)[0];
+
   const heightClass = compact ? "h-44 sm:h-48" : "h-56 sm:h-72";
 
   return (
@@ -87,6 +95,31 @@ export function TitleFloorTimeline({
           style={{ left: `${hingeX}%`, right: 0 }}
           aria-hidden
         />
+
+        {/* Rebuild band — the early dip before the dynasty climb */}
+        {!compact && (
+          <>
+            <div
+              className="absolute top-0 bottom-6 rounded-sm border-x border-ink-faint/15 bg-ink/[0.035]"
+              style={{ left: `${rebuildStart}%`, width: `${rebuildEnd - rebuildStart}%` }}
+              aria-hidden
+            />
+            <span
+              className="absolute -translate-x-1/2 whitespace-nowrap rounded border border-line/60 bg-panel/90 px-2 py-1 text-[10px] text-ink-dim shadow-sm backdrop-blur-sm"
+              style={{ left: `${rebuildMid}%`, bottom: "7%" }}
+            >
+              <span className="font-medium text-ink">Rebuild</span> · 1986–92 · no titles until &apos;93
+            </span>
+            {rebuildLow && (
+              <span
+                className="pointer-events-none absolute -translate-x-1/2 text-[9px] uppercase tracking-[0.12em] text-ink-faint"
+                style={{ left: `${rebuildLow.cx}%`, top: `${Math.min(rebuildLow.cy + 8, Y_BOT - 2)}%` }}
+              >
+                {rebuildLow.p.position}{ordSuffix(rebuildLow.p.position)} lowest
+              </span>
+            )}
+          </>
+        )}
 
         {/* Decade guides */}
         {decades.map((dYear) => (
@@ -122,16 +155,22 @@ export function TitleFloorTimeline({
           </span>
         )}
 
-        {/* Era callouts — titles + average, anchored in each band */}
+        {/* Era callouts — corner badges, clear of the trajectory */}
         {!compact && (
           <>
-            <div className="absolute left-[8%] top-[18%] max-w-[9rem] text-center" style={{ width: `${Math.max(18, hingeX - 10)}%` }}>
-              <div className="stat-num text-3xl font-semibold leading-none text-gold sm:text-4xl">{fergTitles}</div>
-              <div className="mt-1 text-[10px] uppercase tracking-wider text-ink-faint">titles · avg {fergAvg.toFixed(1)}</div>
+            <div
+              className="absolute z-20 rounded-md border border-line/70 bg-panel/95 px-2.5 py-2 shadow-sm backdrop-blur-sm"
+              style={{ left: "1.25%", top: "14%" }}
+            >
+              <div className="stat-num text-2xl font-semibold leading-none text-gold sm:text-3xl">{fergTitles}</div>
+              <div className="mt-0.5 text-[10px] uppercase tracking-wider text-ink-faint">titles · avg {fergAvg.toFixed(1)}</div>
             </div>
-            <div className="absolute right-[4%] top-[38%] max-w-[9rem] text-center" style={{ width: `${Math.max(18, 100 - hingeX - 8)}%` }}>
-              <div className="stat-num text-3xl font-semibold leading-none text-ink-dim sm:text-4xl">{sinceTitles}</div>
-              <div className="mt-1 text-[10px] uppercase tracking-wider text-ink-faint">titles since · avg {sinceAvg.toFixed(1)}</div>
+            <div
+              className="absolute z-20 rounded-md border border-line/70 bg-panel/95 px-2.5 py-2 text-right shadow-sm backdrop-blur-sm"
+              style={{ left: `${hingeX + 1.5}%`, top: "14%", maxWidth: "7.5rem" }}
+            >
+              <div className="stat-num text-2xl font-semibold leading-none text-ink-dim sm:text-3xl">{sinceTitles}</div>
+              <div className="mt-0.5 text-[10px] uppercase tracking-wider text-ink-faint">since · avg {sinceAvg.toFixed(1)}</div>
             </div>
           </>
         )}
