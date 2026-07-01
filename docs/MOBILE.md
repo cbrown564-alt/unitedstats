@@ -21,6 +21,8 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Wave 1 — filter sheet** | 2026-06-30 | Matches search + filters in the floating pill below lg; filter sheet via `BottomSheet`; desktop keeps `MatchControlDeck` |
 | **Wave 1 — match-detail disclosure** | 2026-06-30 | `MatchSectionTabs` on mobile; hero + `MatchFlow` first; teamsheet in Match tab scroll; desktop `<details>` for secondary sections |
 | **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` + `LeagueTable` mobile rows — **leaderboard** for ranked lists (`/players`, `LeagueTable`, manager bounce); **metrics** for timelines and coverage grids (`PlayerSeasonTable`, `/data`). |
+| **Wave 1 — seasons cards** | 2026-06-30 | `/seasons` mobile card stream — `SeasonLedgerCard` per campaign, sticky decade headers below JumpRail; desktop grid table unchanged at `sm+`. |
+| **Wave 1 — analytics chapters** | 2026-06-30 | `/analytics` mobile `ChapterPager` — one ChartPanel (or EloHero / records block) per viewport-height slide, horizontal scroll-snap + dot indicator; desktop three-act layout unchanged at `sm+`. |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -330,8 +332,8 @@ Impact weighted toward argument-settler and fragmented browse.
 | Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ Filter button in pill on `/matches`; sheet via `BottomSheet`; page deck hidden below lg. |
 | Touch chart inspection (1.4) | M | Med–High | ✅ Tap-to-pin/dismiss + bigger targets on shared inspectable charts (`useChartPin`). |
 | Answer surfaces — questions + compare (1.7) | M | **High** | ✅ Breadcrumbs, mobile appendix (definition/coverage), compare measures disclosure. |
-| Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | Momentum stream, not a row wall. |
-| Analytics chapters (1.3) | M–L | Med | One question per screen-height, swipeable. |
+| Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | ✅ `SeasonLedgerCard` stream; sticky `season-decade-header` below JumpRail. |
+| Analytics chapters (1.3) | M–L | Med | ✅ `ChapterPager` — one question per viewport slide, swipe + dots. |
 
 ### Wave 2 — Structural polish
 *What makes exploration feel native on a phone — not a live-score app.*
@@ -373,7 +375,8 @@ polish or search-first work.*
    - ~~Shared register primitive~~ — done for current surfaces (`DataTable`, `LeagueTable`, `/players`, `PlayerSeasonTable`, `/data`, manager bounce).
    - ~~Touch chart inspection~~ — done.
    - ~~Answer surfaces (questions + compare)~~ — done.
-   - Seasons scroll → cards w/ sticky era headers; analytics chapters.
+   - ~~Seasons scroll → cards w/ sticky era headers~~ — done.
+   - ~~Analytics chapters~~ — done.
 4. **Wave 2 in parallel when ready** — `TonightHero` evolution, sheet Phase B (list preview),
    full-bleed match-night list cards. Phase B before committing to Phase C intercepting routes.
 5. **Ignore deferred platform work** until there is an explicit decision to pursue install /
@@ -382,4 +385,4 @@ polish or search-first work.*
 **Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
 rebuilding list→detail twice.
 
-**Suggested next dive:** seasons cards with sticky era headers, then analytics chapters (one question per screen-height, swipeable) — both are Wave 1 reading-track items still open.
+**Suggested next dive:** Wave 2 — `TonightHero` home evolution, sheet Phase B (list preview in sheet), or full-bleed match-night list cards. Wave 1 reading track is complete.

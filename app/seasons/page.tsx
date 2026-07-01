@@ -5,11 +5,22 @@ import { PageHeader } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
 import { HonoursChip } from "@/components/HonoursBadge";
-import { TrophyIcon } from "@/components/CampaignIcons";
 import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
-import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
+import { CampaignVerdict } from "@/components/CampaignVerdict";
 import { CoverageNote } from "@/components/CoverageNote";
 import { JumpRail, type JumpChip } from "@/components/JumpRail";
+import { FinishLadder } from "@/components/seasons/FinishLadder";
+import { SeasonLedgerCard } from "@/components/seasons/SeasonLedgerCard";
+import {
+  cupOutcomesForSeason,
+  cupVerdict,
+  LANE_HEAD_TONE,
+  LANE_LABEL,
+  LANE_ORDER,
+  laneOf,
+  lanesForComps,
+  type Lane,
+} from "@/components/seasons/seasonLedgerLanes";
 import { clubName, fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
@@ -64,118 +75,6 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
   );
 }
 
-/**
- * A season's league finish as the league table itself: a track running 1st (left)
- * to last (right), the relegation zone shaded red and the top edge gold, with a
- * marker pinned where United finished. Self-contained per row — the ends carry
- * the axis, so the placing reads as a *position* without any cross-row scaffolding.
- * The Second Division is the same shape, muted and tagged, since winning it is a
- * promotion, not the gold of a league title.
- */
-function FinishLadder({ league }: { league: SeasonSummary }) {
-  if (league.position == null) {
-    return <span className="stat-num text-xs text-ink-faint">No league finish</span>;
-  }
-  const top = isTopFlight(league);
-  const size = league.league_size ?? 0;
-  const pos = league.position;
-  const frac = size > 1 ? (pos - 1) / (size - 1) : 0;
-  const champ = pos === 1;
-  const danger = top && !champ && frac >= 0.8;
-  const relZone = size > 1 ? Math.min(22, (3 / size) * 100) : 16; // ~bottom three places
-
-  const marker = champ
-    ? top
-      ? "bg-gold border-pitch"
-      : "bg-pitch border-gold" // Div 2 title — hollow gold, a promotion not a crown
-    : danger
-      ? "bg-loss border-pitch"
-      : top
-        ? "bg-ink border-pitch"
-        : "bg-ink-faint border-pitch";
-  const placingTone = champ
-    ? top
-      ? "text-gold"
-      : "text-gold/85"
-    : danger
-      ? "text-loss"
-      : "text-ink-dim";
-  const placingLabel = champ ? (top ? "Champions" : "Winners") : ordinal(pos);
-
-  return (
-    <div className="min-w-0">
-      <div className="relative">
-        <div className="h-2 w-full overflow-hidden rounded-full bg-panel-2/70 ring-1 ring-inset ring-line/60">
-          {top ? (
-            <>
-              <div className="absolute inset-y-0 left-0 w-[7%] bg-gold/30" />
-              <div className="absolute inset-y-0 right-0 bg-loss/25" style={{ width: `${relZone}%` }} />
-            </>
-          ) : (
-            <div className="absolute inset-y-0 left-0 w-[12%] bg-ink/12" />
-          )}
-        </div>
-        <span
-          className={`absolute top-1 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 shadow-[0_1px_2px_rgb(0_0_0/0.5)] ${marker}`}
-          style={{ left: `${frac * 100}%` }}
-        />
-      </div>
-      <div className="mt-1.5 flex items-center justify-between gap-2 text-[11px] leading-none">
-        <span className={`flex items-center gap-1 font-semibold ${placingTone}`}>
-          {champ && top && <TrophyIcon className="h-3 w-3" />}
-          {!top && (
-            <span className="rounded bg-panel-2 px-1 py-px text-[9px] font-bold uppercase tracking-wide text-ink-faint">
-              Div 2
-            </span>
-          )}
-          {placingLabel}
-        </span>
-        {size > 0 && <span className="stat-num shrink-0 text-ink-faint">{size} teams</span>}
-      </div>
-    </div>
-  );
-}
-
-// ---- Fixed competition lanes ------------------------------------------------
-// Every cup the club enters maps to one of four fixed lanes, in a stable order,
-// so a decade's table can be scanned straight down a column ("how far in Europe
-// each year?"). The lane a competition lives in is its type, collapsed.
-
-type Lane = "fa-cup" | "league-cup" | "europe" | "other";
-const LANE_ORDER: Lane[] = ["fa-cup", "league-cup", "europe", "other"];
-const LANE_LABEL: Record<Lane, string> = {
-  "fa-cup": "FA Cup",
-  "league-cup": "League Cup",
-  europe: "Europe",
-  other: "Other",
-};
-// Column-header tone mirrors the detail page's competition colour-coding: the
-// cup nights gold-warm, the European nights blue. The header carries the
-// competition colour; the cells below it carry only the outcome (so gold/silver
-// stay reserved for silverware/runners-up, never a mid-round exit).
-const LANE_HEAD_TONE: Record<Lane, string> = {
-  "fa-cup": "text-gold/75",
-  "league-cup": "text-gold/75",
-  europe: "text-europe",
-  other: "text-ink-dim",
-};
-function laneOf(type: string): Lane | null {
-  switch (type) {
-    case "domestic-cup":
-      return "fa-cup";
-    case "league-cup":
-      return "league-cup";
-    case "european":
-      return "europe";
-    case "super-cup":
-    case "world":
-    case "playoff":
-      return "other";
-    default:
-      return null; // league — not a cup lane
-  }
-}
-
 const CUP_SHORT: Record<string, string> = {
   "charity-shield": "Shield",
   "uefa-super-cup": "Super Cup",
@@ -184,42 +83,6 @@ const CUP_SHORT: Record<string, string> = {
   "intercontinental-cup": "Interc.",
   "test-match": "Test",
 };
-
-/** A round name shortened to a scannable token for a narrow lane cell. */
-function shortRound(round: string | null): string {
-  if (!round) return "";
-  const r = round.toLowerCase();
-  if (r.includes("semi")) return "SF";
-  if (r.includes("quarter")) return "QF";
-  if (r.includes("round of 16")) return "R16";
-  if (r.includes("group")) return "Group";
-  if (r.includes("play-off") || r.includes("playoff")) return "Play-off";
-  if (r.includes("qualifying")) return "Qual.";
-  const m = round.match(/round\s*(\d+)/i);
-  if (m) return `R${m[1]}`;
-  if (r.includes("final")) return "Final";
-  return round;
-}
-
-/**
- * A cup campaign's verdict from index-level data alone — the furthest round from
- * the summary, plus the deciding match's outcome to tell a won final from a lost
- * one. Mirrors the season detail's {@link campaignOutcome}: a reached final won
- * is silverware, lost is runners-up; anything shallower is the round, stated
- * quietly. The promotion/relegation Test Match is a result, never a trophy.
- */
-function cupVerdict(s: SeasonSummary, lastOutcome: string | undefined): { label: string; tier: CampaignTier } {
-  if (s.type === "playoff") {
-    return { label: lastOutcome === "W" ? "Won" : "Lost", tier: "neutral" };
-  }
-  const oneOff = s.type === "super-cup" || s.type === "world";
-  const fr = s.furthest_round ?? "";
-  const reachedFinal = oneOff || (/final/i.test(fr) && !/(semi|quarter)/i.test(fr));
-  if (reachedFinal && lastOutcome) {
-    return lastOutcome === "W" ? { label: "Won", tier: "silverware" } : { label: "Final", tier: "final-loss" };
-  }
-  return { label: shortRound(s.furthest_round), tier: "neutral" };
-}
 
 /** One fixed lane's cell for a season: the campaign verdict(s), or an em dash if
  *  the club didn't contest that competition that year. */
@@ -442,45 +305,70 @@ export default async function SeasonsPage({
           totalP: comps.reduce((a, c) => a + c.p, 0),
         }));
 
-        // Only the cup lanes this decade actually used, in their fixed order —
-        // no League Cup column before 1960, no Europe column before 1956.
-        const laneSet = new Set<Lane>();
-        for (const r of rows) for (const c of r.comps) {
-          const ln = laneOf(c.type);
-          if (ln) laneSet.add(ln);
-        }
-        const lanes = LANE_ORDER.filter((l) => laneSet.has(l));
+        const lanes = lanesForComps(rows.flatMap((r) => r.comps));
         const template = `4.5rem minmax(8.5rem,1.1fr) minmax(6.5rem,0.85fr) ${lanes
           .map(() => "minmax(4.5rem,6rem)")
           .join(" ")}`;
 
+        const decadeHeader = glory ? (
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex items-baseline gap-2.5">
+              <span className="h-5 w-1 shrink-0 rounded-full bg-gold/80" aria-hidden />
+              <h2 className="display shrink-0 text-2xl leading-none sm:text-[1.75rem]">{decade}</h2>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold/80">
+                Title era
+              </span>
+            </div>
+            <div className="flex flex-col gap-1.5 sm:items-end">
+              <DecadeHonours titles={titles} cups={brief?.cupsWon ?? 0} />
+              {brief && <p className="text-sm leading-5 text-ink-dim">{decadeTail(brief)}</p>}
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-1.5 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className="display shrink-0 text-xl leading-none text-ink-dim">{decade}</h2>
+            <div className="flex flex-col gap-1 sm:items-end">
+              <DecadeHonours titles={0} cups={brief?.cupsWon ?? 0} />
+              {brief && <p className="text-[13px] leading-5 text-ink-faint">{decadeTail(brief)}</p>}
+            </div>
+          </div>
+        );
+
         return (
           <section key={decade} id={`decade-${decade}`} className={`scroll-mt-28 ${gap}`}>
-            {glory ? (
-              <div className="mb-3 flex flex-col gap-2 border-b border-gold/30 pb-3 sm:flex-row sm:items-end sm:justify-between">
-                <div className="flex items-baseline gap-2.5">
-                  <span className="h-5 w-1 shrink-0 rounded-full bg-gold/80" aria-hidden />
-                  <h2 className="display shrink-0 text-2xl leading-none sm:text-[1.75rem]">{decade}</h2>
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold/80">
-                    Title era
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1.5 sm:items-end">
-                  <DecadeHonours titles={titles} cups={brief?.cupsWon ?? 0} />
-                  {brief && <p className="text-sm leading-5 text-ink-dim">{decadeTail(brief)}</p>}
-                </div>
-              </div>
-            ) : (
-              <div className="mb-2.5 flex flex-col gap-1.5 border-b border-line/55 pb-2.5 sm:flex-row sm:items-end sm:justify-between">
-                <h2 className="display shrink-0 text-xl leading-none text-ink-dim">{decade}</h2>
-                <div className="flex flex-col gap-1 sm:items-end">
-                  <DecadeHonours titles={0} cups={brief?.cupsWon ?? 0} />
-                  {brief && <p className="text-[13px] leading-5 text-ink-faint">{decadeTail(brief)}</p>}
-                </div>
-              </div>
-            )}
+            <div
+              className={`season-decade-header ${glory ? "season-decade-header--glory" : ""} mb-3 border-b pb-3 sm:static sm:z-auto sm:mb-3 sm:border-b sm:bg-transparent sm:backdrop-blur-none ${
+                glory ? "border-gold/30 sm:border-gold/30" : "border-line/55 sm:border-line/55"
+              }`}
+            >
+              {decadeHeader}
+            </div>
 
-            <div className="overflow-x-auto">
+            {/* Mobile: card stream — one season per card, decade header sticks below JumpRail. */}
+            <ol className="season-card-stream register-card-list space-y-2.5 sm:hidden">
+              {rows.map((r) => {
+                const eraKey = eraForFirstMatchYear(Number(r.season.slice(0, 4))).key;
+                const seasonGlory =
+                  r.league != null &&
+                  isTopFlight(r.league) &&
+                  r.league.position === 1;
+                return (
+                  <SeasonLedgerCard
+                    key={r.season}
+                    season={r.season}
+                    href={`/seasons/${r.season}`}
+                    league={r.league}
+                    totalP={r.totalP}
+                    cups={cupOutcomesForSeason(r.comps, lanes, cupResults)}
+                    glory={seasonGlory}
+                    eraClass={eraSeasonRowClass(eraKey)}
+                  />
+                );
+              })}
+            </ol>
+
+            {/* Desktop: scannable grid table. */}
+            <div className="hidden overflow-x-auto sm:block">
               <div
                 className={`min-w-max overflow-hidden rounded-lg border bg-pitch/35 ${
                   glory ? "border-gold/25" : "border-line"

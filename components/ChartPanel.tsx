@@ -13,6 +13,8 @@ export function ChartPanel({
   evidenceLabel,
   note,
   kicker,
+  collapsibleNote = false,
+  embedded = false,
   children,
 }: {
   title?: string;
@@ -25,11 +27,15 @@ export function ChartPanel({
   evidenceLabel?: string;
   /** Extra note content rendered inside the CoverageNote. */
   note?: React.ReactNode;
+  /** Collapse slice/coverage below `sm` — for mobile chapter slides. */
+  collapsibleNote?: boolean;
+  /** Hide title/kicker — chapter pager header carries them on mobile. */
+  embedded?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      {title && (
+      {title && !embedded && (
         <div className="mb-3">
           {kicker && <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">{kicker}</p>}
           <h2 className="display text-xl">{title}</h2>
@@ -44,6 +50,7 @@ export function ChartPanel({
             count={count}
             evidenceHref={evidenceHref}
             evidenceLabel={evidenceLabel}
+            collapsible={collapsibleNote}
           >
             {note}
           </CoverageNote>
