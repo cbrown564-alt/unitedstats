@@ -155,10 +155,12 @@ export default function AnalyticsPage() {
     </div>
   );
 
-  const simPanel = sim ? (
+  const simPanel = (embedded = false) =>
+    sim ? (
     <ChartPanel
+      embedded={embedded}
       title={`Replaying ${sim.season} from the ratings`}
-      kicker="A season as the ratings saw it"
+      kicker={embedded ? undefined : "A season as the ratings saw it"}
       collapsibleNote
       slice={`each of the ${sim.matches} ${sim.competitionName} matches redrawn ${fmtNum(sim.runs)} times from its pre-match win expectancy, 3 points for a win. This describes points totals, not table positions.`}
       note={
@@ -203,8 +205,9 @@ export default function AnalyticsPage() {
     </>
   );
 
-  const winRatePanel = (
+  const winRatePanel = (embedded = false) => (
     <ChartPanel
+      embedded={embedded}
       title="Win rate by season"
       collapsibleNote
       slice="all competitions per season; the dashed line is 50%. Troughs mark the relegation seasons and the early 1930s; the plateau is the Ferguson era."
@@ -236,8 +239,9 @@ export default function AnalyticsPage() {
     </ChartPanel>
   );
 
-  const goalsPanel = (
+  const goalsPanel = (embedded = false) => (
     <ChartPanel
+      embedded={embedded}
       title="Goals scored per season"
       collapsibleNote
       slice="goals scored, all competitions — taller wartime-adjacent seasons partly reflect longer cup runs."
@@ -260,10 +264,11 @@ export default function AnalyticsPage() {
     </ChartPanel>
   );
 
-  const attendancePanel = (
+  const attendancePanel = (embedded = false) => (
     <ChartPanel
+      embedded={embedded}
       title="Average home attendance"
-      kicker="The crowd, century-long"
+      kicker={embedded ? undefined : "The crowd, century-long"}
       collapsibleNote
       slice="mean of recorded home attendances per season."
       coverage="sparse before the 1920s — early points lean on few matches. The post-war boom and the 1990s expansion of Old Trafford are the two big climbs."
@@ -377,7 +382,7 @@ export default function AnalyticsPage() {
           kicker: "02 · Does it hold up",
           title: `Replaying ${sim.season} from the ratings`,
           dek: "One season redrawn from pre-match win expectancy.",
-          content: simPanel,
+          content: simPanel(true),
         } satisfies Chapter]
       : []),
     {
@@ -391,19 +396,20 @@ export default function AnalyticsPage() {
       id: "win-rate",
       kicker: "03 · What it produced",
       title: "Win rate by season",
-      content: winRatePanel,
+      content: winRatePanel(true),
     },
     {
       id: "goals",
       kicker: "03 · What it produced",
       title: "Goals scored per season",
-      content: goalsPanel,
+      content: goalsPanel(true),
     },
     {
       id: "attendance",
       kicker: "03 · What it produced",
       title: "Average home attendance",
-      content: attendancePanel,
+      dek: "The crowd, century-long",
+      content: attendancePanel(true),
     },
     {
       id: "partnerships",
@@ -455,7 +461,7 @@ export default function AnalyticsPage() {
             {reliabilityPanel}
           </section>
 
-          {simPanel}
+          {simPanel()}
         </div>
 
         <div className="space-y-8">
@@ -467,11 +473,11 @@ export default function AnalyticsPage() {
           <section>{recordsSection}</section>
 
           <section className="grid gap-8 lg:grid-cols-2">
-            {winRatePanel}
-            {goalsPanel}
+            {winRatePanel()}
+            {goalsPanel()}
           </section>
 
-          {attendancePanel}
+          {attendancePanel()}
 
           <section>
             <div className="mb-3">
