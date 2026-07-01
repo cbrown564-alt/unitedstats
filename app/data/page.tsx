@@ -1,67 +1,23 @@
 import Link from "next/link";
-import { matchRef } from "@/lib/citations";
 import {
   coverageByCompetitionType,
   coverageByDecade,
   coverageOverview,
-  dataGaps,
+  dataGapCounts,
+  dataGapsSample,
+  sourceExamples,
   sourceUsage,
 } from "@/lib/queries";
 import { CoverageMatrix } from "@/components/charts/CoverageMatrix";
 import { CoverageNote } from "@/components/CoverageNote";
+import { DataGapsQueue } from "@/components/data/DataGapsQueue";
+import { SourceRegister } from "@/components/data/SourceRegister";
 import { DataTable } from "@/components/DataTable";
-import { clubName, fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
-import { correctionPrefillHref, CORRECTION_STATUS_URL, type CorrectionPrefill } from "@/lib/corrections";
+import { enrichDataGaps } from "@/lib/dataGaps";
+import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { CORRECTION_STATUS_URL } from "@/lib/corrections";
 
 export const metadata = { title: "Data and corrections" };
-
-type DataGap = ReturnType<typeof dataGaps>[number];
-
-/** Plain-language reason each gap type is queued — derived from {@link dataGaps} CASE labels. */
-function gapWhy(gap: string): string {
-  switch (gap) {
-    case "United goalscorers":
-      return "United scored here but the goal-by-goal row isn't complete yet.";
-    case "opposition goals":
-      return "They scored but the opposition scorers aren't on file.";
-    case "lineup":
-      return "No starting XI recorded for this fixture.";
-    case "attendance":
-      return "Crowd figure missing — still open if you have a cited source.";
-    case "source note":
-      return "A source note is flagged on this match.";
-    default:
-      return "Coverage is incomplete on this fixture.";
-  }
-}
-
-/** Contribute link — correction prefill when the contract supports it, otherwise the match page. */
-function gapContributeHref(g: DataGap): string {
-  const pagePath = `/match/${g.id}`;
-  const label = `${clubName(g.date)} ${g.gf}-${g.ga} ${g.opponent_name}`;
-  const citableId = matchRef(g.id).id;
-  const matchPrefill = (field: string, current: string | number | null | undefined): CorrectionPrefill => ({
-    targetKind: "match",
-    targetId: g.id,
-    targetLabel: label,
-    fieldPath: `matches[id=${g.id}].${field}`,
-    currentValue: current,
-    pagePath,
-    citableId,
-  });
-
-  switch (g.gap) {
-    case "attendance":
-      return correctionPrefillHref(matchPrefill("attendance", null));
-    case "lineup":
-      return `/match/${g.id}#lineup`;
-    case "United goalscorers":
-    case "opposition goals":
-      return `/match/${g.id}#goals`;
-    default:
-      return `/match/${g.id}`;
-  }
-}
 
 /**
  * Movement header for the page's three acts (the record → its cuts → how it's
@@ -85,7 +41,9 @@ export default function DataPage() {
   const byType = coverageByCompetitionType();
   const decades = coverageByDecade();
   const sources = sourceUsage();
-  const gaps = dataGaps(14);
+  const examples = sourceExamples();
+  const gapCounts = dataGapCounts();
+  const gaps = enrichDataGaps(dataGapsSample(12));
 
   return (
     <div className="space-y-14">
@@ -239,24 +197,11 @@ export default function DataPage() {
           <div className="space-y-6">
             <section>
               <h3 className="display mb-3 text-lg">Sources</h3>
-              <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line">
-                {sources.map((s) => (
-                  <li key={s.id} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 bg-panel px-4 py-2.5 text-sm">
-                    <div className="min-w-0">
-                      <span className="font-semibold">{s.label}</span>
-                      <span className="ml-2 text-[11px] uppercase tracking-wider text-ink-dim">{s.kind}</span>
-                    </div>
-                    <div className="flex shrink-0 items-center gap-3 text-xs text-ink-dim">
-                      <span className="stat-num">{fmtNum(s.matches)} matches</span>
-                      {s.url && (
-                        <a href={s.url} className="font-semibold text-devil-bright hover:underline">
-                          source
-                        </a>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <p className="mb-3 max-w-2xl text-xs text-ink-dim">
+                Grouped by family where several sources share a lineage. Click a row to see what it covers and an
+                example match on file.
+              </p>
+              <SourceRegister sources={sources} examples={examples} />
             </section>
 
             <aside className="rounded-lg border border-line bg-panel px-4 py-3">
@@ -282,36 +227,8 @@ export default function DataPage() {
 
             <section>
               <h3 className="display mb-3 text-lg">High-value gaps</h3>
-              <div className="overflow-hidden rounded-lg border border-line">
-                <ul className="divide-y divide-line">
-                  {gaps.map((g) => (
-                    <li key={g.id} className="bg-panel px-4 py-3 text-sm">
-                      <div className="grid gap-2 sm:grid-cols-[7rem_1fr_auto] sm:items-start">
-                        <Link href={`/match/${g.id}`} className="stat-num text-ink-dim hover:text-devil-bright">
-                          {g.date}
-                        </Link>
-                        <div className="min-w-0">
-                          <Link href={`/match/${g.id}`} className="font-medium hover:text-devil-bright">
-                            {g.opponent_name}{" "}
-                            <span className="stat-num text-devil-bright">
-                              {g.gf}-{g.ga}
-                            </span>
-                          </Link>
-                          <p className="mt-1 text-xs text-ink-dim">{gapWhy(g.gap)}</p>
-                        </div>
-                        <div className="flex flex-col items-start gap-1 sm:items-end">
-                          <span className="text-xs uppercase tracking-wider text-gold">{g.gap}</span>
-                          <span className="text-xs text-ink-faint">{g.competition_name}</span>
-                          <Link href={gapContributeHref(g)} className="text-xs font-semibold text-devil-bright hover:underline">
-                            Contribute →
-                          </Link>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <p className="mt-2 text-xs text-ink-dim">
+              <DataGapsQueue gaps={gaps} gapCounts={gapCounts} />
+              <p className="mt-3 text-xs text-ink-dim">
                 The queue prioritises recent post-war United goalscorer gaps, then opposition goals, lineups, and
                 attendance. Older archive work can still be added whenever a citation is strong.
               </p>
