@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { familyName } from "@/lib/names";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -93,14 +94,30 @@ export function ManagerTimeline({ managers }: { managers: ManagerRecord[] }) {
                   <div className="bg-draw/55" style={{ height: `${(m.d / p) * 100}%` }} />
                   <div className="bg-loss/75" style={{ height: `${(m.l / p) * 100}%` }} />
                 </div>
-                {width >= LABEL_MIN_WIDTH && (
-                  <span className="pointer-events-none absolute inset-x-0 top-2 truncate px-1 text-center text-[10px] font-medium uppercase tracking-wide text-ink/90 [text-shadow:0_1px_2px_rgb(0_0_0_/0.65)]">
-                    {surname}
-                  </span>
+                {giantIds.has(m.id) && (m.image_url ?? m.thumb_url) ? (
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[1] overflow-hidden rounded-t-sm [-webkit-mask-composite:source-in] [mask-composite:intersect] [mask-image:linear-gradient(to_top,transparent_4%,#000_38%),linear-gradient(to_bottom,transparent_10%,#000_55%)]"
+                    aria-hidden
+                  >
+                    <Image
+                      src={m.image_url ?? m.thumb_url!}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 28vw, 320px"
+                      className="object-cover object-[center_12%] opacity-[0.28] grayscale contrast-110 transition-opacity duration-150 group-hover:opacity-[0.38]"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_45%,rgba(0,0,0,0.12))]" />
+                  </div>
+                ) : (
+                  width >= PORTRAIT_MIN_WIDTH && (
+                    <span className="pointer-events-none absolute bottom-2 left-1/2 z-[1] -translate-x-1/2">
+                      <PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="xs" />
+                    </span>
+                  )
                 )}
-                {width >= PORTRAIT_MIN_WIDTH && (
-                  <span className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2">
-                    <PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="xs" />
+                {width >= LABEL_MIN_WIDTH && (
+                  <span className="pointer-events-none absolute inset-x-0 top-2 z-[2] truncate px-1 text-center text-[10px] font-medium uppercase tracking-wide text-ink/90 [text-shadow:0_1px_2px_rgb(0_0_0_/0.65)]">
+                    {surname}
                   </span>
                 )}
               </Link>
