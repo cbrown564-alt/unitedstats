@@ -465,6 +465,8 @@ function FergusonEraModule({ variant }: ModuleProps) {
           </div>
           <div className="space-y-3">
             {moments.map((m) => {
+              const pts = m.league.w * 3 + m.league.d;
+              const gd = m.league.gf - m.league.ga;
               const cardTone =
                 m.tone === "peak"
                   ? "border-gold/35 shadow-[0_14px_36px_-18px_rgba(0,0,0,0.75)] hover:border-gold/55"
@@ -480,6 +482,11 @@ function FergusonEraModule({ variant }: ModuleProps) {
                   key={m.id}
                   className={`group relative overflow-hidden rounded-lg border bg-panel-2 p-4 transition-colors ${cardTone}`}
                 >
+                  <Link
+                    href={`/seasons/${m.season}`}
+                    className="absolute inset-0 z-0 rounded-lg focus-ring"
+                    aria-label={`${m.season} season — ${ordinal(m.league.position)} under ${m.managerName}`}
+                  />
                   {m.tone === "peak" && (
                     <span
                       aria-hidden
@@ -487,20 +494,17 @@ function FergusonEraModule({ variant }: ModuleProps) {
                       style={{ backgroundColor: "var(--color-gold)" }}
                     />
                   )}
-                  <div className="relative space-y-3">
+                  <div className="relative z-10 space-y-3">
                     <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
                       <span className={`text-[10px] font-medium uppercase tracking-wide ${tagTone}`}>{m.tag}</span>
-                      <Link
-                        href={`/seasons/${m.season}`}
-                        className="stat-num text-[11px] text-ink-faint transition-colors hover:text-devil-bright"
-                      >
+                      <span className="stat-num text-[11px] text-ink-faint transition-colors group-hover:text-devil-bright">
                         {m.season} season →
-                      </Link>
+                      </span>
                     </div>
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-2">
                       <Link
                         href={`/manager/${m.managerId}`}
-                        className="text-sm font-medium text-ink transition-colors group-hover:text-devil-bright"
+                        className="relative z-20 text-sm font-medium text-ink transition-colors hover:text-devil-bright focus-ring"
                       >
                         {m.managerName}
                       </Link>
@@ -512,7 +516,16 @@ function FergusonEraModule({ variant }: ModuleProps) {
                       <FinishLadder league={m.league} />
                       <WdlBar w={m.league.w} d={m.league.d} l={m.league.l} size="md" variant="stacked" showLabels />
                     </div>
+                    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11px] text-ink-faint">
+                      <span className="stat-num font-medium text-ink-dim">{fmtNum(pts)} pts</span>
+                      <span className="stat-num tabular-nums">
+                        {m.league.gf}–{m.league.ga} · {gd >= 0 ? `+${gd}` : gd} GD
+                      </span>
+                    </div>
                     <p className="text-xs text-ink-dim text-pretty">{m.note}</p>
+                    {m.footnote && (
+                      <p className="text-[11px] text-ink-faint text-pretty">{m.footnote}</p>
+                    )}
                   </div>
                 </div>
               );

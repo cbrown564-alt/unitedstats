@@ -52,7 +52,7 @@ const RELATED: Record<string, RelatedLink[]> = {
   "ferguson-era": [
     toDebate("managers", 0, "Set his reign beside Busby's — the club's two architects."),
     toQuestion("treble", "The peak of the Ferguson floor in one season."),
-    toQuestion("manager-bounce", "Every successor promised a bounce — did any of them hold the floor?"),
+    toQuestion("fortress", "The fortress was at its most impregnable in the Ferguson years."),
   ],
   treble: [
     toQuestion("europe", "The Champions League trophy was one thread of the continental record."),

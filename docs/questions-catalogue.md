@@ -44,11 +44,12 @@ rotation (`featuredLaunchQuestion`), and surprise facts where applicable.
 
 ### Ferguson + decline → `ferguson-era`
 
-Two separate modules (`ferguson`, `decline`) were combined into one answer:
+Two separate modules (`ferguson`, `decline`) were combined into one answer. The page
+was rebuilt around the **"floor dropped"** story (July 2026):
 
-- **Visual:** `EraSkylineChart` — league finishes, Ferguson panel vs since-Ferguson panel ("The arc")
-- **Evidence:** Ferguson PPG / trophy chart, since-Ferguson comparison cards
-- **Finding:** Single narrative across rise and fall (PPG, titles, trophies, average finish)
+- **Visual:** `TitleFloorTimeline` — one continuous league-finish timeline, May 2013 hinge, 13→0 callouts ("The floor")
+- **Evidence:** `ManagerLongevityChart` (matches × PPG); three inspectable moment cards (first / best / worst post-Ferguson seasons) with `FinishLadder`, W-D-L, pts and GD
+- **Finding:** Single narrative — titles, top-four rate, average finish before and after Ferguson
 
 Old slugs redirect; modules removed from `QuestionModules.tsx`.
 
@@ -84,9 +85,10 @@ Old slugs redirect; modules removed from `QuestionModules.tsx`.
 
 ### Ferguson era
 
-- **Visual:** `EraSkylineChart` (The arc)
-- Combined rise/fall finding; manager comparison evidence
-- **Still needs:** polish pass (called out in review — prose density, evidence pacing)
+- **Visual:** `TitleFloorTimeline` ("The floor") — Ferguson band, rebuild callout, May 2013 hinge, corner stat badges
+- **Evidence:** `ManagerLongevityChart`; three moment cards (`postFergusonFloorMoments`) — Moyes 7th, Mourinho 2nd (footnote for Ole 2020–21), Amorim 15th
+- **Trails:** Busby debate, Treble, Fortress (closes the loop with the Fortress → Ferguson link)
+- Timeline dots and moment cards both open `/seasons/[season]`
 
 ### United in Europe (built, then demoted — see §5)
 
@@ -138,14 +140,9 @@ Registered in `EASTER_EGGS` — linkable, not in explore catalogue:
 | `ferguson` | Redirect → `ferguson-era` |
 | `decline` | Redirect → `ferguson-era` |
 
-### Stale surface (not deleted yet)
-
-- `app/questions/page.tsx` — old inline catalogue duplicate; unreachable while
-  `/questions` → `/explore`. **Delete** when convenient.
-
 ### Never implemented as a question slug
 
-- **Bogey sides / rivalry ledgers** — still only referenced in stale `app/questions/page.tsx` nav (`bogey-sides`). Candidate for a future slug or cut surface.
+- **Bogey sides / rivalry ledgers** — candidate for a future slug or cut surface (no stale nav references remain).
 
 ---
 
@@ -154,7 +151,7 @@ Registered in `EASTER_EGGS` — linkable, not in explore catalogue:
 | Area | Change |
 |------|--------|
 | `lib/questions.ts` | Front door vs `EASTER_EGGS`; launch rotation slugs |
-| `lib/trails.ts` | `europeMatchSequence`, `europeanFinals`, `europeWinRateTimeline`, `FINAL_PREDICATE` fix |
+| `lib/trails.ts` | `fergusonFloorSummary`, `fergusonFloorTimeline`, `managerLongevityField`, `postFergusonFloorMoments`; Europe helpers |
 | `lib/related.ts` | Trails for `ferguson-era`; manager page links to `ferguson-era` |
 | `lib/questionHeadlines.ts` | Headlines for front-door + easter egg cards |
 | `components/QuestionModules.tsx` | All modules; `Module` `visualLabel` |
@@ -171,13 +168,13 @@ Registered in `EASTER_EGGS` — linkable, not in explore catalogue:
 
 **Catalogue / hygiene**
 
-- [ ] Delete `app/questions/page.tsx` (stale duplicate)
+- [x] Delete `app/questions/page.tsx` (stale duplicate; `/questions` → `/explore` in `next.config.ts`)
 - [ ] Decide fate of `europe` easter egg: leave as deep link, or strip module to a thin stub
 - [ ] `own-goals` headline exists in `questionHeadlines` but slug is easter egg only — confirm explore doesn't expect it on front door
 
 **Quality passes**
 
-- [ ] **Ferguson era** — polish pass (visual station + evidence pacing to Treble standard)
+- [x] **Ferguson era** — floor-dropped narrative, timeline visual, longevity scatter, moment cards
 - [ ] **Fortress / late-goals** — optional screenshot regression on mobile after any copy tweaks
 - [ ] **QuestionSignature** — several slugs still defer to text cards (`tests/question-cards.test.ts` `DEFERRED_SLUGS`); bring signatures up for front-door four
 

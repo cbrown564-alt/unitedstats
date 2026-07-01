@@ -214,7 +214,7 @@ export function TitleFloorTimeline({
           return (
             <Link
               key={d.p.season}
-              href={`/matches?season=${d.p.season}&sort=oldest`}
+              href={`/seasons/${d.p.season}`}
               title={title}
               className="group absolute z-10 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full p-1 focus-ring"
               style={{ left: `${d.cx}%`, top: `${d.cy}%` }}

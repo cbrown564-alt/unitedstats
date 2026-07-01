@@ -1083,6 +1083,8 @@ export interface PostFergusonFloorMoment {
     league_size: number;
   };
   note: string;
+  /** Set when another post-Ferguson season tied the same league finish (e.g. two 2nds). */
+  footnote?: string;
   tone: "first" | "peak" | "floor";
 }
 
@@ -1136,12 +1138,19 @@ export function postFergusonFloorMoments(): PostFergusonFloorMoment[] {
   const best = rows.find((r) => r.position === minPos)!;
   const worst = rows.reduce((a, b) => (a.position > b.position ? a : b));
 
+  const ord = (n: number) => {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);
+  };
+
   const toMoment = (
     row: typeof rows[number],
     id: PostFergusonFloorMoment["id"],
     tag: string,
     note: string,
     tone: PostFergusonFloorMoment["tone"],
+    footnote?: string,
   ): PostFergusonFloorMoment => ({
     id,
     tag,
@@ -1164,8 +1173,15 @@ export function postFergusonFloorMoments(): PostFergusonFloorMoment[] {
       league_size: row.league_size,
     },
     note,
+    footnote,
     tone,
   });
+
+  const tiedBest = rows.filter((r) => r.position === minPos && r.season !== best.season);
+  const bestFootnote =
+    tiedBest.length > 0
+      ? `Also finished ${ord(minPos)} in ${tiedBest.map((r) => `${r.season} under ${managerSurname(r.name)}`).join(" and ")}.`
+      : undefined;
 
   return [
     toMoment(
@@ -1181,8 +1197,9 @@ export function postFergusonFloorMoments(): PostFergusonFloorMoment[] {
       "Best finish since Ferguson",
       best.position === 2
         ? "Nineteen points behind City, but second place — as close as any successor has come to bridging the gap."
-        : `Finished ${best.position}${best.position === 1 ? "" : "th"} — the best league campaign of the post-Ferguson era.`,
+        : `Finished ${ord(best.position)} — the best league campaign of the post-Ferguson era.`,
       "peak",
+      bestFootnote,
     ),
     toMoment(
       worst,
@@ -1190,7 +1207,7 @@ export function postFergusonFloorMoments(): PostFergusonFloorMoment[] {
       "Worst finish since Ferguson",
       worst.position >= 15
         ? "Fifteenth in the table — three places off the relegation zone, the lowest finish in the Premier League era."
-        : `Finished ${worst.position}th — the deepest the floor has fallen since May 2013.`,
+        : `Finished ${ord(worst.position)} — the deepest the floor has fallen since May 2013.`,
       "floor",
     ),
   ];
