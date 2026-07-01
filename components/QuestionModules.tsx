@@ -4,7 +4,7 @@ import {
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord,
-  fergusonFloorSummary, postFergusonStints, fergusonFloorTimeline, managerLongevityField,
+  fergusonFloorSummary, postFergusonStints, fergusonFloorTimeline, managerLongevityField, postFergusonFloorStrip,
   trebleRuns, trebleDeciders, trebleSemis,
   europeByDecade, europeWinRateTimeline, europeanFinals, europeMatchSequence,
   matchesSequence,
@@ -15,6 +15,7 @@ import { getMeta, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } f
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart, ManagerLongevityChartLazy as ManagerLongevityChart } from "@/components/charts/lazy";
+import { PostFergusonFloorStrip } from "@/components/charts/PostFergusonFloorStrip";
 import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -388,7 +389,7 @@ function FergusonEraModule({ variant }: ModuleProps) {
   const timeline = fergusonFloorTimeline();
   const stints = postFergusonStints();
   const since = eraRecord("2013-05-20", "9999-12-31");
-  const permanentStints = stints.filter((s) => !s.interim && s.finishes.length > 0);
+  const strip = postFergusonFloorStrip();
   const interimCount = stints.filter((s) => s.interim).length;
   const longevity = managerLongevityField();
   const fergPoint = longevity.find((p) => p.kind === "ferguson");
@@ -458,51 +459,14 @@ function FergusonEraModule({ variant }: ModuleProps) {
 
       <section className="space-y-3">
         <div>
-          <h3 className="text-sm font-medium text-ink-dim">Every permanent manager since — league finishes by stint</h3>
-          <p className="mt-0.5 text-xs text-ink-dim">
+          <h3 className="text-sm font-medium text-ink-dim">The succession — one floor, manager by manager</h3>
+          <p className="mt-0.5 text-xs text-ink-dim text-pretty">
             {interimCount > 0
-              ? `${interimCount} interim spells sit between these tenures — the floor is measured in full seasons, not caretaker weeks.`
-              : "Each row is a full managerial spell, with every top-flight finish while they were in charge."}
+              ? `Every season since Ferguson, banded by who was in charge — ${interimCount} caretaker spells sit at the dashed marks between permanent tenures.`
+              : "Every season since Ferguson, banded by who was in charge."}
           </p>
         </div>
-        <div className="space-y-2">
-          {permanentStints.map((s) => (
-            <Link
-              key={`${s.id}-${s.dateFrom}`}
-              href={`/manager/${s.id}`}
-              className="group flex flex-wrap items-center gap-x-4 gap-y-2 rounded-lg border border-line bg-panel-2 px-4 py-3 transition-colors hover:border-devil/60"
-            >
-              <div className="min-w-0 flex-1">
-                <div className="font-medium group-hover:text-devil-bright">{s.name}</div>
-                <div className="stat-num text-[11px] text-ink-faint">
-                  {s.dateFrom.slice(0, 4)}–{s.dateTo?.slice(0, 4) ?? "now"} · {s.p.toLocaleString("en-GB")} matches · {s.ppg.toFixed(2)} ppg
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-1.5">
-                {s.finishes.map((f) => (
-                  <span
-                    key={f.season}
-                    className={`stat-num rounded px-1.5 py-0.5 text-xs font-medium ${
-                      f.position === 1
-                        ? "bg-gold/15 text-gold"
-                        : f.position <= 4
-                          ? "bg-win/10 text-win"
-                          : f.position >= 8
-                            ? "bg-loss/10 text-loss"
-                            : "bg-panel text-ink-dim"
-                    }`}
-                    title={`${f.season}: ${ordinal(f.position)}`}
-                  >
-                    {ordinal(f.position)}
-                  </span>
-                ))}
-              </div>
-              {s.note && !s.interim && (
-                <div className="w-full text-[11px] text-ink-faint">{s.note}</div>
-              )}
-            </Link>
-          ))}
-        </div>
+        <PostFergusonFloorStrip seasons={strip.seasons} bands={strip.bands} interims={strip.interims} />
       </section>
     </Module>
   );

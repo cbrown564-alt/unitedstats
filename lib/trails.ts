@@ -1061,6 +1061,102 @@ export function postFergusonStints(): PostFergusonStint[] {
   });
 }
 
+export interface PostFergusonSeasonBar {
+  season: string;
+  year: number;
+  position: number;
+  leagueSize: number;
+  champion: boolean;
+  managerId: string;
+  managerName: string;
+}
+
+export interface PostFergusonManagerBand {
+  managerId: string;
+  managerName: string;
+  label: string;
+  fromIndex: number;
+  count: number;
+}
+
+export interface PostFergusonInterimMarker {
+  afterIndex: number;
+  label: string;
+  managerId: string;
+}
+
+/** Post-2013 season finishes with manager bands and interim handover markers. */
+export function postFergusonFloorStrip(): {
+  seasons: PostFergusonSeasonBar[];
+  bands: PostFergusonManagerBand[];
+  interims: PostFergusonInterimMarker[];
+} {
+  const rows = getDb()
+    .prepare(
+      `WITH primary_manager AS (
+         SELECT m.season, m.manager_id, mg.name,
+                ROW_NUMBER() OVER (PARTITION BY m.season ORDER BY COUNT(*) DESC) rn
+         FROM matches m
+         JOIN managers mg ON mg.id = m.manager_id
+         JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type = 'league' AND m.season >= '2013-14'
+         GROUP BY m.season, m.manager_id
+       )
+       SELECT pm.season, pm.manager_id id, pm.name, ss.position, ss.league_size
+       FROM primary_manager pm
+       JOIN season_summaries ss ON ss.season = pm.season
+       JOIN competitions c ON c.id = ss.competition_id
+       WHERE pm.rn = 1 AND c.type = 'league' AND ss.position IS NOT NULL
+         AND c.name IN ('First Division','Premier League')
+       ORDER BY pm.season`,
+    )
+    .all() as { season: string; id: string; name: string; position: number; league_size: number }[];
+
+  const seasons: PostFergusonSeasonBar[] = rows.map((r) => ({
+    season: r.season,
+    year: Number(r.season.slice(0, 4)),
+    position: r.position,
+    leagueSize: r.league_size,
+    champion: r.position === 1,
+    managerId: r.id,
+    managerName: r.name,
+  }));
+
+  const bands: PostFergusonManagerBand[] = [];
+  for (let i = 0; i < seasons.length; ) {
+    const id = seasons[i].managerId;
+    const name = seasons[i].managerName;
+    let j = i + 1;
+    while (j < seasons.length && seasons[j].managerId === id) j++;
+    bands.push({
+      managerId: id,
+      managerName: name,
+      label: managerSurname(name),
+      fromIndex: i,
+      count: j - i,
+    });
+    i = j;
+  }
+
+  const interims: PostFergusonInterimMarker[] = postFergusonStints()
+    .filter((s) => s.interim)
+    .map((s) => {
+      const y = Number(s.dateFrom.slice(0, 4));
+      let afterIndex = -1;
+      for (let i = 0; i < seasons.length; i++) {
+        if (seasons[i].year <= y) afterIndex = i;
+      }
+      return {
+        afterIndex,
+        label: managerSurname(s.name),
+        managerId: s.id,
+      };
+    })
+    .filter((m) => m.afterIndex >= 0);
+
+  return { seasons, bands, interims };
+}
+
 // ---------------------------------------------------------------- ferguson vs field
 
 export interface ManagerLongevityPoint {
