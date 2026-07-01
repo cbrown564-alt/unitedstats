@@ -25,8 +25,7 @@ export default function SurprisePage() {
   return (
     <div className="space-y-8">
       <PageHeader eyebrow="Surprise" title="Something you didn't know" deferOnMobile>
-        Pull the thread at random — a tested myth, a way to slice the record, or a club peak. Land on
-        one, follow it to its receipt, or roll again.
+        One tested myth, a data slice, or a club peak — follow it to the matches, or roll again.
       </PageHeader>
       <SurpriseReveal facts={facts} seed={seed} />
     </div>

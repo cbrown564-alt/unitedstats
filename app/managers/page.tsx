@@ -8,6 +8,7 @@ import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
 import { IndexRow } from "@/components/IndexRow";
 import { HonoursBadge } from "@/components/HonoursBadge";
 import { CoverageNote } from "@/components/CoverageNote";
+import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, pct } from "@/lib/format";
 
 export const metadata = {
@@ -22,10 +23,6 @@ export default function ManagersPage() {
   const totalW = managers.reduce((a, m) => a + m.w, 0);
   const giants = [...managers].sort((a, b) => b.p - a.p).slice(0, 2);
   const giantShare = pct(giants.reduce((a, m) => a + m.p, 0), totalP);
-  const giantNames = [...giants]
-    .sort((a, b) => (a.first ?? "").localeCompare(b.first ?? ""))
-    .map((g) => familyName(g.name))
-    .join(" and ");
 
   // Each row's tenure drawn as a span on a timeline *shared* by every row — so the
   // column builds into the succession as you scan down, each man's bar landing at
@@ -70,8 +67,12 @@ export default function ManagersPage() {
 
   return (
     <div className="space-y-10">
+      <PageHeader eyebrow="People · the succession" title="Managers" deferOnMobile>
+        Busby and Ferguson span ~{giantShare} of matches. Everyone else fills the years between and after.
+      </PageHeader>
+
       {/* The succession as one object: every manager a match-proportional segment,
-          the two giants dwarfing the scaffolding between and after them. */}
+          the two dynasties dwarfing the scaffolding between and after them. */}
       <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
         <div
@@ -80,19 +81,7 @@ export default function ManagersPage() {
           aria-hidden
         />
         <div className="relative p-4 sm:p-5 lg:p-7">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright lg:mb-3">
-            People · the succession
-          </p>
-
           <div className="space-y-3 border-b border-line/60 pb-4 lg:hidden">
-            <h1 className="display text-[1.65rem] leading-[1.02]">
-              {fmtNum(managers.length)} managers, two cathedrals
-            </h1>
-            <p className="text-sm leading-6 text-ink-dim">
-              <span className="font-semibold text-ink">{giantNames}</span> took{" "}
-              <span className="font-semibold text-win">{giantShare}</span> of every match — the rest is
-              scaffolding between the two long reigns.
-            </p>
             <dl className="grid grid-cols-3 gap-2">
               <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
                 <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Matches</dt>
@@ -117,16 +106,7 @@ export default function ManagersPage() {
           </div>
 
           <div className="hidden lg:block">
-            <h1 className="display max-w-3xl text-4xl leading-[0.95] sm:text-5xl">
-              {fmtNum(managers.length)} managers, two cathedrals
-            </h1>
-            <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
-              Everyone to pick the team since 1892 — secretaries, caretakers, and knights of the realm.
-              {giantNames} alone took charge of <span className="font-semibold text-ink">{giantShare}</span> of
-              every match the club has played; the rest is the scaffolding between and after the two long reigns.
-            </p>
-
-            <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
+            <dl className="flex flex-wrap gap-x-8 gap-y-2">
               <div>
                 <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Matches</dt>
                 <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(totalP)}</dd>
@@ -160,7 +140,7 @@ export default function ManagersPage() {
       </section>
 
       {/* The detail layer: read each man, grouped into the eras the hero shades.
-          The two cathedrals (Busby, Ferguson) get a floodlit gold verdict plate;
+          The two dynasties (Busby, Ferguson) get a floodlit gold verdict plate;
           the scaffolding eras between and around them stay quiet and compressed,
           so the body's pacing rises and falls with the hero's story. */}
       <div>
@@ -266,12 +246,7 @@ export default function ManagersPage() {
         })}
       </div>
 
-      <CoverageNote slice="every match under each man, league and cup, since 1892">
-        Eras are bounded by the two longest tenures — Sir Matt Busby (1,141 matches) and Sir Alex
-        Ferguson (1,497), the only managers past a thousand games — and each man is placed by the year
-        of his first match in charge. Within an era, managers run in that order; the bar pivots on its
-        centre, wins right, losses left.
-      </CoverageNote>
+      <CoverageNote slice="every match under each man, league and cup, since 1892" />
     </div>
   );
 }

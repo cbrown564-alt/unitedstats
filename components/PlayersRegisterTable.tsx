@@ -31,7 +31,7 @@ const PLAYER_SORT_LABELS: Record<PlayerSortKey, string> = {
   starts: "Starts",
   goals: "Goals",
   assists: "Assists",
-  span: "Span",
+  span: "Debut",
 };
 
 function lastYearForPlayer(p: PlayerTotals): number | null {
@@ -162,6 +162,8 @@ export function PlayersRegisterTable({
             key: "rank",
             numeric: true,
             card: "skip",
+            className: "w-8 px-0 text-center",
+            headerClassName: "w-8 px-0 text-center",
             render: (_p, index) => <span className="text-ink-faint">{index + 1}</span>,
           },
           {
@@ -245,14 +247,14 @@ export function PlayersRegisterTable({
           },
           assistColumn,
           {
-            label: "Career",
+            label: "Debut",
             key: "span",
             hideBelow: "hidden lg:table-cell",
             headerClassName: "text-right",
             className: "text-right",
             sortKey: "span",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
-            sortLabel: "career span",
+            sortLabel: "debut year",
             cardRender: (p) => spanForPlayer(p),
             render: (p) => {
               const s = spanByPlayer[p.player_id];

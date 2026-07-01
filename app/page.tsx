@@ -10,6 +10,7 @@ import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
 import { MobileSearchPrompt } from "@/components/mobile/MobileSearchPrompt";
 import { SectionHead } from "@/components/SectionHead";
+import { PageHeader } from "@/components/PageHeader";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
 import { greatNights } from "@/lib/greatNights";
@@ -69,16 +70,9 @@ export default function Home() {
             aria-hidden
           />
           <div className="relative p-4 sm:p-5 lg:p-7">
-            <p className="text-xs uppercase tracking-[0.25em] text-devil-bright font-semibold mb-3">
-              From Newton Heath to today
-            </p>
-            <h2 className="display text-3xl sm:text-4xl leading-[0.97] text-balance max-w-3xl">
-              One thread through{" "}
-              <span className="text-devil-bright">Manchester United’s</span> history
-            </h2>
-            <p className="mt-4 text-ink-dim max-w-2xl text-sm sm:text-base">
-              {fmtNum(rec.p)} matches across {years} years of league, cup, and European football. 
-            </p>
+            <PageHeader eyebrow="From Newton Heath to today" title="One thread through Manchester United's history">
+              {fmtNum(rec.p)} matches across {years} years of league, cup, and European football.
+            </PageHeader>
             <div className="mt-6 max-w-2xl hidden lg:block">
               <SearchCommand autoFocusKey={false} />
               <p className="text-xs text-ink-faint mt-1.5">
@@ -116,8 +110,7 @@ export default function Home() {
           <span className="mt-4 text-xs text-devil-bright">Open the answer →</span>
         </Link>
         <p className="mt-2 text-xs text-ink-faint">
-          Myths fans repeat, each tested against the record — open one for its finding, the slice it
-          is drawn from, the coverage behind it, and the matches that produced it.
+          Myths fans repeat, each tested against the record — open one for the finding and the matches behind it.
         </p>
       </section>
 

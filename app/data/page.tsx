@@ -10,6 +10,7 @@ import {
 } from "@/lib/queries";
 import { CoverageMatrix } from "@/components/charts/CoverageMatrix";
 import { CoverageNote } from "@/components/CoverageNote";
+import { PageHeader } from "@/components/PageHeader";
 import { DataGapsQueue } from "@/components/data/DataGapsQueue";
 import { SourceRegister } from "@/components/data/SourceRegister";
 import { DataTable } from "@/components/DataTable";
@@ -47,15 +48,9 @@ export default function DataPage() {
 
   return (
     <div className="space-y-14">
-      <header>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">The canonical record</p>
-        <h1 className="display text-3xl">Data and corrections</h1>
-        <p className="mt-2 max-w-2xl text-sm text-ink-dim">
-          Every official result is here, back to 1886. Goalscorers, lineups, attendances, and the rest are filled in
-          match by match, with every fact tied to a source — so you can see what&apos;s complete and what&apos;s still
-          open.
-        </p>
-      </header>
+      <PageHeader eyebrow="The canonical record" title="Data and corrections">
+        Every result since 1886. Richer detail fills in over time — gaps shown honestly.
+      </PageHeader>
 
       {/* ───────────────── Fan trust lane — Acts I–II ───────────────── */}
       <div className="space-y-14">

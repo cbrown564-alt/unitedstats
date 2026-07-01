@@ -170,18 +170,14 @@ export default async function ManagerPage({
       <section>
         <SectionHead title="Trophy cabinet" aside="major honours won in charge" />
         <ManagerHonoursPanel haul={managerTrophyHaul(id)} winPct={total > 0 ? (m.w / total) * 100 : null} />
-        <CoverageNote slice="league titles and knockout cups won, attributed to the manager of the decisive match.">
-          League titles go to whoever took the last league game of the title season; cups to the winning-final manager.
-        </CoverageNote>
+        <CoverageNote slice="league titles and knockout cups won, attributed to the manager of the decisive match." />
       </section>
 
       {runs.length > 0 && (
         <section>
           <SectionHead title="Longest runs" aside="under this manager" />
           <RunCallouts runs={runs} empty="" className="flex flex-wrap gap-3" />
-          <CoverageNote slice="consecutive competitive matches under this manager.">
-            Any other result breaks the run.
-          </CoverageNote>
+          <CoverageNote slice="consecutive competitive matches under this manager." />
         </section>
       )}
 
@@ -241,10 +237,7 @@ export default async function ManagerPage({
                 </div>
               );
             })}
-            <CoverageNote slice="every match managed, cut by venue and by competition.">
-              Each bar is the win/draw/loss share; the rule beneath runs to the matches played in
-              that split.
-            </CoverageNote>
+            <CoverageNote slice="every match managed, cut by venue and by competition." />
           </div>
         </div>
         {first10.length === 10 && (
@@ -299,10 +292,7 @@ export default async function ManagerPage({
           accentResult
           hrefForSeason={(season) => `/matches${queryString({ manager: id, season })}`}
         />
-        <CoverageNote
-          slice="every competitive match under this manager, all competitions"
-          coverage={`${fmtNum(total)} matches, season by season; caretaker and interim spells are attributed to whoever picked the team on the day.`}
-        />
+        <CoverageNote slice="every competitive match under this manager, all competitions" />
       </section>
     </div>
   );

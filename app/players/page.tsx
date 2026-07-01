@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { coverageOverview, getMeta, playerCareerSparks, playersIndex, type PlayerCareerSpark, type PlayerTotals } from "@/lib/queries";
+import { playerCareerSparks, playersIndex, type PlayerCareerSpark, type PlayerTotals } from "@/lib/queries";
 import type { SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
 import { PlayersLeaders } from "@/components/PlayersLeaders";
@@ -7,6 +7,7 @@ import { PlayersRegisterTable } from "@/components/PlayersRegisterTable";
 import { SectionHead } from "@/components/SectionHead";
 import { type LeaderboardItem } from "@/components/Leaderboard";
 import { CoverageNote } from "@/components/CoverageNote";
+import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, pct, fmtYearRange } from "@/lib/format";
 
 export const revalidate = 86400;
@@ -93,8 +94,6 @@ export default async function PlayersPage({
   const showAll = sp.all === "1";
   const visiblePlayers = showAll ? players : players.slice(0, REGISTER_LIMIT);
   const truncated = players.length > visiblePlayers.length;
-  const meta = getMeta();
-  const coverage = coverageOverview();
 
   const sparkRows = playerCareerSparks();
   const sparksByPlayer = new Map<string, PlayerCareerSpark[]>();
@@ -116,15 +115,8 @@ export default async function PlayersPage({
     const years = played.map((s) => Number(s.season.slice(0, 4)));
     spanByPlayer.set(id, { first: Math.min(...years), last: Math.max(...years) });
   }
-  const sparkAxisLabel =
-    Number.isFinite(sparkAxisStart) && Number.isFinite(sparkAxisEnd)
-      ? fmtYearRange(sparkAxisStart, sparkAxisEnd)
-      : "—";
   const topScorer = [...allPlayers].sort((a, b) => b.goals - a.goals)[0];
   const mostApps = [...allPlayers].sort((a, b) => (b.apps || 0) - (a.apps || 0))[0];
-  const verifiedRecords = allPlayers.filter((p) => p.record_apps != null).length;
-  const assistsCovered = allPlayers.filter((p) => (p.assists || 0) > 0).length;
-  const positionsCovered = allPlayers.filter((p) => p.position_bucket).length;
   const activeFilters = Boolean(q);
 
   const portrait = (p: PlayerTotals) => p.player_thumb_url ?? p.player_image_url;
@@ -150,7 +142,7 @@ export default async function PlayersPage({
     { label: "Goals", key: "goals" },
     { label: "Appearances", key: "apps" },
     { label: "Assists", key: "assists" },
-    { label: "Career span", key: "span" },
+    { label: "Debut", key: "span" },
     { label: "A–Z", key: "name" },
   ];
 
@@ -175,6 +167,10 @@ export default async function PlayersPage({
 
   return (
     <div className="space-y-8">
+      <PageHeader eyebrow="People · the frontier" title="Players" deferOnMobile>
+        Most barely feature. A few defined the club for decades.
+      </PageHeader>
+
       {/* The whole playing history as one object: the squad cloud, the servants
           along the foot, the scorers climbing, the immortals top-right. */}
       <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
@@ -185,23 +181,7 @@ export default async function PlayersPage({
           aria-hidden
         />
         <div className="relative p-4 sm:p-5 lg:p-7">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright lg:mb-3">
-            People · the frontier
-          </p>
-
-          {/* Mobile: a scan-first headline strip — the stats that matter, one line of
-              context, then the map on demand so the first screen isn't all chart. */}
           <div className="space-y-3 border-b border-line/60 pb-4 lg:hidden">
-            <h1 className="display text-[1.65rem] leading-[1.02]">
-              {fmtNum(allPlayers.length)} players, a handful immortal
-            </h1>
-            <p className="text-sm leading-6 text-ink-dim">
-              {topScorer && <span className="font-semibold text-gold">{topScorer.name}</span>}
-              {topScorer && mostApps && " · "}
-              {mostApps && <span className="font-semibold text-devil-bright">{mostApps.name}</span>}
-              {(topScorer || mostApps) && " — "}
-              the two frontiers on goals and appearances.
-            </p>
             <dl className="grid grid-cols-3 gap-2">
               <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
                 <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Players</dt>
@@ -232,20 +212,8 @@ export default async function PlayersPage({
             </dl>
           </div>
 
-          {/* Desktop: the full intro the chart sits under. */}
           <div className="hidden lg:block">
-            <h1 className="display max-w-3xl text-4xl leading-[0.95] sm:text-5xl">
-              {fmtNum(allPlayers.length)} players, a handful immortal
-            </h1>
-            <p className="mt-4 max-w-2xl text-sm text-ink-dim sm:text-base">
-              Everyone to pull on the shirt, placed by how long they stayed and how much they scored. Most
-              cluster near the start — a cup tie, a cameo — while a few stretch out to the frontier:{" "}
-              {topScorer && <span className="font-semibold text-ink">{topScorer.name}</span>} up the goals
-              axis, {mostApps && <span className="font-semibold text-ink">{mostApps.name}</span>} far along
-              the appearances.
-            </p>
-
-            <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
+            <dl className="flex flex-wrap gap-x-8 gap-y-2">
               <div>
                 <dt className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Players</dt>
                 <dd className="stat-num text-lg font-semibold text-ink">{fmtNum(allPlayers.length)}</dd>
@@ -298,7 +266,7 @@ export default async function PlayersPage({
                 type="search"
                 name="q"
                 defaultValue={sp.q ?? ""}
-                placeholder="Find a player — Rooney, Best, Charlton"
+                placeholder="Find a player"
                 className="control w-full"
               />
             </label>
@@ -325,20 +293,6 @@ export default async function PlayersPage({
             })}
           </nav>
         </div>
-
-        {/* Teach the Career column once: a shared 1886→now timeline, each career a
-            span from first year to last — sort by Career to watch the eras march across. */}
-        <p className="hidden items-center justify-end gap-x-3 gap-y-1 text-[11px] text-ink-faint lg:flex">
-          <span className="text-ink-dim">Career</span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-px w-5 bg-ink-dim/55" aria-hidden />
-            first year → last
-          </span>
-          <span>
-            on one shared <span className="stat-num">{sparkAxisLabel}</span> timeline,
-            guides every 25 years
-          </span>
-        </p>
 
         <PlayersRegisterTable
           visiblePlayers={visiblePlayers}
@@ -381,19 +335,7 @@ export default async function PlayersPage({
           slice="all competitive appearances and goals, league and cup"
           evidenceHref="/data"
           evidenceLabel="Coverage details"
-        >
-          Complete goalscorer rows cover{" "}
-          <span className="stat-num text-ink">{fmtNum(coverage.completeScorers)}</span> matches (
-          {pct(coverage.completeScorers, coverage.matches)}); verified club records cover{" "}
-          <span className="stat-num text-ink">{fmtNum(verifiedRecords)}</span> players; lineup data covers{" "}
-          <span className="stat-num text-ink">{fmtNum(Number(meta.matches_with_lineups ?? 0))}</span> matches.
-          Assists are recorded for{" "}
-          <span className="stat-num text-ink">{fmtNum(assistsCovered)}</span> players and weighted to recent eras.
-          The position tag beside each name — GK, DF, MF or FW — is the
-          player’s primary position from Wikidata, known for{" "}
-          <span className="stat-num text-ink">{fmtNum(positionsCovered)}</span> players ({pct(positionsCovered, allPlayers.length)});
-          where it is unknown the tag is omitted, never guessed.{" "}
-        </CoverageNote>
+        />
       </section>
     </div>
   );

@@ -21,7 +21,7 @@ import {
   lanesForComps,
   type Lane,
 } from "@/components/seasons/seasonLedgerLanes";
-import { clubName, fmtNum } from "@/lib/format";
+import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
 export const revalidate = 86400;
@@ -125,10 +125,9 @@ export default async function SeasonsPage({
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
   const sp = await searchParams;
-  // Chronological by default — the ledger reads as a story from 1892 forward,
-  // matching the decade order. Descending flips both the decades and the
-  // seasons within each one, so the whole ledger reverses as a unit.
-  const order = sp.order === "desc" ? "desc" : "asc";
+  // Newest first by default — the ledger opens on the latest decades. Ascending
+  // flips both the decades and the seasons within each one as a unit.
+  const order = sp.order === "asc" ? "asc" : "desc";
   const summaries = seasonsIndex();
   const bySeason = new Map<string, typeof summaries>();
   for (const s of summaries) {
@@ -216,9 +215,7 @@ export default async function SeasonsPage({
   return (
     <div className="space-y-10">
       <PageHeader eyebrow="Campaign ledger" title="Seasons" deferOnMobile>
-        Every league and cup campaign since {clubName("1890-01-01")} joined the Football League in
-        1892. Follow the trajectory of the club’s league finishes on the timeline, or open any season
-        below to trace the match evidence and competition paths.
+        League and cup campaigns from 1892. Timeline above, full ledger below.
       </PageHeader>
 
       {/* The hero: the whole league history as one rise-and-fall of finishing position. */}
@@ -250,7 +247,7 @@ export default async function SeasonsPage({
           <CoverageNote
             className="mt-3"
             slice={`league finishes from ${firstSeason ?? "1892–93"} to ${latestSeason}.`}
-            coverage="Final-table positions are complete for every league season; the breaks are the war years, when no league ran."
+            coverage="Final-table positions are complete for every league season."
           />
         </div>
       </section>
@@ -260,21 +257,19 @@ export default async function SeasonsPage({
           reading and jumping to its `decade-…` section. */}
       <JumpRail chips={decadeChips} label="Jump to a decade" idPrefix="decade" sticky />
 
-      {/* Order toggle: the ledger runs chronologically by default; flip it to read
-          the latest decades first. Both the decades and the seasons within each
-          reverse together, so the ordering stays consistent top to bottom. */}
+      {/* Order toggle: newest first by default; flip to read from 1892 forward. */}
       <div className="flex items-center justify-end gap-2 text-xs">
         <span className="uppercase tracking-[0.12em] text-ink-faint">Order</span>
         <div className="inline-flex rounded-md border border-line bg-panel p-0.5">
           {([
-            { key: "asc", label: "Oldest first" },
             { key: "desc", label: "Newest first" },
+            { key: "asc", label: "Oldest first" },
           ] as const).map((o) => {
             const active = order === o.key;
             return (
               <Link
                 key={o.key}
-                href={`/seasons${queryString({ ...sp, order: o.key === "asc" ? undefined : o.key })}`}
+                href={`/seasons${queryString({ ...sp, order: o.key === "desc" ? undefined : o.key })}`}
                 aria-current={active ? "true" : undefined}
                 scroll={false}
                 className={`rounded px-2.5 py-1 transition-colors focus-ring ${

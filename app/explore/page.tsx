@@ -73,9 +73,7 @@ export default function ExplorePage() {
   return (
     <div className="space-y-12">
       <PageHeader eyebrow="Questions · comparisons · cuts" title="Discover" deferOnMobile>
-        Start with an answer. Every question below is tested directly against the canonical record — opening a
-        dedicated finding, the slice of history it’s drawn from, and the individual matches that built the
-        figure. Comparison and grouping follow once you have a thread to pull.
+        Myths tested against the full record. Compare careers, slice the archive, or search.
       </PageHeader>
 
       {/* The front door: the question field plus a one-line trust strip. */}
@@ -83,11 +81,9 @@ export default function ExplorePage() {
         <SearchCommand autoFocusKey={false} />
         <p className="text-xs text-ink-faint">
           <span className="stat-num text-ink-dim">{fmtNum(rec.p)}</span> official matches across{" "}
-          <span className="stat-num text-ink-dim">{years}</span> years — every figure links to the
-          matches behind it, with a coverage grade showing the density of our records. Search names,
-          seasons, or questions like &ldquo;record away at Arsenal&rdquo; — or{" "}
+          <span className="stat-num text-ink-dim">{years}</span> years — every figure links to its matches.{" "}
           <Link href="/surprise" prefetch={false} className="text-devil-bright hover:underline">
-            surprise me
+            Surprise me
           </Link>{" "}
           with a random finding.
         </p>

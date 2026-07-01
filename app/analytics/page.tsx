@@ -9,7 +9,7 @@ import { CoverageNote } from "@/components/CoverageNote";
 import { EloHero } from "@/components/EloHero";
 import { ReliabilityCurve } from "@/components/charts/ReliabilityCurve";
 import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
-import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
+import { PageHeader, StatTile } from "@/components/PageHeader";
 import { SupplyLineRows } from "@/components/SupplyLineRows";
 import { ChapterPager, type Chapter } from "@/components/mobile/ChapterPager";
 import { fmtNum, pct } from "@/lib/format";
@@ -98,12 +98,8 @@ export default function AnalyticsPage() {
       <ReliabilityCurve buckets={buckets} />
       <CoverageNote
         collapsible
-        slice={`all ${fmtNum(buckets.reduce((a, b) => a + b.p, 0))} rated matches since 1886, grouped into deciles by the Elo win expectancy United carried into them.`}
-      >
-        The red points track expected against actual points share; sitting on the diagonal means
-        the ratings land where they aim. The win-rate dots fall below because Elo folds draws in —
-        the gap up to the line is the draw, widest in the evenly-matched middle.
-      </CoverageNote>
+        slice={`all ${fmtNum(buckets.reduce((a, b) => a + b.p, 0))} rated matches since 1886, grouped into deciles by pre-match win expectancy.`}
+      />
     </div>
   );
 
@@ -147,27 +143,6 @@ export default function AnalyticsPage() {
     </div>
   ) : null;
 
-  const appendix = (
-    <div className="space-y-4 border-t border-line/70 pt-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">Where next</p>
-      <section className="grid gap-3 sm:grid-cols-3">
-        <TrailLink href="/data" title="Data and coverage">
-          Results are complete for every decade; goalscorer depth reaches {fmtNum(overview.completeScorers)} of{" "}
-          {fmtNum(overview.matches)} matches and {fmtNum(Number(meta.matches_with_lineups ?? 0))} carry full
-          lineups. See the ledger and how the gaps get filled.
-        </TrailLink>
-        <TrailLink href="/matches" title="Match browser">
-          Every match, filterable by competition, opponent, season, venue, and result — the auditable
-          spine these summaries read from.
-        </TrailLink>
-        <TrailLink href="/explore" title="Discover">
-          The myth-testing trails: late goals, bogey sides, the manager bounce, and the Old Trafford
-          fortress, each with its own evidence.
-        </TrailLink>
-      </section>
-    </div>
-  );
-
   const mobileChapters: Chapter[] = [
     {
       id: "signal",
@@ -204,7 +179,7 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-14">
       <PageHeader
-        eyebrow="Strength layer"
+        eyebrow="The long arc"
         title="Analytics"
         deferOnMobile
         aside={
@@ -214,8 +189,7 @@ export default function AnalyticsPage() {
           </div>
         }
       >
-        The strength layer: one Elo rating behind United, read three ways — the signal itself, how well it
-        reads the matches it has rated, and the assist supply lines that built the goals.
+        How strong United were, era by era. The records that football left behind.
       </PageHeader>
 
       <ChapterPager chapters={mobileChapters} label="Analytics chapters" />
@@ -223,16 +197,14 @@ export default function AnalyticsPage() {
       <div className="hidden space-y-14 sm:block">
         <div className="space-y-6">
           <Act n="01" kicker="The signal" title="United's strength, measured">
-            A single rating, updated match by match for over a century. It rises when United beat sides
-            they shouldn't and sinks when they don't.
+            A single rating, updated match by match for over a century.
           </Act>
           {eloHero}
         </div>
 
         <div className="space-y-8">
           <Act n="02" kicker="Does it hold up" title="Testing the rating against history">
-            The rating folds each result into one number. Both of these check it against what actually
-            happened — first across every rated match, then across a single season replayed.
+            Does the expectancy hold when you replay the matches — one season at a time?
           </Act>
 
           <section className="max-w-3xl">
@@ -248,7 +220,7 @@ export default function AnalyticsPage() {
 
         <div className="space-y-8">
           <Act n="03" kicker="Supply lines" title="The partnerships that built the goals">
-            Who set up whom — the recorded assist combinations, read as barbell rows rather than a flat list.
+            Who set up whom — the recorded assist combinations.
           </Act>
 
           <section>
@@ -256,8 +228,6 @@ export default function AnalyticsPage() {
           </section>
         </div>
       </div>
-
-      {appendix}
     </div>
   );
 }

@@ -18,8 +18,7 @@ export default function MatchesPage() {
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Fixture record" title="Matches" deferOnMobile>
-        The match browser is the archive spine: every aggregate should be able to come back here as evidence.
-        Filter by era, competition, venue, result, or opponent trail.
+        Every official match since 1886. Filter by era, competition, opponent, or result.
       </PageHeader>
 
       <MatchesPageQueryGate>

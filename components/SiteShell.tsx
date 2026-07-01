@@ -35,7 +35,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
                 Red Thread — evidence-backed Manchester United history, from Newton Heath (1886) to today. Result data:
                 engsoccerdata, openfootball, Wikipedia. Not affiliated with Manchester United FC.
               </p>
-              <p className="max-w-xl hidden sm:block">Data is plain JSON in the repository — corrections welcome by pull request.</p>
+              <p className="max-w-xl hidden sm:block">
+                Every fact links back to its matches. Spot an error?{" "}
+                <a href="/corrections" className="text-devil-bright hover:underline focus-ring">
+                  Suggest a correction
+                </a>
+                .
+              </p>
             </div>
           </footer>
         </div>

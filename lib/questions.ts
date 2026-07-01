@@ -28,13 +28,6 @@ export interface QuestionMeta {
 
 export const QUESTIONS: QuestionMeta[] = [
   {
-    slug: "decline",
-    label: "The decline",
-    question: "How bad has it really been since Ferguson?",
-    summary:
-      "The post-Ferguson era by the only numbers that travel across decades — league finishes, win rate, points per game, and trophies — set against the Ferguson years.",
-  },
-  {
     slug: "ferguson",
     label: "Ferguson vs the field",
     question: "Was Ferguson really that far ahead?",
@@ -60,7 +53,27 @@ export const QUESTIONS: QuestionMeta[] = [
     label: "Fergie time",
     question: "Do United really score late?",
     summary:
-      "Do United really score late? Track the post-85th minute edge by decade, from Bruce’s header to stoppage-time drama.",
+      "Do United really score late? Track the post-85th minute edge by decade, from Bruce's header to stoppage-time drama.",
+  },
+  {
+    slug: "manager-bounce",
+    label: "Manager bounce",
+    question: "Is the new-manager bounce real?",
+    summary:
+      "Does a new manager change the tide? Compare each manager's first ten matches against the form they inherited.",
+  },
+];
+
+/** Linkable curiosities kept off the curated front door. Their routes and OG
+ *  cards still resolve (via {@link questionSlugs}), but they do not appear in
+ *  the homepage carousel, the explore catalogue, or the surprise feed. */
+const EASTER_EGGS: QuestionMeta[] = [
+  {
+    slug: "decline",
+    label: "The decline",
+    question: "How bad has it really been since Ferguson?",
+    summary:
+      "The post-Ferguson era by the only numbers that travel across decades — league finishes, win rate, points per game, and trophies — set against the Ferguson years.",
   },
   {
     slug: "comebacks",
@@ -72,9 +85,9 @@ export const QUESTIONS: QuestionMeta[] = [
   {
     slug: "runs",
     label: "Unbeaten streaks",
-    question: "How long are United’s longest runs?",
+    question: "How long are United's longest runs?",
     summary:
-      "Winning runs, clean-sheet streaks, and matches without defeat. The limits of United’s momentum over 140 years.",
+      "Winning runs, clean-sheet streaks, and matches without defeat. The limits of United's momentum over 140 years.",
   },
   {
     slug: "fortress",
@@ -84,25 +97,12 @@ export const QUESTIONS: QuestionMeta[] = [
       "Lead at half-time at Old Trafford and the game is over. See how rarely United surrendered a break-time lead.",
   },
   {
-    slug: "manager-bounce",
-    label: "Manager bounce",
-    question: "Is the new-manager bounce real?",
-    summary:
-      "Does a new manager change the tide? Compare each manager’s first ten matches against the form they inherited.",
-  },
-  {
     slug: "cup-specialists",
     label: "Cup specialists",
     question: "Who saved their goals for cup nights?",
     summary:
       "Who saved their goals for cup nights? The goalscorers whose records lean heavily toward domestic and European cups.",
   },
-];
-
-/** Linkable curiosities kept off the curated front door. Their routes and OG
- *  cards still resolve (via {@link questionSlugs}), but they do not appear in
- *  the homepage carousel, the explore catalogue, or the surprise feed. */
-const EASTER_EGGS: QuestionMeta[] = [
   {
     slug: "own-goals",
     label: "Own goals",

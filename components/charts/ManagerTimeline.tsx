@@ -9,7 +9,7 @@ import type { ManagerRecord } from "@/lib/queries";
  * charge of, filled bottom-up with his win/draw/loss proportions (red
  * foundation → slate roof, like {@link HistorySkyline}). Two segments dwarf the
  * rest — Busby and Ferguson took charge of more than four in every ten United
- * matches between them — so "two cathedrals and a lot of scaffolding" is the
+ * matches between them — so "two dynasties and a lot of scaffolding" is the
  * literal shape of the bar, and the red-heavy giants vs the slate-topped
  * scaffolding between them read the eras' fortunes without a word. Every segment
  * links to its man.

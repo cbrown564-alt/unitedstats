@@ -155,9 +155,7 @@ export default async function OpponentPage({
         <div className="lg:col-span-1">
           <SectionHead title="Longest runs" aside="this fixture" />
           <RunCallouts runs={runs} empty="No run of 3+ meetings either way." />
-          <CoverageNote slice="consecutive meetings in this fixture, all competitions.">
-            A gap of any other result breaks the run.
-          </CoverageNote>
+          <CoverageNote slice="consecutive meetings in this fixture, all competitions." />
         </div>
       </section>
 
@@ -185,10 +183,7 @@ export default async function OpponentPage({
           accentResult
           hrefForSeason={(season) => `/matches${queryString({ opponent: id, season })}`}
         />
-        <CoverageNote
-          slice="every recorded United v opponent fixture, all competitions"
-          coverage={`${fmtNum(total)} meetings, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}, season by season; pre-merge name changes are folded into one opponent where known.`}
-        />
+        <CoverageNote slice={`every recorded United v ${o.name} fixture, all competitions`} />
       </section>
 
       <section>

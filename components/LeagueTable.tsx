@@ -166,7 +166,7 @@ export function LeagueTable({
           <button
             type="button"
             onClick={() => toggle(!expanded)}
-            className="rounded-md border border-line bg-panel px-2.5 py-1 text-xs text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
+            className="rounded-md border border-line bg-panel px-2.5 py-1 text-[10px] text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
           >
             {expanded ? "Collapse around United" : "Show the full table"}
           </button>

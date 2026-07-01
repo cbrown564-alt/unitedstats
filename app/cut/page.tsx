@@ -72,7 +72,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
       </nav>
 
       <PageHeader eyebrow="Curated cut" title={cutTitle(cut)} deferOnMobile>
-        The whole record reordered as a standings ladder — every group links to the matches behind it.
+        The whole record reordered as a standings ladder — every group links to its matches.
       </PageHeader>
 
       {/* The answer first: the standout group for this cut's lens as a single

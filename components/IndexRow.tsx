@@ -83,11 +83,11 @@ export function IndexRow({
         </span>
       </span>
       {chart ? (
-        <div className="hidden sm:block">{chart}</div>
+        <div className="hidden w-full sm:block">{chart}</div>
       ) : (
         <WdlBar w={w} d={d} l={l} size="sm" tooltip={false} className="mx-auto hidden w-full max-w-[13rem] sm:block" />
       )}
-      <span className="stat-num whitespace-nowrap text-right leading-tight">
+      <span className="stat-num min-w-[6.5rem] whitespace-nowrap pl-3 text-right leading-snug sm:pl-4">
         <span className="block text-sm font-semibold text-ink">
           {pct(w, p)} <span className="text-[10px] font-normal text-ink-faint">win</span>
         </span>

@@ -50,7 +50,7 @@ export default async function SearchPage({
     return (
       <div className="space-y-7">
         <PageHeader eyebrow="Search" title="Search the archive">
-          Players, managers, opponents, seasons, competitions, and grounds — plus shaped questions that compute an answer.
+          Players, managers, opponents, seasons, and shaped questions that compute an answer.
         </PageHeader>
         <SearchForm q="" />
         <section>

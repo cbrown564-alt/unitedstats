@@ -70,7 +70,7 @@ const RELATED: Record<string, RelatedLink[]> = {
     toQuestion("cup-specialists", "Some players truly saved their goals for these European nights."),
   ],
   "late-goals": [
-    toQuestion("comebacks", "If they keep scoring late, do they come from behind too?"),
+    toQuestion("manager-bounce", "If they keep scoring late, does a new manager change the tide?"),
     toQuestion("fortress", "And once ahead late, how rarely do they let a lead slip?"),
     toCut("seasons-by-points", "See which seasons those late goals actually rescued points in."),
   ],

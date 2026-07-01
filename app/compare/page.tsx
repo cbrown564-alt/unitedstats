@@ -132,9 +132,7 @@ export default async function ComparePage({
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Side by side" title="Compare" deferOnMobile={!!comparison}>
-        Compare two careers, reigns, or eras on shared, coverage-aware metrics. Each metric carries the
-        coverage behind it, so a thin record never poses as a fair fight — and the comparison links back
-        to the matches it is drawn from.
+        Two players, managers, or eras on the same measures. Gaps shown where the record is thin.
       </PageHeader>
 
       <ModePills mode={mode} />

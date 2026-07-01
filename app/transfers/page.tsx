@@ -8,6 +8,7 @@ import { SpendBars } from "@/components/SpendBars";
 import { SpendTide } from "@/components/charts/SpendTide";
 import { TransferArchive } from "@/components/TransferArchive";
 import { CoverageNote } from "@/components/CoverageNote";
+import { PageHeader } from "@/components/PageHeader";
 import { fmtFee, fmtNum } from "@/lib/format";
 
 export const metadata = {
@@ -31,6 +32,10 @@ export default async function TransfersPage() {
 
   return (
     <div className="space-y-10">
+      <PageHeader eyebrow="People · the ledger" title="Transfers" deferOnMobile>
+        Known fees since 1883. Many early deals were never disclosed.
+      </PageHeader>
+
       {/* The whole transfer record as one floodlit object: the money tide across a
           century and a half, leading with the running net total. */}
       <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
@@ -41,26 +46,7 @@ export default async function TransfersPage() {
           aria-hidden
         />
         <div className="relative p-4 sm:p-5 lg:p-7">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
-            People · the ledger
-          </p>
-
           <div className="mt-2 space-y-3 border-b border-line/60 pb-4 lg:hidden">
-            <h1 className="display text-[1.65rem] leading-[1.02]">
-              A century and a half of business, in and out
-            </h1>
-            <p className="text-sm leading-6 text-ink-dim">
-              <span className="stat-num font-semibold text-ink">{fmtFee(net)}</span> net since 1883
-              {topIn[0] && (
-                <>
-                  {" "}
-                  — record fee{" "}
-                  <span className="font-semibold text-devil-bright">{topIn[0].player_name}</span>
-                </>
-              )}
-              .
-            </p>
-            <dl className="grid grid-cols-3 gap-2">
               <div className="min-w-0 border border-line/80 bg-panel-2/40 px-2.5 py-2">
                 <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Net</dt>
                 <dd className="stat-num text-lg font-semibold leading-tight text-ink">{fmtFee(net)}</dd>
@@ -91,11 +77,7 @@ export default async function TransfersPage() {
           </div>
 
           <div className="hidden lg:block">
-            <h1 className="display mt-2 max-w-3xl text-3xl leading-[0.95] sm:text-4xl">
-              A century and a half of business, in and out
-            </h1>
-
-            <div className="mt-5 flex flex-wrap items-end gap-x-8 gap-y-4">
+            <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
               <div className="leading-none">
                 <div className="flex items-baseline gap-2">
                   <span className="stat-num text-4xl font-semibold text-ink sm:text-5xl">{fmtFee(net)}</span>
