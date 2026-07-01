@@ -6,6 +6,7 @@ import {
   playerCuratedGoalTypes, playerCuratedTotals,
   playerGoalMatches, playerGoalMinutes, playerGoalMinuteBins, playerGoalsByOpponent, playerLineupMatches,
   playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
+  type CuratedTotals,
 } from "@/lib/queries";
 import { playerBestScoringRun, playerGoalsByCompetitionType } from "@/lib/trails";
 import { ChartPanel } from "@/components/ChartPanel";
@@ -323,15 +324,6 @@ export default async function PlayerPage({
                       </summary>
                       <div className="mt-3">
                         <PlayerSeasonTable seasons={bySeason} playerName={p.name} />
-                        <CoverageNote
-                          slice="all competitions, per season"
-                          count={{
-                            covered: coveredSeasons.length,
-                            total: bySeason.length,
-                            noun: "seasons carry lineup coverage",
-                            note: "apps and assists reflect local data, so empty cells are coverage gaps, not zero",
-                          }}
-                        />
                       </div>
                     </details>
 
@@ -419,12 +411,6 @@ export default async function PlayerPage({
                         </ChartPanel>
                       )}
 
-                      <CoverageNote
-                        slice="curated goals, assists, and goal types, 1987–2015"
-                        coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
-                        evidenceHref={curatedTotals.source_url ?? undefined}
-                        evidenceLabel="Tableau source"
-                      />
                     </div>
                   </details>
                 )}
@@ -548,7 +534,7 @@ export default async function PlayerPage({
                       </span>
                     </summary>
                     <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
-                      <AssistPartnerships playerId={id} rows={partnerships} hideTitle />
+                      <AssistPartnerships playerId={id} rows={partnerships} hideTitle hideCoverageNote />
                     </div>
                   </details>
                 )}
@@ -714,10 +700,6 @@ export default async function PlayerPage({
                         );
                       })}
                     </div>
-                    <CoverageNote
-                      slice="lineup appearances, all competitions"
-                      coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
-                    />
                   </div>
                 ) : (
                   <details className="group">
@@ -750,10 +732,6 @@ export default async function PlayerPage({
                         );
                       })}
                     </div>
-                    <CoverageNote
-                      slice="lineup appearances, all competitions"
-                      coverage={`${fmtNum(appearances.length)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
-                    />
                   </details>
                 )}
               </section>
@@ -781,6 +759,14 @@ export default async function PlayerPage({
             ),
           },
         ]}
+      />
+
+      <PlayerDataCoverage
+        coveredSeasons={coveredSeasons.length}
+        totalSeasons={bySeason.length}
+        curatedTotals={curatedTotals}
+        appearancesCount={appearances.length}
+        hasPartnerships={partnerships.length > 0}
       />
 
       <p className="text-sm">
@@ -821,5 +807,77 @@ function SeasonEvidenceRow({
         </Link>
       </div>
     </section>
+  );
+}
+
+/** One collapsed footnote for every data lane on the player page — replaces repeated section notes. */
+function PlayerDataCoverage({
+  coveredSeasons,
+  totalSeasons,
+  curatedTotals,
+  appearancesCount,
+  hasPartnerships,
+}: {
+  coveredSeasons: number;
+  totalSeasons: number;
+  curatedTotals: CuratedTotals | null;
+  appearancesCount: number;
+  hasPartnerships: boolean;
+}) {
+  return (
+    <details className="group rounded-xl border border-line bg-panel">
+      <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 px-4 py-3 sm:px-5">
+        <span className="text-sm font-medium text-ink-dim">Data coverage</span>
+        <span className="stat-num text-xs text-ink-faint">
+          <span className="text-devil-bright group-open:hidden">show</span>
+          <span className="hidden text-devil-bright group-open:inline">hide</span>
+        </span>
+      </summary>
+      <div className="space-y-3 border-t border-line px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
+        <p className="text-xs text-ink-dim">
+          <span className="font-medium text-ink">Club record</span> — verified competitive goals, apps, and starts in the hero plate.
+          Recorded splits below are drawn from match coverage we can evidence, not necessarily a full career total.
+        </p>
+
+        {totalSeasons > 0 && (
+          <CoverageNote
+            className="!mt-0"
+            slice="all competitions, per season"
+            count={{
+              covered: coveredSeasons,
+              total: totalSeasons,
+              noun: "seasons carry lineup coverage",
+              note: "apps and assists reflect local data, so empty cells are coverage gaps, not zero",
+            }}
+          />
+        )}
+
+        {curatedTotals && (
+          <CoverageNote
+            className="!mt-0"
+            slice="curated goals, assists, and goal types, 1987–2015"
+            coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
+            evidenceHref={curatedTotals.source_url ?? undefined}
+            evidenceLabel="Tableau source"
+          />
+        )}
+
+        {appearancesCount > 0 && (
+          <CoverageNote
+            className="!mt-0"
+            slice="lineup appearances, all competitions"
+            coverage={`${fmtNum(appearancesCount)} matches with lineup coverage, season by season — drawn from local lineup data, not a career appearance total.`}
+          />
+        )}
+
+        {hasPartnerships && (
+          <CoverageNote
+            className="!mt-0"
+            slice="recorded match-event assists, both directions"
+            coverage="goals where both scorer and assister are recorded; curated season assists are not pairwise and are excluded here."
+          />
+        )}
+      </div>
+    </details>
   );
 }
