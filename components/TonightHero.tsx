@@ -534,24 +534,26 @@ export function TonightHero({
       </Link>
 
       {canReroll && (
-        <button
-          type="button"
-          onClick={again}
-          aria-label="Show another night"
-          className="group/reroll tap-target absolute top-4 right-4 z-20 flex items-center gap-2.5 focus-ring sm:top-6 sm:right-6"
-        >
-          <span className="text-xs lowercase tracking-wide text-ink-faint transition-colors group-hover/reroll:text-ink-dim">
-            another night
-          </span>
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line/45 bg-pitch/25 text-devil-bright/75 backdrop-blur-sm transition-colors group-hover/reroll:border-devil/35 group-hover/reroll:bg-pitch/40 group-hover/reroll:text-devil-bright group-active/reroll:scale-95 motion-reduce:group-active/reroll:scale-100">
-            <span
-              aria-hidden
-              className="text-[13px] leading-none transition-transform duration-300 group-hover/reroll:rotate-180 group-active/reroll:rotate-180 motion-reduce:transition-none"
-            >
-              ↻
+        <div className="pointer-events-none absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
+          <button
+            type="button"
+            onClick={again}
+            aria-label="Show another night"
+            className="group/reroll tap-target pointer-events-auto flex items-center gap-2.5 focus-ring"
+          >
+            <span className="text-xs lowercase tracking-wide text-ink-faint transition-colors group-hover/reroll:text-ink-dim">
+              another night
             </span>
-          </span>
-        </button>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line/45 bg-pitch/25 text-devil-bright/75 backdrop-blur-sm transition-colors group-hover/reroll:border-devil/35 group-hover/reroll:bg-pitch/40 group-hover/reroll:text-devil-bright group-active/reroll:scale-95 motion-reduce:group-active/reroll:scale-100">
+              <span
+                aria-hidden
+                className="text-[13px] leading-none transition-transform duration-300 group-hover/reroll:rotate-180 group-active/reroll:rotate-180 motion-reduce:transition-none"
+              >
+                ↻
+              </span>
+            </span>
+          </button>
+        </div>
       )}
     </div>
   );
