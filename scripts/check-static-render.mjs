@@ -17,7 +17,6 @@ const EXPECTED_STATIC = [
   "/data",
   "/explore",
   "/managers",
-  "/opponents",
   "/transfers",
 ];
 

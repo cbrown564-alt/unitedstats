@@ -74,8 +74,9 @@ modern UI, a zero-cost auto-update pipeline, and a deep analytics layer.
 **Route render-mode disposition** (a regression here fails the build):
 
 - **Static `○`:** `/`, `/managers`, `/transfers`, `/explore`, `/data`,
-  `/opponents`, `/analytics` (`/opponents` filters client-side; `/analytics` runs
-  its forecast client-side over build-precomputed odds).
+  `/analytics` (`/analytics` runs its forecast client-side over build-precomputed
+  odds). `/opponents` **redirects** to `/search` (index cut; entity pages stay at
+  `/opponent/[id]`).
 - **SSG `●`** (`generateStaticParams` + `dynamicParams=true`): `/match/[id]`,
   `/player/[id]`, `/seasons/[season]`, `/opponent/[id]`, `/manager/[id]`. Full
   builds prerender every id; preview builds sample and serve the rest on demand.
