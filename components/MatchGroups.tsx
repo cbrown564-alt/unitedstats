@@ -14,11 +14,14 @@ export function MatchGroups({
   showAttendance = false,
   accentResult = false,
   renderExtra,
+  seasonTotals,
 }: {
   matches: MatchRow[];
   showAttendance?: boolean;
   accentResult?: boolean;
   renderExtra?: (m: MatchRow) => ReactNode;
+  /** Full-season match counts — when a group shows fewer rows, header reads "n of N". */
+  seasonTotals?: Record<string, number>;
 }) {
   if (matches.length === 0) return <MatchList matches={[]} />;
 
@@ -33,12 +36,17 @@ export function MatchGroups({
     <div className="space-y-6">
       {groups.map((g) => {
         const { w, d, l } = tallyWdl(g.rows);
+        const seasonTotal = seasonTotals?.[g.season];
+        const countLabel =
+          seasonTotal != null && g.rows.length < seasonTotal
+            ? `${g.rows.length} of ${seasonTotal}`
+            : `${g.rows.length} ${g.rows.length === 1 ? "match" : "matches"}`;
         return (
           <section key={`${g.season}-${g.rows[0].id}`} id={`season-${g.season}`} className="scroll-mt-28">
             <div className="mb-2 flex items-end gap-3">
               <h2 className="display text-lg leading-none">{g.season}</h2>
               <span className="stat-num text-xs leading-none text-ink-faint">
-                {g.rows.length} {g.rows.length === 1 ? "match" : "matches"}
+                {countLabel}
               </span>
               <div className="ml-auto w-40">
                 <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />

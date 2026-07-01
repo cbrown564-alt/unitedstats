@@ -35,6 +35,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
     heroTone,
     heroSub,
     matchHref,
+    seasonTotals,
   } = view;
 
   const qs = (overrides: Record<string, string | undefined>) => queryString({ ...sp, ...overrides });
@@ -99,7 +100,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
       </div>
 
       {chronological ? (
-        <MatchGroups matches={rows} accentResult renderExtra={eventBadgeRenderer} />
+        <MatchGroups matches={rows} accentResult renderExtra={eventBadgeRenderer} seasonTotals={seasonTotals} />
       ) : (
         <MatchList matches={rows} showSeason accentResult renderExtra={eventBadgeRenderer} />
       )}

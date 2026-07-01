@@ -11,7 +11,6 @@ import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict
 import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
-import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
@@ -157,50 +156,35 @@ export default async function SeasonPage({
 
   return (
     <div className="space-y-8">
-      <DetailBreadcrumb
-        segments={[
-          { label: "Seasons", href: "/seasons" },
-          { label: season },
-        ]}
-      />
-      {/* Older ← All seasons → Newer. A 3-column grid keeps "All seasons" centred
-          even at the timeline's ends, where one neighbour is missing. */}
-      <nav className="grid grid-cols-[1fr_auto_1fr] items-stretch gap-2 text-sm">
-        {older ? (
-          <Link
-            href={`/seasons/${older}`}
-            className="group flex w-fit items-center gap-2.5 justify-self-start rounded-lg border border-line bg-panel px-3 py-2 transition-colors hover:border-devil/50 hover:bg-panel-2 focus-ring"
-          >
-            <span className="text-base leading-none text-ink-faint transition-colors group-hover:text-devil-bright" aria-hidden>←</span>
-            <span className="leading-tight">
-              <span className="block text-[10px] uppercase tracking-[0.14em] text-ink-faint">Previous</span>
-              <span className="stat-num text-ink transition-colors group-hover:text-devil-bright">{older}</span>
-            </span>
-          </Link>
-        ) : (
-          <span aria-hidden />
-        )}
-
-        <Link
-          href="/seasons"
-          className="flex items-center justify-center rounded-lg border border-line bg-panel px-4 text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
-        >
-          All seasons
+      <nav className="detail-breadcrumb flex flex-wrap items-center gap-y-0.5" aria-label="Breadcrumb">
+        <Link href="/seasons" className="hover:text-devil-bright focus-ring">
+          Seasons
         </Link>
-
-        {newer ? (
-          <Link
-            href={`/seasons/${newer}`}
-            className="group flex w-fit items-center gap-2.5 justify-self-end rounded-lg border border-line bg-panel px-3 py-2 text-right transition-colors hover:border-devil/50 hover:bg-panel-2 focus-ring"
-          >
-            <span className="leading-tight">
-              <span className="block text-[10px] uppercase tracking-[0.14em] text-ink-faint">Next</span>
-              <span className="stat-num text-ink transition-colors group-hover:text-devil-bright">{newer}</span>
-            </span>
-            <span className="text-base leading-none text-ink-faint transition-colors group-hover:text-devil-bright" aria-hidden>→</span>
-          </Link>
-        ) : (
-          <span aria-hidden />
+        {older && (
+          <>
+            <span className="mx-1.5 text-ink-faint/70" aria-hidden>·</span>
+            <Link
+              href={`/seasons/${older}`}
+              className="hover:text-devil-bright focus-ring"
+              aria-label={`Previous season ${older}`}
+            >
+              ← {older}
+            </Link>
+          </>
+        )}
+        <span className="mx-1.5 text-ink-faint/70" aria-hidden>·</span>
+        <span className="text-ink-dim">{season}</span>
+        {newer && (
+          <>
+            <span className="mx-1.5 text-ink-faint/70" aria-hidden>·</span>
+            <Link
+              href={`/seasons/${newer}`}
+              className="hover:text-devil-bright focus-ring"
+              aria-label={`Next season ${newer}`}
+            >
+              {newer} →
+            </Link>
+          </>
         )}
       </nav>
 
@@ -225,13 +209,9 @@ export default async function SeasonPage({
       />
 
       {narrative.length > 0 && (
-        <div className="max-w-3xl rounded-lg border border-line bg-panel p-4">
-          <h2 className="mb-1.5 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
-          <p className="text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
-          <p className="mt-2 text-[11px] text-ink-dim">
-            Generated directly from the match record: every sentence is computed from the match history below, and goalscorer
-            claims reflect database coverage.
-          </p>
+        <div className="rounded-lg border border-line bg-panel p-4 sm:p-5">
+          <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
+          <p className="max-w-3xl text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
         </div>
       )}
 
@@ -243,7 +223,7 @@ export default async function SeasonPage({
         <section>
           <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
           <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-            <ResultSpine matches={sequence} subject={`United ${season}`} />
+            <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={(id) => `/match/${id}`} />
             <p className="mt-2 text-[11px] leading-4 text-ink-dim">
               Every match in order — wins above the line, losses below, bar height the goal margin.
             </p>
@@ -295,10 +275,10 @@ export default async function SeasonPage({
                     {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
                   </div>
                   {/* Right cluster: match total, then the stacked W/D/L record bar. */}
-                  <span className="stat-num hidden w-20 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
+                  <span className="stat-num hidden w-16 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
                     {list.length} {list.length === 1 ? "match" : "matches"}
                   </span>
-                  <div className="w-28 shrink-0 sm:w-40">
+                  <div className="w-28 shrink-0 sm:w-36">
                     <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
                   </div>
                 </summary>

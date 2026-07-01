@@ -26,7 +26,6 @@ export const NAV_GROUPS: readonly NavGroup[] = [
     items: [
       { label: "Players", href: "/players", icon: "players" },
       { label: "Managers", href: "/managers", icon: "managers" },
-      { label: "Opponents", href: "/opponents", icon: "opponents" },
     ],
   },
   {

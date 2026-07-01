@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { fmtDate, venuePrefix } from "@/lib/format";
 import type { SequenceMatch } from "@/lib/trails";
@@ -33,6 +34,7 @@ export function ResultSpine({
   showRecord = false,
   markerGlyph,
   xLabel,
+  hrefForMatch,
 }: {
   /** Date-ordered match sequence. */
   matches: SequenceMatch[];
@@ -46,6 +48,8 @@ export function ResultSpine({
   markerGlyph?: ReactNode;
   /** X-axis labels: "year" (default) or "month" for single-season spans. */
   xLabel?: "year" | "month";
+  /** When set, each bar links to its match page. */
+  hrefForMatch?: (id: string) => string;
 }) {
   const n = matches.length;
   if (n === 0) return null;
@@ -132,6 +136,23 @@ export function ResultSpine({
           {/* baseline drawn last so it sits over the bars; non-scaling keeps it 1px */}
           <line x1={0} x2={W} y1={mid} y2={mid} stroke="var(--color-line)" strokeWidth={1} vectorEffect="non-scaling-stroke" />
         </svg>
+
+        {hrefForMatch && (
+          <div className="absolute inset-0 flex" aria-hidden>
+            {matches.map((m) => {
+              const tip = `${fmtDate(m.date)} ${venuePrefix(m.venue)} ${m.opponent_name}: ${m.gf}–${m.ga}`;
+              return (
+                <Link
+                  key={m.id}
+                  href={hrefForMatch(m.id)}
+                  title={tip}
+                  aria-label={tip}
+                  className="min-w-0 flex-1 transition-opacity hover:bg-ink/5 focus-ring"
+                />
+              );
+            })}
+          </div>
+        )}
 
         {pips.map((p) => (
           <div

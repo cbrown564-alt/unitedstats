@@ -30,6 +30,8 @@ export type MatchPageView = {
   heroTone: string;
   heroSub: string | null;
   matchHref?: string;
+  /** Full-season match counts for "n of N" group headers. */
+  seasonTotals: Record<string, number>;
 };
 
 export function hasActiveMatchFilters(sp: Record<string, string | undefined>): boolean {

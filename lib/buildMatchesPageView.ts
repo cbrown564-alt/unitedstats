@@ -17,6 +17,7 @@ import {
   matchesSummary,
   opponentById,
   playerById,
+  seasonAggregates,
   stadiumById,
 } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
@@ -119,5 +120,6 @@ export function buildMatchesPageView(sp: Record<string, string | undefined>): Ma
     heroTone,
     heroSub,
     matchHref: total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined,
+    seasonTotals: Object.fromEntries(seasonAggregates().map((s) => [s.season, s.p])),
   };
 }

@@ -1758,6 +1758,69 @@ export function sourceUsage(): (SourceRecord & { matches: number; facets: string
     .all() as (SourceRecord & { matches: number; facets: string })[];
 }
 
+export type SourceExample = {
+  source_id: string;
+  id: string;
+  date: string;
+  opponent_name: string;
+  gf: number;
+  ga: number;
+  facet: string;
+};
+
+/** One recent cited match per source — for the provenance register pullout. */
+export function sourceExamples(): SourceExample[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT ms.source_id, m.id, m.date, m.opponent_name, m.gf, m.ga, ms.facet
+       FROM match_sources ms
+       JOIN matches m ON m.id = ms.match_id
+       ORDER BY ms.source_id, m.date DESC, ms.rowid DESC`,
+    )
+    .all() as SourceExample[];
+
+  const seen = new Set<string>();
+  const out: SourceExample[] = [];
+  for (const row of rows) {
+    if (seen.has(row.source_id)) continue;
+    seen.add(row.source_id);
+    out.push(row);
+  }
+  return out;
+}
+
+export function dataGapCounts(): { gap: string; count: number }[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT
+         CASE
+           WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United goalscorers'
+           WHEN m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 'opposition goals'
+           WHEN m.has_lineup = 0 THEN 'lineup'
+           WHEN m.attendance IS NULL THEN 'attendance'
+           ELSE 'source note'
+         END gap,
+         COUNT(*) count
+       FROM matches m
+       JOIN competitions c ON c.id = m.competition_id
+       WHERE c.type != 'unofficial'
+         AND (
+           (m.gf > 0 AND m.events_complete = 0)
+           OR (m.ga > 0 AND NOT ${OPP_GOALS_EXISTS})
+           OR m.has_lineup = 0
+           OR m.attendance IS NULL
+         )
+       GROUP BY 1`,
+    )
+    .all() as { gap: string; count: number }[];
+  const order = ["United goalscorers", "opposition goals", "lineup", "attendance", "source note"];
+  return rows.sort((a, b) => {
+    const ai = order.indexOf(a.gap);
+    const bi = order.indexOf(b.gap);
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+  });
+}
+
 export function dataGaps(limit = 12): {
   id: string;
   date: string;
@@ -1797,6 +1860,61 @@ export function dataGaps(limit = 12): {
        LIMIT ?`,
     )
     .all(limit) as ReturnType<typeof dataGaps>;
+}
+
+/** Up to {@link perType} rows per gap category so filter tabs always have something to show. */
+export function dataGapsSample(perType = 12): ReturnType<typeof dataGaps> {
+  return getDb()
+    .prepare(
+      `WITH tagged AS (
+         SELECT m.id, m.date, m.season, m.opponent_name, c.name AS competition_name, m.gf, m.ga,
+                CASE
+                  WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United goalscorers'
+                  WHEN m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 'opposition goals'
+                  WHEN m.has_lineup = 0 THEN 'lineup'
+                  WHEN m.attendance IS NULL THEN 'attendance'
+                  ELSE 'source note'
+                END gap,
+                ROW_NUMBER() OVER (
+                  PARTITION BY CASE
+                    WHEN m.gf > 0 AND m.events_complete = 0 THEN 'United goalscorers'
+                    WHEN m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 'opposition goals'
+                    WHEN m.has_lineup = 0 THEN 'lineup'
+                    WHEN m.attendance IS NULL THEN 'attendance'
+                    ELSE 'source note'
+                  END
+                  ORDER BY
+                    CASE
+                      WHEN m.date >= '1946-01-01' AND m.gf > 0 AND m.events_complete = 0 THEN 0
+                      WHEN m.date >= '1946-01-01' AND m.ga > 0 AND NOT ${OPP_GOALS_EXISTS} THEN 1
+                      ELSE 2
+                    END,
+                    m.date DESC
+                ) rn
+         FROM matches m
+         JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type != 'unofficial'
+           AND (
+             (m.gf > 0 AND m.events_complete = 0)
+             OR (m.ga > 0 AND NOT ${OPP_GOALS_EXISTS})
+             OR m.has_lineup = 0
+             OR m.attendance IS NULL
+           )
+       )
+       SELECT id, date, season, opponent_name, competition_name, gf, ga, gap
+       FROM tagged
+       WHERE rn <= ?
+       ORDER BY
+         CASE gap
+           WHEN 'United goalscorers' THEN 0
+           WHEN 'opposition goals' THEN 1
+           WHEN 'lineup' THEN 2
+           WHEN 'attendance' THEN 3
+           ELSE 4
+         END,
+         date DESC`,
+    )
+    .all(perType) as ReturnType<typeof dataGaps>;
 }
 
 // ================================================================= Transfers

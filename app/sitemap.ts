@@ -28,7 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: url("/seasons"), changeFrequency: "weekly", priority: 0.6, lastModified: lastMatch },
     { url: url("/players"), changeFrequency: "weekly", priority: 0.6, lastModified: built },
     { url: url("/managers"), changeFrequency: "monthly", priority: 0.5, lastModified: built },
-    { url: url("/opponents"), changeFrequency: "weekly", priority: 0.6, lastModified: built },
     { url: url("/analytics"), changeFrequency: "weekly", priority: 0.5, lastModified: built },
     { url: url("/compare"), changeFrequency: "monthly", priority: 0.5, lastModified: built },
     { url: url("/transfers"), changeFrequency: "monthly", priority: 0.4, lastModified: built },

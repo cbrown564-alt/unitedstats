@@ -1,9 +1,9 @@
 import {
-  datedTransfers, netSpendByManager, spendTideByYear,
+  datedTransfers, managersIndex, netSpendByManager, spendTideByYear,
   topTransfersByFee, transferTotals,
 } from "@/lib/queries";
 import { SectionHead } from "@/components/SectionHead";
-import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
+import { RecordDeals } from "@/components/RecordDeals";
 import { SpendBars } from "@/components/SpendBars";
 import { SpendTide } from "@/components/charts/SpendTide";
 import { TransferArchive } from "@/components/TransferArchive";
@@ -23,18 +23,11 @@ export default async function TransfersPage() {
   // Only the biggest spenders: below the top 10 every manager sits at ~£0 net, an
   // artefact of undisclosed historical fees rather than a real spending story.
   const byManager = netSpendByManager().slice(0, 10);
+  const managerPortrait = new Map(
+    managersIndex().map((m) => [m.id, { name: m.name, src: m.thumb_url ?? m.image_url }]),
+  );
   const tide = spendTideByYear();
   const archive = datedTransfers();
-
-  const toItem = (
-    t: (typeof topIn)[number],
-  ): LeaderboardItem => ({
-    id: t.player_id ?? t.id,
-    name: t.player_name,
-    src: t.thumb_url,
-    figure: fmtFee(t.fee_gbp),
-    sub: `${t.club ?? "—"} · ${t.date ? t.date.slice(0, 4) : "—"}`,
-  });
 
   return (
     <div className="space-y-10">
@@ -159,27 +152,18 @@ export default async function TransfersPage() {
           peak years (the hero foregrounds the peak years; these name the records). */}
       <section className="space-y-3">
         <SectionHead title="The record deals" aside="by fee" />
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Leaderboard
-            title="Most expensive signings"
-            unit="fee in"
-            items={topIn.map(toItem)}
-            figureTone="text-devil-bright"
-          />
-          <Leaderboard
-            title="Most expensive sales"
-            unit="fee out"
-            items={topOut.map(toItem)}
-            figureTone="text-gold"
-          />
-        </div>
+        <RecordDeals signings={topIn} sales={topOut} />
       </section>
 
       {/* Who spent it: net spend by the manager in charge — the same money cut by
           person rather than by year. */}
       <section className="space-y-3">
         <SectionHead title="Who spent it" aside="top 10 by net" />
-        <SpendBars buckets={byManager} hrefFor={(b) => `/manager/${b.bucket_id}`} />
+        <SpendBars
+          buckets={byManager}
+          hrefFor={(b) => `/manager/${b.bucket_id}`}
+          portraitFor={(b) => managerPortrait.get(b.bucket_id) ?? null}
+        />
         <CoverageNote slice="known-fee transfers, attributed to the manager in charge on the transfer date.">
           The red bar is spend, the gold receipts, on one shared scale; the figure is the net. Only the ten
           biggest net spenders are shown — every manager below them sits near £0, an artefact of undisclosed

@@ -48,6 +48,7 @@ const nextConfig: NextConfig = {
       // The /questions index is subsumed into the Explore Answering strip (Phase
       // 11.5); the per-question /questions/[slug] depth pages remain the jump target.
       { source: "/questions", destination: "/explore", permanent: true },
+      { source: "/opponents", destination: "/search", permanent: true },
     ];
   },
   async headers() {

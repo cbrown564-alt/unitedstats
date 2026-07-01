@@ -120,7 +120,7 @@ export function IdentityPlate({
           )}
 
           {/* The headline figure is the answer; goals and any extra readouts sit beside it as a ribbon. */}
-          <div className="mt-5 flex flex-wrap items-end gap-x-7 gap-y-4 sm:mt-6">
+          <div className="mt-5 flex flex-wrap items-end gap-x-6 gap-y-3.5 sm:mt-6">
             <div className="leading-none">
               <div className="flex items-baseline gap-2">
                 <span className={`stat-num text-5xl font-semibold sm:text-6xl ${head.tone ?? "text-devil-bright"}`}>
@@ -128,12 +128,12 @@ export function IdentityPlate({
                 </span>
                 <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">{head.label}</span>
               </div>
-              {head.sub && <p className="stat-num mt-2 text-xs text-ink-faint">{head.sub}</p>}
+              {head.sub && <p className="stat-num mt-1.5 text-xs text-ink-faint">{head.sub}</p>}
             </div>
-            <div className="flex flex-wrap items-end gap-x-7 gap-y-3.5 border-l border-line pl-6">
+            <div className="flex flex-wrap items-end gap-x-6 gap-y-3 border-l border-line pl-5 sm:pl-6">
               <GoalDiff gf={gf} ga={ga} played={p} />
               {secondary.length > 0 && (
-                <dl className="grid grid-cols-2 gap-x-7 gap-y-3.5 sm:flex sm:flex-wrap sm:items-end">
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:items-end">
                   {secondary.map((s) => (
                     <div key={s.label} className="leading-none">
                       <dd className={`stat-num text-xl font-semibold ${s.tone ?? "text-ink"}`}>{s.value}</dd>
@@ -150,7 +150,7 @@ export function IdentityPlate({
 
           {/* The record as one edge-to-edge stacked bar — win | draw | loss with the
               counts seated inside each segment, so it states itself without a caption. */}
-          <div className="mt-5">
+          <div className="mt-4 sm:mt-5">
             <WdlBar w={w} d={d} l={l} size="lg" variant="stacked" showLabels />
           </div>
 

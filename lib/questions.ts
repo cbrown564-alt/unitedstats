@@ -126,6 +126,29 @@ export function questionBySlug(slug: string): QuestionMeta | undefined {
   return BY_SLUG.get(slug);
 }
 
+/** Launch myths on the homepage — one featured card, day-rotated. */
+const LAUNCH_QUESTION_SLUGS = [
+  "ferguson",
+  "treble",
+  "europe",
+  "late-goals",
+  "manager-bounce",
+] as const;
+
+function dayOfYear(d: Date): number {
+  const start = Date.UTC(d.getUTCFullYear(), 0, 0);
+  const today = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+  return Math.floor((today - start) / 86_400_000);
+}
+
+/** Today's featured launch myth — rotation is date-based, independent of TonightHero. */
+export function featuredLaunchQuestion(now = new Date()): QuestionMeta {
+  const slug = LAUNCH_QUESTION_SLUGS[dayOfYear(now) % LAUNCH_QUESTION_SLUGS.length];
+  const q = questionBySlug(slug);
+  if (!q) throw new Error(`missing launch question: ${slug}`);
+  return q;
+}
+
 /** Every question route — the curated front door plus the easter eggs — so
  *  `generateStaticParams` and the sitemap cover both. */
 export function questionSlugs(): string[] {
