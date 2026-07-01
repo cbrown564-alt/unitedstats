@@ -8,6 +8,10 @@ export type ChartDatum = {
   meta?: string;
   movementLabel?: string;
   href?: string;
+  /** Synthetic point connecting across a gap — not shown in tooltips or pin state. */
+  bridge?: boolean;
+  /** Deliberate 0% season — draw a marker when {@link InspectableTimeSeriesChart} marks zero years. */
+  zeroYear?: boolean;
 };
 
 export type ChartBarDatum = {

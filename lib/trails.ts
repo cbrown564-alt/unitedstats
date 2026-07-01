@@ -1167,7 +1167,7 @@ export function europeByDecade(): EuropeDecadeRow[] {
     .all() as EuropeDecadeRow[];
 }
 
-export interface EuropeSeasonRow extends Record_ {
+interface EuropeSeasonRow extends Record_ {
   season: string;
 }
 
