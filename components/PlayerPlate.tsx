@@ -86,7 +86,7 @@ export function PlayerPlate({
   if (stats.multiGoalGames) {
     secondary.push({
       value: fmtNum(stats.multiGoalGames),
-      label: "multi-goal",
+      label: "multi-goal apps",
       detail: stats.hatTricks ? `${fmtNum(stats.hatTricks)} hat-trick${stats.hatTricks === 1 ? "" : "s"}` : undefined,
       tone: stats.hatTricks ? "text-gold" : undefined,
     });
