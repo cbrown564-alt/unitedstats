@@ -58,7 +58,6 @@ export function MatchList<T extends MatchRow>({
             <Link href={`/match/${m.id}`} className="block transition-colors focus-ring hover:bg-panel/40">
               <MatchNightCard
                 match={m}
-                showAttendance={showAttendance}
                 accentResult={accentResult}
                 extra={renderExtra?.(m)}
               />

@@ -7,6 +7,12 @@ export function fmtDate(iso: string): string {
   return `${d} ${MONTHS[m - 1]} ${y}`;
 }
 
+/** Compact dd/mm/yyyy for tight mobile ledger rows. */
+export function fmtDateCompact(iso: string): string {
+  const [y, m, d] = iso.split("-");
+  return `${d.padStart(2, "0")}/${m.padStart(2, "0")}/${y}`;
+}
+
 /** Short "Mon YYYY" label from an ISO date. */
 export function fmtMonthYear(iso: string): string {
   const [y, m] = iso.split("-").map(Number);
