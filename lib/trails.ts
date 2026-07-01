@@ -123,6 +123,133 @@ export function iconicLateWinners(): MatchRow[] {
     .all(...ICONIC_LATE_DATES) as MatchRow[];
 }
 
+/** Editorial tag for each iconic late winner — the narrative hook, not computed. */
+const ICONIC_LATE_TAGS: Record<string, { tag: string; note: string; featured?: boolean }> = {
+  "1993-04-10": {
+    tag: "The original",
+    note: "Bruce's brace in the last five minutes — where the phrase was born.",
+    featured: true,
+  },
+  "1996-05-11": {
+    tag: "The FA Cup final",
+    note: "Cantona's 86th-minute winner at Wembley — the first trophy of the double.",
+    featured: true,
+  },
+  "1999-05-26": {
+    tag: "The Treble sealed",
+    note: "Two goals in stoppage time — the myth at its loudest.",
+    featured: true,
+  },
+  "2009-04-05": {
+    tag: "The debut",
+    note: "Macheda's first touch, 90+3 — another stoppage-time rescue.",
+  },
+  "2009-09-20": {
+    tag: "The derby",
+    note: "Owen's 96th-minute winner in the Manchester derby.",
+    featured: true,
+  },
+  "2010-04-17": {
+    tag: "The title race",
+    note: "Scholes' header at Eastlands — a late winner in a title showdown.",
+  },
+};
+
+export interface IconicLateMoment {
+  id: string;
+  date: string;
+  season: string;
+  opponent_name: string;
+  venue: string;
+  gf: number;
+  ga: number;
+  /** The decisive late United goal — minute on the clock. */
+  minute: number;
+  added: number | null;
+  scorer: string;
+  stoppage: boolean;
+  tag: string;
+  note: string;
+  /** Render as a full MatchFlow card in the evidence section. */
+  featured: boolean;
+}
+
+/**
+ * The six curated late-show nights with the decisive goal minute attached — feeds
+ * the intro spine and the featured MatchFlow cards. "Iconic" stays editorial;
+ * every entry is still a verified one-goal win sealed after the 85th minute.
+ */
+export function iconicLateMoments(): IconicLateMoment[] {
+  return iconicLateWinners().flatMap((m) => {
+    const ev = eventsForMatch(m.id);
+    const unitedGoals = ev.filter(
+      (e) =>
+        (e.type === "goal" || e.type === "pen-goal" || e.type === "own-goal-for") &&
+        e.minute != null &&
+        e.minute >= 86,
+    );
+    if (unitedGoals.length === 0) return [];
+    // The latest United goal is the one that sealed it.
+    const decisive = unitedGoals.reduce((a, b) => {
+      const aClock = a.minute! * 100 + (a.added_time ?? 0);
+      const bClock = b.minute! * 100 + (b.added_time ?? 0);
+      return bClock >= aClock ? b : a;
+    });
+    const meta = ICONIC_LATE_TAGS[m.date] ?? { tag: "Late show", note: "", featured: false };
+    const stoppage = decisive.minute! > 90 || (decisive.minute === 90 && (decisive.added_time ?? 0) > 0);
+    return [{
+      id: m.id,
+      date: m.date,
+      season: m.season,
+      opponent_name: m.opponent_name,
+      venue: m.venue,
+      gf: m.gf,
+      ga: m.ga,
+      minute: decisive.minute!,
+      added: decisive.added_time,
+      scorer: decisive.player_name ?? "goal",
+      stoppage,
+      tag: meta.tag,
+      note: meta.note,
+      featured: meta.featured ?? false,
+    }];
+  });
+}
+
+export interface LateGoalEraSlice {
+  label: string;
+  timed: number;
+  reg: number;
+  stoppage: number;
+}
+
+/**
+ * Late-goal share split across Ferguson's reign, the years before, and since —
+ * the comparison lens that shows the regulation edge is era-flat while the
+ * stoppage column is what grew (especially post-2013 and in the 2020s).
+ */
+export function lateGoalEraComparison(): LateGoalEraSlice[] {
+  const db = getDb();
+  const rows = db
+    .prepare(
+      `SELECT
+         CASE
+           WHEN m.date < '1986-11-08' THEN 'Before Ferguson'
+           WHEN m.date <= '2013-05-19' THEN 'Under Ferguson'
+           ELSE 'Since Ferguson'
+         END AS label,
+         COUNT(*) timed,
+         SUM(e.minute BETWEEN 86 AND 90 AND COALESCE(e.added_time, 0) = 0) reg,
+         SUM(e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0)) stoppage
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL
+       GROUP BY 1
+       ORDER BY MIN(m.date)`,
+    )
+    .all() as LateGoalEraSlice[];
+  return rows.filter((r) => r.timed >= 20);
+}
+
 // ---------------------------------------------------------------- bogey sides
 
 export interface BogeyOpponent extends Record_ {

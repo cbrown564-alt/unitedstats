@@ -1,12 +1,12 @@
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
-  goalMinuteRidge, leadHeldAtHome, managerBounce,
+  iconicLateMoments, leadHeldAtHome, managerBounce,
   fergusonFloorSummary, fergusonFloorTimeline,
   europeByDecade, europeanFinals,
 } from "@/lib/trails";
 import { clubStreaks } from "@/lib/streaks";
 import { fmtNum, pct } from "@/lib/format";
-import { MinuteColumns } from "@/components/charts/MinuteColumns";
+import { LateShowSpine } from "@/components/charts/LateShowSpine";
 import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
@@ -63,8 +63,8 @@ function Figures({ items }: { items: Figure[] }) {
 export function QuestionSignature({ slug }: { slug: string }) {
   switch (slug) {
     case "late-goals": {
-      const ridge = goalMinuteRidge();
-      return <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={190} />;
+      const moments = iconicLateMoments();
+      return <LateShowSpine moments={moments} />;
     }
 
     case "comebacks": {

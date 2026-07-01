@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
-  iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
+  iconicLateMoments, lateGoalEraComparison, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord,
   fergusonFloorSummary, fergusonFloorTimeline, managerLongevityField, postFergusonFloorMoments,
@@ -18,6 +18,7 @@ import { InspectableBarChartLazy as InspectableBarChart, ManagerLongevityChartLa
 import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
 import { FinishLadder } from "@/components/seasons/FinishLadder";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
+import { LateShowSpine } from "@/components/charts/LateShowSpine";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { MatchFlow } from "@/components/MatchFlow";
@@ -26,7 +27,6 @@ import { EuropeFinalsTimeline } from "@/components/charts/EuropeFinalsTimeline";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { BounceComparisonTable } from "@/components/manager/BounceComparisonTable";
 import { GeoScatter } from "@/components/GeoScatter";
-import { MatchList } from "@/components/MatchList";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { WdlBar } from "@/components/WdlBar";
 import { TrophyIcon, TROPHY_CAT_TONE } from "@/components/CampaignIcons";
@@ -206,7 +206,8 @@ function LateGoalsModule({ variant }: ModuleProps) {
   const lateByDecade = lateGoalShareByDecade();
   const ridge = goalMinuteRidge();
   const timed = timedGoalCounts();
-  const winners = iconicLateWinners();
+  const moments = iconicLateMoments();
+  const eras = lateGoalEraComparison();
   const overallLateShare = lateByDecade.reduce(
     (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late, reg: a.reg + d.reg, stoppage: a.stoppage + d.stoppage }),
     { timed: 0, late: 0, reg: 0, stoppage: 0 },
@@ -214,82 +215,167 @@ function LateGoalsModule({ variant }: ModuleProps) {
   const round1 = (n: number) => Math.round(n * 10) / 10;
   const regShare = pct(overallLateShare.reg, overallLateShare.timed);
   const evenSpread = pct(5, 90);
+  const fergEra = eras.find((e) => e.label === "Under Ferguson");
+  const fergRegShare = fergEra ? pct(fergEra.reg, fergEra.timed) : regShare;
+  const featured = moments.filter((m) => m.featured);
+  const shortDate = (d: string) => fmtDate(d).replace(/\s*\d{4}$/, "");
+
   const lateGoalsVisual = (
-    <div className="space-y-4">
-      <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
-        <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
-          <div className="stat-num text-5xl font-semibold leading-none text-gold">{regShare}</div>
-          <div className="mx-auto mt-1.5 max-w-36 text-[11px] leading-snug text-ink-faint text-pretty">
-            of timed goals in the last five minutes before the whistle (86–90)
-          </div>
-        </div>
-        <div className="flex items-center text-sm text-ink-dim sm:px-2">
-          <span>
-            An even spread across the match would give <span className="text-ink">{evenSpread}</span> — the edge is in
-            normal time, before stoppage time stacks on top.
-          </span>
-        </div>
+    <div className="space-y-2">
+      <div className="text-[11px] uppercase tracking-wider text-ink-faint">
+        Six nights that built the myth — decisive goals plotted by minute
       </div>
-      <div>
-        <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={220} />
-        <p className="text-xs text-ink-dim mt-1">
-          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
-          {" · "}
-          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage time</span>
-          . The dashed line is an even spread; the 86–90 bar already clears it.
-        </p>
-      </div>
+      <LateShowSpine moments={moments} />
+      <p className="text-xs text-ink-dim text-pretty">
+        Every marker is a one-goal win sealed after the 85th minute. The cluster in the gold band is the real edge — stoppage-time rescues are the stories that stick.
+      </p>
     </div>
   );
+
   return (
     <Module
       slug="late-goals"
       evidence={{ href: "/matches", label: "Browse every match →", count: Number(meta.matches), countNoun: "matches" }}
       variant={variant}
       visual={lateGoalsVisual}
-      visualLabel="Across the 90"
-      finding={`United score late — mostly in the last five minutes before the whistle, not in added time. Minutes 86–90 account for ${regShare} of timed goals; spread evenly across a match, you'd expect ${evenSpread}. The pattern long predates "Fergie time".`}
+      visualLabel="The late show"
+      finding={`United score late — mostly in the last five minutes before the whistle, not in added time. Minutes 86–90 account for ${regShare} of timed goals; spread evenly across a match, you'd expect ${evenSpread}. Under Ferguson that regulation share was ${fergRegShare} — the same band as every other era. What grew was stoppage time itself, and the myth the closing minutes built.`}
       slice="United goals with a recorded minute — penalties and own goals for included — grouped by decade, the post-85th window split between minutes 86–90 and stoppage time (90+, with added time folded into the final minute). Decades with fewer than 20 timed goals are hidden."
       coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute, and that data thins quickly before the 1990s. Stoppage-time goals are only separable where a source marks them "90+" — largely a modern convention — so the stoppage segment reads near zero in the early decades partly because it went unrecorded, not only because added time was shorter.`}
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-stretch">
-        <div className="flex flex-col">
-          <h3 className="text-sm font-medium mb-2 text-ink-dim">The 1990s bang, the 2020s blow-up</h3>
-          <div className="min-h-40 flex-1">
-            <InspectableBarChart
-              data={lateByDecade.map((d) => ({
-                label: d.decade,
-                tickLabel: d.decade.slice(2),
-                value: round1((100 * d.reg) / d.timed),
-                value2: round1((100 * d.stoppage) / d.timed),
-                valueLabel: `${Math.round((100 * d.late) / d.timed)}% after 85'`,
-                meta: `${Math.round((100 * d.reg) / d.timed)}% last five minutes · ${Math.round((100 * d.stoppage) / d.timed)}% stoppage`,
-                href: `/matches?from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
-              }))}
-              fill
-              color="var(--color-gold)"
-              stack={{ color: "var(--color-devil-bright)" }}
-              chartLabel="Manchester United late goal share by decade, split between minutes 86-90 and stoppage time"
-              yTickSuffix="%"
-              baseline={{ value: 100 / 18 }}
-            />
+      <section className="space-y-3">
+        <div>
+          <h3 className="text-sm font-medium text-ink-dim">The shape of the edge — where goals land across 90 minutes</h3>
+          <p className="mt-0.5 text-xs text-ink-dim text-pretty">
+            An even spread would put {evenSpread} in every five-minute window. The 86–90 bar clears that baseline; the red stoppage cap on the final column is a modern lengthening of the closing window, not a United trait.
+          </p>
+        </div>
+        <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={220} />
+        <p className="text-xs text-ink-dim">
+          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> goals per 5-minute window</span>
+          {" · "}
+          <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage time</span>
+          . The dashed line is an even spread.
+        </p>
+      </section>
+
+      <section className="space-y-3">
+        <div>
+          <h3 className="text-sm font-medium text-ink-dim">Perspective — regulation flat, stoppage growing</h3>
+          <p className="mt-0.5 text-xs text-ink-dim text-pretty">
+            Split the record into three eras: the regulation share (86–90) holds steady at roughly {evenSpread}–{regShare}; what climbs is the stoppage column as added time lengthens — especially in the 2020s.
+          </p>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-stretch">
+          <div className="flex flex-col">
+            <div className="min-h-40 flex-1">
+              <InspectableBarChart
+                data={eras.map((e) => ({
+                  label: e.label,
+                  tickLabel: e.label === "Under Ferguson" ? "Ferguson" : e.label === "Before Ferguson" ? "Before" : "Since",
+                  value: round1((100 * e.reg) / e.timed),
+                  value2: round1((100 * e.stoppage) / e.timed),
+                  valueLabel: `${Math.round((100 * (e.reg + e.stoppage)) / e.timed)}% after 85′`,
+                  meta: `${Math.round((100 * e.reg) / e.timed)}% last five minutes · ${Math.round((100 * e.stoppage) / e.timed)}% stoppage · ${fmtNum(e.timed)} timed goals`,
+                }))}
+                fill
+                color="var(--color-gold)"
+                stack={{ color: "var(--color-devil-bright)" }}
+                chartLabel="Manchester United late goal share by era, split between minutes 86-90 and stoppage time"
+                yTickSuffix="%"
+                baseline={{ value: 100 / 18, label: "even spread" }}
+              />
+            </div>
+            <p className="text-xs text-ink-dim mt-1">
+              <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> last 5 min (86–90)</span>
+              {" · "}
+              <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage (90+)</span>
+            </p>
           </div>
-          <p className="text-xs text-ink-dim mt-1">
-            <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-gold)" }} /> last 5 min (86–90)</span>
-            {" · "}
-            <span className="inline-flex items-center gap-1 align-middle"><span className="inline-block h-2 w-2 rounded-sm" style={{ background: "var(--color-devil-bright)" }} /> stoppage (90+)</span>
-            . Fergie time came back with a bang in the 1990s — and the 2020s went a step beyond, with double the added time stacking the red cap as high as the gold base.
-          </p>
+          <div className="flex flex-col">
+            <h3 className="text-sm font-medium mb-2 text-ink-dim">The 1990s bang, the 2020s blow-up — by decade</h3>
+            <div className="min-h-40 flex-1">
+              <InspectableBarChart
+                data={lateByDecade.map((d) => ({
+                  label: d.decade,
+                  tickLabel: d.decade.slice(2),
+                  value: round1((100 * d.reg) / d.timed),
+                  value2: round1((100 * d.stoppage) / d.timed),
+                  valueLabel: `${Math.round((100 * d.late) / d.timed)}% after 85'`,
+                  meta: `${Math.round((100 * d.reg) / d.timed)}% last five minutes · ${Math.round((100 * d.stoppage) / d.timed)}% stoppage`,
+                  href: `/matches?from=${d.decade.slice(0, 4)}&to=${Number(d.decade.slice(0, 4)) + 9}`,
+                }))}
+                fill
+                color="var(--color-gold)"
+                stack={{ color: "var(--color-devil-bright)" }}
+                chartLabel="Manchester United late goal share by decade, split between minutes 86-90 and stoppage time"
+                yTickSuffix="%"
+                baseline={{ value: 100 / 18 }}
+              />
+            </div>
+            <p className="text-xs text-ink-dim mt-1">
+              Fergie time came back with a bang in the 1990s — and the 2020s went a step beyond, with double the added time stacking the red cap as high as the gold base.
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col">
-          <h3 className="text-sm font-medium mb-2 text-ink-dim">The late show — six United sealed at the death</h3>
-          <p className="text-xs text-ink-dim mb-3">
-            Iconic one-goal wins decided by a United goal after the 85th minute — from Bruce against Sheffield
-            Wednesday to the Treble night in Barcelona.
-          </p>
-          <MatchList matches={winners} showSeason />
-        </div>
-      </div>
+      </section>
+
+      {featured.length > 0 && (
+        <section className="space-y-3">
+          <div>
+            <h3 className="text-sm font-medium text-ink-dim">The nights — four that built the myth</h3>
+            <p className="mt-0.5 text-xs text-ink-dim text-pretty">
+              One-goal wins decided by a United goal after the 85th minute — minute by minute, from Bruce against Sheffield Wednesday to Owen in the Manchester derby.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {featured.map((m) => {
+              const ev = eventsForMatch(m.id);
+              const unitedGoals = ev.filter((e) => e.type === "goal" || e.type === "pen-goal" || e.type === "own-goal-for");
+              const opponentGoals = ev.filter((e) => e.type === "opp-goal" || e.type === "own-goal-against");
+              const hasTimed = unitedGoals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
+              const crowned = m.tag === "The Treble sealed" || m.tag === "The original";
+              return (
+                <div
+                  key={m.id}
+                  className={`group relative overflow-hidden rounded-lg border bg-panel-2 p-4 transition-colors ${crowned ? "border-gold/35 shadow-[0_14px_36px_-18px_rgba(0,0,0,0.75)] hover:border-gold/55" : "border-line hover:border-devil/60"}`}
+                >
+                  {crowned && (
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full opacity-[0.13] blur-3xl"
+                      style={{ backgroundColor: "var(--color-gold)" }}
+                    />
+                  )}
+                  <div className="relative">
+                    <Link href={`/match/${m.id}`} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                      <span className="flex items-center gap-2 text-sm">
+                        <span className={`text-[10px] font-medium uppercase tracking-wide ${crowned ? "text-gold" : "text-devil-bright"}`}>
+                          {m.tag}
+                        </span>
+                        <span className="stat-num text-ink-faint">{shortDate(m.date)}</span>
+                      </span>
+                      <span className="flex items-center gap-2 text-sm">
+                        <span className="text-ink-faint">{venuePrefix(m.venue)}</span>
+                        <span className="font-medium text-ink group-hover:text-devil-bright">{m.opponent_name}</span>
+                        <span className={`stat-num font-semibold tabular-nums ${crowned ? "text-gold" : "text-ink"}`}>
+                          {m.gf}<span className="mx-px text-ink-faint">–</span>{m.ga}
+                        </span>
+                      </span>
+                    </Link>
+                    <div className="mt-3.5">
+                      {hasTimed ? (
+                        <MatchFlow unitedGoals={unitedGoals} opponentGoals={opponentGoals} aet={false} />
+                      ) : null}
+                    </div>
+                    <p className="mt-3 text-xs text-ink-dim text-pretty">{m.note}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </Module>
   );
 }
@@ -574,6 +660,7 @@ function TrebleModule({ variant }: ModuleProps) {
           <ResultSpine matches={seasonSeq} markers={spineMarkers} height={120} subject="Manchester United 1998-99" markerGlyph={<TrophyIcon className="h-4 w-4" />} xLabel="month" />
         </div>
       }
+      visualLabel="One season"
       finding={`United played ${overall.p} matches across the three competitions and lost just ${overall.l} — then became the first English club to hold the league, the FA Cup and the European Cup at the same time. All three were won inside ${spanDays} days in ${month} ${year}, the last of them in stoppage time.`}
       slice="Every match of 1998-99 is in the timeline up top. The matches below show who scored and when in the decisive games."
       coverage="Every goal. Every match. One glorious season."
