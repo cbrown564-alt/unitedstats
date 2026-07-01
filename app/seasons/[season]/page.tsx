@@ -11,6 +11,7 @@ import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict
 import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
+import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
@@ -208,92 +209,105 @@ export default async function SeasonPage({
         secondary={secondary}
       />
 
-      {narrative.length > 0 && (
-        <div className="rounded-lg border border-line bg-panel p-4 sm:p-5">
-          <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
-          <p className="max-w-3xl text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
-        </div>
-      )}
-
-      {leagueTable && (
-        <LeagueTable table={leagueTable} season={season} />
-      )}
-
-      {sequence.length >= 24 && (
-        <section>
-          <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
-          <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-            <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={(id) => `/match/${id}`} />
-            <p className="mt-2 text-[11px] leading-4 text-ink-dim">
-              Every match in order — wins above the line, losses below, bar height the goal margin.
-            </p>
-          </div>
-        </section>
-      )}
-
-      <section>
-        <SectionHead
-          title="Competitions"
-          aside={trophies > 0 ? `${byComp.size} entered · ${trophies} won` : `${byComp.size} entered`}
-        />
-        <div className="space-y-2">
-          {[...byComp.entries()].map(([comp, list]) => {
-            const { w, d, l } = tallyWdl(list);
-            const outcome = campaignOutcome(summaryByName.get(comp), list);
-            // Knockout campaigns resolve into United's run; the bracket carries
-            // the round-by-round scores the flat list would otherwise repeat, so
-            // it replaces the list once there are ≥2 stages to ladder. Leagues and
-            // one-off ties keep the chronological MatchList.
-            const run = list[0].competition_type !== "league" ? buildCupRun(list) : null;
-            const bracket = run && run.stages.length >= 2 ? run.stages : null;
-            // Silverware and runners-up get an accented lane so the season's
-            // critical achievements scan straight down the column.
-            const accent =
-              outcome?.tier === "silverware"
-                ? "border-l-2 border-l-gold/70"
-                : outcome?.tier === "final-loss"
-                  ? "border-l-2 border-l-silver/55"
-                  : "";
-            return (
-              <details key={comp} className={`group overflow-hidden rounded-lg border border-line bg-panel ${accent}`}>
-                <summary
-                  className={`flex cursor-pointer list-none items-center gap-2.5 py-2.5 pr-3 pl-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:gap-3 sm:pr-4 sm:pl-3 [&::-webkit-details-marker]:hidden ${
-                    outcome?.tier === "silverware" ? "bg-gold/[0.04]" : ""
-                  }`}
-                >
-                  <svg className={CHEVRON} viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <CompetitionBadge
-                    id={list[0].competition_id}
-                    name={comp}
-                    type={list[0].competition_type}
-                    size="md"
-                  />
-                  <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
-                    <h3 className="display line-clamp-2 min-w-0 text-base leading-snug" title={comp}>{comp}</h3>
-                    {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
+      <DetailSectionTabs
+        defaultTab="overview"
+        ariaLabel="Season sections"
+        idPrefix="season"
+        tabs={[
+          {
+            id: "overview",
+            label: "Overview",
+            content: (
+              <div className="space-y-8">
+                {narrative.length > 0 && (
+                  <div className="rounded-lg border border-line bg-panel p-4 sm:p-5">
+                    <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
+                    <p className="max-w-3xl text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
                   </div>
-                  {/* Right cluster: match total, then the stacked W/D/L record bar. */}
-                  <span className="stat-num hidden w-16 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
-                    {list.length} {list.length === 1 ? "match" : "matches"}
-                  </span>
-                  <div className="w-28 shrink-0 sm:w-36">
-                    <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
-                  </div>
-                </summary>
-                <div className="border-t border-line p-2 sm:p-3">
-                  {bracket ? <CupRun stages={bracket} /> : <MatchList matches={list} />}
+                )}
+
+                {leagueTable && (
+                  <LeagueTable table={leagueTable} season={season} />
+                )}
+
+                {sequence.length >= 24 && (
+                  <section>
+                    <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
+                    <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
+                      <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={(id) => `/match/${id}`} />
+                      <p className="mt-2 text-[11px] leading-4 text-ink-dim">
+                        Every match in order — wins above the line, losses below, bar height the goal margin.
+                      </p>
+                    </div>
+                  </section>
+                )}
+              </div>
+            ),
+          },
+          {
+            id: "competitions",
+            label: "Competitions",
+            content: (
+              <section>
+                <SectionHead
+                  title="Competitions"
+                  aside={trophies > 0 ? `${byComp.size} entered · ${trophies} won` : `${byComp.size} entered`}
+                />
+                <div className="space-y-2">
+                  {[...byComp.entries()].map(([comp, list]) => {
+                    const { w, d, l } = tallyWdl(list);
+                    const outcome = campaignOutcome(summaryByName.get(comp), list);
+                    const run = list[0].competition_type !== "league" ? buildCupRun(list) : null;
+                    const bracket = run && run.stages.length >= 2 ? run.stages : null;
+                    const accent =
+                      outcome?.tier === "silverware"
+                        ? "border-l-2 border-l-gold/70"
+                        : outcome?.tier === "final-loss"
+                          ? "border-l-2 border-l-silver/55"
+                          : "";
+                    return (
+                      <details key={comp} className={`group overflow-hidden rounded-lg border border-line bg-panel ${accent}`}>
+                        <summary
+                          className={`flex cursor-pointer list-none items-center gap-2.5 py-2.5 pr-3 pl-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:gap-3 sm:pr-4 sm:pl-3 [&::-webkit-details-marker]:hidden ${
+                            outcome?.tier === "silverware" ? "bg-gold/[0.04]" : ""
+                          }`}
+                        >
+                          <svg className={CHEVRON} viewBox="0 0 16 16" fill="none" aria-hidden>
+                            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                          <CompetitionBadge
+                            id={list[0].competition_id}
+                            name={comp}
+                            type={list[0].competition_type}
+                            size="md"
+                          />
+                          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
+                            <h3 className="display line-clamp-2 min-w-0 text-base leading-snug" title={comp}>{comp}</h3>
+                            {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
+                          </div>
+                          <span className="stat-num hidden w-16 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
+                            {list.length} {list.length === 1 ? "match" : "matches"}
+                          </span>
+                          <div className="w-28 shrink-0 sm:w-36">
+                            <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
+                          </div>
+                        </summary>
+                        <div className="border-t border-line p-2 sm:p-3">
+                          {bracket ? <CupRun stages={bracket} /> : <MatchList matches={list} />}
+                        </div>
+                      </details>
+                    );
+                  })}
                 </div>
-              </details>
-            );
-          })}
-        </div>
-        <CoverageNote
-          slice="every competitive match this season, grouped by competition."
-          coverage="Result data is complete; recorded goalscorer and lineup coverage vary by era."
-        />
-      </section>
+                <CoverageNote
+                  slice="every competitive match this season, grouped by competition."
+                  coverage="Result data is complete; recorded goalscorer and lineup coverage vary by era."
+                />
+              </section>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }
