@@ -1,17 +1,15 @@
 import Link from "next/link";
 import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
-  topScorers, seasonAggregates, championSeasons,
+  seasonAggregates, championSeasons,
 } from "@/lib/queries";
 import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
-import { QUESTIONS } from "@/lib/questions";
+import { featuredLaunchQuestion } from "@/lib/questions";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
 import { MobileSearchPrompt } from "@/components/mobile/MobileSearchPrompt";
-import { CuratedCarousel, type CarouselCard } from "@/components/CuratedCarousel";
 import { SectionHead } from "@/components/SectionHead";
-import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
 import { greatNights } from "@/lib/greatNights";
@@ -27,7 +25,7 @@ export default function Home() {
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
   const { nights, seed } = greatNights();
-  const scorers = topScorers(8);
+  const featured = featuredLaunchQuestion();
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
   const lastDate = meta.last_match ?? "";
@@ -36,16 +34,6 @@ export default function Home() {
   // bar of matches played, stacked W/D/L, championship years gold-capped.
   const skyline = seasonAggregates().filter((s) => s.p > 0);
   const champs = new Set(championSeasons());
-
-  // The curated-cut launcher: the nine myth-tested questions as a peek-carousel,
-  // each card opening its full answer page (Phase 10 per-question routes). This is
-  // the answer-first front door — it launches findings, it does not reproduce them.
-  const questionCards: CarouselCard[] = QUESTIONS.map((q) => ({
-    href: `/questions/${q.slug}`,
-    eyebrow: q.label,
-    title: q.question,
-    blurb: q.summary,
-  }));
 
   // All-time record by competition as stacked W/D/L bars; matches played rides a
   // √-scaled volume lane under each (so League dwarfs the cups without distorting the
@@ -107,16 +95,26 @@ export default function Home() {
         </section>
       </div>
 
-      {/* ── Movement: start a trail. The curated-cut launcher — the myth-tested
-          questions as answer-first doors into the record. (The "All-time peaks"
-          cards used to sit here; cut as redundant with the all-time record below
-          and the figures on /analytics — Session 3 of the restraint pass.) ── */}
+      {/* ── Movement: start a trail. One featured myth, day-rotated through the
+          launch set — a single deepening door into the record. ── */}
       <section>
         <SectionHead
           title="Start with a question"
           aside={<Link href="/explore" className="text-devil-bright hover:underline">Discover all →</Link>}
         />
-        <CuratedCarousel cards={questionCards} label="Curated questions" />
+        <Link
+          href={`/questions/${featured.slug}`}
+          className="group flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-devil/60 hover:bg-panel-2/60 focus-ring sm:p-6"
+        >
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
+            {featured.label}
+          </span>
+          <span className="display mt-1 text-balance text-xl leading-tight text-ink group-hover:text-devil-bright sm:text-2xl">
+            {featured.question}
+          </span>
+          <span className="mt-2 max-w-2xl text-pretty text-sm text-ink-dim">{featured.summary}</span>
+          <span className="mt-4 text-xs text-devil-bright">Open the answer →</span>
+        </Link>
         <p className="mt-2 text-xs text-ink-faint">
           Myths fans repeat, each tested against the record — open one for its finding, the slice it
           is drawn from, the coverage behind it, and the matches that produced it.
@@ -165,36 +163,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-
-      {/* ── The quiet browse close: the all-time scorers, set off by a divider so
-          the eye registers the shift into the people behind the record. ── */}
-      <div className="space-y-8 border-t border-line/60 pt-10">
-        {scorers.length > 0 && (
-          <section>
-            <SectionHead
-              title="Top goalscorers"
-              aside={<Link href="/players" className="text-devil-bright hover:underline">All players →</Link>}
-            />
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
-              {scorers.map((p, i) => (
-                <Link key={p.player_id} href={`/player/${p.player_id}`} className="bg-panel px-4 py-3 hover:bg-panel-2 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
-                    <div className="min-w-0">
-                      <div className="stat-num text-2xl font-semibold leading-none text-devil-bright">{p.goals}</div>
-                      <div className="mt-1 truncate text-sm">{p.name}</div>
-                    </div>
-                  </div>
-                  <div className="mt-2 text-xs text-ink-faint stat-num">
-                    #{i + 1}
-                    {p.first_date ? ` · ${p.first_date.slice(0, 4)}–${p.last_date?.slice(0, 4)}` : ""}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-      </div>
     </div>
   );
 }

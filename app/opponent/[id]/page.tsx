@@ -80,12 +80,7 @@ export default async function OpponentPage({
 
   return (
     <div className="space-y-8">
-      <DetailBreadcrumb
-        segments={[
-          { label: "Opponents", href: "/opponents" },
-          { label: o.name },
-        ]}
-      />
+      <DetailBreadcrumb segments={[{ label: o.name }]} />
       <IdentityPlate
         eyebrow="Head to head"
         share={{ path: `/opponent/${id}`, title: `Manchester United v ${o.name} — head-to-head record` }}
@@ -207,8 +202,8 @@ export default async function OpponentPage({
               The {cup.p} knockout meeting{cup.p === 1 ? "" : "s"} between the sides.
             </TrailLink>
           )}
-          <TrailLink href="/opponents" title="All opponents">
-            Compare this head-to-head against every other side United have faced.
+          <TrailLink href="/search" title="Search opponents">
+            Find any head-to-head in the record — search by club name.
           </TrailLink>
         </div>
       </section>

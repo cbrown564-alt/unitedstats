@@ -272,7 +272,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       usedSubs.length > 0 || bench.length > 0 ? (
         // No card; the column group centres on wide screens (justify-content,
         // since the tracks are fixed-width) so it isn't marooned to the left.
-        <div className="grid items-start gap-x-6 gap-y-6 lg:grid-cols-[minmax(0,26rem)_minmax(12rem,16rem)] lg:justify-center">
+        <div className="grid items-start gap-x-5 gap-y-5 lg:grid-cols-[minmax(0,26rem)_minmax(12rem,16rem)] lg:justify-center lg:gap-x-6">
           <div>
             <h3 className="display mb-3 text-lg">Starting XI</h3>
             <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
@@ -538,30 +538,29 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       {/* Pull the full-bleed hero up under the sticky nav, cancelling the shell's
           main padding, so the floodlit colour runs to the very top with no black
           band between nav and headline. */}
-      <section className="relative left-1/2 -mt-8 w-screen -translate-x-1/2 overflow-hidden border-b border-line sm:-mt-10">
+      <section className="relative left-1/2 -mt-8 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden border-b border-line sm:-mt-10">
         {/* Full-bleed broadcast band: twin devil-red floodlights bloom from the top
             corners (the same blurred-glow language as every other hero) over the
             faint pitch grid, the content held to the page gutter. No card — the
             result is the page's headline, not a boxed widget. */}
-        <div
-          className="pointer-events-none absolute -left-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
-          style={{ backgroundColor: "var(--color-devil)" }}
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -right-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
-          style={{ backgroundColor: "var(--color-devil)" }}
-          aria-hidden
-        />
-        {/* Soft central wash so the floodlit colour reaches the top-centre — the
-            dark valley between the two corner blooms — not only the corners. */}
-        <div
-          className="pointer-events-none absolute -top-28 left-1/2 h-64 w-2/3 -translate-x-1/2 rounded-full opacity-[0.10] blur-3xl"
-          style={{ backgroundColor: "var(--color-devil)" }}
-          aria-hidden
-        />
+        <div className="pointer-events-none absolute inset-0 mx-auto max-w-[90rem]" aria-hidden>
+          <div
+            className="absolute -left-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
+            style={{ backgroundColor: "var(--color-devil)" }}
+          />
+          <div
+            className="absolute -right-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
+            style={{ backgroundColor: "var(--color-devil)" }}
+          />
+          {/* Soft central wash so the floodlit colour reaches the top-centre — the
+              dark valley between the two corner blooms — not only the corners. */}
+          <div
+            className="absolute -top-28 left-1/2 h-64 w-2/3 -translate-x-1/2 rounded-full opacity-[0.10] blur-3xl"
+            style={{ backgroundColor: "var(--color-devil)" }}
+          />
+        </div>
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
-        <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-7 sm:px-6 sm:py-12">
+        <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-7 sm:px-6 sm:py-12 2xl:max-w-7xl">
           <DetailBreadcrumb
             segments={[
               { label: "Seasons", href: "/seasons" },

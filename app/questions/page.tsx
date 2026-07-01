@@ -245,7 +245,7 @@ export default function QuestionsPage() {
             );
           })}
         </div>
-        <EvidenceLink href="/opponents" label="Every head-to-head record →" />
+        <EvidenceLink href="/search" label="Search every head-to-head →" />
       </Module>
 
       <Module
@@ -546,7 +546,7 @@ export default function QuestionsPage() {
         start from a{" "}
         <Link href="/players" className="text-devil-bright hover:underline">player</Link>,{" "}
         <Link href="/managers" className="text-devil-bright hover:underline">manager</Link>, or{" "}
-        <Link href="/opponents" className="text-devil-bright hover:underline">opponent</Link>.
+        <Link href="/search" className="text-devil-bright hover:underline">opponent</Link>.
       </p>
     </div>
   );

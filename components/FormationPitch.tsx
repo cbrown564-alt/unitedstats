@@ -182,14 +182,14 @@ function PitchPlayer({ p, decade, marks }: { p: LineupRow; decade: string | null
     <Link
       href={`/player/${p.player_id}`}
       title={p.role ?? undefined}
-      className="group flex w-[4.5rem] flex-col items-center gap-1 text-center"
+      className="group flex w-[4.25rem] flex-col items-center gap-0.5 text-center"
     >
       {node}
     </Link>
   ) : (
     <span
       title={p.role ?? undefined}
-      className="group flex w-[4.5rem] flex-col items-center gap-1 text-center"
+      className="group flex w-[4.25rem] flex-col items-center gap-0.5 text-center"
     >
       {node}
     </span>
@@ -259,9 +259,9 @@ export function FormationPitch({
           </g>
         </svg>
 
-        <div className="relative flex flex-col justify-between gap-3 px-3 py-5" style={{ minHeight: 440 }}>
+        <div className="relative flex flex-col justify-between gap-2 px-3 py-4 sm:gap-2.5 sm:py-5" style={{ minHeight: 380 }}>
           {bands.map(({ band, players }) => (
-            <div key={band} className="flex items-start justify-around gap-1">
+            <div key={band} className="flex min-h-[4.5rem] items-end justify-around gap-0.5 sm:min-h-[5rem]">
               {players.map((p) => (
                 <PitchPlayer
                   key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`}

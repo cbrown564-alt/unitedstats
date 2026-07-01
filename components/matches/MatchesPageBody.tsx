@@ -8,7 +8,7 @@ import { MatchSliceHero } from "@/components/matches/MatchSliceHero";
 import { Pager } from "@/components/Pager";
 import { fmtNum } from "@/lib/format";
 import type { MatchPageView } from "@/lib/matchPageView";
-import type { MatchRow } from "@/lib/queries";
+import { seasonAggregates, type MatchRow } from "@/lib/queries";
 import { queryString } from "@/lib/url";
 
 export function MatchesPageBody({ view }: { view: MatchPageView }) {
@@ -55,6 +55,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
     );
   };
   const eventBadgeRenderer = Object.keys(eventBadges).length > 0 ? renderEventBadge : undefined;
+  const seasonTotals = Object.fromEntries(seasonAggregates().map((s) => [s.season, s.p]));
 
   return (
     <>
@@ -99,7 +100,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
       </div>
 
       {chronological ? (
-        <MatchGroups matches={rows} accentResult renderExtra={eventBadgeRenderer} />
+        <MatchGroups matches={rows} accentResult renderExtra={eventBadgeRenderer} seasonTotals={seasonTotals} />
       ) : (
         <MatchList matches={rows} showSeason accentResult renderExtra={eventBadgeRenderer} />
       )}

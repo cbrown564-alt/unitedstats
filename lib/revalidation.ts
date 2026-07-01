@@ -18,7 +18,6 @@ const STATIC_SURFACES = [
   "/data",
   "/explore",
   "/managers",
-  "/opponents",
   "/transfers",
   "/matches",
   "/players",

@@ -79,16 +79,16 @@ export function seasonNarrative(season: string): string[] {
     if (league.position === 1) {
       const nth = titleCountThrough(season);
       sentences.push(
-        `Champions of the ${league.competition_name}, the ${ordinal(nth)} league title on record.`,
+        `Won the ${league.competition_name} — the club's ${ordinal(nth)} league title on record.`,
       );
     } else {
       let move = "";
       if (prevLeague?.position) {
-        if (prevLeague.position > league.position) move = `, up from ${ordinal(prevLeague.position)} the season before`;
-        else if (prevLeague.position < league.position) move = `, down from ${ordinal(prevLeague.position)} the season before`;
+        if (prevLeague.position > league.position) move = `, up from ${ordinal(prevLeague.position)} the year before`;
+        else if (prevLeague.position < league.position) move = `, down from ${ordinal(prevLeague.position)} the year before`;
       }
       sentences.push(
-        `Finished ${ordinal(league.position)} of ${league.league_size} in the ${league.competition_name}${move}.`,
+        `${ordinal(league.position)} of ${league.league_size} in the ${league.competition_name}${move}.`,
       );
     }
   }
@@ -106,11 +106,11 @@ export function seasonNarrative(season: string): string[] {
     const aPct = (100 * away.w) / away.p;
     if (hPct - aPct >= 30) {
       sentences.push(
-        `The record leaned heavily on home form: ${hPct.toFixed(0)}% of home matches won against ${aPct.toFixed(0)}% away.`,
+        `Home form carried the season — ${hPct.toFixed(0)}% of home matches won against ${aPct.toFixed(0)}% away.`,
       );
     } else if (aPct >= hPct) {
       sentences.push(
-        `Unusually, away form held up to home form: ${aPct.toFixed(0)}% won on the road against ${hPct.toFixed(0)}% at home.`,
+        `Away form matched or beat home form: ${aPct.toFixed(0)}% won on the road, ${hPct.toFixed(0)}% at home.`,
       );
     }
   }
@@ -118,8 +118,8 @@ export function seasonNarrative(season: string): string[] {
   for (const final of cupFinals(season)) {
     sentences.push(
       final.won
-        ? `Won the ${final.competition_name}, beating ${final.opponent} in the ${final.round.toLowerCase()}.`
-        : `Reached the ${final.competition_name} ${final.round.toLowerCase()}, losing to ${final.opponent}.`,
+        ? `Lifted the ${final.competition_name}, beating ${final.opponent} in the ${final.round.toLowerCase()}.`
+        : `Lost the ${final.competition_name} ${final.round.toLowerCase()} to ${final.opponent}.`,
     );
   }
 
@@ -144,7 +144,7 @@ export function seasonNarrative(season: string): string[] {
     const cov = Math.min(100, Math.round((100 * recorded.n) / goals.gf));
     if (cov >= 60 && topScorer.goals >= 5) {
       sentences.push(
-        `Recorded scorers credit ${topScorer.name} with ${topScorer.goals} of the ${goals.gf} goals (scorer data covers ${cov}% of them).`,
+        `${topScorer.name} led the scoring with ${topScorer.goals} goals (scorer data covers ${cov}% of the ${goals.gf} United scored).`,
       );
     }
   }
@@ -156,7 +156,7 @@ export function seasonNarrative(season: string): string[] {
     )
     .all(season) as { name: string }[];
   if (managers.length > 1) {
-    sentences.push(`Management changed hands mid-season: ${managers.map((m) => m.name).join(", then ")}.`);
+    sentences.push(`Two managers shared the season: ${managers.map((m) => m.name).join(", then ")}.`);
   }
 
   return sentences;

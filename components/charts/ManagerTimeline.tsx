@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { familyName } from "@/lib/names";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 import type { ManagerRecord } from "@/lib/queries";
 
 /**
@@ -44,8 +45,9 @@ export function ManagerTimeline({ managers }: { managers: ManagerRecord[] }) {
   const firstYear = rows[0].first!.slice(0, 4);
   const lastYear = (rows[rows.length - 1].last ?? rows[rows.length - 1].first)!.slice(0, 4);
 
-  // Surname only where the segment is wide enough to hold it.
+  // Surname only where the segment is wide enough to hold it; portrait on wider spans.
   const LABEL_MIN_WIDTH = 4.5;
+  const PORTRAIT_MIN_WIDTH = 9;
 
   return (
     <figure className="m-0">
@@ -86,14 +88,19 @@ export function ManagerTimeline({ managers }: { managers: ManagerRecord[] }) {
                 className="group absolute bottom-0 top-0 focus-ring"
                 style={{ left: `${left}%`, width: `${width}%` }}
               >
-                <div className="absolute inset-x-px bottom-0 top-0 flex flex-col-reverse overflow-hidden rounded-t-[1.5px] ring-0 ring-inset ring-ink/0 transition-[filter,box-shadow] duration-150 group-hover:z-10 group-hover:brightness-125 group-hover:ring-2 group-hover:ring-ink/30">
+                <div className="absolute inset-x-px bottom-0 top-0 flex flex-col-reverse overflow-hidden rounded-t-sm ring-0 ring-inset ring-ink/0 transition-[filter,box-shadow] duration-150 group-hover:z-10 group-hover:brightness-125 group-hover:ring-2 group-hover:ring-ink/25">
                   <div className="bg-win/80" style={{ height: `${(m.w / p) * 100}%` }} />
                   <div className="bg-draw/55" style={{ height: `${(m.d / p) * 100}%` }} />
                   <div className="bg-loss/75" style={{ height: `${(m.l / p) * 100}%` }} />
                 </div>
                 {width >= LABEL_MIN_WIDTH && (
-                  <span className="pointer-events-none absolute inset-x-0 top-1.5 truncate px-1 text-center text-[10px] font-semibold uppercase tracking-wide text-ink [text-shadow:0_1px_2px_rgb(0_0_0_/0.7)]">
+                  <span className="pointer-events-none absolute inset-x-0 top-2 truncate px-1 text-center text-[10px] font-medium uppercase tracking-wide text-ink/90 [text-shadow:0_1px_2px_rgb(0_0_0_/0.65)]">
                     {surname}
+                  </span>
+                )}
+                {width >= PORTRAIT_MIN_WIDTH && (
+                  <span className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2">
+                    <PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="xs" />
                   </span>
                 )}
               </Link>
