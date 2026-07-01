@@ -4,7 +4,7 @@ import {
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord,
-  fergusonFloorSummary, postFergusonStints, fergusonFloorTimeline,
+  fergusonFloorSummary, postFergusonStints, fergusonFloorTimeline, managerLongevityField,
   trebleRuns, trebleDeciders, trebleSemis,
   europeByDecade, europeWinRateTimeline, europeanFinals, europeMatchSequence,
   matchesSequence,
@@ -14,7 +14,7 @@ import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
 import { getMeta, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
-import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
+import { InspectableBarChartLazy as InspectableBarChart, ManagerLongevityChartLazy as ManagerLongevityChart } from "@/components/charts/lazy";
 import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -390,6 +390,10 @@ function FergusonEraModule({ variant }: ModuleProps) {
   const since = eraRecord("2013-05-20", "9999-12-31");
   const permanentStints = stints.filter((s) => !s.interim && s.finishes.length > 0);
   const interimCount = stints.filter((s) => s.interim).length;
+  const longevity = managerLongevityField();
+  const fergPoint = longevity.find((p) => p.kind === "ferguson");
+  const sincePoints = longevity.filter((p) => p.kind === "since");
+  const longestSince = sincePoints.reduce((a, b) => (a.matches > b.matches ? a : b), sincePoints[0]);
 
   const skylineVisual = (
     <div className="space-y-2">
@@ -417,6 +421,41 @@ function FergusonEraModule({ variant }: ModuleProps) {
       slice="Top-flight league finishes (First Division / Premier League) season by season. Ferguson's reign runs 8 Nov 1986 to 19 May 2013; everything after is the post-Ferguson era. Post-2013 seasons are attributed to the manager who took most league matches that season, mapped to their tenure dates."
       coverage="Result-level record — complete for every official match across both eras. No advanced metrics; the comparison uses league position and titles, exactly as the record supports."
     >
+      <section className="space-y-3">
+        <div>
+          <h3 className="text-sm font-medium text-ink-dim">Longevity and rate — Ferguson on two axes</h3>
+          <p className="mt-0.5 text-xs text-ink-dim text-pretty">
+            {fergPoint && longestSince ? (
+              <>
+                Ferguson&apos;s <span className="text-ink">{fmtNum(fergPoint.matches)}</span> matches at{" "}
+                <span className="text-ink">{fergPoint.ppg.toFixed(2)}</span> points per game sit alone in the top-right — no successor has matched both.
+                Since 2013 every permanent spell has been shorter; the longest,{" "}
+                {longestSince.name.split(" ").pop()}, reached just{" "}
+                <span className="text-ink">{fmtNum(longestSince.matches)}</span> matches
+                {longestSince.matches < fergPoint.matches * 0.15 ? " — under one-ninth of Ferguson&apos;s reign" : ""}.
+              </>
+            ) : (
+              "Points per game against matches in charge — the two axes Ferguson mastered and successors rarely combine."
+            )}
+          </p>
+        </div>
+        <ManagerLongevityChart points={longevity} />
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-faint">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-gold" />
+            Ferguson · Busby
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-europe/90" />
+            Since 2013 · one dot per tenure
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-ink-dim" />
+            Earlier managers
+          </span>
+        </div>
+      </section>
+
       <section className="space-y-3">
         <div>
           <h3 className="text-sm font-medium text-ink-dim">Every permanent manager since — league finishes by stint</h3>

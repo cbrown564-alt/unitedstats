@@ -1063,6 +1063,91 @@ export function postFergusonStints(): PostFergusonStint[] {
 
 // ---------------------------------------------------------------- ferguson vs field
 
+export interface ManagerLongevityPoint {
+  id: string;
+  name: string;
+  label: string;
+  matches: number;
+  ppg: number;
+  href: string;
+  kind: "ferguson" | "busby" | "since" | "other";
+  tenureFrom?: string;
+}
+
+function managerSurname(name: string): string {
+  return name.replace(/^Sir |^José |^Louis |^Erik |^Rúben |^Ralf |^Ole Gunnar /, "").split(" ").pop() ?? name;
+}
+
+/**
+ * Every permanent manager on longevity (official matches) × points per game.
+ * Ferguson and Busby carry career totals; post-2013 spells are tenure-by-tenure
+ * so the churn reads as a cluster short on games. Caretaker/interim spells under
+ * 20 matches are dropped.
+ */
+export function managerLongevityField(minSinceMatches = 20): ManagerLongevityPoint[] {
+  const ranking = managerPpgRanking(30);
+  const sinceIds = new Set(postFergusonStints().map((s) => s.id));
+  const points: ManagerLongevityPoint[] = [];
+
+  const push = (row: Omit<ManagerLongevityPoint, "label"> & { label?: string }) => {
+    points.push({ ...row, label: row.label ?? managerSurname(row.name) });
+  };
+
+  const ferg = ranking.find((m) => m.id === "alex-ferguson");
+  if (ferg) {
+    push({
+      id: ferg.id,
+      name: ferg.name,
+      label: "Ferguson",
+      matches: ferg.p,
+      ppg: ferg.ppg,
+      href: `/manager/${ferg.id}`,
+      kind: "ferguson",
+    });
+  }
+
+  const busby = ranking.find((m) => m.id === "matt-busby");
+  if (busby) {
+    push({
+      id: busby.id,
+      name: busby.name,
+      label: "Busby",
+      matches: busby.p,
+      ppg: busby.ppg,
+      href: `/manager/${busby.id}`,
+      kind: "busby",
+    });
+  }
+
+  for (const m of ranking) {
+    if (m.id === "alex-ferguson" || m.id === "matt-busby" || sinceIds.has(m.id)) continue;
+    push({
+      id: m.id,
+      name: m.name,
+      matches: m.p,
+      ppg: m.ppg,
+      href: `/manager/${m.id}`,
+      kind: "other",
+    });
+  }
+
+  for (const s of postFergusonStints()) {
+    if (s.interim || s.p < minSinceMatches) continue;
+    push({
+      id: s.id,
+      name: s.name,
+      label: `${s.dateFrom.slice(2, 4)}–${(s.dateTo ?? "now").slice(2, 4)} · ${managerSurname(s.name)}`,
+      matches: s.p,
+      ppg: s.ppg,
+      href: `/manager/${s.id}`,
+      kind: "since",
+      tenureFrom: s.dateFrom,
+    });
+  }
+
+  return points;
+}
+
 export interface ManagerRateRow extends Record_ {
   id: string;
   name: string;
