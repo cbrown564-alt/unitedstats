@@ -36,7 +36,7 @@ import {
 import { familyNameSlug, normalizedSlug } from "../player-resolver";
 
 const SOURCE_ID = "tableau-goals-assists";
-const SOURCE_NAME = "Manchester United Games (Tableau Public, conor.brown)";
+const SOURCE_NAME = "Mrs Smokers' records";
 const SOURCE_URL =
   "https://public.tableau.com/app/profile/conor.brown/viz/ManchesterUnitedGames/SeasonSummary";
 

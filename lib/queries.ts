@@ -1,6 +1,7 @@
 import { getDb } from "./db";
 import { cachedQuery } from "./queryCache";
 import { roundFilterPredicate, type RoundFilterKey } from "./matchRounds";
+import { SOURCE_PRIMARY_FACET, layerLabel, type SourceUsageRow } from "./sourceGroups";
 
 /** Reference indexes change only on deploy; prod DB is read-only — 5m is safe. */
 const STATIC_REF_TTL_MS = 300_000;
@@ -1305,31 +1306,6 @@ export interface AssistPartnership {
   last_date: string;
 }
 
-export function topAssistPartnerships(limit = 20): AssistPartnership[] {
-  return getDb()
-    .prepare(
-      `SELECT e.player_id scorer_id, sp.name scorer_name,
-              COALESCE(spm.local_path, spm.thumb_url, spm.image_url) scorer_thumb,
-              e.assist_player_id assister_id, ap.name assister_name,
-              COALESCE(apm.local_path, apm.thumb_url, apm.image_url) assister_thumb,
-              COUNT(*) goals, MIN(m.date) first_date, MAX(m.date) last_date
-       FROM match_events e
-       JOIN matches m ON m.id = e.match_id
-       JOIN players sp ON sp.id = e.player_id
-       JOIN players ap ON ap.id = e.assist_player_id
-       LEFT JOIN player_media spm ON spm.player_id = sp.id
-       LEFT JOIN player_media apm ON apm.player_id = ap.id
-       WHERE e.type IN ('goal','pen-goal')
-         AND e.player_side = 'united'
-         AND e.assist_side = 'united'
-         AND e.player_id IS NOT NULL
-         AND e.assist_player_id IS NOT NULL
-       GROUP BY e.player_id, e.assist_player_id
-       ORDER BY goals DESC, last_date DESC LIMIT ?`,
-    )
-    .all(limit) as AssistPartnership[];
-}
-
 export function playerAssistPartnerships(id: string, limit = 12): AssistPartnership[] {
   return getDb()
     .prepare(
@@ -1744,48 +1720,378 @@ export function coverageByDecade(): {
     .all() as ReturnType<typeof coverageByDecade>;
 }
 
-export function sourceUsage(): (SourceRecord & { matches: number; facets: string })[] {
-  return getDb()
+export function sourceUsage(): SourceUsageRow[] {
+  const db = getDb();
+  type CountRow = { source_id: string; n: number; facets?: string };
+
+  const matchRows = db
     .prepare(
-      `SELECT s.id, s.label, s.kind, s.url, s.coverage, s.notes,
-              COUNT(DISTINCT ms.match_id) matches,
-              GROUP_CONCAT(DISTINCT ms.facet) facets
-       FROM sources s
-       LEFT JOIN match_sources ms ON ms.source_id = s.id
-       GROUP BY s.id
-       ORDER BY matches DESC, s.label`,
+      `SELECT source_id, COUNT(DISTINCT match_id) n, GROUP_CONCAT(DISTINCT facet) facets
+       FROM match_sources GROUP BY source_id`,
     )
-    .all() as (SourceRecord & { matches: number; facets: string })[];
+    .all() as CountRow[];
+
+  const transferRows = db
+    .prepare(
+      `SELECT je.value source_id, COUNT(*) n
+       FROM transfers t, json_each(t.sources) je
+       GROUP BY je.value`,
+    )
+    .all() as CountRow[];
+
+  const playerRecordRows = db
+    .prepare(`SELECT source_id, COUNT(*) n FROM player_records GROUP BY source_id`)
+    .all() as CountRow[];
+
+  const playerMediaRows = db
+    .prepare(`SELECT source_id, COUNT(*) n FROM player_media GROUP BY source_id`)
+    .all() as CountRow[];
+
+  const playerPositionRows = db
+    .prepare(`SELECT source_id, COUNT(*) n FROM player_positions GROUP BY source_id`)
+    .all() as CountRow[];
+
+  const tableauRows = db
+    .prepare(`SELECT source_id, COUNT(*) n FROM tableau_goals_assists GROUP BY source_id`)
+    .all() as CountRow[];
+
+  const shirtRows = db
+    .prepare(`SELECT source_id, COUNT(*) n FROM player_shirts GROUP BY source_id`)
+    .all() as CountRow[];
+
+  type Usage = {
+    matchFacets: string[];
+    matches: number;
+    transfers: number;
+    playerRecords: number;
+    playerMedia: number;
+    playerPositions: number;
+    tableau: number;
+    shirts: number;
+  };
+
+  const usage = new Map<string, Usage>();
+  const ensure = (id: string): Usage => {
+    const cur = usage.get(id);
+    if (cur) return cur;
+    const next: Usage = {
+      matchFacets: [],
+      matches: 0,
+      transfers: 0,
+      playerRecords: 0,
+      playerMedia: 0,
+      playerPositions: 0,
+      tableau: 0,
+      shirts: 0,
+    };
+    usage.set(id, next);
+    return next;
+  };
+
+  for (const row of matchRows) {
+    const u = ensure(row.source_id);
+    u.matches = row.n;
+    u.matchFacets = row.facets ? row.facets.split(",") : [];
+  }
+  for (const row of transferRows) {
+    ensure(row.source_id).transfers = row.n;
+  }
+  for (const row of playerRecordRows) {
+    ensure(row.source_id).playerRecords = row.n;
+  }
+  for (const row of playerMediaRows) {
+    ensure(row.source_id).playerMedia = row.n;
+  }
+  for (const row of playerPositionRows) {
+    ensure(row.source_id).playerPositions = row.n;
+  }
+  for (const row of tableauRows) {
+    ensure(row.source_id).tableau = row.n;
+  }
+  for (const row of shirtRows) {
+    ensure(row.source_id).shirts = row.n;
+  }
+
+  const sources = db
+    .prepare(`SELECT id, label, kind, url, coverage, notes FROM sources ORDER BY label`)
+    .all() as SourceRecord[];
+
+  const transferValueCount = (
+    db.prepare(`SELECT COUNT(*) n FROM transfers WHERE market_value_eur IS NOT NULL`).get() as { n: number }
+  ).n;
+
+  const rows: SourceUsageRow[] = [];
+
+  for (const source of sources) {
+    const u = usage.get(source.id);
+    if (!u) continue;
+
+    const layers = new Set(u.matchFacets);
+    if (u.transfers > 0) layers.add("transfers");
+    if (u.playerRecords > 0) layers.add("player-totals");
+    if (u.playerMedia > 0) layers.add("portraits");
+    if (u.playerPositions > 0) layers.add("positions");
+    if (u.tableau > 0) layers.add("season-aggregates");
+    if (u.shirts > 0) layers.add("shirt-numbers");
+
+    if (layers.size === 0) continue;
+
+    let records = 0;
+    let usageLabel = "records";
+    if (u.matches > 0) {
+      records = u.matches;
+      usageLabel = "matches";
+    } else if (u.transfers > 0) {
+      records = u.transfers;
+      usageLabel = "transfers";
+    } else if (u.playerRecords > 0) {
+      records = u.playerRecords;
+      usageLabel = "players";
+    } else if (u.playerMedia > 0) {
+      records = u.playerMedia;
+      usageLabel = "portraits";
+    } else if (u.playerPositions > 0) {
+      records = u.playerPositions;
+      usageLabel = "players";
+    } else if (u.tableau > 0) {
+      records = u.tableau;
+      usageLabel = "rows";
+    } else if (u.shirts > 0) {
+      records = u.shirts;
+      usageLabel = "shirt numbers";
+    }
+
+    rows.push({
+      ...source,
+      records,
+      usageLabel,
+      facets: [...layers].sort().join(","),
+      ...(source.id === "transfermarkt-datasets"
+        ? {
+            useCaseStats: {
+              "transfermarkt-match-sheets": { records: u.matches, usageLabel: "matches" },
+              "transfermarkt-transfer-values": {
+                records: transferValueCount,
+                usageLabel: "valuations",
+              },
+            },
+          }
+        : {}),
+    });
+  }
+
+  return rows.sort((a, b) => b.records - a.records || a.label.localeCompare(b.label));
 }
 
 export type SourceExample = {
   source_id: string;
-  id: string;
-  date: string;
-  opponent_name: string;
-  gf: number;
-  ga: number;
-  facet: string;
+  use_case_id?: string;
+  href: string;
+  label: string;
+  layer: string;
 };
 
-/** One recent cited match per source — for the provenance register pullout. */
+/** One on-file example per active source — match, player, or transfer as appropriate. */
 export function sourceExamples(): SourceExample[] {
-  const rows = getDb()
-    .prepare(
-      `SELECT ms.source_id, m.id, m.date, m.opponent_name, m.gf, m.ga, ms.facet
-       FROM match_sources ms
-       JOIN matches m ON m.id = ms.match_id
-       ORDER BY ms.source_id, m.date DESC, ms.rowid DESC`,
-    )
-    .all() as SourceExample[];
-
-  const seen = new Set<string>();
+  const db = getDb();
+  const active = sourceUsage();
   const out: SourceExample[] = [];
-  for (const row of rows) {
-    if (seen.has(row.source_id)) continue;
-    seen.add(row.source_id);
-    out.push(row);
+
+  const matchExampleStmt = db.prepare(
+    `SELECT m.id, m.date, m.opponent_name, m.gf, m.ga, ms.facet
+     FROM match_sources ms
+     JOIN matches m ON m.id = ms.match_id
+     WHERE ms.source_id = ?
+     ORDER BY (ms.facet = ?) DESC, m.date DESC
+     LIMIT 1`,
+  );
+
+  const transferExampleStmt = db.prepare(
+    `SELECT t.player_id, t.player_name, t.direction, t.date, t.club, t.fee_gbp, t.fee_kind
+     FROM transfers t, json_each(t.sources) je
+     WHERE je.value = ? AND t.player_id IS NOT NULL AND t.date IS NOT NULL
+     ORDER BY t.date DESC
+     LIMIT 1`,
+  );
+
+  const playerRecordExampleStmt = db.prepare(
+    `SELECT player_id, name, apps
+     FROM player_records
+     WHERE source_id = ?
+     ORDER BY apps DESC
+     LIMIT 1`,
+  );
+
+  const playerMediaExampleStmt = db.prepare(
+    `SELECT pm.player_id, p.name
+     FROM player_media pm
+     JOIN players p ON p.id = pm.player_id
+     WHERE pm.source_id = ?
+     ORDER BY COALESCE((SELECT apps FROM player_totals WHERE player_id = pm.player_id AND scope = 'all'), 0) DESC
+     LIMIT 1`,
+  );
+
+  const playerPositionExampleStmt = db.prepare(
+    `SELECT pp.player_id, p.name
+     FROM player_positions pp
+     JOIN players p ON p.id = pp.player_id
+     WHERE pp.source_id = ?
+     ORDER BY COALESCE((SELECT apps FROM player_totals WHERE player_id = pp.player_id AND scope = 'all'), 0) DESC
+     LIMIT 1`,
+  );
+
+  const tableauExampleStmt = db.prepare(
+    `SELECT tga.player_id, p.name, SUM(tga.count) total
+     FROM tableau_goals_assists tga
+     JOIN players p ON p.id = tga.player_id
+     WHERE tga.source_id = ?
+     GROUP BY tga.player_id
+     ORDER BY total DESC
+     LIMIT 1`,
+  );
+
+  const transferValueExampleStmt = db.prepare(
+    `SELECT t.player_id, t.player_name, t.date, t.market_value_eur
+     FROM transfers t
+     WHERE t.market_value_eur IS NOT NULL
+     ORDER BY t.market_value_eur DESC
+     LIMIT 1`,
+  );
+
+  const NON_MATCH_LAYERS = new Set([
+    "transfers",
+    "player-totals",
+    "portraits",
+    "positions",
+    "season-aggregates",
+    "shirt-numbers",
+  ]);
+
+  for (const source of active) {
+    if (source.id === "transfermarkt-datasets") {
+      const preferred = SOURCE_PRIMARY_FACET[source.id] ?? "";
+      const row = matchExampleStmt.get(source.id, preferred) as
+        | { id: string; date: string; opponent_name: string; gf: number; ga: number; facet: string }
+        | undefined;
+      if (row) {
+        out.push({
+          source_id: source.id,
+          use_case_id: "transfermarkt-match-sheets",
+          href: `/match/${row.id}`,
+          label: `${row.date} · ${row.opponent_name} ${row.gf}-${row.ga}`,
+          layer: layerLabel(row.facet),
+        });
+      }
+      const valueRow = transferValueExampleStmt.get() as
+        | { player_id: string; player_name: string; date: string; market_value_eur: number }
+        | undefined;
+      if (valueRow) {
+        const mv = `€${Math.round(valueRow.market_value_eur / 1_000_000)}m`;
+        out.push({
+          source_id: source.id,
+          use_case_id: "transfermarkt-transfer-values",
+          href: `/player/${valueRow.player_id}`,
+          label: `${valueRow.date} · ${valueRow.player_name} · ${mv} valuation`,
+          layer: layerLabel("transfer-values"),
+        });
+      }
+      continue;
+    }
+
+    const hasMatchLayers = source.facets.split(",").some((f) => f && !NON_MATCH_LAYERS.has(f));
+    if (hasMatchLayers) {
+      const preferred = SOURCE_PRIMARY_FACET[source.id] ?? "";
+      const row = matchExampleStmt.get(source.id, preferred) as
+        | { id: string; date: string; opponent_name: string; gf: number; ga: number; facet: string }
+        | undefined;
+      if (row) {
+        out.push({
+          source_id: source.id,
+          href: `/match/${row.id}`,
+          label: `${row.date} · ${row.opponent_name} ${row.gf}-${row.ga}`,
+          layer: layerLabel(row.facet),
+        });
+        continue;
+      }
+    }
+
+    if (source.id === "mufcinfo-transfers" || (source.facets.includes("transfers") && !source.facets.includes("result"))) {
+      const row = transferExampleStmt.get(source.id) as
+        | {
+            player_id: string;
+            player_name: string;
+            direction: string;
+            date: string;
+            club: string | null;
+            fee_gbp: number | null;
+            fee_kind: string;
+          }
+        | undefined;
+      if (row) {
+        const dir = row.direction === "in" ? "in from" : "out to";
+        const club = row.club ? ` ${dir} ${row.club}` : ` ${row.direction === "in" ? "in" : "out"}`;
+        out.push({
+          source_id: source.id,
+          href: `/player/${row.player_id}`,
+          label: `${row.date} · ${row.player_name}${club}`,
+          layer: layerLabel("transfers"),
+        });
+        continue;
+      }
+    }
+
+    if (source.facets.includes("player-totals")) {
+      const row = playerRecordExampleStmt.get(source.id) as { player_id: string; name: string; apps: number } | undefined;
+      if (row) {
+        out.push({
+          source_id: source.id,
+          href: `/player/${row.player_id}`,
+          label: `${row.name} · ${row.apps.toLocaleString("en-GB")} apps`,
+          layer: layerLabel("player-totals"),
+        });
+        continue;
+      }
+    }
+
+    if (source.facets.includes("portraits")) {
+      const row = playerMediaExampleStmt.get(source.id) as { player_id: string; name: string } | undefined;
+      if (row) {
+        out.push({
+          source_id: source.id,
+          href: `/player/${row.player_id}`,
+          label: row.name,
+          layer: layerLabel("portraits"),
+        });
+        continue;
+      }
+    }
+
+    if (source.facets.includes("positions")) {
+      const row = playerPositionExampleStmt.get(source.id) as { player_id: string; name: string } | undefined;
+      if (row) {
+        out.push({
+          source_id: source.id,
+          href: `/player/${row.player_id}`,
+          label: row.name,
+          layer: layerLabel("positions"),
+        });
+        continue;
+      }
+    }
+
+    if (source.facets.includes("season-aggregates")) {
+      const row = tableauExampleStmt.get(source.id) as { player_id: string; name: string; total: number } | undefined;
+      if (row) {
+        out.push({
+          source_id: source.id,
+          href: `/player/${row.player_id}`,
+          label: row.name,
+          layer: layerLabel("season-aggregates"),
+        });
+      }
+    }
   }
+
   return out;
 }
 

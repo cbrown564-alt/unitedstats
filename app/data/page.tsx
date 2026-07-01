@@ -193,8 +193,8 @@ export default function DataPage() {
             <section>
               <h3 className="display mb-3 text-lg">Sources</h3>
               <p className="mb-3 max-w-2xl text-xs text-ink-dim">
-                Grouped by family where several sources share a lineage. Click a row to see what it covers and an
-                example match on file.
+                Grouped by upstream source where several use cases share a lineage. Expand a family to see how
+                each use case is applied and an example on file.
               </p>
               <SourceRegister sources={sources} examples={examples} />
             </section>
