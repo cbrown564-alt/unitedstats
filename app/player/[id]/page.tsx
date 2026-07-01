@@ -15,7 +15,7 @@ import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { SplitBar } from "@/components/charts/SplitBar";
-import { StatTile, TrailLink } from "@/components/PageHeader";
+import { TrailLink } from "@/components/PageHeader";
 import { PlayerPlate } from "@/components/PlayerPlate";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
@@ -253,6 +253,7 @@ export default async function PlayerPage({
         }}
         span={{ debut, latest, peakSeason }}
         shirts={shirts}
+        caveatBrief="Verified competitive record · recorded splits below may cover fewer matches"
         caveat="Goals, apps, and starts use verified competitive player records where available. Goals per app, multi-goal games, minute, assist, and opponent splits below are drawn from recorded match coverage — the part of a career we can evidence, not a career total."
       />
       <Link href={playerCorrectionHref} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
@@ -374,47 +375,61 @@ export default async function PlayerPage({
                 )}
 
                 {curatedTotals && (
-                  <section className="space-y-4">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                      <h2 className="display text-xl">How he scored &amp; created</h2>
-                      <span className="stat-num text-xs text-ink-faint">
-                        curated · {curatedTotals.from_season?.slice(0, 4)}–{curatedTotals.to_season?.slice(0, 4)}
+                  <details className="group rounded-xl border border-line bg-panel">
+                    <summary className="flex cursor-pointer list-none items-start justify-between gap-3 p-4 sm:p-5">
+                      <div className="min-w-0">
+                        <h2 className="display text-xl">Curated scoring profile</h2>
+                        <p className="stat-num mt-1.5 text-xs text-ink-dim">
+                          {curatedTotals.from_season?.slice(0, 4)}–{curatedTotals.to_season?.slice(0, 4)}
+                          {" · "}
+                          {fmtNum(curatedTotals.goals)} goals, {fmtNum(curatedTotals.assists)} assists
+                          {curatedTopType && (
+                            <>
+                              {" · "}
+                              main finish {curatedTopType.goal_type.toLowerCase()} ({pct(curatedTopType.goals, curatedTotals.goals)})
+                            </>
+                          )}
+                          {curatedTotals.goals !== p.goals && (
+                            <span className="text-ink-faint">
+                              {" · "}
+                              differs from club record — season aggregates, not match-attributed
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                      <span className="stat-num shrink-0 text-xs text-ink-faint">
+                        curated ·{" "}
+                        <span className="text-devil-bright group-open:hidden">show</span>
+                        <span className="hidden text-devil-bright group-open:inline">hide</span>
                       </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                      <StatTile label="Goals" value={fmtNum(curatedTotals.goals)} tone="red" />
-                      <StatTile label="Assists" value={fmtNum(curatedTotals.assists)} tone="gold" />
-                      <StatTile
-                        label="Goals + assists"
-                        value={fmtNum(curatedTotals.goals + curatedTotals.assists)}
-                      />
-                      {curatedTopType ? (
-                        <StatTile
-                          label="Main finish"
-                          value={curatedTopType.goal_type}
-                          detail={`${pct(curatedTopType.goals, curatedTotals.goals)} of goals`}
-                        />
-                      ) : (
-                        <StatTile label="Seasons" value={fmtNum(curatedTotals.seasons)} />
+                    </summary>
+
+                    <div className="space-y-4 border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                      {curatedTotals.goals !== p.goals && (
+                        <p className="mt-4 text-xs text-ink-dim">
+                          Club record lists {fmtNum(p.goals)} competitive goals; this curated lane counts{" "}
+                          {fmtNum(curatedTotals.goals)} across {fmtNum(curatedTotals.seasons)} Ferguson-era seasons —
+                          hand-totaled, not tied to individual matches.
+                        </p>
                       )}
+
+                      {curatedGoalTypes.length > 1 && (
+                        <ChartPanel
+                          title="How the goals were scored"
+                          note="Body part / technique behind each curated goal."
+                        >
+                          <GoalBodyMap types={curatedGoalTypes} totalGoals={curatedTotals.goals} />
+                        </ChartPanel>
+                      )}
+
+                      <CoverageNote
+                        slice="curated goals, assists, and goal types, 1987–2015"
+                        coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
+                        evidenceHref={curatedTotals.source_url ?? undefined}
+                        evidenceLabel="Tableau source"
+                      />
                     </div>
-
-                    {curatedGoalTypes.length > 1 && (
-                      <ChartPanel
-                        title="How the goals were scored"
-                        note="Body part / technique behind each curated goal."
-                      >
-                        <GoalBodyMap types={curatedGoalTypes} totalGoals={curatedTotals.goals} />
-                      </ChartPanel>
-                    )}
-
-                    <CoverageNote
-                      slice="curated goals, assists, and goal types, 1987–2015"
-                      coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
-                      evidenceHref={curatedTotals.source_url ?? undefined}
-                      evidenceLabel="Tableau source"
-                    />
-                  </section>
+                  </details>
                 )}
 
                 {bySeason.length > 0 && (

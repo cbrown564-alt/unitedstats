@@ -1,6 +1,6 @@
 # Detail page restraint plan
 
-**Status:** Phase 1 in progress on `/player/[id]`. Use this doc as the template for
+**Status:** Phase 2 done on `/player/[id]`; Phase 3 next. Use this doc as the template for
 `/opponent/[id]`, `/manager/[id]`, `/seasons/[season]`, and future entity pages.
 
 **Context:** Detail pages accumulated every dataset lane at equal visual weight — a
@@ -19,8 +19,8 @@ closed for analytics, open for primary evidence (tables, archives, match lists).
 
 | Phase | Scope | Surfaces | Status |
 |-------|--------|----------|--------|
-| **1** | Desktop tabs + default-closed analytics | `DetailSectionTabs`, `/player/[id]` | In progress |
-| **2** | Number hierarchy + curated lane demotion | `PlayerPlate`, player Overview tab | Planned |
+| **1** | Desktop tabs + default-closed analytics | `DetailSectionTabs`, `/player/[id]` | Done |
+| **2** | Number hierarchy + curated lane demotion | `PlayerPlate`, player Overview tab | Done |
 | **3** | Tab restructure (rename, reorder, dedupe) | Player tabs; then opponent/manager/season | Planned |
 | **4** | Coverage note consolidation | Shared `CoverageNote` usage | Planned |
 
