@@ -1061,36 +1061,33 @@ export function postFergusonStints(): PostFergusonStint[] {
   });
 }
 
-export interface PostFergusonSeasonBar {
+export interface PostFergusonFloorMoment {
+  id: "first" | "best" | "worst";
+  tag: string;
   season: string;
-  year: number;
-  position: number;
-  leagueSize: number;
-  champion: boolean;
   managerId: string;
   managerName: string;
+  league: {
+    season: string;
+    competition_id: string;
+    competition_name: string;
+    type: string;
+    p: number;
+    w: number;
+    d: number;
+    l: number;
+    gf: number;
+    ga: number;
+    furthest_round: string | null;
+    position: number;
+    league_size: number;
+  };
+  note: string;
+  tone: "first" | "peak" | "floor";
 }
 
-export interface PostFergusonManagerBand {
-  managerId: string;
-  managerName: string;
-  label: string;
-  fromIndex: number;
-  count: number;
-}
-
-export interface PostFergusonInterimMarker {
-  afterIndex: number;
-  label: string;
-  managerId: string;
-}
-
-/** Post-2013 season finishes with manager bands and interim handover markers. */
-export function postFergusonFloorStrip(): {
-  seasons: PostFergusonSeasonBar[];
-  bands: PostFergusonManagerBand[];
-  interims: PostFergusonInterimMarker[];
-} {
+/** Three inspectable post-Ferguson seasons — first, best, and worst league finishes. */
+export function postFergusonFloorMoments(): PostFergusonFloorMoment[] {
   const rows = getDb()
     .prepare(
       `WITH primary_manager AS (
@@ -1102,59 +1099,101 @@ export function postFergusonFloorStrip(): {
          WHERE c.type = 'league' AND m.season >= '2013-14'
          GROUP BY m.season, m.manager_id
        )
-       SELECT pm.season, pm.manager_id id, pm.name, ss.position, ss.league_size
+       SELECT pm.season, pm.manager_id id, pm.name,
+              ss.competition_id, c.name AS competition_name, c.type,
+              ss.p, ss.w, ss.d, ss.l, ss.gf, ss.ga, ss.furthest_round,
+              ss.position, ss.league_size
        FROM primary_manager pm
-       JOIN season_summaries ss ON ss.season = pm.season
+       JOIN season_summaries ss ON ss.season = pm.season AND ss.competition_id IN (
+         SELECT id FROM competitions WHERE type = 'league' AND name IN ('First Division','Premier League')
+       )
        JOIN competitions c ON c.id = ss.competition_id
-       WHERE pm.rn = 1 AND c.type = 'league' AND ss.position IS NOT NULL
-         AND c.name IN ('First Division','Premier League')
+       WHERE pm.rn = 1 AND ss.position IS NOT NULL
        ORDER BY pm.season`,
     )
-    .all() as { season: string; id: string; name: string; position: number; league_size: number }[];
+    .all() as {
+    season: string;
+    id: string;
+    name: string;
+    competition_id: string;
+    competition_name: string;
+    type: string;
+    p: number;
+    w: number;
+    d: number;
+    l: number;
+    gf: number;
+    ga: number;
+    furthest_round: string | null;
+    position: number;
+    league_size: number;
+  }[];
 
-  const seasons: PostFergusonSeasonBar[] = rows.map((r) => ({
-    season: r.season,
-    year: Number(r.season.slice(0, 4)),
-    position: r.position,
-    leagueSize: r.league_size,
-    champion: r.position === 1,
-    managerId: r.id,
-    managerName: r.name,
-  }));
+  if (rows.length === 0) return [];
 
-  const bands: PostFergusonManagerBand[] = [];
-  for (let i = 0; i < seasons.length; ) {
-    const id = seasons[i].managerId;
-    const name = seasons[i].managerName;
-    let j = i + 1;
-    while (j < seasons.length && seasons[j].managerId === id) j++;
-    bands.push({
-      managerId: id,
-      managerName: name,
-      label: managerSurname(name),
-      fromIndex: i,
-      count: j - i,
-    });
-    i = j;
-  }
+  const first = rows[0];
+  const minPos = Math.min(...rows.map((r) => r.position));
+  const best = rows.find((r) => r.position === minPos)!;
+  const worst = rows.reduce((a, b) => (a.position > b.position ? a : b));
 
-  const interims: PostFergusonInterimMarker[] = postFergusonStints()
-    .filter((s) => s.interim)
-    .map((s) => {
-      const y = Number(s.dateFrom.slice(0, 4));
-      let afterIndex = -1;
-      for (let i = 0; i < seasons.length; i++) {
-        if (seasons[i].year <= y) afterIndex = i;
-      }
-      return {
-        afterIndex,
-        label: managerSurname(s.name),
-        managerId: s.id,
-      };
-    })
-    .filter((m) => m.afterIndex >= 0);
+  const toMoment = (
+    row: typeof rows[number],
+    id: PostFergusonFloorMoment["id"],
+    tag: string,
+    note: string,
+    tone: PostFergusonFloorMoment["tone"],
+  ): PostFergusonFloorMoment => ({
+    id,
+    tag,
+    season: row.season,
+    managerId: row.id,
+    managerName: row.name,
+    league: {
+      season: row.season,
+      competition_id: row.competition_id,
+      competition_name: row.competition_name,
+      type: row.type,
+      p: row.p,
+      w: row.w,
+      d: row.d,
+      l: row.l,
+      gf: row.gf,
+      ga: row.ga,
+      furthest_round: row.furthest_round,
+      position: row.position,
+      league_size: row.league_size,
+    },
+    note,
+    tone,
+  });
 
-  return { seasons, bands, interims };
+  return [
+    toMoment(
+      first,
+      "first",
+      "First season after Ferguson",
+      "Seven weeks after Ferguson left, United finished seventh — their lowest placing since 1990 and the first campaign outside the top four in twenty years.",
+      "first",
+    ),
+    toMoment(
+      best,
+      "best",
+      "Best finish since Ferguson",
+      best.position === 2
+        ? "Nineteen points behind City, but second place — as close as any successor has come to bridging the gap."
+        : `Finished ${best.position}${best.position === 1 ? "" : "th"} — the best league campaign of the post-Ferguson era.`,
+      "peak",
+    ),
+    toMoment(
+      worst,
+      "worst",
+      "Worst finish since Ferguson",
+      worst.position >= 15
+        ? "Fifteenth in the table — three places off the relegation zone, the lowest finish in the Premier League era."
+        : `Finished ${worst.position}th — the deepest the floor has fallen since May 2013.`,
+      "floor",
+    ),
+  ];
 }
 
 // ---------------------------------------------------------------- ferguson vs field

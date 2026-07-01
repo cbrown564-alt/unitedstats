@@ -4,7 +4,7 @@ import {
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord,
-  fergusonFloorSummary, postFergusonStints, fergusonFloorTimeline, managerLongevityField, postFergusonFloorStrip,
+  fergusonFloorSummary, fergusonFloorTimeline, managerLongevityField, postFergusonFloorMoments,
   trebleRuns, trebleDeciders, trebleSemis,
   europeByDecade, europeWinRateTimeline, europeanFinals, europeMatchSequence,
   matchesSequence,
@@ -15,8 +15,8 @@ import { getMeta, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } f
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart, ManagerLongevityChartLazy as ManagerLongevityChart } from "@/components/charts/lazy";
-import { PostFergusonFloorStrip } from "@/components/charts/PostFergusonFloorStrip";
 import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
+import { FinishLadder } from "@/components/seasons/FinishLadder";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { ResultSpine } from "@/components/charts/ResultSpine";
@@ -387,10 +387,8 @@ function RunsModule({ variant }: ModuleProps) {
 function FergusonEraModule({ variant }: ModuleProps) {
   const floor = fergusonFloorSummary();
   const timeline = fergusonFloorTimeline();
-  const stints = postFergusonStints();
   const since = eraRecord("2013-05-20", "9999-12-31");
-  const strip = postFergusonFloorStrip();
-  const interimCount = stints.filter((s) => s.interim).length;
+  const moments = postFergusonFloorMoments();
   const longevity = managerLongevityField();
   const fergPoint = longevity.find((p) => p.kind === "ferguson");
   const sincePoints = longevity.filter((p) => p.kind === "since");
@@ -457,17 +455,71 @@ function FergusonEraModule({ variant }: ModuleProps) {
         </div>
       </section>
 
-      <section className="space-y-3">
-        <div>
-          <h3 className="text-sm font-medium text-ink-dim">The succession — one floor, manager by manager</h3>
-          <p className="mt-0.5 text-xs text-ink-dim text-pretty">
-            {interimCount > 0
-              ? `Every season since Ferguson, banded by who was in charge — ${interimCount} caretaker spells sit at the dashed marks between permanent tenures.`
-              : "Every season since Ferguson, banded by who was in charge."}
-          </p>
-        </div>
-        <PostFergusonFloorStrip seasons={strip.seasons} bands={strip.bands} interims={strip.interims} />
-      </section>
+      {moments.length > 0 && (
+        <section className="space-y-3">
+          <div>
+            <h3 className="text-sm font-medium text-ink-dim">Three moments — where the floor landed</h3>
+            <p className="mt-0.5 text-xs text-ink-dim text-pretty">
+              The first season without Ferguson, the best any successor has managed, and the campaign that bottomed out — each opens the full season.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {moments.map((m) => {
+              const cardTone =
+                m.tone === "peak"
+                  ? "border-gold/35 shadow-[0_14px_36px_-18px_rgba(0,0,0,0.75)] hover:border-gold/55"
+                  : m.tone === "floor"
+                    ? "border-loss/35 hover:border-loss/55"
+                    : "border-line hover:border-devil/60";
+              const tagTone =
+                m.tone === "peak" ? "text-gold" : m.tone === "floor" ? "text-loss" : "text-devil-bright";
+              const posTone =
+                m.tone === "peak" ? "text-gold" : m.tone === "floor" ? "text-loss" : "text-ink";
+              return (
+                <div
+                  key={m.id}
+                  className={`group relative overflow-hidden rounded-lg border bg-panel-2 p-4 transition-colors ${cardTone}`}
+                >
+                  {m.tone === "peak" && (
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full opacity-[0.13] blur-3xl"
+                      style={{ backgroundColor: "var(--color-gold)" }}
+                    />
+                  )}
+                  <div className="relative space-y-3">
+                    <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
+                      <span className={`text-[10px] font-medium uppercase tracking-wide ${tagTone}`}>{m.tag}</span>
+                      <Link
+                        href={`/seasons/${m.season}`}
+                        className="stat-num text-[11px] text-ink-faint transition-colors hover:text-devil-bright"
+                      >
+                        {m.season} season →
+                      </Link>
+                    </div>
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-2">
+                      <Link
+                        href={`/manager/${m.managerId}`}
+                        className="text-sm font-medium text-ink transition-colors group-hover:text-devil-bright"
+                      >
+                        {m.managerName}
+                      </Link>
+                      <span className={`stat-num text-4xl font-semibold leading-none tabular-nums ${posTone}`}>
+                        {ordinal(m.league.position)}
+                      </span>
+                    </div>
+                    <div className="grid gap-3 border-t border-line/70 pt-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+                      <FinishLadder league={m.league} />
+                      <WdlBar w={m.league.w} d={m.league.d} l={m.league.l} size="md" variant="stacked" showLabels />
+                    </div>
+                    <p className="text-xs text-ink-dim text-pretty">{m.note}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </Module>
   );
 }
