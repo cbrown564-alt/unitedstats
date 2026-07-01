@@ -277,7 +277,7 @@ export default async function PlayerPage({
                 )}
 
                 {(minutes.length > 3 || facetCount > 0) && (
-                  <details open className="group space-y-3">
+                  <details className="group space-y-3">
                     <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3">
                       <h2 className="display text-xl">Scoring profile</h2>
                       <span className="stat-num text-xs text-ink-faint">
@@ -427,7 +427,7 @@ export default async function PlayerPage({
                     </div>
 
                     {bySeason.length > 1 && (
-                      <details open className="group rounded-xl border border-line bg-panel">
+                      <details className="group rounded-xl border border-line bg-panel">
                         <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
                           <span className="text-sm font-medium text-ink-dim">Goals and assists by season</span>
                           <span className="stat-num text-xs text-ink-faint">
@@ -503,7 +503,7 @@ export default async function PlayerPage({
                 ) : (
                   <>
                     {matches.length >= 12 && (
-                      <details open className="group rounded-xl border border-line bg-panel">
+                      <details className="group rounded-xl border border-line bg-panel">
                         <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
                           <span className="text-sm font-medium text-ink-dim">Goals per game, across the career</span>
                           <span className="stat-num text-xs text-ink-faint">
@@ -600,7 +600,7 @@ export default async function PlayerPage({
                   const started = appearances.filter((m) => m.started).length;
                   const sub = appearances.length - started;
                   return (
-                    <details open className="group rounded-xl border border-line bg-panel">
+                    <details className="group rounded-xl border border-line bg-panel">
                       <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
                         <span className="text-sm font-medium text-ink-dim">Starts and substitute appearances</span>
                         <span className="stat-num text-xs text-ink-faint">

@@ -12,10 +12,10 @@ export type DetailSectionTab = {
 };
 
 /**
- * Mobile-only section tabs for entity detail pages. Below `sm`, one panel at a
- * time; at `sm+` every panel stacks in document order (desktop narrative
- * unchanged). `desktopOnly` tabs stack on desktop but are absent from the mobile
- * tab bar.
+ * Section tabs for entity detail pages. One tab panel visible at a time at every
+ * breakpoint; inactive panels stay hidden (no desktop stack). `desktopOnly` tabs
+ * are absent from the tab bar and remain visible on `sm+` only — e.g. match lineup
+ * reached elsewhere on mobile.
  */
 export function DetailSectionTabs({
   tabs,
@@ -42,7 +42,7 @@ export function DetailSectionTabs({
     <div className="space-y-5 sm:space-y-8">
       {tabbable.length > 1 && (
         <div
-          className="flex items-stretch border-b border-line sm:hidden"
+          className="flex items-stretch border-b border-line"
           role="tablist"
           aria-label={ariaLabel}
         >
@@ -73,7 +73,13 @@ export function DetailSectionTabs({
           id={`${idPrefix}-panel-${tab.id}`}
           role={tab.desktopOnly ? undefined : "tabpanel"}
           aria-labelledby={tab.desktopOnly ? undefined : `${idPrefix}-tab-${tab.id}`}
-          className={!tab.desktopOnly && current === tab.id ? "block" : "hidden sm:block"}
+          className={
+            tab.desktopOnly
+              ? "hidden sm:block"
+              : current === tab.id
+                ? "block scroll-mt-24"
+                : "hidden"
+          }
         >
           {tab.content}
         </section>
