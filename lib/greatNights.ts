@@ -7,7 +7,7 @@ import { scoreline, fmtRound, resultTone } from "./format";
 // TEMP (front-door design iteration): pin one night so the hero treatment can be
 // judged on the flagship rather than whatever falls today. Set to null to ship —
 // the served night then resolves normally (on-this-day, else the rotating pool).
-const PINNED_ID: string | null = "1999-05-26-bayern-munich-n";
+const PINNED_ID: string | null = null;
 
 // The match-winner portraits we have are modern (often post-career / management
 // era) — anachronistic to the night, and a wrong-era face reads worse than none

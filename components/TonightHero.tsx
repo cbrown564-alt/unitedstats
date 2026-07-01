@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { GreatNight } from "@/lib/greatNights";
 
 function LivePulse() {
@@ -12,6 +12,20 @@ function LivePulse() {
       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-devil-bright" />
     </span>
   );
+}
+
+/** Shuffle-bag over night ids — no repeat until the pool is spent (SurpriseReveal pattern). */
+function drawNextId(bag: string[], pool: string[], current: string): string {
+  if (pool.length <= 1) return current;
+  if (bag.length === 0) {
+    const fresh = pool.filter((id) => id !== current);
+    for (let i = fresh.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [fresh[i], fresh[j]] = [fresh[j], fresh[i]];
+    }
+    bag.push(...fresh);
+  }
+  return bag.pop() ?? current;
 }
 
 /** The goals that made the night — name + minute, the line a fan recites from
@@ -376,9 +390,32 @@ export function TonightHero({
   seed: number;
 }) {
   const [hoveredGoalIndex, setHoveredGoalIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(seed);
+  const bag = useRef<string[]>([]);
 
-  const night = nights[seed];
+  useEffect(() => {
+    setActiveIndex(seed);
+    bag.current = [];
+  }, [seed, nights]);
+
+  const night = nights[activeIndex];
+  const rollPool = nights.filter((n) => n.framing === "great-night");
+  const canReroll = rollPool.length > 1;
+
+  const again = useCallback(() => {
+    if (!canReroll) return;
+    const ids = rollPool.map((n) => n.id);
+    setActiveIndex((cur) => {
+      const curId = nights[cur]?.id ?? ids[0];
+      const nextId = drawNextId(bag.current, ids, curId);
+      const nextIndex = nights.findIndex((n) => n.id === nextId);
+      return nextIndex >= 0 ? nextIndex : cur;
+    });
+  }, [canReroll, nights, rollPool]);
+
   if (!night) return null;
+
+  const onThisDay = night.framing === "on-this-day";
 
   return (
     <div>
@@ -387,7 +424,7 @@ export function TonightHero({
       <Link
         href={night.href}
         aria-label={`${night.line ?? `Manchester United ${night.score} ${night.opponent}`} — see the match`}
-        className="group relative -mx-4 -mt-8 block overflow-hidden bg-pitch focus-ring sm:-mx-6 sm:-mt-10"
+        className={`group relative -mx-4 -mt-8 block overflow-hidden bg-pitch focus-ring sm:-mx-6 sm:-mt-10 ${onThisDay ? "ring-1 ring-inset ring-gold/25" : ""}`}
       >
         {/* Floodlight from above. */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(115%_75%_at_50%_-12%,rgba(255,238,210,0.10),transparent_55%)]" aria-hidden />
@@ -442,7 +479,7 @@ export function TonightHero({
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">
             <span className="stat-num text-sm font-bold tracking-normal text-gold">{night.year}</span>
             {night.live && <LivePulse />}
-            {night.eyebrow}
+            <span className={onThisDay ? "text-gold/95" : ""}>{night.eyebrow}</span>
           </p>
 
           {night.line && (
@@ -492,6 +529,24 @@ export function TonightHero({
           </span>
         </div>
       </Link>
+
+      {canReroll && (
+        <div className="relative z-20 -mt-2 flex justify-center sm:-mt-1 sm:mt-4">
+          <button
+            type="button"
+            onClick={again}
+            className="group tap-target inline-flex items-center gap-2.5 rounded-full border border-line bg-panel-2 px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_8px_20px_rgb(0_0_0_/0.22)] transition-colors hover:border-devil/60 hover:bg-panel focus-ring"
+          >
+            <span
+              aria-hidden
+              className="text-base text-devil-bright transition-transform duration-300 group-hover:rotate-180 group-active:rotate-180 motion-reduce:transition-none"
+            >
+              ↻
+            </span>
+            Another night
+          </button>
+        </div>
+      )}
     </div>
   );
 }
