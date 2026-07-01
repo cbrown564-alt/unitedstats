@@ -8,7 +8,7 @@ import { MatchSliceHero } from "@/components/matches/MatchSliceHero";
 import { Pager } from "@/components/Pager";
 import { fmtNum } from "@/lib/format";
 import type { MatchPageView } from "@/lib/matchPageView";
-import { seasonAggregates, type MatchRow } from "@/lib/queries";
+import type { MatchRow } from "@/lib/queries";
 import { queryString } from "@/lib/url";
 
 export function MatchesPageBody({ view }: { view: MatchPageView }) {
@@ -35,6 +35,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
     heroTone,
     heroSub,
     matchHref,
+    seasonTotals,
   } = view;
 
   const qs = (overrides: Record<string, string | undefined>) => queryString({ ...sp, ...overrides });
@@ -55,7 +56,6 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
     );
   };
   const eventBadgeRenderer = Object.keys(eventBadges).length > 0 ? renderEventBadge : undefined;
-  const seasonTotals = Object.fromEntries(seasonAggregates().map((s) => [s.season, s.p]));
 
   return (
     <>
