@@ -105,12 +105,12 @@ export function timedGoalCounts(): { timed: number; total: number } {
  * Map a recorded goal to its clock position for plotting. Stoppage is 90+added;
  * older sources sometimes write 93 or 99 directly instead of 90+3 / 90+9.
  */
-export function lateGoalClock(minute: number, added: number | null): number {
+function lateGoalClock(minute: number, added: number | null): number {
   if (minute === 90 && added != null && added > 0) return 90 + added;
   return minute;
 }
 
-export function isStoppageGoal(minute: number, added: number | null): boolean {
+function isStoppageGoal(minute: number, added: number | null): boolean {
   return minute > 90 || (minute === 90 && (added ?? 0) > 0);
 }
 
@@ -246,16 +246,6 @@ export function annotatedLateGoals(): AnnotatedLateGoal[] {
   });
 }
 
-/** @deprecated Use {@link annotatedLateGoals} — kept for any callers expecting match rows. */
-const ICONIC_LATE_DATES = ANNOTATED_LATE.map((a) => a.matchId.slice(0, 10));
-export function iconicLateWinners(): MatchRow[] {
-  const dates = [...new Set(ICONIC_LATE_DATES)];
-  const placeholders = dates.map(() => "?").join(",");
-  return getDb()
-    .prepare(`${MATCH_SELECT} WHERE m.date IN (${placeholders}) ORDER BY m.date ASC`)
-    .all(...dates) as MatchRow[];
-}
-
 export interface LateGoalEraSlice {
   label: string;
   timed: number;
@@ -290,29 +280,6 @@ export function lateGoalManagerEras(): LateGoalEraSlice[] {
     )
     .all() as LateGoalEraSlice[];
   return rows.filter((r) => r.timed >= 20 && r.label !== "Early record");
-}
-
-/** @deprecated Prefer {@link lateGoalManagerEras} for the Fergie-time question. */
-export function lateGoalEraComparison(): LateGoalEraSlice[] {
-  const db = getDb();
-  const rows = db
-    .prepare(
-      `SELECT
-         CASE
-           WHEN m.date < '1986-11-08' THEN 'Before Ferguson'
-           WHEN m.date <= '2013-05-19' THEN 'Under Ferguson'
-           ELSE 'Since Ferguson'
-         END AS label,
-         COUNT(*) timed,
-         SUM(e.minute BETWEEN 86 AND 90 AND COALESCE(e.added_time, 0) = 0) reg,
-         SUM(e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0)) stoppage
-       FROM match_events e JOIN matches m ON m.id = e.match_id
-       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL
-       GROUP BY 1
-       ORDER BY MIN(m.date)`,
-    )
-    .all() as LateGoalEraSlice[];
-  return rows.filter((r) => r.timed >= 20);
 }
 
 // ---------------------------------------------------------------- bogey sides
