@@ -220,6 +220,35 @@ export default async function PlayerPage({
   const facetColsClass =
     facetCount >= 3 ? "sm:grid-cols-3" : facetCount === 2 ? "sm:grid-cols-2" : "sm:grid-cols-1";
 
+  const topPartnership = partnerships[0];
+  const topPartnershipCreated = topPartnership?.assister_id === id;
+  const topPartnershipName = topPartnership
+    ? (topPartnershipCreated ? topPartnership.scorer_name : topPartnership.assister_name)
+    : null;
+
+  const contributionSpine =
+    matches.length >= 12 ? (
+      <details className="group rounded-xl border border-line bg-panel">
+        <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+          <span className="text-sm font-medium text-ink-dim">
+            Every scoring match in order · {fmtNum(matches.length)} games
+          </span>
+          <span className="stat-num text-xs text-ink-faint">
+            <span className="text-devil-bright group-open:hidden">show chart</span>
+            <span className="hidden text-devil-bright group-open:inline">hide</span>
+          </span>
+        </summary>
+        <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+          <p className="mb-2 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Contribution spine</p>
+          <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
+          <p className="mt-2 text-[11px] leading-4 text-ink-dim">
+            Every match where he scored, in order — bar height is the goals in that game; gold marks multi-goal
+            nights, and pips mark his hat-tricks. Only matches where he scored are drawn, so blank games are omitted.
+          </p>
+        </div>
+      </details>
+    ) : null;
+
   return (
     <div className="space-y-10">
       <DetailBreadcrumb
@@ -267,7 +296,7 @@ export default async function PlayerPage({
         tabs={[
           {
             id: "career",
-            label: "Career",
+            label: "Overview",
             content: (
               <div className="space-y-10">
                 {transfers.length > 0 && (
@@ -275,6 +304,129 @@ export default async function PlayerPage({
                     <SectionHead title="Transfer record" aside={`${fmtNum(transfers.length)} recorded`} />
                     <TransferList transfers={transfers} />
                   </section>
+                )}
+
+                {bySeason.length > 0 && (
+                  <section id="seasons" className="space-y-3">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                      <h2 className="display text-xl">Season by season</h2>
+                      <span className="stat-num text-xs text-ink-dim">
+                        {fmtNum(p.recorded_goals)} recorded goals · {fmtNum(coveredSeasons.length)} of {fmtNum(bySeason.length)} seasons covered
+                      </span>
+                    </div>
+
+                    <details open className="group">
+                      <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
+                        <h3 className="text-sm font-medium text-ink-dim">The full table</h3>
+                        <span className="stat-num text-xs text-ink-faint group-open:hidden">show</span>
+                        <span className="stat-num text-xs text-ink-faint hidden group-open:inline">hide</span>
+                      </summary>
+                      <div className="mt-3">
+                        <PlayerSeasonTable seasons={bySeason} playerName={p.name} />
+                        <CoverageNote
+                          slice="all competitions, per season"
+                          count={{
+                            covered: coveredSeasons.length,
+                            total: bySeason.length,
+                            noun: "seasons carry lineup coverage",
+                            note: "apps and assists reflect local data, so empty cells are coverage gaps, not zero",
+                          }}
+                        />
+                      </div>
+                    </details>
+
+                    {bySeason.length > 1 && (
+                      <details className="group rounded-xl border border-line bg-panel">
+                        <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
+                          <span className="text-sm font-medium text-ink-dim">Goals and assists by season</span>
+                          <span className="stat-num text-xs text-ink-faint">
+                            <span className="text-devil-bright group-open:hidden">show chart</span>
+                            <span className="hidden text-devil-bright group-open:inline">hide</span>
+                          </span>
+                        </summary>
+                        <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                        <div className="mb-2 mt-4 flex items-center gap-4 text-[11px] text-ink-faint">
+                          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" /> goals</span>
+                          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" /> assists</span>
+                        </div>
+                        <SeasonContributionChart
+                          data={bySeason.map((s) => ({
+                            label: s.season.slice(0, 4),
+                            goals: s.goals,
+                            assists: s.assists,
+                            valueLabel: `${fmtNum(s.goals)} goals · ${fmtNum(s.assists)} assists`,
+                            meta: s.season,
+                            href: `/seasons/${s.season}`,
+                          }))}
+                          labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
+                          chartLabel={`${p.name} goals and assists by season`}
+                        />
+                        <p className="mt-1 text-xs text-ink-dim">
+                          Recorded goals and combined assists (curated through 2014-15, match events after) per season;
+                          early or sparsely covered seasons can read low.
+                        </p>
+                        </div>
+                      </details>
+                    )}
+                  </section>
+                )}
+
+                {curatedTotals && (
+                  <details className="group rounded-xl border border-line bg-panel">
+                    <summary className="flex cursor-pointer list-none items-start justify-between gap-3 p-4 sm:p-5">
+                      <div className="min-w-0">
+                        <h2 className="display text-xl">Curated scoring profile</h2>
+                        <p className="stat-num mt-1.5 text-xs text-ink-dim">
+                          {curatedTotals.from_season?.slice(0, 4)}–{curatedTotals.to_season?.slice(0, 4)}
+                          {" · "}
+                          {fmtNum(curatedTotals.goals)} goals, {fmtNum(curatedTotals.assists)} assists
+                          {curatedTopType && (
+                            <>
+                              {" · "}
+                              main finish {curatedTopType.goal_type.toLowerCase()} ({pct(curatedTopType.goals, curatedTotals.goals)})
+                            </>
+                          )}
+                          {curatedTotals.goals !== p.goals && (
+                            <span className="text-ink-faint">
+                              {" · "}
+                              differs from club record — season aggregates, not match-attributed
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                      <span className="stat-num shrink-0 text-xs text-ink-faint">
+                        curated ·{" "}
+                        <span className="text-devil-bright group-open:hidden">show</span>
+                        <span className="hidden text-devil-bright group-open:inline">hide</span>
+                      </span>
+                    </summary>
+
+                    <div className="space-y-4 border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                      {curatedTotals.goals !== p.goals && (
+                        <p className="mt-4 text-xs text-ink-dim">
+                          Club record lists {fmtNum(p.goals)} competitive goals; this curated lane counts{" "}
+                          {fmtNum(curatedTotals.goals)} across {fmtNum(curatedTotals.seasons)} Ferguson-era seasons —
+                          hand-totaled, not tied to individual matches.
+                        </p>
+                      )}
+
+                      {curatedGoalTypes.length > 1 && (
+                        <ChartPanel
+                          title="How the goals were scored"
+                          note="Body part / technique behind each curated goal."
+                        >
+                          <GoalBodyMap types={curatedGoalTypes} totalGoals={curatedTotals.goals} />
+                        </ChartPanel>
+                      )}
+
+                      <CoverageNote
+                        slice="curated goals, assists, and goal types, 1987–2015"
+                        coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
+                        evidenceHref={curatedTotals.source_url ?? undefined}
+                        evidenceLabel="Tableau source"
+                      />
+                    </div>
+                  </details>
                 )}
 
                 {(minutes.length > 3 || facetCount > 0) && (
@@ -374,127 +526,31 @@ export default async function PlayerPage({
                   </details>
                 )}
 
-                {curatedTotals && (
+                {partnerships.length > 0 && (
                   <details className="group rounded-xl border border-line bg-panel">
                     <summary className="flex cursor-pointer list-none items-start justify-between gap-3 p-4 sm:p-5">
                       <div className="min-w-0">
-                        <h2 className="display text-xl">Curated scoring profile</h2>
+                        <h2 className="display text-xl">Assist partnerships</h2>
                         <p className="stat-num mt-1.5 text-xs text-ink-dim">
-                          {curatedTotals.from_season?.slice(0, 4)}–{curatedTotals.to_season?.slice(0, 4)}
-                          {" · "}
-                          {fmtNum(curatedTotals.goals)} goals, {fmtNum(curatedTotals.assists)} assists
-                          {curatedTopType && (
+                          {fmtNum(partnerships.length)} recorded combinations
+                          {topPartnershipName && topPartnership && topPartnership.goals > 1 && (
                             <>
                               {" · "}
-                              main finish {curatedTopType.goal_type.toLowerCase()} ({pct(curatedTopType.goals, curatedTotals.goals)})
+                              most with {topPartnershipName} — {fmtNum(topPartnership.goals)} goals
+                              {topPartnershipCreated ? " he set up" : " from their pass"}
                             </>
-                          )}
-                          {curatedTotals.goals !== p.goals && (
-                            <span className="text-ink-faint">
-                              {" · "}
-                              differs from club record — season aggregates, not match-attributed
-                            </span>
                           )}
                         </p>
                       </div>
                       <span className="stat-num shrink-0 text-xs text-ink-faint">
-                        curated ·{" "}
                         <span className="text-devil-bright group-open:hidden">show</span>
                         <span className="hidden text-devil-bright group-open:inline">hide</span>
                       </span>
                     </summary>
-
-                    <div className="space-y-4 border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
-                      {curatedTotals.goals !== p.goals && (
-                        <p className="mt-4 text-xs text-ink-dim">
-                          Club record lists {fmtNum(p.goals)} competitive goals; this curated lane counts{" "}
-                          {fmtNum(curatedTotals.goals)} across {fmtNum(curatedTotals.seasons)} Ferguson-era seasons —
-                          hand-totaled, not tied to individual matches.
-                        </p>
-                      )}
-
-                      {curatedGoalTypes.length > 1 && (
-                        <ChartPanel
-                          title="How the goals were scored"
-                          note="Body part / technique behind each curated goal."
-                        >
-                          <GoalBodyMap types={curatedGoalTypes} totalGoals={curatedTotals.goals} />
-                        </ChartPanel>
-                      )}
-
-                      <CoverageNote
-                        slice="curated goals, assists, and goal types, 1987–2015"
-                        coverage={`${fmtNum(curatedTotals.goals)} goals and ${fmtNum(curatedTotals.assists)} assists across ${fmtNum(curatedTotals.seasons)} seasons; hand-curated, not exhaustive, and not match-attributed.`}
-                        evidenceHref={curatedTotals.source_url ?? undefined}
-                        evidenceLabel="Tableau source"
-                      />
+                    <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
+                      <AssistPartnerships playerId={id} rows={partnerships} hideTitle />
                     </div>
                   </details>
-                )}
-
-                {bySeason.length > 0 && (
-                  <section id="seasons" className="space-y-3">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                      <h2 className="display text-xl">Season by season</h2>
-                      <span className="stat-num text-xs text-ink-dim">
-                        {fmtNum(p.recorded_goals)} recorded goals · {fmtNum(coveredSeasons.length)} of {fmtNum(bySeason.length)} seasons covered
-                      </span>
-                    </div>
-
-                    {bySeason.length > 1 && (
-                      <details className="group rounded-xl border border-line bg-panel">
-                        <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
-                          <span className="text-sm font-medium text-ink-dim">Goals and assists by season</span>
-                          <span className="stat-num text-xs text-ink-faint">
-                            <span className="text-devil-bright group-open:hidden">show chart</span>
-                            <span className="hidden text-devil-bright group-open:inline">hide</span>
-                          </span>
-                        </summary>
-                        <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
-                        <div className="mb-2 mt-4 flex items-center gap-4 text-[11px] text-ink-faint">
-                          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" /> goals</span>
-                          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" /> assists</span>
-                        </div>
-                        <SeasonContributionChart
-                          data={bySeason.map((s) => ({
-                            label: s.season.slice(0, 4),
-                            goals: s.goals,
-                            assists: s.assists,
-                            valueLabel: `${fmtNum(s.goals)} goals · ${fmtNum(s.assists)} assists`,
-                            meta: s.season,
-                            href: `/seasons/${s.season}`,
-                          }))}
-                          labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
-                          chartLabel={`${p.name} goals and assists by season`}
-                        />
-                        <p className="mt-1 text-xs text-ink-dim">
-                          Recorded goals and combined assists (curated through 2014-15, match events after) per season;
-                          early or sparsely covered seasons can read low.
-                        </p>
-                        </div>
-                      </details>
-                    )}
-
-                    <details open className="group">
-                      <summary className="flex cursor-pointer items-baseline justify-between gap-3 list-none">
-                        <h3 className="text-sm font-medium text-ink-dim">The full table</h3>
-                        <span className="stat-num text-xs text-ink-faint group-open:hidden">show</span>
-                        <span className="stat-num text-xs text-ink-faint hidden group-open:inline">hide</span>
-                      </summary>
-                      <div className="mt-3">
-                        <PlayerSeasonTable seasons={bySeason} playerName={p.name} />
-                        <CoverageNote
-                          slice="all competitions, per season"
-                          count={{
-                            covered: coveredSeasons.length,
-                            total: bySeason.length,
-                            noun: "seasons carry lineup coverage",
-                            note: "apps and assists reflect local data, so empty cells are coverage gaps, not zero",
-                          }}
-                        />
-                      </div>
-                    </details>
-                  </section>
                 )}
               </div>
             ),
@@ -517,28 +573,11 @@ export default async function PlayerPage({
                   </p>
                 ) : (
                   <>
-                    {matches.length >= 12 && (
-                      <details className="group rounded-xl border border-line bg-panel">
-                        <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 p-4 sm:p-5">
-                          <span className="text-sm font-medium text-ink-dim">Goals per game, across the career</span>
-                          <span className="stat-num text-xs text-ink-faint">
-                            <span className="text-devil-bright group-open:hidden">show chart</span>
-                            <span className="hidden text-devil-bright group-open:inline">hide</span>
-                          </span>
-                        </summary>
-                        <div className="border-t border-line px-4 pb-4 sm:px-5 sm:pb-5">
-                          <p className="mb-2 mt-4 text-[11px] uppercase tracking-[0.14em] text-ink-dim">Contribution spine</p>
-                          <ContributionSpine matches={scoringOldestFirst} markers={hatTrickMarkers} subject={p.name} />
-                          <p className="mt-2 text-[11px] leading-4 text-ink-dim">
-                            Every match where he scored, in order — bar height is the goals in that game; gold marks multi-goal
-                            nights, and pips mark his hat-tricks. Only matches where he scored are drawn, so blank games are omitted.
-                          </p>
-                        </div>
-                      </details>
-                    )}
-
                     {!longScoredList ? (
-                      <MatchList matches={matches} showSeason renderExtra={goalExtra} />
+                      <>
+                        <MatchList matches={matches} showSeason renderExtra={goalExtra} />
+                        {contributionSpine}
+                      </>
                     ) : (
                       <>
                         <p className="text-sm text-ink-dim">
@@ -568,6 +607,8 @@ export default async function PlayerPage({
                             <HaulCards hauls={topHauls} />
                           </div>
                         )}
+
+                        {contributionSpine}
 
                         <div>
                           <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
@@ -603,7 +644,7 @@ export default async function PlayerPage({
           },
           {
             id: "apps",
-            label: "Apps",
+            label: "Appearances",
             content: appearances.length > 0 ? (
               <section className="space-y-3">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -720,37 +761,24 @@ export default async function PlayerPage({
           },
           {
             id: "more",
-            label: "More",
-            content: (partnerships.length > 0 || peakSeason || topOpponent) ? (
-              <div className="space-y-8">
-                {partnerships.length > 0 && (
-                  <AssistPartnerships playerId={id} rows={partnerships} />
-                )}
-
-                {(peakSeason || topOpponent) && (
-                  <section>
-                    <h2 className="display mb-3 text-xl">Related trails</h2>
-                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                      {peakSeason && (
-                        <TrailLink href={`/seasons/${peakSeason.season}`} title={peakSeason.season}>
-                          His most prolific recorded season, with {fmtNum(peakSeason.goals)} goals.
-                        </TrailLink>
-                      )}
-                      {topOpponent && (
-                        <TrailLink href={`/opponent/${topOpponent.opponent_id}`} title={topOpponent.opponent_name}>
-                          The opponent he has scored against most: {fmtNum(topOpponent.goals)} recorded goals.
-                        </TrailLink>
-                      )}
-                      <TrailLink href="/players" title="All players">
-                        {ranks
-                          ? `Where ${p.name} ranks among ${fmtNum(ranks.total)} recorded goalscorers.`
-                          : "Browse the full goalscorer and appearance index."}
-                      </TrailLink>
-                    </div>
-                  </section>
-                )}
-              </div>
-            ) : null,
+            label: "Links",
+            content: ranks ? (
+              <section>
+                <h2 className="display mb-3 text-xl">Related trails</h2>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  <TrailLink href="/players" title="All players">
+                    Where {p.name} ranks among {fmtNum(ranks.total)} recorded goalscorers.
+                  </TrailLink>
+                </div>
+              </section>
+            ) : (
+              <section>
+                <h2 className="display mb-3 text-xl">Related trails</h2>
+                <TrailLink href="/players" title="All players">
+                  Browse the full goalscorer and appearance index.
+                </TrailLink>
+              </section>
+            ),
           },
         ]}
       />
