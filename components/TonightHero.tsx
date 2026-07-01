@@ -418,13 +418,13 @@ export function TonightHero({
   const onThisDay = night.framing === "on-this-day";
 
   return (
-    <div className="relative">
+    <div className="relative -mx-4 -mt-8 sm:-mx-6 sm:-mt-10">
       {/* The stage. Bleeds past the column to the page edges and pulls flush under
           the header so it reads as a floodlit field, not a card on a page. */}
       <Link
         href={night.href}
         aria-label={`${night.line ?? `Manchester United ${night.score} ${night.opponent}`} — see the match`}
-        className={`group relative -mx-4 -mt-8 block overflow-hidden bg-pitch focus-ring sm:-mx-6 sm:-mt-10 ${onThisDay ? "ring-1 ring-inset ring-gold/25" : ""}`}
+        className={`group relative block overflow-hidden bg-pitch focus-ring ${onThisDay ? "ring-1 ring-inset ring-gold/25" : ""}`}
       >
         {/* Floodlight from above. */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(115%_75%_at_50%_-12%,rgba(255,238,210,0.10),transparent_55%)]" aria-hidden />
@@ -535,7 +535,7 @@ export function TonightHero({
           type="button"
           onClick={again}
           aria-label="Show another night"
-          className="group/reroll tap-target absolute bottom-5 right-4 z-20 flex items-center gap-2.5 focus-ring sm:bottom-7 sm:right-6"
+          className="group/reroll tap-target absolute top-4 right-4 z-20 flex items-center gap-2.5 focus-ring sm:top-6 sm:right-6"
         >
           <span className="text-xs lowercase tracking-wide text-ink-faint transition-colors group-hover/reroll:text-ink-dim">
             another night
