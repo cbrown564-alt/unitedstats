@@ -17,9 +17,15 @@ type Partner = { id: string; name: string; thumb: string | null; goals: number }
 export function AssistPartnerships({
   playerId,
   rows,
+  hideTitle = false,
+  hideCoverageNote = false,
 }: {
   playerId: string;
   rows: AssistPartnership[];
+  /** Omit section title and lead sentence when wrapped in a parent disclosure. */
+  hideTitle?: boolean;
+  /** Omit footer note when coverage is aggregated on the parent page. */
+  hideCoverageNote?: boolean;
 }) {
   // Split by direction. A goal event never has scorer === assister, so the two
   // lanes are disjoint: assister-side rows are his playmaking, scorer-side rows
@@ -45,12 +51,14 @@ export function AssistPartnerships({
 
   return (
     <section>
-      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h2 className="display text-xl">Assist partnerships</h2>
-        <span className="stat-num text-xs text-ink-faint">recorded combinations</span>
-      </div>
+      {!hideTitle && (
+        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <h2 className="display text-xl">Assist partnerships</h2>
+          <span className="stat-num text-xs text-ink-faint">recorded combinations</span>
+        </div>
+      )}
 
-      {topPartner && top.goals > 1 && (
+      {!hideTitle && topPartner && top.goals > 1 && (
         <p className="mb-3 text-sm text-ink-dim">
           Most productive with{" "}
           <Link
@@ -91,10 +99,12 @@ export function AssistPartnerships({
         )}
       </div>
 
-      <CoverageNote
-        slice="recorded match-event assists, both directions"
-        coverage="goals where both scorer and assister are recorded; curated season assists are not pairwise and are excluded here."
-      />
+      {!hideCoverageNote && (
+        <CoverageNote
+          slice="recorded match-event assists, both directions"
+          coverage="goals where both scorer and assister are recorded; curated season assists are not pairwise and are excluded here."
+        />
+      )}
     </section>
   );
 }

@@ -47,6 +47,9 @@ interface PlayerPlateProps {
     peakSeason: { season: string; goals: number } | null;
   };
   shirts: Shirt[];
+  /** One-line trust note shown by default in the footer band. */
+  caveatBrief?: React.ReactNode;
+  /** Full methodology prose, revealed via “About these numbers”. */
   caveat: React.ReactNode;
   /** Copy-link / cite affordance, rendered top-right of the plate. */
   share?: { path: string; title: string };
@@ -62,7 +65,7 @@ const yearOf = (m: { season?: string; date?: string }) =>
  * recorded career resolves into a single span with the peak season marked on it.
  */
 export function PlayerPlate({
-  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveat, share,
+  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveatBrief, caveat, share,
 }: PlayerPlateProps) {
   // Tint the corner kit to the era the player wore that number most.
   const primaryDecade =
@@ -90,20 +93,33 @@ export function PlayerPlate({
     .slice(0, 3);
 
   // Secondary readouts, built only where the number means something — no "—" filler.
-  const secondary: { value: string; label: string; detail?: string; tone?: string }[] = [
-    { value: stats.apps ? fmtNum(stats.apps) : "—", label: "apps", detail: stats.subs ? `${fmtNum(stats.subs)} sub` : undefined },
+  const secondary: { value: string; label: string; lane?: string; detail?: string; tone?: string }[] = [
+    {
+      value: stats.apps ? fmtNum(stats.apps) : "—",
+      label: "apps",
+      lane: "record",
+      detail: stats.subs ? `${fmtNum(stats.subs)} sub` : undefined,
+    },
   ];
-  if (stats.goalsPerApp != null) secondary.push({ value: stats.goalsPerApp.toFixed(2), label: "goals / app" });
+  if (stats.goalsPerApp != null) {
+    secondary.push({ value: stats.goalsPerApp.toFixed(2), label: "goals / app", lane: "recorded" });
+  }
   if (stats.multiGoalGames) {
     secondary.push({
       value: fmtNum(stats.multiGoalGames),
       label: "multi-goal",
+      lane: "recorded",
       detail: stats.hatTricks ? `${fmtNum(stats.hatTricks)} hat-trick${stats.hatTricks === 1 ? "" : "s"}` : undefined,
       tone: stats.hatTricks ? "text-gold" : undefined,
     });
   }
   if (stats.assists) {
-    secondary.push({ value: fmtNum(stats.assists), label: "assists", detail: stats.curatedAssists > 0 ? "incl. curated" : undefined });
+    secondary.push({
+      value: fmtNum(stats.assists),
+      label: "assists",
+      lane: "combined",
+      detail: stats.curatedAssists > 0 ? "curated + match events" : undefined,
+    });
   }
 
   return (
@@ -162,7 +178,8 @@ export function PlayerPlate({
           {/* One dominant figure — goals — beside a hairline ribbon of supporting stats. */}
           <div className="mt-5 flex flex-wrap items-end gap-x-7 gap-y-4 sm:mt-6">
             <div className="leading-none">
-              <div className="flex items-baseline gap-2">
+              <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink-faint">Club record</p>
+              <div className="mt-1 flex items-baseline gap-2">
                 <span className="stat-num text-5xl font-semibold text-devil-bright sm:text-6xl">{fmtNum(stats.goals)}</span>
                 <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">goals</span>
               </div>
@@ -177,6 +194,11 @@ export function PlayerPlate({
                 <div key={s.label} className="leading-none">
                   <dd className={`stat-num text-xl font-semibold ${s.tone ?? "text-ink"}`}>{s.value}</dd>
                   <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
+                    {s.lane && (
+                      <span className="mr-1 rounded bg-panel-2 px-1 py-px text-[10px] normal-case tracking-normal text-ink-dim">
+                        {s.lane}
+                      </span>
+                    )}
                     {s.label}
                     {s.detail && <span className="ml-1 normal-case tracking-normal text-ink-dim">{s.detail}</span>}
                   </dt>
@@ -191,8 +213,8 @@ export function PlayerPlate({
         </div>
       </div>
 
-      {/* Footer band: kit history folded into a compact strip, with the trust caveat. */}
-      <div className="relative flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line bg-pitch/40 px-5 py-3 sm:px-6">
+      {/* Footer band: kit history + collapsed methodology note. */}
+      <div className="relative flex flex-wrap items-start gap-x-5 gap-y-2 border-t border-line bg-pitch/40 px-5 py-3 sm:px-6">
         {kit.length > 0 && (
           <div className="flex items-center gap-2">
             <span className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Kit</span>
@@ -203,7 +225,14 @@ export function PlayerPlate({
             </span>
           </div>
         )}
-        <p className="min-w-0 flex-1 text-[11px] leading-4 text-ink-faint">{caveat}</p>
+        <details className="group min-w-0 flex-1">
+          <summary className="cursor-pointer list-none text-[11px] leading-4 text-ink-faint focus-ring">
+            <span>{caveatBrief ?? "Verified competitive record · recorded splits below may cover fewer matches"}</span>
+            <span className="ml-1 text-devil-bright group-open:hidden">About these numbers ▸</span>
+            <span className="ml-1 hidden text-devil-bright group-open:inline">Hide ▸</span>
+          </summary>
+          <p className="mt-2 text-[11px] leading-4 text-ink-faint">{caveat}</p>
+        </details>
       </div>
     </section>
   );
