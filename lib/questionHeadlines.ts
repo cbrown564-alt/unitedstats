@@ -2,7 +2,7 @@ import { fmtNum, pct } from "./format";
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   lateGoalShareByDecade, leadHeldAtHome, managerBounce,
-  eraRecord, FERGUSON_END, managerPpgRanking,
+  eraRecord, FERGUSON_END, titlesInRange,
   europeByDecade, europeanFinals,
 } from "./trails";
 import { clubStreaks } from "./streaks";
@@ -55,23 +55,16 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
 
   const ferg = eraRecord("1986-11-08", FERGUSON_END);
   const since = eraRecord("2013-05-20", "9999-12-31");
-
-  const managerRanking = managerPpgRanking();
-  const fergusonRank = managerRanking.find((m) => m.id === "alex-ferguson");
+  const sinceTitles = titlesInRange("2013-14", "2999-99");
 
   const europeTotals = europeByDecade().reduce((a, d) => ({ w: a.w + d.w, d: a.d + d.d, l: a.l + d.l }), { w: 0, d: 0, l: 0 });
   const europeFinals = europeanFinals();
   const europeWon = europeFinals.filter((f) => f.won).length;
 
   return {
-    decline: {
-      stat: since.ppg.toFixed(2),
-      gloss: `points per game since Ferguson — down from ${ferg.ppg.toFixed(2)} across his ${ferg.p.toLocaleString("en-GB")} matches`,
-      tone: "devil",
-    },
-    ferguson: {
-      stat: fergusonRank ? fergusonRank.ppg.toFixed(2) : "—",
-      gloss: "points per game under Ferguson — the highest of any United manager over a full reign",
+    "ferguson-era": {
+      stat: ferg.ppg.toFixed(2),
+      gloss: `points per game under Ferguson — down to ${since.ppg.toFixed(2)} since, with ${sinceTitles} titles in ${since.p.toLocaleString("en-GB")} matches`,
       tone: "gold",
     },
     treble: {

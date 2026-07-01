@@ -30,6 +30,10 @@ type InspectableTimeSeriesChartProps = {
   valueLabel?: string;
   chartLabel?: string;
   yTickSuffix?: string;
+  /** Interpolation between points — use `linear` when 0% years are flatlined. */
+  lineType?: "monotone" | "linear";
+  /** Draw a marker on {@link ChartDatum.zeroYear} points (0% flat segments). */
+  markZeroYears?: boolean;
   /** Background era bands (e.g. managerial tenures) drawn behind the series. */
   eras?: { x0: number; x1: number; label?: string; key: string }[];
 };
@@ -46,6 +50,8 @@ export function InspectableTimeSeriesChart({
   valueLabel,
   chartLabel = valueLabel ?? "Time series chart",
   yTickSuffix = "",
+  lineType = "monotone",
+  markZeroYears = false,
   eras,
 }: InspectableTimeSeriesChartProps) {
   const gradientId = useId().replace(/:/g, "");
@@ -65,7 +71,8 @@ export function InspectableTimeSeriesChart({
   const onChartClick = (state: MouseHandlerDataParam) => {
     if (!coarse) return;
     const idx = state.activeIndex ?? state.activeTooltipIndex;
-    if (typeof idx === "number" && data[idx]) pin(data[idx]);
+    const datum = typeof idx === "number" ? data[idx] : undefined;
+    if (datum && !datum.bridge) pin(datum);
   };
 
   return (
@@ -151,7 +158,7 @@ export function InspectableTimeSeriesChart({
             />
           )}
           <Area
-            type="monotone"
+            type={lineType}
             dataKey="y"
             name={valueLabel}
             stroke={stroke}
@@ -163,7 +170,22 @@ export function InspectableTimeSeriesChart({
               strokeWidth: 2,
               fill: "var(--color-panel)",
             }}
-            dot={false}
+            dot={(props) => {
+              const { cx, cy, payload } = props;
+              if (!markZeroYears || typeof cx !== "number" || typeof cy !== "number") return null;
+              const d = payload as ChartDatum | undefined;
+              if (!d?.zeroYear) return null;
+              return (
+                <circle
+                  cx={cx}
+                  cy={cy}
+                  r={4}
+                  stroke={stroke}
+                  strokeWidth={2}
+                  fill="var(--color-panel)"
+                />
+              );
+            }}
             isAnimationActive={false}
           />
         </AreaChart>

@@ -1,11 +1,13 @@
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   goalMinuteRidge, leadHeldAtHome, managerBounce,
-  eraRecord, FERGUSON_END, managerPpgRanking, europeByDecade, europeanFinals,
+  europeByDecade, europeanFinals,
 } from "@/lib/trails";
+import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { fmtNum, pct } from "@/lib/format";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
+import { EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -91,29 +93,15 @@ export function QuestionSignature({ slug }: { slug: string }) {
       );
     }
 
-    case "decline": {
-      const ferg = eraRecord("1986-11-08", FERGUSON_END);
-      const since = eraRecord("2013-05-20", "9999-12-31");
+    case "ferguson-era": {
+      const fergEra = ERA_CATALOGUE.find((e) => e.key === "ferguson")!;
+      const afterEra = ERA_CATALOGUE.find((e) => e.key === "after")!;
       return (
-        <Figures
-          items={[
-            { value: ferg.ppg.toFixed(2), label: "ppg under Ferguson", tone: "gold" },
-            { value: since.ppg.toFixed(2), label: "ppg since", tone: "devil" },
-            { value: "0", label: "titles since 2013", tone: "devil" },
-          ]}
-        />
-      );
-    }
-
-    case "ferguson": {
-      const ranking = managerPpgRanking().slice(0, 4);
-      return (
-        <Figures
-          items={[
-            { value: "2.01", label: "Ferguson ppg", tone: "gold" },
-            { value: "38", label: "trophies", tone: "gold" },
-            { value: `${ranking[1]?.ppg.toFixed(2) ?? "—"}`, label: "next-best manager", tone: "ink" },
-          ]}
+        <EraSkylineChart
+          a={eraFinishes(fergEra)}
+          b={eraFinishes(afterEra)}
+          labelA="Ferguson era"
+          labelB="Since Ferguson"
         />
       );
     }

@@ -51,18 +51,25 @@ export function generateStaticParams() {
 
 /**
  * Hero team name that swaps tier by viewport: broadcast short name on phones
- * and tablets, the full era-accurate name on wide screens. `min-w-0` and
- * `whitespace-nowrap` keep each side on one line; the h1 scales type down on
- * narrow viewports so names like "Liverpool" fit. Full name stays in title.
+ * and tablets, the full era-accurate name on wide screens. Wraps within its grid
+ * column so long pairings (e.g. Manchester United v Sheffield Wednesday) never
+ * overflow the hero. Full name stacks one word per line at 2xl+. Full name stays in title.
  */
 function TeamName({ names, align, href }: { names: ClubNames; align: "left" | "right"; href?: string }) {
+  const alignClass = align === "left" ? "text-left" : "text-right";
   const inner = (
     <>
-      <span className="lg:hidden">{names.short}</span>
-      <span className="hidden lg:inline">{names.full}</span>
+      <span className={`block min-w-0 break-words 2xl:hidden ${alignClass}`}>{names.short}</span>
+      <span className={`hidden min-w-0 2xl:block ${alignClass}`}>
+        {names.full.split(/\s+/).map((word) => (
+          <span key={word} className="block leading-[0.95]">
+            {word}
+          </span>
+        ))}
+      </span>
     </>
   );
-  const className = `min-w-0 whitespace-nowrap ${align === "left" ? "text-left" : "text-right"}`;
+  const className = `block min-w-0 w-full leading-tight ${alignClass}`;
   return href ? (
     <Link href={href} title={names.full} className={`${className} hover:text-devil-bright focus-ring`}>
       {inner}
@@ -587,7 +594,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   {word}
                 </span>
               </div>
-              <h1 className="display grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 text-xl leading-none sm:gap-x-5 sm:text-5xl sm:leading-tight lg:gap-x-8 lg:text-6xl">
+              <h1 className="display grid w-full max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 gap-y-2 text-xl leading-tight sm:gap-x-5 sm:text-4xl lg:text-5xl xl:gap-x-8 2xl:text-6xl [&>*]:min-w-0">
                 {m.venue === "A" ? (
                   <>
                     <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />

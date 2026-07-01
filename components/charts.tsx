@@ -13,7 +13,7 @@ export type ChartDatum = {
 export type ChartBarDatum = {
   label: string;
   tickLabel?: string;
-  value: number;
+  value: number | null;
   /**
    * Optional second segment stacked above `value`. When the chart is given a
    * `stack` colour, `value` is drawn as the base and `value2` as the cap, so a
@@ -23,4 +23,6 @@ export type ChartBarDatum = {
   valueLabel: string;
   meta?: string;
   href?: string;
+  /** No bar drawn — a deliberate gap in the series (e.g. years with no data). */
+  gap?: boolean;
 };

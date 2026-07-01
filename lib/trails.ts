@@ -1,7 +1,17 @@
 import { getDb } from "./db";
 import { tallyWdl } from "./format";
 import { roundFilterPredicate } from "./matchRounds";
-import { CUP_WON_PREDICATE, MATCH_SELECT, eventsForMatch, matchWhere, type MatchFilter, type MatchRow, type Record_ } from "./queries";
+import {
+  allSeasons,
+  CUP_WON_PREDICATE,
+  MATCH_SELECT,
+  eventsForMatch,
+  matchWhere,
+  type MatchFilter,
+  type MatchRow,
+  type Record_,
+} from "./queries";
+import { seasonsAscending } from "./seasonBounds";
 
 /** One-off final only — excludes semis *and* quarter-finals (which contain the
  *  substring "final"). Shared with the matches browser so the definition can't
@@ -1155,6 +1165,57 @@ export function europeByDecade(): EuropeDecadeRow[] {
        GROUP BY 1 ORDER BY 1`,
     )
     .all() as EuropeDecadeRow[];
+}
+
+export interface EuropeSeasonRow extends Record_ {
+  season: string;
+}
+
+export interface EuropeSeasonPoint extends EuropeSeasonRow {
+  /** Win percentage when p ≥ 2; null when no football or too few matches for a rate. */
+  rate: number | null;
+}
+
+/** Every season from first to last European match, with gaps where United didn't play in Europe. */
+export function europeWinRateTimeline(): EuropeSeasonPoint[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT m.season, ${RECORD_COLS_OFFICIAL}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE (c.type = 'european' OR c.id = 'uefa-super-cup')
+       GROUP BY 1 ORDER BY 1`,
+    )
+    .all() as EuropeSeasonRow[];
+  if (rows.length === 0) return [];
+
+  const bySeason = new Map(rows.map((r) => [r.season, r]));
+  const allAsc = seasonsAscending(allSeasons());
+  const lo = allAsc.indexOf(rows[0].season);
+  const hi = allAsc.indexOf(rows[rows.length - 1].season);
+  if (lo < 0 || hi < 0) return [];
+
+  return allAsc.slice(lo, hi + 1).map((season) => {
+    const row = bySeason.get(season);
+    if (!row) {
+      return { season, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, rate: null };
+    }
+    return {
+      ...row,
+      rate: row.p >= 2 ? Math.round((100 * row.w) / row.p) : null,
+    };
+  });
+}
+
+/** Every official European match in date order — same slice as {@link europeByDecade}. */
+export function europeMatchSequence(): SequenceMatch[] {
+  return getDb()
+    .prepare(
+      `SELECT ${SEQ_SELECT}
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE (c.type = 'european' OR c.id = 'uefa-super-cup')
+       ORDER BY m.date`,
+    )
+    .all() as SequenceMatch[];
 }
 
 /** Every European final (won or lost) United has reached. */

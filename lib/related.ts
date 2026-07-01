@@ -49,54 +49,49 @@ function toDebate(mode: CompareMode, index: number, hook: string): RelatedLink {
 }
 
 const RELATED: Record<string, RelatedLink[]> = {
-  decline: [
-    toQuestion("ferguson", "Measure the fall against the man who set the ceiling."),
-    toQuestion("manager-bounce", "Each appointment since promised the bounce that never came."),
-    toCut("managers-by-points", "Each successor restated on the same points-per-game scale."),
-  ],
-  ferguson: [
+  "ferguson-era": [
     toDebate("managers", 0, "Set his reign beside Busby's — the club's two architects."),
-    toQuestion("decline", "Everything since is measured against the standard he set."),
+    toQuestion("treble", "The peak of the Ferguson years in one season."),
     toCut("managers-by-points", "Every reign, including his, on one points-per-game scale."),
   ],
   treble: [
     toQuestion("europe", "The Champions League trophy was one thread of the continental record."),
-    toQuestion("comebacks", "That final in Barcelona was the deepest comeback of all."),
+    toQuestion("late-goals", "That final in Barcelona was decided in stoppage time."),
     toCut("seasons-by-points", "1998-99 against every other season, by points per game."),
   ],
   europe: [
     toQuestion("treble", "The greatest European night is the one that completed the Treble."),
+    toQuestion("ferguson-era", "The Ferguson years were when Europe came back to Old Trafford."),
     toCut("opponents-by-win-rate", "The continental record, by opponent, across the decades."),
-    toQuestion("cup-specialists", "Some players truly saved their goals for these European nights."),
   ],
   "late-goals": [
-    toQuestion("manager-bounce", "If they keep scoring late, does a new manager change the tide?"),
     toQuestion("fortress", "And once ahead late, how rarely do they let a lead slip?"),
+    toQuestion("treble", "The Treble's last act was two goals after the 90th."),
     toCut("seasons-by-points", "See which seasons those late goals actually rescued points in."),
+  ],
+  fortress: [
+    toQuestion("late-goals", "Holding the fort late is the same edge as scoring late, defended."),
+    toQuestion("ferguson-era", "The fortress was at its most impregnable in the Ferguson years."),
+    toCut("seasons-by-points", "Which seasons turned the fortress into actual league points?"),
   ],
   comebacks: [
     toQuestion("late-goals", "Most of those recoveries arrive late — how late, exactly?"),
-    toQuestion("runs", "Stringing comebacks together built the club's longest unbeaten runs."),
+    toQuestion("treble", "Barcelona was the deepest comeback of the lot."),
     toCut("managers-by-points", "Which managers turned the most losing positions around?"),
   ],
   runs: [
-    toQuestion("comebacks", "The longest runs were kept alive by refusing to lose from behind."),
+    toQuestion("treble", "The longest unbeaten run overlapped the Treble season."),
     toQuestion("fortress", "Home form is where most unbeaten runs are built and broken."),
     toCut("seasons-by-points", "Place those runs against the points the seasons around them returned."),
   ],
   "manager-bounce": [
+    toQuestion("ferguson-era", "The bounce every successor promised, measured against the standard he set."),
     toCut("managers-by-points", "See every reign restated on one points-per-game scale."),
     toDebate("managers", 1, "Test the bounce on the sharpest succession: Ferguson to Mourinho."),
-    toQuestion("runs", "A real bounce shows up as an early unbeaten run — here are the longest."),
-  ],
-  fortress: [
-    toQuestion("late-goals", "Holding the fort late is the same edge as scoring late, defended."),
-    toQuestion("comebacks", "Away from home it inverts — that's where the comebacks come in."),
-    toCut("seasons-by-points", "Which seasons turned the fortress into actual league points?"),
   ],
   "cup-specialists": [
-    toQuestion("own-goals", "Counting goals by who scored them raises an odd name near the top."),
     toQuestion("europe", "European nights are where the cup specialists made their name."),
+    toQuestion("own-goals", "Counting goals by who scored them raises an odd name near the top."),
     toCut("opponents-by-win-rate", "See which opponents those cup nights were won against."),
   ],
   "own-goals": [
@@ -105,8 +100,8 @@ const RELATED: Record<string, RelatedLink[]> = {
   ],
   "away-days": [
     toQuestion("fortress", "Old Trafford is the fortress those long trips are measured against."),
-    toCut("opponents-by-win-rate", "Every opponent United have travelled to, by win rate."),
     toQuestion("europe", "European away days are where the continental record was built."),
+    toCut("opponents-by-win-rate", "Every opponent United have travelled to, by win rate."),
   ],
 };
 

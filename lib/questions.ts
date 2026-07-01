@@ -28,11 +28,11 @@ export interface QuestionMeta {
 
 export const QUESTIONS: QuestionMeta[] = [
   {
-    slug: "ferguson",
-    label: "Ferguson vs the field",
-    question: "Was Ferguson really that far ahead?",
+    slug: "ferguson-era",
+    label: "Ferguson era",
+    question: "How far ahead was Ferguson — and how far since?",
     summary:
-      "Sir Alex Ferguson against every United manager by win rate, points per game, and trophies — measured over the reigns, not a hot streak.",
+      "Sir Alex Ferguson's reign against every other United manager, then the post-Ferguson years on the same scale — points per game, league finishes, and trophies.",
   },
   {
     slug: "treble",
@@ -42,11 +42,11 @@ export const QUESTIONS: QuestionMeta[] = [
       "Anatomy of 1998-99: the Premier League, the FA Cup and the Champions League, run by run, down to the deciding nights.",
   },
   {
-    slug: "europe",
-    label: "United in Europe",
-    question: "What is United's European record by era?",
+    slug: "fortress",
+    label: "Fortress OT",
+    question: "How much of a fortress is Old Trafford?",
     summary:
-      "Continental nights across the decades — the wins, the finals reached, the trophies won — from the Busby Babes to the modern Champions League.",
+      "Lead at half-time at Old Trafford and the game is over. See how rarely United surrendered a break-time lead.",
   },
   {
     slug: "late-goals",
@@ -55,13 +55,6 @@ export const QUESTIONS: QuestionMeta[] = [
     summary:
       "Do United really score late? Track the post-85th minute edge by decade, from Bruce's header to stoppage-time drama.",
   },
-  {
-    slug: "manager-bounce",
-    label: "Manager bounce",
-    question: "Is the new-manager bounce real?",
-    summary:
-      "Does a new manager change the tide? Compare each manager's first ten matches against the form they inherited.",
-  },
 ];
 
 /** Linkable curiosities kept off the curated front door. Their routes and OG
@@ -69,11 +62,18 @@ export const QUESTIONS: QuestionMeta[] = [
  *  the homepage carousel, the explore catalogue, or the surprise feed. */
 const EASTER_EGGS: QuestionMeta[] = [
   {
-    slug: "decline",
-    label: "The decline",
-    question: "How bad has it really been since Ferguson?",
+    slug: "europe",
+    label: "United in Europe",
+    question: "What is United's European record by era?",
     summary:
-      "The post-Ferguson era by the only numbers that travel across decades — league finishes, win rate, points per game, and trophies — set against the Ferguson years.",
+      "Continental nights across the decades — the wins, the finals reached, the trophies won — from the Busby Babes to the modern Champions League.",
+  },
+  {
+    slug: "manager-bounce",
+    label: "Manager bounce",
+    question: "Is the new-manager bounce real?",
+    summary:
+      "Does a new manager change the tide? Compare each manager's first ten matches against the form they inherited.",
   },
   {
     slug: "comebacks",
@@ -88,13 +88,6 @@ const EASTER_EGGS: QuestionMeta[] = [
     question: "How long are United's longest runs?",
     summary:
       "Winning runs, clean-sheet streaks, and matches without defeat. The limits of United's momentum over 140 years.",
-  },
-  {
-    slug: "fortress",
-    label: "Fortress OT",
-    question: "How much of a fortress is Old Trafford?",
-    summary:
-      "Lead at half-time at Old Trafford and the game is over. See how rarely United surrendered a break-time lead.",
   },
   {
     slug: "cup-specialists",
@@ -128,11 +121,10 @@ export function questionBySlug(slug: string): QuestionMeta | undefined {
 
 /** Launch myths on the homepage — one featured card, day-rotated. */
 const LAUNCH_QUESTION_SLUGS = [
-  "ferguson",
+  "ferguson-era",
   "treble",
-  "europe",
+  "fortress",
   "late-goals",
-  "manager-bounce",
 ] as const;
 
 function dayOfYear(d: Date): number {

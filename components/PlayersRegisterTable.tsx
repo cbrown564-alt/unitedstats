@@ -170,7 +170,6 @@ export function PlayersRegisterTable({
                 decade={p.primary_shirt_decade}
                 apps={p.primary_shirt_apps}
                 compact
-                uniform
               />
             ),
             cardRender: (p) => (p.primary_shirt != null ? String(p.primary_shirt) : "—"),

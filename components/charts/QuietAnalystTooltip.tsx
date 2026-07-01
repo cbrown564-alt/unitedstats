@@ -19,7 +19,7 @@ export function QuietAnalystTooltip({ active, payload, pinned = false }: QuietAn
   if ((!active && !pinned) || !payload?.length) return null;
 
   const datum = payload[0]?.payload;
-  if (!datum) return null;
+  if (!datum || ("bridge" in datum && datum.bridge)) return null;
 
   return (
     <div

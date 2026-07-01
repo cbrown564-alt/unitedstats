@@ -24,6 +24,8 @@ type InspectableBarChartProps = {
   color?: string;
   highlightLabel?: string;
   highlightColor?: string;
+  /** Opacity for bars that are not `highlightLabel`. Defaults to 0.9. */
+  dimOpacity?: number;
   labelEvery?: number;
   chartLabel?: string;
   yTickSuffix?: string;
@@ -32,6 +34,8 @@ type InspectableBarChartProps = {
    * like" baseline. Encodes the contrast on the object instead of in prose.
    */
   baseline?: { value: number; label?: string };
+  /** Fixed y-axis domain (e.g. `[0, 100]` for percentages). */
+  yDomain?: [number, number];
   /**
    * Fill the parent's height instead of using a fixed `height`. The parent must
    * supply a definite height (e.g. a flex-1 cell) — lets the chart match the
@@ -45,6 +49,8 @@ type InspectableBarChartProps = {
    * cap), rather than collapsing them into one height.
    */
   stack?: { color: string; label?: string };
+  /** Angle season/year labels for dense categorical axes. */
+  slantXLabels?: boolean;
 };
 
 export function InspectableBarChart({
@@ -53,12 +59,15 @@ export function InspectableBarChart({
   color = "var(--color-devil)",
   highlightLabel,
   highlightColor = "var(--color-gold)",
+  dimOpacity = 0.9,
   labelEvery = 1,
   chartLabel = "Bar chart",
   yTickSuffix = "",
   baseline,
+  yDomain,
   fill = false,
   stack,
+  slantXLabels = false,
 }: InspectableBarChartProps) {
   const router = useRouter();
   const coarse = useCoarsePointer();
@@ -95,7 +104,7 @@ export function InspectableBarChart({
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
         <BarChart
           data={data}
-          margin={{ top: 10, right: 8, bottom: 8, left: 0 }}
+          margin={{ top: 10, right: 8, bottom: slantXLabels ? 36 : 8, left: 0 }}
           accessibilityLayer
           aria-label={chartLabel}
           onClick={onChartClick}
@@ -107,13 +116,17 @@ export function InspectableBarChart({
             tickFormatter={(label) => data.find((datum) => datum.label === label)?.tickLabel ?? String(label)}
             axisLine={false}
             tickLine={false}
-            tickMargin={8}
-            minTickGap={8}
+            tickMargin={slantXLabels ? 4 : 8}
+            minTickGap={slantXLabels ? 0 : 8}
+            angle={slantXLabels ? -55 : 0}
+            textAnchor={slantXLabels ? "end" : "middle"}
+            height={slantXLabels ? 52 : 30}
             stroke="var(--color-ink-faint)"
-            fontSize={11}
+            fontSize={10}
           />
           <YAxis
             type="number"
+            domain={yDomain ?? ["auto", "auto"]}
             axisLine={false}
             tickLine={false}
             tickMargin={8}
@@ -155,15 +168,16 @@ export function InspectableBarChart({
             dataKey="value"
             stackId={stack ? "a" : undefined}
             radius={stack ? [0, 0, 0, 0] : [2, 2, 0, 0]}
+            minPointSize={2}
             isAnimationActive={false}
           >
             {data.map((datum, index) => (
               <Cell
                 key={`${datum.label}-${index}`}
-                className={datum.href ? "cursor-pointer" : undefined}
-                fill={datum.label === highlightLabel ? highlightColor : color}
-                fillOpacity={datum.label === highlightLabel ? 1 : 0.9}
-                onClick={() => onBarClick(datum)}
+                className={datum.gap ? undefined : datum.href ? "cursor-pointer" : undefined}
+                fill={datum.gap || datum.value == null ? "transparent" : datum.label === highlightLabel ? highlightColor : color}
+                fillOpacity={datum.gap || datum.value == null ? 0 : datum.label === highlightLabel ? 1 : dimOpacity}
+                onClick={datum.gap || datum.value == null ? undefined : () => onBarClick(datum)}
               />
             ))}
           </Bar>
