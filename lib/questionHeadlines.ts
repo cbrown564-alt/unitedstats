@@ -1,7 +1,7 @@
 import { fmtNum, pct } from "./format";
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
-  lateGoalShareByDecade, leadHeldAtHome, managerBounce,
+  lateGoalShareByDecade, lateGoalManagerEras, leadHeldAtHome, managerBounce,
   fergusonFloorSummary,
   europeByDecade, europeanFinals,
 } from "./trails";
@@ -55,6 +55,12 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
 
   const floor = fergusonFloorSummary();
 
+  const managerEras = lateGoalManagerEras();
+  const fergEra = managerEras.find((e) => e.label === "Ferguson");
+  const sinceEra = managerEras.find((e) => e.label === "Since Ferguson");
+  const fergLatePct = fergEra ? pct(fergEra.reg + fergEra.stoppage, fergEra.timed) : pct(late.late, late.timed);
+  const sinceLatePct = sinceEra ? pct(sinceEra.reg + sinceEra.stoppage, sinceEra.timed) : fergLatePct;
+
   const europeTotals = europeByDecade().reduce((a, d) => ({ w: a.w + d.w, d: a.d + d.d, l: a.l + d.l }), { w: 0, d: 0, l: 0 });
   const europeFinals = europeanFinals();
   const europeWon = europeFinals.filter((f) => f.won).length;
@@ -76,8 +82,8 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
       tone: "gold",
     },
     "late-goals": {
-      stat: pct(late.late, late.timed),
-      gloss: "of timed goals land after the 85th minute — a late-stage edge, scaled by modern stoppage-time extensions",
+      stat: `${fergLatePct} → ${sinceLatePct}`,
+      gloss: "of timed goals after the 85th minute under Ferguson and since — the jump arrived with him but did not leave with him",
       tone: "gold",
     },
     comebacks: {

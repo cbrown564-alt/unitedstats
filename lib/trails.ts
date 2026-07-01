@@ -102,118 +102,158 @@ export function timedGoalCounts(): { timed: number; total: number } {
 }
 
 /**
- * A hand-picked spine of iconic matches United won with a goal after the 85th
- * minute — the late-show greatest hits, oldest first. Curated rather than queried
- * because "iconic" is editorial; every entry is still a real one-goal win sealed
- * in the closing minutes, verified against the record.
+ * Map a recorded goal to its clock position for plotting. Stoppage is 90+added;
+ * older sources sometimes write 93 or 99 directly instead of 90+3 / 90+9.
  */
-const ICONIC_LATE_DATES = [
-  "1993-04-10", // Bruce's brace v Sheffield Wednesday — the original "Fergie time"
-  "1996-05-11", // Cantona's late winner v Liverpool — the FA Cup final
-  "1999-05-26", // Sheringham & Solskjaer v Bayern — the Treble sealed in stoppage
-  "2009-04-05", // Macheda's debut winner v Aston Villa
-  "2009-09-20", // Owen's 96th-minute derby winner v Manchester City
-  "2010-04-17", // Scholes' late header v City at Eastlands
-];
-
-export function iconicLateWinners(): MatchRow[] {
-  const placeholders = ICONIC_LATE_DATES.map(() => "?").join(",");
-  return getDb()
-    .prepare(`${MATCH_SELECT} WHERE m.date IN (${placeholders}) ORDER BY m.date ASC`)
-    .all(...ICONIC_LATE_DATES) as MatchRow[];
+export function lateGoalClock(minute: number, added: number | null): number {
+  if (minute === 90 && added != null && added > 0) return 90 + added;
+  return minute;
 }
 
-/** Editorial tag for each iconic late winner — the narrative hook, not computed. */
-const ICONIC_LATE_TAGS: Record<string, { tag: string; note: string; featured?: boolean }> = {
-  "1993-04-10": {
-    tag: "The original",
-    note: "Bruce's brace in the last five minutes — where the phrase was born.",
-    featured: true,
-  },
-  "1996-05-11": {
-    tag: "The FA Cup final",
-    note: "Cantona's 86th-minute winner at Wembley — the first trophy of the double.",
-    featured: true,
-  },
-  "1999-05-26": {
-    tag: "The Treble sealed",
-    note: "Two goals in stoppage time — the myth at its loudest.",
-    featured: true,
-  },
-  "2009-04-05": {
-    tag: "The debut",
-    note: "Macheda's first touch, 90+3 — another stoppage-time rescue.",
-  },
-  "2009-09-20": {
-    tag: "The derby",
-    note: "Owen's 96th-minute winner in the Manchester derby.",
-    featured: true,
-  },
-  "2010-04-17": {
-    tag: "The title race",
-    note: "Scholes' header at Eastlands — a late winner in a title showdown.",
-  },
-};
+export function isStoppageGoal(minute: number, added: number | null): boolean {
+  return minute > 90 || (minute === 90 && (added ?? 0) > 0);
+}
 
-export interface IconicLateMoment {
-  id: string;
+export interface LateGoalPoint {
+  matchId: string;
   date: string;
-  season: string;
-  opponent_name: string;
+  opponent: string;
   venue: string;
   gf: number;
   ga: number;
-  /** The decisive late United goal — minute on the clock. */
   minute: number;
   added: number | null;
-  scorer: string;
+  scorer: string | null;
+  clock: number;
   stoppage: boolean;
-  tag: string;
-  note: string;
-  /** Render as a full MatchFlow card in the evidence section. */
-  featured: boolean;
 }
 
-/**
- * The six curated late-show nights with the decisive goal minute attached — feeds
- * the intro spine and the featured MatchFlow cards. "Iconic" stays editorial;
- * every entry is still a verified one-goal win sealed after the 85th minute.
- */
-export function iconicLateMoments(): IconicLateMoment[] {
-  return iconicLateWinners().flatMap((m) => {
-    const ev = eventsForMatch(m.id);
-    const unitedGoals = ev.filter(
-      (e) =>
-        (e.type === "goal" || e.type === "pen-goal" || e.type === "own-goal-for") &&
-        e.minute != null &&
-        e.minute >= 86,
+/** Every United goal after the 85th minute with a recorded clock — the scatter cloud. */
+export function lateGoalScatter(from = "1950-01-01"): LateGoalPoint[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT m.id matchId, m.date, m.opponent_name opponent, m.venue, m.gf, m.ga,
+              e.minute, e.added_time added, e.player_name scorer
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute >= 86 AND e.minute IS NOT NULL
+         AND m.date >= ?
+       ORDER BY m.date, e.minute, COALESCE(e.added_time, 0)`,
+    )
+    .all(from) as Omit<LateGoalPoint, "clock" | "stoppage">[];
+  return rows.map((r) => ({
+    ...r,
+    clock: lateGoalClock(r.minute, r.added),
+    stoppage: isStoppageGoal(r.minute, r.added),
+  }));
+}
+
+/** Ten nights spread across the record — lightly labelled on the scatter, detailed below. */
+const ANNOTATED_LATE: {
+  matchId: string;
+  minute: number;
+  added: number | null;
+  tag: string;
+  note: string;
+}[] = [
+  {
+    matchId: "1968-05-29-benfica-n",
+    minute: 99,
+    added: null,
+    tag: "Busby's European Cup",
+    note: "Charlton in extra time at Wembley — late drama long before the phrase existed.",
+  },
+  {
+    matchId: "1985-05-18-everton-n",
+    minute: 110,
+    added: null,
+    tag: "Whiteside final",
+    note: "Whiteside's extra-time winner — the last trophy before Ferguson.",
+  },
+  {
+    matchId: "1993-04-10-sheffield-wednesday-h",
+    minute: 90,
+    added: 6,
+    tag: "The original",
+    note: "Bruce's stoppage-time brace — where 'Fergie time' was coined.",
+  },
+  {
+    matchId: "1996-05-11-liverpool-n",
+    minute: 86,
+    added: null,
+    tag: "FA Cup final",
+    note: "Cantona's 86th-minute winner at Wembley.",
+  },
+  {
+    matchId: "1999-05-26-bayern-munich-n",
+    minute: 90,
+    added: 3,
+    tag: "The Treble",
+    note: "Solskjaer's stoppage-time winner — the myth at full volume.",
+  },
+  {
+    matchId: "2009-04-05-aston-villa-h",
+    minute: 90,
+    added: 3,
+    tag: "The debut",
+    note: "Macheda's first touch, 90+3.",
+  },
+  {
+    matchId: "2009-09-20-manchester-city-h",
+    minute: 90,
+    added: 6,
+    tag: "The derby",
+    note: "Owen's 96th-minute winner against City.",
+  },
+  {
+    matchId: "2010-04-17-manchester-city-a",
+    minute: 90,
+    added: 3,
+    tag: "Title race",
+    note: "Scholes' header at Eastlands.",
+  },
+  {
+    matchId: "2023-10-07-brentford-h",
+    minute: 90,
+    added: 7,
+    tag: "Since Ferguson",
+    note: "McTominay twice in stoppage time — the habit outlasted the manager.",
+  },
+  {
+    matchId: "2024-02-01-wolverhampton-wanderers-a",
+    minute: 90,
+    added: 7,
+    tag: "Mainoo",
+    note: "A teenager's 90+7 winner — late goals still landing deep in added time.",
+  },
+];
+
+export interface AnnotatedLateGoal extends LateGoalPoint {
+  tag: string;
+  note: string;
+}
+
+export function annotatedLateGoals(): AnnotatedLateGoal[] {
+  const cloud = lateGoalScatter();
+  return ANNOTATED_LATE.flatMap((a) => {
+    const hit = cloud.find(
+      (p) =>
+        p.matchId === a.matchId &&
+        p.minute === a.minute &&
+        (p.added ?? 0) === (a.added ?? 0),
     );
-    if (unitedGoals.length === 0) return [];
-    // The latest United goal is the one that sealed it.
-    const decisive = unitedGoals.reduce((a, b) => {
-      const aClock = a.minute! * 100 + (a.added_time ?? 0);
-      const bClock = b.minute! * 100 + (b.added_time ?? 0);
-      return bClock >= aClock ? b : a;
-    });
-    const meta = ICONIC_LATE_TAGS[m.date] ?? { tag: "Late show", note: "", featured: false };
-    const stoppage = decisive.minute! > 90 || (decisive.minute === 90 && (decisive.added_time ?? 0) > 0);
-    return [{
-      id: m.id,
-      date: m.date,
-      season: m.season,
-      opponent_name: m.opponent_name,
-      venue: m.venue,
-      gf: m.gf,
-      ga: m.ga,
-      minute: decisive.minute!,
-      added: decisive.added_time,
-      scorer: decisive.player_name ?? "goal",
-      stoppage,
-      tag: meta.tag,
-      note: meta.note,
-      featured: meta.featured ?? false,
-    }];
+    if (!hit) return [];
+    return [{ ...hit, tag: a.tag, note: a.note }];
   });
+}
+
+/** @deprecated Use {@link annotatedLateGoals} — kept for any callers expecting match rows. */
+const ICONIC_LATE_DATES = ANNOTATED_LATE.map((a) => a.matchId.slice(0, 10));
+export function iconicLateWinners(): MatchRow[] {
+  const dates = [...new Set(ICONIC_LATE_DATES)];
+  const placeholders = dates.map(() => "?").join(",");
+  return getDb()
+    .prepare(`${MATCH_SELECT} WHERE m.date IN (${placeholders}) ORDER BY m.date ASC`)
+    .all(...dates) as MatchRow[];
 }
 
 export interface LateGoalEraSlice {
@@ -224,10 +264,35 @@ export interface LateGoalEraSlice {
 }
 
 /**
- * Late-goal share split across Ferguson's reign, the years before, and since —
- * the comparison lens that shows the regulation edge is era-flat while the
- * stoppage column is what grew (especially post-2013 and in the 2020s).
+ * Late-goal share by manager era — Busby, the wilderness years, Ferguson, and
+ * since. The jump arrives with Ferguson; the share keeps climbing after he leaves
+ * as added time lengthens. Busby's era already showed a hint of the same habit.
  */
+export function lateGoalManagerEras(): LateGoalEraSlice[] {
+  const db = getDb();
+  const rows = db
+    .prepare(
+      `SELECT
+         CASE
+           WHEN m.date < '1945-01-01' THEN 'Early record'
+           WHEN m.date <= '1969-06-04' THEN 'Busby'
+           WHEN m.date < '1986-11-08' THEN 'Between'
+           WHEN m.date <= '2013-05-19' THEN 'Ferguson'
+           ELSE 'Since Ferguson'
+         END AS label,
+         COUNT(*) timed,
+         SUM(e.minute BETWEEN 86 AND 90 AND COALESCE(e.added_time, 0) = 0) reg,
+         SUM(e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0)) stoppage
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL
+       GROUP BY 1
+       ORDER BY MIN(m.date)`,
+    )
+    .all() as LateGoalEraSlice[];
+  return rows.filter((r) => r.timed >= 20 && r.label !== "Early record");
+}
+
+/** @deprecated Prefer {@link lateGoalManagerEras} for the Fergie-time question. */
 export function lateGoalEraComparison(): LateGoalEraSlice[] {
   const db = getDb();
   const rows = db

@@ -1,7 +1,7 @@
 import {
   cupGoalShareBaseline,
   cupSpecialists,
-  lateGoalShareByDecade,
+  lateGoalManagerEras,
   leadHeldAtHome,
 } from "./trails";
 import { clubStreaks } from "./streaks";
@@ -22,22 +22,22 @@ export type QuestionAnswer = { figure: string; gloss: string; visual: QuestionVi
 export function questionAnswer(slug: string): QuestionAnswer | null {
   switch (slug) {
     case "late-goals": {
-      const data = lateGoalShareByDecade();
-      if (data.length === 0) return null;
-      const tot = data.reduce((a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }), { timed: 0, late: 0 });
-      // Highlight the era with the most stoppage-time goals — the cap that grew —
-      // not the highest total, which is the same decade for the right reason.
-      const peakStoppage = Math.max(...data.map((d) => d.stoppage / d.timed));
+      const eras = lateGoalManagerEras();
+      if (eras.length === 0) return null;
+      const ferg = eras.find((e) => e.label === "Ferguson");
+      const since = eras.find((e) => e.label === "Since Ferguson");
+      const fergLate = ferg ? pct(ferg.reg + ferg.stoppage, ferg.timed) : "—";
+      const sinceLate = since ? pct(since.reg + since.stoppage, since.timed) : fergLate;
       return {
-        figure: pct(tot.late, tot.timed),
-        gloss: "of timed goals land after the 85th minute — a late-stage edge, scaled by modern stoppage-time extensions",
+        figure: `${fergLate} → ${sinceLate}`,
+        gloss: "of timed goals after the 85th minute under Ferguson and since — the jump arrived with him but did not leave with him",
         visual: {
           kind: "columns",
-          bars: data.map((d) => ({
-            label: d.decade.slice(2),
-            value: (d.late / d.timed) * 100,
-            base: (d.reg / d.timed) * 100,
-            highlight: d.stoppage / d.timed === peakStoppage,
+          bars: eras.map((e) => ({
+            label: e.label === "Since Ferguson" ? "Since" : e.label,
+            value: ((e.reg + e.stoppage) / e.timed) * 100,
+            base: (e.reg / e.timed) * 100,
+            highlight: e.label === "Since Ferguson",
           })),
         },
       };
