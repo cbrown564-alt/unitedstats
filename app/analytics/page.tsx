@@ -2,7 +2,7 @@ import Link from "next/link";
 import { familyName } from "@/lib/names";
 import {
   eloSeries, getMeta,
-  topAssistPartnerships, coverageOverview, managersIndex, honourSeasonMarkers,
+  coverageOverview, managersIndex, honourSeasonMarkers,
 } from "@/lib/queries";
 import { calibration, simulateLeagueSeason } from "@/lib/predict";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -10,7 +10,6 @@ import { EloHero } from "@/components/EloHero";
 import { ReliabilityCurve } from "@/components/charts/ReliabilityCurve";
 import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
 import { PageHeader, StatTile } from "@/components/PageHeader";
-import { SupplyLineRows } from "@/components/SupplyLineRows";
 import { ChapterPager, type Chapter } from "@/components/mobile/ChapterPager";
 import { fmtNum, pct } from "@/lib/format";
 
@@ -26,25 +25,6 @@ function Act({ n, kicker, title, children }: { n: string; kicker: string; title:
         {children && <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-dim">{children}</p>}
       </div>
     </header>
-  );
-}
-
-function SupplyLinesSection({ showHeader = true }: { showHeader?: boolean }) {
-  const partnerships = topAssistPartnerships(10);
-
-  return (
-    <div>
-      {showHeader && (
-        <div className="mb-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">Supply lines</p>
-          <h3 className="display text-xl">The partnerships that built the goals</h3>
-          <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-dim">
-            Assister on the left, scorer on the right — bar width is how many goals that combination produced.
-          </p>
-        </div>
-      )}
-      <SupplyLineRows rows={partnerships} />
-    </div>
   );
 }
 
@@ -167,13 +147,6 @@ export default function AnalyticsPage() {
           content: simPanel(true),
         } satisfies Chapter]
       : []),
-    {
-      id: "partnerships",
-      kicker: "03 · Supply lines",
-      title: "The partnerships that built the goals",
-      dek: "Assister ↔ scorer — bar width is goals.",
-      content: <SupplyLinesSection showHeader={false} />,
-    },
   ];
 
   return (
@@ -216,16 +189,6 @@ export default function AnalyticsPage() {
           </section>
 
           {simPanel()}
-        </div>
-
-        <div className="space-y-8">
-          <Act n="03" kicker="Supply lines" title="The partnerships that built the goals">
-            Who set up whom — the recorded assist combinations.
-          </Act>
-
-          <section>
-            <SupplyLinesSection />
-          </section>
         </div>
       </div>
     </div>
