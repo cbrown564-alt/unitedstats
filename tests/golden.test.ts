@@ -24,7 +24,7 @@ import {
   recordByCompetitionType,
   topScorers,
 } from "../lib/queries";
-import { comebacks } from "../lib/trails";
+import { bogeyOpponents, comebacks } from "../lib/trails";
 import { clubStreaks, topRuns } from "../lib/streaks";
 import { compareEras, compareManagers, comparePlayers } from "../lib/compare";
 import {
@@ -559,6 +559,14 @@ test("comeback detection is internally consistent and finds the 2001 Spurs fight
   assert.ok(spurs, "expected the 5-3 at Spurs among the deepest comebacks");
   assert.equal(spurs.deficit, 3);
   assert.equal(spurs.result, "W");
+});
+
+test("bogeyOpponents ranks sides by win rate ascending", () => {
+  const rows = bogeyOpponents(20, 5);
+  assert.ok(rows.length > 0);
+  for (let i = 1; i < rows.length; i++) {
+    assert.ok(rows[i - 1].w / rows[i - 1].p <= rows[i].w / rows[i].p + 1e-9);
+  }
 });
 
 test("compare builders reproduce the official record across the three modes", () => {

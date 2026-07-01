@@ -26,7 +26,7 @@ import { fmtNum } from "../lib/format";
 // (decline, ferguson, treble, europe) fall back to the text card for now;
 // own-goals stays as a linkable easter-egg card.
 const DATA_CARD_SLUGS = ["late-goals", "runs", "cup-specialists", "own-goals", "fortress"];
-const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "ferguson-era", "treble", "europe"];
+const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "treble", "europe"];
 // Questions whose headline figure and card figure are the same number.
 const HEADLINE_MATCHES_CARD = ["late-goals", "runs", "cup-specialists", "fortress"];
 

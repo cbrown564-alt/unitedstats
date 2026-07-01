@@ -1,13 +1,13 @@
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   goalMinuteRidge, leadHeldAtHome, managerBounce,
+  fergusonFloorSummary, fergusonFloorTimeline,
   europeByDecade, europeanFinals,
 } from "@/lib/trails";
-import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { fmtNum, pct } from "@/lib/format";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
-import { EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy";
+import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -94,14 +94,16 @@ export function QuestionSignature({ slug }: { slug: string }) {
     }
 
     case "ferguson-era": {
-      const fergEra = ERA_CATALOGUE.find((e) => e.key === "ferguson")!;
-      const afterEra = ERA_CATALOGUE.find((e) => e.key === "after")!;
+      const floor = fergusonFloorSummary();
+      const timeline = fergusonFloorTimeline();
       return (
-        <EraSkylineChart
-          a={eraFinishes(fergEra)}
-          b={eraFinishes(afterEra)}
-          labelA="Ferguson era"
-          labelB="Since Ferguson"
+        <TitleFloorTimeline
+          compact
+          points={timeline}
+          fergTitles={floor.fergTitles}
+          sinceTitles={floor.sinceTitles}
+          fergAvg={floor.fergAvgFinish}
+          sinceAvg={floor.sinceAvgFinish}
         />
       );
     }

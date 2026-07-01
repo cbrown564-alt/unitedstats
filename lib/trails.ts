@@ -851,7 +851,7 @@ export function clubRecords(): ClubRecords {
 // ---------------------------------------------------------------- the decline
 
 /** Sir Alex Ferguson's last match in charge — the hinge of the post-Ferguson era. */
-export const FERGUSON_END = "2013-05-19";
+const FERGUSON_END = "2013-05-19";
 
 /**
  * A club record (W/D/L/GF/GA) over official matches played in an inclusive date
@@ -886,7 +886,7 @@ const RECORD_COLS_OFFICIAL = `COUNT(*) p,
   COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d, COALESCE(SUM(result='L'),0) l,
   COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga`;
 
-export interface SeasonFinishRow {
+interface SeasonFinishRow {
   season: string;
   position: number;
   league_size: number;
@@ -894,7 +894,7 @@ export interface SeasonFinishRow {
 }
 
 /** Top-flight league finishes (First Division / Premier League), season by season. */
-export function topFlightFinishes(): SeasonFinishRow[] {
+function topFlightFinishes(): SeasonFinishRow[] {
   return getDb()
     .prepare(
       `SELECT ss.season, ss.position, ss.league_size, c.name AS competition
@@ -907,7 +907,7 @@ export function topFlightFinishes(): SeasonFinishRow[] {
 }
 
 /** Top-flight titles won across seasons in an inclusive [from,to] season range. */
-export function titlesInRange(fromSeason: string, toSeason: string): number {
+function titlesInRange(fromSeason: string, toSeason: string): number {
   return (
     getDb()
       .prepare(
@@ -919,9 +919,389 @@ export function titlesInRange(fromSeason: string, toSeason: string): number {
   ).n;
 }
 
+/** Ferguson-era vs post-Ferguson championship floor — titles, average finish, top-four share. */
+export interface FergusonFloorSummary {
+  fergTitles: number;
+  sinceTitles: number;
+  fergSeasons: number;
+  sinceSeasons: number;
+  fergAvgFinish: number;
+  sinceAvgFinish: number;
+  fergTop4: number;
+  sinceTop4: number;
+  sinceWorst: number;
+}
+
+export function fergusonFloorSummary(): FergusonFloorSummary {
+  const fergTitles = titlesInRange("1986-87", "2012-13");
+  const sinceTitles = titlesInRange("2013-14", "2999-99");
+  const finishes = topFlightFinishes();
+  const fergFinishes = finishes.filter((f) => f.season >= "1986-87" && f.season <= "2012-13");
+  const sinceFinishes = finishes.filter((f) => f.season >= "2013-14");
+  const avg = (rows: SeasonFinishRow[]) =>
+    rows.length ? rows.reduce((s, f) => s + f.position, 0) / rows.length : 0;
+  return {
+    fergTitles,
+    sinceTitles,
+    fergSeasons: fergFinishes.length,
+    sinceSeasons: sinceFinishes.length,
+    fergAvgFinish: avg(fergFinishes),
+    sinceAvgFinish: avg(sinceFinishes),
+    fergTop4: fergFinishes.filter((f) => f.position <= 4).length,
+    sinceTop4: sinceFinishes.filter((f) => f.position <= 4).length,
+    sinceWorst: sinceFinishes.length ? Math.max(...sinceFinishes.map((f) => f.position)) : 0,
+  };
+}
+
+interface PostFergusonStint {
+  id: string;
+  name: string;
+  dateFrom: string;
+  dateTo: string | null;
+  note: string | null;
+  interim: boolean;
+  p: number;
+  ppg: number;
+  /** Top-flight league finishes attributed to this stint. */
+  finishes: { season: string; position: number }[];
+  avgFinish: number | null;
+  worstFinish: number | null;
+}
+
+function seasonOverlapsTenure(season: string, from: string, to: string | null): boolean {
+  const y = Number(season.slice(0, 4));
+  const seasonStart = `${y}-07-01`;
+  const seasonEnd = `${y + 1}-06-30`;
+  const end = to ?? "9999-12-31";
+  return from <= seasonEnd && end >= seasonStart;
+}
+
+/** Season-by-season league finish from Ferguson's arrival — the title-floor timeline. */
+export interface FloorTimelinePoint {
+  season: string;
+  year: number;
+  position: number;
+  leagueSize: number;
+  champion: boolean;
+  postFerguson: boolean;
+}
+
+export function fergusonFloorTimeline(): FloorTimelinePoint[] {
+  return topFlightFinishes()
+    .filter((f) => f.season >= "1986-87")
+    .map((f) => ({
+      season: f.season,
+      year: Number(f.season.slice(0, 4)),
+      position: f.position,
+      leagueSize: f.league_size,
+      champion: f.position === 1,
+      postFerguson: f.season >= "2013-14",
+    }));
+}
+
+/** Post-Ferguson managerial stints with league finishes — the succession story. */
+function postFergusonStints(): PostFergusonStint[] {
+  const tenures = getDb()
+    .prepare(
+      `SELECT mt.manager_id id, mg.name, mt.date_from dateFrom, mt.date_to dateTo, mt.note
+       FROM manager_tenures mt JOIN managers mg ON mg.id = mt.manager_id
+       WHERE mt.date_from >= ?
+       ORDER BY mt.date_from`,
+    )
+    .all(FERGUSON_END) as {
+    id: string;
+    name: string;
+    dateFrom: string;
+    dateTo: string | null;
+    note: string | null;
+  }[];
+
+  const seasons = getDb()
+    .prepare(
+      `WITH primary_manager AS (
+         SELECT m.season, m.manager_id,
+                ROW_NUMBER() OVER (PARTITION BY m.season ORDER BY COUNT(*) DESC) rn
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type = 'league' AND m.season >= '2013-14'
+         GROUP BY m.season, m.manager_id
+       )
+       SELECT pm.season, pm.manager_id id, ss.position
+       FROM primary_manager pm
+       JOIN season_summaries ss ON ss.season = pm.season
+       JOIN competitions c ON c.id = ss.competition_id
+       WHERE pm.rn = 1 AND c.type = 'league' AND ss.position IS NOT NULL
+         AND c.name IN ('First Division','Premier League')
+       ORDER BY pm.season`,
+    )
+    .all() as { season: string; id: string; position: number }[];
+
+  return tenures.map((t) => {
+    const record = eraRecord(t.dateFrom, t.dateTo ?? "9999-12-31");
+    const finishes = seasons.filter(
+      (s) => s.id === t.id && seasonOverlapsTenure(s.season, t.dateFrom, t.dateTo),
+    );
+    const positions = finishes.map((f) => f.position);
+    const interim = Boolean(
+      record.p < 15
+      && (t.note?.toLowerCase().includes("interim") || t.note?.toLowerCase().includes("caretaker"))
+      && !t.note?.toLowerCase().includes("permanent"),
+    );
+    return {
+      id: t.id,
+      name: t.name,
+      dateFrom: t.dateFrom,
+      dateTo: t.dateTo,
+      note: t.note,
+      interim,
+      p: record.p,
+      ppg: record.ppg,
+      finishes,
+      avgFinish: positions.length ? positions.reduce((a, b) => a + b, 0) / positions.length : null,
+      worstFinish: positions.length ? Math.max(...positions) : null,
+    };
+  });
+}
+
+export interface PostFergusonFloorMoment {
+  id: "first" | "best" | "worst";
+  tag: string;
+  season: string;
+  managerId: string;
+  managerName: string;
+  league: {
+    season: string;
+    competition_id: string;
+    competition_name: string;
+    type: string;
+    p: number;
+    w: number;
+    d: number;
+    l: number;
+    gf: number;
+    ga: number;
+    furthest_round: string | null;
+    position: number;
+    league_size: number;
+  };
+  note: string;
+  /** Set when another post-Ferguson season tied the same league finish (e.g. two 2nds). */
+  footnote?: string;
+  tone: "first" | "peak" | "floor";
+}
+
+/** Three inspectable post-Ferguson seasons — first, best, and worst league finishes. */
+export function postFergusonFloorMoments(): PostFergusonFloorMoment[] {
+  const rows = getDb()
+    .prepare(
+      `WITH primary_manager AS (
+         SELECT m.season, m.manager_id, mg.name,
+                ROW_NUMBER() OVER (PARTITION BY m.season ORDER BY COUNT(*) DESC) rn
+         FROM matches m
+         JOIN managers mg ON mg.id = m.manager_id
+         JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type = 'league' AND m.season >= '2013-14'
+         GROUP BY m.season, m.manager_id
+       )
+       SELECT pm.season, pm.manager_id id, pm.name,
+              ss.competition_id, c.name AS competition_name, c.type,
+              ss.p, ss.w, ss.d, ss.l, ss.gf, ss.ga, ss.furthest_round,
+              ss.position, ss.league_size
+       FROM primary_manager pm
+       JOIN season_summaries ss ON ss.season = pm.season AND ss.competition_id IN (
+         SELECT id FROM competitions WHERE type = 'league' AND name IN ('First Division','Premier League')
+       )
+       JOIN competitions c ON c.id = ss.competition_id
+       WHERE pm.rn = 1 AND ss.position IS NOT NULL
+       ORDER BY pm.season`,
+    )
+    .all() as {
+    season: string;
+    id: string;
+    name: string;
+    competition_id: string;
+    competition_name: string;
+    type: string;
+    p: number;
+    w: number;
+    d: number;
+    l: number;
+    gf: number;
+    ga: number;
+    furthest_round: string | null;
+    position: number;
+    league_size: number;
+  }[];
+
+  if (rows.length === 0) return [];
+
+  const first = rows[0];
+  const minPos = Math.min(...rows.map((r) => r.position));
+  const best = rows.find((r) => r.position === minPos)!;
+  const worst = rows.reduce((a, b) => (a.position > b.position ? a : b));
+
+  const ord = (n: number) => {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);
+  };
+
+  const toMoment = (
+    row: typeof rows[number],
+    id: PostFergusonFloorMoment["id"],
+    tag: string,
+    note: string,
+    tone: PostFergusonFloorMoment["tone"],
+    footnote?: string,
+  ): PostFergusonFloorMoment => ({
+    id,
+    tag,
+    season: row.season,
+    managerId: row.id,
+    managerName: row.name,
+    league: {
+      season: row.season,
+      competition_id: row.competition_id,
+      competition_name: row.competition_name,
+      type: row.type,
+      p: row.p,
+      w: row.w,
+      d: row.d,
+      l: row.l,
+      gf: row.gf,
+      ga: row.ga,
+      furthest_round: row.furthest_round,
+      position: row.position,
+      league_size: row.league_size,
+    },
+    note,
+    footnote,
+    tone,
+  });
+
+  const tiedBest = rows.filter((r) => r.position === minPos && r.season !== best.season);
+  const bestFootnote =
+    tiedBest.length > 0
+      ? `Also finished ${ord(minPos)} in ${tiedBest.map((r) => `${r.season} under ${managerSurname(r.name)}`).join(" and ")}.`
+      : undefined;
+
+  return [
+    toMoment(
+      first,
+      "first",
+      "First season after Ferguson",
+      "Seven weeks after Ferguson left, United finished seventh — their lowest placing since 1990 and the first campaign outside the top four in twenty years.",
+      "first",
+    ),
+    toMoment(
+      best,
+      "best",
+      "Best finish since Ferguson",
+      best.position === 2
+        ? "Nineteen points behind City, but second place — as close as any successor has come to bridging the gap."
+        : `Finished ${ord(best.position)} — the best league campaign of the post-Ferguson era.`,
+      "peak",
+      bestFootnote,
+    ),
+    toMoment(
+      worst,
+      "worst",
+      "Worst finish since Ferguson",
+      worst.position >= 15
+        ? "Fifteenth in the table — three places off the relegation zone, the lowest finish in the Premier League era."
+        : `Finished ${ord(worst.position)} — the deepest the floor has fallen since May 2013.`,
+      "floor",
+    ),
+  ];
+}
+
 // ---------------------------------------------------------------- ferguson vs field
 
-export interface ManagerRateRow extends Record_ {
+export interface ManagerLongevityPoint {
+  id: string;
+  name: string;
+  label: string;
+  matches: number;
+  ppg: number;
+  href: string;
+  kind: "ferguson" | "busby" | "since" | "other";
+  tenureFrom?: string;
+}
+
+function managerSurname(name: string): string {
+  return name.replace(/^Sir |^José |^Louis |^Erik |^Rúben |^Ralf |^Ole Gunnar /, "").split(" ").pop() ?? name;
+}
+
+/**
+ * Every permanent manager on longevity (official matches) × points per game.
+ * Ferguson and Busby carry career totals; post-2013 spells are tenure-by-tenure
+ * so the churn reads as a cluster short on games. Caretaker/interim spells under
+ * 20 matches are dropped.
+ */
+export function managerLongevityField(minSinceMatches = 20): ManagerLongevityPoint[] {
+  const ranking = managerPpgRanking(30);
+  const sinceIds = new Set(postFergusonStints().map((s) => s.id));
+  const points: ManagerLongevityPoint[] = [];
+
+  const push = (row: Omit<ManagerLongevityPoint, "label"> & { label?: string }) => {
+    points.push({ ...row, label: row.label ?? managerSurname(row.name) });
+  };
+
+  const ferg = ranking.find((m) => m.id === "alex-ferguson");
+  if (ferg) {
+    push({
+      id: ferg.id,
+      name: ferg.name,
+      label: "Ferguson",
+      matches: ferg.p,
+      ppg: ferg.ppg,
+      href: `/manager/${ferg.id}`,
+      kind: "ferguson",
+    });
+  }
+
+  const busby = ranking.find((m) => m.id === "matt-busby");
+  if (busby) {
+    push({
+      id: busby.id,
+      name: busby.name,
+      label: "Busby",
+      matches: busby.p,
+      ppg: busby.ppg,
+      href: `/manager/${busby.id}`,
+      kind: "busby",
+    });
+  }
+
+  for (const m of ranking) {
+    if (m.id === "alex-ferguson" || m.id === "matt-busby" || sinceIds.has(m.id)) continue;
+    push({
+      id: m.id,
+      name: m.name,
+      matches: m.p,
+      ppg: m.ppg,
+      href: `/manager/${m.id}`,
+      kind: "other",
+    });
+  }
+
+  for (const s of postFergusonStints()) {
+    if (s.interim || s.p < minSinceMatches) continue;
+    push({
+      id: s.id,
+      name: s.name,
+      label: `${s.dateFrom.slice(2, 4)}–${(s.dateTo ?? "now").slice(2, 4)} · ${managerSurname(s.name)}`,
+      matches: s.p,
+      ppg: s.ppg,
+      href: `/manager/${s.id}`,
+      kind: "since",
+      tenureFrom: s.dateFrom,
+    });
+  }
+
+  return points;
+}
+
+interface ManagerRateRow extends Record_ {
   id: string;
   name: string;
   ppg: number;
@@ -933,7 +1313,7 @@ export interface ManagerRateRow extends Record_ {
  * never top a real reign — the comparison the question "was he that far ahead?"
  * actually asks.
  */
-export function managerPpgRanking(minMatches = 30): ManagerRateRow[] {
+function managerPpgRanking(minMatches = 30): ManagerRateRow[] {
   const rows = getDb()
     .prepare(
       `SELECT mg.id, mg.name, ${RECORD_COLS_OFFICIAL}
