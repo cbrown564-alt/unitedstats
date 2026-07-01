@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   mergeSeasonRanges,
+  playerHasFullGoalScorerCoverage,
   playerSeasonChartFootnotes,
   seasonsWithLimitedGoalScorerCoverage,
 } from "../lib/playerSeasonChartNotes.ts";
@@ -34,6 +35,16 @@ test("seasonsWithLimitedGoalScorerCoverage only includes pre-87/88 gaps", () => 
   assert.ok(seasons.every((s) => s < "1987-88"));
   assert.ok(seasons.includes("1895-96"));
   assert.ok(!seasons.includes("2011-12"));
+});
+
+test("playerHasFullGoalScorerCoverage is true for modern scoring seasons only", () => {
+  assert.equal(playerHasFullGoalScorerCoverage(["2004-05", "2016-17"]), true);
+  assert.equal(playerHasFullGoalScorerCoverage([]), true);
+});
+
+test("playerHasFullGoalScorerCoverage is false when scoring in limited-coverage seasons", () => {
+  assert.equal(playerHasFullGoalScorerCoverage(["1895-96", "1896-97"]), false);
+  assert.equal(playerHasFullGoalScorerCoverage(["2004-05", "1895-96"]), false);
 });
 
 test("playerSeasonChartFootnotes flags limited goal seasons in early careers", () => {

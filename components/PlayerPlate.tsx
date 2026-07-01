@@ -48,6 +48,8 @@ interface PlayerPlateProps {
   shirts: Shirt[];
   /** One-line trust note shown in the footer band. */
   caveatBrief?: React.ReactNode;
+  /** Compact correction affordance, rendered in the footer beside the caveat. */
+  correctionHref?: string;
   /** Copy-link / cite affordance, rendered top-right of the plate. */
   share?: { path: string; title: string };
 }
@@ -62,7 +64,7 @@ const yearOf = (m: { season?: string; date?: string }) =>
  * recorded career resolves into a single span with the peak season marked on it.
  */
 export function PlayerPlate({
-  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveatBrief, share,
+  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveatBrief, correctionHref, share,
 }: PlayerPlateProps) {
   // Tint the corner kit to the era the player wore that number most.
   const primaryDecade =
@@ -181,11 +183,21 @@ export function PlayerPlate({
         </div>
       </div>
 
-      {/* Footer band: one-line trust note (full methodology lives in Data coverage below). */}
-      <div className="relative border-t border-line bg-pitch/40 px-5 py-3 sm:px-6">
-        <p className="text-[11px] leading-4 text-ink-faint">
-          {caveatBrief ?? "Verified competitive record · recorded splits below may cover fewer matches"}
-        </p>
+      {/* Footer band: trust note and correction link share one compact row. */}
+      <div className="relative border-t border-line bg-pitch/40 px-5 py-2.5 sm:px-6">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+          <p className="min-w-0 flex-1 text-[11px] leading-4 text-ink-faint">
+            {caveatBrief ?? "Verified competitive record"}
+          </p>
+          {correctionHref && (
+            <Link
+              href={correctionHref}
+              className="shrink-0 text-[11px] font-medium text-devil-bright hover:underline focus-ring"
+            >
+              Suggest correction →
+            </Link>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -226,15 +238,18 @@ function CareerArc({
         <span className="absolute -left-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
         <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
         {peakPct != null && peakSeason && (
-          <span
-            className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+          <Link
+            href={`/seasons/${peakSeason.season}`}
+            className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
             style={{ left: `${peakPct}%` }}
+            title={`Most prolific season: ${fmtNum(peakSeason.goals)} goals`}
+            aria-label={`Peak season ${peakSeason.season}: ${fmtNum(peakSeason.goals)} goals`}
           >
             <span className="block h-3.5 w-3.5 rounded-full border-2 border-pitch bg-gold shadow-[0_0_0_3px_rgb(245_197_24_/0.18)]" aria-hidden />
             <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 hidden w-max -translate-x-1/2 rounded-md border border-line bg-panel-2 px-2 py-1 text-[11px] text-ink shadow-xl shadow-black/40 group-hover/peak:block">
               Peak: {fmtNum(peakSeason.goals)} goals in {peakSeason.season}
             </span>
-          </span>
+          </Link>
         )}
       </div>
 
@@ -251,7 +266,8 @@ function CareerArc({
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
             title={`Most prolific season: ${fmtNum(peakSeason.goals)} goals`}
           >
-            ★ {peakSeason.season}: Most Prolific Season
+            ★ {peakSeason.season}
+            <span className="hidden sm:inline">: Most Prolific Season</span>
           </Link>
         )}
         {latest ? (

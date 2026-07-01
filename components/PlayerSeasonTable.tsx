@@ -89,15 +89,6 @@ function seasonPeakRowClass(season: string, goalPeaks: Set<string>, assistPeaks:
   return undefined;
 }
 
-function seasonPeakMobileClass(season: string, goalPeaks: Set<string>, assistPeaks: Set<string>) {
-  const g = goalPeaks.has(season);
-  const a = assistPeaks.has(season);
-  if (g && a) return "bg-devil/[0.04] ring-1 ring-inset ring-gold/25";
-  if (g) return "bg-devil/[0.04]";
-  if (a) return "bg-gold/[0.08]";
-  return "";
-}
-
 function SeasonDecadeHeader({ decade }: { decade: number }) {
   return (
     <tr className="player-season-decade-row">
@@ -172,7 +163,6 @@ export function PlayerSeasonTable({
       key: "season",
       sortKey: "season",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.season,
-      card: "identity",
       render: (s) => (
         <span className="inline-flex items-center gap-1.5">
           <Link href={`/seasons/${s.season}`} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
@@ -194,18 +184,14 @@ export function PlayerSeasonTable({
       numeric: true,
       sortKey: "apps",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.apps,
-      card: "metric",
       render: (s) => (s.apps ? fmtNum(s.apps) : "—"),
     },
     {
       label: "Starts",
       key: "starts",
       numeric: true,
-      hideBelow: "hidden sm:table-cell",
       sortKey: "starts",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.starts,
-      card: "metric",
-      cardLabel: "Starts",
       render: (s) => (s.starts ? fmtNum(s.starts) : "—"),
     },
     {
@@ -214,7 +200,6 @@ export function PlayerSeasonTable({
       numeric: true,
       sortKey: "goals",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.goals,
-      card: "metric",
       className: "player-season-stat-col",
       render: (s) => (
         <StatMicroBar
@@ -229,10 +214,8 @@ export function PlayerSeasonTable({
       label: "Assists",
       key: "assists",
       numeric: true,
-      hideBelow: "hidden sm:table-cell",
       sortKey: "assists",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.assists,
-      card: "metric",
       className: "player-season-stat-col",
       render: (s) => (
         <StatMicroBar
@@ -250,7 +233,6 @@ export function PlayerSeasonTable({
       sortKey: "ga",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.ga,
       sortLabel: "goals plus assists",
-      card: "metric",
       render: (s) => (s.goals + s.assists > 0 ? fmtNum(s.goals + s.assists) : "—"),
     },
   ];
@@ -263,61 +245,16 @@ export function PlayerSeasonTable({
     return <SeasonDecadeHeader key={`decade-${decade}`} decade={decade} />;
   }
 
-  function mobileDecadeLabel(row: SeasonSplit, index: number) {
-    if (!decadeHeaders) return null;
-    if (index > 0 && seasonDecade(rows[index - 1]!.season) === seasonDecade(row.season)) return null;
-    return <p className="display mb-2 text-sm text-ink-dim">{seasonDecade(row.season)}s</p>;
-  }
-
   return (
     <DataTable
       columns={columns}
       rows={rows}
       rowKey={(s) => s.season}
       density="compact"
-      registerCards
-      registerLayout="metrics"
       caption={`${playerName} season-by-season apps, goals, and assists`}
       sort={{ key: sortKey, direction: sortDir, onSort }}
       rowClassName={(s) => seasonPeakRowClass(s.season, goalPeakSet, assistPeakSet)}
       renderBeforeRow={(row, prev) => decadeBefore(row, prev)}
-      renderMobileCard={(row, index) => (
-        <div
-          className={`px-4 py-3 ${seasonPeakMobileClass(row.season, goalPeakSet, assistPeakSet)} ${
-            medalSet.has(row.season) && !goalPeakSet.has(row.season) && !assistPeakSet.has(row.season)
-              ? "ring-1 ring-inset ring-gold/20"
-              : ""
-          }`}
-        >
-          {mobileDecadeLabel(row, index)}
-            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-              <span className="inline-flex items-center gap-1.5">
-                <Link href={`/seasons/${row.season}`} className="font-medium text-ink hover:text-devil-bright">
-                  {fmtSeasonShort(row.season)}
-                </Link>
-                {medalSet.has(row.season) && <TrophyIcon className="h-3 w-3 shrink-0 text-gold" aria-hidden />}
-              </span>
-              <span className="inline-flex flex-wrap items-center gap-2">
-                {goalPeakSet.has(row.season) && <PeakBadge label="PEAK (G)" tone="goals" />}
-                {assistPeakSet.has(row.season) && <PeakBadge label="PEAK (A)" tone="assists" />}
-              </span>
-            </div>
-            <dl className="register-card__metrics mt-2.5 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
-              {columns
-                .filter((c) => c.card === "metric")
-                .map((col) => (
-                  <div key={col.key ?? col.label} className="min-w-0">
-                    <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
-                      {col.cardLabel ?? col.label}
-                    </dt>
-                    <dd className="stat-num mt-0.5 text-sm tabular-nums leading-tight">
-                      {(col.cardRender ?? col.render)(row, index)}
-                    </dd>
-                  </div>
-                ))}
-            </dl>
-        </div>
-      )}
       summary={
         <>
           <span>{fmtNum(seasons.length)} recorded seasons</span>

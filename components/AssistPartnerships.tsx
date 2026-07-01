@@ -67,8 +67,9 @@ export function AssistPartnerships({
           >
             {topPartner}
           </Link>{" "}
-          — <span className="stat-num text-ink">{fmtNum(top.goals)}</span> goals
-          {topCreated ? " he set up" : " he scored from their pass"}.
+          — {topCreated ? "he set up" : "he scored"}{" "}
+          <span className="stat-num text-ink">{fmtNum(top.goals)}</span> goals
+          {topCreated ? "" : " from their pass"}.
         </p>
       )}
 

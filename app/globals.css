@@ -401,38 +401,34 @@ select {
 }
 
 .data-table tbody tr.player-season-row--peak-g {
-  background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 9%);
   box-shadow: inset 3px 0 0 var(--color-devil-bright);
 }
 
-.data-table tbody tr.player-season-row--peak-g:nth-child(even) {
-  background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 11%);
+.data-table tbody tr.player-season-row--peak-g:hover,
+.data-table tbody tr.player-season-row--peak-g:focus-within {
+  box-shadow: inset 3px 0 0 var(--color-devil-bright);
 }
 
 .data-table tbody tr.player-season-row--peak-a {
-  background: color-mix(in oklab, var(--color-panel-2), var(--color-gold) 14%);
-  box-shadow: inset 3px 0 0 color-mix(in oklab, var(--color-gold), white 25%);
+  box-shadow: inset 3px 0 0 var(--color-gold);
 }
 
-.data-table tbody tr.player-season-row--peak-a:nth-child(even) {
-  background: color-mix(in oklab, var(--color-panel-2), var(--color-gold) 17%);
+.data-table tbody tr.player-season-row--peak-a:hover,
+.data-table tbody tr.player-season-row--peak-a:focus-within {
+  box-shadow: inset 3px 0 0 var(--color-gold);
 }
 
 .data-table tbody tr.player-season-row--peak-ga {
-  background: linear-gradient(
-    to right,
-    color-mix(in oklab, var(--color-panel-2), var(--color-devil) 9%) 50%,
-    color-mix(in oklab, var(--color-panel-2), var(--color-gold) 14%) 50%
-  );
-  box-shadow: inset 3px 0 0 var(--color-devil-bright);
+  box-shadow:
+    inset 3px 0 0 var(--color-devil-bright),
+    inset 6px 0 0 var(--color-gold);
 }
 
-.data-table tbody tr.player-season-row--peak-ga:nth-child(even) {
-  background: linear-gradient(
-    to right,
-    color-mix(in oklab, var(--color-panel-2), var(--color-devil) 11%) 50%,
-    color-mix(in oklab, var(--color-panel-2), var(--color-gold) 17%) 50%
-  );
+.data-table tbody tr.player-season-row--peak-ga:hover,
+.data-table tbody tr.player-season-row--peak-ga:focus-within {
+  box-shadow:
+    inset 3px 0 0 var(--color-devil-bright),
+    inset 6px 0 0 var(--color-gold);
 }
 
 .data-table tbody tr.player-season-decade-row:hover {

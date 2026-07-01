@@ -59,6 +59,13 @@ function formatSeasonRange({ from, to }: { from: string; to: string }): string {
   return from === to ? a : `${a}–${b}`;
 }
 
+/** True when none of the player's seasons fall in eras with <99% goalscorer attribution. */
+export function playerHasFullGoalScorerCoverage(playerSeasons: string[]): boolean {
+  if (!playerSeasons.length) return true;
+  const limited = new Set(seasonsWithLimitedGoalScorerCoverage());
+  return !playerSeasons.some((s) => limited.has(s));
+}
+
 /**
  * Contextual footnotes for the goals-and-assists-by-season chart. Modern careers
  * (debuts from 87/88) need no inline caveats — the page-level data coverage block

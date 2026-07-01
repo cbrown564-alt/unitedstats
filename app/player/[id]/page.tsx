@@ -13,6 +13,7 @@ import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PlayerSeasonTable, type SeasonSplit } from "@/components/PlayerSeasonTable";
 import { PlayerSeasonHighlights } from "@/components/player/PlayerSeasonHighlights";
+import { PlayerScoringArchive } from "@/components/player/PlayerScoringArchive";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
 import { PlayerPlate } from "@/components/PlayerPlate";
@@ -23,13 +24,12 @@ import { MatchList } from "@/components/MatchList";
 import { HaulCards } from "@/components/HaulCards";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
-import { TransferList } from "@/components/TransferList";
-import { EvidenceLink } from "@/components/EvidenceLink";
+import { PlayerTransferRecord } from "@/components/player/PlayerTransferRecord";
 import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
 import { correctionPrefillHref } from "@/lib/corrections";
-import { playerSeasonChartFootnotes } from "@/lib/playerSeasonChartNotes";
+import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
 import { sampleStaticIds } from "@/lib/static-build";
 import { peakAssistSeasons, peakGaSeason, peakGoalSeasons } from "@/lib/playerSeasonHighlights";
 
@@ -134,7 +134,7 @@ export default async function PlayerPage({
     .sort((a, b) => b.goals - a.goals || b.date.localeCompare(a.date));
   // The haul cards are a highlight reel, not the full multi-goal list — biggest
   // nights first, capped, with the complete record carried by the archive below.
-  const topHauls = hauls.slice(0, 6);
+  const topHauls = hauls.slice(0, 5);
   const longScoredList = matches.length > SCORING_ARCHIVE_INLINE_MAX;
   const scoredBySeason: [string, typeof matches][] = [];
   const seasonIndex = new Map<string, number>();
@@ -147,6 +147,7 @@ export default async function PlayerPage({
     }
     scoredBySeason[i][1].push(m);
   }
+  const fullGoalScorerCoverage = playerHasFullGoalScorerCoverage(scoredBySeason.map(([s]) => s));
   // Goal-count badge with the recorded minutes, reused across the scored lists.
   const goalExtra = (m: { goals: number; minutes?: string | null }) => {
     const mins = (m.minutes ?? "")
@@ -178,37 +179,36 @@ export default async function PlayerPage({
           { label: p.name },
         ]}
       />
-      <PlayerPlate
-        name={p.name}
-        share={{ path: `/player/${id}`, title: `${p.name} — Manchester United record` }}
-        portrait={{
-          src: p.player_thumb_url ?? p.player_image_url,
-          pageUrl: p.player_image_page_url,
-          license: p.player_image_license,
-        }}
-        primaryShirt={p.primary_shirt}
-        position={p.position_label ? p.position_label.charAt(0).toUpperCase() + p.position_label.slice(1) : null}
-        careerYears={careerYears}
-        rank={ranks}
-        stats={{
-          goals: p.goals,
-          apps: p.apps,
-          starts: p.starts,
-          subs: p.subs,
-          goalsPerApp,
-          multiGoalGames,
-          hatTricks,
-          assists: p.assists,
-        }}
-        span={{ debut, latest, peakSeason }}
-        shirts={shirts}
-        caveatBrief="Verified competitive record · recorded splits below may cover fewer matches"
-      />
-      <Link href={playerCorrectionHref} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
-        Suggest player correction
-      </Link>
+      <div className="space-y-4">
+        <PlayerPlate
+          name={p.name}
+          share={{ path: `/player/${id}`, title: `${p.name} — Manchester United record` }}
+          portrait={{
+            src: p.player_thumb_url ?? p.player_image_url,
+            pageUrl: p.player_image_page_url,
+            license: p.player_image_license,
+          }}
+          primaryShirt={p.primary_shirt}
+          position={p.position_label ? p.position_label.charAt(0).toUpperCase() + p.position_label.slice(1) : null}
+          careerYears={careerYears}
+          rank={ranks}
+          stats={{
+            goals: p.goals,
+            apps: p.apps,
+            starts: p.starts,
+            subs: p.subs,
+            goalsPerApp,
+            multiGoalGames,
+            hatTricks,
+            assists: p.assists,
+          }}
+          span={{ debut, latest, peakSeason }}
+          shirts={shirts}
+          caveatBrief="Verified competitive record"
+          correctionHref={playerCorrectionHref}
+        />
 
-      <DetailSectionTabs
+        <DetailSectionTabs
         defaultTab="career"
         ariaLabel="Player sections"
         idPrefix="player"
@@ -272,7 +272,7 @@ export default async function PlayerPage({
           },
           {
             id: "goals",
-            label: "Goals and Assists",
+            label: "Goals & Assists",
             content: (
               <div className="space-y-10">
                 {curatedTotals && curatedGoalTypes.length > 1 && (
@@ -340,7 +340,8 @@ export default async function PlayerPage({
                       ) : (
                         <>
                           <p className="text-sm text-ink-dim">
-                            He scored in {fmtNum(matches.length)} matches with recorded goal data
+                            He scored in {fmtNum(matches.length)} matches
+                            {!fullGoalScorerCoverage && " with recorded goal data"}
                             {multiGoalGames > 0 && (
                               <>
                                 , including{" "}
@@ -367,30 +368,11 @@ export default async function PlayerPage({
                             </div>
                           )}
 
-                          <div>
-                            <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
-                              <h3 className="text-sm font-medium text-ink-dim">Seasons where he scored</h3>
-                              <EvidenceLink
-                                href={`/matches${queryString({ scorer: id })}`}
-                                label={`Open all ${fmtNum(matches.length)} in the match browser →`}
-                              />
-                            </div>
-                            <div className="space-y-2">
-                              {scoredBySeason.map(([season, ms]) => {
-                                const seasonGoals = ms.reduce((a, m) => a + m.goals, 0);
-                                return (
-                                  <SeasonEvidenceRow
-                                    key={season}
-                                    id={`scored-${season}`}
-                                    season={season}
-                                    href={`/matches${queryString({ scorer: id, season })}`}
-                                    primary={`${fmtNum(seasonGoals)} goal${seasonGoals === 1 ? "" : "s"}`}
-                                    secondary={`Scored in ${fmtNum(ms.length)} match${ms.length === 1 ? "" : "es"}`}
-                                  />
-                                );
-                              })}
-                            </div>
-                          </div>
+                          <PlayerScoringArchive
+                            playerId={id}
+                            groups={scoredBySeason.map(([season, ms]) => ({ season, matches: ms }))}
+                            renderExtra={goalExtra}
+                          />
                         </>
                       )}
                     </>
@@ -406,7 +388,7 @@ export default async function PlayerPage({
               <section>
                 <SectionHead title="Transfer record" aside={transfers.length > 0 ? `${fmtNum(transfers.length)} recorded` : undefined} />
                 {transfers.length > 0 ? (
-                  <TransferList transfers={transfers} />
+                  <PlayerTransferRecord transfers={transfers} careerYears={careerYears} />
                 ) : (
                   <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-dim">
                     No recorded transfers yet.
@@ -417,6 +399,7 @@ export default async function PlayerPage({
           },
         ]}
       />
+      </div>
 
       <PlayerDataCoverage
         coveredSeasons={coveredSeasons.length}
@@ -429,40 +412,6 @@ export default async function PlayerPage({
         <Link href="/players" className="text-devil-bright hover:underline focus-ring">← All players</Link>
       </p>
     </div>
-  );
-}
-
-function SeasonEvidenceRow({
-  id,
-  season,
-  href,
-  primary,
-  secondary,
-}: {
-  id: string;
-  season: string;
-  href: string;
-  primary: string;
-  secondary: string;
-}) {
-  return (
-    <section id={id} className="scroll-mt-24 rounded-lg border border-line bg-panel px-3 py-2.5 sm:px-4">
-      <div className="flex items-center gap-3">
-        <Link href={`/seasons/${season}`} className="display w-[5.25rem] shrink-0 text-base leading-none hover:text-devil-bright focus-ring">
-          {season}
-        </Link>
-        <span className="stat-num text-xs text-ink">
-          <span className="text-devil-bright">{primary}</span>
-          <span className="text-ink-dim"> · {secondary}</span>
-        </span>
-        <Link
-          href={href}
-          className="ml-auto shrink-0 rounded-md border border-line bg-panel-2 px-2.5 py-1 text-xs text-devil-bright transition-colors hover:border-devil/60 hover:bg-devil/10 focus-ring"
-        >
-          Open
-        </Link>
-      </div>
-    </section>
   );
 }
 
