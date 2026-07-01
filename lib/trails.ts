@@ -851,7 +851,7 @@ export function clubRecords(): ClubRecords {
 // ---------------------------------------------------------------- the decline
 
 /** Sir Alex Ferguson's last match in charge — the hinge of the post-Ferguson era. */
-export const FERGUSON_END = "2013-05-19";
+const FERGUSON_END = "2013-05-19";
 
 /**
  * A club record (W/D/L/GF/GA) over official matches played in an inclusive date
@@ -886,7 +886,7 @@ const RECORD_COLS_OFFICIAL = `COUNT(*) p,
   COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d, COALESCE(SUM(result='L'),0) l,
   COALESCE(SUM(gf),0) gf, COALESCE(SUM(ga),0) ga`;
 
-export interface SeasonFinishRow {
+interface SeasonFinishRow {
   season: string;
   position: number;
   league_size: number;
@@ -894,7 +894,7 @@ export interface SeasonFinishRow {
 }
 
 /** Top-flight league finishes (First Division / Premier League), season by season. */
-export function topFlightFinishes(): SeasonFinishRow[] {
+function topFlightFinishes(): SeasonFinishRow[] {
   return getDb()
     .prepare(
       `SELECT ss.season, ss.position, ss.league_size, c.name AS competition
@@ -907,7 +907,7 @@ export function topFlightFinishes(): SeasonFinishRow[] {
 }
 
 /** Top-flight titles won across seasons in an inclusive [from,to] season range. */
-export function titlesInRange(fromSeason: string, toSeason: string): number {
+function titlesInRange(fromSeason: string, toSeason: string): number {
   return (
     getDb()
       .prepare(
@@ -953,7 +953,7 @@ export function fergusonFloorSummary(): FergusonFloorSummary {
   };
 }
 
-export interface PostFergusonStint {
+interface PostFergusonStint {
   id: string;
   name: string;
   dateFrom: string;
@@ -1000,7 +1000,7 @@ export function fergusonFloorTimeline(): FloorTimelinePoint[] {
 }
 
 /** Post-Ferguson managerial stints with league finishes — the succession story. */
-export function postFergusonStints(): PostFergusonStint[] {
+function postFergusonStints(): PostFergusonStint[] {
   const tenures = getDb()
     .prepare(
       `SELECT mt.manager_id id, mg.name, mt.date_from dateFrom, mt.date_to dateTo, mt.note
@@ -1300,7 +1300,7 @@ export function managerLongevityField(minSinceMatches = 20): ManagerLongevityPoi
   return points;
 }
 
-export interface ManagerRateRow extends Record_ {
+interface ManagerRateRow extends Record_ {
   id: string;
   name: string;
   ppg: number;
@@ -1312,7 +1312,7 @@ export interface ManagerRateRow extends Record_ {
  * never top a real reign — the comparison the question "was he that far ahead?"
  * actually asks.
  */
-export function managerPpgRanking(minMatches = 30): ManagerRateRow[] {
+function managerPpgRanking(minMatches = 30): ManagerRateRow[] {
   const rows = getDb()
     .prepare(
       `SELECT mg.id, mg.name, ${RECORD_COLS_OFFICIAL}
