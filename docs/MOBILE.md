@@ -1,6 +1,6 @@
 # Mobile Experience — Wishlist & Roadmap
 
-**Status:** in progress — Wave 0, Sheet Phase A, filter sheet, match-detail disclosure, and register primitive (first consumers) shipped; Wave 1 reading track active.
+**Status:** in progress — Wave 0–1 complete; Wave 2 structural polish active (match-night cards, sheet Phase B preview, TonightHero re-roll shipped).
 Captured 2026-06-30; revised after register-layout review same session.
 **Foundation shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
@@ -23,6 +23,9 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` + `LeagueTable` mobile rows — **leaderboard** for ranked lists (`/players`, `LeagueTable`, manager bounce); **metrics** for timelines and coverage grids (`PlayerSeasonTable`, `/data`). |
 | **Wave 1 — seasons cards** | 2026-06-30 | `/seasons` mobile card stream — `SeasonLedgerCard` per campaign, sticky decade headers below JumpRail; desktop grid table unchanged at `sm+`. |
 | **Wave 1 — analytics chapters** | 2026-06-30 | `/analytics` mobile `ChapterPager` — one ChartPanel (or EloHero / records block) per viewport-height slide, horizontal scroll-snap + dot indicator; desktop three-act layout unchanged at `sm+`. |
+| **Wave 2 — match ledger cards** | 2026-07-01 | Thin mobile register rows — result strip + coloured score; league game numbers hidden; season via section headers on `/matches`. |
+| **Wave 2 — sheet Phase B preview** | ~~2026-07-01~~ cut | Goals-only preview removed — insufficient pay-off vs full match page; lists navigate directly. |
+| **Wave 2 — TonightHero evolution** | 2026-07-01 | `↻ another night` re-roll (curated pool); on-this-day framing polish; hero pin removed for live date selection. |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -340,9 +343,9 @@ Impact weighted toward argument-settler and fragmented browse.
 
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
-| `TonightHero` home evolution (1.1) | M | Med–High | Conditional on-this-day vs classic nights; optional restrained historical thread during live matches. No fixture takeover. |
-| Sheet Phase B → C — list drill-down (1.2) | L | **High** | Preview in sheet first; intercepting routes only if needed. **Before/alongside tables→cards** — avoids rebuilding list→detail twice. |
-| Full-bleed match-night hero cards (1.1) | M | Med | Edge-to-edge floodlit-plate cards for list items. |
+| `TonightHero` home evolution (1.1) | M | Med–High | ✅ Re-roll (`↻ another night`), on-this-day framing polish, pin removed. Live-match historical thread still deferred. |
+| Sheet Phase B → C — list drill-down (1.2) | L | **High** | Cut — goals-only sheet preview removed; full match page is sufficient. |
+| Match list mobile cards (1.1 / 1.3) | M | Med | ↩ Thin ledger cards — result strip + coloured score; league game numbers hidden. |
 
 ### Deferred — platform / install framing
 *Revisit later. High effort, uncertain payoff for this audience. Does not gate reading
@@ -377,12 +380,11 @@ polish or search-first work.*
    - ~~Answer surfaces (questions + compare)~~ — done.
    - ~~Seasons scroll → cards w/ sticky era headers~~ — done.
    - ~~Analytics chapters~~ — done.
-4. **Wave 2 in parallel when ready** — `TonightHero` evolution, sheet Phase B (list preview),
-   full-bleed match-night list cards. Phase B before committing to Phase C intercepting routes.
+4. ~~**Wave 2 in parallel when ready**~~ — match-night cards, sheet Phase B preview, and TonightHero re-roll shipped. Phase C intercepting routes and live-match historical thread remain optional follow-ups.
 5. **Ignore deferred platform work** until there is an explicit decision to pursue install /
    push — it shouldn't gate anything above.
 
 **Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
 rebuilding list→detail twice.
 
-**Suggested next dive:** Wave 2 — `TonightHero` home evolution, sheet Phase B (list preview in sheet), or full-bleed match-night list cards. Wave 1 reading track is complete.
+**Suggested next dive:** Phase C intercepting routes (only if sheet preview feels insufficient), live-match historical thread on home, pull-to-refresh + sibling swipe (cross-cutting §1.5).

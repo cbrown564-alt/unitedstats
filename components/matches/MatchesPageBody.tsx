@@ -99,9 +99,9 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
       </div>
 
       {chronological ? (
-        <MatchGroups matches={rows} showAttendance accentResult renderExtra={eventBadgeRenderer} />
+        <MatchGroups matches={rows} accentResult renderExtra={eventBadgeRenderer} />
       ) : (
-        <MatchList matches={rows} showSeason showAttendance accentResult renderExtra={eventBadgeRenderer} />
+        <MatchList matches={rows} showSeason accentResult renderExtra={eventBadgeRenderer} />
       )}
 
       <Pager page={page} pages={pages} hrefFor={(p) => `/matches${qs({ page: String(p) })}`} />
