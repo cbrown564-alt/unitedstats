@@ -1,7 +1,8 @@
 # Mobile Experience — Wishlist & Roadmap
 
-**Status:** in progress — Wave 0–1 complete; Wave 2 structural polish active (match-night cards, sheet Phase B preview, TonightHero re-roll shipped).
-Captured 2026-06-30; revised after register-layout review same session.
+**Status:** Wave 0–2 complete (merged 2026-07-01). Cross-cutting polish and optional
+second-screen modules remain.
+Captured 2026-06-30; revised through Wave 2 ledger review 2026-07-01.
 **Foundation shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
 sliding from the top, safe-area padding, a first density pass, sticky subnav offsets,
@@ -23,9 +24,9 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` + `LeagueTable` mobile rows — **leaderboard** for ranked lists (`/players`, `LeagueTable`, manager bounce); **metrics** for timelines and coverage grids (`PlayerSeasonTable`, `/data`). |
 | **Wave 1 — seasons cards** | 2026-06-30 | `/seasons` mobile card stream — `SeasonLedgerCard` per campaign, sticky decade headers below JumpRail; desktop grid table unchanged at `sm+`. |
 | **Wave 1 — analytics chapters** | 2026-06-30 | `/analytics` mobile `ChapterPager` — one ChartPanel (or EloHero / records block) per viewport-height slide, horizontal scroll-snap + dot indicator; desktop three-act layout unchanged at `sm+`. |
-| **Wave 2 — match ledger cards** | 2026-07-01 | Thin mobile register rows — result strip + coloured score; league game numbers hidden; season via section headers on `/matches`. |
-| **Wave 2 — sheet Phase B preview** | ~~2026-07-01~~ cut | Goals-only preview removed — insufficient pay-off vs full match page; lists navigate directly. |
-| **Wave 2 — TonightHero evolution** | 2026-07-01 | `↻ another night` re-roll (curated pool); on-this-day framing polish; hero pin removed for live date selection. |
+| **Wave 2 — match ledger cards** | 2026-07-01 | `MatchNightCard` below `sm` — thin two-row register rows in `MatchList`: row 1 score (beside result strip) · opponent · date right; row 2 competition (+ cup round). No W/D/L badge; league game numbers hidden; no attendance on `/matches`; season via `MatchGroups` headers only. Desktop rows unchanged at `sm+`. |
+| **Wave 2 — sheet Phase B preview** | tried · cut | `MatchPreviewSheet` built then removed — goals-only peek insufficient vs full match page (lineup, fast load). Lists navigate directly. |
+| **Wave 2 — TonightHero evolution** | 2026-07-01 | Subtle top-right `↻ another night` (curated pool); on-this-day framing polish; hero pin removed for live date selection. |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -138,8 +139,13 @@ desktop hero and **not** a live-score feed. It is:
   on-this-day parallel), not kick-off, line-ups, or full-time. Ship only if it reads as
   lens, not live tracker.
 
-- **Full-bleed match-night cards** for list items — a match or season rendered
-  edge-to-edge with the floodlit plate, not a dense row.
+- **Match lists on mobile (ledger, not feed)** — match lists are primarily **scan-and-find
+  ledgers**, not FotMob-style fixture feeds. Below `sm`, `MatchList` renders `MatchNightCard`
+  rows: score-first beside the result strip, opponent, compact date (`dd/mm/yyyy`) right on
+  row 1, competition on row 2. No floodlit plates on list items — hero language stays on
+  `TonightHero` and match detail. Home recency lists omit season; `/matches` groups by season
+  header (`MatchGroups`). **Rejected:** full-bleed floodlit list cards (visual noise, poor
+  scan density); sheet preview with goals-only timeline (insufficient pay-off vs full page).
 
 > North-star framing: mobile home is **search-first** with a **conditional** timely
 > spark (`TonightHero` when the date earns it, classic nights when it doesn't); desktop
@@ -156,13 +162,16 @@ The harder mobile problem is **not getting lost six taps deep**.
 
 - **Phased sheet strategy** — don't jump straight to intercepting routes:
   - **Phase A:** Reusable bottom-sheet primitive (exit animations, focus trap, swipe
-    dismiss) — unblocks filter sheet and quick previews.
-  - **Phase B:** List → detail preview in sheet without route interception; validate the
-    "reversible trail" feel.
-  - **Phase C:** Full stacked drill-down via intercepting/parallel routes only if Phase B
-    doesn't deliver. Handles deep-link, refresh, and scroll-restoration edge cases.
+    dismiss) — unblocks filter sheet and quick previews. ✅
+  - **Phase B:** List → detail preview in sheet without route interception — **tried and
+    cut** (2026-07-01). Goals-only preview was not enough pay-off; full match page loads
+    fast and carries lineup + ledger. Revisit only if a richer peek (hero + flow + lineup
+    snippet) is designed deliberately.
+  - **Phase C:** Full stacked drill-down via intercepting/parallel routes — **deferred**.
+    Not warranted unless a sheet preview pattern returns with clear user value.
 - **Stacked sheet drill-down** (Phase C goal) — tapping a match in a list opens it as a
-  bottom sheet *over* the list, so dismissing returns you exactly where you were.
+  bottom sheet *over* the list. Deferred with Phase B cut; standard navigation + back stack
+  is the current model.
 - **Edge-swipe back** that respects the real back-stack, with a peek of the previous
   surface.
 - **Reachability** — keep high-value actions (search, back) off the top-of-screen reach;
@@ -179,6 +188,8 @@ mobile, where the ledger is unscannable.
 
 - **Match detail** — hero + `MatchFlow` first; teamsheet pitch and full event ledger
   collapse behind progressive disclosure.
+- **Match lists** — ✅ mobile ledger cards (`MatchNightCard` in `MatchList`, below `sm`).
+  Desktop keeps dense rows. See §1.1 for the ledger-not-feed principle.
 - **Player / manager / opponent tables** — on narrow viewports, drop the horizontal-scroll
   table in favour of a register list. **Ranked registers** (players, managers, opponents
   sorted by a measure) must preserve **column scan on the active sort** — same rhythm as
@@ -338,14 +349,14 @@ Impact weighted toward argument-settler and fragmented browse.
 | Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | ✅ `SeasonLedgerCard` stream; sticky `season-decade-header` below JumpRail. |
 | Analytics chapters (1.3) | M–L | Med | ✅ `ChapterPager` — one question per viewport slide, swipe + dots. |
 
-### Wave 2 — Structural polish
-*What makes exploration feel native on a phone — not a live-score app.*
+### Wave 2 — Structural polish ✅
+*Shipped 2026-07-01. Match lists simplified after review — ledger first, not atmosphere.*
 
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
-| `TonightHero` home evolution (1.1) | M | Med–High | ✅ Re-roll (`↻ another night`), on-this-day framing polish, pin removed. Live-match historical thread still deferred. |
-| Sheet Phase B → C — list drill-down (1.2) | L | **High** | Cut — goals-only sheet preview removed; full match page is sufficient. |
-| Match list mobile cards (1.1 / 1.3) | M | Med | ↩ Thin ledger cards — result strip + coloured score; league game numbers hidden. |
+| `TonightHero` home evolution (1.1) | M | Med–High | ✅ Re-roll (top-right, subtle), on-this-day framing, pin removed. Live-match thread deferred. |
+| Sheet Phase B → C — list drill-down (1.2) | L | **High** | **Cut** — goals-only sheet preview removed; Phase C deferred. |
+| Match list mobile cards (1.1 / 1.3) | M | Med | ✅ Two-row ledger cards — score + strip, date right, comp row 2. Floodlit list cards rejected. |
 
 ### Deferred — platform / install framing
 *Revisit later. High effort, uncertain payoff for this audience. Does not gate reading
@@ -380,11 +391,47 @@ polish or search-first work.*
    - ~~Answer surfaces (questions + compare)~~ — done.
    - ~~Seasons scroll → cards w/ sticky era headers~~ — done.
    - ~~Analytics chapters~~ — done.
-4. ~~**Wave 2 in parallel when ready**~~ — match-night cards, sheet Phase B preview, and TonightHero re-roll shipped. Phase C intercepting routes and live-match historical thread remain optional follow-ups.
+4. ~~**Wave 2**~~ — done. `TonightHero` re-roll; mobile match ledger cards; sheet preview
+   tried and cut (see completed-phases table).
 5. **Ignore deferred platform work** until there is an explicit decision to pursue install /
    push — it shouldn't gate anything above.
 
-**Sequencing risk cleared:** sheet primitive landed — tables→cards can proceed without
-rebuilding list→detail twice.
+**Sequencing risk cleared:** sheet primitive landed — register/card work did not need
+intercepting routes.
 
-**Suggested next dive:** Phase C intercepting routes (only if sheet preview feels insufficient), live-match historical thread on home, pull-to-refresh + sibling swipe (cross-cutting §1.5).
+### What's remaining
+
+*Ordered by likely value; nothing here blocks the current mobile shell.*
+
+**Product / UX (optional)**
+- Live-match **historical thread** on home (§1.1) — archive context during an active United
+  match; needs fixture detection + restrained copy. Out of scope for live-score takeover.
+- **Home layout** — all-time record competes with "Latest results" for scroll depth on
+  phone; may deserve reorder or a tighter home recency module (not yet designed).
+- **Surprise / changed-evidence** home modules (§1.1) — only when they earn space.
+- **Search elevation** — default overlay from home, long-press pill, or "settle it" mode
+  (§1.1 / §1.6).
+
+**Navigation & gestures (§1.2, §1.5)**
+- Edge-swipe back with real back-stack peek.
+- Pinned-section horizontal swipe (match-detail tabs, etc.).
+- Pull-to-refresh (home, match detail).
+- Sibling swipe on `Pager` (next/previous match, season).
+- Shared-element list→detail transitions — only if sheet preview returns.
+
+**Reading & viz polish**
+- Small-multiple legibility audit at 360px (`MinuteRidge`, `CoverageMatrix`, scatters).
+- Horizontally pannable long-span charts (Elo) with sticky y-axis.
+- Tap-target audit completion (partial — 44px lift exists).
+- Dynamic type verification as surfaces are touched.
+- Screenshot tests for `MatchFlow` / `HistorySkyline` on high-event data (footnote from Wave 0).
+
+**Performance (§1.8)**
+- Answer-object first paint; explicit `Suspense` / streaming on match detail and player pages.
+- Chart panel skeletons on slow networks.
+
+**Deferred platform**
+- PWA, push (on-this-day), offline cache, voice search — see table below.
+
+**Suggested next dive:** home layout (record vs recency), pull-to-refresh, or small-multiple
+legibility audit — pick based on what annoys you in daily use.
