@@ -976,6 +976,29 @@ function seasonOverlapsTenure(season: string, from: string, to: string | null): 
   return from <= seasonEnd && end >= seasonStart;
 }
 
+/** Season-by-season league finish from Ferguson's arrival — the title-floor timeline. */
+export interface FloorTimelinePoint {
+  season: string;
+  year: number;
+  position: number;
+  leagueSize: number;
+  champion: boolean;
+  postFerguson: boolean;
+}
+
+export function fergusonFloorTimeline(): FloorTimelinePoint[] {
+  return topFlightFinishes()
+    .filter((f) => f.season >= "1986-87")
+    .map((f) => ({
+      season: f.season,
+      year: Number(f.season.slice(0, 4)),
+      position: f.position,
+      leagueSize: f.league_size,
+      champion: f.position === 1,
+      postFerguson: f.season >= "2013-14",
+    }));
+}
+
 /** Post-Ferguson managerial stints with league finishes — the succession story. */
 export function postFergusonStints(): PostFergusonStint[] {
   const tenures = getDb()

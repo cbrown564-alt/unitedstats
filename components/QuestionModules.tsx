@@ -4,18 +4,18 @@ import {
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord,
-  fergusonFloorSummary, postFergusonStints,
+  fergusonFloorSummary, postFergusonStints, fergusonFloorTimeline,
   trebleRuns, trebleDeciders, trebleSemis,
   europeByDecade, europeWinRateTimeline, europeanFinals, europeMatchSequence,
   matchesSequence,
 } from "@/lib/trails";
-import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
 import { getMeta, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
-import { InspectableBarChartLazy as InspectableBarChart, EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy";
+import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
+import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
 import { ResultSpine } from "@/components/charts/ResultSpine";
@@ -385,55 +385,24 @@ function RunsModule({ variant }: ModuleProps) {
 
 function FergusonEraModule({ variant }: ModuleProps) {
   const floor = fergusonFloorSummary();
+  const timeline = fergusonFloorTimeline();
   const stints = postFergusonStints();
   const since = eraRecord("2013-05-20", "9999-12-31");
-  const fergEra = ERA_CATALOGUE.find((e) => e.key === "ferguson")!;
-  const afterEra = ERA_CATALOGUE.find((e) => e.key === "after")!;
   const permanentStints = stints.filter((s) => !s.interim && s.finishes.length > 0);
   const interimCount = stints.filter((s) => s.interim).length;
 
   const skylineVisual = (
-    <div className="space-y-4">
-      <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
-        <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
-          <div className="stat-num text-5xl font-semibold leading-none text-gold">
-            {floor.fergTitles}<span className="text-2xl text-ink-faint"> → </span>{floor.sinceTitles}
-          </div>
-          <div className="mx-auto mt-1.5 max-w-36 text-[11px] leading-snug text-ink-faint text-pretty">
-            league titles under Ferguson, then since
-          </div>
-        </div>
-        <div className="flex items-center text-sm text-ink-dim sm:px-2">
-          <span>
-            Under Ferguson United finished in the top four{" "}
-            <span className="text-ink">{floor.fergTop4} of {floor.fergSeasons}</span> seasons — average position{" "}
-            <span className="text-ink">{floor.fergAvgFinish.toFixed(1)}</span>. Since:{" "}
-            <span className="text-ink">{floor.sinceTop4} of {floor.sinceSeasons}</span>, averaging{" "}
-            <span className="text-ink">{floor.sinceAvgFinish.toFixed(1)}</span>
-            {floor.sinceWorst ? `, with a low of ${ordinal(floor.sinceWorst)}` : ""}.
-          </span>
-        </div>
-      </div>
-      <div>
-        <div className="text-[11px] uppercase tracking-wider text-ink-faint">
-          League finishes — Ferguson&apos;s reign above, the years since below
-        </div>
-        <EraSkylineChart a={eraFinishes(fergEra)} b={eraFinishes(afterEra)} labelA="Ferguson era" labelB="Since Ferguson" />
-        <div className="mt-2 grid gap-2 sm:grid-cols-3 text-[11px] text-ink-dim">
-          <div className="rounded-md border border-line/70 bg-panel px-2.5 py-2">
-            <span className="font-medium text-ink">Rebuild</span> · 1986–92 · no titles, twice 2nd
-          </div>
-          <div className="rounded-md border border-line/70 bg-panel px-2.5 py-2">
-            <span className="font-medium text-gold">Dynasty</span> · 1993–2012 · 12 titles
-          </div>
-          <div className="rounded-md border border-line/70 bg-panel px-2.5 py-2">
-            <span className="font-medium text-ink">Last title</span> · 2012–13 · then he left
-          </div>
-        </div>
-        <p className="mt-1.5 text-xs text-ink-dim">
-          Each bar is one season&apos;s league finish — gold is a title. The top panel held the line for a generation; the bottom one is where the floor drops away.
-        </p>
-      </div>
+    <div className="space-y-2">
+      <TitleFloorTimeline
+        points={timeline}
+        fergTitles={floor.fergTitles}
+        sinceTitles={floor.sinceTitles}
+        fergAvg={floor.fergAvgFinish}
+        sinceAvg={floor.sinceAvgFinish}
+      />
+      <p className="text-xs text-ink-dim text-pretty">
+        One dot per season — higher is a better finish. The red trajectory held the top-four line for a generation; after May 2013 it falls away, with a low of {ordinal(floor.sinceWorst)} in 2024–25.
+      </p>
     </div>
   );
 

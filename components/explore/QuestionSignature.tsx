@@ -1,12 +1,13 @@
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   goalMinuteRidge, leadHeldAtHome, managerBounce,
-  fergusonFloorSummary,
+  fergusonFloorSummary, fergusonFloorTimeline,
   europeByDecade, europeanFinals,
 } from "@/lib/trails";
 import { clubStreaks } from "@/lib/streaks";
 import { fmtNum, pct } from "@/lib/format";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
+import { TitleFloorTimeline } from "@/components/charts/TitleFloorTimeline";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -94,13 +95,15 @@ export function QuestionSignature({ slug }: { slug: string }) {
 
     case "ferguson-era": {
       const floor = fergusonFloorSummary();
+      const timeline = fergusonFloorTimeline();
       return (
-        <Figures
-          items={[
-            { value: `${floor.fergTitles} → ${floor.sinceTitles}`, label: "league titles", tone: "gold" },
-            { value: floor.fergAvgFinish.toFixed(1), label: "avg finish, Ferguson era", tone: "win" },
-            { value: floor.sinceAvgFinish.toFixed(1), label: "avg finish since", tone: "devil" },
-          ]}
+        <TitleFloorTimeline
+          compact
+          points={timeline}
+          fergTitles={floor.fergTitles}
+          sinceTitles={floor.sinceTitles}
+          fergAvg={floor.fergAvgFinish}
+          sinceAvg={floor.sinceAvgFinish}
         />
       );
     }
