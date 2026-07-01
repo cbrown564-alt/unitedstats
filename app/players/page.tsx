@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { coverageOverview, getMeta, playerCareerSparks, playersIndex, type PlayerCareerSpark, type PlayerTotals } from "@/lib/queries";
-import { DataTable, type SortDirection } from "@/components/DataTable";
+import type { SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
-import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
-import { PlayerPortrait } from "@/components/PlayerPortrait";
-import { PositionTag } from "@/components/PositionTag";
-import { ShirtBadge } from "@/components/ShirtBadge";
+import { PlayersLeaders } from "@/components/PlayersLeaders";
+import { PlayersRegisterTable } from "@/components/PlayersRegisterTable";
 import { SectionHead } from "@/components/SectionHead";
-import { Leaderboard, type LeaderboardItem } from "@/components/Leaderboard";
+import { type LeaderboardItem } from "@/components/Leaderboard";
 import { CoverageNote } from "@/components/CoverageNote";
 import { fmtNum, pct, fmtYearRange } from "@/lib/format";
 
@@ -21,11 +19,6 @@ type PlayerSortKey = "name" | "shirt" | "apps" | "starts" | "goals" | "assists" 
 
 const DEFAULT_PLAYER_SORT: PlayerSortKey = "goals";
 
-// Combined assists are curated from 1987-88 on (and match-event–sourced after
-// 2014-15); nothing earlier carries assist data. Used to show "–" rather than a
-// misleading "0" for players whose career ends before coverage begins.
-const ASSIST_COVERAGE_FROM_YEAR = 1987;
-
 const PLAYER_SORT_DEFAULTS: Record<PlayerSortKey, SortDirection> = {
   name: "asc",
   shirt: "asc",
@@ -34,16 +27,6 @@ const PLAYER_SORT_DEFAULTS: Record<PlayerSortKey, SortDirection> = {
   goals: "desc",
   assists: "desc",
   span: "asc",
-};
-
-const PLAYER_SORT_LABELS: Record<PlayerSortKey, string> = {
-  name: "Player",
-  shirt: "No.",
-  apps: "Apps",
-  starts: "Starts",
-  goals: "Goals",
-  assists: "Assists",
-  span: "Span",
 };
 
 function parsePlayerSort(value: string | undefined): PlayerSortKey {
@@ -103,16 +86,9 @@ export default async function PlayersPage({
   const sortKey = parsePlayerSort(sp.sort);
   const sortDirection: SortDirection =
     sp.dir === "asc" || sp.dir === "desc" ? sp.dir : PLAYER_SORT_DEFAULTS[sortKey];
-  // "Own Goal" is a pseudo-scorer (own goals aggregated for the /questions cut and
-  // its own page); it is not a player, so it never belongs in this directory's
-  // leaderboards, scatter, register, or count.
   const allPlayers = playersIndex().filter((p) => p.player_id !== "own-goal");
   const filteredPlayers = q ? allPlayers.filter((p) => p.name.toLowerCase().includes(q)) : allPlayers;
   const players = [...filteredPlayers].sort((a, b) => comparePlayers(a, b, sortKey, sortDirection));
-  // Progressive disclosure: render the top slice of the active sort by default
-  // (≈95% fewer portrait images than the full ~984-row register), expanding to
-  // the whole list on an explicit server round-trip. Search and the leaderboards
-  // are the real access paths; this keeps the default page light without a pager.
   const REGISTER_LIMIT = 50;
   const showAll = sp.all === "1";
   const visiblePlayers = showAll ? players : players.slice(0, REGISTER_LIMIT);
@@ -120,10 +96,6 @@ export default async function PlayersPage({
   const meta = getMeta();
   const coverage = coverageOverview();
 
-  // Per-season apps+goals, grouped by player, used to derive each career's span and
-  // busiest season for the register barbell. The axis (first→last year across every
-  // player) is shared by all rows, so scanning the column reads as eras sliding
-  // left→right on one timeline.
   const sparkRows = playerCareerSparks();
   const sparksByPlayer = new Map<string, PlayerCareerSpark[]>();
   let sparkAxisStart = Infinity;
@@ -137,10 +109,6 @@ export default async function PlayersPage({
     if (year > sparkAxisEnd) sparkAxisEnd = year;
   }
 
-  // Collapse each player's seasons to the span the barbell draws: first→last
-  // played year. Just the two endpoints — the register column is too cramped to
-  // also pip the busiest season. Players with no match-attributed seasons (early
-  // pros) have no entry and fall back to the plain text span.
   const spanByPlayer = new Map<string, { first: number; last: number }>();
   for (const [id, list] of sparksByPlayer) {
     const played = list.filter((s) => s.apps > 0 || s.goals > 0);
@@ -159,8 +127,6 @@ export default async function PlayersPage({
   const positionsCovered = allPlayers.filter((p) => p.position_bucket).length;
   const activeFilters = Boolean(q);
 
-  // Leaderboards — the answers a reader would otherwise have to sort the 985-row
-  // table for, by every meaningful measure. Computed from the same index.
   const portrait = (p: PlayerTotals) => p.player_thumb_url ?? p.player_image_url;
   const toItem = (p: PlayerTotals, figure: string, sub: string): LeaderboardItem => ({
     id: p.player_id, name: p.name, src: portrait(p), figure, sub,
@@ -179,11 +145,6 @@ export default async function PlayersPage({
     .sort((a, b) => b.goals / (b.apps || 1) - a.goals / (a.apps || 1))
     .slice(0, 6)
     .map((p) => toItem(p, (p.goals / (p.apps || 1)).toFixed(2), `${fmtNum(p.goals)} in ${fmtNum(p.apps || 0)}`));
-  const topAssists = [...allPlayers]
-    .filter((p) => (p.assists || 0) > 0)
-    .sort((a, b) => (b.assists || 0) - (a.assists || 0))
-    .slice(0, 6)
-    .map((p) => toItem(p, fmtNum(p.assists || 0), spanForPlayer(p)));
 
   const quickViews: { label: string; key: PlayerSortKey }[] = [
     { label: "Goals", key: "goals" },
@@ -320,27 +281,9 @@ export default async function PlayersPage({
         </div>
       </section>
 
-      {/* Movement 1 — the leaders: the answer to "who are the greats", by every
-          measure at once, so nobody has to sort the register to find it. */}
       <section className="space-y-3">
-        <SectionHead title="The leaders" aside="by every measure" />
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <Leaderboard title="Top goalscorers" unit="goals" items={topGoals} figureTone="text-devil-bright" />
-          <Leaderboard title="Most appearances" unit="games" items={topAppsBoard} />
-          <Leaderboard
-            title="Goals per game"
-            unit={`min. ${PROLIFIC_MIN} apps`}
-            items={prolific}
-            figureTone="text-devil-bright"
-          />
-          <Leaderboard
-            title="Most assists"
-            unit="assists"
-            items={topAssists}
-            figureTone="text-gold"
-            note={`recorded for ${fmtNum(assistsCovered)} of ${fmtNum(allPlayers.length)} players and weighted to recent eras — an absence is unrecorded, not zero.`}
-          />
-        </div>
+        <SectionHead title="The leaders" aside="appearances and goals" />
+        <PlayersLeaders topGoals={topGoals} topApps={topAppsBoard} prolific={prolific} />
       </section>
 
       {/* Movement 2 — the full register: the auditable lookup tool, every player
@@ -397,191 +340,18 @@ export default async function PlayersPage({
           </span>
         </p>
 
-      <DataTable
-        className="data-table-fit"
-        registerCards
-        registerLayout="leaderboard"
-        registerHref={(p) => `/player/${p.player_id}`}
-        registerSubline={(p) => `${fmtNum(p.apps || 0)} apps · ${spanForPlayer(p)}`}
-        registerFigureTone={(key) =>
-          key === "goals" ? "text-devil-bright" : key === "assists" ? "text-gold" : "text-ink"
-        }
-        rows={visiblePlayers}
-        rowKey={(p) => p.player_id}
-        caption="Manchester United player totals"
-        summary={
-          <>
-            <span>
-              <span className="stat-num text-ink">{fmtNum(visiblePlayers.length)}</span> shown{" "}
-              {activeFilters
-                ? `of ${fmtNum(players.length)} matching`
-                : `of ${fmtNum(allPlayers.length)} players`}
-            </span>
-            <span>
-              Sorted by <span className="font-semibold text-ink">{PLAYER_SORT_LABELS[sortKey]}</span>,{" "}
-              {sortDirection === "asc" ? "ascending" : "descending"}
-            </span>
-          </>
-        }
-        emptyState={
-          activeFilters ? (
-            <span>
-              No players match <span className="font-medium text-ink">&quot;{rawQuery}&quot;</span>.
-            </span>
-          ) : "No players are available."
-        }
-        sort={{
-          key: sortKey,
-          direction: sortDirection,
-          hrefFor: sortHref,
-        }}
-        columns={[
-          {
-            label: "#",
-            key: "rank",
-            numeric: true,
-            card: "skip",
-            render: (_p, index) => <span className="text-ink-faint">{index + 1}</span>,
-          },
-          {
-            label: "No.",
-            key: "shirt",
-            numeric: true,
-            hideBelow: "hidden sm:table-cell",
-            sortKey: "shirt",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.shirt,
-            sortLabel: "primary shirt number",
-            card: "skip",
-            render: (p) => (
-              <ShirtBadge
-                number={p.primary_shirt}
-                decade={p.primary_shirt_decade}
-                apps={p.primary_shirt_apps}
-                compact
-                uniform
-              />
-            ),
-            cardRender: (p) => (p.primary_shirt != null ? String(p.primary_shirt) : "—"),
-          },
-          {
-            label: "Player",
-            key: "name",
-            sortKey: "name",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.name,
-            card: "identity",
-            render: (p) => (
-              <div className="flex items-center gap-2.5">
-                <PositionTag bucket={p.position_bucket} title={p.position_label} />
-                <Link href={`/player/${p.player_id}`} className="flex min-w-0 items-center gap-3 font-medium hover:text-devil-bright">
-                  <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
-                  <span className="min-w-0 break-words leading-snug line-clamp-2 sm:line-clamp-none">{p.name}</span>
-                </Link>
-              </div>
-            ),
-            cardRender: (p) => (
-              <span className="flex min-w-0 items-center gap-2.5">
-                <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} size="xs" />
-                <span className="flex min-w-0 items-center gap-1.5">
-                  <PositionTag bucket={p.position_bucket} title={p.position_label} />
-                  <span className="truncate text-sm font-medium leading-tight">{p.name}</span>
-                </span>
-              </span>
-            ),
-          },
-          {
-            label: "Goals",
-            key: "goals",
-            numeric: true,
-            sortKey: "goals",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.goals,
-            card: "figure",
-            render: (p) => (
-              <div className="flex flex-col items-end leading-tight">
-                <span className="text-sm font-semibold text-devil-bright">{p.goals}</span>
-                {p.goals > 0 && (p.apps || 0) > 0 && (
-                  <span className="text-[10px] font-normal text-ink-faint">{(p.goals / p.apps).toFixed(2)}/g</span>
-                )}
-              </div>
-            ),
-            cardRender: (p) => fmtNum(p.goals),
-          },
-          {
-            label: "Apps",
-            key: "apps",
-            numeric: true,
-            hideBelow: "hidden sm:table-cell",
-            sortKey: "apps",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.apps,
-            render: (p) => (
-              <div className="flex flex-col items-end leading-tight">
-                <span className="text-sm">{p.apps || "0"}</span>
-                {(p.apps || 0) > 0 && (
-                  <span className="text-[10px] text-ink-faint">{Math.round((p.starts / p.apps) * 100)}% st</span>
-                )}
-              </div>
-            ),
-            cardRender: (p) => fmtNum(p.apps || 0),
-          },
-          {
-            label: "Assists",
-            key: "assists",
-            numeric: true,
-            hideBelow: "hidden sm:table-cell",
-            sortKey: "assists",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
-            sortLabel: "assists",
-            render: (p) => {
-              const last = lastYearForPlayer(p);
-              if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
-                return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
-              }
-              return <span className="text-ink-dim">{p.assists || "0"}</span>;
-            },
-            cardRender: (p) => {
-              const last = lastYearForPlayer(p);
-              if (last != null && last < ASSIST_COVERAGE_FROM_YEAR) {
-                return <span className="text-ink-faint" title="Assists not recorded before 1987-88">–</span>;
-              }
-              return fmtNum(p.assists || 0);
-            },
-          },
-          {
-            label: "Career",
-            key: "span",
-            hideBelow: "hidden lg:table-cell",
-            headerClassName: "text-right",
-            className: "text-right",
-            sortKey: "span",
-            sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
-            sortLabel: "career span",
-            cardRender: (p) => spanForPlayer(p),
-            render: (p) => {
-              const s = spanByPlayer.get(p.player_id);
-              if (!s) {
-                return (
-                  <div className="flex justify-end">
-                    <span className="text-ink-dim">{spanForPlayer(p)}</span>
-                  </div>
-                );
-              }
-              return (
-                <div className="flex justify-end">
-                  <div className="w-[140px] max-w-full">
-                    <CareerSpanBar
-                      first={s.first}
-                      last={s.last}
-                      axisStart={sparkAxisStart}
-                      axisEnd={sparkAxisEnd}
-                      label={`Career ${fmtYearRange(s.first, s.last)}`}
-                      caption={fmtYearRange(s.first, s.last)}
-                    />
-                  </div>
-                </div>
-              );
-            },
-          },
-        ]}
-      />
+        <PlayersRegisterTable
+          visiblePlayers={visiblePlayers}
+          playersCount={players.length}
+          allPlayersCount={allPlayers.length}
+          activeFilters={activeFilters}
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          rawQuery={rawQuery}
+          spanByPlayer={Object.fromEntries(spanByPlayer)}
+          sparkAxisStart={sparkAxisStart}
+          sparkAxisEnd={sparkAxisEnd}
+        />
 
         {(truncated || showAll) && (
           <div className="flex justify-center">

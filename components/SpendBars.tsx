@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { fmtFee, fmtNum } from "@/lib/format";
 import type { NetSpendBucket } from "@/lib/queries";
 
@@ -11,10 +12,13 @@ import type { NetSpendBucket } from "@/lib/queries";
 export function SpendBars({
   buckets,
   hrefFor,
+  portraitFor,
 }: {
   buckets: NetSpendBucket[];
   /** Optional link target per bucket (managers link to their page; decades don't). */
   hrefFor?: (b: NetSpendBucket) => string;
+  /** Optional portrait per bucket (manager avatars on the transfers page). */
+  portraitFor?: (b: NetSpendBucket) => { name: string; src?: string | null } | null;
 }) {
   const scale = Math.max(1, ...buckets.map((b) => Math.max(b.spend, b.received)));
   const width = (value: number) => `${Math.max(value > 0 ? 1.5 : 0, (value / scale) * 100)}%`;
@@ -23,6 +27,7 @@ export function SpendBars({
     <div className="divide-y divide-line/60 overflow-hidden rounded-xl border border-line bg-panel">
       {buckets.map((b) => {
         const href = hrefFor?.(b);
+        const portrait = portraitFor?.(b);
         const label = href ? (
           <Link href={href} className="font-medium text-ink hover:text-devil-bright">
             {b.bucket}
@@ -31,7 +36,15 @@ export function SpendBars({
           <span className="font-medium text-ink">{b.bucket}</span>
         );
         return (
-          <div key={b.bucket_id} className="grid grid-cols-[8.5rem_1fr_auto] items-center gap-3 px-3.5 py-2.5 sm:grid-cols-[11rem_1fr_auto] sm:px-4">
+          <div
+            key={b.bucket_id}
+            className="grid grid-cols-[auto_minmax(0,8.5rem)_1fr_auto] items-center gap-3 px-3.5 py-2.5 sm:grid-cols-[auto_minmax(0,11rem)_1fr_auto] sm:px-4"
+          >
+            {portrait ? (
+              <PlayerPortrait name={portrait.name} src={portrait.src} size="xs" />
+            ) : (
+              <span className="hidden w-7 sm:block" aria-hidden />
+            )}
             <div className="min-w-0">
               <div className="truncate text-sm leading-tight">{label}</div>
               <div className="stat-num mt-0.5 text-[11px] text-ink-faint">

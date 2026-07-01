@@ -5,25 +5,17 @@ import {
   topAssistPartnerships, coverageOverview, managersIndex, honourSeasonMarkers,
 } from "@/lib/queries";
 import { calibration, simulateLeagueSeason } from "@/lib/predict";
-import { ChartPanel } from "@/components/ChartPanel";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EloHero } from "@/components/EloHero";
 import { ReliabilityCurve } from "@/components/charts/ReliabilityCurve";
-import {
-  InspectableBarChartLazy as InspectableBarChart,
-} from "@/components/charts/lazy";
+import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
 import { PageHeader, StatTile, TrailLink } from "@/components/PageHeader";
-import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { SupplyLineRows } from "@/components/SupplyLineRows";
 import { ChapterPager, type Chapter } from "@/components/mobile/ChapterPager";
 import { fmtNum, pct } from "@/lib/format";
 
 export const metadata = { title: "Analytics" };
 
-/**
- * Act header — the page's two movements plus supply lines (the signal, what it
- * projects, and the partnerships that fed the goals). Bolder than a plain divider:
- * a ghosted act numeral, a kicker, a title, and a one-line dek.
- */
 function Act({ n, kicker, title, children }: { n: string; kicker: string; title: string; children?: React.ReactNode }) {
   return (
     <header className="flex items-baseline gap-4 border-b border-line/70 pb-3">
@@ -37,9 +29,27 @@ function Act({ n, kicker, title, children }: { n: string; kicker: string; title:
   );
 }
 
+function SupplyLinesSection({ showHeader = true }: { showHeader?: boolean }) {
+  const partnerships = topAssistPartnerships(10);
+
+  return (
+    <div>
+      {showHeader && (
+        <div className="mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">Supply lines</p>
+          <h3 className="display text-xl">The partnerships that built the goals</h3>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-dim">
+            Assister on the left, scorer on the right — bar width is how many goals that combination produced.
+          </p>
+        </div>
+      )}
+      <SupplyLineRows rows={partnerships} />
+    </div>
+  );
+}
+
 export default function AnalyticsPage() {
   const elo = eloSeries();
-  const partnerships = topAssistPartnerships(10);
   const meta = getMeta();
   const overview = coverageOverview();
 
@@ -57,8 +67,6 @@ export default function AnalyticsPage() {
     to: managers[i + 1]?.first ?? lastEloDate ?? m.last!,
     label: m.p >= 250 ? familyName(m.name) : undefined,
   }));
-
-  const maxAssist = partnerships[0]?.goals ?? 1;
 
   const eloHero = (
     <EloHero
@@ -101,25 +109,17 @@ export default function AnalyticsPage() {
 
   const simPanel = (embedded = false) =>
     sim ? (
-    <ChartPanel
-      embedded={embedded}
-      title={`Replaying ${sim.season} from the ratings`}
-      kicker={embedded ? undefined : "A season as the ratings saw it"}
-      collapsibleNote
-      slice={`each of the ${sim.matches} ${sim.competitionName} matches redrawn ${fmtNum(sim.runs)} times from its pre-match win expectancy, 3 points for a win. This describes points totals, not table positions.`}
-      note={
-        <>
-          Think of it as rolling the dice on every result: the ratings tell us how often United
-          should win each match, so we replay the whole season thousands of times and count how
-          many points pile up. The ratings expected about {sim.meanPoints.toFixed(0)} points (90%
-          of replays landed between {sim.p5} and {sim.p95}); the real side took{" "}
-          <span className="stat-num text-gold">{sim.actualPoints}</span>, a total only{" "}
-          {pct(Math.round(sim.shareAbove * sim.runs), sim.runs)} of replays beat. Open the{" "}
-          <Link href={`/seasons/${sim.season}`} className="text-devil-bright hover:underline">season</Link>{" "}
-          to see which results did it.
-        </>
-      }
-    >
+    <div className="rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
+      {!embedded && (
+        <div className="mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">A season as the ratings saw it</p>
+          <h3 className="display text-xl">Replaying {sim.season} from the ratings</h3>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-dim">
+            Each match redrawn thousands of times from its pre-match win expectancy — a plain-language
+            check that the rating&apos;s expectations match what actually happened over a full campaign.
+          </p>
+        </div>
+      )}
       <InspectableBarChart
         data={sim.distribution.map((d) => ({
           label: String(d.points),
@@ -133,57 +133,19 @@ export default function AnalyticsPage() {
         chartLabel={`${sim.season} replayed points distribution`}
         yTickSuffix="%"
       />
-    </ChartPanel>
-  ) : null;
-
-  const partnershipsSection = (
-    <div className="rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
-      {partnerships.length > 0 ? (
-        <ul className="space-y-2.5 text-sm">
-          {partnerships.map((row) => (
-            <li
-              key={`${row.assister_id}-${row.scorer_id}`}
-              className="flex items-center gap-2.5"
-            >
-              <div className="flex shrink-0 items-center gap-1">
-                <PlayerPortrait name={row.assister_name} src={row.assister_thumb} size="xs" />
-                <span className="text-xs text-ink-faint" aria-hidden>→</span>
-                <PlayerPortrait name={row.scorer_name} src={row.scorer_thumb} size="xs" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-baseline justify-between gap-2">
-                  <p className="min-w-0 truncate">
-                    <Link href={`/player/${row.assister_id}`} className="font-medium hover:text-devil-bright">
-                      {row.assister_name}
-                    </Link>
-                    <span className="mx-1.5 text-ink-faint">→</span>
-                    <Link href={`/player/${row.scorer_id}`} className="font-medium hover:text-devil-bright">
-                      {row.scorer_name}
-                    </Link>
-                  </p>
-                  <span className="stat-num shrink-0 text-devil-bright">{row.goals}</span>
-                </div>
-                <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-panel-2" aria-hidden>
-                  <div className="h-full rounded-full bg-devil" style={{ width: `${(row.goals / maxAssist) * 100}%` }} />
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-sm text-ink-dim">
-          Assist fields are wired through the data and player pages; no current source in the
-          checked-in dataset records assists for these matches.
-        </p>
-      )}
       <CoverageNote
         collapsible
-        coverage="assist events exist only from 2012–13 onward (transfermarkt-datasets); no open source records United assists before then, so earlier seasons are blank by source limitation, not omission."
+        slice={`each of the ${sim.matches} ${sim.competitionName} matches redrawn ${fmtNum(sim.runs)} times from its pre-match win expectancy, 3 points for a win. This describes points totals, not table positions.`}
       >
-        Bars scale to the top pairing.
+        The ratings expected about {sim.meanPoints.toFixed(0)} points (90% of replays
+        landed between {sim.p5} and {sim.p95}); the real side took{" "}
+        <span className="stat-num text-gold">{sim.actualPoints}</span>, a total only{" "}
+        {pct(Math.round(sim.shareAbove * sim.runs), sim.runs)} of replays beat. Open the{" "}
+        <Link href={`/seasons/${sim.season}`} className="text-devil-bright hover:underline">season</Link>{" "}
+        to see which results did it.
       </CoverageNote>
     </div>
-  );
+  ) : null;
 
   const appendix = (
     <div className="space-y-4 border-t border-line/70 pt-8">
@@ -226,7 +188,7 @@ export default function AnalyticsPage() {
           id: "replay",
           kicker: "02 · Does it hold up",
           title: `Replaying ${sim.season} from the ratings`,
-          dek: "Roll the dice on every result — how many points should that season have yielded?",
+          dek: "One season redrawn from pre-match win expectancy.",
           content: simPanel(true),
         } satisfies Chapter]
       : []),
@@ -234,8 +196,8 @@ export default function AnalyticsPage() {
       id: "partnerships",
       kicker: "03 · Supply lines",
       title: "The partnerships that built the goals",
-      dek: "Who set up whom — the top assist-to-goal pairings in the record.",
-      content: partnershipsSection,
+      dek: "Assister ↔ scorer — bar width is goals.",
+      content: <SupplyLinesSection showHeader={false} />,
     },
   ];
 
@@ -252,13 +214,12 @@ export default function AnalyticsPage() {
           </div>
         }
       >
-        One Elo rating behind United — the signal itself, how well it reads the matches it has rated,
-        and the partnerships that fed the goals.
+        The strength layer: one Elo rating behind United, read three ways — the signal itself, how well it
+        reads the matches it has rated, and the assist supply lines that built the goals.
       </PageHeader>
 
       <ChapterPager chapters={mobileChapters} label="Analytics chapters" />
 
-      {/* Desktop — two-act narrative plus supply lines. */}
       <div className="hidden space-y-14 sm:block">
         <div className="space-y-6">
           <Act n="01" kicker="The signal" title="United's strength, measured">
@@ -287,10 +248,12 @@ export default function AnalyticsPage() {
 
         <div className="space-y-8">
           <Act n="03" kicker="Supply lines" title="The partnerships that built the goals">
-            Who set up whom — the top assist-to-goal pairings in the record, where the data runs deep enough to name them.
+            Who set up whom — the recorded assist combinations, read as barbell rows rather than a flat list.
           </Act>
 
-          {partnershipsSection}
+          <section>
+            <SupplyLinesSection />
+          </section>
         </div>
       </div>
 
