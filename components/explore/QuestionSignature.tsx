@@ -1,13 +1,12 @@
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   goalMinuteRidge, leadHeldAtHome, managerBounce,
+  fergusonFloorSummary,
   europeByDecade, europeanFinals,
 } from "@/lib/trails";
-import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { fmtNum, pct } from "@/lib/format";
 import { MinuteColumns } from "@/components/charts/MinuteColumns";
-import { EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy";
 import { SlopeCompare } from "@/components/charts/SlopeCompare";
 import { CupLeanBar } from "@/components/charts/CupLeanBar";
 import { LeadHeldDotplot, type LeadDot } from "@/components/charts/LeadHeldDotplot";
@@ -94,14 +93,14 @@ export function QuestionSignature({ slug }: { slug: string }) {
     }
 
     case "ferguson-era": {
-      const fergEra = ERA_CATALOGUE.find((e) => e.key === "ferguson")!;
-      const afterEra = ERA_CATALOGUE.find((e) => e.key === "after")!;
+      const floor = fergusonFloorSummary();
       return (
-        <EraSkylineChart
-          a={eraFinishes(fergEra)}
-          b={eraFinishes(afterEra)}
-          labelA="Ferguson era"
-          labelB="Since Ferguson"
+        <Figures
+          items={[
+            { value: `${floor.fergTitles} → ${floor.sinceTitles}`, label: "league titles", tone: "gold" },
+            { value: floor.fergAvgFinish.toFixed(1), label: "avg finish, Ferguson era", tone: "win" },
+            { value: floor.sinceAvgFinish.toFixed(1), label: "avg finish since", tone: "devil" },
+          ]}
         />
       );
     }

@@ -3,15 +3,16 @@ import {
   comebacks, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
   iconicLateWinners, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
-  eraRecord, FERGUSON_END, topFlightFinishes, titlesInRange,
-  managerPpgRanking, trebleRuns, trebleDeciders, trebleSemis,
+  eraRecord,
+  fergusonFloorSummary, postFergusonStints,
+  trebleRuns, trebleDeciders, trebleSemis,
   europeByDecade, europeWinRateTimeline, europeanFinals, europeMatchSequence,
   matchesSequence,
 } from "@/lib/trails";
 import { ERA_CATALOGUE, eraFinishes } from "@/lib/compare";
 import { clubStreaks } from "@/lib/streaks";
 import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
-import { getMeta, managerHonours, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
+import { getMeta, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart, EraSkylineChartLazy as EraSkylineChart } from "@/components/charts/lazy";
@@ -380,114 +381,119 @@ function RunsModule({ variant }: ModuleProps) {
   );
 }
 
-// ---- Ferguson era: benchmark and follow-up ---------------------------------
+// ---- Ferguson era: the floor dropped ---------------------------------------
 
 function FergusonEraModule({ variant }: ModuleProps) {
-  const ranking = managerPpgRanking();
-  const ferg = ranking.find((m) => m.id === "alex-ferguson")!;
-  const honours = managerHonours();
-  const fergTrophies = honours.filter((h) => h.manager_id === "alex-ferguson").reduce((s, h) => s + h.n, 0);
-  const topTrophy = honours
-    .reduce<Map<string, number>>((m, h) => m.set(h.manager_id, (m.get(h.manager_id) ?? 0) + h.n), new Map());
-  const shown = ranking.slice(0, 8);
-
-  const fergRecord = eraRecord("1986-11-08", FERGUSON_END);
+  const floor = fergusonFloorSummary();
+  const stints = postFergusonStints();
   const since = eraRecord("2013-05-20", "9999-12-31");
-  const finishes = topFlightFinishes();
-  const fergTitles = titlesInRange("1986-87", "2012-13");
-  const sinceTitles = titlesInRange("2013-14", "2999-99");
-  const sinceFinishes = finishes.filter((f) => f.season >= "2013-14");
-  const avgFinish =
-    sinceFinishes.length > 0
-      ? (sinceFinishes.reduce((s, f) => s + f.position, 0) / sinceFinishes.length).toFixed(1)
-      : "—";
-  const worst = sinceFinishes.reduce((m, f) => Math.max(m, f.position), 0);
   const fergEra = ERA_CATALOGUE.find((e) => e.key === "ferguson")!;
   const afterEra = ERA_CATALOGUE.find((e) => e.key === "after")!;
+  const permanentStints = stints.filter((s) => !s.interim && s.finishes.length > 0);
+  const interimCount = stints.filter((s) => s.interim).length;
 
   const skylineVisual = (
-    <div className="space-y-1.5">
-      <div className="text-[11px] uppercase tracking-wider text-ink-faint">
-        League finishes — Ferguson&apos;s 27 years above, the years since below
+    <div className="space-y-4">
+      <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+        <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
+          <div className="stat-num text-5xl font-semibold leading-none text-gold">
+            {floor.fergTitles}<span className="text-2xl text-ink-faint"> → </span>{floor.sinceTitles}
+          </div>
+          <div className="mx-auto mt-1.5 max-w-36 text-[11px] leading-snug text-ink-faint text-pretty">
+            league titles under Ferguson, then since
+          </div>
+        </div>
+        <div className="flex items-center text-sm text-ink-dim sm:px-2">
+          <span>
+            Under Ferguson United finished in the top four{" "}
+            <span className="text-ink">{floor.fergTop4} of {floor.fergSeasons}</span> seasons — average position{" "}
+            <span className="text-ink">{floor.fergAvgFinish.toFixed(1)}</span>. Since:{" "}
+            <span className="text-ink">{floor.sinceTop4} of {floor.sinceSeasons}</span>, averaging{" "}
+            <span className="text-ink">{floor.sinceAvgFinish.toFixed(1)}</span>
+            {floor.sinceWorst ? `, with a low of ${ordinal(floor.sinceWorst)}` : ""}.
+          </span>
+        </div>
       </div>
-      <EraSkylineChart a={eraFinishes(fergEra)} b={eraFinishes(afterEra)} labelA="Ferguson era" labelB="Since Ferguson" />
-      <p className="text-xs text-ink-dim">
-        Each bar is one season&apos;s league finish — gold is a title. The top panel held the line; the bottom one is where it drops away.
-      </p>
+      <div>
+        <div className="text-[11px] uppercase tracking-wider text-ink-faint">
+          League finishes — Ferguson&apos;s reign above, the years since below
+        </div>
+        <EraSkylineChart a={eraFinishes(fergEra)} b={eraFinishes(afterEra)} labelA="Ferguson era" labelB="Since Ferguson" />
+        <div className="mt-2 grid gap-2 sm:grid-cols-3 text-[11px] text-ink-dim">
+          <div className="rounded-md border border-line/70 bg-panel px-2.5 py-2">
+            <span className="font-medium text-ink">Rebuild</span> · 1986–92 · no titles, twice 2nd
+          </div>
+          <div className="rounded-md border border-line/70 bg-panel px-2.5 py-2">
+            <span className="font-medium text-gold">Dynasty</span> · 1993–2012 · 12 titles
+          </div>
+          <div className="rounded-md border border-line/70 bg-panel px-2.5 py-2">
+            <span className="font-medium text-ink">Last title</span> · 2012–13 · then he left
+          </div>
+        </div>
+        <p className="mt-1.5 text-xs text-ink-dim">
+          Each bar is one season&apos;s league finish — gold is a title. The top panel held the line for a generation; the bottom one is where the floor drops away.
+        </p>
+      </div>
     </div>
   );
 
   return (
     <Module
       slug="ferguson-era"
-      evidence={{ href: "/managers", label: "Every manager's full record →" }}
+      evidence={{ href: `/matches?from=2013-05-20&sort=date-asc`, label: "Every match since Ferguson →", count: since.p, countNoun: "matches" }}
       variant={variant}
       visual={skylineVisual}
-      visualLabel="The arc"
-      finding={`Over ${fergRecord.p.toLocaleString("en-GB")} official matches Ferguson took ${fergRecord.ppg.toFixed(2)} points a game, won ${fergTitles} league titles, and lifted ${fergTrophies} trophies — more than every other United manager combined has won since. In the ${since.p.toLocaleString("en-GB")} since, the rate is ${since.ppg.toFixed(2)} a game, the average finish is ${avgFinish}, the title count is ${sinceTitles}, and no permanent successor has cleared ${ferg.ppg.toFixed(2)} ppg over a full reign.`}
-      slice="Official matches only (friendlies and wartime excluded). Ferguson's reign is dated 8 Nov 1986 to 19 May 2013; everything after is the post-Ferguson era. Permanent managers need 30+ official matches for the points-per-game ranking; trophies are top-flight titles plus major knockout cups, attributed to the manager of the deciding match. Points per game restates every season on three-points terms."
-      coverage="Result-level record — complete for every official match across both eras and under every manager. No advanced metrics; the comparison leans on the record we hold in full."
+      visualLabel="The floor"
+      finding={`For ${floor.fergSeasons} seasons under Ferguson, United won ${floor.fergTitles} league titles, finished in the top four ${floor.fergTop4} times, and averaged ${floor.fergAvgFinish.toFixed(1)} in the table — a championship floor that held even through the early rebuild. In the ${floor.sinceSeasons} since, the title count is ${floor.sinceTitles}, only ${floor.sinceTop4} campaigns reached the top four, and the average finish is ${floor.sinceAvgFinish.toFixed(1)}${floor.sinceWorst ? ` — bottoming out at ${ordinal(floor.sinceWorst)}` : ""}.`}
+      slice="Top-flight league finishes (First Division / Premier League) season by season. Ferguson's reign runs 8 Nov 1986 to 19 May 2013; everything after is the post-Ferguson era. Post-2013 seasons are attributed to the manager who took most league matches that season, mapped to their tenure dates."
+      coverage="Result-level record — complete for every official match across both eras. No advanced metrics; the comparison uses league position and titles, exactly as the record supports."
     >
       <section className="space-y-3">
         <div>
-          <h3 className="text-sm font-medium text-ink-dim">The benchmark — Ferguson against every other manager</h3>
+          <h3 className="text-sm font-medium text-ink-dim">Every permanent manager since — league finishes by stint</h3>
           <p className="mt-0.5 text-xs text-ink-dim">
-            Points per game and trophy haul over a real reign, not a caretaker spell or a hot streak.
+            {interimCount > 0
+              ? `${interimCount} interim spells sit between these tenures — the floor is measured in full seasons, not caretaker weeks.`
+              : "Each row is a full managerial spell, with every top-flight finish while they were in charge."}
           </p>
         </div>
-        <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
-          <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
-            <div className="stat-num text-5xl font-semibold leading-none text-gold">{fergTrophies}</div>
-            <div className="mx-auto mt-1.5 max-w-32 text-[11px] uppercase tracking-wider text-ink-faint">trophies in 27 years</div>
-          </div>
-          <div className="flex items-center text-sm text-ink-dim sm:px-2">
-            <span>
-              <span className="text-ink">{ferg.ppg.toFixed(2)} points per game</span> across {ferg.p.toLocaleString("en-GB")} matches — the highest of any United manager over a full reign. The bars below rank the rest by the same measure.
-            </span>
-          </div>
-        </div>
-        <div>
-          <div className="mb-2 flex items-center justify-between text-[11px] text-ink-dim">
-            <span>Points per game · permanent managers</span>
-            <span className="stat-num">0–3 ppg →</span>
-          </div>
-          <InspectableBarChart
-            data={shown.map((m) => ({
-              label: m.name,
-              tickLabel: surname(m.name),
-              value: Math.round(m.ppg * 100) / 100,
-              valueLabel: `${m.ppg.toFixed(2)} ppg`,
-              meta: `${m.name} · ${m.p} matches · ${topTrophy.get(m.id) ?? 0} trophies`,
-              href: `/manager/${m.id}`,
-            }))}
-            height={190}
-            color="var(--color-panel-ink-faint)"
-            highlightLabel="Sir Alex Ferguson"
-            highlightColor="var(--color-gold)"
-            chartLabel="Manchester United managers by points per game"
-            yTickSuffix=""
-          />
-        </div>
-      </section>
-
-      <section className="space-y-3">
-        <div>
-          <h3 className="text-sm font-medium text-ink-dim">The follow-up — the same measures since he left</h3>
-          <p className="mt-0.5 text-xs text-ink-dim">
-            Every successor restated on Ferguson's scale — points per game, league finishes, and titles won.
-          </p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-lg border border-line bg-panel-2 px-5 py-4">
-            <div className="text-[11px] uppercase tracking-wider text-ink-faint">Ferguson era · 1986–2013</div>
-            <div className="stat-num mt-2 text-3xl font-semibold text-gold">{fergRecord.ppg.toFixed(2)}<span className="text-base font-normal text-ink-dim"> ppg</span></div>
-            <div className="stat-num mt-1 text-xs text-ink-dim">{fergRecord.w}W {fergRecord.d}D {fergRecord.l}L over {fergRecord.p.toLocaleString("en-GB")} matches · {fergTitles} titles</div>
-          </div>
-          <div className="rounded-lg border border-line bg-panel-2 px-5 py-4">
-            <div className="text-[11px] uppercase tracking-wider text-ink-faint">Since Ferguson</div>
-            <div className="stat-num mt-2 text-3xl font-semibold text-devil-bright">{since.ppg.toFixed(2)}<span className="text-base font-normal text-ink-dim"> ppg</span></div>
-            <div className="stat-num mt-1 text-xs text-ink-dim">{since.w}W {since.d}D {since.l}L over {since.p.toLocaleString("en-GB")} matches · {sinceTitles} titles · avg finish {avgFinish}{worst ? ` · worst ${ordinal(worst)}` : ""}</div>
-          </div>
+        <div className="space-y-2">
+          {permanentStints.map((s) => (
+            <Link
+              key={`${s.id}-${s.dateFrom}`}
+              href={`/manager/${s.id}`}
+              className="group flex flex-wrap items-center gap-x-4 gap-y-2 rounded-lg border border-line bg-panel-2 px-4 py-3 transition-colors hover:border-devil/60"
+            >
+              <div className="min-w-0 flex-1">
+                <div className="font-medium group-hover:text-devil-bright">{s.name}</div>
+                <div className="stat-num text-[11px] text-ink-faint">
+                  {s.dateFrom.slice(0, 4)}–{s.dateTo?.slice(0, 4) ?? "now"} · {s.p.toLocaleString("en-GB")} matches · {s.ppg.toFixed(2)} ppg
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {s.finishes.map((f) => (
+                  <span
+                    key={f.season}
+                    className={`stat-num rounded px-1.5 py-0.5 text-xs font-medium ${
+                      f.position === 1
+                        ? "bg-gold/15 text-gold"
+                        : f.position <= 4
+                          ? "bg-win/10 text-win"
+                          : f.position >= 8
+                            ? "bg-loss/10 text-loss"
+                            : "bg-panel text-ink-dim"
+                    }`}
+                    title={`${f.season}: ${ordinal(f.position)}`}
+                  >
+                    {ordinal(f.position)}
+                  </span>
+                ))}
+              </div>
+              {s.note && !s.interim && (
+                <div className="w-full text-[11px] text-ink-faint">{s.note}</div>
+              )}
+            </Link>
+          ))}
         </div>
       </section>
     </Module>

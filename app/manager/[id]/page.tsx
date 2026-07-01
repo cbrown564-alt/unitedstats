@@ -247,7 +247,7 @@ export default async function ManagerPage({
             <p className="mt-2 text-xs text-ink-faint">
               {first10W} of the first 10 won.{" "}
               <Link href="/questions/ferguson-era" className="text-devil-bright hover:underline">
-                How far ahead was Ferguson — and how far since? →
+                Where did the title floor go? →
               </Link>
             </p>
           </div>

@@ -919,6 +919,125 @@ export function titlesInRange(fromSeason: string, toSeason: string): number {
   ).n;
 }
 
+/** Ferguson-era vs post-Ferguson championship floor — titles, average finish, top-four share. */
+export interface FergusonFloorSummary {
+  fergTitles: number;
+  sinceTitles: number;
+  fergSeasons: number;
+  sinceSeasons: number;
+  fergAvgFinish: number;
+  sinceAvgFinish: number;
+  fergTop4: number;
+  sinceTop4: number;
+  sinceWorst: number;
+}
+
+export function fergusonFloorSummary(): FergusonFloorSummary {
+  const fergTitles = titlesInRange("1986-87", "2012-13");
+  const sinceTitles = titlesInRange("2013-14", "2999-99");
+  const finishes = topFlightFinishes();
+  const fergFinishes = finishes.filter((f) => f.season >= "1986-87" && f.season <= "2012-13");
+  const sinceFinishes = finishes.filter((f) => f.season >= "2013-14");
+  const avg = (rows: SeasonFinishRow[]) =>
+    rows.length ? rows.reduce((s, f) => s + f.position, 0) / rows.length : 0;
+  return {
+    fergTitles,
+    sinceTitles,
+    fergSeasons: fergFinishes.length,
+    sinceSeasons: sinceFinishes.length,
+    fergAvgFinish: avg(fergFinishes),
+    sinceAvgFinish: avg(sinceFinishes),
+    fergTop4: fergFinishes.filter((f) => f.position <= 4).length,
+    sinceTop4: sinceFinishes.filter((f) => f.position <= 4).length,
+    sinceWorst: sinceFinishes.length ? Math.max(...sinceFinishes.map((f) => f.position)) : 0,
+  };
+}
+
+export interface PostFergusonStint {
+  id: string;
+  name: string;
+  dateFrom: string;
+  dateTo: string | null;
+  note: string | null;
+  interim: boolean;
+  p: number;
+  ppg: number;
+  /** Top-flight league finishes attributed to this stint. */
+  finishes: { season: string; position: number }[];
+  avgFinish: number | null;
+  worstFinish: number | null;
+}
+
+function seasonOverlapsTenure(season: string, from: string, to: string | null): boolean {
+  const y = Number(season.slice(0, 4));
+  const seasonStart = `${y}-07-01`;
+  const seasonEnd = `${y + 1}-06-30`;
+  const end = to ?? "9999-12-31";
+  return from <= seasonEnd && end >= seasonStart;
+}
+
+/** Post-Ferguson managerial stints with league finishes — the succession story. */
+export function postFergusonStints(): PostFergusonStint[] {
+  const tenures = getDb()
+    .prepare(
+      `SELECT mt.manager_id id, mg.name, mt.date_from dateFrom, mt.date_to dateTo, mt.note
+       FROM manager_tenures mt JOIN managers mg ON mg.id = mt.manager_id
+       WHERE mt.date_from >= ?
+       ORDER BY mt.date_from`,
+    )
+    .all(FERGUSON_END) as {
+    id: string;
+    name: string;
+    dateFrom: string;
+    dateTo: string | null;
+    note: string | null;
+  }[];
+
+  const seasons = getDb()
+    .prepare(
+      `WITH primary_manager AS (
+         SELECT m.season, m.manager_id,
+                ROW_NUMBER() OVER (PARTITION BY m.season ORDER BY COUNT(*) DESC) rn
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type = 'league' AND m.season >= '2013-14'
+         GROUP BY m.season, m.manager_id
+       )
+       SELECT pm.season, pm.manager_id id, ss.position
+       FROM primary_manager pm
+       JOIN season_summaries ss ON ss.season = pm.season
+       JOIN competitions c ON c.id = ss.competition_id
+       WHERE pm.rn = 1 AND c.type = 'league' AND ss.position IS NOT NULL
+         AND c.name IN ('First Division','Premier League')
+       ORDER BY pm.season`,
+    )
+    .all() as { season: string; id: string; position: number }[];
+
+  return tenures.map((t) => {
+    const record = eraRecord(t.dateFrom, t.dateTo ?? "9999-12-31");
+    const finishes = seasons.filter(
+      (s) => s.id === t.id && seasonOverlapsTenure(s.season, t.dateFrom, t.dateTo),
+    );
+    const positions = finishes.map((f) => f.position);
+    const interim =
+      record.p < 15
+      && (t.note?.toLowerCase().includes("interim") || t.note?.toLowerCase().includes("caretaker"))
+      && !t.note?.toLowerCase().includes("permanent");
+    return {
+      id: t.id,
+      name: t.name,
+      dateFrom: t.dateFrom,
+      dateTo: t.dateTo,
+      note: t.note,
+      interim,
+      p: record.p,
+      ppg: record.ppg,
+      finishes,
+      avgFinish: positions.length ? positions.reduce((a, b) => a + b, 0) / positions.length : null,
+      worstFinish: positions.length ? Math.max(...positions) : null,
+    };
+  });
+}
+
 // ---------------------------------------------------------------- ferguson vs field
 
 export interface ManagerRateRow extends Record_ {

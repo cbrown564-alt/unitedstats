@@ -51,8 +51,8 @@ function toDebate(mode: CompareMode, index: number, hook: string): RelatedLink {
 const RELATED: Record<string, RelatedLink[]> = {
   "ferguson-era": [
     toDebate("managers", 0, "Set his reign beside Busby's — the club's two architects."),
-    toQuestion("treble", "The peak of the Ferguson years in one season."),
-    toCut("managers-by-points", "Every reign, including his, on one points-per-game scale."),
+    toQuestion("treble", "The peak of the Ferguson floor in one season."),
+    toQuestion("manager-bounce", "Every successor promised a bounce — did any of them hold the floor?"),
   ],
   treble: [
     toQuestion("europe", "The Champions League trophy was one thread of the continental record."),

@@ -30,9 +30,9 @@ export const QUESTIONS: QuestionMeta[] = [
   {
     slug: "ferguson-era",
     label: "Ferguson era",
-    question: "How far ahead was Ferguson — and how far since?",
+    question: "Where did the title floor go?",
     summary:
-      "Sir Alex Ferguson's reign against every other United manager, then the post-Ferguson years on the same scale — points per game, league finishes, and trophies.",
+      "Thirteen league titles under Ferguson, none since — the championship floor traced season by season, and every successor on the same scale.",
   },
   {
     slug: "treble",

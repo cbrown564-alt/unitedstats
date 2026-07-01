@@ -2,7 +2,7 @@ import { fmtNum, pct } from "./format";
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists,
   lateGoalShareByDecade, leadHeldAtHome, managerBounce,
-  eraRecord, FERGUSON_END, titlesInRange,
+  fergusonFloorSummary,
   europeByDecade, europeanFinals,
 } from "./trails";
 import { clubStreaks } from "./streaks";
@@ -53,9 +53,7 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   const cupMultiple =
     cupBaseline.share && topCupLean ? (topCupLean.cup_goals / topCupLean.total) / cupBaseline.share : 0;
 
-  const ferg = eraRecord("1986-11-08", FERGUSON_END);
-  const since = eraRecord("2013-05-20", "9999-12-31");
-  const sinceTitles = titlesInRange("2013-14", "2999-99");
+  const floor = fergusonFloorSummary();
 
   const europeTotals = europeByDecade().reduce((a, d) => ({ w: a.w + d.w, d: a.d + d.d, l: a.l + d.l }), { w: 0, d: 0, l: 0 });
   const europeFinals = europeanFinals();
@@ -63,8 +61,8 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
 
   return {
     "ferguson-era": {
-      stat: ferg.ppg.toFixed(2),
-      gloss: `points per game under Ferguson — down to ${since.ppg.toFixed(2)} since, with ${sinceTitles} titles in ${since.p.toLocaleString("en-GB")} matches`,
+      stat: `${floor.fergTitles} → ${floor.sinceTitles}`,
+      gloss: `league titles under Ferguson and since — average finish ${floor.fergAvgFinish.toFixed(1)} to ${floor.sinceAvgFinish.toFixed(1)}`,
       tone: "gold",
     },
     treble: {
