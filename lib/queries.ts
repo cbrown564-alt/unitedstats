@@ -1182,16 +1182,19 @@ export function playerLineupMatches(id: string): (MatchRow & {
   sub_on: number | null;
   sub_off: number | null;
   role: string | null;
+  shirt: number | null;
+  career_band: string | null;
 })[] {
   return getDb()
     .prepare(
       `SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name,
-              l.started, l.sub_on, l.sub_off, l.role
+              l.started, l.sub_on, l.sub_off, l.role, l.shirt, pp.bucket AS career_band
        FROM match_lineups l
        JOIN matches m ON m.id = l.match_id
        JOIN competitions c ON c.id = m.competition_id
        LEFT JOIN stadiums s ON s.id = m.stadium_id
        LEFT JOIN managers mg ON mg.id = m.manager_id
+       LEFT JOIN player_positions pp ON pp.player_id = l.player_id
        WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 ORDER BY m.date DESC`,
     )
     .all(id) as (MatchRow & {
@@ -1199,6 +1202,8 @@ export function playerLineupMatches(id: string): (MatchRow & {
       sub_on: number | null;
       sub_off: number | null;
       role: string | null;
+      shirt: number | null;
+      career_band: string | null;
     })[];
 }
 

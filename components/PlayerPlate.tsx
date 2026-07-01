@@ -47,10 +47,8 @@ interface PlayerPlateProps {
     peakSeason: { season: string; goals: number } | null;
   };
   shirts: Shirt[];
-  /** One-line trust note shown by default in the footer band. */
+  /** One-line trust note shown in the footer band. */
   caveatBrief?: React.ReactNode;
-  /** Full methodology prose, revealed via “About these numbers”. */
-  caveat: React.ReactNode;
   /** Copy-link / cite affordance, rendered top-right of the plate. */
   share?: { path: string; title: string };
 }
@@ -65,32 +63,13 @@ const yearOf = (m: { season?: string; date?: string }) =>
  * recorded career resolves into a single span with the peak season marked on it.
  */
 export function PlayerPlate({
-  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveatBrief, caveat, share,
+  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveatBrief, share,
 }: PlayerPlateProps) {
   // Tint the corner kit to the era the player wore that number most.
   const primaryDecade =
     primaryShirt != null
       ? [...shirts].filter((s) => s.shirt === primaryShirt).sort((a, b) => b.apps - a.apps)[0]?.decade ?? null
       : null;
-
-  // Kit strip: one badge per number, not per number-per-decade. Apps sum across
-  // decades, the badge is tinted to the era the player wore that number most, and
-  // a long career is capped at its three most-worn numbers so the strip stays tidy.
-  const kit = Object.values(
-    shirts.reduce<Record<number, Shirt & { topApps: number }>>((acc, s) => {
-      const cur = acc[s.shirt] ?? { ...s, apps: 0, starts: 0, topApps: -1 };
-      cur.apps += s.apps;
-      cur.starts += s.starts;
-      if (s.apps > cur.topApps) {
-        cur.topApps = s.apps;
-        cur.decade = s.decade;
-      }
-      acc[s.shirt] = cur;
-      return acc;
-    }, {}),
-  )
-    .sort((a, b) => b.apps - a.apps)
-    .slice(0, 3);
 
   // Secondary readouts, built only where the number means something — no "—" filler.
   const secondary: { value: string; label: string; lane?: string; detail?: string; tone?: string }[] = [
@@ -213,26 +192,11 @@ export function PlayerPlate({
         </div>
       </div>
 
-      {/* Footer band: kit history + collapsed methodology note. */}
-      <div className="relative flex flex-wrap items-start gap-x-5 gap-y-2 border-t border-line bg-pitch/40 px-5 py-3 sm:px-6">
-        {kit.length > 0 && (
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">Kit</span>
-            <span className="flex items-center gap-1.5">
-              {kit.map((s) => (
-                <ShirtBadge key={s.shirt} number={s.shirt} decade={s.decade} apps={s.apps} compact />
-              ))}
-            </span>
-          </div>
-        )}
-        <details className="group min-w-0 flex-1">
-          <summary className="cursor-pointer list-none text-[11px] leading-4 text-ink-faint focus-ring">
-            <span>{caveatBrief ?? "Verified competitive record · recorded splits below may cover fewer matches"}</span>
-            <span className="ml-1 text-devil-bright group-open:hidden">About these numbers ▸</span>
-            <span className="ml-1 hidden text-devil-bright group-open:inline">Hide ▸</span>
-          </summary>
-          <p className="mt-2 text-[11px] leading-4 text-ink-faint">{caveat}</p>
-        </details>
+      {/* Footer band: one-line trust note (full methodology lives in Data coverage below). */}
+      <div className="relative border-t border-line bg-pitch/40 px-5 py-3 sm:px-6">
+        <p className="text-[11px] leading-4 text-ink-faint">
+          {caveatBrief ?? "Verified competitive record · recorded splits below may cover fewer matches"}
+        </p>
       </div>
     </section>
   );

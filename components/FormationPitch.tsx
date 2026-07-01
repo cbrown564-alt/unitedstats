@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { familyName } from "@/lib/names";
 import type { LineupRow } from "@/lib/queries";
+import { placeBand, pitchPlacement, PITCH_BAND_ORDER } from "@/lib/placement";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { GoalMark, AssistMark, CardMark } from "@/components/MatchMarkers";
+
+export { placeBand } from "@/lib/placement";
 
 /**
  * Banded teamsheet: the Starting XI laid out as GK/DEF/MID/FWD rows on a quiet
@@ -27,125 +30,12 @@ import { GoalMark, AssistMark, CardMark } from "@/components/MatchMarkers";
  * list views keep the full display name — intentional, not a drift to fix.
  */
 
-type Band = "GK" | "DEF" | "MID" | "FWD";
-const BAND_ORDER: Band[] = ["FWD", "MID", "DEF", "GK"]; // top (attacking) → bottom
-const BANDS: Band[] = ["GK", "DEF", "MID", "FWD"];
-
 /** Per-player event lookups, keyed by player id. */
 export type MatchMarks = {
   goals: Map<string, number>;
   assists: Map<string, number>;
   cards: Map<string, "yellow" | "red">;
 };
-
-/** Map a positional label to one of four bands; null if it cannot be placed. */
-function roleBand(role: string | null | undefined): Band | null {
-  if (!role) return null;
-  const r = role.trim().toLowerCase();
-  if (/goalkeep|^gk$/.test(r)) return "GK";
-  if (/back|defender|^[crl]b$|^df$|^ch$/.test(r)) return "DEF";
-  if (/forward|wing|strik|second|^cf$|^ss$|^fw$|^[rl]w$|^[rl]f$|^or$|^ol$|^ir$|^il$/.test(r)) return "FWD";
-  if (/midfield|half|^[crl]m$|^mf$|^am$|^dm$|^[rl]h$/.test(r)) return "MID";
-  return null;
-}
-
-/** Lateral hint so a band reads left → right: lower = further left. */
-function lateral(role: string | null | undefined): number {
-  const r = (role ?? "").toLowerCase();
-  if (/left|^l[bmwfh]$|^ol$|^il$/.test(r)) return 0;
-  if (/right|^r[bmwfh]$|^or$|^ir$/.test(r)) return 2;
-  return 1;
-}
-
-/** Validate a career-position bucket string into a Band. */
-function careerBand(bucket: string | null | undefined): Band | null {
-  if (!bucket) return null;
-  const b = bucket.trim().toUpperCase();
-  return (BANDS as string[]).includes(b) ? (b as Band) : null;
-}
-
-/**
- * Shirt → pitch placement for the rigid 1–11 numbering era (every starter wore
- * a number that *was* their position until squad numbers arrived in 1993-94).
- * The convention shifted with the dominant formation, so the mapping is chosen
- * by year. `lat` is a left→right rank within the band (lower = further left).
- * Returns null for any number outside the convention (e.g. a numbered sub who
- * started), which then falls through to the career band.
- */
-function shirtPlacement(shirt: number, year: number): { band: Band; lat: number } | null {
-  // The five-forward front line (7–11) reads the same across all three eras:
-  // outside-left 11 → inside-left 10 → centre 9 → inside-right 8 → outside-right 7.
-  const FRONT: Record<number, { band: Band; lat: number }> = {
-    11: { band: "FWD", lat: 0 },
-    10: { band: "FWD", lat: 1 },
-    9: { band: "FWD", lat: 2 },
-    8: { band: "FWD", lat: 3 },
-    7: { band: "FWD", lat: 4 },
-  };
-  if (year < 1925) {
-    // 2-3-5 "pyramid": two backs, three half-backs, five forwards.
-    const map: Record<number, { band: Band; lat: number }> = {
-      1: { band: "GK", lat: 1 },
-      3: { band: "DEF", lat: 0 }, 2: { band: "DEF", lat: 2 },
-      6: { band: "MID", lat: 0 }, 5: { band: "MID", lat: 1 }, 4: { band: "MID", lat: 2 },
-      ...FRONT,
-    };
-    return map[shirt] ?? null;
-  }
-  if (year < 1958) {
-    // WM (3-2-5): the centre-half (#5) drops between the full-backs as a third
-    // back; the half-backs (#4, #6) become the two-man midfield.
-    const map: Record<number, { band: Band; lat: number }> = {
-      1: { band: "GK", lat: 1 },
-      3: { band: "DEF", lat: 0 }, 5: { band: "DEF", lat: 1 }, 2: { band: "DEF", lat: 2 },
-      6: { band: "MID", lat: 0 }, 4: { band: "MID", lat: 2 },
-      ...FRONT,
-    };
-    return map[shirt] ?? null;
-  }
-  // Back-four era (4-2-4 → 4-4-2): #5 and #6 are the centre-backs, the wingers
-  // (#7, #11) tuck into a four-man midfield, #9 and #10 lead the line.
-  const map: Record<number, { band: Band; lat: number }> = {
-    1: { band: "GK", lat: 1 },
-    3: { band: "DEF", lat: 0 }, 6: { band: "DEF", lat: 1 }, 5: { band: "DEF", lat: 2 }, 2: { band: "DEF", lat: 3 },
-    11: { band: "MID", lat: 0 }, 8: { band: "MID", lat: 1 }, 4: { band: "MID", lat: 2 }, 7: { band: "MID", lat: 3 },
-    10: { band: "FWD", lat: 0 }, 9: { band: "FWD", lat: 1 },
-  };
-  return map[shirt] ?? null;
-}
-
-/** How a starter was placed, and the evidence layer that placed them. */
-type Placement = { band: Band; lat: number; via: "role" | "shirt" | "career" };
-
-/**
- * Resolve a starter's pitch placement through the three evidence layers. `year`
- * (the match's calendar year) gates the shirt-number layer to the numbering era.
- */
-function placement(
-  p: { role: string | null; shirt: number | null; career_band?: string | null },
-  year: number | null,
-): Placement | null {
-  const rb = roleBand(p.role);
-  if (rb) return { band: rb, lat: lateral(p.role), via: "role" };
-  if (year != null && year < 1993 && p.shirt != null) {
-    const sp = shirtPlacement(p.shirt, year);
-    if (sp) return { ...sp, via: "shirt" };
-  }
-  const cb = careerBand(p.career_band);
-  if (cb) return { band: cb, lat: 1, via: "career" };
-  return null;
-}
-
-/**
- * Band-only placement, shared with the match page so its pitch/list gate agrees
- * with what the pitch can actually draw.
- */
-export function placeBand(
-  p: { role: string | null; shirt: number | null; career_band?: string | null },
-  year: number | null,
-): Band | null {
-  return placement(p, year)?.band ?? null;
-}
 
 const goalsFor = (marks: MatchMarks | undefined, id: string | null) =>
   id && marks ? marks.goals.get(id) ?? 0 : 0;
@@ -206,9 +96,9 @@ export function FormationPitch({
   marks?: MatchMarks;
 }) {
   const year = decade && /^\d{4}$/.test(decade) ? Number(decade) : null;
-  const placed = starters.map((p) => ({ p, at: placement(p, year) }));
+  const placed = starters.map((p) => ({ p, at: pitchPlacement(p, year) }));
 
-  const bands = BAND_ORDER.map((band) => ({
+  const bands = PITCH_BAND_ORDER.map((band) => ({
     band,
     players: placed
       .filter((x) => x.at?.band === band)
