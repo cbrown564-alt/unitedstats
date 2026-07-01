@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { familyName } from "@/lib/names";
-import { eraForFirstMatchYear } from "@/lib/managerEras";
 import type { PlayerTotals } from "@/lib/queries";
 import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -17,25 +16,10 @@ function lastYearForPlayer(p: PlayerTotals): number {
   return p.last_year ?? (p.last_date ? Number(p.last_date.slice(0, 4)) : firstYearForPlayer(p));
 }
 
-function eraDotStyle(p: PlayerTotals): { backgroundColor: string; opacity: number } {
-  const era = eraForFirstMatchYear(firstYearForPlayer(p)).key;
-  switch (era) {
-    case "busby":
-    case "ferguson":
-      return { backgroundColor: "var(--color-gold)", opacity: 0.72 };
-    case "between":
-      return { backgroundColor: "var(--color-ink-dim)", opacity: 0.55 };
-    case "after":
-      return { backgroundColor: "var(--color-devil-bright)", opacity: 0.78 };
-    default:
-      return { backgroundColor: "var(--color-devil-bright)", opacity: 0.42 };
-  }
-}
-
 /**
  * The whole playing history as one object: every player a point, placed by how
- * long he stayed (x, appearances) and how much he scored (y, goals). Era tint,
- * hover career-span card, and click-through to each player page.
+ * long he stayed (x, appearances) and how much he scored (y, goals). Hover
+ * career-span card and click-through to each player page.
  */
 export function PlayerGreatnessMap({ players }: { players: PlayerTotals[] }) {
   const [hovered, setHovered] = useState<PlayerTotals | null>(null);
@@ -92,20 +76,17 @@ export function PlayerGreatnessMap({ players }: { players: PlayerTotals[] }) {
           if (namedIds.has(p.player_id)) return null;
           const apps = p.apps ?? 0;
           const size = Math.max(3, Math.min(11, Math.sqrt(apps) * 0.7));
-          const tint = eraDotStyle(p);
           return (
             <Link
               key={p.player_id}
               href={`/player/${p.player_id}`}
               title={`${p.name} · ${apps} apps · ${p.goals} goals`}
-              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
+              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-devil-bright/55 focus-ring"
               style={{
                 left: `${xOf(apps)}%`,
                 top: `${yOf(p.goals)}%`,
                 width: size,
                 height: size,
-                backgroundColor: tint.backgroundColor,
-                opacity: tint.opacity,
               }}
               onMouseEnter={() => setHovered(p)}
               onMouseLeave={() => setHovered((h) => (h?.player_id === p.player_id ? null : h))}
@@ -182,8 +163,7 @@ export function PlayerGreatnessMap({ players }: { players: PlayerTotals[] }) {
       </div>
 
       <figcaption className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-line/70 pt-3 text-[11px] text-ink-faint">
-        <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-devil-bright" />A player</span>
-        <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-gold/75" />Busby / Ferguson era</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-devil-bright/55" />A player</span>
         <span className="text-ink-dim">
           Right = more appearances · up = more goals · hover for career span · click through to the player
         </span>

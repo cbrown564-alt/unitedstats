@@ -1,6 +1,4 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { getMeta, allTimeRecord } from "@/lib/queries";
 import { QUESTIONS } from "@/lib/questions";
 import { questionHeadlines } from "@/lib/questionHeadlines";
 import {
@@ -8,10 +6,8 @@ import {
   type CompareMode, type Comparison,
 } from "@/lib/compare";
 import { CURATED_CUTS, cutHref, curatedCut, runCut, isChronological } from "@/lib/cut";
-import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { PageHeader } from "@/components/PageHeader";
-import { SearchCommand } from "@/components/SearchCommand";
 import { SectionHead } from "@/components/SectionHead";
 import { QuestionSignature } from "@/components/explore/QuestionSignature";
 import { FeatureCarousel } from "@/components/explore/FeatureCarousel";
@@ -34,11 +30,6 @@ export const metadata: Metadata = {
 };
 
 export default function ExplorePage() {
-  const meta = getMeta();
-  const rec = allTimeRecord();
-  const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
-  const years = new Date().getFullYear() - Number(firstYear);
-
   const headlines = questionHeadlines();
 
   const COMPARE_MODES: CompareMode[] = ["players", "managers", "eras"];
@@ -75,19 +66,6 @@ export default function ExplorePage() {
       <PageHeader eyebrow="Questions · comparisons · cuts" title="Discover" deferOnMobile>
         Myths tested against the full record. Compare careers, slice the archive, or search.
       </PageHeader>
-
-      {/* The front door: the question field plus a one-line trust strip. */}
-      <section className="space-y-2">
-        <SearchCommand autoFocusKey={false} />
-        <p className="text-xs text-ink-faint">
-          <span className="stat-num text-ink-dim">{fmtNum(rec.p)}</span> official matches across{" "}
-          <span className="stat-num text-ink-dim">{years}</span> years — every figure links to its matches.{" "}
-          <Link href="/surprise" prefetch={false} className="text-devil-bright hover:underline">
-            Surprise me
-          </Link>{" "}
-          with a random finding.
-        </p>
-      </section>
 
       {/* The Answering strip (the most curated of the three). A full-bleed feature
           carousel — one near-full-view answer hero per question, each leading with

@@ -2,7 +2,7 @@ import { matchById, eventsForMatch, type MatchRow } from "./queries";
 import { onThisDay, monthDayLabel } from "./onThisDay";
 import { clubRecords } from "./trails";
 import { getDb } from "./db";
-import { scoreline, fmtRound, resultTone } from "./format";
+import { scoreline, scoreNote, fmtRound, resultTone } from "./format";
 
 // TEMP (front-door design iteration): pin one night so the hero treatment can be
 // judged on the flagship rather than whatever falls today. Set to null to ship —
@@ -46,9 +46,11 @@ export interface GreatNight {
   live: boolean;
   eyebrow: string;
   year: string;
-  /** "United 2–1 Bayern Munich" — opponent inline, score toned by `tone`. */
+  /** Base score only — "2–1". Extra-time / pens ride after the opponent in the hero. */
   score: string;
   opponent: string;
+  /** "(a.e.t)" / pens footnote when the tie went beyond 90 minutes. */
+  scoreSuffix: string;
   /** Result-coloured class from the *outcome* (a shootout win reads as a win). */
   tone: string;
   /** competition · round? · stadium? — the orienting meta line. */
@@ -235,7 +237,8 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
     live,
     eyebrow: framing === "on-this-day" ? `On this day · ${monthDayLabel(monthDayOf(m.date))}` : "A piece of United history",
     year: m.date.slice(0, 4),
-    score: scoreline(m.gf, m.ga, [m.pen_gf, m.pen_ga], !!m.aet),
+    score: scoreline(m.gf, m.ga),
+    scoreSuffix: scoreNote(m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet),
     opponent: m.opponent_name,
     tone: resultTone(m.outcome),
     meta: metaParts.join(" · "),
@@ -243,7 +246,7 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
     scorers,
     timeline,
     image: USE_WINNER_PORTRAIT && winner?.player_id ? winnerImage(winner.player_id, winner.player_display_name ?? "") : null,
-    cta: "See the full match",
+    cta: "Explore the full match",
   };
 }
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fmtDate, scoreline, venuePrefix } from "@/lib/format";
+import { fmtDate, scoreline, scoreNote, venuePrefix } from "@/lib/format";
 import { opponentNames } from "@/lib/clubNames";
 import type { NotableMatch } from "@/lib/trails";
 
@@ -36,6 +36,7 @@ export function NotableMatches({
     <div className={className}>
       {matches.map((m) => {
         const opp = opponentNames("", m.opponent_name);
+        const note = scoreNote(m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet);
         return (
         <Link
           key={m.id}
@@ -43,15 +44,16 @@ export function NotableMatches({
           className={`group block rounded-xl border border-l-2 border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 ${EDGE[m.result] ?? EDGE.D}`}
         >
           <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">{m.reason}</p>
-          <div className="mt-1 flex items-baseline gap-2">
+          <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
             <span className={`stat-num text-2xl font-semibold ${SCORE_TONE[m.result] ?? "text-ink"}`}>
-              {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, !!m.aet)}
+              {scoreline(m.gf, m.ga, m.pen_gf != null ? [m.pen_gf, m.pen_ga] : null, false)}
             </span>
             <span className="min-w-0 text-sm font-medium text-ink-dim group-hover:text-devil-bright sm:truncate" title={m.opponent_name}>
               <span className="text-ink-faint">{venuePrefix(m.venue)}</span>{" "}
               <span className="sm:hidden">{opp.short}</span>
               <span className="hidden sm:inline">{m.opponent_name}</span>
             </span>
+            {note ? <span className="text-xs text-ink-dim">{note}</span> : null}
           </div>
           <p className="stat-num mt-0.5 break-words line-clamp-2 text-xs text-ink-faint sm:line-clamp-1 sm:truncate">
             {fmtDate(m.date)} · {m.competition_name}

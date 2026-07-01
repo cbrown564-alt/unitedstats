@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { competitionShortName, fmtYearRange, playerCareerSpan } from "@/lib/format";
+import { competitionShortName, fmtYearRange, playerCareerSpan, scoreline, scoreNote } from "@/lib/format";
 
 test("fmtYearRange uses en-dash and present for open careers", () => {
   assert.equal(fmtYearRange(1992, null), "1992–present");
@@ -27,4 +27,11 @@ test("competitionShortName abbreviates known competition ids", () => {
   assert.equal(competitionShortName("champions-league", "UEFA Champions League"), "Champions Lg");
   assert.equal(competitionShortName("fa-cup", "FA Cup"), "FA Cup");
   assert.equal(competitionShortName("unknown-cup", "Some Long Cup Name"), "Some Long Cup Name");
+});
+
+test("scoreline and scoreNote format extra time after the score", () => {
+  assert.equal(scoreline(2, 1, null, true), "2–1 (a.e.t)");
+  assert.equal(scoreline(1, 1, [4, 3], true), "1–1 (4–3 pens) (a.e.t)");
+  assert.equal(scoreNote(null, true), "(a.e.t)");
+  assert.equal(scoreNote([4, 3], true), "(a.e.t) · 4–3 pens");
 });

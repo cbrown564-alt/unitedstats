@@ -255,38 +255,39 @@ export default async function SeasonsPage({
       {/* Wayfinding: a sticky decade rail over the ledger — the longest scroll on
           the site. Reuses the archive rail's scrollspy, lighting the decade you're
           reading and jumping to its `decade-…` section. */}
-      <JumpRail chips={decadeChips} label="Jump to a decade" idPrefix="decade" sticky />
+      <div className="space-y-3">
+        <JumpRail chips={decadeChips} label="Jump to a decade" idPrefix="decade" sticky />
 
-      {/* Order toggle: newest first by default; flip to read from 1892 forward. */}
-      <div className="flex items-center justify-end gap-2 text-xs">
-        <span className="uppercase tracking-[0.12em] text-ink-faint">Order</span>
-        <div className="inline-flex rounded-md border border-line bg-panel p-0.5">
-          {([
-            { key: "desc", label: "Newest first" },
-            { key: "asc", label: "Oldest first" },
-          ] as const).map((o) => {
-            const active = order === o.key;
-            return (
-              <Link
-                key={o.key}
-                href={`/seasons${queryString({ ...sp, order: o.key === "desc" ? undefined : o.key })}`}
-                aria-current={active ? "true" : undefined}
-                scroll={false}
-                className={`rounded px-2.5 py-1 transition-colors focus-ring ${
-                  active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
-                }`}
-              >
-                {o.label}
-              </Link>
-            );
-          })}
+        {/* Order toggle: newest first by default; flip to read from 1892 forward. */}
+        <div className="flex items-center justify-end gap-2 text-xs">
+          <span className="uppercase tracking-[0.12em] text-ink-faint">Order</span>
+          <div className="inline-flex rounded-md border border-line bg-panel p-0.5">
+            {([
+              { key: "desc", label: "Newest first" },
+              { key: "asc", label: "Oldest first" },
+            ] as const).map((o) => {
+              const active = order === o.key;
+              return (
+                <Link
+                  key={o.key}
+                  href={`/seasons${queryString({ ...sp, order: o.key === "desc" ? undefined : o.key })}`}
+                  aria-current={active ? "true" : undefined}
+                  scroll={false}
+                  className={`rounded px-2.5 py-1 transition-colors focus-ring ${
+                    active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
+                  }`}
+                >
+                  {o.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* The ledger, paced into eras: title-winning decades carry a gold-edged
-          header and extra air above; barren decades stay compressed and quiet, so
-          the scroll rises into the glory eras instead of every decade reading flat. */}
-      <div>
+        {/* The ledger, paced into eras: title-winning decades carry a gold-edged
+            header and extra air above; barren decades stay compressed and quiet, so
+            the scroll rises into the glory eras instead of every decade reading flat. */}
+        <div>
       {decades.map(({ decade, seasons, titles }, di) => {
         const brief = briefs.get(decade);
         const glory = titles > 0;
@@ -435,6 +436,7 @@ export default async function SeasonsPage({
           </section>
         );
       })}
+      </div>
       </div>
     </div>
   );

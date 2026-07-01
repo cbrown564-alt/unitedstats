@@ -31,7 +31,7 @@ const PLAYER_SORT_LABELS: Record<PlayerSortKey, string> = {
   starts: "Starts",
   goals: "Goals",
   assists: "Assists",
-  span: "Debut",
+  span: "Career Span",
 };
 
 function lastYearForPlayer(p: PlayerTotals): number | null {
@@ -103,19 +103,8 @@ export function PlayersRegisterTable({
 
   return (
     <>
-      <div className="flex justify-end">
-        <button
-          type="button"
-          onClick={() => setShowAssists((v) => !v)}
-          aria-pressed={showAssists}
-          className={`rounded-md border px-2.5 py-1 text-xs transition-colors focus-ring ${
-            showAssists
-              ? "border-devil bg-devil/15 text-ink"
-              : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
-          }`}
-        >
-          {showAssists ? "Hide assists" : "Show assists"}
-        </button>
+      <div className="-mt-1 mb-1.5 flex justify-end">
+        <AssistsSwitch checked={showAssists} onChange={setShowAssists} />
       </div>
 
       <DataTable
@@ -247,14 +236,14 @@ export function PlayersRegisterTable({
           },
           assistColumn,
           {
-            label: "Debut",
+            label: "Career Span",
             key: "span",
             hideBelow: "hidden lg:table-cell",
             headerClassName: "text-right",
             className: "text-right",
             sortKey: "span",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.span,
-            sortLabel: "debut year",
+            sortLabel: "career span",
             cardRender: (p) => spanForPlayer(p),
             render: (p) => {
               const s = spanByPlayer[p.player_id];
@@ -284,5 +273,44 @@ export function PlayersRegisterTable({
         ]}
       />
     </>
+  );
+}
+
+function AssistsSwitch({
+  checked,
+  onChange,
+}: {
+  checked: boolean;
+  onChange: (next: boolean) => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-label="Assists column"
+      onClick={() => onChange(!checked)}
+      className="inline-flex items-center gap-1 rounded-sm py-px focus-ring"
+    >
+      <span
+        className={`text-[8px] uppercase tracking-[0.16em] transition-colors ${
+          checked ? "text-ink-dim" : "text-ink-faint"
+        }`}
+      >
+        Assists
+      </span>
+      <span
+        className={`relative h-2.5 w-[1.125rem] shrink-0 rounded-full transition-colors duration-200 ${
+          checked ? "bg-devil/45" : "bg-line"
+        }`}
+        aria-hidden
+      >
+        <span
+          className={`absolute top-0.5 left-0.5 h-1.5 w-1.5 rounded-full bg-ink-faint shadow-[0_0_0_0.5px_rgb(0_0_0_/0.25)] transition-transform duration-200 ${
+            checked ? "translate-x-[0.375rem] bg-ink" : ""
+          }`}
+        />
+      </span>
+    </button>
   );
 }

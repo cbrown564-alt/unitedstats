@@ -423,7 +423,7 @@ export function TonightHero({
           the header so it reads as a floodlit field, not a card on a page. */}
       <Link
         href={night.href}
-        aria-label={`${night.line ?? `Manchester United ${night.score} ${night.opponent}`} — see the match`}
+        aria-label={`${night.line ?? `Manchester United ${night.score} ${night.opponent}${night.scoreSuffix ? ` ${night.scoreSuffix}` : ""}`} — see the match`}
         className={`group relative block overflow-hidden bg-pitch focus-ring ${onThisDay ? "ring-1 ring-inset ring-gold/25" : ""}`}
       >
         {/* Floodlight from above. */}
@@ -494,6 +494,9 @@ export function TonightHero({
               <span className="text-ink">Manchester United</span>
               <span className={`stat-num text-3xl font-bold sm:text-4xl ${night.tone}`}>{night.score}</span>
               <span className="text-ink">{night.opponent}</span>
+              {night.scoreSuffix ? (
+                <span className="text-base font-normal text-ink-faint sm:text-xl">{night.scoreSuffix}</span>
+              ) : null}
             </p>
             <Scorers
               scorers={night.scorers}

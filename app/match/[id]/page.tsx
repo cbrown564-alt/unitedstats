@@ -604,7 +604,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               </h1>
               {(m.aet || m.pen_gf != null) && (
                 <p className="text-sm text-ink-dim">
-                  {m.aet ? "After extra time. " : ""}
+                  {m.aet ? "(a.e.t) " : ""}
                   {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
                 </p>
               )}

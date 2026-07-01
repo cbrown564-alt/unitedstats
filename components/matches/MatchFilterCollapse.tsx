@@ -107,7 +107,7 @@ export function MatchFilterCollapse(props: FilterCollapseProps) {
         <Chevron
           className={`h-3 w-3 shrink-0 text-devil-bright/80 transition-transform duration-200 ${inlineOpen ? "rotate-0" : "-rotate-90"}`}
         />
-        <span>Refine</span>
+        <span>Filter</span>
         {filterCount > 0 && (
           <span className="stat-num ml-auto text-[11px] text-ink-faint">
             {filterCount} active

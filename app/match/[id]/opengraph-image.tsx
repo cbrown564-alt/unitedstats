@@ -39,8 +39,8 @@ export default async function Image({ params }: { params: Promise<{ id: string }
 
   const footnote = m.aet
     ? m.pen_gf != null
-      ? `After extra time · United ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties`
-      : "After extra time"
+      ? `(a.e.t) · United ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties`
+      : "(a.e.t)"
     : m.ht_gf != null && m.ht_ga != null
       ? `Half-time ${m.ht_gf}–${m.ht_ga}`
       : undefined;

@@ -595,11 +595,11 @@ function TrebleModule({ variant }: ModuleProps) {
                       <span className="text-sm font-medium group-hover:text-devil-bright">{s.competition_name}</span>
                       <span className="stat-num text-[11px] text-ink-faint">{shortDate(s.date)}</span>
                     </div>
-                    <div className="mt-1 flex items-baseline gap-2 text-sm">
+                    <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm">
                       <span className="text-ink-faint">{venuePrefix(s.venue)}</span>
                       <span className="font-medium text-ink group-hover:text-devil-bright">{s.opponent_name}</span>
                       <span className="stat-num font-semibold tabular-nums">{s.gf}<span className="mx-px text-ink-faint">–</span>{s.ga}</span>
-                      {s.aet ? <span className="stat-num text-[11px] text-ink-faint">AET</span> : null}
+                      {s.aet ? <span className="stat-num text-[11px] text-ink-faint">(a.e.t)</span> : null}
                     </div>
                   </Link>
                   <div className="mt-3.5 border-t border-line pt-3.5">

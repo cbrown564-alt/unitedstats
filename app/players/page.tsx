@@ -142,7 +142,7 @@ export default async function PlayersPage({
     { label: "Goals", key: "goals" },
     { label: "Appearances", key: "apps" },
     { label: "Assists", key: "assists" },
-    { label: "Debut", key: "span" },
+    { label: "Career Span", key: "span" },
     { label: "A–Z", key: "name" },
   ];
 
@@ -249,8 +249,7 @@ export default async function PlayersPage({
         </div>
       </section>
 
-      <section className="space-y-3">
-        <SectionHead title="The leaders" aside="appearances and goals" />
+      <section>
         <PlayersLeaders topGoals={topGoals} topApps={topAppsBoard} prolific={prolific} />
       </section>
 

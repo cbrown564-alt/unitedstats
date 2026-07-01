@@ -16,32 +16,17 @@ export function PlayersLeaders({
   const [perGame, setPerGame] = useState(false);
 
   return (
-    <section className="space-y-3">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <p className="text-sm text-ink-dim">The frontiers on appearances and goals.</p>
-        <div
-          className="inline-flex rounded-md border border-line bg-panel p-0.5"
-          role="group"
-          aria-label="Leaderboard measure"
-        >
-          <button
-            type="button"
-            onClick={() => setPerGame(false)}
-            className={`rounded px-2.5 py-1 text-xs transition-colors focus-ring ${
-              !perGame ? "bg-devil/15 text-ink" : "text-ink-dim hover:text-ink"
-            }`}
-          >
+    <div className="space-y-2">
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 className="display text-xl">The leaders</h2>
+        <div className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-ink-faint" role="group" aria-label="Leaderboard measure">
+          <MeasureButton active={!perGame} onClick={() => setPerGame(false)}>
             Total
-          </button>
-          <button
-            type="button"
-            onClick={() => setPerGame(true)}
-            className={`rounded px-2.5 py-1 text-xs transition-colors focus-ring ${
-              perGame ? "bg-devil/15 text-ink" : "text-ink-dim hover:text-ink"
-            }`}
-          >
+          </MeasureButton>
+          <span aria-hidden>/</span>
+          <MeasureButton active={perGame} onClick={() => setPerGame(true)}>
             Per game
-          </button>
+          </MeasureButton>
         </div>
       </div>
 
@@ -54,6 +39,29 @@ export function PlayersLeaders({
           figureTone="text-devil-bright"
         />
       </div>
-    </section>
+    </div>
+  );
+}
+
+function MeasureButton({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`rounded-sm px-0.5 transition-colors focus-ring ${
+        active ? "text-ink" : "text-ink-faint hover:text-ink-dim"
+      }`}
+    >
+      {children}
+    </button>
   );
 }
