@@ -51,9 +51,9 @@ export const QUESTIONS: QuestionMeta[] = [
   {
     slug: "late-goals",
     label: "Fergie time",
-    question: "Do United really score late?",
+    question: "Was Fergie time unique to Fergie?",
     summary:
-      "Do United really score late? Track the post-85th minute edge by decade, from Bruce's header to stoppage-time drama.",
+      "The late-goal share jumped under Ferguson and kept climbing after he left — partly habit, partly longer added time. Busby's era had a hint of it too.",
   },
 ];
 

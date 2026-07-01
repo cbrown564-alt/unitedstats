@@ -102,25 +102,184 @@ export function timedGoalCounts(): { timed: number; total: number } {
 }
 
 /**
- * A hand-picked spine of iconic matches United won with a goal after the 85th
- * minute — the late-show greatest hits, oldest first. Curated rather than queried
- * because "iconic" is editorial; every entry is still a real one-goal win sealed
- * in the closing minutes, verified against the record.
+ * Map a recorded goal to its clock position for plotting. Stoppage is 90+added;
+ * older sources sometimes write 93 or 99 directly instead of 90+3 / 90+9.
  */
-const ICONIC_LATE_DATES = [
-  "1993-04-10", // Bruce's brace v Sheffield Wednesday — the original "Fergie time"
-  "1996-05-11", // Cantona's late winner v Liverpool — the FA Cup final
-  "1999-05-26", // Sheringham & Solskjaer v Bayern — the Treble sealed in stoppage
-  "2009-04-05", // Macheda's debut winner v Aston Villa
-  "2009-09-20", // Owen's 96th-minute derby winner v Manchester City
-  "2010-04-17", // Scholes' late header v City at Eastlands
+function lateGoalClock(minute: number, added: number | null): number {
+  if (minute === 90 && added != null && added > 0) return 90 + added;
+  return minute;
+}
+
+function isStoppageGoal(minute: number, added: number | null): boolean {
+  return minute > 90 || (minute === 90 && (added ?? 0) > 0);
+}
+
+export interface LateGoalPoint {
+  matchId: string;
+  date: string;
+  opponent: string;
+  venue: string;
+  gf: number;
+  ga: number;
+  minute: number;
+  added: number | null;
+  scorer: string | null;
+  clock: number;
+  stoppage: boolean;
+}
+
+/** Every United goal after the 85th minute with a recorded clock — the scatter cloud. */
+export function lateGoalScatter(from = "1950-01-01"): LateGoalPoint[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT m.id matchId, m.date, m.opponent_name opponent, m.venue, m.gf, m.ga,
+              e.minute, e.added_time added, e.player_name scorer
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute >= 86 AND e.minute IS NOT NULL
+         AND m.date >= ?
+       ORDER BY m.date, e.minute, COALESCE(e.added_time, 0)`,
+    )
+    .all(from) as Omit<LateGoalPoint, "clock" | "stoppage">[];
+  return rows.map((r) => ({
+    ...r,
+    clock: lateGoalClock(r.minute, r.added),
+    stoppage: isStoppageGoal(r.minute, r.added),
+  }));
+}
+
+/** Ten nights spread across the record — lightly labelled on the scatter, detailed below. */
+const ANNOTATED_LATE: {
+  matchId: string;
+  minute: number;
+  added: number | null;
+  tag: string;
+  note: string;
+}[] = [
+  {
+    matchId: "1968-05-29-benfica-n",
+    minute: 99,
+    added: null,
+    tag: "Busby's European Cup",
+    note: "Charlton in extra time at Wembley — late drama long before the phrase existed.",
+  },
+  {
+    matchId: "1985-05-18-everton-n",
+    minute: 110,
+    added: null,
+    tag: "Whiteside final",
+    note: "Whiteside's extra-time winner — the last trophy before Ferguson.",
+  },
+  {
+    matchId: "1993-04-10-sheffield-wednesday-h",
+    minute: 90,
+    added: 6,
+    tag: "The original",
+    note: "Bruce's stoppage-time brace — where 'Fergie time' was coined.",
+  },
+  {
+    matchId: "1996-05-11-liverpool-n",
+    minute: 86,
+    added: null,
+    tag: "FA Cup final",
+    note: "Cantona's 86th-minute winner at Wembley.",
+  },
+  {
+    matchId: "1999-05-26-bayern-munich-n",
+    minute: 90,
+    added: 3,
+    tag: "The Treble",
+    note: "Solskjaer's stoppage-time winner — the myth at full volume.",
+  },
+  {
+    matchId: "2009-04-05-aston-villa-h",
+    minute: 90,
+    added: 3,
+    tag: "The debut",
+    note: "Macheda's first touch, 90+3.",
+  },
+  {
+    matchId: "2009-09-20-manchester-city-h",
+    minute: 90,
+    added: 6,
+    tag: "The derby",
+    note: "Owen's 96th-minute winner against City.",
+  },
+  {
+    matchId: "2010-04-17-manchester-city-a",
+    minute: 90,
+    added: 3,
+    tag: "Title race",
+    note: "Scholes' header at Eastlands.",
+  },
+  {
+    matchId: "2023-10-07-brentford-h",
+    minute: 90,
+    added: 7,
+    tag: "Since Ferguson",
+    note: "McTominay twice in stoppage time — the habit outlasted the manager.",
+  },
+  {
+    matchId: "2024-02-01-wolverhampton-wanderers-a",
+    minute: 90,
+    added: 7,
+    tag: "Mainoo",
+    note: "A teenager's 90+7 winner — late goals still landing deep in added time.",
+  },
 ];
 
-export function iconicLateWinners(): MatchRow[] {
-  const placeholders = ICONIC_LATE_DATES.map(() => "?").join(",");
-  return getDb()
-    .prepare(`${MATCH_SELECT} WHERE m.date IN (${placeholders}) ORDER BY m.date ASC`)
-    .all(...ICONIC_LATE_DATES) as MatchRow[];
+export interface AnnotatedLateGoal extends LateGoalPoint {
+  tag: string;
+  note: string;
+}
+
+export function annotatedLateGoals(): AnnotatedLateGoal[] {
+  const cloud = lateGoalScatter();
+  return ANNOTATED_LATE.flatMap((a) => {
+    const hit = cloud.find(
+      (p) =>
+        p.matchId === a.matchId &&
+        p.minute === a.minute &&
+        (p.added ?? 0) === (a.added ?? 0),
+    );
+    if (!hit) return [];
+    return [{ ...hit, tag: a.tag, note: a.note }];
+  });
+}
+
+export interface LateGoalEraSlice {
+  label: string;
+  timed: number;
+  reg: number;
+  stoppage: number;
+}
+
+/**
+ * Late-goal share by manager era — Busby, the wilderness years, Ferguson, and
+ * since. The jump arrives with Ferguson; the share keeps climbing after he leaves
+ * as added time lengthens. Busby's era already showed a hint of the same habit.
+ */
+export function lateGoalManagerEras(): LateGoalEraSlice[] {
+  const db = getDb();
+  const rows = db
+    .prepare(
+      `SELECT
+         CASE
+           WHEN m.date < '1945-01-01' THEN 'Early record'
+           WHEN m.date <= '1969-06-04' THEN 'Busby'
+           WHEN m.date < '1986-11-08' THEN 'Between'
+           WHEN m.date <= '2013-05-19' THEN 'Ferguson'
+           ELSE 'Since Ferguson'
+         END AS label,
+         COUNT(*) timed,
+         SUM(e.minute BETWEEN 86 AND 90 AND COALESCE(e.added_time, 0) = 0) reg,
+         SUM(e.minute > 90 OR (e.minute = 90 AND COALESCE(e.added_time, 0) > 0)) stoppage
+       FROM match_events e JOIN matches m ON m.id = e.match_id
+       WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute IS NOT NULL
+       GROUP BY 1
+       ORDER BY MIN(m.date)`,
+    )
+    .all() as LateGoalEraSlice[];
+  return rows.filter((r) => r.timed >= 20 && r.label !== "Early record");
 }
 
 // ---------------------------------------------------------------- bogey sides
