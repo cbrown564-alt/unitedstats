@@ -129,7 +129,7 @@ export default function Home() {
             title="Latest results"
             aside={<Link href="/matches" className="text-devil-bright hover:underline">All matches →</Link>}
           />
-          <MatchList matches={recent} showSeason />
+          <MatchList matches={recent} accentResult />
         </div>
         <div className="space-y-6">
           <h2 className="display text-xl">All-time record</h2>

@@ -23,8 +23,8 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` + `LeagueTable` mobile rows — **leaderboard** for ranked lists (`/players`, `LeagueTable`, manager bounce); **metrics** for timelines and coverage grids (`PlayerSeasonTable`, `/data`). |
 | **Wave 1 — seasons cards** | 2026-06-30 | `/seasons` mobile card stream — `SeasonLedgerCard` per campaign, sticky decade headers below JumpRail; desktop grid table unchanged at `sm+`. |
 | **Wave 1 — analytics chapters** | 2026-06-30 | `/analytics` mobile `ChapterPager` — one ChartPanel (or EloHero / records block) per viewport-height slide, horizontal scroll-snap + dot indicator; desktop three-act layout unchanged at `sm+`. |
-| **Wave 2 — match-night cards** | 2026-07-01 | `MatchNightCard` mobile stream — floodlit full-bleed plates below `sm`; desktop dense rows unchanged. |
-| **Wave 2 — sheet Phase B preview** | 2026-07-01 | `MatchPreviewSheet` — list tap opens hero + `MatchFlow` in `BottomSheet` below `lg`; dismiss preserves scroll; "See full match" navigates. |
+| **Wave 2 — match ledger cards** | 2026-07-01 | Thin mobile register rows — result strip + coloured score; league game numbers hidden; season via section headers on `/matches`. |
+| **Wave 2 — sheet Phase B preview** | ~~2026-07-01~~ cut | Goals-only preview removed — insufficient pay-off vs full match page; lists navigate directly. |
 | **Wave 2 — TonightHero evolution** | 2026-07-01 | `↻ another night` re-roll (curated pool); on-this-day framing polish; hero pin removed for live date selection. |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
@@ -344,8 +344,8 @@ Impact weighted toward argument-settler and fragmented browse.
 | Item | Effort | Impact | Notes |
 |---|---|---|---|
 | `TonightHero` home evolution (1.1) | M | Med–High | ✅ Re-roll (`↻ another night`), on-this-day framing polish, pin removed. Live-match historical thread still deferred. |
-| Sheet Phase B → C — list drill-down (1.2) | L | **High** | ✅ Phase B shipped — `MatchPreviewSheet` on list tap below `lg`. Phase C (intercepting routes) only if preview proves insufficient. |
-| Full-bleed match-night hero cards (1.1) | M | Med | ✅ `MatchNightCard` stream below `sm`; desktop rows unchanged. |
+| Sheet Phase B → C — list drill-down (1.2) | L | **High** | Cut — goals-only sheet preview removed; full match page is sufficient. |
+| Match list mobile cards (1.1 / 1.3) | M | Med | ↩ Thin ledger cards — result strip + coloured score; league game numbers hidden. |
 
 ### Deferred — platform / install framing
 *Revisit later. High effort, uncertain payoff for this audience. Does not gate reading
