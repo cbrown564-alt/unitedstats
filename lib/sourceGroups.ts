@@ -122,7 +122,7 @@ const SOURCE_FAMILY_DEFS: SourceFamilyDef[] = [
   },
 ];
 
-export const SOURCE_FACET_LABELS: Record<string, string> = {
+const SOURCE_FACET_LABELS: Record<string, string> = {
   result: "Results",
   "united-scorers": "United goalscorers",
   "opposition-goals": "Opposition goals",
@@ -204,20 +204,6 @@ export function buildSourceTree(sources: SourceUsageRow[]): SourceTreeItem[] {
     const rb = b.type === "family" ? b.records : b.source.records;
     return rb - ra || (a.type === "family" ? a.label : a.source.label).localeCompare(b.type === "family" ? b.label : b.source.label);
   });
-}
-
-export function parseSourceFacets(facets: string | null | undefined): string[] {
-  if (!facets) return [];
-  return facets
-    .split(",")
-    .map((f) => f.trim())
-    .filter(Boolean)
-    .sort()
-    .map((f) => SOURCE_FACET_LABELS[f] ?? f);
-}
-
-export function formatSourceFacets(facets: string | null | undefined): string {
-  return parseSourceFacets(facets).join(", ");
 }
 
 export function layerLabel(layer: string): string {
