@@ -34,14 +34,14 @@ export function MatchNightCard<T extends MatchRow>({
   showSeason = false,
   showAttendance = false,
   accentResult = false,
-  renderExtra,
+  extra,
   onActivate,
 }: {
   match: T;
   showSeason?: boolean;
   showAttendance?: boolean;
   accentResult?: boolean;
-  renderExtra?: (m: T) => ReactNode;
+  extra?: ReactNode;
   /** When set, renders a button (sheet preview); otherwise the card is inert markup for a wrapping link. */
   onActivate?: () => void;
 }) {
@@ -119,7 +119,7 @@ export function MatchNightCard<T extends MatchRow>({
           )}
         </div>
 
-        {renderExtra && <div className="mt-2">{renderExtra(m)}</div>}
+        {extra != null && <div className="mt-2">{extra}</div>}
       </div>
     </>
   );
