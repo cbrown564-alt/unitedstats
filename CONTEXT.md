@@ -119,9 +119,48 @@ result, not yet executed cuts.
   *decline since Ferguson* / *Europe* read as arguments, not moments — matches the
   Session-2 review); `/matches` (a *path* to a match = foundation; a facet
   playground = loom); `/explore` (a *doorway*, not a catalogue).
+- **Cut index, keep entity:** `/opponents` — comparison index **cut** (route +
+  nav entry removed). Discover clubs via search, matches, inbound links.
+  **`/opponent/[id]` stays** — flat breadcrumb (no parent); drop "All opponents"
+  trail; keep fixture-scoped trails (`/matches?opponent=…`, etc.).
+- **Pass (foundation, dual lane):** `/data` — Acts I–II earn fan trust (what we
+  know, what's thin); Act III + appendix serve contributors and developers (how
+  it's built, how to help, how to download). Act II: **slim competition table**
+  only — matches, scorers, starting XI (no second heatmap). Act III: **compact
+  source rows** (no card grid, no facet prose on-page) + **stacked layout** —
+  sources, then slim correction callout (truncated steps + link), then **gaps queue**
+  with per-row why (computed by gap type) + contribute link (correction prefill).
+  Appendix: **in-page developer register** — inset container, mono endpoints/files,
+  distinct background/kicker; stays on `/data`, no new route.
+- **Pass (foundation):** `/transfers` — Records-lane ledger, not a soul surface.
+  Load-bearing: season-by-season archive + known-fee totals. Spark moment: **split**
+  — hero keeps `SpendTide`; record deals get modest elevation: **#1 in/out each
+  featured** (larger portrait, fee prominent, one editorial line); ranks 2–6 stay
+  compact. Editorial on #1: **hybrid** — curated override when we have a line,
+  computed fallback from transfer fields otherwise. Manager net-spend bars:
+  supporting polish only (avatars + row tidy).
+- **Reshape (cuts):** `/analytics` — **Acts I–II stay** (Elo hero + rating proof).
+  Act III: **supply lines only**; cut peaks grid (`RecordCards`), win-rate,
+  goals, and attendance season charts. Monte Carlo replay **stays** with plain-language
+  dek + explainer copy. **Supply lines:** barbell rows (assister ↔ scorer, width = goals); replaces
+  ranked list in this pass.
+- **Reshape:** `/players` — assists column hidden by default (toggle). **Leaders:**
+  two boards only — appearances + goals (toggle total vs per-game); cut assists
+  and duplicate goals-per-game panel. Hero scatter: **layered re-read** — keep
+  apps×goals intro; add era tint, hover career-span card, click-through to player.
 - **Reshape, don't cut:** `/compare` — from "rank any two on everything" → a small
   set of authored lenses (the Best/Ronaldo normalized template). The reason to
   exist it never had.
+- **Reshape:** `/managers` — hero `ManagerTimeline` polish in place (softer
+  edges, labels, portraits on wide segments). List rows: **no secondary fact**;
+  **accept** shared-axis dead space as honest layout cost.
+- **Reshape:** `/matches` — filter deck collapsed by default; `MatchGroups`
+  headers show **"n of N"** when slice < full season. Other polish TBD.
+- **Reshape:** `/seasons/[season]` — prev/next nav **merged into breadcrumb row**
+  (`Seasons · ← prev · current · next →`); drop separate 3-box strip.
+- **Cut / demote:** `/` home — top goalscorers section **cut**. Question cards →
+  **one featured myth**, day-rotated through launch set (independent of
+  `TonightHero` seed). Spark + foundation + single deepening door.
 - **Cut / die:** the `/cut` self-serve fork builder, compare-anything,
   group-by-anything (no baked-in judgment); the freshness loop `/history-changed`
   (out of purpose).
