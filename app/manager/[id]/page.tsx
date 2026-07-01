@@ -13,6 +13,7 @@ import { RunCallouts, type Run } from "@/components/RunCallouts";
 import { WdlBar, WdlRecord } from "@/components/WdlBar";
 import { IdentityPlate, type SpanSegment } from "@/components/IdentityPlate";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
+import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -167,133 +168,153 @@ export default async function ManagerPage({
         }}
       />
 
-      <section>
-        <SectionHead title="Trophy cabinet" aside="major honours won in charge" />
-        <ManagerHonoursPanel haul={managerTrophyHaul(id)} winPct={total > 0 ? (m.w / total) * 100 : null} />
-        <CoverageNote slice="league titles and knockout cups won, attributed to the manager of the decisive match." />
-      </section>
+      <DetailSectionTabs
+        defaultTab="record"
+        ariaLabel="Manager sections"
+        idPrefix="manager"
+        tabs={[
+          {
+            id: "record",
+            label: "Record",
+            content: (
+              <div className="space-y-8">
+                <section>
+                  <SectionHead title="Trophy cabinet" aside="major honours won in charge" />
+                  <ManagerHonoursPanel haul={managerTrophyHaul(id)} winPct={total > 0 ? (m.w / total) * 100 : null} />
+                  <CoverageNote slice="league titles and knockout cups won, attributed to the manager of the decisive match." />
+                </section>
 
-      {runs.length > 0 && (
-        <section>
-          <SectionHead title="Longest runs" aside="under this manager" />
-          <RunCallouts runs={runs} empty="" className="flex flex-wrap gap-3" />
-          <CoverageNote slice="consecutive competitive matches under this manager." />
-        </section>
-      )}
+                {runs.length > 0 && (
+                  <section>
+                    <SectionHead title="Longest runs" aside="under this manager" />
+                    <RunCallouts runs={runs} empty="" className="flex flex-wrap gap-3" />
+                    <CoverageNote slice="consecutive competitive matches under this manager." />
+                  </section>
+                )}
 
-      {market && (market.signings > 0 || market.departures > 0) && (
-        <section>
-          <SectionHead title="In the market" aside="known fees, during the tenure" />
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <StatTile
-              label="Net spend"
-              value={market.net >= 0 ? fmtFee(market.net) : `+${fmtFee(-market.net)}`}
-              detail={market.net >= 0 ? undefined : "net gain"}
-              tone={market.net >= 0 ? "red" : "default"}
-            />
-            <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} signings`} tone="red" />
-            <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} departures`} tone="gold" />
-            <StatTile label="Transfers" value={fmtNum(market.signings + market.departures)} detail="signings and departures" />
-          </div>
-          <p className="mt-2 text-xs text-ink-faint">
-            Fees for arrivals and departures dated within the tenure, known fees only.{" "}
-            <Link href="/transfers" className="text-devil-bright hover:underline">
-              All transfers →
-            </Link>
-          </p>
-        </section>
-      )}
+                {market && (market.signings > 0 || market.departures > 0) && (
+                  <section>
+                    <SectionHead title="In the market" aside="known fees, during the tenure" />
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                      <StatTile
+                        label="Net spend"
+                        value={market.net >= 0 ? fmtFee(market.net) : `+${fmtFee(-market.net)}`}
+                        detail={market.net >= 0 ? undefined : "net gain"}
+                        tone={market.net >= 0 ? "red" : "default"}
+                      />
+                      <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} signings`} tone="red" />
+                      <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} departures`} tone="gold" />
+                      <StatTile label="Transfers" value={fmtNum(market.signings + market.departures)} detail="signings and departures" />
+                    </div>
+                    <p className="mt-2 text-xs text-ink-faint">
+                      Fees for arrivals and departures dated within the tenure, known fees only.{" "}
+                      <Link href="/transfers" className="text-devil-bright hover:underline">
+                        All transfers →
+                      </Link>
+                    </p>
+                  </section>
+                )}
 
-      <section className="grid lg:grid-cols-2 gap-8">
-        <div>
-          <SectionHead title="Match splits" aside="venue · competition" />
-          <div className="space-y-5 rounded-xl border border-line bg-panel p-4 sm:p-5">
-            {splitGroups.map(([groupLabel, rows], gi) => {
-              const live = rows.filter(([, r]) => r.p > 0);
-              if (live.length === 0) return null;
-              return (
-                <div key={groupLabel} className={gi > 0 ? "space-y-3 border-t border-line/60 pt-4" : "space-y-3"}>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
-                    {groupLabel}
-                  </p>
-                  {live.map(([label, r]) => (
-                    <div key={label}>
-                      <div className="mb-1.5 flex justify-between text-sm">
-                        <span className="text-ink-dim">{label}</span>
-                        <span className="stat-num text-xs text-ink-faint">
-                          <span className="text-ink">{pct(r.w, r.p)}</span> W
+                <section className="grid gap-8 lg:grid-cols-2">
+                  <div>
+                    <SectionHead title="Match splits" aside="venue · competition" />
+                    <div className="space-y-5 rounded-xl border border-line bg-panel p-4 sm:p-5">
+                      {splitGroups.map(([groupLabel, rows], gi) => {
+                        const live = rows.filter(([, r]) => r.p > 0);
+                        if (live.length === 0) return null;
+                        return (
+                          <div key={groupLabel} className={gi > 0 ? "space-y-3 border-t border-line/60 pt-4" : "space-y-3"}>
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
+                              {groupLabel}
+                            </p>
+                            {live.map(([label, r]) => (
+                              <div key={label}>
+                                <div className="mb-1.5 flex justify-between text-sm">
+                                  <span className="text-ink-dim">{label}</span>
+                                  <span className="stat-num text-xs text-ink-faint">
+                                    <span className="text-ink">{pct(r.w, r.p)}</span> W
+                                  </span>
+                                </div>
+                                <WdlBar
+                                  w={r.w}
+                                  d={r.d}
+                                  l={r.l}
+                                  size="md"
+                                  showLabels
+                                  volume={{ fraction: Math.sqrt(r.p / splitPMax), games: r.p }}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })}
+                      <CoverageNote slice="every match managed, cut by venue and by competition." />
+                    </div>
+                  </div>
+                  {first10.length === 10 && (
+                    <div>
+                      <SectionHead title="The first ten matches" aside={`${first10W} of 10 won`} />
+                      <MatchList matches={first10} showSeason />
+                      <p className="mt-2 text-xs text-ink-faint">
+                        {first10W} of the first 10 won.{" "}
+                        <Link href="/questions/ferguson-era" className="text-devil-bright hover:underline">
+                          Where did the title floor go? →
+                        </Link>
+                      </p>
+                    </div>
+                  )}
+                </section>
+
+                <section>
+                  <SectionHead title="Every competition" aside={`${fmtNum(comps.length)} competitions`} />
+                  <div className="grid max-w-3xl gap-2 text-sm sm:grid-cols-2">
+                    {comps.map((c) => (
+                      <div key={c.name} className="flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-4 py-2.5">
+                        <span className="truncate">{c.name}</span>
+                        <span className="stat-num whitespace-nowrap text-xs text-ink-faint">
+                          <WdlRecord w={c.w} d={c.d} l={c.l} /> ({pct(c.w, c.p)})
                         </span>
                       </div>
-                      <WdlBar
-                        w={r.w}
-                        d={r.d}
-                        l={r.l}
-                        size="md"
-                        showLabels
-                        volume={{ fraction: Math.sqrt(r.p / splitPMax), games: r.p }}
-                      />
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                </section>
+              </div>
+            ),
+          },
+          {
+            id: "matches",
+            label: "Matches",
+            content: (
+              <section>
+                <SectionHead title="Matches" aside={`${fmtNum(total)} managed`} />
+                {notable.length > 0 && <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />}
+                {sequence.length >= 20 && (
+                  <div className="mb-4 rounded-xl border border-line bg-panel p-4 sm:p-5">
+                    <ResultSpine
+                      matches={sequence}
+                      markers={notable.map((m) => ({ id: m.id, label: m.reason }))}
+                      subject={m.name}
+                    />
+                    <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+                      Every match in order — wins above the line, losses below, bar height the goal margin.
+                      Gold pips mark the standout matches above.
+                    </p>
+                  </div>
+                )}
+                <div className="mb-3 flex justify-end">
+                  <EvidenceLink href={`/matches?manager=${id}`} label="Filter these in the match browser →" />
                 </div>
-              );
-            })}
-            <CoverageNote slice="every match managed, cut by venue and by competition." />
-          </div>
-        </div>
-        {first10.length === 10 && (
-          <div>
-            <SectionHead title="The first ten matches" aside={`${first10W} of 10 won`} />
-            <MatchList matches={first10} showSeason />
-            <p className="mt-2 text-xs text-ink-faint">
-              {first10W} of the first 10 won.{" "}
-              <Link href="/questions/ferguson-era" className="text-devil-bright hover:underline">
-                Where did the title floor go? →
-              </Link>
-            </p>
-          </div>
-        )}
-      </section>
-
-      <section>
-        <SectionHead title="Every competition" aside={`${fmtNum(comps.length)} competitions`} />
-        <div className="grid sm:grid-cols-2 gap-2 max-w-3xl text-sm">
-          {comps.map((c) => (
-            <div key={c.name} className="flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-4 py-2.5">
-              <span className="truncate">{c.name}</span>
-              <span className="stat-num whitespace-nowrap text-xs text-ink-faint">
-                <WdlRecord w={c.w} d={c.d} l={c.l} /> ({pct(c.w, c.p)})
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <SectionHead title="Matches" aside={`${fmtNum(total)} managed`} />
-        {notable.length > 0 && <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />}
-        {sequence.length >= 20 && (
-          <div className="mb-4 rounded-xl border border-line bg-panel p-4 sm:p-5">
-            <ResultSpine
-              matches={sequence}
-              markers={notable.map((m) => ({ id: m.id, label: m.reason }))}
-              subject={m.name}
-            />
-            <p className="mt-2 text-[11px] leading-4 text-ink-faint">
-              Every match in order — wins above the line, losses below, bar height the goal margin.
-              Gold pips mark the standout matches above.
-            </p>
-          </div>
-        )}
-        <div className="mb-3 flex justify-end">
-          <EvidenceLink href={`/matches?manager=${id}`} label="Filter these in the match browser →" />
-        </div>
-        <MatchArchive
-          matches={allMatches}
-          accentResult
-          hrefForSeason={(season) => `/matches${queryString({ manager: id, season })}`}
-        />
-        <CoverageNote slice="every competitive match under this manager, all competitions" />
-      </section>
+                <MatchArchive
+                  matches={allMatches}
+                  accentResult
+                  hrefForSeason={(season) => `/matches${queryString({ manager: id, season })}`}
+                />
+                <CoverageNote slice="every competitive match under this manager, all competitions" />
+              </section>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }

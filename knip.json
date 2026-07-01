@@ -2,6 +2,6 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": [
     "scripts/**/*.{ts,mjs}",
-    "components/match/MatchSectionTabs.tsx"
+    "components/mobile/DetailSectionTabs.tsx"
   ]
 }
