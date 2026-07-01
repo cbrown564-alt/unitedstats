@@ -418,7 +418,7 @@ export function TonightHero({
   const onThisDay = night.framing === "on-this-day";
 
   return (
-    <div>
+    <div className="relative">
       {/* The stage. Bleeds past the column to the page edges and pulls flush under
           the header so it reads as a floodlit field, not a card on a page. */}
       <Link
@@ -531,21 +531,24 @@ export function TonightHero({
       </Link>
 
       {canReroll && (
-        <div className="relative z-20 -mt-2 flex justify-center sm:-mt-1 sm:mt-4">
-          <button
-            type="button"
-            onClick={again}
-            className="group tap-target inline-flex items-center gap-2.5 rounded-full border border-line bg-panel-2 px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_8px_20px_rgb(0_0_0_/0.22)] transition-colors hover:border-devil/60 hover:bg-panel focus-ring"
-          >
+        <button
+          type="button"
+          onClick={again}
+          aria-label="Show another night"
+          className="group/reroll tap-target absolute bottom-5 right-4 z-20 flex items-center gap-2.5 focus-ring sm:bottom-7 sm:right-6"
+        >
+          <span className="text-xs lowercase tracking-wide text-ink-faint transition-colors group-hover/reroll:text-ink-dim">
+            another night
+          </span>
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line/45 bg-pitch/25 text-devil-bright/75 backdrop-blur-sm transition-colors group-hover/reroll:border-devil/35 group-hover/reroll:bg-pitch/40 group-hover/reroll:text-devil-bright group-active/reroll:scale-95 motion-reduce:group-active/reroll:scale-100">
             <span
               aria-hidden
-              className="text-base text-devil-bright transition-transform duration-300 group-hover:rotate-180 group-active:rotate-180 motion-reduce:transition-none"
+              className="text-[13px] leading-none transition-transform duration-300 group-hover/reroll:rotate-180 group-active/reroll:rotate-180 motion-reduce:transition-none"
             >
               ↻
             </span>
-            Another night
-          </button>
-        </div>
+          </span>
+        </button>
       )}
     </div>
   );
