@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { DotProps, MouseHandlerDataParam } from "recharts";
+import type { MouseHandlerDataParam } from "recharts";
 import { fmtAxisNumber, fmtNum } from "@/lib/format";
 import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
 
@@ -36,24 +36,33 @@ function measureLabel(value: number, unit: "goals" | "assists") {
   return `${fmtNum(value)} ${noun}`;
 }
 
+type PeakMarkerProps = {
+  cx?: number;
+  cy?: number;
+  payload?: SeasonContributionDatum;
+  peaks: Set<number>;
+  color: string;
+  unit: "goals" | "assists";
+  count: number;
+  data: readonly SeasonContributionDatum[];
+};
+
 function PeakMarker({
   cx,
   cy,
-  index,
   payload,
   peaks,
   color,
   unit,
   count,
-}: DotProps & {
-  peaks: Set<number>;
-  color: string;
-  unit: "goals" | "assists";
-  count: number;
-}) {
-  if (cx == null || cy == null || index == null || !payload || !peaks.has(index)) return null;
+  data,
+}: PeakMarkerProps) {
+  if (cx == null || cy == null || !payload) return null;
 
   const datum = payload as SeasonContributionDatum;
+  const index = data.indexOf(datum);
+  if (index < 0 || !peaks.has(index)) return null;
+
   const value = datum[unit];
   const anchor =
     index === 0 ? "start" : index === count - 1 ? "end" : "middle";
@@ -161,6 +170,7 @@ export function SeasonContributionChart({
                 color="var(--color-devil)"
                 unit="goals"
                 count={data.length}
+                data={data}
               />
             )}
             activeDot={{
@@ -185,6 +195,7 @@ export function SeasonContributionChart({
                 color="var(--color-gold)"
                 unit="assists"
                 count={data.length}
+                data={data}
               />
             )}
             activeDot={{
