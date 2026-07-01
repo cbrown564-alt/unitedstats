@@ -1041,10 +1041,11 @@ function postFergusonStints(): PostFergusonStint[] {
       (s) => s.id === t.id && seasonOverlapsTenure(s.season, t.dateFrom, t.dateTo),
     );
     const positions = finishes.map((f) => f.position);
-    const interim =
+    const interim = Boolean(
       record.p < 15
       && (t.note?.toLowerCase().includes("interim") || t.note?.toLowerCase().includes("caretaker"))
-      && !t.note?.toLowerCase().includes("permanent");
+      && !t.note?.toLowerCase().includes("permanent"),
+    );
     return {
       id: t.id,
       name: t.name,

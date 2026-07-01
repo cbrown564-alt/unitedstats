@@ -173,7 +173,7 @@ export function ManagerLongevityChart({ points }: { points: ManagerLongevityPoin
                 content={({ active, payload }) => (
                   <QuietAnalystTooltip
                     active={active}
-                    payload={payload as { payload: ChartDatum }[] | undefined}
+                    payload={payload as unknown as { payload: ChartDatum }[] | undefined}
                   />
                 )}
                 isAnimationActive={false}
@@ -184,7 +184,7 @@ export function ManagerLongevityChart({ points }: { points: ManagerLongevityPoin
               isAnimationActive={false}
               shape={(props) => <LongevityDot {...props} />}
               onClick={(point) => {
-                if (point && typeof point === "object" && "href" in point) onDotClick(point as ChartDatum);
+                if (point && typeof point === "object" && "href" in point) onDotClick(point as unknown as ChartDatum);
               }}
             />
           </ScatterChart>
