@@ -25,6 +25,20 @@ function plotClock(clock: number): number {
   return Math.min(Y_MAX, Math.max(Y_MIN, clock));
 }
 
+/** Stable ±1 jitter from a key — same point always lands in the same place. */
+function jitter01(key: string, salt: number): number {
+  let h = salt;
+  for (let i = 0; i < key.length; i++) h = (Math.imul(31, h) + key.charCodeAt(i)) | 0;
+  return ((h >>> 0) % 1000) / 1000;
+}
+
+function jitterXY(key: string, ySpread: number, xSpread: number): { dx: number; dy: number } {
+  return {
+    dx: (jitter01(key, 1) - 0.5) * 2 * xSpread,
+    dy: (jitter01(key, 2) - 0.5) * 2 * ySpread,
+  };
+}
+
 export function LateGoalScatter({
   points,
   annotated,
@@ -61,6 +75,8 @@ export function LateGoalScatter({
   const y90 = yFor(90);
   const fergX0 = xFor("1986-11-08");
   const fergX1 = xFor("2013-05-19");
+  const yJitter = compact ? 4 : 5.5;
+  const xJitter = compact ? 2.5 : 3.5;
 
   const annotatedKeys = new Set(
     annotated.map((a) => `${a.matchId}:${a.minute}:${a.added ?? 0}`),
@@ -74,18 +90,26 @@ export function LateGoalScatter({
     return ticks;
   })();
 
-  const positions = points.map((p) => ({
-    p,
-    x: xFor(p.date),
-    y: yFor(p.clock),
-    key: `${p.matchId}:${p.minute}:${p.added ?? 0}`,
-  }));
+  const positions = points.map((p) => {
+    const key = `${p.matchId}:${p.minute}:${p.added ?? 0}`;
+    const { dx, dy } = jitterXY(key, yJitter, xJitter);
+    return {
+      p,
+      x: xFor(p.date) + dx,
+      y: yFor(p.clock) + dy,
+      key,
+    };
+  });
 
-  const annPositions = annotated.map((a) => ({
-    a,
-    x: xFor(a.date),
-    y: yFor(a.clock),
-  }));
+  const annPositions = annotated.map((a) => {
+    const key = `${a.matchId}:${a.minute}:${a.added ?? 0}`;
+    return {
+      a,
+      x: xFor(a.date),
+      y: yFor(a.clock),
+      key,
+    };
+  });
 
   return (
     <figure className="m-0">
@@ -96,52 +120,66 @@ export function LateGoalScatter({
           role="img"
           aria-label={`${points.length} United goals after the 85th minute since ${new Date(xMin).getFullYear()}, with ${annotated.length} nights labelled`}
         >
-          {/* Ferguson era band */}
-          <rect
-            x={fergX0}
-            y={PAD_T}
-            width={Math.max(0, fergX1 - fergX0)}
-            height={plotH}
-            fill="var(--color-devil-bright)"
-            opacity={0.04}
+          {/* Era and threshold guides — lines only, no fill */}
+          <line
+            x1={fergX0}
+            x2={fergX0}
+            y1={PAD_T}
+            y2={PAD_T + plotH}
+            stroke="var(--color-devil-bright)"
+            strokeWidth={0.75}
+            strokeDasharray="4 4"
+            opacity={0.45}
           />
-
-          {/* Regulation closing minutes */}
-          <rect
-            x={PAD_L}
-            y={y86}
-            width={width - PAD_L - PAD_R}
-            height={y90 - y86}
-            fill="var(--color-gold)"
-            opacity={0.07}
+          <line
+            x1={fergX1}
+            x2={fergX1}
+            y1={PAD_T}
+            y2={PAD_T + plotH}
+            stroke="var(--color-devil-bright)"
+            strokeWidth={0.75}
+            strokeDasharray="4 4"
+            opacity={0.45}
           />
-          {/* Stoppage / extra-time band */}
-          <rect
-            x={PAD_L}
-            y={PAD_T}
-            width={width - PAD_L - PAD_R}
-            height={y90 - PAD_T}
-            fill="var(--color-devil-bright)"
-            opacity={0.05}
+          <line
+            x1={PAD_L}
+            x2={width - PAD_R}
+            y1={y90}
+            y2={y90}
+            stroke="var(--color-line)"
+            strokeWidth={0.85}
+            opacity={0.65}
+          />
+          <line
+            x1={PAD_L}
+            x2={width - PAD_R}
+            y1={y86}
+            y2={y86}
+            stroke="var(--color-line)"
+            strokeWidth={0.5}
+            strokeDasharray="3 4"
+            opacity={0.35}
           />
 
           {/* Y-axis ticks — clock-correct: 90+3 ≠ 90+6 */}
           {[86, 90, 93, 96, 99].map((tick) => {
             const y = yFor(tick);
-            const label =
-              tick === 90 ? "90′" : tick > 90 ? `${tick}′` : `${tick}′`;
+            const label = tick === 90 ? "90′" : `${tick}′`;
+            const isThreshold = tick === 90;
             return (
               <g key={tick}>
-                <line
-                  x1={PAD_L - 4}
-                  x2={width - PAD_R}
-                  y1={y}
-                  y2={y}
-                  stroke="var(--color-line)"
-                  strokeWidth={0.5}
-                  strokeDasharray={tick === 90 ? "none" : "3 3"}
-                  opacity={0.45}
-                />
+                {!isThreshold && (
+                  <line
+                    x1={PAD_L}
+                    x2={width - PAD_R}
+                    y1={y}
+                    y2={y}
+                    stroke="var(--color-line)"
+                    strokeWidth={0.5}
+                    strokeDasharray="3 3"
+                    opacity={0.25}
+                  />
+                )}
                 <text x={PAD_L - 8} y={y + 3} textAnchor="end" fill="var(--color-ink-faint)" style={{ fontSize: 10 }}>
                   {label}
                 </text>
@@ -237,7 +275,7 @@ export function LateGoalScatter({
         </span>
         {!compact && (
           <span className="text-ink-dim">
-            Shaded band = Ferguson era · {annotated.length} nights labelled
+            Dashed verticals = Ferguson era · solid line = 90′ whistle · {annotated.length} nights labelled
           </span>
         )}
       </figcaption>

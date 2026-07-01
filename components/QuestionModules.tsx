@@ -233,7 +233,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
       </div>
       <LateGoalScatter points={scatter} annotated={annotated} />
       <p className="text-xs text-ink-dim text-pretty">
-        Every dot is a United goal with a recorded minute. The cloud is steady for decades; the band shifts upward in the Ferguson era and keeps climbing since — mostly in added time, not the last five regulation minutes.
+        Every dot is a United goal with a recorded minute. The cloud is steady for decades, then red dots stack higher after the 90′ line from the Ferguson era onward — mostly added time, not the last five regulation minutes.
       </p>
     </div>
   );
