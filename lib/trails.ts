@@ -133,8 +133,9 @@ export function lateGoalScatter(from = "1950-01-01"): LateGoalPoint[] {
   const rows = getDb()
     .prepare(
       `SELECT m.id matchId, m.date, m.opponent_name opponent, m.venue, m.gf, m.ga,
-              e.minute, e.added_time added, e.player_name scorer
+              e.minute, e.added_time added, COALESCE(p.name, e.player_name) scorer
        FROM match_events e JOIN matches m ON m.id = e.match_id
+       LEFT JOIN players p ON p.id = e.player_id
        WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute >= 86 AND e.minute IS NOT NULL
          AND m.date >= ?
        ORDER BY m.date, e.minute, COALESCE(e.added_time, 0)`,
@@ -147,7 +148,7 @@ export function lateGoalScatter(from = "1950-01-01"): LateGoalPoint[] {
   }));
 }
 
-/** Ten nights spread across the record — lightly labelled on the scatter, detailed below. */
+/** Three signature nights — labelled on the scatter and detailed on the canonical page. */
 const ANNOTATED_LATE: {
   matchId: string;
   minute: number;
@@ -156,32 +157,11 @@ const ANNOTATED_LATE: {
   note: string;
 }[] = [
   {
-    matchId: "1968-05-29-benfica-n",
-    minute: 99,
-    added: null,
-    tag: "Busby's European Cup",
-    note: "Charlton in extra time at Wembley — late drama long before the phrase existed.",
-  },
-  {
-    matchId: "1985-05-18-everton-n",
-    minute: 110,
-    added: null,
-    tag: "Whiteside final",
-    note: "Whiteside's extra-time winner — the last trophy before Ferguson.",
-  },
-  {
     matchId: "1993-04-10-sheffield-wednesday-h",
     minute: 90,
     added: 6,
     tag: "The original",
     note: "Bruce's stoppage-time brace — where 'Fergie time' was coined.",
-  },
-  {
-    matchId: "1996-05-11-liverpool-n",
-    minute: 86,
-    added: null,
-    tag: "FA Cup final",
-    note: "Cantona's 86th-minute winner at Wembley.",
   },
   {
     matchId: "1999-05-26-bayern-munich-n",
@@ -191,39 +171,11 @@ const ANNOTATED_LATE: {
     note: "Solskjaer's stoppage-time winner — the myth at full volume.",
   },
   {
-    matchId: "2009-04-05-aston-villa-h",
-    minute: 90,
-    added: 3,
-    tag: "The debut",
-    note: "Macheda's first touch, 90+3.",
-  },
-  {
-    matchId: "2009-09-20-manchester-city-h",
-    minute: 90,
-    added: 6,
-    tag: "The derby",
-    note: "Owen's 96th-minute winner against City.",
-  },
-  {
-    matchId: "2010-04-17-manchester-city-a",
-    minute: 90,
-    added: 3,
-    tag: "Title race",
-    note: "Scholes' header at Eastlands.",
-  },
-  {
     matchId: "2023-10-07-brentford-h",
     minute: 90,
     added: 7,
     tag: "Since Ferguson",
     note: "McTominay twice in stoppage time — the habit outlasted the manager.",
-  },
-  {
-    matchId: "2024-02-01-wolverhampton-wanderers-a",
-    minute: 90,
-    added: 7,
-    tag: "Mainoo",
-    note: "A teenager's 90+7 winner — late goals still landing deep in added time.",
   },
 ];
 

@@ -240,7 +240,7 @@ export function LateGoalScatter({
               const above = y < height * 0.38 || i % 2 === 0;
               return (
                 <Link
-                  key={`${a.matchId}:${a.minute}`}
+                  key={`${a.matchId}:${a.minute}:${a.added ?? 0}`}
                   href={`/match/${a.matchId}`}
                   className="pointer-events-auto absolute text-[10px] leading-tight transition-colors hover:text-devil-bright focus-ring"
                   style={{

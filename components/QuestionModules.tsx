@@ -11,7 +11,7 @@ import {
 } from "@/lib/trails";
 import { clubStreaks } from "@/lib/streaks";
 import { StreakBoard, type StreakGroup } from "@/components/StreakBoard";
-import { getMeta, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
+import { getMeta, matchesSummary, ownGoalScorers, ownGoalSummary, topScorers, eventsForMatch } from "@/lib/queries";
 import { awayFootprint, travelBySeason, travelCoverage, MANCHESTER } from "@/lib/spatial";
 import { BRITAIN_LAND, EUROPE_LAND } from "@/lib/geo/land";
 import { InspectableBarChartLazy as InspectableBarChart, ManagerLongevityChartLazy as ManagerLongevityChart } from "@/components/charts/lazy";
@@ -202,7 +202,6 @@ function Module({
 }
 
 function LateGoalsModule({ variant }: ModuleProps) {
-  const meta = getMeta();
   const lateByDecade = lateGoalShareByDecade();
   const ridge = goalMinuteRidge();
   const timed = timedGoalCounts();
@@ -225,23 +224,105 @@ function LateGoalsModule({ variant }: ModuleProps) {
   const fergLate = ferg ? pct(ferg.reg + ferg.stoppage, ferg.timed) : evenSpread;
   const sinceLate = since ? pct(since.reg + since.stoppage, since.timed) : evenSpread;
   const shortDate = (d: string) => fmtDate(d).replace(/\s*\d{4}$/, "");
+  const lateMatches = matchesSummary({ goalWindow: "late" });
+
+  const signatureNights = annotated.length > 0 ? (
+    <section className="space-y-3">
+      <div>
+        <h3 className="text-sm font-medium text-ink-dim">Three nights — coined, crowned, continued</h3>
+        <p className="mt-0.5 text-xs text-ink-dim text-pretty">
+          Where the phrase was born, where it became legend, and where it kept landing after Ferguson left — minute by minute.
+        </p>
+      </div>
+      <div className="space-y-3">
+        {annotated.map((a) => {
+          const ev = eventsForMatch(a.matchId);
+          const unitedGoals = ev.filter((e) => e.type === "goal" || e.type === "pen-goal" || e.type === "own-goal-for");
+          const opponentGoals = ev.filter((e) => e.type === "opp-goal" || e.type === "own-goal-against");
+          const hasTimed = unitedGoals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
+          const crowned = a.tag === "The Treble" || a.tag === "The original";
+          return (
+            <div
+              key={`${a.matchId}:${a.minute}:${a.added ?? 0}`}
+              className={`group relative overflow-hidden rounded-lg border bg-panel-2 p-4 transition-colors ${crowned ? "border-gold/35 shadow-[0_14px_36px_-18px_rgba(0,0,0,0.75)] hover:border-gold/55" : "border-line hover:border-devil/60"}`}
+            >
+              {crowned && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full opacity-[0.13] blur-3xl"
+                  style={{ backgroundColor: "var(--color-gold)" }}
+                />
+              )}
+              <div className="relative">
+                <Link href={`/match/${a.matchId}`} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                  <span className="flex items-center gap-2 text-sm">
+                    <span className={`text-[10px] font-medium uppercase tracking-wide ${crowned ? "text-gold" : "text-devil-bright"}`}>
+                      {a.tag}
+                    </span>
+                    <span className="stat-num text-ink-faint">{shortDate(a.date)}</span>
+                  </span>
+                  <span className="flex items-center gap-2 text-sm">
+                    <span className="text-ink-faint">{venuePrefix(a.venue)}</span>
+                    <span className="font-medium text-ink group-hover:text-devil-bright">{a.opponent}</span>
+                    <span className={`stat-num font-semibold tabular-nums ${crowned ? "text-gold" : "text-ink"}`}>
+                      {a.gf}<span className="mx-px text-ink-faint">–</span>{a.ga}
+                    </span>
+                  </span>
+                </Link>
+                <div className="mt-3.5">
+                  {hasTimed ? (
+                    <MatchFlow unitedGoals={unitedGoals} opponentGoals={opponentGoals} aet={a.clock > 95} />
+                  ) : null}
+                </div>
+                <p className="mt-3 text-xs text-ink-dim text-pretty">{a.note}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  ) : null;
 
   const lateGoalsVisual = (
-    <div className="space-y-2">
-      <div className="text-[11px] uppercase tracking-wider text-ink-faint">
-        {fmtNum(scatter.length)} goals after the 85th minute since 1950 — ten nights labelled
+    <div className="space-y-4">
+      <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
+        <div className="rounded-lg border border-line bg-panel-2 px-6 py-4 text-center">
+          <div className="stat-num text-5xl font-semibold leading-none text-gold">
+            {fergLate}<span className="mx-1.5 text-ink-faint">→</span>{sinceLate}
+          </div>
+          <div className="mx-auto mt-1.5 max-w-40 text-[11px] leading-snug text-ink-faint text-pretty">
+            of timed goals after the 85th minute — Ferguson era to since
+          </div>
+        </div>
+        <div className="flex items-center text-sm text-ink-dim sm:px-2">
+          <span>
+            For decades the share sat around <span className="text-ink">{betweenLate ?? busbyLate}</span> — Busby&apos;s era included.
+            Ferguson pushed it to <span className="text-ink">{fergLate}</span>; since he left it has climbed to{" "}
+            <span className="text-ink">{sinceLate}</span>, mostly in added time rather than the last five regulation minutes.
+          </span>
+        </div>
       </div>
-      <LateGoalScatter points={scatter} annotated={annotated} />
-      <p className="text-xs text-ink-dim text-pretty">
-        Every dot is a United goal with a recorded minute. The cloud is steady for decades, then red dots stack higher after the 90′ line from the Ferguson era onward — mostly added time, not the last five regulation minutes.
-      </p>
+      <div className="space-y-2">
+        <div className="text-[11px] uppercase tracking-wider text-ink-faint">
+          {fmtNum(scatter.length)} goals after the 85th minute since 1950 — three nights labelled
+        </div>
+        <LateGoalScatter points={scatter} annotated={annotated} />
+        <p className="text-xs text-ink-dim text-pretty">
+          Every dot is a United goal with a recorded minute. The cloud is steady for decades, then red dots stack higher after the 90′ line from the Ferguson era onward — three nights labelled, unpacked in the evidence.
+        </p>
+      </div>
     </div>
   );
 
   return (
     <Module
       slug="late-goals"
-      evidence={{ href: "/matches", label: "Browse every match →", count: Number(meta.matches), countNoun: "matches" }}
+      evidence={{
+        href: "/matches?goalWindow=late",
+        label: "Every match with a late United goal →",
+        count: lateMatches.p,
+        countNoun: "matches",
+      }}
       variant={variant}
       visual={lateGoalsVisual}
       visualLabel="Late goals"
@@ -249,6 +330,8 @@ function LateGoalsModule({ variant }: ModuleProps) {
       slice="United goals with a recorded minute — penalties and own goals included — grouped by manager era and by decade. The post-85th window is split between minutes 86–90 and stoppage time (90+, with added time folded into the final minute)."
       coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute, and that data thins quickly before the 1990s. Stoppage-time goals are only separable where a source marks them "90+" — largely a modern convention — so the stoppage segment reads near zero in the early decades partly because it went unrecorded, not only because added time was shorter.`}
     >
+      {signatureNights}
+
       <section className="space-y-3">
         <div>
           <h3 className="text-sm font-medium text-ink-dim">Was it Ferguson's? — the jump, and what stayed</h3>
@@ -319,63 +402,6 @@ function LateGoalsModule({ variant }: ModuleProps) {
         </div>
         <MinuteColumns bins={ridge.bins} stoppage={ridge.stoppage} height={200} />
       </section>
-
-      {annotated.length > 0 && (
-        <section className="space-y-3">
-          <div>
-            <h3 className="text-sm font-medium text-ink-dim">Ten nights — from Busby to Mainoo</h3>
-            <p className="mt-0.5 text-xs text-ink-dim text-pretty">
-              Labelled on the chart above; here, minute by minute — the habit was never only Ferguson's, and it did not stop when he left.
-            </p>
-          </div>
-          <div className="space-y-3">
-            {annotated.map((a) => {
-              const ev = eventsForMatch(a.matchId);
-              const unitedGoals = ev.filter((e) => e.type === "goal" || e.type === "pen-goal" || e.type === "own-goal-for");
-              const opponentGoals = ev.filter((e) => e.type === "opp-goal" || e.type === "own-goal-against");
-              const hasTimed = unitedGoals.some((g) => g.minute != null) || opponentGoals.some((g) => g.minute != null);
-              const crowned = a.tag === "The Treble" || a.tag === "The original" || a.tag === "Busby's European Cup";
-              return (
-                <div
-                  key={`${a.matchId}:${a.minute}`}
-                  className={`group relative overflow-hidden rounded-lg border bg-panel-2 p-4 transition-colors ${crowned ? "border-gold/35 shadow-[0_14px_36px_-18px_rgba(0,0,0,0.75)] hover:border-gold/55" : "border-line hover:border-devil/60"}`}
-                >
-                  {crowned && (
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full opacity-[0.13] blur-3xl"
-                      style={{ backgroundColor: "var(--color-gold)" }}
-                    />
-                  )}
-                  <div className="relative">
-                    <Link href={`/match/${a.matchId}`} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-                      <span className="flex items-center gap-2 text-sm">
-                        <span className={`text-[10px] font-medium uppercase tracking-wide ${crowned ? "text-gold" : "text-devil-bright"}`}>
-                          {a.tag}
-                        </span>
-                        <span className="stat-num text-ink-faint">{shortDate(a.date)}</span>
-                      </span>
-                      <span className="flex items-center gap-2 text-sm">
-                        <span className="text-ink-faint">{venuePrefix(a.venue)}</span>
-                        <span className="font-medium text-ink group-hover:text-devil-bright">{a.opponent}</span>
-                        <span className={`stat-num font-semibold tabular-nums ${crowned ? "text-gold" : "text-ink"}`}>
-                          {a.gf}<span className="mx-px text-ink-faint">–</span>{a.ga}
-                        </span>
-                      </span>
-                    </Link>
-                    <div className="mt-3.5">
-                      {hasTimed ? (
-                        <MatchFlow unitedGoals={unitedGoals} opponentGoals={opponentGoals} aet={a.clock > 95} />
-                      ) : null}
-                    </div>
-                    <p className="mt-3 text-xs text-ink-dim text-pretty">{a.note}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
     </Module>
   );
 }
