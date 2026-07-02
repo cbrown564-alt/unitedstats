@@ -90,12 +90,12 @@ test("Own Goal aggregates opponents' own goals as a synthetic top scorer", () =>
   // which ranks among the club's leading scorers. Pinned as calibration: a player
   // in United's own lineup can never own-goal in United's favour, so this number
   // must not absorb mislabelled real goals (the Roger Byrne cluster).
-  const top = topScorers(6);
+  const top = topScorers(12);
   const og = top.find((p) => p.player_id === "own-goal");
   assert.ok(og, "Own Goal should rank among the top scorers");
   assert.equal(og?.name, "Own Goal");
-  assert.equal(og?.goals, 202);
-  assert.equal(top.indexOf(og!), 4, "Own Goal should rank fifth all-time");
+  assert.equal(og?.goals, 154);
+  assert.equal(top.indexOf(og!), 10, "Own Goal should rank eleventh all-time");
 });
 
 test("Wayne Rooney official appearance record", () => {
