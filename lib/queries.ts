@@ -722,6 +722,68 @@ export function managerMatches(id: string): MatchRow[] {
     .all(id) as MatchRow[];
 }
 
+/** Per-season W/D/L under one manager — the season ledger on `/manager/[id]`. */
+export function managerSeasonRecords(id: string): ManagerCareerSpark[] {
+  return getDb()
+    .prepare(
+      `SELECT manager_id, season,
+              COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d,
+              COALESCE(SUM(result='L'),0) l
+       FROM matches
+       WHERE manager_id = ? AND season IS NOT NULL
+       GROUP BY manager_id, season
+       ORDER BY season`,
+    )
+    .all(id) as ManagerCareerSpark[];
+}
+
+/**
+ * Per-season competition splits under one manager — league finish from the club
+ * campaign, W/D/L from matches managed, cup verdicts from the manager's last match
+ * in each competition.
+ */
+export function managerSeasonSummaries(managerId: string): SeasonSummary[] {
+  return getDb()
+    .prepare(
+      `SELECT m.season, m.competition_id, c.name AS competition_name, c.type,
+              COUNT(*) AS p,
+              COALESCE(SUM(m.result='W'),0) AS w,
+              COALESCE(SUM(m.result='D'),0) AS d,
+              COALESCE(SUM(m.result='L'),0) AS l,
+              COALESCE(SUM(m.gf),0) AS gf,
+              COALESCE(SUM(m.ga),0) AS ga,
+              ss.position, ss.league_size,
+              (SELECT m2.round FROM matches m2
+               WHERE m2.manager_id = m.manager_id AND m2.season = m.season
+                 AND m2.competition_id = m.competition_id
+               ORDER BY m2.date DESC LIMIT 1) AS furthest_round
+       FROM matches m
+       JOIN competitions c ON c.id = m.competition_id
+       LEFT JOIN season_summaries ss ON ss.season = m.season AND ss.competition_id = m.competition_id
+       WHERE m.manager_id = ? AND m.season IS NOT NULL
+       GROUP BY m.season, m.competition_id
+       ORDER BY m.season, c.type = 'league' DESC, p DESC`,
+    )
+    .all(managerId) as SeasonSummary[];
+}
+
+/** Last cup-match outcome per season and competition under this manager. */
+export function managerCupLastResults(managerId: string): SeasonCupResult[] {
+  return getDb()
+    .prepare(
+      `SELECT m.season, m.competition_id, m.outcome AS last_outcome
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.manager_id = ?
+         AND m.season IS NOT NULL
+         AND c.type <> 'league'
+         AND m.date = (
+           SELECT MAX(m2.date) FROM matches m2
+           WHERE m2.manager_id = ? AND m2.season = m.season AND m2.competition_id = m.competition_id
+         )`,
+    )
+    .all(managerId, managerId) as SeasonCupResult[];
+}
+
 // ---------------------------------------------------------------- players
 
 export interface PlayerTotals {
@@ -2366,4 +2428,21 @@ export function managerTransferSummary(managerId: string): NetSpendBucket | unde
        GROUP BY mg.id`,
     )
     .get(managerId) as NetSpendBucket | undefined;
+}
+
+/** Transfers dated within a manager's tenure, most recent first. */
+export function managerTransfers(managerId: string): TransferRow[] {
+  return getDb()
+    .prepare(
+      `${TRANSFER_SELECT}
+       JOIN manager_tenures mt ON t.date >= mt.date_from AND (mt.date_to IS NULL OR t.date <= mt.date_to)
+       WHERE mt.manager_id = ?
+         AND t.date IS NOT NULL
+         AND (
+           t.type IN ('youth', 'released', 'retired')
+           OR NOT (t.club IS NULL AND t.fee_kind IN ('unknown', 'none'))
+         )
+       ORDER BY t.date DESC`,
+    )
+    .all(managerId) as TransferRow[];
 }

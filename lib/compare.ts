@@ -434,6 +434,55 @@ const TROPHY_CATS: { key: string; label: string }[] = [
   { key: "world", label: "World" },
 ];
 
+/** League titles and knockout cups — the honours the hero and span caption count as major. */
+export const MAJOR_TROPHY_KEYS = ["league", "european", "domestic-cup", "league-cup"] as const;
+
+const MAJOR_TROPHY_KEY_SET = new Set<string>(MAJOR_TROPHY_KEYS);
+
+/** One-line major-honours breakdown for the tenure span caption. */
+export function majorHonoursCaption(categories: TrophyCategory[]): string | null {
+  const parts: string[] = [];
+  for (const key of MAJOR_TROPHY_KEYS) {
+    const cat = categories.find((c) => c.key === key);
+    if (!cat || cat.n <= 0) continue;
+    parts.push(majorHonourPhrase(key, cat.n));
+  }
+  return parts.length > 0 ? parts.join(", ") : null;
+}
+
+function majorHonourPhrase(key: string, n: number): string {
+  switch (key) {
+    case "league":
+      return `${n} league title${n === 1 ? "" : "s"}`;
+    case "european":
+      return `${n} Champions League${n === 1 ? "" : "s"}`;
+    case "domestic-cup":
+      return `${n} FA Cup${n === 1 ? "" : "s"}`;
+    case "league-cup":
+      return `${n} League Cup${n === 1 ? "" : "s"}`;
+    default:
+      return `${n} ${key}`;
+  }
+}
+
+/** Split a manager haul into major honours vs shields/world trophies. */
+export function splitManagerTrophyHaul(haul: TrophyHaul): {
+  major: TrophyHaul;
+  majorTotal: number;
+  minorTotal: number;
+} {
+  const majorCategories = haul.categories.filter((c) => MAJOR_TROPHY_KEY_SET.has(c.key));
+  const minorCategories = haul.categories.filter((c) => !MAJOR_TROPHY_KEY_SET.has(c.key));
+  const majorTotal = majorCategories.reduce((s, c) => s + c.n, 0);
+  const minorTotal = minorCategories.reduce((s, c) => s + c.n, 0);
+  const majorEntries = (haul.entries ?? []).filter((e) => MAJOR_TROPHY_KEY_SET.has(e.cat));
+  return {
+    major: { total: majorTotal, categories: majorCategories, entries: majorEntries },
+    minorTotal,
+    majorTotal,
+  };
+}
+
 function buildHaul(rows: { cat: string; n: number }[]): TrophyHaul {
   const byKey = new Map(rows.map((r) => [r.cat, r.n]));
   const categories = TROPHY_CATS.map((c) => ({ key: c.key, label: c.label, n: byKey.get(c.key) ?? 0 })).filter(
@@ -488,6 +537,56 @@ export function managerTrophyHaul(id: string): TrophyHaul {
     href: r.cat === "league" ? `/seasons/${r.season}` : `/match/${r.match_id}`,
   }));
   return { total: entries.length, categories: categoriesFromCats(rows.map((r) => r.cat)), entries };
+}
+
+export type ManagerBestSeason = {
+  season: string;
+  reason: "trophies" | "league-points";
+  trophies?: number;
+  leaguePoints?: number;
+};
+
+/**
+ * Best season for the manager hero pip: most major trophies won in charge first; if
+ * none, the top-flight league campaign with the most points (three-for-a-win).
+ */
+export function managerBestSeason(managerId: string, haul: TrophyHaul): ManagerBestSeason | null {
+  const trophyCounts = new Map<string, number>();
+  for (const entry of haul.entries ?? []) {
+    if (!MAJOR_TROPHY_KEY_SET.has(entry.cat)) continue;
+    trophyCounts.set(entry.season, (trophyCounts.get(entry.season) ?? 0) + 1);
+  }
+
+  if (trophyCounts.size > 0) {
+    const maxTrophies = Math.max(...trophyCounts.values());
+    const seasons = [...trophyCounts.entries()]
+      .filter(([, n]) => n === maxTrophies)
+      .map(([season]) => season)
+      .sort((a, b) => a.localeCompare(b));
+    const season = seasons[seasons.length - 1]!;
+    return { season, reason: "trophies", trophies: maxTrophies };
+  }
+
+  const rows = getDb()
+    .prepare(
+      `SELECT m.season season,
+              SUM(CASE WHEN m.result = 'W' THEN 3 WHEN m.result = 'D' THEN 1 ELSE 0 END) league_points
+       FROM matches m JOIN competitions c ON c.id = m.competition_id
+       WHERE m.manager_id = ?
+         AND m.season IS NOT NULL
+         AND c.type = 'league'
+         AND c.name IN ('First Division', 'Premier League')
+       GROUP BY m.season
+       HAVING league_points > 0`,
+    )
+    .all(managerId) as { season: string; league_points: number }[];
+
+  if (rows.length === 0) return null;
+
+  const maxPoints = Math.max(...rows.map((r) => r.league_points));
+  const tied = rows.filter((r) => r.league_points === maxPoints).sort((a, b) => a.season.localeCompare(b.season));
+  const pick = tied[tied.length - 1]!;
+  return { season: pick.season, reason: "league-points", leaguePoints: maxPoints };
 }
 
 /** Trophies a *player* won, split by competition category. Attribution follows

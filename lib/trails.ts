@@ -377,6 +377,30 @@ export interface Streak {
   to: string;
 }
 
+export type LongestStreakKind = "unbeaten" | "winning" | "winless";
+
+/** Match results in order for one identified streak — drives run callout visuals. */
+export function streakResults(
+  rows: { date: string; result: string }[],
+  streak: Streak,
+  kind: LongestStreakKind,
+): ("W" | "D" | "L")[] {
+  const holds = (r: string) =>
+    kind === "unbeaten" ? r !== "L" : kind === "winning" ? r === "W" : r !== "W";
+  const out: ("W" | "D" | "L")[] = [];
+  let active = false;
+  for (const m of rows) {
+    if (!active) {
+      if (m.date === streak.from) active = true;
+      else continue;
+    }
+    if (!holds(m.result)) break;
+    out.push(m.result as "W" | "D" | "L");
+    if (out.length === streak.length) break;
+  }
+  return out;
+}
+
 /**
  * A match in a tenure / head-to-head sequence, carrying enough identity to link
  * it and draw its scoreline. Date-ordered by the queries that build it; the

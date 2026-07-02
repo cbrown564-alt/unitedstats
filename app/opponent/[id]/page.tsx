@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { opponentById, opponentMatches, opponentsIndex } from "@/lib/queries";
 import {
   longestStreak, notableMatches, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
+  streakResults,
 } from "@/lib/trails";
 import { clubColor } from "@/lib/clubColors";
 import { ClubBadge } from "@/components/ClubBadge";
@@ -65,12 +66,28 @@ export default async function OpponentPage({
   const accent = clubColor(id, o.name).bg;
   const runs = [
     unbeaten && unbeaten.length >= 3
-      ? { n: unbeaten.length, label: "unbeaten", tone: "text-win", from: unbeaten.from, to: unbeaten.to }
+      ? {
+          n: unbeaten.length,
+          label: "unbeaten",
+          tone: "text-win",
+          from: unbeaten.from,
+          to: unbeaten.to,
+          kind: "unbeaten" as const,
+          results: streakResults(sequence, unbeaten, "unbeaten"),
+        }
       : null,
     winless && winless.length >= 3
-      ? { n: winless.length, label: "without a win", tone: "text-loss", from: winless.from, to: winless.to }
+      ? {
+          n: winless.length,
+          label: "without a win",
+          tone: "text-loss",
+          from: winless.from,
+          to: winless.to,
+          kind: "winless" as const,
+          results: streakResults(sequence, winless, "winless"),
+        }
       : null,
-  ].filter(Boolean) as Run[];
+  ].filter((r): r is Run => r != null);
 
   // Standout matches: United's biggest win and heaviest defeat in the fixture,
   // plus the matches that ended the longest unbeaten and winless runs either way.

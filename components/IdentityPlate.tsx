@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { WdlBar } from "@/components/WdlBar";
 import { GoalDiff } from "@/components/GoalDiff";
 import { ShareCite } from "@/components/ShareCite";
@@ -32,6 +33,14 @@ export interface SpanSegment {
   title?: string;
 }
 
+/** Best season marker on the span rail — same gold pip idiom as {@link PlayerPlate}. */
+export interface SpanPeakSeason {
+  season: string;
+  /** Fraction 0..1 along the span rail */
+  at: number;
+  title: string;
+}
+
 interface SpanProps {
   leftLabel: string;
   left: React.ReactNode;
@@ -40,6 +49,7 @@ interface SpanProps {
   caption?: React.ReactNode;
   /** Tenure-style bands; omit for a single continuous span. */
   segments?: SpanSegment[];
+  peakSeason?: SpanPeakSeason;
 }
 
 interface IdentityPlateProps {
@@ -166,13 +176,18 @@ export function IdentityPlate({
  * Tenure bands (a manager's separate spells) render as discrete coloured segments;
  * a single continuous fixture history fills the whole rail.
  */
-function SpanTrack({ leftLabel, left, rightLabel, right, caption, segments, accent }: SpanProps & { accent: string }) {
+function SpanTrack({
+  leftLabel, left, rightLabel, right, caption, segments, peakSeason, accent,
+}: SpanProps & { accent: string }) {
   const bands = segments && segments.length > 0 ? segments : [{ from: 0, to: 1 }];
+  const peakAt =
+    peakSeason != null ? Math.min(96, Math.max(4, peakSeason.at * 100)) : null;
 
   return (
     <div className="mt-7 border-t border-line/80 pt-4">
       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-ink-faint">
         <span>{leftLabel}</span>
+        {peakSeason && <span className="text-gold/80">Best season</span>}
         <span>{rightLabel}</span>
       </div>
 
@@ -187,10 +202,34 @@ function SpanTrack({ leftLabel, left, rightLabel, right, caption, segments, acce
         ))}
         <span className="absolute -left-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch" style={{ backgroundColor: accent }} aria-hidden />
         <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch" style={{ backgroundColor: accent }} aria-hidden />
+        {peakAt != null && peakSeason && (
+          <Link
+            href={`/seasons/${peakSeason.season}`}
+            className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
+            style={{ left: `${peakAt}%` }}
+            title={peakSeason.title}
+            aria-label={peakSeason.title}
+          >
+            <span className="block h-3.5 w-3.5 rounded-full border-2 border-pitch bg-gold shadow-[0_0_0_3px_rgb(245_197_24_/0.18)]" aria-hidden />
+            <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 hidden w-max -translate-x-1/2 rounded-md border border-line bg-panel-2 px-2 py-1 text-[11px] text-ink shadow-xl shadow-black/40 group-hover/peak:block">
+              {peakSeason.title}
+            </span>
+          </Link>
+        )}
       </div>
 
       <div className="mt-2.5 flex items-center justify-between gap-3 text-xs">
         <div className="min-w-0 truncate text-ink-dim">{left}</div>
+        {peakSeason && (
+          <Link
+            href={`/seasons/${peakSeason.season}`}
+            className="stat-num shrink-0 text-gold/90 hover:text-gold"
+            title={peakSeason.title}
+          >
+            ★ {peakSeason.season}
+            <span className="hidden sm:inline">: Best season</span>
+          </Link>
+        )}
         <div className="min-w-0 truncate text-right text-ink-dim">{right}</div>
       </div>
       {caption && <p className="mt-1 text-[11px] leading-4 text-ink-faint">{caption}</p>}

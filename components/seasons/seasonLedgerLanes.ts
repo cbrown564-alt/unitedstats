@@ -13,13 +13,6 @@ export const LANE_LABEL: Record<Lane, string> = {
   other: "Other",
 };
 
-export const LANE_HEAD_TONE: Record<Lane, string> = {
-  "fa-cup": "text-gold/75",
-  "league-cup": "text-gold/75",
-  europe: "text-europe",
-  other: "text-ink-dim",
-};
-
 const CUP_SHORT: Record<string, string> = {
   "charity-shield": "Shield",
   "uefa-super-cup": "Super Cup",

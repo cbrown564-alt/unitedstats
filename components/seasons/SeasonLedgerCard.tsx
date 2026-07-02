@@ -24,6 +24,7 @@ export function SeasonLedgerCard({
   cups,
   glory,
   eraClass = "",
+  maxLeagueP,
 }: {
   season: string;
   href: string;
@@ -32,7 +33,11 @@ export function SeasonLedgerCard({
   cups: SeasonCupOutcome[];
   glory?: boolean;
   eraClass?: string;
+  /** √-scale denominator for the volume lane — pass the busiest league season in the block. */
+  maxLeagueP?: number;
 }) {
+  const leagueMax = Math.max(1, maxLeagueP ?? league?.p ?? totalP);
+
   return (
     <li className={`register-card-item ${eraClass}`}>
       <Link
@@ -43,17 +48,24 @@ export function SeasonLedgerCard({
       >
         <div className="flex items-baseline justify-between gap-3">
           <span className="display text-lg leading-tight">{season}</span>
-          <span className="stat-num shrink-0 text-[11px] text-ink-faint">{totalP} matches</span>
         </div>
 
         <div className="mt-3 space-y-3">
           {league ? (
             <>
               <FinishLadder league={league} />
-              <WdlBar w={league.w} d={league.d} l={league.l} size="md" showLabels tooltip={false} />
+              <WdlBar
+                w={league.w}
+                d={league.d}
+                l={league.l}
+                size="md"
+                showLabels
+                tooltip={false}
+                volume={{ fraction: Math.sqrt(league.p / leagueMax), games: league.p }}
+              />
             </>
           ) : (
-            <p className="text-xs text-ink-faint">Cup competitions only</p>
+            <p className="text-xs text-ink-faint">Cup competitions only · {totalP} matches</p>
           )}
 
           {cups.length > 0 && (

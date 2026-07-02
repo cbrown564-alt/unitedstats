@@ -1,26 +1,16 @@
 import Link from "next/link";
-import { seasonsIndex, seasonCupLastResults, type SeasonSummary } from "@/lib/queries";
+import { seasonsIndex, seasonCupLastResults } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
 import { PageHeader } from "@/components/PageHeader";
 import { WdlBar } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
 import { HonoursChip } from "@/components/HonoursBadge";
 import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
-import { CampaignVerdict } from "@/components/CampaignVerdict";
 import { CoverageNote } from "@/components/CoverageNote";
 import { JumpRail, type JumpChip } from "@/components/JumpRail";
-import { FinishLadder } from "@/components/seasons/FinishLadder";
+import { SeasonLedgerGrid, type SeasonLedgerRow } from "@/components/seasons/SeasonLedgerGrid";
 import { SeasonLedgerCard } from "@/components/seasons/SeasonLedgerCard";
-import {
-  cupOutcomesForSeason,
-  cupVerdict,
-  LANE_HEAD_TONE,
-  LANE_LABEL,
-  LANE_ORDER,
-  laneOf,
-  lanesForComps,
-  type Lane,
-} from "@/components/seasons/seasonLedgerLanes";
+import { cupOutcomesForSeason, lanesForComps } from "@/components/seasons/seasonLedgerLanes";
 import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
 
@@ -71,50 +61,6 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
           {cups} {cups > 1 ? "cups won" : "cup won"}
         </HonoursChip>
       )}
-    </div>
-  );
-}
-
-const CUP_SHORT: Record<string, string> = {
-  "charity-shield": "Shield",
-  "uefa-super-cup": "Super Cup",
-  "screen-sport-super-cup": "S.S. Cup",
-  "fifa-club-world-cup": "Club World",
-  "intercontinental-cup": "Interc.",
-  "test-match": "Test",
-};
-
-/** One fixed lane's cell for a season: the campaign verdict(s), or an em dash if
- *  the club didn't contest that competition that year. */
-function CupCell({
-  lane,
-  comps,
-  results,
-}: {
-  lane: Lane;
-  comps: SeasonSummary[];
-  results: Map<string, string>;
-}) {
-  if (comps.length === 0) {
-    return <span className="text-ink-faint/55" aria-hidden>–</span>;
-  }
-  return (
-    <div className="flex flex-col items-start gap-1">
-      {comps.map((c) => {
-        const v = cupVerdict(c, results.get(`${c.season}:${c.competition_id}`));
-        return (
-          <span key={c.competition_id} className="inline-flex items-center gap-1.5">
-            {lane === "other" && (
-              <span className="text-[10px] leading-none text-ink-faint">{CUP_SHORT[c.competition_id] ?? ""}</span>
-            )}
-            {v.tier === "neutral" ? (
-              <span className="stat-num text-xs text-ink-dim">{v.label || "—"}</span>
-            ) : (
-              <CampaignVerdict label={v.label} tier={v.tier} />
-            )}
-          </span>
-        );
-      })}
     </div>
   );
 }
@@ -302,9 +248,15 @@ export default async function SeasonsPage({
         }));
 
         const lanes = lanesForComps(rows.flatMap((r) => r.comps));
-        const template = `4.5rem minmax(8.5rem,1.1fr) minmax(6.5rem,0.85fr) ${lanes
-          .map(() => "minmax(4.5rem,6rem)")
-          .join(" ")}`;
+        const maxLeagueP = Math.max(1, ...rows.map((r) => r.league?.p ?? 0));
+        const gridRows: SeasonLedgerRow[] = rows.map((r) => ({
+          season: r.season,
+          href: `/seasons/${r.season}`,
+          comps: r.comps,
+          league: r.league,
+          totalP: r.totalP,
+          eraClass: eraSeasonRowClass(eraForFirstMatchYear(Number(r.season.slice(0, 4))).key),
+        }));
 
         const decadeHeader = glory ? (
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -358,6 +310,7 @@ export default async function SeasonsPage({
                     cups={cupOutcomesForSeason(r.comps, lanes, cupResults)}
                     glory={seasonGlory}
                     eraClass={eraSeasonRowClass(eraKey)}
+                    maxLeagueP={maxLeagueP}
                   />
                 );
               })}
@@ -365,73 +318,12 @@ export default async function SeasonsPage({
 
             {/* Desktop: scannable grid table. */}
             <div className="hidden overflow-x-auto sm:block">
-              <div
-                className={`min-w-max overflow-hidden rounded-lg border bg-pitch/35 ${
-                  glory ? "border-gold/25" : "border-line"
-                }`}
-              >
-                {/* column headers — the fixed lanes, labelled and tone-coded */}
-                <div
-                  className="grid items-center gap-x-3 border-b border-line bg-panel/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-faint"
-                  style={{ gridTemplateColumns: template }}
-                >
-                  <span>Season</span>
-                  <span className="flex items-center gap-1.5">
-                    Finish
-                    {/* axis legend: 1st (gold) left, last (red) right */}
-                    <span className="hidden items-center gap-1 normal-case tracking-normal text-ink-faint/80 lg:inline-flex">
-                      <span className="text-[8px]">1st</span>
-                      <span className="h-1 w-6 rounded-full bg-gradient-to-r from-gold/45 via-line to-loss/45" />
-                      <span className="text-[8px]">last</span>
-                    </span>
-                  </span>
-                  <span>Record</span>
-                  {lanes.map((l) => (
-                    <span key={l} className={LANE_HEAD_TONE[l]}>{LANE_LABEL[l]}</span>
-                  ))}
-                </div>
-
-                <ul>
-                  {rows.map((r) => {
-                    const eraKey = eraForFirstMatchYear(Number(r.season.slice(0, 4))).key;
-                    return (
-                    <li key={r.season} className={`border-b border-line last:border-b-0 ${eraSeasonRowClass(eraKey)}`}>
-                      <Link
-                        href={`/seasons/${r.season}`}
-                        className="grid items-center gap-x-3 px-4 py-2.5 transition-colors hover:bg-panel-2/60"
-                        style={{ gridTemplateColumns: template }}
-                      >
-                        <div className="min-w-0">
-                          <span className="display text-base leading-tight">{r.season}</span>
-                          <span className="stat-num block text-[11px] text-ink-faint">{r.totalP}</span>
-                        </div>
-
-                        {r.league ? (
-                          <FinishLadder league={r.league} />
-                        ) : (
-                          <span className="text-xs text-ink-faint">Cup competitions only</span>
-                        )}
-
-                        {r.league ? (
-                          <WdlBar w={r.league.w} d={r.league.d} l={r.league.l} size="md" showLabels tooltip={false} />
-                        ) : (
-                          <span aria-hidden />
-                        )}
-
-                        {lanes.map((l) => (
-                          <CupCell
-                            key={l}
-                            lane={l}
-                            comps={r.comps.filter((c) => laneOf(c.type) === l)}
-                            results={cupResults}
-                          />
-                        ))}
-                      </Link>
-                    </li>
-                    );
-                  })}
-                </ul>
-              </div>
+              <SeasonLedgerGrid
+                rows={gridRows}
+                lanes={lanes}
+                cupResults={cupResults}
+                borderClass={glory ? "border-gold/25" : "border-line"}
+              />
             </div>
           </section>
         );

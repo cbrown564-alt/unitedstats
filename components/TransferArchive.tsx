@@ -129,8 +129,8 @@ function OffMarketToggle({ total }: { total: number }) {
     <div className="mb-3 flex items-center justify-end">
       <label className="inline-flex cursor-pointer select-none items-center gap-2.5 rounded-lg border border-line bg-panel px-3 py-2 text-xs transition-colors hover:bg-panel-2 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-devil-bright">
         <input type="checkbox" className="peer sr-only" />
-        <span className="relative h-4 w-7 shrink-0 rounded-full bg-line transition-colors duration-200 peer-checked:bg-devil">
-          <span className="absolute left-0.5 top-0.5 h-3 w-3 rounded-full bg-ink-dim transition-transform duration-200 peer-checked:translate-x-3 peer-checked:bg-ink" />
+        <span className="relative h-4 w-7 shrink-0 rounded-full bg-line transition-colors duration-200 peer-checked:bg-devil peer-checked:[&>span]:translate-x-3 peer-checked:[&>span]:bg-ink">
+          <span className="absolute left-0.5 top-0.5 h-3 w-3 rounded-full bg-ink-dim transition-transform duration-200" />
         </span>
         <span className="text-ink-dim">
           <span className="font-medium text-ink">Academy, releases &amp; retirements</span>

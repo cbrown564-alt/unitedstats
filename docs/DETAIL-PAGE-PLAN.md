@@ -1,6 +1,8 @@
 # Detail page restraint plan
 
-**Status:** Phase 4 done on `/player/[id]`. Use this doc as the template for
+**Status:** `/player/[id]` is the reference implementation. Phases 1–4 shipped; a
+follow-up refinement pass (2026-07-01/02) cut two tabs, enriched the survivors, and
+relaxed the blanket “collapse all analytics” rule. Use this doc as the template for
 `/opponent/[id]`, `/manager/[id]`, `/seasons/[season]`, and future entity pages.
 
 **Context:** Detail pages accumulated every dataset lane at equal visual weight — a
@@ -10,141 +12,197 @@ collapsibles defaulted open. See player-page review screenshots (2026-07-01) and
 `docs/MOBILE.md` for shell context.
 
 **Product stance:** Researcher-first with honest lanes — not a single Wikipedia-style
-total. Hero = one defensible headline; tabs = scoped evidence workspaces; collapsibles =
-closed for analytics, open for primary evidence (tables, archives, match lists).
+total. **Restraint through tab scoping and hierarchy, not through hiding everything
+behind collapsibles.** Hero = one defensible headline; tabs = scoped evidence
+workspaces; disclosure follows what orients vs what merely elaborates.
 
 ---
 
-## Phases
+## Core principles (from the shipped player page)
 
-| Phase | Scope | Surfaces | Status |
-|-------|--------|----------|--------|
-| **1** | Desktop tabs + default-closed analytics | `DetailSectionTabs`, `/player/[id]` | Done |
-| **2** | Number hierarchy + curated lane demotion | `PlayerPlate`, player Overview tab | Done |
-| **3** | Tab restructure (rename, reorder, dedupe) | Player tabs; then opponent/manager/season | Done |
-| **4** | Coverage note consolidation | Shared `CoverageNote` usage | Done |
+These are the durable rules. Earlier phase specs below are historical; when they
+conflict with this section, follow this section.
+
+### 1. Hero = one defensible headline
+
+The plate is a single composed object: identity, **one dominant figure** (goals for
+players), secondary stats at lower weight, and a career arc (debut → peak → latest).
+The hero answers the headline question once; everything below is evidence.
+
+### 2. Honest lanes, not one Wikipedia total
+
+Multiple data sources coexist but never compete at equal typographic weight:
+
+- **Club record** in the hero (e.g. “Verified competitive record”).
+- **Recorded splits** in tab headers and table semantics (empty cell = coverage gap,
+  not zero).
+- **Curated / hand-attributed lanes** labeled, sourced, and scoped to the tab they
+  explain.
+
+When totals differ, **label the lane before showing a second number.** Consolidate
+repeated trust vocabulary into one page-level **Data coverage** collapsible
+(`PlayerDataCoverage` on the player page).
+
+### 3. Tabs = scoped workspaces, one panel everywhere
+
+`DetailSectionTabs` shows **one active panel at all breakpoints** — no desktop
+infinite scroll through every tab. Tab count follows **user questions**, not “one tab
+per dataset.” Cut tabs that only duplicate the hero or exist solely for navigation
+trails.
+
+### 4. Primary evidence upfront; analytics serve the audit surface
+
+The sortable season table (or equivalent ledger/list) is the audit surface. Around it:
+
+- **Orientation first** — peak-season highlights, a season chart when it orients.
+- **Archives expandable, not flat** — haul cards as highlight reel, then season-grouped
+  accordions with the newest group open by default.
+- **Analytics live inside the tab they explain** — not as equal-weight hero competitors.
+
+Default-open vs default-closed follows **what answers faster**, not a blanket rule.
+
+### 5. Archives must leave the building
+
+Cutting density never means cutting reachability. Every evidence stack keeps escape
+hatches: `EvidenceLink` → match browser, `ArchiveJumpRail` for long careers, season
+and match deep links, share/cite and suggest correction on the plate.
+
+### 6. Enrich what stays; delete what duplicates
+
+Invest in surfaces that earn their slot (season table micro-bars, medal pips, decade
+headers; transfer fee timeline; scoring season accordions). Remove duplicate trails —
+pick one canonical surface for peak season, top opponent, club rank, etc.
+
+### 7. Push back when the literal spec undermines the goal
+
+Faithful execution that adds noise or duplication is still a failure (see
+`docs/RESTRAINT-PASS-PHASE2-REVIEW.md`). Examples from the player refinement pass:
+
+- Season chart **open** in Career History — it orients before the table.
+- Transfers get a **dedicated tab + timeline**, not row #1 buried in overview.
+- Appearances tab **removed** — starts/subs derivable from hero; lineup archive did
+  not justify a tab on this page.
+- Links / More tab **removed** — rank already in hero; one back link suffices.
 
 ---
 
-## Phase 1 — Desktop tabs + default-closed analytics
+## Reference implementation — `/player/[id]`
 
-### 1a. `DetailSectionTabs` — one panel at all breakpoints
+### Final tab map
+
+| Tab id | Label | Primary job |
+|--------|-------|-------------|
+| `career` | **Career History** | Season trajectory — chart (when >1 season) + sortable season ledger |
+| `goals` | **Goals & Assists** | Scoring evidence, curated goal-type breakdown, assist partnerships |
+| `transfers` | **Transfers** | Transfer record as fee-scaled timeline |
+
+Tabs **cut** after refinement (absorbed elsewhere or not worth a slot):
+
+| Former tab | Disposition |
+|------------|-------------|
+| Appearances | Cut — starts/subs in hero plate; full lineup archive removed from player page |
+| Links / More | Cut — club rank in hero; “← All players” at page foot |
+
+### Content order (player)
+
+**Career History:**
+
+1. Goals and assists by season chart (**open** when `bySeason.length > 1`)
+2. Season by season — coverage count, `PlayerSeasonHighlights`, `PlayerSeasonTable`
+
+**Goals & Assists:**
+
+1. Curated goal-type body map (`ChartPanel`, when curated data exists)
+2. Assist partnerships
+3. Matches where he scored — one-line context (top opponent, scoring run)
+4. Haul cards (highlight reel, capped) → `PlayerScoringArchive` (season accordions,
+   newest open; jump rail when career span ≥ 15 seasons)
+
+**Transfers:**
+
+1. `PlayerTransferRecord` — vertical fee timeline (signings left, departures right)
+
+**Below tabs:**
+
+- `PlayerDataCoverage` — one collapsed footnote for all lanes
+- Back link to index
+
+### Hero plate (`PlayerPlate`)
+
+- Dominant goals figure + club rank among goalscorers
+- Secondary ribbon: apps (with sub count), goals/app, multi-goal apps, assists
+- Career arc with linked debut, peak season, latest match
+- Footer band: one-line trust note + suggest correction; share/cite top-right
+
+---
+
+## Phases (historical — player page)
+
+| Phase | Scope | Status |
+|-------|--------|--------|
+| **1** | Desktop tabs (`DetailSectionTabs`) | Done — global primitive |
+| **2** | Number hierarchy + curated lane demotion | Done — evolved: curated inline in Goals tab, not collapsed Overview block |
+| **3** | Tab restructure | Done — then refined to 3 tabs (see above) |
+| **4** | Coverage note consolidation | Done — `PlayerDataCoverage` |
+
+### Phase 1a — `DetailSectionTabs` (global)
 
 **Problem:** Below `sm`, tabs worked; at `sm+`, every panel stacked (`hidden sm:block`),
 producing a longer scroll than mobile with no section navigation.
 
-**Change:**
+**Shipped:**
 
-- Show the tab bar at **all** breakpoints (remove `sm:hidden` from tablist).
-- Inactive tab panels stay `hidden` at every size; only the active panel renders.
-- Preserve `desktopOnly` tabs: still absent from the tab bar, still `hidden sm:block`
-  (desktop-only stack for match-detail lineup, etc.).
+- Tab bar at **all** breakpoints.
+- Inactive panels `hidden` at every size; only the active panel visible.
+- `desktopOnly` tabs: absent from tab bar, `hidden sm:block` (e.g. match lineup).
 
-**Rollout:** Changing the primitive affects every consumer — player, opponent, manager,
-season, and match (via `MatchSectionTabs`). Phase 1 ships the primitive change globally;
-page-specific disclosure defaults are player-only until later phases.
+**Rollout:** Primitive change is global (player, opponent, manager, season, match).
+Page-specific tab maps and disclosure defaults are per-page.
 
-### 1b. Player page — default-closed analytics
+### Phase 1b — Disclosure (revised)
 
-**Problem:** Five `<details open>` blocks expanded every chart on first load, defeating
-progressive disclosure.
+**Original intent:** Default-closed analytics via `<details>`.
 
-**Change — remove `open` from:**
+**What shipped:** Tabs do most of the containment work. Nested `<details>` remain for:
 
-| Section | Tab | Rationale |
-|---------|-----|-----------|
-| Scoring profile (minute chart, comp split, top opponent, scoring run) | Overview (`career`) | Analyst overlay |
-| Goals and assists by season (chart) | Overview | Table is primary evidence |
-| Contribution spine | Goals | Haul cards answer faster |
-| Starts vs subs split bar | Apps | Derivable from hero starts/subs |
+- Long archives (`PlayerScoringArchive` season rows; only newest open)
+- Page-level data coverage footnote
 
-**Keep `open` on:**
+Default-**open** where it orients (season chart, season table, haul cards). Default-**closed**
+or tab-scoped for elaboration that duplicates hero or table insights.
 
-| Section | Tab | Rationale |
-|---------|-----|-----------|
-| The full table (`PlayerSeasonTable`) | Overview | Sortable audit surface |
+### Phase 4 — Coverage note consolidation
 
----
+**Shipped:**
 
-## Phase 2 — Number hierarchy + curated lane demotion
-
-**Problem:** Hero shows club-record goals (`p.goals`); curated Tableau lane shows
-different totals (e.g. 253 vs 229) at equal typographic weight — reads as a bug.
-
-**Changes:**
-
-- Hero: label dominant figure **Club record**; lane chips on ambiguous stats (`record` /
-  `recorded` / `curated`).
-- Collapse `PlayerPlate` footer caveat into **About these numbers ▸** (one line default).
-- Curated block: collapsed `<details>` summary, not competing StatTile hero numbers.
-- When `curatedTotals.goals !== p.goals`, one-line reconciler in summary text.
-- Assists: hero detail → **Combined (curated + match events)**; remove vague
-  `incl. curated` without explanation.
-
-**Do not delete lanes** — label and hierarchy, not data removal.
+- One page-level collapsible **Data coverage** after tabs (`PlayerDataCoverage`).
+- Chart-specific encoding footnotes stay inline (minute bins, stoppage time, season
+  chart coverage gaps via `playerSeasonChartFootnotes`).
+- Section-level `CoverageNote` inside the collapsible, not repeated on scroll.
 
 ---
 
-## Phase 3 — Tab restructure (player first, then others)
+## Apply to other detail pages
 
-### Proposed tab map (player)
-
-| Current id | Proposed label | Primary job |
-|------------|----------------|-------------|
-| `career` | **Overview** | Transfers, season table, curated lane |
-| `goals` | **Goals** | Hauls + scoring archive |
-| `apps` | **Appearances** | Lineup archive |
-| `more` | **Links** / **More** | Navigation trails only |
-
-### Reorder / relocate
-
-**Overview:**
-
-1. Transfer record (if any)
-2. Season by season — **table first**, chart second (closed)
-3. Curated lane (collapsed)
-4. Scoring profile (collapsed)
-5. Assist partnerships — move **out of More** (collapsed, summary line)
-
-**Goals tab:**
-
-1. Intro + haul cards (**open**)
-2. Contribution spine (**closed**)
-3. Season archive rows (unchanged)
-
-**More tab:**
-
-- Drop duplicate peak-season / top-opponent trails (already in scoring profile).
-- Keep rank + navigation cards only.
-
-### Apply to other detail pages
-
-Use the same decision tree per page:
+Decision tree per page:
 
 1. **Hero** — identity + one headline answer + compressed trust note.
-2. **Overview tab** — narrative + primary table; analytics collapsed.
-3. **Evidence tabs** — match archives with jump rails and browser links.
-4. **More / Links** — navigation only, no duplicated analytics.
+2. **Tabs** — one job each; cut tabs that duplicate hero or serve only as link dumps.
+3. **Primary tab** — narrative + sortable table/list as the audit surface.
+4. **Evidence tabs** — match archives with jump rails and browser links.
+5. **Coverage** — one page-level collapsible when multiple lanes exist.
+6. **Disclosure** — tabs first; `<details>` only where the full list is long; default-open
+   when it orients.
 
 | Page | Likely tab themes | Notes |
 |------|-------------------|-------|
-| `/opponent/[id]` | Fixture · Matches · More | Already tabbed; audit open collapsibles |
-| `/manager/[id]` | Tenure · Matches · More | Same pattern |
-| `/seasons/[season]` | Campaign · Squad · More | Season ledger + tables |
+| `/opponent/[id]` | Fixture · Matches · … | Audit open collapsibles; align with player archive patterns |
+| `/manager/[id]` | Tenure · Matches · … | Same pattern |
+| `/seasons/[season]` | Campaign · Squad · … | Season ledger + tables |
 | `/match/[id]` | Match · Lineup (`desktopOnly`) | Keep lineup desktop-only stack |
 
----
-
-## Phase 4 — Coverage note consolidation
-
-**Problem:** `CoverageNote`, hero caveat, and inline chart footnotes repeat
-“not a career total” / slice vocabulary on every scroll.
-
-**Changes:**
-
-- One page-level collapsible **Data coverage** after tabs where multiple notes today.
-- Keep chart-specific encoding footnotes (minute bins, stoppage time).
-- Use `CoverageNote collapsible` on mobile for remaining section notes.
+Do **not** assume every entity page needs Appearances, Links, or More tabs — derive
+tab count from genuine user questions.
 
 ---
 
@@ -152,29 +210,31 @@ Use the same decision tree per page:
 
 These stay even when trimming density:
 
-1. Match browser deep links — `EvidenceLink`, `ArchiveJumpRail`, season **Open** buttons.
-2. Lane honesty — curated vs recorded vs club record; graded coverage counts.
+1. Match browser deep links — `EvidenceLink`, `ArchiveJumpRail`, season links.
+2. Lane honesty — club record vs recorded vs curated; graded coverage counts.
 3. Full sortable season table with empty-cell = coverage gap semantics.
-4. Curated Tableau lane (labeled, linked to source).
+4. Curated Tableau lane (labeled, linked to source) where it exists.
 5. Career arc with debut / latest / peak season.
-6. Scoring and lineup archives with role encoding.
-7. Assist partnerships (relocate, don’t delete).
-8. Transfer record when present.
+6. Scoring archive with role/goal encoding and season grouping.
+7. Assist partnerships (in the tab they belong to — Goals for players).
+8. Transfer record when present (dedicated tab/surface on player page).
 9. Suggest correction + share/cite on the plate.
-10. Club rank among recorded goalscorers.
+10. Club rank among recorded goalscorers (hero, not a Links tab).
 
 ---
 
-## Target density (player)
+## Target density
 
 ~30–40% reduction in **perceived** density on first load:
 
-- One tab visible on desktop (not four stacked sections).
-- Analytics collapsed until the user expands them.
-- Primary evidence (season table, haul cards, archives) remains reachable without extra taps.
+- One tab visible on desktop (not every section stacked).
+- Hero carries the headline; tabs scope the rest.
+- Primary evidence reachable without extra taps; long archives behind purposeful
+  disclosure (tabs, then accordions).
 
-**First mobile viewport after all phases:** compact hero → Overview tab → transfers +
-season table (open) → collapsed curated / scoring / partnerships below the fold.
+**First mobile viewport (player):** compact hero → Career History tab → season chart
+(if multi-season) + season table → Goals & Assists and Transfers one tap away → Data
+coverage collapsed below.
 
 ---
 
@@ -182,10 +242,14 @@ season table (open) → collapsed curated / scoring / partnerships below the fol
 
 When applying this plan to a new detail page:
 
-- [ ] Audit `<details open>` — default open only for primary evidence tables/lists.
-- [ ] Confirm tabs work on desktop (single active panel).
-- [ ] Map duplicate insights (hero vs tabs vs More) and pick one canonical surface.
-- [ ] Label competing totals with lane names before showing second numbers.
+- [ ] Hero answers one headline question; competing totals are lane-labeled.
+- [ ] Tabs scoped by user job; no tab exists only to duplicate hero or host link cards.
+- [ ] Single active panel at all breakpoints (`DetailSectionTabs`).
+- [ ] Primary audit surface (table/list) visible without extra taps in its tab.
+- [ ] Disclosure: tabs first; audit `<details open>` defaults (open = orients, closed = elaborates).
+- [ ] Map duplicate insights (hero vs tabs) and pick one canonical surface.
+- [ ] One page-level **Data coverage** collapsible when multiple lanes exist.
+- [ ] Evidence escape hatches — match browser, jump rails, deep links.
 - [ ] Screenshot phone (390×844) and desktop (1280) — see `AGENTS.md`.
 - [ ] Run `npm run knip` — no orphan files; scripts under `scripts/` if added.
 
@@ -195,6 +259,11 @@ When applying this plan to a new detail page:
 
 - `components/mobile/DetailSectionTabs.tsx` — shared tab primitive.
 - `components/PlayerPlate.tsx` — player hero plate.
-- `app/player/[id]/page.tsx` — first page refactored.
+- `components/player/PlayerSeasonHighlights.tsx` — peak-season orientation above ledger.
+- `components/player/PlayerScoringArchive.tsx` — season-grouped scoring accordions.
+- `components/player/PlayerTransferRecord.tsx` — transfer fee timeline.
+- `components/PlayerSeasonTable.tsx` — sortable season audit surface.
+- `app/player/[id]/page.tsx` — reference detail page.
 - `docs/SOURCE-AUDIT.md` — multi-lane data model (club record, match-attributed, curated).
 - `docs/MOBILE.md` — shell tiers and screenshot workflow.
+- `docs/RESTRAINT-PASS-PHASE2-REVIEW.md` — push back when the spec undermines the goal.
