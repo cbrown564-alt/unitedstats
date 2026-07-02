@@ -27,12 +27,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 79
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -209,12 +209,12 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 82
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -400,11 +400,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 38,
-          "detail": "Len Badger (og)",
-          "playerName": "Len Badger",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Len Badger (og)"
         },
         {
           "type": "goal",
@@ -600,7 +598,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 23
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -773,11 +771,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 15,
-          "detail": "Alan Dodd (og)",
-          "playerName": "Alan Dodd",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Alan Dodd (og)"
         }
       ],
       "eventsComplete": true,
@@ -941,14 +937,17 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 26,
-          "detail": "John Pratt (og)",
-          "playerName": "John Pratt",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "John Pratt (og)"
         },
         {
           "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        },
+        {
+          "type": "goal",
           "player": "gerry-daly",
           "minute": null
         },
@@ -971,7 +970,7 @@
           "sourceConfidence": "supporting"
         }
       ],
-      "eventsComplete": false,
+      "eventsComplete": true,
       "lineup": [
         {
           "player": "alex-stepney",
@@ -1129,12 +1128,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 74
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1504,7 +1503,7 @@
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": 28
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -1644,6 +1643,40 @@
       ]
     },
     {
+      "id": "1975-09-22-aston-villa-a",
+      "date": "1975-09-22",
+      "competition": "league-cup",
+      "round": "Round 3",
+      "opponent": "Aston Villa",
+      "opponentId": "aston-villa",
+      "venue": "A",
+      "stadium": null,
+      "attendance": 41447,
+      "score": {
+        "ft": [
+          2,
+          1
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "lou-macari",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "steve-coppell",
+          "minute": null
+        }
+      ],
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
       "id": "1975-09-24-derby-county-a",
       "date": "1975-09-24",
       "competition": "first-division",
@@ -1669,7 +1702,7 @@
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 82
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1852,12 +1885,12 @@
         {
           "type": "goal",
           "player": "david-mccreery",
-          "minute": 29
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "own-goal-against",
@@ -2387,12 +2420,12 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 30
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 55
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2578,17 +2611,17 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 35
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2762,7 +2795,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 55
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2957,7 +2990,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 79
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -3122,7 +3155,7 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3533,12 +3566,12 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 55
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -3715,7 +3748,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 58
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3919,7 +3952,7 @@
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 68
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -4264,22 +4297,22 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 3
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 74
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 87
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4465,7 +4498,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 90
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -4642,7 +4675,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 26
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4816,12 +4849,12 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 51
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 80
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5012,6 +5045,11 @@
           "minute": null
         },
         {
+          "type": "pen-goal",
+          "player": "gerry-daly",
+          "minute": null
+        },
+        {
           "type": "opp-goal",
           "player": null,
           "playerName": "Derek Clarke",
@@ -5021,7 +5059,7 @@
           "sourceConfidence": "supporting"
         }
       ],
-      "eventsComplete": false,
+      "eventsComplete": true,
       "lineup": [
         {
           "player": "alex-stepney",
@@ -5195,12 +5233,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5374,7 +5412,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5562,17 +5600,17 @@
         {
           "type": "goal",
           "player": "alex-forsyth",
-          "minute": 8
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 11
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5746,17 +5784,17 @@
         {
           "type": "goal",
           "player": "alex-forsyth",
-          "minute": 36
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5942,7 +5980,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 82
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6130,12 +6168,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 8
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 33
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6489,7 +6527,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 44
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6684,7 +6722,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 27
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6870,22 +6908,22 @@
         {
           "type": "goal",
           "player": "alex-forsyth",
-          "minute": 49
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 56
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-mccreery",
-          "minute": 76
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 88
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -7064,7 +7102,7 @@
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 66
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7240,18 +7278,17 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 35
+          "minute": null
         },
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": 74
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 90,
-          "addedTime": 6
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7446,17 +7483,17 @@
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": 3
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7639,7 +7676,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 9
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7822,19 +7859,15 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 15,
-          "detail": "John Bird (og)",
-          "playerName": "John Bird",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "John Bird (og)"
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 49,
-          "detail": "Pat Howard (og)",
-          "playerName": "Pat Howard",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Pat Howard (og)"
         },
         {
           "type": "opp-goal",
@@ -8026,17 +8059,17 @@
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-mccreery",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 70
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8203,12 +8236,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 12
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 84
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8558,11 +8591,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 56,
-          "detail": "Roger Kenyon (og)",
-          "playerName": "Roger Kenyon",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Roger Kenyon (og)"
         },
         {
           "type": "goal",
@@ -8753,7 +8784,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 57
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -9110,7 +9141,7 @@
         {
           "type": "goal",
           "player": "peter-coyne",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9435,12 +9466,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 52
+          "minute": null
         }
       ],
       "eventsComplete": true,

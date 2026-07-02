@@ -1588,7 +1588,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "curated"
       ],
       "events": [
         {
@@ -1603,6 +1604,14 @@
           "type": "goal",
           "player": "andy-cole",
           "minute": 18
+        },
+        {
+          "type": "own-goal-for",
+          "player": "own-goal",
+          "minute": 44,
+          "detail": "Jamie Carragher (og)",
+          "playerName": "Jamie Carragher",
+          "playerSide": "opponent"
         },
         {
           "type": "opp-goal",
@@ -1623,7 +1632,7 @@
           "sourceConfidence": "supporting"
         }
       ],
-      "eventsComplete": false,
+      "eventsComplete": true,
       "lineup": [
         {
           "player": "massimo-taibi",

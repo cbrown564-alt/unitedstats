@@ -18,7 +18,7 @@ import { QUESTIONS } from "../lib/questions";
 import { questionHeadlines } from "../lib/questionHeadlines";
 import { questionAnswer } from "../lib/questionCardData";
 import { leadHeldAtHome, europeanFinals, trebleSummary } from "../lib/trails";
-import { topScorers } from "../lib/queries";
+import { topScorers, ownGoalSummary } from "../lib/queries";
 import { getDb } from "../lib/db";
 import { fmtNum } from "../lib/format";
 
@@ -79,7 +79,8 @@ test("own-goals: card leads with the rank, derived from the live top-scorers tab
   const a = questionAnswer("own-goals");
   assert.ok(a);
   const idx = topScorers(8).findIndex((p) => p.player_id === "own-goal");
-  assert.equal(a.figure, idx >= 0 ? `#${idx + 1}` : "—", "card should lead with the own-goal rank");
+  const expected = idx >= 0 ? `#${idx + 1}` : fmtNum(ownGoalSummary().total);
+  assert.equal(a.figure, expected, "card should lead with the own-goal rank or total");
 });
 
 test("treble: every surface reports live season figures", () => {

@@ -79,6 +79,66 @@ function competitionFor(heading: string, startYear: number): string | "league" |
 
 interface PlayerRef { id: string; name: string }
 
+/** Split scorer cells on commas or full stops between names ("Pearson. Hill"). */
+function splitScorerChunks(raw: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let cur = "";
+  for (let i = 0; i < raw.length; i++) {
+    if (raw.startsWith("[[", i) || raw.startsWith("{{", i)) { depth++; cur += raw[i]; continue; }
+    if (raw.startsWith("]]", i) || raw.startsWith("}}", i)) { depth = Math.max(0, depth - 1); cur += raw[i]; continue; }
+    if (depth === 0 && raw[i] === ",") { parts.push(cur); cur = ""; continue; }
+    if (depth === 0 && raw[i] === "." && raw[i + 1] === " ") { parts.push(cur); cur = ""; i++; continue; }
+    cur += raw[i];
+  }
+  if (cur.trim()) parts.push(cur);
+  return parts;
+}
+
+function goalCountFromChunk(text: string, minutes: number[], og: boolean): number {
+  if (minutes.length > 0) return minutes.length;
+  if (og) {
+    const ogMult = text.match(/\((\d+)\s*o\.?g/i);
+    if (ogMult) return parseInt(ogMult[1], 10);
+  }
+  // "McIlroy (2; 1 pen.)", "Daly (3; 2 pen.)"
+  const semiPen = text.match(/\((\d+)\s*;\s*\d+\s*pen/i);
+  if (semiPen) return parseInt(semiPen[1], 10);
+  // "Strachan 2 (1 pen)", "Whiteside 2", "Rowley (5)"
+  const beforeParen = text.match(/\b(\d+)\s*\(/);
+  if (beforeParen) return parseInt(beforeParen[1], 10);
+  const braceOnly = text.match(/\((\d+)\)\s*$/);
+  if (braceOnly && !/\(\d+\s*(?:pen|o\.?g)/i.test(text)) return parseInt(braceOnly[1], 10);
+  const trailing = text.match(/\b(\d+)\s*$/);
+  if (trailing) return parseInt(trailing[1], 10);
+  return 1;
+}
+
+function penGoalCount(text: string, total: number): number {
+  const semi = text.match(/;\s*(\d+)\s*pen/i);
+  if (semi) return Math.min(parseInt(semi[1], 10), total);
+  const explicit = text.match(/\((\d+)\s*pen/i);
+  if (explicit) return Math.min(parseInt(explicit[1], 10), total);
+  if (/pen|\(p\)/i.test(text) && total === 1) return 1;
+  return 0;
+}
+
+/** Avoid false positives like "McCalliog" or "Pearson" matching og/pen substrings. */
+function isOwnGoalChunk(chunk: string, text: string): boolean {
+  if (/\[\[(?:Own goal|own goal)(?:\|[^\]]*)?\]\]/i.test(chunk)) return true;
+  if (/\(\d+\s*o\.?g\.?\)/i.test(text)) return true;
+  if (!linkTarget(chunk) && /^'?own goal'?$/i.test(text.replace(/'/g, ""))) return true;
+  return false;
+}
+
+function isPenChunk(chunk: string, text: string): boolean {
+  if (/\[\[(?:Penalty kick|Penalty \(football\))(?:\|[^\]]*)?\]\]/i.test(chunk)) return true;
+  if (/\(\d+\s*;\s*\d+\s*pen/i.test(text)) return true;
+  if (/\(\d+\s*pen/i.test(text)) return true;
+  if (/\bpen\.|\(p\)/i.test(text)) return true;
+  return false;
+}
+
 function parseScorers(
   rawCell: string,
   knownPlayers: Map<string, PlayerRef>,
@@ -88,11 +148,11 @@ function parseScorers(
   const cleaned = rawCell.replace(/<ref[^>]*\/>/g, "").replace(/<ref[^>]*>[\s\S]*?<\/ref>/g, "");
   if (!stripWiki(cleaned) || /^[-—–\s]*$/.test(stripWiki(cleaned))) return events;
   let lastPid: string | null = null; // carries across "Rooney 12', 34'" comma splits
-  for (const chunk of splitCells(cleaned, ",")) {
+  for (const chunk of splitScorerChunks(cleaned)) {
     const text = stripWiki(chunk);
     if (!text) continue;
-    const og = /o\.?g\.?|own goal/i.test(chunk);
-    const pen = /pen|\(p\)/i.test(chunk);
+    const og = isOwnGoalChunk(chunk, text);
+    const pen = isPenChunk(chunk, text);
     // skip non-player wikilinks like [[Penalty kick|pen.]] or [[Own goal|o.g.]]
     const cleanedChunk = chunk.replace(/\[\[(?:Penalty kick|Own goal|Penalty \(football\))(?:\|[^\]]*)?\]\]/gi, "");
     const target = linkTarget(cleanedChunk);
@@ -105,6 +165,11 @@ function parseScorers(
     );
 
     if (!displayName) {
+      if (og) {
+        events.push({ type: "own-goal-for", player: null, minute: minutes[0] ?? null, detail: "Own goal (og)" });
+        lastPid = null;
+        continue;
+      }
       // bare minutes after a comma belong to the previous scorer
       if (lastPid && minutes.length > 0) {
         for (const min of minutes) {
@@ -114,9 +179,9 @@ function parseScorers(
       continue;
     }
 
-    // multiplier: "(2)" not containing pen/og
-    const mult = text.match(/\((\d+)\)/);
-    const count = minutes.length > 0 ? minutes.length : mult ? parseInt(mult[1], 10) : 1;
+    // multiplier: "(5)" brace count, "Whiteside 2", or "Strachan 2 (1 pen)"
+    const count = goalCountFromChunk(text, minutes, og);
+    const penGoals = penGoalCount(text, count);
 
     if (og) {
       for (let i = 0; i < count; i++) {
@@ -132,13 +197,56 @@ function parseScorers(
     }
     for (let i = 0; i < count; i++) {
       events.push({
-        type: pen && count === 1 ? "pen-goal" : "goal",
+        type: i < penGoals ? "pen-goal" : "goal",
         player: pid,
         minute: minutes[i] ?? null,
       });
     }
   }
   return events;
+}
+
+const UNITED_GOAL_TYPES = new Set(["goal", "pen-goal", "own-goal-for"]);
+
+function unitedGoalEvents(events: MatchEvent[] | undefined): MatchEvent[] {
+  return (events ?? []).filter((e) => UNITED_GOAL_TYPES.has(e.type));
+}
+
+function otherScoringEvents(events: MatchEvent[] | undefined): MatchEvent[] {
+  return (events ?? []).filter((e) => !UNITED_GOAL_TYPES.has(e.type));
+}
+
+function shiftDate(iso: string, days: number): string {
+  const d = new Date(`${iso}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+/** engsoccerdata and Wikipedia sometimes disagree by a day on the same fixture. */
+function findExistingMatch(
+  byDateOpp: Map<string, Match>,
+  date: string,
+  oppId: string,
+  gf: number,
+  ga: number,
+): Match | undefined {
+  for (const delta of [0, -1, 1, -2, 2, -3, 3]) {
+    const m = byDateOpp.get(`${shiftDate(date, delta)}|${oppId}`);
+    if (m && m.score.ft[0] === gf && m.score.ft[1] === ga) return m;
+  }
+  return undefined;
+}
+
+function mergeUnitedGoalEvents(existing: Match, parsed: MatchEvent[]): boolean {
+  const unitedNeeded = existing.score.ft[0];
+  const unitedExisting = unitedGoalEvents(existing.events);
+  const mayWrite = REPARSE
+    ? parsed.length > 0
+    : unitedExisting.length < unitedNeeded && parsed.length > 0;
+  if (!mayWrite || JSON.stringify(unitedExisting) === JSON.stringify(parsed)) return false;
+  existing.events = [...parsed, ...otherScoringEvents(existing.events)];
+  existing.eventsComplete = unitedGoalEvents(existing.events).length === unitedNeeded;
+  return true;
 }
 
 // --------------------------------------------------------------- main parse
@@ -269,22 +377,14 @@ async function processSeason(
 
   for (const r of rows) {
     const oppId = opponentIdFor(r.opponent, aliases);
-    const existing = byDateOpp.get(`${r.date}|${oppId}`);
+    const existing = findExistingMatch(byDateOpp, r.date, oppId, r.gf, r.ga);
     const events = r.scorersRaw ? parseScorers(r.scorersRaw, knownPlayers, newPlayers) : [];
-    const goalEvents = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type)).length;
 
     if (existing) {
       let touched = false;
       if (existing.attendance == null && r.attendance != null) { existing.attendance = r.attendance; touched = true; }
       if (!existing.round && r.round) { existing.round = r.round; touched = true; }
-      const mayWrite = REPARSE
-        ? events.length > 0 // reparse: replace wikipedia-derived events wholesale
-        : (!existing.events || existing.events.length === 0) && events.length > 0;
-      if (mayWrite && JSON.stringify(existing.events) !== JSON.stringify(events)) {
-        existing.events = events;
-        existing.eventsComplete = goalEvents === existing.score.ft[0];
-        touched = true;
-      }
+      if (mergeUnitedGoalEvents(existing, events)) touched = true;
       if (touched && !existing.sources.includes("wikipedia")) existing.sources.push("wikipedia");
       if (touched) enriched++;
       continue;
@@ -297,6 +397,7 @@ async function processSeason(
       warnings.push(`fa-cup row not matched: ${r.date} v ${r.opponent}`);
       continue;
     }
+    const unitedGoals = unitedGoalEvents(events).length;
     const match: Match = {
       id: matchId(r.date, oppId, r.venue),
       date: r.date,
@@ -308,7 +409,7 @@ async function processSeason(
       stadium: null,
       attendance: r.attendance,
       score: { ft: [r.gf, r.ga], aet: r.aet || undefined, pens: r.pens },
-      eventsComplete: events.length > 0 ? goalEvents === r.gf : undefined,
+      eventsComplete: events.length > 0 ? unitedGoals === r.gf : undefined,
       events: events.length > 0 ? events : undefined,
       sources: ["wikipedia"],
     };

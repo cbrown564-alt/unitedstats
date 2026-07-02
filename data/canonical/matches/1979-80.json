@@ -8163,6 +8163,11 @@
           "minute": null
         },
         {
+          "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
           "type": "opp-goal",
           "player": null,
           "playerName": "Garry Thompson",
@@ -8172,7 +8177,7 @@
           "sourceConfidence": "supporting"
         }
       ],
-      "eventsComplete": false,
+      "eventsComplete": true,
       "lineup": [
         {
           "player": "gary-bailey",

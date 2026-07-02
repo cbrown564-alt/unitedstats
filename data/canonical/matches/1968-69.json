@@ -27,12 +27,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 21
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -206,7 +206,7 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -578,7 +578,7 @@
         {
           "type": "goal",
           "player": "jimmy-ryan",
-          "minute": 16
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -947,11 +947,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 65,
-          "detail": "Phil Beal (og)",
-          "playerName": "Phil Beal",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Phil Beal (og)"
         },
         {
           "type": "opp-goal",
@@ -1125,22 +1123,22 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 12
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 26
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 10
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 36
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1362,7 +1360,7 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1700,17 +1698,17 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 8
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 41
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 55
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1900,17 +1898,17 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 16
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2260,37 +2258,37 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 41
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 71
+          "minute": null
         },
         {
           "type": "goal",
           "player": "francis-burns",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 84
+          "minute": null
         },
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": 37
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2624,12 +2622,12 @@
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": 35
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2997,7 +2995,7 @@
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3187,7 +3185,7 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 27
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3382,17 +3380,17 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 26
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 84
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3730,11 +3728,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 88,
-          "detail": "Charlie Hurley (og)",
-          "playerName": "Charlie Hurley",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Charlie Hurley (og)"
         },
         {
           "type": "opp-goal",
@@ -3904,17 +3900,17 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": 52
+          "minute": null
         }
       ],
       "sources": [
@@ -4403,7 +4399,7 @@
         {
           "type": "goal",
           "player": "carlo-sartori",
-          "minute": 8
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4599,12 +4595,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 80
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -4781,7 +4777,7 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4964,7 +4960,7 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 53
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -5515,11 +5511,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 60,
-          "detail": "Johnny Newman (og)",
-          "playerName": "Johnny Newman",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Johnny Newman (og)"
         },
         {
           "type": "opp-goal",
@@ -5705,7 +5699,7 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5888,22 +5882,22 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 23
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6079,7 +6073,7 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6423,12 +6417,12 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 87
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6576,7 +6570,7 @@
       "opponentId": "birmingham-city",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 52500,
       "score": {
         "ft": [
           2,
@@ -6587,7 +6581,8 @@
       "sources": [
         "engsoccerdata",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "wikipedia"
       ],
       "notes": null,
       "lineup": [
@@ -6726,6 +6721,16 @@
       ],
       "events": [
         {
+          "type": "goal",
+          "player": "george-best",
+          "minute": null
+        },
+        {
+          "type": "goal",
+          "player": "denis-law",
+          "minute": null
+        },
+        {
           "type": "opp-goal",
           "player": null,
           "playerName": "Malcolm Beard",
@@ -6743,7 +6748,8 @@
           "detail": "pen",
           "sourceConfidence": "supporting"
         }
-      ]
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1969-02-15-wolverhampton-wanderers-a",
@@ -6771,12 +6777,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 46
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6973,32 +6979,32 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 16
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 26
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 74
+          "minute": null
         },
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": 22
+          "minute": null
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7177,17 +7183,17 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 44
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 67
+          "minute": null
         }
       ],
       "sources": [
@@ -8018,12 +8024,12 @@
         {
           "type": "goal",
           "player": "steve-james",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 62
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8215,42 +8221,42 @@
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 30
+          "minute": null
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 86
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "goal",
           "player": "brian-kidd",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "goal",
           "player": "nobby-stiles",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8424,7 +8430,7 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 33
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8589,7 +8595,7 @@
         {
           "type": "goal",
           "player": "john-aston-jr",
-          "minute": 38
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8943,7 +8949,7 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 50
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -9108,12 +9114,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 66
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9299,17 +9305,17 @@
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 11
+          "minute": null
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 63
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9483,7 +9489,7 @@
         {
           "type": "goal",
           "player": "john-fitzpatrick",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9847,11 +9853,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 59,
-          "detail": "Colin Waldron (og)",
-          "playerName": "Colin Waldron",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Colin Waldron (og)"
         }
       ],
       "eventsComplete": true,
@@ -10201,7 +10205,7 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 70
+          "minute": null
         }
       ],
       "sources": [
@@ -10370,17 +10374,17 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 3
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "willie-morgan",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "opp-goal",

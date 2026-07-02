@@ -2745,7 +2745,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 19863,
       "score": {
         "ft": [
           1,
@@ -2755,7 +2755,8 @@
       "sources": [
         "engsoccerdata",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "wikipedia"
       ],
       "lineup": [
         {
@@ -2905,6 +2906,11 @@
       ],
       "events": [
         {
+          "type": "goal",
+          "player": "colin-gibson",
+          "minute": 45
+        },
+        {
           "type": "opp-goal",
           "player": null,
           "playerName": "Ray Stewart",
@@ -2913,7 +2919,8 @@
           "detail": "pen",
           "sourceConfidence": "supporting"
         }
-      ]
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1987-10-28-crystal-palace-h",

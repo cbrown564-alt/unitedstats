@@ -27,17 +27,17 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "goal",
           "player": "ashley-grimes",
-          "minute": 90
+          "minute": null
         },
         {
           "type": "goal",
           "player": "mickey-thomas",
-          "minute": 41
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -742,7 +742,7 @@
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1252,27 +1252,27 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 3
+          "minute": null
         },
         {
           "type": "goal",
           "player": "ashley-grimes",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": 49
+          "minute": null
         },
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 59
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -1445,7 +1445,7 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1803,12 +1803,12 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "goal",
           "player": "arthur-albiston",
-          "minute": 72
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2171,12 +2171,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2354,6 +2354,11 @@
         },
         {
           "type": "goal",
+          "player": "sammy-mcilroy",
+          "minute": null
+        },
+        {
+          "type": "goal",
           "player": "steve-coppell",
           "minute": null
         },
@@ -2385,7 +2390,7 @@
           "sourceConfidence": "supporting"
         }
       ],
-      "eventsComplete": false,
+      "eventsComplete": true,
       "lineup": [
         {
           "player": "gary-bailey",
@@ -2715,7 +2720,7 @@
         {
           "type": "pen-goal",
           "player": "sammy-mcilroy",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2889,12 +2894,12 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 58
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3080,12 +3085,12 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 16
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 73
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -3742,7 +3747,7 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 58
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4117,7 +4122,7 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4290,11 +4295,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 10,
-          "detail": "Kevin Bond (og)",
-          "playerName": "Kevin Bond",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Kevin Bond (og)"
         },
         {
           "type": "goal",
@@ -4482,12 +4485,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4670,7 +4673,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5009,7 +5012,7 @@
         {
           "type": "goal",
           "player": "nikola-jovanovic",
-          "minute": 54
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5405,12 +5408,12 @@
         {
           "type": "goal",
           "player": "jimmy-nicholl",
-          "minute": 33
+          "minute": null
         },
         {
           "type": "goal",
           "player": "garry-birtles",
-          "minute": 72
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -5587,12 +5590,12 @@
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": 34
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 63
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6125,12 +6128,12 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 5
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 83
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -7159,17 +7162,17 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 46
+          "minute": null
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 66
+          "minute": null
         },
         {
           "type": "pen-goal",
           "player": "sammy-mcilroy",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7360,11 +7363,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 44,
-          "detail": "Kenny Burns (og)",
-          "playerName": "Kenny Burns",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Kenny Burns (og)"
         },
         {
           "type": "opp-goal",
@@ -7550,12 +7551,12 @@
         {
           "type": "goal",
           "player": "mickey-thomas",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-nicholl",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7729,7 +7730,7 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 30
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8082,12 +8083,12 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 34
+          "minute": null
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 44
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8252,7 +8253,7 @@
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": 7
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8417,12 +8418,12 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 2
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 33
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8596,7 +8597,7 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 57
+          "minute": null
         }
       ],
       "eventsComplete": true,

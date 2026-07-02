@@ -27,12 +27,12 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 38
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 21
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -215,7 +215,7 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 79
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -407,12 +407,12 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-sadler",
-          "minute": 71
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -595,17 +595,17 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 1
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "own-goal-against",
@@ -779,7 +779,7 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 45
+          "minute": null
         },
         {
           "type": "own-goal-against",
@@ -962,17 +962,17 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 25
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1164,17 +1164,17 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 2
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 18
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -1339,12 +1339,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 12
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 21
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1518,12 +1518,12 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1693,7 +1693,7 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 87
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1871,22 +1871,22 @@
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": 56
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2060,12 +2060,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 32
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 73
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -2213,7 +2213,7 @@
       "opponentId": "burnley",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 30761,
       "score": {
         "ft": [
           0,
@@ -2222,7 +2222,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "wikipedia"
       ],
       "lineup": [
         {
@@ -2385,7 +2386,7 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 77
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -2564,10 +2565,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
+          "player": null,
           "minute": null,
-          "detail": "own goal (og)",
-          "playerSide": "opponent"
+          "detail": "own goal (og)"
         },
         {
           "type": "opp-goal",
@@ -2750,37 +2750,37 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 20
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 50
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 77
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 56
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -2941,32 +2941,32 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 21
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 63
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 86
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3144,12 +3144,12 @@
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 35
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -3314,7 +3314,7 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 15
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -3475,32 +3475,32 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 29
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 49
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 12
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 76
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3678,12 +3678,12 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3857,17 +3857,17 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 76
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -4032,17 +4032,17 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 29
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4221,22 +4221,22 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 1
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 18
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 80
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 61
+          "minute": null
         }
       ],
       "sources": [
@@ -4573,7 +4573,7 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4747,7 +4747,7 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 38
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4921,7 +4921,7 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 12
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -5086,7 +5086,7 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5262,12 +5262,12 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 56
+          "minute": null
         },
         {
           "type": "goal",
           "player": "albert-kinsey",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5441,12 +5441,12 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 3
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5625,7 +5625,7 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 33
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5803,7 +5803,7 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 21
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6137,7 +6137,7 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 73
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6466,12 +6466,12 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 6
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6649,17 +6649,17 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 10
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 50
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 34
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6844,12 +6844,12 @@
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": 82
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 81
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7191,17 +7191,17 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 87
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 4
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -7368,27 +7368,27 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "goal",
           "player": "paddy-crerand",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 51
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7580,22 +7580,22 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 23
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 50
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 3
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 75
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -7760,22 +7760,22 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 49
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8117,12 +8117,12 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 70
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8615,27 +8615,27 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 76
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 54
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 62
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8800,7 +8800,7 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 49
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8965,7 +8965,7 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 14
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -9130,22 +9130,22 @@
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 13
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 63
+          "minute": null
         },
         {
           "type": "goal",
           "player": "noel-cantwell",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9328,17 +9328,17 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 40
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 79
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -9503,17 +9503,17 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 84
+          "minute": null
         },
         {
           "type": "goal",
           "player": "george-best",
-          "minute": 7
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9687,7 +9687,7 @@
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 58
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9866,27 +9866,27 @@
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "goal",
           "player": "bobby-charlton",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 19
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 40
+          "minute": null
         }
       ],
       "sources": [
@@ -10207,17 +10207,17 @@
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-herd",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "goal",
           "player": "denis-law",
-          "minute": 34
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -10568,7 +10568,7 @@
         {
           "type": "goal",
           "player": "john-connelly",
-          "minute": 86
+          "minute": null
         },
         {
           "type": "opp-goal",

@@ -138,22 +138,22 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 5
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 22
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 83
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -339,12 +339,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 8
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-mccreery",
-          "minute": 74
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -682,12 +682,12 @@
         {
           "type": "goal",
           "player": "david-mccreery",
-          "minute": 45
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 86
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -895,7 +895,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 30
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -1060,7 +1060,7 @@
         {
           "type": "goal",
           "player": "jimmy-nicholl",
-          "minute": 87
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1260,7 +1260,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1642,7 +1642,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1816,12 +1816,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 62
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 70
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -1982,12 +1982,12 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 32
+          "minute": null
         }
       ],
       "sources": [
@@ -2168,7 +2168,7 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 35
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2351,17 +2351,17 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 7
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 22
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 56
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2970,7 +2970,7 @@
         {
           "type": "goal",
           "player": "jimmy-nicholl",
-          "minute": 83
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3156,7 +3156,7 @@
         ],
         "pens": null
       },
-      "eventsComplete": false,
+      "eventsComplete": true,
       "events": [
         {
           "type": "goal",
@@ -3175,11 +3175,15 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
+          "player": null,
           "minute": null,
-          "detail": "Alfredo Murça (og)",
-          "playerName": "Alfredo Murça",
-          "playerSide": "opponent"
+          "detail": "Alfredo Murça (og)"
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Alfredo Murça (og)"
         },
         {
           "type": "opp-goal",
@@ -3366,7 +3370,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 66
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3561,7 +3565,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 5
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3744,7 +3748,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 73
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -3921,12 +3925,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 87
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4121,17 +4125,17 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 37
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 12
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 83
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4317,7 +4321,7 @@
         {
           "type": "goal",
           "player": "chris-mcgrath",
-          "minute": 10
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4927,17 +4931,17 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 44
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 40
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5309,7 +5313,7 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 51
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5494,7 +5498,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 2
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5682,22 +5686,22 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 5
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 44
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5880,12 +5884,12 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 11
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 29
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6059,22 +6063,22 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 6
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "goal",
           "player": "martin-buchan",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 70
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6241,7 +6245,7 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6417,12 +6421,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 20
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6627,7 +6631,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 27
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6813,12 +6817,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 90
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7001,7 +7005,7 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7529,12 +7533,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 39
+          "minute": null
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 27
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7717,12 +7721,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 7
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7917,7 +7921,7 @@
         {
           "type": "goal",
           "player": "gordon-mcqueen",
-          "minute": 30
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8103,17 +8107,17 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 83
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 12
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8296,7 +8300,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8479,7 +8483,7 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8665,7 +8669,7 @@
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 37
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8869,17 +8873,17 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 82
+          "minute": null
         },
         {
           "type": "goal",
           "player": "ashley-grimes",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9053,17 +9057,17 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "goal",
           "player": "joe-jordan",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9249,17 +9253,17 @@
         {
           "type": "goal",
           "player": "ashley-grimes",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 76
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 78
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -9424,7 +9428,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 50
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -9589,7 +9593,7 @@
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": 37
+          "minute": null
         },
         {
           "type": "opp-goal",
