@@ -27,7 +27,7 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 5
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -200,10 +200,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
+          "player": null,
           "minute": null,
-          "detail": "own goal (og)",
-          "playerSide": "opponent"
+          "detail": "own goal (og)"
         }
       ],
       "eventsComplete": true,
@@ -368,7 +367,7 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -542,12 +541,12 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 76
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -721,12 +720,12 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 74
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -900,7 +899,7 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1074,7 +1073,7 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1248,12 +1247,12 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 10
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1604,7 +1603,7 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "own-goal-against",
@@ -1796,17 +1795,17 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 39
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 68
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1989,25 +1988,23 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 80
+          "minute": null
         },
         {
-          "type": "goal",
-          "player": "tommy-bogan",
-          "minute": 13,
-          "detail": null,
-          "playerName": "Tommy Bogan",
-          "playerSide": "united"
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Tommy Bogan (og)"
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 1
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -2172,20 +2169,18 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 59
+          "minute": null
         },
         {
-          "type": "goal",
-          "player": "tommy-bogan",
-          "minute": 78,
-          "detail": null,
-          "playerName": "Tommy Bogan",
-          "playerSide": "united"
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Tommy Bogan (og)"
         }
       ],
       "eventsComplete": true,
@@ -2506,32 +2501,32 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 39
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 6
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": 87
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 89
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -2852,12 +2847,12 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 65
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -3022,20 +3017,18 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 25
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 60
+          "minute": null
         },
         {
-          "type": "goal",
-          "player": "tommy-bogan",
-          "minute": 1,
-          "detail": null,
-          "playerName": "Tommy Bogan",
-          "playerSide": "united"
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Tommy Bogan (og)"
         },
         {
           "type": "opp-goal",
@@ -3227,7 +3220,7 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 37
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3735,17 +3728,15 @@
       ],
       "events": [
         {
-          "type": "goal",
-          "player": "tommy-bogan",
-          "minute": 8,
-          "detail": null,
-          "playerName": "Tommy Bogan",
-          "playerSide": "united"
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Tommy Bogan (og)"
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 38
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3919,12 +3910,12 @@
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 2
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 30
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -4245,12 +4236,12 @@
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": 55
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4426,22 +4417,22 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 32
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": 51
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 35
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -4606,7 +4597,7 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 52
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -4771,7 +4762,7 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 81
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4965,7 +4956,7 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 89
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -5130,17 +5121,17 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 64
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5325,17 +5316,17 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 51
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stan-pearson",
-          "minute": 40
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5529,17 +5520,17 @@
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": 46
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 11
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5713,12 +5704,12 @@
         {
           "type": "goal",
           "player": "allenby-chilton",
-          "minute": 80
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5901,12 +5892,12 @@
         {
           "type": "goal",
           "player": "johnny-carey",
-          "minute": 76
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6259,37 +6250,37 @@
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 40
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 48
+          "minute": null
         },
         {
           "type": "goal",
           "player": "charlie-mitten",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 68
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6454,17 +6445,17 @@
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6803,7 +6794,7 @@
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": 35
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6986,7 +6977,7 @@
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "own-goal-against",
@@ -7178,7 +7169,7 @@
         {
           "type": "goal",
           "player": "jimmy-delaney",
-          "minute": 58
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7529,7 +7520,7 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 50
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8036,7 +8027,7 @@
         {
           "type": "goal",
           "player": "john-downie",
-          "minute": 66
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8219,17 +8210,17 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "goal",
           "player": "henry-cockburn",
-          "minute": 6
+          "minute": null
         }
       ],
       "eventsComplete": true,

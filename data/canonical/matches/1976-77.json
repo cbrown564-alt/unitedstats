@@ -27,12 +27,12 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 19
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 29
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -227,12 +227,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 20
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 62
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -549,27 +549,27 @@
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 83
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 78
+          "minute": null
         }
       ],
       "sources": [
@@ -750,12 +750,12 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 16
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 22
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -959,12 +959,12 @@
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": 32
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1338,11 +1338,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 20,
-          "detail": "Tony McAndrew (og)",
-          "playerName": "Tony McAndrew",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Tony McAndrew (og)"
         },
         {
           "type": "goal",
@@ -1524,11 +1522,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 87,
-          "detail": "Jeff Clarke (og)",
-          "playerName": "Jeff Clarke",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Jeff Clarke (og)"
         },
         {
           "type": "opp-goal",
@@ -1715,17 +1711,17 @@
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-mccreery",
-          "minute": 26
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1907,12 +1903,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 65
+          "minute": null
         }
       ],
       "sources": [
@@ -2105,12 +2101,12 @@
         {
           "type": "goal",
           "player": "gerry-daly",
-          "minute": 6
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 9
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -2283,12 +2279,12 @@
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": 46
+          "minute": null
         },
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2483,7 +2479,7 @@
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": 75
+          "minute": null
         }
       ],
       "sources": [
@@ -2867,7 +2863,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 32
+          "minute": null
         }
       ],
       "sources": [
@@ -3048,12 +3044,12 @@
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": 38
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3244,37 +3240,37 @@
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": 7
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 13
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 34
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-nicholl",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 56
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3866,6 +3862,11 @@
           "minute": null
         },
         {
+          "type": "goal",
+          "player": "gordon-hill",
+          "minute": null
+        },
+        {
           "type": "opp-goal",
           "player": null,
           "playerName": "Dennis Mortimer",
@@ -3893,7 +3894,7 @@
           "sourceConfidence": "supporting"
         }
       ],
-      "eventsComplete": false,
+      "eventsComplete": true,
       "lineup": [
         {
           "player": "alex-stepney",
@@ -4055,17 +4056,17 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 33
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 41
+          "minute": null
         },
         {
           "type": "goal",
           "player": "brian-greenhoff",
-          "minute": 55
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4269,7 +4270,7 @@
         {
           "type": "pen-goal",
           "player": "gerry-daly",
-          "minute": 84
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4818,7 +4819,7 @@
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 6
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5023,22 +5024,22 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 71
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 85
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -5215,12 +5216,12 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 16
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 23
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -5397,7 +5398,7 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 1
+          "minute": null
         },
         {
           "type": "own-goal-against",
@@ -5594,7 +5595,7 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 43
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -5771,12 +5772,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 8
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 19
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6132,17 +6133,17 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": 22
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6339,7 +6340,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 16
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6513,11 +6514,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 60,
-          "detail": "Steve Powell (og)",
-          "playerName": "Steve Powell",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Steve Powell (og)"
         },
         {
           "type": "opp-goal",
@@ -6691,17 +6690,17 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "goal",
           "player": "sammy-mcilroy",
-          "minute": 32
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7031,17 +7030,17 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 10
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 35
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 71
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7229,12 +7228,12 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 12
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 40
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7429,17 +7428,17 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 24
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 31
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 54
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7627,12 +7626,12 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 5
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 69
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7805,11 +7804,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 12,
-          "detail": "Trevor Cherry (og)",
-          "playerName": "Trevor Cherry",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Trevor Cherry (og)"
         }
       ],
       "eventsComplete": true,
@@ -7988,12 +7985,12 @@
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": 26
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 76
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8179,12 +8176,12 @@
         {
           "type": "pen-goal",
           "player": "gordon-hill",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 90
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8378,11 +8375,9 @@
       "events": [
         {
           "type": "own-goal-for",
-          "player": "own-goal",
-          "minute": 57,
-          "detail": "Tony Powell (og)",
-          "playerName": "Tony Powell",
-          "playerSide": "opponent"
+          "player": null,
+          "minute": null,
+          "detail": "Tony Powell (og)"
         },
         {
           "type": "opp-goal",
@@ -8577,12 +8572,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 1
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 20
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8768,17 +8763,17 @@
         {
           "type": "goal",
           "player": "stewart-houston",
-          "minute": 51
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 81
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -8955,7 +8950,7 @@
         {
           "type": "pen-goal",
           "player": "gordon-hill",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9150,7 +9145,7 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9545,12 +9540,12 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 14
+          "minute": null
         },
         {
           "type": "goal",
           "player": "steve-coppell",
-          "minute": 6
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -9910,7 +9905,7 @@
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 82
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -10267,7 +10262,7 @@
         {
           "type": "pen-goal",
           "player": "jimmy-greenhoff",
-          "minute": 50
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -10453,17 +10448,17 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 21
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-mccreery",
-          "minute": 22
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -10655,17 +10650,17 @@
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 11
+          "minute": null
         },
         {
           "type": "goal",
           "player": "lou-macari",
-          "minute": 36
+          "minute": null
         },
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -10860,12 +10855,12 @@
         {
           "type": "goal",
           "player": "gordon-hill",
-          "minute": 1
+          "minute": null
         },
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -11079,12 +11074,12 @@
         {
           "type": "goal",
           "player": "stuart-pearson",
-          "minute": 50
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jimmy-greenhoff",
-          "minute": 55
+          "minute": null
         },
         {
           "type": "opp-goal",

@@ -27,7 +27,7 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 64
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -219,22 +219,22 @@
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 61
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 84
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 9
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -417,22 +417,22 @@
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 16
+          "minute": null
         },
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 33
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 18
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 26
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -615,12 +615,12 @@
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 8
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 26
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -785,17 +785,17 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 83
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -969,12 +969,12 @@
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": 5
+          "minute": null
         },
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 57
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -1139,7 +1139,7 @@
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1313,12 +1313,12 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 5
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 18
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1492,7 +1492,7 @@
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 44
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1666,12 +1666,12 @@
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 86
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -1863,12 +1863,12 @@
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 28
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2069,27 +2069,27 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 30
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 59
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 67
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2272,32 +2272,32 @@
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 41
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 38
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 63
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2511,10 +2511,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
+          "player": null,
           "minute": null,
-          "detail": "own goal (og)",
-          "playerSide": "opponent"
+          "detail": "own goal (og)"
         },
         {
           "type": "opp-goal",
@@ -2697,12 +2696,12 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 20
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 10
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -2903,12 +2902,12 @@
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 44
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 75
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3268,12 +3267,12 @@
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 87
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 60
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3624,17 +3623,17 @@
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 42
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -3808,22 +3807,22 @@
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 57
+          "minute": null
         },
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 84
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 88
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4330,7 +4329,7 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 70
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4513,22 +4512,22 @@
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 20
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jackie-blanchflower",
-          "minute": 89
+          "minute": null
         },
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": 78
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 34
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -4704,7 +4703,7 @@
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "own-goal-against",
@@ -4880,22 +4879,22 @@
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 36
+          "minute": null
         },
         {
           "type": "goal",
           "player": "colin-webster",
-          "minute": 62
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 53
+          "minute": null
         },
         {
           "type": "goal",
           "player": "jack-rowley",
-          "minute": 64
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5069,7 +5068,7 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 47
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5421,17 +5420,17 @@
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": 40
+          "minute": null
         },
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": 35
+          "minute": null
         },
         {
           "type": "goal",
           "player": "david-pegg",
-          "minute": 15
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -5809,12 +5808,12 @@
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": 38
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 36
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6201,7 +6200,7 @@
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": 66
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6366,7 +6365,7 @@
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": 14
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -6547,17 +6546,15 @@
       ],
       "events": [
         {
-          "type": "goal",
-          "player": "roger-byrne",
-          "minute": 60,
-          "detail": null,
-          "playerName": "Roger Byrne",
-          "playerSide": "united"
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Roger Byrne (og)"
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": 14
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6722,27 +6719,27 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 17
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 65
+          "minute": null
         },
         {
           "type": "goal",
           "player": "johnny-berry",
-          "minute": 66
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 73
+          "minute": null
         },
         {
           "type": "goal",
           "player": "billy-whelan",
-          "minute": 86
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -6907,17 +6904,17 @@
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": 16
+          "minute": null
         },
         {
           "type": "goal",
           "player": "duncan-edwards",
-          "minute": 52
+          "minute": null
         },
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": 44
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7284,17 +7281,15 @@
       ],
       "events": [
         {
-          "type": "goal",
-          "player": "roger-byrne",
-          "minute": 80,
-          "detail": null,
-          "playerName": "Roger Byrne",
-          "playerSide": "united"
+          "type": "own-goal-for",
+          "player": null,
+          "minute": null,
+          "detail": "Roger Byrne (og)"
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 2
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -7477,17 +7472,17 @@
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 43
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 82
+          "minute": null
         }
       ],
       "eventsComplete": true,
@@ -7838,10 +7833,9 @@
         },
         {
           "type": "own-goal-for",
-          "player": "own-goal",
+          "player": null,
           "minute": null,
-          "detail": "own goal (og)",
-          "playerSide": "opponent"
+          "detail": "own goal (og)"
         },
         {
           "type": "opp-goal",
@@ -8024,7 +8018,7 @@
         {
           "type": "goal",
           "player": "dennis-viollet",
-          "minute": 4
+          "minute": null
         },
         {
           "type": "opp-goal",
@@ -8198,12 +8192,12 @@
         {
           "type": "goal",
           "player": "albert-scanlon",
-          "minute": 34
+          "minute": null
         },
         {
           "type": "goal",
           "player": "tommy-taylor",
-          "minute": 85
+          "minute": null
         },
         {
           "type": "opp-goal",
