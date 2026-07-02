@@ -39,10 +39,10 @@ export function DetailSectionTabs({
   if (visible.length === 0) return null;
 
   return (
-    <div className="space-y-5 sm:space-y-8">
+    <div className="space-y-5 pb-[var(--mobile-nav-clearance)] sm:space-y-8 lg:pb-0">
       {tabbable.length > 1 && (
         <div
-          className="flex items-stretch border-b border-line"
+          className="sticky top-0 z-30 -mx-4 flex items-stretch border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
           role="tablist"
           aria-label={ariaLabel}
         >
@@ -55,7 +55,7 @@ export function DetailSectionTabs({
               aria-selected={current === tab.id}
               aria-controls={`${idPrefix}-panel-${tab.id}`}
               onClick={() => setActive(tab.id)}
-              className={`flex-1 border-b px-3 py-2.5 text-center text-sm transition-colors focus-ring ${
+              className={`min-h-11 flex-1 border-b px-2 py-2.5 text-center text-sm transition-colors focus-ring sm:px-3 ${
                 current === tab.id
                   ? "border-devil/45 text-ink"
                   : "border-transparent text-ink-dim hover:text-ink"
@@ -77,7 +77,7 @@ export function DetailSectionTabs({
             tab.desktopOnly
               ? "hidden sm:block"
               : current === tab.id
-                ? "block scroll-mt-24"
+                ? "block scroll-mt-14 lg:scroll-mt-24"
                 : "hidden"
           }
         >

@@ -1212,7 +1212,8 @@ input.site-sidebar-search-input:focus {
 :root {
   --mobile-pill-height: 3.25rem;
   --mobile-pill-gap: 0.75rem;
-  --mobile-nav-clearance: calc(var(--mobile-pill-height) + var(--mobile-pill-gap) + 0.5rem);
+  /* Extra buffer so last list rows and tab panels clear the floating pill. */
+  --mobile-nav-clearance: calc(var(--mobile-pill-height) + var(--mobile-pill-gap) + 1.25rem);
   /* Phone-width cap for sheets/overlays on narrow desktop (sm–lg). Full-bleed below sm. */
   --mobile-shell-max-width: min(26rem, calc(100vw - 2rem));
 }
@@ -1220,6 +1221,12 @@ input.site-sidebar-search-input:focus {
 @media (min-width: 1024px) {
   :root {
     --mobile-nav-clearance: 0px;
+  }
+}
+
+@media (max-width: 1023px) {
+  html {
+    scroll-padding-bottom: calc(var(--mobile-nav-clearance) + env(safe-area-inset-bottom, 0px));
   }
 }
 
