@@ -7708,7 +7708,7 @@
       "opponentId": "derby-county",
       "venue": "H",
       "stadium": null,
-      "attendance": null,
+      "attendance": 55174,
       "score": {
         "ft": [
           1,
@@ -7717,7 +7717,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "wikipedia"
       ],
       "lineup": [
         {
@@ -7864,7 +7865,15 @@
           "on": 11,
           "off": null
         }
-      ]
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "dwight-yorke",
+          "minute": 65
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1999-02-06-nottingham-forest-a",

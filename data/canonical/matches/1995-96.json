@@ -5880,7 +5880,7 @@
       "opponentId": "west-ham-united",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 24197,
       "score": {
         "ft": [
           1,
@@ -5889,7 +5889,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "wikipedia"
       ],
       "lineup": [
         {
@@ -6036,7 +6037,15 @@
           "on": 78,
           "off": null
         }
-      ]
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "eric-cantona",
+          "minute": 9
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-01-27-reading-a",
@@ -9270,7 +9279,7 @@
       "opponentId": "middlesbrough",
       "venue": "A",
       "stadium": null,
-      "attendance": null,
+      "attendance": 29921,
       "score": {
         "ft": [
           3,
@@ -9279,7 +9288,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "wikipedia"
       ],
       "lineup": [
         {
@@ -9426,7 +9436,25 @@
           "on": 54,
           "off": null
         }
-      ]
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "david-may",
+          "minute": 14
+        },
+        {
+          "type": "goal",
+          "player": "andy-cole",
+          "minute": 54
+        },
+        {
+          "type": "goal",
+          "player": "ryan-giggs",
+          "minute": 81
+        }
+      ],
+      "eventsComplete": true
     },
     {
       "id": "1996-05-11-liverpool-n",

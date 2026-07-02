@@ -141,6 +141,49 @@ function parseScorers(
   return events;
 }
 
+const UNITED_GOAL_TYPES = new Set(["goal", "pen-goal", "own-goal-for"]);
+
+function unitedGoalEvents(events: MatchEvent[] | undefined): MatchEvent[] {
+  return (events ?? []).filter((e) => UNITED_GOAL_TYPES.has(e.type));
+}
+
+function otherScoringEvents(events: MatchEvent[] | undefined): MatchEvent[] {
+  return (events ?? []).filter((e) => !UNITED_GOAL_TYPES.has(e.type));
+}
+
+function shiftDate(iso: string, days: number): string {
+  const d = new Date(`${iso}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+/** engsoccerdata and Wikipedia sometimes disagree by a day on the same fixture. */
+function findExistingMatch(
+  byDateOpp: Map<string, Match>,
+  date: string,
+  oppId: string,
+  gf: number,
+  ga: number,
+): Match | undefined {
+  for (const delta of [0, -1, 1]) {
+    const m = byDateOpp.get(`${shiftDate(date, delta)}|${oppId}`);
+    if (m && m.score.ft[0] === gf && m.score.ft[1] === ga) return m;
+  }
+  return undefined;
+}
+
+function mergeUnitedGoalEvents(existing: Match, parsed: MatchEvent[]): boolean {
+  const unitedNeeded = existing.score.ft[0];
+  const unitedExisting = unitedGoalEvents(existing.events);
+  const mayWrite = REPARSE
+    ? parsed.length > 0
+    : unitedExisting.length < unitedNeeded && parsed.length > 0;
+  if (!mayWrite || JSON.stringify(unitedExisting) === JSON.stringify(parsed)) return false;
+  existing.events = [...parsed, ...otherScoringEvents(existing.events)];
+  existing.eventsComplete = unitedGoalEvents(existing.events).length === unitedNeeded;
+  return true;
+}
+
 // --------------------------------------------------------------- main parse
 
 interface ParsedRow {
@@ -269,22 +312,14 @@ async function processSeason(
 
   for (const r of rows) {
     const oppId = opponentIdFor(r.opponent, aliases);
-    const existing = byDateOpp.get(`${r.date}|${oppId}`);
+    const existing = findExistingMatch(byDateOpp, r.date, oppId, r.gf, r.ga);
     const events = r.scorersRaw ? parseScorers(r.scorersRaw, knownPlayers, newPlayers) : [];
-    const goalEvents = events.filter((e) => ["goal", "pen-goal", "own-goal-for"].includes(e.type)).length;
 
     if (existing) {
       let touched = false;
       if (existing.attendance == null && r.attendance != null) { existing.attendance = r.attendance; touched = true; }
       if (!existing.round && r.round) { existing.round = r.round; touched = true; }
-      const mayWrite = REPARSE
-        ? events.length > 0 // reparse: replace wikipedia-derived events wholesale
-        : (!existing.events || existing.events.length === 0) && events.length > 0;
-      if (mayWrite && JSON.stringify(existing.events) !== JSON.stringify(events)) {
-        existing.events = events;
-        existing.eventsComplete = goalEvents === existing.score.ft[0];
-        touched = true;
-      }
+      if (mergeUnitedGoalEvents(existing, events)) touched = true;
       if (touched && !existing.sources.includes("wikipedia")) existing.sources.push("wikipedia");
       if (touched) enriched++;
       continue;
@@ -297,6 +332,7 @@ async function processSeason(
       warnings.push(`fa-cup row not matched: ${r.date} v ${r.opponent}`);
       continue;
     }
+    const unitedGoals = unitedGoalEvents(events).length;
     const match: Match = {
       id: matchId(r.date, oppId, r.venue),
       date: r.date,
@@ -308,7 +344,7 @@ async function processSeason(
       stadium: null,
       attendance: r.attendance,
       score: { ft: [r.gf, r.ga], aet: r.aet || undefined, pens: r.pens },
-      eventsComplete: events.length > 0 ? goalEvents === r.gf : undefined,
+      eventsComplete: events.length > 0 ? unitedGoals === r.gf : undefined,
       events: events.length > 0 ? events : undefined,
       sources: ["wikipedia"],
     };
