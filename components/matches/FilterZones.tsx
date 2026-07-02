@@ -133,7 +133,7 @@ function FilterSlot({
         aria-expanded={isOpen}
         className={[
           "filter-slot-btn flex flex-1 items-center gap-2.5 transition-colors focus-ring",
-          isSheet ? "px-4 py-3 text-[15px]" : "px-3 py-2",
+          isSheet ? "px-3.5 py-2.5 text-[15px]" : "px-3 py-2",
           set ? "text-ink hover:bg-white/[0.02]" : "text-ink-dim hover:text-ink-faint",
         ].join(" ")}
       >
