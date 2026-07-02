@@ -83,7 +83,7 @@ export default async function OpponentPage({
 
   const venuePMax = Math.max(1, ...venues.map((v) => v.p));
 
-  const runs = [
+  const runs: Run[] = [
     unbeaten && unbeaten.length >= 3
       ? {
           n: unbeaten.length,
@@ -106,7 +106,7 @@ export default async function OpponentPage({
           results: streakResults(sequence, winless, "winless"),
         }
       : null,
-  ].filter((r): r is Run => r != null);
+  ].filter((r) => r != null);
 
   const notable = notableMatches(sequence, [
     { streak: unbeaten, noun: "unbeaten run" },

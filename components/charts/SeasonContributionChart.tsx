@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { DotProps, MouseHandlerDataParam } from "recharts";
+import type { DotItemDotProps, MouseHandlerDataParam } from "recharts";
 import { fmtAxisNumber, fmtNum } from "@/lib/format";
 import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
 
@@ -45,7 +45,7 @@ function PeakMarker({
   color,
   unit,
   count,
-}: DotProps & {
+}: DotItemDotProps & {
   peaks: Set<number>;
   color: string;
   unit: "goals" | "assists";

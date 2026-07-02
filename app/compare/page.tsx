@@ -20,7 +20,9 @@ export const metadata = {
   alternates: { canonical: "/compare" },
 };
 
-const MODES: { key: CompareMode; label: string; blurb: string }[] = [
+type ComparePageMode = Extract<CompareMode, "players" | "managers">;
+
+const MODES: { key: ComparePageMode; label: string; blurb: string }[] = [
   { key: "players", label: "Players", blurb: "two careers, appearance for appearance" },
   { key: "managers", label: "Managers", blurb: "two reigns on win rate, points, and trophies" },
 ];
@@ -60,7 +62,7 @@ export default async function ComparePage({
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
   const sp = await searchParams;
-  const mode: CompareMode = MODES.some((m) => m.key === sp.mode) ? (sp.mode as CompareMode) : "players";
+  const mode: ComparePageMode = MODES.some((m) => m.key === sp.mode) ? (sp.mode as ComparePageMode) : "players";
   const rawA = sp.a;
   const rawB = sp.b;
   // The rate view (per 90 for players, per game for managers) is the
@@ -95,7 +97,7 @@ export default async function ComparePage({
       .slice(0, 300)
       .map((p) => p.name);
     cfg = { listId: "compare-players", options: names, noun: "player", placeholders: ["Rooney", "Charlton"] };
-  } else if (mode === "managers") {
+  } else {
     const idA = resolveManagerId(rawA, managers);
     const idB = resolveManagerId(rawB, managers);
     if (rawA && !idA) unresolved = rawA;
@@ -206,7 +208,7 @@ function CutLinks({ comparison }: { comparison: Comparison }) {
 }
 
 /** Mode switch — changing mode resets the pair so the picker stays valid. */
-function ModePills({ mode }: { mode: CompareMode }) {
+function ModePills({ mode }: { mode: ComparePageMode }) {
   return (
     <div className="flex flex-wrap gap-2">
       {MODES.map((m) => {
@@ -236,7 +238,7 @@ function Suggestions({
   suggestions,
   compact = false,
 }: {
-  mode: CompareMode;
+  mode: ComparePageMode;
   suggestions: CuratedDebate[];
   compact?: boolean;
 }) {
@@ -288,7 +290,7 @@ function Picker({
   displayB,
   cfg,
 }: {
-  mode: CompareMode;
+  mode: ComparePageMode;
   displayA: string;
   displayB: string;
   cfg: PickerConfig;

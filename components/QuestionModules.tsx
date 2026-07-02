@@ -1397,39 +1397,26 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
   const topCupLean = specialists[0];
   const cupMult = cupBaseline.share ? (topCupLean.cup_goals / topCupLean.total) / cupBaseline.share : 0;
   const cupVisual = (
-    <div className="space-y-4">
-      <ThreadBeatRow
-        lead={
-          <>
-            Some players save their best for cup nights — the squad averages{" "}
-            <ThreadUnderline>{pct(cupBaseline.cup, cupBaseline.total)}</ThreadUnderline> of goals in cups; the names below
-            cleared <ThreadUnderline>double that</ThreadUnderline>, led by{" "}
-            <ThreadUnderline>{topCupLean.name}</ThreadUnderline> at {cupMult.toFixed(1)}× the club rate.
-          </>
-        }
-        beats={specialists.slice(0, 3).map((p, i) => ({
-          id: p.player_id,
-          href: `/player/${p.player_id}`,
-          label: `#${i + 1}`,
-          title: p.name,
-          detail: `${(cupBaseline.share ? (p.cup_goals / p.total) / cupBaseline.share : 0).toFixed(1)}× the club cup rate`,
-          tone: i === 0 ? "var(--color-gold)" : "var(--color-devil-bright)",
-          highlight: i === 0,
-          note: i === 0 ? "The archetypal cup-night specialist." : `${fmtNum(p.cup_goals)} of ${fmtNum(p.total)} goals in the cups.`,
-        }))}
-      />
-      <div>
-        <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-dim">
-          <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm bg-gold" /> cup goals</span>
-          <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "var(--color-panel-2)" }} /> league goals</span>
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-3 w-0.5 bg-devil-bright" /> club rate {pct(cupBaseline.cup, cupBaseline.total)}
-          </span>
-          <span className="ml-auto stat-num">× club rate →</span>
-        </div>
-        <CupLeanBar rows={specialists} baseline={cupBaseline.share} />
-      </div>
-    </div>
+    <ThreadBeatRow
+      lead={
+        <>
+          Some players save their best for cup nights — the squad averages{" "}
+          <ThreadUnderline>{pct(cupBaseline.cup, cupBaseline.total)}</ThreadUnderline> of goals in cups; the names below
+          cleared <ThreadUnderline>double that</ThreadUnderline>, led by{" "}
+          <ThreadUnderline>{topCupLean.name}</ThreadUnderline> at {cupMult.toFixed(1)}× the club rate.
+        </>
+      }
+      beats={specialists.slice(0, 3).map((p, i) => ({
+        id: p.player_id,
+        href: `/player/${p.player_id}`,
+        label: `#${i + 1}`,
+        title: p.name,
+        detail: `${(cupBaseline.share ? (p.cup_goals / p.total) / cupBaseline.share : 0).toFixed(1)}× the club cup rate`,
+        tone: i === 0 ? "var(--color-gold)" : "var(--color-devil-bright)",
+        highlight: i === 0,
+        note: i === 0 ? "The archetypal cup-night specialist." : `${fmtNum(p.cup_goals)} of ${fmtNum(p.total)} goals in the cups.`,
+      }))}
+    />
   );
   return (
     <Module
@@ -1441,7 +1428,19 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
       finding={`Every fan knows the type — the player who turns up when the tie matters. United average ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups; these ten all more than double that, ${topCupLean.name} most of all at ${cupMult.toFixed(1)}× the club rate. League grinders, cup assassins.`}
       slice="Goals (excluding own goals) per player split league v cup by competition type, minimum 25 recorded goals, ranked by cup share. The multiplier is each player's cup share over the club-wide cup share."
       coverage={`Goalscorer attribution exists for ${fmtNum(Number(meta.matches_with_scorers))} of ${fmtNum(Number(meta.matches))} matches, weighted toward the post-war era — pre-war specialists may be under-counted.`}
-    />
+    >
+      <div>
+        <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-ink-dim">
+          <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm bg-gold" /> cup goals</span>
+          <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "var(--color-panel-2)" }} /> league goals</span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-3 w-0.5 bg-devil-bright" /> club rate {pct(cupBaseline.cup, cupBaseline.total)}
+          </span>
+          <span className="ml-auto stat-num">× club rate →</span>
+        </div>
+        <CupLeanBar rows={specialists} baseline={cupBaseline.share} />
+      </div>
+    </Module>
   );
 }
 
