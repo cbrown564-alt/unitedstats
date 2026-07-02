@@ -67,8 +67,14 @@ export function CoverageMatrix({ rows, totals }: { rows: DecadeRow[]; totals: To
 
   return (
     <figure className="m-0">
-      <div className="overflow-x-auto">
-        <div className="grid min-w-[44rem] gap-px" style={{ gridTemplateColumns: cols }} role="table">
+      <p className="mb-2 text-xs text-ink-faint sm:hidden">Swipe for all decades →</p>
+      <div className="relative">
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-20 w-8 bg-gradient-to-l from-pitch to-transparent sm:hidden"
+          aria-hidden
+        />
+        <div className="overflow-x-auto pb-1">
+          <div className="grid min-w-[44rem] gap-px" style={{ gridTemplateColumns: cols }} role="table">
           {/* ── header: decade start years + per-decade match counts ── */}
           <div role="columnheader" className="sticky left-0 z-10 flex items-end bg-panel pb-1.5 pr-3 text-[10px] uppercase tracking-[0.14em] text-ink-faint">
             Layer
@@ -121,6 +127,7 @@ export function CoverageMatrix({ rows, totals }: { rows: DecadeRow[]; totals: To
               </div>
             );
           })}
+        </div>
         </div>
       </div>
 

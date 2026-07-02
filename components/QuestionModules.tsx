@@ -645,12 +645,12 @@ function FergusonEraModule({ variant }: ModuleProps) {
           <p className="mt-0.5 text-xs text-ink-dim text-pretty">
             {fergPoint && longestSince ? (
               <>
-                Ferguson&apos;s <span className="text-ink">{fmtNum(fergPoint.matches)}</span> matches at{" "}
+                Ferguson's <span className="text-ink">{fmtNum(fergPoint.matches)}</span> matches at{" "}
                 <span className="text-ink">{fergPoint.ppg.toFixed(2)}</span> points per game sit alone in the top-right — no successor has matched both.
                 Since 2013 every permanent spell has been shorter; the longest,{" "}
                 {longestSince.name.split(" ").pop()}, reached just{" "}
                 <span className="text-ink">{fmtNum(longestSince.matches)}</span> matches
-                {longestSince.matches < fergPoint.matches * 0.15 ? " — under one-ninth of Ferguson&apos;s reign" : ""}.
+                {longestSince.matches < fergPoint.matches * 0.15 ? " — under one-ninth of Ferguson's reign" : ""}.
               </>
             ) : (
               "Points per game against matches in charge — the two axes Ferguson mastered and successors rarely combine."

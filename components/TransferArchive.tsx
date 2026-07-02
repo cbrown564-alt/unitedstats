@@ -284,7 +284,7 @@ function SeasonRow({ group: g, open = false }: { group: SeasonGroup; open?: bool
     <details
       id={`txseason-${g.season}`}
       open={open}
-      className="group scroll-mt-28 overflow-hidden rounded-lg border border-line bg-panel"
+      className="group scroll-mt-28 rounded-lg border border-line bg-panel"
     >
       <summary className={summaryCls}>
         <Chevron />

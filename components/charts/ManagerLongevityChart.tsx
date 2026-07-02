@@ -45,10 +45,12 @@ function LongevityDot({
   cx,
   cy,
   payload,
+  coarse = false,
 }: {
   cx?: number;
   cy?: number;
   payload?: ChartDatum;
+  coarse?: boolean;
 }) {
   if (cx == null || cy == null || !payload) return null;
   const style = KIND_STYLE[payload.kind];
@@ -65,7 +67,7 @@ function LongevityDot({
         strokeWidth={payload.kind === "ferguson" ? 2 : 1}
         strokeOpacity={payload.kind === "ferguson" ? 1 : 0.7}
       />
-      {style.label && (
+      {style.label && !coarse && (
         <text
           x={cx}
           y={cy - r - 6}
@@ -124,7 +126,7 @@ export function ManagerLongevityChart({ points }: { points: ManagerLongevityPoin
       <div style={{ height: 280 }}>
         <ResponsiveContainer width="100%" height="100%" minWidth={0}>
           <ScatterChart
-            margin={{ top: 16, right: 8, bottom: 4, left: 0 }}
+            margin={{ top: 16, right: coarse ? 28 : 12, bottom: 4, left: coarse ? 4 : 0 }}
             accessibilityLayer
             aria-label="Manchester United managers by matches in charge and points per game"
             onClick={onChartClick}
@@ -133,7 +135,7 @@ export function ManagerLongevityChart({ points }: { points: ManagerLongevityPoin
             <XAxis
               type="number"
               dataKey="matches"
-              domain={[0, maxMatches * 1.05]}
+              domain={[0, maxMatches * (coarse ? 1 : 1.05)]}
               tickLine={false}
               axisLine={false}
               stroke="var(--color-ink-faint)"
@@ -148,7 +150,7 @@ export function ManagerLongevityChart({ points }: { points: ManagerLongevityPoin
               axisLine={false}
               stroke="var(--color-ink-faint)"
               fontSize={10}
-              width={36}
+              width={coarse ? 40 : 36}
               tickFormatter={(v) => v.toFixed(2)}
             />
             {ferg && (
@@ -182,7 +184,7 @@ export function ManagerLongevityChart({ points }: { points: ManagerLongevityPoin
             <Scatter
               data={data}
               isAnimationActive={false}
-              shape={(props) => <LongevityDot {...props} />}
+              shape={(props) => <LongevityDot {...props} coarse={coarse} />}
               onClick={(point) => {
                 if (point && typeof point === "object" && "href" in point) onDotClick(point as unknown as ChartDatum);
               }}
