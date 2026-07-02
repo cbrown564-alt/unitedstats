@@ -1581,20 +1581,15 @@ input.site-sidebar-search-input:focus {
   padding: 1rem 1.25rem 1.25rem;
 }
 
-/* Filter sheet uses more width than nav — content-heavy, not a compact menu. */
+/* Filter sheet is content-heavy — always full-bleed below lg. */
 @media (max-width: 1023px) {
   .mobile-sheet-panel--filters {
-    width: min(36rem, calc(100vw - 0.75rem));
-    max-width: none;
-    margin-inline: auto;
-  }
-}
-
-@media (max-width: 639px) {
-  .mobile-sheet-panel--filters {
-    width: 100%;
     inset-inline: 0;
+    width: 100%;
+    max-width: none;
     margin-inline: 0;
+    bottom: 0;
+    border-radius: 1.25rem 1.25rem 0 0;
   }
 }
 
@@ -2073,8 +2068,12 @@ input.site-sidebar-search-input:focus {
   }
 
   .mobile-sheet-panel--filters {
-    width: min(36rem, calc(100vw - 0.75rem));
+    inset-inline: 0;
+    width: 100%;
     max-width: none;
+    margin-inline: 0;
+    bottom: 0;
+    border-radius: 1.25rem 1.25rem 0 0;
   }
 }
 
