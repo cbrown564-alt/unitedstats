@@ -1,8 +1,18 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { opponentById, opponentMatches, opponentsIndex } from "@/lib/queries";
 import {
-  longestStreak, notableMatches, opponentCupRecord, opponentResultSequence, opponentVenueSplits,
+  opponentById,
+  opponentMatches,
+  opponentSeasonRecords,
+  opponentsIndex,
+} from "@/lib/queries";
+import {
+  longestStreak,
+  notableMatches,
+  opponentCupRecord,
+  opponentResultSequence,
+  opponentVenueSplits,
   streakResults,
 } from "@/lib/trails";
 import { clubColor } from "@/lib/clubColors";
@@ -14,11 +24,16 @@ import { RunCallouts, type Run } from "@/components/RunCallouts";
 import { MatchArchive } from "@/components/MatchArchive";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { NotableMatches } from "@/components/NotableMatches";
-import { TrailLink } from "@/components/PageHeader";
-import { WdlBar, WdlRecord } from "@/components/WdlBar";
+import { WdlBar } from "@/components/WdlBar";
+import { GoalDiff } from "@/components/GoalDiff";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { SectionHead } from "@/components/SectionHead";
+import {
+  enrichOpponentSeasons,
+  opponentBestSeason,
+  seasonSpanAnchor,
+} from "@/lib/opponentSeasonHighlights";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { sampleStaticIds } from "@/lib/static-build";
@@ -61,9 +76,13 @@ export default async function OpponentPage({
   const venues = opponentVenueSplits(id);
   const cup = opponentCupRecord(id);
   const sequence = opponentResultSequence(id);
+  const bySeason = enrichOpponentSeasons(opponentSeasonRecords(id));
   const unbeaten = longestStreak(sequence, "unbeaten");
   const winless = longestStreak(sequence, "winless");
   const accent = clubColor(id, o.name).bg;
+
+  const venuePMax = Math.max(1, ...venues.map((v) => v.p));
+
   const runs = [
     unbeaten && unbeaten.length >= 3
       ? {
@@ -89,160 +108,254 @@ export default async function OpponentPage({
       : null,
   ].filter((r): r is Run => r != null);
 
-  // Standout matches: United's biggest win and heaviest defeat in the fixture,
-  // plus the matches that ended the longest unbeaten and winless runs either way.
   const notable = notableMatches(sequence, [
     { streak: unbeaten, noun: "unbeaten run" },
     { streak: winless, noun: "run without a win" },
   ]);
 
+  const y0 = Number(o.first?.slice(0, 4));
+  const y1 = Number(o.last?.slice(0, 4));
+  const span = Math.max(0.5, y1 - y0);
+  const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+  const bestSeason = opponentBestSeason(bySeason);
+  const bestSeasonAnchor = bestSeason ? seasonSpanAnchor(bestSeason.season) : null;
+  const bestSeasonAt =
+    bestSeasonAnchor != null && Number.isFinite(y0) ? clamp01((bestSeasonAnchor - y0) / span) : null;
+  const bestSeasonTitle = bestSeason
+    ? `Best season: ${pct(bestSeason.w, bestSeason.p)} won in ${bestSeason.season} (${fmtNum(bestSeason.p)} meetings)`
+    : null;
+
   return (
-    <div className="space-y-8">
-      <DetailBreadcrumb segments={[{ label: o.name }]} />
-      <IdentityPlate
-        eyebrow="Head to head"
-        share={{ path: `/opponent/${id}`, title: `Manchester United v ${o.name} — head-to-head record` }}
-        leading={<ClubBadge id={id} name={o.name} size="lg" />}
-        title={`United v ${o.name}`}
-        subtitle={
-          <>
-            {o.country && <span>{o.country}</span>}
-            {o.country && <span aria-hidden className="text-ink-faint">·</span>}
-            <span>first met {o.first?.slice(0, 4)}</span>
-          </>
-        }
-        record={o}
-        accent={accent}
-        span={{
-          leftLabel: "First met",
-          left: <span className="stat-num text-ink">{o.first?.slice(0, 4)}</span>,
-          rightLabel: "Last met",
-          right: <span className="stat-num text-ink">{o.last?.slice(0, 4)}</span>,
-          caption: `Every meeting between the sides, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}.`,
-        }}
-      />
-
-      <DetailSectionTabs
-        defaultTab="fixture"
-        ariaLabel="Head-to-head sections"
-        idPrefix="opponent"
-        tabs={[
-          {
-            id: "fixture",
-            label: "Fixture",
-            content: (
-              <section className="grid gap-6 lg:grid-cols-3">
-                <div className="lg:col-span-1">
-                  <SectionHead title="Home and away" aside="all competitions" />
-                  <div className="space-y-3 rounded-xl border border-line bg-panel p-4 sm:p-5">
-                    {venues.map((v) => (
-                      <div key={v.venue}>
-                        <div className="mb-1.5 flex justify-between text-sm">
-                          <span className="text-ink-dim">{venueLabel(v.venue)}</span>
-                          <span className="stat-num text-xs text-ink-faint">
-                            {fmtNum(v.p)} P · <span className="text-ink">{pct(v.w, v.p)}</span> W
-                          </span>
-                        </div>
-                        <WdlBar w={v.w} d={v.d} l={v.l} />
-                      </div>
-                    ))}
-                    <CoverageNote
-                      slice="every meeting in this fixture, split by venue; all competitions."
-                      evidenceHref={`/matches?opponent=${id}&venue=A`}
-                      evidenceLabel="Away meetings only →"
-                    />
-                  </div>
-                </div>
-
-                <div className="lg:col-span-1">
-                  <SectionHead title="Cup meetings" aside="knockouts only" />
-                  {cup.p > 0 ? (
-                    <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-                      <div className="flex items-baseline gap-2">
-                        <span className="stat-num text-3xl font-semibold text-win">{pct(cup.w, cup.p)}</span>
-                        <span className="text-sm text-ink-dim">won</span>
-                      </div>
-                      <p className="stat-num mt-1.5 text-xs text-ink-faint">
-                        <WdlRecord w={cup.w} d={cup.d} l={cup.l} /> from {fmtNum(cup.p)} cup tie{cup.p === 1 ? "" : "s"}
-                        {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
-                      </p>
-                      <CoverageNote
-                        slice="knockout ties only — domestic and European cups."
-                        evidenceHref={`/matches?opponent=${id}&type=cup`}
-                        evidenceLabel="Show the cup ties →"
-                      />
-                    </div>
-                  ) : (
-                    <p className="rounded-xl border border-line bg-panel px-4 py-5 text-sm text-ink-faint">
-                      League meetings only — no cup tie on record.
-                    </p>
-                  )}
-                </div>
-
-                <div className="lg:col-span-1">
-                  <SectionHead title="Longest runs" aside="this fixture" />
-                  <RunCallouts runs={runs} empty="No run of 3+ meetings either way." />
-                  <CoverageNote slice="consecutive meetings in this fixture, all competitions." />
-                </div>
-              </section>
-            ),
-          },
-          {
-            id: "meetings",
-            label: "Meetings",
-            content: (
-              <section>
-                <SectionHead title="All meetings" aside={`${fmtNum(total)} on record`} />
-                {notable.length > 0 && <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />}
-                {sequence.length >= 20 && (
-                  <div className="mb-4 rounded-xl border border-line bg-panel p-4 sm:p-5">
-                    <ResultSpine
-                      matches={sequence}
-                      markers={notable.map((m) => ({ id: m.id, label: m.reason }))}
-                      subject={`United v ${o.name}`}
-                    />
-                    <p className="mt-2 text-[11px] leading-4 text-ink-faint">
-                      Every meeting in order — United wins above the line, defeats below, bar height the goal margin.
-                      Gold pips mark the standout matches above.
-                    </p>
-                  </div>
-                )}
-                <div className="mb-3 flex justify-end">
-                  <EvidenceLink href={`/matches?opponent=${id}`} label="Filter these in the match browser →" />
-                </div>
-                <MatchArchive
-                  matches={allMatches}
-                  accentResult
-                  hrefForSeason={(season) => `/matches${queryString({ opponent: id, season })}`}
-                />
-                <CoverageNote slice={`every recorded United v ${o.name} fixture, all competitions`} />
-              </section>
-            ),
-          },
-          {
-            id: "trails",
-            label: "Trails",
-            content: (
-              <section>
-                <SectionHead title="Related trails" />
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  <TrailLink href={`/matches?opponent=${id}&venue=A`} title="Away record">
-                    Every meeting at their ground, where bogey records usually live.
-                  </TrailLink>
-                  {cup.p > 0 && (
-                    <TrailLink href={`/matches?opponent=${id}&type=cup`} title="Cup ties">
-                      The {cup.p} knockout meeting{cup.p === 1 ? "" : "s"} between the sides.
-                    </TrailLink>
-                  )}
-                  <TrailLink href="/search" title="Search opponents">
-                    Find any head-to-head in the record — search by club name.
-                  </TrailLink>
-                </div>
-              </section>
-            ),
-          },
+    <div className="space-y-10">
+      <DetailBreadcrumb
+        segments={[
+          { label: "Opponents", href: "/search?kind=opponent" },
+          { label: o.name },
         ]}
       />
+      <div className="space-y-4">
+        <IdentityPlate
+          eyebrow="Head to head"
+          share={{ path: `/opponent/${id}`, title: `Manchester United v ${o.name} — head-to-head record` }}
+          leading={<ClubBadge id={id} name={o.name} size="lg" />}
+          title={`United v ${o.name}`}
+          subtitle={
+            <>
+              {o.country && <span>{o.country}</span>}
+              {o.country && <span aria-hidden className="text-ink-faint">·</span>}
+              <span>first met {o.first?.slice(0, 4)}</span>
+            </>
+          }
+          record={o}
+          accent={accent}
+          span={{
+            leftLabel: "First met",
+            left: <span className="stat-num text-ink">{o.first?.slice(0, 4)}</span>,
+            rightLabel: "Last met",
+            right: <span className="stat-num text-ink">{o.last?.slice(0, 4)}</span>,
+            caption: `Every meeting between the sides, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}.`,
+            peakSeason:
+              bestSeason && bestSeasonAt != null && bestSeasonTitle
+                ? { season: bestSeason.season, at: bestSeasonAt, title: bestSeasonTitle }
+                : undefined,
+          }}
+        />
+
+        <DetailSectionTabs
+          defaultTab="overview"
+          ariaLabel="Head-to-head sections"
+          idPrefix="opponent"
+          tabs={[
+            {
+              id: "overview",
+              label: "Overview",
+              content: (
+                <div className="space-y-8">
+                  <section className="grid gap-6 lg:grid-cols-2">
+                    <div>
+                      <SectionHead title="Home and away" aside="all competitions" />
+                      <div className="space-y-3 rounded-xl border border-line bg-panel p-4 sm:p-5">
+                        {venues.map((v) => (
+                          <div key={v.venue}>
+                            <div className="mb-1.5 flex justify-between text-sm">
+                              <span className="text-ink-dim">{venueLabel(v.venue)}</span>
+                              <span className="stat-num text-xs text-ink-faint">
+                                <span className="text-ink">{pct(v.w, v.p)}</span> W
+                              </span>
+                            </div>
+                            <WdlBar
+                              w={v.w}
+                              d={v.d}
+                              l={v.l}
+                              size="md"
+                              showLabels
+                              volume={{ fraction: Math.sqrt(v.p / venuePMax), games: v.p }}
+                            />
+                          </div>
+                        ))}
+                        <CoverageNote
+                          className="!mt-0"
+                          slice="every meeting in this fixture, split by venue; all competitions."
+                          evidenceHref={`/matches?opponent=${id}&venue=A`}
+                          evidenceLabel="Away meetings only →"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div>
+                        <SectionHead title="Cup meetings" aside="knockouts only" />
+                        {cup.p > 0 ? (
+                          <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
+                            <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+                              <div className="leading-none">
+                                <div className="flex items-baseline gap-2">
+                                  <span className="stat-num text-4xl font-semibold text-win">{pct(cup.w, cup.p)}</span>
+                                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">won</span>
+                                </div>
+                                <p className="stat-num mt-1.5 text-xs text-ink-faint">
+                                  {fmtNum(cup.p)} cup tie{cup.p === 1 ? "" : "s"}
+                                  {cup.first ? ` · ${cup.first.slice(0, 4)}–${cup.last?.slice(0, 4)}` : ""}
+                                </p>
+                              </div>
+                              <GoalDiff gf={cup.gf} ga={cup.ga} played={cup.p} />
+                            </div>
+                            <div className="mt-5">
+                              <WdlBar w={cup.w} d={cup.d} l={cup.l} size="md" showLabels />
+                            </div>
+                            <div className="mt-4 border-t border-line/60 pt-3">
+                              <CoverageNote
+                                className="!mt-0"
+                                slice="knockout ties only — domestic and European cups."
+                                evidenceHref={`/matches?opponent=${id}&type=cup`}
+                                evidenceLabel="Show the cup ties →"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="rounded-xl border border-line bg-panel px-4 py-5 text-sm text-ink-faint">
+                            League meetings only — no cup tie on record.
+                          </p>
+                        )}
+                      </div>
+
+                      {runs.length > 0 && (
+                        <div>
+                          <SectionHead title="Longest runs" aside="this fixture" />
+                          <RunCallouts runs={runs} empty="" />
+                          <CoverageNote className="!mt-0" slice="consecutive meetings in this fixture, all competitions." />
+                        </div>
+                      )}
+                    </div>
+                  </section>
+                </div>
+              ),
+            },
+            {
+              id: "meetings",
+              label: "Meetings",
+              content: (
+                <section>
+                  <SectionHead title="All meetings" aside={`${fmtNum(total)} on record`} />
+                  {notable.length > 0 && (
+                    <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />
+                  )}
+                  {sequence.length >= 20 && (
+                    <div className="mb-4 rounded-xl border border-line bg-panel p-4 sm:p-5">
+                      <ResultSpine
+                        matches={sequence}
+                        markers={notable.map((m) => ({ id: m.id, label: m.reason }))}
+                        subject={`United v ${o.name}`}
+                      />
+                      <p className="mt-2 text-[11px] leading-4 text-ink-faint">
+                        Every meeting in order — United wins above the line, defeats below, bar height the goal margin.
+                        Gold pips mark the standout matches above.
+                      </p>
+                    </div>
+                  )}
+                  <div className="mb-3 flex justify-end">
+                    <EvidenceLink href={`/matches?opponent=${id}`} label="Filter these in the match browser →" />
+                  </div>
+                  <MatchArchive
+                    matches={allMatches}
+                    accentResult
+                    hrefForSeason={(season) => `/matches${queryString({ opponent: id, season })}`}
+                  />
+                </section>
+              ),
+            },
+          ]}
+        />
+      </div>
+
+      <OpponentDataCoverage
+        opponentId={id}
+        opponentName={o.name}
+        matchCount={total}
+        hasCupMeetings={cup.p > 0}
+      />
+
+      <p className="text-sm">
+        <Link href="/search?kind=opponent" className="text-devil-bright hover:underline focus-ring">
+          ← All opponents
+        </Link>
+      </p>
     </div>
+  );
+}
+
+function OpponentDataCoverage({
+  opponentId,
+  opponentName,
+  matchCount,
+  hasCupMeetings,
+}: {
+  opponentId: string;
+  opponentName: string;
+  matchCount: number;
+  hasCupMeetings: boolean;
+}) {
+  return (
+    <details className="group rounded-xl border border-line bg-panel">
+      <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 px-4 py-3 sm:px-5">
+        <span className="text-sm font-medium text-ink-dim">Data coverage</span>
+        <span className="stat-num text-xs text-ink-faint">
+          <span className="text-devil-bright group-open:hidden">show</span>
+          <span className="hidden text-devil-bright group-open:inline">hide</span>
+        </span>
+      </summary>
+      <div className="space-y-3 border-t border-line px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
+        <p className="text-xs text-ink-dim">
+          <span className="font-medium text-ink">Club record</span> — verified competitive W/D/L in the hero plate.
+          Splits below are drawn from every recorded meeting against {opponentName} ({fmtNum(matchCount)} total).
+        </p>
+
+        <CoverageNote
+          className="!mt-0"
+          slice="venue splits"
+          coverage="every meeting against this opponent, cut by home, away, and neutral."
+          evidenceHref={`/matches?opponent=${opponentId}&venue=A`}
+          evidenceLabel="Away meetings →"
+        />
+
+        {hasCupMeetings && (
+          <CoverageNote
+            className="!mt-0"
+            slice="cup meetings"
+            coverage="knockout ties only — domestic and European cups, excluding league fixtures."
+            evidenceHref={`/matches?opponent=${opponentId}&type=cup`}
+            evidenceLabel="Cup ties →"
+          />
+        )}
+
+        <CoverageNote
+          className="!mt-0"
+          slice="match archive and result spine"
+          coverage={`every competitive meeting against ${opponentName}, all competitions, newest-first in the Meetings tab.`}
+          evidenceHref={`/matches?opponent=${opponentId}`}
+          evidenceLabel="Match browser →"
+        />
+      </div>
+    </details>
   );
 }

@@ -674,6 +674,28 @@ export function opponentMatches(id: string): MatchRow[] {
     .all(id) as MatchRow[];
 }
 
+export interface OpponentSeasonSpark {
+  season: string;
+  w: number;
+  d: number;
+  l: number;
+}
+
+/** Per-season W/D/L against one opponent — for the hero best-season pip. */
+export function opponentSeasonRecords(id: string): OpponentSeasonSpark[] {
+  return getDb()
+    .prepare(
+      `SELECT season,
+              COALESCE(SUM(result='W'),0) w, COALESCE(SUM(result='D'),0) d,
+              COALESCE(SUM(result='L'),0) l
+       FROM matches
+       WHERE opponent_id = ? AND season IS NOT NULL
+       GROUP BY season
+       ORDER BY season`,
+    )
+    .all(id) as OpponentSeasonSpark[];
+}
+
 // ---------------------------------------------------------------- managers
 
 export interface ManagerRecord extends Record_ {
