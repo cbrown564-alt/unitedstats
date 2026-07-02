@@ -42,6 +42,17 @@ const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
   "peter-schmeichel": "Peter Schmeichel juli 1991.JPG",
   "eric-cantona": "Cantona, Eric.jpg",
   "steve-bruce": "Steve Bruce at the cliff -march 92.JPG",
+  // Phase 1 — wrong subject/club
+  "tony-dunne": "Manu-Finland-1965.jpg",
+  "john-o-shea": "John O'Shea CL semi 0809.jpg",
+  "wes-brown": "Wes Brown, Feb. 2008.jpg",
+  "aaron-wan-bissaka": "Aaron Wan Bissaka 2019.jpg",
+  "javier-hernandez": "Chicharito 2010.jpg",
+  "mikael-silvestre": "Mikaël Silvestre.JPG",
+  // Phase 2 — bad crop / non-portrait
+  "paul-scholes": "Paul Scholes 2008.jpg",
+  "andy-cole": "Andy Cole (cropped).jpg",
+  "ole-gunnar-solskj-r": "Solskjaer cropped.jpg",
 };
 
 /** Hand-cropped portraits stored under public/media/sources/ — see cache:media. */
