@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: url("/search"), changeFrequency: "monthly", priority: 0.3, lastModified: built },
     { url: url("/data"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
     { url: url("/corrections"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
+    { url: url("/feedback"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
   ];
 
   const questions: MetadataRoute.Sitemap = activeQuestionSlugs().map((slug) => ({
