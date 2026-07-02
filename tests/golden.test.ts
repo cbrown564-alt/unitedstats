@@ -733,6 +733,7 @@ test("runCut aggregates the record and degrades honestly", () => {
   const opp = runCut(cutFromParams({ by: "opponent", metric: "winrate" }));
   assert.equal(opp.groups[0].thin, false, "ladder must not open on a thin sample");
   assert.equal(opp.groups[0].key, opp.headline?.key, "ladder #1 must be the headline");
+  assert.match(opp.headline?.gloss ?? "", /the team we beat most often/, "opponent win-rate gloss must not read as strong opposition");
   const firstThin = opp.groups.findIndex((g) => g.thin);
   if (firstThin !== -1) {
     assert.ok(

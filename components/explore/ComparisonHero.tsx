@@ -1,5 +1,5 @@
 import type { Comparison, CompareMode } from "@/lib/compare";
-import { CareerArcDuel, TrophyCabinet, EraSkyline } from "@/components/CompareSignatures";
+import { CompareSignature } from "@/components/explore/CompareSignature";
 import { FeatureSlide } from "@/components/explore/FeatureSlide";
 
 const MODE_EYEBROW: Record<CompareMode, string> = {
@@ -7,24 +7,6 @@ const MODE_EYEBROW: Record<CompareMode, string> = {
   managers: "Manager vs manager",
   eras: "Era vs era",
 };
-
-/** The one artifact that carries each mode's story — the same signatures the full
- *  /compare scoreboard uses, so the preview and the page never diverge. */
-function Signature({ c }: { c: Comparison }) {
-  const s = c.signature;
-  if (!s) return null;
-  if (s.kind === "career") {
-    return <CareerArcDuel a={s.a} b={s.b} labelA={c.a.label} labelB={c.b.label} />;
-  }
-  if (s.kind === "trophies") {
-    const win = c.metrics.find((m) => m.label === "Win rate");
-    return (
-      <TrophyCabinet a={s.a} b={s.b} labelA={c.a.label} labelB={c.b.label} winA={win?.a ?? null} winB={win?.b ?? null} />
-    );
-  }
-  const short = (x: string) => x.replace(/\s*\(.*\)$/, "");
-  return <EraSkyline a={s.a} b={s.b} labelA={short(c.a.label)} labelB={short(c.b.label)} />;
-}
 
 /**
  * A curated debate as a feature slide in the Asking strip — the extensible
@@ -35,7 +17,7 @@ function Signature({ c }: { c: Comparison }) {
  */
 export function ComparisonHero({ c, href, title }: { c: Comparison; href: string; title: string }) {
   return (
-    <FeatureSlide href={href} ariaLabel={`${title} — open the comparison`} visual={<Signature c={c} />}>
+    <FeatureSlide href={href} ariaLabel={`${title} — open the comparison`} visual={<CompareSignature c={c} />}>
       <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
         {MODE_EYEBROW[c.mode]}
       </span>

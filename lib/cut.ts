@@ -235,6 +235,32 @@ export function metricFmt(value: number | null, metric: CutMetric): string {
   }
 }
 
+/** Trailing context for the headline finding — metric- and dimension-aware so a
+ *  win-rate opponent never reads as "the strongest opposition". */
+function headlineGloss(
+  metric: CutMetric,
+  dim: CutDimension,
+  groupCount: number,
+  top: CutGroup,
+  subject: CutSubject,
+): string {
+  const noun = dimensionNoun(dim, groupCount);
+  const volNoun =
+    subject === "player"
+      ? top.p === 1 ? "appearance" : "appearances"
+      : top.p === 1 ? "match" : "matches";
+  const sample = `from ${fmtNum(top.p)} ${volNoun}`;
+
+  if (COUNT_METRICS.has(metric)) {
+    return `the most of ${fmtNum(groupCount)} ${noun}`;
+  }
+  if (metric === "winrate" && dim === "opponent") {
+    return `the team we beat most often, ${sample}`;
+  }
+
+  return `the highest ${metricLabel(metric).toLowerCase()} of ${fmtNum(groupCount)} ${noun}, ${sample}`;
+}
+
 /** Rate metrics mislead on tiny groups (a 100% win rate over two games tops nothing
  *  meaningful). Below this many matches/appearances a rate figure is "thin": it is
  *  flagged, sunk to the bottom of the ladder, and never eligible to headline —
@@ -560,14 +586,7 @@ function buildHeadline(
   const top = ranked[0];
   if (!top || top.value === null) return null;
 
-  const noun = dimensionNoun(dim, groups.length);
-  const volNoun =
-    subject === "player"
-      ? top.p === 1 ? "appearance" : "appearances"
-      : top.p === 1 ? "match" : "matches";
-  const gloss = COUNT_METRICS.has(metric)
-    ? `the most of ${fmtNum(groups.length)} ${noun}`
-    : `the strongest of ${fmtNum(groups.length)} ${noun}, from ${fmtNum(top.p)} ${volNoun}`;
+  const gloss = headlineGloss(metric, dim, groups.length, top, subject);
 
   return {
     key: top.key,

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { CareerSeason, EraFinish, TrophyEntry, TrophyHaul } from "@/lib/compare";
+import type { EraFinish, TrophyEntry, TrophyHaul } from "@/lib/compare";
 import { TROPHY_CAT_TONE, TrophyGlyphFilled } from "@/components/CampaignIcons";
 
 // The two sides carry identity colours across every signature: A is United red,
@@ -17,118 +17,21 @@ function Swatch({ color, label }: { color: string; label: string }) {
   );
 }
 
-// ----------------------------------------------------------- career arc (preview)
-
-/**
- * Static, dependency-free career-arc visual for the /explore preview slide — two
- * goal curves on a shared career-season axis. The full /compare page uses the
- * interactive CareerDuelChart (recharts, hover/peaks/click); this lighter SVG is
- * right for a server-rendered preview where a client chart would flash blank.
- */
-export function CareerArcDuel({
-  a,
-  b,
-  labelA,
-  labelB,
-}: {
-  a: CareerSeason[];
-  b: CareerSeason[];
-  labelA: string;
-  labelB: string;
-}) {
-  const W = 640;
-  const H = 210;
-  const padL = 30;
-  const padR = 14;
-  const padT = 16;
-  const padB = 26;
-  const plotW = W - padL - padR;
-  const plotH = H - padT - padB;
-  const maxN = Math.max(a.at(-1)?.n ?? 1, b.at(-1)?.n ?? 1, 1);
-  const maxGoals = Math.max(1, ...a.map((s) => s.goals), ...b.map((s) => s.goals));
-  const xOf = (n: number) => padL + (maxN <= 1 ? 0 : (n - 1) / (maxN - 1)) * plotW;
-  const yOf = (g: number) => padT + (1 - g / maxGoals) * plotH;
-  const baseY = padT + plotH;
-
-  const build = (s: CareerSeason[], color: string, gid: string) => {
-    if (!s.length) return null;
-    const pts = s.map((p) => `${xOf(p.n).toFixed(1)},${yOf(p.goals).toFixed(1)}`);
-    const area = `M ${xOf(s[0].n).toFixed(1)},${baseY.toFixed(1)} L ${pts.join(" L ")} L ${xOf(
-      s[s.length - 1].n,
-    ).toFixed(1)},${baseY.toFixed(1)} Z`;
-    const peak = s.reduce((m, p) => (p.goals > m.goals ? p : m), s[0]);
-    return { line: pts.join(" "), area, peak, color, gid };
-  };
-  const sa = build(a, A_COLOR, "arcA");
-  const sb = build(b, B_COLOR, "arcB");
-
-  return (
-    <figure className="rounded-lg border border-line bg-pitch/40 p-3 sm:p-4">
-      <figcaption className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-ink-dim">
-        <span className="font-semibold uppercase tracking-[0.12em] text-ink-faint">Goals per season</span>
-        <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="inline-flex items-center gap-1.5">
-            <Swatch color={A_COLOR} label={labelA} />
-            <span className="stat-num text-ink-faint">· {a.length} seasons</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Swatch color={B_COLOR} label={labelB} />
-            <span className="stat-num text-ink-faint">· {b.length} seasons</span>
-          </span>
-        </span>
-      </figcaption>
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={`Goals per season: ${labelA} vs ${labelB}`}>
-        <defs>
-          <linearGradient id="arcA" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={A_COLOR} stopOpacity="0.28" />
-            <stop offset="100%" stopColor={A_COLOR} stopOpacity="0.02" />
-          </linearGradient>
-          <linearGradient id="arcB" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={B_COLOR} stopOpacity="0.24" />
-            <stop offset="100%" stopColor={B_COLOR} stopOpacity="0.02" />
-          </linearGradient>
-        </defs>
-        <line x1={padL} y1={padT} x2={W - padR} y2={padT} stroke="var(--color-line)" strokeDasharray="2 4" />
-        <line x1={padL} y1={baseY} x2={W - padR} y2={baseY} stroke="var(--color-line)" />
-        <text x={padL - 6} y={padT + 4} textAnchor="end" className="fill-ink-faint" style={{ fontSize: 10 }}>
-          {maxGoals}
-        </text>
-        <text x={padL - 6} y={baseY} textAnchor="end" className="fill-ink-faint" style={{ fontSize: 10 }}>
-          0
-        </text>
-        <text x={padL} y={H - 6} textAnchor="start" className="fill-ink-faint" style={{ fontSize: 10 }}>
-          Season 1
-        </text>
-        <text x={W - padR} y={H - 6} textAnchor="end" className="fill-ink-faint" style={{ fontSize: 10 }}>
-          {maxN}
-        </text>
-        {[sa, sb].map(
-          (s) =>
-            s && (
-              <g key={s.gid}>
-                <path d={s.area} fill={`url(#${s.gid})`} />
-                <polyline points={s.line} fill="none" stroke={s.color} strokeWidth="2" strokeLinejoin="round" />
-                <circle cx={xOf(s.peak.n)} cy={yOf(s.peak.goals)} r="3" fill={s.color} />
-                <text
-                  x={xOf(s.peak.n)}
-                  y={yOf(s.peak.goals) - 6}
-                  textAnchor="middle"
-                  className="fill-ink"
-                  style={{ fontSize: 10, fontWeight: 600 }}
-                >
-                  {s.peak.goals}
-                </text>
-              </g>
-            ),
-        )}
-      </svg>
-    </figure>
-  );
-}
-
 // ----------------------------------------------------------- trophy cabinet (managers)
 
-function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul; color: string; win: number | null }) {
+function Cabinet({
+  label,
+  haul,
+  color,
+  win,
+  compact = false,
+}: {
+  label: string;
+  haul: TrophyHaul;
+  color: string;
+  win: number | null;
+  compact?: boolean;
+}) {
   // Match each glyph to its season-granular entry. Entries are chronological
   // globally; grouped by category here (in display order) so the glyph wall reads
   // "all the leagues, then all the cups" while each one still carries its season.
@@ -147,16 +50,16 @@ function Cabinet({ label, haul, color, win }: { label: string; haul: TrophyHaul;
     }));
   });
   return (
-    <div className="rounded-lg border border-line bg-pitch/40 p-3 sm:p-4">
+    <div className={`rounded-lg border border-line bg-pitch/40 ${compact ? "p-2.5 sm:p-3" : "p-3 sm:p-4"}`}>
       <div className="flex items-baseline justify-between gap-2">
         <Swatch color={color} label={label} />
         <span className="flex items-baseline gap-1.5">
-          <span className="stat-num text-3xl font-semibold leading-none text-gold">{haul.total}</span>
+          <span className={`stat-num font-semibold leading-none text-gold ${compact ? "text-2xl" : "text-3xl"}`}>{haul.total}</span>
           <span className="text-[11px] uppercase tracking-[0.12em] text-ink-faint">{haul.total === 1 ? "trophy" : "trophies"}</span>
         </span>
       </div>
 
-      <div className="mt-3 flex min-h-[2.25rem] flex-wrap content-start gap-1">
+      <div className={`flex flex-wrap content-start gap-1 ${compact ? "mt-2 min-h-[1.75rem]" : "mt-3 min-h-[2.25rem]"}`}>
         {glyphs.length ? (
           glyphs.map((g) => {
             const glyph = <TrophyGlyphFilled style={{ color: g.tone }} />;
@@ -214,6 +117,7 @@ export function TrophyCabinet({
   labelB,
   winA,
   winB,
+  compact = false,
 }: {
   a: TrophyHaul;
   b: TrophyHaul;
@@ -221,15 +125,17 @@ export function TrophyCabinet({
   labelB: string;
   winA: number | null;
   winB: number | null;
+  /** Explore signature — tighter cabinets, no interaction hint. */
+  compact?: boolean;
 }) {
   const hasEntries = !!(a.entries?.length || b.entries?.length);
   return (
     <div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Cabinet label={labelA} haul={a} color={A_COLOR} win={winA} />
-        <Cabinet label={labelB} haul={b} color={B_COLOR} win={winB} />
+      <div className={`grid gap-3 sm:grid-cols-2 ${compact ? "gap-2" : ""}`}>
+        <Cabinet label={labelA} haul={a} color={A_COLOR} win={winA} compact={compact} />
+        <Cabinet label={labelB} haul={b} color={B_COLOR} win={winB} compact={compact} />
       </div>
-      {hasEntries && (
+      {hasEntries && !compact && (
         <p className="mt-2 text-center text-[11px] text-ink-faint">
           Hover a trophy for the season; click to open how it was won
         </p>

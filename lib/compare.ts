@@ -104,8 +104,8 @@ export interface CareerSeason {
 }
 
 export type CareerChartMetric = "goals" | "cleanSheets";
-export type PlayerCompareProfile = "defensive" | "attacking" | "mixed";
-export type PlayerRateMode = "per90" | "perGame";
+type PlayerCompareProfile = "defensive" | "attacking" | "mixed";
+type PlayerRateMode = "per90" | "perGame";
 
 /** A trophy count for one competition category (only categories actually won). */
 interface TrophyCategory {
@@ -170,6 +170,29 @@ export interface Comparison {
   evidence?: { label: string; href: string }[];
   /** Player compare only: per-90 for outfield scorers, per-game for defensive pairs. */
   playerRateMode?: PlayerRateMode;
+}
+
+export type CompareRailTone = "devil" | "gold" | "win";
+
+/** The headline figure for an Explore rail card — the one number that decodes the debate. */
+export function compareRailFigure(c: Comparison): { stat: string; tone: CompareRailTone } | null {
+  if (c.mode === "managers") {
+    const trophies = c.metrics.find((m) => m.label === "Trophies");
+    if (trophies?.a != null && trophies?.b != null) {
+      return { stat: `${trophies.a}–${trophies.b}`, tone: "gold" };
+    }
+  }
+  if (c.mode === "players") {
+    const cleanSheets = c.metrics.find((m) => m.label === "Clean sheets");
+    if (cleanSheets?.a != null && cleanSheets?.b != null) {
+      return { stat: `${cleanSheets.a}–${cleanSheets.b}`, tone: "win" };
+    }
+    const goals = c.metrics.find((m) => m.label === "Goals");
+    if (goals?.a != null && goals?.b != null) {
+      return { stat: `${goals.a}–${goals.b}`, tone: "devil" };
+    }
+  }
+  return null;
 }
 
 /** First season of the curated assists lane; before it, assists are unrecorded. */

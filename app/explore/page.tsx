@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { QUESTIONS } from "@/lib/questions";
 import { questionHeadlines } from "@/lib/questionHeadlines";
 import {
-  CURATED_DEBATES, comparePlayers, compareManagers,
-  type CompareMode, type Comparison,
+  CURATED_DEBATES, comparePlayers, compareManagers, compareRailFigure,
+  type CompareMode, type Comparison, type CompareRailTone,
 } from "@/lib/compare";
 
 type ExploreCompareMode = Extract<CompareMode, "players" | "managers">;
@@ -24,6 +24,8 @@ const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
   win: "text-win",
 };
 
+const COMPARE_STAT_TONE: Record<CompareRailTone, string> = STAT_TONE;
+
 export const metadata: Metadata = {
   title: "Discover",
   description:
@@ -38,12 +40,18 @@ export default function ExplorePage() {
   const debateHref = (mode: ExploreCompareMode, d: { a: string; b: string }) =>
     `/compare${queryString({ mode, a: d.a, b: d.b })}`;
 
-  // The Asking strip features one flagship duel per mode — a player and a manager —
-  // for flavour, not the whole set. Both the carousel and its rail show just these
-  // two, keeping the middle lane lighter than the top (the curation gradient); the
-  // full curated set lives one click away in /compare.
-  const flagships = COMPARE_MODES.flatMap((mode) => {
-    const d = CURATED_DEBATES[mode][0];
+  // The Asking strip features three flagship duels — the top scorer race, the
+  // two dynasty-builders, and the European champions between the posts. Both the
+  // carousel and its rail show just these three, keeping the middle lane lighter
+  // than the top (the curation gradient); the full curated set lives one click
+  // away in /compare.
+  const EXPLORE_DEBATES: { mode: ExploreCompareMode; index: number }[] = [
+    { mode: "players", index: 0 },
+    { mode: "managers", index: 0 },
+    { mode: "players", index: 1 },
+  ];
+  const flagships = EXPLORE_DEBATES.flatMap(({ mode, index }) => {
+    const d = CURATED_DEBATES[mode][index];
     const c: Comparison | null =
       mode === "players" ? comparePlayers(d.a, d.b) : compareManagers(d.a, d.b);
     return c ? [{ c, label: d.label, hook: d.hook, href: debateHref(mode, d) }] : [];
@@ -148,11 +156,20 @@ export default function ExplorePage() {
         </FeatureCarousel>
 
         <ul aria-label="Flagship debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {flagships.map((cmp) => (
-            <li key={cmp.href}>
-              <RailCard href={cmp.href} lead={cmp.label} detail={cmp.hook} />
-            </li>
-          ))}
+          {flagships.map((cmp) => {
+            const figure = compareRailFigure(cmp.c);
+            return (
+              <li key={cmp.href}>
+                <RailCard
+                  href={cmp.href}
+                  lead={cmp.label}
+                  stat={figure?.stat}
+                  statTone={figure ? COMPARE_STAT_TONE[figure.tone] : undefined}
+                  detail={cmp.hook}
+                />
+              </li>
+            );
+          })}
         </ul>
 
         <p className="text-xs text-ink-faint">
