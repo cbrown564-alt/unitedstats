@@ -17,8 +17,9 @@ export { placeBand } from "@/lib/placement";
  *   2. for the rigid 1–11 numbering era (pre-1993, where the shirt *is* the
  *      position), the *shirt number* mapped through the formation convention of
  *      the day (2-3-5 → WM → 4-4-2) — this also carries a side; otherwise
- *   3. the player's *career* band (GK/DEF/MID/FWD from Wikidata), which has no
- *      side, so those order by shirt within their band.
+ *   3. the player's *career* position label and band (e.g. "full-back", MID) —
+ *      with shirt-number lateral hints when the label has no side; otherwise
+ *   4. the career band alone, with shirt hints for lateral spread.
  * A starter we still can't place is shown in a small "position unknown" strip
  * beneath the pitch rather than blanking the graphic.
  *

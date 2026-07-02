@@ -137,6 +137,9 @@ export interface LineupRow {
   /** GK/DEF/MID/FWD from the player's career position (Wikidata); used to place
    * a player on the pitch when the per-match role is missing. */
   career_band: string | null;
+  /** Readable career position, e.g. "full-back" or "midfielder"; refines lateral
+   * placement when the per-match role is missing. */
+  career_label: string | null;
   started: number;
   bench: number;
   sub_on: number | null;
@@ -147,7 +150,8 @@ export function lineupForMatch(matchId: string): LineupRow[] {
   return getDb()
     .prepare(
       `SELECT l.player_id, p.name AS player_name, COALESCE(p.name, l.player_name, l.provider_id) AS player_display_name,
-              l.player_side, l.provider_id, l.shirt, l.role, pp.bucket AS career_band, l.started, l.bench, l.sub_on, l.sub_off
+              l.player_side, l.provider_id, l.shirt, l.role, pp.bucket AS career_band, pp.position_label AS career_label,
+              l.started, l.bench, l.sub_on, l.sub_off
        FROM match_lineups l
        LEFT JOIN players p ON p.id = l.player_id
        LEFT JOIN player_positions pp ON pp.player_id = l.player_id
