@@ -3,7 +3,7 @@ export function PageHeader({
   title,
   children,
   aside,
-  /** On mobile, skip the title band when a hero plate follows — sr-only h1 remains. */
+  /** On mobile/tablet, show a compact title band; full header (with blurb) from lg up. */
   deferOnMobile,
 }: {
   eyebrow?: string;
@@ -33,7 +33,16 @@ export function PageHeader({
 
   return (
     <>
-      <h1 className="sr-only lg:hidden">{title}</h1>
+      <header className="border-b border-line/80 pb-3 lg:hidden">
+        <div>
+          {eyebrow && (
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-devil-bright">
+              {eyebrow}
+            </p>
+          )}
+          <h1 className="display text-xl sm:text-2xl">{title}</h1>
+        </div>
+      </header>
       <div className="hidden lg:block">{header}</div>
     </>
   );
