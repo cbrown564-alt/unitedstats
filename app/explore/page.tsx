@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { QUESTIONS } from "@/lib/questions";
 import { questionHeadlines } from "@/lib/questionHeadlines";
 import {
-  CURATED_DEBATES, comparePlayers, compareManagers, compareEras,
-  type CompareMode, type Comparison,
-} from "@/lib/compare";
+  exploreDebates,
+} from "@/lib/compareExplore";
 import { CURATED_CUTS, cutHref, curatedCut, runCut, isChronological } from "@/lib/cut";
-import { queryString } from "@/lib/url";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionHead } from "@/components/SectionHead";
 import { QuestionSignature } from "@/components/explore/QuestionSignature";
@@ -25,29 +23,13 @@ const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
 export const metadata: Metadata = {
   title: "Discover",
   description:
-    "Start with an answer — the curated questions tested against United’s record, then compare careers or eras and explore curated cuts of the whole record.",
+    "Start with an answer — the curated questions tested against United’s record, then compare careers and explore curated cuts of the whole record.",
   alternates: { canonical: "/explore" },
 };
 
 export default function ExplorePage() {
   const headlines = questionHeadlines();
-
-  const COMPARE_MODES: CompareMode[] = ["players", "managers", "eras"];
-  const debateHref = (mode: CompareMode, d: { a: string; b: string }) =>
-    `/compare${queryString({ mode, a: d.a, b: d.b })}`;
-
-  // The Asking strip features one flagship duel per mode — a player, a manager, an
-  // era — for flavour, not the whole set. Both the carousel and its rail show just
-  // these three, keeping the middle lane lighter than the top (the curation
-  // gradient); the full curated set lives one click away in /compare.
-  const flagships = COMPARE_MODES.flatMap((mode) => {
-    const d = CURATED_DEBATES[mode][0];
-    const c: Comparison | null =
-      mode === "players" ? comparePlayers(d.a, d.b)
-      : mode === "managers" ? compareManagers(d.a, d.b)
-      : compareEras(d.a, d.b);
-    return c ? [{ c, label: d.label, hook: d.hook, href: debateHref(mode, d) }] : [];
-  });
+  const debates = exploreDebates();
 
   // The Exploring strip previews each curated cut as the same CutChart the /cut
   // page draws. Categorical ladders cap to a tidy top set; chronological cuts
@@ -138,26 +120,26 @@ export default function ExplorePage() {
       <section className="space-y-4">
         <SectionHead
           title="Curated debates"
-          aside={<span className="text-ink-faint">Player, manager, and era</span>}
+          aside={<span className="text-ink-faint">{debates.length} head-to-heads</span>}
         />
 
-        <FeatureCarousel label="Flagship debates — comparing players, managers, and eras">
-          {flagships.map((cmp) => (
+        <FeatureCarousel label="Curated debates — comparing players and managers">
+          {debates.map((cmp) => (
             <ComparisonHero key={cmp.href} c={cmp.c} href={cmp.href} title={cmp.label} />
           ))}
         </FeatureCarousel>
 
-        <ul aria-label="Flagship debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {flagships.map((cmp) => (
+        <ul aria-label="All curated debates" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {debates.map((cmp) => (
             <li key={cmp.href}>
-              <RailCard href={cmp.href} lead={cmp.label} detail={cmp.hook} />
+              <RailCard href={cmp.href} lead={cmp.label} detail={cmp.c.headline ?? cmp.hook} />
             </li>
           ))}
         </ul>
 
         <p className="text-xs text-ink-faint">
-          Compare players, managers, and eras side by side on shared, coverage-aware metrics — or build a
-          custom matchup.
+          Each debate opens a live scoreboard on shared, coverage-aware metrics — or name any two players or managers on{" "}
+          <a href="/compare" className="text-devil-bright hover:underline focus-ring">Compare</a>.
         </p>
       </section>
 
