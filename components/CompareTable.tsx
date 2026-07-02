@@ -79,12 +79,18 @@ function ScoreSide({
   );
 }
 
-/** Segmented Total / rate toggle. URL-driven (the page passes a href builder),
- *  so the whole comparison — scoreline, chart, measures — re-renders consistently
- *  and the rate choice is shareable. The rate label is mode-aware: per 90 for
- *  players (minutes-derived), per game for managers/eras (team-level). Hidden
- *  when no metric has a rate form. */
-function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: string; hrefFor: (perGame: boolean) => string }) {
+/** Segmented Total / rate toggle. URL-driven so the rate choice is shareable. */
+function RateToggle({
+  rate,
+  rateLabel,
+  totalHref,
+  rateHref,
+}: {
+  rate: boolean;
+  rateLabel: string;
+  totalHref: string;
+  rateHref: string;
+}) {
   const pillCls = (on: boolean) =>
     `rounded-full px-3 py-1 text-xs font-semibold transition-colors focus-ring ${
       on ? "bg-devil/15 text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
@@ -92,8 +98,8 @@ function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: st
   return (
     <div className="flex items-center justify-center gap-1">
       <span className="mr-1 text-[11px] font-medium uppercase tracking-[0.12em] text-ink-faint">View</span>
-      <Link href={hrefFor(false)} aria-current={!rate ? "true" : undefined} className={pillCls(!rate)}>Total</Link>
-      <Link href={hrefFor(true)} aria-current={rate ? "true" : undefined} className={pillCls(rate)}>{rateLabel}</Link>
+      <Link href={totalHref} aria-current={!rate ? "true" : undefined} className={pillCls(!rate)}>Total</Link>
+      <Link href={rateHref} aria-current={rate ? "true" : undefined} className={pillCls(rate)}>{rateLabel}</Link>
     </div>
   );
 }
@@ -305,9 +311,7 @@ export function CompareTable({
 }: {
   comparison: Comparison;
   rate?: boolean;
-  /** Builds the toggle's href for a given mode. Supplied by the page from its
-   *  search params; when absent the toggle is hidden (no rate metrics to flip). */
-  rateHref?: (perGame: boolean) => string;
+  rateHref?: { total: string; rate: string };
   /** Optional share control — sits on the article plate like the question modules. */
   share?: ReactNode;
 }) {
@@ -414,7 +418,12 @@ export function CompareTable({
       </header>
       {hasRate && rateHref && (
         <div className="mb-6 rounded-lg border border-line bg-panel-2/30 px-4 py-2 sm:px-5">
-          <RateToggle rate={rate} rateLabel={rateLabel} hrefFor={rateHref} />
+          <RateToggle
+            rate={rate}
+            rateLabel={rateLabel}
+            totalHref={rateHref.total}
+            rateHref={rateHref.rate}
+          />
         </div>
       )}
       <CompareThread stations={stations} />

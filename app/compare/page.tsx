@@ -71,8 +71,9 @@ export default async function ComparePage({
   // default — it compares honestly across careers and tenures of different
   // lengths. Totals are the opt-out via `?rate=total`.
   const rate = sp.rate !== "total";
-  const rateHref = (perGame: boolean) =>
-    `/compare${queryString({ mode, a: rawA, b: rawB, rate: perGame ? undefined : "total" })}`;
+  const comparePath = `/compare${queryString({ mode, a: rawA, b: rawB })}`;
+  const comparePathTotal = `/compare${queryString({ mode, a: rawA, b: rawB, rate: "total" })}`;
+  const rateToggleHref = { total: comparePathTotal, rate: comparePath };
 
   const managers = mode === "managers" ? [...managersIndex()].sort((a, b) => b.p - a.p) : [];
 
@@ -133,7 +134,7 @@ export default async function ComparePage({
           <CompareTable
             comparison={comparison}
             rate={rate}
-            rateHref={rateHref}
+            rateHref={rateToggleHref}
             share={
               <ShareCite
                 path={`/compare${queryString({ mode, a: rawA, b: rawB, rate: rate ? undefined : "total" })}`}
