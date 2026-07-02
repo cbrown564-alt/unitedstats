@@ -51,6 +51,11 @@ function ScoreSide({
   const ident = (
     <span className={`flex min-w-0 items-center gap-2.5 ${toCentre}`}>
       {withThumb && (
+        <span className="sm:hidden">
+          <PlayerPortrait name={side.label} src={side.thumb ?? null} size="xs" />
+        </span>
+      )}
+      {withThumb && (
         <span className="hidden sm:block">
           <PlayerPortrait name={side.label} src={side.thumb ?? null} size="md" />
         </span>
@@ -65,7 +70,7 @@ function ScoreSide({
   );
   return (
     <div className={`flex flex-col gap-2 ${align === "right" ? "items-end" : "items-start"}`}>
-      <span className={`stat-num text-4xl font-semibold leading-none sm:text-6xl ${scoreTone}`}>{score}</span>
+      <span className={`stat-num text-3xl font-semibold leading-none sm:text-6xl ${scoreTone}`}>{score}</span>
       {side.href ? (
         <Link href={side.href} className="group block max-w-full focus-ring">
           {ident}
@@ -90,8 +95,65 @@ function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: st
   return (
     <div className="flex items-center justify-center gap-1">
       <span className="mr-1 text-[11px] font-medium uppercase tracking-[0.12em] text-ink-faint">View</span>
-      <Link href={hrefFor(false)} aria-current={!rate ? "true" : undefined} className={pillCls(!rate)}>Total</Link>
-      <Link href={hrefFor(true)} aria-current={rate ? "true" : undefined} className={pillCls(rate)}>{rateLabel}</Link>
+      <Link href={hrefFor(false)} aria-current={!rate ? "true" : undefined} className={`tap-target ${pillCls(!rate)}`}>Total</Link>
+      <Link href={hrefFor(true)} aria-current={rate ? "true" : undefined} className={`tap-target ${pillCls(rate)}`}>{rateLabel}</Link>
+    </div>
+  );
+}
+
+/** Mobile card — one measure as a readable row, not a squeezed diverging bar. */
+function MeasureCard({
+  m,
+  rate,
+  labelA,
+  labelB,
+}: {
+  m: CompareMetric;
+  rate: boolean;
+  labelA: string;
+  labelB: string;
+}) {
+  const { a, b, fmt, label } = resolveMetric(m, rate);
+  const comparable = m.comparable !== false;
+  const leader = leaderOf(m, rate);
+  const max = Math.max(a ?? 0, b ?? 0, 1e-9);
+  const pct = (v: number | null) => (v == null || v <= 0 ? 0 : Math.max(8, (v / max) * 100));
+  const row = (side: "a" | "b", value: number | null, name: string) => {
+    const wins = comparable && leader === side;
+    return (
+      <div key={side} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+        <div className="min-w-0">
+          <p className={`truncate text-sm ${wins ? "font-semibold text-win" : "text-ink-dim"}`}>{name}</p>
+          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-panel-2">
+            <div
+              className={`h-full rounded-full ${wins ? "bg-win" : "bg-ink-dim/35"}`}
+              style={{ width: `${pct(value)}%` }}
+            />
+          </div>
+        </div>
+        <span className={`stat-num shrink-0 text-base ${wins ? "font-semibold text-win" : "text-ink-dim"}`}>
+          {fmtVal(value, fmt)}
+        </span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="rounded-lg border border-line bg-panel-2/20 p-3.5">
+      <div className="flex flex-wrap items-center gap-2">
+        <p className="text-sm font-medium text-ink">{label}</p>
+        {m.better === "lower" && <span className="text-xs text-ink-faint">(fewer better)</span>}
+        {!comparable && (
+          <span className="rounded-full border border-line bg-panel-2 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-ink-faint">
+            coverage differs
+          </span>
+        )}
+      </div>
+      <div className="mt-3 space-y-3">
+        {row("a", a, labelA)}
+        {row("b", b, labelB)}
+      </div>
+      {m.note && <p className="mt-2.5 text-xs leading-5 text-ink-faint">{m.note}</p>}
     </div>
   );
 }
@@ -112,7 +174,7 @@ function MeasureRow({ m, rate }: { m: CompareMetric; rate: boolean }) {
   const bTextTone = !comparable ? "text-ink-dim" : leader === "b" ? "text-win font-semibold" : "text-ink-dim";
 
   return (
-    <div className="py-2.5">
+    <div className="hidden py-2.5 sm:block">
       <div className="grid grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,1fr)_2.5rem] items-center gap-2">
         <span className={`stat-num text-right text-sm ${aTextTone}`}>{fmtVal(a, fmt)}</span>
         <div className="flex h-2.5 justify-end">
@@ -139,8 +201,29 @@ function MeasureRow({ m, rate }: { m: CompareMetric; rate: boolean }) {
   );
 }
 
-function MeasuresStrip({ metrics, rate }: { metrics: CompareMetric[]; rate: boolean }) {
-  return <dl className="divide-y divide-line/60">{metrics.map((m) => <MeasureRow key={m.label} m={m} rate={rate} />)}</dl>;
+function MeasuresStrip({
+  metrics,
+  rate,
+  labelA,
+  labelB,
+}: {
+  metrics: CompareMetric[];
+  rate: boolean;
+  labelA: string;
+  labelB: string;
+}) {
+  return (
+    <>
+      <dl className="hidden divide-y divide-line/60 sm:block">
+        {metrics.map((m) => <MeasureRow key={m.label} m={m} rate={rate} />)}
+      </dl>
+      <div className="space-y-2.5 sm:hidden">
+        {metrics.map((m) => (
+          <MeasureCard key={m.label} m={m} rate={rate} labelA={labelA} labelB={labelB} />
+        ))}
+      </div>
+    </>
+  );
 }
 
 /** The career convergences — a counterpoint to the scoreboard's "who leads".
@@ -345,22 +428,33 @@ export function CompareTable({
     {
       id: `${slug}-measures`,
       label: "The measures",
-      node: <MeasuresStrip metrics={comparison.metrics} rate={rate} />,
+      mobileAppendix: true,
+      node: (
+        <MeasuresStrip
+          metrics={comparison.metrics}
+          rate={rate}
+          labelA={comparison.a.label}
+          labelB={comparison.b.label}
+        />
+      ),
     },
     {
       id: `${slug}-coverage`,
       label: "Coverage",
+      mobileAppendix: true,
       node: <CompareCoverage mode={comparison.mode} evidence={comparison.evidence} />,
     },
   ];
 
   return (
-    <article className="relative rounded-lg border border-line bg-panel p-5 sm:p-7">
-      {share && <div className="absolute right-4 top-4 z-10">{share}</div>}
-      <header className="mb-8 pr-24">
-        <h1 className="display text-3xl leading-tight text-ink sm:text-4xl">
-          {comparison.a.label} vs {comparison.b.label}
-        </h1>
+    <article className="relative rounded-lg border border-line bg-panel p-4 sm:p-7">
+      <header className="mb-6 sm:mb-8">
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="display min-w-0 text-2xl leading-tight text-ink sm:text-4xl">
+            {comparison.a.label} vs {comparison.b.label}
+          </h1>
+          {share && <div className="shrink-0 pt-0.5">{share}</div>}
+        </div>
       </header>
       {hasRate && rateHref && (
         <div className="mb-6 rounded-lg border border-line bg-panel-2/30 px-4 py-2 sm:px-5">
