@@ -121,7 +121,7 @@ function ThreadTimeline({
   const BOT = 686; // full-time anchor
   const R = 16; // slipknot radius
   const AMP = 5; // how far the cord sways off its line
-  const svgClass = "pointer-events-none absolute inset-y-0 left-0 w-[7rem] h-full overflow-visible z-10 sm:w-[8.5rem]";
+  const svgClass = "pointer-events-none absolute inset-0 h-full w-full overflow-visible";
 
   const axisMax = timeline.length > 0 ? Math.max(96, ...timeline.map((g) => g.clock + 4)) : 96;
   const y = (clock: number) => TOP + (clock / axisMax) * (BOT - TOP);
@@ -418,13 +418,13 @@ export function TonightHero({
   const onThisDay = night.framing === "on-this-day";
 
   return (
-    <div className="relative -mx-4 -mt-8 sm:-mx-6 sm:-mt-10">
+    <div className="full-bleed-viewport relative -mt-8 sm:-mt-10">
       {/* The stage. Bleeds past the column to the page edges and pulls flush under
           the header so it reads as a floodlit field, not a card on a page. */}
       <Link
         href={night.href}
         aria-label={`${night.line ?? `Manchester United ${night.score} ${night.opponent}${night.scoreSuffix ? ` ${night.scoreSuffix}` : ""}`} — see the match`}
-        className={`group relative block overflow-hidden bg-pitch focus-ring ${onThisDay ? "ring-1 ring-inset ring-gold/25" : ""}`}
+        className={`group relative block bg-pitch focus-ring ${onThisDay ? "ring-1 ring-inset ring-gold/25" : ""}`}
       >
         {/* Floodlight from above. */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(115%_75%_at_50%_-12%,rgba(255,238,210,0.10),transparent_55%)]" aria-hidden />
@@ -448,33 +448,40 @@ export function TonightHero({
             />
             <div className="absolute inset-0 bg-[linear-gradient(to_left,rgba(216,33,13,0.32),rgba(216,33,13,0.10)_45%,transparent)] mix-blend-overlay" />
           </div>
-        ) : (
-          <span
-            className="stat-num pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 select-none font-bold leading-none text-win/[0.05] text-[9rem] sm:text-[16rem] lg:text-[20rem]"
-            aria-hidden
-          >
-            {night.year}
-          </span>
-        )}
+        ) : null}
 
         {/* A red wash by the thread and a vignette that sinks the edges to black —
             laid over the portrait so it reads as atmosphere, not a photo. */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_14%_24%,rgba(216,33,13,0.18),transparent_60%)]" aria-hidden />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_45%_45%,transparent_38%,rgba(0,0,0,0.66))]" aria-hidden />
 
+        {/* Ghosted year — above the vignette so the numeral dissolves softly rather
+            than getting clipped or swallowed at the right edge. Inset from the
+            viewport edge so four-digit years stay legible through the final digit. */}
+        {!night.image ? (
+          <span
+            className="stat-num pointer-events-none absolute right-[5%] top-1/2 z-[1] -translate-y-1/2 select-none whitespace-nowrap font-bold leading-none text-win/[0.05] text-[9rem] sm:text-[16rem] lg:text-[20rem]"
+            aria-hidden
+          >
+            {night.year}
+          </span>
+        ) : null}
+
         {/* The Red Thread, made the monument: the spine read as the match clock,
             every United goal a bead at its minute, the winner the gold knot. */}
-        <ThreadTimeline
-          key={`thread-${night.id}`}
-          timeline={night.timeline}
-          hoveredIndex={hoveredGoalIndex}
-          onHoverChange={setHoveredGoalIndex}
-        />
+        <div className="full-bleed-thread pointer-events-none absolute inset-y-0 left-0 z-10 w-[7rem] sm:w-[8.5rem]">
+          <ThreadTimeline
+            key={`thread-${night.id}`}
+            timeline={night.timeline}
+            hoveredIndex={hoveredGoalIndex}
+            onHoverChange={setHoveredGoalIndex}
+          />
+        </div>
 
         {/* The night, hung off the thread. */}
         <div
           key={night.id}
-          className="surprise-in relative flex min-h-[31rem] flex-col justify-center py-16 pl-28 pr-6 sm:min-h-[42rem] sm:pl-40 sm:pr-12"
+          className="full-bleed-foreground surprise-in relative flex min-h-[31rem] flex-col justify-center py-16 pl-28 pr-6 sm:min-h-[42rem] sm:pl-40 sm:pr-12"
         >
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">
             <span className="stat-num text-sm font-bold tracking-normal text-gold">{night.year}</span>

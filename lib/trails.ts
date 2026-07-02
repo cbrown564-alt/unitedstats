@@ -848,12 +848,6 @@ export function playerBestScoringRun(id: string): ScoringRun | null {
 
 // ---------------------------------------------------------------- manager trails
 
-export function managerFirstMatches(id: string, n = 10): MatchRow[] {
-  return getDb()
-    .prepare(`${MATCH_SELECT} WHERE m.manager_id = ? ORDER BY m.date LIMIT ?`)
-    .all(id, n) as MatchRow[];
-}
-
 export interface ManagerSplits {
   home: Record_;
   away: Record_;

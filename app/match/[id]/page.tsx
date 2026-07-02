@@ -174,11 +174,6 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   // Disclosure summaries must advertise their contents (Primary-Answer rule).
   const hasTeamsheet = starters.length > 0 || usedSubs.length > 0 || bench.length > 0 || cards.length > 0;
-  const contextParts = [
-    h2h.p > 0 ? "head-to-head" : null,
-    "form",
-    similar.length > 0 ? "related matches" : null,
-  ].filter(Boolean) as string[];
 
   const hasGoalsPanel =
     hasTimedGoals ||
@@ -187,7 +182,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     (goals.length === 0 && m.gf > 0) ||
     (opponentGoals.length === 0 && m.ga > 0);
 
-  const defaultTab = hasGoalsPanel ? "goals" : hasTeamsheet ? "sheet" : "details";
+  const defaultTab = hasGoalsPanel || hasTeamsheet ? "goals" : "details";
 
   const goalsPanel = hasGoalsPanel ? (
     <div className="space-y-5">
@@ -377,6 +372,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     )
   ) : null;
 
+  const matchPanel = hasGoalsPanel || hasTeamsheet ? (
+    <div className="space-y-5">
+      {goalsPanel}
+      {hasTeamsheet && teamsheetPanel}
+    </div>
+  ) : null;
+
   const matchDetailsBody = (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
@@ -416,21 +418,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   // left. The story column above (timeline/lineup) sits a touch tighter; both
   // centre on the same axis.
   const detailsPanel = (
-    <div className="mx-auto max-w-3xl">
-      {/* Mobile: no section title — the "Details" tab already names it. */}
-      <div className="sm:hidden">{matchDetailsBody}</div>
-      <details open className="group hidden sm:block">
-        <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
-          <h2 className="display text-xl">Match details</h2>
-          <span className="stat-num text-xs text-ink-faint">
-            venue · attendance · manager · competition ·{" "}
-            <span className="text-devil-bright group-open:hidden">show</span>
-            <span className="hidden text-devil-bright group-open:inline">hide</span>
-          </span>
-        </summary>
-        {matchDetailsBody}
-      </details>
-    </div>
+    <div className="mx-auto max-w-3xl">{matchDetailsBody}</div>
   );
 
   const contextBody = (
@@ -483,21 +471,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   );
 
   const contextPanel = (
-    <div className="mx-auto max-w-3xl">
-      {/* Mobile: no section title — the "Previous" tab already names it. */}
-      <div className="sm:hidden">{contextBody}</div>
-      <details className="group hidden sm:block">
-        <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
-          <h2 className="display text-xl">Previous results</h2>
-          <span className="stat-num text-xs text-ink-faint">
-            {contextParts.join(" · ")} ·{" "}
-            <span className="text-devil-bright group-open:hidden">show</span>
-            <span className="hidden text-devil-bright group-open:inline">hide</span>
-          </span>
-        </summary>
-        {contextBody}
-      </details>
-    </div>
+    <div className="mx-auto max-w-3xl">{contextBody}</div>
   );
 
   const sourcesBody = (
@@ -522,21 +496,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   );
 
   const sourcesPanel = sources.length > 0 ? (
-    <div className="mx-auto max-w-3xl">
-      {/* Mobile: no section title — the "Sources" tab already names it. */}
-      <div className="sm:hidden">{sourcesBody}</div>
-      <details className="group hidden sm:block">
-        <summary className="mb-4 flex cursor-pointer list-none items-baseline justify-between gap-3">
-          <h2 className="display text-xl">Data sources</h2>
-          <span className="stat-num text-xs text-ink-faint">
-            {sourceSummary.size} source{sourceSummary.size === 1 ? "" : "s"} ·{" "}
-            <span className="text-devil-bright group-open:hidden">show</span>
-            <span className="hidden text-devil-bright group-open:inline">hide</span>
-          </span>
-        </summary>
-        {sourcesBody}
-      </details>
-    </div>
+    <div className="mx-auto max-w-3xl">{sourcesBody}</div>
   ) : null;
 
   return (
@@ -545,7 +505,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       {/* Pull the full-bleed hero up under the sticky nav, cancelling the shell's
           main padding, so the floodlit colour runs to the very top with no black
           band between nav and headline. */}
-      <section className="relative left-1/2 -mt-8 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden border-b border-line sm:-mt-10">
+      <section className="full-bleed-viewport relative -mt-8 overflow-hidden border-b border-line sm:-mt-10">
         {/* Full-bleed broadcast band: twin devil-red floodlights bloom from the top
             corners (the same blurred-glow language as every other hero) over the
             faint pitch grid, the content held to the page gutter. No card — the
@@ -567,7 +527,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           />
         </div>
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
-        <div className="relative mx-auto max-w-6xl space-y-5 px-4 py-7 sm:px-6 sm:py-12 2xl:max-w-7xl">
+        <div className="full-bleed-foreground relative space-y-5 py-7 pl-4 sm:py-12 sm:pl-6 lg:pl-0">
           <DetailBreadcrumb
             segments={[
               { label: "Seasons", href: "/seasons" },
@@ -626,23 +586,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           tabs={[
             {
               id: "goals",
-              // Mobile tab label: this panel carries the match story (timeline +
-              // line-ups appended below), so it reads as "Match", not just "Goals".
               label: "Match",
-              // On mobile the goals panel otherwise floats alone above a tall empty
-              // tab; append the teamsheet so the result scrolls down into the
-              // line-ups (FotMob-style). Hidden at sm+, where every panel already
-              // stacks in document order and the sheet renders separately.
-              content: goalsPanel && (
-                <div className="space-y-5">
-                  {goalsPanel}
-                  {hasTeamsheet && <div className="sm:hidden">{teamsheetPanel}</div>}
-                </div>
-              ),
+              content: matchPanel,
             },
-            // On mobile the lineup is reached by scrolling the goals tab, so drop
-            // its tab button there; it still stacks as its own section on desktop.
-            { id: "sheet", label: "Lineup", content: teamsheetPanel, desktopOnly: hasGoalsPanel && hasTeamsheet },
             { id: "details", label: "Details", content: detailsPanel },
             { id: "context", label: "Previous", content: contextPanel },
             { id: "sources", label: "Sources", content: sourcesPanel },

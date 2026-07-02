@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export function PageHeader({
   eyebrow,
   title,
@@ -70,30 +68,5 @@ export function StatTile({
         )}
       </div>
     </div>
-  );
-}
-
-export function TrailLink({
-  href,
-  title,
-  children,
-}: {
-  href: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group block border border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 hover:bg-panel-2/70 focus-ring"
-    >
-      <span className="flex items-center justify-between gap-3">
-        <span className="font-semibold text-ink group-hover:text-devil-bright">{title}</span>
-        <span className="stat-num text-devil-bright" aria-hidden>
-          →
-        </span>
-      </span>
-      <span className="mt-1 block text-sm leading-5 text-ink-dim">{children}</span>
-    </Link>
   );
 }

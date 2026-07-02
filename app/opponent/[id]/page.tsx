@@ -252,11 +252,11 @@ export default async function OpponentPage({
               ),
             },
             {
-              id: "meetings",
-              label: "Meetings",
+              id: "matches",
+              label: "Matches",
               content: (
                 <section>
-                  <SectionHead title="All meetings" aside={`${fmtNum(total)} on record`} />
+                  <SectionHead title="Matches" aside={`${fmtNum(total)} on record`} />
                   {notable.length > 0 && (
                     <NotableMatches matches={notable} className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" />
                   )}
@@ -351,7 +351,7 @@ function OpponentDataCoverage({
         <CoverageNote
           className="!mt-0"
           slice="match archive and result spine"
-          coverage={`every competitive meeting against ${opponentName}, all competitions, newest-first in the Meetings tab.`}
+          coverage={`every competitive meeting against ${opponentName}, all competitions, newest-first in the Matches tab.`}
           evidenceHref={`/matches?opponent=${opponentId}`}
           evidenceLabel="Match browser →"
         />

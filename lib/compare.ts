@@ -435,7 +435,7 @@ const TROPHY_CATS: { key: string; label: string }[] = [
 ];
 
 /** League titles and knockout cups — the honours the hero and span caption count as major. */
-export const MAJOR_TROPHY_KEYS = ["league", "european", "domestic-cup", "league-cup"] as const;
+const MAJOR_TROPHY_KEYS = ["league", "european", "domestic-cup", "league-cup"] as const;
 
 const MAJOR_TROPHY_KEY_SET = new Set<string>(MAJOR_TROPHY_KEYS);
 

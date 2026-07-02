@@ -38,6 +38,10 @@ export function SidebarNav() {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.sidebarCollapsed = collapsed ? "1" : "0";
+  }, [collapsed]);
+
   const toggle = useCallback(() => {
     setCollapsed((current) => {
       const next = !current;

@@ -34,7 +34,7 @@ export interface SpanSegment {
 }
 
 /** Best season marker on the span rail — same gold pip idiom as {@link PlayerPlate}. */
-export interface SpanPeakSeason {
+interface SpanPeakSeason {
   season: string;
   /** Fraction 0..1 along the span rail */
   at: number;

@@ -19,32 +19,28 @@ import { MobileBottomNav } from "@/components/mobile/MobileBottomNav";
 export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="lg:flex lg:min-h-full">
-        <ViewTransition name="site-header">
-          <SidebarNav />
-        </ViewTransition>
-        <div className="flex min-w-0 flex-1 flex-col">
-          <CommandPaletteLoader />
-          <WebVitals />
-          <main className="site-main mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
-            <ViewTransition>{children}</ViewTransition>
-          </main>
-          <footer className="site-footer mt-10 border-t border-line lg:mt-16">
-            <div className="mx-auto max-w-6xl space-y-1 px-4 py-6 text-xs text-ink-faint sm:px-6 lg:py-8">
-              <p className="max-w-xl">
-                Red Thread — evidence-backed Manchester United history, from Newton Heath (1886) to today. Result data:
-                engsoccerdata, openfootball, Wikipedia. Not affiliated with Manchester United FC.
-              </p>
-              <p className="max-w-xl hidden sm:block">
-                Every fact links back to its matches. Spot an error?{" "}
-                <a href="/corrections" className="text-devil-bright hover:underline focus-ring">
-                  Suggest a correction
-                </a>
-                .
-              </p>
-            </div>
-          </footer>
-        </div>
+      <SidebarNav />
+      <div className="site-shell-main flex min-w-0 flex-col">
+        <CommandPaletteLoader />
+        <WebVitals />
+        <main className="site-main mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
+          <ViewTransition>{children}</ViewTransition>
+        </main>
+        <footer className="site-footer mt-10 border-t border-line lg:mt-16">
+          <div className="mx-auto max-w-6xl space-y-1 px-4 py-6 text-xs text-ink-faint sm:px-6 lg:py-8">
+            <p className="max-w-xl">
+              Red Thread — evidence-backed Manchester United history, from Newton Heath (1886) to today. Result data:
+              engsoccerdata, openfootball, Wikipedia. Not affiliated with Manchester United FC.
+            </p>
+            <p className="max-w-xl hidden sm:block">
+              Every fact links back to its matches. Spot an error?{" "}
+              <a href="/corrections" className="text-devil-bright hover:underline focus-ring">
+                Suggest a correction
+              </a>
+              .
+            </p>
+          </div>
+        </footer>
       </div>
       <MobileBottomNav />
     </>

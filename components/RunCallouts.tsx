@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { fmtDate } from "@/lib/format";
 import type { LongestStreakKind } from "@/lib/trails";
 
-export type RunKind = LongestStreakKind;
+type RunKind = LongestStreakKind;
 
 export interface Run {
   /** The streak length — the dominant figure on the card. */

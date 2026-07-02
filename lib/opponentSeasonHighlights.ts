@@ -24,12 +24,6 @@ export function peakWinRateSeasons(seasons: OpponentSeasonRow[]): OpponentSeason
   return seasons.filter((s) => s.p > 0 && s.winPct === max);
 }
 
-export function peakPpgSeasons(seasons: OpponentSeasonRow[]): OpponentSeasonRow[] {
-  const max = Math.max(0, ...seasons.map((s) => s.ppg));
-  if (max <= 0) return [];
-  return seasons.filter((s) => s.p > 0 && s.ppg === max);
-}
-
 /** Best win-rate season against this opponent — for the hero span pip. */
 export function opponentBestSeason(seasons: OpponentSeasonRow[]): OpponentSeasonRow | null {
   const peaks = peakWinRateSeasons(seasons);
@@ -37,4 +31,4 @@ export function opponentBestSeason(seasons: OpponentSeasonRow[]): OpponentSeason
   return peaks[peaks.length - 1]!;
 }
 
-export { seasonDecade, seasonSpanAnchor } from "@/lib/managerSeasonHighlights";
+export { seasonSpanAnchor } from "@/lib/managerSeasonHighlights";

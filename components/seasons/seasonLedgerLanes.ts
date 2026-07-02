@@ -4,7 +4,7 @@ import type { SeasonCupOutcome } from "@/components/seasons/SeasonLedgerCard";
 
 export type Lane = "fa-cup" | "league-cup" | "europe" | "other";
 
-export const LANE_ORDER: Lane[] = ["fa-cup", "league-cup", "europe", "other"];
+const LANE_ORDER: Lane[] = ["fa-cup", "league-cup", "europe", "other"];
 
 export const LANE_LABEL: Record<Lane, string> = {
   "fa-cup": "FA Cup",
