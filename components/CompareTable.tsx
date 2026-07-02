@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import type { Comparison, CompareMetric, CompareMode, CompareSide, CompareSignature } from "@/lib/compare";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -100,7 +102,7 @@ function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: st
  *  leader's bar carries win-yellow; an un-judged or coverage-asymmetric metric
  *  renders both halves neutral with a "coverage differs" pill so a figure is
  *  never mistaken for a fair fight. */
-function MeasureRow({ m, rate }: { m: CompareMetric; rate: boolean }) {
+function MeasureRow({ m, rate, showDetail }: { m: CompareMetric; rate: boolean; showDetail: boolean }) {
   const { a, b, fmt, label } = resolveMetric(m, rate);
   const comparable = m.comparable !== false;
   const leader = leaderOf(m, rate);
@@ -134,13 +136,43 @@ function MeasureRow({ m, rate }: { m: CompareMetric; rate: boolean }) {
           </span>
         )}
       </div>
-      {m.note && <p className="mt-0.5 text-center text-[11px] text-ink-faint">{m.note}</p>}
+      {showDetail && m.note && <p className="mt-0.5 text-center text-[11px] text-ink-faint">{m.note}</p>}
     </div>
   );
 }
 
-function MeasuresStrip({ metrics, rate }: { metrics: CompareMetric[]; rate: boolean }) {
-  return <dl className="divide-y divide-line/60">{metrics.map((m) => <MeasureRow key={m.label} m={m} rate={rate} />)}</dl>;
+function MeasuresStrip({
+  metrics,
+  rate,
+  showDetail,
+}: {
+  metrics: CompareMetric[];
+  rate: boolean;
+  showDetail: boolean;
+}) {
+  return (
+    <dl className="divide-y divide-line/60">
+      {metrics.map((m) => <MeasureRow key={m.label} m={m} rate={rate} showDetail={showDetail} />)}
+    </dl>
+  );
+}
+
+/** Off by default — reveals per-metric notes and the coverage station on demand. */
+function ShowDetailToggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
+  return (
+    <div className="mb-3 flex justify-end">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={on}
+        className={`rounded-full px-2.5 py-1 text-[11px] font-medium tracking-wide transition-colors focus-ring ${
+          on ? "text-devil-bright" : "text-ink-faint hover:text-ink-dim"
+        }`}
+      >
+        {on ? "Hide detail" : "Show detail"}
+      </button>
+    </div>
+  );
 }
 
 /** The career convergences — a counterpoint to the scoreboard's "who leads".
@@ -212,10 +244,8 @@ function Signature({
 /** Short, mode-specific coverage — same voice as the player page. */
 function CompareCoverage({
   mode,
-  evidence,
 }: {
   mode: CompareMode;
-  evidence?: { label: string; href: string }[];
 }) {
   return (
     <div className="space-y-3">
@@ -245,15 +275,19 @@ function CompareCoverage({
           top-flight league finishes; points as three per game.
         </p>
       )}
-      {evidence && evidence.length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
-          {evidence.map((e) => (
-            <Link key={e.href + e.label} href={e.href} className="text-sm text-devil-bright hover:underline">
-              {e.label}
-            </Link>
-          ))}
-        </div>
-      )}
+    </div>
+  );
+}
+
+function CompareEvidence({ evidence }: { evidence?: { label: string; href: string }[] }) {
+  if (!evidence || evidence.length === 0) return null;
+  return (
+    <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-line/60 pt-3">
+      {evidence.map((e) => (
+        <Link key={e.href + e.label} href={e.href} className="text-sm text-devil-bright hover:underline">
+          {e.label}
+        </Link>
+      ))}
     </div>
   );
 }
@@ -283,6 +317,11 @@ export function CompareTable({
   const rateLabel = comparison.mode === "players" ? "Per 90" : "Per game";
   const rateTag = comparison.mode === "players" ? "per 90" : "per game";
   const slug = `${comparison.a.id}-vs-${comparison.b.id}`;
+
+  const [showDetail, setShowDetail] = useState(false);
+  const detailToggle = (
+    <ShowDetailToggle on={showDetail} onToggle={() => setShowDetail((v) => !v)} />
+  );
 
   const judged = comparison.metrics.filter((m) => leaderOf(m, rate) !== null);
   const leadsA = judged.filter((m) => leaderOf(m, rate) === "a").length;
@@ -332,26 +371,37 @@ export function CompareTable({
           id: `${slug}-signature`,
           label: comparison.mode === "players" ? "Career arcs" : "Trophy hauls",
           node: (
-            <Signature
-              signature={comparison.signature}
-              a={comparison.a}
-              b={comparison.b}
-              metrics={comparison.metrics}
-              rate={rate}
-            />
+            <>
+              {detailToggle}
+              <Signature
+                signature={comparison.signature}
+                a={comparison.a}
+                b={comparison.b}
+                metrics={comparison.metrics}
+                rate={rate}
+              />
+            </>
           ),
         }]
       : []),
     {
       id: `${slug}-measures`,
       label: "The measures",
-      node: <MeasuresStrip metrics={comparison.metrics} rate={rate} />,
+      node: (
+        <>
+          {!comparison.signature && detailToggle}
+          <MeasuresStrip metrics={comparison.metrics} rate={rate} showDetail={showDetail} />
+          <CompareEvidence evidence={comparison.evidence} />
+        </>
+      ),
     },
-    {
-      id: `${slug}-coverage`,
-      label: "Coverage",
-      node: <CompareCoverage mode={comparison.mode} evidence={comparison.evidence} />,
-    },
+    ...(showDetail
+      ? [{
+          id: `${slug}-coverage`,
+          label: "Coverage",
+          node: <CompareCoverage mode={comparison.mode} />,
+        }]
+      : []),
   ];
 
   return (
