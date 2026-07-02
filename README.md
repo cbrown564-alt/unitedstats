@@ -1,47 +1,116 @@
-# UnitedStats
+# Red Thread
 
-**The exhaustive history of Manchester United** — every match, plus growing
-lineup and goal-contribution depth for every competition, since 1892. A modern successor
+**Every Manchester United match since 1886** — results, lineups, goal events,
+managers, opponents, and growing depth across every competition. A modern successor
 to stretfordend.co.uk: a deep, versioned dataset, a zero-cost auto-update
-pipeline, and a rich analytics UI.
+pipeline, and a nostalgia-first web UI.
+
+Repository and package name: **unitedstats**. See `docs/BRANDING.md` for the
+Red Thread name and voice.
 
 ## Quick start
 
 ```bash
 npm install
-npm run build:db   # compile data/canonical/*.json -> data/united.db
 npm run dev        # http://localhost:3000
 ```
 
+`npm run dev` runs `build:db` automatically if `data/united.db` is missing.
+For a production-parity build: `npm run build:db && npm run cache:media && npm run export:dataset`.
+
+## What ships
+
+| Surface | Route | Role |
+|---|---|---|
+| Front door | `/` | Served match-night spark + record skyline + search |
+| Discover | `/explore` | Authored questions, debates, and record cuts |
+| Match archive | `/matches` | Filterable full fixture record |
+| Entity pages | `/match`, `/player`, `/manager`, `/opponent`, `/seasons` | Auditable depth on every fixture and career |
+| Analytics | `/analytics` | Elo timeline, reliability curve, season replay |
+| Transfers | `/transfers` | Season-by-season transfer ledger |
+| Data & trust | `/data` | Coverage ledger, sources, gaps queue, downloads |
+| Compare | `/compare` | Curated debates and head-to-head lenses |
+| Wander | `/surprise`, `/on-this-day` | Curated rediscovery and calendar history |
+| Corrections | `/corrections` | Structured correction builder → GitHub issues |
+| Feedback | `/feedback` | General feedback form |
+| Public API | `/api/v1/*` | Machine-readable matches, players, seasons, meta |
+| Dataset exports | `/dataset/*` | CSV/JSON flat files (see `public/dataset/manifest.json`) |
+
 ## The three layers
 
-1. **Data backend** — canonical JSON in `data/canonical/` (one file per
-   season + reference files), compiled to SQLite. See `docs/DATA-MODEL.md`.
-2. **Update pipeline** — GitHub Actions cron pulls new results from
-   openfootball, validates, rebuilds, commits; Vercel redeploys.
-   No keys, no servers. See `docs/PIPELINE.md`.
-3. **Web UI** — Next.js 16 App Router + Tailwind 4, server components
-   querying SQLite read-only. Analytics (Elo, trends, records) are
-   precomputed at build time. See `docs/ARCHITECTURE.md`.
+1. **Data backend** — canonical JSON in `data/canonical/` (126 season files plus
+   reference files for players, transfers, media, positions, and more), compiled
+   to SQLite. See `docs/DATA-MODEL.md`.
+2. **Update pipeline** — GitHub Actions cron pulls new results from openfootball,
+   validates, rebuilds, exports, and optionally uploads the DB to Vercel Blob
+   with path revalidation — no paid APIs, no servers. See `docs/PIPELINE.md`.
+3. **Web UI** — Next.js 16 App Router + Tailwind 4, server components querying
+   SQLite read-only. Elo and aggregates are precomputed at build time; discovery
+   surfaces (questions, compare, cuts) sit on top of the same record. See
+   `docs/ARCHITECTURE.md`.
 
 ## Scripts
 
+### Development
+
 | Command | Does |
 |---|---|
-| `npm run ingest` | one-off: rebuild canonical JSON from raw open datasets |
-| `npm run ingest:wikipedia` | one-off: enrich canonical JSON from Wikipedia season articles |
-| `npm run ingest:lineups` | one-off: add lineups from dedicated Wikipedia final/late-round match articles |
-| `npm run ingest:football-data` | one-off: dry-run football-data.org match-sheet enrichment; pass `-- --write` to persist |
-| `npm run ingest:mufcinfo-lineups` | one-off: dry-run MUFCInfo historical lineup enrichment; pass `-- --write` to persist |
-| `npm run ingest:mufcinfo-assists` | one-off: dry-run MUFCInfo assist enrichment onto existing goal events; `-- --inspect YYYY-MM-DD` dumps a page's goal format, `-- --write` persists |
-| `npm run build:db` | canonical JSON → SQLite + precomputed analytics |
-| `npm run validate` | integrity checks on canonical data |
-| `npm run update` | fetch latest results (same code the cron runs) |
-| `npm run dev` / `build` | Next.js |
+| `npm run dev` | Next dev server (`predev` builds DB if missing) |
+| `npm run build` | Production build (`prebuild`: DB + media cache + dataset export) |
+| `npm run start` | Serve production build |
+| `npm test` | Unit tests (`tests/*.test.ts`) |
+| `npm run lint` | ESLint |
+| `npm run knip` | Unused files/exports check (CI) |
+
+### Build & export
+
+| Command | Does |
+|---|---|
+| `npm run build:db` | Canonical JSON → `data/united.db` + precomputed analytics |
+| `npm run export:dataset` | SQLite → flat CSV/JSON in `public/dataset/` |
+| `npm run cache:media` | Cache Wikidata/Commons images to `public/media/` |
+| `npm run validate` | Integrity checks on canonical data (CI gate) |
+
+### Pipeline
+
+| Command | Does |
+|---|---|
+| `npm run update` | Fetch latest results (same entry point as cron) |
+| `npm run upload:db` | Upload SQLite to Vercel Blob |
+| `npm run revalidate` | Invalidate cached paths after data ingest |
+
+### Historical ingest (one-off)
+
+| Command | Does |
+|---|---|
+| `npm run ingest` | Rebuild canonical JSON from engsoccerdata |
+| `npm run ingest:wikipedia` | Enrich from Wikipedia season articles |
+| `npm run ingest:lineups` | Lineups from Wikipedia final/late-round match articles |
+| `npm run ingest:football-data` | football-data.org enrichment; `-- --write` to persist |
+| `npm run ingest:mufcinfo-lineups` | MUFCInfo lineup enrichment; `-- --write` to persist |
+| `npm run ingest:mufcinfo-assists` | MUFCInfo goal-minute backfill; `-- --inspect YYYY-MM-DD`, `-- --write` |
+| `npm run ingest:transfermarkt` | transfermarkt-datasets modern match sheets |
+| `npm run ingest:transfers` | MUFCInfo transfer archive |
+| `npm run ingest:player-records` | Wikipedia player-list career totals |
+| `npm run ingest:player-media` | Wikidata/Commons player portraits |
+| `npm run ingest:manager-media` | Manager portraits |
+| `npm run ingest:ogscorer-media` | Own-goal scorer media |
+| `npm run ingest:player-shirts` | Shirt-number decade summaries |
+| `npm run ingest:positions` | Recompute league positions |
+| `npm run ingest:player-positions` | Wikidata playing positions |
+| `npm run ingest:tableau-goals-assists` | Curated Tableau season goals/assists/types; `-- --write` |
+
+### CI checks
+
+| Command | Does |
+|---|---|
+| `npm run check:static` | Enforce static/SSG route disposition |
+| `npm run check:media` | Verify cached media files |
+| `npm run check:perf` | Performance budget checks |
 
 ## Data coverage
 
-**6,027 matches across 126 seasons (1886–present), every competition:**
+**6,028 matches across 126 seasons (1886–present), every competition:**
 
 | Layer | Coverage |
 |---|---|
@@ -50,23 +119,44 @@ npm run dev        # http://localhost:3000
 | Goal scorers (with minutes where recorded) | ~99% of matches United scored in — the all-time list reproduces the official club record |
 | League positions | every season, computed from full-league results with era-correct rules |
 | Managers | every match attributed via tenure dates, 1892– |
-| Lineups | 6,022 matches with full United starting lineups / 72,095 recorded United appearances, primarily from MUFCInfo match pages, structured Wikipedia match articles, and CC0 transfermarkt-datasets; only five matches remain without a validated XI |
-| Assist partnerships | 975 recorded assists (2012-13–present, transfermarkt-datasets, CC0). No open, redistributable source records United assists before 2012-13 (assists were not systematically tracked anywhere until the Opta era, and the pre-2012 holders — Opta, Transfermarkt.com, FBref/StatsBomb — are licence-restricted), so earlier seasons are blank by source limitation, not omission. See `docs/SOURCE-AUDIT.md`. |
+| Lineups | 6,022 matches with full United starting lineups / 72,095 recorded United appearances, primarily from MUFCInfo match pages, structured Wikipedia match articles, and CC0 transfermarkt-datasets; six matches remain without a validated XI |
+| Match-attributed assists | 975 recorded assists (2012-13–present, transfermarkt-datasets, CC0). No open, redistributable source records United assists before 2012-13 (assists were not systematically tracked anywhere until the Opta era, and the pre-2012 holders — Opta, Transfermarkt.com, FBref/StatsBomb — are licence-restricted), so earlier seasons are blank by source limitation, not omission. See `docs/SOURCE-AUDIT.md`. |
+| Transfers | 1,967 recorded transfers (MUFCInfo archive) |
+| Players | 984 in the register export |
 
-Every aggregate in the UI shows the coverage behind it (see the data-depth
-ledger on /analytics). Corrections welcome — the data is plain JSON,
-fixable with a PR.
+Every aggregate in the UI shows the coverage behind it (see the coverage ledger
+on `/data`). Corrections welcome — edit the plain JSON in `data/canonical/` and
+open a PR, or use the structured builder at `/corrections`. See
+`docs/CORRECTIONS.md`.
 
 ## Sources
 
 engsoccerdata (league + FA Cup results), openfootball (current seasons),
-Wikipedia season articles (cups, Europe, attendance, scorers), dedicated
-match articles (lineups), MUFCInfo match pages (historical United lineups and
-shirt numbers), and transfermarkt-datasets for modern match sheets — parsed
-deterministically and cached under `data/raw/`.
+Wikipedia season articles and player lists (cups, Europe, attendance, scorers,
+career totals), dedicated match articles (lineups), MUFCInfo match pages
+(historical United lineups, shirt numbers, transfers), transfermarkt-datasets
+(modern match sheets), Wikidata/Wikimedia Commons (player and manager media,
+playing positions), and curated Tableau season aggregates (Ferguson-era goals and
+assists by type — season-level, not match-attributed). Parsed deterministically
+and cached under `data/raw/`. Full provenance: `data/canonical/sources.json`,
+`docs/SOURCE-AUDIT.md`.
 
 ## License
 
 Code is MIT (see `LICENSE`). The dataset — canonical JSON, the compiled
 SQLite database, and the CSV/JSON exports — is CC BY-SA 4.0 with per-source
 attribution (see `data/LICENSE.md`).
+
+## Related docs
+
+| Doc | Purpose |
+|---|---|
+| `STATUS.md` | Current project status and next workstreams |
+| `PRODUCT.md` | Product definition and direction |
+| `CONTEXT.md` | Shared product vocabulary (nostalgist, lens-not-loom) |
+| `docs/DATA-MODEL.md` | Schema of record |
+| `docs/PIPELINE.md` | Auto-update and deployment |
+| `docs/ARCHITECTURE.md` | How the app is built |
+| `docs/SOURCE-AUDIT.md` | Coverage limits and provenance |
+| `docs/CORRECTIONS.md` | Public correction workflow |
+| `docs/BRANDING.md` | Red Thread name, voice, and mark |
