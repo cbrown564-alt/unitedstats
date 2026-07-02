@@ -55,9 +55,13 @@ export function MatchFilterSheet({
               {filterCount > 0 ? (
                 <>
                   <span className="stat-num font-medium text-ink">{filterCount}</span> active ·{" "}
+                  <span className="stat-num">{fmtNum(total)}</span> matches in this slice
                 </>
-              ) : null}
-              <span className="stat-num">{fmtNum(total)}</span> matches in this slice
+              ) : (
+                <>
+                  All <span className="stat-num">{fmtNum(total)}</span> matches
+                </>
+              )}
             </p>
           </div>
           <button

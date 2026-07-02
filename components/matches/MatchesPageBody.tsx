@@ -8,6 +8,7 @@ import { MatchSliceHero } from "@/components/matches/MatchSliceHero";
 import { Pager } from "@/components/Pager";
 import { fmtNum } from "@/lib/format";
 import type { MatchPageView } from "@/lib/matchPageView";
+import { MATCHES_PAGE_SIZE } from "@/lib/matchPageView";
 import type { MatchRow } from "@/lib/queries";
 import { queryString } from "@/lib/url";
 
@@ -79,23 +80,57 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
         decadeBuckets={decades}
       />
 
-      <MatchListToolbar total={total} sort={sort} dateSort={dateSort} goalDiffSort={goalDiffSort} qs={qs} />
+      <MatchListToolbar
+        total={total}
+        page={page}
+        pages={pages}
+        sort={sort}
+        dateSort={dateSort}
+        goalDiffSort={goalDiffSort}
+        qs={qs}
+      />
 
       <div className="sticky-subnav sticky z-30 -mx-4 border-y border-line bg-pitch/95 px-4 py-2 backdrop-blur sm:hidden">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
           <span className="stat-num text-xs text-ink-dim">
             {hasFilters
               ? `${chips.length} filter${chips.length === 1 ? "" : "s"} · ${fmtNum(total)} match${total === 1 ? "" : "es"}`
               : `${fmtNum(total)} matches`}
           </span>
-          {hasFilters && (
-            <Link
-              href="/matches"
-              className="tap-target px-2 py-1 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
-            >
-              Clear all
-            </Link>
-          )}
+          <div className="flex items-center gap-2">
+            {pages > 1 && (
+              <span className="stat-num flex items-center gap-2 text-xs text-ink-dim">
+                {page > 1 ? (
+                  <Link
+                    href={`/matches${qs({ page: String(page - 1) })}`}
+                    className="tap-target text-devil-bright hover:underline focus-ring"
+                  >
+                    Newer
+                  </Link>
+                ) : null}
+                <span>
+                  {fmtNum((page - 1) * MATCHES_PAGE_SIZE + 1)}–
+                  {fmtNum((page - 1) * MATCHES_PAGE_SIZE + rows.length)} of {fmtNum(total)}
+                </span>
+                {page < pages ? (
+                  <Link
+                    href={`/matches${qs({ page: String(page + 1) })}`}
+                    className="tap-target text-devil-bright hover:underline focus-ring"
+                  >
+                    Older
+                  </Link>
+                ) : null}
+              </span>
+            )}
+            {hasFilters && (
+              <Link
+                href="/matches"
+                className="tap-target px-2 py-1 text-xs text-ink-faint underline-offset-2 hover:text-ink hover:underline focus-ring"
+              >
+                Clear all
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

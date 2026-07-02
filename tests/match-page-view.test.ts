@@ -32,6 +32,13 @@ test("GET /api/v1/matches/view returns the same shape as buildMatchesPageView", 
   assert.equal(body.data.hasFilters, true);
 });
 
+test("season-only slice renders on one page without pagination", () => {
+  const view = buildMatchesPageView({ season: "1998-99" });
+  assert.equal(view.pages, 1);
+  assert.equal(view.rows.length, view.total);
+  assert.ok(view.total > 50, "treble season exceeds default page size");
+});
+
 test("default matches page view is the unfiltered first page", () => {
   const view = buildMatchesPageView({});
   assert.equal(view.page, 1);
