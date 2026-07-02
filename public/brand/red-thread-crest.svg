@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 582 688" width="582" height="688">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="85%">
+      <stop offset="0%" stop-color="#211d1b"/>
+      <stop offset="100%" stop-color="#141110"/>
+    </radialGradient>
+    <filter id="neon" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="glow1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="11" result="glow2"/>
+      <feMerge>
+        <feMergeNode in="glow2"/>
+        <feMergeNode in="glow1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="582" height="688" fill="url(#bg)"/>
+
+  <g filter="url(#neon)" fill="none" stroke="#ff3014" stroke-width="17">
+    <!-- Crest: loose end near the bottom point, up the left edge, pointed peak,
+         right shoulder, then the right edge fuses into the thread -->
+    <path
+      d="M 279 560
+         C 250 540 213 517 180 492
+         C 138 458 105 415 84 368
+         C 66 328 55 280 48 230
+         C 44 196 42 140 42 95
+         C 115 85 200 48 267 12
+         C 350 40 470 66 542 86
+         C 541 130 537 170 529 210
+         C 519 258 490 300 458 358"
+      stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="10"/>
+    <!-- Thread: exits frame bottom, S-curves past the bottom point, climbs the
+         right side, arcs over the top, spirals in to end below the eye -->
+    <path
+      d="M 252 702
+         C 253 670 257 650 267 628
+         C 279 601 297 583 317 563
+         C 337 543 355 520 369 497
+         C 390 462 428 408 458 358
+         C 480 322 495 292 503 262
+         C 508 243 509 226 506 208
+         C 501 172 490 140 464 118
+         C 449 103 428 94 406 92
+         C 378 90 348 100 327 120
+         C 313 133 305 143 298 158
+         C 290 176 286 200 287 224
+         C 288 246 294 263 306 279
+         C 317 293 333 302 352 306
+         C 365 308 376 307 390 304"
+      stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- The eye -->
+    <circle cx="387" cy="230" r="33" fill="#ff3014" stroke="none"/>
+  </g>
+</svg>
