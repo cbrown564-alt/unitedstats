@@ -7,9 +7,11 @@ import {
   useEffect,
   useId,
   useRef,
+  useState,
   type ReactNode,
   type RefObject,
 } from "react";
+import { createPortal } from "react-dom";
 import { useAnimatedOverlay } from "@/components/mobile/useAnimatedOverlay";
 import { useBodyScrollLock } from "@/components/mobile/useBodyScrollLock";
 import { useFocusTrap } from "@/components/mobile/useFocusTrap";
@@ -60,6 +62,7 @@ export function BottomSheet({
   const rootRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const { mounted, closing, onExitComplete } = useAnimatedOverlay(open, EXIT_MS);
   const { resetTransform, resetDrag, sheetProps } = useSheetSwipe(sheetRef, onClose, mounted && !closing, {
     threshold: dismissThreshold,
@@ -68,6 +71,10 @@ export function BottomSheet({
 
   useBodyScrollLock(mounted && !closing);
   useFocusTrap(sheetRef, mounted && !closing);
+
+  useEffect(() => {
+    setPortalTarget(document.body);
+  }, []);
 
   useEffect(() => {
     if (!mounted) return;
@@ -100,13 +107,13 @@ export function BottomSheet({
     return () => root.removeEventListener("touchmove", blockBackdropTouch);
   }, [mounted]);
 
-  if (!mounted) return null;
+  if (!mounted || !portalTarget) return null;
 
   const rootClass = closing ? "mobile-sheet-root--closing" : "mobile-sheet-root--open";
   const panelAnimClass = closing ? "mobile-sheet-panel--closing" : "mobile-sheet-panel--open";
   const panelSizeClass = fitContent ? "mobile-sheet-panel--fit" : "";
 
-  return (
+  return createPortal(
     <div ref={rootRef} className={`mobile-sheet-root ${rootClass}`} aria-hidden={closing}>
       <button
         type="button"
@@ -140,7 +147,8 @@ export function BottomSheet({
         )}
         <BottomSheetScrollContext.Provider value={scrollRef}>{children}</BottomSheetScrollContext.Provider>
       </div>
-    </div>
+    </div>,
+    portalTarget,
   );
 }
 

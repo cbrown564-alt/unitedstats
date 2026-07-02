@@ -16,6 +16,8 @@ export type DecadeBucket = { decade: string; from: number; to: number; n: number
 const TIME_PANEL =
   "rounded-lg border border-line/40 bg-panel-2/15 px-3 py-3 sm:px-3.5 sm:py-3.5";
 
+const SHEET_FIELD_LABEL = "filter-zones-field-label";
+
 const PLAYER_ROLES: { key: PlayerRole; label: string }[] = [
   { key: "player", label: "Appeared" },
   { key: "scorer", label: "Scored" },
@@ -118,7 +120,11 @@ function FilterSlot({
       className={[
         "filter-slot flex items-stretch overflow-hidden border text-sm transition-colors",
         isSheet ? "rounded-xl" : "rounded-lg",
-        set ? "border-line bg-panel-2" : "border-dashed border-line/40 bg-transparent",
+        set
+          ? "border-line bg-panel-2"
+          : isSheet
+            ? "border-line/50 bg-panel-2/15"
+            : "border-dashed border-line/40 bg-transparent",
       ].join(" ")}
     >
       <button
@@ -127,7 +133,7 @@ function FilterSlot({
         aria-expanded={isOpen}
         className={[
           "filter-slot-btn flex flex-1 items-center gap-2.5 transition-colors focus-ring",
-          isSheet ? "px-4 py-3 text-[15px]" : "px-3 py-2",
+          isSheet ? "px-3.5 py-2.5 text-[15px]" : "px-3 py-2",
           set ? "text-ink hover:bg-white/[0.02]" : "text-ink-dim hover:text-ink-faint",
         ].join(" ")}
       >
@@ -278,129 +284,143 @@ export function FilterZones({
   const playerFacet = FACET_BY_KEY[playerRole];
   const isSheet = layout === "sheet";
 
+  const playerPicker = (
+    <div className="relative">
+      <FilterSlot
+        icon={playerFacet.icon}
+        iconGroup="who"
+        placeholder="Any player"
+        label={playerLabel}
+        isOpen={open === playerRole}
+        onToggle={() => toggleOpen(playerRole)}
+        onClear={() => {
+          setOpen(null);
+          navigate({ ...params, player: undefined, scorer: undefined, assister: undefined });
+        }}
+        layout={layout}
+      />
+      {open === playerRole && (
+        <FacetCombobox
+          label={playerFacet.label}
+          options={options["player"] ?? []}
+          current={params[playerRole] ?? ""}
+          counts={counts[playerRole]}
+          onApply={(v) => apply(playerRole, v)}
+        />
+      )}
+    </div>
+  );
+
+  const playerRoleTabs = isSheet ? (
+    <SegmentedTabs
+      options={PLAYER_ROLES}
+      value={playerRole}
+      onChange={switchPlayerRole}
+      ariaLabel="Player role"
+    />
+  ) : (
+    <div className="mt-1.5 flex items-center gap-0.5" role="tablist" aria-label="Player role">
+      {PLAYER_ROLES.map((r) => (
+        <button
+          key={r.key}
+          type="button"
+          role="tab"
+          aria-selected={playerRole === r.key}
+          onClick={() => switchPlayerRole(r.key)}
+          className={`border-b px-2 py-px text-[13px] transition-colors focus-ring ${
+            playerRole === r.key
+              ? "border-devil/45 pb-px text-ink-dim"
+              : "border-transparent text-ink-dim/80 hover:text-ink-dim"
+          }`}
+        >
+          {r.label}
+        </button>
+      ))}
+    </div>
+  );
+
+  const managerField = (
+    <div className="relative min-w-0">
+      <FilterSlot
+        icon="suit"
+        iconGroup="who"
+        placeholder="Any manager"
+        label={managerLabel}
+        isOpen={open === "manager"}
+        onToggle={() => toggleOpen("manager")}
+        onClear={() => apply("manager", undefined)}
+        layout={layout}
+      />
+      {open === "manager" && (
+        <FacetCombobox
+          label="Manager"
+          options={options["manager"] ?? []}
+          current={params.manager ?? ""}
+          counts={counts["manager"]}
+          onApply={(v) => apply("manager", v)}
+        />
+      )}
+    </div>
+  );
+
+  const opponentField = (
+    <div className="relative min-w-0">
+      <FilterSlot
+        icon="shield"
+        iconGroup="who"
+        placeholder="Any opponent"
+        label={opponentLabel}
+        isOpen={open === "opponent"}
+        onToggle={() => toggleOpen("opponent")}
+        onClear={() => apply("opponent", undefined)}
+        layout={layout}
+      />
+      {open === "opponent" && (
+        <FacetCombobox
+          label="Opponent"
+          options={options["opponent"] ?? []}
+          current={params.opponent ?? ""}
+          counts={counts["opponent"]}
+          onApply={(v) => apply("opponent", v)}
+        />
+      )}
+    </div>
+  );
+
+  const competitionField = (
+    <div className="relative min-w-0">
+      <FilterSlot
+        icon="trophy"
+        iconGroup="what"
+        placeholder="Any competition"
+        label={competitionLabel}
+        isOpen={open === "competition"}
+        onToggle={() => toggleOpen("competition")}
+        onClear={() => apply("competition", undefined)}
+        layout={layout}
+      />
+      {open === "competition" && (
+        <FacetCombobox
+          label="Competition"
+          options={options["competition"] ?? []}
+          current={params.competition ?? ""}
+          counts={counts["competition"]}
+          onApply={(v) => apply("competition", v)}
+        />
+      )}
+    </div>
+  );
+
   const peopleFields = (
     <>
       <div className="min-w-0">
-        <div className="relative">
-          <FilterSlot
-            icon={playerFacet.icon}
-            iconGroup="who"
-            placeholder="Any player"
-            label={playerLabel}
-            isOpen={open === playerRole}
-            onToggle={() => toggleOpen(playerRole)}
-            onClear={() => {
-              setOpen(null);
-              navigate({ ...params, player: undefined, scorer: undefined, assister: undefined });
-            }}
-            layout={layout}
-          />
-          {open === playerRole && (
-            <FacetCombobox
-              label={playerFacet.label}
-              options={options["player"] ?? []}
-              current={params[playerRole] ?? ""}
-              counts={counts[playerRole]}
-              onApply={(v) => apply(playerRole, v)}
-            />
-          )}
-        </div>
-        {isSheet ? (
-          <div className="mt-2.5">
-            <SegmentedTabs
-              options={PLAYER_ROLES}
-              value={playerRole}
-              onChange={switchPlayerRole}
-              ariaLabel="Player role"
-            />
-          </div>
-        ) : (
-          <div className="mt-1.5 flex items-center gap-0.5" role="tablist" aria-label="Player role">
-            {PLAYER_ROLES.map((r) => (
-              <button
-                key={r.key}
-                type="button"
-                role="tab"
-                aria-selected={playerRole === r.key}
-                onClick={() => switchPlayerRole(r.key)}
-                className={`border-b px-2 py-px text-[13px] transition-colors focus-ring ${
-                  playerRole === r.key
-                    ? "border-devil/45 pb-px text-ink-dim"
-                    : "border-transparent text-ink-dim/80 hover:text-ink-dim"
-                }`}
-              >
-                {r.label}
-              </button>
-            ))}
-          </div>
-        )}
+        {playerPicker}
+        {!isSheet && playerRoleTabs}
       </div>
 
-      <div className="relative min-w-0">
-        <FilterSlot
-          icon="suit"
-          iconGroup="who"
-          placeholder="Any manager"
-          label={managerLabel}
-          isOpen={open === "manager"}
-          onToggle={() => toggleOpen("manager")}
-          onClear={() => apply("manager", undefined)}
-          layout={layout}
-        />
-        {open === "manager" && (
-          <FacetCombobox
-            label="Manager"
-            options={options["manager"] ?? []}
-            current={params.manager ?? ""}
-            counts={counts["manager"]}
-            onApply={(v) => apply("manager", v)}
-          />
-        )}
-      </div>
-
-      <div className="relative min-w-0">
-        <FilterSlot
-          icon="shield"
-          iconGroup="who"
-          placeholder="Any opponent"
-          label={opponentLabel}
-          isOpen={open === "opponent"}
-          onToggle={() => toggleOpen("opponent")}
-          onClear={() => apply("opponent", undefined)}
-          layout={layout}
-        />
-        {open === "opponent" && (
-          <FacetCombobox
-            label="Opponent"
-            options={options["opponent"] ?? []}
-            current={params.opponent ?? ""}
-            counts={counts["opponent"]}
-            onApply={(v) => apply("opponent", v)}
-          />
-        )}
-      </div>
-
-      <div className="relative min-w-0">
-        <FilterSlot
-          icon="trophy"
-          iconGroup="what"
-          placeholder="Any competition"
-          label={competitionLabel}
-          isOpen={open === "competition"}
-          onToggle={() => toggleOpen("competition")}
-          onClear={() => apply("competition", undefined)}
-          layout={layout}
-        />
-        {open === "competition" && (
-          <FacetCombobox
-            label="Competition"
-            options={options["competition"] ?? []}
-            current={params.competition ?? ""}
-            counts={counts["competition"]}
-            onApply={(v) => apply("competition", v)}
-          />
-        )}
-      </div>
+      {managerField}
+      {opponentField}
+      {competitionField}
     </>
   );
 
@@ -465,7 +485,7 @@ export function FilterZones({
       )}
 
       {timeMode === "decade" && (
-        <div className={TIME_PANEL}>
+        <div className={isSheet ? "filter-zones-time-inner" : TIME_PANEL}>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(3.25rem,1fr))] gap-1">
             {pickerDecades.map(({ year, n }) => {
               const active = activeDec === year;
@@ -511,7 +531,7 @@ export function FilterZones({
       )}
 
       {timeMode === "dates" && (
-        <div className={TIME_PANEL}>
+        <div className={isSheet ? "filter-zones-time-inner" : TIME_PANEL}>
           <SeasonRangeSlider
             key={`${params.from ?? ""}-${params.to ?? ""}`}
             seasons={seasons}
@@ -530,14 +550,27 @@ export function FilterZones({
       <div ref={rootRef} className="filter-zones filter-zones--sheet">
         <section className="filter-zones-section">
           <h3 className="filter-zones-section-label">People &amp; competition</h3>
-          <div className="filter-zones-fields">{peopleFields}</div>
+          <div className="filter-zones-fields">
+            <div className="filter-zones-card">
+              <p className={SHEET_FIELD_LABEL}>Player</p>
+              {playerPicker}
+              <p className={SHEET_FIELD_LABEL}>Role</p>
+              {playerRoleTabs}
+            </div>
+
+            <div className="filter-zones-card filter-zones-card--stack">
+              {managerField}
+              {opponentField}
+              {competitionField}
+            </div>
+          </div>
         </section>
 
         <section className="filter-zones-section">
           <h3 className="filter-zones-section-label">Time</h3>
-          <div className="filter-zones-fields">
+          <div className="filter-zones-card filter-zones-card--time">
             {timeModeTabs}
-            {timeModeContent}
+            <div className="filter-zones-time-content">{timeModeContent}</div>
           </div>
         </section>
       </div>
