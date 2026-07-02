@@ -159,6 +159,7 @@ function RegisterLeaderboardList<T>({
   figureTone,
   hrefForRow,
   renderMobileCard,
+  showRank = true,
 }: {
   columns: Column<T>[];
   rows: T[];
@@ -169,6 +170,8 @@ function RegisterLeaderboardList<T>({
   figureTone?: (sortKey: string) => string;
   hrefForRow?: (row: T) => string | undefined;
   renderMobileCard?: (row: T, index: number) => React.ReactNode;
+  /** When false, omit the rank column (e.g. chronological season lists). */
+  showRank?: boolean;
 }) {
   if (rows.length === 0) {
     return <div className="register-card-empty">{emptyState}</div>;
@@ -194,12 +197,18 @@ function RegisterLeaderboardList<T>({
         const quiet = subline?.(row, index, sort.key);
         const inner = (
           <>
-            <span className="stat-num w-5 shrink-0 text-right text-xs text-ink-faint">{index + 1}</span>
+            {showRank && (
+              <span className="stat-num w-5 shrink-0 text-right text-xs text-ink-faint">{index + 1}</span>
+            )}
             <span className="min-w-0 flex-1">
               <span className="flex flex-col gap-1.5">
                 {identityCol ? cell(identityCol) : null}
                 {quiet && (
-                  <span className="stat-num block truncate pl-[2.375rem] text-[11px] leading-tight text-ink-faint">
+                  <span
+                    className={`stat-num block truncate text-[11px] leading-tight text-ink-faint ${
+                      showRank ? "pl-[2.375rem]" : ""
+                    }`}
+                  >
                     {quiet}
                   </span>
                 )}
@@ -247,6 +256,7 @@ export function DataTable<T>({
   registerSubline,
   registerFigureTone,
   registerHref,
+  registerShowRank,
   renderMobileCard,
   rowClassName,
   renderBeforeRow,
@@ -275,6 +285,8 @@ export function DataTable<T>({
   registerFigureTone?: (sortKey: string) => string;
   /** Row link for leaderboard mode. */
   registerHref?: (row: T) => string | undefined;
+  /** Show rank numbers on mobile leaderboard rows. Defaults to true. */
+  registerShowRank?: boolean;
   renderMobileCard?: (row: T, index: number) => React.ReactNode;
   /** Extra class names per body row (desktop table). */
   rowClassName?: (row: T) => string | undefined;
@@ -299,6 +311,7 @@ export function DataTable<T>({
             figureTone={registerFigureTone}
             hrefForRow={registerHref}
             renderMobileCard={renderMobileCard}
+            showRank={registerShowRank ?? true}
           />
         </div>
       )}

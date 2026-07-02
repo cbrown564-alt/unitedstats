@@ -29,6 +29,73 @@ const SEASON_SORT_LABELS: Record<SeasonSortKey, string> = {
   ga: "goals + assists",
 };
 
+/** Mobile sort picker — fixed key + direction pairs (chronological default, then stat sorts). */
+const MOBILE_SORT_OPTIONS: { key: SeasonSortKey; dir: SortDirection; label: string }[] = [
+  { key: "season", dir: "asc", label: "Season (oldest first)" },
+  { key: "season", dir: "desc", label: "Season (newest first)" },
+  { key: "goals", dir: "desc", label: "Goals (most first)" },
+  { key: "ga", dir: "desc", label: "G+A (most first)" },
+  { key: "apps", dir: "desc", label: "Apps (most first)" },
+  { key: "assists", dir: "desc", label: "Assists (most first)" },
+];
+
+function seasonSubline(s: SeasonSplit, sortKey: SeasonSortKey): string {
+  const parts: string[] = [];
+  if (sortKey !== "apps" && s.apps) parts.push(`${fmtNum(s.apps)} apps`);
+  if (sortKey !== "goals" && s.goals) parts.push(`${fmtNum(s.goals)} gls`);
+  if (sortKey !== "assists" && s.assists) parts.push(`${fmtNum(s.assists)} ast`);
+  const ga = s.goals + s.assists;
+  if (sortKey !== "ga" && ga) parts.push(`${fmtNum(ga)} G+A`);
+  return parts.length > 0 ? parts.join(" · ") : "—";
+}
+
+function seasonFigureTone(sortKey: string): string {
+  if (sortKey === "goals" || sortKey === "ga") return "text-devil-bright";
+  if (sortKey === "assists") return "text-gold";
+  return "text-ink";
+}
+
+function fmtFigure(value: number): string {
+  return value > 0 ? fmtNum(value) : "—";
+}
+
+function SeasonMobileSort({
+  sortKey,
+  sortDir,
+  onSort,
+}: {
+  sortKey: SeasonSortKey;
+  sortDir: SortDirection;
+  onSort: (key: string, dir: SortDirection) => void;
+}) {
+  const value = `${sortKey}:${sortDir}`;
+  const matched = MOBILE_SORT_OPTIONS.some((o) => `${o.key}:${o.dir}` === value);
+  const selectValue = matched ? value : "season:asc";
+
+  return (
+    <label className="flex min-w-0 flex-1 items-center gap-2 sm:hidden">
+      <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+        Sort
+      </span>
+      <select
+        value={selectValue}
+        onChange={(e) => {
+          const [key, dir] = e.target.value.split(":") as [SeasonSortKey, SortDirection];
+          onSort(key, dir);
+        }}
+        className="min-w-0 flex-1 truncate rounded-md border border-line bg-panel px-2 py-1.5 text-xs text-ink focus-ring"
+        aria-label="Sort seasons"
+      >
+        {MOBILE_SORT_OPTIONS.map((o) => (
+          <option key={`${o.key}:${o.dir}`} value={`${o.key}:${o.dir}`}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 function compareSeasons(a: SeasonSplit, b: SeasonSplit, key: SeasonSortKey, dir: SortDirection): number {
   const n = (x: number, y: number) => (dir === "asc" ? x - y : y - x);
   const ga = (s: SeasonSplit) => s.goals + s.assists;
@@ -178,6 +245,18 @@ export function PlayerSeasonTable({
           {assistPeakSet.has(s.season) && <PeakBadge label="PEAK (A)" tone="assists" />}
         </span>
       ),
+      cardRender: (s) => (
+        <span className="inline-flex min-w-0 items-center gap-1.5">
+          <span className="display text-sm font-medium leading-none">{fmtSeasonShort(s.season)}</span>
+          {medalSet.has(s.season) && (
+            <span title="Medal season" aria-label="Medal season">
+              <TrophyIcon className="h-3 w-3 shrink-0 text-gold" />
+            </span>
+          )}
+          {goalPeakSet.has(s.season) && <PeakBadge label="PEAK (G)" tone="goals" />}
+          {assistPeakSet.has(s.season) && <PeakBadge label="PEAK (A)" tone="assists" />}
+        </span>
+      ),
     },
     {
       label: "Apps",
@@ -185,8 +264,8 @@ export function PlayerSeasonTable({
       numeric: true,
       sortKey: "apps",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.apps,
-      card: "metric",
       render: (s) => (s.apps ? fmtNum(s.apps) : "—"),
+      cardRender: (s) => fmtFigure(s.apps),
     },
     {
       label: "Starts",
@@ -195,8 +274,8 @@ export function PlayerSeasonTable({
       sortKey: "starts",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.starts,
       hideBelow: "hidden md:table-cell",
-      card: "metric",
       render: (s) => (s.starts ? fmtNum(s.starts) : "—"),
+      cardRender: (s) => fmtFigure(s.starts),
     },
     {
       label: "Goals",
@@ -205,7 +284,7 @@ export function PlayerSeasonTable({
       sortKey: "goals",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.goals,
       className: "player-season-stat-col",
-      card: "metric",
+      card: "figure",
       render: (s) => (
         <StatMicroBar
           value={s.goals}
@@ -214,6 +293,7 @@ export function PlayerSeasonTable({
           barColor="var(--color-devil)"
         />
       ),
+      cardRender: (s) => fmtFigure(s.goals),
     },
     {
       label: "Assists",
@@ -222,8 +302,6 @@ export function PlayerSeasonTable({
       sortKey: "assists",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.assists,
       className: "player-season-stat-col",
-      card: "metric",
-      cardLabel: "Ast",
       render: (s) => (
         <StatMicroBar
           value={s.assists}
@@ -232,6 +310,7 @@ export function PlayerSeasonTable({
           barColor="var(--color-gold)"
         />
       ),
+      cardRender: (s) => fmtFigure(s.assists),
     },
     {
       label: "G+A",
@@ -240,8 +319,8 @@ export function PlayerSeasonTable({
       sortKey: "ga",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.ga,
       sortLabel: "goals plus assists",
-      card: "metric",
       render: (s) => (s.goals + s.assists > 0 ? fmtNum(s.goals + s.assists) : "—"),
+      cardRender: (s) => fmtFigure(s.goals + s.assists),
     },
   ];
 
@@ -260,15 +339,20 @@ export function PlayerSeasonTable({
       rowKey={(s) => s.season}
       density="compact"
       registerCards
-      registerLayout="metrics"
+      registerLayout="leaderboard"
+      registerHref={(s) => `/seasons/${s.season}`}
+      registerSubline={(s, _index, key) => seasonSubline(s, key as SeasonSortKey)}
+      registerFigureTone={seasonFigureTone}
+      registerShowRank={sortKey !== "season"}
       caption={`${playerName} season-by-season apps, goals, and assists`}
       sort={{ key: sortKey, direction: sortDir, onSort }}
       rowClassName={(s) => seasonPeakRowClass(s.season, goalPeakSet, assistPeakSet)}
       renderBeforeRow={(row, prev) => decadeBefore(row, prev)}
       summary={
         <>
-          <span>{fmtNum(seasons.length)} recorded seasons</span>
-          <span>
+          <span className="hidden sm:inline">{fmtNum(seasons.length)} recorded seasons</span>
+          <SeasonMobileSort sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+          <span className="hidden sm:inline">
             Sorted by{" "}
             <span className="font-semibold text-ink">{SEASON_SORT_LABELS[sortKey]}</span>,{" "}
             {sortDir === "asc" ? "ascending" : "descending"}
