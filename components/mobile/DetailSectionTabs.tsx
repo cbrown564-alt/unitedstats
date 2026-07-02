@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 export type DetailSectionTab = {
   id: string;
@@ -24,11 +24,15 @@ export function DetailSectionTabs({
   defaultTab,
   ariaLabel = "Page sections",
   idPrefix = "detail",
+  /** On mobile, pins this block (e.g. match hero) with the tab bar under one sticky
+   *  head so the scoreline stays visible while scrolling long tab panels. */
+  stickyHead,
 }: {
   tabs: DetailSectionTab[];
   defaultTab: string;
   ariaLabel?: string;
   idPrefix?: string;
+  stickyHead?: ReactNode;
 }) {
   const visible = tabs.filter((t) => t.content != null);
   const tabbable = visible.filter((t) => !t.desktopOnly);
@@ -40,34 +44,48 @@ export function DetailSectionTabs({
 
   if (visible.length === 0) return null;
 
+  const tabBarClass = stickyHead
+    ? "-mx-4 flex items-stretch border-b border-line bg-pitch/95 px-0 backdrop-blur-md sm:-mx-6 sm:sticky sm:sticky-subnav sm:top-0 sm:z-30 sm:mt-8 sm:overflow-x-auto sm:px-6 sm:backdrop-blur-md lg:static lg:mx-0 lg:mt-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
+    : "sticky top-0 z-30 -mx-4 flex items-stretch overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none";
+
+  const tabButtonClass = stickyHead
+    ? "min-h-11 min-w-0 flex-1 border-b px-1 py-2.5 text-center text-sm transition-colors focus-ring sm:px-3"
+    : "min-h-11 shrink-0 flex-none border-b px-2.5 py-2.5 text-center text-sm transition-colors focus-ring sm:min-w-0 sm:flex-1 sm:px-3";
+
+  const tabBar =
+    tabbable.length > 1 ? (
+      <div className={tabBarClass} role="tablist" aria-label={ariaLabel}>
+        {tabbable.map((tab) => (
+          <button
+            key={tab.id}
+            id={`${idPrefix}-tab-${tab.id}`}
+            type="button"
+            role="tab"
+            aria-selected={current === tab.id}
+            aria-controls={`${idPrefix}-panel-${tab.id}`}
+            onClick={() => setActive(tab.id)}
+            className={`${tabButtonClass} ${
+              current === tab.id
+                ? "border-devil/45 text-ink"
+                : "border-transparent text-ink-dim hover:text-ink"
+            }`}
+          >
+            <span className="hidden sm:inline">{tab.label}</span>
+            <span className="sm:hidden">{tab.shortLabel ?? tab.label}</span>
+          </button>
+        ))}
+      </div>
+    ) : null;
+
   return (
     <div className="space-y-5 pb-[var(--mobile-nav-clearance)] sm:space-y-8 lg:pb-0">
-      {tabbable.length > 1 && (
-        <div
-          className="sticky top-0 z-30 -mx-4 flex items-stretch overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
-          role="tablist"
-          aria-label={ariaLabel}
-        >
-          {tabbable.map((tab) => (
-            <button
-              key={tab.id}
-              id={`${idPrefix}-tab-${tab.id}`}
-              type="button"
-              role="tab"
-              aria-selected={current === tab.id}
-              aria-controls={`${idPrefix}-panel-${tab.id}`}
-              onClick={() => setActive(tab.id)}
-              className={`min-h-11 shrink-0 flex-none border-b px-2.5 py-2.5 text-center text-sm transition-colors focus-ring sm:min-w-0 sm:flex-1 sm:px-3 ${
-                current === tab.id
-                  ? "border-devil/45 text-ink"
-                  : "border-transparent text-ink-dim hover:text-ink"
-              }`}
-            >
-              <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden">{tab.shortLabel ?? tab.label}</span>
-            </button>
-          ))}
+      {stickyHead ? (
+        <div className="match-sticky-head sm:static">
+          {stickyHead}
+          {tabBar}
         </div>
+      ) : (
+        tabBar
       )}
 
       {visible.map((tab) => (

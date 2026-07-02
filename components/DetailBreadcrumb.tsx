@@ -9,10 +9,20 @@ export type BreadcrumbSegment = {
  * Thin orient line for deep-linked detail pages — sticky on mobile so a cold
  * visitor from a shared link knows where they landed.
  */
-export function DetailBreadcrumb({ segments }: { segments: BreadcrumbSegment[] }) {
+export function DetailBreadcrumb({
+  segments,
+  sticky = true,
+}: {
+  segments: BreadcrumbSegment[];
+  /** When false, the orient line scrolls away (e.g. match pages with a sticky hero). */
+  sticky?: boolean;
+}) {
   if (segments.length === 0) return null;
   return (
-    <nav className="detail-breadcrumb" aria-label="Breadcrumb">
+    <nav
+      className={sticky ? "detail-breadcrumb" : "detail-breadcrumb detail-breadcrumb--static"}
+      aria-label="Breadcrumb"
+    >
       {segments.map((seg, i) => {
         const last = i === segments.length - 1;
         return (

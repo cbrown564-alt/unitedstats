@@ -475,100 +475,102 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   return (
     <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
-      {/* Pull the full-bleed hero up under the sticky nav, cancelling the shell's
-          main padding, so the floodlit colour runs to the very top with no black
-          band between nav and headline. */}
-      <section className="full-bleed-viewport relative -mt-8 overflow-hidden border-b border-line sm:-mt-10">
-        {/* Full-bleed broadcast band: twin devil-red floodlights bloom from the top
-            corners (the same blurred-glow language as every other hero) over the
-            faint pitch grid, the content held to the page gutter. No card — the
-            result is the page's headline, not a boxed widget. */}
-        <div className="pointer-events-none absolute inset-0 mx-auto max-w-[90rem]" aria-hidden>
-          <div
-            className="absolute -left-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
-            style={{ backgroundColor: "var(--color-devil)" }}
-          />
-          <div
-            className="absolute -right-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
-            style={{ backgroundColor: "var(--color-devil)" }}
-          />
-          {/* Soft central wash so the floodlit colour reaches the top-centre — the
-              dark valley between the two corner blooms — not only the corners. */}
-          <div
-            className="absolute -top-28 left-1/2 h-64 w-2/3 -translate-x-1/2 rounded-full opacity-[0.10] blur-3xl"
-            style={{ backgroundColor: "var(--color-devil)" }}
-          />
-        </div>
-        <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
-        <div className="full-bleed-foreground relative space-y-5 py-7 pl-4 sm:py-12 sm:pl-6 lg:pl-0">
-          <div className="flex items-start justify-end gap-3 pr-4 sm:pr-6 lg:pr-0">
-            <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
-          </div>
-          <header className="space-y-4">
-            <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
-              <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
-              <span aria-hidden>·</span>
-              <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} bare />
-            </nav>
-            <div className="space-y-2 border-t border-line py-5 text-center">
-              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
-                  {fmtDateLong(m.date)}
-                </p>
-                <span aria-hidden className="text-ink-faint">·</span>
-                <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${tone}`}>
-                  {word}
-                </span>
+      <MatchSectionTabs
+        defaultTab={defaultTab}
+        stickyHead={
+          <>
+            {/* Pull the full-bleed hero up under the sticky nav, cancelling the shell's
+                main padding, so the floodlit colour runs to the very top with no black
+                band between nav and headline. */}
+            <section className="full-bleed-viewport relative -mt-8 overflow-hidden border-b border-line sm:-mt-10">
+              {/* Full-bleed broadcast band: twin devil-red floodlights bloom from the top
+                  corners (the same blurred-glow language as every other hero) over the
+                  faint pitch grid, the content held to the page gutter. No card — the
+                  result is the page's headline, not a boxed widget. */}
+              <div className="pointer-events-none absolute inset-0 mx-auto max-w-[90rem]" aria-hidden>
+                <div
+                  className="absolute -left-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
+                  style={{ backgroundColor: "var(--color-devil)" }}
+                />
+                <div
+                  className="absolute -right-24 -top-24 h-72 w-1/2 rounded-full opacity-[0.16] blur-3xl"
+                  style={{ backgroundColor: "var(--color-devil)" }}
+                />
+                {/* Soft central wash so the floodlit colour reaches the top-centre — the
+                    dark valley between the two corner blooms — not only the corners. */}
+                <div
+                  className="absolute -top-28 left-1/2 h-64 w-2/3 -translate-x-1/2 rounded-full opacity-[0.10] blur-3xl"
+                  style={{ backgroundColor: "var(--color-devil)" }}
+                />
               </div>
-              <h1 className="display grid w-full max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 gap-y-2 text-xl leading-tight sm:gap-x-5 sm:text-4xl lg:text-5xl xl:gap-x-8 2xl:text-6xl [&>*]:min-w-0">
-                {m.venue === "A" ? (
-                  <>
-                    <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
-                    <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.ga}–{m.gf}</span>
-                    <TeamName names={clubN} align="left" />
-                  </>
-                ) : (
-                  <>
-                    <TeamName names={clubN} align="right" />
-                    <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.gf}–{m.ga}</span>
-                    <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
-                  </>
-                )}
-              </h1>
-              {(m.aet || m.pen_gf != null) && (
-                <p className="text-sm text-ink-dim">
-                  {m.aet ? "(a.e.t) " : ""}
-                  {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
-                </p>
-              )}
-            </div>
-          </header>
-        </div>
-      </section>
+              <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+              <div className="full-bleed-foreground relative space-y-5 py-7 pl-4 sm:py-12 sm:pl-6 lg:pl-0">
+                <div className="flex items-start justify-end gap-3 pr-4 sm:pr-6 lg:pr-0">
+                  <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
+                </div>
+                <header className="space-y-4">
+                  <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
+                    <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
+                    <span aria-hidden>·</span>
+                    <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} bare />
+                  </nav>
+                  <div className="space-y-2 border-t border-line py-5 text-center">
+                    <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+                      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
+                        {fmtDateLong(m.date)}
+                      </p>
+                      <span aria-hidden className="text-ink-faint">·</span>
+                      <span className={`stat-num text-xs font-semibold uppercase tracking-wider ${tone}`}>
+                        {word}
+                      </span>
+                    </div>
+                    <h1 className="display grid w-full max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 gap-y-2 text-xl leading-tight sm:gap-x-5 sm:text-4xl lg:text-5xl xl:gap-x-8 2xl:text-6xl [&>*]:min-w-0">
+                      {m.venue === "A" ? (
+                        <>
+                          <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
+                          <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.ga}–{m.gf}</span>
+                          <TeamName names={clubN} align="left" />
+                        </>
+                      ) : (
+                        <>
+                          <TeamName names={clubN} align="right" />
+                          <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.gf}–{m.ga}</span>
+                          <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
+                        </>
+                      )}
+                    </h1>
+                    {(m.aet || m.pen_gf != null) && (
+                      <p className="text-sm text-ink-dim">
+                        {m.aet ? "(a.e.t) " : ""}
+                        {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
+                      </p>
+                    )}
+                  </div>
+                </header>
+              </div>
+            </section>
 
-      <DetailBreadcrumb
-        segments={[
-          { label: "Seasons", href: "/seasons" },
-          { label: m.season, href: `/seasons/${m.season}` },
-          { label: "This match" },
+            <DetailBreadcrumb
+              sticky={false}
+              segments={[
+                { label: "Seasons", href: "/seasons" },
+                { label: m.season, href: `/seasons/${m.season}` },
+                { label: "This match" },
+              ]}
+            />
+          </>
+        }
+        tabs={[
+          {
+            id: "goals",
+            label: "Match",
+            content: matchPanel,
+          },
+          { id: "details", label: "Details", content: detailsPanel },
+          { id: "context", label: "Previous", content: contextPanel },
+          { id: "sources", label: "Sources", content: sourcesPanel },
         ]}
       />
-
-      <div className="mt-2 sm:mt-8">
-        <MatchSectionTabs
-          defaultTab={defaultTab}
-          tabs={[
-            {
-              id: "goals",
-              label: "Match",
-              content: matchPanel,
-            },
-            { id: "details", label: "Details", content: detailsPanel },
-            { id: "context", label: "Previous", content: contextPanel },
-            { id: "sources", label: "Sources", content: sourcesPanel },
-          ]}
-        />
-      </div>
     </div>
   );
 }
