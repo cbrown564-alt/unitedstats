@@ -5,6 +5,8 @@ import { useState } from "react";
 export type DetailSectionTab = {
   id: string;
   label: string;
+  /** Shorter label on phone — avoids truncation when many tabs share the bar. */
+  shortLabel?: string;
   content: React.ReactNode;
   /** Stacks on desktop but gets no mobile tab button — its content is reached
    *  another way on mobile (e.g. the lineup lives in the match-tab scroll). */
@@ -42,7 +44,7 @@ export function DetailSectionTabs({
     <div className="space-y-5 pb-[var(--mobile-nav-clearance)] sm:space-y-8 lg:pb-0">
       {tabbable.length > 1 && (
         <div
-          className="sticky top-0 z-30 -mx-4 flex items-stretch border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
+          className="sticky top-0 z-30 -mx-4 flex items-stretch overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
           role="tablist"
           aria-label={ariaLabel}
         >
@@ -55,13 +57,14 @@ export function DetailSectionTabs({
               aria-selected={current === tab.id}
               aria-controls={`${idPrefix}-panel-${tab.id}`}
               onClick={() => setActive(tab.id)}
-              className={`min-h-11 flex-1 border-b px-2 py-2.5 text-center text-sm transition-colors focus-ring sm:px-3 ${
+              className={`min-h-11 shrink-0 flex-none border-b px-2.5 py-2.5 text-center text-sm transition-colors focus-ring sm:min-w-0 sm:flex-1 sm:px-3 ${
                 current === tab.id
                   ? "border-devil/45 text-ink"
                   : "border-transparent text-ink-dim hover:text-ink"
               }`}
             >
-              {tab.label}
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.shortLabel ?? tab.label}</span>
             </button>
           ))}
         </div>
