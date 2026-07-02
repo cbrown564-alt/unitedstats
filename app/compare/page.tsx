@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
 import {
   comparePlayers, compareManagers, CURATED_DEBATES,
   type CompareMode, type Comparison, type CuratedDebate,
@@ -144,7 +143,11 @@ export default async function ComparePage({
           />
           <CutLinks comparison={comparison} />
           <RelatedAnswers links={relatedComparisons(mode, comparison.a.id, comparison.b.id)} />
-          <CompareAnother picker={picker} mode={mode} suggestions={suggestions} />
+          <section>
+            <h2 className={sectionHead}>Compare another</h2>
+            <div className="mt-3">{picker}</div>
+            <Suggestions mode={mode} suggestions={suggestions} compact />
+          </section>
         </>
       ) : (
         <div className="space-y-7">
@@ -171,38 +174,6 @@ export default async function ComparePage({
         </div>
       )}
     </div>
-  );
-}
-
-/** Post-result picker — open on desktop; collapsed on mobile so the answer stays in reach. */
-function CompareAnother({
-  picker,
-  mode,
-  suggestions,
-}: {
-  picker: ReactNode;
-  mode: ComparePageMode;
-  suggestions: CuratedDebate[];
-}) {
-  const body = (
-    <>
-      <div>{picker}</div>
-      <Suggestions mode={mode} suggestions={suggestions} compact />
-    </>
-  );
-  return (
-    <>
-      <details className="rounded-lg border border-line bg-panel p-3 sm:hidden">
-        <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright focus-ring">
-          Compare another
-        </summary>
-        <div className="mt-3 space-y-3">{body}</div>
-      </details>
-      <section className="hidden sm:block">
-        <h2 className={sectionHead}>Compare another</h2>
-        <div className="mt-3 space-y-3">{body}</div>
-      </section>
-    </>
   );
 }
 
@@ -257,7 +228,7 @@ function ModePills({ mode }: { mode: ComparePageMode }) {
             key={m.key}
             href={`/compare?mode=${m.key}`}
             aria-current={active ? "true" : undefined}
-            className={`tap-target rounded-full border px-3.5 py-1.5 text-sm transition-colors focus-ring ${
+            className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors focus-ring ${
               active
                 ? "border-devil/60 bg-devil/15 text-devil-bright"
                 : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink"
@@ -289,7 +260,7 @@ function Suggestions({
           <Link
             key={s.label}
             href={href(s)}
-            className="tap-target rounded-full border border-line bg-panel-2 px-3 py-1.5 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
+            className="rounded-full border border-line bg-panel-2 px-3 py-1.5 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:text-ink focus-ring"
           >
             {s.label}
           </Link>
@@ -338,20 +309,20 @@ function Picker({
     <form className="rounded-lg border border-line bg-panel p-3 text-sm" method="get" action="/compare">
       <input type="hidden" name="mode" value={mode} />
       <div className="grid items-end gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
-        <label className="block">
+        <label>
           <span className={labelClass}>First {cfg.noun}</span>
-          <input type="search" name="a" defaultValue={displayA} placeholder={cfg.placeholders[0]} list={cfg.listId} className="control w-full min-h-11" />
+          <input type="search" name="a" defaultValue={displayA} placeholder={cfg.placeholders[0]} list={cfg.listId} className="control w-full" />
         </label>
-        <label className="block">
+        <label>
           <span className={labelClass}>Second {cfg.noun}</span>
-          <input type="search" name="b" defaultValue={displayB} placeholder={cfg.placeholders[1]} list={cfg.listId} className="control w-full min-h-11" />
+          <input type="search" name="b" defaultValue={displayB} placeholder={cfg.placeholders[1]} list={cfg.listId} className="control w-full" />
         </label>
         <datalist id={cfg.listId}>
           {cfg.options.map((o, i) => (
             <option key={`${o}-${i}`} value={o} />
           ))}
         </datalist>
-        <button className="tap-target min-h-11 w-full rounded-md bg-devil px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring sm:w-auto">
+        <button className="min-h-[2.375rem] rounded-md bg-devil px-5 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
           Compare
         </button>
       </div>
