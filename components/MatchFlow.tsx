@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
+import { Pickable } from "@/components/match/MatchCorrection";
 
 /**
  * Match flow: a single time bar coloured by who led and by how much. Red when
@@ -24,6 +25,7 @@ function clock(minute: number, added: number | null): string {
 
 type GoalMark = {
   key: string;
+  seq: number;
   minute: number;
   added: number | null;
   side: "united" | "opponent";
@@ -32,6 +34,8 @@ type GoalMark = {
   playerId: string | null;
   tag: "P" | "OG" | null;
   title: string;
+  scorerPath?: string;
+  minutePath?: string;
 };
 
 /** United-perspective lead → tinted bar colour. Red ahead, grey level, near-black behind. */
@@ -81,6 +85,19 @@ function GoalLabel({
     <span className="text-ink">{g.scorer}</span>
   );
 
+  const minuteLabel = (
+    <span className={`stat-num shrink-0 text-[10px] font-semibold sm:text-[11px] ${minuteClass}`}>
+      {clock(g.minute, g.added)}&prime;
+    </span>
+  );
+
+  const nameInner = (
+    <>
+      {name}
+      {g.tag && <span className="text-ink-faint"> {g.tag === "P" ? "(P)" : "(OG)"}</span>}
+    </>
+  );
+
   return (
     <>
       <span aria-hidden className={`absolute left-1/2 w-px -translate-x-1/2 bg-line/80 ${connClass}`} />
@@ -88,12 +105,21 @@ function GoalLabel({
         className={`absolute flex max-w-[4.25rem] flex-col items-center text-center leading-tight sm:max-w-none sm:flex-row sm:items-center sm:gap-1 sm:whitespace-nowrap sm:text-[11px] ${posClass}`}
         style={{ left: "50%", transform: anchorTx }}
       >
-        <span className={`stat-num shrink-0 text-[10px] font-semibold sm:text-[11px] ${minuteClass}`}>
-          {clock(g.minute, g.added)}&prime;
-        </span>
+        {g.minutePath ? (
+          <Pickable fieldPath={g.minutePath} className="shrink-0">
+            {minuteLabel}
+          </Pickable>
+        ) : (
+          minuteLabel
+        )}
         <span className="min-w-0 truncate text-[10px] sm:text-[11px]">
-          {name}
-          {g.tag && <span className="text-ink-faint"> {g.tag === "P" ? "(P)" : "(OG)"}</span>}
+          {g.scorerPath ? (
+            <Pickable fieldPath={g.scorerPath} className="inline text-left">
+              {nameInner}
+            </Pickable>
+          ) : (
+            nameInner
+          )}
         </span>
       </span>
     </>
@@ -114,16 +140,23 @@ export function MatchFlow({
   unitedGoals,
   opponentGoals,
   aet,
+  eventPaths,
 }: {
   unitedGoals: EventRow[];
   opponentGoals: EventRow[];
   aet: boolean;
+  /** Maps a goal event seq to correction field paths for point-and-pick mode. */
+  eventPaths?: (seq: number) => { scorer?: string; minute?: string } | null;
 }) {
   const timed = (e: EventRow) => e.minute != null;
+  const pathsFor = (seq: number) => eventPaths?.(seq) ?? null;
 
   const goals: GoalMark[] = [
-    ...unitedGoals.filter(timed).map((e) => ({
+    ...unitedGoals.filter(timed).map((e) => {
+      const paths = pathsFor(e.seq);
+      return {
       key: `u${e.seq}`,
+      seq: e.seq,
       minute: e.minute as number,
       added: e.added_time,
       side: "united" as const,
@@ -135,9 +168,15 @@ export function MatchFlow({
         `${clock(e.minute as number, e.added_time)}' ${e.player_display_name ?? "Goal"}` +
         (e.type === "pen-goal" ? " (penalty)" : e.type === "own-goal-for" ? " (own goal)" : "") +
         (e.assist_display_name ? `, assist ${e.assist_display_name}` : ""),
-    })),
-    ...opponentGoals.filter(timed).map((e) => ({
+      scorerPath: paths?.scorer,
+      minutePath: paths?.minute,
+    };
+    }),
+    ...opponentGoals.filter(timed).map((e) => {
+      const paths = pathsFor(e.seq);
+      return {
       key: `o${e.seq}`,
+      seq: e.seq,
       minute: e.minute as number,
       added: e.added_time,
       side: "opponent" as const,
@@ -148,7 +187,10 @@ export function MatchFlow({
       title:
         `${clock(e.minute as number, e.added_time)}' ${e.player_display_name ?? "Goal"}` +
         (e.type === "own-goal-against" ? " (own goal)" : e.detail === "pen" ? " (penalty)" : ""),
-    })),
+      scorerPath: paths?.scorer,
+      minutePath: paths?.minute,
+    };
+    }),
   ];
 
   // Nothing has a minute → caller renders the list fallback instead.

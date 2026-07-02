@@ -31,12 +31,11 @@ import malformed from "./fixtures/corrections/malformed-missing-source.json";
 const samplePayload = sample as CorrectionPayload;
 const malformedPayload = malformed as CorrectionPayload;
 
-test("match page links to the correction picker; player page carries prefill context", async () => {
+test("match page offers point-and-pick correction; player page carries prefill context", async () => {
   const matchHtml = renderToStaticMarkup(
     (await MatchPage({ params: Promise.resolve({ id: "1999-05-26-bayern-munich-n" }) })) as React.ReactElement,
   );
-  // One entry into the "what's wrong?" picker — no hard-wired field/event.
-  assert.match(matchHtml, /href="\/corrections\?match=1999-05-26-bayern-munich-n"/);
+  assert.match(matchHtml, /Spot an error\?/);
 
   const playerHtml = renderToStaticMarkup(
     (await PlayerPage({ params: Promise.resolve({ id: "a-longton" }) })) as React.ReactElement,
