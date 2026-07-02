@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import type { Comparison, CompareMetric, CompareMode, CompareSide, CompareSignature } from "@/lib/compare";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -75,12 +78,18 @@ function ScoreSide({
   );
 }
 
-/** Segmented Total / rate toggle. URL-driven (the page passes a href builder),
- *  so the whole comparison — scoreline, chart, measures — re-renders consistently
- *  and the rate choice is shareable. The rate label is mode-aware: per 90 for
- *  players (minutes-derived), per game for managers/eras (team-level). Hidden
- *  when no metric has a rate form. */
-function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: string; hrefFor: (perGame: boolean) => string }) {
+/** Segmented Total / rate toggle. URL-driven so the rate choice is shareable. */
+function RateToggle({
+  rate,
+  rateLabel,
+  totalHref,
+  rateHref,
+}: {
+  rate: boolean;
+  rateLabel: string;
+  totalHref: string;
+  rateHref: string;
+}) {
   const pillCls = (on: boolean) =>
     `rounded-full px-3 py-1 text-xs font-semibold transition-colors focus-ring ${
       on ? "bg-devil/15 text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
@@ -88,8 +97,25 @@ function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: st
   return (
     <div className="flex items-center justify-center gap-1">
       <span className="mr-1 text-[11px] font-medium uppercase tracking-[0.12em] text-ink-faint">View</span>
-      <Link href={hrefFor(false)} aria-current={!rate ? "true" : undefined} className={pillCls(!rate)}>Total</Link>
-      <Link href={hrefFor(true)} aria-current={rate ? "true" : undefined} className={pillCls(rate)}>{rateLabel}</Link>
+      <Link href={totalHref} aria-current={!rate ? "true" : undefined} className={pillCls(!rate)}>Total</Link>
+      <Link href={rateHref} aria-current={rate ? "true" : undefined} className={pillCls(rate)}>{rateLabel}</Link>
+    </div>
+  );
+}
+
+function ShowDetailToggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
+  return (
+    <div className="mb-3 flex justify-end">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={on}
+        className={`rounded-full px-2.5 py-1 text-[11px] font-medium tracking-wide transition-colors focus-ring ${
+          on ? "text-devil-bright" : "text-ink-faint hover:text-ink-dim"
+        }`}
+      >
+        {on ? "Hide detail" : "Show detail"}
+      </button>
     </div>
   );
 }
@@ -98,7 +124,7 @@ function RateToggle({ rate, rateLabel, hrefFor }: { rate: boolean; rateLabel: st
  *  leader's bar carries win-yellow; an un-judged or coverage-asymmetric metric
  *  renders both halves neutral with a "coverage differs" pill so a figure is
  *  never mistaken for a fair fight. */
-function MeasureRow({ m, rate }: { m: CompareMetric; rate: boolean }) {
+function MeasureRow({ m, rate, showDetail }: { m: CompareMetric; rate: boolean; showDetail: boolean }) {
   const { a, b, fmt, label } = resolveMetric(m, rate);
   const comparable = m.comparable !== false;
   const leader = leaderOf(m, rate);
@@ -132,13 +158,25 @@ function MeasureRow({ m, rate }: { m: CompareMetric; rate: boolean }) {
           </span>
         )}
       </div>
-      {m.note && <p className="mt-0.5 text-center text-[11px] text-ink-faint">{m.note}</p>}
+      {showDetail && m.note && <p className="mt-0.5 text-center text-[11px] text-ink-faint">{m.note}</p>}
     </div>
   );
 }
 
-function MeasuresStrip({ metrics, rate }: { metrics: CompareMetric[]; rate: boolean }) {
-  return <dl className="divide-y divide-line/60">{metrics.map((m) => <MeasureRow key={m.label} m={m} rate={rate} />)}</dl>;
+function MeasuresStrip({
+  metrics,
+  rate,
+  showDetail,
+}: {
+  metrics: CompareMetric[];
+  rate: boolean;
+  showDetail: boolean;
+}) {
+  return (
+    <dl className="divide-y divide-line/60">
+      {metrics.map((m) => <MeasureRow key={m.label} m={m} rate={rate} showDetail={showDetail} />)}
+    </dl>
+  );
 }
 
 /** The career convergences — a counterpoint to the scoreboard's "who leads".
@@ -207,16 +245,10 @@ function Signature({
   );
 }
 
-/** Short, mode-specific coverage footnotes — same voice as the player page. */
-function CompareCoverage({
-  mode,
-  evidence,
-}: {
-  mode: CompareMode;
-  evidence?: { label: string; href: string }[];
-}) {
+/** Mode-specific coverage prose — gated behind Show detail. */
+function CompareCoverageNotes({ mode }: { mode: CompareMode }) {
   return (
-    <div className="mt-3 space-y-3 border-t border-line/60 pt-3">
+    <div className="space-y-3">
       {mode === "players" && (
         <>
           <p className="text-xs text-ink-dim">
@@ -243,15 +275,19 @@ function CompareCoverage({
           top-flight league finishes; points as three per game.
         </p>
       )}
-      {evidence && evidence.length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
-          {evidence.map((e) => (
-            <Link key={e.href + e.label} href={e.href} className="text-xs text-devil-bright hover:underline">
-              {e.label}
-            </Link>
-          ))}
-        </div>
-      )}
+    </div>
+  );
+}
+
+function CompareEvidence({ evidence }: { evidence?: { label: string; href: string }[] }) {
+  if (!evidence || evidence.length === 0) return null;
+  return (
+    <div className="flex flex-wrap gap-x-4 gap-y-1">
+      {evidence.map((e) => (
+        <Link key={e.href + e.label} href={e.href} className="text-xs text-devil-bright hover:underline">
+          {e.label}
+        </Link>
+      ))}
     </div>
   );
 }
@@ -271,8 +307,9 @@ export function CompareTable({
   rate?: boolean;
   /** Builds the toggle's href for a given mode. Supplied by the page from its
    *  search params; when absent the toggle is hidden (no rate metrics to flip). */
-  rateHref?: (perGame: boolean) => string;
+  rateHref?: { total: string; rate: string };
 }) {
+  const [showDetail, setShowDetail] = useState(false);
   const withThumb = comparison.mode !== "eras";
   const hasRate = comparison.metrics.some((m) => m.rate);
   // Players rate by minutes (per 90); managers and eras rate by matches (per game).
@@ -302,7 +339,12 @@ export function CompareTable({
     <div className="overflow-hidden rounded-lg border border-line bg-panel">
       {hasRate && rateHref && (
         <div className="border-b border-line bg-panel-2/30 px-4 py-2 sm:px-5">
-          <RateToggle rate={rate} rateLabel={rateLabel} hrefFor={rateHref} />
+          <RateToggle
+            rate={rate}
+            rateLabel={rateLabel}
+            totalHref={rateHref.total}
+            rateHref={rateHref.rate}
+          />
         </div>
       )}
 
@@ -325,15 +367,22 @@ export function CompareTable({
 
       {comparison.signature && (
         <div className="px-4 pt-4 sm:px-5">
+          <ShowDetailToggle on={showDetail} onToggle={() => setShowDetail((v) => !v)} />
           <Signature signature={comparison.signature} a={comparison.a} b={comparison.b} metrics={comparison.metrics} rate={rate} />
         </div>
       )}
 
       <div className="px-4 py-4 sm:px-5">
+        {!comparison.signature && (
+          <ShowDetailToggle on={showDetail} onToggle={() => setShowDetail((v) => !v)} />
+        )}
         <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">The measures</p>
-        <MeasuresStrip metrics={comparison.metrics} rate={rate} />
+        <MeasuresStrip metrics={comparison.metrics} rate={rate} showDetail={showDetail} />
 
-        <CompareCoverage mode={comparison.mode} evidence={comparison.evidence} />
+        <div className="mt-3 space-y-3 border-t border-line/60 pt-3">
+          {showDetail && <CompareCoverageNotes mode={comparison.mode} />}
+          <CompareEvidence evidence={comparison.evidence} />
+        </div>
       </div>
     </div>
   );
