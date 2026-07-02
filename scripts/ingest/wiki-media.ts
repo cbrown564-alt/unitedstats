@@ -10,7 +10,7 @@ import { userAgent } from "../lib";
 const COMMONS_THUMB_WIDTH = 320;
 const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
 
-type SourceMethod = "wikidata-p18" | "wikipedia-pageimage";
+export type SourceMethod = "wikidata-p18" | "wikipedia-pageimage" | "curated-override";
 
 export interface MediaSubject {
   /** Stable key the caller uses to look the result back up (id, name, …). */
@@ -210,8 +210,20 @@ export interface ResolveResult {
   missing: { key: string; wikiTitle: string; reason: string }[];
 }
 
+export interface ResolveMediaOptions {
+  /** Curated Commons filenames keyed by subject.key; wins over Wikidata P18 and pageimage. */
+  overrides?: Record<string, string>;
+  /** Subject keys to omit even when Wikidata P18 or pageimage resolve (unsuitable likeness). */
+  skipKeys?: string[];
+}
+
 /** Resolve Commons media for a batch of titled subjects. */
-export async function resolveMedia(subjects: MediaSubject[]): Promise<ResolveResult> {
+export async function resolveMedia(
+  subjects: MediaSubject[],
+  options: ResolveMediaOptions = {},
+): Promise<ResolveResult> {
+  const overrides = options.overrides ?? {};
+  const skipKeys = new Set(options.skipKeys ?? []);
   const titles = [...new Set(subjects.map((s) => s.wikiTitle))];
   const qidsByTitle = await fetchWikidataIds(titles);
   const filesByQid = await fetchCommonsFiles([...new Set(qidsByTitle.values())]);
@@ -219,8 +231,11 @@ export async function resolveMedia(subjects: MediaSubject[]): Promise<ResolveRes
 
   const selectedFiles = new Map<string, string>();
   for (const subject of subjects) {
+    const overrideFile = overrides[subject.key];
+    if (overrideFile) selectedFiles.set(commonsFileKey(overrideFile), overrideFile);
     const wikidataFile = qidsByTitle.get(subject.wikiTitle) ? filesByQid.get(qidsByTitle.get(subject.wikiTitle)!) : null;
-    const file = wikidataFile ?? pageImagesByKey.get(subject.key)?.commonsFile;
+    const pageImageFile = pageImagesByKey.get(subject.key)?.commonsFile;
+    const file = overrideFile ?? wikidataFile ?? pageImageFile;
     if (file) selectedFiles.set(commonsFileKey(file), file);
   }
   const metadataByFile = await fetchCommonsMetadata([...selectedFiles.values()]);
@@ -228,10 +243,19 @@ export async function resolveMedia(subjects: MediaSubject[]): Promise<ResolveRes
   const records: ResolvedMedia[] = [];
   const missing: ResolveResult["missing"] = [];
   for (const subject of subjects) {
+    if (skipKeys.has(subject.key)) {
+      missing.push({
+        key: subject.key,
+        wikiTitle: subject.wikiTitle,
+        reason: "Skipped: no suitable Commons portrait (curated skip)",
+      });
+      continue;
+    }
     const pageImage = pageImagesByKey.get(subject.key);
     const wikidataId = qidsByTitle.get(subject.wikiTitle) ?? pageImage?.wikidataId ?? null;
     const wikidataFile = wikidataId ? filesByQid.get(wikidataId) : null;
-    const commonsFile = wikidataFile ?? pageImage?.commonsFile;
+    const overrideFile = overrides[subject.key];
+    const commonsFile = overrideFile ?? wikidataFile ?? pageImage?.commonsFile;
     if (!commonsFile) {
       missing.push({ key: subject.key, wikiTitle: subject.wikiTitle, reason: "No Wikidata P18 image or Wikipedia pageimage found" });
       continue;
@@ -253,7 +277,7 @@ export async function resolveMedia(subjects: MediaSubject[]): Promise<ResolveRes
       license: stripHtml(ext.LicenseShortName?.value ?? ext.UsageTerms?.value),
       artist: stripHtml(ext.Artist?.value),
       credit: stripHtml(ext.Credit?.value),
-      sourceMethod: wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
+      sourceMethod: overrideFile ? "curated-override" : wikidataFile ? "wikidata-p18" : "wikipedia-pageimage",
     });
   }
   return { records, missing };

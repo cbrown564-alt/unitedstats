@@ -16,6 +16,29 @@ import { resolveMedia, type MediaSubject } from "./wiki-media";
 
 const SOURCE_ID = "wikidata-commons";
 
+/**
+ * Licensed Commons portraits chosen for era-appropriate likeness and United context.
+ * Wikidata P18 often points at post-career or other-club images; overrides win
+ * when present. Re-run ingest:manager-media after edits.
+ */
+const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
+  // Phase 3 — post-career / wrong-club Wikidata P18 fixes
+  "david-moyes": "David Moyes MUFC 2013.jpg",
+  "ole-gunnar-solskjaer": "Ole Gunnar Solksjaer 2021.jpg",
+  "ralf-rangnick": "Manchester United v Crystal Palace, 5 December 2021 (35).jpg",
+  "ruud-van-nistelrooy": "Ruud.JPG",
+  "michael-carrick": "Michael Carrick - July 2015 (cropped).jpg",
+  "darren-fletcher": "Darren Fletcher vs Everton (cropped).jpg",
+  "jose-mourinho": "José Mourinho (cropped).jpg",
+  "wilf-mcguinness": "Manchester United FC 1957.jpg",
+};
+
+/** Wikidata P18 exists but is unsuitable; UI falls back to initials. */
+const CURATED_WIKIDATA_SKIP = [
+  "scott-duncan", // only Commons file is a Newcastle team photo, not a MU-era likeness
+  "jimmy-murphy", // only Commons file is a statue, not a portrait
+];
+
 interface ManagersFile {
   managers: { id: string; name: string; role: string | null }[];
 }
@@ -48,7 +71,10 @@ async function main() {
     wikiTitle: TITLE_OVERRIDES[m.id] ?? defaultTitle(m.name),
   }));
 
-  const { records, missing } = await resolveMedia(subjects);
+  const { records, missing } = await resolveMedia(subjects, {
+    overrides: CURATED_COMMONS_OVERRIDES,
+    skipKeys: CURATED_WIKIDATA_SKIP,
+  });
   const retrievedAt = new Date().toISOString();
 
   writeJson(path.join(CANONICAL, "manager-media.json"), {
@@ -63,6 +89,8 @@ async function main() {
     ],
     notes: [
       "Titles are curated; early secretary-managers carry disambiguated Wikipedia titles to avoid name collisions.",
+      "CURATED_COMMONS_OVERRIDES supplies era-appropriate portraits when Wikidata P18 is wrong-club or wrong-era.",
+      "CURATED_WIKIDATA_SKIP omits unsuitable Wikidata P18 hits when no better Commons portrait exists.",
       "Only raster Commons images are imported; the UI falls back to initials for managers without a free image.",
     ],
     records: records.map((r) => ({
