@@ -51,7 +51,7 @@ function toDebate(mode: CompareMode, index: number, hook: string): RelatedLink {
 const RELATED: Record<string, RelatedLink[]> = {
   "ferguson-era": [
     toDebate("managers", 0, "Set his reign beside Busby's — the club's two architects."),
-    toQuestion("treble", "The peak of the Ferguson floor in one season."),
+    toQuestion("treble", "The best of the Ferguson years, in one season."),
     toQuestion("fortress", "The fortress was at its most impregnable in the Ferguson years."),
   ],
   treble: [

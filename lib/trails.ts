@@ -1372,7 +1372,7 @@ export function postFergusonFloorMoments(): PostFergusonFloorMoment[] {
       "Worst finish since Ferguson",
       worst.position >= 15
         ? "Fifteenth in the table — three places off the relegation zone, the lowest finish in the Premier League era."
-        : `Finished ${ord(worst.position)} — the deepest the floor has fallen since May 2013.`,
+        : `Finished ${ord(worst.position)} — the lowest United have finished since May 2013.`,
       "floor",
     ),
   ];
@@ -1682,7 +1682,7 @@ export function trebleRunLabel(r: SeasonRun): string {
 
 /** Shared gloss for explore headline and OG card — derived from `trebleSummary`. */
 export function trebleGloss(s: TrebleSummary): string {
-  return `trophies in ${s.season} — ${s.losses} defeats, all three won inside ${s.spanDays} days in ${s.month} ${s.year}`;
+  return `trophies in ${s.season} — ${s.losses} defeats all season, clinched in ${s.spanDays} days that ${s.month}`;
 }
 
 /** One goal in a Treble semi-final, with the side that scored. */

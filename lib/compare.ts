@@ -152,8 +152,6 @@ export interface Comparison {
   /** Career convergences — shared shirt number, same peak season, overlapping years.
    *  The "where they rhymed" callout; the headline is the divergence. */
   rhymes?: { label: string; detail: string }[];
-  /** Module-level coverage note. */
-  coverage?: string;
   /** Evidence links — "the matches behind each side". */
   evidence?: { label: string; href: string }[];
 }
@@ -275,8 +273,6 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
     signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc, aCovered, bCovered } : undefined,
     headline,
     rhymes: playerRhymes(a, b, aArc, bArc, aHaul.total, bHaul.total),
-    coverage:
-      "Appearances and goals are the official club record (Wikipedia's List of Manchester United F.C. players); the career graph plots match-attributed goals per season, so its totals can sit just under the official figure where early matches are unrecorded. Assists combine the curated lane with match events, so the two careers are only fully like-for-like from 2012-13 on. Trophies follow the medal rules — 5+ league appearances in a title season, one in a cup won.",
     evidence: [
       { label: `${a.name}'s matches →`, href: `/player/${a.player_id}` },
       { label: `${b.name}'s matches →`, href: `/player/${b.player_id}` },
@@ -692,8 +688,6 @@ export function compareManagers(idA: string, idB: string): Comparison | null {
     signature: { kind: "trophies", a: managerTrophyHaul(a.id), b: managerTrophyHaul(b.id) },
     headline: trophyHeadline(a.name, b.name, aTot, bTot, winPct(a), winPct(b)),
     rhymes: managerRhymes(a, b, aTot, bTot),
-    coverage:
-      "Records cover every competitive match. Points restate older eras in three-points-for-a-win terms; trophies count league titles and the cups whose deciding final was won.",
     evidence: [
       { label: `${a.name}'s matches →`, href: `/matches?manager=${a.id}` },
       { label: `${b.name}'s matches →`, href: `/matches?manager=${b.id}` },
@@ -902,8 +896,6 @@ export function compareEras(keyA: string, keyB: string): Comparison | null {
     signature: { kind: "skyline", a: eraFinishes(eraA), b: eraFinishes(eraB) },
     headline: trophyHeadline(shortLabel(eraA), shortLabel(eraB), haulA.total, haulB.total, winPct(ra), winPct(rb)),
     rhymes: eraRhymes(eraA, eraB, haulA.total, haulB.total),
-    coverage:
-      "Official matches only (friendlies and wartime excluded). Eras are bounded by the calendar year of the appointment, so a few matches around a handover fall to the adjacent era; the skyline shows top-flight league finishes (lower-division seasons sit below the line); points per game restates older eras in three-points terms.",
     evidence: [
       { label: `${eraA.label} matches →`, href: hrefFor(eraA) },
       { label: `${eraB.label} matches →`, href: hrefFor(eraB) },

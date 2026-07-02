@@ -23,7 +23,7 @@ export function RelatedAnswers({ links }: { links: RelatedLink[] }) {
   return (
     <section aria-label="Where this leads next" className="border-t border-line/60 pt-8">
       <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
-        Pull the thread further
+        More answers
       </h2>
       <ol className="mt-5">
         {links.map((l, i) => {

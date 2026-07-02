@@ -244,9 +244,9 @@ function LateGoalsModule({ variant }: ModuleProps) {
       evidence={{ href: "/matches", label: "Browse every match →", count: Number(meta.matches), countNoun: "matches" }}
       variant={variant}
       visual={lateGoalsVisual}
-      visualLabel="The cloud"
+      visualLabel="Late goals"
       finding={`Fergie time was real — but not Ferguson's alone. For decades the share of United goals after the 85th minute sat around ${betweenLate ?? busbyLate} — Busby's era included. When Ferguson arrived it jumped to ${fergLate}; since he left it has risen to ${sinceLate}, as stoppage time itself lengthens. The regulation share (86–90) barely moved at ${regShare} overall; what grew was added time — and the habit never left with the manager.`}
-      slice="United goals with a recorded minute — penalties and own goals for included — grouped by manager era and by decade. The post-85th window is split between minutes 86–90 and stoppage time (90+, with added time folded into the final minute)."
+      slice="United goals with a recorded minute — penalties and own goals included — grouped by manager era and by decade. The post-85th window is split between minutes 86–90 and stoppage time (90+, with added time folded into the final minute)."
       coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute, and that data thins quickly before the 1990s. Stoppage-time goals are only separable where a source marks them "90+" — largely a modern convention — so the stoppage segment reads near zero in the early decades partly because it went unrecorded, not only because added time was shorter.`}
     >
       <section className="space-y-3">
@@ -283,7 +283,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
             </p>
           </div>
           <div className="flex flex-col">
-            <h3 className="text-sm font-medium mb-2 text-ink-dim">By decade — the 2020s blow-up</h3>
+            <h3 className="text-sm font-medium mb-2 text-ink-dim">By decade — the 2020s surge</h3>
             <div className="min-h-40 flex-1">
               <InspectableBarChart
                 data={lateByDecade.map((d) => ({
@@ -312,7 +312,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
 
       <section className="space-y-3">
         <div>
-          <h3 className="text-sm font-medium text-ink-dim">Where in the 90 — the shape beneath the cloud</h3>
+          <h3 className="text-sm font-medium text-ink-dim">Where in the match — minute by minute</h3>
           <p className="mt-0.5 text-xs text-ink-dim text-pretty">
             An even spread would put {evenSpread} in every five-minute window. The 86–90 bar clears that baseline; the stoppage cap on the final column is the lengthening closing window, not a United-only trait.
           </p>
@@ -501,8 +501,8 @@ function FergusonEraModule({ variant }: ModuleProps) {
       evidence={{ href: `/matches?from=2013-05-20&sort=date-asc`, label: "Every match since Ferguson →", count: since.p, countNoun: "matches" }}
       variant={variant}
       visual={skylineVisual}
-      visualLabel="The floor"
-      finding={`For ${floor.fergSeasons} seasons under Ferguson, United won ${floor.fergTitles} league titles, finished in the top four ${floor.fergTop4} times, and averaged ${floor.fergAvgFinish.toFixed(1)} in the table — a championship floor that held even through the early rebuild. In the ${floor.sinceSeasons} since, the title count is ${floor.sinceTitles}, only ${floor.sinceTop4} campaigns reached the top four, and the average finish is ${floor.sinceAvgFinish.toFixed(1)}${floor.sinceWorst ? ` — bottoming out at ${ordinal(floor.sinceWorst)}` : ""}.`}
+      visualLabel="League finishes"
+      finding={`For ${floor.fergSeasons} seasons under Ferguson, United won ${floor.fergTitles} league titles, finished in the top four ${floor.fergTop4} times, and averaged ${ordinal(Math.round(floor.fergAvgFinish))} in the table — a standard that held even through the early rebuild. In the ${floor.sinceSeasons} since, the title count is ${floor.sinceTitles}, only ${floor.sinceTop4} campaigns reached the top four, and the average finish is ${ordinal(Math.round(floor.sinceAvgFinish))}${floor.sinceWorst ? ` — bottoming out at ${ordinal(floor.sinceWorst)}` : ""}.`}
       slice="Top-flight league finishes (First Division / Premier League) season by season. Ferguson's reign runs 8 Nov 1986 to 19 May 2013; everything after is the post-Ferguson era. Post-2013 seasons are attributed to the manager who took most league matches that season, mapped to their tenure dates."
       coverage="Result-level record — complete for every official match across both eras. No advanced metrics; the comparison uses league position and titles, exactly as the record supports."
     >
@@ -544,7 +544,7 @@ function FergusonEraModule({ variant }: ModuleProps) {
       {moments.length > 0 && (
         <section className="space-y-3">
           <div>
-            <h3 className="text-sm font-medium text-ink-dim">Three moments — where the floor landed</h3>
+            <h3 className="text-sm font-medium text-ink-dim">Three seasons that show the drop</h3>
             <p className="mt-0.5 text-xs text-ink-dim text-pretty">
               The first season without Ferguson, the best any successor has managed, and the campaign that bottomed out — each opens the full season.
             </p>
@@ -648,7 +648,7 @@ function TrebleModule({ variant }: ModuleProps) {
       : decidersFromBehind === 1
         ? "one win after going behind"
         : `${fmtNum(decidersFromBehind)} wins after going behind`;
-  const stoppageCopy = lastDecider?.wonInStoppage ? ", the last with two iconic goals in stoppage time" : "";
+  const stoppageCopy = lastDecider?.wonInStoppage ? ", the last settled in stoppage time" : "";
   const trebleVisual = (
     <div className="space-y-4">
       <div className="grid items-stretch gap-3 sm:grid-cols-[auto_1fr]">
@@ -660,14 +660,13 @@ function TrebleModule({ variant }: ModuleProps) {
         </div>
         <div className="flex items-center text-sm text-ink-dim sm:px-2">
           <span>
-            The strip is every match in date order — <span className="text-ink">wins above the line, losses below</span>.
             Trophy markers flag the three deciders in {month} {year}.
           </span>
         </div>
       </div>
       <div className="space-y-1.5">
         <div className="text-[11px] uppercase tracking-wider text-ink-faint">
-          All {seasonSeq.length} matches of {season} — wins above the line, losses below; trophies mark the deciders
+          All {seasonSeq.length} matches of {season}
         </div>
         <ResultSpine
           matches={seasonSeq}
@@ -679,7 +678,7 @@ function TrebleModule({ variant }: ModuleProps) {
         />
       </div>
       <p className="text-xs text-ink-dim text-pretty">
-        Each notch is one result in chronological order — green above the centre line, red below. The three gold trophies pin the nights that clinched the league, the cup and Europe; the rest is the long grind that made May possible.{" "}
+        Each notch is one result in chronological order — <span className="text-ink">wins above the line, losses below</span>. The three gold trophies pin the nights that clinched the league, the cup and Europe; the rest is the long grind that made May possible.{" "}
         <Link href={`/seasons/${season}`} className="text-devil-bright hover:underline focus-ring">
           Open the full {season} campaign →
         </Link>
@@ -693,13 +692,10 @@ function TrebleModule({ variant }: ModuleProps) {
       variant={variant}
       visual={trebleVisual}
       visualLabel="One season"
-      finding={`United played ${fmtNum(runPlayed)} matches across the three competitions and lost just ${fmtNum(losses)} — then became the first English club to hold the league, the FA Cup and the European Cup at the same time. All three were won inside ${spanDays} days in ${month} ${year}${lastDecider?.wonInStoppage ? ", the last of them in stoppage time" : ""}.`}
+      finding={`United played ${fmtNum(runPlayed)} matches across the three competitions and lost just ${fmtNum(losses)} — then became the first English club to hold the league, the FA Cup and the Champions League at the same time. All three were won inside ${spanDays} days in ${month} ${year}${lastDecider?.wonInStoppage ? ", the last of them in stoppage time" : ""}.`}
       slice={`Every match of ${season} is in the timeline up top. The matches below show who scored and when in the decisive games and semi-finals — the deciding legs that forged the Treble, not the full two-legged ties (scoreless first legs omitted).`}
-      coverage="Every goal. Every match. One glorious season."
+      coverage="Full 1998-99 match and goal record across all three competitions."
     >
-      <div className="mb-1">
-        <EvidenceLink href={`/seasons/${season}`} label={`Open the ${season} season page →`} />
-      </div>
       <section className="space-y-3">
         <div>
           <h3 className="text-sm font-medium text-ink-dim">{spanDays} days in {month}</h3>
@@ -763,7 +759,7 @@ function TrebleModule({ variant }: ModuleProps) {
                   </div>
                   {crowned && (
                     <p className="mt-3 text-xs text-gold/90">
-                      Trailed from the sixth minute — then scored twice after the 90th. No European Cup final had ever been turned around so late.
+                      Trailed from the sixth minute — then scored twice after the 90th. No Champions League final had ever been turned around so late.
                     </p>
                   )}
                 </div>
@@ -1070,7 +1066,7 @@ function FortressModule({ variant }: ModuleProps) {
         <div className="flex items-center text-sm text-ink-dim sm:px-2">
           <span>
             <span className="text-ink">Won {fmtNum(leadHeld.w)}, drawn {fmtNum(leadHeld.d)}, lost {fmtNum(leadLosses.length)}</span>{" "}
-            across {fmtNum(leadHeld.games.length)} home league games we can place where United led at the break.
+            across {fmtNum(leadHeld.games.length)} home league games we can place where United led at half-time.
             {lastLoss ? ` Not once in the ${fmtNum(unbeatenSince.run)} such games since ${fmtDate(lastLoss.date)}.` : ""}
           </span>
         </div>
@@ -1103,8 +1099,8 @@ function FortressModule({ variant }: ModuleProps) {
       visualLabel="The record"
       finding={
         lastLoss
-          ? `Take a lead into half-time at Old Trafford and recent history says you keep it: United have not lost a home league game led at the break since ${fmtDate(lastLoss.date)} — ${fmtNum(unbeatenSince.run)} of them and counting. Across the full reconstructed record of ${fmtNum(leadHeld.games.length)} such games (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}) United won ${fmtNum(leadHeld.w)} and drew ${fmtNum(leadHeld.d)}; the lead was lost just ${fmtNum(leadLosses.length)} times.`
-          : `Take a lead into half-time at Old Trafford and the record says you keep it. Across the ${fmtNum(leadHeld.games.length)} home league games we can place where United led at the break, ${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}, they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and lost none.`
+          ? `Take a lead into half-time at Old Trafford and recent history says you keep it: United have not lost a home league game led at half-time since ${fmtDate(lastLoss.date)} — ${fmtNum(unbeatenSince.run)} of them and counting. Across the full reconstructed record of ${fmtNum(leadHeld.games.length)} such games (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}) United won ${fmtNum(leadHeld.w)} and drew ${fmtNum(leadHeld.d)}; the lead was lost just ${fmtNum(leadLosses.length)} times.`
+          : `Take a lead into half-time at Old Trafford and the record says you keep it. Across the ${fmtNum(leadHeld.games.length)} home league games we can place where United led at half-time, ${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}, they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and lost none.`
       }
       slice="Old Trafford home league games where United led at half-time, the half-time score reconstructed from minute-stamped goal events. Restricted to matches whose goals all carry a minute, so it is the verifiable part of the record rather than a single continuous run."
       coverage={`Half-time scores only reconstruct where every goal has a recorded minute, so these ${fmtNum(leadHeld.games.length)} games are a sample, not a sequence. Opta, working from complete half-time data, puts the current unbeaten run at 400 home league games led at half-time — W365 D35 — back to August 1984.`}

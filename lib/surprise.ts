@@ -29,7 +29,7 @@ export interface SurpriseFact {
   /** The clause that completes the figure into a sentence. */
   line: string;
   href: string;
-  /** The door's verb ("See the full finding", "Open the cut", "See the match"). */
+  /** The door's verb ("Open the answer", "Open the cut", "See the match"). */
   cta: string;
   tone: SurpriseTone;
 }
@@ -59,7 +59,7 @@ export function surpriseFacts(): SurpriseFact[] {
       figure: h.stat,
       line: h.gloss,
       href: `/questions/${q.slug}`,
-      cta: "See the full finding",
+      cta: "Open the answer",
       tone: h.tone,
     });
   }

@@ -74,18 +74,18 @@ export default function ExplorePage() {
           the strip previews, it does not reproduce the depth. */}
       <section className="space-y-4">
         <SectionHead
-          title="Tested myths"
-          aside={<span className="text-ink-faint">{QUESTIONS.length} tested myths</span>}
+          title="Questions"
+          aside={<span className="text-ink-faint">{QUESTIONS.length} questions</span>}
         />
 
-        <FeatureCarousel label="Tested myths — swipe across the findings">
+        <FeatureCarousel label="Questions — swipe across the answers">
           {QUESTIONS.map((q) => {
             const h = headlines[q.slug];
             return (
               <FeatureSlide
                 key={q.slug}
                 href={`/questions/${q.slug}`}
-                ariaLabel={`${q.question} — see the full finding`}
+                ariaLabel={`${q.question} — open the answer`}
                 visual={<QuestionSignature slug={q.slug} />}
               >
                 <span className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright/80">
@@ -103,7 +103,7 @@ export default function ExplorePage() {
                   </p>
                 )}
                 <span className="mt-5 inline-block text-xs font-semibold text-devil-bright transition-transform group-hover:translate-x-0.5">
-                  Go to the full thread →
+                  Open the answer →
                 </span>
               </FeatureSlide>
             );

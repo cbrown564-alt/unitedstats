@@ -29,6 +29,14 @@ export interface QuestionHeadline {
   tone: "devil" | "gold" | "win";
 }
 
+/** Rounded league-table average → "3rd", for glosses fans can read at a glance. */
+function finishPlace(avg: number): string {
+  const n = Math.round(avg);
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return `${n}${s[(v - 20) % 10] ?? s[v] ?? s[0]}`;
+}
+
 export function questionHeadlines(): Record<string, QuestionHeadline> {
   const late = lateGoalShareByDecade().reduce(
     (a, d) => ({ timed: a.timed + d.timed, late: a.late + d.late }),
@@ -71,7 +79,7 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
   return {
     "ferguson-era": {
       stat: `${floor.fergTitles} → ${floor.sinceTitles}`,
-      gloss: `league titles under Ferguson and since — average finish ${floor.fergAvgFinish.toFixed(1)} to ${floor.sinceAvgFinish.toFixed(1)}`,
+      gloss: `league titles under Ferguson, none since — average finish slipped from ${finishPlace(floor.fergAvgFinish)} to ${finishPlace(floor.sinceAvgFinish)}`,
       tone: "gold",
     },
     treble: {
@@ -86,7 +94,7 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
     },
     "late-goals": {
       stat: `${fergLatePct} → ${sinceLatePct}`,
-      gloss: "of timed goals after the 85th minute under Ferguson and since — the jump arrived with him but did not leave with him",
+      gloss: "of goals after the 85th minute — up under Ferguson and still rising since",
       tone: "gold",
     },
     comebacks: {
@@ -106,7 +114,7 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
     },
     fortress: {
       stat: fmtNum(fortressRun),
-      gloss: `home league fixtures led at the break, unbeaten since ${fortressSince}`,
+      gloss: `home games led at half-time, unbeaten since ${fortressSince}`,
       tone: "win",
     },
     "cup-specialists": {

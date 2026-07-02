@@ -122,7 +122,7 @@ export function questionAnswer(slug: string): QuestionAnswer | null {
       const since = lh.games.slice(lastLoss + 1);
       return {
         figure: fmtNum(since.length),
-        gloss: `home league fixtures led at the break, unbeaten since ${(lh.games[lastLoss]?.date ?? lh.from).slice(0, 4)}`,
+        gloss: `home games led at half-time, unbeaten since ${(lh.games[lastLoss]?.date ?? lh.from).slice(0, 4)}`,
         visual: {
           kind: "wdl",
           w: since.filter((g) => g.result === "W").length,

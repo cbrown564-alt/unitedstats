@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Comparison, CompareMetric, CompareSide, CompareSignature } from "@/lib/compare";
+import type { Comparison, CompareMetric, CompareMode, CompareSide, CompareSignature } from "@/lib/compare";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
 import { CareerDuelChartLazy, EraSkylineChartLazy } from "@/components/charts/lazy";
@@ -207,6 +207,55 @@ function Signature({
   );
 }
 
+/** Short, mode-specific coverage footnotes — same voice as the player page. */
+function CompareCoverage({
+  mode,
+  evidence,
+}: {
+  mode: CompareMode;
+  evidence?: { label: string; href: string }[];
+}) {
+  return (
+    <div className="mt-3 space-y-3 border-t border-line/60 pt-3">
+      {mode === "players" && (
+        <>
+          <p className="text-xs text-ink-dim">
+            <span className="font-medium text-ink">Club record</span> — verified apps and goals; career graph uses
+            match-attributed goals.
+          </p>
+          <CoverageNote
+            className="!mt-0"
+            slice="assists"
+            coverage="curated lane plus match events; fully comparable from 2012–13."
+          />
+          <CoverageNote className="!mt-0" slice="trophies" coverage="medal rules: 5+ league apps in a title season, one in a cup won." />
+        </>
+      )}
+      {mode === "managers" && (
+        <p className="text-xs text-ink-dim">
+          <span className="font-medium text-ink">Official record</span> — every competitive match; points as three per
+          game; trophies are league titles and cups won.
+        </p>
+      )}
+      {mode === "eras" && (
+        <p className="text-xs text-ink-dim">
+          <span className="font-medium text-ink">Official record</span> — competitive matches only; skyline shows
+          top-flight league finishes; points as three per game.
+        </p>
+      )}
+      {evidence && evidence.length > 0 && (
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          {evidence.map((e) => (
+            <Link key={e.href + e.label} href={e.href} className="text-xs text-devil-bright hover:underline">
+              {e.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /**
  * A versus comparison rendered as a match scoreboard, then the one artifact that
  * carries the story for its mode (career-arc duel / trophy cabinet / finish
@@ -294,20 +343,7 @@ export function CompareTable({
           <MeasuresStrip metrics={comparison.metrics} rate={rate} />
         </div>
 
-        {(comparison.coverage || comparison.evidence) && (
-          <div className="mt-3 border-t border-line/60 pt-3">
-            <CoverageNote coverage={comparison.coverage} />
-            {comparison.evidence && (
-              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
-                {comparison.evidence.map((e) => (
-                  <Link key={e.href + e.label} href={e.href} className="text-xs text-devil-bright hover:underline">
-                    {e.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+        <CompareCoverage mode={comparison.mode} evidence={comparison.evidence} />
       </div>
     </div>
   );

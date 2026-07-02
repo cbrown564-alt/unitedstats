@@ -30,14 +30,14 @@ export const QUESTIONS: QuestionMeta[] = [
   {
     slug: "ferguson-era",
     label: "Ferguson era",
-    question: "Where did the title floor go?",
+    question: "What happened after Ferguson left?",
     summary:
-      "Thirteen league titles under Ferguson, none since — the championship floor traced season by season, and every successor on the same scale.",
+      "Thirteen league titles under Ferguson, none since — league finishes traced season by season, with every successor on the same scale.",
   },
   {
     slug: "treble",
     label: "The Treble",
-    question: "How does one season hold three trophies?",
+    question: "How did United win the Treble?",
     summary:
       "Anatomy of 1998-99: the Premier League, the FA Cup and the Champions League, run by run, down to the deciding nights.",
   },
@@ -46,7 +46,7 @@ export const QUESTIONS: QuestionMeta[] = [
     label: "Fortress OT",
     question: "How much of a fortress is Old Trafford?",
     summary:
-      "Lead at half-time at Old Trafford and the game is over. See how rarely United surrendered a break-time lead.",
+      "United rarely lose a home league game they lead at half-time — the full record, the historic exceptions, and the unbeaten run since 1984.",
   },
   {
     slug: "late-goals",

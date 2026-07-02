@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  comparePlayers, compareManagers, compareEras, ERA_CATALOGUE, CURATED_DEBATES,
+  comparePlayers, compareManagers, CURATED_DEBATES,
   type CompareMode, type Comparison, type CuratedDebate,
 } from "@/lib/compare";
 import { managerById, managersIndex, playerById, playersIndex, type ManagerRecord } from "@/lib/queries";
@@ -16,20 +16,19 @@ export const revalidate = 86400;
 export const metadata = {
   title: "Compare",
   description:
-    "Compare two Manchester United careers, managerial tenures, or historical eras side by side on shared, coverage-aware metrics.",
+    "Compare two Manchester United careers or managerial tenures side by side on shared, coverage-aware metrics.",
   alternates: { canonical: "/compare" },
 };
 
 const MODES: { key: CompareMode; label: string; blurb: string }[] = [
   { key: "players", label: "Players", blurb: "two careers, appearance for appearance" },
   { key: "managers", label: "Managers", blurb: "two reigns on win rate, points, and trophies" },
-  { key: "eras", label: "Eras", blurb: "two stretches of the club’s history side by side" },
 ];
 
 // Curated head-to-heads live in lib/compare.ts (CURATED_DEBATES) so /compare and
 // the /explore discovery home draw from one list and never drift.
 
-// Every picker is the same text input + <datalist> autocomplete, so the three
+// Every picker is the same text input + <datalist> autocomplete, so both
 // modes look identical (no native-select chrome). The raw value can be a friendly
 // name typed/picked from the list, or a canonical id/key from a suggestion link;
 // these resolvers accept either, and the display helpers turn an id/key back into
@@ -45,16 +44,6 @@ function resolveManagerId(raw: string | undefined, managers: ManagerRecord[]): s
   const lc = raw.toLowerCase();
   return (managers.find((m) => m.name.toLowerCase() === lc) ?? managers.find((m) => m.name.toLowerCase().includes(lc)))?.id;
 }
-function resolveEraKey(raw: string | undefined): string | undefined {
-  if (!raw) return undefined;
-  const lc = raw.toLowerCase();
-  return (
-    ERA_CATALOGUE.find((e) => e.key === raw) ??
-    ERA_CATALOGUE.find((e) => e.label.toLowerCase() === lc) ??
-    ERA_CATALOGUE.find((e) => e.label.toLowerCase().includes(lc))
-  )?.key;
-}
-
 const labelClass = "mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint";
 const sectionHead = "text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright";
 
@@ -74,7 +63,7 @@ export default async function ComparePage({
   const mode: CompareMode = MODES.some((m) => m.key === sp.mode) ? (sp.mode as CompareMode) : "players";
   const rawA = sp.a;
   const rawB = sp.b;
-  // The rate view (per 90 for players, per game for managers/eras) is the
+  // The rate view (per 90 for players, per game for managers) is the
   // default — it compares honestly across careers and tenures of different
   // lengths. Totals are the opt-out via `?rate=total`.
   const rate = sp.rate !== "total";
@@ -115,15 +104,6 @@ export default async function ComparePage({
     displayA = rawA ? managers.find((m) => m.id === rawA)?.name ?? rawA : "";
     displayB = rawB ? managers.find((m) => m.id === rawB)?.name ?? rawB : "";
     cfg = { listId: "compare-managers", options: managers.map((m) => m.name), noun: "manager", placeholders: ["Ferguson", "Busby"] };
-  } else {
-    const keyA = resolveEraKey(rawA);
-    const keyB = resolveEraKey(rawB);
-    if (rawA && !keyA) unresolved = rawA;
-    else if (rawB && !keyB) unresolved = rawB;
-    else if (keyA && keyB) comparison = compareEras(keyA, keyB);
-    displayA = rawA ? ERA_CATALOGUE.find((e) => e.key === rawA)?.label ?? rawA : "";
-    displayB = rawB ? ERA_CATALOGUE.find((e) => e.key === rawB)?.label ?? rawB : "";
-    cfg = { listId: "compare-eras", options: ERA_CATALOGUE.map((e) => e.label), noun: "era", placeholders: ["Ferguson era", "1990s"] };
   }
 
   const suggestions = CURATED_DEBATES[mode];
@@ -132,7 +112,7 @@ export default async function ComparePage({
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Side by side" title="Compare" deferOnMobile={!!comparison}>
-        Two players, managers, or eras on the same measures. Gaps shown where the record is thin.
+        Two players or managers on the same measures. Gaps shown where the record is thin.
       </PageHeader>
 
       <ModePills mode={mode} />
@@ -187,22 +167,14 @@ export default async function ComparePage({
 
 /**
  * Downstream of the comparison answer: a fork into the Cut engine, where the
- * comparison maps to a real grouped match-filter. Eras map to a date-range cut and
- * managers to a manager-filtered one (both grouped season by season); players have
+ * comparison maps to a real grouped match-filter. Managers map to a manager-filtered
+ * cut (grouped season by season); players have
  * no single grouped cut, so the section is absent for them. This is "a comparison
  * is a Cut" made tangible — the reader leaves the answer and twists it themselves.
  */
 function sideCut(mode: CompareMode, side: { id: string; label: string }): { label: string; href: string } | null {
   if (mode === "managers") {
     return { label: side.label, href: cutHref({ dimension: "season", metric: "ppg", filters: { manager: side.id } }) };
-  }
-  if (mode === "eras") {
-    const era = ERA_CATALOGUE.find((e) => e.key === side.id);
-    if (!era) return null;
-    return {
-      label: side.label,
-      href: cutHref({ dimension: "season", metric: "ppg", filters: { from: String(era.from), to: String(era.to - 1) } }),
-    };
   }
   return null;
 }
@@ -307,7 +279,7 @@ function Suggestions({
 
 /**
  * The build-your-own picker — two text inputs with native `<datalist>`
- * autocomplete, identical across all three modes. The submitted value can be a
+ * autocomplete, identical across both modes. The submitted value can be a
  * friendly name or a canonical id; the page resolves either.
  */
 function Picker({

@@ -119,13 +119,13 @@ export function SurpriseReveal({ facts, seed }: { facts: SurpriseFact[]; seed: n
         <span aria-hidden className="text-base text-devil-bright transition-transform duration-300 group-hover:rotate-180 group-active:rotate-180 motion-reduce:transition-none">
           ↻
         </span>
-        Pull the thread again
+        Another answer
       </button>
 
       <p className="mt-3 text-xs text-ink-faint" aria-live="polite">
         {pulls === 1
           ? "Every find links to the matches behind it."
-          : `${pulls} threads pulled — there's always another.`}
+          : `${pulls} answers opened — there's always another.`}
       </p>
     </div>
   );
