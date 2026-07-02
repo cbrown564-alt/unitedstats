@@ -16,16 +16,18 @@ const APP = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "ap
 const PITCH = "#0c0b0a";
 const PANEL = "#161312";
 const LINE = "#2c2522";
-const INK = "#f3ede8";
 const DEVIL = "#ff3b1f";
 
 // The mark's interior (everything but the container square), in the 0..58 space
 // Brand.tsx draws in. Thread first, then the pale ticks cross over it, then the
 // proof dot resolves at the thread's end.
 const markBody = `
-  <path d="M12 31C18 22 25 39 31 29C36 21 41 22 46 27" stroke="${DEVIL}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M18 17v24M40 17v24" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="46" cy="27" r="4.5" fill="${DEVIL}"/>`;
+  <path d="M 29,44 C 20,40 14,32 14,19 C 14,15 22,14 29,14" stroke="${DEVIL}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
+  <path d="M 27,58 C 27,52 28,47 29,44 C 38,40 44,32 44,19 C 44,15 36,14 29,14 C 29,19 29,24 29,29" stroke="${PANEL}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 27,58 C 27,52 28,47 29,44 C 38,40 44,32 44,19 C 44,15 36,14 29,14 C 29,19 29,24 29,29" stroke="${DEVIL}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 14,19 C 14,15 22,14 29,14" stroke="${PANEL}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 14,19 C 14,15 22,14 29,14" stroke="${DEVIL}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
+  <circle cx="29" cy="29" r="2" fill="${DEVIL}"/>`;
 
 // Favicon: the full mark including its rounded-square container (transparent
 // outside the corners, as a favicon should be).

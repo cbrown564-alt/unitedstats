@@ -1,10 +1,51 @@
 function ThreadlineMark({ size = 34 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 58 58" fill="none" aria-hidden>
-      <rect x="1" y="1" width="56" height="56" rx="14" fill="#161312" stroke="#2c2522" />
-      <path d="M12 31C18 22 25 39 31 29C36 21 41 22 46 27" stroke="#ff3b1f" strokeWidth="4" strokeLinecap="round" />
-      <path d="M18 17v24M40 17v24" stroke="#f3ede8" strokeWidth="3" strokeLinecap="round" />
-      <circle cx="46" cy="27" r="4" fill="#ff3b1f" />
+      <rect x="1" y="1" width="56" height="56" rx="14" fill="#161312" stroke="#2c2522" strokeWidth="1.5" />
+      {/* Left shield side (dimmer) */}
+      <path
+        d="M 29,44 C 20,40 14,32 14,19 C 14,15 22,14 29,14"
+        stroke="#ff3b1f"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.45"
+      />
+      {/* Right shield (backing mask) */}
+      <path
+        d="M 27,58 C 27,52 28,47 29,44 C 38,40 44,32 44,19 C 44,15 36,14 29,14 C 29,19 29,24 29,29"
+        stroke="#161312"
+        strokeWidth="4.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Right shield (bright stroke) */}
+      <path
+        d="M 27,58 C 27,52 28,47 29,44 C 38,40 44,32 44,19 C 44,15 36,14 29,14 C 29,19 29,24 29,29"
+        stroke="#ff3b1f"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Left shield top overlay (backing mask) */}
+      <path
+        d="M 14,19 C 14,15 22,14 29,14"
+        stroke="#161312"
+        strokeWidth="4.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Left shield top overlay (actual stroke) */}
+      <path
+        d="M 14,19 C 14,15 22,14 29,14"
+        stroke="#ff3b1f"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.45"
+      />
+      {/* Center dot */}
+      <circle cx="29" cy="29" r="2.0" fill="#ff3b1f" />
     </svg>
   );
 }
