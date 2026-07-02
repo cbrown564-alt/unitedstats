@@ -151,6 +151,7 @@ attribution (see `data/LICENSE.md`).
 
 | Doc | Purpose |
 |---|---|
+| `STATUS.md` | Current project status and next workstreams |
 | `PRODUCT.md` | Product definition and direction |
 | `CONTEXT.md` | Shared product vocabulary (nostalgist, lens-not-loom) |
 | `docs/DATA-MODEL.md` | Schema of record |
