@@ -60,7 +60,7 @@ export const QUESTIONS: QuestionMeta[] = [
 ];
 
 /** Former front-door and easter-egg questions — modules preserved, discovery off. */
-export const ARCHIVED_QUESTIONS: QuestionMeta[] = [
+const ARCHIVED_QUESTIONS: QuestionMeta[] = [
   {
     slug: "europe",
     label: "United in Europe",

@@ -697,7 +697,7 @@ export function compareManagers(idA: string, idB: string): Comparison | null {
 
 // ----------------------------------------------------------------- eras
 
-export interface EraDef {
+interface EraDef {
   key: string;
   label: string;
   /** Inclusive start year, exclusive end year (calendar years of the appointments). */
@@ -711,7 +711,7 @@ export interface EraDef {
  * historical sweep or a decade-on-decade cut. Boundaries are by calendar year of
  * the appointment, matching the managers-index reading aid.
  */
-export const ERA_CATALOGUE: EraDef[] = [
+const ERA_CATALOGUE: EraDef[] = [
   { key: "secretaries", label: "Secretary-managers (pre-1945)", from: 1886, to: 1945 },
   { key: "busby", label: "The Busby era (1945–1969)", from: 1945, to: 1969 },
   { key: "between", label: "Between Busby and Ferguson (1969–1986)", from: 1969, to: 1986 },
