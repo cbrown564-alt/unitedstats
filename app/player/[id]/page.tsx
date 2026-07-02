@@ -216,6 +216,7 @@ export default async function PlayerPage({
           {
             id: "career",
             label: "Career History",
+            shortLabel: "Career",
             content: bySeason.length > 0 ? (
               <section id="seasons" className="space-y-6">
                 {bySeason.length > 1 && (
@@ -273,6 +274,7 @@ export default async function PlayerPage({
           {
             id: "goals",
             label: "Goals & Assists",
+            shortLabel: "Goals",
             content: (
               <div className="space-y-10">
                 {curatedTotals && curatedGoalTypes.length > 1 && (

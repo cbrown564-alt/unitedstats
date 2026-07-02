@@ -191,11 +191,11 @@ function CutRankedBars({
               className="group flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-panel-2/60 focus-ring sm:gap-3"
             >
               <span
-                className={`w-28 shrink-0 truncate text-[13px] leading-tight sm:w-40 ${
+                className={`w-[36%] max-w-[9.5rem] shrink-0 text-[13px] leading-snug sm:w-40 sm:max-w-none ${
                   standout ? "font-semibold text-gold" : "text-ink-dim group-hover:text-ink"
                 }`}
               >
-                {g.label}
+                <span className="line-clamp-2 sm:truncate">{g.label}</span>
               </span>
 
               <span className="min-w-0 flex-1">

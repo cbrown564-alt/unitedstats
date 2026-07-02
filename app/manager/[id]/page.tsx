@@ -202,6 +202,7 @@ export default async function ManagerPage({
     {
       id: "overview",
       label: "Overview",
+      shortLabel: "Overview",
       content: (
         <div className="space-y-8">
           {(majorHaul.total > 0 || runs.length > 0) && (
@@ -261,6 +262,7 @@ export default async function ManagerPage({
     {
       id: "seasons",
       label: "Seasons",
+      shortLabel: "Seasons",
       content: (
         <div className="space-y-8">
           {bySeason.length > 0 ? (
@@ -325,6 +327,7 @@ export default async function ManagerPage({
           {
             id: "competitions",
             label: "Competitions",
+            shortLabel: "Cups",
             content: (
               <section>
                 <SectionHead
@@ -343,6 +346,7 @@ export default async function ManagerPage({
     {
       id: "matches",
       label: "Matches",
+      shortLabel: "Matches",
       content: (
         <section>
           <SectionHead title="Matches" aside={`${fmtNum(total)} managed`} />
@@ -376,6 +380,7 @@ export default async function ManagerPage({
           {
             id: "transfers",
             label: "Transfers",
+            shortLabel: "Market",
             content: (
               <section className="space-y-6">
                 {market && (market.signings > 0 || market.departures > 0) && (

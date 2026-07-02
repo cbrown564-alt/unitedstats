@@ -3,7 +3,9 @@ import { isRoundFilterKey, roundFilterLabel } from "@/lib/matchRounds";
 import { matchFilterFromSearchParams, parseMatchSort } from "@/lib/matchFilterFromUrl";
 import {
   MATCHES_PAGE_SIZE,
+  SEASON_SLICE_ONE_PAGE_MAX,
   hasActiveMatchFilters,
+  isSeasonOnlyFilter,
   type MatchPageChip,
   type MatchPageView,
 } from "@/lib/matchPageView";
@@ -79,13 +81,13 @@ export function buildMatchesPageView(sp: Record<string, string | undefined>): Ma
   const chronological = sort === "date-desc" || sort === "date-asc";
   const dateSort = sort === "date-asc" || sort === "date-desc" ? sort : "date-desc";
   const goalDiffSort = sort === "gd-asc" || sort === "gd-desc" ? sort : "gd-desc";
-  const filter = matchFilterFromSearchParams(sp, {
-    limit: MATCHES_PAGE_SIZE,
-    offset: (page - 1) * MATCHES_PAGE_SIZE,
-  });
+  const seasonOnePage = isSeasonOnlyFilter(sp) && page === 1;
+  const pageLimit = seasonOnePage ? SEASON_SLICE_ONE_PAGE_MAX : MATCHES_PAGE_SIZE;
+  const offset = seasonOnePage ? 0 : (page - 1) * MATCHES_PAGE_SIZE;
+  const filter = matchFilterFromSearchParams(sp, { limit: pageLimit, offset });
   const { rows, total } = findMatches(filter);
   const summary = matchesSummary(filter);
-  const sequence = summary.p >= 24 ? matchesSequence(filter) : [];
+  const sequence = !hasActiveMatchFilters(sp) && summary.p >= 24 ? matchesSequence(filter) : [];
   const hasFilters = hasActiveMatchFilters(sp);
   const pinnedResult = sp.result && RESULT_NOUN[sp.result] ? sp.result : undefined;
   const heroValue = pinnedResult ? fmtNum(summary.p) : pct(summary.w, summary.p);
@@ -100,7 +102,10 @@ export function buildMatchesPageView(sp: Record<string, string | undefined>): Ma
   return {
     params: sp,
     page,
-    pages: Math.ceil(total / MATCHES_PAGE_SIZE),
+    pages:
+      seasonOnePage && total <= SEASON_SLICE_ONE_PAGE_MAX
+        ? 1
+        : Math.ceil(total / MATCHES_PAGE_SIZE),
     sort,
     chronological,
     dateSort,

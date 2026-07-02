@@ -57,8 +57,7 @@ function EmptyState() {
         </Link>
       </div>
       <p className="text-xs text-ink-faint">
-        Canonical data changes land through a reviewed pull request and <code className="font-mono">npm run validate</code>;
-        this builder only opens the issue that starts that review.
+        Your suggestion opens a structured issue in the public correction queue for the maintainers to review.
       </p>
     </div>
   );

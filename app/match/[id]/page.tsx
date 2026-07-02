@@ -528,14 +528,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </div>
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
         <div className="full-bleed-foreground relative space-y-5 py-7 pl-4 sm:py-12 sm:pl-6 lg:pl-0">
-          <DetailBreadcrumb
-            segments={[
-              { label: "Seasons", href: "/seasons" },
-              { label: m.season, href: `/seasons/${m.season}` },
-              { label: "This match" },
-            ]}
-          />
-          <div className="absolute right-4 top-4 z-10 sm:top-7">
+          <div className="flex items-start justify-end gap-3 pr-4 sm:pr-6 lg:pr-0">
             <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
           </div>
           <header className="space-y-4">
@@ -579,6 +572,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           </header>
         </div>
       </section>
+
+      <DetailBreadcrumb
+        segments={[
+          { label: "Seasons", href: "/seasons" },
+          { label: m.season, href: `/seasons/${m.season}` },
+          { label: "This match" },
+        ]}
+      />
 
       <div className="mt-2 sm:mt-8">
         <MatchSectionTabs

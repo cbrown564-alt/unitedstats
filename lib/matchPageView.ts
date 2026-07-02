@@ -5,6 +5,9 @@ import type { SequenceMatch } from "@/lib/trails";
 
 export const MATCHES_PAGE_SIZE = 50;
 
+/** Single-season slices (e.g. 1998-99 treble) fit one page — no paging below this cap. */
+export const SEASON_SLICE_ONE_PAGE_MAX = 100;
+
 export type MatchPageChip = { key: string; label: string };
 
 export type MatchPageView = {
@@ -40,6 +43,13 @@ export function hasActiveMatchFilters(sp: Record<string, string | undefined>): b
     sp.round || sp.stadium || sp.city || sp.scorer || sp.assister || sp.player || sp.aet || sp.goalWindow ||
     sp.goalFrom || sp.goalTo || sp.from || sp.to,
   );
+}
+
+/** True when the only narrowing param is `season` (ignoring page/sort). */
+export function isSeasonOnlyFilter(sp: Record<string, string | undefined>): boolean {
+  if (!sp.season) return false;
+  const rest = { ...sp, season: undefined, page: undefined, sort: undefined };
+  return !hasActiveMatchFilters(rest);
 }
 
 /** Default cached SSR; client-fetch when the URL narrows or paginates the archive. */

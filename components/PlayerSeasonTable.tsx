@@ -163,6 +163,7 @@ export function PlayerSeasonTable({
       key: "season",
       sortKey: "season",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.season,
+      card: "identity",
       render: (s) => (
         <span className="inline-flex items-center gap-1.5">
           <Link href={`/seasons/${s.season}`} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
@@ -184,6 +185,7 @@ export function PlayerSeasonTable({
       numeric: true,
       sortKey: "apps",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.apps,
+      card: "metric",
       render: (s) => (s.apps ? fmtNum(s.apps) : "—"),
     },
     {
@@ -192,6 +194,8 @@ export function PlayerSeasonTable({
       numeric: true,
       sortKey: "starts",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.starts,
+      hideBelow: "hidden md:table-cell",
+      card: "metric",
       render: (s) => (s.starts ? fmtNum(s.starts) : "—"),
     },
     {
@@ -201,6 +205,7 @@ export function PlayerSeasonTable({
       sortKey: "goals",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.goals,
       className: "player-season-stat-col",
+      card: "metric",
       render: (s) => (
         <StatMicroBar
           value={s.goals}
@@ -217,6 +222,8 @@ export function PlayerSeasonTable({
       sortKey: "assists",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.assists,
       className: "player-season-stat-col",
+      card: "metric",
+      cardLabel: "Ast",
       render: (s) => (
         <StatMicroBar
           value={s.assists}
@@ -233,6 +240,7 @@ export function PlayerSeasonTable({
       sortKey: "ga",
       sortDefaultDirection: SEASON_SORT_DEFAULTS.ga,
       sortLabel: "goals plus assists",
+      card: "metric",
       render: (s) => (s.goals + s.assists > 0 ? fmtNum(s.goals + s.assists) : "—"),
     },
   ];
@@ -251,6 +259,8 @@ export function PlayerSeasonTable({
       rows={rows}
       rowKey={(s) => s.season}
       density="compact"
+      registerCards
+      registerLayout="metrics"
       caption={`${playerName} season-by-season apps, goals, and assists`}
       sort={{ key: sortKey, direction: sortDir, onSort }}
       rowClassName={(s) => seasonPeakRowClass(s.season, goalPeakSet, assistPeakSet)}

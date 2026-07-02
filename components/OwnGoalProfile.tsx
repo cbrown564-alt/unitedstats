@@ -3,6 +3,8 @@ import {
   ownGoalForEvents, ownGoalScorers, ownGoalSummary, playersIndex,
 } from "@/lib/queries";
 import { PageHeader, StatTile } from "@/components/PageHeader";
+import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
+import { ShareCite } from "@/components/ShareCite";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { fmtDate, fmtNum, scoreline, venuePrefix } from "@/lib/format";
 
@@ -28,28 +30,43 @@ export function OwnGoalProfile() {
 
   return (
     <div className="space-y-10">
-      <PageHeader
-        eyebrow="Scorer"
-        title="Own Goal"
-        aside={
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-80">
-            <StatTile label="Own goals for United" value={fmtNum(summary.total)} tone="red" />
-            <StatTile label="All-time rank" value={rank ? `#${rank}` : "—"} tone="gold" detail="among United scorers" />
-            <StatTile label="Different scorers" value={fmtNum(summary.scorers)} />
-            <StatTile label="Span" value={`${summary.first.slice(0, 4)}–${summary.last.slice(0, 4)}`} />
-          </div>
-        }
-      >
-        Not a person — a tally. Every goal an opponent has turned into his own net in United’s favour,
-        gathered under one name. Counted together they have been gifted to United {fmtNum(summary.total)} times,
-        enough to rank{rank ? ` #${rank}` : ""} among the club’s all-time scorers — by {fmtNum(summary.scorers)}{" "}
-        different opposition players, no one of them more than {repeat[0]?.n ?? 1} times.
-        {summary.unknown > 0 && (
-          <span className="text-ink-dim">
-            {" "}({fmtNum(summary.unknown)} older own goals carry no recorded scorer.)
-          </span>
-        )}
-      </PageHeader>
+      <DetailBreadcrumb
+        segments={[
+          { label: "Players", href: "/players" },
+          { label: "Own Goal" },
+        ]}
+      />
+
+      <div className="relative space-y-4">
+        <div className="flex justify-end lg:absolute lg:right-0 lg:top-0">
+          <ShareCite
+            path="/player/own-goal"
+            title="Own goals for Manchester United — the synthetic scorer tally"
+          />
+        </div>
+        <PageHeader
+          eyebrow="Scorer"
+          title="Own Goal"
+          aside={
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:min-w-80">
+              <StatTile label="Own goals for United" value={fmtNum(summary.total)} tone="red" />
+              <StatTile label="All-time rank" value={rank ? `#${rank}` : "—"} tone="gold" detail="among United scorers" />
+              <StatTile label="Different scorers" value={fmtNum(summary.scorers)} />
+              <StatTile label="Span" value={`${summary.first.slice(0, 4)}–${summary.last.slice(0, 4)}`} />
+            </div>
+          }
+        >
+          Not a person — a tally. Every goal an opponent has turned into their own net in United’s favour,
+          gathered under one name. Counted together they have been gifted to United {fmtNum(summary.total)} times,
+          enough to rank{rank ? ` #${rank}` : ""} among the club’s all-time scorers — by {fmtNum(summary.scorers)}{" "}
+          different opposition players, no one of them more than {repeat[0]?.n ?? 1} times.
+          {summary.unknown > 0 && (
+            <span className="text-ink-dim">
+              {" "}({fmtNum(summary.unknown)} older own goals carry no recorded scorer.)
+            </span>
+          )}
+        </PageHeader>
+      </div>
 
       {repeat.length > 0 && (
         <section className="space-y-3">
@@ -93,20 +110,22 @@ export function OwnGoalProfile() {
                   href={`/match/${e.match_id}`}
                   className="group block px-3 py-2.5 transition-colors hover:bg-panel focus-ring sm:px-4"
                 >
-                  <span className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-3">
-                    <span className="stat-num w-20 shrink-0 text-xs text-ink-dim">{fmtDate(e.date)}</span>
-                    <PlayerPortrait
-                      name={e.scorer ?? "Unknown"}
-                      src={portrait?.src}
-                      size="xs"
-                    />
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm">
+                  <span className="flex flex-col gap-2 sm:grid sm:grid-cols-[auto_auto_1fr_auto] sm:items-center sm:gap-3">
+                    <span className="flex items-center gap-3 sm:contents">
+                      <span className="stat-num w-20 shrink-0 text-xs text-ink-dim">{fmtDate(e.date)}</span>
+                      <PlayerPortrait
+                        name={e.scorer ?? "Unknown"}
+                        src={portrait?.src}
+                        size="xs"
+                      />
+                    </span>
+                    <span className="min-w-0 sm:col-start-3">
+                      <span className="block text-sm leading-snug">
                         <span className="font-medium transition-colors group-hover:text-devil-bright">{e.scorer ?? "Unknown"}</span>
                         <span className="text-ink-dim"> · {venuePrefix(e.venue)} {e.opponent_name}</span>
                       </span>
                     </span>
-                    <span className="flex shrink-0 items-center gap-2">
+                    <span className="flex shrink-0 items-center gap-2 sm:justify-end">
                       {e.minute != null && <span className="stat-num text-xs text-ink-faint">{e.minute}&prime;</span>}
                       <span className="stat-num rounded bg-panel-2 px-2 py-1 text-xs font-semibold">{scoreline(e.gf, e.ga)}</span>
                     </span>
@@ -115,7 +134,7 @@ export function OwnGoalProfile() {
                   {portrait?.pageUrl && (
                     <a
                       href={portrait.pageUrl}
-                      className="ml-[calc(5rem+0.75rem)] mt-0.5 block max-w-xs px-3 text-[11px] leading-4 text-ink-dim hover:text-devil-bright focus-ring sm:px-4"
+                      className="ml-3 mt-0.5 hidden max-w-xs text-[11px] leading-4 text-ink-dim hover:text-devil-bright focus-ring sm:ml-[calc(5rem+0.75rem)] sm:block sm:px-4"
                     >
                       Wikimedia Commons{portrait.license ? ` · ${portrait.license}` : ""}
                     </a>

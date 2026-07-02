@@ -9,12 +9,16 @@ type MatchSort = "date-desc" | "date-asc" | "gd-desc" | "gd-asc";
  */
 export function MatchListToolbar({
   total,
+  page,
+  pages,
   sort,
   dateSort,
   goalDiffSort,
   qs,
 }: {
   total: number;
+  page: number;
+  pages: number;
   sort: MatchSort;
   dateSort: "date-desc" | "date-asc";
   goalDiffSort: "gd-desc" | "gd-asc";
@@ -25,11 +29,14 @@ export function MatchListToolbar({
       ? "border-devil/60 bg-devil/15 font-semibold text-devil-bright"
       : "border-line text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink";
 
+  const countLabel =
+    pages > 1
+      ? `${fmtNum(total)} matches · page ${page} of ${fmtNum(pages)}`
+      : `${fmtNum(total)} ${total === 1 ? "match" : "matches"}`;
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-      <p className="stat-num text-sm text-ink-dim">
-        {fmtNum(total)} {total === 1 ? "match" : "matches"}
-      </p>
+      <p className="stat-num text-sm text-ink-dim">{countLabel}</p>
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm">
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">Sort</span>
         <Link
