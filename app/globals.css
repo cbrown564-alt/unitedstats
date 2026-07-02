@@ -783,8 +783,6 @@ select {
 
 .site-sidebar {
   --sidebar-width: 16rem;
-  position: sticky;
-  top: 0;
   z-index: 50;
   flex-shrink: 0;
   flex-direction: column;

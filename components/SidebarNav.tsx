@@ -53,7 +53,7 @@ export function SidebarNav() {
   return (
     <aside
       className={[
-        "site-sidebar hidden lg:flex",
+        "site-sidebar hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:flex",
         collapsed ? "site-sidebar--collapsed" : "",
         mounted ? "" : "site-sidebar--pending",
       ]

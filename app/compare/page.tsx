@@ -7,7 +7,6 @@ import { managerById, managersIndex, playerById, playersIndex, type ManagerRecor
 import { resolveEntity } from "@/lib/search/resolve";
 import { PageHeader } from "@/components/PageHeader";
 import { CompareTable } from "@/components/CompareTable";
-import { ShareCite } from "@/components/ShareCite";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
@@ -130,13 +129,15 @@ export default async function ComparePage({
               { label: `${comparison.a.label} vs ${comparison.b.label}` },
             ]}
           />
-          <div className="flex justify-end">
-            <ShareCite
-              path={`/compare${queryString({ mode, a: rawA, b: rawB, rate: rate ? undefined : "total" })}`}
-              title={`${comparison.a.label} vs ${comparison.b.label} — Compare`}
-            />
-          </div>
-          <CompareTable comparison={comparison} rate={rate} rateHref={rateToggleHref} />
+          <CompareTable
+            comparison={comparison}
+            rate={rate}
+            rateHref={rateToggleHref}
+            share={{
+              path: `/compare${queryString({ mode, a: rawA, b: rawB, rate: rate ? undefined : "total" })}`,
+              title: `${comparison.a.label} vs ${comparison.b.label} — Compare`,
+            }}
+          />
           <CutLinks comparison={comparison} />
           <section>
             <h2 className={sectionHead}>Compare another</h2>

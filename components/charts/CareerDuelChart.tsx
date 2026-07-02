@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { CareerSeason } from "@/lib/compare";
+import type { CareerChartMetric, CareerSeason } from "@/lib/compare";
 import type { MouseHandlerDataParam } from "recharts";
 import { fmtAxisNumber } from "@/lib/format";
 import { useChartPin, useCoarsePointer } from "./useChartPin";
@@ -27,14 +27,33 @@ interface DuelDatum {
   bSeason?: string;
   aApps?: number;
   bApps?: number;
+  aStarts?: number;
+  bStarts?: number;
   aGoals?: number;
   bGoals?: number;
   aMinutes?: number;
   bMinutes?: number;
   aPer90?: number | null;
   bPer90?: number | null;
+  aCleanSheets?: number;
+  bCleanSheets?: number;
+  aCsPct?: number | null;
+  bCsPct?: number | null;
   aHref?: string;
   bHref?: string;
+}
+
+function Swatch({ color, label }: { color: string; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span className="h-2.5 w-2.5 rounded-[2px]" style={{ background: color }} aria-hidden />
+      <span className="font-medium text-ink">{label}</span>
+    </span>
+  );
+}
+
+function csPct(cleanSheets: number, starts: number): number | null {
+  return starts > 0 ? (100 * cleanSheets) / starts : null;
 }
 
 /** Merge two careers onto a shared career-season axis (n = 1..maxN). This is the
@@ -54,12 +73,18 @@ function merge(a: CareerSeason[], b: CareerSeason[], aId: string, bId: string): 
       bSeason: sb?.season,
       aApps: sa?.apps,
       bApps: sb?.apps,
+      aStarts: sa?.starts,
+      bStarts: sb?.starts,
       aGoals: sa?.goals,
       bGoals: sb?.goals,
       aMinutes: sa?.minutes,
       bMinutes: sb?.minutes,
       aPer90: per90(sa?.goals, sa?.minutes),
       bPer90: per90(sb?.goals, sb?.minutes),
+      aCleanSheets: sa?.cleanSheets,
+      bCleanSheets: sb?.cleanSheets,
+      aCsPct: sa ? csPct(sa.cleanSheets, sa.starts) : null,
+      bCsPct: sb ? csPct(sb.cleanSheets, sb.starts) : null,
       aHref: seasonHref(aId, sa?.season),
       bHref: seasonHref(bId, sb?.season),
     });
@@ -67,15 +92,45 @@ function merge(a: CareerSeason[], b: CareerSeason[], aId: string, bId: string): 
   return out;
 }
 
-function peakN(seasons: CareerSeason[], rate: boolean): number | null {
+function peakN(seasons: CareerSeason[], rate: boolean, chart: CareerChartMetric): number | null {
   if (!seasons.length) return null;
-  const score = (s: CareerSeason) => (rate ? (s.minutes > 0 ? (s.goals * 90) / s.minutes : -1) : s.goals);
+  const score =
+    chart === "cleanSheets"
+      ? (s: CareerSeason) => (rate ? csPct(s.cleanSheets, s.starts) ?? -1 : s.cleanSheets)
+      : (s: CareerSeason) => (rate ? (s.minutes > 0 ? (s.goals * 90) / s.minutes : -1) : s.goals);
   const peak = seasons.reduce((m, s) => (score(s) > score(m) ? s : m), seasons[0]);
   return score(peak) > 0 ? peak.n : null;
 }
 
-function fmtVal(v: number | null | undefined, rate: boolean): string {
+function chartKeys(chart: CareerChartMetric, rate: boolean): { aKey: keyof DuelDatum; bKey: keyof DuelDatum } {
+  if (chart === "cleanSheets") {
+    return rate ? { aKey: "aCsPct", bKey: "bCsPct" } : { aKey: "aCleanSheets", bKey: "bCleanSheets" };
+  }
+  return rate ? { aKey: "aPer90", bKey: "bPer90" } : { aKey: "aGoals", bKey: "bGoals" };
+}
+
+function chartLabels(chart: CareerChartMetric, rate: boolean) {
+  if (chart === "cleanSheets") {
+    return {
+      title: rate ? "Clean sheet % by career season" : "Clean sheets by career season",
+      yAxis: rate ? "Clean sheet %" : "Clean sheets",
+      aria: "Clean sheets per season",
+      suffix: rate ? "%" : " clean sheets",
+      context: "starts",
+    };
+  }
+  return {
+    title: rate ? "Goals per 90 by career season" : "Goals by career season",
+    yAxis: rate ? "Goals per 90" : "Goals",
+    aria: "Goals per season",
+    suffix: rate ? " / 90" : " goals",
+    context: "apps",
+  };
+}
+
+function fmtVal(v: number | null | undefined, rate: boolean, chart: CareerChartMetric): string {
   if (v == null) return "—";
+  if (chart === "cleanSheets" && rate) return `${v.toFixed(0)}%`;
   return rate ? v.toFixed(2) : String(v);
 }
 
@@ -85,6 +140,7 @@ function DuelTooltip({
   labelA,
   labelB,
   rate,
+  chart,
   pinned = false,
 }: {
   active?: boolean;
@@ -92,27 +148,30 @@ function DuelTooltip({
   labelA: string;
   labelB: string;
   rate: boolean;
+  chart: CareerChartMetric;
   pinned?: boolean;
 }) {
   if ((!active && !pinned) || !payload?.length) return null;
   const d = payload[0]?.payload;
   if (!d) return null;
+  const { aKey, bKey } = chartKeys(chart, rate);
+  const labels = chartLabels(chart, rate);
   const row = (
     name: string,
     season: string | undefined,
     value: number | null | undefined,
-    apps: number | undefined,
+    context: number | undefined,
     color: string,
   ) => (
     <div className="mt-1.5 first:mt-0">
       <div className="flex items-baseline justify-between gap-3">
         <span className="font-medium" style={{ color }}>{name}</span>
         <span className="stat-num text-sm font-semibold text-ink">
-          {fmtVal(value, rate)}{rate ? " / 90" : " goals"}
+          {fmtVal(value, rate, chart)}{labels.suffix}
         </span>
       </div>
       <div className="stat-num text-[11px] text-ink-faint">
-        {season ?? "—"}{!rate && apps != null ? ` · ${apps} apps` : ""}
+        {season ?? "—"}{!rate && context != null ? ` · ${context} ${labels.context}` : ""}
       </div>
     </div>
   );
@@ -124,8 +183,8 @@ function DuelTooltip({
       role={pinned ? "status" : undefined}
     >
       <div className="text-ink-faint">Season {d.n}</div>
-      {row(labelA, d.aSeason, rate ? d.aPer90 : d.aGoals, d.aApps, A_COLOR)}
-      {row(labelB, d.bSeason, rate ? d.bPer90 : d.bGoals, d.bApps, B_COLOR)}
+      {row(labelA, d.aSeason, d[aKey] as number | null | undefined, chart === "cleanSheets" ? d.aStarts : d.aApps, A_COLOR)}
+      {row(labelB, d.bSeason, d[bKey] as number | null | undefined, chart === "cleanSheets" ? d.bStarts : d.bApps, B_COLOR)}
       {pinned && (
         <div className="mt-1 text-[11px] text-ink-faint">Tap a point again to open matches · tap elsewhere to dismiss</div>
       )}
@@ -134,11 +193,9 @@ function DuelTooltip({
 }
 
 /**
- * Two scoring careers as overlaid curves on a shared career-season axis — peak,
- * longevity, and trajectory read at a glance, the thing two totals never show.
- * `rate` rescales the y-axis between total goals and goals-per-appearance, so a
- * short electric career holds its own against a long accumulator. Hover syncs
- * both series and links out to either player's matches for that season.
+ * Two careers as overlaid curves on a shared career-season axis — peak, longevity,
+ * and trajectory at a glance. Outfield pairs plot goals; defensive pairs plot clean
+ * sheets. `rate` rescales between totals and per-90 / clean-sheet %.
  */
 export function CareerDuelChart({
   a,
@@ -148,6 +205,7 @@ export function CareerDuelChart({
   labelA,
   labelB,
   rate = false,
+  chart = "goals",
   height = 264,
 }: {
   a: CareerSeason[];
@@ -157,6 +215,7 @@ export function CareerDuelChart({
   labelA: string;
   labelB: string;
   rate?: boolean;
+  chart?: CareerChartMetric;
   height?: number;
 }) {
   const gid = useId().replace(/:/g, "");
@@ -166,13 +225,13 @@ export function CareerDuelChart({
   const data = merge(a, b, aId, bId);
   if (!data.length) return null;
 
-  const aKey = rate ? "aPer90" : "aGoals";
-  const bKey = rate ? "bPer90" : "bGoals";
+  const { aKey, bKey } = chartKeys(chart, rate);
+  const labels = chartLabels(chart, rate);
   const maxN = data[data.length - 1].n;
-  const values = data.flatMap((d) => [rate ? d.aPer90 : d.aGoals, rate ? d.bPer90 : d.bGoals]).filter((v): v is number => v != null);
+  const values = data.flatMap((d) => [d[aKey], d[bKey]]).filter((v): v is number => v != null);
   const yMax = values.length ? Math.max(...values) : 1;
-  const peakA = peakN(a, rate);
-  const peakB = peakN(b, rate);
+  const peakA = peakN(a, rate, chart);
+  const peakB = peakN(b, rate, chart);
 
   const dotFor = (series: "a" | "b") => {
     const peak = series === "a" ? peakA : peakB;
@@ -196,8 +255,6 @@ export function CareerDuelChart({
       };
       return (
         <g>
-          {/* Generous transparent hit target so any point opens that player's
-              season; the cursor is the affordance. Visible only at the peak. */}
           <circle
             cx={cx}
             cy={cy}
@@ -223,20 +280,22 @@ export function CareerDuelChart({
 
   return (
     <div ref={rootRef} className="flex h-auto w-full flex-col" style={{ height }}>
-      <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
-        {rate ? "Goals per 90 by career season" : "Goals by career season"}
-      </p>
+      <div className="mb-1 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+          {labels.title}
+        </p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-dim">
+          <Swatch color={A_COLOR} label={labelA} />
+          <Swatch color={B_COLOR} label={labelB} />
+        </div>
+      </div>
       <div className="flex min-h-0 flex-1">
-        {/* Y-axis title lives in an HTML gutter, not as Recharts SVG <text>, so the
-            chart's SVG can't clip it at the top/bottom. Reads bottom-to-top.
-            translateY centres it on the plot (which sits above the x-axis-title
-            margin) rather than on plot+margin. */}
         <div className="flex w-4 shrink-0 items-center justify-center">
           <span
             className="mt-1 text-center text-[10px] text-ink-faint"
             style={{ writingMode: "vertical-rl", transform: "translateY(-10px) rotate(180deg)" }}
           >
-            {rate ? "Goals per 90" : "Goals"}
+            {labels.yAxis}
           </span>
         </div>
         <div className="min-h-0 flex-1">
@@ -245,11 +304,9 @@ export function CareerDuelChart({
             data={data}
             margin={{ top: 12, right: 12, bottom: 24, left: 0 }}
             accessibilityLayer
-            aria-label={`Goals per season: ${labelA} vs ${labelB}`}
+            aria-label={`${labels.aria}: ${labelA} vs ${labelB}`}
             onClick={onChartClick}
           >
-          {/* Matches InspectableBarChart: a <title> surfaces the click affordance
-              on hover, complementing the cursor change on each point. */}
           <title>Click a point to open that player&apos;s matches for the season</title>
           <defs>
             <linearGradient id={`duel-a-${gid}`} x1="0" x2="0" y1="0" y2="1">
@@ -288,12 +345,12 @@ export function CareerDuelChart({
             width={36}
             stroke="var(--color-ink-faint)"
             fontSize={11}
-            tickFormatter={(v) => (rate ? (v as number).toFixed(1) : fmtAxisNumber(v, ""))}
+            tickFormatter={(v) => (rate ? (v as number).toFixed(chart === "cleanSheets" ? 0 : 1) : fmtAxisNumber(v, ""))}
             allowDecimals={rate}
           />
           {!coarse && (
             <Tooltip
-              content={<DuelTooltip labelA={labelA} labelB={labelB} rate={rate} />}
+              content={<DuelTooltip labelA={labelA} labelB={labelB} rate={rate} chart={chart} />}
               cursor={{ stroke: "var(--color-ink-dim)", strokeOpacity: 0.4, strokeWidth: 1 }}
               isAnimationActive={false}
             />
@@ -328,7 +385,7 @@ export function CareerDuelChart({
       </div>
       {coarse && pinned && (
         <div className="mt-2">
-          <DuelTooltip active pinned payload={[{ payload: pinned }]} labelA={labelA} labelB={labelB} rate={rate} />
+          <DuelTooltip active pinned payload={[{ payload: pinned }]} labelA={labelA} labelB={labelB} rate={rate} chart={chart} />
         </div>
       )}
       <p className="mt-1 text-center text-[11px] text-ink-faint sm:hidden">Tap a point to inspect</p>

@@ -1108,6 +1108,57 @@ export function playerHatTricks(id: string): number {
   return row?.n ?? 0;
 }
 
+/** Defensive record for a player — clean sheets and goals conceded in matches
+ *  they started. Team `ga` is attributed to every starter; shared matches when
+ *  two keepers both started are rare. Official matches only. */
+export interface PlayerDefensiveTotals {
+  starts: number;
+  cleanSheets: number;
+  goalsConceded: number;
+}
+
+const PLAYER_DEFENSIVE_FROM = `
+  FROM match_lineups l
+  JOIN matches m ON m.id = l.match_id
+  JOIN competitions c ON c.id = m.competition_id
+  WHERE l.player_id = ?
+    AND l.player_side = 'united'
+    AND l.started = 1
+    AND l.bench = 0
+    AND c.type != 'unofficial'`;
+
+export function playerDefensiveTotals(id: string): PlayerDefensiveTotals {
+  const row = getDb()
+    .prepare(
+      `SELECT COUNT(*) starts,
+              COALESCE(SUM(CASE WHEN m.ga = 0 THEN 1 ELSE 0 END), 0) cleanSheets,
+              COALESCE(SUM(m.ga), 0) goalsConceded
+       ${PLAYER_DEFENSIVE_FROM}`,
+    )
+    .get(id) as PlayerDefensiveTotals | undefined;
+  return row ?? { starts: 0, cleanSheets: 0, goalsConceded: 0 };
+}
+
+export function playerDefensiveBySeason(id: string): {
+  season: string;
+  starts: number;
+  cleanSheets: number;
+  goalsConceded: number;
+}[] {
+  return getDb()
+    .prepare(
+      `SELECT m.season season,
+              COUNT(*) starts,
+              COALESCE(SUM(CASE WHEN m.ga = 0 THEN 1 ELSE 0 END), 0) cleanSheets,
+              COALESCE(SUM(m.ga), 0) goalsConceded
+       ${PLAYER_DEFENSIVE_FROM}
+         AND m.season IS NOT NULL
+       GROUP BY m.season
+       ORDER BY m.season`,
+    )
+    .all(id) as { season: string; starts: number; cleanSheets: number; goalsConceded: number }[];
+}
+
 /** Seasons in which the player won a United medal (league or cup), by documented rules. */
 export function playerMedalSeasons(id: string): string[] {
   return (

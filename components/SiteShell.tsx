@@ -20,7 +20,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SidebarNav />
-      <div className="site-shell-main flex min-w-0 flex-col">
+      <div className="site-shell-main flex min-w-0 flex-col lg:min-h-dvh lg:pl-[var(--sidebar-width)] lg:transition-[padding-left] lg:duration-200">
         <CommandPaletteLoader />
         <WebVitals />
         <main className="site-main mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10">

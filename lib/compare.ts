@@ -1,7 +1,8 @@
 import { getDb } from "./db";
 import { playerCareerSpan } from "./format";
 import {
-  CUP_WON_PREDICATE, managerById, managerHonours, playerById, playerHatTricks, playerSplitsBySeason,
+  CUP_WON_PREDICATE, managerById, managerHonours, playerById, playerDefensiveBySeason,
+  playerDefensiveTotals, playerHatTricks, playerSplitsBySeason, type PlayerDefensiveTotals, type PlayerTotals,
 } from "./queries";
 
 /**
@@ -37,6 +38,8 @@ export interface CuratedDebate {
 export const CURATED_DEBATES: Record<CompareMode, CuratedDebate[]> = {
   players: [
     { label: "Rooney vs Charlton", a: "wayne-rooney", b: "bobby-charlton", hook: "The two men at the top of the all-time scoring charts." },
+    { label: "Schmeichel vs Van der Sar", a: "peter-schmeichel", b: "edwin-van-der-sar", hook: "Two European champions between the posts — clean sheets and conceded per game." },
+    { label: "Vidic vs Pallister", a: "nemanja-vidic", b: "gary-pallister", hook: "Two generations of centre-back — defensive record and silverware." },
     { label: "Ronaldo vs Best", a: "cristiano-ronaldo", b: "george-best", hook: "Two No. 7s, two icons — a generation apart." },
     { label: "Giggs vs Scholes", a: "ryan-giggs", b: "paul-scholes", hook: "The home-grown spine of the Ferguson dynasty, compared season by season." },
     { label: "Cantona vs Van Persie", a: "eric-cantona", b: "robin-van-persie", hook: "Two catalyst signings whose arrival instantly tilted the title race." },
@@ -58,6 +61,8 @@ export interface CompareSide {
   label: string;
   /** Career span / era years / tenure — secondary identity line. */
   sublabel?: string;
+  /** Primary position label — rendered under the career span on player compares. */
+  position_label?: string | null;
   href?: string;
   thumb?: string | null;
 }
@@ -93,7 +98,14 @@ export interface CareerSeason {
   assists: number;
   /** Minutes played this season — the per-90 denominator. */
   minutes: number;
+  starts: number;
+  cleanSheets: number;
+  goalsConceded: number;
 }
+
+export type CareerChartMetric = "goals" | "cleanSheets";
+export type PlayerCompareProfile = "defensive" | "attacking" | "mixed";
+export type PlayerRateMode = "per90" | "perGame";
 
 /** A trophy count for one competition category (only categories actually won). */
 interface TrophyCategory {
@@ -136,7 +148,7 @@ export interface EraFinish {
 }
 
 export type CompareSignature =
-  | { kind: "career"; a: CareerSeason[]; b: CareerSeason[]; aCovered: boolean; bCovered: boolean }
+  | { kind: "career"; a: CareerSeason[]; b: CareerSeason[]; aCovered: boolean; bCovered: boolean; chart: CareerChartMetric }
   | { kind: "trophies"; a: TrophyHaul; b: TrophyHaul }
   | { kind: "skyline"; a: EraFinish[]; b: EraFinish[] };
 
@@ -149,11 +161,15 @@ export interface Comparison {
   signature?: CompareSignature;
   /** One-line plain-language verdict, leading with the most dramatic difference. */
   headline?: string;
+  /** Rate-mode verdict when the total headline would contradict the per-game scoreline. */
+  headlineRate?: string;
   /** Career convergences — shared shirt number, same peak season, overlapping years.
    *  The "where they rhymed" callout; the headline is the divergence. */
   rhymes?: { label: string; detail: string }[];
   /** Evidence links — "the matches behind each side". */
   evidence?: { label: string; href: string }[];
+  /** Player compare only: per-90 for outfield scorers, per-game for defensive pairs. */
+  playerRateMode?: PlayerRateMode;
 }
 
 /** First season of the curated assists lane; before it, assists are unrecorded. */
@@ -181,6 +197,317 @@ function peakSeason(arc: CareerSeason[]): { n: number; season: string; goals: nu
   return peak.goals > 0 ? { n: peak.n, season: peak.season, goals: peak.goals } : null;
 }
 
+function peakCleanSheetSeason(arc: CareerSeason[]): { n: number; season: string; cleanSheets: number } | null {
+  if (!arc.length) return null;
+  const peak = arc.reduce((m, p) => (p.cleanSheets > m.cleanSheets ? p : m), arc[0]);
+  return peak.cleanSheets > 0 ? { n: peak.n, season: peak.season, cleanSheets: peak.cleanSheets } : null;
+}
+
+function playerCompareProfile(a: PlayerTotals, b: PlayerTotals): PlayerCompareProfile {
+  const ba = a.position_bucket;
+  const bb = b.position_bucket;
+  if (ba === "GK" && bb === "GK") return "defensive";
+  if (ba === "DEF" && bb === "DEF") return "defensive";
+  if (!ba || !bb || ba !== bb) {
+    const outfield = new Set(["FWD", "MID"]);
+    if (ba && bb && outfield.has(ba) && outfield.has(bb)) return "attacking";
+    return "mixed";
+  }
+  if (ba === "GK" || ba === "DEF") return "defensive";
+  return "attacking";
+}
+
+function playerSide(p: PlayerTotals, span: string): CompareSide {
+  return {
+    id: p.player_id,
+    label: p.name,
+    sublabel: span,
+    position_label: p.position_label,
+    href: `/player/${p.player_id}`,
+    thumb: p.player_thumb_url ?? p.player_image_url,
+  };
+}
+
+function buildCareerArc(id: string): CareerSeason[] {
+  const defBySeason = new Map(playerDefensiveBySeason(id).map((d) => [d.season, d]));
+  return playerSplitsBySeason(id).map((s, i) => {
+    const d = defBySeason.get(s.season);
+    return {
+      n: i + 1,
+      season: s.season,
+      goals: s.goals,
+      apps: s.apps,
+      assists: s.assists,
+      minutes: s.minutes,
+      starts: s.starts,
+      cleanSheets: d?.cleanSheets ?? 0,
+      goalsConceded: d?.goalsConceded ?? 0,
+    };
+  });
+}
+
+function perGame(n: number, starts: number): number | null {
+  return starts > 0 ? n / starts : null;
+}
+
+function per90(n: number, minutes: number): number | null {
+  return minutes > 0 ? (n * 90) / minutes : null;
+}
+
+function cleanSheetPct(cleanSheets: number, starts: number): number | null {
+  return starts > 0 ? (100 * cleanSheets) / starts : null;
+}
+
+function defensiveHeadline(
+  a: { name: string },
+  b: { name: string },
+  aDef: PlayerDefensiveTotals,
+  bDef: PlayerDefensiveTotals,
+): string {
+  if (aDef.cleanSheets !== bDef.cleanSheets) {
+    const leader = aDef.cleanSheets > bDef.cleanSheets ? a : b;
+    const other = leader === a ? b : a;
+    const hi = Math.max(aDef.cleanSheets, bDef.cleanSheets);
+    const lo = Math.min(aDef.cleanSheets, bDef.cleanSheets);
+    return `${leader.name} kept ${hi - lo} more clean sheet${hi - lo === 1 ? "" : "s"} than ${other.name} — ${hi} to ${lo}.`;
+  }
+  const aCpg = perGame(aDef.goalsConceded, aDef.starts);
+  const bCpg = perGame(bDef.goalsConceded, bDef.starts);
+  if (aCpg != null && bCpg != null && aCpg !== bCpg) {
+    const leader = aCpg < bCpg ? a : b;
+    const other = leader === a ? b : a;
+    return `${leader.name} conceded fewer per game — ${leader === a ? aCpg.toFixed(2) : bCpg.toFixed(2)} to ${other === a ? aCpg.toFixed(2) : bCpg.toFixed(2)}.`;
+  }
+  return `${a.name} and ${b.name} are level on clean sheets — ${aDef.cleanSheets} apiece.`;
+}
+
+function defensiveRateHeadline(
+  a: { name: string },
+  b: { name: string },
+  aDef: PlayerDefensiveTotals,
+  bDef: PlayerDefensiveTotals,
+): string {
+  const aCs = cleanSheetPct(aDef.cleanSheets, aDef.starts);
+  const bCs = cleanSheetPct(bDef.cleanSheets, bDef.starts);
+  const aCpg = perGame(aDef.goalsConceded, aDef.starts);
+  const bCpg = perGame(bDef.goalsConceded, bDef.starts);
+
+  if (aCpg != null && bCpg != null && aCpg !== bCpg) {
+    const leader = aCpg < bCpg ? a : b;
+    const other = leader === a ? b : a;
+    const leaderVal = leader === a ? aCpg : bCpg;
+    const otherVal = other === a ? aCpg : bCpg;
+    return `${leader.name} conceded fewer per game — ${leaderVal.toFixed(2)} to ${other.name}'s ${otherVal.toFixed(2)}.`;
+  }
+  if (aCs != null && bCs != null && aCs !== bCs) {
+    const leader = aCs > bCs ? a : b;
+    const other = leader === a ? b : a;
+    const leaderVal = leader === a ? aCs : bCs;
+    const otherVal = other === a ? aCs : bCs;
+    return `${leader.name} kept a higher clean-sheet rate — ${leaderVal.toFixed(0)}% to ${other.name}'s ${otherVal.toFixed(0)}%.`;
+  }
+  return `${a.name} and ${b.name} are level on the per-game defensive measures.`;
+}
+
+function attackingRateHeadline(
+  a: { name: string; goals: number; assists: number },
+  b: { name: string; goals: number; assists: number },
+  aMinutes: number,
+  bMinutes: number,
+  assistsComparable: boolean,
+): string {
+  const aGp90 = per90(a.goals, aMinutes);
+  const bGp90 = per90(b.goals, bMinutes);
+
+  if (aGp90 != null && bGp90 != null && aGp90 !== bGp90) {
+    const leader = aGp90 > bGp90 ? a : b;
+    const other = leader === a ? b : a;
+    const leaderVal = leader === a ? aGp90 : bGp90;
+    const otherVal = other === a ? aGp90 : bGp90;
+    return `${leader.name} scored more per 90 — ${leaderVal.toFixed(2)} to ${other.name}'s ${otherVal.toFixed(2)}.`;
+  }
+
+  if (assistsComparable) {
+    const aAp90 = per90(a.assists, aMinutes);
+    const bAp90 = per90(b.assists, bMinutes);
+    if (aAp90 != null && bAp90 != null && aAp90 !== bAp90) {
+      const leader = aAp90 > bAp90 ? a : b;
+      const other = leader === a ? b : a;
+      const leaderVal = leader === a ? aAp90 : bAp90;
+      const otherVal = other === a ? aAp90 : bAp90;
+      return `${leader.name} assisted more per 90 — ${leaderVal.toFixed(2)} to ${other.name}'s ${otherVal.toFixed(2)}.`;
+    }
+  }
+
+  const tied = aGp90?.toFixed(2) ?? "—";
+  return `${a.name} and ${b.name} are level on goals per 90 — ${tied} apiece.`;
+}
+
+const DEFENSIVE_CLEAN_SHEET_NOTE =
+  "United didn't concede in matches the player started. Team goals against are shared across every starter in the side.";
+
+function buildDefensiveMetrics(
+  a: PlayerTotals,
+  b: PlayerTotals,
+  aDef: PlayerDefensiveTotals,
+  bDef: PlayerDefensiveTotals,
+  aHaul: TrophyHaul,
+  bHaul: TrophyHaul,
+  includeGoals: boolean,
+): CompareMetric[] {
+  const metrics: CompareMetric[] = [
+    { label: "Appearances", a: a.apps, b: b.apps, fmt: "int", better: "higher" },
+    {
+      label: "Clean sheets",
+      a: aDef.cleanSheets,
+      b: bDef.cleanSheets,
+      fmt: "int",
+      better: "higher",
+      note: DEFENSIVE_CLEAN_SHEET_NOTE,
+      rate: {
+        a: cleanSheetPct(aDef.cleanSheets, aDef.starts),
+        b: cleanSheetPct(bDef.cleanSheets, bDef.starts),
+        label: "Clean sheet %",
+        fmt: "pct",
+      },
+    },
+    {
+      label: "Goals conceded",
+      a: aDef.goalsConceded,
+      b: bDef.goalsConceded,
+      fmt: "int",
+      better: "lower",
+      note: "Team goals against in matches started — lower is better.",
+      rate: {
+        a: perGame(aDef.goalsConceded, aDef.starts),
+        b: perGame(bDef.goalsConceded, bDef.starts),
+        label: "Conceded per game",
+        fmt: "dec2",
+      },
+    },
+  ];
+  if (includeGoals) {
+    metrics.push({
+      label: "Goals",
+      a: a.goals,
+      b: b.goals,
+      fmt: "int",
+      better: "higher",
+      rate: {
+        a: a.apps > 0 ? a.goals / a.apps : null,
+        b: b.apps > 0 ? b.goals / b.apps : null,
+        label: "Goals per game",
+        fmt: "dec2",
+      },
+    });
+  }
+  metrics.push({
+    label: "Trophies",
+    a: aHaul.total,
+    b: bHaul.total,
+    fmt: "int",
+    better: "higher",
+    note: "Medals by the medal rules: 5+ appearances in a title-winning league season, one appearance anywhere in a cup won.",
+  });
+  return metrics;
+}
+
+function buildAttackingMetrics(
+  a: PlayerTotals,
+  b: PlayerTotals,
+  aArc: CareerSeason[],
+  bArc: CareerSeason[],
+  aMinutes: number,
+  bMinutes: number,
+  assistsComparable: boolean,
+  uncoveredName: string,
+  aHat: number,
+  bHat: number,
+  pa: ReturnType<typeof peakSeason>,
+  pb: ReturnType<typeof peakSeason>,
+  aHaul: TrophyHaul,
+  bHaul: TrophyHaul,
+): CompareMetric[] {
+  const per90Rate = (n: number, minutes: number): number | null => per90(n, minutes);
+  return [
+    { label: "Appearances", a: a.apps, b: b.apps, fmt: "int", better: "higher" },
+    {
+      label: "Goals",
+      a: a.goals,
+      b: b.goals,
+      fmt: "int",
+      better: "higher",
+      rate: { a: per90Rate(a.goals, aMinutes), b: per90Rate(b.goals, bMinutes), label: "Goals per 90", fmt: "dec2" },
+    },
+    {
+      label: "Hat-tricks",
+      a: aHat,
+      b: bHat,
+      fmt: "int",
+      better: "higher",
+      note: "Three or more in one match — match-attributed, like the career graph.",
+    },
+    {
+      label: "Assists",
+      a: a.assists,
+      b: b.assists,
+      fmt: "int",
+      better: "higher",
+      comparable: assistsComparable,
+      note: assistsComparable
+        ? "Curated 1987–88 to 2014–15 lane plus match events after."
+        : `${uncoveredName} predates assist recording (from 1987–88) — the gap is an artifact of the record, not the player.`,
+      rate: { a: per90Rate(a.assists, aMinutes), b: per90Rate(b.assists, bMinutes), label: "Assists per 90", fmt: "dec2" },
+    },
+    ...(pa || pb
+      ? [{
+          label: "Best season",
+          a: pa?.goals ?? 0,
+          b: pb?.goals ?? 0,
+          fmt: "int" as const,
+          better: "higher" as const,
+          note: [pa && `${a.name}: ${pa.goals} in ${pa.season}`, pb && `${b.name}: ${pb.goals} in ${pb.season}`]
+            .filter(Boolean).join("; ") + ".",
+        }]
+      : []),
+    {
+      label: "Trophies",
+      a: aHaul.total,
+      b: bHaul.total,
+      fmt: "int",
+      better: "higher",
+      note: "Medals by the medal rules: 5+ appearances in a title-winning league season, one appearance anywhere in a cup won.",
+    },
+  ];
+}
+
+function buildMixedMetrics(
+  a: PlayerTotals,
+  b: PlayerTotals,
+  aHaul: TrophyHaul,
+  bHaul: TrophyHaul,
+): CompareMetric[] {
+  return [
+    { label: "Appearances", a: a.apps, b: b.apps, fmt: "int", better: "higher" },
+    {
+      label: "Goals",
+      a: a.goals,
+      b: b.goals,
+      fmt: "int",
+      comparable: false,
+      note: `${a.position_label ?? "Different positions"} vs ${b.position_label ?? "different roles"} — goal totals aren't a like-for-like read.`,
+    },
+    {
+      label: "Trophies",
+      a: aHaul.total,
+      b: bHaul.total,
+      fmt: "int",
+      better: "higher",
+      note: "Medals by the medal rules: 5+ appearances in a title-winning league season, one appearance anywhere in a cup won.",
+    },
+  ];
+}
+
 // ----------------------------------------------------------------- players
 
 export function comparePlayers(idA: string, idB: string): Comparison | null {
@@ -189,22 +516,11 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
   if (!a || !b || a.player_id === b.player_id) return null;
 
   const span = (p: typeof a): string => playerCareerSpan(p) ?? "";
-  // The football-standard rate is per 90 minutes, not per appearance — a sub's
-  // goal is worth the same in a per-app average as a starter's, which flatters
-  // 90-minute accumulators. Minutes are derived from the lineup record across
-  // the whole dataset, so per-90 is available wherever the career is.
-  const per90 = (n: number, minutes: number): number | null => (minutes > 0 ? (n * 90) / minutes : null);
-  const arc = (id: string): CareerSeason[] =>
-    playerSplitsBySeason(id).map((s, i) => ({ n: i + 1, season: s.season, goals: s.goals, apps: s.apps, assists: s.assists, minutes: s.minutes }));
-
-  const aArc = arc(a.player_id);
-  const bArc = arc(b.player_id);
+  const profile = playerCompareProfile(a, b);
+  const aArc = buildCareerArc(a.player_id);
+  const bArc = buildCareerArc(b.player_id);
   const aMinutes = aArc.reduce((t, s) => t + s.minutes, 0);
   const bMinutes = bArc.reduce((t, s) => t + s.minutes, 0);
-
-  // Assist coverage: the curated lane starts 1987-88. A career largely before it
-  // produces a literal 0 that isn't a figure — so assists only count toward the
-  // verdict when both careers fall inside the recorded window.
   const aCovered = assistCovered(aArc);
   const bCovered = assistCovered(bArc);
   const assistsComparable = aCovered && bCovered;
@@ -216,63 +532,58 @@ export function comparePlayers(idA: string, idB: string): Comparison | null {
         ? b.name
         : "";
 
-  const goalLeader = a.goals === b.goals ? null : a.goals > b.goals ? a : b;
-  const headline = goalLeader
-    ? `${goalLeader.name} out-scored ${(goalLeader === a ? b : a).name} ${Math.max(a.goals, b.goals)}–${Math.min(a.goals, b.goals)}.`
-    : `${a.name} and ${b.name} are level on goals — ${a.goals} apiece.`;
-
-  // Scoring depth beyond the volume total: hat-tricks (dominant single games)
-  // and the best season's goal return (the peak the career graph plots). Both
-  // derive from the match-attributed record, so they are honest wherever the
-  // goal events are — the whole career for every curated debate.
   const aHat = playerHatTricks(a.player_id);
   const bHat = playerHatTricks(b.player_id);
   const pa = peakSeason(aArc);
   const pb = peakSeason(bArc);
-  // Silverware: a player's medal count, attributed the same way as a manager's
-  // haul (appeared in the deciding match). Match-attributed and complete across
-  // every curated pair, so no coverage gate is needed.
   const aHaul = playerTrophyHaul(a.player_id);
   const bHaul = playerTrophyHaul(b.player_id);
+  const aDef = playerDefensiveTotals(a.player_id);
+  const bDef = playerDefensiveTotals(b.player_id);
+
+  let metrics: CompareMetric[];
+  let headline: string;
+  let headlineRate: string | undefined;
+  let playerRateMode: PlayerRateMode | undefined;
+  let chart: CareerChartMetric;
+
+  if (profile === "defensive") {
+    const bothGk = a.position_bucket === "GK";
+    metrics = buildDefensiveMetrics(a, b, aDef, bDef, aHaul, bHaul, !bothGk);
+    headline = defensiveHeadline(a, b, aDef, bDef);
+    headlineRate = defensiveRateHeadline(a, b, aDef, bDef);
+    playerRateMode = "perGame";
+    chart = "cleanSheets";
+  } else if (profile === "mixed") {
+    metrics = buildMixedMetrics(a, b, aHaul, bHaul);
+    const goalLeader = a.goals === b.goals ? null : a.goals > b.goals ? a : b;
+    headline = goalLeader
+      ? `${goalLeader.name} scored ${Math.max(a.goals, b.goals)} United goals to ${(goalLeader === a ? b : a).name}'s ${Math.min(a.goals, b.goals)} — different positions, so lean on appearances and medals.`
+      : `${a.name} and ${b.name} are level on goals — different positions, so lean on appearances and medals.`;
+    chart = "goals";
+  } else {
+    metrics = buildAttackingMetrics(a, b, aArc, bArc, aMinutes, bMinutes, assistsComparable, uncoveredName, aHat, bHat, pa, pb, aHaul, bHaul);
+    const goalLeader = a.goals === b.goals ? null : a.goals > b.goals ? a : b;
+    headline = goalLeader
+      ? `${goalLeader.name} out-scored ${(goalLeader === a ? b : a).name} ${Math.max(a.goals, b.goals)}–${Math.min(a.goals, b.goals)}.`
+      : `${a.name} and ${b.name} are level on goals — ${a.goals} apiece.`;
+    headlineRate = attackingRateHeadline(a, b, aMinutes, bMinutes, assistsComparable);
+    playerRateMode = "per90";
+    chart = "goals";
+  }
 
   return {
     mode: "players",
-    a: { id: a.player_id, label: a.name, sublabel: span(a), href: `/player/${a.player_id}`, thumb: a.player_thumb_url ?? a.player_image_url },
-    b: { id: b.player_id, label: b.name, sublabel: span(b), href: `/player/${b.player_id}`, thumb: b.player_thumb_url ?? b.player_image_url },
-    metrics: [
-      { label: "Appearances", a: a.apps, b: b.apps, fmt: "int", better: "higher" },
-      {
-        label: "Goals", a: a.goals, b: b.goals, fmt: "int", better: "higher",
-        rate: { a: per90(a.goals, aMinutes), b: per90(b.goals, bMinutes), label: "Goals per 90", fmt: "dec2" },
-      },
-      {
-        label: "Hat-tricks", a: aHat, b: bHat, fmt: "int", better: "higher",
-        note: "Three or more in one match — match-attributed, like the career graph.",
-      },
-      {
-        label: "Assists", a: a.assists, b: b.assists, fmt: "int", better: "higher", comparable: assistsComparable,
-        note: assistsComparable
-          ? "Curated 1987–88 to 2014–15 lane plus match events after."
-          : `${uncoveredName} predates assist recording (from 1987–88) — the gap is an artifact of the record, not the player.`,
-        rate: { a: per90(a.assists, aMinutes), b: per90(b.assists, bMinutes), label: "Assists per 90", fmt: "dec2" },
-      },
-      ...(pa || pb ? [{
-        label: "Best season",
-        a: pa?.goals ?? 0,
-        b: pb?.goals ?? 0,
-        fmt: "int" as const,
-        better: "higher" as const,
-        note: [pa && `${a.name}: ${pa.goals} in ${pa.season}`, pb && `${b.name}: ${pb.goals} in ${pb.season}`]
-          .filter(Boolean).join("; ") + ".",
-      }] : []),
-      {
-        label: "Trophies", a: aHaul.total, b: bHaul.total, fmt: "int", better: "higher",
-        note: "Medals by the medal rules: 5+ appearances in a title-winning league season, one appearance anywhere in a cup won.",
-      },
-    ],
-    signature: aArc.length || bArc.length ? { kind: "career", a: aArc, b: bArc, aCovered, bCovered } : undefined,
+    a: playerSide(a, span(a)),
+    b: playerSide(b, span(b)),
+    metrics,
+    signature: aArc.length || bArc.length
+      ? { kind: "career", a: aArc, b: bArc, aCovered, bCovered, chart }
+      : undefined,
     headline,
-    rhymes: playerRhymes(a, b, aArc, bArc, aHaul.total, bHaul.total),
+    headlineRate,
+    playerRateMode,
+    rhymes: playerRhymes(a, b, aArc, bArc, aHaul.total, bHaul.total, profile),
     evidence: [
       { label: `${a.name}'s matches →`, href: `/player/${a.player_id}` },
       { label: `${b.name}'s matches →`, href: `/player/${b.player_id}` },
@@ -295,6 +606,7 @@ function playerRhymes(
   bArc: CareerSeason[],
   aTrophies: number,
   bTrophies: number,
+  profile: PlayerCompareProfile,
 ): { label: string; detail: string }[] | undefined {
   const out: { label: string; detail: string }[] = [];
 
@@ -305,13 +617,24 @@ function playerRhymes(
     });
   }
 
-  const pa = peakSeason(aArc);
-  const pb = peakSeason(bArc);
-  if (pa && pb && pa.n === pb.n) {
-    out.push({
-      label: `Both peaked in season ${pa.n}`,
-      detail: `${a.name}'s best was ${pa.season} (${pa.goals} goals); ${b.name}'s, ${pb.season} (${pb.goals}).`,
-    });
+  if (profile === "defensive") {
+    const pa = peakCleanSheetSeason(aArc);
+    const pb = peakCleanSheetSeason(bArc);
+    if (pa && pb && pa.n === pb.n) {
+      out.push({
+        label: `Both peaked in season ${pa.n}`,
+        detail: `${a.name}'s best was ${pa.season} (${pa.cleanSheets} clean sheets); ${b.name}'s, ${pb.season} (${pb.cleanSheets}).`,
+      });
+    }
+  } else {
+    const pa = peakSeason(aArc);
+    const pb = peakSeason(bArc);
+    if (pa && pb && pa.n === pb.n) {
+      out.push({
+        label: `Both peaked in season ${pa.n}`,
+        detail: `${a.name}'s best was ${pa.season} (${pa.goals} goals); ${b.name}'s, ${pb.season} (${pb.goals}).`,
+      });
+    }
   }
 
   if (a.first_year && b.first_year && a.first_year === b.first_year) {

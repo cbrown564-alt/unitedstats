@@ -624,6 +624,27 @@ test("compare builders reproduce the official record across the three modes", ()
   const rooAssists = byLabel(players, "Assists");
   assert.equal(rooAssists.comparable, false, "Rooney-vs-Charlton assists must be flagged non-comparable");
   assert.ok(byLabel(players, "Goals").rate, "Goals metric should expose a per-90 rate");
+  assert.match(players.headlineRate ?? "", /per 90/i, "attacking pairs carry a per-90 verdict");
+
+  // Goalkeepers: defensive profile with clean sheets and per-game rates.
+  const keepers = comparePlayers("peter-schmeichel", "edwin-van-der-sar");
+  assert.ok(keepers, "expected a goalkeeper comparison");
+  assert.equal(keepers.playerRateMode, "perGame");
+  assert.equal(keepers.signature?.kind === "career" ? keepers.signature.chart : null, "cleanSheets");
+  assert.deepEqual([byLabel(keepers, "Clean sheets").a, byLabel(keepers, "Clean sheets").b], [178, 132]);
+  assert.ok(byLabel(keepers, "Goals conceded").rate, "conceded carries a per-game rate");
+  assert.equal(keepers.metrics.find((m) => m.label === "Goals"), undefined, "pure GK pairs skip goals");
+  assert.match(keepers.headlineRate ?? "", /conceded fewer per game|clean-sheet rate/i);
+
+  // Defenders: defensive profile but keep goals for centre-backs who scored.
+  const defs = comparePlayers("nemanja-vidic", "gary-pallister");
+  assert.ok(defs, "expected a defender comparison");
+  assert.ok(byLabel(defs, "Goals"), "defender pairs still carry goals");
+  assert.deepEqual([byLabel(defs, "Clean sheets").a, byLabel(defs, "Clean sheets").b], [143, 182]);
+
+  // Headers carry position under the career span.
+  assert.equal(keepers.a.position_label, "goalkeeper");
+  assert.equal(keepers.b.position_label, "goalkeeper");
 
   // Rhymes: the Ferguson-vs-Mourinho reigns share a squad — players from the late
   // Ferguson years carried over into Mourinho's tenure (Rooney, De Gea, …).

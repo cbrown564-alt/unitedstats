@@ -7,6 +7,7 @@ import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
 import { CareerDuelChartLazy, EraSkylineChartLazy } from "@/components/charts/lazy";
 import { TrophyCabinet } from "@/components/CompareSignatures";
+import { ShareCite } from "@/components/ShareCite";
 import { fmtNum } from "@/lib/format";
 
 /** The active-mode values/label/fmt for a metric: its rate form when the toggle
@@ -61,6 +62,9 @@ function ScoreSide({
           {side.label}
         </span>
         {side.sublabel && <span className="stat-num block truncate text-xs text-ink-faint">{side.sublabel}</span>}
+        {side.position_label && (
+          <span className="block truncate text-[10px] capitalize text-ink-faint">{side.position_label}</span>
+        )}
       </span>
     </span>
   );
@@ -105,15 +109,23 @@ function RateToggle({
 
 function ShowDetailToggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
   return (
-    <div className="mb-3 flex justify-end">
+    <div className="mt-2 flex justify-end">
       <button
         type="button"
         onClick={onToggle}
         aria-pressed={on}
-        className={`rounded-full px-2.5 py-1 text-[11px] font-medium tracking-wide transition-colors focus-ring ${
-          on ? "text-devil-bright" : "text-ink-faint hover:text-ink-dim"
-        }`}
+        className="inline-flex items-center gap-1.5 rounded-full px-1 py-px !text-[9px] font-normal leading-none tracking-[0.06em] text-ink-faint transition-colors focus-ring hover:text-ink-dim"
       >
+        <span
+          aria-hidden
+          className={`relative h-2.5 w-4 shrink-0 overflow-hidden rounded-full transition-colors duration-200 ${on ? "bg-devil" : "bg-line"}`}
+        >
+          <span
+            className={`absolute left-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-ink transition-transform duration-200 motion-reduce:transition-none ${
+              on ? "translate-x-[6px]" : "translate-x-0"
+            }`}
+          />
+        </span>
         {on ? "Hide detail" : "Show detail"}
       </button>
     </div>
@@ -147,7 +159,7 @@ function MeasureRow({ m, rate, showDetail }: { m: CompareMetric; rate: boolean; 
         </div>
         <span className={`stat-num text-left text-sm ${bTextTone}`}>{fmtVal(b, fmt)}</span>
       </div>
-      <div className="mt-1 flex items-center justify-center gap-2 text-center">
+      <div className="mt-1 flex flex-col items-center gap-1 text-center">
         <span className="text-[11px] font-medium uppercase tracking-[0.1em] text-ink-faint">
           {label}
           {m.better === "lower" && <span className="ml-1 normal-case tracking-normal">(fewer better)</span>}
@@ -220,6 +232,7 @@ function Signature({
         labelA={a.label}
         labelB={b.label}
         rate={rate}
+        chart={signature.chart}
       />
     );
   }
@@ -253,7 +266,7 @@ function CompareCoverageNotes({ mode }: { mode: CompareMode }) {
         <>
           <p className="text-xs text-ink-dim">
             <span className="font-medium text-ink">Club record</span> — verified apps and goals; career graph uses
-            match-attributed goals.
+            match-attributed goals. Goalkeeper and defender pairs switch to clean sheets and goals conceded.
           </p>
           <CoverageNote
             className="!mt-0"
@@ -302,19 +315,25 @@ export function CompareTable({
   comparison,
   rate = false,
   rateHref,
+  share,
 }: {
   comparison: Comparison;
   rate?: boolean;
   /** Builds the toggle's href for a given mode. Supplied by the page from its
    *  search params; when absent the toggle is hidden (no rate metrics to flip). */
   rateHref?: { total: string; rate: string };
+  share?: { path: string; title: string };
 }) {
   const [showDetail, setShowDetail] = useState(false);
   const withThumb = comparison.mode !== "eras";
   const hasRate = comparison.metrics.some((m) => m.rate);
-  // Players rate by minutes (per 90); managers and eras rate by matches (per game).
-  const rateLabel = comparison.mode === "players" ? "Per 90" : "Per game";
-  const rateTag = comparison.mode === "players" ? "per 90" : "per game";
+  const playerPerGame = comparison.playerRateMode === "perGame";
+  const rateLabel = comparison.mode === "players"
+    ? playerPerGame ? "Per game" : "Per 90"
+    : "Per game";
+  const rateTag = comparison.mode === "players"
+    ? playerPerGame ? "per game" : "per 90"
+    : "per game";
 
   const judged = comparison.metrics.filter((m) => leaderOf(m, rate) !== null);
   const leadsA = judged.filter((m) => leaderOf(m, rate) === "a").length;
@@ -324,19 +343,25 @@ export function CompareTable({
     winner === side ? "win" : winner ? "lose" : "level";
 
   // The crafted headline is a total-mode story (e.g. "out-scored 253–249"); under
-  // per-game it would contradict the rate-aware scoreline, so fall back to the
-  // measures summary there.
+  // per-game/per-90 use a rate headline when the comparison supplies one.
   const verdict =
     !rate && comparison.headline
       ? comparison.headline
-      : judged.length === 0
-        ? "These records are too close to separate on these measures."
-        : winner
-          ? `Leads ${Math.max(leadsA, leadsB)}–${Math.min(leadsA, leadsB)} across ${judged.length} measures.`
-          : `Level at ${leadsA}–${leadsB} across ${judged.length} measures.`;
+      : rate && comparison.headlineRate
+        ? comparison.headlineRate
+        : judged.length === 0
+          ? "These records are too close to separate on these measures."
+          : winner
+            ? `Leads ${Math.max(leadsA, leadsB)}–${Math.min(leadsA, leadsB)} across ${judged.length} measures.`
+            : `Level at ${leadsA}–${leadsB} across ${judged.length} measures.`;
 
   return (
-    <div className="overflow-hidden rounded-lg border border-line bg-panel">
+    <div className="relative overflow-hidden rounded-lg border border-line bg-panel">
+      {share && (
+        <div className="absolute right-4 top-1.75 z-10">
+          <ShareCite path={share.path} title={share.title} />
+        </div>
+      )}
       {hasRate && rateHref && (
         <div className="border-b border-line bg-panel-2/30 px-4 py-2 sm:px-5">
           <RateToggle
@@ -367,8 +392,8 @@ export function CompareTable({
 
       {comparison.signature && (
         <div className="px-4 pt-4 sm:px-5">
-          <ShowDetailToggle on={showDetail} onToggle={() => setShowDetail((v) => !v)} />
           <Signature signature={comparison.signature} a={comparison.a} b={comparison.b} metrics={comparison.metrics} rate={rate} />
+          <ShowDetailToggle on={showDetail} onToggle={() => setShowDetail((v) => !v)} />
         </div>
       )}
 
