@@ -29,14 +29,14 @@ const SEASON_SORT_LABELS: Record<SeasonSortKey, string> = {
   ga: "goals + assists",
 };
 
-/** Mobile sort picker — fixed key + direction pairs (high-first for stats, both orders for season). */
+/** Mobile sort picker — fixed key + direction pairs (chronological default, then stat sorts). */
 const MOBILE_SORT_OPTIONS: { key: SeasonSortKey; dir: SortDirection; label: string }[] = [
+  { key: "season", dir: "asc", label: "Season (oldest first)" },
+  { key: "season", dir: "desc", label: "Season (newest first)" },
   { key: "goals", dir: "desc", label: "Goals (most first)" },
   { key: "ga", dir: "desc", label: "G+A (most first)" },
   { key: "apps", dir: "desc", label: "Apps (most first)" },
   { key: "assists", dir: "desc", label: "Assists (most first)" },
-  { key: "season", dir: "desc", label: "Season (newest first)" },
-  { key: "season", dir: "asc", label: "Season (oldest first)" },
 ];
 
 function seasonSubline(s: SeasonSplit, sortKey: SeasonSortKey): string {
@@ -70,7 +70,7 @@ function SeasonMobileSort({
 }) {
   const value = `${sortKey}:${sortDir}`;
   const matched = MOBILE_SORT_OPTIONS.some((o) => `${o.key}:${o.dir}` === value);
-  const selectValue = matched ? value : "goals:desc";
+  const selectValue = matched ? value : "season:asc";
 
   return (
     <label className="flex min-w-0 flex-1 items-center gap-2 sm:hidden">
@@ -200,13 +200,6 @@ export function PlayerSeasonTable({
       const frame = window.requestAnimationFrame(() => {
         setSortKey(key);
         setSortDir(dir);
-      });
-      return () => window.cancelAnimationFrame(frame);
-    }
-    if (window.matchMedia("(max-width: 639px)").matches) {
-      const frame = window.requestAnimationFrame(() => {
-        setSortKey("goals");
-        setSortDir("desc");
       });
       return () => window.cancelAnimationFrame(frame);
     }
@@ -350,6 +343,7 @@ export function PlayerSeasonTable({
       registerHref={(s) => `/seasons/${s.season}`}
       registerSubline={(s, _index, key) => seasonSubline(s, key as SeasonSortKey)}
       registerFigureTone={seasonFigureTone}
+      registerShowRank={sortKey !== "season"}
       caption={`${playerName} season-by-season apps, goals, and assists`}
       sort={{ key: sortKey, direction: sortDir, onSort }}
       rowClassName={(s) => seasonPeakRowClass(s.season, goalPeakSet, assistPeakSet)}
