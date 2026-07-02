@@ -9,6 +9,8 @@ import { PageHeader } from "@/components/PageHeader";
 import { CompareTable } from "@/components/CompareTable";
 import { ShareCite } from "@/components/ShareCite";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
+import { RelatedAnswers } from "@/components/RelatedAnswers";
+import { relatedComparisons } from "@/lib/compareRelated";
 import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 
@@ -128,14 +130,19 @@ export default async function ComparePage({
               { label: `${comparison.a.label} vs ${comparison.b.label}` },
             ]}
           />
-          <div className="flex justify-end">
-            <ShareCite
-              path={`/compare${queryString({ mode, a: rawA, b: rawB, rate: rate ? undefined : "total" })}`}
-              title={`${comparison.a.label} vs ${comparison.b.label} — Compare`}
-            />
-          </div>
-          <CompareTable comparison={comparison} rate={rate} rateHref={rateHref} />
+          <CompareTable
+            comparison={comparison}
+            rate={rate}
+            rateHref={rateHref}
+            share={
+              <ShareCite
+                path={`/compare${queryString({ mode, a: rawA, b: rawB, rate: rate ? undefined : "total" })}`}
+                title={`${comparison.a.label} vs ${comparison.b.label} — Compare`}
+              />
+            }
+          />
           <CutLinks comparison={comparison} />
+          <RelatedAnswers links={relatedComparisons(mode, comparison.a.id, comparison.b.id)} />
           <section>
             <h2 className={sectionHead}>Compare another</h2>
             <div className="mt-3">{picker}</div>
@@ -145,21 +152,24 @@ export default async function ComparePage({
       ) : (
         <div className="space-y-7">
           <section>
-            <h2 className={sectionHead}>Curated debates</h2>
+            <h2 className={sectionHead}>Build a custom matchup</h2>
             <p className="mt-1 mb-3 text-sm text-ink-dim">
-              Open a curated head-to-head comparison, or build a custom matchup below — {MODES.find((m) => m.key === mode)?.blurb}.
+              Name any two {MODES.find((m) => m.key === mode)?.blurb} — the scoreboard uses the same measures for every pair.
             </p>
-            <Suggestions mode={mode} suggestions={suggestions} />
+            {unresolved && (
+              <p className="mb-3 text-sm text-ink-dim">
+                Couldn’t find a {cfg.noun} matching &ldquo;{unresolved}&rdquo;. Try another name, or pick a curated debate below.
+              </p>
+            )}
+            <div>{picker}</div>
           </section>
 
           <section>
-            <h2 className={sectionHead}>Build a custom matchup</h2>
-            {unresolved && (
-              <p className="mt-2 text-sm text-ink-dim">
-                Couldn’t find a {cfg.noun} matching &ldquo;{unresolved}&rdquo;. Try another name, or pick a curated debate above.
-              </p>
-            )}
-            <div className="mt-3">{picker}</div>
+            <h2 className={sectionHead}>Curated debates</h2>
+            <p className="mt-1 mb-3 text-sm text-ink-dim">
+              Settled head-to-heads with a live verdict — open one, or build your own above.
+            </p>
+            <Suggestions mode={mode} suggestions={suggestions} />
           </section>
         </div>
       )}

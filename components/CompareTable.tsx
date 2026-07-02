@@ -1,7 +1,9 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { Comparison, CompareMetric, CompareMode, CompareSide, CompareSignature } from "@/lib/compare";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
+import { CompareThread } from "@/components/CompareThread";
 import { CareerDuelChartLazy, EraSkylineChartLazy } from "@/components/charts/lazy";
 import { TrophyCabinet } from "@/components/CompareSignatures";
 import { fmtNum } from "@/lib/format";
@@ -207,7 +209,7 @@ function Signature({
   );
 }
 
-/** Short, mode-specific coverage footnotes — same voice as the player page. */
+/** Short, mode-specific coverage — same voice as the player page. */
 function CompareCoverage({
   mode,
   evidence,
@@ -216,10 +218,10 @@ function CompareCoverage({
   evidence?: { label: string; href: string }[];
 }) {
   return (
-    <div className="mt-3 space-y-3 border-t border-line/60 pt-3">
+    <div className="space-y-3">
       {mode === "players" && (
         <>
-          <p className="text-xs text-ink-dim">
+          <p className="text-sm leading-6 text-ink-dim">
             <span className="font-medium text-ink">Club record</span> — verified apps and goals; career graph uses
             match-attributed goals.
           </p>
@@ -232,13 +234,13 @@ function CompareCoverage({
         </>
       )}
       {mode === "managers" && (
-        <p className="text-xs text-ink-dim">
+        <p className="text-sm leading-6 text-ink-dim">
           <span className="font-medium text-ink">Official record</span> — every competitive match; points as three per
           game; trophies are league titles and cups won.
         </p>
       )}
       {mode === "eras" && (
-        <p className="text-xs text-ink-dim">
+        <p className="text-sm leading-6 text-ink-dim">
           <span className="font-medium text-ink">Official record</span> — competitive matches only; skyline shows
           top-flight league finishes; points as three per game.
         </p>
@@ -246,7 +248,7 @@ function CompareCoverage({
       {evidence && evidence.length > 0 && (
         <div className="flex flex-wrap gap-x-4 gap-y-1">
           {evidence.map((e) => (
-            <Link key={e.href + e.label} href={e.href} className="text-xs text-devil-bright hover:underline">
+            <Link key={e.href + e.label} href={e.href} className="text-sm text-devil-bright hover:underline">
               {e.label}
             </Link>
           ))}
@@ -257,27 +259,30 @@ function CompareCoverage({
 }
 
 /**
- * A versus comparison rendered as a match scoreboard, then the one artifact that
- * carries the story for its mode (career-arc duel / trophy cabinet / finish
- * skyline), with the shared measures kept as diverging bars beneath. A Total /
- * Per-game toggle rescales every rate-able metric — and the scoreline with it.
+ * A resolved comparison as a fixed thread: verdict → signature → measures →
+ * coverage. The scoreboard leads; the signature visual carries the story; shared
+ * metrics sit as diverging bars; coverage closes the argument honestly.
  */
 export function CompareTable({
   comparison,
   rate = false,
   rateHref,
+  share,
 }: {
   comparison: Comparison;
   rate?: boolean;
   /** Builds the toggle's href for a given mode. Supplied by the page from its
    *  search params; when absent the toggle is hidden (no rate metrics to flip). */
   rateHref?: (perGame: boolean) => string;
+  /** Optional share control — sits on the article plate like the question modules. */
+  share?: ReactNode;
 }) {
   const withThumb = comparison.mode !== "eras";
   const hasRate = comparison.metrics.some((m) => m.rate);
   // Players rate by minutes (per 90); managers and eras rate by matches (per game).
   const rateLabel = comparison.mode === "players" ? "Per 90" : "Per game";
   const rateTag = comparison.mode === "players" ? "per 90" : "per game";
+  const slug = `${comparison.a.id}-vs-${comparison.b.id}`;
 
   const judged = comparison.metrics.filter((m) => leaderOf(m, rate) !== null);
   const leadsA = judged.filter((m) => leaderOf(m, rate) === "a").length;
@@ -298,43 +303,71 @@ export function CompareTable({
           ? `Leads ${Math.max(leadsA, leadsB)}–${Math.min(leadsA, leadsB)} across ${judged.length} measures.`
           : `Level at ${leadsA}–${leadsB} across ${judged.length} measures.`;
 
+  const stations = [
+    {
+      id: `${slug}-verdict`,
+      label: "Verdict",
+      node: (
+        <div className="overflow-hidden rounded-lg border border-line bg-panel-2/40">
+          <div className="px-4 py-5 sm:px-6 sm:py-6">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 sm:gap-6">
+              <ScoreSide side={comparison.a} score={leadsA} state={stateOf("a")} align="right" withThumb={withThumb} />
+              <div className="flex flex-col items-center gap-1 pt-3">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">leads</span>
+                <span className="h-8 w-px bg-line sm:h-10" aria-hidden />
+                <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-ink-faint">
+                  {rate ? rateTag : "total"}
+                </span>
+              </div>
+              <ScoreSide side={comparison.b} score={leadsB} state={stateOf("b")} align="left" withThumb={withThumb} />
+            </div>
+            <p className="mx-auto mt-5 max-w-xl text-center text-lg leading-relaxed text-ink sm:text-xl">{verdict}</p>
+          </div>
+          {comparison.rhymes && comparison.rhymes.length > 0 && <Rhymes rhymes={comparison.rhymes} />}
+        </div>
+      ),
+    },
+    ...(comparison.signature
+      ? [{
+          id: `${slug}-signature`,
+          label: comparison.mode === "players" ? "Career arcs" : "Trophy hauls",
+          node: (
+            <Signature
+              signature={comparison.signature}
+              a={comparison.a}
+              b={comparison.b}
+              metrics={comparison.metrics}
+              rate={rate}
+            />
+          ),
+        }]
+      : []),
+    {
+      id: `${slug}-measures`,
+      label: "The measures",
+      node: <MeasuresStrip metrics={comparison.metrics} rate={rate} />,
+    },
+    {
+      id: `${slug}-coverage`,
+      label: "Coverage",
+      node: <CompareCoverage mode={comparison.mode} evidence={comparison.evidence} />,
+    },
+  ];
+
   return (
-    <div className="overflow-hidden rounded-lg border border-line bg-panel">
+    <article className="relative rounded-lg border border-line bg-panel p-5 sm:p-7">
+      {share && <div className="absolute right-4 top-4 z-10">{share}</div>}
+      <header className="mb-8 pr-24">
+        <h1 className="display text-3xl leading-tight text-ink sm:text-4xl">
+          {comparison.a.label} vs {comparison.b.label}
+        </h1>
+      </header>
       {hasRate && rateHref && (
-        <div className="border-b border-line bg-panel-2/30 px-4 py-2 sm:px-5">
+        <div className="mb-6 rounded-lg border border-line bg-panel-2/30 px-4 py-2 sm:px-5">
           <RateToggle rate={rate} rateLabel={rateLabel} hrefFor={rateHref} />
         </div>
       )}
-
-      <div className="border-b border-line bg-panel-2/40 px-4 py-5 sm:px-6 sm:py-6">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 sm:gap-6">
-          <ScoreSide side={comparison.a} score={leadsA} state={stateOf("a")} align="right" withThumb={withThumb} />
-          <div className="flex flex-col items-center gap-1 pt-3">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">leads</span>
-            <span className="h-8 w-px bg-line sm:h-10" aria-hidden />
-            <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-ink-faint">
-              {rate ? rateTag : "total"}
-            </span>
-          </div>
-          <ScoreSide side={comparison.b} score={leadsB} state={stateOf("b")} align="left" withThumb={withThumb} />
-        </div>
-        <p className="mx-auto mt-5 max-w-xl text-center text-sm text-ink">{verdict}</p>
-      </div>
-
-      {comparison.rhymes && comparison.rhymes.length > 0 && <Rhymes rhymes={comparison.rhymes} />}
-
-      {comparison.signature && (
-        <div className="px-4 pt-4 sm:px-5">
-          <Signature signature={comparison.signature} a={comparison.a} b={comparison.b} metrics={comparison.metrics} rate={rate} />
-        </div>
-      )}
-
-      <div className="px-4 py-4 sm:px-5">
-        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">The measures</p>
-        <MeasuresStrip metrics={comparison.metrics} rate={rate} />
-
-        <CompareCoverage mode={comparison.mode} evidence={comparison.evidence} />
-      </div>
-    </div>
+      <CompareThread stations={stations} />
+    </article>
   );
 }
