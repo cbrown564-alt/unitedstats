@@ -2092,3 +2092,125 @@ body.mobile-sheet-open {
   }
 }
 
+/* Match page — point-and-pick correction (one link at rest, targets on demand). */
+.correction-trust-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  border-top: 1px solid var(--color-line);
+  padding-block: 0.625rem;
+}
+
+.correction-pick-banner {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-block: 0.75rem 0;
+  border: 1px solid color-mix(in oklab, var(--color-devil-bright) 35%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--color-devil-bright) 8%, var(--color-panel));
+  padding: 0.625rem 0.875rem;
+  font-size: 0.8125rem;
+  color: var(--color-ink-dim);
+}
+
+.correction-pick-cancel {
+  border: 1px solid var(--color-line);
+  border-radius: 0.375rem;
+  background: var(--color-panel);
+  padding: 0.25rem 0.625rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-ink-dim);
+  cursor: pointer;
+}
+
+body.match-correction-pick-mode .correction-pickable {
+  position: relative;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+body.match-correction-pick-mode .correction-pickable:hover,
+body.match-correction-pick-mode .correction-pickable:focus-visible {
+  border-color: color-mix(in oklab, var(--color-devil-bright) 55%, transparent);
+  background: color-mix(in oklab, var(--color-devil-bright) 6%, var(--color-panel));
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-devil-bright) 20%, transparent);
+}
+
+.correction-pick-hint {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-devil-bright);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+body.match-correction-pick-mode .correction-pickable:hover .correction-pick-hint,
+body.match-correction-pick-mode .correction-pickable:focus-visible .correction-pick-hint {
+  opacity: 1;
+}
+
+.correction-drawer-root {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+
+.correction-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgb(0 0 0 / 0.55);
+  cursor: pointer;
+}
+
+.correction-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  width: min(100%, 26rem);
+  flex-direction: column;
+  border-left: 1px solid var(--color-line);
+  background: var(--color-panel);
+  padding: 1.25rem;
+  box-shadow: -8px 0 32px rgb(0 0 0 / 0.35);
+}
+
+.correction-drawer-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-ink-dim);
+  cursor: pointer;
+}
+
+.correction-drawer-body {
+  margin-top: 1rem;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+

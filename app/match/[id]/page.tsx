@@ -22,6 +22,15 @@ import { MatchSectionTabs } from "@/components/match/MatchSectionTabs";
 import { UntimedGoalsList } from "@/components/match/UntimedGoalsList";
 import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
+import { matchCorrectionInventory, correctionPrefillMap } from "@/lib/correctionInventory";
+import { MatchCorrectionProvider, MatchCorrectionTrustBand, Pickable } from "@/components/match/MatchCorrection";
+import { MatchDetailCard, MatchLineupPick } from "@/components/match/MatchCorrectionPickables";
+import {
+  eventFieldPath,
+  lineupFieldPath,
+  lineupPlayerSelector,
+  matchFieldPath,
+} from "@/lib/matchCorrectionPaths";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -122,6 +131,21 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const clubN = clubNames(m.date);
   const oppN = opponentNames(m.opponent_id, m.opponent_name);
   const similar = similarMatches(m, 6);
+  const correctionInventory = matchCorrectionInventory(id);
+  const prefillByPath = correctionInventory ? correctionPrefillMap(correctionInventory) : {};
+  const eventIndexBySeq = new Map(events.map((e, index) => [e.seq, index]));
+  const eventPaths = (seq: number) => {
+    const index = eventIndexBySeq.get(seq);
+    if (index == null) return null;
+    return {
+      scorer: eventFieldPath(id, index, "player"),
+      minute: eventFieldPath(id, index, "minute"),
+    };
+  };
+  const trustNote =
+    sources.length > 0
+      ? `Verified from ${sources.length} cited source${sources.length === 1 ? "" : "s"} and the canonical match record.`
+      : "Verified from the canonical match record.";
 
   const tone = resultTone(m.outcome);
   const word = resultLabel(m.outcome);
@@ -185,6 +209,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
   const defaultTab = hasGoalsPanel || hasTeamsheet ? "goals" : "details";
 
+  const lineupPaths = (playerId: string | null, providerId: string | null, displayName: string) => {
+    const selector = lineupPlayerSelector(playerId, providerId, displayName);
+    return {
+      shirt: lineupFieldPath(id, selector, "shirt"),
+      name: lineupFieldPath(id, selector, "playerName"),
+    };
+  };
+
   const goalsPanel = hasGoalsPanel ? (
     <div className="space-y-5">
       {hasTimedGoals && (
@@ -192,7 +224,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         // + 16rem) and centre it, so the two read as one column rather than the bar
         // sprawling the full page.
         <section className="space-y-2 lg:mx-auto lg:max-w-[43.5rem]">
-          <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} />
+          <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} eventPaths={eventPaths} />
           {!m.events_complete && (
             <p className="text-xs text-ink-dim">Goalscorer data for this match may be incomplete.</p>
           )}
@@ -266,19 +298,20 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <div>
                 <h3 className="display mb-3 text-lg">Starting XI</h3>
                 <ul className="grid max-w-2xl gap-1.5 text-sm sm:grid-cols-2">
-                  {starters.map((p) => (
-                    <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 rounded border border-line bg-panel px-3 py-1.5">
-                      <span className="stat-num w-6 text-ink-faint">{p.shirt ?? ""}</span>
-                      {p.player_id ? (
-                        <Link href={`/player/${p.player_id}`} className="flex-1 hover:text-devil-bright focus-ring">
-                          {p.player_display_name}
-                        </Link>
-                      ) : (
-                        <span className="flex-1">{p.player_display_name}</span>
-                      )}
-                      {p.role && <span className="text-xs text-ink-faint">{p.role}</span>}
-                    </li>
-                  ))}
+                  {starters.map((p) => {
+                    const paths = lineupPaths(p.player_id, p.provider_id, p.player_display_name);
+                    return (
+                      <MatchLineupPick
+                        key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`}
+                        shirtPath={paths.shirt}
+                        namePath={paths.name}
+                        shirt={p.shirt ?? ""}
+                        name={p.player_display_name}
+                        playerHref={p.player_id ? `/player/${p.player_id}` : undefined}
+                        meta={p.role ? <span className="text-xs text-ink-faint">{p.role}</span> : undefined}
+                      />
+                    );
+                  })}
                 </ul>
               </div>
             )}
@@ -286,19 +319,20 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <div>
                 <h3 className="display mb-3 text-lg">Used substitutes</h3>
                 <ul className="grid max-w-2xl gap-1.5 text-sm sm:grid-cols-2">
-                  {usedSubs.map((p) => (
-                    <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 rounded border border-line bg-panel px-3 py-1.5">
-                      <span className="stat-num w-6 text-ink-faint">{p.shirt ?? ""}</span>
-                      {p.player_id ? (
-                        <Link href={`/player/${p.player_id}`} className="flex-1 hover:text-devil-bright focus-ring">
-                          {p.player_display_name}
-                        </Link>
-                      ) : (
-                        <span className="flex-1">{p.player_display_name}</span>
-                      )}
-                      <span className="text-xs text-ink-faint">on {p.sub_on != null ? `${p.sub_on}'` : "—"}</span>
-                    </li>
-                  ))}
+                  {usedSubs.map((p) => {
+                    const paths = lineupPaths(p.player_id, p.provider_id, p.player_display_name);
+                    return (
+                      <MatchLineupPick
+                        key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`}
+                        shirtPath={paths.shirt}
+                        namePath={paths.name}
+                        shirt={p.shirt ?? ""}
+                        name={p.player_display_name}
+                        playerHref={p.player_id ? `/player/${p.player_id}` : undefined}
+                        meta={<span className="text-xs text-ink-faint">on {p.sub_on != null ? `${p.sub_on}'` : "—"}</span>}
+                      />
+                    );
+                  })}
                 </ul>
               </div>
             )}
@@ -306,19 +340,20 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <div>
                 <h3 className="display mb-3 text-lg">Bench</h3>
                 <ul className="grid max-w-2xl gap-1.5 text-sm sm:grid-cols-2">
-                  {bench.map((p) => (
-                    <li key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`} className="flex items-center gap-2 rounded border border-line bg-panel px-3 py-1.5">
-                      <span className="stat-num w-6 text-ink-faint">{p.shirt ?? ""}</span>
-                      {p.player_id ? (
-                        <Link href={`/player/${p.player_id}`} className="flex-1 hover:text-devil-bright focus-ring">
-                          {p.player_display_name}
-                        </Link>
-                      ) : (
-                        <span className="flex-1">{p.player_display_name}</span>
-                      )}
-                      <span className="text-xs text-ink-faint">unused</span>
-                    </li>
-                  ))}
+                  {bench.map((p) => {
+                    const paths = lineupPaths(p.player_id, p.provider_id, p.player_display_name);
+                    return (
+                      <MatchLineupPick
+                        key={p.player_id ?? `${p.provider_id}-${p.player_display_name}`}
+                        shirtPath={paths.shirt}
+                        namePath={paths.name}
+                        shirt={p.shirt ?? ""}
+                        name={p.player_display_name}
+                        playerHref={p.player_id ? `/player/${p.player_id}` : undefined}
+                        meta={<span className="text-xs text-ink-faint">unused</span>}
+                      />
+                    );
+                  })}
                 </ul>
                 <p className="mt-2 text-xs text-ink-dim">
                   Players listed on the bench only count as appearances if they came on.
@@ -349,28 +384,37 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-5">
       {goalsPanel}
       {hasTeamsheet && teamsheetPanel}
+      <MatchCorrectionTrustBand trustNote={trustNote} />
     </div>
   ) : null;
 
   const matchDetailsBody = (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-        <DetailCard label="Venue" value={m.stadium_name ?? venueLabel(m.venue)} />
-        <DetailCard label="Attendance" value={m.attendance ? fmtNum(m.attendance) : "—"} mono />
+        <MatchDetailCard
+          fieldPath={matchFieldPath(id, "venue")}
+          label="Venue"
+          value={m.stadium_name ?? venueLabel(m.venue)}
+        />
+        <MatchDetailCard
+          fieldPath={matchFieldPath(id, "attendance")}
+          label="Attendance"
+          value={m.attendance ? fmtNum(m.attendance) : "—"}
+          mono
+        />
         <DetailCard
           label="Manager"
           value={m.manager_name ?? "—"}
           href={m.manager_id && m.manager_name ? `/manager/${m.manager_id}` : undefined}
         />
-        <DetailCard
+        <MatchDetailCard
+          fieldPath={matchFieldPath(id, "competition")}
           label="Competition"
           value={m.competition_name}
           href={`/matches?competition=${m.competition_id}`}
         />
       </div>
-      <Link href={`/corrections?match=${id}`} className="inline-block text-xs font-semibold text-devil-bright hover:underline focus-ring">
-        Suggest a correction →
-      </Link>
+      <MatchCorrectionTrustBand trustNote={trustNote} />
       {m.notes && <p className="max-w-2xl text-sm italic text-ink-dim">{m.notes}</p>}
       {elo && (
         <EloWinBar
@@ -473,9 +517,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   ) : null;
 
   return (
-    <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
-      <MatchSectionTabs
+    <MatchCorrectionProvider matchId={id} prefillByPath={prefillByPath}>
+      <div>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
+        <MatchSectionTabs
         defaultTab={defaultTab}
         stickyHead={
           <>
@@ -528,13 +573,23 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                       {m.venue === "A" ? (
                         <>
                           <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
-                          <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.ga}–{m.gf}</span>
+                          <Pickable
+                            fieldPath={matchFieldPath(id, "score")}
+                            className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}
+                          >
+                            {m.ga}–{m.gf}
+                          </Pickable>
                           <TeamName names={clubN} align="left" />
                         </>
                       ) : (
                         <>
                           <TeamName names={clubN} align="right" />
-                          <span className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}>{m.gf}–{m.ga}</span>
+                          <Pickable
+                            fieldPath={matchFieldPath(id, "score")}
+                            className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}
+                          >
+                            {m.gf}–{m.ga}
+                          </Pickable>
                           <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
                         </>
                       )}
@@ -570,7 +625,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           { id: "context", label: "Previous", content: contextPanel },
           { id: "sources", label: "Sources", content: sourcesPanel },
         ]}
-      />
-    </div>
+        />
+      </div>
+    </MatchCorrectionProvider>
   );
 }

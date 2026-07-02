@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Match page — correction flow mockup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --pitch: #0c0b0a;
+        --panel: #161312;
+        --panel-2: #1f1a18;
+        --line: #2c2522;
+        --ink: #f3ede8;
+        --dim: #a89c94;
+        --faint: #6f645d;
+        --devil: #d8210d;
+        --devil-bright: #ff3b1f;
+        --gold: #f5c518;
+        --win: #ffd94a;
+        --loss: #a52218;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--pitch);
+        color: var(--ink);
+        font-family: Archivo, system-ui, sans-serif;
+        min-height: 100vh;
+      }
+      .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+      .display { font-weight: 800; letter-spacing: -0.02em; }
+
+      /* Mock chrome */
+      .mock-bar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 20px;
+        background: #111;
+        border-bottom: 1px solid var(--line);
+        font-size: 13px;
+      }
+      .mock-bar h1 { margin: 0; font-size: 14px; font-weight: 700; }
+      .mock-bar p { margin: 2px 0 0; color: var(--dim); font-size: 12px; }
+      .state-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+      .state-tabs button {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .state-tabs button.active {
+        border-color: var(--devil-bright);
+        background: rgba(255, 59, 31, 0.1);
+        color: var(--devil-bright);
+      }
+
+      /* Page shell */
+      .page { max-width: 56rem; margin: 0 auto; padding: 0 16px 48px; }
+
+      /* Hero (simplified match page) */
+      .hero {
+        position: relative;
+        margin: 0 -16px;
+        padding: 32px 16px 28px;
+        border-bottom: 1px solid var(--line);
+        text-align: center;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 50% 80% at 0% 0%, rgba(216, 33, 13, 0.14), transparent),
+          radial-gradient(ellipse 50% 80% at 100% 0%, rgba(216, 33, 13, 0.14), transparent);
+        pointer-events: none;
+      }
+      .hero-meta { position: relative; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--devil-bright); }
+      .hero-score {
+        position: relative;
+        margin: 12px 0 0;
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        font-weight: 800;
+        color: var(--win);
+      }
+      .hero-teams { position: relative; margin-top: 8px; font-size: 14px; color: var(--dim); }
+
+      /* Tabs */
+      .tabs {
+        display: flex;
+        gap: 4px;
+        margin-top: 24px;
+        border-bottom: 1px solid var(--line);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .tabs span {
+        padding: 10px 14px;
+        color: var(--faint);
+        border-bottom: 2px solid transparent;
+      }
+      .tabs span.on { color: var(--ink); border-bottom-color: var(--devil-bright); }
+
+      /* Detail cards */
+      .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+      }
+      @media (min-width: 640px) { .detail-grid { grid-template-columns: repeat(4, 1fr); } }
+
+      .detail-card {
+        position: relative;
+        min-width: 0;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+      }
+      .detail-card .label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--faint);
+      }
+      .detail-card .value {
+        margin-top: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      /* Correction mode: values become pick targets — no permanent buttons */
+      body.mode-pick .pickable {
+        cursor: pointer;
+      }
+      body.mode-pick .pickable:hover,
+      body.mode-pick .pickable.focused {
+        border-color: rgba(255, 59, 31, 0.55);
+        background: rgba(255, 59, 31, 0.06);
+        box-shadow: 0 0 0 1px rgba(255, 59, 31, 0.2);
+      }
+      body.mode-pick .pickable::after {
+        content: "Click to correct";
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--devil-bright);
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      body.mode-pick .pickable:hover::after,
+      body.mode-pick .pickable.focused::after { opacity: 1; }
+
+      /* Goals list — same pattern, one row highlight on hover in pick mode */
+      .goals-section { margin-top: 28px; }
+      .goals-section h3 { margin: 0 0 10px; font-size: 18px; }
+      .goal-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        margin-bottom: 6px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        font-size: 14px;
+        transition: border-color 0.15s, background 0.15s;
+      }
+      .goal-row .min { width: 36px; color: var(--gold); font-weight: 600; }
+      .goal-row .name { flex: 1; font-weight: 600; }
+      body.mode-pick .goal-row.pickable { cursor: pointer; }
+      body.mode-pick .goal-row.pickable:hover,
+      body.mode-pick .goal-row.pickable.focused {
+        border-color: rgba(255, 59, 31, 0.55);
+        background: rgba(255, 59, 31, 0.06);
+      }
+
+      /* Trust band — single entry point (PlayerPlate pattern) */
+      .trust-band {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px 16px;
+        margin-top: 20px;
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+        font-size: 11px;
+      }
+      .trust-band .note { color: var(--faint); flex: 1; min-width: 0; }
+      .trust-band button,
+      .trust-band a {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--devil-bright);
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .trust-band button:hover { text-decoration: underline; }
+
+      /* Pick mode banner */
+      .pick-banner {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 16px;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 59, 31, 0.35);
+        border-radius: 8px;
+        background: rgba(255, 59, 31, 0.08);
+        font-size: 13px;
+      }
+      body.mode-pick .pick-banner { display: flex; }
+      .pick-banner strong { color: var(--ink); }
+      .pick-banner .cancel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        color: var(--dim);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      /* Drawer */
+      .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 80;
+      }
+      body.drawer-open .overlay { display: block; }
+      .drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(100%, 420px);
+        background: var(--panel);
+        border-left: 1px solid var(--line);
+        z-index: 90;
+        transform: translateX(100%);
+        transition: transform 0.22s ease;
+        overflow-y: auto;
+        padding: 20px;
+      }
+      body.drawer-open .drawer { transform: translateX(0); }
+      .drawer h2 { margin: 0 0 4px; font-size: 18px; }
+      .drawer .sub { margin: 0 0 20px; font-size: 13px; color: var(--dim); line-height: 1.5; }
+      .diff {
+        margin-bottom: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+      }
+      .diff .old {
+        display: flex;
+        gap: 10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--loss);
+        text-decoration: line-through;
+        opacity: 0.85;
+      }
+      .diff .new {
+        display: flex;
+        gap: 10px;
+        padding: 10px 12px;
+        color: var(--gold);
+      }
+      .field { margin-bottom: 16px; }
+      .field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+      .field .hint { font-size: 11px; color: var(--faint); font-weight: 400; }
+      .field input,
+      .field textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--pitch);
+        color: var(--ink);
+        font: inherit;
+        font-size: 14px;
+      }
+      .field textarea { min-height: 72px; resize: vertical; }
+      .submit {
+        display: inline-flex;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        background: var(--devil);
+        color: #fff;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .submit-note { margin-top: 10px; font-size: 11px; color: var(--faint); line-height: 1.5; }
+      .drawer-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: none;
+        border: none;
+        color: var(--dim);
+        font-size: 20px;
+        cursor: pointer;
+        line-height: 1;
+      }
+
+      /* Annotation callouts for mock */
+      .callout {
+        margin: 32px 0 0;
+        padding: 14px 16px;
+        border-left: 3px solid var(--gold);
+        background: rgba(245, 197, 24, 0.06);
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--dim);
+      }
+      .callout strong { color: var(--ink); }
+      .compare {
+        display: grid;
+        gap: 16px;
+        margin-top: 32px;
+      }
+      @media (min-width: 768px) { .compare { grid-template-columns: 1fr 1fr; } }
+      .compare-card {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+      .compare-card h4 { margin: 0 0 8px; font-size: 14px; }
+      .compare-card.bad { border-color: rgba(165, 34, 24, 0.4); }
+      .compare-card.good { border-color: rgba(255, 217, 74, 0.25); }
+      .compare-card ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--dim); line-height: 1.6; }
+      .hidden { display: none !important; }
+    </style>
+  </head>
+  <body data-state="normal">
+    <header class="mock-bar">
+      <div>
+        <h1>Match page — correction flow mockup</h1>
+        <p>One link for casual users · point-and-pick for precision · drawer stays on page</p>
+      </div>
+      <div class="state-tabs" role="tablist">
+        <button type="button" class="active" data-state="normal">① Normal view</button>
+        <button type="button" data-state="pick">② Pick mode</button>
+        <button type="button" data-state="drawer">③ Drawer open</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <div class="hero-meta">Saturday 26 May 1999 · Won</div>
+        <div class="hero-score mono">2–1</div>
+        <div class="hero-teams">Manchester United v Bayern Munich · Champions League Final</div>
+      </section>
+
+      <nav class="tabs" aria-hidden="true">
+        <span class="on">Match</span>
+        <span>Context</span>
+        <span>Sources</span>
+      </nav>
+
+      <div class="detail-grid">
+        <div class="detail-card pickable" data-field="venue">
+          <div class="label">Venue</div>
+          <div class="value">Camp Nou</div>
+        </div>
+        <div class="detail-card pickable focused" data-field="attendance">
+          <div class="label">Attendance</div>
+          <div class="value mono">92,000</div>
+        </div>
+        <div class="detail-card pickable" data-field="manager">
+          <div class="label">Manager</div>
+          <div class="value">Alex Ferguson</div>
+        </div>
+        <div class="detail-card pickable" data-field="competition">
+          <div class="label">Competition</div>
+          <div class="value">UEFA Champions League</div>
+        </div>
+      </div>
+
+      <div class="pick-banner" id="pick-banner">
+        <span><strong>Pick mode.</strong> Click the value that looks wrong.</span>
+        <button type="button" class="cancel" id="cancel-pick">Cancel</button>
+      </div>
+
+      <div class="trust-band">
+        <span class="note">Verified from UEFA match report and canonical record.</span>
+        <button type="button" id="start-pick">Spot an error? →</button>
+      </div>
+
+      <section class="goals-section">
+        <h3 class="display">Goals</h3>
+        <div class="goal-row pickable" data-field="goal-1">
+          <span class="min mono">6'</span>
+          <span class="name">Mario Basler</span>
+          <span style="color:var(--faint);font-size:12px">Bayern Munich</span>
+        </div>
+        <div class="goal-row pickable" data-field="goal-2">
+          <span class="min mono">91'</span>
+          <span class="name">Teddy Sheringham</span>
+          <span style="color:var(--faint);font-size:12px">United</span>
+        </div>
+        <div class="goal-row pickable" data-field="goal-3">
+          <span class="min mono">93'</span>
+          <span class="name">Ole Gunnar Solskjær</span>
+          <span style="color:var(--faint);font-size:12px">United</span>
+        </div>
+      </section>
+
+      <div class="callout" id="callout-normal">
+        <strong>Default state:</strong> Casual readers see a normal match page. One quiet link in the trust band — same weight as the player plate footer. No correction affordances on individual fields.
+      </div>
+      <div class="callout hidden" id="callout-pick">
+        <strong>Pick mode (opt-in):</strong> After clicking “Spot an error?”, correctable values highlight on hover. Still zero permanent buttons — the page teaches “click what’s wrong” once, then gets out of the way.
+      </div>
+      <div class="callout hidden" id="callout-drawer">
+        <strong>Drawer (in-page):</strong> Choosing a value opens a slide-over with the claim form. User never leaves the match context; programme tab stays open beside it.
+      </div>
+
+      <div class="compare">
+        <div class="compare-card bad">
+          <h4>❌ Per-field links everywhere</h4>
+          <ul>
+            <li>12+ “correct” links on a busy match page</li>
+            <li>Competes with navigation (manager, competition, players)</li>
+            <li>Reads like the data is unreliable</li>
+          </ul>
+        </div>
+        <div class="compare-card good">
+          <h4>✓ Point-and-pick (this mockup)</h4>
+          <ul>
+            <li>One link at rest — same as today’s player plate</li>
+            <li>Precision when needed — click the exact value</li>
+            <li>Skips the /corrections inventory step entirely</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <div class="overlay" id="overlay"></div>
+    <aside class="drawer" id="drawer" aria-label="Suggest correction">
+      <button type="button" class="drawer-close" id="close-drawer" aria-label="Close">×</button>
+      <h2 class="display">Suggest a correction</h2>
+      <p class="sub">Attendance for <strong>United 2–1 Bayern Munich</strong> (26 May 1999)</p>
+      <div class="diff">
+        <div class="old"><span>−</span><span>92,000</span></div>
+        <div class="new"><span>+</span><span id="proposed-preview">your proposed value</span></div>
+      </div>
+      <div class="field">
+        <label>Proposed value <span class="hint">What should it say?</span></label>
+        <input type="text" id="proposed-input" placeholder="e.g. 90,245" value="90,245" />
+      </div>
+      <div class="field">
+        <label>Source <span class="hint">Link or archive reference</span></label>
+        <input type="url" placeholder="https://…" />
+      </div>
+      <div class="field">
+        <label>Explanation <span class="hint">One sentence is plenty</span></label>
+        <textarea placeholder="What does the source show?"></textarea>
+      </div>
+      <button type="button" class="submit">Submit correction for review →</button>
+      <p class="submit-note">Opens GitHub with the issue pre-filled. You’ll click Submit once there — free account required.</p>
+    </aside>
+
+    <script>
+      const body = document.body;
+      const tabs = document.querySelectorAll(".state-tabs button");
+      const startPick = document.getElementById("start-pick");
+      const cancelPick = document.getElementById("cancel-pick");
+      const overlay = document.getElementById("overlay");
+      const closeDrawer = document.getElementById("close-drawer");
+      const proposedInput = document.getElementById("proposed-input");
+      const proposedPreview = document.getElementById("proposed-preview");
+      const callouts = {
+        normal: document.getElementById("callout-normal"),
+        pick: document.getElementById("callout-pick"),
+        drawer: document.getElementById("callout-drawer"),
+      };
+
+      function setState(state) {
+        body.dataset.state = state;
+        body.classList.toggle("mode-pick", state === "pick" || state === "drawer");
+        body.classList.toggle("drawer-open", state === "drawer");
+        tabs.forEach((t) => t.classList.toggle("active", t.dataset.state === state));
+        Object.entries(callouts).forEach(([k, el]) => el.classList.toggle("hidden", k !== state));
+        document.querySelectorAll(".pickable").forEach((el) => {
+          el.classList.toggle("focused", state === "drawer" && el.dataset.field === "attendance");
+        });
+      }
+
+      tabs.forEach((btn) => btn.addEventListener("click", () => setState(btn.dataset.state)));
+      startPick.addEventListener("click", () => setState("pick"));
+      cancelPick.addEventListener("click", () => setState("normal"));
+      overlay.addEventListener("click", () => setState("pick"));
+      closeDrawer.addEventListener("click", () => setState("pick"));
+      document.querySelectorAll(".pickable").forEach((el) => {
+        el.addEventListener("click", () => {
+          if (body.classList.contains("mode-pick")) setState("drawer");
+        });
+      });
+      proposedInput.addEventListener("input", () => {
+        proposedPreview.textContent = proposedInput.value.trim() || "your proposed value";
+      });
+      if (proposedInput.value) proposedPreview.textContent = proposedInput.value;
+
+      const initial = new URLSearchParams(location.search).get("state");
+      if (initial && ["normal", "pick", "drawer"].includes(initial)) setState(initial);
+    </script>
+  </body>
+</html>

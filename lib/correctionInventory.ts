@@ -28,6 +28,17 @@ export interface CorrectionInventory {
   groups: CorrectionGroup[];
 }
 
+/** Serializable prefill lookup for client-side point-and-pick correction. */
+export function correctionPrefillMap(inventory: CorrectionInventory): Record<string, CorrectionPrefill> {
+  const map: Record<string, CorrectionPrefill> = {};
+  for (const group of inventory.groups) {
+    for (const field of group.fields) {
+      map[field.prefill.fieldPath] = field.prefill;
+    }
+  }
+  return map;
+}
+
 function slug(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
