@@ -104,9 +104,15 @@ Substantial work, kept as a linkable page:
 
 ---
 
-## 5. Cut from the front door
+## 5. Archived (July 2026)
 
-### `europe` — demoted to easter egg (July 2026)
+Seven questions are **off the front door** but still linkable. Full provenance,
+per-slug rationale, and restore steps: **`docs/archived-questions.md`**.
+
+Registry: `ARCHIVED_QUESTIONS` in `lib/questions.ts`. Archived routes are
+`noindex`, excluded from the sitemap, and show a banner on the page.
+
+### `europe` — first demotion (chart never reached Treble/Fortress bar)
 
 After several chart iterations (decade bars → win-% line → flatline zero years →
 season bar chart with gaps), the page never reached a single clear visual story

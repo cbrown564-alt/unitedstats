@@ -51,7 +51,8 @@ test("pickIndex stays in-bounds across the rng range", () => {
 });
 
 test("every answer carries a curated trail of 2–3 valid next steps", () => {
-  assert.deepEqual(relatedSlugs().sort(), questionSlugs().sort(), "a question is missing its trail");
+  const active = new Set(QUESTIONS.map((q) => q.slug));
+  assert.deepEqual(relatedSlugs().sort(), [...active].sort(), "an active question is missing its trail");
   for (const { slug } of QUESTIONS) {
     const links = relatedAnswers(slug);
     assert.ok(links.length >= 2 && links.length <= 3, `${slug} trail has ${links.length} links`);

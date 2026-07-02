@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
-import { questionSlugs } from "@/lib/questions";
+import { activeQuestionSlugs } from "@/lib/questions";
 import { CURATED_CUTS, cutHref, curatedCut } from "@/lib/cut";
 import { monthDayKeys } from "@/lib/onThisDay";
 import {
@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: url("/corrections"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
   ];
 
-  const questions: MetadataRoute.Sitemap = questionSlugs().map((slug) => ({
+  const questions: MetadataRoute.Sitemap = activeQuestionSlugs().map((slug) => ({
     url: url(`/questions/${slug}`),
     changeFrequency: "weekly",
     priority: 0.8,

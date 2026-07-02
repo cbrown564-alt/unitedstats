@@ -178,6 +178,22 @@ body {
 .thread-knot {
   animation-duration: 680ms;
 }
+/* Question intro: a filament underline on key phrases in thread-lead prose. */
+.thread-underline {
+  text-decoration: none;
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--color-devil-bright) 8%,
+    var(--color-devil-bright) 92%,
+    transparent 100%
+  );
+  background-size: 100% 1.5px;
+  background-position: 0 calc(100% - 1px);
+  background-repeat: no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
 /* Cross-page continuity: a quick, gentle fade between routes (opacity only —
    no positional movement, which is the main motion-sensitivity trigger). The
    sticky header is lifted out of the snapshot so it stays put as content fades. */

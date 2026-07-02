@@ -11,10 +11,11 @@
  * `finding` strings carry counts and would churn the metadata on every update).
  *
  * `QUESTIONS` is the curated **front door** — the catalogue the homepage, the
- * explore page, and the surprise feed pull from. A small set of novelty
- * questions live on as linkable **easter eggs** (registered in
- * {@link EASTER_EGGS}) so their routes and OG cards keep resolving without
- * taking a front-door slot a real debate should hold.
+ * explore page, and the surprise feed pull from.
+ *
+ * `ARCHIVED_QUESTIONS` are kept linkable (routes, modules, OG cards still
+ * resolve) but are off the front door, excluded from the sitemap, and marked
+ * `noindex`. See `docs/archived-questions.md` for provenance and rationale.
  */
 export interface QuestionMeta {
   slug: string;
@@ -26,6 +27,7 @@ export interface QuestionMeta {
   summary: string;
 }
 
+/** The four active myths on the front door (July 2026 curation). */
 export const QUESTIONS: QuestionMeta[] = [
   {
     slug: "ferguson-era",
@@ -57,10 +59,8 @@ export const QUESTIONS: QuestionMeta[] = [
   },
 ];
 
-/** Linkable curiosities kept off the curated front door. Their routes and OG
- *  cards still resolve (via {@link questionSlugs}), but they do not appear in
- *  the homepage carousel, the explore catalogue, or the surprise feed. */
-const EASTER_EGGS: QuestionMeta[] = [
+/** Former front-door and easter-egg questions — modules preserved, discovery off. */
+export const ARCHIVED_QUESTIONS: QuestionMeta[] = [
   {
     slug: "europe",
     label: "United in Europe",
@@ -112,20 +112,25 @@ const EASTER_EGGS: QuestionMeta[] = [
   },
 ];
 
-const ALL = [...QUESTIONS, ...EASTER_EGGS];
+const ALL = [...QUESTIONS, ...ARCHIVED_QUESTIONS];
 const BY_SLUG = new Map(ALL.map((q) => [q.slug, q]));
+const ARCHIVED_SLUGS = new Set(ARCHIVED_QUESTIONS.map((q) => q.slug));
 
 export function questionBySlug(slug: string): QuestionMeta | undefined {
   return BY_SLUG.get(slug);
 }
 
+export function isArchivedQuestion(slug: string): boolean {
+  return ARCHIVED_SLUGS.has(slug);
+}
+
+/** Slugs on the curated front door — explore, surprise, sitemap, related trails. */
+export function activeQuestionSlugs(): string[] {
+  return QUESTIONS.map((q) => q.slug);
+}
+
 /** Launch myths on the homepage — one featured card, day-rotated. */
-const LAUNCH_QUESTION_SLUGS = [
-  "ferguson-era",
-  "treble",
-  "fortress",
-  "late-goals",
-] as const;
+const LAUNCH_QUESTION_SLUGS = activeQuestionSlugs();
 
 function dayOfYear(d: Date): number {
   const start = Date.UTC(d.getUTCFullYear(), 0, 0);
@@ -141,8 +146,7 @@ export function featuredLaunchQuestion(now = new Date()): QuestionMeta {
   return q;
 }
 
-/** Every question route — the curated front door plus the easter eggs — so
- *  `generateStaticParams` and the sitemap cover both. */
+/** Every question route — active plus archived — for `generateStaticParams`. */
 export function questionSlugs(): string[] {
   return ALL.map((q) => q.slug);
 }

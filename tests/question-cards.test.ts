@@ -22,12 +22,10 @@ import { topScorers } from "../lib/queries";
 import { getDb } from "../lib/db";
 import { fmtNum } from "../lib/format";
 
-// Questions that render a data-driven OG card. Europe and a few easter eggs still
-// fall back to the text card; own-goals stays as a linkable easter-egg card.
-const DATA_CARD_SLUGS = ["late-goals", "runs", "cup-specialists", "own-goals", "fortress", "treble"];
-const DEFERRED_SLUGS = ["comebacks", "manager-bounce", "europe"];
-// Questions whose headline figure and card figure are the same number.
-const HEADLINE_MATCHES_CARD = ["late-goals", "runs", "cup-specialists", "fortress", "treble"];
+// Active front-door questions with data-driven OG cards.
+const DATA_CARD_SLUGS = ["late-goals", "fortress", "treble"];
+const DEFERRED_SLUGS = ["ferguson-era"];
+const HEADLINE_MATCHES_CARD = ["late-goals", "fortress", "treble"];
 
 test("every curated question has a non-empty, data-present headline", () => {
   const headlines = questionHeadlines();

@@ -1,6 +1,6 @@
 import { CURATED_CUTS, cutHref, curatedCut } from "./cut";
 import { CURATED_DEBATES, type CompareMode } from "./compare";
-import { questionBySlug, questionSlugs } from "./questions";
+import { questionBySlug, QUESTIONS } from "./questions";
 import { queryString } from "./url";
 
 /**
@@ -55,8 +55,8 @@ const RELATED: Record<string, RelatedLink[]> = {
     toQuestion("fortress", "The fortress was at its most impregnable in the Ferguson years."),
   ],
   treble: [
-    toQuestion("europe", "The Champions League trophy was one thread of the continental record."),
     toQuestion("late-goals", "That final in Barcelona was decided in stoppage time."),
+    toQuestion("ferguson-era", "The Treble was the high-water mark of the Ferguson years."),
     toCut("seasons-by-points", "1998-99 against every other season, by points per game."),
   ],
   europe: [
@@ -110,7 +110,7 @@ export function relatedAnswers(slug: string): RelatedLink[] {
   return RELATED[slug] ?? [];
 }
 
-/** Slugs that carry a registered trail — used by the test to assert full coverage. */
+/** Slugs that carry a registered trail — active questions only. */
 export function relatedSlugs(): string[] {
-  return questionSlugs().filter((s) => RELATED[s]?.length);
+  return QUESTIONS.map((q) => q.slug).filter((s) => RELATED[s]?.length);
 }
