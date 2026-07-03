@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   comebacks, cupGoalShareBaseline, cupSpecialists, goalMinuteRidge,
-  annotatedLateGoals, lateGoalManagerEras, lateGoalScatter, lateGoalShareByDecade, leadHeldAtHome,
+  annotatedLateGoals, lateGoalManagerEras, lateGoalPointKey, lateGoalScatter, lateGoalShareByDecade, leadHeldAtHome,
   managerBounce, oldTraffordByDecade, timedGoalCounts,
   eraRecord,
   fergusonFloorSummary, fergusonFloorTimeline, managerLongevityField, postFergusonFloorMoments,
@@ -268,7 +268,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
           const crowned = a.tag === "The Treble" || a.tag === "The original";
           return (
             <div
-              key={`${a.matchId}:${a.minute}:${a.added ?? 0}`}
+              key={lateGoalPointKey(a)}
               className={`group relative overflow-hidden rounded-lg border bg-panel-2 p-4 transition-colors ${crowned ? "border-gold/35 shadow-[0_14px_36px_-18px_rgba(0,0,0,0.75)] hover:border-gold/55" : "border-line hover:border-devil/60"}`}
             >
               {crowned && (

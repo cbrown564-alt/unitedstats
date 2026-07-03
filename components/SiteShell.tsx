@@ -4,6 +4,7 @@
 import { ViewTransition } from "react";
 import { SidebarNav } from "@/components/SidebarNav";
 import { CommandPaletteLoader } from "@/components/CommandPaletteLoader";
+import { SlashSearchShortcut } from "@/components/SlashSearchShortcut";
 import { WebVitals } from "@/components/WebVitals";
 import { MobileBottomNav } from "@/components/mobile/MobileBottomNav";
 
@@ -19,6 +20,7 @@ import { MobileBottomNav } from "@/components/mobile/MobileBottomNav";
 export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <SlashSearchShortcut />
       <SidebarNav />
       <div className="site-shell-main flex min-w-0 flex-col lg:min-h-dvh lg:pl-[var(--sidebar-width)] lg:transition-[padding-left] lg:duration-200">
         <CommandPaletteLoader />

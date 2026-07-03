@@ -5,6 +5,7 @@ import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict
 import { FinishLadder } from "@/components/seasons/FinishLadder";
 
 export type SeasonCupOutcome = {
+  competitionId: string;
   laneLabel: string;
   label: string;
   tier: CampaignTier;
@@ -71,7 +72,7 @@ export function SeasonLedgerCard({
           {cups.length > 0 && (
             <ul className="flex flex-wrap gap-x-3 gap-y-1.5 text-[11px] leading-tight">
               {cups.map((c) => (
-                <li key={`${c.laneLabel}-${c.label}`} className="inline-flex items-center gap-1.5">
+                <li key={c.competitionId} className="inline-flex items-center gap-1.5">
                   <span className="text-ink-faint">{c.laneLabel}</span>
                   {c.competitionShort && (
                     <span className="text-ink-faint/80">{c.competitionShort}</span>

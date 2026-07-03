@@ -115,6 +115,7 @@ function isStoppageGoal(minute: number, added: number | null): boolean {
 }
 
 export interface LateGoalPoint {
+  seq: number;
   matchId: string;
   date: string;
   opponent: string;
@@ -128,17 +129,22 @@ export interface LateGoalPoint {
   stoppage: boolean;
 }
 
+/** Stable React key — scoped to match + event seq (seq is per-match, not global). */
+export function lateGoalPointKey(p: Pick<LateGoalPoint, "matchId" | "seq">): string {
+  return `${p.matchId}:e${p.seq}`;
+}
+
 /** Every United goal after the 85th minute with a recorded clock — the scatter cloud. */
 export function lateGoalScatter(from = "1950-01-01"): LateGoalPoint[] {
   const rows = getDb()
     .prepare(
-      `SELECT m.id matchId, m.date, m.opponent_name opponent, m.venue, m.gf, m.ga,
+      `SELECT e.seq, m.id matchId, m.date, m.opponent_name opponent, m.venue, m.gf, m.ga,
               e.minute, e.added_time added, COALESCE(p.name, e.player_name) scorer
        FROM match_events e JOIN matches m ON m.id = e.match_id
        LEFT JOIN players p ON p.id = e.player_id
        WHERE e.type IN ${UNITED_GOAL_TYPES} AND e.minute >= 86 AND e.minute IS NOT NULL
          AND m.date >= ?
-       ORDER BY m.date, e.minute, COALESCE(e.added_time, 0)`,
+       ORDER BY m.date, e.minute, COALESCE(e.added_time, 0), e.seq`,
     )
     .all(from) as Omit<LateGoalPoint, "clock" | "stoppage">[];
   return rows.map((r) => ({

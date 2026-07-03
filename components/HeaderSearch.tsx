@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
+import { ACTIVATE_SIDEBAR_SEARCH_EVENT } from "@/lib/search/slashShortcut";
 
 type SearchCommandProps = {
   autoFocusKey?: boolean;
@@ -50,9 +51,9 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
 
   useEffect(() => {
     return scheduleIdle(() => {
-      void preloadSearchCommand();
+      void ensureSearchCommand();
     });
-  }, []);
+  }, [ensureSearchCommand]);
 
   const activateDesktop = useCallback(() => {
     setDesktopActive(true);
@@ -66,21 +67,35 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
   }, []);
 
   useEffect(() => {
-    if (desktopActive) return;
-    const onKey = (e: KeyboardEvent) => {
-      const tag = document.activeElement?.tagName;
-      if (e.key === "/" && tag !== "INPUT" && tag !== "SELECT" && tag !== "TEXTAREA") {
-        e.preventDefault();
-        activateDesktop();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [desktopActive, activateDesktop]);
+    const onActivate = () => activateDesktop();
+    window.addEventListener(ACTIVATE_SIDEBAR_SEARCH_EVENT, onActivate);
+    return () => window.removeEventListener(ACTIVATE_SIDEBAR_SEARCH_EVENT, onActivate);
+  }, [activateDesktop]);
 
   const DesktopSearch = searchCommand;
 
   if (collapsed) {
+    if (desktopActive) {
+      return DesktopSearch ? (
+        <DesktopSearch
+          compact
+          autoFocusKey={false}
+          autoFocusOnMount
+          placeholder={SIDEBAR_SEARCH_LABEL}
+          inputClassName="site-sidebar-search-input"
+          dropdownClassName="site-sidebar-search-panel"
+          onNavigate={deactivateDesktop}
+          onDismiss={deactivateDesktop}
+        />
+      ) : (
+        <div className="site-sidebar-search-input site-sidebar-search-input--loading" aria-busy="true">
+          <span className="site-sidebar-search-trigger-icon">
+            <SearchGlyph />
+          </span>
+        </div>
+      );
+    }
+
     return (
       <button
         type="button"

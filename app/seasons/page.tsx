@@ -118,7 +118,7 @@ export default async function SeasonsPage({
 
   const ribbon: { value: string; label: string; tone?: string }[] = [
     { value: fmtNum(topFlightTitles), label: "League titles", tone: "text-gold" },
-    { value: fmtNum(bySeason.size), label: "Campaigns" },
+    { value: fmtNum(bySeason.size), label: "Seasons" },
     { value: fmtNum(topFlightSeasons), label: "Top-flight seasons" },
     { value: fmtNum(totalMatches), label: "Matches" },
   ];
@@ -160,43 +160,45 @@ export default async function SeasonsPage({
 
   return (
     <div className="space-y-10">
-      <PageHeader eyebrow="Campaign ledger" title="Seasons" deferOnMobile>
-        League and cup campaigns from 1892. Timeline above, full ledger below.
-      </PageHeader>
+      <div className="space-y-5">
+        <PageHeader eyebrow="Complete Record" title="Seasons" deferOnMobile>
+          League and cup campaigns from 1892. Timeline above, full ledger below.
+        </PageHeader>
 
-      {/* The hero: the whole league history as one rise-and-fall of finishing position. */}
-      <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
-        <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
-        <div
-          className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur-3xl"
-          style={{ backgroundColor: "var(--color-devil)" }}
-          aria-hidden
-        />
-        <div className="relative p-5 sm:p-6">
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
-            <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
-                The shape of the eras
-              </p>
-              <h2 className="display mt-1 text-2xl">League finishes across the eras</h2>
-            </div>
-            <dl className="flex flex-wrap items-end gap-x-7 gap-y-3">
-              {ribbon.map((r) => (
-                <div key={r.label} className="leading-none">
-                  <dd className={`stat-num text-2xl font-semibold ${r.tone ?? "text-ink"}`}>{r.value}</dd>
-                  <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">{r.label}</dt>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <FinishTimeline points={points} />
-          <CoverageNote
-            className="mt-3"
-            slice={`league finishes from ${firstSeason ?? "1892–93"} to ${latestSeason}.`}
-            coverage="Final-table positions are complete for every league season."
+        {/* The hero: the whole league history as one rise-and-fall of finishing position. */}
+        <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
+          <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+          <div
+            className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full opacity-[0.12] blur-3xl"
+            style={{ backgroundColor: "var(--color-devil)" }}
+            aria-hidden
           />
-        </div>
-      </section>
+          <div className="relative p-5 sm:p-6">
+            <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">
+                  The shape of the eras
+                </p>
+                <h2 className="display mt-1 text-2xl">League finishes across the eras</h2>
+              </div>
+              <dl className="flex flex-wrap items-end gap-x-7 gap-y-3">
+                {ribbon.map((r) => (
+                  <div key={r.label} className="leading-none">
+                    <dd className={`stat-num text-2xl font-semibold ${r.tone ?? "text-ink"}`}>{r.value}</dd>
+                    <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">{r.label}</dt>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <FinishTimeline points={points} />
+            <CoverageNote
+              className="mt-3"
+              slice={`league finishes from ${firstSeason ?? "1892–93"} to ${latestSeason}.`}
+              coverage="Final-table positions are complete for every league season."
+            />
+          </div>
+        </section>
+      </div>
 
       {/* Wayfinding: a sticky decade rail over the ledger — the longest scroll on
           the site. Reuses the archive rail's scrollspy, lighting the decade you're

@@ -8,6 +8,7 @@ import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
 import { mobileNavLabel } from "@/lib/navSections";
 import { onMobileSearchOpen } from "@/lib/mobileSearch";
+import { OPEN_MOBILE_SEARCH_EVENT } from "@/lib/search/slashShortcut";
 import { MobileNavSheet } from "@/components/mobile/MobileNavSheet";
 import { MobileMatchFilterControls } from "@/components/mobile/MobileMatchFilterControls";
 import { MobileSearchOverlay } from "@/components/mobile/MobileSearchOverlay";
@@ -109,6 +110,12 @@ export function MobileBottomNav() {
   }, [SearchCommand, ensureSearch, focusPillSearch, isNarrowShell]);
 
   useEffect(() => onMobileSearchOpen(openSearch), [openSearch]);
+
+  useEffect(() => {
+    const onSlash = () => openSearch();
+    window.addEventListener(OPEN_MOBILE_SEARCH_EVENT, onSlash);
+    return () => window.removeEventListener(OPEN_MOBILE_SEARCH_EVENT, onSlash);
+  }, [openSearch]);
 
   const closeSearch = useCallback(() => setSearchOpen(false), []);
 

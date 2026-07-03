@@ -74,7 +74,7 @@ export default function Home() {
               {fmtNum(rec.p)} matches across {years} years of league, cup, and European football.
             </PageHeader>
             <div className="mt-6 max-w-2xl hidden lg:block">
-              <SearchCommand autoFocusKey={false} />
+              <SearchCommand />
               <p className="text-xs text-ink-faint mt-1.5">
                 Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
                 {" "}— players, matches, seasons; anything.

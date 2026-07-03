@@ -118,19 +118,6 @@ export function SearchCommand({
   }, [autoFocusOnMount]);
 
   useEffect(() => {
-    if (!autoFocusKey) return;
-    const onKey = (e: KeyboardEvent) => {
-      const tag = document.activeElement?.tagName;
-      if (e.key === "/" && tag !== "INPUT" && tag !== "SELECT" && tag !== "TEXTAREA") {
-        e.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [autoFocusKey]);
-
-  useEffect(() => {
     if (mobileOverlay) return;
     const onClickOutside = (e: MouseEvent) => {
       if (boxRef.current && !boxRef.current.contains(e.target as Node)) {
@@ -218,6 +205,7 @@ export function SearchCommand({
     >
       <input
         ref={setInputRef}
+        data-slash-search=""
         data-pill-search-input={pillSearch ? "" : undefined}
         type="search"
         role="combobox"

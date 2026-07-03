@@ -81,6 +81,7 @@ export function cupOutcomesForSeason(
     for (const c of laneComps) {
       const v = cupVerdict(c, results.get(`${c.season}:${c.competition_id}`));
       out.push({
+        competitionId: c.competition_id,
         laneLabel: LANE_LABEL[lane],
         label: v.label,
         tier: v.tier,

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { fmtDate } from "@/lib/format";
-import type { AnnotatedLateGoal, LateGoalPoint } from "@/lib/trails";
+import { lateGoalPointKey, type AnnotatedLateGoal, type LateGoalPoint } from "@/lib/trails";
 
 const PAD_L = 44;
 const PAD_R = 16;
@@ -78,9 +78,7 @@ export function LateGoalScatter({
   const yJitter = compact ? 4 : 5.5;
   const xJitter = compact ? 2.5 : 3.5;
 
-  const annotatedKeys = new Set(
-    annotated.map((a) => `${a.matchId}:${a.minute}:${a.added ?? 0}`),
-  );
+  const annotatedKeys = new Set(annotated.map(lateGoalPointKey));
 
   const yearTicks = (() => {
     const start = Math.ceil(new Date(xMin).getFullYear() / 10) * 10;
@@ -91,7 +89,7 @@ export function LateGoalScatter({
   })();
 
   const positions = points.map((p) => {
-    const key = `${p.matchId}:${p.minute}:${p.added ?? 0}`;
+    const key = lateGoalPointKey(p);
     const { dx, dy } = jitterXY(key, yJitter, xJitter);
     return {
       p,
@@ -101,15 +99,12 @@ export function LateGoalScatter({
     };
   });
 
-  const annPositions = annotated.map((a) => {
-    const key = `${a.matchId}:${a.minute}:${a.added ?? 0}`;
-    return {
-      a,
-      x: xFor(a.date),
-      y: yFor(a.clock),
-      key,
-    };
-  });
+  const annPositions = annotated.map((a) => ({
+    a,
+    x: xFor(a.date),
+    y: yFor(a.clock),
+    key: lateGoalPointKey(a),
+  }));
 
   return (
     <figure className="m-0">
@@ -205,8 +200,8 @@ export function LateGoalScatter({
           })}
 
           {/* Annotated markers */}
-          {annPositions.map(({ a, x, y }) => (
-            <g key={`${a.matchId}:${a.minute}:${a.added ?? 0}`}>
+          {annPositions.map(({ a, x, y, key }) => (
+            <g key={key}>
               <circle
                 cx={x}
                 cy={y}
@@ -234,13 +229,13 @@ export function LateGoalScatter({
 
         {!compact && (
           <div className="pointer-events-none absolute inset-0">
-            {annPositions.map(({ a, x, y }, i) => {
+            {annPositions.map(({ a, x, y, key }, i) => {
               const leftPct = (x / width) * 100;
               const topPct = (y / height) * 100;
               const above = y < height * 0.38 || i % 2 === 0;
               return (
                 <Link
-                  key={`${a.matchId}:${a.minute}:${a.added ?? 0}`}
+                  key={key}
                   href={`/match/${a.matchId}`}
                   className="pointer-events-auto absolute text-[10px] leading-tight transition-colors hover:text-devil-bright focus-ring"
                   style={{
