@@ -216,6 +216,7 @@ export default async function SeasonPage({
         defaultTab="overview"
         ariaLabel="Season sections"
         idPrefix="season"
+        edgeTabs
         tabs={[
           {
             id: "overview",
@@ -223,7 +224,7 @@ export default async function SeasonPage({
             content: (
               <div className="space-y-8">
                 {(narrative.length > 0 || forgotten) && (
-                  <div className="rounded-lg border border-line bg-panel p-4 sm:p-5">
+                  <div className="rounded-none border-x-0 border-y border-line bg-panel p-4 sm:rounded-lg sm:border sm:p-5">
                     {narrative.length > 0 && (
                       <>
                         <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
@@ -239,13 +240,15 @@ export default async function SeasonPage({
                 )}
 
                 {leagueTable && (
-                  <LeagueTable table={leagueTable} season={season} />
+                  <div className="px-4 sm:px-0">
+                    <LeagueTable table={leagueTable} season={season} />
+                  </div>
                 )}
 
                 {sequence.length >= 24 && (
-                  <section>
+                  <section className="px-4 sm:px-0">
                     <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
-                    <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
+                    <div className="-mx-4 rounded-none border-x-0 border-y border-line bg-panel p-4 sm:mx-0 sm:rounded-xl sm:border sm:p-5">
                       <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={(id) => `/match/${id}`} />
                       <p className="mt-2 text-[11px] leading-4 text-ink-dim">
                         Every match in order — wins above the line, losses below, bar height the goal margin.
@@ -261,11 +264,13 @@ export default async function SeasonPage({
             label: "Competitions",
             content: (
               <section>
-                <SectionHead
-                  title="Competitions"
-                  aside={trophies > 0 ? `${byComp.size} entered · ${trophies} won` : `${byComp.size} entered`}
-                />
-                <div className="space-y-2">
+                <div className="px-4 sm:px-0">
+                  <SectionHead
+                    title="Competitions"
+                    aside={trophies > 0 ? `${byComp.size} entered · ${trophies} won` : `${byComp.size} entered`}
+                  />
+                </div>
+                <div className="divide-y divide-line sm:space-y-2 sm:divide-y-0">
                   {[...byComp.entries()].map(([comp, list]) => {
                     const outcome = campaignOutcome(summaryByName.get(comp), list);
                     const run = list[0].competition_type !== "league" ? buildCupRun(list) : null;
@@ -286,6 +291,7 @@ export default async function SeasonPage({
                   })}
                 </div>
                 <CoverageNote
+                  className="px-4 sm:px-0"
                   slice="every competitive match this season, grouped by competition."
                   coverage="Result data is complete; recorded goalscorer and lineup coverage vary by era."
                 />

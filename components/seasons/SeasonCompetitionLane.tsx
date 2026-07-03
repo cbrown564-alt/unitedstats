@@ -47,7 +47,7 @@ export function SeasonCompetitionLane({
 
   return (
     <details
-      className={`group overflow-hidden rounded-lg border border-line border-l-2 bg-panel ${trophyAccent}`}
+      className={`group overflow-hidden border border-line border-x-0 border-l-2 bg-panel sm:rounded-lg sm:border-x ${trophyAccent}`}
       style={trophyAccent ? undefined : { borderLeftColor: `${mark.bg}55` }}
     >
       <summary
