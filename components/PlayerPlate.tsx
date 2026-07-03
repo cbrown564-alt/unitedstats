@@ -30,6 +30,7 @@ interface PlayerPlateProps {
   position?: string | null;
   careerYears?: string | null;
   rank?: { goalRank: number; total: number } | null;
+  statProfile?: "attacking" | "defensive";
   stats: {
     goals: number;
     apps: number;
@@ -39,11 +40,16 @@ interface PlayerPlateProps {
     multiGoalGames: number;
     hatTricks: number;
     assists: number;
+    cleanSheets?: number;
+    goalsConceded?: number;
+    concededPerGame?: number | null;
+    cleanSheetPct?: number | null;
   };
   span: {
     debut: MatchRef | null;
     latest: MatchRef | null;
     peakSeason: { season: string; goals: number } | null;
+    peakDefensiveSeason?: { season: string; cleanSheets: number } | null;
   };
   shirts: Shirt[];
   /** One-line trust note shown in the footer band. */
@@ -64,8 +70,9 @@ const yearOf = (m: { season?: string; date?: string }) =>
  * recorded career resolves into a single span with the peak season marked on it.
  */
 export function PlayerPlate({
-  name, portrait, primaryShirt, position, careerYears, rank, stats, span, shirts, caveatBrief, correctionHref, share,
+  name, portrait, primaryShirt, position, careerYears, rank, statProfile = "attacking", stats, span, shirts, caveatBrief, correctionHref, share,
 }: PlayerPlateProps) {
+  const defensive = statProfile === "defensive";
   // Tint the corner kit to the era the player wore that number most.
   const primaryDecade =
     primaryShirt != null
@@ -80,23 +87,39 @@ export function PlayerPlate({
       detail: stats.subs ? `${fmtNum(stats.subs)} sub` : undefined,
     },
   ];
-  if (stats.goalsPerApp != null) {
-    secondary.push({ value: stats.goalsPerApp.toFixed(2), label: "goals / app" });
+  if (defensive) {
+    if (stats.concededPerGame != null) {
+      secondary.push({ value: stats.concededPerGame.toFixed(2), label: "conceded / game" });
+    }
+    if (stats.cleanSheetPct != null) {
+      secondary.push({ value: `${stats.cleanSheetPct.toFixed(0)}%`, label: "clean sheet rate" });
+    }
+    if (stats.goals) {
+      secondary.push({ value: fmtNum(stats.goals), label: "goals" });
+    }
+  } else {
+    if (stats.goalsPerApp != null) {
+      secondary.push({ value: stats.goalsPerApp.toFixed(2), label: "goals / app" });
+    }
+    if (stats.multiGoalGames) {
+      secondary.push({
+        value: fmtNum(stats.multiGoalGames),
+        label: "multi-goal apps",
+        detail: stats.hatTricks ? `${fmtNum(stats.hatTricks)} hat-trick${stats.hatTricks === 1 ? "" : "s"}` : undefined,
+        tone: stats.hatTricks ? "text-gold" : undefined,
+      });
+    }
+    if (stats.assists) {
+      secondary.push({
+        value: fmtNum(stats.assists),
+        label: "assists",
+      });
+    }
   }
-  if (stats.multiGoalGames) {
-    secondary.push({
-      value: fmtNum(stats.multiGoalGames),
-      label: "multi-goal apps",
-      detail: stats.hatTricks ? `${fmtNum(stats.hatTricks)} hat-trick${stats.hatTricks === 1 ? "" : "s"}` : undefined,
-      tone: stats.hatTricks ? "text-gold" : undefined,
-    });
-  }
-  if (stats.assists) {
-    secondary.push({
-      value: fmtNum(stats.assists),
-      label: "assists",
-    });
-  }
+
+  const headlineValue = defensive ? fmtNum(stats.cleanSheets ?? 0) : fmtNum(stats.goals);
+  const headlineLabel = defensive ? "clean sheets" : "goals";
+  const peakForArc = defensive ? span.peakDefensiveSeason : span.peakSeason;
 
   return (
     <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
@@ -151,14 +174,14 @@ export function PlayerPlate({
             )}
           </p>
 
-          {/* One dominant figure — goals — beside a hairline ribbon of supporting stats. */}
+          {/* One dominant figure beside a hairline ribbon of supporting stats. */}
           <div className="mt-5 flex flex-wrap items-end gap-x-7 gap-y-4 sm:mt-6">
             <div className="leading-none">
               <div className="flex items-baseline gap-2">
-                <span className="stat-num text-5xl font-semibold text-devil-bright sm:text-6xl">{fmtNum(stats.goals)}</span>
-                <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">goals</span>
+                <span className="stat-num text-5xl font-semibold text-devil-bright sm:text-6xl">{headlineValue}</span>
+                <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">{headlineLabel}</span>
               </div>
-              {rank && (
+              {!defensive && rank && (
                 <p className="stat-num mt-2 text-xs text-ink-faint">
                   #{fmtNum(rank.goalRank)} of {fmtNum(rank.total)} goalscorers
                 </p>
@@ -178,7 +201,7 @@ export function PlayerPlate({
           </div>
 
           {(span.debut || span.latest) && (
-            <CareerArc debut={span.debut} latest={span.latest} peakSeason={span.peakSeason} />
+            <CareerArc debut={span.debut} latest={span.latest} peakSeason={peakForArc} defensive={defensive} />
           )}
         </div>
       </div>
@@ -209,11 +232,12 @@ export function PlayerPlate({
  * time, so the whole arc reads before any of the labels do.
  */
 function CareerArc({
-  debut, latest, peakSeason,
+  debut, latest, peakSeason, defensive = false,
 }: {
   debut: MatchRef | null;
   latest: MatchRef | null;
-  peakSeason: { season: string; goals: number } | null;
+  peakSeason: { season: string; goals?: number; cleanSheets?: number } | null;
+  defensive?: boolean;
 }) {
   const y0 = debut ? yearOf(debut) : latest ? yearOf(latest) : null;
   const y1 = latest ? yearOf(latest) : debut ? yearOf(debut) : null;
@@ -242,12 +266,22 @@ function CareerArc({
             href={`/seasons/${peakSeason.season}`}
             className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
             style={{ left: `${peakPct}%` }}
-            title={`Most prolific season: ${fmtNum(peakSeason.goals)} goals`}
-            aria-label={`Peak season ${peakSeason.season}: ${fmtNum(peakSeason.goals)} goals`}
+            title={
+              defensive
+                ? `Best clean-sheet season: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets`
+                : `Most prolific season: ${fmtNum(peakSeason.goals ?? 0)} goals`
+            }
+            aria-label={
+              defensive
+                ? `Peak season ${peakSeason.season}: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets`
+                : `Peak season ${peakSeason.season}: ${fmtNum(peakSeason.goals ?? 0)} goals`
+            }
           >
             <span className="block h-3.5 w-3.5 rounded-full border-2 border-pitch bg-gold shadow-[0_0_0_3px_rgb(245_197_24_/0.18)]" aria-hidden />
             <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 hidden w-max -translate-x-1/2 rounded-md border border-line bg-panel-2 px-2 py-1 text-[11px] text-ink shadow-xl shadow-black/40 group-hover/peak:block">
-              Peak: {fmtNum(peakSeason.goals)} goals in {peakSeason.season}
+              {defensive
+                ? `Peak: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets in ${peakSeason.season}`
+                : `Peak: ${fmtNum(peakSeason.goals ?? 0)} goals in ${peakSeason.season}`}
             </span>
           </Link>
         )}
@@ -264,10 +298,16 @@ function CareerArc({
           <Link
             href={`/seasons/${peakSeason.season}`}
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
-            title={`Most prolific season: ${fmtNum(peakSeason.goals)} goals`}
+            title={
+              defensive
+                ? `Best clean-sheet season: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets`
+                : `Most prolific season: ${fmtNum(peakSeason.goals ?? 0)} goals`
+            }
           >
             ★ {peakSeason.season}
-            <span className="hidden sm:inline">: Most Prolific Season</span>
+            <span className="hidden sm:inline">
+              {defensive ? ": Best clean-sheet season" : ": Most Prolific Season"}
+            </span>
           </Link>
         )}
         {latest ? (

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerClubRanks,
   playerCuratedGoalTypes, playerCuratedTotals,
+  playerDefensiveBySeason, playerDefensiveTotals,
   playerGoalMatches, playerGoalsByOpponent, playerMedalSeasons,
   playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
   type CuratedTotals,
@@ -30,8 +31,17 @@ import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
 import { correctionPrefillHref } from "@/lib/corrections";
 import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
+import { playerUsesDefensiveProfile, DEFENSIVE_CLEAN_SHEET_NOTE } from "@/lib/playerProfile";
 import { sampleStaticIds } from "@/lib/static-build";
-import { peakAssistSeasons, peakGaSeason, peakGoalSeasons } from "@/lib/playerSeasonHighlights";
+import {
+  fewestConcededSeason,
+  mergeSeasonDefense,
+  peakAssistSeasons,
+  peakCleanSheetSeasons,
+  peakGaSeason,
+  peakGoalSeasons,
+  cleanSheetPct,
+} from "@/lib/playerSeasonHighlights";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -44,7 +54,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!p) return {};
   const span = playerCareerSpan(p);
   const title = `${p.name}`;
-  const description = `${p.name} — Manchester United playing record from ${span}. ${fmtNum(p.apps)} appearances, ${fmtNum(p.goals)} goals, and ${fmtNum(p.assists)} assists.`;
+  const defensiveProfile = playerUsesDefensiveProfile(p.position_bucket);
+  const description = defensiveProfile
+    ? `${p.name} — Manchester United playing record from ${span}. ${fmtNum(p.apps)} appearances and ${fmtNum(playerDefensiveTotals(id).cleanSheets)} clean sheets in matches started.`
+    : `${p.name} — Manchester United playing record from ${span}. ${fmtNum(p.apps)} appearances, ${fmtNum(p.goals)} goals, and ${fmtNum(p.assists)} assists.`;
   return {
     title,
     description,
@@ -74,6 +87,7 @@ export default async function PlayerPage({
 
   const p = playerById(id);
   if (!p) notFound();
+  const defensiveProfile = playerUsesDefensiveProfile(p.position_bucket);
   const playerCorrectionHref = correctionPrefillHref({
     targetKind: "player",
     targetId: id,
@@ -85,6 +99,10 @@ export default async function PlayerPage({
   });
 
   const bySeason = playerSplitsBySeason(id);
+  const defensiveTotals = defensiveProfile ? playerDefensiveTotals(id) : null;
+  const seasonsWithDefense = defensiveProfile
+    ? mergeSeasonDefense(bySeason, playerDefensiveBySeason(id))
+    : null;
   const matches = playerGoalMatches(id);
   const shirts = playerShirtNumbersByDecade(id);
   const partnerships = playerAssistPartnerships(id);
@@ -123,6 +141,17 @@ export default async function PlayerPage({
   const goalPeakSeasons = peakGoalSeasons(bySeason);
   const assistPeakSeasons = peakAssistSeasons(bySeason);
   const gaPeakSeason = peakGaSeason(bySeason);
+  const cleanSheetPeakSeasons = seasonsWithDefense ? peakCleanSheetSeasons(seasonsWithDefense) : [];
+  const fewestConceded = seasonsWithDefense ? fewestConcededSeason(seasonsWithDefense) : null;
+  const peakDefensiveSeason = cleanSheetPeakSeasons[0]
+    ? { season: cleanSheetPeakSeasons[0].season, cleanSheets: cleanSheetPeakSeasons[0].cleanSheets }
+    : null;
+  const concededPerGame = defensiveTotals && defensiveTotals.starts > 0
+    ? defensiveTotals.goalsConceded / defensiveTotals.starts
+    : null;
+  const defensiveCleanSheetPct = defensiveTotals
+    ? cleanSheetPct(defensiveTotals.cleanSheets, defensiveTotals.starts)
+    : null;
   const medalSeasons = playerMedalSeasons(id);
 
   // Scoring matches (newest first). For a prolific scorer the flat list is huge,
@@ -191,7 +220,8 @@ export default async function PlayerPage({
           primaryShirt={p.primary_shirt}
           position={p.position_label ? p.position_label.charAt(0).toUpperCase() + p.position_label.slice(1) : null}
           careerYears={careerYears}
-          rank={ranks}
+          rank={defensiveProfile ? null : ranks}
+          statProfile={defensiveProfile ? "defensive" : "attacking"}
           stats={{
             goals: p.goals,
             apps: p.apps,
@@ -201,8 +231,12 @@ export default async function PlayerPage({
             multiGoalGames,
             hatTricks,
             assists: p.assists,
+            cleanSheets: defensiveTotals?.cleanSheets,
+            goalsConceded: defensiveTotals?.goalsConceded,
+            concededPerGame,
+            cleanSheetPct: defensiveCleanSheetPct,
           }}
-          span={{ debut, latest, peakSeason }}
+          span={{ debut, latest, peakSeason, peakDefensiveSeason }}
           shirts={shirts}
           caveatBrief="Verified competitive record"
           correctionHref={playerCorrectionHref}
@@ -221,28 +255,55 @@ export default async function PlayerPage({
               <section id="seasons" className="space-y-6">
                 {bySeason.length > 1 && (
                   <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
-                    <h2 className="display mb-3 text-xl">Goals and assists by season</h2>
+                    <h2 className="display mb-3 text-xl">
+                      {defensiveProfile ? "Clean sheets and goals conceded by season" : "Goals and assists by season"}
+                    </h2>
                     <div className="mb-2 flex items-center gap-4 text-[11px] text-ink-faint">
-                      <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-devil" /> Goals</span>
-                      <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-gold" /> Assists</span>
+                      <span className="flex items-center gap-1.5">
+                        <span className="h-2.5 w-2.5 rounded-full bg-devil" />
+                        {defensiveProfile ? "Clean sheets" : "Goals"}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <span className="h-2.5 w-2.5 rounded-full bg-gold" />
+                        {defensiveProfile ? "Goals conceded" : "Assists"}
+                      </span>
                     </div>
                     <SeasonContributionChart
-                      data={bySeason.map((s) => ({
-                        label: fmtSeasonShort(s.season),
-                        goals: s.goals,
-                        assists: s.assists,
-                        valueLabel: `${fmtNum(s.goals)} goals · ${fmtNum(s.assists)} assists`,
-                        meta: s.season,
-                        href: `/seasons/${s.season}`,
-                      }))}
+                      variant={defensiveProfile ? "defensive" : "attacking"}
+                      data={
+                        defensiveProfile && seasonsWithDefense
+                          ? seasonsWithDefense.map((s) => ({
+                              label: fmtSeasonShort(s.season),
+                              cleanSheets: s.cleanSheets,
+                              goalsConceded: s.goalsConceded,
+                              valueLabel: `${fmtNum(s.cleanSheets)} clean sheets · ${fmtNum(s.goalsConceded)} conceded`,
+                              meta: s.season,
+                              href: `/seasons/${s.season}`,
+                            }))
+                          : bySeason.map((s) => ({
+                              label: fmtSeasonShort(s.season),
+                              goals: s.goals,
+                              assists: s.assists,
+                              valueLabel: `${fmtNum(s.goals)} goals · ${fmtNum(s.assists)} assists`,
+                              meta: s.season,
+                              href: `/seasons/${s.season}`,
+                            }))
+                      }
                       labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
-                      chartLabel={`${p.name} goals and assists by season`}
+                      chartLabel={
+                        defensiveProfile
+                          ? `${p.name} clean sheets and goals conceded by season`
+                          : `${p.name} goals and assists by season`
+                      }
                     />
-                    {seasonChartFootnotes.length > 0 && (
+                    {(seasonChartFootnotes.length > 0 || defensiveProfile) && (
                       <div className="mt-1 space-y-0.5">
                         {seasonChartFootnotes.map((note) => (
                           <p key={note} className="text-xs text-ink-dim">{note}</p>
                         ))}
+                        {defensiveProfile && (
+                          <p className="text-xs text-ink-dim">{DEFENSIVE_CLEAN_SHEET_NOTE}</p>
+                        )}
                       </div>
                     )}
                   </div>
@@ -252,17 +313,37 @@ export default async function PlayerPage({
                   <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                     <h2 className="display text-xl">Season by season</h2>
                     <span className="stat-num text-xs text-ink-dim">
-                      {fmtNum(p.recorded_goals)} recorded goals · {fmtNum(coveredSeasons.length)} of {fmtNum(bySeason.length)} seasons covered
+                      {defensiveProfile && defensiveTotals
+                        ? `${fmtNum(defensiveTotals.cleanSheets)} clean sheets in ${fmtNum(defensiveTotals.starts)} starts · ${fmtNum(coveredSeasons.length)} of ${fmtNum(bySeason.length)} seasons covered`
+                        : `${fmtNum(p.recorded_goals)} recorded goals · ${fmtNum(coveredSeasons.length)} of ${fmtNum(bySeason.length)} seasons covered`}
                     </span>
                   </div>
-                  <PlayerSeasonHighlights goalPeaks={goalPeakSeasons} gaPeak={gaPeakSeason} />
-                  <PlayerSeasonTable
-                    seasons={bySeason}
-                    playerName={p.name}
-                    goalPeakSeasons={goalPeakSeasons.map((s) => s.season)}
-                    assistPeakSeasons={assistPeakSeasons.map((s) => s.season)}
-                    medalSeasons={medalSeasons}
-                  />
+                  {defensiveProfile && seasonsWithDefense ? (
+                    <PlayerSeasonHighlights
+                      cleanSheetPeaks={cleanSheetPeakSeasons}
+                      fewestConceded={fewestConceded}
+                    />
+                  ) : (
+                    <PlayerSeasonHighlights goalPeaks={goalPeakSeasons} gaPeak={gaPeakSeason} />
+                  )}
+                  {defensiveProfile && seasonsWithDefense ? (
+                    <PlayerSeasonTable
+                      statProfile="defensive"
+                      seasons={seasonsWithDefense}
+                      playerName={p.name}
+                      cleanSheetPeakSeasons={cleanSheetPeakSeasons.map((s) => s.season)}
+                      fewestConcededSeasons={fewestConceded ? [fewestConceded.season] : []}
+                      medalSeasons={medalSeasons}
+                    />
+                  ) : (
+                    <PlayerSeasonTable
+                      seasons={bySeason}
+                      playerName={p.name}
+                      goalPeakSeasons={goalPeakSeasons.map((s) => s.season)}
+                      assistPeakSeasons={assistPeakSeasons.map((s) => s.season)}
+                      medalSeasons={medalSeasons}
+                    />
+                  )}
                 </div>
               </section>
             ) : (
@@ -408,6 +489,7 @@ export default async function PlayerPage({
         totalSeasons={bySeason.length}
         curatedTotals={curatedTotals}
         hasPartnerships={partnerships.length > 0}
+        defensiveProfile={defensiveProfile}
       />
 
       <p className="text-sm">
@@ -423,11 +505,13 @@ function PlayerDataCoverage({
   totalSeasons,
   curatedTotals,
   hasPartnerships,
+  defensiveProfile = false,
 }: {
   coveredSeasons: number;
   totalSeasons: number;
   curatedTotals: CuratedTotals | null;
   hasPartnerships: boolean;
+  defensiveProfile?: boolean;
 }) {
   return (
     <details className="group rounded-xl border border-line bg-panel">
@@ -440,9 +524,16 @@ function PlayerDataCoverage({
       </summary>
       <div className="space-y-3 border-t border-line px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
         <p className="text-xs text-ink-dim">
-          <span className="font-medium text-ink">Club record</span> — verified competitive goals, apps, and starts in the hero plate.
+          <span className="font-medium text-ink">Club record</span> — verified competitive{" "}
+          {defensiveProfile ? "apps, starts, and defensive record" : "goals, apps, and starts"} in the hero plate.
           Recorded splits below are drawn from match coverage we can evidence, not necessarily a full career total.
         </p>
+
+        {defensiveProfile && (
+          <p className="text-xs text-ink-dim">
+            <span className="font-medium text-ink">Defensive record</span> — {DEFENSIVE_CLEAN_SHEET_NOTE}
+          </p>
+        )}
 
         {totalSeasons > 0 && (
           <CoverageNote
@@ -452,7 +543,9 @@ function PlayerDataCoverage({
               covered: coveredSeasons,
               total: totalSeasons,
               noun: "seasons carry lineup coverage",
-              note: "apps and assists reflect local data, so empty cells are coverage gaps, not zero",
+              note: defensiveProfile
+                ? "apps reflect local data; clean sheets and conceded are from matches started"
+                : "apps and assists reflect local data, so empty cells are coverage gaps, not zero",
             }}
           />
         )}
