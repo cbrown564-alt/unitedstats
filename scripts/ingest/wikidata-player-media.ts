@@ -53,6 +53,21 @@ const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
   "paul-scholes": "Paul Scholes 2008.jpg",
   "andy-cole": "Andy Cole (cropped).jpg",
   "ole-gunnar-solskj-r": "Solskjaer cropped.jpg",
+  // Phase 3 — post-career / manager-era Wikidata P18 fixes
+  "david-beckham": "1999 FA Cup Final Beckham corner (cropped).jpg",
+  "denis-irwin": "The Cliff (Denis Irwin).JPG",
+  "mark-hughes": "Mark Hughes juli 1991.JPG",
+  "gary-neville": "Gary Neville crop.jpg",
+  "phil-neville": "Philnev.JPG",
+  "michael-carrick": "Manchester United v Watford, 13 May 2018 (10).jpg",
+  "bryan-robson": "Bryan Robson at the cliff -march 92 (cropped).jpg",
+  "steve-coppell": "FeyenoordManchesterUnited1983a.jpg",
+  "paul-pogba": "Paul Pogba 9 March 2017 (cropped).jpg",
+  "rio-ferdinand": "Rio Ferdinand ManU.jpg",
+  "ronny-johnsen": "1999 FA Cup Final teams line up (cropped).jpg",
+  "teddy-sheringham": "1999 FA Cup Final teams line up (cropped).jpg",
+  "gabriel-heinze": "Heinze, Gabriel.jpg",
+  "brian-mcclair": "Brian McClair mars 1992.JPG",
 };
 
 /** Hand-cropped portraits stored under public/media/sources/ — see cache:media. */
