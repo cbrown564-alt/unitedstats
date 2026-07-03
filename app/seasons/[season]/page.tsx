@@ -5,9 +5,9 @@ import { seasonMatches, allSeasons, seasonsIndex, seasonLeagueTable, type MatchR
 import { matchesSequence } from "@/lib/trails";
 import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
-import { CompetitionBadge } from "@/components/CompetitionBadge";
 import { CupRun } from "@/components/CupRun";
-import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
+import type { CampaignTier } from "@/components/CampaignVerdict";
+import { SeasonCompetitionLane } from "@/components/seasons/SeasonCompetitionLane";
 import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
@@ -49,9 +49,6 @@ function ordinal(n: number): string {
   const v = n % 100;
   return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);
 }
-
-const CHEVRON =
-  "h-3.5 w-3.5 shrink-0 text-ink-faint transition-transform duration-200 group-open:rotate-90";
 
 /**
  * The verdict of a competition campaign — the line that turns a flat match list
@@ -270,47 +267,21 @@ export default async function SeasonPage({
                 />
                 <div className="space-y-2">
                   {[...byComp.entries()].map(([comp, list]) => {
-                    const { w, d, l } = tallyWdl(list);
                     const outcome = campaignOutcome(summaryByName.get(comp), list);
                     const run = list[0].competition_type !== "league" ? buildCupRun(list) : null;
                     const bracket = run && run.stages.length >= 2 ? run.stages : null;
-                    const accent =
-                      outcome?.tier === "silverware"
-                        ? "border-l-2 border-l-gold/70"
-                        : outcome?.tier === "final-loss"
-                          ? "border-l-2 border-l-silver/55"
-                          : "";
                     return (
-                      <details key={comp} className={`group overflow-hidden rounded-lg border border-line bg-panel ${accent}`}>
-                        <summary
-                          className={`flex cursor-pointer list-none items-center gap-2.5 py-2.5 pr-3 pl-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:gap-3 sm:pr-4 sm:pl-3 [&::-webkit-details-marker]:hidden ${
-                            outcome?.tier === "silverware" ? "bg-gold/[0.04]" : ""
-                          }`}
-                        >
-                          <svg className={CHEVRON} viewBox="0 0 16 16" fill="none" aria-hidden>
-                            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                          <CompetitionBadge
-                            id={list[0].competition_id}
-                            name={comp}
-                            type={list[0].competition_type}
-                            size="md"
-                          />
-                          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
-                            <h3 className="display line-clamp-2 min-w-0 text-base leading-snug" title={comp}>{comp}</h3>
-                            {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
-                          </div>
-                          <span className="stat-num hidden w-16 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
-                            {list.length} {list.length === 1 ? "match" : "matches"}
-                          </span>
-                          <div className="w-28 shrink-0 sm:w-36">
-                            <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
-                          </div>
-                        </summary>
-                        <div className="border-t border-line p-2 sm:p-3">
-                          {bracket ? <CupRun stages={bracket} /> : <MatchList matches={list} />}
-                        </div>
-                      </details>
+                      <SeasonCompetitionLane
+                        key={comp}
+                        name={comp}
+                        competitionId={list[0].competition_id}
+                        competitionType={list[0].competition_type}
+                        matches={list}
+                        summary={summaryByName.get(comp)}
+                        outcome={outcome}
+                      >
+                        {bracket ? <CupRun stages={bracket} /> : <MatchList matches={list} />}
+                      </SeasonCompetitionLane>
                     );
                   })}
                 </div>
