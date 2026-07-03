@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { DataTable, type SortDirection } from "@/components/DataTable";
 import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -67,7 +68,14 @@ export function PlayersRegisterTable({
   sparkAxisStart: number;
   sparkAxisEnd: number;
 }) {
-  const [showAssists, setShowAssists] = useState(false);
+  const router = useRouter();
+  const [showAssists, setShowAssists] = useState(sortKey === "assists");
+
+  useEffect(() => {
+    if (sortKey === "assists") {
+      setShowAssists(true);
+    }
+  }, [sortKey]);
 
   function sortHref(nextSortKey: string, nextDirection: SortDirection) {
     const params = new URLSearchParams();
@@ -75,6 +83,13 @@ export function PlayersRegisterTable({
     params.set("sort", nextSortKey);
     params.set("dir", nextDirection);
     return `/players?${params.toString()}`;
+  }
+
+  function handleSort(nextSortKey: string, nextDirection: SortDirection) {
+    if (nextSortKey === "assists") {
+      setShowAssists(true);
+    }
+    router.push(sortHref(nextSortKey, nextDirection));
   }
 
   const assistColumn = {
@@ -143,7 +158,7 @@ export function PlayersRegisterTable({
         sort={{
           key: sortKey,
           direction: sortDirection,
-          hrefFor: sortHref,
+          onSort: handleSort,
         }}
         columns={[
           {
