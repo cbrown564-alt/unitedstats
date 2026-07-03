@@ -16,7 +16,9 @@ import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
 import { WdlBar } from "@/components/WdlBar";
+import { RediscoveryRail } from "@/components/RediscoveryRail";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
+import { rediscoveryForEntity, parseSinceYear } from "@/lib/rediscovery";
 import { sampleStaticIds } from "@/lib/static-build";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
@@ -89,12 +91,16 @@ function campaignOutcome(
 
 export default async function SeasonPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ season: string }>;
+  searchParams?: Promise<{ since?: string }>;
 }) {
   const { season } = await params;
+  const sinceYear = parseSinceYear(searchParams ? (await searchParams).since : undefined);
   const matches = seasonMatches(season);
   if (matches.length === 0) notFound();
+  const forgotten = rediscoveryForEntity("season", season, { sinceYear });
 
   // The full final table United played in that season (every club) — rendered as
   // context below the plate. Null for cup-only seasons or the rare source gap.
@@ -219,6 +225,8 @@ export default async function SeasonPage({
             label: "Overview",
             content: (
               <div className="space-y-8">
+                {forgotten && <RediscoveryRail prompt={forgotten} />}
+
                 {narrative.length > 0 && (
                   <div className="rounded-lg border border-line bg-panel p-4 sm:p-5">
                     <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>

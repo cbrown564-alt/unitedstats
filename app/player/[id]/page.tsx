@@ -24,6 +24,7 @@ import { MatchList } from "@/components/MatchList";
 import { HaulCards } from "@/components/HaulCards";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
+import { RediscoveryRail } from "@/components/RediscoveryRail";
 import { PlayerTransferRecord } from "@/components/player/PlayerTransferRecord";
 import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format";
 import { queryString } from "@/lib/url";
@@ -32,6 +33,7 @@ import { correctionPrefillHref } from "@/lib/corrections";
 import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
 import { sampleStaticIds } from "@/lib/static-build";
 import { peakAssistSeasons, peakGaSeason, peakGoalSeasons } from "@/lib/playerSeasonHighlights";
+import { rediscoveryForEntity, parseSinceYear } from "@/lib/rediscovery";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -63,10 +65,13 @@ export async function generateStaticParams() {
 
 export default async function PlayerPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ since?: string }>;
 }) {
   const { id } = await params;
+  const sinceYear = parseSinceYear(searchParams ? (await searchParams).since : undefined);
 
   // "Own Goal" is a synthetic scorer, not a person: its page shows the opposition
   // players behind the tally rather than a career.
@@ -74,6 +79,7 @@ export default async function PlayerPage({
 
   const p = playerById(id);
   if (!p) notFound();
+  const forgotten = rediscoveryForEntity("player", id, { sinceYear });
   const playerCorrectionHref = correctionPrefillHref({
     targetKind: "player",
     targetId: id,
@@ -219,6 +225,8 @@ export default async function PlayerPage({
             shortLabel: "Career",
             content: bySeason.length > 0 ? (
               <section id="seasons" className="space-y-6">
+                {forgotten && <RediscoveryRail prompt={forgotten} />}
+
                 {bySeason.length > 1 && (
                   <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
                     <h2 className="display mb-3 text-xl">Goals and assists by season</h2>

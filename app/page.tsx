@@ -13,19 +13,27 @@ import { SectionHead } from "@/components/SectionHead";
 import { PageHeader } from "@/components/PageHeader";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
+import { EraPrompt } from "@/components/EraPrompt";
 import { greatNights } from "@/lib/greatNights";
+import { parseSinceYear } from "@/lib/rediscovery";
 
 // The front door is the gate (CONTEXT.md §6): its whole job is to fire the spark.
 // The served night is resolved per request so on-this-day reflects the real date
 // and the latest record — like /surprise and /on-this-day.
 export const dynamic = "force-dynamic";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ since?: string }>;
+}) {
+  const params = await searchParams;
+  const sinceYear = parseSinceYear(params.since);
   const meta = getMeta();
   const rec = allTimeRecord();
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
-  const { nights, seed } = greatNights();
+  const { nights, seed } = greatNights(new Date(), { rediscovery: { sinceYear } });
   const featured = featuredLaunchQuestion();
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -55,7 +63,7 @@ export default function Home() {
         {/* 1. THE SPARK — the front door is the gate, and its whole job is to fire
             the nostalgic jolt in the first seconds: a single served match-night,
             chosen for you, is the entire first screen, the Red Thread its spine. */}
-        <TonightHero nights={nights} seed={seed} />
+        <TonightHero nights={nights} seed={seed} eraSlot={<EraPrompt initialSince={sinceYear} />} />
 
         {/* 2. THE FOUNDATION (CONTEXT.md §2) — the whole record the night belongs to:
             every season as a breathing skyline, the scope, the search. Pulled up so

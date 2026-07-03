@@ -14,8 +14,9 @@ several surfaces reshaped) and shipped a real first-contact spark on the
 homepage. **Phase 2 question expansion was attempted and did not work** — the
 front door stays at four promoted myths, not a rebuilt catalogue. **`/explore`
 is approved as-is** — no further reshape pass. **Mobile is complete** (Waves
-0–2). The next major phase of work is the **rediscovery engine**, followed by
-the **on-site copy rewrite** and a **cleanup** pass to retire scaffolding and
+0–2). **Phase 3a rediscovery engine is shipped** (charge × fadedness scoring,
+entity rails, homepage/surprise integration, optional era bias). Next major work:
+the **on-site copy rewrite**, then a **cleanup** pass to retire scaffolding and
 dead code.
 
 ---
@@ -41,7 +42,7 @@ dead code.
 
 | Surface | State |
 |---|---|
-| `/` homepage | Spark shipped (`TonightHero` + `lib/greatNights.ts`) — curated pool + on-this-day tier; not yet the computable rediscovery engine |
+| `/` homepage | Spark shipped (`TonightHero` + `lib/greatNights.ts`) — on-this-day tier + **rediscovery engine** rolls (`lib/rediscovery.ts`); curated pool is fallback |
 | `/data` | Acts I–III + developer appendix |
 | `/analytics` | Elo + reliability + Monte Carlo replay (peaks/win-rate/attendance charts cut) |
 | `/transfers` | Ledger + featured record deals |
@@ -64,6 +65,15 @@ Remaining items in that doc are optional polish, not blocking work.
 
 ---
 
+## Done — Phase 3a rediscovery engine (2026-07-03)
+
+Charge × fadedness scoring in `lib/rediscovery.ts`; entity rails on season,
+opponent, and player pages; homepage and `/surprise` consume the engine;
+optional era bias via `?since=` + `EraPrompt`. Curated nights moved to
+`lib/curatedNights.ts`. Tests in `tests/rediscovery.test.ts`.
+
+---
+
 ## Closed — not continuing
 
 | Item | Decision |
@@ -76,62 +86,11 @@ Remaining items in that doc are optional polish, not blocking work.
 
 ---
 
-## Next — three workstreams
+## Next — two workstreams
 
 In leverage order.
 
-### 1. Rediscovery engine (Phase 3a) — **major phase**
-
-**Why.** The homepage spark (`TonightHero`) proves the product can land emotionally,
-but it is **hand-curated curation**, not the computable class described in
-`docs/RESTRAINT-PASS.md` § Phase 3a and `CONTEXT.md` §6. The 2015 Europa League
-jolt that validated the product was *forgotten + charged + in your era* — that
-needs an engine, not a longer curated list.
-
-**Spec (from restraint pass, still authoritative):**
-
-Score every match by:
-
-- **Charge** — knockout exits (esp. European upsets), derby/rivalry results,
-  extreme scorelines, comebacks/collapses, giant-killings, streak-enders, late
-  drama, big-crowd nights. Reuse existing helpers (comebacks module, late-goal
-  detection, streaks, rivalry data) where they exist.
-- **× Fadedness** — age band ~5–30 years (living-memory zone); exclude
-  canonical-fame nights everyone already knows (Treble final, etc.).
-- **× Your era** *(optional unlock)* — single value: *"Following United since ___?"*
-  via URL param or `localStorage`; no account, no tracking. Biases rolls into
-  the reader's own living memory.
-
-Frame output as a **recognition prompt** ("Do you remember…?"), not a fixture row.
-
-**Wire without new routes:**
-
-| Surface | Integration |
-|---|---|
-| Entity pages | "You might have forgotten…" rail — highest-charge faded night from that season / opponent / player history |
-| Homepage | Extend or replace curated-pool fallback with engine-driven rolls; keep on-this-day tier when it clears the spectacle floor |
-| `/surprise` | Nostalgia mode — engine-driven match nights instead of (or alongside) curated facts |
-
-**Proto today:** `lib/greatNights.ts` (two-tier: on-this-day + `CURATED_NIGHTS`).
-The engine should grow from or alongside this module — not a parallel system.
-
-**Honest limit:** The exact personal jolt cannot be guaranteed. The win is
-*only ever* serving forgotten + charged + in-your-era matches, raising hit-rate
-from calendar lottery to high. Grade coverage honestly where charge factors
-need modern event data.
-
-**Definition of done for this phase:**
-
-- Charge × fadedness scoring implemented and tested against a sample of known
-  "charged faded" nights (including 2015 Europa exit class).
-- Entity-page rediscovery rail live on at least season, opponent, and player pages.
-- Homepage and `/surprise` consume the engine (curated pool becomes fallback or
-  seed list, not the only source).
-- Optional era bias shipped with a clear, guardrail-safe UX.
-
----
-
-### 2. On-site copy rewrite
+### 1. On-site copy rewrite
 
 **Why.** Audience evidence ranked templated connective copy as the **#1
 pre-launch credibility fix** — same disease as the 6,200-line docs already cut.
@@ -152,7 +111,7 @@ remaining "spine / front door / red thread" templated cadence in user-visible co
 
 ---
 
-### 3. Cleanup
+### 2. Cleanup
 
 **Why.** Close the restraint pass properly: remove scaffolding, dead code, and
 stale docs so the repo reflects decisions above.

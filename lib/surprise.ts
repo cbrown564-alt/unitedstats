@@ -3,6 +3,7 @@ import { questionHeadlines } from "./questionHeadlines";
 import { CURATED_CUTS, cutHref, curatedCut, runCut } from "./cut";
 import { clubRecords } from "./trails";
 import { scoreline, venuePrefix, fmtNum } from "./format";
+import { rediscoveryRollPool, type RediscoveryOpts } from "./rediscovery";
 
 export type SurpriseTone = "devil" | "gold" | "win";
 
@@ -21,7 +22,7 @@ export type SurpriseTone = "devil" | "gold" | "win";
 export interface SurpriseFact {
   /** Stable id — React reveal key and de-dupe. */
   id: string;
-  kind: "question" | "cut" | "record";
+  kind: "question" | "cut" | "record" | "night";
   /** What kind of find this is, in the wanderer's words. */
   eyebrow: string;
   /** The big number/scoreline that *is* the surprise. */
@@ -44,8 +45,22 @@ function yearOf(iso: string): string {
  * curated-cut headlines, the club records) — a handful of light queries, run once
  * per `/surprise` request. Order is stable; the reveal shuffles client-side.
  */
-export function surpriseFacts(): SurpriseFact[] {
+export function surpriseFacts(opts: RediscoveryOpts = {}): SurpriseFact[] {
   const facts: SurpriseFact[] = [];
+
+  // Nostalgia mode — engine-driven match nights (Phase 3a), framed as recognition.
+  for (const p of rediscoveryRollPool(24, opts)) {
+    facts.push({
+      id: `night-${p.id}`,
+      kind: "night",
+      eyebrow: "A night you might have forgotten",
+      figure: p.score,
+      line: `${p.line}${p.scoreSuffix ? ` ${p.scoreSuffix}` : ""}`,
+      href: p.href,
+      cta: "Open the match",
+      tone: p.tone === "text-win" ? "win" : p.tone === "text-loss" ? "devil" : "gold",
+    });
+  }
 
   // The nine tested myths — each headline is already a figure + a sharp clause.
   const headlines = questionHeadlines();

@@ -385,9 +385,11 @@ function ThreadTimeline({
 export function TonightHero({
   nights,
   seed,
+  eraSlot,
 }: {
   nights: GreatNight[];
   seed: number;
+  eraSlot?: React.ReactNode;
 }) {
   const [hoveredGoalIndex, setHoveredGoalIndex] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(seed);
@@ -539,6 +541,12 @@ export function TonightHero({
           </span>
         </div>
       </Link>
+
+      {eraSlot && (
+        <div className="pointer-events-none absolute top-4 left-4 z-20 sm:top-6 sm:left-6">
+          <div className="pointer-events-auto">{eraSlot}</div>
+        </div>
+      )}
 
       {canReroll && (
         <div className="pointer-events-none absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
