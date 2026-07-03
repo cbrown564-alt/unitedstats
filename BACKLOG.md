@@ -6,7 +6,7 @@ Open bugs, polish, and intentional non-fixes. Closed items live in git history.
 
 | Priority | Item | Where | Notes |
 |----------|------|-------|-------|
-| P1 | ~18 players still have no Commons image | `data/canonical/player-media.json` `missing[]` | e.g. Joe Spence, Lou Macari, Gary Pallister — initials fallback; down from ~25 after legend overrides |
+| P1 | ~17 players still have no Commons image | `data/canonical/player-media.json` `missing[]` | e.g. Joe Spence, Lou Macari, Martin Buchan — initials fallback; down from ~18 after phase 4 (Johnny Berry Rekordmagasinet) |
 | P2 | Long tail (~850 players) outside media cohort | ingest selection logic | Accept initials, or expand cohorts thoughtfully |
 | P2 | `check:media --strict-coverage` not yet in CI | `scripts/check-media.ts` | `check:media` runs in CI; strict coverage flag deferred until `missing[]` stabilises |
 | P3 | Pre-war OG scorers show as `"Unknown"` | `components/OwnGoalProfile.tsx` | Data-correct; visually flat |

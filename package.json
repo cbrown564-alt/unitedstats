@@ -31,6 +31,7 @@
     "ingest:tableau-goals-assists": "tsx scripts/ingest/tableau-goals-assists.ts",
     "check:static": "node scripts/check-static-render.mjs",
     "check:media": "tsx scripts/check-media.ts",
+    "audit:media": "tsx scripts/audit-media.ts",
     "check:perf": "node scripts/check-perf-budgets.mjs",
     "build:db": "tsx scripts/build-db.ts",
     "export:dataset": "tsx scripts/export-dataset.ts",

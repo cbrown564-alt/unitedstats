@@ -42,6 +42,34 @@ const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
   "peter-schmeichel": "Peter Schmeichel juli 1991.JPG",
   "eric-cantona": "Cantona, Eric.jpg",
   "steve-bruce": "Steve Bruce at the cliff -march 92.JPG",
+  // Phase 1 — wrong subject/club
+  "tony-dunne": "Manu-Finland-1965.jpg",
+  "john-o-shea": "John O'Shea CL semi 0809.jpg",
+  "wes-brown": "Wes Brown, Feb. 2008.jpg",
+  "aaron-wan-bissaka": "Aaron Wan Bissaka 2019.jpg",
+  "javier-hernandez": "Chicharito 2010.jpg",
+  "mikael-silvestre": "Mikaël Silvestre.JPG",
+  // Phase 2 — bad crop / non-portrait
+  "paul-scholes": "Paul Scholes 2008.jpg",
+  "andy-cole": "Andy Cole (cropped).jpg",
+  "ole-gunnar-solskj-r": "Solskjaer cropped.jpg",
+  // Phase 3 — post-career / manager-era Wikidata P18 fixes
+  "david-beckham": "1999 FA Cup Final Beckham corner (cropped).jpg",
+  "denis-irwin": "The Cliff (Denis Irwin).JPG",
+  "mark-hughes": "Mark Hughes juli 1991.JPG",
+  "gary-neville": "Gary Neville crop.jpg",
+  "phil-neville": "Philnev.JPG",
+  "michael-carrick": "Manchester United v Watford, 13 May 2018 (10).jpg",
+  "bryan-robson": "Bryan Robson at the cliff -march 92 (cropped).jpg",
+  "steve-coppell": "FeyenoordManchesterUnited1983a.jpg",
+  "paul-pogba": "Paul Pogba 9 March 2017 (cropped).jpg",
+  "rio-ferdinand": "Rio Ferdinand ManU.jpg",
+  "ronny-johnsen": "1999 FA Cup Final teams line up (cropped).jpg",
+  "teddy-sheringham": "1999 FA Cup Final teams line up (cropped).jpg",
+  "gabriel-heinze": "Heinze, Gabriel.jpg",
+  "brian-mcclair": "Brian McClair mars 1992.JPG",
+  // Phase 4 — pre-Wikidata / no P18; Rekordmagasinet scan on Commons
+  "johnny-berry": "Johnny Berry 1957.jpg",
 };
 
 /** Hand-cropped portraits stored under public/media/sources/ — see cache:media. */

@@ -190,8 +190,11 @@ async function writeOptimizedImage(bytes: Buffer, file: string): Promise<void> {
   if (!meta.width || !meta.height || meta.width < MIN_DIMENSION || meta.height < MIN_DIMENSION) {
     throw new Error(`invalid source dimensions ${meta.width ?? "?"}x${meta.height ?? "?"}`);
   }
-  // Tall sources (full-body portraits) lose heads under attention cropping — bias up.
-  const position = meta.height / meta.width > 1.15 ? "top" : "attention";
+  // Football portraits often lose heads under Sharp "attention" crop. Prefer top-biased
+  // cropping for portrait/square sources (H/W >= 0.85); use attention only for clearly
+  // wide landscape shots where face loss is unlikely.
+  const aspect = meta.height / meta.width;
+  const position = aspect < 0.85 ? "attention" : "top";
   fs.mkdirSync(path.dirname(file), { recursive: true });
   await sharp(bytes, { failOn: "none" })
     .rotate()
