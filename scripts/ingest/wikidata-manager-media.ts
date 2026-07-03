@@ -31,6 +31,9 @@ const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
   "darren-fletcher": "Darren Fletcher vs Everton (cropped).jpg",
   "jose-mourinho": "José Mourinho (cropped).jpg",
   "wilf-mcguinness": "Manchester United FC 1957.jpg",
+  // Phase 4 — genuine Commons portraits for pre-modern managers
+  "james-west": "James West.jpg",
+  "dave-sexton": "Dave Sexton.jpg",
 };
 
 /** Wikidata P18 exists but is unsuitable; UI falls back to initials. */

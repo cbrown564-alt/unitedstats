@@ -68,6 +68,8 @@ const CURATED_COMMONS_OVERRIDES: Record<string, string> = {
   "teddy-sheringham": "1999 FA Cup Final teams line up (cropped).jpg",
   "gabriel-heinze": "Heinze, Gabriel.jpg",
   "brian-mcclair": "Brian McClair mars 1992.JPG",
+  // Phase 4 — pre-Wikidata / no P18; Rekordmagasinet scan on Commons
+  "johnny-berry": "Johnny Berry 1957.jpg",
 };
 
 /** Hand-cropped portraits stored under public/media/sources/ — see cache:media. */
