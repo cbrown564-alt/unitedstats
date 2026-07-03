@@ -18,7 +18,7 @@ export function RediscoveryRail({ prompt }: { prompt: RediscoveryPrompt }) {
   return (
     <p className="text-sm leading-relaxed text-ink-dim">
       <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink-faint">
-        Forgotten night
+        Remember this?
       </span>
       {" · "}
       <Link
