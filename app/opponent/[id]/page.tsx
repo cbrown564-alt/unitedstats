@@ -177,7 +177,11 @@ export default async function OpponentPage({
               label: "Overview",
               content: (
                 <div className="space-y-8">
-                  {forgotten && <RediscoveryRail prompt={forgotten} />}
+                  {forgotten && (
+                    <div className="rounded-lg border border-line bg-panel px-4 py-3 sm:px-5">
+                      <RediscoveryRail prompt={forgotten} />
+                    </div>
+                  )}
 
                   <section className="grid gap-6 lg:grid-cols-2">
                     <div>

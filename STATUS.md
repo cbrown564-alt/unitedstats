@@ -42,7 +42,7 @@ dead code.
 
 | Surface | State |
 |---|---|
-| `/` homepage | Spark shipped (`TonightHero` + `lib/greatNights.ts`) — on-this-day tier + **rediscovery engine** rolls (`lib/rediscovery.ts`); curated pool is fallback |
+| `/` homepage | Spark shipped (`TonightHero` + `lib/greatNights.ts`) — on-this-day tier + curated pool; rediscovery engine lives on entity pages and `/surprise` |
 | `/data` | Acts I–III + developer appendix |
 | `/analytics` | Elo + reliability + Monte Carlo replay (peaks/win-rate/attendance charts cut) |
 | `/transfers` | Ledger + featured record deals |

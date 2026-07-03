@@ -225,7 +225,11 @@ export default async function PlayerPage({
             shortLabel: "Career",
             content: bySeason.length > 0 ? (
               <section id="seasons" className="space-y-6">
-                {forgotten && <RediscoveryRail prompt={forgotten} />}
+                {forgotten && (
+                  <div className="rounded-lg border border-line bg-panel px-4 py-3 sm:px-5">
+                    <RediscoveryRail prompt={forgotten} />
+                  </div>
+                )}
 
                 {bySeason.length > 1 && (
                   <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">

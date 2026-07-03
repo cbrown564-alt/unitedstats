@@ -40,9 +40,9 @@ test("every curated night resolves to a real match with an authored stake", () =
   }
 });
 
-test("the served night is always a complete, site-relative door", () => {
+test("the served night is always a complete, site-relative door — and never a defeat", () => {
   // Sweep every calendar date: the lead is resolved per day, so this walks both the
-  // on-this-day path and the engine fallthrough across the whole year.
+  // on-this-day path and the curated fallthrough across the whole year.
   for (const key of monthDayKeys()) {
     const [mm, dd] = key.split("-");
     const { nights, seed } = greatNights(new Date(`2027-${mm}-${dd}T12:00:00Z`), { pin: null });
@@ -51,9 +51,7 @@ test("the served night is always a complete, site-relative door", () => {
     const n = nights[seed];
     assert.ok(n.href.startsWith("/match/"), `${key}: night href is not a match door: ${n.href}`);
     assert.ok(n.score.length > 0 && n.opponent.length > 0, `${key}: night is missing its scoreline`);
-    if (n.framing === "on-this-day") {
-      assert.notEqual(n.tone, "text-loss", `${key}: the on-this-day lead opened on a defeat (${n.year} ${n.score} ${n.opponent})`);
-    }
+    assert.notEqual(n.tone, "text-loss", `${key}: the spark opened on a defeat (${n.year} ${n.score} ${n.opponent})`);
     assert.ok(!MUNICH_EXCLUDED.has(n.id), `${key}: a Munich-freighted match led the front door (${n.id})`);
   }
 });

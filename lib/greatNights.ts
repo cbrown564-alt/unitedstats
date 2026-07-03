@@ -4,7 +4,6 @@ import { clubRecords } from "./trails";
 import { getDb } from "./db";
 import { scoreline, scoreNote, fmtRound, resultTone } from "./format";
 import { CURATED_NIGHTS } from "./curatedNights";
-import { rediscoveryRollPool, type RediscoveryOpts } from "./rediscovery";
 
 // TEMP (front-door design iteration): pin one night so the hero treatment can be
 // judged on the flagship rather than whatever falls today. Set to null to ship —
@@ -230,47 +229,18 @@ function monthDayOfDate(d: Date): string {
  * to open on; `nights[seed]` is the on-this-day lead when one qualifies, otherwise
  * a deterministic pick from the curated pool.
  */
-function promptToNight(
-  p: { id: string; href: string; line: string; year: string; score: string; scoreSuffix: string; opponent: string; tone: string; meta: string },
-  framing: GreatNight["framing"],
-  live: boolean,
-): GreatNight | null {
-  const m = matchById(p.id);
-  if (!m) return null;
-  const built = build(m, framing, p.line, live);
-  return {
-    ...built,
-    href: p.href,
-    year: p.year,
-    score: p.score,
-    scoreSuffix: p.scoreSuffix,
-    opponent: p.opponent,
-    tone: p.tone,
-    meta: p.meta,
-    eyebrow: framing === "on-this-day" ? built.eyebrow : "Do you remember…?",
-  };
-}
-
 export function greatNights(
   now = new Date(),
-  opts: { pin?: string | null; rediscovery?: RediscoveryOpts } = {},
+  opts: { pin?: string | null } = {},
 ): { nights: GreatNight[]; seed: number } {
   const pin = opts.pin === undefined ? PINNED_ID : opts.pin;
   const stakeById = new Map(CURATED_NIGHTS.map((c) => [c.id, c.stakes]));
-  const rediscoveryOpts: RediscoveryOpts = { ...opts.rediscovery, now };
 
-  // Engine pool first — charge × fadedness rolls; curated nights are the fallback.
-  const enginePool: GreatNight[] = rediscoveryRollPool(48, rediscoveryOpts)
-    .map((p) => promptToNight(p, "great-night", false))
-    .filter((n): n is GreatNight => n !== null);
-
-  // Curated pool, resolved against the live record (an unknown id is dropped).
-  const curatedPool: GreatNight[] = CURATED_NIGHTS.map((c) => {
+  // The curated pool, resolved against the live record (an unknown id is dropped).
+  const pool: GreatNight[] = CURATED_NIGHTS.map((c) => {
     const m = matchById(c.id);
     return m ? build(m, "great-night", c.stakes, false) : null;
   }).filter((n): n is GreatNight => n !== null);
-
-  const pool = enginePool.length >= 8 ? enginePool : [...enginePool, ...curatedPool.filter((n) => !enginePool.some((e) => e.id === n.id))];
 
   // TEMP: pin one night to the front so the hero treatment is judged on the
   // flagship. Remove (set PINNED_ID = null) to ship. Tests pass `{ pin: null }`.

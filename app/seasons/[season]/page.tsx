@@ -225,12 +225,19 @@ export default async function SeasonPage({
             label: "Overview",
             content: (
               <div className="space-y-8">
-                {forgotten && <RediscoveryRail prompt={forgotten} />}
-
-                {narrative.length > 0 && (
+                {(narrative.length > 0 || forgotten) && (
                   <div className="rounded-lg border border-line bg-panel p-4 sm:p-5">
-                    <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
-                    <p className="max-w-3xl text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
+                    {narrative.length > 0 && (
+                      <>
+                        <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
+                        <p className="max-w-3xl text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
+                      </>
+                    )}
+                    {forgotten && (
+                      <div className={narrative.length > 0 ? "mt-3 border-t border-line/80 pt-3" : ""}>
+                        <RediscoveryRail prompt={forgotten} />
+                      </div>
+                    )}
                   </div>
                 )}
 
