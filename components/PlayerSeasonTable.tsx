@@ -281,7 +281,6 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
   const [sortDir, setSortDir] = useState<SortDirection>("asc");
 
   const sortDefaults = defensive ? DEFENSIVE_SORT_DEFAULTS : ATTACKING_SORT_DEFAULTS;
-  const sortLabels = defensive ? DEFENSIVE_SORT_LABELS : ATTACKING_SORT_LABELS;
 
   const medalSet = useMemo(() => new Set(medalSeasons), [medalSeasons]);
   const goalPeakSet = useMemo(
@@ -486,7 +485,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
             <SeasonMobileSort sortKey={sortKey} sortDir={sortDir} onSort={onSort} defensive />
             <span className="hidden sm:inline">
               Sorted by{" "}
-              <span className="font-semibold text-ink">{sortLabels[sortKey as DefensiveSortKey]}</span>,{" "}
+              <span className="font-semibold text-ink">{DEFENSIVE_SORT_LABELS[sortKey as DefensiveSortKey]}</span>,{" "}
               {sortDir === "asc" ? "ascending" : "descending"}
             </span>
           </>
@@ -630,7 +629,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
           <SeasonMobileSort sortKey={sortKey} sortDir={sortDir} onSort={onSort} defensive={false} />
           <span className="hidden sm:inline">
             Sorted by{" "}
-            <span className="font-semibold text-ink">{sortLabels[sortKey as AttackingSortKey]}</span>,{" "}
+            <span className="font-semibold text-ink">{ATTACKING_SORT_LABELS[sortKey as AttackingSortKey]}</span>,{" "}
             {sortDir === "asc" ? "ascending" : "descending"}
           </span>
         </>

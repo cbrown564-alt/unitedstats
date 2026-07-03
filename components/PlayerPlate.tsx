@@ -119,7 +119,7 @@ export function PlayerPlate({
 
   const headlineValue = defensive ? fmtNum(stats.cleanSheets ?? 0) : fmtNum(stats.goals);
   const headlineLabel = defensive ? "clean sheets" : "goals";
-  const peakForArc = defensive ? span.peakDefensiveSeason : span.peakSeason;
+  const peakForArc = (defensive ? span.peakDefensiveSeason : span.peakSeason) ?? null;
 
   return (
     <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
