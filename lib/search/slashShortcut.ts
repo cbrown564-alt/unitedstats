@@ -14,7 +14,7 @@ export function isSlashKey(e: KeyboardEvent): boolean {
 }
 
 /** The first visible search field registered for the / shortcut. */
-export function visibleSlashSearchInput(): HTMLInputElement | null {
+function visibleSlashSearchInput(): HTMLInputElement | null {
   const scopes = [document.querySelector("main.site-main"), document];
   for (const scope of scopes) {
     if (!scope) continue;

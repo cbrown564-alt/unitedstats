@@ -31,7 +31,11 @@ import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
 import { correctionPrefillHref } from "@/lib/corrections";
 import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
-import { playerUsesDefensiveProfile, DEFENSIVE_CLEAN_SHEET_NOTE } from "@/lib/playerProfile";
+import {
+  playerUsesDefensiveProfile,
+  DEFENSIVE_CLEAN_SHEET_NOTE,
+  DEFENSIVE_CONCEDED_NOTE,
+} from "@/lib/playerProfile";
 import { sampleStaticIds } from "@/lib/static-build";
 import {
   fewestConcededSeason,
@@ -302,7 +306,10 @@ export default async function PlayerPage({
                           <p key={note} className="text-xs text-ink-dim">{note}</p>
                         ))}
                         {defensiveProfile && (
-                          <p className="text-xs text-ink-dim">{DEFENSIVE_CLEAN_SHEET_NOTE}</p>
+                          <>
+                            <p className="text-xs text-ink-dim">{DEFENSIVE_CLEAN_SHEET_NOTE}</p>
+                            <p className="text-xs text-ink-dim">{DEFENSIVE_CONCEDED_NOTE}</p>
+                          </>
                         )}
                       </div>
                     )}
