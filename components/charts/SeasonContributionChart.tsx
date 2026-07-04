@@ -14,26 +14,43 @@ import type { DotItemDotProps, MouseHandlerDataParam } from "recharts";
 import { fmtAxisNumber, fmtNum } from "@/lib/format";
 import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
 
+type ContributionMeasure = "goals" | "assists" | "cleanSheets" | "goalsConceded";
+
 export type SeasonContributionDatum = {
   /** X category — compact season label, e.g. `04/05`. */
   label: string;
-  goals: number;
-  assists: number;
+  goals?: number;
+  assists?: number;
+  cleanSheets?: number;
+  goalsConceded?: number;
   /** Tooltip headline, e.g. "12 goals · 8 assists". */
   valueLabel: string;
   meta?: string;
   href?: string;
 };
 
-function peakIndices(data: SeasonContributionDatum[], key: "goals" | "assists"): Set<number> {
-  const max = Math.max(0, ...data.map((d) => d[key]));
+function peakIndices(data: SeasonContributionDatum[], key: ContributionMeasure): Set<number> {
+  const values = data.map((d) => d[key] ?? 0);
+  const max = Math.max(0, ...values);
   if (max <= 0) return new Set();
   return new Set(data.flatMap((d, i) => (d[key] === max ? [i] : [])));
 }
 
-function measureLabel(value: number, unit: "goals" | "assists") {
-  const noun = value === 1 ? unit.slice(0, -1) : unit;
-  return `${fmtNum(value)} ${noun}`;
+function measureLabel(value: number, unit: ContributionMeasure) {
+  switch (unit) {
+    case "goals":
+      return `${fmtNum(value)} ${value === 1 ? "goal" : "goals"}`;
+    case "assists":
+      return `${fmtNum(value)} ${value === 1 ? "assist" : "assists"}`;
+    case "cleanSheets":
+      return `${fmtNum(value)} clean sheet${value === 1 ? "" : "s"}`;
+    case "goalsConceded":
+      return `${fmtNum(value)} conceded`;
+    default: {
+      const _exhaustive: never = unit;
+      return `${fmtNum(value)}`;
+    }
+  }
 }
 
 function PeakMarker({
@@ -48,13 +65,13 @@ function PeakMarker({
 }: DotItemDotProps & {
   peaks: Set<number>;
   color: string;
-  unit: "goals" | "assists";
+  unit: ContributionMeasure;
   count: number;
 }) {
   if (cx == null || cy == null || index == null || !payload || !peaks.has(index)) return null;
 
   const datum = payload as SeasonContributionDatum;
-  const value = datum[unit];
+  const value = datum[unit] ?? 0;
   const anchor =
     index === 0 ? "start" : index === count - 1 ? "end" : "middle";
   const dx = anchor === "start" ? 4 : anchor === "end" ? -4 : 0;
@@ -77,28 +94,37 @@ function PeakMarker({
 }
 
 /**
- * A season's goals and assists as two lines — devil red for goals, gold for
- * assists — so each series reads independently across the career. Pairs with the
- * season table, which carries the exact figures.
+ * A season's contribution lines — devil red and gold by default for goals and
+ * assists; defenders and keepers switch to clean sheets and goals conceded.
+ * Pairs with the season table, which carries the exact figures.
  */
 export function SeasonContributionChart({
   data,
   height = 200,
   labelEvery = 1,
   chartLabel = "Goal contributions by season",
+  variant = "attacking",
 }: {
   data: SeasonContributionDatum[];
   height?: number;
   labelEvery?: number;
   chartLabel?: string;
+  variant?: "attacking" | "defensive";
 }) {
   const router = useRouter();
 
   if (data.length === 0) return null;
 
+  const primaryKey: ContributionMeasure = variant === "defensive" ? "cleanSheets" : "goals";
+  const secondaryKey: ContributionMeasure = variant === "defensive" ? "goalsConceded" : "assists";
+  const primaryName = variant === "defensive" ? "Clean sheets" : "Goals";
+  const secondaryName = variant === "defensive" ? "Goals conceded" : "Assists";
+  const primaryColor = "var(--color-devil)";
+  const secondaryColor = "var(--color-gold)";
+
   const hasEvidenceLinks = data.some((datum) => datum.href);
-  const goalPeaks = peakIndices(data, "goals");
-  const assistPeaks = peakIndices(data, "assists");
+  const primaryPeaks = peakIndices(data, primaryKey);
+  const secondaryPeaks = peakIndices(data, secondaryKey);
 
   const go = (state: MouseHandlerDataParam) => {
     const idx = state.activeTooltipIndex;
@@ -150,22 +176,22 @@ export function SeasonContributionChart({
           />
           <Line
             type="monotone"
-            dataKey="goals"
-            name="Goals"
-            stroke="var(--color-devil)"
+            dataKey={primaryKey}
+            name={primaryName}
+            stroke={primaryColor}
             strokeWidth={2}
             dot={(props) => (
               <PeakMarker
                 {...props}
-                peaks={goalPeaks}
-                color="var(--color-devil)"
-                unit="goals"
+                peaks={primaryPeaks}
+                color={primaryColor}
+                unit={primaryKey}
                 count={data.length}
               />
             )}
             activeDot={{
               r: 4,
-              stroke: "var(--color-devil)",
+              stroke: primaryColor,
               strokeWidth: 2,
               fill: "var(--color-panel)",
             }}
@@ -174,22 +200,22 @@ export function SeasonContributionChart({
           />
           <Line
             type="monotone"
-            dataKey="assists"
-            name="Assists"
-            stroke="var(--color-gold)"
+            dataKey={secondaryKey}
+            name={secondaryName}
+            stroke={secondaryColor}
             strokeWidth={2}
             dot={(props) => (
               <PeakMarker
                 {...props}
-                peaks={assistPeaks}
-                color="var(--color-gold)"
-                unit="assists"
+                peaks={secondaryPeaks}
+                color={secondaryColor}
+                unit={secondaryKey}
                 count={data.length}
               />
             )}
             activeDot={{
               r: 4,
-              stroke: "var(--color-gold)",
+              stroke: secondaryColor,
               strokeWidth: 2,
               fill: "var(--color-panel)",
             }}

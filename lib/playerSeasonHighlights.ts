@@ -6,6 +6,11 @@ export type SeasonSplit = {
   assists: number;
 };
 
+export type DefensiveSeasonSplit = SeasonSplit & {
+  cleanSheets: number;
+  goalsConceded: number;
+};
+
 const PLAYER_SEASON_DECADE_MIN = 15;
 
 export function peakGoalSeasons(seasons: SeasonSplit[]): SeasonSplit[] {
@@ -31,6 +36,38 @@ export function peakGaSeason(seasons: SeasonSplit[]): SeasonSplit | null {
     }
   }
   return best;
+}
+
+export function peakCleanSheetSeasons(seasons: DefensiveSeasonSplit[]): DefensiveSeasonSplit[] {
+  const max = Math.max(0, ...seasons.map((s) => s.cleanSheets));
+  if (max <= 0) return [];
+  return seasons.filter((s) => s.cleanSheets === max);
+}
+
+/** Season with the fewest goals conceded among seasons with at least one start. */
+export function fewestConcededSeason(seasons: DefensiveSeasonSplit[]): DefensiveSeasonSplit | null {
+  const started = seasons.filter((s) => s.starts > 0);
+  if (!started.length) return null;
+  return started.reduce((best, s) => (s.goalsConceded < best.goalsConceded ? s : best), started[0]!);
+}
+
+export function cleanSheetPct(cleanSheets: number, starts: number): number | null {
+  return starts > 0 ? (100 * cleanSheets) / starts : null;
+}
+
+export function mergeSeasonDefense(
+  seasons: SeasonSplit[],
+  defensive: { season: string; cleanSheets: number; goalsConceded: number }[],
+): DefensiveSeasonSplit[] {
+  const defBySeason = new Map(defensive.map((d) => [d.season, d]));
+  return seasons.map((s) => {
+    const d = defBySeason.get(s.season);
+    return {
+      ...s,
+      cleanSheets: d?.cleanSheets ?? 0,
+      goalsConceded: d?.goalsConceded ?? 0,
+    };
+  });
 }
 
 export function seasonDecade(season: string): number {

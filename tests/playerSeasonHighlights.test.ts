@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { peakAssistSeasons, peakGaSeason, peakGoalSeasons, showSeasonDecadeHeaders } from "../lib/playerSeasonHighlights.ts";
+import {
+  fewestConcededSeason,
+  peakAssistSeasons,
+  peakCleanSheetSeasons,
+  peakGaSeason,
+  peakGoalSeasons,
+  showSeasonDecadeHeaders,
+} from "../lib/playerSeasonHighlights.ts";
 
 test("peakGoalSeasons returns all seasons tied at the max", () => {
   const peaks = peakGoalSeasons([
@@ -26,6 +33,24 @@ test("peakGaSeason picks highest goals plus assists", () => {
     { season: "2013-14", apps: 30, starts: 28, goals: 21, assists: 21 },
   ]);
   assert.equal(peak?.season, "2013-14");
+});
+
+test("peakCleanSheetSeasons returns all seasons tied at the max", () => {
+  const peaks = peakCleanSheetSeasons([
+    { season: "2007-08", apps: 40, starts: 38, goals: 2, assists: 0, cleanSheets: 18, goalsConceded: 30 },
+    { season: "2008-09", apps: 38, starts: 36, goals: 1, assists: 0, cleanSheets: 22, goalsConceded: 24 },
+    { season: "2009-10", apps: 30, starts: 28, goals: 0, assists: 0, cleanSheets: 22, goalsConceded: 20 },
+  ]);
+  assert.deepEqual(peaks.map((s) => s.season), ["2008-09", "2009-10"]);
+});
+
+test("fewestConcededSeason picks the lowest goals against among started seasons", () => {
+  const best = fewestConcededSeason([
+    { season: "2007-08", apps: 40, starts: 38, goals: 2, assists: 0, cleanSheets: 18, goalsConceded: 30 },
+    { season: "2008-09", apps: 38, starts: 36, goals: 1, assists: 0, cleanSheets: 22, goalsConceded: 24 },
+    { season: "2009-10", apps: 30, starts: 28, goals: 0, assists: 0, cleanSheets: 22, goalsConceded: 20 },
+  ]);
+  assert.equal(best?.season, "2009-10");
 });
 
 test("showSeasonDecadeHeaders from fifteen seasons", () => {
