@@ -16,6 +16,13 @@ import { SourceRegister } from "@/components/data/SourceRegister";
 import { DataTable } from "@/components/DataTable";
 import { enrichDataGaps } from "@/lib/dataGaps";
 import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { SITE_URL } from "@/lib/site";
+import {
+  API_V1_META_URL,
+  DATA_BULK_ACCESS_PATH,
+  DATASET_MANIFEST_URL,
+  GITHUB_CANONICAL_DATA_URL,
+} from "@/lib/bulkAccess";
 import { CORRECTION_STATUS_URL } from "@/lib/corrections";
 
 export const metadata = { title: "Data and corrections" };
@@ -51,6 +58,36 @@ export default function DataPage() {
       <PageHeader eyebrow="The canonical record" title="Data and corrections">
         Every result since 1886. Richer detail fills in over time — gaps shown honestly.
       </PageHeader>
+
+      <aside
+        id="bulk-access"
+        className="scroll-mt-24 rounded-xl border border-devil/35 bg-devil/10 p-5 shadow-[0_18px_36px_rgb(0_0_0_/0.18)] sm:p-6"
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">Bulk access</p>
+        <h2 className="display mt-1 text-xl sm:text-2xl">Need the whole record programmatically?</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-dim">
+          Fetch flat files, the read-only API, or canonical JSON on GitHub — don&apos;t crawl thousands of HTML match
+          and player pages. Each release export matches what the app serves.
+        </p>
+        <ul className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
+          {[
+            [DATASET_MANIFEST_URL, "manifest.json", "Start here — build metadata and row counts, then grab the CSVs"],
+            [API_V1_META_URL, "/api/v1/meta", "Paginated JSON with CORS — filter matches, players, seasons"],
+            [GITHUB_CANONICAL_DATA_URL, "data/canonical on GitHub", "Versioned source JSON for contributors and mirrors"],
+            [`${SITE_URL}${DATA_BULK_ACCESS_PATH}`, "This page", "Coverage ledger, API index, and download links"],
+          ].map(([href, label, text]) => (
+            <li key={href}>
+              <a
+                href={href}
+                className="block rounded border border-line/70 bg-panel/80 px-3 py-2 transition-colors hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright"
+              >
+                <span className="font-mono text-sm text-devil-bright">{label}</span>
+                <span className="mt-1 block text-xs leading-5 text-ink-dim">{text}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
 
       {/* ───────────────── Fan trust lane — Acts I–II ───────────────── */}
       <div className="space-y-14">

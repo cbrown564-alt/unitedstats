@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { GET as AnswersIndexRoute } from "../app/api/v1/answers/route";
 import { GET as CutAnswerRoute } from "../app/api/v1/answers/cuts/[slug]/route";
 import MatchPage from "../app/match/[id]/page";
-import robots from "../app/robots";
+import { robotsPolicy, robotsTxt } from "../lib/robotsPolicy";
 import sitemap from "../app/sitemap";
 import { API_ATTRIBUTION } from "../lib/api";
 import { answerRef, cutKey, matchRef } from "../lib/citations";
@@ -101,11 +101,20 @@ test("the answer index and sitemap agree on the machine and human surfaces", asy
 });
 
 test("robots allows read-only API routes while disallowing side-effect click logging", () => {
-  const policy = robots();
+  const policy = robotsPolicy();
   assert.deepEqual(policy.rules, {
     userAgent: "*",
-    allow: ["/", "/api/v1/"],
+    allow: ["/", "/api/v1/", "/dataset/"],
     disallow: ["/api/search/click"],
   });
   assert.equal(policy.sitemap, `${SITE_URL}/sitemap.xml`);
+});
+
+test("robots.txt points bulk crawlers at dataset, API, and canonical JSON", () => {
+  const txt = robotsTxt();
+  assert.match(txt, /dataset\/manifest\.json/);
+  assert.match(txt, /\/api\/v1\/meta/);
+  assert.match(txt, /data\/canonical/);
+  assert.match(txt, /\/data#bulk-access/);
+  assert.match(txt, /Allow: \/dataset\//);
 });
