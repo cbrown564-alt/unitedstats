@@ -29,6 +29,7 @@ import { GoalDiff } from "@/components/GoalDiff";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
 import { SectionHead } from "@/components/SectionHead";
+import { RediscoveryRail } from "@/components/RediscoveryRail";
 import {
   enrichOpponentSeasons,
   opponentBestSeason,
@@ -37,6 +38,7 @@ import {
 import { fmtNum, pct, venueLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { sampleStaticIds } from "@/lib/static-build";
+import { rediscoveryForEntity, parseSinceYear } from "@/lib/rediscovery";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -65,12 +67,16 @@ export function generateStaticParams() {
 
 export default async function OpponentPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ since?: string }>;
 }) {
   const { id } = await params;
+  const sinceYear = parseSinceYear(searchParams ? (await searchParams).since : undefined);
   const o = opponentById(id);
   if (!o) notFound();
+  const forgotten = rediscoveryForEntity("opponent", id, { sinceYear });
   const total = o.p;
   const allMatches = opponentMatches(id);
   const venues = opponentVenueSplits(id);
@@ -171,6 +177,12 @@ export default async function OpponentPage({
               label: "Overview",
               content: (
                 <div className="space-y-8">
+                  {forgotten && (
+                    <div className="rounded-lg border border-line bg-panel px-4 py-3 sm:px-5">
+                      <RediscoveryRail prompt={forgotten} />
+                    </div>
+                  )}
+
                   <section className="grid gap-6 lg:grid-cols-2">
                     <div>
                       <SectionHead title="Home and away" aside="all competitions" />

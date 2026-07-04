@@ -14,7 +14,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { CURATED_NIGHTS, greatNights } from "../lib/greatNights";
+import { CURATED_NIGHTS } from "../lib/curatedNights";
+import { greatNights } from "../lib/greatNights";
 import { matchById } from "../lib/queries";
 import { monthDayKeys } from "../lib/onThisDay";
 

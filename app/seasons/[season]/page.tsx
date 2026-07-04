@@ -5,9 +5,9 @@ import { seasonMatches, allSeasons, seasonsIndex, seasonLeagueTable, type MatchR
 import { matchesSequence } from "@/lib/trails";
 import { seasonNarrative } from "@/lib/narrative";
 import { MatchList } from "@/components/MatchList";
-import { CompetitionBadge } from "@/components/CompetitionBadge";
 import { CupRun } from "@/components/CupRun";
-import { CampaignVerdict, type CampaignTier } from "@/components/CampaignVerdict";
+import type { CampaignTier } from "@/components/CampaignVerdict";
+import { SeasonCompetitionLane } from "@/components/seasons/SeasonCompetitionLane";
 import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
@@ -16,7 +16,9 @@ import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
 import { WdlBar } from "@/components/WdlBar";
+import { RediscoveryRail } from "@/components/RediscoveryRail";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
+import { rediscoveryForEntity, parseSinceYear } from "@/lib/rediscovery";
 import { sampleStaticIds } from "@/lib/static-build";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
@@ -47,9 +49,6 @@ function ordinal(n: number): string {
   const v = n % 100;
   return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);
 }
-
-const CHEVRON =
-  "h-3.5 w-3.5 shrink-0 text-ink-faint transition-transform duration-200 group-open:rotate-90";
 
 /**
  * The verdict of a competition campaign — the line that turns a flat match list
@@ -89,12 +88,16 @@ function campaignOutcome(
 
 export default async function SeasonPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ season: string }>;
+  searchParams?: Promise<{ since?: string }>;
 }) {
   const { season } = await params;
+  const sinceYear = parseSinceYear(searchParams ? (await searchParams).since : undefined);
   const matches = seasonMatches(season);
   if (matches.length === 0) notFound();
+  const forgotten = rediscoveryForEntity("season", season, { sinceYear });
 
   // The full final table United played in that season (every club) — rendered as
   // context below the plate. Null for cup-only seasons or the rare source gap.
@@ -213,27 +216,39 @@ export default async function SeasonPage({
         defaultTab="overview"
         ariaLabel="Season sections"
         idPrefix="season"
+        edgeTabs
         tabs={[
           {
             id: "overview",
             label: "Overview",
             content: (
               <div className="space-y-8">
-                {narrative.length > 0 && (
-                  <div className="rounded-lg border border-line bg-panel p-4 sm:p-5">
-                    <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
-                    <p className="max-w-3xl text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
+                {(narrative.length > 0 || forgotten) && (
+                  <div className="rounded-none border-x-0 border-y border-line bg-panel p-4 sm:rounded-lg sm:border sm:p-5">
+                    {narrative.length > 0 && (
+                      <>
+                        <h2 className="mb-2 text-xs uppercase tracking-wider text-ink-faint">Season in brief</h2>
+                        <p className="max-w-3xl text-sm leading-relaxed text-ink-dim">{narrative.join(" ")}</p>
+                      </>
+                    )}
+                    {forgotten && (
+                      <div className={narrative.length > 0 ? "mt-3 border-t border-line/80 pt-3" : ""}>
+                        <RediscoveryRail prompt={forgotten} />
+                      </div>
+                    )}
                   </div>
                 )}
 
                 {leagueTable && (
-                  <LeagueTable table={leagueTable} season={season} />
+                  <div className="px-4 sm:px-0">
+                    <LeagueTable table={leagueTable} season={season} />
+                  </div>
                 )}
 
                 {sequence.length >= 24 && (
-                  <section>
+                  <section className="px-4 sm:px-0">
                     <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
-                    <div className="rounded-xl border border-line bg-panel p-4 sm:p-5">
+                    <div className="-mx-4 rounded-none border-x-0 border-y border-line bg-panel p-4 sm:mx-0 sm:rounded-xl sm:border sm:p-5">
                       <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={(id) => `/match/${id}`} />
                       <p className="mt-2 text-[11px] leading-4 text-ink-dim">
                         Every match in order — wins above the line, losses below, bar height the goal margin.
@@ -249,57 +264,34 @@ export default async function SeasonPage({
             label: "Competitions",
             content: (
               <section>
-                <SectionHead
-                  title="Competitions"
-                  aside={trophies > 0 ? `${byComp.size} entered · ${trophies} won` : `${byComp.size} entered`}
-                />
-                <div className="space-y-2">
+                <div className="px-4 sm:px-0">
+                  <SectionHead
+                    title="Competitions"
+                    aside={trophies > 0 ? `${byComp.size} entered · ${trophies} won` : `${byComp.size} entered`}
+                  />
+                </div>
+                <div className="divide-y divide-line sm:space-y-2 sm:divide-y-0">
                   {[...byComp.entries()].map(([comp, list]) => {
-                    const { w, d, l } = tallyWdl(list);
                     const outcome = campaignOutcome(summaryByName.get(comp), list);
                     const run = list[0].competition_type !== "league" ? buildCupRun(list) : null;
                     const bracket = run && run.stages.length >= 2 ? run.stages : null;
-                    const accent =
-                      outcome?.tier === "silverware"
-                        ? "border-l-2 border-l-gold/70"
-                        : outcome?.tier === "final-loss"
-                          ? "border-l-2 border-l-silver/55"
-                          : "";
                     return (
-                      <details key={comp} className={`group overflow-hidden rounded-lg border border-line bg-panel ${accent}`}>
-                        <summary
-                          className={`flex cursor-pointer list-none items-center gap-2.5 py-2.5 pr-3 pl-2.5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-devil-bright sm:gap-3 sm:pr-4 sm:pl-3 [&::-webkit-details-marker]:hidden ${
-                            outcome?.tier === "silverware" ? "bg-gold/[0.04]" : ""
-                          }`}
-                        >
-                          <svg className={CHEVRON} viewBox="0 0 16 16" fill="none" aria-hidden>
-                            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                          <CompetitionBadge
-                            id={list[0].competition_id}
-                            name={comp}
-                            type={list[0].competition_type}
-                            size="md"
-                          />
-                          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
-                            <h3 className="display line-clamp-2 min-w-0 text-base leading-snug" title={comp}>{comp}</h3>
-                            {outcome && <CampaignVerdict label={outcome.label} tier={outcome.tier} />}
-                          </div>
-                          <span className="stat-num hidden w-16 shrink-0 whitespace-nowrap text-right text-xs text-ink-faint sm:block">
-                            {list.length} {list.length === 1 ? "match" : "matches"}
-                          </span>
-                          <div className="w-28 shrink-0 sm:w-36">
-                            <WdlBar w={w} d={d} l={l} size="md" showLabels tooltip={false} />
-                          </div>
-                        </summary>
-                        <div className="border-t border-line p-2 sm:p-3">
-                          {bracket ? <CupRun stages={bracket} /> : <MatchList matches={list} />}
-                        </div>
-                      </details>
+                      <SeasonCompetitionLane
+                        key={comp}
+                        name={comp}
+                        competitionId={list[0].competition_id}
+                        competitionType={list[0].competition_type}
+                        matches={list}
+                        summary={summaryByName.get(comp)}
+                        outcome={outcome}
+                      >
+                        {bracket ? <CupRun stages={bracket} /> : <MatchList matches={list} />}
+                      </SeasonCompetitionLane>
                     );
                   })}
                 </div>
                 <CoverageNote
+                  className="px-4 sm:px-0"
                   slice="every competitive match this season, grouped by competition."
                   coverage="Result data is complete; recorded goalscorer and lineup coverage vary by era."
                 />
