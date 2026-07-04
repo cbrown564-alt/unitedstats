@@ -54,23 +54,8 @@ export interface ScoredNight {
   reason: string;
 }
 
-/**
- * One recognition prompt — "Do you remember…?" not a fixture row (Phase 3a).
- * Built from a scored night for rails, the homepage roll, and `/surprise`.
- */
-export interface RediscoveryPrompt {
-  id: string;
-  href: string;
-  prompt: string;
-  line: string;
-  year: string;
-  score: string;
-  scoreSuffix: string;
-  opponent: string;
-  tone: string;
-  meta: string;
-  total: number;
-}
+import type { RediscoveryPrompt } from "./rediscoveryPrompt";
+export type { RediscoveryPrompt } from "./rediscoveryPrompt";
 
 function isFinal(round: string | null): boolean {
   return !!round && /final/i.test(round) && !/semi|quarter/i.test(round);
@@ -295,6 +280,7 @@ export function buildPrompt(night: ScoredNight): RediscoveryPrompt {
     opponent: m.opponent_name,
     tone: resultTone(m.outcome),
     meta: metaParts.join(" · "),
+    dateLine: `${fmtDate(m.date)} · ${m.competition_name}`,
     total: night.total,
   };
 }
@@ -386,10 +372,4 @@ export function parseSinceYear(raw: string | string[] | undefined | null): numbe
   const now = new Date().getUTCFullYear();
   if (!Number.isInteger(y) || y < 1960 || y > now) return null;
   return y;
-}
-
-/** A compact date line for rails — "17 Mar 2016 · Europa League". */
-export function promptDateLine(p: RediscoveryPrompt): string {
-  const m = matchById(p.id);
-  return m ? `${fmtDate(m.date)} · ${m.competition_name}` : p.meta;
 }

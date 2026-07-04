@@ -7,14 +7,16 @@ import {
 } from "./bulkAccess";
 import { SITE_URL } from "./site";
 
+const RULES = {
+  userAgent: "*",
+  allow: ["/", "/api/v1/", "/dataset/"],
+  disallow: ["/api/search/click"],
+};
+
 /** Structured robots policy — used by the /robots.txt route and tests. */
 export function robotsPolicy(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: ["/", "/api/v1/", "/dataset/"],
-      disallow: ["/api/search/click"],
-    },
+    rules: RULES,
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
   };
@@ -26,9 +28,7 @@ export function robotsPolicy(): MetadataRoute.Robots {
  * or canonical JSON on GitHub instead of walking every match page.
  */
 export function robotsTxt(): string {
-  const { rules, sitemap, host } = robotsPolicy();
-  const allow = Array.isArray(rules.allow) ? rules.allow : rules.allow ? [rules.allow] : [];
-  const disallow = Array.isArray(rules.disallow) ? rules.disallow : rules.disallow ? [rules.disallow] : [];
+  const { sitemap, host } = robotsPolicy();
 
   return [
     "# Red Thread (unitedstats) — bulk data access",
@@ -38,9 +38,9 @@ export function robotsTxt(): string {
     `# Coverage ledger and download links: ${SITE_URL}${DATA_BULK_ACCESS_PATH}`,
     "# Prefer those endpoints over crawling HTML match/player pages.",
     "",
-    `User-agent: ${rules.userAgent ?? "*"}`,
-    ...allow.map((path) => `Allow: ${path}`),
-    ...disallow.map((path) => `Disallow: ${path}`),
+    `User-agent: ${RULES.userAgent}`,
+    ...RULES.allow.map((path) => `Allow: ${path}`),
+    ...RULES.disallow.map((path) => `Disallow: ${path}`),
     "",
     `Sitemap: ${sitemap}`,
     host ? `Host: ${host}` : "",
