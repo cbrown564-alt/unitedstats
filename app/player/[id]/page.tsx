@@ -25,7 +25,7 @@ import { MatchList } from "@/components/MatchList";
 import { HaulCards } from "@/components/HaulCards";
 import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
-import { RediscoveryRail } from "@/components/RediscoveryRail";
+import { EntityRediscoveryRail } from "@/components/EntityRediscoveryRail";
 import { PlayerTransferRecord } from "@/components/player/PlayerTransferRecord";
 import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format";
 import { queryString } from "@/lib/url";
@@ -47,7 +47,7 @@ import {
   peakGoalSeasons,
   cleanSheetPct,
 } from "@/lib/playerSeasonHighlights";
-import { rediscoveryForEntity, parseSinceYear } from "@/lib/rediscovery";
+import { rediscoveryForEntity } from "@/lib/rediscovery";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -80,15 +80,8 @@ export async function generateStaticParams() {
   return sampleStaticIds(playersIndex().map((p) => p.player_id)).map((id) => ({ id }));
 }
 
-export default async function PlayerPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ id: string }>;
-  searchParams?: Promise<{ since?: string }>;
-}) {
+export default async function PlayerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const sinceYear = parseSinceYear(searchParams ? (await searchParams).since : undefined);
 
   // "Own Goal" is a synthetic scorer, not a person: its page shows the opposition
   // players behind the tally rather than a career.
@@ -96,7 +89,7 @@ export default async function PlayerPage({
 
   const p = playerById(id);
   if (!p) notFound();
-  const forgotten = rediscoveryForEntity("player", id, { sinceYear });
+  const forgotten = rediscoveryForEntity("player", id);
   const defensiveProfile = playerUsesDefensiveProfile(p.position_bucket);
   const playerCorrectionHref = correctionPrefillHref({
     targetKind: "player",
@@ -265,7 +258,7 @@ export default async function PlayerPage({
               <section id="seasons" className="space-y-6">
                 {forgotten && (
                   <div className="rounded-lg border border-line bg-panel px-4 py-3 sm:px-5">
-                    <RediscoveryRail prompt={forgotten} />
+                    <EntityRediscoveryRail scope="player" entityId={id} initialPrompt={forgotten} />
                   </div>
                 )}
 

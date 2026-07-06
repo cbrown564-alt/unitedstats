@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { RediscoveryPrompt } from "@/lib/rediscovery";
-import { promptDateLine } from "@/lib/rediscovery";
+import type { RediscoveryPrompt } from "@/lib/rediscoveryPrompt";
+import { promptDateLine } from "@/lib/rediscoveryPrompt";
 
 const SCORE_TONE: Record<string, string> = {
   "text-win": "text-win",

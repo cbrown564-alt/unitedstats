@@ -1,7 +1,7 @@
+import { GITHUB_REPO_URL } from "./bulkAccess";
 import { SITE_URL } from "./site";
 import { queryString } from "./url";
 
-const GITHUB_REPO_URL = "https://github.com/cbrown564-alt/unitedstats";
 export const CORRECTION_LABELS = ["correction", "data"];
 export const MAX_GITHUB_ISSUE_URL_LENGTH = 6000;
 export const CORRECTION_STATUS_URL =
