@@ -20,6 +20,7 @@
     "ingest:mufcinfo-assists": "tsx scripts/ingest/mufcinfo-events.ts",
     "ingest:transfermarkt": "tsx scripts/ingest/transfermarkt-datasets.ts",
     "ingest:transfers": "tsx scripts/ingest/mufcinfo-transfers.ts",
+    "ingest:pl-transfer-index": "tsx scripts/ingest/pl-transfer-index.ts --write --scrape",
     "ingest:player-records": "tsx scripts/ingest/wikipedia-player-records.ts",
     "ingest:player-media": "tsx scripts/ingest/wikidata-player-media.ts",
     "ingest:manager-media": "tsx scripts/ingest/wikidata-manager-media.ts",

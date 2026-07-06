@@ -2523,3 +2523,22 @@ export function managerTransfers(managerId: string): TransferRow[] {
     )
     .all(managerId) as TransferRow[];
 }
+
+export interface ManagerTransferTenure {
+  manager_id: string;
+  manager_name: string;
+  date_from: string;
+  date_to: string | null;
+}
+
+/** Manager tenures for attributing transfer spend — used by inflation-adjusted aggregates. */
+export function managerTransferTenures(): ManagerTransferTenure[] {
+  return getDb()
+    .prepare(
+      `SELECT mg.id manager_id, mg.name manager_name, mt.date_from, mt.date_to
+       FROM manager_tenures mt
+       JOIN managers mg ON mg.id = mt.manager_id
+       ORDER BY mt.date_from`,
+    )
+    .all() as ManagerTransferTenure[];
+}

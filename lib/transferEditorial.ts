@@ -6,7 +6,7 @@ const CURATED: Record<string, string> = {
   "2016-08-09-paul-pogba-in":
     "The world-record return — sold for £30m in 2012, bought back for triple four years later.",
   "2009-07-01-cristiano-ronaldo-out":
-    "The record sale that bankrolled a generation — £80m to Real Madrid after six seasons at Old Trafford.",
+    "The record sale that bankrolled a generation...if only! £80m to Real Madrid after six seasons at Old Trafford.",
 };
 
 /** One editorial line for a featured deal: curated when we have it, otherwise from transfer fields. */

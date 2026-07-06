@@ -2,6 +2,8 @@ import Link from "next/link";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { transferEditorialLine } from "@/lib/transferEditorial";
 import { fmtFee } from "@/lib/format";
+import type { InflationIndices, MoneyMode } from "@/lib/inflation";
+import { displayFeeGbp } from "@/lib/transferAggregates";
 import type { TransferRow } from "@/lib/queries";
 
 function dealSub(t: TransferRow): string {
@@ -12,19 +14,25 @@ function FeaturedDeal({
   t,
   rank,
   figureTone,
+  moneyMode = "nominal",
+  indices,
 }: {
   t: TransferRow;
   rank: number;
   figureTone: string;
+  moneyMode?: MoneyMode;
+  indices?: InflationIndices;
 }) {
   const href = t.player_id ? `/player/${t.player_id}` : undefined;
+  const fee =
+    indices && moneyMode !== "nominal" ? displayFeeGbp(t, moneyMode, indices) : t.fee_gbp;
   const inner = (
     <>
       <span className="stat-num absolute left-3.5 top-3.5 text-xs text-ink-faint">{rank}</span>
       <PlayerPortrait name={t.player_name} src={t.thumb_url} size="md" />
       <div className="min-w-0 flex-1">
         <p className="truncate text-base font-semibold leading-tight">{t.player_name}</p>
-        <p className={`stat-num mt-1 text-2xl font-semibold leading-none ${figureTone}`}>{fmtFee(t.fee_gbp)}</p>
+        <p className={`stat-num mt-1 text-2xl font-semibold leading-none ${figureTone}`}>{fmtFee(fee)}</p>
         <p className="stat-num mt-1 text-[11px] text-ink-faint">{dealSub(t)}</p>
         <p className="mt-2 text-sm leading-5 text-ink-dim">{transferEditorialLine(t)}</p>
       </div>
@@ -49,12 +57,18 @@ function CompactDeal({
   t,
   rank,
   figureTone,
+  moneyMode = "nominal",
+  indices,
 }: {
   t: TransferRow;
   rank: number;
   figureTone: string;
+  moneyMode?: MoneyMode;
+  indices?: InflationIndices;
 }) {
   const href = t.player_id ? `/player/${t.player_id}` : undefined;
+  const fee =
+    indices && moneyMode !== "nominal" ? displayFeeGbp(t, moneyMode, indices) : t.fee_gbp;
   const inner = (
     <>
       <span className="stat-num w-4 shrink-0 text-right text-xs text-ink-faint">{rank}</span>
@@ -64,7 +78,7 @@ function CompactDeal({
         <span className="stat-num block truncate text-[11px] leading-tight text-ink-faint">{dealSub(t)}</span>
       </span>
       <span className={`stat-num shrink-0 text-base font-semibold tabular-nums ${figureTone}`}>
-        {fmtFee(t.fee_gbp)}
+        {fmtFee(fee)}
       </span>
     </>
   );
@@ -86,11 +100,15 @@ function DealBoard({
   unit,
   deals,
   figureTone,
+  moneyMode = "nominal",
+  indices,
 }: {
   title: string;
   unit: string;
   deals: TransferRow[];
   figureTone: string;
+  moneyMode?: MoneyMode;
+  indices?: InflationIndices;
 }) {
   const [featured, ...rest] = deals;
   if (!featured) return null;
@@ -101,12 +119,12 @@ function DealBoard({
         <h3 className="display text-base leading-none">{title}</h3>
         <span className="text-[11px] uppercase tracking-[0.12em] text-ink-faint">{unit}</span>
       </header>
-      <FeaturedDeal t={featured} rank={1} figureTone={figureTone} />
+      <FeaturedDeal t={featured} rank={1} figureTone={figureTone} moneyMode={moneyMode} indices={indices} />
       {rest.length > 0 && (
         <ol className="divide-y divide-line/50">
           {rest.map((t, i) => (
             <li key={t.id}>
-              <CompactDeal t={t} rank={i + 2} figureTone={figureTone} />
+              <CompactDeal t={t} rank={i + 2} figureTone={figureTone} moneyMode={moneyMode} indices={indices} />
             </li>
           ))}
         </ol>
@@ -119,14 +137,18 @@ function DealBoard({
 export function RecordDeals({
   signings,
   sales,
+  moneyMode = "nominal",
+  indices,
 }: {
   signings: TransferRow[];
   sales: TransferRow[];
+  moneyMode?: MoneyMode;
+  indices?: InflationIndices;
 }) {
   return (
     <div className="grid gap-3 sm:grid-cols-2">
-      <DealBoard title="Most expensive signings" unit="fee in" deals={signings} figureTone="text-devil-bright" />
-      <DealBoard title="Most expensive sales" unit="fee out" deals={sales} figureTone="text-gold" />
+      <DealBoard title="Most expensive signings" unit="fee in" deals={signings} figureTone="text-devil-bright" moneyMode={moneyMode} indices={indices} />
+      <DealBoard title="Most expensive sales" unit="fee out" deals={sales} figureTone="text-gold" moneyMode={moneyMode} indices={indices} />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { TransferRow } from "@/lib/queries";
+import type { InflationIndices, MoneyMode } from "@/lib/inflation";
+import { displayFeeGbp } from "@/lib/transferAggregates";
 import { fmtFee, fmtNum } from "@/lib/format";
 import { TransferList } from "./TransferList";
 
@@ -20,11 +22,15 @@ import { TransferList } from "./TransferList";
 export function TransferArchive({
   transfers,
   since = 1980,
+  moneyMode = "nominal",
+  indices,
 }: {
   transfers: TransferRow[];
   since?: number;
+  moneyMode?: MoneyMode;
+  indices?: InflationIndices;
 }) {
-  const groups = groupBySeason(transfers);
+  const groups = groupBySeason(transfers, moneyMode, indices);
   const modern = groups.filter((g) => g.startYear >= since);
   const legacy = groups.filter((g) => g.startYear > 0 && g.startYear < since);
   const offmarketTotal = groups.reduce((s, g) => s + g.offmarketCount, 0);
@@ -36,7 +42,7 @@ export function TransferArchive({
       <OffMarketToggle total={offmarketTotal} />
       <div className="space-y-2">
         {modern.map((g, i) => (
-          <SeasonRow key={g.season} group={g} open={i === 0} />
+          <SeasonRow key={g.season} group={g} open={i === 0} moneyMode={moneyMode} indices={indices} />
         ))}
         {legacy.length > 0 && <LegacySummary groups={legacy} since={since} />}
       </div>
@@ -63,7 +69,11 @@ interface SeasonGroup {
 }
 
 /** Rows arrive date-ordered, so seasons fall into consecutive runs. */
-function groupBySeason(transfers: TransferRow[]): SeasonGroup[] {
+function groupBySeason(
+  transfers: TransferRow[],
+  moneyMode: MoneyMode = "nominal",
+  indices?: InflationIndices,
+): SeasonGroup[] {
   const groups: SeasonGroup[] = [];
   for (const t of transfers) {
     const season = t.season ?? "—";
@@ -94,12 +104,14 @@ function groupBySeason(transfers: TransferRow[]): SeasonGroup[] {
     if (t.direction === "in") g.marketIn.push(t);
     else g.marketOut.push(t);
     if (t.fee_kind === "fee" && t.fee_gbp != null) {
+      const fee =
+        indices && moneyMode !== "nominal" ? displayFeeGbp(t, moneyMode, indices)! : t.fee_gbp;
       if (t.direction === "in") {
-        g.spend += t.fee_gbp;
-        g.net += t.fee_gbp;
+        g.spend += fee;
+        g.net += fee;
       } else {
-        g.received += t.fee_gbp;
-        g.net -= t.fee_gbp;
+        g.received += fee;
+        g.net -= fee;
       }
     }
   }
@@ -158,19 +170,44 @@ function NetFigure({ net, hasFee }: { net: number; hasFee: boolean }) {
 }
 
 /** Fee'd moves first, biggest fee at the top; fee-less moves sink, newest first. */
-function byValue(rows: TransferRow[]): TransferRow[] {
+function byValue(
+  rows: TransferRow[],
+  moneyMode: MoneyMode = "nominal",
+  indices?: InflationIndices,
+): TransferRow[] {
   return [...rows].sort((a, b) => {
-    const fa = a.fee_kind === "fee" && a.fee_gbp != null ? a.fee_gbp : -1;
-    const fb = b.fee_kind === "fee" && b.fee_gbp != null ? b.fee_gbp : -1;
+    const fa =
+      a.fee_kind === "fee" && a.fee_gbp != null
+        ? (indices && moneyMode !== "nominal" ? displayFeeGbp(a, moneyMode, indices)! : a.fee_gbp)
+        : -1;
+    const fb =
+      b.fee_kind === "fee" && b.fee_gbp != null
+        ? (indices && moneyMode !== "nominal" ? displayFeeGbp(b, moneyMode, indices)! : b.fee_gbp)
+        : -1;
     if (fa !== fb) return fb - fa;
     return (b.date ?? "").localeCompare(a.date ?? "");
   });
 }
 
 /** One direction's moves, ranked by fee, behind a coloured rail and label. */
-function DirectionSection({ kind, rows }: { kind: "in" | "out"; rows: TransferRow[] }) {
+function DirectionSection({
+  kind,
+  rows,
+  moneyMode = "nominal",
+  indices,
+}: {
+  kind: "in" | "out";
+  rows: TransferRow[];
+  moneyMode?: MoneyMode;
+  indices?: InflationIndices;
+}) {
   const isIn = kind === "in";
-  const fees = rows.reduce((s, r) => s + (r.fee_kind === "fee" && r.fee_gbp != null ? r.fee_gbp : 0), 0);
+  const fees = rows.reduce((s, r) => {
+    if (r.fee_kind !== "fee" || r.fee_gbp == null) return s;
+    const fee =
+      indices && moneyMode !== "nominal" ? displayFeeGbp(r, moneyMode, indices)! : r.fee_gbp;
+    return s + fee;
+  }, 0);
   return (
     <div className={`border-l-2 pl-3 ${isIn ? "border-devil/70" : "border-gold/70"}`}>
       <div className="mb-2 flex items-baseline gap-2">
@@ -182,7 +219,7 @@ function DirectionSection({ kind, rows }: { kind: "in" | "out"; rows: TransferRo
           {fees > 0 && <span className="text-ink-dim"> · {fmtFee(fees)}</span>}
         </span>
       </div>
-      <TransferList transfers={byValue(rows)} showPlayer showDirection={false} />
+      <TransferList transfers={byValue(rows, moneyMode, indices)} showPlayer showDirection={false} moneyMode={moneyMode} indices={indices} />
     </div>
   );
 }
@@ -278,7 +315,17 @@ function OffMarketLane({ group: g }: { group: SeasonGroup }) {
   );
 }
 
-function SeasonRow({ group: g, open = false }: { group: SeasonGroup; open?: boolean }) {
+function SeasonRow({
+  group: g,
+  open = false,
+  moneyMode = "nominal",
+  indices,
+}: {
+  group: SeasonGroup;
+  open?: boolean;
+  moneyMode?: MoneyMode;
+  indices?: InflationIndices;
+}) {
   const hasFee = g.spend > 0 || g.received > 0;
   return (
     <details
@@ -306,13 +353,13 @@ function SeasonRow({ group: g, open = false }: { group: SeasonGroup; open?: bool
         <div className="grid items-start gap-x-6 gap-y-3 lg:grid-cols-2">
           {g.marketIn.length > 0 && (
             <div className="lg:col-start-1 lg:row-start-1">
-              <DirectionSection kind="in" rows={g.marketIn} />
+              <DirectionSection kind="in" rows={g.marketIn} moneyMode={moneyMode} indices={indices} />
             </div>
           )}
           {g.marketIn.length > 0 && g.marketOut.length > 0 && <div className="border-t border-line/60 lg:hidden" />}
           {g.marketOut.length > 0 && (
             <div className="lg:col-start-2 lg:row-start-1">
-              <DirectionSection kind="out" rows={g.marketOut} />
+              <DirectionSection kind="out" rows={g.marketOut} moneyMode={moneyMode} indices={indices} />
             </div>
           )}
         </div>
