@@ -147,6 +147,57 @@ Code is MIT (see `LICENSE`). The dataset — canonical JSON, the compiled
 SQLite database, and the CSV/JSON exports — is CC BY-SA 4.0 with per-source
 attribution (see `data/LICENSE.md`).
 
+## Open data
+
+Red Thread ships a versioned open dataset and read-only API on every deploy.
+The coverage ledger on `/data` is the human-facing entry point; machine
+readers can start from `/llms.txt`.
+
+### Downloads
+
+Flat CSV exports live under `/dataset/`. Start with
+[`/dataset/manifest.json`](https://unitedstats.vercel.app/dataset/manifest.json)
+for row counts, build metadata, license, and citation fields.
+
+| File | Contents |
+|---|---|
+| `matches.csv` | Fixture spine — results, venues, managers, facet flags |
+| `events.csv` | Goals, assists, cards |
+| `lineups.csv` | Starting XIs, benches, substitutions |
+| `elo_history.csv` | Pre/post-match Elo and expectancies |
+| `season_summaries.csv` | Competition season summaries |
+| `players.csv` | All-time player totals |
+| `transfers.csv` | Transfer ledger |
+| `league_standings.csv` | League table rows by season |
+
+Regenerate locally: `npm run build:db && npm run export:dataset`.
+
+### API
+
+Read-only JSON at `/api/v1/*` with permissive CORS. Index:
+[`/api/v1`](https://unitedstats.vercel.app/api/v1). Key endpoints:
+
+- `/api/v1/meta` — coverage counts and date range
+- `/api/v1/matches` — paginated, filterable match list
+- `/api/v1/matches/{id}` — one match with events, lineups, sources
+- `/api/v1/seasons`, `/api/v1/players`, `/api/v1/opponents`
+
+Full catalog and facet guidance: `/data#api`.
+
+### Citation
+
+Licensed **CC BY-SA 4.0**. When reusing the dataset, credit **Red Thread**
+with a link to the site and preserve per-source attribution in reused rows.
+Stable record IDs use the `us:` scheme (e.g.
+`us:match:1999-05-26-bayern-munich-n`). Plain-text and BibTeX templates are
+on `/data#citation`.
+
+### Registries
+
+If you maintain a football data registry or research index, listing Red
+Thread with manifest URL `/dataset/manifest.json` and docs at `/data` helps
+others discover the record. Corrections welcome via `/corrections` or PR.
+
 ## Related docs
 
 | Doc | Purpose |
