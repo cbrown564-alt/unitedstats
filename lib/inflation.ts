@@ -20,7 +20,7 @@ export interface InflationIndices {
   football: PlFootballIndex;
 }
 
-export function calendarYear(isoDate: string): number {
+function calendarYear(isoDate: string): number {
   return Number.parseInt(isoDate.slice(0, 4), 10);
 }
 
@@ -71,17 +71,6 @@ export function adjustFeeGbp(
   // Pre-PL era: football mode falls back to CPI (documented in UI).
   if (!date) return feeGbp;
   return Math.round(feeGbp * cpiDeflator(calendarYear(date), indices.cpi));
-}
-
-/** Whether football mode used CPI fallback for this transfer. */
-export function footballUsedCpiFallback(
-  date: string | null,
-  season: string | null,
-  indices: InflationIndices,
-): boolean {
-  const resolvedSeason = transferSeason(date, season);
-  if (!resolvedSeason || resolvedSeason < indices.football.plEraStart) return true;
-  return indices.football.seasons[resolvedSeason] == null;
 }
 
 export function moneyModeLabel(mode: MoneyMode): string {

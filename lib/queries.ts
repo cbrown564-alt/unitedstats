@@ -2374,17 +2374,6 @@ export function playerTransfers(playerId: string): TransferRow[] {
     .all(playerId) as TransferRow[];
 }
 
-/** The biggest known-fee transfers in a direction. */
-export function topTransfersByFee(direction: "in" | "out", limit: number): TransferRow[] {
-  return getDb()
-    .prepare(
-      `${TRANSFER_SELECT}
-       WHERE t.direction = ? AND t.fee_kind = 'fee' AND t.fee_gbp IS NOT NULL
-       ORDER BY t.fee_gbp DESC LIMIT ?`,
-    )
-    .all(direction, limit) as TransferRow[];
-}
-
 /** Every dated transfer, newest first — the source for the season-by-season archive. */
 export function datedTransfers(): TransferRow[] {
   return getDb()
@@ -2403,53 +2392,12 @@ export interface TransferTotals {
   received_rows: number;
 }
 
-/** Headline aggregates across the whole archive. */
-export function transferTotals(): TransferTotals {
-  return getDb()
-    .prepare(
-      `SELECT
-         SUM(direction = 'in') signings,
-         SUM(direction = 'out') departures,
-         SUM(direction = 'in' AND fee_kind = 'free') free_in,
-         SUM(type = 'youth') youth,
-         COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp END), 0) gross_spend,
-         COALESCE(SUM(CASE WHEN direction = 'out' AND fee_kind = 'fee' THEN fee_gbp END), 0) gross_received,
-         SUM(direction = 'in' AND fee_kind = 'fee') spend_rows,
-         SUM(direction = 'out' AND fee_kind = 'fee') received_rows
-       FROM transfers`,
-    )
-    .get() as TransferTotals;
-}
-
 export interface SpendYear {
   year: number;
   spend: number;
   received: number;
   signings: number;
   departures: number;
-}
-
-/**
- * Known-fee spend and receipts plus the raw signing/departure counts, one row per
- * calendar year of the transfer date. Feeds the `SpendTide` hero: the fees draw
- * the modern money explosion, while the counts (recorded right back to Newton
- * Heath, long before any fee was published) carry the people-flow across the whole
- * timeline so the pre-fee century is busy, not blank.
- */
-export function spendTideByYear(): SpendYear[] {
-  return getDb()
-    .prepare(
-      `SELECT CAST(substr(date, 1, 4) AS INTEGER) year,
-              COALESCE(SUM(CASE WHEN direction = 'in' AND fee_kind = 'fee' THEN fee_gbp END), 0) spend,
-              COALESCE(SUM(CASE WHEN direction = 'out' AND fee_kind = 'fee' THEN fee_gbp END), 0) received,
-              SUM(direction = 'in') signings,
-              SUM(direction = 'out') departures
-       FROM transfers
-       WHERE date IS NOT NULL
-       GROUP BY year
-       ORDER BY year`,
-    )
-    .all() as SpendYear[];
 }
 
 export interface NetSpendBucket {
@@ -2460,31 +2408,6 @@ export interface NetSpendBucket {
   net: number;
   signings: number;
   departures: number;
-}
-
-/**
- * Known-fee spend, receipts and net by the manager in charge on the transfer
- * date (joined through manager_tenures, mirroring how matches map to managers).
- */
-export function netSpendByManager(): NetSpendBucket[] {
-  return getDb()
-    .prepare(
-      `SELECT mg.name bucket, mg.id bucket_id,
-              COALESCE(SUM(CASE WHEN t.direction = 'in' AND t.fee_kind = 'fee' THEN t.fee_gbp END), 0) spend,
-              COALESCE(SUM(CASE WHEN t.direction = 'out' AND t.fee_kind = 'fee' THEN t.fee_gbp END), 0) received,
-              COALESCE(SUM(CASE WHEN t.direction = 'in' AND t.fee_kind = 'fee' THEN t.fee_gbp
-                                WHEN t.direction = 'out' AND t.fee_kind = 'fee' THEN -t.fee_gbp END), 0) net,
-              SUM(t.direction = 'in') signings,
-              SUM(t.direction = 'out') departures
-       FROM transfers t
-       JOIN manager_tenures mt ON t.date >= mt.date_from AND (mt.date_to IS NULL OR t.date <= mt.date_to)
-       JOIN managers mg ON mg.id = mt.manager_id
-       WHERE t.date IS NOT NULL
-       GROUP BY mg.id
-       HAVING spend > 0 OR received > 0
-       ORDER BY net DESC`,
-    )
-    .all() as NetSpendBucket[];
 }
 
 /** Net spend and signing/departure counts during one manager's tenure. */
