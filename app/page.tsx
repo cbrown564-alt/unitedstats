@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,
@@ -19,6 +20,26 @@ import { greatNights } from "@/lib/greatNights";
 // The served night is resolved per request so on-this-day reflects the real date
 // and the latest record — like /surprise and /on-this-day.
 export const dynamic = "force-dynamic";
+
+const HOME_DESCRIPTION =
+  "Evidence-backed Manchester United history: every match, every competition, every goal — from Newton Heath to today.";
+
+export const metadata: Metadata = {
+  title: { absolute: "Red Thread — every Manchester United match since 1886" },
+  description: HOME_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: "Red Thread — every Manchester United match since 1886",
+    description: HOME_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Red Thread — every Manchester United match since 1886",
+    description: HOME_DESCRIPTION,
+  },
+};
 
 export default function Home() {
   const meta = getMeta();

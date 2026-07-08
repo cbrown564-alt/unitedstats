@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   coverageByCompetitionType,
@@ -18,7 +19,21 @@ import { enrichDataGaps } from "@/lib/dataGaps";
 import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { CORRECTION_STATUS_URL } from "@/lib/corrections";
 
-export const metadata = { title: "Data and corrections" };
+const DATA_DESCRIPTION =
+  "Coverage ledger, source register, data gaps queue, and open dataset downloads for United's match record since 1886.";
+
+export const metadata: Metadata = {
+  title: "Data and corrections",
+  description: DATA_DESCRIPTION,
+  alternates: { canonical: "/data" },
+  openGraph: {
+    type: "website",
+    title: "Data and corrections · Red Thread",
+    description: DATA_DESCRIPTION,
+    url: "/data",
+  },
+  twitter: { card: "summary_large_image", title: "Data and corrections", description: DATA_DESCRIPTION },
+};
 
 /**
  * Movement header for the page's three acts (the record → its cuts → how it's

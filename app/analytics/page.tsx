@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { familyName } from "@/lib/names";
 import {
@@ -13,7 +14,21 @@ import { PageHeader, StatTile } from "@/components/PageHeader";
 import { ChapterPager, type Chapter } from "@/components/mobile/ChapterPager";
 import { fmtNum, pct } from "@/lib/format";
 
-export const metadata = { title: "Analytics" };
+const ANALYTICS_DESCRIPTION =
+  "Elo timeline, model reliability, and season replay — analytics built on United's full match record since 1886.";
+
+export const metadata: Metadata = {
+  title: "Analytics",
+  description: ANALYTICS_DESCRIPTION,
+  alternates: { canonical: "/analytics" },
+  openGraph: {
+    type: "website",
+    title: "Analytics · Red Thread",
+    description: ANALYTICS_DESCRIPTION,
+    url: "/analytics",
+  },
+  twitter: { card: "summary_large_image", title: "Analytics", description: ANALYTICS_DESCRIPTION },
+};
 
 function Act({ n, kicker, title, children }: { n: string; kicker: string; title: string; children?: React.ReactNode }) {
   return (

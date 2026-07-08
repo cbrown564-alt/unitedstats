@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { Pager } from "@/components/Pager";
@@ -8,8 +9,22 @@ import { highlight } from "@/lib/search/highlight";
 import { KIND_LABELS, KIND_HEADINGS, POPULAR_SEARCHES, RESHAPE_PROMPTS, SEARCH_HINTS, SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { queryString } from "@/lib/url";
 
+const SEARCH_DESCRIPTION =
+  "Search players, matches, seasons, managers, and opponents across United's full record since 1886.";
+
 export const revalidate = 86400;
-export const metadata = { title: "Search" };
+export const metadata: Metadata = {
+  title: "Search",
+  description: SEARCH_DESCRIPTION,
+  alternates: { canonical: "/search" },
+  openGraph: {
+    type: "website",
+    title: "Search · Red Thread",
+    description: SEARCH_DESCRIPTION,
+    url: "/search",
+  },
+  twitter: { card: "summary_large_image", title: "Search", description: SEARCH_DESCRIPTION },
+};
 
 const PAGE_SIZE = 25;
 
