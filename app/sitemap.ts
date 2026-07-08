@@ -7,6 +7,11 @@ import {
   allMatchIds, allSeasons, getMeta, managersIndex, opponentsIndex, playersIndex,
 } from "@/lib/queries";
 
+/** Next.js writes sitemap <loc> values verbatim — ampersands must be XML-escaped. */
+function sitemapLoc(path: string): string {
+  return `${SITE_URL}${path}`.replaceAll("&", "&amp;");
+}
+
 /**
  * The whole corpus as one crawlable set. Detail pages are statically generated
  * and individually addressable, but without a sitemap a crawler only reaches
@@ -19,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const meta = getMeta();
   const built = meta.built_at ? new Date(meta.built_at) : new Date();
   const lastMatch = meta.last_match ? new Date(meta.last_match) : built;
-  const url = (path: string) => `${SITE_URL}${path}`;
+  const url = sitemapLoc;
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: url("/"), changeFrequency: "daily", priority: 1, lastModified: lastMatch },

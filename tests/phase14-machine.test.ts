@@ -95,7 +95,9 @@ test("the answer index and sitemap agree on the machine and human surfaces", asy
   const answerIndex = await AnswersIndexRoute();
   assert.equal((await answerIndex.json()).data.source, API_ATTRIBUTION.source);
 
-  const humanUrls = new Set(sitemap().map((entry) => new URL(entry.url).pathname));
+  const humanUrls = new Set(
+    sitemap().map((entry) => new URL(entry.url.replaceAll("&amp;", "&")).pathname),
+  );
   assert.ok(humanUrls.has("/"));
   assert.ok(humanUrls.has("/data"));
 });
