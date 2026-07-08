@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { seasonMatches, allSeasons, seasonsIndex, seasonLeagueTable, type MatchRow, type SeasonSummary } from "@/lib/queries";
 import { matchesSequence } from "@/lib/trails";
@@ -16,9 +17,10 @@ import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
 import { WdlBar } from "@/components/WdlBar";
+import { EntityRediscoveryRail } from "@/components/EntityRediscoveryRail";
 import { RediscoveryRail } from "@/components/RediscoveryRail";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
-import { rediscoveryForEntity, parseSinceYear } from "@/lib/rediscovery";
+import { rediscoveryForEntity } from "@/lib/rediscovery";
 import { sampleStaticIds } from "@/lib/static-build";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
@@ -88,16 +90,13 @@ function campaignOutcome(
 
 export default async function SeasonPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ season: string }>;
-  searchParams?: Promise<{ since?: string }>;
 }) {
   const { season } = await params;
-  const sinceYear = parseSinceYear(searchParams ? (await searchParams).since : undefined);
   const matches = seasonMatches(season);
   if (matches.length === 0) notFound();
-  const forgotten = rediscoveryForEntity("season", season, { sinceYear });
+  const forgotten = rediscoveryForEntity("season", season);
 
   // The full final table United played in that season (every club) — rendered as
   // context below the plate. Null for cup-only seasons or the rare source gap.
@@ -233,7 +232,9 @@ export default async function SeasonPage({
                     )}
                     {forgotten && (
                       <div className={narrative.length > 0 ? "mt-3 border-t border-line/80 pt-3" : ""}>
-                        <RediscoveryRail prompt={forgotten} />
+                        <Suspense fallback={<RediscoveryRail prompt={forgotten} />}>
+                          <EntityRediscoveryRail kind="season" id={season} prompt={forgotten} />
+                        </Suspense>
                       </div>
                     )}
                   </div>

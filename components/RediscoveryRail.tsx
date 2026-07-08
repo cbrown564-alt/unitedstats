@@ -1,6 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import type { RediscoveryPrompt } from "@/lib/rediscovery";
-import { promptDateLine } from "@/lib/rediscovery";
+import type { RediscoveryPrompt } from "@/lib/rediscovery-prompt";
 
 const SCORE_TONE: Record<string, string> = {
   "text-win": "text-win",
@@ -31,7 +32,7 @@ export function RediscoveryRail({ prompt }: { prompt: RediscoveryPrompt }) {
         ) : null}
         {" v "}
         <span className="font-medium">{prompt.opponent}</span>
-        <span className="text-ink-faint"> · {promptDateLine(prompt)}</span>
+        <span className="text-ink-faint"> · {prompt.dateLine}</span>
         <span className="text-devil-bright" aria-hidden>
           {" "}
           →
