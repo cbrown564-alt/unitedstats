@@ -17,6 +17,7 @@ import { FeatureSlide } from "@/components/explore/FeatureSlide";
 import { ComparisonHero } from "@/components/explore/ComparisonHero";
 import { CutHero } from "@/components/explore/CutHero";
 import { RailCard } from "@/components/explore/RailCard";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
 const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
   devil: "text-devil-bright",
@@ -26,12 +27,9 @@ const STAT_TONE: Record<"devil" | "gold" | "win", string> = {
 
 const COMPARE_STAT_TONE: Record<CompareRailTone, string> = STAT_TONE;
 
-export const metadata: Metadata = {
-  title: "Discover",
-  description:
-    "Start with an answer — the curated questions tested against United’s record, then compare careers and explore curated cuts of the whole record.",
+export const metadata: Metadata = seoMetadata(listSeo.explore.title, listSeo.explore.description, {
   alternates: { canonical: "/explore" },
-};
+});
 
 export default function ExplorePage() {
   const headlines = questionHeadlines();

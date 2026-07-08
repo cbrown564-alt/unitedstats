@@ -3,14 +3,11 @@ import { PageHeader } from "@/components/PageHeader";
 import { MatchesPageBody } from "@/components/matches/MatchesPageBody";
 import { buildMatchesPageView } from "@/lib/buildMatchesPageView";
 import { validateMatchFilterDates } from "@/lib/matchFilterFromUrl";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
 export const revalidate = 86400;
 
-export const metadata: Metadata = {
-  title: "Matches",
-  description:
-    "Browse and filter the complete Manchester United match record since 1886 — filter by opponent, manager, season, venue, and result.",
-};
+export const metadata: Metadata = seoMetadata(listSeo.matches.title, listSeo.matches.description);
 
 export default async function MatchesPage({
   searchParams,

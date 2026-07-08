@@ -13,12 +13,10 @@ import { SeasonLedgerCard } from "@/components/seasons/SeasonLedgerCard";
 import { cupOutcomesForSeason, lanesForComps } from "@/components/seasons/seasonLedgerLanes";
 import { fmtNum } from "@/lib/format";
 import { queryString } from "@/lib/url";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
 export const revalidate = 86400;
-export const metadata = {
-  title: "Seasons",
-  description: "Every Manchester United campaign since Newton Heath joined the Football League in 1892 — tracing league finishes, cup campaigns, and honours decade by decade.",
-};
+export const metadata = seoMetadata(listSeo.seasons.title, listSeo.seasons.description);
 
 function ordinal(n: number): string {
   const s = ["th", "st", "nd", "rd"];

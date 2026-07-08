@@ -8,6 +8,7 @@ import { WdlBar } from "@/components/WdlBar";
 import { venueLabel } from "@/lib/format";
 import { monthDayKeys, monthDayLabel, onThisDay } from "@/lib/onThisDay";
 import { sampleStaticIds } from "@/lib/static-build";
+import { onThisDaySeoDescription, onThisDaySeoTitle, seoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -24,11 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ monthDay:
   const { monthDay } = await params;
   if (!monthDayKeys().includes(monthDay)) return {};
   const entry = onThisDay(monthDay);
-  const title = `On this day — ${entry.label}`;
-  const description = entry.lead
-    ? `${entry.lead.year}: ${entry.lead.scoreline}. ${entry.rhythm?.played ?? 0} United matches on ${entry.label} across the years.`
-    : `No official United match is recorded on ${entry.label}.`;
-  return { title, description, openGraph: { title: `${title} · Red Thread`, description } };
+  return seoMetadata(onThisDaySeoTitle(entry), onThisDaySeoDescription(entry));
 }
 
 export default async function OnThisDayPage({ params }: { params: Promise<{ monthDay: string }> }) {

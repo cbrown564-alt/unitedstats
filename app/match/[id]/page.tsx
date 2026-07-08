@@ -7,6 +7,7 @@ import {
 } from "@/lib/queries";
 import { similarMatches } from "@/lib/trails";
 import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone } from "@/lib/format";
+import { matchSeoDescription, matchSeoTitle, seoMetadata } from "@/lib/seo";
 import { clubNames, opponentNames, type ClubNames } from "@/lib/clubNames";
 import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
@@ -41,18 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const m = matchById(id);
   if (!m) return {};
-  const dateStr = fmtDateLong(m.date);
-  const resultStr = `${m.outcome === "W" ? "Won" : m.outcome === "L" ? "Lost" : "Drew"} ${m.gf}–${m.ga}`;
-  const title = `United v ${m.opponent_name} (${m.date})`;
-  const description = `${dateStr} — Manchester United ${resultStr} against ${m.opponent_name} at ${m.stadium_name ?? venueLabel(m.venue)} in the ${m.competition_name}.`;
-  return {
-    title,
-    description,
-    openGraph: {
-      title: `${title} · Red Thread`,
-      description,
-    },
-  };
+  return seoMetadata(matchSeoTitle(m), matchSeoDescription(m));
 }
 
 export function generateStaticParams() {
