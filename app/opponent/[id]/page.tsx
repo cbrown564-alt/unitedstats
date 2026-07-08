@@ -39,8 +39,10 @@ import {
 } from "@/lib/opponentSeasonHighlights";
 import { fmtNum, pct, venueLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
+import { jsonLdHtml, opponentJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
+import { opponentSeoDescription, opponentSeoTitle, seoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -51,16 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const o = opponentById(id);
   if (!o) return {};
-  const title = `United v ${o.name}`;
-  const description = `Manchester United’s head-to-head record against ${o.name}. ${fmtNum(o.p)} meetings since ${o.first?.slice(0, 4)}: ${pct(o.w, o.p)} wins.`;
-  return {
-    title,
-    description,
-    openGraph: {
-      title: `${title} · Red Thread`,
-      description,
-    },
-  };
+  return seoMetadata(opponentSeoTitle(o), opponentSeoDescription(o));
 }
 
 export function generateStaticParams() {
@@ -130,8 +123,11 @@ export default async function OpponentPage({
     ? `Best season: ${pct(bestSeason.w, bestSeason.p)} won in ${bestSeason.season} (${fmtNum(bestSeason.p)} meetings)`
     : null;
 
+  const jsonLd = opponentJsonLd(o);
+
   return (
     <div className="space-y-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <DetailBreadcrumb
         segments={[
           { label: "Opponents", href: "/search?kind=opponent" },

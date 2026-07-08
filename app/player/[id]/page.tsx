@@ -32,6 +32,7 @@ import { PlayerTransferRecord } from "@/components/player/PlayerTransferRecord";
 import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
+import { jsonLdHtml, playerJsonLd } from "@/lib/structuredData";
 import { correctionPrefillHref } from "@/lib/corrections";
 import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
 import {
@@ -50,6 +51,7 @@ import {
   cleanSheetPct,
 } from "@/lib/playerSeasonHighlights";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
+import { playerSeoDescription, playerSeoTitle, seoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -60,20 +62,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const p = playerById(id);
   if (!p) return {};
-  const span = playerCareerSpan(p);
-  const title = `${p.name}`;
   const defensiveProfile = playerUsesDefensiveProfile(p.position_bucket);
-  const description = defensiveProfile
-    ? `${p.name} — Manchester United playing record from ${span}. ${fmtNum(p.apps)} appearances and ${fmtNum(playerDefensiveTotals(id).cleanSheets)} clean sheets in matches started.`
-    : `${p.name} — Manchester United playing record from ${span}. ${fmtNum(p.apps)} appearances, ${fmtNum(p.goals)} goals, and ${fmtNum(p.assists)} assists.`;
-  return {
-    title,
-    description,
-    openGraph: {
-      title: `${title} · Red Thread`,
-      description,
-    },
-  };
+  return seoMetadata(
+    playerSeoTitle(p),
+    playerSeoDescription(p, defensiveProfile
+      ? { defensive: true, cleanSheets: playerDefensiveTotals(id).cleanSheets }
+      : undefined),
+  );
 }
 
 const SCORING_ARCHIVE_INLINE_MAX = 25;
@@ -146,6 +141,7 @@ export default async function PlayerPage({
     : null;
 
   const careerYears = playerCareerSpan(p);
+  const jsonLd = playerJsonLd(p);
   const seasonChartFootnotes = playerSeasonChartFootnotes(bySeason.map((s) => s.season));
   const goalPeakSeasons = peakGoalSeasons(bySeason);
   const assistPeakSeasons = peakAssistSeasons(bySeason);
@@ -211,6 +207,7 @@ export default async function PlayerPage({
 
   return (
     <div className="space-y-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <DetailBreadcrumb
         segments={[
           { label: "Players", href: "/players" },

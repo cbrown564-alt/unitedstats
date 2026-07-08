@@ -3,6 +3,7 @@ import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteShell } from "@/components/SiteShell";
 import { SITE_URL } from "@/lib/site";
+import { jsonLdHtml, websiteJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -22,6 +23,17 @@ export const metadata: Metadata = {
   title: { default: "Red Thread — every Manchester United match since 1886", template: "%s · Red Thread" },
   description:
     "Evidence-backed Manchester United history: every match, every competition, every goal — from Newton Heath to today.",
+  openGraph: {
+    type: "website",
+    siteName: "Red Thread",
+    locale: "en_GB",
+    title: { default: "Red Thread — every Manchester United match since 1886", template: "%s · Red Thread" },
+    description:
+      "Evidence-backed Manchester United history: every match, every competition, every goal — from Newton Heath to today.",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -32,6 +44,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(websiteJsonLd()) }} />
         <SiteShell>{children}</SiteShell>
         <Analytics />
       </body>

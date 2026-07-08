@@ -6,17 +6,26 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { GET as AnswersIndexRoute } from "../app/api/v1/answers/route";
 import { GET as CutAnswerRoute } from "../app/api/v1/answers/cuts/[slug]/route";
 import MatchPage from "../app/match/[id]/page";
+import PlayerPage from "../app/player/[id]/page";
 import robots from "../app/robots";
 import sitemap from "../app/sitemap";
 import { API_ATTRIBUTION } from "../lib/api";
-import { answerRef, cutKey, matchRef } from "../lib/citations";
+import { answerRef, cutKey, entityRef, matchRef, questionRef } from "../lib/citations";
 import { CURATED_CUTS, curatedCut } from "../lib/cut";
 import { cutAnswer } from "../lib/machineAnswers";
+import { questionBySlug } from "../lib/questions";
 import { SITE_URL } from "../lib/site";
-import { jsonLdHtml, matchJsonLd } from "../lib/structuredData";
-import { matchById, sourcesForMatch } from "../lib/queries";
+import {
+  jsonLdHtml,
+  matchJsonLd,
+  playerJsonLd,
+  questionJsonLd,
+  websiteJsonLd,
+} from "../lib/structuredData";
+import { matchById, playerById, sourcesForMatch } from "../lib/queries";
 
 const MATCH_ID = "1999-05-26-bayern-munich-n";
+const PLAYER_ID = "wayne-rooney";
 const CUT_SLUG = "opponents-by-win-rate";
 
 function firstJsonLd(html: string): Record<string, unknown> {
@@ -56,6 +65,62 @@ test("JSON-LD serialization is deterministic and escapes script-breaking text", 
   assert.equal(once, twice);
   assert.match(once, /\\u003c/);
   assert.ok(once.indexOf("\"a\"") < once.indexOf("\"z\""));
+});
+
+test("player JSON-LD uses Person, entity ref, and Manchester United membership", () => {
+  const player = playerById(PLAYER_ID);
+  assert.ok(player);
+  const jsonLd = playerJsonLd(player);
+
+  assert.equal(jsonLd["@type"], "Person");
+  assert.equal(jsonLd.identifier, entityRef("player", PLAYER_ID).id);
+  assert.equal(jsonLd.url, entityRef("player", PLAYER_ID).url);
+  assert.equal(jsonLd.name, player.name);
+  assert.match(String(jsonLd.description), /Manchester United/);
+  assert.match(String(jsonLd.description), /appearances/);
+
+  const memberOf = jsonLd.memberOf as { "@type": string; name: string };
+  assert.equal(memberOf["@type"], "SportsTeam");
+  assert.equal(memberOf.name, "Manchester United");
+});
+
+test("question JSON-LD uses FAQPage with Question and Answer mainEntity", () => {
+  const q = questionBySlug("treble");
+  assert.ok(q);
+  const jsonLd = questionJsonLd(q);
+
+  assert.equal(jsonLd["@type"], "FAQPage");
+  assert.equal(jsonLd.identifier, questionRef("treble").id);
+  assert.equal(jsonLd.url, questionRef("treble").url);
+
+  const mainEntity = jsonLd.mainEntity as { "@type": string; name: string; acceptedAnswer: { "@type": string; text: string } }[];
+  assert.equal(mainEntity.length, 1);
+  assert.equal(mainEntity[0]["@type"], "Question");
+  assert.equal(mainEntity[0].name, q.question);
+  assert.equal(mainEntity[0].acceptedAnswer["@type"], "Answer");
+  assert.equal(mainEntity[0].acceptedAnswer.text, q.summary);
+});
+
+test("website JSON-LD exposes SearchAction for site search", () => {
+  const jsonLd = websiteJsonLd();
+
+  assert.equal(jsonLd["@type"], "WebSite");
+  assert.equal(jsonLd.name, "Red Thread");
+  assert.equal(jsonLd.url, SITE_URL);
+
+  const action = jsonLd.potentialAction as { "@type": string; target: { urlTemplate: string } };
+  assert.equal(action["@type"], "SearchAction");
+  assert.match(action.target.urlTemplate, /\/search\?q=\{search_term_string\}$/);
+});
+
+test("the player page renders parseable JSON-LD with a citable entity ID", async () => {
+  const playerHtml = renderToStaticMarkup(
+    (await PlayerPage({ params: Promise.resolve({ id: PLAYER_ID }) })) as React.ReactElement,
+  );
+  const playerLd = firstJsonLd(playerHtml);
+  assert.equal(playerLd.identifier, entityRef("player", PLAYER_ID).id);
+  assert.equal(playerLd["@type"], "Person");
+  assert.equal(playerLd.name, playerById(PLAYER_ID)?.name);
 });
 
 test("curated Cut machine answer has stable cut and answer IDs, provenance, and cache headers", async () => {
@@ -102,11 +167,11 @@ test("the answer index and sitemap agree on the machine and human surfaces", asy
   assert.ok(humanUrls.has("/data"));
 });
 
-test("robots allows read-only API routes while disallowing side-effect click logging", () => {
+test("robots allows read-only API routes and dataset exports while disallowing side-effect click logging", () => {
   const policy = robots();
   assert.deepEqual(policy.rules, {
     userAgent: "*",
-    allow: ["/", "/api/v1/"],
+    allow: ["/", "/api/v1/", "/dataset/"],
     disallow: ["/api/search/click"],
   });
   assert.equal(policy.sitemap, `${SITE_URL}/sitemap.xml`);

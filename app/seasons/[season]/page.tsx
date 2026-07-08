@@ -21,7 +21,9 @@ import { EntityRediscoveryRail } from "@/components/EntityRediscoveryRail";
 import { RediscoveryRail } from "@/components/RediscoveryRail";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
+import { jsonLdHtml, seasonJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
+import { seasonSeoDescription, seasonSeoTitle, seoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -30,16 +32,7 @@ export const dynamicParams = true;
 
 export async function generateMetadata({ params }: { params: Promise<{ season: string }> }): Promise<Metadata> {
   const { season } = await params;
-  const title = `${season} season`;
-  const description = `Manchester United campaign record for the ${season} season — matches, league table, cup runs, goals, and managers.`;
-  return {
-    title,
-    description,
-    openGraph: {
-      title: `${title} · Red Thread`,
-      description,
-    },
-  };
+  return seoMetadata(seasonSeoTitle(season), seasonSeoDescription(season));
 }
 
 export async function generateStaticParams() {
@@ -157,8 +150,19 @@ export default async function SeasonPage({
       ]
     : [];
 
+  const jsonLd = seasonJsonLd(season, {
+    played: p,
+    wins: w,
+    draws: d,
+    losses: l,
+    goalsFor: gf,
+    goalsAgainst: ga,
+    leaguePosition: league?.position ?? null,
+  });
+
   return (
     <div className="space-y-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <nav className="detail-breadcrumb flex flex-wrap items-center gap-y-0.5" aria-label="Breadcrumb">
         <Link href="/seasons" className="hover:text-devil-bright focus-ring">
           Seasons

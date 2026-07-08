@@ -48,7 +48,9 @@ import {
 import { fmtDate, fmtFee, fmtNum, pct } from "@/lib/format";
 import { getDb } from "@/lib/db";
 import { queryString } from "@/lib/url";
+import { jsonLdHtml, managerJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
+import { managerSeoDescription, managerSeoTitle, seoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -59,16 +61,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const m = managerById(id);
   if (!m) return {};
-  const title = `${m.name}`;
-  const description = `${m.name} — Manchester United managerial record. ${fmtNum(m.p)} matches managed: ${pct(m.w, m.p)} win rate.`;
-  return {
-    title,
-    description,
-    openGraph: {
-      title: `${title} · Red Thread`,
-      description,
-    },
-  };
+  return seoMetadata(managerSeoTitle(m), managerSeoDescription(m));
 }
 
 export function generateStaticParams() {
@@ -107,6 +100,7 @@ export default async function ManagerPage({
   const winPeakSeasons = peakWinRateSeasons(bySeason);
   const ppgPeakSeasons = peakPpgSeasons(bySeason);
   const tenureYears = `${m.first?.slice(0, 4)}–${tenures.some((t) => !t.date_to) ? "present" : m.last?.slice(0, 4)}`;
+  const jsonLd = managerJsonLd(m);
 
   const comps = getDb()
     .prepare(
@@ -430,6 +424,7 @@ export default async function ManagerPage({
 
   return (
     <div className="space-y-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <DetailBreadcrumb
         segments={[
           { label: "Managers", href: "/managers" },
