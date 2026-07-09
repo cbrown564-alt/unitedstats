@@ -27,9 +27,9 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
   const listId = `${baseId}-list`;
   const optionId = (i: number) => `${baseId}-opt-${i}`;
 
-  const { shaped, entities, total, displayTotal } = useSiteSearch(q);
+  const { shaped, questions, entities, total, displayTotal } = useSiteSearch(q);
   const ready = q.trim().length >= 2;
-  const rows: { href: string }[] = [...shaped, ...entities];
+  const rows: { href: string }[] = [...shaped, ...questions, ...entities];
   const seeAllHref = `/search?q=${encodeURIComponent(q.trim())}`;
 
   const close = useCallback(() => {
@@ -115,6 +115,7 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
         {ready && rows.length > 0 ? (
           <SearchResults
             shaped={shaped}
+            questions={questions}
             entities={entities}
             query={q}
             active={active}

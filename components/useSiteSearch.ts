@@ -6,12 +6,13 @@ import { typeaheadTotal } from "@/lib/search/typeaheadTotal";
 
 export interface SiteSearchState {
   shaped: ShapedAnswer[];
+  questions: SearchEntity[];
   entities: SearchEntity[];
   total: number;
   displayTotal: number;
 }
 
-const EMPTY: SiteSearchState = { shaped: [], entities: [], total: 0, displayTotal: 0 };
+const EMPTY: SiteSearchState = { shaped: [], questions: [], entities: [], total: 0, displayTotal: 0 };
 
 /**
  * Debounced query → /api/search fetch, shared by the header dropdown and the ⌘K
@@ -31,16 +32,19 @@ export function useSiteSearch(q: string): SiteSearchState {
         const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: ctrl.signal });
         const data = (await res.json()) as {
           shaped: ShapedAnswer[];
+          questions?: SearchEntity[];
           entities: SearchEntity[];
           total?: number;
           displayTotal?: number;
         };
         const total = data.total ?? data.entities.length;
+        const questions = data.questions ?? [];
         setState({
           shaped: data.shaped,
+          questions,
           entities: data.entities,
           total,
-          displayTotal: data.displayTotal ?? typeaheadTotal(data.shaped, data.entities, total),
+          displayTotal: data.displayTotal ?? typeaheadTotal(data.shaped, questions, data.entities, total),
         });
       } catch {
         // aborted or offline — keep the previous results

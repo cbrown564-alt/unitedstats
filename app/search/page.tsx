@@ -96,9 +96,10 @@ export default async function SearchPage({
   }
 
   const result = searchPage(q, { kind, page, pageSize: PAGE_SIZE });
-  const { shaped, groups, counts, total } = result;
+  const { shaped, questions, groups, counts, total } = result;
+  const hasAnswers = shaped.length > 0 || questions.length > 0;
   // Nothing matched — offer fuzzy "did you mean" suggestions from the whole index.
-  const suggestions = total === 0 && shaped.length === 0 ? entityResults(q, { limit: 8 }).entities : [];
+  const suggestions = total === 0 && !hasAnswers ? entityResults(q, { limit: 8 }).entities : [];
 
   const facetHref = (k: string | undefined) => `/search${queryString({ q, kind: k })}`;
 
@@ -106,12 +107,23 @@ export default async function SearchPage({
     <div className="space-y-7">
       <PageHeader eyebrow="Search" title={`Results for “${q}”`}>
         {total > 0
-          ? `${total} match${total === 1 ? "" : "es"}${shaped.length ? " plus a shaped answer" : ""}.`
-          : shaped.length
-            ? "A computed answer for your question."
+          ? `${total} match${total === 1 ? "" : "es"}${hasAnswers ? " plus curated answers" : ""}.`
+          : hasAnswers
+            ? "A curated or computed answer for your question."
             : "No matches — try one of the suggestions below."}
       </PageHeader>
       <SearchForm q={q} />
+
+      {questions.length > 0 && (
+        <section className="space-y-2">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">{KIND_HEADINGS.question}</h2>
+          <div className="divide-y divide-line/60 rounded-lg border border-line bg-panel">
+            {questions.map((e) => (
+              <EntityRow key={e.href} e={e} q={q} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {shaped.length > 0 && (
         <section className="space-y-2">
@@ -196,7 +208,7 @@ export default async function SearchPage({
         </section>
       )}
 
-      {total === 0 && shaped.length === 0 && suggestions.length === 0 && (
+      {total === 0 && !hasAnswers && suggestions.length === 0 && (
         <section className="space-y-3">
           <p className="text-sm text-ink-dim">
             Nothing close enough to suggest. Try a surname, a season like 1998-99, or an operator such as{" "}

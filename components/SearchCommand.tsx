@@ -67,10 +67,11 @@ export function SearchCommand({
   const listId = `${baseId}-list`;
   const optionId = (i: number) => `${baseId}-opt-${i}`;
 
-  const { shaped, entities, total, displayTotal } = useSiteSearch(q);
+  const { shaped, questions, entities, total, displayTotal } = useSiteSearch(q);
   const ready = q.trim().length >= 2;
   const rows: { href: string; entity?: SearchEntity }[] = [
     ...shaped.map((s) => ({ href: s.href })),
+    ...questions.map((e) => ({ href: e.href, entity: e })),
     ...entities.map((e) => ({ href: e.href, entity: e })),
   ];
   const hasResults = rows.length > 0;
@@ -227,6 +228,7 @@ export function SearchCommand({
           {ready && hasResults ? (
             <SearchResults
               shaped={shaped}
+              questions={questions}
               entities={entities}
               query={q}
               active={active}

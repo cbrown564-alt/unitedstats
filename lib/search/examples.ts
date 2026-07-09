@@ -53,6 +53,7 @@ export const SEARCH_HINTS: string[] = [
 
 /** Display labels for entity kinds, shared across every search surface. */
 export const KIND_LABELS: Record<string, string> = {
+  question: "Myth",
   player: "Player",
   manager: "Manager",
   opponent: "Opponent",
@@ -65,6 +66,7 @@ export const KIND_LABELS: Record<string, string> = {
 
 /** Plural group headers for the results page. */
 export const KIND_HEADINGS: Record<string, string> = {
+  question: "Myths",
   player: "Players",
   manager: "Managers",
   opponent: "Opponents",

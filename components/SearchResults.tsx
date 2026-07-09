@@ -9,12 +9,14 @@ import { keepComboboxFocus } from "./keepComboboxFocus";
 
 /**
  * The shared, keyboard-driven results list rendered inside both the header
- * dropdown and the ⌘K palette. Shaped answers lead, then ranked entities; the
- * parent owns `active` (a flat index over shaped++entities) and passes it down so
- * the two surfaces share one keyboard model and one ARIA listbox contract.
+ * dropdown and the ⌘K palette. Shaped answers lead, then curated myths, then
+ * ranked entities; the parent owns `active` (a flat index over shaped+questions+
+ * entities) and passes it down so the two surfaces share one keyboard model and
+ * one ARIA listbox contract.
  */
 export function SearchResults({
   shaped,
+  questions,
   entities,
   query,
   active,
@@ -28,6 +30,7 @@ export function SearchResults({
   detailBelow = false,
 }: {
   shaped: ShapedAnswer[];
+  questions: SearchEntity[];
   entities: SearchEntity[];
   query: string;
   active: number;
@@ -90,8 +93,49 @@ export function SearchResults({
           </Link>
         </li>
       ))}
-      {entities.map((r, i) => {
+      {questions.map((r, i) => {
         const idx = shaped.length + i;
+        return (
+          <li key={`question-${r.href}`} id={optionId(idx)} role="option" aria-selected={active === idx}>
+            <Link
+              href={r.href}
+              onMouseDown={keepComboboxFocus}
+              onClick={(e) => {
+                e.preventDefault();
+                onSelect(r.href, r);
+              }}
+              onMouseEnter={() => onHover?.(idx)}
+              className={`tap-target block px-4 py-2.5 text-sm sm:py-2 ${
+                active === idx ? "bg-panel-2" : "hover:bg-panel-2"
+              }`}
+            >
+              {detailBelow ? (
+                <>
+                  <div className="text-sm leading-snug">
+                    <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2">
+                      {KIND_LABELS[r.kind] ?? r.kind}
+                    </span>
+                    <span className="font-medium">{highlight(r.label, query)}</span>
+                  </div>
+                  <div className="stat-num mt-0.5 text-xs text-ink-faint">{r.detail}</div>
+                </>
+              ) : (
+                <span className="flex items-center justify-between gap-3">
+                  <span className="truncate">
+                    <span className="text-[10px] uppercase tracking-wider text-ink-faint mr-2 inline-block w-16 sm:w-20">
+                      {KIND_LABELS[r.kind] ?? r.kind}
+                    </span>
+                    <span className="font-medium">{highlight(r.label, query)}</span>
+                  </span>
+                  <span className="stat-num text-xs text-ink-faint whitespace-nowrap">{r.detail}</span>
+                </span>
+              )}
+            </Link>
+          </li>
+        );
+      })}
+      {entities.map((r, i) => {
+        const idx = shaped.length + questions.length + i;
         return (
           <li key={`${r.kind}-${r.href}`} id={optionId(idx)} role="option" aria-selected={active === idx}>
             <Link

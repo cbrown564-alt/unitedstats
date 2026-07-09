@@ -1219,6 +1219,7 @@ for (const s of seasonRows) {
     const start2 = start.slice(2);
     const endFull = String(Number(start) + 1);
     addAlias(s.season, start2, endFull, `${start2}${end2}`, `${start2} ${end2}`);
+    if (s.season === "1998-99") addAlias(s.season, "treble", "the treble", "english treble");
   }
   seeds.push({
     kind: "season", entity_id: s.season, label: s.season,

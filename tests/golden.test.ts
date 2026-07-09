@@ -32,6 +32,7 @@ import {
 } from "../lib/cut";
 import { runSearch } from "../lib/search";
 import { typeaheadTotal } from "../lib/search/typeaheadTotal";
+import { questionBySlug } from "../lib/questions";
 import { classifyMiss } from "../lib/search/log";
 import { getDb } from "../lib/db";
 
@@ -283,8 +284,8 @@ test("entity search: giggs resolves as player and manager", () => {
 });
 
 test("search ignores short or empty queries", () => {
-  assert.deepEqual(runSearch(""), { shaped: [], entities: [], total: 0, displayTotal: 0 });
-  assert.deepEqual(runSearch("a"), { shaped: [], entities: [], total: 0, displayTotal: 0 });
+  assert.deepEqual(runSearch(""), { shaped: [], questions: [], entities: [], total: 0, displayTotal: 0 });
+  assert.deepEqual(runSearch("a"), { shaped: [], questions: [], entities: [], total: 0, displayTotal: 0 });
 });
 
 // ------------------------------------------------ phase 2: query understanding
@@ -406,7 +407,7 @@ test("player-vs-opponent never steals a two-player comparison", () => {
 });
 
 test("ambiguous 'player vs club token' prefers opponent cuts and keeps player comparison as an alternative", () => {
-  const { shaped, entities, total, displayTotal } = runSearch("cantona vs leeds");
+  const { shaped, questions, entities, total, displayTotal } = runSearch("cantona vs leeds");
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — apps"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — goals"));
   assert.ok(shaped.some((s) => s.title === "Eric Cantona v Leeds United — assists"));
@@ -417,7 +418,7 @@ test("ambiguous 'player vs club token' prefers opponent cuts and keeps player co
     "expected appearance, goal, and assist variants for the player-vs-opponent cut",
   );
   assert.ok(shaped.some((s) => s.title === "Eric Cantona vs Lee Sharpe"), "expected comparison as an alternative");
-  assert.equal(displayTotal, typeaheadTotal(shaped, entities, total), "typeahead count matches footer logic");
+  assert.equal(displayTotal, typeaheadTotal(shaped, questions, entities, total), "typeahead count matches footer logic");
 });
 
 test("a team-record phrasing still falls through to the head-to-head", () => {
@@ -513,6 +514,39 @@ test("grammar: a bare player or manager name stays entity-first (no metric, no f
   // shaped verdict, so typing a name still lands on its entity row.
   assert.equal(runSearch("rooney").shaped.length, 0, "a bare player name shapes no answer");
   assert.equal(runSearch("ferguson").shaped.length, 0, "a bare manager name shapes no answer");
+});
+
+test("question pages: myth patterns surface curated answers with distinct metadata", () => {
+  const treble = runSearch("the treble");
+  const myth = treble.questions.find((q) => q.href === "/questions/treble");
+  assert.ok(myth, "expected the treble myth page");
+  assert.equal(myth.kind, "question");
+  assert.equal(myth.label, "How did United win the Treble?");
+  assert.match(myth.detail, /^The Treble · 3 trophies/);
+  assert.ok(
+    treble.entities.some((e) => e.kind === "season" && e.label === "1998-99"),
+    "expected the treble season as an entity hit",
+  );
+
+  const fergie = runSearch("fergie time");
+  assert.ok(fergie.questions.some((q) => q.href === "/questions/late-goals"));
+
+  const lateFerg = runSearch("late goals under ferguson");
+  assert.ok(lateFerg.questions.some((q) => q.href === "/questions/late-goals"));
+  assert.ok(lateFerg.shaped.some((s) => /late goals/i.test(s.title)), "shaped late-goal cuts still fire");
+
+  const after = runSearch("since ferguson");
+  assert.ok(after.questions.some((q) => q.href === "/questions/ferguson-era"));
+
+  for (const slug of [
+    "treble", "ferguson-era", "fortress", "late-goals", "europe", "manager-bounce",
+    "comebacks", "runs", "cup-specialists", "own-goals", "away-days",
+  ]) {
+    const meta = questionBySlug(slug);
+    assert.ok(meta, `missing question meta for ${slug}`);
+    const hit = runSearch(meta.label.toLowerCase()).questions.find((q) => q.href === `/questions/${slug}`);
+    assert.ok(hit, `expected label match for ${slug}`);
+  }
 });
 
 // ------------------------------------------------ phase 9: runs and comebacks

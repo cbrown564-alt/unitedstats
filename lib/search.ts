@@ -2,10 +2,11 @@ import { getDb } from "./db";
 import { fold, trigrams } from "./search/fold";
 import { allIndexRows, type IndexRow } from "./search/resolve";
 import { shapedAnswers, headToHead, type ShapedAnswer, type AnswerCoverage } from "./search/intent";
+import { matchQuestionPages } from "./search/questionPages";
 import { typeaheadTotal } from "./search/typeaheadTotal";
 
 export interface SearchEntity {
-  kind: "player" | "manager" | "opponent" | "season" | "competition" | "stadium" | "city" | "match";
+  kind: "player" | "manager" | "opponent" | "season" | "competition" | "stadium" | "city" | "match" | "question";
   label: string;
   detail: string;
   href: string;
@@ -13,6 +14,8 @@ export interface SearchEntity {
 
 export interface SearchResponse {
   shaped: ShapedAnswer[];
+  /** Curated myth pages (`/questions/[slug]`) matched by phrase patterns. */
+  questions: SearchEntity[];
   entities: SearchEntity[];
   /** Total entity matches available (entities is the capped slice; this is the full count). */
   total: number;
@@ -141,7 +144,7 @@ function parseOperator(q: string): { op: string; rest: string } | null {
 
 export function runSearch(q: string, limit = 12): SearchResponse {
   if (!q || q.trim().length < 2) {
-    return { shaped: [], entities: [], total: 0, displayTotal: 0 };
+    return { shaped: [], questions: [], entities: [], total: 0, displayTotal: 0 };
   }
 
   const operator = parseOperator(q);
@@ -149,16 +152,37 @@ export function runSearch(q: string, limit = 12): SearchResponse {
     if (operator.op === "vs") {
       const h2h = headToHead(operator.rest);
       const shaped = h2h ? [h2h] : [];
+      const questions = matchQuestionPages(operator.rest);
       const { entities, total } = entityResults(operator.rest, { kind: "opponent", limit });
-      return { shaped, entities, total, displayTotal: typeaheadTotal(shaped, entities, total) };
+      return {
+        shaped,
+        questions,
+        entities,
+        total,
+        displayTotal: typeaheadTotal(shaped, questions, entities, total),
+      };
     }
+    const questions = matchQuestionPages(operator.rest);
     const { entities, total } = entityResults(operator.rest, { kind: operator.op, limit });
-    return { shaped: [], entities, total, displayTotal: typeaheadTotal([], entities, total) };
+    return {
+      shaped: [],
+      questions,
+      entities,
+      total,
+      displayTotal: typeaheadTotal([], questions, entities, total),
+    };
   }
 
   const shaped = shapedAnswers(q);
+  const questions = matchQuestionPages(q);
   const { entities, total } = entityResults(q, { limit });
-  return { shaped, entities, total, displayTotal: typeaheadTotal(shaped, entities, total) };
+  return {
+    shaped,
+    questions,
+    entities,
+    total,
+    displayTotal: typeaheadTotal(shaped, questions, entities, total),
+  };
 }
 
 /** Prefix-FTS match expression for a folded query ("ole gun" → "ole* gun*"). */
@@ -186,6 +210,7 @@ function searchKindCounts(q: string): { kind: string; n: number }[] {
 
 export interface SearchPage {
   shaped: ShapedAnswer[];
+  questions: SearchEntity[];
   /** When a kind facet is active: that kind's paginated slice. Otherwise: top of each kind. */
   groups: { kind: string; entities: SearchEntity[]; total: number }[];
   counts: { kind: string; n: number }[];
@@ -204,12 +229,14 @@ export function searchPage(
   const counts = searchKindCounts(q).sort((a, b) => b.n - a.n);
   const total = counts.reduce((acc, c) => acc + c.n, 0);
   const shaped = kind ? [] : shapedAnswers(q);
+  const questions = kind ? [] : matchQuestionPages(q);
 
   if (kind) {
     const n = counts.find((c) => c.kind === kind)?.n ?? 0;
     const { entities } = entityResults(q, { kind, limit: pageSize, offset: (page - 1) * pageSize });
     return {
       shaped,
+      questions,
       groups: entities.length ? [{ kind, entities, total: n }] : [],
       counts,
       total,
@@ -221,5 +248,5 @@ export function searchPage(
   const groups = counts
     .map((c) => ({ kind: c.kind, total: c.n, entities: entityResults(q, { kind: c.kind, limit: perGroup }).entities }))
     .filter((g) => g.entities.length > 0);
-  return { shaped, groups, counts, total, page: 1, pages: 1 };
+  return { shaped, questions, groups, counts, total, page: 1, pages: 1 };
 }
