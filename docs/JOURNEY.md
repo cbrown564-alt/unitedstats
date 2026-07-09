@@ -280,13 +280,122 @@ called the 2008 win "*a second European Cup*" — it was the **third** ('68, '99
 
 ---
 
+## 4b. Chapter 2 — the Treble (the spin-off)
+
+The second metaphor verb. Where the pilot proved the **loop** (history rhyming
+across forty years), this chapter proves the **spin-off**: a singular campaign
+that leaves the main axis into its own pocket, then returns. Packaging per the
+user's call: **sibling route** (`/journey/treble`, `noindex`) + a light chapter
+cross-link on both doors; the pilot's arc is signed off and stays untouched.
+
+### The facts (verified in the record, 2026-07-09)
+
+| Fact | Value | Source |
+|------|-------|--------|
+| Three trophies in eleven days | 16 May (PL, Spurs 2–1) · 22 May (FA Cup, Newcastle 2–0) · 26 May (CL, Bayern 2–1) | `matches`, season `1998-99` |
+| Season shape | 63 official games, 36W 22D 5L, 128 GF | `matches` (no unofficial games that season) |
+| No defeat after 19 December | 33 games unbeaten to the end — 23W 10D (last loss: Middlesbrough h, 2–3) | `matches` |
+| The title, from behind | Ferdinand 26′ → Beckham 43′, **Cole 48′ — on at half-time (46′)** | `match_events` + `match_lineups.sub_on` |
+| The Cup, from the bench | **Sheringham on 9′, scored 11′**; Scholes 52′ | `match_events` + `sub_on` |
+| The climax | Basler 6′; trailing at 90 — **Sheringham 90+1′ (on 67′), Solskjær 90+3′ (on 81′)**. Neither started | `match_events`, `match_lineups` (`started=0`) |
+| The through-line | **In all three deciders, a substitute scored** — Cole and Sheringham each two minutes after coming on | derived from the above |
+
+The bench through-line is the chapter's rising fact — the discovery even a fan
+who knows the Treble hasn't seen stated: not just three trophies, but a
+substitute on the scoresheet in every decider, twice within two minutes of
+coming on. It plays the role "each scored in the final" played in the pilot.
+
+### Beat sheet
+
+| Beat | Graphic (surface showcased) | Headline | Sub / evidence | Source pointer |
+|------|------------------------------|----------|----------------|----------------|
+| **0. The spin-off** | `TrebleSpinoff` stage — faint 1886→now axis, thread departs at '99 into a pocket, three gold knots land in date order, thread returns *(the new verb)* | "1998–99." → "The last eleven days." → "Three trophies." | "Sixty-three games." → "The 16th. The 22nd. The 26th." → "Premier League. FA Cup. Champions League." | — |
+| **1. The season** | `ResultSpine` — all 63 games, month axis, gold trophy pips on the three deciders *(showcases `/seasons`)* | "After the 19th of December, United **didn't lose again.**" | "33 games — 23 won, 10 drawn — to the end of the season." | `/seasons/1998-99` |
+| **2. Day one** | `MatchFlow`, Cole focused *(showcases `/match`)* | "Day one: the title, **won from behind.**" | "Ferdinand scored first. Beckham levelled on 43; Cole, on at half-time, turned it on 48." | 16 May receipt |
+| **3. Day seven** | `MatchFlow`, Sheringham focused | "Day seven: **a substitute opened** the Cup final." | "Sheringham, on after 9 minutes, scored after 11. Scholes made it 2–0 on 52." | 22 May receipt |
+| **4. Day eleven** | `MatchFlow` + `FormationPitch` + `Bench` — the XI carries **no goal marks**; both sit on the bench rows *(the jolt)* | "Day eleven: **both goals came off the bench.**" | "Basler on 6. Ninety minutes gone — then Sheringham, 90+1. Solskjær, 90+3." | 26 May receipt |
+| **5. The door** | Quiet exit | "Eleven days. Three trophies." | "In all three, a substitute scored." | "How United won it →" (`/questions/treble`); three receipts; chapter cross-links |
+
+Rising information: unbeaten run (1) → comeback title, sub detail planted in the
+sub-copy (2) → the sub pattern named (3) → the pattern at full volume, proven by
+the teamsheet (4). Beat 4 shows the proof rather than asserting it: the pitch
+graphic has no goal marks on any starter; the two goal marks sit in the
+substitutes column with their `on 67′ / on 81′` minutes.
+
+### Stage sketch (beat 0 — the spin-off verb)
+
+```
+1886 ──────────────────────────●──── now
+                              ╱ ╲
+                          return  depart (May '99)
+                            ╲      ╱
+                             pocket        ghost "99" monument behind
+                          ●    ●    ●
+                        16 May 22 May 26 May   ← gold knots land in sequence
+```
+
+- Same skeleton as `RhymeMorph`: sticky stage over a ~210vh runway, one SVG
+  `viewBox="0 0 1000 700"`, scroll-owned progress, `prefers-reduced-motion`
+  lands the finished pocket. Kicker reads "Red Thread / 02".
+- The axis is the club timeline (§2's constant anchor), drawn faint with the
+  departure knot at '99's true position; the pocket coils into the open centre
+  where a ghost "99" monument sits (echo of the pilot's No. 7).
+- Three knots appear in date order as the pocket draws — the only sequenced
+  reveal; each carries a small date label (16 · 22 · 26 May).
+- No portraits: this chapter is about eleven days, not two men. Type + light +
+  thread only.
+
+### Out of scope
+
+Homepage/packaging changes beyond the two door cross-links; new chart types;
+touching the pilot's beats; treble player pages; sizzle.
+
+### Status (2026-07-09) — built
+
+The chapter is live on `/journey/treble` (noindex), to the beat sheet above:
+
+- **Beat 0** (`components/journey/TrebleSpinoff.tsx`) — the spin-off verb reads
+  in one pass: the club line, the pocket that leaves it at '99, three gold knots
+  landing in date order (16 · 22 · 26 May), the thread returning toward "now".
+  Copy phases: "1998–99. / 63 games." → "The last eleven days. / The 16th. The
+  22nd. The 26th." → "Three trophies. / Premier League. FA Cup. Champions
+  League." All values are props from the page (season sequence + receipts), not
+  hard-coded.
+- **Beats 1–5** land as sheeted. Beat 1's spine uses the treble question's own
+  idiom (`markerGlyph={<TrophyIcon/>}`) because win bars are already yellow —
+  a plain gold pip disappeared against them. Beat 4 stacks `MatchFlow` (both
+  knots gold at 90+1/90+3), the XI **with zero goal marks**, and `Bench` with
+  the two ⚽ rows (`on 67′` / `on 81′`) plus one explainer line.
+- **Copy is pinned to the record** — `tests/journey.test.ts` golden-pins every
+  number the chapter states (63 games; 33 unbeaten, 23W 10D after 1998-12-19;
+  Cole 46′→48′; Sheringham 9′→11′; Sheringham/Solskjær 67′→90+1′, 81′→90+3′;
+  no starter scored in Barcelona).
+- **Shared skeleton extracted, not forked** — `useJourneyStage`
+  (chrome-off + reduced-motion + scroll progress) and `stageMath` now serve both
+  stages; `RhymeMorph` was refactored onto them with no behavioural change.
+  `finalReceipt` → `matchReceipt` (+ `usedSubs`, `date`, `competition`) since
+  the league decider isn't a final; `subGoals` and `unbeatenTail` derive the
+  chapter's facts.
+- **Light index** — `JourneyChapterNav` on both doors; registry in
+  `lib/journey.ts` (`JOURNEY_CHAPTERS`). The pilot's arc is otherwise untouched.
+- New dev tool: `scripts/shot-scroll.mjs` (screenshot at a scroll offset) for
+  verifying sticky-stage phases.
+
+Build gotchas that held: the SMIL pulse must be gated by a *wrapping group's*
+CSS opacity (an `opacity` attribute is overridden by `<animate>`); the entry and
+exit strands need visibly different bows or they double into one bright line;
+the south knot's date label and the "follow the thread" hand-off compete at the
+stage foot (pocket raised, hand-off dropped to 4%).
+
+---
+
 ## 5. Later chapters (sketch only — do not build yet)
 
 Ordered by how cleanly they reuse existing surfaces:
 
 | Chapter | Metaphor verb | Reuse |
 |---------|---------------|--------|
-| Treble 1998–99 | Spin-off | `ResultSpine`, three `MatchFlow` deciders, season 1998–99 |
+| ~~Treble 1998–99~~ | Spin-off | **Built — see §4b** |
 | Fortress | Spin-off | `LeadHeldDotplot`, surrendered-lead flows |
 | Fergie time | Spin-off / loop across managers | `LateGoalScatter`, manager-era bars |
 | Forgotten night | Bead on the axis | Rediscovery / `/surprise` |
@@ -347,14 +456,19 @@ Information rises, so the copy states facts instead of manufacturing suspense.
 ## 8. Prototype location
 
 - Doc: this file (`docs/JOURNEY.md`)
-- Route: `/journey` (prototype, `noindex`) — `app/journey/page.tsx` assembles the
-  arc (compare + European Cup finals + both final receipts) and emits the
-  pre-paint `data-chrome="off"` script
-- Beat 0 (opening morph): `components/journey/RhymeMorph.tsx`
-- Beats 1–4 (headline frame + source pointers): `components/journey/JourneyBeat.tsx`
+- Routes: `/journey` (chapter 1, the loop) and `/journey/treble` (chapter 2, the
+  spin-off) — both prototype, `noindex`, chrome-off via the pre-paint script
+- Chapter 1 beat 0 (opening morph): `components/journey/RhymeMorph.tsx`
+- Chapter 2 beat 0 (spin-off pocket): `components/journey/TrebleSpinoff.tsx`
+- Shared stage skeleton: `components/journey/useJourneyStage.ts` (chrome-off +
+  reduced-motion + scroll progress), `components/journey/stageMath.ts`
+- Station beats (headline frame + source pointers): `components/journey/JourneyBeat.tsx`
   — exports `JourneyThreadAnchor`, `JourneySourceLink`
-- Finals-receipt data (`MatchFlow` + `FormationPitch` props for both finals):
-  `lib/journey.ts` (`finalReceipt`), mirroring `app/match/[id]/page.tsx`
+- Chapter cross-links: `components/journey/JourneyChapterNav.tsx` over
+  `JOURNEY_CHAPTERS` (`lib/journey.ts`)
+- Receipt data (`MatchFlow` + `FormationPitch`/`Bench` props for any match):
+  `lib/journey.ts` (`matchReceipt`, `subGoals`, `unbeatenTail`), mirroring
+  `app/match/[id]/page.tsx`; chapter facts golden-pinned in `tests/journey.test.ts`
 - Journey portraits: `scripts/cache-journey-portraits.ts` → `public/media/journey/`
 - Reused surfaces (extended, not forked): `CareerDuelChartLazy`
   (`emphasisSeason`, `showTooltip`), `EuropeFinalsTimeline` (`featuredIds`),

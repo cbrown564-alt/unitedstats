@@ -3,13 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RhymeMorph, type RhymeMorphSide } from "@/components/journey/RhymeMorph";
 import { JourneyBeat, JourneySourceLink, JourneyThreadAnchor } from "@/components/journey/JourneyBeat";
+import { JourneyChapterNav } from "@/components/journey/JourneyChapterNav";
 import { CareerDuelChartLazy } from "@/components/charts/lazy";
 import { EuropeFinalsTimeline, type EuropeFinal } from "@/components/charts/EuropeFinalsTimeline";
 import { MatchFlow } from "@/components/MatchFlow";
 import { FormationPitch } from "@/components/FormationPitch";
 import { comparePlayers, type CareerSeason } from "@/lib/compare";
 import { europeanFinals } from "@/lib/trails";
-import { finalReceipt, type FinalReceipt } from "@/lib/journey";
+import { matchReceipt, type MatchReceipt } from "@/lib/journey";
 import { familyName } from "@/lib/names";
 
 export const revalidate = 86400;
@@ -45,7 +46,7 @@ function seasonEndYear(season: string): number {
 
 /** The scorer's own minute in a final — pulled from the receipt so the climax
  *  copy is DB-derived, not asserted. */
-function heroMinute(receipt: FinalReceipt, playerId: string): number | null {
+function heroMinute(receipt: MatchReceipt, playerId: string): number | null {
   const g = receipt.unitedGoals.find((e) => e.player_id === playerId && e.minute != null);
   return g?.minute ?? null;
 }
@@ -59,7 +60,7 @@ function FinalCard({
   focusPlayerName,
   focusMinute,
 }: {
-  receipt: FinalReceipt;
+  receipt: MatchReceipt;
   heading: string;
   focusPlayerId: string;
   focusPlayerName: string;
@@ -143,8 +144,8 @@ export default function JourneyPage() {
 
   const finals: EuropeFinal[] = europeanFinals().filter((f) => EUROPEAN_CUP_NAMES.has(f.competition_name));
 
-  const r1968 = finalReceipt(FINAL_1968);
-  const r2008 = finalReceipt(FINAL_2008);
+  const r1968 = matchReceipt(FINAL_1968);
+  const r2008 = matchReceipt(FINAL_2008);
   if (!r1968 || !r2008) notFound();
 
   const bestMinute = heroMinute(r1968, best.id);
@@ -264,6 +265,7 @@ export default function JourneyPage() {
                   2008 final →
                 </Link>
               </div>
+              <JourneyChapterNav current="/journey" />
             </div>
           </JourneyBeat>
         </div>

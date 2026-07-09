@@ -1,21 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import { familyName } from "@/lib/names";
-
-function clamp01(t: number): number {
-  return Math.min(1, Math.max(0, t));
-}
-
-function lerp(a: number, b: number, t: number): number {
-  return a + (b - a) * t;
-}
-
-function smoothstep(edge0: number, edge1: number, x: number): number {
-  const t = clamp01((x - edge0) / (edge1 - edge0));
-  return t * t * (3 - 2 * t);
-}
+import { useJourneyStage } from "./useJourneyStage";
+import { clamp01, lerp, smoothstep } from "./stageMath";
 
 const VB_W = 1000;
 const VB_H = 700;
@@ -82,58 +70,9 @@ type Props = {
  * docs/JOURNEY.md §4.
  */
 export function RhymeMorph({ a, b }: Props) {
-  const runwayRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const [reduced, setReduced] = useState(false);
-
-  // Chrome-free route: hand the whole screen to the stage while mounted. A
-  // matching inline script in app/journey/page.tsx sets this before first paint
-  // so the shell never flashes on initial load; this effect covers client-side
-  // navigation into the route and clears it again on the way out. /journey is the
-  // only chrome-off surface, so unmount simply removes the attribute.
-  useEffect(() => {
-    document.documentElement.dataset.chrome = "off";
-    return () => {
-      delete document.documentElement.dataset.chrome;
-    };
-  }, []);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setReduced(mq.matches);
-    apply();
-    mq.addEventListener("change", apply);
-    return () => mq.removeEventListener("change", apply);
-  }, []);
-
-  useEffect(() => {
-    if (reduced) return;
-    const el = runwayRef.current;
-    if (!el) return;
-
-    let raf = 0;
-    const compute = () => {
-      raf = 0;
-      const rect = el.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      if (total <= 0) {
-        setProgress(1);
-        return;
-      }
-      setProgress(clamp01(-rect.top / total));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(compute);
-    };
-    compute();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [reduced]);
+  // Chrome-off, reduced-motion, and scroll-owned progress — the shared stage
+  // skeleton (see useJourneyStage).
+  const { runwayRef, progress, reduced } = useJourneyStage();
 
   const p = reduced ? 1 : progress;
 
