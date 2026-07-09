@@ -57,5 +57,17 @@ export default function JourneyPage() {
     peakGames: ronaldoPeak.apps,
   };
 
-  return <RhymeMorph a={a} b={b} compareHref={compareHref} />;
+  return (
+    <>
+      {/* Hide the app chrome before first paint so the immersive stage never
+         flashes the sidebar/footer on load. RhymeMorph keeps it in sync for
+         client-side navigation and restores the chrome on the way out. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.dataset.chrome="off"`,
+        }}
+      />
+      <RhymeMorph a={a} b={b} compareHref={compareHref} />
+    </>
+  );
 }

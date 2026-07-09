@@ -86,13 +86,15 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
   const [progress, setProgress] = useState(0);
   const [reduced, setReduced] = useState(false);
 
-  // Chrome-free route: hand the whole screen to the stage while mounted.
+  // Chrome-free route: hand the whole screen to the stage while mounted. A
+  // matching inline script in app/journey/page.tsx sets this before first paint
+  // so the shell never flashes on initial load; this effect covers client-side
+  // navigation into the route and clears it again on the way out. /journey is the
+  // only chrome-off surface, so unmount simply removes the attribute.
   useEffect(() => {
-    const prev = document.documentElement.dataset.chrome;
     document.documentElement.dataset.chrome = "off";
     return () => {
-      if (prev) document.documentElement.dataset.chrome = prev;
-      else delete document.documentElement.dataset.chrome;
+      delete document.documentElement.dataset.chrome;
     };
   }, []);
 
@@ -179,7 +181,7 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
         ? "The years don't match — but something does."
         : p < 0.7
           ? "A career step, not a calendar year. The same step, a generation apart."
-          : `32 in ${a.peakGames} games. 42 in ${b.peakGames}. Different eras, same step.`;
+          : `${a.peakGoals} in ${a.peakGames} games. ${b.peakGoals} in ${b.peakGames}. Different eras, same step.`;
 
   return (
     <div ref={runwayRef} data-journey-runway className="relative" style={{ height: reduced ? "100dvh" : "360vh" }}>
