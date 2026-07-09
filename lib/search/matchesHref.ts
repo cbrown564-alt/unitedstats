@@ -3,7 +3,7 @@ import { queryString } from "@/lib/url";
 
 /** Map a search entity to a `/matches` slice — the evidence link the Matches browser shows as chips. */
 export function entityMatchesHref(entity: SearchEntity): string {
-  if (entity.kind === "match") return entity.href;
+  if (entity.kind === "match" || entity.kind === "question") return entity.href;
   if (entity.href.startsWith("/matches")) return entity.href;
 
   const id = decodeURIComponent(entity.href.split("/").pop() ?? "");
