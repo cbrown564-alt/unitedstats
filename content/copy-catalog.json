@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T06:36:34.910Z",
+  "generatedAt": "2026-07-09T07:21:24.795Z",
   "itemCount": 252,
   "byTier": {
     "A": 115,
@@ -13,7 +13,7 @@
       "tier": "B",
       "file": "app/analytics/page.tsx",
       "kind": "dek",
-      "text": "A single rating, updated match by match for over a century.",
+      "text": "One rating, updated after every match since the record begins.",
       "route": "/analytics",
       "siblings": [
         "analytics:eyebrow",
@@ -73,7 +73,7 @@
       "tier": "B",
       "file": "app/analytics/page.tsx",
       "kind": "dek",
-      "text": "Does the expectancy hold when you replay the matches — one season at a time?",
+      "text": "Expected results against what actually happened — season by season.",
       "route": "/analytics",
       "siblings": [
         "analytics:eyebrow",
@@ -133,7 +133,7 @@
       "tier": "B",
       "file": "app/analytics/page.tsx",
       "kind": "dek",
-      "text": "} > How strong United were, era by era. The records that football left behind.",
+      "text": "} > How strong United were, match by match — Elo, calibration, and season replay.",
       "route": "/analytics",
       "siblings": [
         "analytics:eyebrow",
@@ -213,7 +213,7 @@
       "tier": "A",
       "file": "app/compare/page.tsx",
       "kind": "dek",
-      "text": "Two players or managers on the same measures. Gaps shown where the record is thin.",
+      "text": "Players, managers, or eras on shared measures. Coverage gaps stay visible.",
       "route": "/compare",
       "siblings": [
         "compare:eyebrow",
@@ -226,7 +226,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "The club’s two defining reigns and their trophy hauls, side by side.",
+      "text": "Two defining reigns — trophy haul and league finishes.",
       "route": "/compare",
       "siblings": [
         "compare:eras:0:label",
@@ -258,7 +258,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "The relentless title machine of the nineties against the post-Ferguson transition.",
+      "text": "Title years of the nineties against the post-Ferguson decade.",
       "route": "/compare",
       "siblings": [
         "compare:eras:0:label",
@@ -290,7 +290,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "The tragic brilliance of the Busby Babes against the peak of the Ronaldo era.",
+      "text": "Busby Babes decade against the Ronaldo-era peak.",
       "route": "/compare",
       "siblings": [
         "compare:eras:0:label",
@@ -335,7 +335,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "The two architects, a quarter-century each in charge.",
+      "text": "Two long reigns — trophies, win rate, and tenure side by side.",
       "route": "/compare",
       "siblings": [
         "compare:managers:0:label",
@@ -367,7 +367,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "A 27-year reign against a stormy three.",
+      "text": "Twenty-seven years against three — points, cups, and exits.",
       "route": "/compare",
       "siblings": [
         "compare:managers:0:label",
@@ -399,7 +399,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "The club’s first two dynasty-builders.",
+      "text": "The club's first two long title-winning tenures.",
       "route": "/compare",
       "siblings": [
         "compare:managers:0:label",
@@ -431,7 +431,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "The two men at the top of the all-time scoring charts.",
+      "text": "All-time scoring charts — goals, apps, and the years between them.",
       "route": "/compare",
       "siblings": [
         "compare:players:0:label",
@@ -475,7 +475,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "Two European champions between the posts — clean sheets and conceded per game.",
+      "text": "Two European Cup winners in goal — clean sheets and goals conceded per game.",
       "route": "/compare",
       "siblings": [
         "compare:players:0:label",
@@ -519,7 +519,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "Two generations of centre-back — defensive record and silverware.",
+      "text": "Centre-backs a generation apart — defensive record and silverware.",
       "route": "/compare",
       "siblings": [
         "compare:players:0:label",
@@ -563,7 +563,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "Two No. 7s, two icons — a generation apart.",
+      "text": "Two No. 7s — goals, apps, and the eras they defined.",
       "route": "/compare",
       "siblings": [
         "compare:players:0:label",
@@ -607,7 +607,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "The home-grown spine of the Ferguson dynasty, compared season by season.",
+      "text": "Academy spine of the Ferguson years, season by season.",
       "route": "/compare",
       "siblings": [
         "compare:players:0:label",
@@ -651,7 +651,7 @@
       "tier": "A",
       "file": "lib/compare.ts",
       "kind": "hook",
-      "text": "Two catalyst signings whose arrival instantly tilted the title race.",
+      "text": "Two arrivals that shifted a title race in their first seasons.",
       "route": "/compare",
       "siblings": [
         "compare:players:0:label",
@@ -747,7 +747,7 @@
       "tier": "A",
       "file": "lib/cut.ts",
       "kind": "blurb",
-      "text": "Every managerial reign restated under the three-points-for-a-win standard, Mangnall to the present.",
+      "text": "Every reign on a three-points-for-a-win scale, Mangnall to the present.",
       "route": "/cut?subject=team&dimension=manager&metric=ppg",
       "siblings": [
         "cut:managers-by-points:eyebrow",
@@ -786,7 +786,7 @@
       "tier": "A",
       "file": "lib/cut.ts",
       "kind": "blurb",
-      "text": "The opponents United dominated most — and those who proved hardest to beat — over 140 years.",
+      "text": "Opponents ranked by win rate across the full record — who United beat most, and who held them.",
       "route": "/cut?subject=team&dimension=opponent&metric=winrate",
       "siblings": [
         "cut:opponents-by-win-rate:eyebrow",
@@ -825,7 +825,7 @@
       "tier": "A",
       "file": "lib/cut.ts",
       "kind": "blurb",
-      "text": "All 120+ league campaigns compared on a single, modern points-per-game scale.",
+      "text": "League campaigns on one points-per-game scale — 120+ seasons, same measure.",
       "route": "/cut?subject=team&dimension=season&metric=ppg",
       "siblings": [
         "cut:seasons-by-points:eyebrow",
@@ -864,7 +864,7 @@
       "tier": "A",
       "file": "app/data/page.tsx",
       "kind": "dek",
-      "text": "Every result since 1886. Richer detail fills in over time — gaps shown honestly.",
+      "text": "Every result since 1886. Detail fills in where sources allow — gaps stay on the page.",
       "route": "/data",
       "siblings": [
         "data:eyebrow",
@@ -1515,7 +1515,7 @@
       "tier": "A",
       "file": "app/explore/page.tsx",
       "kind": "dek",
-      "text": "Myths tested against the full record. Compare careers, slice the archive, or search.",
+      "text": "Ask a question, compare careers, or cut the record — every answer links to the matches.",
       "route": "/explore",
       "siblings": [
         "explore:eyebrow",
@@ -1619,7 +1619,7 @@
       "tier": "A",
       "file": "app/page.tsx",
       "kind": "title",
-      "text": "One thread through Manchester United's history",
+      "text": "Manchester United, match by match",
       "route": "/",
       "siblings": [
         "home:eyebrow",
@@ -1746,7 +1746,7 @@
       "tier": "C",
       "file": "lib/narrative.ts",
       "kind": "template",
-      "text": "Home form carried the season — ${hPct.toFixed(0)}% of home matches won against ${aPct.toFixed(0)}% away.",
+      "text": "Home win rate ${hPct.toFixed(0)}%, away ${aPct.toFixed(0)}% — the gap that season.",
       "route": "/seasons",
       "siblings": [
         "narrative:template:1",
@@ -1764,7 +1764,7 @@
       "tier": "C",
       "file": "lib/narrative.ts",
       "kind": "template",
-      "text": "Away form matched or beat home form: ${aPct.toFixed(0)}% won on the road, ${hPct.toFixed(0)}% at home.",
+      "text": "Away win rate ${aPct.toFixed(0)}% matched or beat home (${hPct.toFixed(0)}%).",
       "route": "/seasons",
       "siblings": [
         "narrative:template:1",
@@ -1854,7 +1854,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Matt Busby's first trophy, in one of Wembley's great finals.",
+      "text": "Matt Busby's first trophy — FA Cup final at Wembley.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -1885,7 +1885,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Silverware again, five years on from Munich.",
+      "text": "FA Cup, five years after Munich.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -1947,7 +1947,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "The afternoon that denied Liverpool the Treble.",
+      "text": "FA Cup final — Liverpool denied the Treble.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -1978,7 +1978,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Alex Ferguson's first trophy — the one that saved all the rest.",
+      "text": "Ferguson's first trophy — FA Cup replay.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2009,7 +2009,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Two from Mark Hughes against his old club — Europe, back at last.",
+      "text": "Two from Mark Hughes against his old club — Cup Winners' Cup.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2040,7 +2040,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Two Steve Bruce headers in the closing minutes — a first title in twenty-six years drew near.",
+      "text": "Two Steve Bruce headers late — title within reach after twenty-six years.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2071,7 +2071,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "The club's first League and FA Cup Double.",
+      "text": "First League and FA Cup Double.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2102,7 +2102,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Cantona, late and alone — a second Double in three seasons.",
+      "text": "Cantona, late — a second Double in three seasons.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2133,7 +2133,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Giggs, from inside his own half, to keep the Treble alive.",
+      "text": "Giggs from his own half — FA Cup semi, Treble still on.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2164,7 +2164,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Come from behind on the final day to take the title — the Treble's first leg.",
+      "text": "Come from behind on the final day — league title, Treble's first leg.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2195,7 +2195,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Five days after the league, the second leg of the Treble.",
+      "text": "Five days after the league: FA Cup, Treble still alive.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2226,7 +2226,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Lost in the 90th minute, won in stoppage time. Unbelievable.",
+      "text": "Bayern lead in the 90th; two stoppage-time goals win the European Cup.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2257,7 +2257,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Three down at half-time at White Hart Lane, five scored after it.",
+      "text": "Three down at half-time at White Hart Lane; five scored after.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2288,7 +2288,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Settled on penalties in the Moscow rain, a second European Cup.",
+      "text": "Penalties in Moscow rain — a second European Cup.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2319,7 +2319,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Michael Owen, deep into stoppage time, to settle a seven-goal derby.",
+      "text": "Michael Owen in stoppage time — 4–3 derby.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2350,7 +2350,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Arsenal on the wrong end of one of Old Trafford's great routs.",
+      "text": "8–2 at Old Trafford — Arsenal routed.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2381,7 +2381,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Van Persie's volley, and a twentieth league title — Ferguson's last.",
+      "text": "Van Persie's volley — twentieth league title, Ferguson's last.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2412,7 +2412,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "The one trophy still missing from the cabinet, finally claimed.",
+      "text": "Europa League final — the one major trophy still missing, claimed.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2443,7 +2443,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "Two down from the first leg, through on a penalty in the last minute in Paris.",
+      "text": "Two down from the first leg; last-minute penalty in Paris.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2474,7 +2474,7 @@
       "tier": "A",
       "file": "lib/curatedNights.ts",
       "kind": "stakes",
-      "text": "A derby final, and the season's one bright day.",
+      "text": "FA Cup final against City — the season's silverware.",
       "route": "/",
       "siblings": [
         "night:1968-05-29-benfica-n:stakes",
@@ -2505,7 +2505,7 @@
       "tier": "B",
       "file": "app/players/page.tsx",
       "kind": "dek",
-      "text": "Most barely feature. A few defined the club for decades.",
+      "text": "Appearances, goals, and careers across the full squad list.",
       "route": "/players",
       "siblings": [
         "players:eyebrow",
@@ -2560,7 +2560,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "An away day is half the ritual — ${fmtNum(footprint.length)} grounds in ${fmtNum(countries)} countries, from a short hop across Lancashire to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Across ${fmtNum(travelCov.covered)} mapped away matches the mileage stacks to ${Math.round(totalKm / 1000).toLocaleString()}k km; the average trip stepped up when European football arrived in 1956 and the league spread south.",
+      "text": "${fmtNum(footprint.length)} away grounds in ${fmtNum(countries)} countries — from a Lancashire hop to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Across ${fmtNum(travelCov.covered)} mapped away matches: ${Math.round(totalKm / 1000).toLocaleString()}k km total. Average trip length stepped up when European football arrived in 1956 and the league spread south.",
       "route": "/questions/away-days",
       "siblings": [
         "question:away-days:label",
@@ -2624,7 +2624,7 @@
       "tier": "B",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "From Lancashire hops to European nights. Trace the geographic footprint of United’s away trips since 1886.",
+      "text": "Away grounds since 1886 — distance from Manchester, by season and by country.",
       "route": "/questions/away-days",
       "siblings": [
         "question:away-days:label",
@@ -2657,7 +2657,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "You grew up hearing United never know when they're beaten — and the minute-by-minute record backs it. In ${fmtNum(cb.summary.replayable)} matches we can replay goal for goal, they fell behind ${fmtNum(cb.summary.fellBehind)} times and still got something from ${fmtNum(cb.summary.recovered)} of them, including ${fmtNum(cb.summary.wonFromBehind)} complete turnarounds. ${fmtNum(cb.summary.twoPlusRecovered)} times they were two or more down and did not lose.",
+      "text": "In ${fmtNum(cb.summary.replayable)} matches with a full minute-by-minute scoreline, United fell behind ${fmtNum(cb.summary.fellBehind)} times and still took something from ${fmtNum(cb.summary.recovered)} of them — including ${fmtNum(cb.summary.wonFromBehind)} wins from behind. ${fmtNum(cb.summary.twoPlusRecovered)} times they were two or more down and did not lose.",
       "route": "/questions/comebacks",
       "siblings": [
         "question:comebacks:label",
@@ -2674,7 +2674,7 @@
       "tier": "B",
       "file": "lib/questionHeadlines.ts",
       "kind": "gloss",
-      "text": "matches salvaged from losing positions, including 514 complete turnarounds",
+      "text": "points taken from losing positions, including 514 wins from behind",
       "route": "/questions/comebacks",
       "siblings": [
         "question:comebacks:label",
@@ -2742,7 +2742,7 @@
       "tier": "B",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Test the legend of the fightback. How often United fell behind — and avoided defeat — replayed minute by minute.",
+      "text": "How often United fell behind and still took a point or three — minute by minute where the record allows.",
       "route": "/questions/comebacks",
       "siblings": [
         "question:comebacks:label",
@@ -2779,7 +2779,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "Every fan knows the type — the player who turns up when the tie matters. United average ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups; these ten all more than double that, ${topCupLean.name} most of all at ${cupMult.toFixed(1)}× the club rate. League grinders, cup assassins.",
+      "text": "United score ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups; these ten more than double that rate. ${topCupLean.name} leads at ${cupMult.toFixed(1)}× the club share.",
       "route": "/questions/cup-specialists",
       "siblings": [
         "question:cup-specialists:label",
@@ -2799,7 +2799,7 @@
       "tier": "B",
       "file": "lib/questionHeadlines.ts",
       "kind": "gloss",
-      "text": "Rasmus Højlund’s rate of scoring in cups compared to the squad average — a cup-night specialist",
+      "text": "Rasmus Højlund’s cup scoring rate vs the squad average",
       "route": "/questions/cup-specialists",
       "siblings": [
         "question:cup-specialists:label",
@@ -2859,7 +2859,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "European nights are where the cup specialists made their name.",
+      "text": "Cup lean in European competition.",
       "route": "/questions/cup-specialists",
       "siblings": [
         "question:cup-specialists:label",
@@ -2879,7 +2879,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Counting goals by who scored them raises an odd name near the top.",
+      "text": "Own goals on the scorers list.",
       "route": "/questions/cup-specialists",
       "siblings": [
         "question:cup-specialists:label",
@@ -2899,7 +2899,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "See which opponents those cup nights were won against.",
+      "text": "Opponents those cup nights were won against.",
       "route": "/questions/cup-specialists",
       "siblings": [
         "question:cup-specialists:label",
@@ -2939,7 +2939,7 @@
       "tier": "B",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Who saved their goals for cup nights? The goalscorers whose records lean heavily toward domestic and European cups.",
+      "text": "Goalscorers whose share of goals in cups sits well above the club average.",
       "route": "/questions/cup-specialists",
       "siblings": [
         "question:cup-specialists:label",
@@ -2976,7 +2976,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "United's European story is the one fans tell in finals — first at Wembley in ${firstFinalYear}, then long quiet decades, then the nights everyone still names: Barcelona '99, Moscow '08. Only half the ${finals.length} finals since have ended with silverware raised (${won.length} trophies from ${winRate} of ${fmtNum(total.p)} continental matches). Since ${lastWonFinal ? fmtMonthYear(lastWonFinal.date) : \"2008\"}, the ledger has tilted toward finals lost, not won.",
+      "text": "First European final at Wembley in ${firstFinalYear}; then long gaps; then Barcelona '99 and Moscow '08. ${won.length} trophies from ${finals.length} finals (${winRate} of ${fmtNum(total.p)} continental matches). Since ${lastWonFinal ? fmtMonthYear(lastWonFinal.date) : \"2008\"}, more finals lost than won.",
       "route": "/questions/europe",
       "siblings": [
         "question:europe:label",
@@ -3061,7 +3061,7 @@
       "tier": "B",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Continental nights across the decades — the wins, the finals reached, the trophies won — from the Busby Babes to the modern Champions League.",
+      "text": "European matches by decade — wins, finals, trophies — from the Busby Babes to the Champions League.",
       "route": "/questions/europe",
       "siblings": [
         "question:europe:label",
@@ -3104,7 +3104,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "Twenty-six years without the league, then twenty-six with Ferguson at the helm — ${floor.fergTitles} titles, top four ${floor.fergTop4} times, averaging ${ordinal(Math.round(floor.fergAvgFinish))} in the table even through the rebuild. Since May 2013: ${floor.sinceTitles} titles, only ${floor.sinceTop4} top-four finishes, average ${ordinal(Math.round(floor.sinceAvgFinish))}${floor.sinceWorst ?",
+      "text": "Twenty-six years without the league, then twenty-six under Ferguson — ${floor.fergTitles} titles, top four ${floor.fergTop4} times, average finish ${ordinal(Math.round(floor.fergAvgFinish))}. Since May 2013: ${floor.sinceTitles} titles, ${floor.sinceTop4} top-four finishes, average ${ordinal(Math.round(floor.sinceAvgFinish))}${floor.sinceWorst ?",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3208,7 +3208,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Set his reign beside Busby's — the club's two architects.",
+      "text": "Ferguson beside Busby — trophies and tenure.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3234,7 +3234,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The best of the Ferguson years, in one season.",
+      "text": "1998-99: the peak season of that reign.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3260,7 +3260,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The fortress was at its most impregnable in the Ferguson years.",
+      "text": "Home leads at half-time through the Ferguson years.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3286,7 +3286,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "That final in Barcelona was decided in stoppage time.",
+      "text": "Barcelona was decided after the 90th.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3312,7 +3312,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The Treble was the high-water mark of the Ferguson years.",
+      "text": "Where that season sits in the post-1986 ladder.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3364,7 +3364,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The greatest European night is the one that completed the Treble.",
+      "text": "The European Cup night that completed the Treble.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3390,7 +3390,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The Ferguson years were when Europe came back to Old Trafford.",
+      "text": "League finishes while Europe returned.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3416,7 +3416,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The continental record, by opponent, across the decades.",
+      "text": "Continental opponents by win rate.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3468,7 +3468,7 @@
       "tier": "A",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Thirteen league titles under Ferguson, none since — league finishes traced season by season, with every successor on the same scale.",
+      "text": "Thirteen league titles under Ferguson, none since — finishes season by season, every successor on the same scale.",
       "route": "/questions/ferguson-era",
       "siblings": [
         "question:ferguson-era:label",
@@ -3512,7 +3512,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "Fortress Old Trafford is not just a phrase — take a half-time lead at home in the league and United have not lost since ${fmtDate(lastLoss.date)}. That is ${fmtNum(unbeatenSince.run)} games and counting. Across every verifiable home league game led at the break (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}), they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and lost the lead only ${fmtNum(leadLosses.length)} times.",
+      "text": "Lead at half-time at Old Trafford in the league and United have not lost since ${fmtDate(lastLoss.date)} — ${fmtNum(unbeatenSince.run)} games and counting. Across every verifiable home league game led at the break (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}): ${fmtNum(leadHeld.w)} wins, ${fmtNum(leadHeld.d)} draws, lead lost ${fmtNum(leadLosses.length)} times.",
       "route": "/questions/fortress",
       "siblings": [
         "question:fortress:label",
@@ -3530,7 +3530,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "Fortress Old Trafford is not just a phrase — across ${fmtNum(leadHeld.games.length)} home league games where United led at half-time (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}), they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and never lost.",
+      "text": "Across ${fmtNum(leadHeld.games.length)} home league games led at half-time (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}): ${fmtNum(leadHeld.w)} wins, ${fmtNum(leadHeld.d)} draws, no defeats.",
       "route": "/questions/fortress",
       "siblings": [
         "question:fortress:label",
@@ -3620,7 +3620,7 @@
       "tier": "A",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "United rarely lose a home league game they lead at half-time — the full record, the historic exceptions, and the unbeaten run since 1984.",
+      "text": "Home league games led at half-time: the wins, the draws, the rare losses, and the unbeaten run since 1984.",
       "route": "/questions/fortress",
       "siblings": [
         "question:fortress:label",
@@ -3667,7 +3667,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "You still hear \"Fergie time\" on the terraces — and the numbers back the feeling. For decades about ${betweenLate ?? busbyLate} of United goals came after the 85th; Ferguson pushed it to ${fergLate}, and since he left it has climbed to ${sinceLate}, mostly in added time rather than the last five regulation minutes. Bruce against Sheffield Wednesday is where they started saying it; Teddy and Ole in Barcelona is where it became myth; McTominay against Brentford is proof the habit never left with the manager.",
+      "text": "For decades about ${betweenLate ?? busbyLate} of United goals came after the 85th; under Ferguson it rose to ${fergLate}, and since he left it has climbed to ${sinceLate} — mostly in added time, not the last five regulation minutes. Bruce against Sheffield Wednesday is where the phrase stuck; Teddy and Ole in Barcelona made it myth; McTominay against Brentford shows the habit outlived the manager.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3696,7 +3696,7 @@
       "tier": "A",
       "file": "lib/questionHeadlines.ts",
       "kind": "gloss",
-      "text": "of goals after the 85th minute — up under Ferguson and still rising since",
+      "text": "of goals after the 85th — up under Ferguson, still rising since",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3783,7 +3783,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "And once ahead late, how rarely do they let a lead slip?",
+      "text": "Once ahead late at home — how often does the lead hold?",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3812,7 +3812,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The longest unbeaten run overlapped the Treble season.",
+      "text": "The longest unbeaten run overlapped 1998-99.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3841,7 +3841,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Home form is where most unbeaten runs are built and broken.",
+      "text": "Home form builds and breaks most long runs.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3870,7 +3870,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Place those runs against the points the seasons around them returned.",
+      "text": "Those runs against season points per game.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3899,7 +3899,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The Treble's last act was two goals after the 90th.",
+      "text": "Two goals after the 90th in Barcelona.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3928,7 +3928,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "See which seasons those late goals actually rescued points in.",
+      "text": "Seasons ranked by points — where late goals mattered.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3957,7 +3957,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Holding the fort late is the same edge as scoring late, defended.",
+      "text": "Scoring late and holding a lead late — same edge, both sides.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -3986,7 +3986,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The fortress was at its most impregnable in the Ferguson years.",
+      "text": "Home half-time leads across the Ferguson years.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -4015,7 +4015,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Which seasons turned the fortress into actual league points?",
+      "text": "Which seasons turned home form into league points?",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -4044,7 +4044,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Most of those recoveries arrive late — how late, exactly?",
+      "text": "Most recoveries arrive late — how late?",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -4073,7 +4073,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Barcelona was the deepest comeback of the lot.",
+      "text": "Barcelona: two down, two scored after 90.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -4102,7 +4102,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Which managers turned the most losing positions around?",
+      "text": "Managers by points per game.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -4160,7 +4160,7 @@
       "tier": "A",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "The late-goal share jumped under Ferguson and kept climbing after he left — partly habit, partly longer added time. Busby's era had a hint of it too.",
+      "text": "Late-goal share rose under Ferguson and kept rising after — habit plus longer added time, with a Busby-era hint.",
       "route": "/questions/late-goals",
       "siblings": [
         "question:late-goals:label",
@@ -4189,7 +4189,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "The new-manager bounce is part of United folklore — and the numbers bear it out. ${bounceUp} of ${bounce.length} managers won more of their first ten matches than the club managed in the ten before they walked in. Each line below runs from the old form to the new start; the steep red climbs are the bounces fans remember hoping would last.",
+      "text": "${bounceUp} of ${bounce.length} managers won more of their first ten matches than the club managed in the ten before they arrived. Each line runs from inherited form to the new start.",
       "route": "/questions/manager-bounce",
       "siblings": [
         "question:manager-bounce:label",
@@ -4208,7 +4208,7 @@
       "tier": "B",
       "file": "lib/questionHeadlines.ts",
       "kind": "gloss",
-      "text": "managers improved on the inherited form in their first ten matches",
+      "text": "managers who improved on the previous ten in their first ten",
       "route": "/questions/manager-bounce",
       "siblings": [
         "question:manager-bounce:label",
@@ -4265,7 +4265,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "The bounce every successor promised, measured against the standard he set.",
+      "text": "Successors measured against the Ferguson floor.",
       "route": "/questions/manager-bounce",
       "siblings": [
         "question:manager-bounce:label",
@@ -4284,7 +4284,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "See every reign restated on one points-per-game scale.",
+      "text": "Every reign on one points-per-game scale.",
       "route": "/questions/manager-bounce",
       "siblings": [
         "question:manager-bounce:label",
@@ -4303,7 +4303,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Test the bounce on the sharpest succession: Ferguson to Mourinho.",
+      "text": "Ferguson to Mourinho — the sharpest succession.",
       "route": "/questions/manager-bounce",
       "siblings": [
         "question:manager-bounce:label",
@@ -4341,7 +4341,7 @@
       "tier": "B",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Does a new manager change the tide? Compare each manager's first ten matches against the form they inherited.",
+      "text": "Each manager's first ten matches against the ten before they arrived.",
       "route": "/questions/manager-bounce",
       "siblings": [
         "question:manager-bounce:label",
@@ -4378,7 +4378,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "\"Own Goal\" on the all-time scorers list is every United fan's favourite stat — and it checks out: ${fmtNum(ogSummary.total)} goals${ogRank ?",
+      "text": "Own goals credited to United: ${fmtNum(ogSummary.total)}${ogRank ?",
       "route": "/questions/own-goals",
       "siblings": [
         "question:own-goals:label",
@@ -4432,7 +4432,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Set that phantom goalscorer beside the players who saved goals for the cups.",
+      "text": "Cup lean among named scorers.",
       "route": "/questions/own-goals",
       "siblings": [
         "question:own-goals:label",
@@ -4450,7 +4450,7 @@
       "tier": "B",
       "file": "lib/related.ts",
       "kind": "hook",
-      "text": "Own goals quietly tilt some head-to-head records — see which.",
+      "text": "Head-to-heads where own goals tilt the ledger.",
       "route": "/questions/own-goals",
       "siblings": [
         "question:own-goals:label",
@@ -4486,7 +4486,7 @@
       "tier": "B",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Is ‘Own Goal’ one of the club’s leading goalscorers? The bizarre tally of opponent errors stacked against history’s legends.",
+      "text": "Own goals credited to United, ranked against the club's leading scorers.",
       "route": "/questions/own-goals",
       "siblings": [
         "question:own-goals:label",
@@ -4504,7 +4504,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "Every generation has its \"you'll never beat them when they're on a run\" stretch. United's benchmark is still ${fmtNum(longestUnbeaten?.length ?? 0)} matches without defeat${longestUnbeaten ?",
+      "text": "Longest unbeaten run: ${fmtNum(longestUnbeaten?.length ?? 0)} matches without defeat${longestUnbeaten ?",
       "route": "/questions/runs",
       "siblings": [
         "question:runs:label",
@@ -4520,7 +4520,7 @@
       "tier": "B",
       "file": "lib/questionHeadlines.ts",
       "kind": "gloss",
-      "text": "matches without defeat — the longest unbeaten run in official football",
+      "text": "matches without defeat — longest unbeaten run on the record",
       "route": "/questions/runs",
       "siblings": [
         "question:runs:label",
@@ -4584,7 +4584,7 @@
       "tier": "B",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Winning runs, clean-sheet streaks, and matches without defeat. The limits of United's momentum over 140 years.",
+      "text": "Winning runs, scoring streaks, clean sheets, and matches without defeat across the full record.",
       "route": "/questions/runs",
       "siblings": [
         "question:runs:label",
@@ -4617,7 +4617,7 @@
       "tier": "A",
       "file": "components/QuestionModules.tsx",
       "kind": "finding",
-      "text": "Every United fan knows the shape of it — Spurs on the final day, Newcastle at Wembley five days later, then Barcelona and those two goals after the 90th. Underneath: ${fmtNum(runPlayed)} matches across league, cup and Europe, just ${fmtNum(trebleLosses)} defeats, and the only English Treble, all inside ${spanDays} days in ${month} ${year}.",
+      "text": "Spurs on the final day, Newcastle at Wembley five days later, Barcelona and two goals after the 90th. Underneath: ${fmtNum(runPlayed)} matches across league, cup and Europe, ${fmtNum(trebleLosses)} defeats, the only English Treble — all inside ${spanDays} days in ${month} ${year}.",
       "route": "/questions/treble",
       "siblings": [
         "question:treble:label",
@@ -4702,7 +4702,7 @@
       "tier": "A",
       "file": "lib/questions.ts",
       "kind": "summary",
-      "text": "Anatomy of 1998-99: the Premier League, the FA Cup and the Champions League, run by run, down to the deciding nights.",
+      "text": "1998-99 in full: Premier League, FA Cup, Champions League — each run down to the deciding nights.",
       "route": "/questions/treble",
       "siblings": [
         "question:treble:label",
@@ -5174,7 +5174,7 @@
       "tier": "A",
       "file": "lib/site.ts",
       "kind": "tagline",
-      "text": "The open evidence base for Manchester United history",
+      "text": "United history, evidenced — every match since 1886",
       "route": "/"
     },
     {
@@ -5183,7 +5183,7 @@
       "tier": "B",
       "file": "app/surprise/page.tsx",
       "kind": "dek",
-      "text": "One tested myth, a data slice, or a night you half-forgot — follow it to the matches, or roll again.",
+      "text": "A question, a cut, or a night from the record — follow it to the matches, or roll again.",
       "route": "/surprise",
       "siblings": [
         "surprise:eyebrow",
@@ -5241,7 +5241,7 @@
       "tier": "B",
       "file": "lib/transferEditorial.ts",
       "kind": "editorial",
-      "text": "The record sale that bankrolled a generation...if only! £80m to Real Madrid after six seasons at Old Trafford.",
+      "text": "£80m to Real Madrid after six seasons — still the club's record sale.",
       "route": "/transfers",
       "siblings": [
         "transfers:eyebrow",
@@ -5260,7 +5260,7 @@
       "tier": "B",
       "file": "lib/transferEditorial.ts",
       "kind": "editorial",
-      "text": "The second coming. Left on a free transfer in 2012, bought back for £80m four years later!",
+      "text": "Left on a free in 2012; bought back for £80m in 2016.",
       "route": "/transfers",
       "siblings": [
         "transfers:eyebrow",

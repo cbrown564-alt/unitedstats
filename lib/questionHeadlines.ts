@@ -94,22 +94,22 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
     },
     "late-goals": {
       stat: `${fergLatePct} → ${sinceLatePct}`,
-      gloss: "of goals after the 85th minute — up under Ferguson and still rising since",
+      gloss: "of goals after the 85th — up under Ferguson, still rising since",
       tone: "gold",
     },
     comebacks: {
       stat: fmtNum(cb.recovered),
-      gloss: `matches salvaged from losing positions, including ${fmtNum(cb.wonFromBehind)} complete turnarounds`,
+      gloss: `points taken from losing positions, including ${fmtNum(cb.wonFromBehind)} wins from behind`,
       tone: "win",
     },
     runs: {
       stat: fmtNum(longestUnbeaten?.length ?? 0),
-      gloss: "matches without defeat — the longest unbeaten run in official football",
+      gloss: "matches without defeat — longest unbeaten run on the record",
       tone: "win",
     },
     "manager-bounce": {
       stat: `${bounceUp} of ${bounce.length}`,
-      gloss: "managers improved on the inherited form in their first ten matches",
+      gloss: "managers who improved on the previous ten in their first ten",
       tone: "devil",
     },
     fortress: {
@@ -120,8 +120,8 @@ export function questionHeadlines(): Record<string, QuestionHeadline> {
     "cup-specialists": {
       stat: cupMultiple ? `${cupMultiple.toFixed(1)}×` : "—",
       gloss: topCupLean
-        ? `${topCupLean.name}’s rate of scoring in cups compared to the squad average — a cup-night specialist`
-        : "goalscorers who leaned hardest to the cups",
+        ? `${topCupLean.name}’s cup scoring rate vs the squad average`
+        : "goalscorers with the highest cup share",
       tone: "gold",
     },
   };

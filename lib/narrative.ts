@@ -106,11 +106,11 @@ export function seasonNarrative(season: string): string[] {
     const aPct = (100 * away.w) / away.p;
     if (hPct - aPct >= 30) {
       sentences.push(
-        `Home form carried the season — ${hPct.toFixed(0)}% of home matches won against ${aPct.toFixed(0)}% away.`,
+        `Home win rate ${hPct.toFixed(0)}%, away ${aPct.toFixed(0)}% — the gap that season.`,
       );
     } else if (aPct >= hPct) {
       sentences.push(
-        `Away form matched or beat home form: ${aPct.toFixed(0)}% won on the road, ${hPct.toFixed(0)}% at home.`,
+        `Away win rate ${aPct.toFixed(0)}% matched or beat home (${hPct.toFixed(0)}%).`,
       );
     }
   }

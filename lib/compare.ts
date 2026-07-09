@@ -37,22 +37,22 @@ export interface CuratedDebate {
  */
 export const CURATED_DEBATES: Record<CompareMode, CuratedDebate[]> = {
   players: [
-    { label: "Rooney vs Charlton", a: "wayne-rooney", b: "bobby-charlton", hook: "The two men at the top of the all-time scoring charts." },
-    { label: "Schmeichel vs Van der Sar", a: "peter-schmeichel", b: "edwin-van-der-sar", hook: "Two European champions between the posts — clean sheets and conceded per game." },
-    { label: "Vidic vs Pallister", a: "nemanja-vidic", b: "gary-pallister", hook: "Two generations of centre-back — defensive record and silverware." },
-    { label: "Ronaldo vs Best", a: "cristiano-ronaldo", b: "george-best", hook: "Two No. 7s, two icons — a generation apart." },
-    { label: "Giggs vs Scholes", a: "ryan-giggs", b: "paul-scholes", hook: "The home-grown spine of the Ferguson dynasty, compared season by season." },
-    { label: "Cantona vs Van Persie", a: "eric-cantona", b: "robin-van-persie", hook: "Two catalyst signings whose arrival instantly tilted the title race." },
+    { label: "Rooney vs Charlton", a: "wayne-rooney", b: "bobby-charlton", hook: "All-time scoring charts — goals, apps, and the years between them." },
+    { label: "Schmeichel vs Van der Sar", a: "peter-schmeichel", b: "edwin-van-der-sar", hook: "Two European Cup winners in goal — clean sheets and goals conceded per game." },
+    { label: "Vidic vs Pallister", a: "nemanja-vidic", b: "gary-pallister", hook: "Centre-backs a generation apart — defensive record and silverware." },
+    { label: "Ronaldo vs Best", a: "cristiano-ronaldo", b: "george-best", hook: "Two No. 7s — goals, apps, and the eras they defined." },
+    { label: "Giggs vs Scholes", a: "ryan-giggs", b: "paul-scholes", hook: "Academy spine of the Ferguson years, season by season." },
+    { label: "Cantona vs Van Persie", a: "eric-cantona", b: "robin-van-persie", hook: "Two arrivals that shifted a title race in their first seasons." },
   ],
   managers: [
-    { label: "Ferguson vs Busby", a: "alex-ferguson", b: "matt-busby", hook: "The two architects, a quarter-century each in charge." },
-    { label: "Ferguson vs Mourinho", a: "alex-ferguson", b: "jose-mourinho", hook: "A 27-year reign against a stormy three." },
-    { label: "Busby vs Mangnall", a: "matt-busby", b: "ernest-mangnall", hook: "The club’s first two dynasty-builders." },
+    { label: "Ferguson vs Busby", a: "alex-ferguson", b: "matt-busby", hook: "Two long reigns — trophies, win rate, and tenure side by side." },
+    { label: "Ferguson vs Mourinho", a: "alex-ferguson", b: "jose-mourinho", hook: "Twenty-seven years against three — points, cups, and exits." },
+    { label: "Busby vs Mangnall", a: "matt-busby", b: "ernest-mangnall", hook: "The club's first two long title-winning tenures." },
   ],
   eras: [
-    { label: "Busby era vs Ferguson era", a: "busby", b: "ferguson", hook: "The club’s two defining reigns and their trophy hauls, side by side." },
-    { label: "1990s vs 2010s", a: "1990s", b: "2010s", hook: "The relentless title machine of the nineties against the post-Ferguson transition." },
-    { label: "1950s vs 2000s", a: "1950s", b: "2000s", hook: "The tragic brilliance of the Busby Babes against the peak of the Ronaldo era." },
+    { label: "Busby era vs Ferguson era", a: "busby", b: "ferguson", hook: "Two defining reigns — trophy haul and league finishes." },
+    { label: "1990s vs 2010s", a: "1990s", b: "2010s", hook: "Title years of the nineties against the post-Ferguson decade." },
+    { label: "1950s vs 2000s", a: "1950s", b: "2000s", hook: "Busby Babes decade against the Ronaldo-era peak." },
   ],
 };
 

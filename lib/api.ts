@@ -4,9 +4,10 @@
  * payload carries its attribution and a pointer to the docs on /data.
  */
 import { immutableDataHeaders } from "./cache";
+import { SITE_TAGLINE } from "./site";
 
 export const API_ATTRIBUTION = {
-  source: "Red Thread, the open evidence base for Manchester United history",
+  source: `Red Thread — ${SITE_TAGLINE}`,
   docs: "/data#api",
   note: "Read-only. Result data: engsoccerdata, openfootball, Wikipedia. Coverage varies by facet; see /api/v1/meta.",
 };

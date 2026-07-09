@@ -85,7 +85,7 @@ export default function DataPage() {
   return (
     <div className="space-y-14">
       <PageHeader eyebrow="The canonical record" title="Data and corrections">
-        Every result since 1886. Richer detail fills in over time — gaps shown honestly.
+        Every result since 1886. Detail fills in where sources allow — gaps stay on the page.
       </PageHeader>
 
       {/* ───────────────── Fan trust lane — Acts I–II ───────────────── */}

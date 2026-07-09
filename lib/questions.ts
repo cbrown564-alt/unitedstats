@@ -34,28 +34,28 @@ export const QUESTIONS: QuestionMeta[] = [
     label: "Ferguson era",
     question: "What happened after Ferguson left?",
     summary:
-      "Thirteen league titles under Ferguson, none since — league finishes traced season by season, with every successor on the same scale.",
+      "Thirteen league titles under Ferguson, none since — finishes season by season, every successor on the same scale.",
   },
   {
     slug: "treble",
     label: "The Treble",
     question: "How did United win the Treble?",
     summary:
-      "Anatomy of 1998-99: the Premier League, the FA Cup and the Champions League, run by run, down to the deciding nights.",
+      "1998-99 in full: Premier League, FA Cup, Champions League — each run down to the deciding nights.",
   },
   {
     slug: "fortress",
     label: "Fortress OT",
     question: "How much of a fortress is Old Trafford?",
     summary:
-      "United rarely lose a home league game they lead at half-time — the full record, the historic exceptions, and the unbeaten run since 1984.",
+      "Home league games led at half-time: the wins, the draws, the rare losses, and the unbeaten run since 1984.",
   },
   {
     slug: "late-goals",
     label: "Fergie time",
     question: "Was Fergie time unique to Fergie?",
     summary:
-      "The late-goal share jumped under Ferguson and kept climbing after he left — partly habit, partly longer added time. Busby's era had a hint of it too.",
+      "Late-goal share rose under Ferguson and kept rising after — habit plus longer added time, with a Busby-era hint.",
   },
 ];
 
@@ -66,49 +66,49 @@ const ARCHIVED_QUESTIONS: QuestionMeta[] = [
     label: "United in Europe",
     question: "What is United's European record by era?",
     summary:
-      "Continental nights across the decades — the wins, the finals reached, the trophies won — from the Busby Babes to the modern Champions League.",
+      "European matches by decade — wins, finals, trophies — from the Busby Babes to the Champions League.",
   },
   {
     slug: "manager-bounce",
     label: "Manager bounce",
     question: "Is the new-manager bounce real?",
     summary:
-      "Does a new manager change the tide? Compare each manager's first ten matches against the form they inherited.",
+      "Each manager's first ten matches against the ten before they arrived.",
   },
   {
     slug: "comebacks",
     label: "Comeback kings",
     question: "Are United really the comeback kings?",
     summary:
-      "Test the legend of the fightback. How often United fell behind — and avoided defeat — replayed minute by minute.",
+      "How often United fell behind and still took a point or three — minute by minute where the record allows.",
   },
   {
     slug: "runs",
     label: "Unbeaten streaks",
     question: "How long are United's longest runs?",
     summary:
-      "Winning runs, clean-sheet streaks, and matches without defeat. The limits of United's momentum over 140 years.",
+      "Winning runs, scoring streaks, clean sheets, and matches without defeat across the full record.",
   },
   {
     slug: "cup-specialists",
     label: "Cup specialists",
     question: "Who saved their goals for cup nights?",
     summary:
-      "Who saved their goals for cup nights? The goalscorers whose records lean heavily toward domestic and European cups.",
+      "Goalscorers whose share of goals in cups sits well above the club average.",
   },
   {
     slug: "own-goals",
     label: "Own goals",
     question: "Is “Own Goal” one of United’s top goalscorers?",
     summary:
-      "Is ‘Own Goal’ one of the club’s leading goalscorers? The bizarre tally of opponent errors stacked against history’s legends.",
+      "Own goals credited to United, ranked against the club's leading scorers.",
   },
   {
     slug: "away-days",
     label: "Away days",
     question: "How far do away days take United?",
     summary:
-      "From Lancashire hops to European nights. Trace the geographic footprint of United’s away trips since 1886.",
+      "Away grounds since 1886 — distance from Manchester, by season and by country.",
   },
 ];
 

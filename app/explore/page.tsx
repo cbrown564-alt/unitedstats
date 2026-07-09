@@ -70,7 +70,7 @@ export default function ExplorePage() {
   return (
     <div className="space-y-12">
       <PageHeader eyebrow="Questions · comparisons · cuts" title="Discover" deferOnMobile>
-        Myths tested against the full record. Compare careers, slice the archive, or search.
+        Ask a question, compare careers, or cut the record — every answer links to the matches.
       </PageHeader>
 
       {/* The Answering strip (the most curated of the three). A full-bleed feature

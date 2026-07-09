@@ -177,7 +177,7 @@ export default function AnalyticsPage() {
           </div>
         }
       >
-        How strong United were, era by era. The records that football left behind.
+        How strong United were, match by match — Elo, calibration, and season replay.
       </PageHeader>
 
       <ChapterPager chapters={mobileChapters} label="Analytics chapters" />
@@ -185,14 +185,14 @@ export default function AnalyticsPage() {
       <div className="hidden space-y-14 sm:block">
         <div className="space-y-6">
           <Act n="01" kicker="The signal" title="United's strength, measured">
-            A single rating, updated match by match for over a century.
+            One rating, updated after every match since the record begins.
           </Act>
           {eloHero}
         </div>
 
         <div className="space-y-8">
           <Act n="02" kicker="Does it hold up" title="Testing the rating against history">
-            Does the expectancy hold when you replay the matches — one season at a time?
+            Expected results against what actually happened — season by season.
           </Act>
 
           <section className="max-w-3xl">

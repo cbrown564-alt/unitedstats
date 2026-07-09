@@ -113,7 +113,7 @@ export default async function ComparePage({
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Side by side" title="Compare" deferOnMobile={!!comparison}>
-        Two players or managers on the same measures. Gaps shown where the record is thin.
+        Players, managers, or eras on shared measures. Coverage gaps stay visible.
       </PageHeader>
 
       <ModePills mode={mode} />

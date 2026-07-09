@@ -40,6 +40,7 @@
     "copy:extract": "tsx scripts/extract-copy-catalog.ts",
     "copy:persist": "tsx scripts/persist-copy-queue.ts",
     "copy:lint": "tsx scripts/lint-copy.ts",
+    "copy:deck": "node scripts/copy-deck.mjs",
     "upload:db": "tsx scripts/upload-db.ts",
     "revalidate": "tsx scripts/revalidate.ts",
     "update": "tsx pipeline/update.ts"

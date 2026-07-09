@@ -4,9 +4,9 @@ import type { TransferRow } from "./queries";
 /** Curated one-liners for record deals — the hybrid override when we have a line. */
 const CURATED: Record<string, string> = {
   "2016-08-09-paul-pogba-in":
-    "The second coming. Left on a free transfer in 2012, bought back for £80m four years later!",
+    "Left on a free in 2012; bought back for £80m in 2016.",
   "2009-07-01-cristiano-ronaldo-out":
-    "The record sale that bankrolled a generation...if only! £80m to Real Madrid after six seasons at Old Trafford.",
+    "£80m to Real Madrid after six seasons — still the club's record sale.",
 };
 
 /** One editorial line for a featured deal: curated when we have it, otherwise from transfer fields. */

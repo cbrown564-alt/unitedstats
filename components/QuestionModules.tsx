@@ -313,11 +313,11 @@ function LateGoalsModule({ variant }: ModuleProps) {
       <ThreadBeatRow
         lead={
           <>
-            Every United fan knows the phrase — <ThreadUnderline>Fergie time</ThreadUnderline>. It jumped from{" "}
+            <ThreadUnderline>Fergie time</ThreadUnderline> — goals after the 85th rose from{" "}
             <ThreadUnderline>{betweenLate ?? busbyLate}</ThreadUnderline> to{" "}
-            <ThreadUnderline>{fergLate}</ThreadUnderline> under Ferguson and has kept climbing since —{" "}
-            <ThreadUnderline>{sinceLate}</ThreadUnderline> of timed goals now land after the 85th, mostly in added time.
-            Three nights tell the story: Wednesday, Barcelona, Brentford.
+            <ThreadUnderline>{fergLate}</ThreadUnderline> under Ferguson, and to{" "}
+            <ThreadUnderline>{sinceLate}</ThreadUnderline> since, mostly in added time.
+            Three nights: Wednesday, Barcelona, Brentford.
           </>
         }
         beats={annotated.map((a) => {
@@ -360,7 +360,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
       variant={variant}
       visual={lateGoalsVisual}
       visualLabel="Fergie time"
-      finding={`You still hear "Fergie time" on the terraces — and the numbers back the feeling. For decades about ${betweenLate ?? busbyLate} of United goals came after the 85th; Ferguson pushed it to ${fergLate}, and since he left it has climbed to ${sinceLate}, mostly in added time rather than the last five regulation minutes. Bruce against Sheffield Wednesday is where they started saying it; Teddy and Ole in Barcelona is where it became myth; McTominay against Brentford is proof the habit never left with the manager.`}
+      finding={`For decades about ${betweenLate ?? busbyLate} of United goals came after the 85th; under Ferguson it rose to ${fergLate}, and since he left it has climbed to ${sinceLate} — mostly in added time, not the last five regulation minutes. Bruce against Sheffield Wednesday is where the phrase stuck; Teddy and Ole in Barcelona made it myth; McTominay against Brentford shows the habit outlived the manager.`}
       slice="United goals with a recorded minute — penalties and own goals included — grouped by manager era and by decade. The post-85th window is split between minutes 86–90 and stoppage time (90+, with added time folded into the final minute)."
       coverage={`${fmtNum(timed.timed)} of ${fmtNum(timed.total)} recorded United goals carry a minute, and that data thins quickly before the 1990s. Stoppage-time goals are only separable where a source marks them "90+" — largely a modern convention — so the stoppage segment reads near zero in the early decades partly because it went unrecorded, not only because added time was shorter.`}
     >
@@ -473,7 +473,7 @@ function ComebacksModule({ variant }: ModuleProps) {
       variant={variant}
       visual={comebackVisual}
       visualLabel="Never write United off"
-      finding={`You grew up hearing United never know when they're beaten — and the minute-by-minute record backs it. In ${fmtNum(cb.summary.replayable)} matches we can replay goal for goal, they fell behind ${fmtNum(cb.summary.fellBehind)} times and still got something from ${fmtNum(cb.summary.recovered)} of them, including ${fmtNum(cb.summary.wonFromBehind)} complete turnarounds. ${fmtNum(cb.summary.twoPlusRecovered)} times they were two or more down and did not lose.`}
+      finding={`In ${fmtNum(cb.summary.replayable)} matches with a full minute-by-minute scoreline, United fell behind ${fmtNum(cb.summary.fellBehind)} times and still took something from ${fmtNum(cb.summary.recovered)} of them — including ${fmtNum(cb.summary.wonFromBehind)} wins from behind. ${fmtNum(cb.summary.twoPlusRecovered)} times they were two or more down and did not lose.`}
       slice="Official matches whose goals all carry a minute; a match counts as 'behind' whenever United's running score fell below the opponent's. The deepest comebacks are wins after trailing by two goals or more."
       coverage={`${fmtNum(cb.summary.replayable)} of ${fmtNum(Number(meta.matches))} matches have minute-complete goals, so a fightback can be verified; minute data thins before the 1990s, so older recoveries are under-counted.`}
     >
@@ -570,7 +570,7 @@ function RunsModule({ variant }: ModuleProps) {
       variant={variant}
       visual={runsVisual}
       visualLabel="The runs that matter"
-      finding={`Every generation has its "you'll never beat them when they're on a run" stretch. United's benchmark is still ${fmtNum(longestUnbeaten?.length ?? 0)} matches without defeat${longestUnbeaten ? ` (${fmtMonthYear(longestUnbeaten.from)}–${fmtMonthYear(longestUnbeaten.to)} — the Treble season and beyond)` : ""}; the longest winning run is ${fmtNum(longestWinning?.length ?? 0)}, they have scored in ${fmtNum(longestScoring?.length ?? 0)} consecutive matches, and kept ${fmtNum(longestClean?.length ?? 0)} clean sheets in a row.`}
+      finding={`Longest unbeaten run: ${fmtNum(longestUnbeaten?.length ?? 0)} matches without defeat${longestUnbeaten ? ` (${fmtMonthYear(longestUnbeaten.from)}–${fmtMonthYear(longestUnbeaten.to)} — the Treble season and beyond)` : ""}. Longest winning run: ${fmtNum(longestWinning?.length ?? 0)}. Scoring streak: ${fmtNum(longestScoring?.length ?? 0)}. Clean sheets in a row: ${fmtNum(longestClean?.length ?? 0)}.`}
       slice="Consecutive official matches (friendlies and wartime excluded), in date order. 'Unbeaten' counts wins and draws; 'scoring' counts any match United scored in; 'clean sheet' counts matches without conceding. Each run links to the matches behind it."
     >
       <StreakBoard groups={streakGroups} />
@@ -595,11 +595,11 @@ function FergusonEraModule({ variant }: ModuleProps) {
       <ThreadBeatRow
         lead={
           <>
-            Every United fan knows the split — <ThreadUnderline>{fmtNum(floor.fergTitles)} league titles</ThreadUnderline> under Ferguson,
-            <ThreadUnderline> {fmtNum(floor.sinceTitles)} since</ThreadUnderline>. The floor that held for a generation gave way after May 2013;
-            average finish slipped from <ThreadUnderline>{ordinal(Math.round(floor.fergAvgFinish))}</ThreadUnderline> to{" "}
+            <ThreadUnderline>{fmtNum(floor.fergTitles)} league titles</ThreadUnderline> under Ferguson,
+            <ThreadUnderline> {fmtNum(floor.sinceTitles)} since</ThreadUnderline>. Average finish slipped from{" "}
+            <ThreadUnderline>{ordinal(Math.round(floor.fergAvgFinish))}</ThreadUnderline> to{" "}
             <ThreadUnderline>{ordinal(Math.round(floor.sinceAvgFinish))}</ThreadUnderline>
-            {floor.sinceWorst ? `, bottoming out at ${ordinal(floor.sinceWorst)}` : ""}.
+            {floor.sinceWorst ? `, low of ${ordinal(floor.sinceWorst)}` : ""}.
           </>
         }
         beats={moments.map((m) => ({
@@ -635,7 +635,7 @@ function FergusonEraModule({ variant }: ModuleProps) {
       variant={variant}
       visual={skylineVisual}
       visualLabel="After Ferguson"
-      finding={`Twenty-six years without the league, then twenty-six with Ferguson at the helm — ${floor.fergTitles} titles, top four ${floor.fergTop4} times, averaging ${ordinal(Math.round(floor.fergAvgFinish))} in the table even through the rebuild. Since May 2013: ${floor.sinceTitles} titles, only ${floor.sinceTop4} top-four finishes, average ${ordinal(Math.round(floor.sinceAvgFinish))}${floor.sinceWorst ? `, and a low of ${ordinal(floor.sinceWorst)}` : ""}. Every fan feels the drop; the season-by-season record shows exactly where it landed.`}
+      finding={`Twenty-six years without the league, then twenty-six under Ferguson — ${floor.fergTitles} titles, top four ${floor.fergTop4} times, average finish ${ordinal(Math.round(floor.fergAvgFinish))}. Since May 2013: ${floor.sinceTitles} titles, ${floor.sinceTop4} top-four finishes, average ${ordinal(Math.round(floor.sinceAvgFinish))}${floor.sinceWorst ? `, low of ${ordinal(floor.sinceWorst)}` : ""}. The season-by-season ladder shows where the floor dropped.`}
       slice="Top-flight league finishes (First Division / Premier League) season by season. Ferguson's reign runs 8 Nov 1986 to 19 May 2013; everything after is the post-Ferguson era. Post-2013 seasons are attributed to the manager who took most league matches that season, mapped to their tenure dates."
       coverage="Result-level record — complete for every official match across both eras. No advanced metrics; the comparison uses league position and titles, exactly as the record supports."
     >
@@ -853,7 +853,7 @@ function TrebleModule({ variant }: ModuleProps) {
       variant={variant}
       visual={trebleVisual}
       visualLabel="Ten days in May"
-      finding={`Every United fan knows the shape of it — Spurs on the final day, Newcastle at Wembley five days later, then Barcelona and those two goals after the 90th. Underneath: ${fmtNum(runPlayed)} matches across league, cup and Europe, just ${fmtNum(trebleLosses)} defeats, and the only English Treble, all inside ${spanDays} days in ${month} ${year}.`}
+      finding={`Spurs on the final day, Newcastle at Wembley five days later, Barcelona and two goals after the 90th. Underneath: ${fmtNum(runPlayed)} matches across league, cup and Europe, ${fmtNum(trebleLosses)} defeats, the only English Treble — all inside ${spanDays} days in ${month} ${year}.`}
       slice={`Every match of ${season} is in the timeline up top. The matches below show who scored and when in the decisive games and semi-finals — the deciding legs that forged the Treble, not the full two-legged ties (scoreless first legs omitted).`}
       coverage="Full 1998-99 match and goal record across all three competitions."
     >
@@ -1088,7 +1088,7 @@ function EuropeModule({ variant }: ModuleProps) {
       variant={variant}
       visual={europeVisual}
       visualLabel="European nights"
-      finding={`United's European story is the one fans tell in finals — first at Wembley in ${firstFinalYear}, then long quiet decades, then the nights everyone still names: Barcelona '99, Moscow '08. Only half the ${finals.length} finals since have ended with silverware raised (${won.length} trophies from ${winRate} of ${fmtNum(total.p)} continental matches). Since ${lastWonFinal ? fmtMonthYear(lastWonFinal.date) : "2008"}, the ledger has tilted toward finals lost, not won.`}
+      finding={`First European final at Wembley in ${firstFinalYear}; then long gaps; then Barcelona '99 and Moscow '08. ${won.length} trophies from ${finals.length} finals (${winRate} of ${fmtNum(total.p)} continental matches). Since ${lastWonFinal ? fmtMonthYear(lastWonFinal.date) : "2008"}, more finals lost than won.`}
       slice="European competition only (European Cup, Champions League, Cup Winners' Cup, UEFA Cup/Europa League, Inter-Cities Fairs Cup, and the UEFA Super Cup). Finals are the one-off deciding match of each European campaign."
       coverage="Result-level record — every European match held in full. The bars track win rate season by season, with gaps where United did not play in Europe; finals name the trophy, the opponent and the night."
     >
@@ -1152,8 +1152,8 @@ function ManagerBounceModule({ variant }: ModuleProps) {
     <ThreadBeatRow
       lead={
         <>
-          Every United fan knows the honeymoon — <ThreadUnderline>{bounceUp} of {bounce.length} managers</ThreadUnderline> won more
-          of their first ten than the ten before they arrived. The new-manager bounce is real; the question is who kept it.
+          <ThreadUnderline>{bounceUp} of {bounce.length} managers</ThreadUnderline> won more
+          of their first ten than the ten before they arrived. The bounce is real; who kept it is the harder question.
         </>
       }
       beats={topBounces.map((b) => {
@@ -1178,7 +1178,7 @@ function ManagerBounceModule({ variant }: ModuleProps) {
       variant={variant}
       visual={bounceVisual}
       visualLabel="The honeymoon"
-      finding={`The new-manager bounce is part of United folklore — and the numbers bear it out. ${bounceUp} of ${bounce.length} managers won more of their first ten matches than the club managed in the ten before they walked in. Each line below runs from the old form to the new start; the steep red climbs are the bounces fans remember hoping would last.`}
+      finding={`${bounceUp} of ${bounce.length} managers won more of their first ten matches than the club managed in the ten before they arrived. Each line runs from inherited form to the new start.`}
       slice="Each manager's first 10 matches in charge versus the club's previous 10 matches (any manager), all competitions; managers with fewer than 10 matches, and the first manager on record, are excluded."
     >
       <div>
@@ -1318,8 +1318,8 @@ function FortressModule({ variant }: ModuleProps) {
       visualLabel="Fortress OT"
       finding={
         lastLoss
-          ? `Fortress Old Trafford is not just a phrase — take a half-time lead at home in the league and United have not lost since ${fmtDate(lastLoss.date)}. That is ${fmtNum(unbeatenSince.run)} games and counting. Across every verifiable home league game led at the break (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}), they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and lost the lead only ${fmtNum(leadLosses.length)} times.`
-          : `Fortress Old Trafford is not just a phrase — across ${fmtNum(leadHeld.games.length)} home league games where United led at half-time (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}), they won ${fmtNum(leadHeld.w)}, drew ${fmtNum(leadHeld.d)}, and never lost.`
+          ? `Lead at half-time at Old Trafford in the league and United have not lost since ${fmtDate(lastLoss.date)} — ${fmtNum(unbeatenSince.run)} games and counting. Across every verifiable home league game led at the break (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}): ${fmtNum(leadHeld.w)} wins, ${fmtNum(leadHeld.d)} draws, lead lost ${fmtNum(leadLosses.length)} times.`
+          : `Across ${fmtNum(leadHeld.games.length)} home league games led at half-time (${leadHeld.from.slice(0, 4)}–${leadHeld.to.slice(0, 4)}): ${fmtNum(leadHeld.w)} wins, ${fmtNum(leadHeld.d)} draws, no defeats.`
       }
       slice="Old Trafford home league games where United led at half-time, the half-time score reconstructed from minute-stamped goal events. Restricted to matches whose goals all carry a minute, so it is the verifiable part of the record rather than a single continuous run."
       coverage={`Half-time scores only reconstruct where every goal has a recorded minute, so these ${fmtNum(leadHeld.games.length)} games are a sample, not a sequence. Opta, working from complete half-time data, puts the current unbeaten run at 400 home league games led at half-time — W365 D35 — back to August 1984.`}
@@ -1425,7 +1425,7 @@ function CupSpecialistsModule({ variant }: ModuleProps) {
       variant={variant}
       visual={cupVisual}
       visualLabel="Cup-night specialists"
-      finding={`Every fan knows the type — the player who turns up when the tie matters. United average ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups; these ten all more than double that, ${topCupLean.name} most of all at ${cupMult.toFixed(1)}× the club rate. League grinders, cup assassins.`}
+      finding={`United score ${pct(cupBaseline.cup, cupBaseline.total)} of their goals in cups; these ten more than double that rate. ${topCupLean.name} leads at ${cupMult.toFixed(1)}× the club share.`}
       slice="Goals (excluding own goals) per player split league v cup by competition type, minimum 25 recorded goals, ranked by cup share. The multiplier is each player's cup share over the club-wide cup share."
       coverage={`Goalscorer attribution exists for ${fmtNum(Number(meta.matches_with_scorers))} of ${fmtNum(Number(meta.matches))} matches, weighted toward the post-war era — pre-war specialists may be under-counted.`}
     >
@@ -1453,10 +1453,10 @@ function OwnGoalsModule({ variant }: ModuleProps) {
     <ThreadBeatRow
       lead={
         <>
-          Every United fan knows the joke — <ThreadUnderline>Own Goal</ThreadUnderline> on the all-time scorers list.
+          <ThreadUnderline>Own Goal</ThreadUnderline> sits on the all-time scorers list —
           <ThreadUnderline>{fmtNum(ogSummary.total)} goals</ThreadUnderline>
-          {ogRank ? `, the ${ogRank === 5 ? "fifth" : `#${ogRank}`}-highest tally in the club's history` : ""} — gifted by{" "}
-          <ThreadUnderline>{fmtNum(ogSummary.scorers)}</ThreadUnderline> different opposition players, belonging to no one.
+          {ogRank ? `, ${ogRank === 5 ? "fifth" : `#${ogRank}`} in club history` : ""} — from{" "}
+          <ThreadUnderline>{fmtNum(ogSummary.scorers)}</ThreadUnderline> opposition players.
         </>
       }
       beats={[
@@ -1498,7 +1498,7 @@ function OwnGoalsModule({ variant }: ModuleProps) {
       variant={variant}
       visual={ogVisual}
       visualLabel="The punchline"
-      finding={`"Own Goal" on the all-time scorers list is every United fan's favourite stat — and it checks out: ${fmtNum(ogSummary.total)} goals${ogRank ? `, ${ogRank === 5 ? "fifth" : `#${ogRank}`} in club history` : ""}, spread across ${fmtNum(ogSummary.scorers)} opposition players between ${fmtDate(ogSummary.first)} and ${fmtDate(ogSummary.last)}. No one has done it more than ${ogRepeat[0]?.n ?? 1} times; the joke works because the numbers are absurd.`}
+      finding={`Own goals credited to United: ${fmtNum(ogSummary.total)}${ogRank ? `, ${ogRank === 5 ? "fifth" : `#${ogRank}`} on the all-time scorers list` : ""}, from ${fmtNum(ogSummary.scorers)} opposition players between ${fmtDate(ogSummary.first)} and ${fmtDate(ogSummary.last)}. No named opponent has done it more than ${ogRepeat[0]?.n ?? 1} times.`}
       slice="Own goals credited to United (an opponent scoring into his own net), all official competitions, gathered under the synthetic goalscorer 'Own Goal'. The leaderboard counts only own goals with a recorded goalscorer."
       coverage={`${fmtNum(ogSummary.named)} of ${fmtNum(ogSummary.total)} own goals carry a named goalscorer; the remaining ${fmtNum(ogSummary.unknown)}, mostly pre-war, were recorded only as "own goal".`}
     >
@@ -1618,7 +1618,7 @@ function AwayDaysModule({ variant }: ModuleProps) {
       variant={variant}
       visual={travelVisual}
       visualLabel="Following the road"
-      finding={`An away day is half the ritual — ${fmtNum(footprint.length)} grounds in ${fmtNum(countries)} countries, from a short hop across Lancashire to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Across ${fmtNum(travelCov.covered)} mapped away matches the mileage stacks to ${Math.round(totalKm / 1000).toLocaleString()}k km; the average trip stepped up when European football arrived in 1956 and the league spread south.`}
+      finding={`${fmtNum(footprint.length)} away grounds in ${fmtNum(countries)} countries — from a Lancashire hop to ${fmtNum(Math.round(farthest.km))} km at ${farthest.name}. Across ${fmtNum(travelCov.covered)} mapped away matches: ${Math.round(totalKm / 1000).toLocaleString()}k km total. Average trip length stepped up when European football arrived in 1956 and the league spread south.`}
       slice={`official away matches; one-way distance from Manchester to each opponent's home town, city level. Average trip per season, ${travelSeasons[0]?.season}–${travelSeasons[travelSeasons.length - 1]?.season}.`}
       coverage={`opponent home towns are mapped for ${fmtNum(travelCov.covered)} of ${fmtNum(travelCov.total)} official away matches.`}
     >

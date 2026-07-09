@@ -112,7 +112,7 @@ export const COPY_SMELL_RULES: CopySmellRule[] = [
   {
     id: "every-fan-knows",
     label: "every fan knows",
-    pattern: /\bevery fan knows\b/i,
+    pattern: /\bevery (united )?fan knows\b/i,
   },
   {
     id: "grew-up-hearing",

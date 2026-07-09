@@ -16,4 +16,4 @@ function resolveSiteUrl(): string {
 }
 
 export const SITE_URL = resolveSiteUrl();
-export const SITE_TAGLINE = "The open evidence base for Manchester United history";
+export const SITE_TAGLINE = "United history, evidenced — every match since 1886";

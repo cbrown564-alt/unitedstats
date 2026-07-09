@@ -166,7 +166,7 @@ export default async function PlayersPage({
   return (
     <div className="space-y-8">
       <PageHeader eyebrow="People · the frontier" title="Players" deferOnMobile>
-        Most barely feature. A few defined the club for decades.
+        Appearances, goals, and careers across the full squad list.
       </PageHeader>
 
       {/* The whole playing history as one object: the squad cloud, the servants

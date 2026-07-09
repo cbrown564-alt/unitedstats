@@ -91,7 +91,7 @@ export default function Home() {
             aria-hidden
           />
           <div className="relative p-4 sm:p-5 lg:p-7">
-            <PageHeader eyebrow="From Newton Heath to today" title="One thread through Manchester United's history">
+            <PageHeader eyebrow="From Newton Heath to today" title="Manchester United, match by match">
               {fmtNum(rec.p)} matches across {years} years of league, cup, and European football.
             </PageHeader>
             <div className="mt-6 max-w-2xl hidden lg:block">
