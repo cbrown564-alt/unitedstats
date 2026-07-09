@@ -56,6 +56,12 @@ rejects — flags for a human look.
 - Hot-take punditry
 - Over-romantic heritage copy that hides the data contract
 
+## Tooling
+
+- `npm run copy:extract` — refresh catalog + merge queue
+- `npm run copy:persist` — write live Studio queue into `content/copy-queue.json`
+- `npm run copy:lint` — smell check (Tier A new hits fail; `--update-baseline` accepts debt; `--strict` fails all Tier A; `--all` prints B/C)
+
 ## Status meanings (queue)
 
 | Status | Meaning |
