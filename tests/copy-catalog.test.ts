@@ -70,7 +70,7 @@ test("copy catalog exists and covers Tier A registries", () => {
   );
 
   const catalog = loadCopyCatalog();
-  const queue = loadCopyQueue();
+  const queue = loadCopyQueue(COPY_QUEUE_PATH);
   assert.ok(catalog.itemCount > 0);
   assert.equal(catalog.items.length, catalog.itemCount);
   assert.ok(catalog.byTier.A > 0, "expected Tier A items");

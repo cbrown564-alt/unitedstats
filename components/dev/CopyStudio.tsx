@@ -379,8 +379,9 @@ export function CopyStudio({ items, initialEntries }: StudioProps) {
         <h1 className="display text-2xl sm:text-3xl">Voice rewrite queue</h1>
         <p className="mt-1.5 max-w-2xl text-sm leading-6 text-ink-dim">
           Review catalog strings against the rubric, paste rewrites into source, then mark status.
-          Re-run <code className="stat-num text-xs">npm run copy:extract</code> to sync text from
-          TS/TSX.{" "}
+          Re-run <code className="stat-num text-xs">npm run copy:extract</code> to sync text;{" "}
+          <code className="stat-num text-xs">npm run copy:persist</code> to commit queue progress.
+          {" "}
           <kbd className="stat-num rounded border border-line px-1 text-[11px]">j</kbd>/
           <kbd className="stat-num rounded border border-line px-1 text-[11px]">k</kbd> next/prev.
         </p>

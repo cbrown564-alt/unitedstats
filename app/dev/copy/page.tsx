@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 
 /**
  * Dev-only copy review surface. 404 in production builds.
- * Catalog + queue are read from content/*.json on each request.
+ * Catalog is read from content/copy-catalog.json. Queue status is read/written
+ * via a temp runtime file so Studio saves do not trip Fast Refresh.
  */
 export default function CopyStudioPage() {
   if (!copyStudioEnabled()) notFound();

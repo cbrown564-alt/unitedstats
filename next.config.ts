@@ -45,9 +45,8 @@ const nextConfig: NextConfig = {
       // travel folded into /questions as the away-days question (ADR 0002).
       { source: "/analytics/odds", destination: "/analytics", permanent: true },
       { source: "/analytics/travel", destination: "/questions/away-days", permanent: true },
-      // The /questions index is subsumed into the Explore Answering strip (Phase
-      // 11.5); the per-question /questions/[slug] depth pages remain the jump target.
-      { source: "/questions", destination: "/explore", permanent: true },
+      // /questions index is a real page that redirects to /explore (keeps Turbopack's
+      // app loader tree intact — a config-only redirect previously panicked HMR).
       { source: "/questions/ferguson", destination: "/questions/ferguson-era", permanent: true },
       { source: "/questions/decline", destination: "/questions/ferguson-era", permanent: true },
       { source: "/opponents", destination: "/search", permanent: true },

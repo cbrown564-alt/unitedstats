@@ -17,6 +17,9 @@ import {
   countByStatus,
   emptyQueue,
   mergeQueue,
+  persistCopyQueue,
+  saveCopyQueue,
+  syncRuntimeQueueFromCommitted,
   type CopyCatalogFile,
   type CopyItem,
   type CopyKind,
@@ -717,15 +720,15 @@ function main(): void {
   fs.mkdirSync(COPY_CONTENT_DIR, { recursive: true });
   fs.writeFileSync(COPY_CATALOG_PATH, `${JSON.stringify(catalog, null, 2)}\n`);
 
-  const prevQueue = fs.existsSync(COPY_QUEUE_PATH)
-    ? (JSON.parse(fs.readFileSync(COPY_QUEUE_PATH, "utf8")) as ReturnType<typeof emptyQueue>)
-    : emptyQueue();
+  // Prefer live Studio progress (temp runtime queue) when merging, else committed.
+  const prevQueue = syncRuntimeQueueFromCommitted();
   const queue = mergeQueue(
     prevQueue,
     items.map((i) => i.id),
     now,
   );
-  fs.writeFileSync(COPY_QUEUE_PATH, `${JSON.stringify(queue, null, 2)}\n`);
+  persistCopyQueue(queue);
+  saveCopyQueue(queue);
 
   const status = countByStatus(queue);
   console.log(
