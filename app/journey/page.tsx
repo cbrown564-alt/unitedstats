@@ -1,7 +1,6 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { RhymeMorph } from "@/components/journey/RhymeMorph";
+import { RhymeMorph, type RhymeMorphSide } from "@/components/journey/RhymeMorph";
 import { comparePlayers, type CareerSeason } from "@/lib/compare";
 
 export const revalidate = 86400;
@@ -11,10 +10,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-function peakGoals(arc: CareerSeason[]): { n: number; season: string; goals: number } | null {
+function peakGoals(arc: CareerSeason[]): { n: number; season: string; goals: number; apps: number } | null {
   if (!arc.length) return null;
   const peak = arc.reduce((m, s) => (s.goals > m.goals ? s : m), arc[0]);
-  return peak.goals > 0 ? { n: peak.n, season: peak.season, goals: peak.goals } : null;
+  return peak.goals > 0 ? { n: peak.n, season: peak.season, goals: peak.goals, apps: peak.apps } : null;
 }
 
 /** Calendar year for a season label like 1967-68 → 1968 (the year the campaign ends). */
@@ -41,33 +40,22 @@ export default function JourneyPage() {
 
   const compareHref = "/compare?mode=players&a=cristiano-ronaldo&b=george-best";
 
-  return (
-    <div className="-mt-6 space-y-0 sm:-mt-8 lg:-mt-10">
-      <RhymeMorph
-        a={{
-          id: best.id,
-          name: best.label,
-          peakYear: seasonEndYear(bestPeak.season),
-          peakSeason: bestPeak.season,
-          peakGoals: bestPeak.goals,
-        }}
-        b={{
-          id: ronaldo.id,
-          name: ronaldo.label,
-          peakYear: seasonEndYear(ronaldoPeak.season),
-          peakSeason: ronaldoPeak.season,
-          peakGoals: ronaldoPeak.goals,
-        }}
-        compareHref={compareHref}
-      />
+  const a: RhymeMorphSide = {
+    id: best.id,
+    name: best.label,
+    peakYear: seasonEndYear(bestPeak.season),
+    peakSeason: bestPeak.season,
+    peakGoals: bestPeak.goals,
+    peakGames: bestPeak.apps,
+  };
+  const b: RhymeMorphSide = {
+    id: ronaldo.id,
+    name: ronaldo.label,
+    peakYear: seasonEndYear(ronaldoPeak.season),
+    peakSeason: ronaldoPeak.season,
+    peakGoals: ronaldoPeak.goals,
+    peakGames: ronaldoPeak.apps,
+  };
 
-      <p className="mx-auto max-w-xl px-4 py-10 text-center text-xs text-ink-faint sm:px-6">
-        Prototype chapter — see <code className="text-ink-dim">docs/JOURNEY.md</code>.{" "}
-        <Link href={compareHref} className="text-devil-bright hover:underline focus-ring">
-          Full compare
-        </Link>
-        .
-      </p>
-    </div>
-  );
+  return <RhymeMorph a={a} b={b} compareHref={compareHref} />;
 }

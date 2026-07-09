@@ -80,6 +80,27 @@ html {
   padding-right: var(--hero-gutter);
 }
 
+/* Chrome-free stage (e.g. the journey floodlit route). The floodlit stage owns
+   the whole screen — no sidebar, no footer, no bottom pill, no main gutters. */
+html[data-chrome="off"] .site-sidebar,
+html[data-chrome="off"] .site-footer,
+html[data-chrome="off"] .mobile-bottom-nav {
+  display: none !important;
+}
+html[data-chrome="off"] .site-shell-main {
+  padding-left: 0 !important;
+}
+html[data-chrome="off"] .site-main {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html[data-chrome="off"] .full-bleed-viewport {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+}
+
 @media (min-width: 640px) {
   .full-bleed-foreground {
     --hero-gutter: 1.5rem;
