@@ -180,19 +180,11 @@ body {
 }
 /* Question intro: a filament underline on key phrases in thread-lead prose. */
 .thread-underline {
-  text-decoration: none;
-  background-image: linear-gradient(
-    to right,
-    transparent 0%,
-    var(--color-devil-bright) 8%,
-    var(--color-devil-bright) 92%,
-    transparent 100%
-  );
-  background-size: 100% 1.5px;
-  background-position: 0 calc(100% - 1px);
-  background-repeat: no-repeat;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  text-decoration: underline;
+  text-decoration-color: var(--color-devil-bright);
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 0.45em;
+  text-decoration-skip-ink: none;
 }
 /* Cross-page continuity: a quick, gentle fade between routes (opacity only —
    no positional movement, which is the main motion-sensitivity trigger). The

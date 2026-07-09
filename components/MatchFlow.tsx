@@ -23,6 +23,15 @@ function clock(minute: number, added: number | null): string {
   return added ? `${minute}+${added}` : `${minute}`;
 }
 
+/**
+ * Absolute minute on the match axis. Stoppage is 90+added; older sources sometimes
+ * write 93 directly instead of 90+3 — same contract as late-goal plotting.
+ */
+function goalClock(minute: number, added: number | null): number {
+  if (minute === 90 && added != null && added > 0) return 90 + added;
+  return minute;
+}
+
 type GoalMark = {
   key: string;
   seq: number;
@@ -196,19 +205,29 @@ export function MatchFlow({
   // Nothing has a minute → caller renders the list fallback instead.
   if (goals.length === 0) return null;
 
-  const sorted = [...goals].sort((a, b) => a.minute - b.minute);
-  const maxMin = Math.max(90, ...goals.map((g) => g.minute), aet ? 120 : 0);
-  const end = aet ? 120 : maxMin > 90 ? Math.min(120, Math.ceil(maxMin / 5) * 5) : 90;
+  const sorted = [...goals].sort(
+    (a, b) => goalClock(a.minute, a.added) - goalClock(b.minute, b.added) || a.seq - b.seq,
+  );
+  const clocks = goals.map((g) => goalClock(g.minute, g.added));
+  const maxClock = Math.max(90, ...clocks, aet ? 120 : 0);
+  // Pad past the last stoppage goal so the final knot isn't pinned to the clipped edge.
+  const end = aet
+    ? 120
+    : maxClock > 90
+      ? Math.min(120, Math.ceil((maxClock + 1) / 5) * 5)
+      : 90;
   const pos = (m: number) => Math.max(0, Math.min(100, (m / end) * 100));
+  const markPos = (g: GoalMark) => pos(goalClock(g.minute, g.added));
 
   // Running-lead segments: hold each margin until the next goal, then jump.
   const segs: { from: number; to: number; margin: number }[] = [];
   let cur = 0;
   let prev = 0;
   for (const g of sorted) {
-    segs.push({ from: prev, to: g.minute, margin: cur });
+    const at = goalClock(g.minute, g.added);
+    segs.push({ from: prev, to: at, margin: cur });
     cur += g.delta;
-    prev = g.minute;
+    prev = at;
   }
   segs.push({ from: prev, to: end, margin: cur });
 
@@ -221,7 +240,7 @@ export function MatchFlow({
     let prevPos = -Infinity;
     let prevLane = 1;
     for (const g of marks) {
-      const p = pos(g.minute);
+      const p = markPos(g);
       const ln = p - prevPos < LABEL_GAP ? (prevLane === 0 ? 1 : 0) : 0;
       lane.set(g.key, ln);
       prevPos = p;
@@ -257,12 +276,12 @@ export function MatchFlow({
   ];
 
   return (
-    <div className="relative z-0 w-full overflow-x-clip overflow-y-visible">
+    <div className="relative z-0 w-full overflow-visible">
       {/* United scorers above the bar — positioned at their minute on every viewport. */}
       <div className={`relative overflow-visible ${unitedZoneH}`}>
         {unitedMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
-          const p = pos(g.minute);
+          const p = markPos(g);
           return (
             <div
               key={g.key}
@@ -299,7 +318,7 @@ export function MatchFlow({
       <div className={`relative overflow-visible ${oppZoneH}`}>
         {oppMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
-          const p = pos(g.minute);
+          const p = markPos(g);
           return (
             <div
               key={g.key}

@@ -18,12 +18,87 @@ export type ThreadBeat = {
   note?: string;
 };
 
+function BeatKnot({ beat }: { beat: ThreadBeat }) {
+  const tone = beat.tone ?? "var(--color-devil-bright)";
+  return (
+    <span
+      className={`relative z-10 inline-flex h-3 w-3 shrink-0 items-center justify-center rounded-full bg-pitch ${
+        beat.highlight ? "ring-[3px] ring-gold/20" : ""
+      }`}
+      style={{ boxShadow: `inset 0 0 0 1.5px ${tone}` }}
+      aria-hidden
+    >
+      <span className="h-1.5 w-1.5 rounded-full" style={{ background: tone }} />
+    </span>
+  );
+}
+
+function BeatCopy({ beat, linked }: { beat: ThreadBeat; linked: boolean }) {
+  return (
+    <>
+      <span className="flex items-center gap-1.5">
+        {beat.glyph && (
+          <span aria-hidden className="inline-flex shrink-0" style={{ color: beat.tone }}>
+            {beat.glyph}
+          </span>
+        )}
+        <span
+          className={`text-sm font-medium leading-snug ${
+            beat.highlight
+              ? "text-gold"
+              : linked
+                ? "text-ink group-hover:text-devil-bright"
+                : "text-ink"
+          }`}
+        >
+          {beat.title}
+        </span>
+      </span>
+      {beat.detail && (
+        <span
+          className={`stat-num mt-0.5 block text-xs tabular-nums leading-snug ${
+            beat.highlight
+              ? "text-gold/85"
+              : linked
+                ? "text-ink-dim group-hover:text-ink"
+                : "text-ink-dim"
+          }`}
+        >
+          {beat.detail}
+        </span>
+      )}
+      {beat.note && (
+        <span className="mt-1.5 block text-xs leading-snug text-pretty text-ink-faint">
+          {beat.note}
+        </span>
+      )}
+    </>
+  );
+}
+
+function BeatShell({
+  beat,
+  children,
+}: {
+  beat: ThreadBeat;
+  children: ReactNode;
+}) {
+  if (beat.href) {
+    return (
+      <Link href={beat.href} className="group block min-w-0 rounded-sm transition-colors focus-ring">
+        {children}
+      </Link>
+    );
+  }
+  return <div className="block min-w-0">{children}</div>;
+}
+
 /**
  * A horizontal red thread with beats tied along it — the brand filament laid flat
  * for question-page intros. Each beat is a knot on the cord; the prose above weaves
  * the answer through {@link lead} with optional {@link thread-underline} marks on
- * key phrases. Lighter than TonightHero's vertical slipknot clock, but the same
- * vocabulary: trace animation, gold for the decisive beat, devil-red for the cord.
+ * key phrases. Callouts hang under the knots with no card chrome — same quiet grammar
+ * as {@link EuropeFinalsTimeline}. On narrow viewports the cord stands up as a spine.
  */
 export function ThreadBeatRow({
   beats,
@@ -38,29 +113,7 @@ export function ThreadBeatRow({
 }) {
   if (beats.length === 0) return null;
 
-  const VB_W = 400;
-  const VB_H = 56;
-  const Y = 28;
-  const R = 7;
-  const AMP = 3;
-  const PAD = 28;
-
-  const wx = (x: number) => {
-    const t = (x - PAD) / (VB_W - PAD * 2);
-    return x + AMP * Math.sin(t * Math.PI * 2.2 + 0.4);
-  };
-
-  const positions = beats.map((_, i) => {
-    if (beats.length === 1) return VB_W / 2;
-    return PAD + ((VB_W - PAD * 2) * i) / (beats.length - 1);
-  });
-
-  let d = `M ${wx(PAD * 0.4).toFixed(1)} ${Y}`;
-  for (let x = PAD * 0.4 + 6; x <= VB_W - PAD * 0.4; x += 6) {
-    d += ` L ${wx(x).toFixed(1)} ${Y}`;
-  }
-
-  const gradId = `thread-beat-${beats.map((b) => b.id).join("-")}`;
+  const n = beats.length;
 
   return (
     <div className={`space-y-5 ${className}`}>
@@ -70,134 +123,85 @@ export function ThreadBeatRow({
         </p>
       )}
 
-      <div className="relative">
-        <svg
-          viewBox={`0 0 ${VB_W} ${VB_H}`}
-          className="pointer-events-none mb-1 w-full overflow-visible"
-          fill="none"
-          aria-hidden
-        >
-          <defs>
-            <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="rgb(255 59 31)" stopOpacity="0.35" />
-              <stop offset="18%" stopColor="rgb(255 59 31)" stopOpacity="0.85" />
-              <stop offset="82%" stopColor="rgb(255 59 31)" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="rgb(245 197 24)" stopOpacity="0.55" />
-            </linearGradient>
-          </defs>
-          <path
-            d={d}
-            stroke="rgb(255 59 31)"
-            strokeOpacity="0.18"
-            strokeWidth="4"
-            strokeLinecap="round"
-            pathLength={1}
-            className="thread-path"
-            style={{ filter: "blur(2px)" }}
-          />
-          <path
-            d={d}
-            stroke={`url(#${gradId})`}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            pathLength={1}
-            className="thread-path"
-          />
-          {positions.map((x, i) => {
-            const cx = wx(x);
-            const beat = beats[i];
-            const tone = beat.tone ?? "var(--color-devil-bright)";
-            const delay = 280 + i * 220;
-            return (
-              <g key={beat.id} style={{ animationDelay: `${delay}ms` }}>
-                {beat.highlight && (
-                  <circle
-                    cx={cx}
-                    cy={Y}
-                    r={R * 2.2}
-                    fill="rgb(245 197 24)"
-                    fillOpacity="0.12"
-                    className="thread-knot"
-                    style={{ animationDelay: `${delay}ms` }}
+      {/* Narrow: vertical spine — knot sits on the title line under the date. */}
+      <ol className="relative m-0 list-none p-0 sm:hidden">
+        {beats.map((beat, i) => {
+          const linked = Boolean(beat.href);
+          const isFirst = i === 0;
+          const isLast = i === n - 1;
+          return (
+            <li key={beat.id} className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3">
+              <div className="flex w-3 flex-col items-center self-stretch">
+                {/* Spacer matches the date line so the knot lands on the title. */}
+                <span
+                  className={`w-px h-[1.375rem] ${isFirst ? "bg-transparent" : "bg-line/55"}`}
+                  aria-hidden
+                />
+                <BeatKnot beat={beat} />
+                <span
+                  className={`w-px flex-1 min-h-4 ${isLast ? "bg-transparent" : "bg-line/55"}`}
+                  aria-hidden
+                />
+              </div>
+              <div className={`min-w-0 ${isLast ? "pb-1" : "pb-5"}`}>
+                <BeatShell beat={beat}>
+                  <span className="stat-num block text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
+                    {beat.label}
+                  </span>
+                  <span className="mt-1 block">
+                    <BeatCopy beat={beat} linked={linked} />
+                  </span>
+                </BeatShell>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+
+      {/* sm+: horizontal cord — each segment bridges this knot to the next across the gap. */}
+      <ol
+        className="relative m-0 hidden list-none gap-x-6 p-0 sm:grid"
+        style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
+      >
+        {beats.map((beat, i) => {
+          const linked = Boolean(beat.href);
+          const next = beats[i + 1];
+          const fromTone = beat.tone ?? "var(--color-devil-bright)";
+          const toTone = next?.tone ?? "var(--color-gold)";
+          return (
+            <li key={beat.id} className="relative flex min-w-0 flex-col items-start">
+              <div className="relative flex h-3 w-full items-center">
+                <BeatKnot beat={beat} />
+                {next && (
+                  <span
+                    className="pointer-events-none absolute top-1/2 h-px -translate-y-1/2 opacity-75"
+                    style={{
+                      left: "0.75rem",
+                      right: "-1.5rem",
+                      background: `linear-gradient(to right, ${fromTone}, ${toTone})`,
+                    }}
+                    aria-hidden
                   />
                 )}
-                <circle
-                  cx={cx}
-                  cy={Y}
-                  r={R}
-                  fill="var(--color-pitch)"
-                  stroke={tone}
-                  strokeWidth="2"
-                  className="thread-knot"
-                  style={{ animationDelay: `${delay}ms` }}
-                />
-                <circle
-                  cx={cx}
-                  cy={Y}
-                  r={2.5}
-                  fill={tone}
-                  className="thread-bead"
-                  style={{ animationDelay: `${delay + 80}ms` }}
-                />
-              </g>
-            );
-          })}
-        </svg>
-
-        <ol className="grid gap-4 sm:grid-cols-3 sm:gap-3">
-          {beats.map((beat, i) => {
-            const body = (
-              <>
-                <span className="stat-num text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">
-                  {beat.label}
-                </span>
-                <span className="mt-1.5 flex items-center gap-1.5">
-                  {beat.glyph && (
-                    <span aria-hidden className="inline-flex shrink-0" style={{ color: beat.tone }}>
-                      {beat.glyph}
-                    </span>
-                  )}
-                  <span className={`text-sm font-medium ${beat.highlight ? "text-gold" : "text-ink"}`}>
-                    {beat.title}
+              </div>
+              <span className="ml-[5px] h-2.5 w-px bg-line/55" aria-hidden />
+              <div className="mt-1 w-full min-w-0">
+                <BeatShell beat={beat}>
+                  <span className="stat-num block text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
+                    {beat.label}
                   </span>
-                </span>
-                {beat.detail && (
-                  <span className={`stat-num mt-0.5 block text-sm tabular-nums ${beat.highlight ? "text-gold/90" : "text-ink-dim"}`}>
-                    {beat.detail}
+                  <span className="mt-1 block">
+                    <BeatCopy beat={beat} linked={linked} />
                   </span>
-                )}
-                {beat.note && (
-                  <span className="mt-1.5 block text-xs leading-snug text-ink-faint text-pretty">
-                    {beat.note}
-                  </span>
-                )}
-              </>
-            );
-
-            const cardClass = [
-              "relative rounded-lg border bg-panel-2 px-3.5 py-3 transition-colors",
-              beat.highlight
-                ? "border-gold/35 shadow-[0_10px_28px_-16px_rgba(0,0,0,0.8)] hover:border-gold/55"
-                : "border-line hover:border-devil/50",
-            ].join(" ");
-
-            return (
-              <li key={beat.id} className={cardClass} style={{ animationDelay: `${320 + i * 180}ms` }}>
-                {beat.href ? (
-                  <Link href={beat.href} className="block rounded-md focus-ring">
-                    {body}
-                  </Link>
-                ) : (
-                  body
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      </div>
+                </BeatShell>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
 
       {caption && (
-        <p className="text-xs text-ink-faint text-pretty">{caption}</p>
+        <p className="text-xs text-pretty text-ink-faint">{caption}</p>
       )}
     </div>
   );

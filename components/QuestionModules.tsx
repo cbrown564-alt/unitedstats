@@ -326,7 +326,7 @@ function LateGoalsModule({ variant }: ModuleProps) {
           return {
             id: `${a.matchId}:${a.minute}`,
             href: `/match/${a.matchId}`,
-            label: shortDate(a.date),
+            label: fmtDate(a.date),
             title: fan.title,
             detail: `${a.gf}–${a.ga} v ${a.opponent} · ${a.minute}${a.added ? `+${a.added}` : ""}′`,
             tone: crowned ? "var(--color-gold)" : "var(--color-devil-bright)",
@@ -457,7 +457,7 @@ function ComebacksModule({ variant }: ModuleProps) {
       beats={cb.deepest.slice(0, 3).map((g) => ({
         id: g.id,
         href: `/match/${g.id}`,
-        label: shortDate(g.date),
+        label: fmtDate(g.date),
         title: `${g.deficit} goals down`,
         detail: `Won ${g.gf}–${g.ga} v ${g.opponent_name}`,
         tone: "var(--color-gold)",
@@ -814,7 +814,7 @@ function TrebleModule({ variant }: ModuleProps) {
           return {
             id: d.id,
             href: `/match/${d.id}`,
-            label: shortDate(d.date),
+            label: fmtDate(d.date),
             title: fan.title,
             detail: `${d.gf}–${d.ga} v ${d.opponent_name}`,
             tone,
@@ -1052,7 +1052,7 @@ function EuropeModule({ variant }: ModuleProps) {
         beats={iconicFinals.map((f) => ({
           id: f.id,
           href: `/match/${f.id}`,
-          label: shortDate(f.date),
+          label: fmtDate(f.date),
           title: f.date.startsWith("1968") ? "Benfica" : f.date.startsWith("1999") ? "Barcelona" : "Moscow",
           detail: `${f.gf}–${f.ga} v ${f.opponent_name}`,
           tone: "var(--color-gold)",
@@ -1273,7 +1273,7 @@ function FortressModule({ variant }: ModuleProps) {
           lastLoss && {
             id: lastLoss.id,
             href: `/match/${lastLoss.id}`,
-            label: fmtDate(lastLoss.date).replace(/\s*\d{4}$/, ""),
+            label: fmtDate(lastLoss.date),
             title: "The last time",
             detail: `Lost ${lastLoss.gf}–${lastLoss.ga} v ${lastLoss.opponent_name}`,
             tone: "var(--color-loss)",
@@ -1282,7 +1282,7 @@ function FortressModule({ variant }: ModuleProps) {
           ...closeCalls.slice(0, 2).map((g, i) => ({
             id: g.id,
             href: `/match/${g.id}`,
-            label: fmtDate(g.date).replace(/\s*\d{4}$/, ""),
+            label: fmtDate(g.date),
             title: `Close call ${i + 1}`,
             detail: `Drew ${g.gf}–${g.ga} v ${g.opponent_name}`,
             tone: "var(--color-gold)",
