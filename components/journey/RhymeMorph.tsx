@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { familyName } from "@/lib/names";
 
@@ -34,8 +35,9 @@ function buildFilament(
   loopR: number,
 ) {
   // Neck of the loop — where both tails cinch and the circle returns on itself.
-  // Slight horizontal offset so the loop reads as a curl, not a dead-centre ring.
-  const neckX = LOOP_X - loopR * 0.18;
+  // Its centre is the No. 7's centre: moving it even a little left makes the
+  // visual rhyme look like a near miss rather than the thread resolving on seven.
+  const neckX = LOOP_X;
   const neckY = LOOP_Y - loopR;
   // The point diametrically opposite the neck (bottom of the loop).
   const botY = neckY + loopR * 2;
@@ -62,6 +64,8 @@ export type RhymeMorphSide = {
   id: string;
   name: string;
   peakYear: number;
+  /** A portrait is used as a heavily treated monument, never as match photography. */
+  imageSrc?: string;
 };
 
 type Props = {
@@ -133,9 +137,13 @@ export function RhymeMorph({ a, b }: Props) {
 
   const p = reduced ? 1 : progress;
 
-  // Phase windows — land is pulled late so the tail *is* the door, not dead scroll.
+  // Phase windows. The opener reaches its finished composition quickly: the point
+  // is to pull people into the evidence below, not make them earn it with a long
+  // decorative scroll.
   const awaken = smoothstep(0, 0.14, p);
-  const loopDraw = reduced ? 1 : smoothstep(0.12, 0.52, p);
+  // Keep a short visible filament on the first frame — the scene should read as
+  // a loop before the visitor scrolls, then finish drawing as the years approach.
+  const loopDraw = reduced ? 1 : lerp(0.32, 1, smoothstep(0.12, 0.52, p));
   const collapse = reduced ? 0 : smoothstep(0.44, 0.74, p);
   const land = reduced ? 1 : smoothstep(0.7, 0.92, p);
   const beforeLand = 1 - land;
@@ -158,23 +166,27 @@ export function RhymeMorph({ a, b }: Props) {
 
   const sevenOpacity = reduced ? 0.12 : 0.06 + awaken * 0.05 + loopDraw * 0.05 + land * 0.04;
   const sevenScale = lerp(1, 0.86, land);
+  const portraitOpacity = reduced ? 0.26 : 0.1 + awaken * 0.18 + (1 - land) * 0.05;
+  const portraitTravel = reduced ? 0 : lerp(32, 0, awaken);
 
   // Copy: the opener states the pair and the gap, then the loop lands the first
   // rhyme — one shirt. Facts only; the peak, the cup and the goal are later beats.
-  const line = p < 0.5 ? "Two No. 7s." : "The same red seven.";
+  const line = p < 0.34 ? "1968. 2008." : p < 0.68 ? "Two No. 7s." : "The same red seven.";
   const sub =
-    p < 0.5
-      ? "Forty years apart, at each end of United's story."
-      : `${aName}, ${a.peakYear}. ${bName}, ${b.peakYear}.`;
+    p < 0.34
+      ? `${aName}. ${bName}.`
+      : p < 0.68
+        ? "Forty years apart."
+        : `${aName}, ${a.peakYear}. ${bName}, ${b.peakYear}.`;
 
   return (
-    <div ref={runwayRef} data-journey-runway className="relative" style={{ height: reduced ? "100dvh" : "300vh" }}>
+    <div ref={runwayRef} data-journey-runway className="relative" style={{ height: reduced ? "100dvh" : "210vh" }}>
       <div
         className={`${reduced ? "relative" : "sticky top-0"} z-10 h-dvh`}
         role="img"
         aria-label={`${a.name} and ${b.name}: two Manchester United No. 7s, forty years apart — ${b.peakYear} and ${a.peakYear}.`}
       >
-        <div className="full-bleed-viewport relative h-full overflow-hidden bg-pitch">
+        <div className="journey-floodlit full-bleed-viewport relative h-full overflow-hidden">
           {/* Atmosphere */}
           <div
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-18%,rgba(255,238,210,0.13),transparent_52%)]"
@@ -192,10 +204,34 @@ export function RhymeMorph({ a, b }: Props) {
             aria-hidden
           />
 
+          {/* Two treated portraits establish the human scale immediately. They are
+             deliberately dissolved into the floodlights: these are player
+             monuments, not an attempt to pass archival portraits off as a final. */}
+          {a.imageSrc && (
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-[62%] [mask-image:linear-gradient(to_right,#000,transparent_88%),linear-gradient(to_top,transparent_4%,#000_48%,transparent_100%)] sm:w-[48%]"
+              style={{ opacity: portraitOpacity, transform: `translateX(${-portraitTravel}px)` }}
+              aria-hidden
+            >
+              <Image src={a.imageSrc} alt="" fill sizes="(max-width: 640px) 62vw, 48vw" className="object-cover object-[55%_30%] grayscale contrast-125" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(216,33,13,0.7),rgba(216,33,13,0.16),transparent)] mix-blend-color" />
+            </div>
+          )}
+          {b.imageSrc && (
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-[62%] [mask-image:linear-gradient(to_left,#000,transparent_88%),linear-gradient(to_top,transparent_4%,#000_48%,transparent_100%)] sm:w-[48%]"
+              style={{ opacity: portraitOpacity, transform: `translateX(${portraitTravel}px)` }}
+              aria-hidden
+            >
+              <Image src={b.imageSrc} alt="" fill sizes="(max-width: 640px) 62vw, 48vw" className="object-cover object-[45%_26%] grayscale contrast-125" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_left,rgba(216,33,13,0.7),rgba(216,33,13,0.16),transparent)] mix-blend-color" />
+            </div>
+          )}
+
           {/* Stage copy — narrative column, kept clear of the visual core */}
           <div className="absolute inset-x-0 top-0 z-20 flex flex-col items-center px-5 pt-10 text-center sm:pt-14 lg:pt-16">
             <p data-journey-phase className="text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">
-              Journey
+              Red Thread / 01
             </p>
             <h1 className="mt-5 max-w-3xl text-balance text-[2.1rem] font-semibold leading-[1.04] tracking-tight text-ink sm:text-4xl lg:text-5xl">
               {line}

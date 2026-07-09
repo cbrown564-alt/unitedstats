@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RhymeMorph, type RhymeMorphSide } from "@/components/journey/RhymeMorph";
-import { JourneyBeat } from "@/components/journey/JourneyBeat";
+import { JourneyBeat, JourneySourceLink, JourneyThreadAnchor } from "@/components/journey/JourneyBeat";
 import { CareerDuelChartLazy } from "@/components/charts/lazy";
 import { EuropeFinalsTimeline, type EuropeFinal } from "@/components/charts/EuropeFinalsTimeline";
 import { MatchFlow } from "@/components/MatchFlow";
@@ -50,9 +50,21 @@ function heroMinute(receipt: FinalReceipt, playerId: string): number | null {
   return g?.minute ?? null;
 }
 
-/** One final, told with the real /match surfaces: the flow bar carrying the goal,
- *  over the ghosted teamsheet with the scorer's shirt marked. */
-function FinalCard({ receipt, heading }: { receipt: FinalReceipt; heading: string }) {
+/** One final, told with the real /match surfaces: the flow bar carries the goal,
+ *  while the teamsheet dims the XI around the scorer's No. 7. */
+function FinalCard({
+  receipt,
+  heading,
+  focusPlayerId,
+  focusPlayerName,
+  focusMinute,
+}: {
+  receipt: FinalReceipt;
+  heading: string;
+  focusPlayerId: string;
+  focusPlayerName: string;
+  focusMinute: number | null;
+}) {
   return (
     <div className="flex flex-col">
       <div className="flex items-baseline justify-center gap-3">
@@ -61,22 +73,34 @@ function FinalCard({ receipt, heading }: { receipt: FinalReceipt; heading: strin
         <span className="stat-num text-sm text-gold">{receipt.score}</span>
       </div>
       <p className="mt-1 text-center text-[11px] uppercase tracking-[0.16em] text-ink-faint">{heading}</p>
+      <p className="mt-3 text-center text-xs font-medium text-ink-dim">
+        <span className="stat-num mr-2 text-gold">No. 7</span>
+        {" "}{focusPlayerName}{focusMinute != null ? ` · ${focusMinute}′` : ""}
+      </p>
 
       <div className="mt-7">
         <MatchFlow
           unitedGoals={receipt.unitedGoals}
           opponentGoals={receipt.opponentGoals}
           aet={receipt.aet}
+          focusPlayerIds={[focusPlayerId]}
         />
       </div>
 
-      {/* The teamsheet, ghosted to atmosphere behind the flow — the scorer's shirt
-         carries its goal mark, so the No. 7 reads without extra chrome. */}
+      {/* The XI remains a real teamsheet, but the named scorer is the clear visual
+         subject rather than one shirt among eleven. */}
       <div
-        className="pointer-events-none mt-6 opacity-60 [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]"
+        className="pointer-events-none mt-6 [mask-image:linear-gradient(to_bottom,#000_72%,transparent)]"
         aria-hidden
       >
-        <FormationPitch starters={receipt.starters} decade={receipt.decade} marks={receipt.marks} />
+        <div className="mx-auto max-w-[32rem]">
+          <FormationPitch
+            starters={receipt.starters}
+            decade={receipt.decade}
+            marks={receipt.marks}
+            focusPlayerIds={[focusPlayerId]}
+          />
+        </div>
       </div>
     </div>
   );
@@ -104,8 +128,18 @@ export default function JourneyPage() {
   const bestYear = seasonEndYear(bestArc.reduce((m, s) => (s.goals > m.goals ? s : m), bestArc[0]).season);
   const ronaldoYear = seasonEndYear(ronaldoArc.reduce((m, s) => (s.goals > m.goals ? s : m), ronaldoArc[0]).season);
 
-  const morphA: RhymeMorphSide = { id: best.id, name: best.label, peakYear: bestYear };
-  const morphB: RhymeMorphSide = { id: ronaldo.id, name: ronaldo.label, peakYear: ronaldoYear };
+  const morphA: RhymeMorphSide = {
+  id: best.id,
+  name: best.label,
+  peakYear: bestYear,
+  imageSrc: "/media/journey/george-best.webp",
+  };
+  const morphB: RhymeMorphSide = {
+  id: ronaldo.id,
+  name: ronaldo.label,
+  peakYear: ronaldoYear,
+  imageSrc: "/media/journey/cristiano-ronaldo.webp",
+  };
 
   const finals: EuropeFinal[] = europeanFinals().filter((f) => EUROPEAN_CUP_NAMES.has(f.competition_name));
 
@@ -131,20 +165,22 @@ export default function JourneyPage() {
       <RhymeMorph a={morphA} b={morphB} />
 
       {/* Beats 1–4 — the thread runs on down the floodlit field. */}
-      <div className="full-bleed-viewport relative bg-pitch">
+      <div className="journey-floodlit full-bleed-viewport relative overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_50%_0%,rgba(255,238,210,0.06),transparent_45%)]"
           aria-hidden
         />
-        <div className="relative mx-auto w-full max-w-5xl px-4">
+        <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-8">
           {/* Beat 1 — the peak (CareerDuelChart, both peaks on season 5). */}
           <JourneyBeat
             step={1}
-            eyebrow="The peak"
-            headline="Each man's best season was his fifth."
+            headline={<>Each man&apos;s best season was <JourneyThreadAnchor>his fifth.</JourneyThreadAnchor></>}
             sub={`${bestName}, ${bestPeak.goals} in ${bestPeak.apps} games. ${ronaldoName}, ${ronaldoPeak.goals} in ${ronaldoPeak.apps}.`}
+            source={<JourneySourceLink href={compareHref} label="Player comparison" />}
+            align="left"
           >
-            <div className="mx-auto max-w-2xl">
+            <div className="relative mx-auto max-w-5xl overflow-hidden bg-pitch bg-[radial-gradient(65%_95%_at_50%_100%,rgba(216,33,13,0.16),transparent_72%)] px-1 py-6 sm:px-8 sm:py-10">
+              <span className="pointer-events-none absolute bottom-0 right-[4%] stat-num text-[11rem] font-bold leading-none text-devil-bright/[0.06] sm:text-[17rem]" aria-hidden>5</span>
               <CareerDuelChartLazy
                 a={ronaldoArc}
                 b={bestArc}
@@ -152,7 +188,10 @@ export default function JourneyPage() {
                 bId={best.id}
                 labelA={ronaldo.label}
                 labelB={best.label}
-                height={300}
+                height={390}
+                emphasisSeason={5}
+                emphasisLabel="Shared peak · season 5"
+                showTooltip={false}
               />
             </div>
           </JourneyBeat>
@@ -160,44 +199,55 @@ export default function JourneyPage() {
           {/* Beat 2 — the turn (European Cup finals; '99 sits between the rhymes). */}
           <JourneyBeat
             step={2}
-            eyebrow="The turn"
-            headline="And both lifted the European Cup that year."
+            headline={<>And both lifted the <JourneyThreadAnchor>European Cup</JourneyThreadAnchor> that year.</>}
             sub={`${bestName}'s Benfica, ${r1968.score}. ${ronaldoName}'s Chelsea, on penalties.`}
+            source={<JourneySourceLink href="/questions/europe" label="European finals" />}
+            align="right"
           >
-            <div className="mx-auto max-w-sm text-left">
-              <EuropeFinalsTimeline finals={finals} />
+            <div className="mx-auto max-w-3xl bg-pitch bg-[radial-gradient(60%_100%_at_50%_48%,rgba(245,197,24,0.08),transparent_70%)] px-2 py-4 text-left sm:px-10 sm:py-8">
+              <EuropeFinalsTimeline finals={finals} featuredIds={[FINAL_1968, FINAL_2008]} />
             </div>
           </JourneyBeat>
 
           {/* Beat 3 — the climax (each scored in the final). */}
           <JourneyBeat
             step={3}
-            eyebrow="The final whistle"
-            headline="And each one scored in the final."
+            headline={<>And each one <JourneyThreadAnchor>scored in the final.</JourneyThreadAnchor></>}
             sub={
               bestMinute != null && ronaldoMinute != null
                 ? `${bestName}, ${bestMinute} minutes. ${ronaldoName}, ${ronaldoMinute}.`
                 : "Best and Ronaldo, on the scoresheet in the game that crowned the season."
             }
-            gold
+            source={
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+                <JourneySourceLink href={`/match/${FINAL_1968}`} label="1968 final" />
+                <JourneySourceLink href={`/match/${FINAL_2008}`} label="2008 final" />
+              </div>
+            }
+            align="center"
           >
             {/* Stacked at the flow's designed width — 1968's three late goals
                (Best 92′, Kidd 93′, Charlton 99′) need the same room the /match
                page gives them, or their labels smear; side-by-side halves that
                width, so the receipts breathe one above the other instead. */}
-            <div className="mx-auto flex max-w-4xl flex-col gap-y-20">
-              <FinalCard receipt={r1968} heading="European Cup Final" />
-              <FinalCard receipt={r2008} heading="Champions League Final" />
+            <div className="mx-auto flex max-w-5xl flex-col gap-y-20 sm:gap-y-28">
+              <div className="relative overflow-hidden bg-pitch bg-[radial-gradient(70%_65%_at_50%_8%,rgba(216,33,13,0.14),transparent_72%)] px-1 py-8 sm:px-8 sm:py-12">
+                <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>68</span>
+                <FinalCard receipt={r1968} heading="European Cup Final" focusPlayerId={best.id} focusPlayerName={bestName} focusMinute={bestMinute} />
+              </div>
+              <div className="relative overflow-hidden bg-pitch bg-[radial-gradient(70%_65%_at_50%_8%,rgba(111,159,224,0.14),transparent_72%)] px-1 py-8 sm:px-8 sm:py-12">
+                <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>08</span>
+                <FinalCard receipt={r2008} heading="Champions League Final" focusPlayerId={ronaldo.id} focusPlayerName={ronaldoName} focusMinute={ronaldoMinute} />
+              </div>
             </div>
           </JourneyBeat>
 
           {/* Beat 4 — the door. */}
           <JourneyBeat
             step={4}
-            eyebrow="The door"
             headline="One thread, forty years."
             sub="Same shirt, same fifth season, same European Cup — each scoring in the final. Now it's yours to pull."
-            gold
+            className="min-h-[65vh] justify-center"
           >
             <div className="flex flex-col items-center gap-6 pb-16">
               <Link

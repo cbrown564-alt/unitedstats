@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { familyName } from "@/lib/names";
 import { fmtDate } from "@/lib/format";
 import { lateGoalPointKey, type AnnotatedLateGoal, type LateGoalPoint } from "@/lib/trails";
 
@@ -17,8 +18,7 @@ function clockLabel(minute: number, added: number | null): string {
 
 function surname(name: string | null): string {
   if (!name) return "goal";
-  const parts = name.replace(/^(Sir|Dr\.?|Mr\.?)\s+/, "").split(" ");
-  return parts[parts.length - 1] ?? name;
+  return familyName(name);
 }
 
 function plotClock(clock: number): number {

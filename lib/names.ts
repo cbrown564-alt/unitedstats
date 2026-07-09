@@ -4,10 +4,16 @@ const SURNAME_PARTICLES = new Set([
   "ter", "ten", "der", "den", "op", "el", "al", "bin", "ibn",
 ]);
 
+/** Generational suffixes stripped before taking the family name. */
+const NAME_SUFFIXES = new Set(["jr", "sr", "jnr", "snr", "ii", "iii", "iv", "v"]);
+
 /** Family / surname for compact labels — handles particles like de, van, van der. */
 export function familyName(fullName: string): string {
   const name = fullName.replace(/^Sir\s+/i, "").trim();
   const parts = name.split(/\s+/).filter(Boolean);
+  while (parts.length > 1 && NAME_SUFFIXES.has(parts[parts.length - 1].toLowerCase().replace(/\.$/, ""))) {
+    parts.pop();
+  }
   if (parts.length <= 1) return name;
 
   let start = parts.length - 1;

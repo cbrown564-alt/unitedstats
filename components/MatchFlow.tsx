@@ -64,15 +64,18 @@ function GoalLabel({
   p,
   lane,
   side,
+  focused,
 }: {
   g: GoalMark;
   p: number;
   lane: number;
   side: "united" | "opponent";
+  /** Story surfaces can bring one scorer forward without muting the match. */
+  focused: boolean;
 }) {
   const anchorTx = anchorTransform(p);
   const lane0 = lane === 0;
-  const minuteClass = side === "united" ? "text-devil-bright" : "text-ink-dim";
+  const minuteClass = focused ? "text-gold" : side === "united" ? "text-devil-bright" : "text-ink-dim";
   const posClass =
     side === "united"
       ? lane0
@@ -87,11 +90,11 @@ function GoalLabel({
       : `top-2 ${lane0 ? "h-[10px] sm:h-[20px]" : "h-[32px] sm:h-[46px]"}`;
 
   const name = g.playerId ? (
-    <Link href={`/player/${g.playerId}`} className="text-ink hover:text-devil-bright">
+    <Link href={`/player/${g.playerId}`} className={focused ? "font-semibold text-gold hover:text-ink" : "text-ink hover:text-devil-bright"}>
       {g.scorer}
     </Link>
   ) : (
-    <span className="text-ink">{g.scorer}</span>
+    <span className={focused ? "font-semibold text-gold" : "text-ink"}>{g.scorer}</span>
   );
 
   const minuteLabel = (
@@ -135,10 +138,12 @@ function GoalLabel({
   );
 }
 
-function GoalDot({ side }: { side: "united" | "opponent" }) {
+function GoalDot({ side, focused }: { side: "united" | "opponent"; focused: boolean }) {
   return (
     <span
-      className={`tap-target relative z-10 block h-3 w-3 rounded-full ring-2 ring-pitch shadow-[0_0_0_1px_rgba(0,0,0,0.35)] sm:h-2.5 sm:w-2.5 ${
+      className={`tap-target relative z-10 block h-3 w-3 rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.35)] sm:h-2.5 sm:w-2.5 ${
+        focused ? "ring-2 ring-gold shadow-[0_0_12px_2px_rgba(245,197,24,0.55)]" : "ring-2 ring-pitch"
+      } ${
         side === "united" ? "bg-devil-bright" : "bg-white/90"
       }`}
     />
@@ -150,15 +155,19 @@ export function MatchFlow({
   opponentGoals,
   aet,
   eventPaths,
+  focusPlayerIds,
 }: {
   unitedGoals: EventRow[];
   opponentGoals: EventRow[];
   aet: boolean;
   /** Maps a goal event seq to correction field paths for point-and-pick mode. */
   eventPaths?: (seq: number) => { scorer?: string; minute?: string } | null;
+  /** A named scorer gets a gold label and knot on story surfaces. */
+  focusPlayerIds?: readonly string[];
 }) {
   const timed = (e: EventRow) => e.minute != null;
   const pathsFor = (seq: number) => eventPaths?.(seq) ?? null;
+  const focusSet = focusPlayerIds?.length ? new Set(focusPlayerIds) : undefined;
 
   const goals: GoalMark[] = [
     ...unitedGoals.filter(timed).map((e) => {
@@ -282,6 +291,7 @@ export function MatchFlow({
         {unitedMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const p = markPos(g);
+          const focused = !!g.playerId && focusSet?.has(g.playerId) === true;
           return (
             <div
               key={g.key}
@@ -289,9 +299,9 @@ export function MatchFlow({
               style={{ left: `${p}%`, transform: "translateX(-50%)" }}
               title={g.title}
             >
-              <GoalLabel g={g} p={p} lane={ln} side="united" />
+              <GoalLabel g={g} p={p} lane={ln} side="united" focused={focused} />
               <span className="-mb-1 block">
-                <GoalDot side="united" />
+                <GoalDot side="united" focused={focused} />
               </span>
             </div>
           );
@@ -319,6 +329,7 @@ export function MatchFlow({
         {oppMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
           const p = markPos(g);
+          const focused = !!g.playerId && focusSet?.has(g.playerId) === true;
           return (
             <div
               key={g.key}
@@ -327,9 +338,9 @@ export function MatchFlow({
               title={g.title}
             >
               <span className="-mt-1 block">
-                <GoalDot side="opponent" />
+                <GoalDot side="opponent" focused={focused} />
               </span>
-              <GoalLabel g={g} p={p} lane={ln} side="opponent" />
+              <GoalLabel g={g} p={p} lane={ln} side="opponent" focused={focused} />
             </div>
           );
         })}

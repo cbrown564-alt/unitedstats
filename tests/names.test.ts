@@ -17,6 +17,12 @@ test("familyName leaves simple surnames unchanged", () => {
   assert.equal(familyName("Sir Alex Ferguson"), "Ferguson");
 });
 
+test("familyName strips generational suffixes", () => {
+  assert.equal(familyName("John Aston Jr"), "Aston");
+  assert.equal(familyName("John Aston Sr"), "Aston");
+  assert.equal(familyName("John Aston Jnr."), "Aston");
+});
+
 test("initialsFor uses given name and family name", () => {
   assert.equal(initialsFor("David de Gea"), "DG");
   assert.equal(initialsFor("Edwin van der Sar"), "ES");

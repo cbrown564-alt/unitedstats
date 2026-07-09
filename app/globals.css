@@ -51,6 +51,18 @@ html {
   margin-left: calc(50% - 50dvw);
 }
 
+/* The journey is a floodlit field, not a sequence of black dashboard panels.
+   The deepest pitch tone remains inside the reused charts, where it preserves
+   their native contrast; the authored route around them keeps a low, varied red
+   wash so the red thread never appears to travel through empty black. */
+.journey-floodlit {
+  background:
+    radial-gradient(115% 72% at 50% -12%, rgb(255 76 38 / 0.2), transparent 54%),
+    radial-gradient(80% 68% at -8% 35%, rgb(135 26 14 / 0.38), transparent 72%),
+    radial-gradient(86% 72% at 108% 68%, rgb(112 19 11 / 0.34), transparent 72%),
+    linear-gradient(180deg, #1b0b08 0%, #120807 46%, #190907 100%);
+}
+
 @media (min-width: 1024px) {
   /* Main content sits beside the fixed sidebar, so the naive 50%-50vw breakout
      lands ~sidebar-width/2 short on the left and overhangs the same on the right,
@@ -205,6 +217,17 @@ body {
   text-decoration-color: var(--color-devil-bright);
   text-decoration-thickness: 2.5px;
   text-underline-offset: 0.45em;
+  text-decoration-skip-ink: none;
+}
+/* Journey: the thread is animated once in the opening morph. Below it, this
+   native underline marks the one phrase whose fact the following visual proves;
+   it stays attached across font loads and responsive line breaks. */
+.journey-thread-anchor {
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-color: var(--color-devil-bright);
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 0.25em;
   text-decoration-skip-ink: none;
 }
 /* Cross-page continuity: a quick, gentle fade between routes (opacity only —
@@ -2283,4 +2306,3 @@ body.match-correction-pick-mode .correction-pickable:focus-visible .correction-p
   overflow-y: auto;
   padding-bottom: 1rem;
 }
-

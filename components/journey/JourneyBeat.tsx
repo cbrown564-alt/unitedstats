@@ -1,104 +1,98 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import Link from "next/link";
+import { type ReactNode } from "react";
 
 type Props = {
-  /** 1-based station number, shown on the thread knot. */
+  /** 1-based beat number, ghosted behind the section. */
   step: number;
-  eyebrow: string;
-  headline: string;
+  headline: ReactNode;
   sub: ReactNode;
   children: ReactNode;
-  /** The climax beat pulls the gold accent; others stay red. */
-  gold?: boolean;
-  /** Draw the connecting thread running up into this beat (all but the first). */
-  connect?: boolean;
+  /** Optional pointer into the living product surface this beat reuses. */
+  source?: ReactNode;
+  /** Chapters alternate their editorial weight instead of repeating one centred stack. */
+  align?: "left" | "right" | "center";
+  className?: string;
 };
+
+/** A filament knot and quiet link — provenance without breaking the stage register. */
+export function JourneySourceLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="group inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-ink-faint transition hover:text-gold focus-ring"
+    >
+      <span className="h-1 w-1 shrink-0 rounded-full bg-devil-bright/35 transition group-hover:bg-gold/70" aria-hidden />
+      <span>{label}</span>
+      <span className="opacity-50 transition group-hover:translate-x-0.5 group-hover:opacity-90" aria-hidden>
+        →
+      </span>
+    </Link>
+  );
+}
+
+/** An authored fact anchor. Native text decoration keeps the mark attached to
+ * its phrase at every viewport and with every font load, without asking the
+ * journey thread to perform another structural job below the opening morph. */
+export function JourneyThreadAnchor({ children }: { children: ReactNode }) {
+  return <span className="journey-thread-anchor">{children}</span>;
+}
 
 /**
  * One station on the journey below the opening morph. The reused app graphic is
- * the payload; the atmospheric dressing (floodlight, eyebrow, headline, the thread
- * knot) sits *around* it, never on it — so the beat reads in TonightHero's register
- * rather than as a dashboard panel. Content rises in as the beat scrolls into view;
- * the thread knot ties the station to the continuous filament. Honours
- * prefers-reduced-motion: everything lands immediately, no travel.
+ * the payload; the atmospheric dressing (floodlight, beat number and headline)
+ * sits *around* it, never on it — so the beat reads in TonightHero's register
+ * rather than as a dashboard panel. The scroll-driven opener is the route's one
+ * substantial animation; these stations are deliberately present in the document
+ * from first paint, so a fast scroll, print/save, or deep link never produces an
+ * empty run of thread. Headlines can mark one authored phrase — the exact fact
+ * the following graphic proves — without asking the opening's filament to
+ * repeat as a connector between every section.
  */
-export function JourneyBeat({ step, eyebrow, headline, sub, children, gold = false, connect = true }: Props) {
-  const ref = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            setShown(true);
-            io.disconnect();
-            break;
-          }
-        }
-      },
-      { rootMargin: "0px 0px -18% 0px", threshold: 0.15 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const accent = gold ? "rgb(245 197 24)" : "rgb(255 90 50)";
+export function JourneyBeat({
+  step,
+  headline,
+  sub,
+  children,
+  source,
+  align = "center",
+  className = "",
+}: Props) {
+  const alignment =
+    align === "left"
+      ? "items-start text-left"
+      : align === "right"
+        ? "items-end text-right"
+        : "items-center text-center";
+  const headingWidth = align === "center" ? "max-w-3xl" : "max-w-2xl";
 
   return (
     <section
-      ref={ref}
-      className="relative flex flex-col items-center px-5 py-16 text-center sm:py-24"
+      className={`relative flex flex-col items-center px-5 py-10 sm:py-12 lg:py-14 ${className}`}
     >
-      {/* The connective thread: a short filament running up from the previous beat
-          into this station's knot, so the journey reads as one continuous thread. */}
-      {connect && (
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 h-14 w-px -translate-x-1/2 sm:h-20"
-          style={{ background: "linear-gradient(to bottom, transparent, rgba(255,90,50,0.5))" }}
-        />
-      )}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-14 -translate-x-1/2 sm:top-20"
-        style={{
-          transform: "translate(-50%, -50%)",
-          width: 9,
-          height: 9,
-          borderRadius: 9999,
-          background: accent,
-          boxShadow: `0 0 14px 2px ${accent}`,
-        }}
-      />
-
       <div
-        className="flex w-full flex-col items-center transition-all duration-700 ease-out"
-        style={{
-          opacity: shown ? 1 : 0,
-          transform: shown ? "none" : "translateY(22px)",
-        }}
+        className={`flex w-full flex-col ${alignment}`}
       >
-        <p
-          className="mt-6 text-[11px] font-semibold uppercase tracking-[0.32em]"
-          style={{ color: gold ? "rgb(245 197 24)" : "var(--color-devil-bright)" }}
-        >
-          {eyebrow}
-        </p>
-        <h2 className="mt-4 max-w-2xl text-balance text-[1.7rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl">
-          {headline}
-        </h2>
-        <p className="mt-3 max-w-xl text-balance text-sm text-ink-dim sm:text-base">{sub}</p>
+        <div className={`relative flex w-full flex-col ${alignment}`}>
+          <span
+            aria-hidden
+            className={`pointer-events-none absolute -top-14 select-none stat-num text-[8rem] font-bold leading-none text-ink/[0.035] sm:-top-20 sm:text-[11rem] ${
+              align === "left" ? "-left-3" : align === "right" ? "-right-3" : "left-1/2 -translate-x-1/2"
+            }`}
+          >
+            0{step}
+          </span>
+          <h2 className={`relative mt-5 ${headingWidth} text-balance text-[2rem] font-semibold leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.35rem]`}>
+            {headline}
+          </h2>
+          <p className="relative mt-4 max-w-xl text-balance text-sm leading-6 text-ink-dim sm:text-base">{sub}</p>
+          {source && <div className="relative mt-5">{source}</div>}
+        </div>
 
-        {/* The reused graphic — framed by light, not a border. */}
-        <div className="mt-10 w-full">{children}</div>
+        {/* The reused graphic has room to become the scene, rather than a tiny
+            dashboard attachment under the chapter heading. */}
+        <div className="mt-12 w-full sm:mt-16">{children}</div>
       </div>
     </section>
   );

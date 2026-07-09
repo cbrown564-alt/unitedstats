@@ -36,6 +36,7 @@ import { AnswerThread, type ThreadStation } from "@/components/AnswerThread";
 import { ThreadBeatRow, ThreadUnderline, type ThreadBeat } from "@/components/ThreadBeatRow";
 import { ShareCite } from "@/components/ShareCite";
 import { questionBySlug } from "@/lib/questions";
+import { familyName } from "@/lib/names";
 import { fmtDate, fmtMonthYear, fmtNum, pct, venuePrefix } from "@/lib/format";
 
 const BRITAIN: [number, number, number, number] = [49.8, 56.3, -7.6, 2.3];
@@ -1649,10 +1650,9 @@ function ordinal(n: number): string {
   return `${n}${s[(v - 20) % 10] ?? s[v] ?? s[0]}`;
 }
 
-/** Last token of a name, dropping honorifics — for compact manager bar labels. */
+/** Compact surname for manager bar labels. */
 function surname(name: string): string {
-  const parts = name.replace(/^(Sir|Dr\.?|Mr\.?)\s+/, "").split(" ");
-  return parts[parts.length - 1] ?? name;
+  return familyName(name);
 }
 
 /** Slug → rendered evidence module, the counterpart to the `QUESTIONS` registry. */

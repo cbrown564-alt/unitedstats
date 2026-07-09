@@ -1,11 +1,12 @@
 "use client";
 
-import { useId } from "react";
+import { type MouseEvent as ReactMouseEvent, useId } from "react";
 import { useRouter } from "next/navigation";
 import {
   Area,
   AreaChart,
   CartesianGrid,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -207,6 +208,9 @@ export function CareerDuelChart({
   rate = false,
   chart = "goals",
   height = 264,
+  emphasisSeason,
+  emphasisLabel,
+  showTooltip = true,
 }: {
   a: CareerSeason[];
   b: CareerSeason[];
@@ -217,6 +221,11 @@ export function CareerDuelChart({
   rate?: boolean;
   chart?: CareerChartMetric;
   height?: number;
+  /** A chapter can make one shared career season the visual subject. */
+  emphasisSeason?: number;
+  emphasisLabel?: string;
+  /** Story charts can reserve hover for direct point navigation. */
+  showTooltip?: boolean;
 }) {
   const gid = useId().replace(/:/g, "");
   const router = useRouter();
@@ -242,7 +251,13 @@ export function CareerDuelChart({
       if (cx == null || cy == null || !payload) return <g />;
       const href = series === "a" ? payload.aHref : payload.bHref;
       const isPeak = payload.n === peak;
-      const onActivate = () => {
+      const isEmphasized = payload.n === emphasisSeason;
+      // The peak/emphasis circles are painted above the generous transparent
+      // hit target. Bind the activation to their shared group so clicking the
+      // visible marker opens its season too, rather than falling through to the
+      // chart's coarse-pointer inspection handler.
+      const onActivate = (event: ReactMouseEvent<SVGGElement>) => {
+        event.stopPropagation();
         if (coarse && pinned === payload && href) {
           router.push(href);
           return;
@@ -254,17 +269,34 @@ export function CareerDuelChart({
         if (href) router.push(href);
       };
       return (
-        <g>
+        <g className={href ? "cursor-pointer" : undefined} onClick={href ? onActivate : undefined}>
           <circle
             cx={cx}
             cy={cy}
             r={hitRadius}
             fill="transparent"
-            className={href ? "cursor-pointer" : undefined}
-            onClick={onActivate}
           />
+          {isEmphasized && (
+            <circle
+              cx={cx}
+              cy={cy}
+              r={10}
+              fill="var(--color-pitch)"
+              stroke="var(--color-gold)"
+              strokeWidth={2}
+              pointerEvents="none"
+            />
+          )}
           {isPeak && (
-            <circle cx={cx} cy={cy} r={4.5} fill={color} stroke="var(--color-panel)" strokeWidth={1.5} />
+            <circle
+              cx={cx}
+              cy={cy}
+              r={isEmphasized ? 5.5 : 4.5}
+              fill={color}
+              stroke="var(--color-panel)"
+              strokeWidth={1.5}
+              pointerEvents="none"
+            />
           )}
         </g>
       );
@@ -281,9 +313,16 @@ export function CareerDuelChart({
   return (
     <div ref={rootRef} className="flex h-auto w-full flex-col" style={{ height }}>
       <div className="mb-1 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
-          {labels.title}
-        </p>
+        <div className="flex items-center gap-3">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+            {labels.title}
+          </p>
+          {emphasisSeason != null && (
+            <span className="stat-num text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">
+              {emphasisLabel ?? `Season ${emphasisSeason}`}
+            </span>
+          )}
+        </div>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-dim">
           <Swatch color={A_COLOR} label={labelA} />
           <Swatch color={B_COLOR} label={labelB} />
@@ -318,6 +357,15 @@ export function CareerDuelChart({
               <stop offset="100%" stopColor={B_COLOR} stopOpacity={0.02} />
             </linearGradient>
           </defs>
+          {emphasisSeason != null && (
+            <ReferenceArea
+              x1={emphasisSeason - 0.24}
+              x2={emphasisSeason + 0.24}
+              fill="var(--color-gold)"
+              fillOpacity={0.1}
+              ifOverflow="extendDomain"
+            />
+          )}
           <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.6} vertical={false} />
           <XAxis
             dataKey="n"
@@ -348,7 +396,7 @@ export function CareerDuelChart({
             tickFormatter={(v) => (rate ? (v as number).toFixed(chart === "cleanSheets" ? 0 : 1) : fmtAxisNumber(v, ""))}
             allowDecimals={rate}
           />
-          {!coarse && (
+          {!coarse && showTooltip && (
             <Tooltip
               content={<DuelTooltip labelA={labelA} labelB={labelB} rate={rate} chart={chart} />}
               cursor={{ stroke: "var(--color-ink-dim)", strokeOpacity: 0.4, strokeWidth: 1 }}
@@ -363,7 +411,7 @@ export function CareerDuelChart({
             strokeWidth={2}
             fill={`url(#duel-a-${gid})`}
             dot={dotFor("a")}
-            activeDot={{ r: coarse ? 7 : 4, stroke: A_COLOR, strokeWidth: 2, fill: "var(--color-panel)" }}
+            activeDot={showTooltip ? { r: coarse ? 7 : 4, stroke: A_COLOR, strokeWidth: 2, fill: "var(--color-panel)" } : false}
             connectNulls
             isAnimationActive={false}
           />
@@ -375,7 +423,7 @@ export function CareerDuelChart({
             strokeWidth={2}
             fill={`url(#duel-b-${gid})`}
             dot={dotFor("b")}
-            activeDot={{ r: coarse ? 7 : 4, stroke: B_COLOR, strokeWidth: 2, fill: "var(--color-panel)" }}
+            activeDot={showTooltip ? { r: coarse ? 7 : 4, stroke: B_COLOR, strokeWidth: 2, fill: "var(--color-panel)" } : false}
             connectNulls
             isAnimationActive={false}
           />

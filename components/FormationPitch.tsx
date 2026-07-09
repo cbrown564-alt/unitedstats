@@ -46,11 +46,23 @@ const cardFor = (marks: MatchMarks | undefined, id: string | null) =>
   id && marks ? marks.cards.get(id) : undefined;
 
 /** A single shirt + name + event marks, placed on the pitch. */
-function PitchPlayer({ p, decade, marks }: { p: LineupRow; decade: string | null; marks?: MatchMarks }) {
+function PitchPlayer({
+  p,
+  decade,
+  marks,
+  focusPlayerIds,
+}: {
+  p: LineupRow;
+  decade: string | null;
+  marks?: MatchMarks;
+  focusPlayerIds?: ReadonlySet<string>;
+}) {
   const name = p.player_display_name;
   const goals = goalsFor(marks, p.player_id);
   const assists = assistsFor(marks, p.player_id);
   const card = cardFor(marks, p.player_id);
+  const hasFocus = focusPlayerIds?.size != null && focusPlayerIds.size > 0;
+  const focused = !!p.player_id && focusPlayerIds?.has(p.player_id);
   const node = (
     <>
       <span className="relative inline-block">
@@ -73,14 +85,16 @@ function PitchPlayer({ p, decade, marks }: { p: LineupRow; decade: string | null
     <Link
       href={`/player/${p.player_id}`}
       title={p.role ?? undefined}
-      className="group flex w-[4.25rem] flex-col items-center gap-0.5 text-center"
+      className={`group flex w-[4.25rem] flex-col items-center gap-0.5 text-center transition ${
+        focused ? "z-10 scale-110 text-ink drop-shadow-[0_0_9px_rgba(245,197,24,0.65)]" : hasFocus ? "opacity-35" : ""
+      }`}
     >
       {node}
     </Link>
   ) : (
     <span
       title={p.role ?? undefined}
-      className="group flex w-[4.25rem] flex-col items-center gap-0.5 text-center"
+      className={`group flex w-[4.25rem] flex-col items-center gap-0.5 text-center ${hasFocus ? "opacity-35" : ""}`}
     >
       {node}
     </span>
@@ -91,10 +105,13 @@ export function FormationPitch({
   starters,
   decade,
   marks,
+  focusPlayerIds,
 }: {
   starters: LineupRow[];
   decade: string | null;
   marks?: MatchMarks;
+  /** When a story has a named player, keep the rest of the XI as quiet context. */
+  focusPlayerIds?: readonly string[];
 }) {
   const year = decade && /^\d{4}$/.test(decade) ? Number(decade) : null;
   const placed = starters.map((p) => ({ p, at: pitchPlacement(p, year) }));
@@ -109,6 +126,7 @@ export function FormationPitch({
 
   // Starters we can't place anywhere — shown apart rather than guessed.
   const unplaced = placed.filter((x) => x.at === null).map((x) => x.p);
+  const focusSet = focusPlayerIds?.length ? new Set(focusPlayerIds) : undefined;
 
   // The weakest evidence layer any placed player relied on, so the caption stays
   // honest: a recorded role is strongest, a career band the loosest.
@@ -159,6 +177,7 @@ export function FormationPitch({
                   p={p}
                   decade={decade}
                   marks={marks}
+                  focusPlayerIds={focusSet}
                 />
               ))}
             </div>
@@ -173,6 +192,7 @@ export function FormationPitch({
                     p={p}
                     decade={decade}
                     marks={marks}
+                    focusPlayerIds={focusSet}
                   />
                 ))}
               </div>

@@ -132,13 +132,13 @@ has real rising information and a climax, instead of one fact told four ways.
 Throughline: *two No. 7s, forty years apart — same shirt, same career peak, and
 both scored in the European Cup final that crowned it.*
 
-| Beat | Graphic (surface showcased) | Headline | Sub / evidence |
-|------|------------------------------|----------|----------------|
-| **0. The opening** | `RhymeMorph` stage — two ghosted years on the wings, the No. 7 monument, thread dormant *(the thread metaphor)* | "1968. 2008." | "George Best. Cristiano Ronaldo. Forty years apart." |
-| **1. The peak** | `CareerDuelChart` — both career arcs on the shared season axis, **season 5 highlighted** on both *(showcases `/compare`)* | "Each man's best season was his fifth." | "32 in 53. 42 in 49." |
-| **2. The turn** | `EuropeFinalsTimeline` — the European-finals spine, '68 and '08 gold and called out *(showcases the European thread; '99 sits between them — the bridge to chapter 2)* | "And both lifted the European Cup that year." | "Best's Benfica, 4–1. Ronaldo's Chelsea, on penalties." |
-| **3. The climax** | `MatchFlow` (Best 92′, Ronaldo 25′) over ghosted `FormationPitch` lineups of each final *(showcases `/match/[id]`)* | "Both scored in the final." | "Best, 92 minutes. Ronaldo, 25." |
-| **4. The door** | Thread lands, quiet *(exit into the living product)* | — | "Open the full duel →" (`/compare`); "1968 final →" / "2008 final →" (the receipts) |
+| Beat | Graphic (surface showcased) | Headline | Sub / evidence | Source pointer |
+|------|------------------------------|----------|----------------|----------------|
+| **0. The opening** | `RhymeMorph` stage — ghosted years on the wings, portrait monuments flanking the No. 7, thread dormant *(the thread metaphor)* | "1968. 2008." → "Two No. 7s." → "The same red seven." | Names + forty-year gap; then peak years at land | — |
+| **1. The peak** | `CareerDuelChart` — both career arcs, **season 5 emphasised** *(showcases `/compare`)* | "Each man's best season was **his fifth.**" | "Best, 32 in 53. Ronaldo, 42 in 49." | Player comparison → `/compare` |
+| **2. The turn** | `EuropeFinalsTimeline` — premier-trophy spine, **'68 and '08 featured** *(showcases `/questions/europe`)* | "And both lifted the **European Cup** that year." | "Best's Benfica, 4–1. Ronaldo's Chelsea, on penalties." | European finals → `/questions/europe` |
+| **3. The climax** | `MatchFlow` + `FormationPitch` — scorer focused in flow and XI *(showcases `/match/[id]`)* | "And each one **scored in the final.**" | "Best, 92 minutes. Ronaldo, 25." | 1968 final / 2008 final → `/match/[id]` |
+| **4. The door** | Quiet exit *(into the living product)* | "One thread, forty years." | Recap + hand-off | "Open the full duel →" (`/compare`); receipt links repeat |
 
 **Why this isn't flat:** Beat 1 establishes the peak (fact 1). Beat 2 turns —
 *that's also the cup* (fact 2, new). Beat 3 lands the climax neither previous
@@ -147,48 +147,63 @@ Information accumulates, so the copy never has to manufacture suspense.
 
 **As built (deltas from the sketch above):**
 
-- Beat 0 no longer reveals the fifth-season stat (that's beat 1's job now). The
-  morph carries only the *first* rhyme — one shirt, forty years — landing on
-  "The same red seven." / "Best, 1968. Ronaldo, 2008." with a quiet
-  *follow the thread ↓* hand-off. Runway trimmed 360→300vh; the 32/42 foot panel
-  and the compare door were removed (the door is beat 4).
+- Beat 0 no longer reveals the fifth-season stat (that's beat 1's job). The morph
+  carries only the *first* rhyme — one shirt, forty years — in three copy phases
+  ("1968. 2008." → "Two No. 7s." → "The same red seven.") with a quiet
+  *follow the thread ↓* hand-off. Runway trimmed 300→210vh; the 32/42 foot panel
+  and the compare door were removed (the door is beat 4). Licensed portrait
+  monuments (`public/media/journey/*.webp`, built by `scripts/cache-journey-portraits.ts`)
+  flank the No. 7 at half-viewport scale — heavily treated atmosphere, not match
+  photography. The loop neck is centred on the No. 7 (any horizontal offset read as
+  a near-miss); a short initial filament (32% drawn) makes the loop legible before
+  scroll.
 - Beat 3's two finals **stack vertically**, each at the flow's real `/match`
   width. Side-by-side halved the width and smeared 1968's three late goals
   (Best 92′, Kidd 93′, Charlton 99′) into one label; stacked, each `MatchFlow`
-  reads at match-page parity. The `FormationPitch` is ghosted with
-  opacity + a bottom mask (not the `muted` shirt mode — that greys the red XI,
-  which is the point); the scorer's shirt carries its goal mark, so the No. 7
-  reads without extra chrome.
-- `CareerDuelChart` keeps its `/compare` red/blue identity (it *is* the compare
-  surface being showcased); both peak dots land on season 5, so the chart's own
-  markers are the "same fifth season" highlight — no bespoke annotation added.
+  reads at match-page parity. `focusPlayerIds` on `MatchFlow` and `FormationPitch`
+  brings the named scorer forward (gold label + knot in the flow; scaled shirt with
+  gold glow on the XI, rest at 35% opacity) rather than greying the whole teamsheet.
+  Each receipt card names the No. 7, minute, and year watermark (68 / 08).
+- `CareerDuelChart` keeps its `/compare` red/blue identity; `emphasisSeason={5}`
+  adds a gold `ReferenceArea` band, enlarged peak dots, and a "Shared peak · season 5"
+  label. `showTooltip={false}` on the journey beat reserves hover for direct
+  season navigation (points still open their season on click).
+- `EuropeFinalsTimeline` takes `featuredIds` — the rhyme finals ('68, '08) get
+  large gold year callouts and full opacity; the rest (including '99 between them)
+  stay honest context at reduced opacity. `shortCompetition` no longer strips
+  "European" from "European Cup" (only the UEFA prefix on Champions League).
 - Each beat below the morph is a `JourneyBeat` (`components/journey/JourneyBeat.tsx`):
-  an IntersectionObserver reveal wrapper that frames the reused graphic with the
-  floodlit eyebrow/headline/sub and a thread-knot node, so the continuous thread
-  ties station to station. Reduced motion → everything lands immediately.
+  ghosted step numeral, large headline with one `JourneyThreadAnchor` phrase
+  underlined in devil-bright (native `text-decoration`, not a separate filament),
+  alternating `align` (left / right / center), and an optional `JourneySourceLink`
+  provenance pointer (filament knot + uppercase label + arrow) into the living
+  product surface the beat reuses. No scroll-reveal animation or connective thread
+  knots between beats — content is present from first paint; the morph owns motion.
+- The route background is `.journey-floodlit` (`globals.css`): layered red wash and
+  warm floodlight gradients, not flat `bg-pitch` panels — the deepest pitch tone
+  stays inside reused charts where contrast needs it.
 - The European spine is the *premier* trophy only (European Cup + Champions
   League): '68/'99/'08 wins to the right, '09/'11 losses to the left. `europeanFinals()`
   filtered by competition name; the '99 win sits between the rhymes as intended.
-  Minor honest quirk: `shortCompetition` renders "European Cup" as "Cup".
+- `familyName()` (`lib/names.ts`) centralises compact surname labels (particles,
+  suffixes, honorifics) — used on the journey route and deduplicated from
+  `QuestionModules`, `LateGoalScatter`, etc.
 
 **Graphic reuse (all exist, all route-agnostic — data props only):**
 
-- `RhymeMorph` — the bespoke stage already shipped; serves beat 0 and the
-  continuous thread metaphor. To stay honest it must remain chrome-free and
-  `prefers-reduced-motion`-aware (see build notes).
-- `CareerDuelChart` (`components/charts/CareerDuelChart.tsx`) — already marks the
-  peak season dot; `isAnimationActive` is false, so a scroll-reveal wrapper
-  drives season-5 emphasis from progress. Use the `*Lazy` barrel to keep it off
-  the critical path.
+- `RhymeMorph` — the bespoke stage; beat 0 and the continuous thread metaphor.
+  Chrome-free, `prefers-reduced-motion`-aware, portrait monuments optional via
+  `imageSrc` on each side. See build notes.
+- `CareerDuelChart` (`components/charts/CareerDuelChart.tsx`) — peak season dot
+  plus optional `emphasisSeason` / `emphasisLabel` / `showTooltip` for story
+  surfaces. Use the `*Lazy` barrel to keep it off the critical path.
 - `EuropeFinalsTimeline` (`components/charts/EuropeFinalsTimeline.tsx`) —
-  server-rendered, zero client JS; takes `EuropeFinal[]`. The '99 win sitting
-  between the two rhymes is a free foreshadow of chapter 2 (Treble).
+  server-rendered; takes `EuropeFinal[]` and optional `featuredIds`. The '99 win
+  sitting between the two rhymes is a free foreshadow of chapter 2 (Treble).
 - `MatchFlow` + `FormationPitch` (`components/MatchFlow.tsx`,
-  `components/FormationPitch.tsx`) — both server-rendered. `FormationPitch`
-  already has a `muted`/grayscale shirt mode (`ShirtBadge`); a ghost variant is
-  trivial since shirt colours are hardcoded SVG literals. Lineup data for both
-  finals is complete (11 starters each; '68 from classic 1–11 shirt placement,
-  '08 from recorded roles).
+  `components/FormationPitch.tsx`) — both server-rendered. Optional
+  `focusPlayerIds` dims the XI around a named scorer and gold-highlights their
+  goal in the flow. Lineup data for both finals is complete (11 starters each).
 
 **Data every beat is anchored to (all DB-derived, none asserted):**
 
@@ -233,6 +248,29 @@ called the 2008 win "*a second European Cup*" — it was the **third** ('68, '99
   into the red field while Ronaldo popped — an unintended bias.)
 - **Honest numbers.** 32-in-53 vs 42-in-49, data-driven from `peakGames` (season
   `apps`), so the gap reads as era/fixtures — not "Ronaldo just scored more."
+- **Floodlit field, not dashboard panels.** `.journey-floodlit` wraps the route
+  below the morph: warm red gradients and corner washes so the thread never
+  travels through empty black. Individual beats add local pitch panels + ghost
+  numerals (5, 68, 08) inside the chart frames only.
+- **One underline per headline.** `JourneyThreadAnchor` marks the single phrase
+  each graphic proves (`his fifth.`, `European Cup`, `scored in the final.`) with
+  native `text-decoration` — attached across line breaks, no second filament
+  system below the morph.
+- **Provenance without breaking register.** `JourneySourceLink` on beats 1–3:
+  tiny devil-bright knot, uppercase tracked label, quiet arrow — links into
+  `/compare`, `/questions/europe`, and the two `/match` receipts. Beat 4 keeps
+  the primary door CTA; source pointers are editorial, not chrome.
+- **Alternating editorial weight.** Beats alternate `align` left / right / center
+  so the chapter doesn't repeat one centred stack. Ghost step numerals (01–04)
+  sit behind the headline block.
+- **Motion budget.** Scroll animation is owned entirely by beat 0 (`RhymeMorph`).
+  Beats 1–4 are static from first paint — fast scroll, print, and deep links
+  never show empty stations. Removed the earlier IntersectionObserver fade-in
+  and inter-beat thread knots (they competed with the morph and felt dashboard-y).
+- **Portrait monuments.** Journey-specific 1024px WebP derivatives
+  (`scripts/cache-journey-portraits.ts` → `public/media/journey/`) from the same
+  Wikimedia lineage as player cards. Heavily masked/blurred in the morph — faces
+  as atmosphere, not hero photography.
 
 ### Out of scope for the pilot
 
@@ -285,22 +323,23 @@ Falsifiable:
 
 If (1) fails, the morph is wrong or the copy is — fix before adding chapters.
 
-**Status (2026-07-09):** the **multi-beat arc is now built** on `/journey` and
-cleared build review on 2–5 (screenshots in `output/screenshots/journey-v2-*`).
+**Status (2026-07-09):** the **multi-beat arc is built and polished** on `/journey`.
 The flat single-fact version is gone: the morph carries the shirt rhyme (beat 0),
 then three stations each reuse a different app surface carrying a *new* rhyming
-fact — the peak (`CareerDuelChart`, both peaks on season 5), the cup
-(`EuropeFinalsTimeline`), the goal (`MatchFlow` over a ghosted `FormationPitch`) —
-before the door into `/compare` and the two receipts (beat 4). Information rises,
-so the copy states facts instead of manufacturing suspense.
+fact — the peak (`CareerDuelChart`, season 5 emphasised), the cup
+(`EuropeFinalsTimeline`, '68/'08 featured), the goal (`MatchFlow` +
+`FormationPitch` with scorer focus) — each with a quiet source pointer into the
+living product, before the door into `/compare` and the two receipts (beat 4).
+Information rises, so the copy states facts instead of manufacturing suspense.
 
-- (2) thread metaphor reads in one pass — the loop through the No. 7, then the
-  knot-node spine tying each station down the field. ✓
-- (3) exits into `/compare` (+ 1968/2008 receipts) without feeling unfinished. ✓
-- (4) reduced motion lands the morph state and reveals every beat immediately. ✓
-- (5) one visual language — the reused charts bring their own axes (honest
-  showcase), the atmospheric dressing stays around them, not on them. ✓
-- (1) — the season-5 jolt — is now *shown* (the two peak dots align on season 5)
+- (2) thread metaphor reads in one pass — the loop through the No. 7, portrait
+  monuments, then underline anchors on each headline phrase. ✓
+- (3) exits into `/compare` (+ 1968/2008 receipts) without feeling unfinished;
+  beats 1–3 also link to their source surfaces en route. ✓
+- (4) reduced motion lands the morph state; beats 1–4 are always visible. ✓
+- (5) one visual language — reused charts bring their own axes (honest showcase),
+  floodlit dressing stays around them; source links use the same knot register. ✓
+- (1) — the season-5 jolt — is now *shown* (emphasis band + aligned peak dots)
   and re-staked on the trophy/goal climax; still **awaits a real nostalgist**.
 
 ---
@@ -312,21 +351,27 @@ so the copy states facts instead of manufacturing suspense.
   arc (compare + European Cup finals + both final receipts) and emits the
   pre-paint `data-chrome="off"` script
 - Beat 0 (opening morph): `components/journey/RhymeMorph.tsx`
-- Beats 1–4 (reveal wrapper + thread spine): `components/journey/JourneyBeat.tsx`
+- Beats 1–4 (headline frame + source pointers): `components/journey/JourneyBeat.tsx`
+  — exports `JourneyThreadAnchor`, `JourneySourceLink`
 - Finals-receipt data (`MatchFlow` + `FormationPitch` props for both finals):
   `lib/journey.ts` (`finalReceipt`), mirroring `app/match/[id]/page.tsx`
-- Reused surfaces: `CareerDuelChartLazy`, `EuropeFinalsTimeline`, `MatchFlow`,
-  `FormationPitch` — all data-props-only, none forked
-- Chrome-off rules: `html[data-chrome="off"]` block in `app/globals.css`
+- Journey portraits: `scripts/cache-journey-portraits.ts` → `public/media/journey/`
+- Reused surfaces (extended, not forked): `CareerDuelChartLazy`
+  (`emphasisSeason`, `showTooltip`), `EuropeFinalsTimeline` (`featuredIds`),
+  `MatchFlow` + `FormationPitch` (`focusPlayerIds`)
+- Styles: `html[data-chrome="off"]`, `.journey-floodlit`, `.journey-thread-anchor`
+  in `app/globals.css`
 - Data: `comparePlayers("cristiano-ronaldo", "george-best")` + `europeanFinals()`
   (filtered to the premier trophy) + `finalReceipt` over `1968-05-29-benfica-n`
   and `2008-05-21-chelsea-n` (`match_events`, `match_lineups`) — no new ingest.
 
-**Shipped 2026-07-09** — multi-beat arc: beat 0 morph retuned to the shirt rhyme
-(narrated-suspense copy + 32/42 foot panel removed); beats 1–3 each showcase a
-different existing graphic carrying a new rhyming fact; beat 4 the door into
-`/compare` + both receipts. Earlier single-morph pilot: commits `272234e` →
-`09b3716` → `dc8e17c` → `d715ac4`.
+**Shipped 2026-07-09** — branch `cursor/journey-ronaldo-best-morph`:
+
+| Phase | What landed |
+|-------|-------------|
+| Prototype | Scroll morph, chrome-free stage, looping filament (`272234e` → `dc8e17c`) |
+| Multi-beat arc | Beats 1–4 with reused surfaces, `finalReceipt`, noindex route (`09b3716` → `87a2314`) |
+| Polish | Floodlit field, portrait monuments, thread anchors, alternating beats, chart emphasis/focus props, source pointers, `familyName()` (`d715ac4` onward + final commit) |
 
 Once the arc clears criterion (1) with a real nostalgist, graduate durable
 decisions into `DESIGN.md` / `PRODUCT.md` and decide packaging (§3).
