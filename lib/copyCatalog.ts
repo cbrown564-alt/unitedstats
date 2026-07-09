@@ -1,66 +1,27 @@
 /**
- * Shared types and paths for the copy-review catalog (Phase 0–1).
- * Source of truth for prose remains the TS/TSX registries; these JSON files
- * are the review layer (inventory + queue status).
+ * Server-side copy catalog/queue IO. Client UI imports types from `lib/copyTypes`.
  */
 
 import fs from "node:fs";
 import path from "node:path";
 
-export type CopyTier = "A" | "B" | "C";
+import type { CopyCatalogFile, CopyQueueEntry, CopyQueueFile, CopyQueueStatus } from "./copyTypes";
 
-export type CopyKind =
-  | "tagline"
-  | "question"
-  | "label"
-  | "summary"
-  | "finding"
-  | "slice"
-  | "coverage"
-  | "gloss"
-  | "stakes"
-  | "hook"
-  | "title"
-  | "blurb"
-  | "eyebrow"
-  | "dek"
-  | "hint"
-  | "placeholder"
-  | "editorial"
-  | "description"
-  | "template";
-
-export type CopyQueueStatus = "todo" | "rewritten" | "keep" | "skip";
-
-export interface CopyItem {
-  id: string;
-  group: string;
-  tier: CopyTier;
-  route?: string;
-  file: string;
-  kind: CopyKind;
-  text: string;
-  siblings?: string[];
-}
-
-export interface CopyCatalogFile {
-  generatedAt: string;
-  itemCount: number;
-  byTier: Record<CopyTier, number>;
-  items: CopyItem[];
-}
-
-export interface CopyQueueEntry {
-  id: string;
-  status: CopyQueueStatus;
-  notes?: string;
-  updatedAt?: string;
-}
-
-export interface CopyQueueFile {
-  updatedAt: string;
-  entries: Record<string, CopyQueueEntry>;
-}
+export type {
+  CopyCatalogFile,
+  CopyItem,
+  CopyKind,
+  CopyQueueEntry,
+  CopyQueueFile,
+  CopyQueueStatus,
+  CopyTier,
+} from "./copyTypes";
+export {
+  COPY_QUEUE_STATUSES,
+  COPY_RUBRIC_CHECKS,
+  countByStatus,
+  isCopyQueueStatus,
+} from "./copyTypes";
 
 export const COPY_CONTENT_DIR = path.join(process.cwd(), "content");
 export const COPY_CATALOG_PATH = path.join(COPY_CONTENT_DIR, "copy-catalog.json");
@@ -100,27 +61,47 @@ export function mergeQueue(
   now = new Date().toISOString(),
 ): CopyQueueFile {
   const entries: Record<string, CopyQueueEntry> = {};
-  const idSet = new Set(catalogIds);
   for (const id of catalogIds) {
     const existing = prev.entries[id];
-    entries[id] = existing
-      ? { ...existing, id }
-      : { id, status: "todo" };
+    entries[id] = existing ? { ...existing, id } : { id, status: "todo" };
   }
-  // Drop queue rows whose catalog id disappeared (source removed).
-  void idSet;
   return { updatedAt: now, entries };
 }
 
-export function countByStatus(queue: CopyQueueFile): Record<CopyQueueStatus, number> {
-  const counts: Record<CopyQueueStatus, number> = {
-    todo: 0,
-    rewritten: 0,
-    keep: 0,
-    skip: 0,
-  };
-  for (const e of Object.values(queue.entries)) {
-    counts[e.status] += 1;
+/** Copy Studio + queue API are local-dev only. */
+export function copyStudioEnabled(): boolean {
+  return process.env.NODE_ENV === "development";
+}
+
+export function saveCopyQueue(queue: CopyQueueFile, filePath = COPY_QUEUE_PATH): void {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, `${JSON.stringify(queue, null, 2)}\n`);
+}
+
+export function updateQueueEntry(
+  queue: CopyQueueFile,
+  id: string,
+  patch: { status?: CopyQueueStatus; notes?: string | null },
+  now = new Date().toISOString(),
+): CopyQueueFile {
+  const existing = queue.entries[id];
+  if (!existing) {
+    throw new Error(`unknown copy queue id: ${id}`);
   }
-  return counts;
+  const next: CopyQueueEntry = {
+    ...existing,
+    updatedAt: now,
+  };
+  if (patch.status !== undefined) next.status = patch.status;
+  if (patch.notes !== undefined) {
+    if (patch.notes === null || patch.notes.trim() === "") {
+      delete next.notes;
+    } else {
+      next.notes = patch.notes;
+    }
+  }
+  return {
+    updatedAt: now,
+    entries: { ...queue.entries, [id]: next },
+  };
 }

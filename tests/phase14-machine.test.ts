@@ -172,7 +172,7 @@ test("robots allows read-only API routes and dataset exports while disallowing s
   assert.deepEqual(policy.rules, {
     userAgent: "*",
     allow: ["/", "/api/v1/", "/dataset/"],
-    disallow: ["/api/search/click"],
+    disallow: ["/api/search/click", "/dev/", "/api/dev/"],
   });
   assert.equal(policy.sitemap, `${SITE_URL}/sitemap.xml`);
 });

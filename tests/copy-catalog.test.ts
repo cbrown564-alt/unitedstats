@@ -18,6 +18,7 @@ import {
   loadCopyQueue,
   mergeQueue,
   emptyQueue,
+  updateQueueEntry,
 } from "../lib/copyCatalog";
 import { QUESTIONS, questionSlugs } from "../lib/questions";
 import { CURATED_NIGHTS } from "../lib/curatedNights";
@@ -43,6 +44,19 @@ test("mergeQueue preserves status and adds new ids as todo", () => {
   assert.equal(merged.entries["site:tagline"]?.notes, "fine");
   assert.equal(merged.entries["home:dek"]?.status, "todo");
   assert.equal(Object.keys(merged.entries).length, 2);
+});
+
+test("updateQueueEntry sets status and clears empty notes", () => {
+  const queue = emptyQueue();
+  queue.entries["site:tagline"] = {
+    id: "site:tagline",
+    status: "todo",
+    notes: "old",
+  };
+  const next = updateQueueEntry(queue, "site:tagline", { status: "keep", notes: "  " });
+  assert.equal(next.entries["site:tagline"]?.status, "keep");
+  assert.equal(next.entries["site:tagline"]?.notes, undefined);
+  assert.throws(() => updateQueueEntry(queue, "missing", { status: "keep" }));
 });
 
 test("copy catalog exists and covers Tier A registries", () => {
