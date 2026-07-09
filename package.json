@@ -37,6 +37,7 @@
     "build:db": "tsx scripts/build-db.ts",
     "export:dataset": "tsx scripts/export-dataset.ts",
     "validate": "tsx scripts/validate.ts",
+    "copy:extract": "tsx scripts/extract-copy-catalog.ts",
     "upload:db": "tsx scripts/upload-db.ts",
     "revalidate": "tsx scripts/revalidate.ts",
     "update": "tsx pipeline/update.ts"
