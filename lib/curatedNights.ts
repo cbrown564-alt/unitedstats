@@ -8,7 +8,7 @@ export const CURATED_NIGHTS: CuratedSpec[] = [
   // — European nights —
   { id: "1968-05-29-benfica-n", stakes: "Ten years after Munich, the first English club to win the European Cup." },
   { id: "1999-05-26-bayern-munich-n", stakes: "Bayern lead in the 90th; two stoppage-time goals win the European Cup." },
-  { id: "2008-05-21-chelsea-n", stakes: "Penalties in Moscow rain — a second European Cup." },
+  { id: "2008-05-21-chelsea-n", stakes: "Penalties in Moscow rain — a third European Cup." },
   { id: "1991-05-15-barcelona-n", stakes: "Two from Mark Hughes against his old club — Cup Winners' Cup." },
   { id: "2017-05-24-afc-ajax-n", stakes: "Europa League final — the one major trophy still missing, claimed." },
 

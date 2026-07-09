@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { familyName } from "@/lib/names";
 
@@ -63,25 +62,22 @@ export type RhymeMorphSide = {
   id: string;
   name: string;
   peakYear: number;
-  peakSeason: string;
-  peakGoals: number;
-  peakGames: number;
 };
 
 type Props = {
   a: RhymeMorphSide;
   b: RhymeMorphSide;
-  compareHref: string;
 };
 
 /**
- * Immersive scroll chapter: Best ↔ Ronaldo as a floodlit, chrome-free stage.
- *
- * A shared No. 7 monument; two ghosted peak years on the wings; and a luminous
- * filament that loops history so the peaks touch. Type + light + thread — no
- * chart chrome. See docs/JOURNEY.md.
+ * Beat 0 — the opening. Best ↔ Ronaldo as a floodlit, chrome-free stage: a shared
+ * No. 7 monument, two ghosted years on the wings, and a luminous filament that
+ * loops history until the two sevens touch. It carries only the first rhyme — one
+ * shirt, forty years apart — and hands off downward; the peak, the cup and the
+ * goal are the beats that follow. Type + light + thread, no chart chrome. See
+ * docs/JOURNEY.md §4.
  */
-export function RhymeMorph({ a, b, compareHref }: Props) {
+export function RhymeMorph({ a, b }: Props) {
   const runwayRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [reduced, setReduced] = useState(false);
@@ -163,32 +159,20 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
   const sevenOpacity = reduced ? 0.12 : 0.06 + awaken * 0.05 + loopDraw * 0.05 + land * 0.04;
   const sevenScale = lerp(1, 0.86, land);
 
-  // Copy: opener teases, middle raises the question, then we set up the career
-  // index before the reveal lands — and make the 32/42 gap honest.
-  const line =
-    p < 0.22
-      ? "Same shirt. Same number."
-      : p < 0.46
-        ? "Two peaks. One shape."
-        : p < 0.7
-          ? "Counted from his debut, each man's fifth year was his best."
-          : "Both peaked in season five.";
-
+  // Copy: the opener states the pair and the gap, then the loop lands the first
+  // rhyme — one shirt. Facts only; the peak, the cup and the goal are later beats.
+  const line = p < 0.5 ? "Two No. 7s." : "The same red seven.";
   const sub =
-    p < 0.22
-      ? "Two No. 7s, forty years apart at opposite ends of United's story."
-      : p < 0.46
-        ? "The years don't match — but something does."
-        : p < 0.7
-          ? "A career step, not a calendar year. The same step, a generation apart."
-          : `${a.peakGoals} in ${a.peakGames} games. ${b.peakGoals} in ${b.peakGames}. Different eras, same step.`;
+    p < 0.5
+      ? "Forty years apart, at each end of United's story."
+      : `${aName}, ${a.peakYear}. ${bName}, ${b.peakYear}.`;
 
   return (
-    <div ref={runwayRef} data-journey-runway className="relative" style={{ height: reduced ? "100dvh" : "360vh" }}>
+    <div ref={runwayRef} data-journey-runway className="relative" style={{ height: reduced ? "100dvh" : "300vh" }}>
       <div
         className={`${reduced ? "relative" : "sticky top-0"} z-10 h-dvh`}
         role="img"
-        aria-label={`${a.name} and ${b.name}: both peaked in their fifth United season, ${a.peakYear} and ${b.peakYear}. ${a.peakGoals} in ${a.peakGames} games; ${b.peakGoals} in ${b.peakGames} games.`}
+        aria-label={`${a.name} and ${b.name}: two Manchester United No. 7s, forty years apart — ${b.peakYear} and ${a.peakYear}.`}
       >
         <div className="full-bleed-viewport relative h-full overflow-hidden bg-pitch">
           {/* Atmosphere */}
@@ -398,47 +382,21 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
             </g>
           </svg>
 
-          {/* Landed rhyme — the climax, with the door into the living product */}
+          {/* The hand-off: the thread doesn't end at the shirt — it runs on down
+             into the peak, the cup and the goal. The morph carries only the first
+             rhyme; the beats below carry the rest. */}
           <div
-            className="absolute inset-x-0 bottom-[6%] z-20 sm:bottom-[8%]"
-            style={{
-              opacity: land,
-              transform: `translateY(${lerp(36, 0, land)}px)`,
-            }}
+            className="absolute inset-x-0 bottom-[9%] z-20 flex flex-col items-center"
+            style={{ opacity: land, transform: `translateY(${lerp(20, 0, land)}px)` }}
           >
-            <div className="mx-auto max-w-2xl px-5 text-center">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gold">Fifth season</p>
-              <div className="mt-5 flex items-end justify-center gap-12 sm:gap-20">
-                <div>
-                  <p className="stat-num text-5xl font-bold leading-none text-ink sm:text-7xl">{a.peakGoals}</p>
-                  <p className="mt-3 text-sm font-medium text-ink sm:text-base">{aName}</p>
-                  <p className="stat-num mt-1 text-xs text-ink-faint">{a.peakSeason}</p>
-                </div>
-                <div>
-                  <p className="stat-num text-5xl font-bold leading-none text-ink sm:text-7xl">{b.peakGoals}</p>
-                  <p className="mt-3 text-sm font-medium text-ink sm:text-base">{bName}</p>
-                  <p className="stat-num mt-1 text-xs text-ink-faint">{b.peakSeason}</p>
-                </div>
-              </div>
-              <p className="mx-auto mt-7 max-w-md text-balance text-sm leading-relaxed text-ink-dim sm:text-base">
-                The most United goals either scored in a season — on the same step of the career,
-                forty years apart.
-              </p>
-              <div className="mt-7 flex flex-col items-center gap-4">
-                <Link
-                  href={compareHref}
-                  className="inline-flex items-center gap-2 rounded-full border border-devil-bright/60 bg-devil/15 px-6 py-3 text-sm font-semibold text-ink shadow-[0_0_30px_-6px_rgba(255,59,31,0.6)] transition hover:border-devil-bright hover:bg-devil/25 focus-ring"
-                >
-                  Open the full duel →
-                </Link>
-                <Link
-                  href="/explore"
-                  className="text-xs font-medium uppercase tracking-[0.18em] text-ink-faint transition hover:text-devil-bright focus-ring"
-                >
-                  Next chapter: what else rhymes? →
-                </Link>
-              </div>
-            </div>
+            <p className="text-[11px] font-medium lowercase tracking-[0.14em] text-ink-faint">
+              follow the thread
+            </p>
+            {!reduced && (
+              <span aria-hidden className="mt-2 animate-bounce text-base text-devil-bright/80">
+                ↓
+              </span>
+            )}
           </div>
 
           {!reduced && p < 0.05 && (

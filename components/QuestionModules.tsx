@@ -1063,7 +1063,7 @@ function EuropeModule({ variant }: ModuleProps) {
               ? "Ten years after Munich — the first English club to lift the European Cup."
               : f.date.startsWith("1999")
                 ? "Teddy, then Ole — the Treble completed."
-                : "Penalties in the Moscow rain — a second European Cup.",
+                : "Penalties in the Moscow rain — a third European Cup.",
         }))}
       />
       <div className="space-y-1.5">
