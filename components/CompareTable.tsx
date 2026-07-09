@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Comparison, CompareMetric, CompareMode, CompareSide, CompareSignature } from "@/lib/compare";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
+import { CompareCareerTimeline } from "@/components/charts/CompareCareerTimeline";
 import { CareerDuelChartLazy, EraSkylineChartLazy } from "@/components/charts/lazy";
 import { TrophyCabinet } from "@/components/CompareSignatures";
 import { ShareCite } from "@/components/ShareCite";
@@ -196,7 +197,7 @@ function MeasuresStrip({
 function Rhymes({ rhymes }: { rhymes: { label: string; detail: string }[] }) {
   return (
     <div className="border-y border-line bg-panel-2/30 px-4 py-3 sm:px-5">
-      <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Where they rhymed</p>
+      <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">Fun facts</p>
       <ul className="grid gap-x-6 gap-y-1 sm:grid-cols-2">
         {rhymes.map((r) => (
           <li key={r.label} className="text-sm">
@@ -224,16 +225,19 @@ function Signature({
 }) {
   if (signature.kind === "career") {
     return (
-      <CareerDuelChartLazy
-        a={signature.a}
-        b={signature.b}
-        aId={a.id}
-        bId={b.id}
-        labelA={a.label}
-        labelB={b.label}
-        rate={rate}
-        chart={signature.chart}
-      />
+      <>
+        <CompareCareerTimeline a={a} b={b} />
+        <CareerDuelChartLazy
+          a={signature.a}
+          b={signature.b}
+          aId={a.id}
+          bId={b.id}
+          labelA={a.label}
+          labelB={b.label}
+          rate={rate}
+          chart={signature.chart}
+        />
+      </>
     );
   }
   if (signature.kind === "trophies") {

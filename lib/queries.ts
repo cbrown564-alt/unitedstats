@@ -1095,6 +1095,45 @@ export function playerSplitsBySeason(id: string): {
     }[];
 }
 
+/** One continuous United spell — first and last calendar years with an appearance. */
+export interface PlayerCareerStint {
+  first: number;
+  last: number;
+}
+
+/** United spells separated by a gap of two or more seasons without an appearance.
+ *  Most players return one stint; returners (Ronaldo, Beckham, …) get two or more. */
+export function playerCareerStints(id: string): PlayerCareerStint[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT CAST(substr(m.season, 1, 4) AS INTEGER) AS yr,
+              MIN(CAST(substr(m.date, 1, 4) AS INTEGER)) AS min_y,
+              MAX(CAST(substr(m.date, 1, 4) AS INTEGER)) AS max_y
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0
+       GROUP BY yr
+       ORDER BY yr`,
+    )
+    .all(id) as { yr: number; min_y: number; max_y: number }[];
+
+  if (rows.length === 0) return [];
+
+  const stints: PlayerCareerStint[] = [];
+  let stint: PlayerCareerStint = { first: rows[0].min_y, last: rows[0].max_y };
+
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i].yr > rows[i - 1].yr + 1) {
+      stints.push(stint);
+      stint = { first: rows[i].min_y, last: rows[i].max_y };
+    } else {
+      stint.last = rows[i].max_y;
+    }
+  }
+  stints.push(stint);
+  return stints;
+}
+
 /** Matches in which the player scored three or more — a hat-trick count, the
  *  natural measure of a dominant single-game performance. Drawn from the same
  *  match-attributed goal record as the career arc and the per-90 rate, so it is

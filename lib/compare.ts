@@ -2,7 +2,7 @@ import { getDb } from "./db";
 import { playerCareerSpan } from "./format";
 import {
   CUP_WON_PREDICATE, managerById, managerHonours, playerById, playerDefensiveBySeason,
-  playerDefensiveTotals, playerHatTricks, playerSplitsBySeason, type PlayerDefensiveTotals, type PlayerTotals,
+  playerDefensiveTotals, playerHatTricks, playerCareerStints, playerSplitsBySeason, type PlayerDefensiveTotals, type PlayerTotals,
 } from "./queries";
 
 /**
@@ -65,6 +65,11 @@ export interface CompareSide {
   position_label?: string | null;
   href?: string;
   thumb?: string | null;
+  /** Calendar years of first and last United appearance — for the club-history timeline. */
+  careerFirst?: number;
+  careerLast?: number;
+  /** Separate United spells when a player left and returned (e.g. Ronaldo). */
+  careerStints?: { first: number; last: number }[];
 }
 
 export interface CompareMetric {
@@ -240,7 +245,16 @@ function playerCompareProfile(a: PlayerTotals, b: PlayerTotals): PlayerComparePr
   return "attacking";
 }
 
+function playerCareerYears(p: PlayerTotals): { first: number; last: number } | null {
+  const first = p.first_year ?? (p.first_date ? Number(p.first_date.slice(0, 4)) : null);
+  const last = p.last_year ?? (p.last_date ? Number(p.last_date.slice(0, 4)) : first);
+  if (first == null) return null;
+  return { first, last: last ?? first };
+}
+
 function playerSide(p: PlayerTotals, span: string): CompareSide {
+  const years = playerCareerYears(p);
+  const stints = playerCareerStints(p.player_id);
   return {
     id: p.player_id,
     label: p.name,
@@ -248,6 +262,9 @@ function playerSide(p: PlayerTotals, span: string): CompareSide {
     position_label: p.position_label,
     href: `/player/${p.player_id}`,
     thumb: p.player_thumb_url ?? p.player_image_url,
+    careerFirst: years?.first,
+    careerLast: years?.last,
+    careerStints: stints.length > 0 ? stints : years ? [{ first: years.first, last: years.last }] : undefined,
   };
 }
 

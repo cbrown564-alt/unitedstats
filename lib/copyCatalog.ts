@@ -16,14 +16,11 @@ export type {
   CopyCatalogFile,
   CopyItem,
   CopyKind,
-  CopyQueueEntry,
   CopyQueueFile,
   CopyQueueStatus,
   CopyTier,
 } from "./copyTypes";
 export {
-  COPY_QUEUE_STATUSES,
-  COPY_RUBRIC_CHECKS,
   countByStatus,
   isCopyQueueStatus,
 } from "./copyTypes";
