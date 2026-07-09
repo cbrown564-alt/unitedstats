@@ -34,10 +34,12 @@ function buildFilament(
   by: number,
   loopR: number,
 ) {
-  // Neck of the loop — the two strands run close here, like a slipknot returning
-  // on itself. Slight horizontal offset so the loop reads as a curl, not a ring.
+  // Neck of the loop — where both tails cinch and the circle returns on itself.
+  // Slight horizontal offset so the loop reads as a curl, not a dead-centre ring.
   const neckX = LOOP_X - loopR * 0.18;
   const neckY = LOOP_Y - loopR;
+  // The point diametrically opposite the neck (bottom of the loop).
+  const botY = neckY + loopR * 2;
   // A gentle organic bow on the outer runs so it isn't a dead-straight chord.
   const bow = lerp(26, 8, clamp01(loopR / 140));
 
@@ -45,8 +47,10 @@ function buildFilament(
     `M ${ax.toFixed(1)} ${ay.toFixed(1)} ` +
     `C ${lerp(ax, neckX, 0.35).toFixed(1)} ${(ay - bow).toFixed(1)} ` +
     `${lerp(neckX, ax, 0.4).toFixed(1)} ${(neckY + bow * 0.4).toFixed(1)} ${neckX.toFixed(1)} ${neckY.toFixed(1)} ` +
-    // Full circle around the monument = the loop that returns on itself.
-    `A ${loopR.toFixed(1)} ${loopR.toFixed(1)} 0 1 1 ${neckX.toFixed(1)} ${neckY.toFixed(1)} ` +
+    // Full circle around the monument, drawn as two half-arcs. A single arc whose
+    // start == end is dropped by the SVG spec, so the loop must be two semicircles.
+    `A ${loopR.toFixed(1)} ${loopR.toFixed(1)} 0 0 1 ${neckX.toFixed(1)} ${botY.toFixed(1)} ` +
+    `A ${loopR.toFixed(1)} ${loopR.toFixed(1)} 0 0 1 ${neckX.toFixed(1)} ${neckY.toFixed(1)} ` +
     `C ${lerp(neckX, bx, 0.4).toFixed(1)} ${(neckY + bow * 0.4).toFixed(1)} ` +
     `${lerp(bx, neckX, 0.35).toFixed(1)} ${(by - bow).toFixed(1)} ${bx.toFixed(1)} ${by.toFixed(1)}`;
 
@@ -240,7 +244,7 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
                 <feGaussianBlur stdDeviation="16" />
               </filter>
               <filter id="journey-yearglow" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="10" />
+                <feGaussianBlur stdDeviation="7" />
               </filter>
             </defs>
 
@@ -282,21 +286,21 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
               d={loopPath}
               fill="none"
               stroke="rgb(255 90 50)"
-              strokeOpacity={0.5 * loopDraw}
-              strokeWidth="6"
+              strokeOpacity={0.55 * loopDraw}
+              strokeWidth="8"
               strokeLinecap="round"
               strokeLinejoin="round"
               pathLength={1}
               strokeDasharray={1}
               strokeDashoffset={1 - loopDraw}
-              style={{ filter: "blur(3px)" }}
+              style={{ filter: "blur(3.4px)" }}
             />
             {/* Living filament — the hero mark */}
             <path
               d={loopPath}
               fill="none"
               stroke="url(#journey-filament)"
-              strokeWidth="2.8"
+              strokeWidth="3.4"
               strokeLinecap="round"
               strokeLinejoin="round"
               pathLength={1}
@@ -305,9 +309,12 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
               opacity={lerp(0, 1, loopDraw)}
             />
 
-            {/* Ghosted peak years — warm off-white, luminous (not muddy gold) */}
+            {/* Ghosted peak years — crisp floodlit numerals over a soft warm halo.
+               The halo is the only blurred layer; the numerals stay sharp so they
+               read as stadium type, not a defocused smear. */}
             {[a, b].map((side, i) => {
               const kx = i === 0 ? knotAX : knotBX;
+              const nm = i === 0 ? aName : bName;
               return (
                 <g key={side.id} style={{ opacity: yearsOpacity }}>
                   <text
@@ -317,9 +324,10 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
                     dominantBaseline="central"
                     className="stat-num"
                     style={{
-                      fontSize: "190px",
+                      fontSize: "168px",
                       fontWeight: 700,
-                      fill: "rgb(243 237 232)",
+                      fill: "rgb(255 223 188)",
+                      opacity: 0.4,
                       filter: "url(#journey-yearglow)",
                     }}
                   >
@@ -327,18 +335,33 @@ export function RhymeMorph({ a, b, compareHref }: Props) {
                   </text>
                   <text
                     x={kx}
-                    y={knotY + 116}
+                    y={knotY}
                     textAnchor="middle"
                     dominantBaseline="central"
-                    className="display"
+                    className="stat-num"
                     style={{
-                      fontSize: "44px",
-                      fontWeight: 600,
-                      letterSpacing: "0.01em",
-                      fill: "rgb(243 237 232)",
+                      fontSize: "168px",
+                      fontWeight: 700,
+                      fill: "rgb(240 233 226)",
+                      opacity: 0.9,
                     }}
                   >
-                    {i === 0 ? aName : bName}
+                    {side.peakYear}
+                  </text>
+                  <text
+                    x={kx}
+                    y={knotY + 124}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "34px",
+                      fontWeight: 500,
+                      letterSpacing: "-0.01em",
+                      fill: "rgb(216 207 199)",
+                    }}
+                  >
+                    {nm}
                   </text>
                 </g>
               );
