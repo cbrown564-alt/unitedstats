@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { questionBySlug, questionSlugs, isArchivedQuestion } from "@/lib/questions";
+import { jsonLdHtml, questionJsonLd } from "@/lib/structuredData";
 import { relatedAnswers } from "@/lib/related";
 import { QUESTION_COMPONENTS } from "@/components/QuestionModules";
 import { RelatedAnswers } from "@/components/RelatedAnswers";
@@ -52,6 +53,9 @@ export default async function QuestionPage({
 
   return (
     <div className="space-y-8">
+      {!archived && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(questionJsonLd(q)) }} />
+      )}
       <DetailBreadcrumb
         segments={[
           { label: "Discover", href: "/explore" },

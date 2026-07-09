@@ -6,6 +6,7 @@
 import Database from "better-sqlite3";
 import fs from "node:fs";
 import path from "node:path";
+import { citationPlain, manifestRegistryFields } from "../lib/datasetDistribution";
 import { DB_PATH } from "./lib";
 
 const OUT_DIR = path.join(process.cwd(), "public", "dataset");
@@ -211,19 +212,18 @@ const meta = Object.fromEntries(
   (db.prepare("SELECT key, value FROM meta").all() as { key: string; value: string }[]).map((r) => [r.key, r.value]),
 );
 
+const registry = manifestRegistryFields();
+
 fs.writeFileSync(
   path.join(OUT_DIR, "manifest.json"),
   JSON.stringify(
     {
-      name: "Red Thread dataset",
-      description:
-        "Every Manchester United match since 1886 with goal events, lineups, Elo history, and season summaries. Coverage varies by facet; see the events_complete and has_lineup flags and the site's /data page.",
+      ...registry,
+      citation: citationPlain(meta.built_at),
       built_at: meta.built_at,
       first_match: meta.first_match,
       last_match: meta.last_match,
       files: counts,
-      attribution: "Red Thread. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
-      docs: "/data#downloads",
     },
     null,
     2,

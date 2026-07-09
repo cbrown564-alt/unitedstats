@@ -1,7 +1,18 @@
 {
   "name": "Red Thread dataset",
-  "description": "Every Manchester United match since 1886 with goal events, lineups, Elo history, and season summaries. Coverage varies by facet; see the events_complete and has_lineup flags and the site's /data page.",
-  "built_at": "2026-07-08T16:39:47.080Z",
+  "description": "Every Manchester United match since 1886 with goal events, lineups, Elo history, season summaries, and transfer ledger. Coverage varies by facet; see events_complete and has_lineup flags and the site's /data page.",
+  "homepage": "https://unitedstats.vercel.app",
+  "url": "https://unitedstats.vercel.app/dataset/manifest.json",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "citation": "Red Thread (2026). Red Thread dataset: The open evidence base for Manchester United history. https://unitedstats.vercel.app/data. Licensed CC BY-SA 4.0. Stable record IDs use the us: scheme (e.g. us:match:1999-05-26-bayern-munich-n).",
+  "identifier_scheme": "us",
+  "identifier_example": "us:match:1999-05-26-bayern-munich-n",
+  "docs": "/data#downloads",
+  "api": "/api/v1",
+  "llms_txt": "/llms.txt",
+  "attribution": "Red Thread. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
+  "built_at": "2026-07-08T18:20:34.803Z",
   "first_match": "1886-10-30",
   "last_match": "2026-05-24",
   "files": {
@@ -13,11 +24,9 @@
     "season_summaries.csv": 398,
     "league_standings.csv": 2553,
     "players.csv": 984,
-    "player_media.csv": 139,
+    "player_media.csv": 140,
     "manager_media.csv": 22,
     "og_scorer_media.csv": 84,
     "player_positions.csv": 937
-  },
-  "attribution": "Red Thread. Result data: engsoccerdata, openfootball, Wikipedia. Player record totals: Wikipedia Manchester United player lists. Player images: Wikidata and Wikimedia Commons. Player positions: Wikidata P413 (with hand-checked corrections). Transfers: MUFCInfo transfer archive.",
-  "docs": "/data#downloads"
+  }
 }

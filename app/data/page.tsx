@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   coverageByCompetitionType,
@@ -17,8 +18,43 @@ import { DataTable } from "@/components/DataTable";
 import { enrichDataGaps } from "@/lib/dataGaps";
 import { fmtNum, pct, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { CORRECTION_STATUS_URL } from "@/lib/corrections";
+import {
+  API_INDEX_PATH,
+  CITABLE_ID_EXAMPLE,
+  CITABLE_ID_PREFIX,
+  DATASET_FILES,
+  DATASET_LICENSE,
+  DATASET_LICENSE_URL,
+  DATASET_MANIFEST_PATH,
+  DATASET_NAME,
+  DATA_PAGE_API_ANCHOR,
+  DATA_PAGE_CITATION_ANCHOR,
+  DATA_PAGE_DOWNLOADS_ANCHOR,
+  LLMS_TXT_PATH,
+  absoluteUrl,
+  apiEndpointHref,
+  citationBibTeX,
+  citationPlain,
+  featuredApiEndpoints,
+  featuredDatasetFiles,
+} from "@/lib/datasetDistribution";
+import { SITE_URL } from "@/lib/site";
 
-export const metadata = { title: "Data and corrections" };
+const DATA_DESCRIPTION =
+  "Coverage ledger, open dataset downloads, public API, citation guidance, and correction contract for United's match record since 1886.";
+
+export const metadata: Metadata = {
+  title: "Data and corrections",
+  description: DATA_DESCRIPTION,
+  alternates: { canonical: "/data" },
+  openGraph: {
+    type: "website",
+    title: "Data and corrections · Red Thread",
+    description: DATA_DESCRIPTION,
+    url: "/data",
+  },
+  twitter: { card: "summary_large_image", title: "Data and corrections", description: DATA_DESCRIPTION },
+};
 
 /**
  * Movement header for the page's three acts (the record → its cuts → how it's
@@ -231,33 +267,79 @@ export default function DataPage() {
           </div>
         </div>
 
-        {/* Appendix — in-page developer register */}
+        {/* Appendix — researchers, developers, and machine readers */}
         <div className="rounded-xl border border-line/80 bg-black/20 p-5 shadow-[inset_0_1px_0_rgb(255_255_255_/0.04)] sm:p-6">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">For developers</p>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">
+            For researchers &amp; developers
+          </p>
+          <p className="mb-6 max-w-2xl text-sm text-ink-dim">
+            The same compiled record powers the site, the public API, and the flat-file exports. Start with the manifest,
+            cite stable <span className="font-mono text-xs text-ink">{CITABLE_ID_PREFIX}:</span> IDs when linking back to
+            a specific match or entity, and read facet flags before treating event or lineup fields as complete totals.
+          </p>
 
           <div className="space-y-8">
+            <section id="downloads" className="scroll-mt-24">
+              <h3 className="display mb-3 text-lg">
+                <a href={DATA_PAGE_DOWNLOADS_ANCHOR} className="hover:text-devil-bright">
+                  Dataset downloads
+                </a>
+              </h3>
+              <p className="mb-4 max-w-2xl text-sm text-ink-dim">
+                Each production build exports flat files from the compiled SQLite database, so the downloadable{" "}
+                {DATASET_NAME.toLowerCase()} matches the app and API.{" "}
+                <a href={DATASET_MANIFEST_PATH} className="font-mono text-xs text-devil-bright hover:underline">
+                  {DATASET_MANIFEST_PATH}
+                </a>{" "}
+                lists row counts, build metadata, and registry fields for data catalogs.
+              </p>
+              <ul className="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
+                {featuredDatasetFiles().map((file) => (
+                  <li key={file.file}>
+                    <a
+                      href={file.path}
+                      className="block rounded border border-line/70 bg-panel/60 px-3 py-2 transition-colors hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright"
+                    >
+                      <span className="font-mono text-sm text-devil-bright">{file.file}</span>
+                      <span className="mt-1 block text-xs text-ink-dim">{file.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <details className="mt-4 rounded-lg border border-line/70 bg-panel/40 px-4 py-3">
+                <summary className="cursor-pointer text-sm font-medium text-ink">All export files ({DATASET_FILES.length})</summary>
+                <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+                  {DATASET_FILES.filter((f) => !f.featured).map((file) => (
+                    <li key={file.file}>
+                      <a href={file.path} className="font-mono text-xs text-devil-bright hover:underline">
+                        {file.file}
+                      </a>
+                      <span className="mt-0.5 block text-xs text-ink-dim">{file.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </section>
+
             <section id="api" className="scroll-mt-24">
               <h3 className="display mb-3 text-lg">Public read-only API</h3>
               <p className="mb-4 max-w-2xl text-sm text-ink-dim">
-                The API serves the same read-only record used by the app. Responses are plain JSON with permissive CORS,
-                pagination on the large lists, and an attribution block that points back to this coverage ledger.
+                JSON responses with permissive CORS, pagination on large lists, and an attribution block on every payload.
+                The index at{" "}
+                <a href={DATA_PAGE_API_ANCHOR} className="font-mono text-xs text-devil-bright hover:underline">
+                  {API_INDEX_PATH}
+                </a>{" "}
+                lists every endpoint with filter notes.
               </p>
               <ul className="grid gap-2 text-sm sm:grid-cols-2">
-                {[
-                  ["/api/v1/meta", "Dataset metadata and coverage counts"],
-                  ["/api/v1/matches", "Paginated matches, filterable by date, season, venue, and opponent"],
-                  ["/api/v1/matches/{id}", "One match with events, lineups, Elo, and sources"],
-                  ["/api/v1/seasons", "Season summaries by competition"],
-                  ["/api/v1/players", "Player totals with pagination"],
-                  ["/api/v1/opponents", "Opponent head-to-head records"],
-                ].map(([href, text]) => (
-                  <li key={href}>
+                {featuredApiEndpoints().map((endpoint) => (
+                  <li key={endpoint.path}>
                     <a
-                      href={href.replace("{id}", "1999-05-26-bayern-munich-n")}
+                      href={apiEndpointHref(endpoint.path, endpoint.examplePath)}
                       className="block rounded border border-line/70 bg-panel/60 px-3 py-2 transition-colors hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright"
                     >
-                      <span className="font-mono text-sm text-devil-bright">{href}</span>
-                      <span className="mt-1 block text-xs text-ink-dim">{text}</span>
+                      <span className="font-mono text-sm text-devil-bright">{endpoint.path}</span>
+                      <span className="mt-1 block text-xs text-ink-dim">{endpoint.label}</span>
                     </a>
                   </li>
                 ))}
@@ -268,33 +350,45 @@ export default function DataPage() {
               </p>
             </section>
 
-            <section id="downloads" className="scroll-mt-24">
-              <h3 className="display mb-3 text-lg">Dataset downloads</h3>
+            <section id="citation" className="scroll-mt-24">
+              <h3 className="display mb-3 text-lg">How to cite Red Thread</h3>
               <p className="mb-4 max-w-2xl text-sm text-ink-dim">
-                Each production build exports flat files from the compiled SQLite database, so the downloadable release
-                matches the app and API. Use the manifest first to see file counts and build metadata.
+                The dataset is licensed{" "}
+                <a href={DATASET_LICENSE_URL} className="text-devil-bright hover:underline">
+                  {DATASET_LICENSE}
+                </a>
+                . Credit Red Thread with a link to{" "}
+                <a href={DATA_PAGE_CITATION_ANCHOR} className="font-mono text-xs text-devil-bright hover:underline">
+                  {SITE_URL}/data
+                </a>
+                , preserve per-source attribution in reused rows, and prefer stable{" "}
+                <span className="font-mono text-xs text-ink">{CITABLE_ID_PREFIX}:</span> identifiers when pointing at a
+                specific record (e.g.{" "}
+                <span className="font-mono text-xs text-ink">{CITABLE_ID_EXAMPLE}</span>).
               </p>
-              <ul className="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
-                {[
-                  ["manifest.json", "Release metadata and row counts"],
-                  ["matches.csv", "Fixture spine and match facts"],
-                  ["events.csv", "Goal, assist, and card event rows"],
-                  ["lineups.csv", "Starting, bench, and substitution rows"],
-                  ["elo_history.csv", "Pre/post-match ratings and expectancies"],
-                  ["season_summaries.csv", "Competition season summaries"],
-                  ["players.csv", "All-time player totals"],
-                ].map(([file, text]) => (
-                  <li key={file}>
-                    <a
-                      href={`/dataset/${file}`}
-                      className="block rounded border border-line/70 bg-panel/60 px-3 py-2 transition-colors hover:border-devil/60 focus-visible:outline-2 focus-visible:outline-devil-bright"
-                    >
-                      <span className="font-mono text-sm text-devil-bright">{file}</span>
-                      <span className="mt-1 block text-xs text-ink-dim">{text}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <div className="space-y-3">
+                <div className="rounded-lg border border-line/70 bg-panel/60 px-4 py-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-ink-faint">Plain text</p>
+                  <p className="mt-2 font-mono text-xs leading-6 text-ink-dim">{citationPlain()}</p>
+                </div>
+                <details className="rounded-lg border border-line/70 bg-panel/40 px-4 py-3">
+                  <summary className="cursor-pointer text-sm font-medium text-ink">BibTeX</summary>
+                  <pre className="mt-3 overflow-x-auto font-mono text-xs leading-6 text-ink-dim">{citationBibTeX()}</pre>
+                </details>
+              </div>
+            </section>
+
+            <section id="machines" className="scroll-mt-24">
+              <h3 className="display mb-3 text-lg">AI crawlers &amp; registries</h3>
+              <p className="max-w-2xl text-sm text-ink-dim">
+                Machine-readable site guidance lives at{" "}
+                <Link href={LLMS_TXT_PATH} className="font-mono text-xs text-devil-bright hover:underline">
+                  {LLMS_TXT_PATH}
+                </Link>
+                . For football data registries and research indexes, list the dataset with manifest URL{" "}
+                <span className="font-mono text-xs text-ink">{absoluteUrl(DATASET_MANIFEST_PATH)}</span> and point
+                documentation to this page.
+              </p>
             </section>
 
             <p className="text-xs text-ink-dim">

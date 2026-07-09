@@ -9,12 +9,10 @@ import { type LeaderboardItem } from "@/components/Leaderboard";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, pct, fmtYearRange } from "@/lib/format";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
 export const revalidate = 86400;
-export const metadata = {
-  title: "Players",
-  description: "Everyone to pull on the shirt for Manchester United since 1886 — searchable and sortable by appearances, goals, assists, and career span.",
-};
+export const metadata = seoMetadata(listSeo.players.title, listSeo.players.description);
 
 type PlayerSortKey = "name" | "shirt" | "apps" | "starts" | "goals" | "assists" | "span";
 

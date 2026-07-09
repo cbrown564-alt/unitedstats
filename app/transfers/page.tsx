@@ -7,11 +7,9 @@ import { loadInflationIndices } from "@/lib/inflationIndices";
 import { TransfersLedger } from "@/components/transfers/TransfersLedger";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PageHeader } from "@/components/PageHeader";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Transfers",
-  description: "A century and a half of Manchester United transfer business — record fees, signings, sales, and net spend by manager since 1883.",
-};
+export const metadata = seoMetadata(listSeo.transfers.title, listSeo.transfers.description);
 
 export default async function TransfersPage() {
   const transfers = datedTransfers();

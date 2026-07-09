@@ -1,9 +1,24 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { FeedbackFormEmbed } from "@/components/FeedbackFormEmbed";
 import { FEEDBACK_FORM_CONFIGURED } from "@/lib/feedback";
 
-export const metadata = { title: "Send feedback" };
+const FEEDBACK_DESCRIPTION =
+  "Bug, confusing chart, missing feature, or how the spark landed — send general feedback about Red Thread.";
+
+export const metadata: Metadata = {
+  title: "Send feedback",
+  description: FEEDBACK_DESCRIPTION,
+  alternates: { canonical: "/feedback" },
+  openGraph: {
+    type: "website",
+    title: "Send feedback · Red Thread",
+    description: FEEDBACK_DESCRIPTION,
+    url: "/feedback",
+  },
+  twitter: { card: "summary_large_image", title: "Send feedback", description: FEEDBACK_DESCRIPTION },
+};
 
 type SP = Record<string, string | string[] | undefined>;
 

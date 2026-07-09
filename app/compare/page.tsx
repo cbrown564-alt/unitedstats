@@ -10,14 +10,12 @@ import { CompareTable } from "@/components/CompareTable";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
 export const revalidate = 86400;
-export const metadata = {
-  title: "Compare",
-  description:
-    "Compare two Manchester United careers or managerial tenures side by side on shared, coverage-aware metrics.",
+export const metadata = seoMetadata(listSeo.compare.title, listSeo.compare.description, {
   alternates: { canonical: "/compare" },
-};
+});
 
 type ComparePageMode = Extract<CompareMode, "players" | "managers">;
 

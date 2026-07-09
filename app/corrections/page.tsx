@@ -1,9 +1,24 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { CorrectionBuilder } from "./CorrectionBuilder";
 import { CORRECTION_STATUS_URL, correctionPayloadFromSearchParams } from "@/lib/corrections";
 import { matchCorrectionInventory } from "@/lib/correctionInventory";
 
-export const metadata = { title: "Suggest a correction" };
+const CORRECTIONS_DESCRIPTION =
+  "Found a wrong score, date, or goalscorer? Pick the fact, attach your source, and it becomes a structured issue for review.";
+
+export const metadata: Metadata = {
+  title: "Suggest a correction",
+  description: CORRECTIONS_DESCRIPTION,
+  alternates: { canonical: "/corrections" },
+  openGraph: {
+    type: "website",
+    title: "Suggest a correction · Red Thread",
+    description: CORRECTIONS_DESCRIPTION,
+    url: "/corrections",
+  },
+  twitter: { card: "summary_large_image", title: "Suggest a correction", description: CORRECTIONS_DESCRIPTION },
+};
 
 type SP = Record<string, string | string[] | undefined>;
 

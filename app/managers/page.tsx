@@ -10,11 +10,9 @@ import { HonoursBadge } from "@/components/HonoursBadge";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, pct } from "@/lib/format";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Managers",
-  description: "Every manager to take charge of Manchester United since 1892 — secretaries, caretakers, and the longest title-winning reigns.",
-};
+export const metadata = seoMetadata(listSeo.managers.title, listSeo.managers.description);
 
 export default function ManagersPage() {
   const managers = managersIndex().filter((m) => m.p > 0);

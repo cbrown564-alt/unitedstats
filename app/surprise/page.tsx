@@ -6,6 +6,7 @@ import { SurpriseReveal } from "@/components/SurpriseReveal";
 import { EraPrompt } from "@/components/EraPrompt";
 import { surpriseFacts, pickIndex } from "@/lib/surprise";
 import { parseSinceYear } from "@/lib/rediscovery";
+import { listSeo, seoMetadata } from "@/lib/seo";
 
 // The wanderer's door (Phase 18.3): not a redirect but a *reveal* — one curated,
 // genuinely-surprising fact, with a re-roll that deals another in place. Dynamic
@@ -13,12 +14,9 @@ import { parseSinceYear } from "@/lib/rediscovery";
 // curated pool and rolling logic live in `lib/surprise.ts` / `SurpriseReveal`.
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Surprise me",
-  description:
-    "One curated, genuinely-surprising fact from United's record — then another, and another. Every find links to the matches behind it.",
+export const metadata: Metadata = seoMetadata(listSeo.surprise.title, listSeo.surprise.description, {
   alternates: { canonical: "/surprise" },
-};
+});
 
 export default async function SurprisePage({
   searchParams,
