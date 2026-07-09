@@ -110,14 +110,44 @@ register (light, type, thread) — if it reads as a dashboard, it failed.
 Without the morph, this is "another compare page." With it, the metaphor *is*
 the insight.
 
-### Stations (pilot)
+### Stations (shipped — 2026-07-09)
 
-| # | Beat | Visual | Copy job |
-|---|------|--------|----------|
-| 0 | Setup | Names, No. 7, years on the club axis | Two legends, one shirt |
-| 1 | Distance | `CompareCareerTimeline`-class rails | Forty years between them |
-| 2 | Loop + morph | Scroll-driven SVG: loop thread → axis collapse | History rhymes |
-| 3 | Door | Link to `/compare?mode=players&a=cristiano-ronaldo&b=george-best` | See the full duel |
+Scroll drives one sticky stage (`RhymeMorph`); progress `0→1` over a `360vh`
+runway. Phase windows overlap so beats cross-fade rather than cut.
+
+| # | Progress | Line / sub | Visual |
+|---|----------|------------|--------|
+| 0 | 0–0.22 | "Same shirt. Same number." / "Two No. 7s, forty years apart at opposite ends of United's story." | Crisp floodlit peak years (1968 / 2008) on opposite wings; ghosted No. 7 monument; thread dormant |
+| 1 | 0.12–0.52 | "Two peaks. One shape." / "The years don't match — but something does." | Luminous filament draws a **full loop through the No. 7**, a tail dropping to each era's knot |
+| 2 | 0.44–0.74 | "Counted from his debut, each man's fifth year was his best." / "A career step, not a calendar year…" | Loop tightens toward the monument; years fade out *before* the knots converge |
+| 3 | 0.70–0.92 | "Both peaked in season five." / "32 in 53 games. 42 in 49. Different eras, same step." | Rhyme knot pulses gold; 32 / 42; floodlit "Open the full duel" + "what else rhymes?" teaser |
+
+The remaining `0.92→1` runway holds the landed state so the door can be read.
+
+### Build notes (durable decisions & gotchas)
+
+- **Chrome-free without FOUC.** `/journey` hides the app shell via
+  `html[data-chrome="off"]` rules (`globals.css`). Setting that in a
+  post-hydration effect flashed the sidebar on load — fixed by emitting the
+  attribute from a synchronous inline `<script>` in `page.tsx` (present in the
+  SSR HTML, runs before first paint). The effect only keeps it in sync for
+  client-side nav and clears it on exit.
+- **One coordinate system.** Thread, ghost years, and names all live in a single
+  SVG `viewBox="0 0 1000 700"` (`preserveAspectRatio="xMidYMid meet"`). The first
+  cut had the thread in SVG and the years in HTML `justify-between` — they
+  desynced and clipped the right wing.
+- **A full circle needs two arcs.** One elliptical-arc command whose start point
+  equals its end point is dropped by the SVG spec, so the "loop" first shipped as
+  a tent. Draw it as two semicircle arcs (neck → opposite → neck).
+- **Ghost years: never blur the numerals.** Blurring the year text itself reads as
+  a defocus bug. Keep crisp `.stat-num` numerals over a *separate* blurred halo
+  copy. Names use the sans face at a refined weight — **not** `.display`, which
+  forces `text-transform: uppercase` (turned "Best" into "BEST").
+- **Equal players, one accent.** Both No. 7s render in warm off-white; gold is
+  reserved for the shared rhyme knot. (Red Best / blue Ronaldo made Best dissolve
+  into the red field while Ronaldo popped — an unintended bias.)
+- **Honest numbers.** 32-in-53 vs 42-in-49, data-driven from `peakGames` (season
+  `apps`), so the gap reads as era/fixtures — not "Ronaldo just scored more."
 
 ### Out of scope for the pilot
 
@@ -170,15 +200,26 @@ Falsifiable:
 
 If (1) fails, the morph is wrong or the copy is — fix before adding chapters.
 
+**Status (2026-07-09):** shipped on `/journey`. 2–5 hold in build review
+(screenshots in `output/screenshots/journey-*`); (1) — the jolt — still needs a
+real nostalgist, not self-review. That's the next validation, before chapter 2.
+
 ---
 
 ## 8. Prototype location
 
 - Doc: this file (`docs/JOURNEY.md`)
-- Route: `/journey` (prototype, `noindex`)
+- Route: `/journey` (prototype, `noindex`) — `app/journey/page.tsx` also emits the
+  pre-paint `data-chrome="off"` script and passes `peakGames`
 - Morph stage: `components/journey/RhymeMorph.tsx`
+- Chrome-off rules: `html[data-chrome="off"]` block in `app/globals.css`
 - Data: existing `comparePlayers("cristiano-ronaldo", "george-best")` — no new
-  ingest
+  ingest (peak season, goals, and `apps` all already in `CareerSeason`)
+
+**Shipped 2026-07-09** (commits `272234e` → `09b3716` → `dc8e17c` → `d715ac4`):
+chrome-free stage, real loop through the No. 7, crisp floodlit years, refined
+equal-tone names, honest 32/42, rhyme-knot pulse, reduced-motion still, floodlit
+duel door + chapter-2 teaser, no-flash chrome.
 
 When the pilot settles, graduate durable decisions into `DESIGN.md` / `PRODUCT.md`
 and decide packaging (§3).
