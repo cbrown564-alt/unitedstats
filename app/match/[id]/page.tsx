@@ -6,7 +6,7 @@ import {
   sourcesForMatch, allMatchIds,
 } from "@/lib/queries";
 import { similarMatches } from "@/lib/trails";
-import { fmtDateLong, fmtNum, venueLabel, clubName, pct, resultLabel, resultTone } from "@/lib/format";
+import { fmtDateLong, fmtNum, homeAwayLabel, stadiumLabel, clubName, pct, resultLabel, resultTone } from "@/lib/format";
 import { matchSeoDescription, matchSeoTitle, seoMetadata } from "@/lib/seo";
 import { clubNames, opponentNames, type ClubNames } from "@/lib/clubNames";
 import { ResultBadge } from "@/components/ResultBadge";
@@ -382,9 +382,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         <MatchDetailCard
-          fieldPath={matchFieldPath(id, "venue")}
-          label="Venue"
-          value={m.stadium_name ?? venueLabel(m.venue)}
+          fieldPath={matchFieldPath(id, "stadium")}
+          label="Stadium"
+          value={stadiumLabel(m.stadium_name)}
         />
         <MatchDetailCard
           fieldPath={matchFieldPath(id, "attendance")}
@@ -453,7 +453,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               opposite the head-to-head column. */}
           <div className="flex justify-center gap-1.5 sm:justify-end">
             {form.map((f) => (
-              <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${f.venue} ${f.opponent_name} ${f.gf}-${f.ga}`} className="focus-ring">
+              <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${homeAwayLabel(f.venue)} ${f.opponent_name} ${f.gf}-${f.ga}`} className="focus-ring">
                 <ResultBadge result={f.result} outcome={f.outcome} />
               </Link>
             ))}

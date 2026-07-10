@@ -8,7 +8,8 @@ import {
   fmtRound,
   playerCareerSpan,
   scoreline,
-  venueLabel,
+  stadiumLabel,
+  homeAwayLabel,
   pct,
 } from "./format";
 import type { MatchRow, ManagerRecord, OpponentRecord, PlayerTotals } from "./queries";
@@ -54,8 +55,8 @@ export function matchSeoDescription(m: MatchRow): string {
   const club = clubNames(m.date).full;
   const opp = opponentNames(m.opponent_id, m.opponent_name).full;
   const result = m.outcome === "W" ? "won" : m.outcome === "L" ? "lost" : "drew";
-  const venue = m.stadium_name ?? venueLabel(m.venue);
-  return `${fmtDateLong(m.date)} — ${club} ${result} ${matchScore(m)} against ${opp} in the ${competitionPhrase(m)} at ${venue}.`;
+  const ground = stadiumLabel(m.stadium_name, homeAwayLabel(m.venue));
+  return `${fmtDateLong(m.date)} — ${club} ${result} ${matchScore(m)} against ${opp} in the ${competitionPhrase(m)} at ${ground}.`;
 }
 
 export function playerSeoTitle(p: PlayerTotals): string {

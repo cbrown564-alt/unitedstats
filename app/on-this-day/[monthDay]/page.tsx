@@ -5,7 +5,7 @@ import { PageHeader, StatTile } from "@/components/PageHeader";
 import { CompetitionChip } from "@/components/CompetitionChip";
 import { ResultBadge } from "@/components/ResultBadge";
 import { WdlBar } from "@/components/WdlBar";
-import { venueLabel } from "@/lib/format";
+import { stadiumLabel, homeAwayLabel } from "@/lib/format";
 import { monthDayKeys, monthDayLabel, onThisDay } from "@/lib/onThisDay";
 import { sampleStaticIds } from "@/lib/static-build";
 import { onThisDaySeoDescription, onThisDaySeoTitle, seoMetadata } from "@/lib/seo";
@@ -83,7 +83,7 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <p className="text-sm text-ink-dim">
-                    {venueLabel(lead.venue)} · {lead.season}
+                    {stadiumLabel(lead.stadium, homeAwayLabel(lead.venue))} · {lead.season}
                   </p>
                   <Link href={lead.evidencePath} className="text-sm font-semibold text-devil-bright hover:underline focus-ring">
                     Match evidence →

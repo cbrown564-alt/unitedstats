@@ -9,7 +9,7 @@
       "opponent": "Chelsea",
       "opponentId": "chelsea",
       "venue": "N",
-      "stadium": null,
+      "stadium": "wembley",
       "attendance": 65148,
       "score": {
         "ft": [
@@ -19,7 +19,8 @@
         "pens": null
       },
       "sources": [
-        "wikipedia"
+        "wikipedia",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -168,7 +169,7 @@
       "opponent": "Newcastle United",
       "opponentId": "newcastle-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67477,
       "score": {
         "ft": [
@@ -179,7 +180,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -373,7 +375,7 @@
       "opponent": "Ipswich Town",
       "opponentId": "ipswich-town",
       "venue": "A",
-      "stadium": null,
+      "stadium": "portman-road",
       "attendance": 22007,
       "score": {
         "ft": [
@@ -385,7 +387,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -583,7 +586,7 @@
       "opponent": "West Ham United",
       "opponentId": "west-ham-united",
       "venue": "A",
-      "stadium": null,
+      "stadium": "boleyn-ground",
       "attendance": 25998,
       "score": {
         "ft": [
@@ -595,7 +598,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -783,7 +787,7 @@
       "opponent": "Bradford City",
       "opponentId": "bradford-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67447,
       "score": {
         "ft": [
@@ -794,7 +798,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1008,7 +1013,7 @@
       "opponent": "Sunderland",
       "opponentId": "sunderland",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67503,
       "score": {
         "ft": [
@@ -1019,7 +1024,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1206,7 +1212,7 @@
       "opponent": "R.S.C. Anderlecht",
       "opponentId": "anderlecht",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 62749,
       "score": {
         "ft": [
@@ -1255,7 +1261,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -1436,7 +1443,7 @@
       "opponent": "Everton",
       "opponentId": "everton",
       "venue": "A",
-      "stadium": null,
+      "stadium": "goodison-park",
       "attendance": 38541,
       "score": {
         "ft": [
@@ -1448,7 +1455,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1836,7 +1844,7 @@
       "opponent": "Chelsea",
       "opponentId": "chelsea",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67568,
       "score": {
         "ft": [
@@ -1848,7 +1856,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2074,7 +2083,7 @@
       "opponent": "PSV Eindhoven",
       "opponentId": "psv-eindhoven",
       "venue": "A",
-      "stadium": null,
+      "stadium": "philipstadion",
       "attendance": 30500,
       "score": {
         "ft": [
@@ -2121,7 +2130,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -2302,7 +2312,7 @@
       "opponent": "Arsenal",
       "opponentId": "arsenal",
       "venue": "A",
-      "stadium": null,
+      "stadium": "highbury",
       "attendance": 38146,
       "score": {
         "ft": [
@@ -2314,7 +2324,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -2494,7 +2505,7 @@
       "opponent": "Leicester City",
       "opponentId": "leicester-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "filbert-street",
       "attendance": 22132,
       "score": {
         "ft": [
@@ -2505,7 +2516,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2680,7 +2692,7 @@
       "opponent": "PSV Eindhoven",
       "opponentId": "psv-eindhoven",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 66313,
       "score": {
         "ft": [
@@ -2719,7 +2731,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -2900,7 +2913,7 @@
       "opponent": "Leeds United",
       "opponentId": "leeds-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67523,
       "score": {
         "ft": [
@@ -2911,7 +2924,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -3101,7 +3115,7 @@
       "opponent": "R.S.C. Anderlecht",
       "opponentId": "anderlecht",
       "venue": "A",
-      "stadium": null,
+      "stadium": "constant-vanden-stock-stadium",
       "attendance": 22506,
       "score": {
         "ft": [
@@ -3139,7 +3153,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -3308,7 +3323,7 @@
       "opponent": "Southampton",
       "opponentId": "southampton",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67581,
       "score": {
         "ft": [
@@ -3319,7 +3334,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -3528,7 +3544,7 @@
       "opponent": "Watford",
       "opponentId": "watford",
       "venue": "A",
-      "stadium": null,
+      "stadium": "vicarage-road",
       "attendance": 18871,
       "score": {
         "ft": [
@@ -3557,7 +3573,8 @@
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -3726,7 +3743,7 @@
       "opponent": "Coventry City",
       "opponentId": "coventry-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "highfield-road",
       "attendance": 21079,
       "score": {
         "ft": [
@@ -3738,7 +3755,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -3929,7 +3947,7 @@
       "opponent": "FC Dynamo Kyiv",
       "opponentId": "dynamo-kyiv",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 66776,
       "score": {
         "ft": [
@@ -3948,7 +3966,8 @@
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -4129,7 +4148,7 @@
       "opponent": "Middlesbrough",
       "opponentId": "middlesbrough",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67576,
       "score": {
         "ft": [
@@ -4141,7 +4160,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -4344,7 +4364,7 @@
       "opponent": "Manchester City",
       "opponentId": "manchester-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "maine-road",
       "attendance": 34429,
       "score": {
         "ft": [
@@ -4355,7 +4375,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -4520,7 +4541,7 @@
       "opponent": "Panathinaikos",
       "opponentId": "panathinaikos",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 65024,
       "score": {
         "ft": [
@@ -4559,7 +4580,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -4704,7 +4726,7 @@
       "opponent": "Derby County",
       "opponentId": "derby-county",
       "venue": "A",
-      "stadium": null,
+      "stadium": "pride-park",
       "attendance": 32910,
       "score": {
         "ft": [
@@ -4715,7 +4737,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -4914,7 +4937,7 @@
       "opponent": "Sunderland",
       "opponentId": "sunderland",
       "venue": "A",
-      "stadium": null,
+      "stadium": "stadium-of-light",
       "attendance": 47543,
       "score": {
         "ft": [
@@ -4952,7 +4975,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -5133,7 +5157,7 @@
       "opponent": "Tottenham Hotspur",
       "opponentId": "tottenham-hotspur",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67583,
       "score": {
         "ft": [
@@ -5144,7 +5168,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -5326,7 +5351,7 @@
       "opponent": "SK Sturm Graz",
       "opponentId": "sk-sturm-graz",
       "venue": "A",
-      "stadium": null,
+      "stadium": "schwarzenegger-stadium",
       "attendance": 16500,
       "score": {
         "ft": [
@@ -5350,7 +5375,8 @@
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -5531,7 +5557,7 @@
       "opponent": "Charlton Athletic",
       "opponentId": "charlton-athletic",
       "venue": "A",
-      "stadium": null,
+      "stadium": "the-valley",
       "attendance": 20043,
       "score": {
         "ft": [
@@ -5543,7 +5569,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -5769,7 +5796,7 @@
       "opponent": "Liverpool",
       "opponentId": "liverpool",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67533,
       "score": {
         "ft": [
@@ -5781,7 +5808,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -5961,7 +5989,7 @@
       "opponent": "Ipswich Town",
       "opponentId": "ipswich-town",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67597,
       "score": {
         "ft": [
@@ -5972,7 +6000,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6166,7 +6195,7 @@
       "opponent": "Aston Villa",
       "opponentId": "aston-villa",
       "venue": "A",
-      "stadium": null,
+      "stadium": "villa-park",
       "attendance": 40889,
       "score": {
         "ft": [
@@ -6177,7 +6206,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6354,7 +6384,7 @@
       "opponent": "Newcastle United",
       "opponentId": "newcastle-united",
       "venue": "A",
-      "stadium": null,
+      "stadium": "st-james-park",
       "attendance": 52134,
       "score": {
         "ft": [
@@ -6366,7 +6396,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6564,7 +6595,7 @@
       "opponent": "West Ham United",
       "opponentId": "west-ham-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67603,
       "score": {
         "ft": [
@@ -6576,7 +6607,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6787,7 +6819,7 @@
       "opponent": "Fulham",
       "opponentId": "fulham",
       "venue": "A",
-      "stadium": null,
+      "stadium": "craven-cottage",
       "attendance": 19178,
       "score": {
         "ft": [
@@ -6800,7 +6832,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "notes": null,
       "events": [
@@ -7004,7 +7037,7 @@
       "opponent": "Bradford City",
       "opponentId": "bradford-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "valley-parade",
       "attendance": 20551,
       "score": {
         "ft": [
@@ -7015,7 +7048,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -7214,7 +7248,7 @@
       "opponent": "Aston Villa",
       "opponentId": "aston-villa",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67533,
       "score": {
         "ft": [
@@ -7225,7 +7259,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -7407,7 +7442,7 @@
       "opponent": "West Ham United",
       "opponentId": "west-ham-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67029,
       "score": {
         "ft": [
@@ -7420,7 +7455,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "notes": null,
       "lineup": [
@@ -7601,7 +7637,7 @@
       "opponent": "Sunderland",
       "opponentId": "sunderland",
       "venue": "A",
-      "stadium": null,
+      "stadium": "stadium-of-light",
       "attendance": 48260,
       "score": {
         "ft": [
@@ -7612,7 +7648,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -8004,7 +8041,7 @@
       "opponent": "Chelsea",
       "opponentId": "chelsea",
       "venue": "A",
-      "stadium": null,
+      "stadium": "stamford-bridge",
       "attendance": 34960,
       "score": {
         "ft": [
@@ -8016,7 +8053,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -8358,7 +8396,7 @@
       "opponent": "Valencia CF",
       "opponentId": "valencia-cf",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 66715,
       "score": {
         "ft": [
@@ -8387,7 +8425,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -8556,7 +8595,7 @@
       "opponent": "Arsenal",
       "opponentId": "arsenal",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67535,
       "score": {
         "ft": [
@@ -8568,7 +8607,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -8779,7 +8819,7 @@
       "opponent": "Leeds United",
       "opponentId": "leeds-united",
       "venue": "A",
-      "stadium": null,
+      "stadium": "elland-road",
       "attendance": 40055,
       "score": {
         "ft": [
@@ -8791,7 +8831,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -8977,7 +9018,7 @@
       "opponent": "Panathinaikos",
       "opponentId": "panathinaikos",
       "venue": "A",
-      "stadium": null,
+      "stadium": "olympic-stadium-athens",
       "attendance": 27231,
       "score": {
         "ft": [
@@ -9007,7 +9048,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -9188,7 +9230,7 @@
       "opponent": "SK Sturm Graz",
       "opponentId": "sk-sturm-graz",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 66404,
       "score": {
         "ft": [
@@ -9217,7 +9259,8 @@
       ],
       "sources": [
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -9374,7 +9417,7 @@
       "opponent": "Leicester City",
       "opponentId": "leicester-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67516,
       "score": {
         "ft": [
@@ -9385,7 +9428,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -9579,7 +9623,7 @@
       "opponent": "Liverpool",
       "opponentId": "liverpool",
       "venue": "A",
-      "stadium": null,
+      "stadium": "anfield",
       "attendance": 44806,
       "score": {
         "ft": [
@@ -9591,7 +9635,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -9792,7 +9837,7 @@
       "opponent": "FC Bayern Munich",
       "opponentId": "bayern-munich",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 66584,
       "score": {
         "ft": [
@@ -9804,7 +9849,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -9972,7 +10018,7 @@
       "opponent": "Charlton Athletic",
       "opponentId": "charlton-athletic",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67505,
       "score": {
         "ft": [
@@ -9984,7 +10030,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -10187,7 +10234,7 @@
       "opponent": "Coventry City",
       "opponentId": "coventry-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67637,
       "score": {
         "ft": [
@@ -10199,7 +10246,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -10421,7 +10469,7 @@
       "opponent": "FC Bayern Munich",
       "opponentId": "bayern-munich",
       "venue": "A",
-      "stadium": null,
+      "stadium": "olympic-stadium-munich",
       "attendance": 60000,
       "score": {
         "ft": [
@@ -10459,7 +10507,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -10640,7 +10689,7 @@
       "opponent": "Manchester City",
       "opponentId": "manchester-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67535,
       "score": {
         "ft": [
@@ -10652,7 +10701,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -10850,7 +10900,7 @@
       "opponent": "Middlesbrough",
       "opponentId": "middlesbrough",
       "venue": "A",
-      "stadium": null,
+      "stadium": "riverside-stadium",
       "attendance": 34417,
       "score": {
         "ft": [
@@ -10861,7 +10911,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -11055,7 +11106,7 @@
       "opponent": "Derby County",
       "opponentId": "derby-county",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 67526,
       "score": {
         "ft": [
@@ -11067,7 +11118,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -11259,7 +11311,7 @@
       "opponent": "Southampton",
       "opponentId": "southampton",
       "venue": "A",
-      "stadium": null,
+      "stadium": "the-dell",
       "attendance": 15526,
       "score": {
         "ft": [
@@ -11271,7 +11323,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -11466,7 +11519,7 @@
       "opponent": "Tottenham Hotspur",
       "opponentId": "tottenham-hotspur",
       "venue": "A",
-      "stadium": null,
+      "stadium": "white-hart-lane",
       "attendance": 36072,
       "score": {
         "ft": [
@@ -11478,7 +11531,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {

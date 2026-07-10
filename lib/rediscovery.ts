@@ -1,6 +1,6 @@
 import { getDb } from "./db";
 import { cachedQuery } from "./queryCache";
-import { matchById, type MatchRow } from "./queries";
+import { MATCH_SELECT, matchById, type MatchRow } from "./queries";
 import { scoreline, scoreNote, fmtRound, resultTone, fmtDate, venuePrefix } from "./format";
 import { CANONICAL_FAME } from "./curatedNights";
 import type { RediscoveryPrompt } from "./rediscovery-prompt";
@@ -217,11 +217,7 @@ function allMatches(): MatchRow[] {
   return cachedQuery("rediscovery:matches", 300_000, () => {
     return getDb()
       .prepare(
-        `SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name
-         FROM matches m
-         JOIN competitions c ON c.id = m.competition_id
-         LEFT JOIN stadiums s ON s.id = m.stadium_id
-         LEFT JOIN managers mg ON mg.id = m.manager_id
+        `${MATCH_SELECT}
          WHERE c.type != 'unofficial'
          ORDER BY m.date`,
       )
@@ -315,10 +311,7 @@ function entityMatches(scope: "season" | "opponent" | "player", id: string): Mat
   if (scope === "season") {
     return getDb()
       .prepare(
-        `SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name
-         FROM matches m JOIN competitions c ON c.id = m.competition_id
-         LEFT JOIN stadiums s ON s.id = m.stadium_id
-         LEFT JOIN managers mg ON mg.id = m.manager_id
+        `${MATCH_SELECT}
          WHERE m.season = ? AND c.type != 'unofficial'
          ORDER BY m.date`,
       )
@@ -327,10 +320,7 @@ function entityMatches(scope: "season" | "opponent" | "player", id: string): Mat
   if (scope === "opponent") {
     return getDb()
       .prepare(
-        `SELECT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name
-         FROM matches m JOIN competitions c ON c.id = m.competition_id
-         LEFT JOIN stadiums s ON s.id = m.stadium_id
-         LEFT JOIN managers mg ON mg.id = m.manager_id
+        `${MATCH_SELECT}
          WHERE m.opponent_id = ? AND c.type != 'unofficial'
          ORDER BY m.date`,
       )
@@ -338,7 +328,9 @@ function entityMatches(scope: "season" | "opponent" | "player", id: string): Mat
   }
   return getDb()
     .prepare(
-      `SELECT DISTINCT m.*, c.name AS competition_name, c.type AS competition_type, s.name AS stadium_name, mg.name AS manager_name
+      `SELECT DISTINCT m.*, c.name AS competition_name, c.type AS competition_type,
+              s.name AS stadium_name, s.city AS stadium_city, s.country AS stadium_country,
+              mg.name AS manager_name
        FROM matches m
        JOIN competitions c ON c.id = m.competition_id
        JOIN match_lineups l ON l.match_id = m.id

@@ -85,13 +85,35 @@ export function feeLabel(kind: string, gbp: number | null | undefined): string {
   return "—"; // unknown fee, or "none" (academy / released / retired)
 }
 
-export function venueLabel(v: string): string {
+export type HomeAway = "H" | "A" | "N";
+
+/** Home / away / neutral — the fixture orientation, not the ground. */
+export function homeAwayLabel(v: string): string {
   return v === "H" ? "Home" : v === "A" ? "Away" : "Neutral";
 }
 
+/**
+ * @deprecated Prefer {@link homeAwayLabel}. Kept for call sites that still say
+ * "venue" while meaning H/A/N; the ground is {@link stadiumLabel}.
+ */
+export function venueLabel(v: string): string {
+  return homeAwayLabel(v);
+}
+
 /** Compact glyph prefixing an opponent name: "v" home, "@" away, "n" neutral. */
-export function venuePrefix(v: string): string {
+export function homeAwayPrefix(v: string): string {
   return v === "H" ? "v" : v === "A" ? "@" : "n";
+}
+
+/** @deprecated Prefer {@link homeAwayPrefix}. */
+export function venuePrefix(v: string): string {
+  return homeAwayPrefix(v);
+}
+
+/** Ground name for display; falls back when the stadium is unrecorded. */
+export function stadiumLabel(stadiumName: string | null | undefined, fallback = "—"): string {
+  const name = stadiumName?.trim();
+  return name ? name : fallback;
 }
 
 export type RoundParts = {

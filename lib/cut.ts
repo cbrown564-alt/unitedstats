@@ -1,6 +1,6 @@
 import { getDb } from "./db";
 import { matchWhere, type MatchFilter, type Record_ } from "./queries";
-import { COMPETITION_TYPE_LABELS, fmtNum, resultLabel, venueLabel } from "./format";
+import { COMPETITION_TYPE_LABELS, fmtNum, resultLabel, homeAwayLabel } from "./format";
 import { queryString } from "./url";
 
 /**
@@ -69,7 +69,7 @@ const DIM_META: Record<CutDimension, DimMeta> = {
   decade: { key: "decade", label: "By decade", short: "Decade", noun: "decades" },
   type: { key: "type", label: "By competition type", short: "Type", noun: "competition types" },
   competition: { key: "competition", label: "By competition", short: "Competition", noun: "competitions" },
-  venue: { key: "venue", label: "By venue", short: "Venue", noun: "venues" },
+  venue: { key: "venue", label: "By home/away", short: "Home/away", noun: "home/away" },
   result: { key: "result", label: "By result", short: "Result", noun: "results" },
   opponent: { key: "opponent", label: "By opponent", short: "Opponent", noun: "opponents" },
   manager: { key: "manager", label: "By manager", short: "Manager", noun: "managers" },
@@ -149,7 +149,7 @@ const DIMS: Record<Exclude<CutDimension, "player">, DimConfig> = {
   venue: {
     groupExpr: "m.venue",
     labelExpr: "m.venue",
-    fmtLabel: (key) => venueLabel(key),
+    fmtLabel: (key) => homeAwayLabel(key),
     groupParam: (key) => ({ venue: key }),
     naturalOrder: "metric",
   },

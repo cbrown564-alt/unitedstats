@@ -9,7 +9,7 @@
       "opponent": "Crystal Palace",
       "opponentId": "crystal-palace",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -20,7 +20,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -561,7 +562,7 @@
       "opponent": "Luton Town",
       "opponentId": "luton-town",
       "venue": "A",
-      "stadium": null,
+      "stadium": "kenilworth-road",
       "attendance": null,
       "score": {
         "ft": [
@@ -577,7 +578,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -777,7 +779,7 @@
       "opponent": "Brighton & Hove Albion",
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
-      "stadium": null,
+      "stadium": "amex-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -789,7 +791,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1379,7 +1382,7 @@
       "opponent": "Brighton & Hove Albion",
       "opponentId": "brighton-and-hove-albion",
       "venue": "A",
-      "stadium": null,
+      "stadium": "amex-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -1395,7 +1398,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1597,7 +1601,7 @@
       "opponent": "Tottenham Hotspur",
       "opponentId": "tottenham-hotspur",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -1608,7 +1612,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2205,7 +2210,7 @@
       "opponent": "Newcastle United",
       "opponentId": "newcastle-united",
       "venue": "A",
-      "stadium": null,
+      "stadium": "st-james-park",
       "attendance": null,
       "score": {
         "ft": [
@@ -2217,7 +2222,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2763,7 +2769,7 @@
       "opponent": "Paris Saint-Germain",
       "opponentId": "paris-saint-germain",
       "venue": "A",
-      "stadium": null,
+      "stadium": "parc-des-princes",
       "attendance": null,
       "score": {
         "ft": [
@@ -2877,7 +2883,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -3920,7 +3927,7 @@
       "opponent": "RB Leipzig",
       "opponentId": "rb-leipzig",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 577,
       "score": {
         "ft": [
@@ -4053,7 +4060,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -4618,7 +4626,7 @@
       "opponent": "Arsenal",
       "opponentId": "arsenal",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -4628,7 +4636,8 @@
       },
       "sources": [
         "engsoccerdata",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -5157,7 +5166,7 @@
       "opponent": "İstanbul Başakşehir F.K.",
       "opponentId": "istanbul-basaksehir",
       "venue": "A",
-      "stadium": null,
+      "stadium": "fatih-terim-stadium",
       "attendance": 350,
       "score": {
         "ft": [
@@ -5238,7 +5247,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -5755,7 +5765,7 @@
       "opponent": "Everton",
       "opponentId": "everton",
       "venue": "A",
-      "stadium": null,
+      "stadium": "goodison-park",
       "attendance": null,
       "score": {
         "ft": [
@@ -5767,7 +5777,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6342,7 +6353,7 @@
       "opponent": "West Bromwich Albion",
       "opponentId": "west-bromwich-albion",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -6353,7 +6364,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6838,7 +6850,7 @@
       "opponent": "İstanbul Başakşehir F.K.",
       "opponentId": "istanbul-basaksehir",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 545,
       "score": {
         "ft": [
@@ -6984,7 +6996,8 @@
       "sources": [
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -7513,7 +7526,7 @@
       "opponent": "Southampton",
       "opponentId": "southampton",
       "venue": "A",
-      "stadium": null,
+      "stadium": "st-marys-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -7525,7 +7538,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -8060,7 +8074,7 @@
       "opponent": "Paris Saint-Germain",
       "opponentId": "paris-saint-germain",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 638,
       "score": {
         "ft": [
@@ -8180,7 +8194,8 @@
       "sources": [
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -8745,7 +8760,7 @@
       "opponent": "West Ham United",
       "opponentId": "west-ham-united",
       "venue": "A",
-      "stadium": null,
+      "stadium": "london-stadium",
       "attendance": 2000,
       "score": {
         "ft": [
@@ -8756,7 +8771,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -9264,7 +9280,7 @@
       "opponent": "RB Leipzig",
       "opponentId": "rb-leipzig",
       "venue": "A",
-      "stadium": null,
+      "stadium": "red-bull-arena",
       "attendance": null,
       "score": {
         "ft": [
@@ -9452,7 +9468,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -10461,7 +10478,7 @@
       "opponent": "Sheffield United",
       "opponentId": "sheffield-united",
       "venue": "A",
-      "stadium": null,
+      "stadium": "bramall-lane",
       "attendance": null,
       "score": {
         "ft": [
@@ -10472,7 +10489,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -11050,7 +11068,7 @@
       "opponent": "Leeds United",
       "opponentId": "leeds-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -11061,7 +11079,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -11688,7 +11707,7 @@
       "opponent": "Everton",
       "opponentId": "everton",
       "venue": "A",
-      "stadium": null,
+      "stadium": "goodison-park",
       "attendance": 2000,
       "score": {
         "ft": [
@@ -11704,7 +11723,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -11899,7 +11919,7 @@
       "opponent": "Leicester City",
       "opponentId": "leicester-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "king-power-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -11910,7 +11930,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -12499,7 +12520,7 @@
       "opponent": "Wolverhampton Wanderers",
       "opponentId": "wolverhampton-wanderers",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -12511,7 +12532,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -13045,7 +13067,7 @@
       "opponent": "Aston Villa",
       "opponentId": "aston-villa",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -13056,7 +13078,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -13641,7 +13664,7 @@
       "opponent": "Manchester City",
       "opponentId": "manchester-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -13658,7 +13681,8 @@
         "openfootball",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -13847,7 +13871,7 @@
       "opponent": "Watford",
       "opponentId": "watford",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -13863,7 +13887,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -14407,7 +14432,7 @@
       "opponent": "Burnley",
       "opponentId": "burnley",
       "venue": "A",
-      "stadium": null,
+      "stadium": "turf-moor",
       "attendance": null,
       "score": {
         "ft": [
@@ -14418,7 +14443,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -15501,7 +15527,7 @@
       "opponent": "Fulham",
       "opponentId": "fulham",
       "venue": "A",
-      "stadium": null,
+      "stadium": "craven-cottage",
       "attendance": null,
       "score": {
         "ft": [
@@ -15512,7 +15538,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -16097,7 +16124,7 @@
       "opponent": "Liverpool",
       "opponentId": "liverpool",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -16113,7 +16140,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -16728,7 +16756,7 @@
       "opponent": "Sheffield United",
       "opponentId": "sheffield-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -16739,7 +16767,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -17816,7 +17845,7 @@
       "opponent": "Southampton",
       "opponentId": "southampton",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -17827,7 +17856,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -18535,7 +18565,7 @@
       "opponent": "Everton",
       "opponentId": "everton",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -18547,7 +18577,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -19168,7 +19199,7 @@
       "opponent": "West Ham United",
       "opponentId": "west-ham-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -19185,7 +19216,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -19696,7 +19728,7 @@
       "opponent": "West Bromwich Albion",
       "opponentId": "west-bromwich-albion",
       "venue": "A",
-      "stadium": null,
+      "stadium": "the-hawthorns",
       "attendance": null,
       "score": {
         "ft": [
@@ -19707,7 +19739,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -20288,7 +20321,7 @@
       "opponent": "Real Sociedad",
       "opponentId": "real-sociedad",
       "venue": "N",
-      "stadium": null,
+      "stadium": "allianz-stadium-turin",
       "attendance": null,
       "score": {
         "ft": [
@@ -20384,7 +20417,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -20937,7 +20971,7 @@
       "opponent": "Newcastle United",
       "opponentId": "newcastle-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -20948,7 +20982,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -23157,7 +23192,7 @@
       "opponent": "Manchester City",
       "opponentId": "manchester-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "etihad-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -23168,7 +23203,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -23727,7 +23763,7 @@
       "opponent": "A.C. Milan",
       "opponentId": "ac-milan",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -23795,7 +23831,8 @@
       "sources": [
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -24818,7 +24855,7 @@
       "opponent": "Milan",
       "opponentId": "ac-milan",
       "venue": "A",
-      "stadium": null,
+      "stadium": "san-siro",
       "attendance": null,
       "score": {
         "ft": [
@@ -24902,7 +24939,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -25395,7 +25433,7 @@
       "opponent": "Leicester City",
       "opponentId": "leicester-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "king-power-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -25411,7 +25449,8 @@
       "sources": [
         "openfootball",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -26011,7 +26050,7 @@
       "opponent": "Brighton & Hove Albion",
       "opponentId": "brighton-and-hove-albion",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -26022,7 +26061,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -26596,7 +26636,7 @@
       "opponent": "Granada CF",
       "opponentId": "granada-cf",
       "venue": "A",
-      "stadium": null,
+      "stadium": "nuevo-los-carmenes-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -26717,7 +26757,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -27246,7 +27287,7 @@
       "opponent": "Tottenham Hotspur",
       "opponentId": "tottenham-hotspur",
       "venue": "A",
-      "stadium": null,
+      "stadium": "tottenham-hotspur-stadium",
       "attendance": null,
       "score": {
         "ft": [
@@ -27258,7 +27299,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -27881,7 +27923,7 @@
       "opponent": "Granada CF",
       "opponentId": "granada-cf",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -27969,7 +28011,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -28486,7 +28529,7 @@
       "opponent": "Burnley",
       "opponentId": "burnley",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -28498,7 +28541,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -29649,7 +29693,7 @@
       "opponent": "A.S. Roma",
       "opponentId": "roma",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -29816,7 +29860,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -30357,7 +30402,7 @@
       "opponent": "Roma",
       "opponentId": "roma",
       "venue": "A",
-      "stadium": null,
+      "stadium": "stadio-olimpico",
       "attendance": null,
       "score": {
         "ft": [
@@ -30512,7 +30557,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -31041,7 +31087,7 @@
       "opponent": "Aston Villa",
       "opponentId": "aston-villa",
       "venue": "A",
-      "stadium": null,
+      "stadium": "villa-park",
       "attendance": null,
       "score": {
         "ft": [
@@ -31052,7 +31098,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -31652,7 +31699,7 @@
       "opponent": "Leicester City",
       "opponentId": "leicester-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -31663,7 +31710,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -32204,7 +32252,7 @@
       "opponent": "Liverpool",
       "opponentId": "liverpool",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": null,
       "score": {
         "ft": [
@@ -32216,7 +32264,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -32836,7 +32885,7 @@
       "opponent": "Fulham",
       "opponentId": "fulham",
       "venue": "H",
-      "stadium": null,
+      "stadium": "old-trafford",
       "attendance": 10000,
       "score": {
         "ft": [
@@ -32847,7 +32896,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -33428,7 +33478,7 @@
       "opponent": "Wolverhampton Wanderers",
       "opponentId": "wolverhampton-wanderers",
       "venue": "A",
-      "stadium": null,
+      "stadium": "molineux",
       "attendance": 4500,
       "score": {
         "ft": [
@@ -33440,7 +33490,8 @@
         "engsoccerdata",
         "wikipedia",
         "transfermarkt-datasets",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -34025,7 +34076,7 @@
       "opponent": "Villarreal CF",
       "opponentId": "villarreal-cf",
       "venue": "N",
-      "stadium": null,
+      "stadium": "stadion-energa-gdansk",
       "attendance": 9412,
       "score": {
         "ft": [
@@ -34116,7 +34167,8 @@
       ],
       "sources": [
         "wikipedia",
-        "transfermarkt-datasets"
+        "transfermarkt-datasets",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {

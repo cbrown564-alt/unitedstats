@@ -25,7 +25,7 @@ export const MOBILE_SEARCH_SUGGESTIONS: MobileSearchSuggestion[] = [
  */
 export const POPULAR_SEARCHES: { q: string; hint: string }[] = [
   { q: "did United ever beat Barcelona", hint: "ask it plainly" },
-  { q: "record away at Arsenal", hint: "venue-aware head-to-head" },
+  { q: "record away at Arsenal", hint: "home/away head-to-head" },
   { q: "biggest win in the 90s", hint: "era-scoped superlative" },
   { q: "United in Europe", hint: "competition-scoped record" },
   { q: "Rooney vs Charlton", hint: "player comparison" },

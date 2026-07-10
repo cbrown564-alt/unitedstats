@@ -1,32 +1,2688 @@
 {
   "stadiums": [
-    { "id": "north-road", "name": "North Road", "city": "Manchester", "country": "England",
-      "lat": 53.4986, "lng": -2.2186,
-      "home": [{ "from": "1878-01-01", "to": "1893-06-30" }],
-      "note": "Newton Heath LYR's first ground, Monsall" },
-    { "id": "bank-street", "name": "Bank Street", "city": "Manchester (Clayton)", "country": "England",
-      "lat": 53.4825, "lng": -2.1742,
-      "home": [{ "from": "1893-07-01", "to": "1910-02-18" }],
-      "note": "Home 1893-1910; notorious for chemical-works smoke" },
-    { "id": "old-trafford", "name": "Old Trafford", "city": "Manchester", "country": "England",
-      "lat": 53.4631, "lng": -2.2913,
-      "home": [{ "from": "1910-02-19", "to": "1941-03-10" }, { "from": "1949-08-24", "to": null }],
-      "note": "The Theatre of Dreams; opened 19 Feb 1910 v Liverpool; bombed March 1941, reopened August 1949" },
-    { "id": "maine-road", "name": "Maine Road", "city": "Manchester", "country": "England",
-      "lat": 53.451, "lng": -2.2384,
-      "home": [{ "from": "1941-03-11", "to": "1949-08-23" }],
-      "note": "Borrowed from Manchester City while Old Trafford was rebuilt after WWII bomb damage" },
-    { "id": "wembley", "name": "Wembley Stadium", "city": "London", "country": "England",
-      "lat": 51.556, "lng": -0.2796, "home": [], "note": "Principal neutral venue for finals" },
-    { "id": "millennium-stadium", "name": "Millennium Stadium", "city": "Cardiff", "country": "Wales",
-      "lat": 51.4782, "lng": -3.1826, "home": [], "note": "FA Cup/League Cup finals 2001-2006" },
-    { "id": "camp-nou", "name": "Camp Nou", "city": "Barcelona", "country": "Spain",
-      "lat": 41.3809, "lng": 2.1228, "home": [], "note": "1999 Champions League final" },
-    { "id": "luzhniki", "name": "Luzhniki Stadium", "city": "Moscow", "country": "Russia",
-      "lat": 55.7158, "lng": 37.5537, "home": [], "note": "2008 Champions League final" },
-    { "id": "rotterdam-kuip", "name": "De Kuip", "city": "Rotterdam", "country": "Netherlands",
-      "lat": 51.8939, "lng": 4.5231, "home": [], "note": "1991 Cup Winners' Cup final" },
-    { "id": "friends-arena", "name": "Friends Arena", "city": "Stockholm", "country": "Sweden",
-      "lat": 59.3727, "lng": 18.0001, "home": [], "note": "2017 Europa League final" }
+    {
+      "id": "aalborg-stadion",
+      "name": "Aalborg Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "abbey-park",
+      "name": "Abbey Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "abbey-stadium",
+      "name": "Abbey Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "allianz-arena",
+      "name": "Allianz Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "allianz-stadium-turin",
+      "name": "Allianz Stadium",
+      "city": "Turin",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "amex-stadium",
+      "name": "Amex Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "anfield",
+      "name": "Anfield",
+      "city": "Liverpool",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "anlaby-road",
+      "name": "Anlaby Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "anoeta-stadium",
+      "name": "Anoeta Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "apostolos-nikolaidis",
+      "name": "Apostolos Nikolaidis",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "arena-khimki",
+      "name": "Arena Khimki",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "arena-nationala",
+      "name": "Arena Nationala",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "artemio-franchi",
+      "name": "Artemio Franchi",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "ashton-gate",
+      "name": "Ashton Gate",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "asplins-farm",
+      "name": "Asplins Farm",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "astana-arena",
+      "name": "Astana Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "ayresome-park",
+      "name": "Ayresome Park",
+      "city": "Middlesbrough",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "bank-street",
+      "name": "Bank Street",
+      "city": "Manchester (Clayton)",
+      "country": "England",
+      "lat": 53.4825,
+      "lng": -2.1742,
+      "home": [
+        {
+          "from": "1893-07-01",
+          "to": "1910-02-18"
+        }
+      ],
+      "note": "Home 1893-1910; notorious for chemical-works smoke"
+    },
+    {
+      "id": "barley-bank",
+      "name": "Barley Bank",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "baseball-ground",
+      "name": "Baseball Ground",
+      "city": "Derby",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "bayarena",
+      "name": "Bayarena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "bet365-stadium",
+      "name": "bet365 Stadium",
+      "city": "Stoke-on-Trent",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly Britannia Stadium"
+    },
+    {
+      "id": "bjk-inonu-stadium",
+      "name": "BJK Inonu Stadium",
+      "city": null,
+      "country": "Turkey",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "bloomfield-road",
+      "name": "Bloomfield Road",
+      "city": "Blackpool",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "blundell-park",
+      "name": "Blundell Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "boleyn-ground",
+      "name": "Boleyn Ground",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "bootham-crescent",
+      "name": "Bootham Crescent",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "boothferry-park",
+      "name": "Boothferry Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "borough-park",
+      "name": "Borough Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "boundary-park",
+      "name": "Boundary Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "bramall-lane",
+      "name": "Bramall Lane",
+      "city": "Sheffield",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "brisbane-road",
+      "name": "Brisbane Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "brunton-park",
+      "name": "Brunton Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "burnden-park",
+      "name": "Burnden Park",
+      "city": "Bolton",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "bursa-ataturk-stadium",
+      "name": "Bursa Ataturk Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "camp-nou",
+      "name": "Camp Nou",
+      "city": "Barcelona",
+      "country": "Spain",
+      "lat": 41.3809,
+      "lng": 2.1228,
+      "home": [],
+      "note": "1999 Champions League final"
+    },
+    {
+      "id": "cardiff-city-stadium",
+      "name": "Cardiff City Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "carrow-road",
+      "name": "Carrow Road",
+      "city": "Norwich",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "celtic-park",
+      "name": "Celtic Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "chornomorets-stadium",
+      "name": "Chornomorets Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "city-ground",
+      "name": "City Ground",
+      "city": "Nottingham",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "cobridge-stadium",
+      "name": "Cobridge Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "constant-vanden-stock-stadium",
+      "name": "Constant Vanden Stock Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "county-cricket-ground",
+      "name": "County Cricket Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "county-ground-northampton",
+      "name": "County Ground",
+      "city": "Northampton",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "county-ground-swindon",
+      "name": "County Ground",
+      "city": "Swindon",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "craven-cottage",
+      "name": "Craven Cottage",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "crystal-palace-fa-cup",
+      "name": "Crystal Palace",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Historic FA Cup final venue (not Selhurst Park)"
+    },
+    {
+      "id": "dalymount-park",
+      "name": "Dalymount Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "de-jose-alvalade",
+      "name": "De Jose Alvalade",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "deepdale",
+      "name": "Deepdale",
+      "city": "Preston",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "derby-turn",
+      "name": "Derby Turn",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "donbass-arena",
+      "name": "Donbass Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "doosan-arena",
+      "name": "Doosan Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "dr-constantin-radulescu-stadium",
+      "name": "Dr Constantin Radulescu Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "dunstable-road",
+      "name": "Dunstable Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "dw-stadium",
+      "name": "DW Stadium",
+      "city": "Wigan",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly JJB Stadium"
+    },
+    {
+      "id": "eastville-stadium",
+      "name": "Eastville Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "edgar-street",
+      "name": "Edgar Street",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "edgeley-park",
+      "name": "Edgeley Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "el-madrigal-stadium",
+      "name": "El Madrigal Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "elland-road",
+      "name": "Elland Road",
+      "city": "Leeds",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "elm-park",
+      "name": "Elm Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "emile-verse-stadium",
+      "name": "Emile Verse Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "emirates-stadium",
+      "name": "Emirates Stadium",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "ernst-happel-stadion",
+      "name": "Ernst Happel Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-benito-villamarin",
+      "name": "Estadio Benito Villamarin",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-da-luz",
+      "name": "Estadio da Luz",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-das-antas",
+      "name": "Estadio das Antas",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-de-riazor",
+      "name": "Estadio de Riazor",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-do-bessa",
+      "name": "Estadio do Bessa",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-do-dragao",
+      "name": "Estadio do Dragao",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-municipal-de-balaidos",
+      "name": "Estadio Municipal de Balaidos",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-municipal-de-braga",
+      "name": "Estadio Municipal de Braga",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "estadio-san-mames",
+      "name": "Estadio San Mames",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "etihad-stadium",
+      "name": "Etihad Stadium",
+      "city": "Manchester",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Also known as Eastlands / City of Manchester Stadium"
+    },
+    {
+      "id": "ewood-park",
+      "name": "Ewood Park",
+      "city": "Blackburn",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "fatih-terim-stadium",
+      "name": "Fatih Terim Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "fellows-park",
+      "name": "Fellows Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "ferenc-puskas-stadium",
+      "name": "Ferenc Puskas Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "filbert-street",
+      "name": "Filbert Street",
+      "city": "Leicester",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "fleetwood-park",
+      "name": "Fleetwood Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "fratton-park",
+      "name": "Fratton Park",
+      "city": "Portsmouth",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "friends-arena",
+      "name": "Friends Arena",
+      "city": "Stockholm",
+      "country": "Sweden",
+      "lat": 59.3727,
+      "lng": 18.0001,
+      "home": [],
+      "note": "2017 Europa League final"
+    },
+    {
+      "id": "geoffrey-guichard",
+      "name": "Geoffrey Guichard",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "gewiss-stadium",
+      "name": "Gewiss Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "gigg-lane",
+      "name": "Gigg Lane",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "glanford-park",
+      "name": "Glanford Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "goldstone-ground",
+      "name": "Goldstone Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "goodison-park",
+      "name": "Goodison Park",
+      "city": "Liverpool",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "gottlieb-daimler-stadium",
+      "name": "Gottlieb-Daimler Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "green-lane",
+      "name": "Green Lane",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "gresty-road",
+      "name": "Gresty Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "griffin-park",
+      "name": "Griffin Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "groupama-stadium",
+      "name": "Groupama Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "gsp-stadium",
+      "name": "GSP Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "gtech-community-stadium",
+      "name": "Gtech Community Stadium",
+      "city": "Brentford",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "highbury",
+      "name": "Highbury",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "highfield-road",
+      "name": "Highfield Road",
+      "city": "Coventry",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "hill-dickinson-stadium",
+      "name": "Hill Dickinson Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "hillsborough",
+      "name": "Hillsborough",
+      "city": "Sheffield",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "home-park",
+      "name": "Home Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "huish-park",
+      "name": "Huish Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "hyde-road",
+      "name": "Hyde Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "ibrox-stadium",
+      "name": "Ibrox Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "jan-breydel-stadium",
+      "name": "Jan Breydel Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "johan-cruijff-arena",
+      "name": "Amsterdam Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "john-smiths-stadium",
+      "name": "John Smith's Stadium",
+      "city": "Huddersfield",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "jozsef-bozsik-stadium",
+      "name": "Jozsef Bozsik Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "karaiskakis-stadium",
+      "name": "Karaiskakis Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "kenilworth-road",
+      "name": "Kenilworth Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "king-power-stadium",
+      "name": "King Power Stadium",
+      "city": "Leicester",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly Walkers Stadium"
+    },
+    {
+      "id": "la-bombonera",
+      "name": "La Bombonera",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "lansdowne-road",
+      "name": "Lansdowne Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "layer-road",
+      "name": "Layer Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "leeds-road",
+      "name": "Leeds Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "lia-manoliu-stadium",
+      "name": "Lia Manoliu Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "linthorpe-road",
+      "name": "Linthorpe Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "linzer-stadion",
+      "name": "Linzer Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "loftus-road",
+      "name": "Loftus Road",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "london-stadium",
+      "name": "London Stadium",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "luzhniki",
+      "name": "Luzhniki Stadium",
+      "city": "Moscow",
+      "country": "Russia",
+      "lat": 55.7158,
+      "lng": 37.5537,
+      "home": [],
+      "note": "2008 Champions League final"
+    },
+    {
+      "id": "maine-road",
+      "name": "Maine Road",
+      "city": "Manchester",
+      "country": "England",
+      "lat": 53.451,
+      "lng": -2.2384,
+      "home": [
+        {
+          "from": "1941-03-11",
+          "to": "1949-08-23"
+        }
+      ],
+      "note": "Borrowed from Manchester City while Old Trafford was rebuilt after WWII bomb damage"
+    },
+    {
+      "id": "maksimir-stadium",
+      "name": "Maksimir Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "manor-field",
+      "name": "Manor Field",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "manor-ground",
+      "name": "Manor Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "maracana-stadium",
+      "name": "Maracana Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "mch-arena",
+      "name": "MCH Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "meadow-lane",
+      "name": "Meadow Lane",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "mestalla-stadium",
+      "name": "Mestalla Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "millennium-stadium",
+      "name": "Millennium Stadium",
+      "city": "Cardiff",
+      "country": "Wales",
+      "lat": 51.4782,
+      "lng": -3.1826,
+      "home": [],
+      "note": "FA Cup/League Cup finals 2001-2006"
+    },
+    {
+      "id": "millfields-road",
+      "name": "Millfields Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "millmoor",
+      "name": "Millmoor",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "mkm-stadium",
+      "name": "MKM Stadium",
+      "city": "Hull",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly KC / KCOM Stadium"
+    },
+    {
+      "id": "molineux",
+      "name": "Molineux",
+      "city": "Wolverhampton",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "muntz-street",
+      "name": "Muntz Street",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "nep-stadion",
+      "name": "Nep Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "new-meadow",
+      "name": "New Meadow",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "newcastle-road",
+      "name": "Newcastle Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "ninian-park",
+      "name": "Ninian Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "north-road",
+      "name": "North Road",
+      "city": "Manchester",
+      "country": "England",
+      "lat": 53.4986,
+      "lng": -2.2186,
+      "home": [
+        {
+          "from": "1878-01-01",
+          "to": "1893-06-30"
+        }
+      ],
+      "note": "Newton Heath LYR's first ground, Monsall"
+    },
+    {
+      "id": "north-road-glossop",
+      "name": "North Road",
+      "city": "Glossop",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Glossop"
+    },
+    {
+      "id": "nuevo-los-carmenes-stadium",
+      "name": "Nuevo Los Carmenes Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "nya-ullevi-stadium",
+      "name": "NYA Ullevi Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "oakwell",
+      "name": "Oakwell",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "old-recreation-ground",
+      "name": "Old Recreation Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "old-trafford",
+      "name": "Old Trafford",
+      "city": "Manchester",
+      "country": "England",
+      "lat": 53.4631,
+      "lng": -2.2913,
+      "home": [
+        {
+          "from": "1910-02-19",
+          "to": "1941-03-10"
+        },
+        {
+          "from": "1949-08-24",
+          "to": null
+        }
+      ],
+      "note": "The Theatre of Dreams; opened 19 Feb 1910 v Liverpool; bombed March 1941, reopened August 1949"
+    },
+    {
+      "id": "olimp-2-stadium",
+      "name": "Olimp-2 Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "olympic-stadium-amsterdam",
+      "name": "Olympic Stadium",
+      "city": "Amsterdam",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "olympic-stadium-athens",
+      "name": "Olympic Stadium",
+      "city": "Athens",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "olympic-stadium-helsinki",
+      "name": "Olympic Stadium",
+      "city": "Helsinki",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "olympic-stadium-kyiv",
+      "name": "Olympic Stadium",
+      "city": "Kiev",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "olympic-stadium-munich",
+      "name": "Olympic Stadium",
+      "city": "Munich",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "olympic-stadium-tokyo",
+      "name": "Olympic Stadium",
+      "city": "Tokyo",
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "parc-des-princes",
+      "name": "Parc des Princes",
+      "city": "Paris",
+      "country": "France",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "park-astrid",
+      "name": "Park Astrid",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "park-avenue",
+      "name": "Park Avenue",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "parken-stadion",
+      "name": "Parken Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "partizan-stadium",
+      "name": "Partizan Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "peel-croft",
+      "name": "Peel Croft",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "peel-park",
+      "name": "Peel Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "perry-bar",
+      "name": "Perry Bar",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "philip-ii-arena",
+      "name": "Philip II Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "philipstadion",
+      "name": "Philipstadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "pikes-lane",
+      "name": "Pikes Lane",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "plough-lane",
+      "name": "Plough Lane",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "pmsc-stadion",
+      "name": "PMSC Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "portman-road",
+      "name": "Portman Road",
+      "city": "Ipswich",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "prenton-park",
+      "name": "Prenton Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "pride-park",
+      "name": "Pride Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "raba-eto-stadium",
+      "name": "Raba ETO Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "racecourse-ground",
+      "name": "Racecourse Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "raikes-hall-gardens",
+      "name": "Raikes Hall Gardens",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "ramon-sanchez-pizjuan",
+      "name": "Ramon Sanchez-Pizjuan",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "rams-global-stadium",
+      "name": "Rams Global Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "recreation-ground",
+      "name": "Recreation Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "red-bull-arena",
+      "name": "Red Bull Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "rhein-energie-stadion",
+      "name": "Rhein Energie Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "riverside-stadium",
+      "name": "Riverside Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "rizoupoli",
+      "name": "Rizoupoli",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "roasunda-stadion",
+      "name": "Roasunda Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "rodney-parade",
+      "name": "Rodney Parade",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "roker-park",
+      "name": "Roker Park",
+      "city": "Sunderland",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "roots-hall",
+      "name": "Roots Hall",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "rotterdam-kuip",
+      "name": "De Kuip",
+      "city": "Rotterdam",
+      "country": "Netherlands",
+      "lat": 51.8939,
+      "lng": 4.5231,
+      "home": [],
+      "note": "1991 Cup Winners' Cup final"
+    },
+    {
+      "id": "saltergate",
+      "name": "Saltergate",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "san-siro",
+      "name": "San Siro",
+      "city": "Milan",
+      "country": "Italy",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "santiago-bernabeu",
+      "name": "Santiago Bernabéu",
+      "city": "Madrid",
+      "country": "Spain",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "schwarzenegger-stadium",
+      "name": "Schwarzenegger Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "seed-hill",
+      "name": "Seed Hill",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "select-car-leasing-stadium",
+      "name": "Select Car Leasing Stadium",
+      "city": "Reading",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly Madejski Stadium"
+    },
+    {
+      "id": "selhurst-park",
+      "name": "Selhurst Park",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "sincil-bank",
+      "name": "Sincil Bank",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "sixfields-stadium",
+      "name": "Sixfields Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "sostoi-stadion",
+      "name": "Sostoi Stadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "st-andrews",
+      "name": "St Andrew's",
+      "city": "Birmingham",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "st-jakob-stadium",
+      "name": "St Jakob Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "st-james-park",
+      "name": "St James' Park",
+      "city": "Newcastle",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "st-james-park-exeter",
+      "name": "St James Park",
+      "city": "Exeter",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "st-marys-stadium",
+      "name": "St Mary's Stadium",
+      "city": "Southampton",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stad-yuri-gargarin",
+      "name": "Stad Yuri Gargarin",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-beaujoire",
+      "name": "Stade Beaujoire",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-de-france",
+      "name": "Stade de France",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-de-gerland",
+      "name": "Stade de Gerland",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-de-la-meinau",
+      "name": "Stade de la Meinau",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-de-la-mosson",
+      "name": "Stade de la Mosson",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-de-suisse",
+      "name": "Stade de Suisse",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-felix-bollaert",
+      "name": "Stade Felix Bollaert",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-lescure",
+      "name": "Stade Lescure",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-louis-ii",
+      "name": "Stade Louis II",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stade-velodrome",
+      "name": "Stade Velodrome",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadio-comunale",
+      "name": "Stadio Comunale",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadio-delle-alpi",
+      "name": "Stadio Delle Alpi",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadio-olimpico",
+      "name": "Stadio Olimpico",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadion-energa-gdansk",
+      "name": "Stadion Energa Gdansk",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadion-jna",
+      "name": "Stadion JNA",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadion-juliska",
+      "name": "Stadion Juliska",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadion-slaski",
+      "name": "Stadion Slaski",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadion-strahov",
+      "name": "Stadion Strahov",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadionul-zimbru",
+      "name": "Stadionul Zimbru",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadium-mk",
+      "name": "Stadium MK",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stadium-of-light",
+      "name": "Stadium of Light",
+      "city": "Sunderland",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stamford-bridge",
+      "name": "Stamford Bridge",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "stoney-lane",
+      "name": "Stoney Lane",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "sukru-saracoglu",
+      "name": "Sukru Saracoglu",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "swansea-com-stadium",
+      "name": "Swansea.com Stadium",
+      "city": "Swansea",
+      "country": "Wales",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly Liberty Stadium"
+    },
+    {
+      "id": "sydenham-hill",
+      "name": "Sydenham Hill",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "talbot-road",
+      "name": "Talbot Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "tannadice-park",
+      "name": "Tannadice Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-athletic-ground",
+      "name": "The Athletic Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-dell",
+      "name": "The Dell",
+      "city": "Southampton",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-den",
+      "name": "The Den",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-hawthorns",
+      "name": "The Hawthorns",
+      "city": "West Bromwich",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-nest",
+      "name": "The Nest",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-northolme",
+      "name": "The Northolme",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-shay",
+      "name": "The Shay",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "the-valley",
+      "name": "The Valley",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "tj-lokomotive-stadium",
+      "name": "TJ Lokomotive Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "tottenham-hotspur-stadium",
+      "name": "Tottenham Hotspur Stadium",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "toughsheet-community-stadium",
+      "name": "Toughsheet Community Stadium",
+      "city": "Bolton",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly Reebok / Macron Stadium"
+    },
+    {
+      "id": "tower-athletic-ground",
+      "name": "Tower Athletic Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "town-ground",
+      "name": "Town Ground",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "town-moor-avenue",
+      "name": "Town Moor Avenue",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "trent-bridge",
+      "name": "Trent Bridge",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "turf-moor",
+      "name": "Turf Moor",
+      "city": "Burnley",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "turk-telecom-arena",
+      "name": "Turk Telecom Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "vale-park",
+      "name": "Vale Park",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "valley-parade",
+      "name": "Valley Parade",
+      "city": "Bradford",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "veb-arena",
+      "name": "VEB Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "veltins-arena",
+      "name": "Veltins-Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "vetch-field",
+      "name": "Vetch Field",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "vicarage-road",
+      "name": "Vicarage Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "vicente-calderon",
+      "name": "Vicente Calderón",
+      "city": "Madrid",
+      "country": "Spain",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "victoria-ground",
+      "name": "Victoria Ground",
+      "city": "Stoke-on-Trent",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "villa-park",
+      "name": "Villa Park",
+      "city": "Birmingham",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "vitality-stadium",
+      "name": "Vitality Stadium",
+      "city": "Bournemouth",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": "Formerly Dean Court"
+    },
+    {
+      "id": "volkswagen-arena",
+      "name": "Volkswagen Arena",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "walter-ulbricht-stadium",
+      "name": "Walter Ulbricht Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "wanda-metropolitano",
+      "name": "Wanda Metropolitano",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "wankdorf-stadium",
+      "name": "Wankdorf Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "wembley",
+      "name": "Wembley Stadium",
+      "city": "London",
+      "country": "England",
+      "lat": 51.556,
+      "lng": -0.2796,
+      "home": [],
+      "note": "Principal neutral venue for finals"
+    },
+    {
+      "id": "west-bromwich-road",
+      "name": "West Bromwich Road",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "westfalenstadion",
+      "name": "Westfalenstadion",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "white-hart-lane",
+      "name": "White Hart Lane",
+      "city": "London",
+      "country": "England",
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "wojska-polskiego",
+      "name": "Wojska Polskiego",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    },
+    {
+      "id": "yokohama-stadium",
+      "name": "Yokohama Stadium",
+      "city": null,
+      "country": null,
+      "lat": null,
+      "lng": null,
+      "home": [],
+      "note": null
+    }
   ]
 }

@@ -1,4 +1,4 @@
-import { fmtDate, fmtNum, pct, resultLabel, resultTone, venueLabel, COMPETITION_TYPE_LABELS } from "@/lib/format";
+import { fmtDate, fmtNum, pct, resultLabel, resultTone, homeAwayLabel, COMPETITION_TYPE_LABELS } from "@/lib/format";
 import { isRoundFilterKey, roundFilterLabel } from "@/lib/matchRounds";
 import { matchFilterFromSearchParams, parseMatchSort } from "@/lib/matchFilterFromUrl";
 import {
@@ -45,7 +45,7 @@ function buildMatchChips(sp: Record<string, string | undefined>): MatchPageChip[
   }
   if (sp.manager) chips.push({ key: "manager", label: managerById(sp.manager)?.name ?? "Manager" });
   if (sp.season) chips.push({ key: "season", label: `Season ${sp.season}` });
-  if (sp.venue) chips.push({ key: "venue", label: venueLabel(sp.venue) });
+  if (sp.venue) chips.push({ key: "venue", label: homeAwayLabel(sp.venue) });
   if (sp.result) chips.push({ key: "result", label: resultLabel(sp.result) });
   if (sp.type) chips.push({ key: "type", label: COMPETITION_TYPE_LABELS[sp.type] ?? sp.type });
   if (round) chips.push({ key: "round", label: roundFilterLabel(round) });

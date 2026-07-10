@@ -9,7 +9,7 @@
       "opponent": "Fleetwood Rangers",
       "opponentId": "fleetwood-rangers",
       "venue": "A",
-      "stadium": null,
+      "stadium": "fleetwood-park",
       "attendance": 2000,
       "score": {
         "ft": [
@@ -52,7 +52,8 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {

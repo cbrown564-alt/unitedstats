@@ -7,7 +7,7 @@ import {
   seasonRef,
   type ClaimProvenance,
 } from "./citations";
-import { clubName, fmtDateLong, fmtNum, pct, playerCareerSpan, venueLabel } from "./format";
+import { clubName, fmtDateLong, fmtNum, pct, playerCareerSpan, stadiumLabel, homeAwayLabel } from "./format";
 import { playerUsesDefensiveProfile } from "./playerProfile";
 import type { QuestionMeta } from "./questions";
 import { SITE_URL } from "./site";
@@ -42,6 +42,33 @@ function team(name: string): JsonLd {
 }
 
 const MANCHESTER_UNITED = team("Manchester United");
+
+/** Google requires Place + PostalAddress; fall back when the ground is unknown. */
+function matchLocation(match: MatchRow): JsonLd {
+  if (match.stadium_name) {
+    const address: JsonLd = { "@type": "PostalAddress" };
+    if (match.stadium_city) address.addressLocality = match.stadium_city;
+    if (match.stadium_country) address.addressCountry = match.stadium_country;
+    if (!match.stadium_city && !match.stadium_country) address.name = match.stadium_name;
+    return { "@type": "Place", name: match.stadium_name, address };
+  }
+
+  const name =
+    match.venue === "A"
+      ? `${match.opponent_name} (away)`
+      : match.venue === "H"
+        ? "Home ground"
+        : "Neutral venue";
+  return {
+    "@type": "Place",
+    name,
+    address: { "@type": "PostalAddress", name },
+  };
+}
+
+function matchPerformers(match: MatchRow): JsonLd[] {
+  return [team(clubName(match.date)), team(match.opponent_name)];
+}
 
 export interface SeasonCampaignSummary {
   played: number;
@@ -176,7 +203,7 @@ export function websiteJsonLd(): JsonLd {
 export function matchJsonLd(match: MatchRow, sources: MatchSourceRecord[]): JsonLd {
   const ref = matchRef(match.id);
   const provenance = sources.map((source) => matchSourceProvenance(source, match.id));
-  const venue = venueLabel(match.venue);
+  const venue = stadiumLabel(match.stadium_name, homeAwayLabel(match.venue));
   return {
     "@context": "https://schema.org",
     "@id": ref.url,
@@ -186,9 +213,18 @@ export function matchJsonLd(match: MatchRow, sources: MatchSourceRecord[]): Json
     name: `${clubName(match.date)} ${match.gf}-${match.ga} ${match.opponent_name}`,
     description: `${clubName(match.date)} ${match.gf}-${match.ga} ${match.opponent_name}, ${fmtDateLong(match.date)} (${venue}).`,
     startDate: match.date,
+    endDate: match.date,
     sport: "Association football",
     eventStatus: "https://schema.org/EventCompleted",
-    location: match.stadium_name ? { "@type": "Place", name: match.stadium_name } : undefined,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: matchLocation(match),
+    image: [`${ref.url}/opengraph-image`],
+    organizer: {
+      "@type": "SportsOrganization",
+      name: match.competition_name,
+      url: SITE_URL,
+    },
+    performer: matchPerformers(match),
     ...matchTeams(match),
     isBasedOn: provenance.map(sourceWork),
   };

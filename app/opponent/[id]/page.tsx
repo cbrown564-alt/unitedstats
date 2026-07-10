@@ -37,7 +37,7 @@ import {
   opponentBestSeason,
   seasonSpanAnchor,
 } from "@/lib/opponentSeasonHighlights";
-import { fmtNum, pct, venueLabel } from "@/lib/format";
+import { fmtNum, pct, homeAwayLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { jsonLdHtml, opponentJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
@@ -187,7 +187,7 @@ export default async function OpponentPage({
                         {venues.map((v) => (
                           <div key={v.venue}>
                             <div className="mb-1.5 flex justify-between text-sm">
-                              <span className="text-ink-dim">{venueLabel(v.venue)}</span>
+                              <span className="text-ink-dim">{homeAwayLabel(v.venue)}</span>
                               <span className="stat-num text-xs text-ink-faint">
                                 <span className="text-ink">{pct(v.w, v.p)}</span> W
                               </span>
@@ -204,7 +204,7 @@ export default async function OpponentPage({
                         ))}
                         <CoverageNote
                           className="!mt-0"
-                          slice="every meeting in this fixture, split by venue; all competitions."
+                          slice="every meeting in this fixture, split by home/away; all competitions."
                           evidenceHref={`/matches?opponent=${id}&venue=A`}
                           evidenceLabel="Away meetings only →"
                         />

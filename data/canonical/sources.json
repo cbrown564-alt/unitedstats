@@ -97,6 +97,14 @@
       "notes": "Used for conservative match-lineup enrichment and data/canonical/player-shirts.json summaries. Raw pages are cached under data/raw/mufcinfo and are not redistributed."
     },
     {
+      "id": "mufcinfo-match-stadiums",
+      "label": "MUFCInfo match stadiums",
+      "kind": "reference",
+      "url": "https://www.mufcinfo.com/manupag/match_data/match_sql.php",
+      "coverage": "Ground names from the Venue line (and JSON-LD location) on historical Manchester United and Newton Heath match pages — home, away, and neutral.",
+      "notes": "Used by scripts/ingest/mufcinfo-stadiums.ts to set match.stadium and expand data/canonical/stadiums.json. Never overwrites a disagreeing existing stadium id. Raw pages are cached under data/raw/mufcinfo and are not redistributed."
+    },
+    {
       "id": "mufcinfo-goal-minutes",
       "label": "MUFCInfo goal minutes",
       "kind": "reference",

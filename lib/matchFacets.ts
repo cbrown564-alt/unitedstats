@@ -37,7 +37,7 @@ const MATCH_FACETS: FacetDef[] = [
   { key: "result", label: "Result", kind: "select", group: "what", optionsKey: "result", icon: "flag" },
   { key: "aet", label: "Went to extra time", kind: "toggle", group: "what", onValue: "1", icon: "hourglass" },
 
-  { key: "venue", label: "Venue", kind: "select", group: "where", optionsKey: "venue", icon: "home" },
+  { key: "venue", label: "Home/away", kind: "select", group: "where", optionsKey: "venue", icon: "home" },
   { key: "stadium", label: "Stadium", kind: "select", group: "where", optionsKey: "stadium", icon: "stadium" },
   { key: "city", label: "City", kind: "select", group: "where", optionsKey: "city", icon: "pin" },
 

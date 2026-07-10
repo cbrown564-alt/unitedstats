@@ -9,7 +9,7 @@
       "opponent": "Bristol City",
       "opponentId": "bristol-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 25000,
       "score": {
         "ft": [
@@ -20,7 +20,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -193,7 +194,7 @@
       "opponent": "Blackpool",
       "opponentId": "blackpool",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 7000,
       "score": {
         "ft": [
@@ -204,7 +205,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -362,7 +364,7 @@
       "opponent": "Grimsby Town",
       "opponentId": "grimsby-town",
       "venue": "A",
-      "stadium": null,
+      "stadium": "blundell-park",
       "attendance": 6000,
       "score": {
         "ft": [
@@ -374,7 +376,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -527,7 +530,7 @@
       "opponent": "Glossop North End",
       "opponentId": "glossop",
       "venue": "A",
-      "stadium": null,
+      "stadium": "north-road-glossop",
       "attendance": 7000,
       "score": {
         "ft": [
@@ -539,7 +542,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -706,7 +710,7 @@
       "opponent": "Stockport County",
       "opponentId": "stockport-county",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 15000,
       "score": {
         "ft": [
@@ -718,7 +722,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -881,7 +886,7 @@
       "opponent": "Blackpool",
       "opponentId": "blackpool",
       "venue": "A",
-      "stadium": null,
+      "stadium": "bloomfield-road",
       "attendance": 7000,
       "score": {
         "ft": [
@@ -893,7 +898,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1202,7 +1208,7 @@
       "opponent": "West Bromwich Albion",
       "opponentId": "west-bromwich-albion",
       "venue": "A",
-      "stadium": null,
+      "stadium": "the-hawthorns",
       "attendance": 15000,
       "score": {
         "ft": [
@@ -1214,7 +1220,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -1370,7 +1377,7 @@
       "opponent": "Leicester City",
       "opponentId": "leicester-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 12000,
       "score": {
         "ft": [
@@ -1382,7 +1389,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1563,7 +1571,7 @@
       "opponent": "Gainsborough Trinity",
       "opponentId": "gainsborough-trinity",
       "venue": "A",
-      "stadium": null,
+      "stadium": "the-northolme",
       "attendance": 4000,
       "score": {
         "ft": [
@@ -1574,7 +1582,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1732,7 +1741,7 @@
       "opponent": "Hull City",
       "opponentId": "hull-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "anlaby-road",
       "attendance": 14000,
       "score": {
         "ft": [
@@ -1744,7 +1753,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -1897,7 +1907,7 @@
       "opponent": "Lincoln City",
       "opponentId": "lincoln-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 15000,
       "score": {
         "ft": [
@@ -1909,7 +1919,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2067,7 +2078,7 @@
       "opponent": "Chesterfield",
       "opponentId": "chesterfield",
       "venue": "A",
-      "stadium": null,
+      "stadium": "saltergate",
       "attendance": 15000,
       "score": {
         "ft": [
@@ -2079,7 +2090,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -2235,7 +2247,7 @@
       "opponent": "Port Vale",
       "opponentId": "port-vale",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 8000,
       "score": {
         "ft": [
@@ -2246,7 +2258,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2404,7 +2417,7 @@
       "opponent": "Barnsley",
       "opponentId": "barnsley",
       "venue": "A",
-      "stadium": null,
+      "stadium": "oakwell",
       "attendance": 3000,
       "score": {
         "ft": [
@@ -2416,7 +2429,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2582,7 +2596,7 @@
       "opponent": "Leyton Orient",
       "opponentId": "leyton-orient",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 12000,
       "score": {
         "ft": [
@@ -2593,7 +2607,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2761,7 +2776,7 @@
       "opponent": "Burnley",
       "opponentId": "burnley",
       "venue": "A",
-      "stadium": null,
+      "stadium": "turf-moor",
       "attendance": 8000,
       "score": {
         "ft": [
@@ -2773,7 +2788,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -2945,7 +2961,7 @@
       "opponent": "Burton United",
       "opponentId": "burton-united",
       "venue": "A",
-      "stadium": null,
+      "stadium": "peel-croft",
       "attendance": 5000,
       "score": {
         "ft": [
@@ -2957,7 +2973,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -3271,7 +3288,7 @@
       "opponent": "Bristol City",
       "opponentId": "bristol-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "ashton-gate",
       "attendance": 18000,
       "score": {
         "ft": [
@@ -3283,7 +3300,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -3445,7 +3463,7 @@
       "opponent": "Grimsby Town",
       "opponentId": "grimsby-town",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 10000,
       "score": {
         "ft": [
@@ -3456,7 +3474,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -3629,7 +3648,7 @@
       "opponent": "Staple Hill",
       "opponentId": "staple-hill",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 7560,
       "score": {
         "ft": [
@@ -3641,7 +3660,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "notes": null,
       "events": [
@@ -3981,7 +4001,7 @@
       "opponent": "Glossop North End",
       "opponentId": "glossop",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 7000,
       "score": {
         "ft": [
@@ -3992,7 +4012,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -4165,7 +4186,7 @@
       "opponent": "Stockport County",
       "opponentId": "stockport-county",
       "venue": "A",
-      "stadium": null,
+      "stadium": "edgeley-park",
       "attendance": 15000,
       "score": {
         "ft": [
@@ -4177,7 +4198,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -4330,7 +4352,7 @@
       "opponent": "Norwich City",
       "opponentId": "norwich-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 10000,
       "score": {
         "ft": [
@@ -4342,7 +4364,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "notes": null,
       "events": [
@@ -4506,7 +4529,7 @@
       "opponent": "Bradford City",
       "opponentId": "bradford-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "valley-parade",
       "attendance": 8000,
       "score": {
         "ft": [
@@ -4517,7 +4540,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -4846,7 +4870,7 @@
       "opponent": "Aston Villa",
       "opponentId": "aston-villa",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 35500,
       "score": {
         "ft": [
@@ -4859,7 +4883,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "notes": null,
       "events": [
@@ -5042,7 +5067,7 @@
       "opponent": "Hull City",
       "opponentId": "hull-city",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 30000,
       "score": {
         "ft": [
@@ -5053,7 +5078,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -5226,7 +5252,7 @@
       "opponent": "Arsenal",
       "opponentId": "arsenal",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 26500,
       "score": {
         "ft": [
@@ -5239,7 +5265,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "notes": null,
       "events": [
@@ -5425,7 +5452,7 @@
       "opponent": "Chesterfield",
       "opponentId": "chesterfield",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 16000,
       "score": {
         "ft": [
@@ -5436,7 +5463,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -5604,7 +5632,7 @@
       "opponent": "Port Vale",
       "opponentId": "port-vale",
       "venue": "A",
-      "stadium": null,
+      "stadium": "cobridge-stadium",
       "attendance": 3000,
       "score": {
         "ft": [
@@ -5616,7 +5644,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "lineup": [
         {
@@ -5772,7 +5801,7 @@
       "opponent": "Leicester City",
       "opponentId": "leicester-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "filbert-street",
       "attendance": 5000,
       "score": {
         "ft": [
@@ -5783,7 +5812,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -5956,7 +5986,7 @@
       "opponent": "Barnsley",
       "opponentId": "barnsley",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 15000,
       "score": {
         "ft": [
@@ -5967,7 +5997,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6140,7 +6171,7 @@
       "opponent": "Leyton Orient",
       "opponentId": "leyton-orient",
       "venue": "A",
-      "stadium": null,
+      "stadium": "millfields-road",
       "attendance": 8000,
       "score": {
         "ft": [
@@ -6152,7 +6183,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6305,7 +6337,7 @@
       "opponent": "Chelsea",
       "opponentId": "chelsea",
       "venue": "A",
-      "stadium": null,
+      "stadium": "stamford-bridge",
       "attendance": 60000,
       "score": {
         "ft": [
@@ -6317,7 +6349,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6479,7 +6512,7 @@
       "opponent": "Burnley",
       "opponentId": "burnley",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 12000,
       "score": {
         "ft": [
@@ -6490,7 +6523,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6643,7 +6677,7 @@
       "opponent": "Gainsborough Trinity",
       "opponentId": "gainsborough-trinity",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 20000,
       "score": {
         "ft": [
@@ -6654,7 +6688,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6812,7 +6847,7 @@
       "opponent": "Leeds City",
       "opponentId": "leeds-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "elland-road",
       "attendance": 15000,
       "score": {
         "ft": [
@@ -6823,7 +6858,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -6986,7 +7022,7 @@
       "opponent": "Lincoln City",
       "opponentId": "lincoln-city",
       "venue": "A",
-      "stadium": null,
+      "stadium": "sincil-bank",
       "attendance": 1500,
       "score": {
         "ft": [
@@ -6998,7 +7034,8 @@
         "engsoccerdata",
         "wikipedia",
         "mufcinfo-match-lineups",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {
@@ -7179,7 +7216,7 @@
       "opponent": "Burton United",
       "opponentId": "burton-united",
       "venue": "H",
-      "stadium": null,
+      "stadium": "bank-street",
       "attendance": 16000,
       "score": {
         "ft": [
@@ -7190,7 +7227,8 @@
       "sources": [
         "engsoccerdata",
         "wikipedia",
-        "mufcinfo-match-lineups"
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums"
       ],
       "events": [
         {

@@ -1,5 +1,5 @@
 import { matchRef } from "./citations";
-import { clubName, venueLabel } from "./format";
+import { clubName, homeAwayLabel, stadiumLabel } from "./format";
 import { matchById, eventsForMatch, lineupForMatch, type EventRow, type LineupRow } from "./queries";
 import type { CorrectionPrefill } from "./corrections";
 
@@ -66,7 +66,8 @@ export function matchCorrectionInventory(id: string): CorrectionInventory | null
   // --- This match ---------------------------------------------------------
   const matchFields: CorrectableField[] = [
     { label: "Date", current: m.date, prefill: matchPrefill("date", m.date) },
-    { label: "Venue", current: venueLabel(m.venue), prefill: matchPrefill("venue", m.venue) },
+    { label: "Stadium", current: stadiumLabel(m.stadium_name), prefill: matchPrefill("stadium", m.stadium_name) },
+    { label: "Home/away", current: homeAwayLabel(m.venue), prefill: matchPrefill("venue", m.venue) },
     { label: "Score", current: `${m.gf}-${m.ga}`, prefill: matchPrefill("score", `${m.gf}-${m.ga}`) },
     { label: "Competition", current: m.competition_name, prefill: matchPrefill("competition", m.competition_name) },
   ];

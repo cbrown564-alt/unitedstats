@@ -43,10 +43,70 @@ test("match JSON-LD uses SportsEvent, Phase 0 IDs, and canonical match-source pr
   assert.equal(jsonLd.identifier, matchRef(MATCH_ID).id);
   assert.equal(jsonLd.url, matchRef(MATCH_ID).url);
   assert.equal(jsonLd.startDate, "1999-05-26");
+  assert.equal(jsonLd.endDate, "1999-05-26");
+  assert.equal(jsonLd.eventAttendanceMode, "https://schema.org/OfflineEventAttendanceMode");
+
+  const location = jsonLd.location as { "@type": string; name: string; address: { "@type": string } };
+  assert.equal(location["@type"], "Place");
+  assert.ok(location.name);
+  assert.equal(location.address["@type"], "PostalAddress");
+
+  const organizer = jsonLd.organizer as { "@type": string; name: string; url: string };
+  assert.equal(organizer["@type"], "SportsOrganization");
+  assert.equal(organizer.name, match.competition_name);
+  assert.ok(organizer.url);
+
+  const performers = jsonLd.performer as { "@type": string; name: string }[];
+  assert.equal(performers.length, 2);
+  assert.ok(performers.every((p) => p["@type"] === "SportsTeam" && p.name));
+
+  const images = jsonLd.image as string[];
+  assert.deepEqual(images, [`${matchRef(MATCH_ID).url}/opengraph-image`]);
 
   const basedOn = jsonLd.isBasedOn as { identifier: string; name: string; about: string }[];
   assert.ok(basedOn.some((s) => s.identifier === "wikipedia" && s.about === "attendance"));
   assert.ok(basedOn.some((s) => s.identifier === "wikipedia" && s.about === "result"));
+});
+
+test("match JSON-LD always includes location, with stadium address when known", () => {
+  const away = matchById("1892-09-03-blackburn-rovers-a");
+  assert.ok(away);
+  assert.equal(away.stadium_name, "Ewood Park");
+  const jsonLd = matchJsonLd(away, []);
+  const location = jsonLd.location as { name: string; address: { "@type": string } };
+  assert.equal(location.name, "Ewood Park");
+  assert.equal(location.address["@type"], "PostalAddress");
+
+  const home = matchById("1892-09-10-burnley-h");
+  assert.ok(home);
+  assert.ok(home.stadium_name);
+  const homeLd = matchJsonLd(home, []);
+  const homeLoc = homeLd.location as {
+    name: string;
+    address: { addressLocality?: string; addressCountry?: string };
+  };
+  assert.equal(homeLoc.name, home.stadium_name);
+  assert.equal(homeLoc.address.addressLocality, home.stadium_city);
+  assert.equal(homeLoc.address.addressCountry, home.stadium_country);
+});
+
+test("match JSON-LD falls back when no stadium is recorded", () => {
+  // Synthetic row: same shape as MatchRow, no ground.
+  const bare = {
+    ...matchById("1892-09-03-blackburn-rovers-a")!,
+    stadium_id: null,
+    stadium_name: null,
+    stadium_city: null,
+    stadium_country: null,
+    venue: "A" as const,
+    opponent_name: "Blackburn Rovers",
+  };
+  const location = matchJsonLd(bare, []).location as {
+    name: string;
+    address: { "@type": string; name?: string };
+  };
+  assert.equal(location.name, "Blackburn Rovers (away)");
+  assert.equal(location.address["@type"], "PostalAddress");
 });
 
 test("the match page renders parseable JSON-LD with a citable ID", async () => {

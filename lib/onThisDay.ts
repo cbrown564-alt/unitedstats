@@ -9,6 +9,7 @@ interface OnThisDayMatch {
   opponent: string;
   opponentId: string;
   venue: "H" | "A" | "N";
+  stadium: string | null;
   gf: number;
   ga: number;
   margin: number;
@@ -88,6 +89,7 @@ interface Row {
   opponent_id: string;
   opponent_name: string;
   venue: "H" | "A" | "N";
+  stadium_name: string | null;
   gf: number;
   ga: number;
   result: "W" | "D" | "L";
@@ -105,6 +107,7 @@ function toMatch(row: Row): OnThisDayMatch {
     opponent: row.opponent_name,
     opponentId: row.opponent_id,
     venue: row.venue,
+    stadium: row.stadium_name,
     gf: row.gf,
     ga: row.ga,
     margin: row.gf - row.ga,
@@ -152,9 +155,11 @@ export function onThisDay(monthDay: string): OnThisDayEntry {
   const rows = getDb()
     .prepare(
       `SELECT m.id, m.date, m.season, m.opponent_id, m.opponent_name, m.venue, m.gf, m.ga, m.result,
-              c.name AS competition_name, c.type AS competition_type, m.round
+              c.name AS competition_name, c.type AS competition_type, m.round,
+              s.name AS stadium_name
        FROM matches m
        JOIN competitions c ON c.id = m.competition_id
+       LEFT JOIN stadiums s ON s.id = m.stadium_id
        WHERE substr(m.date, 6, 5) = ?
        ORDER BY m.date, m.id`,
     )
