@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-07-09T22:22:00.000Z",
+  "sourceId": "wikimedia-commons",
+  "sourceName": "Wikimedia Commons imageinfo (hand-selected journey place monuments)",
+  "sourceUrls": [
+    "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia"
+  ],
+  "notes": [
+    "Three grounds for the Treble spin-off stage (docs/JOURNEY.md §4b, monument A): Old Trafford, Wembley, Camp Nou.",
+    "Wembley uses the Twin Towers (5 June 1999) — the ground that hosted the 1999 FA Cup final, not the post-2007 arch.",
+    "Camp Nou is labelled Camp Nou in copy (the question page also says Nou Camp); the Commons file is the modern exterior.",
+    "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run scripts/cache-journey-places.ts after changing records."
+  ],
+  "records": [
+    {
+      "placeId": "old-trafford",
+      "label": "Old Trafford",
+      "decider": "league",
+      "commonsFile": "Manchester United Old Trafford (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Manchester_United_Old_Trafford_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Manchester_United_Old_Trafford_(cropped).jpg",
+      "license": "CC BY-SA 3.0 de",
+      "artist": "Arne Müseler",
+      "credit": "Arne Müseler / www.arne-mueseler.com",
+      "sourceId": "wikimedia-commons",
+      "localPath": "/media/journey/old-trafford.webp",
+      "objectPosition": "50% 45%"
+    },
+    {
+      "placeId": "wembley",
+      "label": "Wembley",
+      "decider": "cup",
+      "commonsFile": "Wembley Stadium Twin Towers, 5 June 1999.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/Wembley_Stadium_Twin_Towers%2C_5_June_1999.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Wembley_Stadium_Twin_Towers,_5_June_1999.jpg",
+      "license": "Public domain",
+      "artist": "Responsible?",
+      "credit": "Self-photographed, 5 June 1999",
+      "sourceId": "wikimedia-commons",
+      "localPath": "/media/journey/wembley.webp",
+      "objectPosition": "50% 40%"
+    },
+    {
+      "placeId": "camp-nou",
+      "label": "Camp Nou",
+      "decider": "europe",
+      "commonsFile": "Camp Nou.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Camp_Nou.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Camp_Nou.jpg",
+      "license": "CC BY 2.0",
+      "artist": "Kieran Lynam",
+      "credit": "originally posted to Flickr as Camp Nou",
+      "sourceId": "wikimedia-commons",
+      "localPath": "/media/journey/camp-nou.webp",
+      "objectPosition": "50% 40%"
+    }
+  ]
+}

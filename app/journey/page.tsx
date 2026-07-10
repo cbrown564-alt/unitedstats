@@ -180,20 +180,22 @@ export default function JourneyPage() {
             source={<JourneySourceLink href={compareHref} label="Player comparison" />}
             align="left"
           >
-            <div className="relative mx-auto max-w-5xl overflow-hidden bg-pitch bg-[radial-gradient(65%_95%_at_50%_100%,rgba(216,33,13,0.16),transparent_72%)] px-1 py-6 sm:px-8 sm:py-10">
+            <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(72%_125%_at_50%_100%,rgba(216,33,13,0.14),transparent_70%)] py-8 sm:py-14">
               <span className="pointer-events-none absolute bottom-0 right-[4%] stat-num text-[11rem] font-bold leading-none text-devil-bright/[0.06] sm:text-[17rem]" aria-hidden>5</span>
-              <CareerDuelChartLazy
-                a={ronaldoArc}
-                b={bestArc}
-                aId={ronaldo.id}
-                bId={best.id}
-                labelA={ronaldo.label}
-                labelB={best.label}
-                height={390}
-                emphasisSeason={5}
-                emphasisLabel="Shared peak · season 5"
-                showTooltip={false}
-              />
+              <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-8">
+                <CareerDuelChartLazy
+                  a={ronaldoArc}
+                  b={bestArc}
+                  aId={ronaldo.id}
+                  bId={best.id}
+                  labelA={ronaldo.label}
+                  labelB={best.label}
+                  height={390}
+                  emphasisSeason={5}
+                  emphasisLabel="Shared peak · season 5"
+                  showTooltip={false}
+                />
+              </div>
             </div>
           </JourneyBeat>
 
@@ -205,8 +207,10 @@ export default function JourneyPage() {
             source={<JourneySourceLink href="/questions/europe" label="European finals" />}
             align="right"
           >
-            <div className="mx-auto max-w-3xl bg-pitch bg-[radial-gradient(60%_100%_at_50%_48%,rgba(245,197,24,0.08),transparent_70%)] px-2 py-4 text-left sm:px-10 sm:py-8">
-              <EuropeFinalsTimeline finals={finals} featuredIds={[FINAL_1968, FINAL_2008]} />
+            <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(72%_110%_at_50%_48%,rgba(245,197,24,0.07),transparent_70%)] py-6 sm:py-12">
+              <div className="mx-auto max-w-3xl px-2 text-left sm:px-10">
+                <EuropeFinalsTimeline finals={finals} featuredIds={[FINAL_1968, FINAL_2008]} />
+              </div>
             </div>
           </JourneyBeat>
 
@@ -231,14 +235,16 @@ export default function JourneyPage() {
                (Best 92′, Kidd 93′, Charlton 99′) need the same room the /match
                page gives them, or their labels smear; side-by-side halves that
                width, so the receipts breathe one above the other instead. */}
-            <div className="mx-auto flex max-w-5xl flex-col gap-y-20 sm:gap-y-28">
-              <div className="relative overflow-hidden bg-pitch bg-[radial-gradient(70%_65%_at_50%_8%,rgba(216,33,13,0.14),transparent_72%)] px-1 py-8 sm:px-8 sm:py-12">
-                <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>68</span>
-                <FinalCard receipt={r1968} heading="European Cup Final" focusPlayerId={best.id} focusPlayerName={bestName} focusMinute={bestMinute} />
-              </div>
-              <div className="relative overflow-hidden bg-pitch bg-[radial-gradient(70%_65%_at_50%_8%,rgba(111,159,224,0.14),transparent_72%)] px-1 py-8 sm:px-8 sm:py-12">
-                <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>08</span>
-                <FinalCard receipt={r2008} heading="Champions League Final" focusPlayerId={ronaldo.id} focusPlayerName={ronaldoName} focusMinute={ronaldoMinute} />
+            <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(72%_70%_at_50%_8%,rgba(216,33,13,0.12),transparent_68%)] py-10 sm:py-16">
+              <div className="relative mx-auto flex w-full max-w-5xl flex-col gap-y-16 px-4 sm:gap-y-24 sm:px-8">
+                <div className="relative">
+                  <span className="pointer-events-none absolute right-[4%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>68</span>
+                  <FinalCard receipt={r1968} heading="European Cup Final" focusPlayerId={best.id} focusPlayerName={bestName} focusMinute={bestMinute} />
+                </div>
+                <div className="relative">
+                  <span className="pointer-events-none absolute right-[4%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>08</span>
+                  <FinalCard receipt={r2008} heading="Champions League Final" focusPlayerId={ronaldo.id} focusPlayerName={ronaldoName} focusMinute={ronaldoMinute} />
+                </div>
               </div>
             </div>
           </JourneyBeat>

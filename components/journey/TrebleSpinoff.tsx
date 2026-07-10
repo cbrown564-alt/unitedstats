@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useJourneyStage } from "./useJourneyStage";
 import { clamp01, lerp, smoothstep } from "./stageMath";
 
@@ -70,6 +71,16 @@ export type TrebleDecider = {
   date: string;
   /** Competition name, already shortened for stage copy (e.g. "Champions League"). */
   competition: string;
+  /** Ground that hosted the night — place monument label (Old Trafford · Wembley · Camp Nou). */
+  place: string;
+};
+
+export type TreblePlaceMonument = {
+  /** Matches {@link TrebleDecider.place}. */
+  label: string;
+  imageSrc: string;
+  /** CSS object-position for the treated still. */
+  objectPosition?: string;
 };
 
 type Props = {
@@ -81,6 +92,10 @@ type Props = {
   deciders: TrebleDecider[];
   /** Right end of the club timeline (the current year); rendered as "now". */
   axisEndYear: number;
+  /** Place monuments — Old Trafford · Wembley · Camp Nou — keyed by label. */
+  places: TreblePlaceMonument[];
+  /** Unbeaten tail length absorbed as a morph foot-fact (no dedicated spine beat). */
+  unbeatenGames: number;
 };
 
 /**
@@ -88,11 +103,18 @@ type Props = {
  * verb (docs/JOURNEY.md §2, §4b). The club timeline runs as one faint line;
  * at May '99 the filament leaves the axis, coils a pocket around the ghost "99",
  * and three gold knots land in date order — the 16th, the 22nd, the 26th —
- * before the thread returns to the line. Type + light + thread; no portraits,
- * no chart chrome. Same skeleton as RhymeMorph: scroll owns time, reduced
- * motion lands the finished composition.
+ * before the thread returns to the line. Place monuments (licensed Commons
+ * stills) dissolve into the floodlights with each knot. Same skeleton as
+ * RhymeMorph: scroll owns time, reduced motion lands the finished composition.
  */
-export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Props) {
+export function TrebleSpinoff({
+  seasonLabel,
+  games,
+  deciders,
+  axisEndYear,
+  places,
+  unbeatenGames,
+}: Props) {
   const { runwayRef, progress, reduced } = useJourneyStage();
   const p = reduced ? 1 : progress;
 
@@ -103,6 +125,8 @@ export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Pro
           (Date.parse(deciders[deciders.length - 1].date) - Date.parse(deciders[0].date)) / 86_400_000,
         ) + 1
       : 1;
+
+  const placeByLabel = new Map(places.map((pl) => [pl.label, pl]));
 
   // The departure knot sits at the season's true position on the club timeline.
   const departFrac = clamp01((departYear - AXIS_START_YEAR) / Math.max(1, axisEndYear - AXIS_START_YEAR));
@@ -158,10 +182,12 @@ export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Pro
 
   const ninetyNineOpacity = reduced ? 0.13 : 0.05 + awaken * 0.04 + draw * 0.04 + land * 0.03;
   const axisOpacity = 0.08 + awaken * 0.1;
+  // Place stills stay atmospheric — never compete with the filament or type.
+  const placeBase = reduced ? 0.22 : 0.06 + awaken * 0.08;
 
   // Copy: season and size, then the window (the sub names the dates as their
-  // knots land), then the haul. Facts only — the beats below carry the run, the
-  // comeback, and the bench.
+  // knots land), then the haul. Facts only — the beats below carry the rhyme,
+  // the comeback, and the teamsheet.
   const line =
     p < 0.34
       ? `${seasonLabel}.`
@@ -176,13 +202,45 @@ export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Pro
         : deciders.map((x) => x.competition).join(". ") + ".";
 
   const dayLabels = deciders.map((x) => dayLabel(x.date));
+  const placeLabels = deciders.map((x) => x.place).join(", ");
+
+  // HTML place panels — left / bottom / right — dissolve in with their knots.
+  // Same treated-monument register as chapter 1's portraits (grayscale + red wash).
+  const placePanels: {
+    side: "left" | "bottom" | "right";
+    decider: TrebleDecider | undefined;
+    knotIndex: number;
+    className: string;
+  }[] = [
+    {
+      side: "left",
+      decider: deciders[0],
+      knotIndex: 0,
+      className:
+        "pointer-events-none absolute inset-y-[18%] left-0 z-[1] w-[46%] [mask-image:linear-gradient(to_right,#000,transparent_90%),linear-gradient(to_top,transparent_8%,#000_45%,transparent_100%)] sm:w-[38%]",
+    },
+    {
+      side: "bottom",
+      decider: deciders[1],
+      knotIndex: 1,
+      className:
+        "pointer-events-none absolute bottom-0 left-1/2 z-[1] h-[42%] w-[70%] max-w-xl -translate-x-1/2 [mask-image:linear-gradient(to_top,#000,transparent_88%),linear-gradient(to_right,transparent_6%,#000_40%,#000_60%,transparent_94%)] sm:h-[38%] sm:w-[48%]",
+    },
+    {
+      side: "right",
+      decider: deciders[2],
+      knotIndex: 2,
+      className:
+        "pointer-events-none absolute inset-y-[18%] right-0 z-[1] w-[46%] [mask-image:linear-gradient(to_left,#000,transparent_90%),linear-gradient(to_top,transparent_8%,#000_45%,transparent_100%)] sm:w-[38%]",
+    },
+  ];
 
   return (
     <div ref={runwayRef} data-journey-runway className="relative" style={{ height: reduced ? "100dvh" : "210vh" }}>
       <div
         className={`${reduced ? "relative" : "sticky top-0"} z-10 h-dvh`}
         role="img"
-        aria-label={`The ${seasonLabel} season: ${games} games, ending with ${numWord(deciders.length)} trophies in ${numWord(spanDays)} days — ${dayLabels.join(", ")} ${departYear}.`}
+        aria-label={`The ${seasonLabel} season: ${games} games, ending with ${numWord(deciders.length)} trophies in ${numWord(spanDays)} days at ${placeLabels} — ${dayLabels.join(", ")} ${departYear}.`}
       >
         <div className="journey-floodlit full-bleed-viewport relative h-full overflow-hidden">
           {/* Atmosphere — same floodlit register as the chapter-one stage */}
@@ -201,6 +259,39 @@ export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Pro
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_120%_at_50%_55%,transparent_30%,rgba(0,0,0,0.8))]"
             aria-hidden
           />
+
+          {/* Place monuments — three grounds dissolve into the floodlights as
+             their knots land. Atmosphere, not match photography. */}
+          {placePanels.map((panel) => {
+            const dec = panel.decider;
+            if (!dec) return null;
+            const monument = placeByLabel.get(dec.place);
+            if (!monument) return null;
+            const f = knotFracs[panel.knotIndex];
+            const op = reduced
+              ? placeBase
+              : placeBase + smoothstep(f - 0.02, f + 0.08, draw) * 0.16 + land * 0.04;
+            const wash =
+              panel.side === "left"
+                ? "bg-[linear-gradient(to_right,rgba(216,33,13,0.72),rgba(216,33,13,0.14),transparent)]"
+                : panel.side === "right"
+                  ? "bg-[linear-gradient(to_left,rgba(216,33,13,0.72),rgba(216,33,13,0.14),transparent)]"
+                  : "bg-[linear-gradient(to_top,rgba(216,33,13,0.55),rgba(216,33,13,0.12),transparent)]";
+            return (
+              <div key={dec.id} className={panel.className} style={{ opacity: op }} aria-hidden>
+                <Image
+                  src={monument.imageSrc}
+                  alt=""
+                  fill
+                  priority={panel.knotIndex === 0}
+                  sizes="(max-width: 640px) 46vw, 38vw"
+                  className="object-cover grayscale contrast-125"
+                  style={{ objectPosition: monument.objectPosition ?? "50% 45%" }}
+                />
+                <div className={`absolute inset-0 ${wash} mix-blend-color`} />
+              </div>
+            );
+          })}
 
           {/* Stage copy — narrative column, kept clear of the visual core */}
           <div className="absolute inset-x-0 top-0 z-20 flex flex-col items-center px-5 pt-10 text-center sm:pt-14 lg:pt-16">
@@ -350,7 +441,9 @@ export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Pro
             </g>
 
             {/* Three gold knots — the trophies, landing in date order as the
-               filament tip passes them. Gold stays reserved for the payoff. */}
+               filament tip passes them. Gold stays reserved for the payoff.
+               Place name sits under the date so the pocket reads as three nights
+               in three grounds. */}
             {deciders.slice(0, 3).map((dec, i) => {
               const [kx, ky] = knotXY[i];
               const f = knotFracs[i];
@@ -358,10 +451,10 @@ export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Pro
               const isLast = i === Math.min(deciders.length, 3) - 1;
               const labelPos =
                 i === 0
-                  ? { x: kx - 28, y: ky + 8, anchor: "end" as const }
+                  ? { x: kx - 28, y: ky - 2, anchor: "end" as const, placeY: ky + 22 }
                   : i === 1
-                    ? { x: kx, y: ky + 40, anchor: "middle" as const }
-                    : { x: kx + 28, y: ky + 8, anchor: "start" as const };
+                    ? { x: kx, y: ky + 36, anchor: "middle" as const, placeY: ky + 58 }
+                    : { x: kx + 28, y: ky - 2, anchor: "start" as const, placeY: ky + 22 };
               return (
                 <g key={dec.id} style={{ opacity: op }}>
                   <circle cx={kx} cy={ky} r={14} fill="rgb(245 197 24)" fillOpacity="0.16" style={{ filter: "blur(5px)" }} />
@@ -385,17 +478,38 @@ export function TrebleSpinoff({ seasonLabel, games, deciders, axisEndYear }: Pro
                   >
                     {dayLabel(dec.date)}
                   </text>
+                  <text
+                    x={labelPos.x}
+                    y={labelPos.placeY}
+                    textAnchor={labelPos.anchor}
+                    dominantBaseline="central"
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "16px",
+                      fontWeight: 500,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      fill: "rgb(216 207 199)",
+                      opacity: 0.55,
+                    }}
+                  >
+                    {dec.place}
+                  </text>
                 </g>
               );
             })}
           </svg>
 
-          {/* The hand-off: the pocket resolves, and the thread runs on down into
-             the season's shape and the three deciders below. */}
+          {/* The hand-off: the pocket resolves; unbeaten run is a foot-fact, then
+             the thread runs on into the bench rhyme below. */}
           <div
             className="absolute inset-x-0 bottom-[4%] z-20 flex flex-col items-center"
             style={{ opacity: land, transform: `translateY(${lerp(20, 0, land)}px)` }}
           >
+            <p className="mb-3 text-xs text-ink-dim sm:text-sm">
+              <span className="stat-num font-semibold text-ink">{unbeatenGames}</span>
+              {" "}without defeat.
+            </p>
             <p className="text-[11px] font-medium lowercase tracking-[0.14em] text-ink-faint">
               follow the thread
             </p>

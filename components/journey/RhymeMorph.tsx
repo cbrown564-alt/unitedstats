@@ -152,7 +152,7 @@ export function RhymeMorph({ a, b }: Props) {
               style={{ opacity: portraitOpacity, transform: `translateX(${-portraitTravel}px)` }}
               aria-hidden
             >
-              <Image src={a.imageSrc} alt="" fill sizes="(max-width: 640px) 62vw, 48vw" className="object-cover object-[55%_30%] grayscale contrast-125" />
+              <Image src={a.imageSrc} alt="" fill priority sizes="(max-width: 640px) 62vw, 48vw" className="object-cover object-[55%_30%] grayscale contrast-125" />
               <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(216,33,13,0.7),rgba(216,33,13,0.16),transparent)] mix-blend-color" />
             </div>
           )}

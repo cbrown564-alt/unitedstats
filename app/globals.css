@@ -63,6 +63,20 @@ html {
     linear-gradient(180deg, #1b0b08 0%, #120807 46%, #190907 100%);
 }
 
+/* A reused chart's home surface — pitch black, edge to edge. The authored route
+   (headlines, source links) keeps the floodlit wash above and below; the figures
+   ground themselves as a full-bleed band so the red thread never travels through
+   empty black, and the charts — whose internal contrast assumes --color-pitch —
+   sit on their native tone rather than floating as bounded panels. Distinct from
+   .full-bleed-viewport: that one is overridden to width:100% under the chrome-free
+   stage, which would trap a figure nested inside JourneyBeat's padded section. The
+   -50dvw+50% breakout reaches the true viewport at any nesting depth. */
+.journey-figure-bleed {
+  width: 100dvw;
+  max-width: 100dvw;
+  margin-left: calc(-50dvw + 50%);
+}
+
 @media (min-width: 1024px) {
   /* Main content sits beside the fixed sidebar, so the naive 50%-50vw breakout
      lands ~sidebar-width/2 short on the left and overhangs the same on the right,

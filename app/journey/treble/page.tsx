@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TrebleSpinoff, type TrebleDecider } from "@/components/journey/TrebleSpinoff";
+import { TrebleSpinoff, type TrebleDecider, type TreblePlaceMonument } from "@/components/journey/TrebleSpinoff";
+import { BenchLatency, type BenchLatencyNight } from "@/components/journey/BenchLatency";
 import { JourneyBeat, JourneySourceLink, JourneyThreadAnchor } from "@/components/journey/JourneyBeat";
 import { JourneyChapterNav } from "@/components/journey/JourneyChapterNav";
-import { ResultSpine } from "@/components/charts/ResultSpine";
-import { TrophyIcon } from "@/components/CampaignIcons";
 import { MatchFlow } from "@/components/MatchFlow";
 import { FormationPitch, Bench } from "@/components/FormationPitch";
 import { matchesSequence } from "@/lib/trails";
 import { matchReceipt, subGoals, unbeatenTail, type MatchReceipt, type SubGoal } from "@/lib/journey";
 import { familyName } from "@/lib/names";
+import placeMedia from "@/data/canonical/journey-place-media.json";
 
 export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Journey — the Treble",
   description:
-    "1998–99: sixty-three games, then three trophies in eleven days — the title from behind, the Cup, and Barcelona in stoppage time. In all three, a substitute scored.",
+    "1998–99: sixty-three games, then three trophies in eleven days — and in every decider, a substitute scored.",
   robots: { index: false, follow: false },
 };
 
@@ -24,6 +24,9 @@ const SEASON = "1998-99";
 const LEAGUE_DECIDER = "1999-05-16-tottenham-hotspur-h";
 const CUP_FINAL = "1999-05-22-newcastle-united-n";
 const EURO_FINAL = "1999-05-26-bayern-munich-n";
+
+/** Grounds for the three deciders — place monuments on the stage (monument A). */
+const PLACES = ["Old Trafford", "Wembley", "Camp Nou"] as const;
 
 const NUM_WORDS = [
   "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
@@ -39,22 +42,10 @@ function numWord(n: number, capitalize = false): string {
   return capitalize ? w.charAt(0).toUpperCase() + w.slice(1) : w;
 }
 
-/** "1998-12-19" → "19 December" — the headline's day, no year (the stage set it). */
-function dayMonth(iso: string): string {
-  const [, m, d] = iso.split("-").map(Number);
-  return `${d} ${MONTHS_FULL[m - 1]}`;
-}
-
 /** "1999-05-16" → "16 May". */
 function dayMonthShort(iso: string): string {
   const [, m, d] = iso.split("-").map(Number);
   return `${d} ${MONTHS_FULL[m - 1].slice(0, 3)}`;
-}
-
-function ord(n: number): string {
-  const s = ["th", "st", "nd", "rd"];
-  const v = n % 100;
-  return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);
 }
 
 /** 1-based day within the eleven-day window ("day one", "day seven", "day eleven"). */
@@ -113,9 +104,9 @@ function DeciderCard({
 
 /**
  * Journey chapter 2 — the Treble as the spin-off verb (docs/JOURNEY.md §4b).
- * Beat 0 is the pocket morph; beat 1 the season's shape; beats 2–4 the three
- * deciders with the bench through-line rising; beat 5 the door. Sibling of
- * /journey (the loop); not linked from nav; noindex.
+ * Discovery arc: pocket + place monuments → bench latency → one night (Spurs) →
+ * Barcelona teamsheet jolt → door into the season. Sibling of /journey (the loop);
+ * not linked from nav; noindex.
  */
 export default function TrebleJourneyPage() {
   const seq = matchesSequence({ season: SEASON });
@@ -131,36 +122,56 @@ export default function TrebleJourneyPage() {
   const cupSubs = subGoals(cup);
   const euroSubs = subGoals(euro);
 
-  const deciders: TrebleDecider[] = [league, cup, euro].map((r) => ({
+  const receipts = [league, cup, euro];
+  const deciders: TrebleDecider[] = receipts.map((r, i) => ({
     id: r.id,
     date: r.date,
     competition: r.competition.replace(/^UEFA /, ""),
+    place: PLACES[i],
   }));
   const spanDays =
     Math.round((Date.parse(euro.date) - Date.parse(league.date)) / 86_400_000) + 1;
   const seasonLabel = SEASON.replace("-", "–");
+
+  const places: TreblePlaceMonument[] = placeMedia.records.map((rec) => ({
+    label: rec.label,
+    imageSrc: rec.localPath,
+    objectPosition: rec.objectPosition,
+  }));
 
   // The comeback's cast, read off the receipts. Copy falls back to plainer lines
   // if a re-ingest ever changes the shapes (the golden test pins them meanwhile).
   const leagueOppGoal = league.opponentGoals[0];
   const leagueLeveller = league.unitedGoals.find((g) => !leagueSubs.some((s) => s.playerId === g.player_id));
   const leagueWinner = leagueSubs[0];
-  const cupOpener = cupSubs[0];
-  const cupSecond = cup.unitedGoals.find((g) => !cupSubs.some((s) => s.playerId === g.player_id));
   const euroOppGoal = euro.opponentGoals[0];
 
   const leagueSub =
     leagueOppGoal?.minute != null && leagueLeveller?.minute != null && leagueWinner
       ? `${familyName(leagueOppGoal.player_display_name ?? "")} put ${league.opponent} ahead on ${leagueOppGoal.minute}. ${familyName(leagueLeveller.player_display_name ?? "")} levelled on ${leagueLeveller.minute}; ${familyName(leagueWinner.name)} — on at half-time — turned it on ${leagueWinner.minute}.`
       : `Behind at the break, ${league.score} at the end.`;
-  const cupSub =
-    cupOpener?.subOn != null && cupSecond?.minute != null
-      ? `${familyName(cupOpener.name)} came on in the ${ord(cupOpener.subOn)} minute and scored in the ${ord(cupOpener.minute)}. ${familyName(cupSecond.player_display_name ?? "")} made it ${cup.score} on ${cupSecond.minute}.`
-      : `${cup.score} against ${cup.opponent}.`;
   const euroSub =
     euroOppGoal?.minute != null && euroSubs.length === 2
       ? `${familyName(euroOppGoal.player_display_name ?? "")} put ${euro.opponent} ahead on ${euroOppGoal.minute}. Ninety minutes gone: ${familyName(euroSubs[0].name)}, ${clockLabel(euroSubs[0].minute, euroSubs[0].added)}. ${familyName(euroSubs[1].name)}, ${clockLabel(euroSubs[1].minute, euroSubs[1].added)}.`
       : `${euro.score} against ${euro.opponent}, from behind.`;
+
+  const latencyNights: BenchLatencyNight[] = [
+    {
+      label: `${dayMonthShort(league.date)} · ${league.opponent}`,
+      place: PLACES[0],
+      goals: leagueSubs,
+    },
+    {
+      label: `${dayMonthShort(cup.date)} · ${cup.opponent}`,
+      place: PLACES[1],
+      goals: cupSubs,
+    },
+    {
+      label: `${dayMonthShort(euro.date)} · ${euro.opponent}`,
+      place: PLACES[2],
+      goals: euroSubs,
+    },
+  ];
 
   return (
     <>
@@ -175,41 +186,34 @@ export default function TrebleJourneyPage() {
         games={seq.length}
         deciders={deciders}
         axisEndYear={new Date().getFullYear()}
+        places={places}
+        unbeatenGames={tail.games}
       />
 
-      {/* Beats 1–5 — down the floodlit field. */}
+      {/* Beats 1–4 — down the floodlit field. */}
       <div className="journey-floodlit full-bleed-viewport relative overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_50%_0%,rgba(255,238,210,0.06),transparent_45%)]"
           aria-hidden
         />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-8">
-          {/* Beat 1 — the season's shape (ResultSpine, the /seasons surface). */}
+          {/* Beat 1 — the hidden rhyme: bench latency across all three nights. */}
           <JourneyBeat
             step={1}
-            headline={<>After {dayMonth(tail.lastLoss ?? seq[0].date)}, United <JourneyThreadAnchor>didn&apos;t lose again.</JourneyThreadAnchor></>}
-            sub={`${tail.games} games — ${tail.w} won, ${tail.d} drawn — to the end of the season.`}
+            headline={<>In every decider, <JourneyThreadAnchor>a substitute scored.</JourneyThreadAnchor></>}
+            sub="Cole, on 46′, scored 48′. Sheringham, on 9′, scored 11′. Then Barcelona — both from the bench."
             source={<JourneySourceLink href={`/seasons/${SEASON}`} label={`Season ${seasonLabel}`} />}
             align="left"
           >
-            <div className="relative mx-auto max-w-5xl overflow-hidden bg-pitch bg-[radial-gradient(65%_95%_at_50%_100%,rgba(216,33,13,0.16),transparent_72%)] px-3 py-8 sm:px-10 sm:py-12">
-              <span className="pointer-events-none absolute bottom-0 right-[4%] stat-num text-[10rem] font-bold leading-none text-devil-bright/[0.06] sm:text-[15rem]" aria-hidden>{tail.games}</span>
-              <ResultSpine
-                matches={seq}
-                markers={[
-                  { id: league.id, label: `${dayMonthShort(league.date)} — Premier League, final day: ${league.score} v ${league.opponent}` },
-                  { id: cup.id, label: `${dayMonthShort(cup.date)} — FA Cup final: ${cup.score} v ${cup.opponent}` },
-                  { id: euro.id, label: `${dayMonthShort(euro.date)} — Champions League final: ${euro.score} v ${euro.opponent}` },
-                ]}
-                height={120}
-                xLabel="month"
-                markerGlyph={<TrophyIcon className="h-4 w-4" />}
-                hrefForMatch={(id) => `/match/${id}`}
-              />
+            <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(72%_125%_at_50%_100%,rgba(216,33,13,0.14),transparent_70%)] py-14 sm:py-20">
+              <span className="pointer-events-none absolute bottom-0 right-[4%] stat-num text-[10rem] font-bold leading-none text-devil-bright/[0.06] sm:text-[12rem]" aria-hidden>3</span>
+              <div className="relative mx-auto w-full max-w-3xl px-4 sm:px-6">
+                <BenchLatency nights={latencyNights} />
+              </div>
             </div>
           </JourneyBeat>
 
-          {/* Beat 2 — day one: the league, from behind. */}
+          {/* Beat 2 — day one: the league, from behind. One full /match night. */}
           <JourneyBeat
             step={2}
             headline={<>Day {windowDay(league.date, league.date)}: the title, <JourneyThreadAnchor>won from behind.</JourneyThreadAnchor></>}
@@ -217,73 +221,63 @@ export default function TrebleJourneyPage() {
             source={<JourneySourceLink href={`/match/${LEAGUE_DECIDER}`} label={`${dayMonthShort(league.date)} · ${league.opponent}`} />}
             align="right"
           >
-            <div className="relative mx-auto max-w-5xl overflow-hidden bg-pitch bg-[radial-gradient(70%_65%_at_50%_8%,rgba(216,33,13,0.14),transparent_72%)] px-1 py-8 sm:px-8 sm:py-12">
+            <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(80%_70%_at_50%_8%,rgba(216,33,13,0.13),transparent_70%)] py-10 sm:py-16">
               <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>16</span>
-              <DeciderCard receipt={league} heading="Premier League — final day" goals={leagueSubs} />
+              <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-8">
+                <DeciderCard receipt={league} heading="Premier League — final day" goals={leagueSubs} />
+              </div>
             </div>
           </JourneyBeat>
 
-          {/* Beat 3 — day seven: the Cup, opened from the bench. */}
-          <JourneyBeat
-            step={3}
-            headline={<>Day {windowDay(cup.date, league.date)}: <JourneyThreadAnchor>a substitute</JourneyThreadAnchor> opened the Cup final.</>}
-            sub={cupSub}
-            source={<JourneySourceLink href={`/match/${CUP_FINAL}`} label={`${dayMonthShort(cup.date)} · ${cup.opponent}`} />}
-            align="left"
-          >
-            <div className="relative mx-auto max-w-5xl overflow-hidden bg-pitch bg-[radial-gradient(70%_65%_at_50%_8%,rgba(245,197,24,0.1),transparent_72%)] px-1 py-8 sm:px-8 sm:py-12">
-              <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>22</span>
-              <DeciderCard receipt={cup} heading="FA Cup final" goals={cupSubs} />
-            </div>
-          </JourneyBeat>
-
-          {/* Beat 4 — day eleven: the climax. The teamsheet is the proof: no goal
+          {/* Beat 3 — day eleven: the climax. The teamsheet is the proof: no goal
              mark on any starter; both marks sit in the substitutes column with
              their minute on. */}
           <JourneyBeat
-            step={4}
+            step={3}
             headline={<>Day {windowDay(euro.date, league.date)}: <JourneyThreadAnchor>both goals came off the bench.</JourneyThreadAnchor></>}
             sub={euroSub}
             source={<JourneySourceLink href={`/match/${EURO_FINAL}`} label={`${dayMonthShort(euro.date)} · ${euro.opponent}`} />}
             align="center"
           >
-            <div className="relative mx-auto max-w-5xl overflow-hidden bg-pitch bg-[radial-gradient(70%_65%_at_50%_8%,rgba(111,159,224,0.14),transparent_72%)] px-1 py-8 sm:px-8 sm:py-12">
+            <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(80%_70%_at_50%_8%,rgba(111,159,224,0.13),transparent_70%)] py-10 sm:py-16">
               <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>26</span>
-              <DeciderCard receipt={euro} heading="Champions League final" goals={euroSubs} />
-              <div className="mx-auto mt-10 grid max-w-4xl gap-8 sm:grid-cols-[3fr_2fr] sm:gap-10">
-                <div className="mx-auto w-full max-w-[26rem]">
-                  <FormationPitch
-                    starters={euro.starters}
-                    decade={euro.decade}
-                    marks={euro.marks}
-                  />
-                </div>
-                <div className="self-center">
-                  <Bench used={euro.usedSubs} unused={[]} decade={euro.decade} marks={euro.marks} />
-                  <p className="mt-3 max-w-[24rem] text-xs leading-5 text-ink-dim">
-                    The starting eleven carries no goal mark. Both sit in the
-                    substitutes column — {familyName(euroSubs[0]?.name ?? "")} on{" "}
-                    {euroSubs[0]?.subOn}′, {familyName(euroSubs[1]?.name ?? "")} on{" "}
-                    {euroSubs[1]?.subOn}′.
-                  </p>
+              <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-8">
+                <DeciderCard receipt={euro} heading="Champions League final" goals={euroSubs} />
+                <div className="mx-auto mt-10 grid max-w-4xl gap-8 sm:grid-cols-[3fr_2fr] sm:gap-10">
+                  <div className="mx-auto w-full max-w-[26rem]">
+                    <FormationPitch
+                      starters={euro.starters}
+                      decade={euro.decade}
+                      marks={euro.marks}
+                    />
+                  </div>
+                  <div className="self-center">
+                    <Bench used={euro.usedSubs} unused={[]} decade={euro.decade} marks={euro.marks} />
+                    <p className="mt-3 max-w-[24rem] text-xs leading-5 text-ink-dim">
+                      The starting eleven carries no goal mark. Both sit in the
+                      substitutes column — {familyName(euroSubs[0]?.name ?? "")} on{" "}
+                      {euroSubs[0]?.subOn}′, {familyName(euroSubs[1]?.name ?? "")} on{" "}
+                      {euroSubs[1]?.subOn}′.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </JourneyBeat>
 
-          {/* Beat 5 — the door. */}
+          {/* Beat 4 — the door. Season first; question secondary. */}
           <JourneyBeat
-            step={5}
+            step={4}
             headline={`${numWord(spanDays, true)} days. ${numWord(deciders.length, true)} trophies.`}
             sub="In all three, a substitute scored. Now run the season back."
             className="min-h-[65vh] justify-center"
           >
             <div className="flex flex-col items-center gap-6 pb-16">
               <Link
-                href="/questions/treble"
+                href={`/seasons/${SEASON}`}
                 className="inline-flex items-center gap-2 rounded-full border border-devil-bright/60 bg-devil/15 px-6 py-3 text-sm font-semibold text-ink shadow-[0_0_30px_-6px_rgba(255,59,31,0.6)] transition hover:border-devil-bright hover:bg-devil/25 focus-ring"
               >
-                How United won it →
+                Season {seasonLabel} →
               </Link>
               <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium uppercase tracking-[0.18em] text-ink-faint">
                 <Link href={`/match/${LEAGUE_DECIDER}`} className="transition hover:text-gold focus-ring">
@@ -296,6 +290,12 @@ export default function TrebleJourneyPage() {
                   {dayMonthShort(euro.date)} · Europe →
                 </Link>
               </div>
+              <Link
+                href="/questions/treble"
+                className="text-xs font-medium uppercase tracking-[0.16em] text-ink-faint transition hover:text-gold focus-ring"
+              >
+                The full answer →
+              </Link>
               <JourneyChapterNav current="/journey/treble" />
             </div>
           </JourneyBeat>
